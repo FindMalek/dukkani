@@ -1,15 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@dukkani/ui/components/button";
 import {
 	Card,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+} from "@dukkani/ui/components/card";
+import { Checkbox } from "@dukkani/ui/components/checkbox";
+import { Input } from "@dukkani/ui/components/input";
 import { Loader2, Trash2 } from "lucide-react";
 import { useState } from "react";
 

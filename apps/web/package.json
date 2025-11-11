@@ -33,7 +33,8 @@
     "@polar-sh/better-auth": "catalog:",
     "@dukkani/api": "workspace:*",
     "@dukkani/auth": "workspace:*",
-    "@dukkani/env": "workspace:*"
+    "@dukkani/env": "workspace:*",
+    "@dukkani/ui": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
