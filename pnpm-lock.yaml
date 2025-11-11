@@ -28,8 +28,8 @@ catalogs:
       specifier: ^6.15.0
       version: 6.19.0
     '@t3-oss/env-core':
-      specifier: ^0.9.2
-      version: 0.9.2
+      specifier: ^0.13.8
+      version: 0.13.8
     '@t3-oss/env-nextjs':
       specifier: ^0.13.8
       version: 0.13.8
@@ -296,7 +296,7 @@ importers:
     dependencies:
       '@t3-oss/env-core':
         specifier: 'catalog:'
-        version: 0.9.2(typescript@5.9.3)(zod@4.1.12)
+        version: 0.13.8(typescript@5.9.3)(zod@4.1.12)
       dotenv:
         specifier: 'catalog:'
         version: 17.2.3
@@ -1716,15 +1716,6 @@ packages:
       valibot:
         optional: true
       zod:
-        optional: true
-
-  '@t3-oss/env-core@0.9.2':
-    resolution: {integrity: sha512-KgWXljUTHgO3o7GMZQPAD5+P+HqpauMNNHowlm7V2b9IeMitSUpNKwG6xQrup/xARWHTdxRVIl0mSI4wCevQhQ==}
-    peerDependencies:
-      typescript: '>=5.0.0'
-      zod: ^3.0.0
-    peerDependenciesMeta:
-      typescript:
         optional: true
 
   '@t3-oss/env-nextjs@0.13.8':
@@ -4343,12 +4334,6 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
       zod: 4.1.12
-
-  '@t3-oss/env-core@0.9.2(typescript@5.9.3)(zod@4.1.12)':
-    dependencies:
-      zod: 4.1.12
-    optionalDependencies:
-      typescript: 5.9.3
 
   '@t3-oss/env-nextjs@0.13.8(typescript@5.9.3)(zod@4.1.12)':
     dependencies:
