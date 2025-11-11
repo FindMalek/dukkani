@@ -30,7 +30,6 @@
     "@tanstack/react-query": "^5.85.5",
     "@prisma/client": "catalog:",
     "better-auth": "catalog:",
-    "@polar-sh/better-auth": "catalog:",
     "@dukkani/api": "workspace:*",
     "@dukkani/auth": "workspace:*",
     "@dukkani/env": "workspace:*",

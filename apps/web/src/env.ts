@@ -16,8 +16,6 @@ export const env = createEnv({
 		DATABASE_URL: process.env.DATABASE_URL,
 		// Server vars from auth env
 		CORS_ORIGIN: process.env.CORS_ORIGIN,
-		POLAR_ACCESS_TOKEN: process.env.POLAR_ACCESS_TOKEN,
-		POLAR_SUCCESS_URL: process.env.POLAR_SUCCESS_URL,
 		// Add any client vars here with NEXT_PUBLIC_ prefix
 	},
 	emptyStringAsUndefined: true,

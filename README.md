@@ -40,8 +40,6 @@ cp .env.example .env
 
    **Auth Package Variables:**
    - `CORS_ORIGIN`: CORS origin URL (optional) - Used by auth package
-   - `POLAR_ACCESS_TOKEN`: Polar payment access token (optional) - Used by auth package
-   - `POLAR_SUCCESS_URL`: Polar payment success URL (optional) - Used by auth package
 
 All environment variables are validated at runtime and provide type-safe access throughout the monorepo. Each package only includes the environment variables it needs:
 - `@dukkani/env`: Base env with `DATABASE_URL` (shared by all)
