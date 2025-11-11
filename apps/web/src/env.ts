@@ -1,8 +1,9 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { env as baseEnv } from "@dukkani/env";
+import { env as authEnv } from "@dukkani/auth/env";
 
 export const env = createEnv({
-	extends: [baseEnv],
+	extends: [baseEnv, authEnv],
 	server: {
 		// Next.js server-specific env vars can be added here if needed
 	},
@@ -13,6 +14,7 @@ export const env = createEnv({
 	runtimeEnv: {
 		// Server vars from base env
 		DATABASE_URL: process.env.DATABASE_URL,
+		// Server vars from auth env
 		CORS_ORIGIN: process.env.CORS_ORIGIN,
 		POLAR_ACCESS_TOKEN: process.env.POLAR_ACCESS_TOKEN,
 		POLAR_SUCCESS_URL: process.env.POLAR_SUCCESS_URL,

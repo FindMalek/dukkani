@@ -14,9 +14,6 @@ dotenv.config({
 export const env = createEnv({
 	server: {
 		DATABASE_URL: z.string().url(),
-		CORS_ORIGIN: z.string().url().optional(),
-		POLAR_ACCESS_TOKEN: z.string().optional(),
-		POLAR_SUCCESS_URL: z.string().url().optional(),
 	},
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
