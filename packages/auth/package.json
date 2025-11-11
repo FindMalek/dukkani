@@ -5,6 +5,10 @@
       "types": "./dist/index.d.ts",
       "default": "./src/index.ts"
     },
+    "./env": {
+      "types": "./dist/env.d.ts",
+      "default": "./src/env.ts"
+    },
     "./*": {
       "types": "./dist/*.d.ts",
       "default": "./src/*.ts"
@@ -27,6 +31,7 @@
     "@polar-sh/sdk": "^0.34.16",
     "dotenv": "catalog:",
     "zod": "catalog:",
-    "@dukkani/db": "workspace:*"
+    "@dukkani/db": "workspace:*",
+    "@dukkani/env": "workspace:*"
   }
 }

@@ -20,14 +20,16 @@
     "db:migrate": "turbo -F @dukkani/db db:migrate"
   },
   "dependencies": {
-    "dotenv": "^17.2.2",
-    "zod": "^4.1.11"
+    "@t3-oss/env-core": "catalog:",
+    "@t3-oss/env-nextjs": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "turbo": "^2.5.4",
-    "@biomejs/biome": "^2.2.0",
-    "tsdown": "^0.15.5",
-    "@types/node": "^22.13.11"
+    "turbo": "catalog:",
+    "@biomejs/biome": "catalog:",
+    "tsdown": "catalog:",
+    "@types/node": "catalog:"
   },
   "packageManager": "pnpm@10.18.2"
 }

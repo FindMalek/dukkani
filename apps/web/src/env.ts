@@ -1,0 +1,23 @@
+import { createEnv } from "@t3-oss/env-nextjs";
+import { env as baseEnv } from "@dukkani/env";
+
+export const env = createEnv({
+	extends: [baseEnv],
+	server: {
+		// Next.js server-specific env vars can be added here if needed
+	},
+	client: {
+		// Client-side env vars can be added here if needed
+		// Prefix with NEXT_PUBLIC_ for client-side access
+	},
+	runtimeEnv: {
+		// Server vars from base env
+		DATABASE_URL: process.env.DATABASE_URL,
+		CORS_ORIGIN: process.env.CORS_ORIGIN,
+		POLAR_ACCESS_TOKEN: process.env.POLAR_ACCESS_TOKEN,
+		POLAR_SUCCESS_URL: process.env.POLAR_SUCCESS_URL,
+		// Add any client vars here with NEXT_PUBLIC_ prefix
+	},
+	emptyStringAsUndefined: true,
+});
+

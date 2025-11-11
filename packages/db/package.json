@@ -6,6 +6,10 @@
       "types": "./dist/index.d.ts",
       "default": "./src/index.ts"
     },
+    "./env": {
+      "types": "./dist/env.d.ts",
+      "default": "./src/env.ts"
+    },
     "./*": {
       "types": "./dist/*.d.ts",
       "default": "./src/*.ts"
@@ -29,6 +33,7 @@
   "dependencies": {
     "@prisma/client": "catalog:",
     "dotenv": "catalog:",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "@dukkani/env": "workspace:*"
   }
 }

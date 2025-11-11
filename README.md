@@ -23,12 +23,30 @@ First, install the dependencies:
 ```bash
 pnpm install
 ```
+
+## Environment Setup
+
+This project uses [T3 Env](https://env.t3.gg) for type-safe environment variable management.
+
+1. Copy the example environment file:
+```bash
+cp .env.example .env
+```
+
+2. Update the `.env` file at the root of the project with your configuration:
+   - `DATABASE_URL`: Your PostgreSQL connection string (required)
+   - `CORS_ORIGIN`: CORS origin URL (optional)
+   - `POLAR_ACCESS_TOKEN`: Polar payment access token (optional)
+   - `POLAR_SUCCESS_URL`: Polar payment success URL (optional)
+
+All environment variables are validated at runtime and provide type-safe access throughout the monorepo.
+
 ## Database Setup
 
 This project uses PostgreSQL with Prisma.
 
 1. Make sure you have a PostgreSQL database set up.
-2. Update your `apps/web/.env` file with your PostgreSQL connection details.
+2. Update your root `.env` file with your PostgreSQL connection details in `DATABASE_URL`.
 
 3. Generate the Prisma client and push the schema:
 ```bash
