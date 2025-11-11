@@ -5,10 +5,10 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@dukkani/ui/components/dropdown-menu";
 import { authClient } from "@/lib/auth-client";
-import { Button } from "./ui/button";
-import { Skeleton } from "./ui/skeleton";
+import { Button } from "@dukkani/ui/components/button";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
