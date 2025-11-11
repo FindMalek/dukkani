@@ -20,9 +20,6 @@
     "db:migrate": "turbo -F @dukkani/db db:migrate"
   },
   "dependencies": {
-    "@t3-oss/env-core": "catalog:",
-    "@t3-oss/env-nextjs": "catalog:",
-    "dotenv": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
