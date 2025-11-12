@@ -47,4 +47,3 @@ export abstract class BaseSeeder implements Seeder {
 		console.error(`[${this.name}] ${message}`, error);
 	}
 }
-

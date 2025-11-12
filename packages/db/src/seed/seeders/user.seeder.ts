@@ -51,4 +51,3 @@ export class UserSeeder extends BaseSeeder {
 		this.log(`Created ${userData.length} users`);
 	}
 }
-

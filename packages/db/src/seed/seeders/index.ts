@@ -18,4 +18,3 @@ export const seeders: Seeder[] = [
 	new TodoSeeder(),
 	// Add more seeders here as you create them
 ];
-

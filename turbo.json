@@ -3,9 +3,11 @@
 	"ui": "tui",
 	"tasks": {
 		"build": {
-			"dependsOn": ["^build"],
+			"dependsOn": ["^build", "^db:generate"],
 			"inputs": ["$TURBO_DEFAULT$", ".env*"],
-			"outputs": ["dist/**"]
+			"outputs": ["dist/**"],
+			"env": ["DATABASE_URL"]
+
 		},
 		"lint": {
 			"dependsOn": ["^lint"]
@@ -30,6 +32,18 @@
 			"persistent": true
 		},
 		"db:generate": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:seed": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:reset-and-seed": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:reset": {
 			"cache": false,
 			"persistent": true
 		}

@@ -1,4 +1,14 @@
-import "dotenv/config";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import dotenv from "dotenv";
+
+// Load .env from monorepo root before importing Prisma
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({
+	path: path.resolve(__dirname, "../../../../.env"),
+});
+
 import prisma from "../index";
 import { seeders } from "./seeders";
 
@@ -39,9 +49,7 @@ export async function seed(): Promise<void> {
 }
 
 // Run the seed function when this file is executed directly
-seed()
-	.catch((error) => {
-		console.error(error);
-		process.exit(1);
-	});
-
+seed().catch((error) => {
+	console.error(error);
+	process.exit(1);
+});

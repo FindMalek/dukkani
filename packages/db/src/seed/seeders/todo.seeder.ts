@@ -41,4 +41,3 @@ export class TodoSeeder extends BaseSeeder {
 		this.log(`Created ${todoData.length} todos`);
 	}
 }
-
