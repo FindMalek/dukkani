@@ -44,6 +44,10 @@
 		"db:reset": {
 			"cache": false,
 			"persistent": true
+		},
+		"db:format": {
+			"cache": false,
+			"persistent": true
 		}
 	}
 }

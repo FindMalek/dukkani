@@ -23,7 +23,8 @@
 		"db:migrate": "prisma migrate dev",
 		"db:seed": "tsx src/seed/index.ts",
 		"db:reset-and-seed": "pnpm db:reset && pnpm db:seed",
-		"db:reset": "prisma migrate reset --force"
+		"db:reset": "prisma migrate reset --force",
+		"db:format": "prisma format"
 	},
 	"devDependencies": {
 		"prisma": "^6.15.0",

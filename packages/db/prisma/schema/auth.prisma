@@ -8,6 +8,8 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  stores        Store[]        @relation("StoreOwner")
+  teamMembers   TeamMember[]
 
   @@unique([email])
   @@map("user")

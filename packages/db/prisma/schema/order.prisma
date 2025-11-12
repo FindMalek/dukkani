@@ -1,0 +1,35 @@
+model Order {
+  id            BigInt            @id @default(autoincrement())
+  status        OrderStatus
+  customerName  String             @map("customername")
+  customerPhone String             @map("customerphone")
+  address       String?
+  notes         String?
+  storeId       BigInt             @map("storeid")
+  customerId    BigInt?            @map("customerid")
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  store         Store              @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  customer      Customer?          @relation(fields: [customerId], references: [id])
+  orderItems    OrderItem[]
+  whatsappMessages WhatsAppMessage[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        BigInt   @id @default(autoincrement())
+  orderId   BigInt   @map("orderid")
+  productId BigInt   @map("productid")
+  quantity  Int
+  price     Decimal  @db.Decimal(10, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("orderitem")
+}
+
