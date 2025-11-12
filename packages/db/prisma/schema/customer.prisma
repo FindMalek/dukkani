@@ -1,0 +1,12 @@
+model Customer {
+  id      BigInt  @id @default(autoincrement())
+  name    String
+  phone   String
+  storeId BigInt  @map("storeid")
+
+  store   Store   @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("customer")
+}
+
+

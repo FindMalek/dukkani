@@ -1,0 +1,13 @@
+model WhatsAppMessage {
+  id        BigInt    @id @default(autoincrement())
+  orderId   BigInt    @map("orderid")
+  messageId String    @map("messageid")
+  content   String
+  sentAt    DateTime  @default(now()) @map("sentat")
+  status    WhatsAppMessageStatus
+
+  order     Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("whatsappmessage")
+}
+

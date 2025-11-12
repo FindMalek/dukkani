@@ -9,7 +9,7 @@
 	"scripts": {
 		"check": "biome check --write .",
 		"lint": "biome lint --write .",
-		"format": "biome format --write .",
+		"format": "biome format --write . && turbo -F @dukkani/db db:format",
 		"ruler:apply": "pnpm dlx @intellectronica/ruler@latest apply --local-only",
 		"dev": "turbo dev",
 		"build": "turbo build",

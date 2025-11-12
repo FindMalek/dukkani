@@ -1,0 +1,52 @@
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum WhatsAppMessageStatus {
+  PENDING
+  SENT
+  DELIVERED
+  READ
+  FAILED
+}
+
+enum TeamMemberRole {
+  OWNER
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+enum StorePlanType {
+  FREE
+  BASIC
+  PREMIUM
+  ENTERPRISE
+}
+
+enum StoreCategory {
+  FASHION
+  ELECTRONICS
+  FOOD
+  HOME
+  BEAUTY
+  SPORTS
+  BOOKS
+  TOYS
+  OTHER
+}
+
+enum StoreTheme {
+  LIGHT
+  DARK
+  MINIMAL
+  MODERN
+  CLASSIC
+}
+
+

@@ -1,0 +1,26 @@
+model Product {
+  id          BigInt      @id @default(autoincrement())
+  name        String
+  description String?
+  price       Decimal     @db.Decimal(10, 2)
+  stock       Int
+  storeId     BigInt      @map("storeid")
+
+  store       Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  images      Image[]
+  orderItems  OrderItem[]
+
+  @@map("product")
+}
+
+model Image {
+  id        BigInt   @id @default(autoincrement())
+  url       String
+  productId BigInt   @map("productid")
+
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("image")
+}
+
+
