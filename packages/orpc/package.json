@@ -1,5 +1,5 @@
 {
-	"name": "@dukkani/api",
+	"name": "@dukkani/orpc",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
@@ -26,7 +26,6 @@
 		"@orpc/client": "catalog:",
 		"@orpc/openapi": "catalog:",
 		"@orpc/zod": "catalog:",
-		"next": "catalog:",
 		"@prisma/client": "catalog:",
 		"dotenv": "catalog:",
 		"zod": "catalog:",

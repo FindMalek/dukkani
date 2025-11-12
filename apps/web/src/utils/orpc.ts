@@ -1,9 +1,10 @@
-import type { AppRouterClient } from "@dukkani/api/routers/index";
+import type { AppRouterClient } from "@dukkani/orpc";
 import { createORPCClient } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { env } from "@/env";
 
 export const queryClient = new QueryClient({
 	queryCache: new QueryCache({
@@ -20,8 +21,9 @@ export const queryClient = new QueryClient({
 	}),
 });
 
+
 export const link = new RPCLink({
-	url: `${typeof window !== "undefined" ? window.location.origin : "http://localhost:3001"}/api/rpc`,
+	url: `${env.CORS_ORIGIN}/api`,
 	fetch(url, options) {
 		return fetch(url, {
 			...options,

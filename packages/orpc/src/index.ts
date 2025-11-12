@@ -17,3 +17,7 @@ const requireAuth = o.middleware(async ({ context, next }) => {
 });
 
 export const protectedProcedure = publicProcedure.use(requireAuth);
+
+// Re-export router types for easier importing
+export type { AppRouter, AppRouterClient } from "./routers/index";
+export { appRouter } from "./routers/index";

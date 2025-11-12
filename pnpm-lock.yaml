@@ -76,38 +76,72 @@ importers:
         specifier: 'catalog:'
         version: 2.6.0
 
-  apps/web:
+  apps/api:
     dependencies:
-      '@dukkani/api':
-        specifier: workspace:*
-        version: link:../../packages/api
       '@dukkani/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@dukkani/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@dukkani/env':
         specifier: workspace:*
         version: link:../../packages/env
-      '@dukkani/ui':
+      '@dukkani/orpc':
         specifier: workspace:*
-        version: link:../../packages/ui
-      '@orpc/client':
-        specifier: 'catalog:'
-        version: 1.11.1
+        version: link:../../packages/orpc
       '@orpc/openapi':
         specifier: 'catalog:'
         version: 1.11.1
       '@orpc/server':
         specifier: 'catalog:'
         version: 1.11.1
-      '@orpc/tanstack-query':
-        specifier: ^1.10.0
-        version: 1.11.1(@orpc/client@1.11.1)(@tanstack/query-core@5.90.7)
       '@orpc/zod':
         specifier: 'catalog:'
         version: 1.11.1(@orpc/contract@1.11.1)(@orpc/server@1.11.1)(zod@4.1.12)
       '@prisma/client':
         specifier: 'catalog:'
         version: 6.19.0(prisma@6.19.0(typescript@5.9.3))(typescript@5.9.3)
+      next:
+        specifier: 'catalog:'
+        version: 16.0.0(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      zod:
+        specifier: 'catalog:'
+        version: 4.1.12
+    devDependencies:
+      '@dukkani/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@t3-oss/env-nextjs':
+        specifier: 'catalog:'
+        version: 0.13.8(typescript@5.9.3)(zod@4.1.12)
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.19.0
+      typescript:
+        specifier: ^5
+        version: 5.9.3
+
+  apps/web:
+    dependencies:
+      '@dukkani/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
+      '@dukkani/env':
+        specifier: workspace:*
+        version: link:../../packages/env
+      '@dukkani/orpc':
+        specifier: workspace:*
+        version: link:../../packages/orpc
+      '@dukkani/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@orpc/client':
+        specifier: 'catalog:'
+        version: 1.11.1
+      '@orpc/tanstack-query':
+        specifier: ^1.10.0
+        version: 1.11.1(@orpc/client@1.11.1)(@tanstack/query-core@5.90.7)
       '@tanstack/react-form':
         specifier: ^1.12.3
         version: 1.23.8(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -184,49 +218,6 @@ importers:
       typescript:
         specifier: ^5
         version: 5.9.3
-
-  packages/api:
-    dependencies:
-      '@dukkani/auth':
-        specifier: workspace:*
-        version: link:../auth
-      '@dukkani/db':
-        specifier: workspace:*
-        version: link:../db
-      '@orpc/client':
-        specifier: 'catalog:'
-        version: 1.11.1
-      '@orpc/openapi':
-        specifier: 'catalog:'
-        version: 1.11.1
-      '@orpc/server':
-        specifier: 'catalog:'
-        version: 1.11.1
-      '@orpc/zod':
-        specifier: 'catalog:'
-        version: 1.11.1(@orpc/contract@1.11.1)(@orpc/server@1.11.1)(zod@4.1.12)
-      '@prisma/client':
-        specifier: 'catalog:'
-        version: 6.19.0(prisma@6.19.0(typescript@5.9.3))(typescript@5.9.3)
-      dotenv:
-        specifier: 'catalog:'
-        version: 17.2.3
-      next:
-        specifier: 'catalog:'
-        version: 16.0.0(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      typescript:
-        specifier: ^5
-        version: 5.9.3
-      zod:
-        specifier: 'catalog:'
-        version: 4.1.12
-    devDependencies:
-      '@dukkani/config':
-        specifier: workspace:*
-        version: link:../config
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.15.12(typescript@5.9.3)
 
   packages/auth:
     dependencies:
@@ -313,6 +304,46 @@ importers:
       '@dukkani/config':
         specifier: workspace:*
         version: link:../config
+
+  packages/orpc:
+    dependencies:
+      '@dukkani/auth':
+        specifier: workspace:*
+        version: link:../auth
+      '@dukkani/db':
+        specifier: workspace:*
+        version: link:../db
+      '@orpc/client':
+        specifier: 'catalog:'
+        version: 1.11.1
+      '@orpc/openapi':
+        specifier: 'catalog:'
+        version: 1.11.1
+      '@orpc/server':
+        specifier: 'catalog:'
+        version: 1.11.1
+      '@orpc/zod':
+        specifier: 'catalog:'
+        version: 1.11.1(@orpc/contract@1.11.1)(@orpc/server@1.11.1)(zod@4.1.12)
+      '@prisma/client':
+        specifier: 'catalog:'
+        version: 6.19.0(prisma@6.19.0(typescript@5.9.3))(typescript@5.9.3)
+      dotenv:
+        specifier: 'catalog:'
+        version: 17.2.3
+      typescript:
+        specifier: ^5
+        version: 5.9.3
+      zod:
+        specifier: 'catalog:'
+        version: 4.1.12
+    devDependencies:
+      '@dukkani/config':
+        specifier: workspace:*
+        version: link:../config
+      tsdown:
+        specifier: 'catalog:'
+        version: 0.15.12(typescript@5.9.3)
 
   packages/ui:
     dependencies:
