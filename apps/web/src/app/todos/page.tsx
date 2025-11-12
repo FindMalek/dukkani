@@ -10,10 +10,9 @@ import {
 } from "@dukkani/ui/components/card";
 import { Checkbox } from "@dukkani/ui/components/checkbox";
 import { Input } from "@dukkani/ui/components/input";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Loader2, Trash2 } from "lucide-react";
 import { useState } from "react";
-
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { orpc } from "@/utils/orpc";
 
 export default function TodosPage() {
@@ -111,7 +110,7 @@ export default function TodosPage() {
 										/>
 										<label
 											htmlFor={`todo-${todo.id}`}
-											className={`${todo.completed ? "line-through text-muted-foreground" : ""}`}
+											className={`${todo.completed ? "text-muted-foreground line-through" : ""}`}
 										>
 											{todo.text}
 										</label>

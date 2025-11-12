@@ -1,7 +1,7 @@
-import { nextCookies } from 'better-auth/next-js';
-import { betterAuth, type BetterAuthOptions } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "@dukkani/db";
+import { type BetterAuthOptions, betterAuth } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
+import { nextCookies } from "better-auth/next-js";
 import { env } from "./env";
 
 export const auth = betterAuth<BetterAuthOptions>({
@@ -12,7 +12,5 @@ export const auth = betterAuth<BetterAuthOptions>({
 	emailAndPassword: {
 		enabled: true,
 	},
-	plugins: [
-    nextCookies()
-  ],
+	plugins: [nextCookies()],
 });

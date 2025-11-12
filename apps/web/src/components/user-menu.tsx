@@ -1,3 +1,4 @@
+import { Button } from "@dukkani/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -6,11 +7,10 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@dukkani/ui/components/dropdown-menu";
-import { authClient } from "@/lib/auth-client";
-import { Button } from "@dukkani/ui/components/button";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export default function UserMenu() {
 	const router = useRouter();

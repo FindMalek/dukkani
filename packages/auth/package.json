@@ -1,36 +1,36 @@
 {
-  "name": "@dukkani/auth",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
-    },
-    "./env": {
-      "types": "./dist/env.d.ts",
-      "default": "./src/env.ts"
-    },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "default": "./src/*.ts"
-    }
-  },
-  "type": "module",
-  "scripts": {
-    "build": "tsdown"
-  },
-  "devDependencies": {
-    "tsdown": "catalog:",
-    "@dukkani/config": "workspace:*"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "better-auth": "catalog:",
-    "dotenv": "catalog:",
-    "zod": "catalog:",
-    "@t3-oss/env-core": "catalog:",
-    "@dukkani/db": "workspace:*",
-    "@dukkani/env": "workspace:*"
-  }
+	"name": "@dukkani/auth",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./src/index.ts"
+		},
+		"./env": {
+			"types": "./dist/env.d.ts",
+			"default": "./src/env.ts"
+		},
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"default": "./src/*.ts"
+		}
+	},
+	"type": "module",
+	"scripts": {
+		"build": "tsdown"
+	},
+	"devDependencies": {
+		"tsdown": "catalog:",
+		"@dukkani/config": "workspace:*"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"better-auth": "catalog:",
+		"dotenv": "catalog:",
+		"zod": "catalog:",
+		"@t3-oss/env-core": "catalog:",
+		"@dukkani/db": "workspace:*",
+		"@dukkani/env": "workspace:*"
+	}
 }

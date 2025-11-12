@@ -1,6 +1,6 @@
+import { env as baseEnv } from "@dukkani/env";
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
-import { env as baseEnv } from "@dukkani/env";
 
 export const env = createEnv({
 	extends: [baseEnv],
@@ -10,4 +10,3 @@ export const env = createEnv({
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
 });
-

@@ -1,12 +1,9 @@
-import { createEnv } from "@t3-oss/env-core";
 import { env as baseEnv } from "@dukkani/env";
+import { createEnv } from "@t3-oss/env-core";
 
 export const env = createEnv({
 	extends: [baseEnv],
-	server: {
-		// DB-specific env vars can be added here if needed
-	},
+	server: {},
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
 });
-

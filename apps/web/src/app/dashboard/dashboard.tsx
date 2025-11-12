@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@dukkani/ui/components/button";
-import { authClient } from "@/lib/auth-client";
 import { useQuery } from "@tanstack/react-query";
+import { authClient } from "@/lib/auth-client";
 import { orpc } from "@/utils/orpc";
 
 export default function Dashboard({

@@ -1,32 +1,34 @@
 {
-  "name": "dukkani",
-  "private": true,
-  "type": "module",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "check": "biome check --write .",
-    "ruler:apply": "pnpm dlx @intellectronica/ruler@latest apply --local-only",
-    "dev": "turbo dev",
-    "build": "turbo build",
-    "check-types": "turbo check-types",
-    "dev:native": "turbo -F native dev",
-    "dev:web": "turbo -F web dev",
-    "db:push": "turbo -F @dukkani/db db:push",
-    "db:studio": "turbo -F @dukkani/db db:studio",
-    "db:generate": "turbo -F @dukkani/db db:generate",
-    "db:migrate": "turbo -F @dukkani/db db:migrate"
-  },
-  "dependencies": {
-    "zod": "catalog:"
-  },
-  "devDependencies": {
-    "turbo": "catalog:",
-    "@biomejs/biome": "catalog:",
-    "tsdown": "catalog:",
-    "@types/node": "catalog:"
-  },
-  "packageManager": "pnpm@10.18.2"
+	"name": "dukkani",
+	"private": true,
+	"type": "module",
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
+	"scripts": {
+		"check": "biome check --write .",
+		"lint": "biome lint --write .",
+		"format": "biome format --write .",
+		"ruler:apply": "pnpm dlx @intellectronica/ruler@latest apply --local-only",
+		"dev": "turbo dev",
+		"build": "turbo build",
+		"check-types": "turbo check-types",
+		"dev:native": "turbo -F native dev",
+		"dev:web": "turbo -F web dev",
+		"db:push": "turbo -F @dukkani/db db:push",
+		"db:studio": "turbo -F @dukkani/db db:studio",
+		"db:generate": "turbo -F @dukkani/db db:generate",
+		"db:migrate": "turbo -F @dukkani/db db:migrate"
+	},
+	"dependencies": {
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"turbo": "catalog:",
+		"@biomejs/biome": "catalog:",
+		"tsdown": "catalog:",
+		"@types/node": "catalog:"
+	},
+	"packageManager": "pnpm@10.18.2"
 }

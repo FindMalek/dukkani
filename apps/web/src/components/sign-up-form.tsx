@@ -1,12 +1,12 @@
-import { authClient } from "@/lib/auth-client";
-import { useForm } from "@tanstack/react-form";
-import { toast } from "sonner";
-import z from "zod";
-import Loader from "./loader";
 import { Button } from "@dukkani/ui/components/button";
 import { Input } from "@dukkani/ui/components/input";
 import { Label } from "@dukkani/ui/components/label";
+import { useForm } from "@tanstack/react-form";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import z from "zod";
+import { authClient } from "@/lib/auth-client";
+import Loader from "./loader";
 
 export default function SignUpForm({
 	onSwitchToSignIn,
@@ -54,8 +54,8 @@ export default function SignUpForm({
 	}
 
 	return (
-		<div className="mx-auto w-full mt-10 max-w-md p-6">
-			<h1 className="mb-6 text-center text-3xl font-bold">Create Account</h1>
+		<div className="mx-auto mt-10 w-full max-w-md p-6">
+			<h1 className="mb-6 text-center font-bold text-3xl">Create Account</h1>
 
 			<form
 				onSubmit={(e) => {

@@ -1,6 +1,6 @@
-import { createEnv } from "@t3-oss/env-nextjs";
-import { env as baseEnv } from "@dukkani/env";
 import { env as authEnv } from "@dukkani/auth/env";
+import { env as baseEnv } from "@dukkani/env";
+import { createEnv } from "@t3-oss/env-nextjs";
 
 export const env = createEnv({
 	extends: [baseEnv, authEnv],
@@ -20,4 +20,3 @@ export const env = createEnv({
 	},
 	emptyStringAsUndefined: true,
 });
-
