@@ -14,7 +14,7 @@
 		"dev": "turbo dev",
 		"build": "turbo build",
 		"check-types": "turbo check-types",
-        "dev:native": "turbo -F native dev",
+		"dev:native": "turbo -F native dev",
 		"dev:api": "turbo -F @dukkani/api dev",
 		"dev:web": "turbo -F @dukkani/web dev",
 		"db:setup": "cd docker && docker compose up -d && cd .. && pnpm db:push",

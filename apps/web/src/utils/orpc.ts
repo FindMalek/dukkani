@@ -21,7 +21,6 @@ export const queryClient = new QueryClient({
 	}),
 });
 
-
 export const link = new RPCLink({
 	url: `${env.CORS_ORIGIN}/api`,
 	fetch(url, options) {
