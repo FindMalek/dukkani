@@ -34,6 +34,7 @@
     "@prisma/client": "catalog:",
     "dotenv": "catalog:",
     "zod": "catalog:",
+    "@t3-oss/env-core": "catalog:",
     "@dukkani/env": "workspace:*"
   }
 }

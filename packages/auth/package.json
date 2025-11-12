@@ -29,6 +29,7 @@
     "better-auth": "catalog:",
     "dotenv": "catalog:",
     "zod": "catalog:",
+    "@t3-oss/env-core": "catalog:",
     "@dukkani/db": "workspace:*",
     "@dukkani/env": "workspace:*"
   }
