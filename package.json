@@ -16,6 +16,7 @@
 		"check-types": "turbo check-types",
 		"dev:native": "turbo -F native dev",
 		"dev:web": "turbo -F web dev",
+		"db:setup": "cd docker && docker compose up -d && cd .. && pnpm db:push",
 		"db:push": "turbo -F @dukkani/db db:push",
 		"db:studio": "turbo -F @dukkani/db db:studio",
 		"db:generate": "turbo -F @dukkani/db db:generate",

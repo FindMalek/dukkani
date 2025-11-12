@@ -28,20 +28,24 @@ pnpm install
 
 This project uses [T3 Env](https://env.t3.gg) for type-safe environment variable management.
 
-1. Copy the example environment file:
-```bash
-cp .env.example .env
+Create a `.env` file at the root of the project with your configuration:
+
+**Base/Shared Variables:**
+
+- `DATABASE_URL`: Your PostgreSQL connection string (required) - Used by db, auth, and all apps
+
+Example for local Docker setup:
+
+```env
+DATABASE_URL="postgresql://postgres:password@localhost:5432/dukkani"
 ```
 
-2. Update the `.env` file at the root of the project with your configuration:
+**Auth Package Variables:**
 
-   **Base/Shared Variables:**
-   - `DATABASE_URL`: Your PostgreSQL connection string (required) - Used by db, auth, and all apps
-
-   **Auth Package Variables:**
-   - `CORS_ORIGIN`: CORS origin URL (optional) - Used by auth package
+- `CORS_ORIGIN`: CORS origin URL (optional) - Used by auth package
 
 All environment variables are validated at runtime and provide type-safe access throughout the monorepo. Each package only includes the environment variables it needs:
+
 - `@dukkani/env`: Base env with `DATABASE_URL` (shared by all)
 - `@dukkani/auth/env`: Auth-specific env vars (extends base)
 - `@dukkani/db/env`: Database env (extends base, lightweight)
@@ -49,16 +53,24 @@ All environment variables are validated at runtime and provide type-safe access 
 
 ## Database Setup
 
-This project uses PostgreSQL with Prisma.
+This project uses PostgreSQL with Prisma. To set up the database with Docker and push the schema, run:
 
-1. Make sure you have a PostgreSQL database set up.
-2. Update your root `.env` file with your PostgreSQL connection details in `DATABASE_URL`.
-
-3. Generate the Prisma client and push the schema:
 ```bash
-pnpm run db:push
+pnpm run db:setup
 ```
 
+This command will:
+
+- Start the PostgreSQL database container
+- Push the Prisma schema to create all tables
+
+**Note:** Make sure you have created a `.env` file with `DATABASE_URL` before running this command (see Environment Setup above).
+
+**Other Database Commands:**
+
+- `pnpm run db:studio` - Open Prisma Studio to view/edit data
+- `pnpm run db:seed` - Seed the database with initial data
+- `cd docker && docker compose down` - Stop the database container
 
 Then, run the development server:
 
@@ -68,10 +80,9 @@ pnpm run dev
 
 Open [http://localhost:3001](http://localhost:3001) in your browser to see your fullstack application.
 
-
 ## Project Structure
 
-```
+```text
 dukkani/
 ├── apps/
 │   └── web/         # Fullstack application (Next.js)
