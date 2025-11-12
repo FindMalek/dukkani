@@ -19,7 +19,8 @@
 		"db:push": "turbo -F @dukkani/db db:push",
 		"db:studio": "turbo -F @dukkani/db db:studio",
 		"db:generate": "turbo -F @dukkani/db db:generate",
-		"db:migrate": "turbo -F @dukkani/db db:migrate"
+		"db:migrate": "turbo -F @dukkani/db db:migrate",
+		"db:seed": "turbo -F @dukkani/db db:seed"
 	},
 	"dependencies": {
 		"zod": "catalog:"

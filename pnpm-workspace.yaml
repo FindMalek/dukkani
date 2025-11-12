@@ -16,6 +16,7 @@ catalog:
   dotenv: ^17.2.2
   next: 16.0.0
   tsdown: ^0.15.5
+  tsx: ^4.19.2
   turbo: ^2.5.4
   zod: 4.1.12
 
