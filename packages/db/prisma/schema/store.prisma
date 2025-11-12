@@ -5,10 +5,12 @@ model Store {
   description    String?
   category       StoreCategory?
   theme          StoreTheme?
-  ownerId        BigInt        @map("ownerid")
+  ownerId        String        @map("ownerid")
   whatsappNumber String?       @map("whatsappnumber")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
-  owner          User          @relation("StoreOwner", fields: [ownerId], references: [userId], onDelete: Cascade)
+  owner          User          @relation("StoreOwner", fields: [ownerId], references: [id], onDelete: Cascade)
   products       Product[]
   orders         Order[]
   teamMembers    TeamMember[]
@@ -25,6 +27,9 @@ model StorePlan {
   planType   StorePlanType @map("plantype")
   orderLimit Int          @map("orderlimit")
   orderCount Int          @default(0) @map("ordercount")
+  resetAt    DateTime?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 
   store      Store        @relation(fields: [storeId], references: [id], onDelete: Cascade)
 

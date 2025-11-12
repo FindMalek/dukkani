@@ -4,9 +4,12 @@ model SalesMetric {
   date       DateTime  @db.Date
   totalSales Decimal   @db.Decimal(10, 2) @map("totalsales")
   orderCount Int       @map("ordercount")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   store      Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
+  @@unique([storeId, date])
   @@map("salesmetric")
 }
 
