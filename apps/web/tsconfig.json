@@ -32,7 +32,7 @@
 	"exclude": ["./node_modules"],
 	"references": [
 		{
-			"path": "../../packages/api"
+			"path": "../../packages/ui"
 		}
 	]
 }
