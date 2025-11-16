@@ -1,0 +1,36 @@
+/**
+ * Represents a customer registered in a store.
+ * Customers can place multiple orders and are identified by their phone number within a store.
+ * The same phone number can be a customer in multiple stores (different store contexts).
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `name`: Customer's name
+ * - `phone`: Customer's phone number (used for identification)
+ * - `storeId`: Reference to the Store this customer belongs to
+ * **Relationships:**
+ * - Belongs to one Store
+ * - Has many Orders
+ * **Business Logic:**
+ * - Phone number must be unique per store (enforced by unique constraint on [phone, storeId])
+ * - Same phone number can exist in different stores
+ * - When a store is deleted, all its customers are cascade deleted
+ * - Customers can place orders, and orders can optionally link to a customer record
+ * - Guest orders (without customer record) are also supported
+ */
+model Customer {
+  id        String   @id @default(cuid())
+
+  name      String
+  phone     String
+
+  orders Order[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  storeId   String   @map("storeid")
+  store  Store   @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@unique([phone, storeId])
+  @@map("customer")
+}

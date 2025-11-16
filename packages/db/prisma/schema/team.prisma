@@ -1,0 +1,34 @@
+/**
+ * Represents a team member (employee/staff) associated with a store.
+ * Allows multiple users to collaborate on managing a single store with different permission levels.
+ * Each team member has a role that determines their access and capabilities.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `userId`: Reference to the User who is a team member
+ * - `storeId`: Reference to the Store they belong to
+ * - `role`: Permission level (OWNER, ADMIN, MANAGER, STAFF)
+ * **Relationships:**
+ * - Belongs to one User
+ * - Belongs to one Store
+ * **Business Logic:**
+ * - A user can be a team member of multiple stores
+ * - Roles define permission levels: OWNER (full access), ADMIN (management), MANAGER (operations), STAFF (limited)
+ * - When a user is deleted, their team member records are cascade deleted
+ * - When a store is deleted, all team member associations are cascade deleted
+ */
+model TeamMember {
+  id        String         @id @default(cuid())
+
+  role      TeamMemberRole
+  
+  updatedAt DateTime       @updatedAt
+  createdAt DateTime       @default(now())
+
+  userId    String         @map("userid")
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  storeId   String         @map("storeid")
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("teammember")
+}

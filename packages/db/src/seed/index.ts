@@ -10,7 +10,7 @@ dotenv.config({
 });
 
 import prisma from "../index";
-import { seeders } from "./seeders";
+import { seeders, setupSeederDependencies, getSeededData } from "./seeders";
 
 /**
  * Main seed function that orchestrates all seeders
@@ -20,6 +20,9 @@ export async function seed(): Promise<void> {
 	console.log("🌱 Starting database seeding...\n");
 
 	try {
+		// Set up dependencies between seeders
+		setupSeederDependencies();
+
 		// Sort seeders by order (lower numbers first)
 		const sortedSeeders = [...seeders].sort((a, b) => {
 			const orderA = a.order ?? 0;
@@ -38,6 +41,15 @@ export async function seed(): Promise<void> {
 				throw error; // Re-throw to stop seeding on error
 			}
 		}
+
+		// Display seeded data summary
+		const seededData = getSeededData();
+		console.log("\n📊 Seeding Summary:");
+		console.log(`   Users: ${seededData.users.length}`);
+		console.log(`   Stores: ${seededData.stores.length}`);
+		console.log(`   Products: ${seededData.products.length}`);
+		console.log(`   Customers: ${seededData.customers.length}`);
+		console.log(`   Orders: ${seededData.orders.length}`);
 
 		console.log("\n✨ Database seeding completed successfully!");
 	} catch (error) {

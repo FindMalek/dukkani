@@ -1,0 +1,86 @@
+/**
+ * Represents a customer order placed in a store.
+ * Orders contain customer information, delivery address, status tracking, and multiple order items.
+ * Each order has a custom ID format: {STORE_PREFIX}-{RANDOM} (e.g., "AHM-abc12345").
+ * **Key Fields:**
+ * - `id`: Custom string ID with store prefix (e.g., "AHM-abc12345")
+ * - `status`: Current order status (PENDING, CONFIRMED, PROCESSING, SHIPPED, DELIVERED, CANCELLED)
+ * - `customerName`: Name of the customer placing the order
+ * - `customerPhone`: Contact phone number for the order
+ * - `address`: Optional delivery address
+ * - `notes`: Optional special instructions or notes
+ * - `storeId`: Reference to the Store where the order was placed
+ * - `customerId`: Optional reference to a registered Customer (null for guest orders)
+ * **Relationships:**
+ * - Belongs to one Store
+ * - Optionally belongs to one Customer (can be null for guest orders)
+ * - Has many OrderItems (products in the order)
+ * - Has many WhatsAppMessages (communication history)
+ * **Business Logic:**
+ * - Orders can be placed by registered customers or guests
+ * - When a customer is deleted, their orders remain but customerId is set to null
+ * - Order status tracks the fulfillment lifecycle
+ * - Custom ID format makes orders URL-friendly and identifiable by store
+ */
+model Order {
+  id String @id
+
+  status OrderStatus
+
+  customerName  String @map("customername")
+  customerPhone String @map("customerphone")
+
+  address String?
+
+  notes String?
+
+  orderItems       OrderItem[]
+  whatsappMessages WhatsAppMessage[]
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  storeId String @map("storeid")
+  store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  customerId String?   @map("customerid")
+  customer   Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  @@map("orders")
+}
+
+/**
+ * Represents a single product item within an order.
+ * Each order can contain multiple order items, each referencing a specific product with quantity and price.
+ * The price is stored at order time to preserve historical pricing even if product prices change.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `orderId`: Reference to the parent Order
+ * - `productId`: Reference to the Product being ordered
+ * - `quantity`: Number of units ordered
+ * - `price`: Price per unit at the time of order (stored as Decimal for accuracy)
+ * **Relationships:**
+ * - Belongs to one Order
+ * - Belongs to one Product
+ * **Business Logic:**
+ * - Price is captured at order time to maintain historical accuracy
+ * - When an order is deleted, all its order items are cascade deleted
+ * - Quantity must be positive
+ */
+model OrderItem {
+  id String @id @default(cuid())
+
+  orderId   String @map("orderid")
+  productId String @map("productid")
+
+  quantity Int
+  price    Decimal @db.Decimal(10, 2)
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("orderitem")
+}

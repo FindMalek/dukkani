@@ -1,0 +1,35 @@
+/**
+ * Represents daily sales metrics for a store.
+ * Tracks aggregated sales data per day, including total revenue and order count.
+ * Used for analytics, reporting, and business intelligence.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `storeId`: Reference to the Store these metrics belong to
+ * - `date`: The date these metrics represent (stored as Date, no time component)
+ * - `totalSales`: Total sales amount for the day (stored as Decimal for accuracy)
+ * - `orderCount`: Number of orders placed on this day
+ * **Relationships:**
+ * - Belongs to one Store
+ * **Business Logic:**
+ * - One metric record per store per day (enforced by unique constraint)
+ * - Metrics are typically aggregated from orders at end of day
+ * - Used for generating reports, charts, and business insights
+ * - When a store is deleted, all its metrics are cascade deleted
+ * - Date field allows querying metrics by time range
+ */
+model SalesMetric {
+  id         String   @id @default(cuid())
+
+  date       DateTime @db.Date
+  orderCount Int      @map("ordercount")
+  totalSales Decimal  @map("totalsales") @db.Decimal(10, 2)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  storeId    String   @map("storeid")
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, date])
+  @@map("salesmetric")
+}

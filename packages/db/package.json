@@ -23,13 +23,8 @@
 		"db:migrate": "prisma migrate dev",
 		"db:seed": "tsx src/seed/index.ts",
 		"db:reset-and-seed": "pnpm db:reset && pnpm db:seed",
-		"db:reset": "prisma migrate reset --force"
-	},
-	"devDependencies": {
-		"@dukkani/config": "workspace:*",
-		"prisma": "^6.19.0",
-		"tsdown": "catalog:",
-		"tsx": "catalog:"
+			"db:reset": "prisma migrate reset --force",
+		"db:format": "prisma format"
 	},
 	"peerDependencies": {
 		"typescript": "^5.9.3"
@@ -38,7 +33,16 @@
 		"@dukkani/env": "workspace:*",
 		"@prisma/client": "catalog:",
 		"@t3-oss/env-core": "catalog:",
+		"bcryptjs": "^2.4.3",
 		"dotenv": "catalog:",
+		"nanoid": "^5.1.6",
 		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@dukkani/config": "workspace:*",
+		"@types/bcryptjs": "^2.4.6",
+		"prisma": "^6.19.0",
+		"tsdown": "catalog:",
+		"tsx": "catalog:"
 	}
 }

@@ -1,0 +1,35 @@
+/**
+ * Represents a WhatsApp message sent in relation to an order.
+ * Tracks communication history between the store and customers via WhatsApp.
+ * Messages can have different statuses: PENDING, SENT, DELIVERED, READ, or FAILED.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `orderId`: Reference to the Order this message is related to
+ * - `messageId`: External message ID from WhatsApp API
+ * - `content`: The message content/text
+ * - `sentAt`: Timestamp when the message was sent
+ * - `status`: Current delivery status (PENDING, SENT, DELIVERED, READ, FAILED)
+ * **Relationships:**
+ * - Belongs to one Order
+ * **Business Logic:**
+ * - Messages are linked to orders for order-related communication
+ * - Status tracking allows monitoring of message delivery
+ * - When an order is deleted, all related messages are cascade deleted
+ * - Message ID from WhatsApp API is stored for tracking and webhook handling
+ */
+model WhatsAppMessage {
+  id String @id @default(cuid())
+
+  status    WhatsAppMessageStatus
+  content   String                @map("content")
+  messageId String                @map("messageid")
+
+  updatedAt DateTime @updatedAt
+  sentAt    DateTime @map("sentat")
+  createdAt DateTime @default(now())
+
+  orderId String @map("orderid")
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("whatsappmessage")
+}

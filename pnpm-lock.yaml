@@ -39,9 +39,18 @@ catalogs:
     dotenv:
       specifier: ^17.2.3
       version: 17.2.3
+    lucide-react:
+      specifier: ^0.553.0
+      version: 0.553.0
     next:
       specifier: ^16.0.3
       version: 16.0.3
+    react:
+      specifier: 19.2.0
+      version: 19.2.0
+    react-dom:
+      specifier: 19.2.0
+      version: 19.2.0
     tsdown:
       specifier: ^0.16.4
       version: 0.16.4
@@ -51,6 +60,9 @@ catalogs:
     turbo:
       specifier: ^2.6.1
       version: 2.6.1
+    typescript:
+      specifier: ^5.9.3
+      version: 5.9.3
     zod:
       specifier: 4.1.12
       version: 4.1.12
@@ -75,6 +87,9 @@ importers:
       turbo:
         specifier: 'catalog:'
         version: 2.6.1
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
 
   apps/api:
     dependencies:
@@ -118,9 +133,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.1
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
 
   apps/web:
     dependencies:
@@ -157,36 +169,18 @@ importers:
       better-auth:
         specifier: 'catalog:'
         version: 1.3.34(next@16.0.3(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      class-variance-authority:
-        specifier: ^0.7.1
-        version: 0.7.1
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       lucide-react:
-        specifier: ^0.553.0
+        specifier: 'catalog:'
         version: 0.553.0(react@19.2.0)
       next:
         specifier: 'catalog:'
         version: 16.0.3(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      next-themes:
-        specifier: ^0.4.6
-        version: 0.4.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      radix-ui:
-        specifier: ^1.4.3
-        version: 1.4.3(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react:
-        specifier: 19.2.0
+        specifier: 'catalog:'
         version: 19.2.0
       react-dom:
-        specifier: 19.2.0
+        specifier: 'catalog:'
         version: 19.2.0(react@19.2.0)
-      sonner:
-        specifier: ^2.0.7
-        version: 2.0.7(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      tailwind-merge:
-        specifier: ^3.4.0
-        version: 3.4.0
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
@@ -218,9 +212,6 @@ importers:
       tailwindcss:
         specifier: ^4.1.17
         version: 4.1.17
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
 
   packages/auth:
     dependencies:
@@ -240,7 +231,7 @@ importers:
         specifier: 'catalog:'
         version: 17.2.3
       typescript:
-        specifier: ^5
+        specifier: ^5.9.3
         version: 5.9.3
       zod:
         specifier: 'catalog:'
@@ -266,11 +257,17 @@ importers:
       '@t3-oss/env-core':
         specifier: 'catalog:'
         version: 0.13.8(typescript@5.9.3)(zod@4.1.12)
+      bcryptjs:
+        specifier: ^2.4.3
+        version: 2.4.3
       dotenv:
         specifier: 'catalog:'
         version: 17.2.3
+      nanoid:
+        specifier: ^5.1.6
+        version: 5.1.6
       typescript:
-        specifier: ^5
+        specifier: ^5.9.3
         version: 5.9.3
       zod:
         specifier: 'catalog:'
@@ -279,6 +276,9 @@ importers:
       '@dukkani/config':
         specifier: workspace:*
         version: link:../config
+      '@types/bcryptjs':
+        specifier: ^2.4.6
+        version: 2.4.6
       prisma:
         specifier: ^6.19.0
         version: 6.19.0(typescript@5.9.3)
@@ -298,7 +298,7 @@ importers:
         specifier: 'catalog:'
         version: 17.2.3
       typescript:
-        specifier: ^5
+        specifier: ^5.9.3
         version: 5.9.3
       zod:
         specifier: 'catalog:'
@@ -335,7 +335,7 @@ importers:
         specifier: 'catalog:'
         version: 17.2.3
       typescript:
-        specifier: ^5
+        specifier: ^5.9.3
         version: 5.9.3
       zod:
         specifier: 'catalog:'
@@ -450,7 +450,7 @@ importers:
         specifier: ^1.4.2
         version: 1.4.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       lucide-react:
-        specifier: ^0.553.0
+        specifier: 'catalog:'
         version: 0.553.0(react@19.2.0)
       next-themes:
         specifier: ^0.4.6
@@ -459,13 +459,13 @@ importers:
         specifier: ^1.4.3
         version: 1.4.3(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react:
-        specifier: 19.2.0
+        specifier: 'catalog:'
         version: 19.2.0
       react-day-picker:
         specifier: ^9.11.1
         version: 9.11.1(react@19.2.0)
       react-dom:
-        specifier: 19.2.0
+        specifier: 'catalog:'
         version: 19.2.0(react@19.2.0)
       react-hook-form:
         specifier: ^7.66.0
@@ -507,9 +507,6 @@ importers:
       tsdown:
         specifier: 'catalog:'
         version: 0.16.4(ms@2.1.3)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
 
 packages:
 
@@ -2231,6 +2228,9 @@ packages:
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
 
+  '@types/bcryptjs@2.4.6':
+    resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
+
   '@types/d3-array@3.2.2':
     resolution: {integrity: sha512-hOLWVbm7uRza0BYXpIIW5pxfrKe0W+D5lrFiAEYR+pb6w3N2SwSMaJbXdUfSEv+dT4MfHBLtn5js0LAWaO6otw==}
 
@@ -2290,6 +2290,9 @@ packages:
 
   babel-plugin-react-compiler@1.0.0:
     resolution: {integrity: sha512-Ixm8tFfoKKIPYdCCKYTsqv+Fd4IJ0DQqMyEimo+pxUOMUR9cVPlwTrFt9Avu+3cb6Zp3mAzl+t1MrG2fxxKsxw==}
+
+  bcryptjs@2.4.3:
+    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
 
   better-auth@1.3.34:
     resolution: {integrity: sha512-LWA52SlvnUBJRbN8VLSTLILPomZY3zZAiLxVJCeSQ5uVmaIKkMBhERitkfJcXB9RJcfl4uP+3EqKkb6hX1/uiw==}
@@ -2670,6 +2673,11 @@ packages:
   nanoid@3.3.11:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
+  nanoid@5.1.6:
+    resolution: {integrity: sha512-c7+7RQ+dMB5dPwwCp4ee1/iV/q2P6aK1mTZcfr1BTuVlyW9hJYiMPybJCcnBlQtuSmTIWNeazm/zqNoZSSElBg==}
+    engines: {node: ^18 || >=20}
     hasBin: true
 
   nanostores@1.0.1:
@@ -4803,6 +4811,8 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
+  '@types/bcryptjs@2.4.6': {}
+
   '@types/d3-array@3.2.2': {}
 
   '@types/d3-color@3.1.3': {}
@@ -4863,6 +4873,8 @@ snapshots:
   babel-plugin-react-compiler@1.0.0:
     dependencies:
       '@babel/types': 7.28.5
+
+  bcryptjs@2.4.3: {}
 
   better-auth@1.3.34(next@16.0.3(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
@@ -5192,6 +5204,8 @@ snapshots:
     optional: true
 
   nanoid@3.3.11: {}
+
+  nanoid@5.1.6: {}
 
   nanostores@1.0.1: {}
 
