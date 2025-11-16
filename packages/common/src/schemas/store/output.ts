@@ -15,13 +15,13 @@ export const storeSimpleOutputSchema = z.object({
 });
 
 export const storeIncludeOutputSchema = storeSimpleOutputSchema.extend({
-	owner: z.any().optional(),
-	storePlan: z.any().optional(),
-	products: z.array(z.any()).optional(),
-	orders: z.array(z.any()).optional(),
-	customers: z.array(z.any()).optional(),
-	teamMembers: z.array(z.any()).optional(),
-	salesMetrics: z.array(z.any()).optional(),
+	owner: z.unknown().optional(),
+	storePlan: z.unknown().optional(),
+	products: z.array(z.unknown()).optional(),
+	orders: z.array(z.unknown()).optional(),
+	customers: z.array(z.unknown()).optional(),
+	teamMembers: z.array(z.unknown()).optional(),
+	salesMetrics: z.array(z.unknown()).optional(),
 });
 
 export const listStoresOutputSchema = z.object({

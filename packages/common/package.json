@@ -34,8 +34,7 @@
 		"typescript": "^5.9.3"
 	},
 	"dependencies": {
-		"@dukkani/db": "workspace:*",
-		"@prisma/client": "catalog:",
+		"nanoid": "^5.1.6",
 		"zod": "catalog:"
 	},
 	"devDependencies": {

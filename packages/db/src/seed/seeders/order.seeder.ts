@@ -5,7 +5,7 @@ import type { ProductSeeder } from "./product.seeder";
 import type { CustomerSeeder } from "./customer.seeder";
 import { OrderStatus } from "../../../prisma/generated/client";
 import { Prisma } from "../../../prisma/generated/client";
-import { generateOrderId } from "../../utils/generate-id";
+import { generateOrderId } from "@dukkani/common/utils";
 
 /**
  * Seeder for Order model

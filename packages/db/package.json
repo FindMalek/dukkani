@@ -10,6 +10,10 @@
 			"types": "./dist/env.d.ts",
 			"default": "./src/env.ts"
 		},
+		"./prisma/generated": {
+			"types": "./prisma/generated/index.ts",
+			"default": "./prisma/generated/index.ts"
+		},
 		"./*": {
 			"types": "./dist/*.d.ts",
 			"default": "./src/*.ts"
@@ -30,6 +34,7 @@
 		"typescript": "^5.9.3"
 	},
 	"dependencies": {
+		"@dukkani/common": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"@prisma/client": "catalog:",
 		"@t3-oss/env-core": "catalog:",

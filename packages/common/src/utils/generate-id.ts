@@ -49,3 +49,4 @@ export function generateProductId(storeSlug: string): string {
 	const random = generateRandom();
 	return `${prefix}-${random}`;
 }
+
