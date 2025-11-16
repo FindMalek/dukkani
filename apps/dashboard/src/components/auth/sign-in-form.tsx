@@ -31,7 +31,7 @@ export default function SignInForm({
 				},
 				{
 					onSuccess: () => {
-						router.push("/");
+						router.push("/dashboard");
 						toast.success("Sign in successful");
 					},
 					onError: (error) => {
@@ -65,7 +65,7 @@ export default function SignInForm({
 					onClick={() => {
 						authClient.signIn.social({
 							provider: "google",
-							callbackURL: "/",
+							callbackURL: "/dashboard",
 						});
 					}}
 				>
@@ -78,7 +78,7 @@ export default function SignInForm({
 					onClick={() => {
 						authClient.signIn.social({
 							provider: "facebook",
-							callbackURL: "/",
+							callbackURL: "/dashboard",
 						});
 					}}
 				>

@@ -16,7 +16,7 @@ import { scrypt, randomBytes } from "node:crypto";
 export async function hashPassword(password: string): Promise<string> {
 	// Generate a random salt (16 bytes)
 	const salt = randomBytes(16);
-	
+
 	// Hash the password with scrypt
 	// Better Auth uses: keylen: 64, N: 16384, r: 8, p: 1
 	// Note: scrypt options are passed as the 4th argument
@@ -36,7 +36,7 @@ export async function hashPassword(password: string): Promise<string> {
 			},
 		);
 	})) as Buffer;
-	
+
 	// Return in format: salt:hash (both base64 encoded)
 	// This matches Better Auth's scrypt format
 	return `${salt.toString("base64")}:${hash.toString("base64")}`;

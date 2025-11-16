@@ -84,7 +84,9 @@ export function getSettingsRoutes() {
  */
 export function getBreadcrumbs(pathname: string): NavLink[] {
 	const segments = pathname.split("/").filter(Boolean);
-	const breadcrumbs: NavLink[] = [{ to: routes.dashboard.overview, label: "Home" }];
+	const breadcrumbs: NavLink[] = [
+		{ to: routes.dashboard.overview, label: "Home" },
+	];
 
 	if (segments.length === 0) {
 		return breadcrumbs;
@@ -94,7 +96,7 @@ export function getBreadcrumbs(pathname: string): NavLink[] {
 	let currentPath = "";
 	for (const segment of segments) {
 		currentPath += `/${segment}`;
-		
+
 		// Map segments to labels
 		const label = segment
 			.split("-")
@@ -113,10 +115,13 @@ export function getBreadcrumbs(pathname: string): NavLink[] {
 /**
  * Check if a route is active
  */
-export function isActiveRoute(currentPath: string, targetPath: string, exact = false): boolean {
+export function isActiveRoute(
+	currentPath: string,
+	targetPath: string,
+	exact = false,
+): boolean {
 	if (exact) {
 		return currentPath === targetPath;
 	}
 	return currentPath.startsWith(targetPath);
 }
-
