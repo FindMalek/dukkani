@@ -6,12 +6,15 @@ import { hashPassword } from "../utils/password";
  * Seeder for User model
  * Creates 3 diverse users with proper authentication
  * Exports users for use in other seeders
+ * 
+ * Note: Passwords are intentionally excluded from the exported interface
+ * for security reasons. Plaintext passwords are only used internally during
+ * seeding and are never exposed in the public API.
  */
 export interface SeededUser {
 	id: string;
 	email: string;
 	name: string;
-	password: string; // Plain password for documentation
 }
 
 export class UserSeeder extends BaseSeeder {
@@ -49,25 +52,25 @@ export class UserSeeder extends BaseSeeder {
 		const existingUsers = await prisma.user.findMany();
 		if (existingUsers.length > 0) {
 			this.log(`Skipping: ${existingUsers.length} users already exist`);
-			// Load existing users for export
+			// Load existing users for export (passwords intentionally excluded for security)
 			for (const user of existingUsers) {
 				this.seededUsers.push({
 					id: user.id,
 					email: user.email,
 					name: user.name,
-					password: "Already exists - check database",
 				});
 			}
 			return;
 		}
 
-		// Define 3 diverse users
+		// Define 3 diverse users with passwords (private, only used during seeding)
+		// Passwords are hashed and stored in the database, but never exported
 		const userData = [
 			{
 				id: "user_admin_001",
 				name: "Ahmed Al-Mansoori",
 				email: "ahmed@dukkani.com",
-				password: "Admin123!",
+				password: "Admin123!", // Private: only used for hashing during seeding
 				emailVerified: true,
 				image: null,
 			},
@@ -75,7 +78,7 @@ export class UserSeeder extends BaseSeeder {
 				id: "user_merchant_001",
 				name: "Fatima Hassan",
 				email: "fatima@dukkani.com",
-				password: "Merchant123!",
+				password: "Merchant123!", // Private: only used for hashing during seeding
 				emailVerified: true,
 				image: null,
 			},
@@ -83,7 +86,7 @@ export class UserSeeder extends BaseSeeder {
 				id: "user_store_owner_001",
 				name: "Omar Abdullah",
 				email: "omar@dukkani.com",
-				password: "Store123!",
+				password: "Store123!", // Private: only used for hashing during seeding
 				emailVerified: true,
 				image: null,
 			},
@@ -91,10 +94,17 @@ export class UserSeeder extends BaseSeeder {
 
 		const now = new Date();
 
-		// Hash all passwords in parallel
-		const hashedPasswords = await Promise.all(
+		// Hash all passwords in parallel (passwords remain private, never exported)
+		const hashedPasswords: string[] = await Promise.all(
 			userData.map((user) => hashPassword(user.password)),
 		);
+
+		// Validate that all passwords were hashed successfully
+		if (hashedPasswords.length !== userData.length) {
+			throw new Error(
+				`Password hashing failed: expected ${userData.length} hashed passwords, got ${hashedPasswords.length}`,
+			);
+		}
 
 		// Create all users at once
 		const users = await prisma.user.createMany({
@@ -109,30 +119,38 @@ export class UserSeeder extends BaseSeeder {
 			})),
 		});
 
-		// Create all accounts at once
+		// Create all accounts at once (with hashed passwords)
 		await prisma.account.createMany({
-			data: userData.map((user, index) => ({
-				id: `account_${user.id}`,
-				accountId: user.email,
-				providerId: "credential",
-				userId: user.id,
-				password: hashedPasswords[index]!,
-				createdAt: now,
-				updatedAt: now,
-			})),
+			data: userData.map((user, index) => {
+				const hashedPassword = hashedPasswords[index];
+				if (!hashedPassword) {
+					throw new Error(
+						`Missing hashed password for user ${user.email} at index ${index}`,
+					);
+				}
+				return {
+					id: `account_${user.id}`,
+					accountId: user.email,
+					providerId: "credential",
+					userId: user.id,
+					password: hashedPassword,
+					createdAt: now,
+					updatedAt: now,
+				};
+			}),
 		});
 
-		// Store for export
+		// Store for export (passwords intentionally excluded for security)
 		for (const userInfo of userData) {
 			this.seededUsers.push({
 				id: userInfo.id,
 				email: userInfo.email,
 				name: userInfo.name,
-				password: userInfo.password,
+				// Password excluded: never expose plaintext passwords in exports
 			});
 		}
 
 		this.log(`✅ Created ${users.count} users with accounts`);
-		this.log("📝 User credentials saved for export");
+		this.log("📝 User data exported (passwords excluded for security)");
 	}
 }
