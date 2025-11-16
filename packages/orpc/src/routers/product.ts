@@ -15,6 +15,7 @@ import type {
 	ProductIncludeOutput,
 } from "@dukkani/common/schemas/product/output";
 import { z } from "zod";
+import { ORPCError } from "@orpc/server";
 
 export const productRouter = {
 	/**
@@ -42,7 +43,9 @@ export const productRouter = {
 
 			// Verify store ownership if filtering by specific store
 			if (input?.storeId && !userStoreIds.includes(input.storeId)) {
-				throw new Error("You don't have access to this store");
+				throw new ORPCError("FORBIDDEN", {
+					message: "You don't have access to this store",
+				});
 			}
 			const where = ProductQuery.getWhere(userStoreIds, {
 				storeId: input?.storeId,
@@ -86,7 +89,9 @@ export const productRouter = {
 			});
 
 			if (!product) {
-				throw new Error("Product not found");
+				throw new ORPCError("NOT_FOUND", {
+					message: "Product not found",
+				});
 			}
 
 			// Verify ownership
@@ -113,7 +118,9 @@ export const productRouter = {
 			});
 
 			if (!store) {
-				throw new Error("Store not found");
+				throw new ORPCError("NOT_FOUND", {
+					message: "Store not found",
+				});
 			}
 
 			// Generate product ID
@@ -156,7 +163,9 @@ export const productRouter = {
 			});
 
 			if (!existingProduct) {
-				throw new Error("Product not found");
+				throw new ORPCError("NOT_FOUND", {
+					message: "Product not found",
+				});
 			}
 
 			// Verify ownership
@@ -220,7 +229,9 @@ export const productRouter = {
 			});
 
 			if (!product) {
-				throw new Error("Product not found");
+				throw new ORPCError("NOT_FOUND", {
+					message: "Product not found",
+				});
 			}
 
 			// Verify ownership
@@ -249,7 +260,9 @@ export const productRouter = {
 			});
 
 			if (!product) {
-				throw new Error("Product not found");
+				throw new ORPCError("NOT_FOUND", {
+					message: "Product not found",
+				});
 			}
 
 			// Verify ownership

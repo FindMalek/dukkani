@@ -4,6 +4,7 @@ import {
 	listStoresInputSchema,
 	getStoreInputSchema,
 } from "@dukkani/common/schemas/store/input";
+import { ORPCError } from "@orpc/server";
 
 export const storeRouter = {
 	/**
@@ -26,7 +27,9 @@ export const storeRouter = {
 			const userId = context.session.user.id;
 
 			if (!input.id) {
-				throw new Error("Store ID is required");
+				throw new ORPCError("BAD_REQUEST", {
+					message: "Store ID is required",
+				});
 			}
 
 			return await StoreService.getStoreById(input.id, userId);
@@ -41,7 +44,9 @@ export const storeRouter = {
 			const userId = context.session.user.id;
 
 			if (!input.slug) {
-				throw new Error("Store slug is required");
+				throw new ORPCError("BAD_REQUEST", {
+					message: "Store slug is required",
+				});
 			}
 
 			return await StoreService.getStoreBySlug(input.slug, userId);

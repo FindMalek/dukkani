@@ -7,7 +7,7 @@
 		"outDir": "dist",
 		"composite": true,
 		"paths": {
-			"@/*": ["./src/*"],
+			"@/*": ["./src/*"]
 		}
 	}
 }

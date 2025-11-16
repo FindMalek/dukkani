@@ -5,9 +5,7 @@ import type {
 	CreateCustomerInput,
 	UpdateCustomerInput,
 } from "@/schemas/customer/input";
-import type {
-	CustomerSimpleOutput,
-} from "@/schemas/customer/output";
+import type { CustomerSimpleOutput } from "@/schemas/customer/output";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 /**
@@ -79,8 +77,13 @@ export class CustomerService {
 
 			return CustomerEntity.getSimpleRo(customer);
 		} catch (error) {
-			if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
-				throw new Error("Customer with this phone number already exists in this store");
+			if (
+				error instanceof PrismaClientKnownRequestError &&
+				error.code === "P2002"
+			) {
+				throw new Error(
+					"Customer with this phone number already exists in this store",
+				);
 			}
 			throw error;
 		}
@@ -138,15 +141,20 @@ export class CustomerService {
 
 		try {
 			const customer = await prisma.customer.update({
-			where: { id: input.id },
-			data: updateData,
-			include: CustomerQuery.getSimpleInclude(),
+				where: { id: input.id },
+				data: updateData,
+				include: CustomerQuery.getSimpleInclude(),
 			});
 
 			return CustomerEntity.getSimpleRo(customer);
 		} catch (error) {
-			if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
-				throw new Error("Customer with this phone number already exists in this store");
+			if (
+				error instanceof PrismaClientKnownRequestError &&
+				error.code === "P2002"
+			) {
+				throw new Error(
+					"Customer with this phone number already exists in this store",
+				);
 			}
 			throw error;
 		}

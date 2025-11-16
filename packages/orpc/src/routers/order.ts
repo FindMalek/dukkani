@@ -15,6 +15,7 @@ import type {
 	OrderIncludeOutput,
 } from "@dukkani/common/schemas/order/output";
 import { z } from "zod";
+import { ORPCError } from "@orpc/server";
 
 // Schema for creating order without id (will be generated)
 const createOrderWithoutIdSchema = createOrderInputSchema.omit({ id: true });
@@ -50,8 +51,8 @@ export const orderRouter = {
 			const skip = (page - 1) * limit;
 
 			// Verify store ownership if filtering by specific store
-			if (input?.storeId && !userStoreIds.includes(input.storeId)) {
-				throw new Error("You don't have access to this store");
+			if (input?.storeId) {
+				await verifyStoreOwnership(userId, input.storeId);
 			}
 
 			const where = OrderQuery.getWhere(userStoreIds, {
@@ -97,7 +98,9 @@ export const orderRouter = {
 			});
 
 			if (!order) {
-				throw new Error("Order not found");
+				throw new ORPCError("NOT_FOUND", {
+					message: "Order not found",
+				});
 			}
 
 			// Verify ownership
@@ -121,7 +124,9 @@ export const orderRouter = {
 			});
 
 			if (!store) {
-				throw new Error("Store not found");
+				throw new ORPCError("NOT_FOUND", {
+					message: "Store not found",
+				});
 			}
 
 			// Generate order ID

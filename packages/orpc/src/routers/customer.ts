@@ -15,6 +15,7 @@ import type {
 	CustomerSimpleOutput,
 	CustomerIncludeOutput,
 } from "@dukkani/common/schemas/customer/output";
+import { ORPCError } from "@orpc/server";
 
 export const customerRouter = {
 	/**
@@ -42,7 +43,9 @@ export const customerRouter = {
 
 			// Verify store ownership if filtering by specific store
 			if (input?.storeId && !userStoreIds.includes(input.storeId)) {
-				throw new Error("You don't have access to this store");
+				throw new ORPCError("FORBIDDEN", {
+					message: "You don't have access to this store",
+				});
 			}
 
 			const where = CustomerQuery.getWhere(userStoreIds, {
@@ -87,7 +90,9 @@ export const customerRouter = {
 			});
 
 			if (!customer) {
-				throw new Error("Customer not found");
+				throw new ORPCError("NOT_FOUND", {
+					message: "Customer not found",
+				});
 			}
 
 			// Verify ownership
@@ -131,7 +136,9 @@ export const customerRouter = {
 			});
 
 			if (!customer) {
-				throw new Error("Customer not found");
+				throw new ORPCError("NOT_FOUND", {
+					message: "Customer not found",
+				});
 			}
 
 			// Verify ownership

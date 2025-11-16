@@ -3,9 +3,7 @@ import { generateOrderId } from "@dukkani/db/utils/generate-id";
 import { ProductService } from "@/services/productService";
 import { OrderQuery } from "@/entities/order/query";
 import { OrderEntity } from "@/entities/order/entity";
-import type {
-	CreateOrderInput,
-} from "@/schemas/order/input";
+import type { CreateOrderInput } from "@/schemas/order/input";
 import type { OrderIncludeOutput } from "@/schemas/order/output";
 import type { OrderStatus } from "@/schemas/order/enums";
 
