@@ -7,17 +7,44 @@ import type { StoreSeeder } from "./store.seeder";
  * Creates customers linked to seeded stores
  * Exports customers for use in other seeders
  */
+export interface SeededCustomer {
+	id: string;
+	name: string;
+	phone: string;
+	storeId: string;
+}
+
 export class CustomerSeeder extends BaseSeeder {
 	name = "CustomerSeeder";
 	order = 4; // Run after StoreSeeder
 
 	// Export seeded customers for use in other seeders
-	public seededCustomers: Array<{
-		id: string;
-		name: string;
-		phone: string;
-		storeId: string;
-	}> = [];
+	public seededCustomers: SeededCustomer[] = [];
+
+	/**
+	 * Find customers by store slug
+	 */
+	findByStoreSlug(storeSlug: string): SeededCustomer[] {
+		const store = this.storeSeeder?.findBySlug(storeSlug);
+		if (!store) return [];
+		return this.seededCustomers.filter((c) => c.storeId === store.id);
+	}
+
+	/**
+	 * Get all customers grouped by store slug
+	 */
+	getCustomersByStoreSlug(): Map<string, SeededCustomer[]> {
+		const map = new Map<string, SeededCustomer[]>();
+		for (const customer of this.seededCustomers) {
+			const store = this.storeSeeder?.findById(customer.storeId);
+			if (store) {
+				const existing = map.get(store.slug) || [];
+				existing.push(customer);
+				map.set(store.slug, existing);
+			}
+		}
+		return map;
+	}
 
 	private storeSeeder?: StoreSeeder;
 
@@ -51,48 +78,71 @@ export class CustomerSeeder extends BaseSeeder {
 			return;
 		}
 
-		const stores = this.storeSeeder.seededStores;
-		if (stores.length === 0) {
+		const storesBySlug = this.storeSeeder.getStoresBySlug();
+		if (storesBySlug.size === 0) {
 			this.log("⚠️  No stores found. Skipping customer creation.");
 			return;
 		}
 
-		// Define customers for each store
-		const customerData = [
+		// Define customers with stable slug lookups
+		const customerDefinitions = [
 			// Customers for Ahmed's Fashion Boutique
 			{
 				name: "Khalid Al-Rashid",
 				phone: "+971501111111",
-				storeId: stores[0]!.id,
+				storeSlug: "ahmed-fashion",
 			},
 			{
 				name: "Mariam Al-Zahra",
 				phone: "+971501111112",
-				storeId: stores[0]!.id,
+				storeSlug: "ahmed-fashion",
 			},
 			// Customers for Fatima's Electronics Hub
 			{
 				name: "Yusuf Al-Mazrouei",
 				phone: "+971502222221",
-				storeId: stores[1]!.id,
+				storeSlug: "fatima-electronics",
 			},
 			{
 				name: "Layla Al-Mansoori",
 				phone: "+971502222222",
-				storeId: stores[1]!.id,
+				storeSlug: "fatima-electronics",
 			},
 			// Customers for Omar's Home Essentials
 			{
 				name: "Hassan Al-Suwaidi",
 				phone: "+971503333331",
-				storeId: stores[2]!.id,
+				storeSlug: "omar-home",
 			},
 			{
 				name: "Noor Al-Kaabi",
 				phone: "+971503333332",
-				storeId: stores[2]!.id,
+				storeSlug: "omar-home",
 			},
 		];
+
+		// Resolve stores by slug and validate
+		const customerData = customerDefinitions
+			.map((def) => {
+				const store = storesBySlug.get(def.storeSlug);
+				if (!store) {
+					this.error(
+						`⚠️  Store not found for customer "${def.name}" (slug: ${def.storeSlug}). Skipping this customer.`,
+					);
+					return null;
+				}
+				return {
+					name: def.name,
+					phone: def.phone,
+					storeId: store.id,
+				};
+			})
+			.filter((customer): customer is NonNullable<typeof customer> => customer !== null);
+
+		if (customerData.length === 0) {
+			this.log("⚠️  No valid customers to create. All customers were skipped due to missing stores.");
+			return;
+		}
 
 		// Create all customers at once
 		const customers = await prisma.customer.createMany({

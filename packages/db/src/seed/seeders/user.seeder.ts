@@ -7,17 +7,40 @@ import { hashPassword } from "../utils/password";
  * Creates 3 diverse users with proper authentication
  * Exports users for use in other seeders
  */
+export interface SeededUser {
+	id: string;
+	email: string;
+	name: string;
+	password: string; // Plain password for documentation
+}
+
 export class UserSeeder extends BaseSeeder {
 	name = "UserSeeder";
 	order = 1; // Run first as other seeders depend on users
 
 	// Export seeded users for use in other seeders
-	public seededUsers: Array<{
-		id: string;
-		email: string;
-		name: string;
-		password: string; // Plain password for documentation
-	}> = [];
+	public seededUsers: SeededUser[] = [];
+
+	/**
+	 * Find a user by email (stable key)
+	 */
+	findByEmail(email: string): SeededUser | undefined {
+		return this.seededUsers.find((u) => u.email === email);
+	}
+
+	/**
+	 * Find a user by ID
+	 */
+	findById(id: string): SeededUser | undefined {
+		return this.seededUsers.find((u) => u.id === id);
+	}
+
+	/**
+	 * Get all users as a map keyed by email for easy lookup
+	 */
+	getUsersByEmail(): Map<string, SeededUser> {
+		return new Map(this.seededUsers.map((u) => [u.email, u]));
+	}
 
 	async seed(prisma: PrismaClient): Promise<void> {
 		this.log("Starting User seeding...");

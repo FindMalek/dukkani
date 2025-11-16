@@ -1,12 +1,12 @@
 /**
- * Export all seeders from this file
+ * Export all seeders and their types from this file
  * Add new seeders here to register them
  */
-export { UserSeeder } from "./user.seeder";
-export { StoreSeeder } from "./store.seeder";
-export { ProductSeeder } from "./product.seeder";
-export { CustomerSeeder } from "./customer.seeder";
-export { OrderSeeder } from "./order.seeder";
+export { UserSeeder, type SeededUser } from "./user.seeder";
+export { StoreSeeder, type SeededStore } from "./store.seeder";
+export { ProductSeeder, type SeededProduct } from "./product.seeder";
+export { CustomerSeeder, type SeededCustomer } from "./customer.seeder";
+export { OrderSeeder, type SeededOrder } from "./order.seeder";
 
 /**
  * Register all seeders here
@@ -76,6 +76,9 @@ export interface SeededData {
 	orders: OrderSeeder["seededOrders"];
 }
 
+/**
+ * Get all seeded data with helper methods for easy access
+ */
 export function getSeededData(): SeededData {
 	const userSeeder = seeders.find((s) => s.name === "UserSeeder") as UserSeeder;
 	const storeSeeder = seeders.find(
@@ -99,3 +102,52 @@ export function getSeededData(): SeededData {
 		orders: orderSeeder?.seededOrders || [],
 	};
 }
+
+/**
+ * Get seeder instances for direct access to helper methods
+ * This provides the best DX for accessing seeded data
+ */
+export function getSeeders() {
+	const userSeeder = seeders.find((s) => s.name === "UserSeeder") as UserSeeder;
+	const storeSeeder = seeders.find(
+		(s) => s.name === "StoreSeeder",
+	) as StoreSeeder;
+	const productSeeder = seeders.find(
+		(s) => s.name === "ProductSeeder",
+	) as ProductSeeder;
+	const customerSeeder = seeders.find(
+		(s) => s.name === "CustomerSeeder",
+	) as CustomerSeeder;
+	const orderSeeder = seeders.find(
+		(s) => s.name === "OrderSeeder",
+	) as OrderSeeder;
+
+	return {
+		users: userSeeder,
+		stores: storeSeeder,
+		products: productSeeder,
+		customers: customerSeeder,
+		orders: orderSeeder,
+	};
+}
+
+/**
+ * Example usage:
+ * 
+ * ```ts
+ * import { getSeeders } from '@dukkani/db/seed/seeders';
+ * 
+ * const seeders = getSeeders();
+ * 
+ * // Find by stable keys
+ * const ahmedStore = seeders.stores.findBySlug('ahmed-fashion');
+ * const ahmedUser = seeders.users.findByEmail('ahmed@dukkani.com');
+ * 
+ * // Get grouped data
+ * const productsByStore = seeders.products.getProductsByStoreSlug();
+ * const ahmedProducts = productsByStore.get('ahmed-fashion');
+ * 
+ * // Direct access
+ * const allStores = seeders.stores.seededStores;
+ * ```
+ */

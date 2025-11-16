@@ -12,17 +12,40 @@ import {
  * Creates stores linked to seeded users
  * Exports stores for use in other seeders
  */
+export interface SeededStore {
+	id: string;
+	name: string;
+	slug: string;
+	ownerId: string;
+}
+
 export class StoreSeeder extends BaseSeeder {
 	name = "StoreSeeder";
 	order = 2; // Run after UserSeeder
 
 	// Export seeded stores for use in other seeders
-	public seededStores: Array<{
-		id: string;
-		name: string;
-		slug: string;
-		ownerId: string;
-	}> = [];
+	public seededStores: SeededStore[] = [];
+
+	/**
+	 * Find a store by slug (stable key)
+	 */
+	findBySlug(slug: string): SeededStore | undefined {
+		return this.seededStores.find((s) => s.slug === slug);
+	}
+
+	/**
+	 * Find a store by ID
+	 */
+	findById(id: string): SeededStore | undefined {
+		return this.seededStores.find((s) => s.id === id);
+	}
+
+	/**
+	 * Get all stores as a map keyed by slug for easy lookup
+	 */
+	getStoresBySlug(): Map<string, SeededStore> {
+		return new Map(this.seededStores.map((s) => [s.slug, s]));
+	}
 
 	private userSeeder?: UserSeeder;
 
@@ -56,14 +79,14 @@ export class StoreSeeder extends BaseSeeder {
 			return;
 		}
 
-		const users = this.userSeeder.seededUsers;
-		if (users.length === 0) {
+		const usersByEmail = this.userSeeder.getUsersByEmail();
+		if (usersByEmail.size === 0) {
 			this.log("⚠️  No users found. Skipping store creation.");
 			return;
 		}
 
-		// Define stores for each user
-		const storeData = [
+		// Define stores with stable email lookups
+		const storeDefinitions = [
 			{
 				name: "Ahmed's Fashion Boutique",
 				slug: "ahmed-fashion",
@@ -71,7 +94,7 @@ export class StoreSeeder extends BaseSeeder {
 				category: StoreCategory.FASHION,
 				theme: StoreTheme.MODERN,
 				whatsappNumber: "+971501234567",
-				ownerId: users[0]!.id,
+				ownerEmail: "ahmed@dukkani.com",
 				planType: StorePlanType.PREMIUM,
 				orderLimit: 1000,
 			},
@@ -82,7 +105,7 @@ export class StoreSeeder extends BaseSeeder {
 				category: StoreCategory.ELECTRONICS,
 				theme: StoreTheme.MINIMAL,
 				whatsappNumber: "+971502345678",
-				ownerId: users[1]!.id,
+				ownerEmail: "fatima@dukkani.com",
 				planType: StorePlanType.BASIC,
 				orderLimit: 500,
 			},
@@ -93,11 +116,40 @@ export class StoreSeeder extends BaseSeeder {
 				category: StoreCategory.HOME,
 				theme: StoreTheme.CLASSIC,
 				whatsappNumber: "+971503456789",
-				ownerId: users[2]!.id,
+				ownerEmail: "omar@dukkani.com",
 				planType: StorePlanType.FREE,
 				orderLimit: 100,
 			},
 		];
+
+		// Resolve owners by email and validate
+		const storeData = storeDefinitions
+			.map((def) => {
+				const owner = usersByEmail.get(def.ownerEmail);
+				if (!owner) {
+					this.error(
+						`⚠️  Owner not found for store "${def.name}" (email: ${def.ownerEmail}). Skipping this store.`,
+					);
+					return null;
+				}
+				return {
+					name: def.name,
+					slug: def.slug,
+					description: def.description,
+					category: def.category,
+					theme: def.theme,
+					whatsappNumber: def.whatsappNumber,
+					ownerId: owner.id,
+					planType: def.planType,
+					orderLimit: def.orderLimit,
+				};
+			})
+			.filter((store): store is NonNullable<typeof store> => store !== null);
+
+		if (storeData.length === 0) {
+			this.log("⚠️  No valid stores to create. All stores were skipped due to missing owners.");
+			return;
+		}
 
 		// Create stores (need individual creates for storePlan relation)
 		const createdStores = await Promise.all(
