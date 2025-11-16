@@ -32,7 +32,7 @@
 		"tsx": "catalog:"
 	},
 	"peerDependencies": {
-		"typescript": "^5"
+		"typescript": "^5.9.3"
 	},
 	"dependencies": {
 		"@dukkani/env": "workspace:*",

@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@dukkani/ui/components/button";
+import { Button } from "./button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@dukkani/ui/components/dropdown-menu";
+} from "./dropdown-menu";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import * as React from "react";

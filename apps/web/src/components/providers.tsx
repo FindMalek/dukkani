@@ -4,7 +4,7 @@ import { Toaster } from "@dukkani/ui/components/sonner";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient } from "@/utils/orpc";
-import { ThemeProvider } from "./theme-provider";
+import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
 	return (

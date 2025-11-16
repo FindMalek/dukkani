@@ -33,7 +33,8 @@
 		"@biomejs/biome": "catalog:",
 		"@types/node": "catalog:",
 		"tsdown": "catalog:",
-		"turbo": "catalog:"
+		"turbo": "catalog:",
+		"typescript": "catalog:"
 	},
 	"packageManager": "pnpm@10.18.2"
 }
