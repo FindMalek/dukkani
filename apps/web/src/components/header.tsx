@@ -1,7 +1,8 @@
 "use client";
-import Link from "next/link";
+import Link, { type LinkProps } from "next/link";
 import { ModeToggle } from "@dukkani/ui/components/mode-toggle";
 import { Button } from "@dukkani/ui/components/button";
+import { env } from "@dukkani/env";
 
 export default function Header() {
 	return (
@@ -24,7 +25,7 @@ export default function Header() {
 				<div className="flex items-center gap-2">
 					<ModeToggle />
 					<Button asChild variant="default" size="sm">
-						<Link href="http://localhost:3003/login">Sign In</Link>
+						<Link href={String(env.NEXT_PUBLIC_DASHBOARD_URL)}>Sign In</Link>
 					</Button>
 				</div>
 			</div>
