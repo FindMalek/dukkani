@@ -58,3 +58,4 @@ temp
 
 # Next
 .next/
+next-env.d.ts

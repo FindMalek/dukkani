@@ -5,6 +5,10 @@
 			"types": "./dist/index.d.ts",
 			"default": "./src/index.ts"
 		},
+		"./client": {
+			"types": "./dist/client.d.ts",
+			"default": "./src/client.ts"
+		},
 		"./*": {
 			"types": "./dist/*.d.ts",
 			"default": "./src/*.ts"
@@ -16,10 +20,12 @@
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
+		"next": "catalog:",
 		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
-		"typescript": "^5.9.3"
+		"typescript": "^5.9.3",
+		"next": ">=14.0.0"
 	},
 	"dependencies": {
 		"@dukkani/auth": "workspace:*",
@@ -27,9 +33,12 @@
 		"@orpc/client": "catalog:",
 		"@orpc/openapi": "catalog:",
 		"@orpc/server": "catalog:",
+		"@orpc/tanstack-query": "catalog:",
 		"@orpc/zod": "catalog:",
 		"@prisma/client": "catalog:",
+		"@tanstack/react-query": "catalog:",
 		"dotenv": "catalog:",
+		"sonner": "catalog:",
 		"zod": "catalog:"
 	}
 }

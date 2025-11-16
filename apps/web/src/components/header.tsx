@@ -1,30 +1,31 @@
 "use client";
 import Link from "next/link";
 import { ModeToggle } from "@dukkani/ui/components/mode-toggle";
-import UserMenu from "./user-menu";
+import { Button } from "@dukkani/ui/components/button";
 
 export default function Header() {
-	const links = [
-		{ to: "/", label: "Home" },
-		{ to: "/dashboard", label: "Dashboard" },
-		{ to: "/todos", label: "Todos" },
-	] as const;
-
 	return (
 		<div>
-			<div className="flex flex-row items-center justify-between px-2 py-1">
-				<nav className="flex gap-4 text-lg">
-					{links.map(({ to, label }) => {
-						return (
-							<Link key={to} href={to}>
-								{label}
-							</Link>
-						);
-					})}
+			<div className="flex flex-row items-center justify-between px-4 py-3 md:px-6">
+				<Link href="/" className="text-xl font-bold">
+					Dukkani
+				</Link>
+				<nav className="hidden gap-6 md:flex">
+					<Link href="#features" className="text-sm hover:underline">
+						Features
+					</Link>
+					<Link href="#pricing" className="text-sm hover:underline">
+						Pricing
+					</Link>
+					<Link href="#about" className="text-sm hover:underline">
+						About
+					</Link>
 				</nav>
 				<div className="flex items-center gap-2">
 					<ModeToggle />
-					<UserMenu />
+					<Button asChild variant="default" size="sm">
+						<Link href="http://localhost:3003/login">Sign In</Link>
+					</Button>
 				</div>
 			</div>
 			<hr />

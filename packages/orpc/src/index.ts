@@ -21,3 +21,6 @@ export const protectedProcedure = publicProcedure.use(requireAuth);
 // Re-export router types for easier importing
 export type { AppRouter, AppRouterClient } from "./routers/index";
 export { appRouter } from "./routers/index";
+
+// Re-export client utilities
+export { createORPCClientUtils } from "./client";

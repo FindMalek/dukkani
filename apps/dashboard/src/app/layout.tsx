@@ -1,8 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@dukkani/ui/styles/globals.css";
-import Header from "@/components/header";
-import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
+import Providers from "@/components/providers";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -15,8 +14,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "Dukkani - Business Management Solution",
-	description: "Your all-in-one business management solution",
+	title: "Dukkani Dashboard",
+	description: "Dukkani Business Management Dashboard",
+	manifest: "/manifest.webmanifest",
+	appleWebApp: {
+		capable: true,
+		statusBarStyle: "default",
+		title: "Dukkani",
+	},
+	formatDetection: {
+		telephone: false,
+	},
+};
+
+export const viewport: Viewport = {
+	themeColor: "#000000",
+	width: "device-width",
+	initialScale: 1,
+	maximumScale: 1,
+	userScalable: false,
 };
 
 export default function RootLayout({
@@ -29,17 +45,7 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<div className="grid min-h-svh grid-rows-[auto_1fr]">
-						<Header />
-						<main>{children}</main>
-					</div>
-				</ThemeProvider>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);

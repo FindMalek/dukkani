@@ -12,5 +12,15 @@ export const auth = betterAuth<BetterAuthOptions>({
 	emailAndPassword: {
 		enabled: true,
 	},
+	socialProviders: {
+		facebook: {
+			clientId: env.FACEBOOK_CLIENT_ID,
+			clientSecret: env.FACEBOOK_CLIENT_SECRET,
+		},
+		google: {
+			clientId: env.GOOGLE_CLIENT_ID,
+			clientSecret: env.GOOGLE_CLIENT_SECRET,
+		},
+	},
 	plugins: [nextCookies()],
 });

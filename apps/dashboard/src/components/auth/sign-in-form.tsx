@@ -8,6 +8,8 @@ import z from "zod";
 import { authClient } from "@/lib/auth-client";
 import Loader from "./loader";
 
+// TODO: update UI if needed, also make sure the loader is in the UI package instead
+// TODO: please use the primary colors in branding
 export default function SignInForm({
 	onSwitchToSignUp,
 }: {
@@ -29,7 +31,7 @@ export default function SignInForm({
 				},
 				{
 					onSuccess: () => {
-						router.push("/dashboard");
+						router.push("/");
 						toast.success("Sign in successful");
 					},
 					onError: (error) => {
@@ -53,6 +55,47 @@ export default function SignInForm({
 	return (
 		<div className="mx-auto mt-10 w-full max-w-md p-6">
 			<h1 className="mb-6 text-center font-bold text-3xl">Welcome Back</h1>
+
+			{/* OAuth Providers */}
+			<div className="mb-6 space-y-2">
+				<Button
+					type="button"
+					variant="outline"
+					className="w-full"
+					onClick={() => {
+						authClient.signIn.social({
+							provider: "google",
+							callbackURL: "/",
+						});
+					}}
+				>
+					Continue with Google
+				</Button>
+				<Button
+					type="button"
+					variant="outline"
+					className="w-full"
+					onClick={() => {
+						authClient.signIn.social({
+							provider: "facebook",
+							callbackURL: "/",
+						});
+					}}
+				>
+					Continue with Facebook
+				</Button>
+			</div>
+
+			<div className="relative mb-6">
+				<div className="absolute inset-0 flex items-center">
+					<span className="w-full border-t" />
+				</div>
+				<div className="relative flex justify-center text-xs uppercase">
+					<span className="bg-background px-2 text-muted-foreground">
+						Or continue with email
+					</span>
+				</div>
+			</div>
 
 			<form
 				onSubmit={(e) => {

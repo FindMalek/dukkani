@@ -18,6 +18,7 @@
 		"dev:native": "turbo -F native dev",
 		"dev:api": "turbo -F @dukkani/api dev",
 		"dev:web": "turbo -F @dukkani/web dev",
+		"dev:dashboard": "turbo -F @dukkani/dashboard dev",
 		"db:setup": "cd docker && docker compose up -d && cd .. && pnpm db:push",
 		"db:push": "turbo -F @dukkani/db db:push",
 		"db:studio": "turbo -F @dukkani/db db:studio",
