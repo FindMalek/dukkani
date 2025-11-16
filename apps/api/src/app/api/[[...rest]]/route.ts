@@ -6,7 +6,7 @@ import { onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import type { NextRequest } from "next/server";
-import { env } from "../../../env";
+import { env } from "@dukkani/env";
 
 const rpcHandler = new RPCHandler(appRouter, {
 	interceptors: [

@@ -2,7 +2,8 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import Link from "next/link";
-
+import type { LinkProps } from "next/link";
+import { env } from "@dukkani/env";
 const TITLE_TEXT = `
  ██████╗ ███████╗████████╗████████╗███████╗██████╗
  ██╔══██╗██╔════╝╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗
@@ -27,7 +28,11 @@ export default function Home() {
 				</p>
 				<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
 					<Button asChild size="lg">
-						<Link href="http://localhost:3003">Get Started</Link>
+						<Link
+							href={env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]}
+						>
+							Get Started
+						</Link>
 					</Button>
 					<Button asChild variant="outline" size="lg">
 						<Link href="#features">Learn More</Link>

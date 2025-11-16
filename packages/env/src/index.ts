@@ -32,6 +32,9 @@ export const env = createEnv({
 		NEXT_PUBLIC_NODE_ENV: z
 			.enum(["development", "production", "local"])
 			.default("local"),
+		NEXT_PUBLIC_DASHBOARD_URL: z.url().default("http://localhost:3003"),
+		NEXT_PUBLIC_WEB_URL: z.url().default("http://localhost:3001"),
+		NEXT_PUBLIC_CORS_ORIGIN: z.url().default("http://localhost:3002"),
 	},
 	clientPrefix: "NEXT_PUBLIC_",
 	runtimeEnv: process.env,
