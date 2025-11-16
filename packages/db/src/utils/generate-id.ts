@@ -1,5 +1,7 @@
 import { customAlphabet } from "nanoid";
 
+export { hashPassword } from "@/seed/utils/password";
+
 /**
  * Custom alphabet for ID generation (URL-safe, excludes confusing characters)
  * Uses lowercase letters and numbers, excluding: 0, O, I, l (to avoid confusion)

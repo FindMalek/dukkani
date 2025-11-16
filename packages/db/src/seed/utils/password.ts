@@ -2,7 +2,6 @@
  * Password hashing utility for seeders
  * Uses scrypt to hash passwords compatible with Better Auth
  * Better Auth uses scrypt by default, so we must match that format
- * TODO: Move to `@dukkani/common` package in the future
  */
 
 import { scrypt, randomBytes } from "node:crypto";
