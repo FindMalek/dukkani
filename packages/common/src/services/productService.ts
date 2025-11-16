@@ -41,6 +41,7 @@ export class ProductService {
 
 	/**
 	 * Check stock availability for order items
+	 * Aggregates quantities by productId to handle duplicate products correctly
 	 */
 	static async checkStockAvailability(
 		items: Array<{ productId: string; quantity: number }>,
@@ -48,10 +49,22 @@ export class ProductService {
 		tx?: Prisma.TransactionClient,
 	): Promise<void> {
 		const client = tx ?? prisma;
-		const productIds = items.map((item) => item.productId);
+
+		// Aggregate required quantities by productId to handle duplicates
+		const requiredByProduct = new Map<string, number>();
+		for (const { productId, quantity } of items) {
+			requiredByProduct.set(
+				productId,
+				(requiredByProduct.get(productId) ?? 0) + quantity,
+			);
+		}
+
+		// Deduplicate productIds for database query
+		const uniqueProductIds = Array.from(requiredByProduct.keys());
+
 		const products = await client.product.findMany({
 			where: {
-				id: { in: productIds },
+				id: { in: uniqueProductIds },
 				storeId,
 			},
 			select: {
@@ -60,18 +73,20 @@ export class ProductService {
 			},
 		});
 
-		if (products.length !== productIds.length) {
+		// Validate all products were found
+		if (products.length !== uniqueProductIds.length) {
 			throw new Error(
 				"One or more products not found or don't belong to this store",
 			);
 		}
 
-		for (const item of items) {
+		// Validate aggregated quantities against stock
+		for (const [productId, required] of requiredByProduct.entries()) {
 			const product = products.find(
-				(p: { id: string; stock: number }) => p.id === item.productId,
+				(p: { id: string; stock: number }) => p.id === productId,
 			);
-			if (!product || product.stock < item.quantity) {
-				throw new Error(`Insufficient stock for product ${item.productId}`);
+			if (!product || product.stock < required) {
+				throw new Error(`Insufficient stock for product ${productId}`);
 			}
 		}
 	}
@@ -98,6 +113,7 @@ export class ProductService {
 
 	/**
 	 * Update multiple product stocks
+	 * Aggregates quantities by productId to handle duplicate products correctly
 	 */
 	static async updateMultipleProductStocks(
 		updates: Array<{ productId: string; quantity: number }>,
@@ -105,13 +121,24 @@ export class ProductService {
 		tx?: Prisma.TransactionClient,
 	): Promise<void> {
 		const client = tx ?? prisma;
+
+		// Aggregate quantities by productId to handle duplicates
+		const aggregatedUpdates = new Map<string, number>();
+		for (const { productId, quantity } of updates) {
+			aggregatedUpdates.set(
+				productId,
+				(aggregatedUpdates.get(productId) ?? 0) + quantity,
+			);
+		}
+
+		// Update each product once with aggregated quantity
 		await Promise.all(
-			updates.map((update) =>
+			Array.from(aggregatedUpdates.entries()).map(([productId, quantity]) =>
 				client.product.update({
-					where: { id: update.productId },
+					where: { id: productId },
 					data: {
 						stock: {
-							[operation]: update.quantity,
+							[operation]: quantity,
 						},
 					},
 				}),
