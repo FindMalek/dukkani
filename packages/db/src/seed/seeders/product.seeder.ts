@@ -1,8 +1,8 @@
 import { BaseSeeder } from "../base";
-import type { PrismaClient } from "../../../prisma/generated/client";
+import type { PrismaClient } from "@/prisma/generated/client";
 import type { StoreSeeder } from "./store.seeder";
-import { Prisma } from "../../../prisma/generated/client";
-import { generateProductId } from "@dukkani/common/utils";
+import { Prisma } from "@/prisma/generated/client";
+import { generateProductId } from "@/utils/generate-id";
 
 /**
  * Seeder for Product model

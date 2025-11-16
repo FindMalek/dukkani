@@ -2,7 +2,71 @@ import prisma from "@dukkani/db";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
+import { scrypt, randomBytes } from "node:crypto";
 import { env } from "./env";
+
+/**
+ * Custom password hasher to match seeder format
+ * Format: salt:hash (both base64 encoded)
+ */
+async function hashPassword(password: string): Promise<string> {
+	const salt = randomBytes(16);
+	const hash = await new Promise<Buffer>((resolve, reject) => {
+		scrypt(
+			password,
+			salt,
+			64,
+			{
+				N: 16384,
+				r: 8,
+				p: 1,
+			},
+			(err, derivedKey) => {
+				if (err) reject(err);
+				else resolve(derivedKey);
+			},
+		);
+	});
+	return `${salt.toString("base64")}:${hash.toString("base64")}`;
+}
+
+/**
+ * Custom password verifier to match seeder format
+ * Format: salt:hash (both base64 encoded)
+ * BetterAuth expects: verify({ hash, password })
+ */
+async function verifyPassword({
+	hash: hashedPassword,
+	password,
+}: {
+	hash: string;
+	password: string;
+}): Promise<boolean> {
+	const [saltBase64, hashBase64] = hashedPassword.split(":");
+	if (!saltBase64 || !hashBase64) {
+		return false;
+	}
+
+	const salt = Buffer.from(saltBase64, "base64");
+	const hash = await new Promise<Buffer>((resolve, reject) => {
+		scrypt(
+			password,
+			salt,
+			64,
+			{
+				N: 16384,
+				r: 8,
+				p: 1,
+			},
+			(err, derivedKey) => {
+				if (err) reject(err);
+				else resolve(derivedKey);
+			},
+		);
+	});
+
+	return hash.toString("base64") === hashBase64;
+}
 
 export const auth = betterAuth<BetterAuthOptions>({
 	database: prismaAdapter(prisma, {
@@ -11,6 +75,10 @@ export const auth = betterAuth<BetterAuthOptions>({
 	trustedOrigins: [env.NEXT_PUBLIC_CORS_ORIGIN],
 	emailAndPassword: {
 		enabled: true,
+		password: {
+			hash: hashPassword,
+			verify: verifyPassword,
+		},
 	},
 	socialProviders: {
 		facebook: {

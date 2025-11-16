@@ -1,5 +1,5 @@
 import { BaseSeeder } from "../base";
-import type { PrismaClient } from "../../../prisma/generated/client";
+import type { PrismaClient } from "@/prisma/generated/client";
 import type { StoreSeeder } from "./store.seeder";
 
 /**

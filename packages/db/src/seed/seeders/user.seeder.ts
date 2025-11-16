@@ -1,6 +1,6 @@
 import { BaseSeeder } from "../base";
-import type { PrismaClient } from "../../../prisma/generated/client";
-import { hashPassword } from "../utils/password";
+import type { PrismaClient } from "@/prisma/generated/client";
+import { hashPassword } from "@/seed/utils/password";
 
 /**
  * Seeder for User model

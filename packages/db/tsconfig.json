@@ -5,6 +5,10 @@
 		"declarationMap": true,
 		"sourceMap": true,
 		"outDir": "dist",
-		"composite": true
+		"composite": true,
+		"paths": {
+			"@/*": ["./src/*"],
+			"@/prisma/generated/*": ["./prisma/generated/*"]
+		}
 	}
 }
