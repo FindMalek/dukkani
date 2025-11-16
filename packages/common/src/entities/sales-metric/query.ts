@@ -1,5 +1,5 @@
 import { type Prisma } from "@dukkani/db/prisma/generated";
-
+import { StoreQuery } from "../store/query";
 export type SalesMetricSimpleDbData = Prisma.SalesMetricGetPayload<{
 	include: ReturnType<typeof SalesMetricQuery.getSimpleInclude>;
 }>;
@@ -20,7 +20,7 @@ export class SalesMetricQuery {
 	static getInclude() {
 		return {
 			...this.getSimpleInclude(),
-			store: true,
+			store: StoreQuery.getSimpleInclude(),
 		} satisfies Prisma.SalesMetricInclude;
 	}
 

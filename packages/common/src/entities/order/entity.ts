@@ -3,6 +3,10 @@ import type {
 	OrderIncludeOutput,
 } from "../../schemas/order/output";
 import type { OrderSimpleDbData, OrderIncludeDbData } from "./query";
+import { StoreEntity } from "../store/entity";
+import { CustomerEntity } from "../customer/entity";
+import { OrderItemEntity } from "../order-item/entity";
+import { WhatsAppMessageEntity } from "../whatsapp-message/entity";
 
 export class OrderEntity {
 	static getSimpleRo(entity: OrderSimpleDbData): OrderSimpleOutput {
@@ -23,10 +27,14 @@ export class OrderEntity {
 	static getRo(entity: OrderIncludeDbData): OrderIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			store: entity.store,
-			customer: entity.customer,
-			orderItems: entity.orderItems,
-			whatsappMessages: entity.whatsappMessages,
+			store: StoreEntity.getSimpleRo(entity.store),
+			customer: entity.customer
+				? CustomerEntity.getSimpleRo(entity.customer)
+				: undefined,
+			orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
+			whatsappMessages: entity.whatsappMessages.map(
+				WhatsAppMessageEntity.getSimpleRo,
+			),
 		};
 	}
 }

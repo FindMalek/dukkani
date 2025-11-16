@@ -1,4 +1,6 @@
 import { type Prisma } from "@dukkani/db/prisma/generated";
+import { StoreQuery } from "../store/query";
+import { TeamMemberQuery } from "../team-member/query";
 
 export type UserSimpleDbData = Prisma.UserGetPayload<{
 	include: ReturnType<typeof UserQuery.getSimpleInclude>;
@@ -20,8 +22,8 @@ export class UserQuery {
 	static getInclude() {
 		return {
 			...this.getSimpleInclude(),
-			stores: true,
-			teamMembers: true,
+			stores: StoreQuery.getSimpleInclude(),
+			teamMembers: TeamMemberQuery.getSimpleInclude(),
 		} satisfies Prisma.UserInclude;
 	}
 

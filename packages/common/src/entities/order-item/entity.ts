@@ -3,6 +3,8 @@ import type {
 	OrderItemIncludeOutput,
 } from "../../schemas/order-item/output";
 import type { OrderItemSimpleDbData, OrderItemIncludeDbData } from "./query";
+import { ProductEntity } from "../product/entity";
+import { OrderEntity } from "../order/entity";
 
 export class OrderItemEntity {
 	static getSimpleRo(entity: OrderItemSimpleDbData): OrderItemSimpleOutput {
@@ -20,8 +22,8 @@ export class OrderItemEntity {
 	static getRo(entity: OrderItemIncludeDbData): OrderItemIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			order: entity.order,
-			product: entity.product,
+			order: OrderEntity.getSimpleRo(entity.order),
+			product: ProductEntity.getSimpleRo(entity.product),
 		};
 	}
 }

@@ -2,7 +2,10 @@ import type {
 	ProductSimpleOutput,
 	ProductIncludeOutput,
 } from "../../schemas/product/output";
+import { ImageEntity } from "../image/entity";
+import { OrderItemEntity } from "../order-item/entity";
 import type { ProductSimpleDbData, ProductIncludeDbData } from "./query";
+import { StoreEntity } from "../store/entity";
 
 export class ProductEntity {
 	static getSimpleRo(entity: ProductSimpleDbData): ProductSimpleOutput {
@@ -22,9 +25,9 @@ export class ProductEntity {
 	static getRo(entity: ProductIncludeDbData): ProductIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			store: entity.store,
-			images: entity.images,
-			orderItems: entity.orderItems,
+			store: StoreEntity.getSimpleRo(entity.store),
+			images: entity.images.map(ImageEntity.getSimpleRo),
+			orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
 		};
 	}
 }

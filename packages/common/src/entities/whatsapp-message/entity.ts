@@ -6,6 +6,7 @@ import type {
 	WhatsAppMessageSimpleDbData,
 	WhatsAppMessageIncludeDbData,
 } from "./query";
+import { OrderEntity } from "../order/entity";
 
 export class WhatsAppMessageEntity {
 	static getSimpleRo(
@@ -28,7 +29,7 @@ export class WhatsAppMessageEntity {
 	): WhatsAppMessageIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			order: entity.order,
+			order: OrderEntity.getSimpleRo(entity.order),
 		};
 	}
 }

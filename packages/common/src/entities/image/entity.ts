@@ -3,6 +3,7 @@ import type {
 	ImageIncludeOutput,
 } from "../../schemas/image/output";
 import type { ImageSimpleDbData, ImageIncludeDbData } from "./query";
+import { ProductEntity } from "../product/entity";
 
 export class ImageEntity {
 	static getSimpleRo(entity: ImageSimpleDbData): ImageSimpleOutput {
@@ -18,7 +19,7 @@ export class ImageEntity {
 	static getRo(entity: ImageIncludeDbData): ImageIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			product: entity.product,
+			product: ProductEntity.getSimpleRo(entity.product),
 		};
 	}
 }

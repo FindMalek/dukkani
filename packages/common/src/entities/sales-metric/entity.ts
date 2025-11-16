@@ -6,6 +6,7 @@ import type {
 	SalesMetricSimpleDbData,
 	SalesMetricIncludeDbData,
 } from "./query";
+import { StoreEntity } from "../store/entity";
 
 export class SalesMetricEntity {
 	static getSimpleRo(entity: SalesMetricSimpleDbData): SalesMetricSimpleOutput {
@@ -23,7 +24,7 @@ export class SalesMetricEntity {
 	static getRo(entity: SalesMetricIncludeDbData): SalesMetricIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			store: entity.store,
+			store: StoreEntity.getSimpleRo(entity.store),
 		};
 	}
 }

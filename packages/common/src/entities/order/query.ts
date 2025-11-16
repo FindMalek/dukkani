@@ -1,4 +1,5 @@
 import { type Prisma } from "@dukkani/db/prisma/generated";
+import { CustomerQuery } from "../customer/query";
 
 export type OrderSimpleDbData = Prisma.OrderGetPayload<{
 	include: ReturnType<typeof OrderQuery.getSimpleInclude>;
@@ -21,7 +22,7 @@ export class OrderQuery {
 		return {
 			...this.getSimpleInclude(),
 			store: true,
-			customer: true,
+			customer: CustomerQuery.getSimpleInclude(),
 			orderItems: true,
 			whatsappMessages: true,
 		} satisfies Prisma.OrderInclude;

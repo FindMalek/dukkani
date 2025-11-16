@@ -3,7 +3,7 @@ import type {
 	StorePlanIncludeOutput,
 } from "../../schemas/store-plan/output";
 import type { StorePlanSimpleDbData, StorePlanIncludeDbData } from "./query";
-
+import { StoreEntity } from "../store/entity";
 export class StorePlanEntity {
 	static getSimpleRo(entity: StorePlanSimpleDbData): StorePlanSimpleOutput {
 		return {
@@ -21,7 +21,7 @@ export class StorePlanEntity {
 	static getRo(entity: StorePlanIncludeDbData): StorePlanIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			store: entity.store,
+			store: StoreEntity.getSimpleRo(entity.store),
 		};
 	}
 }

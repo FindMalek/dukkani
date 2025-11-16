@@ -3,6 +3,8 @@ import type {
 	TeamMemberIncludeOutput,
 } from "../../schemas/team-member/output";
 import type { TeamMemberSimpleDbData, TeamMemberIncludeDbData } from "./query";
+import { UserEntity } from "../user/entity";
+import { StoreEntity } from "../store/entity";
 
 export class TeamMemberEntity {
 	static getSimpleRo(entity: TeamMemberSimpleDbData): TeamMemberSimpleOutput {
@@ -19,8 +21,8 @@ export class TeamMemberEntity {
 	static getRo(entity: TeamMemberIncludeDbData): TeamMemberIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			user: entity.user,
-			store: entity.store,
+			user: UserEntity.getSimpleRo(entity.user),
+			store: StoreEntity.getSimpleRo(entity.store),
 		};
 	}
 }

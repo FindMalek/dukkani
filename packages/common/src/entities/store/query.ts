@@ -1,4 +1,11 @@
 import { type Prisma } from "@dukkani/db/prisma/generated";
+import { UserQuery } from "../user";
+import { StorePlanQuery } from "../store-plan";
+import { ProductQuery } from "../product";
+import { OrderQuery } from "../order";
+import { CustomerQuery } from "../customer";
+import { TeamMemberQuery } from "../team-member";
+import { SalesMetricQuery } from "../sales-metric";
 
 export type StoreSimpleDbData = Prisma.StoreGetPayload<{
 	include: ReturnType<typeof StoreQuery.getSimpleInclude>;
@@ -20,13 +27,13 @@ export class StoreQuery {
 	static getInclude() {
 		return {
 			...this.getSimpleInclude(),
-			owner: true,
-			storePlan: true,
-			products: true,
-			orders: true,
-			customers: true,
-			teamMembers: true,
-			salesMetrics: true,
+			owner: UserQuery.getSimpleInclude(),
+			storePlan: StorePlanQuery.getSimpleInclude(),
+			products: ProductQuery.getSimpleInclude(),
+			orders: OrderQuery.getSimpleInclude(),
+			customers: CustomerQuery.getSimpleInclude(),
+			teamMembers: TeamMemberQuery.getSimpleInclude(),
+			salesMetrics: SalesMetricQuery.getSimpleInclude(),
 		} satisfies Prisma.StoreInclude;
 	}
 

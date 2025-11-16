@@ -3,6 +3,13 @@ import type {
 	StoreIncludeOutput,
 } from "../../schemas/store/output";
 import type { StoreSimpleDbData, StoreIncludeDbData } from "./query";
+import { UserEntity } from "../user/entity";
+import { StorePlanEntity } from "../store-plan/entity";
+import { ProductEntity } from "../product/entity";
+import { OrderEntity } from "../order/entity";
+import { CustomerEntity } from "../customer/entity";
+import { TeamMemberEntity } from "../team-member/entity";
+import { SalesMetricEntity } from "../sales-metric/entity";
 
 export class StoreEntity {
 	static getSimpleRo(entity: StoreSimpleDbData): StoreSimpleOutput {
@@ -23,13 +30,15 @@ export class StoreEntity {
 	static getRo(entity: StoreIncludeDbData): StoreIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			owner: entity.owner,
-			storePlan: entity.storePlan,
-			products: entity.products,
-			orders: entity.orders,
-			customers: entity.customers,
-			teamMembers: entity.teamMembers,
-			salesMetrics: entity.salesMetrics,
+			owner: UserEntity.getSimpleRo(entity.owner),
+			storePlan: entity.storePlan
+				? StorePlanEntity.getSimpleRo(entity.storePlan)
+				: undefined,
+			products: entity.products.map(ProductEntity.getSimpleRo),
+			orders: entity.orders.map(OrderEntity.getSimpleRo),
+			customers: entity.customers.map(CustomerEntity.getSimpleRo),
+			teamMembers: entity.teamMembers.map(TeamMemberEntity.getSimpleRo),
+			salesMetrics: entity.salesMetrics.map(SalesMetricEntity.getSimpleRo),
 		};
 	}
 }
