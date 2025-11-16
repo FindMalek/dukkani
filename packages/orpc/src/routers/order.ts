@@ -51,10 +51,19 @@ export const orderRouter = {
 
 			const where: {
 				storeId: { in: string[] };
-				status?: "PENDING" | "CONFIRMED" | "PROCESSING" | "SHIPPED" | "DELIVERED" | "CANCELLED";
-				OR?: Array<{
-					customerName: { contains: string; mode: "insensitive" };
-				} | { customerPhone: { contains: string; mode: "insensitive" } }>;
+				status?:
+					| "PENDING"
+					| "CONFIRMED"
+					| "PROCESSING"
+					| "SHIPPED"
+					| "DELIVERED"
+					| "CANCELLED";
+				OR?: Array<
+					| {
+							customerName: { contains: string; mode: "insensitive" };
+					  }
+					| { customerPhone: { contains: string; mode: "insensitive" } }
+				>;
 			} = {
 				storeId: { in: userStoreIds },
 			};

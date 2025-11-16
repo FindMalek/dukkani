@@ -23,14 +23,18 @@ export interface RateLimitOptions {
  * Create rate limiting middleware
  */
 export function createRateLimitMiddleware(options: RateLimitOptions = {}) {
-	return async ({ context, next }: Parameters<Parameters<typeof o.middleware>[0]>[0]) => {
+	return async ({
+		context,
+		next,
+	}: Parameters<Parameters<typeof o.middleware>[0]>[0]) => {
 		// Get headers from context
 		const headers = context.headers ?? {};
 
 		// Determine which rate limiter to use
 		const isAuthenticated = !!context.session?.user;
-		const limiterName = options.limiter ?? (isAuthenticated ? "standard" : "strict");
-		
+		const limiterName =
+			options.limiter ?? (isAuthenticated ? "standard" : "strict");
+
 		// Import RateLimiter dynamically if custom config is provided
 		let limiter;
 		if (options.custom) {
@@ -83,4 +87,3 @@ export const rateLimitProtected = createRateLimitMiddleware({
 export const rateLimitSensitive = createRateLimitMiddleware({
 	limiter: "veryStrict",
 });
-

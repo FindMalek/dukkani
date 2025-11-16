@@ -85,9 +85,12 @@ const memoryStore = new MemoryStore();
 
 // Cleanup expired entries every 5 minutes
 if (typeof setInterval !== "undefined") {
-	setInterval(() => {
-		memoryStore.cleanup();
-	}, 5 * 60 * 1000);
+	setInterval(
+		() => {
+			memoryStore.cleanup();
+		},
+		5 * 60 * 1000,
+	);
 }
 
 /**
@@ -244,4 +247,3 @@ export const rateLimiters = {
 		keyPrefix: "ratelimit:verystrict",
 	}),
 };
-

@@ -1,7 +1,10 @@
 import prisma from "@dukkani/db";
 import { StoreQuery } from "../entities/store/query";
 import { StoreEntity } from "../entities/store/entity";
-import type { StoreSimpleOutput, StoreIncludeOutput } from "../schemas/store/output";
+import type {
+	StoreSimpleOutput,
+	StoreIncludeOutput,
+} from "../schemas/store/output";
 
 /**
  * Store service - Shared business logic for store operations

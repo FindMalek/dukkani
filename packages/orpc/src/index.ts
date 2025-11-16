@@ -20,9 +20,7 @@ const requireAuth = o.middleware(async ({ context, next }) => {
 
 // Protected procedure with standard rate limiting and authentication
 // Rate limiting happens first, then authentication
-export const protectedProcedure = o
-	.use(rateLimitProtected)
-	.use(requireAuth);
+export const protectedProcedure = o.use(rateLimitProtected).use(requireAuth);
 
 // Re-export router types for easier importing
 export type { AppRouter, AppRouterClient } from "./routers/index";

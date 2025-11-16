@@ -124,10 +124,7 @@ export class OrderService {
 	/**
 	 * Delete order and restore stock
 	 */
-	static async deleteOrder(
-		orderId: string,
-		userId: string,
-	): Promise<void> {
+	static async deleteOrder(orderId: string, userId: string): Promise<void> {
 		// Get order to verify ownership and get order items
 		const order = await prisma.order.findUnique({
 			where: { id: orderId },

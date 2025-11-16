@@ -39,7 +39,7 @@ export const storeRouter = {
 		.input(getStoreInputSchema)
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
-			
+
 			if (!input.slug) {
 				throw new Error("Store slug is required");
 			}

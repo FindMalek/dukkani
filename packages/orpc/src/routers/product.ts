@@ -10,7 +10,10 @@ import {
 } from "@dukkani/common/schemas/product/input";
 import { ProductQuery } from "@dukkani/common/entities/product/query";
 import { ProductEntity } from "@dukkani/common/entities/product/entity";
-import type { ListProductsOutput, ProductIncludeOutput } from "@dukkani/common/schemas/product/output";
+import type {
+	ListProductsOutput,
+	ProductIncludeOutput,
+} from "@dukkani/common/schemas/product/output";
 import { z } from "zod";
 
 // Extended schema for create with imageUrls
@@ -50,7 +53,10 @@ export const productRouter = {
 			const where: {
 				storeId: { in: string[] };
 				published?: boolean;
-				OR?: Array<{ name: { contains: string; mode: "insensitive" } } | { description: { contains: string; mode: "insensitive" } }>;
+				OR?: Array<
+					| { name: { contains: string; mode: "insensitive" } }
+					| { description: { contains: string; mode: "insensitive" } }
+				>;
 			} = {
 				storeId: { in: userStoreIds },
 			};

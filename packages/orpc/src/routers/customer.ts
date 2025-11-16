@@ -42,7 +42,10 @@ export const customerRouter = {
 
 			const where: {
 				storeId: { in: string[] };
-				OR?: Array<{ name: { contains: string; mode: "insensitive" } } | { phone: { contains: string; mode: "insensitive" } }>;
+				OR?: Array<
+					| { name: { contains: string; mode: "insensitive" } }
+					| { phone: { contains: string; mode: "insensitive" } }
+				>;
 			} = {
 				storeId: { in: userStoreIds },
 			};

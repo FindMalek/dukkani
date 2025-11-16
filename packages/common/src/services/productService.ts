@@ -64,9 +64,7 @@ export class ProductService {
 		for (const item of items) {
 			const product = products.find((p) => p.id === item.productId);
 			if (!product || product.stock < item.quantity) {
-				throw new Error(
-					`Insufficient stock for product ${item.productId}`,
-				);
+				throw new Error(`Insufficient stock for product ${item.productId}`);
 			}
 		}
 	}
