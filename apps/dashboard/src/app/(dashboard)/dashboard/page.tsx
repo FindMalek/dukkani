@@ -10,6 +10,7 @@ import {
 import { useDashboardStats } from "@/hooks/api/use-dashboard-stats";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { formatCurrency } from "@dukkani/common/utils";
+import { cn } from "@dukkani/ui/lib/utils";
 
 export default function DashboardPage() {
 	const { data: stats, isLoading, error } = useDashboardStats();
@@ -181,7 +182,12 @@ export default function DashboardPage() {
 												</div>
 												<div className="text-right">
 													<p
-														className={`text-sm font-medium ${product.stock === 0 ? "text-destructive" : "text-warning"}`}
+														className={cn(
+															"text-sm font-medium",
+															product.stock === 0
+																? "text-destructive"
+																: "text-warning",
+														)}
 													>
 														{product.stock} left
 													</p>
