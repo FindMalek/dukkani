@@ -1,29 +1,71 @@
+/**
+ * Represents a product available for sale in a store.
+ * Products have a custom ID format: {STORE_PREFIX}-{RANDOM} (e.g., "AHM-xyz98765").
+ * Products can be published or unpublished to control visibility in the store.
+ * **Key Fields:**
+ * - `id`: Custom string ID with store prefix (e.g., "AHM-xyz98765")
+ * - `name`: Product name
+ * - `description`: Optional product description
+ * - `price`: Product price (stored as Decimal for accuracy)
+ * - `stock`: Current inventory count
+ * - `published`: Whether the product is visible to customers (default: false)
+ * - `storeId`: Reference to the Store that owns this product
+ * **Relationships:**
+ * - Belongs to one Store
+ * - Has many Images (product photos)
+ * - Has many OrderItems (appears in orders)
+ * **Business Logic:**
+ * - Products must be published to appear in customer-facing store
+ * - Stock count should be decremented when orders are placed
+ * - Custom ID format makes products URL-friendly and identifiable by store
+ * - When store is deleted, all products are cascade deleted
+ */
 model Product {
-  id          String   @id
+  id String @id
+
   name        String
   description String?
-  price       Decimal  @db.Decimal(10, 2)
-  stock       Int
-  published   Boolean  @default(false)
-  storeId     BigInt   @map("storeid")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  published   Boolean @default(false)
 
-  store      Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  stock Int
+  price Decimal @db.Decimal(10, 2)
+
   images     Image[]
   orderItems OrderItem[]
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  storeId String @map("storeid")
+  store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@map("product")
 }
 
+/**
+ * Represents an image associated with a product.
+ * Products can have multiple images for showcasing different angles or details.
+ * Images are stored as URLs (typically pointing to cloud storage or CDN).
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `url`: URL of the image (can be external or internal)
+ * - `productId`: Reference to the Product this image belongs to
+ * **Relationships:**
+ * - Belongs to one Product
+ * **Business Logic:**
+ * - Multiple images per product are supported
+ * - When a product is deleted, all its images are cascade deleted
+ * - Image URLs should be validated and stored securely
+ */
 model Image {
-  id        BigInt   @id @default(autoincrement())
-  url       String
-  productId String   @map("productid")
+  id  String @id @default(cuid())
+  url String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String  @map("productid")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@map("image")
 }

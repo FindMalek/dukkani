@@ -16,7 +16,7 @@ export class CustomerSeeder extends BaseSeeder {
 		id: string;
 		name: string;
 		phone: string;
-		storeId: bigint;
+		storeId: string;
 	}> = [];
 
 	private storeSeeder?: StoreSeeder;

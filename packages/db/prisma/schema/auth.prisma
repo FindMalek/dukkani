@@ -1,3 +1,24 @@
+/**
+ * Represents a user account in the Dukkani platform.
+ * Users can own stores, be team members of stores, and have authentication sessions.
+ * This is the core user entity for authentication and authorization.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID, mapped to "_id" for Better Auth compatibility)
+ * - `name`: User's display name
+ * - `email`: User's email address (must be unique)
+ * - `emailVerified`: Whether the email has been verified
+ * - `image`: Optional profile image URL
+ * **Relationships:**
+ * - Has many Sessions (authentication sessions)
+ * - Has many Accounts (OAuth/credential providers)
+ * - Has many Stores (as owner)
+ * - Has many TeamMembers (as team member in stores)
+ * **Business Logic:**
+ * - Email must be unique across all users
+ * - Users can own multiple stores
+ * - Users can be team members in multiple stores
+ * - Authentication is handled through Better Auth library
+ */
 model User {
   id            String       @id @map("_id")
   name          String
@@ -15,6 +36,25 @@ model User {
   @@map("user")
 }
 
+/**
+ * Represents an active authentication session for a user.
+ * Sessions track user login state and include security metadata like IP address and user agent.
+ * Sessions expire after a set time and can be invalidated.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID, mapped to "_id" for Better Auth compatibility)
+ * - `expiresAt`: Timestamp when the session expires
+ * - `token`: Unique session token (must be unique)
+ * - `userId`: Reference to the User this session belongs to
+ * - `ipAddress`: Optional IP address where session was created
+ * - `userAgent`: Optional browser/client user agent string
+ * **Relationships:**
+ * - Belongs to one User
+ * **Business Logic:**
+ * - Each session token must be unique
+ * - Sessions are used for authentication and authorization
+ * - When a user is deleted, all their sessions are cascade deleted
+ * - IP and user agent help with security monitoring
+ */
 model Session {
   id        String   @id @map("_id")
   expiresAt DateTime
@@ -30,6 +70,30 @@ model Session {
   @@map("session")
 }
 
+/**
+ * Represents an authentication account linked to a user.
+ * Supports multiple authentication providers (OAuth, email/password, etc.).
+ * Stores provider-specific tokens and credentials.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID, mapped to "_id" for Better Auth compatibility)
+ * - `accountId`: Provider-specific account identifier
+ * - `providerId`: Authentication provider (e.g., "google", "github", "credentials")
+ * - `userId`: Reference to the User this account belongs to
+ * - `accessToken`: Optional OAuth access token
+ * - `refreshToken`: Optional OAuth refresh token
+ * - `idToken`: Optional OAuth ID token
+ * - `accessTokenExpiresAt`: Optional expiration for access token
+ * - `refreshTokenExpiresAt`: Optional expiration for refresh token
+ * - `scope`: Optional OAuth scope string
+ * - `password`: Optional hashed password (for credential provider)
+ * **Relationships:**
+ * - Belongs to one User
+ * **Business Logic:**
+ * - A user can have multiple accounts (different providers)
+ * - OAuth tokens are stored securely and can expire
+ * - Password is hashed and stored only for credential-based authentication
+ * - When a user is deleted, all their accounts are cascade deleted
+ */
 model Account {
   id                    String    @id @map("_id")
   accountId             String
@@ -49,6 +113,21 @@ model Account {
   @@map("account")
 }
 
+/**
+ * Represents a verification token or code.
+ * Used for email verification, password reset, and other verification flows.
+ * Tokens expire after a set time for security.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID, mapped to "_id" for Better Auth compatibility)
+ * - `identifier`: What is being verified (e.g., email address)
+ * - `value`: The verification token or code
+ * - `expiresAt`: Timestamp when the verification expires
+ * **Business Logic:**
+ * - Verification tokens are time-limited for security
+ * - Used for email verification, password resets, etc.
+ * - Tokens should be single-use and invalidated after use
+ * - Expiration prevents stale verification attempts
+ */
 model Verification {
   id         String    @id @map("_id")
   identifier String

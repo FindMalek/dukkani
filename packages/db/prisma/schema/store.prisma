@@ -1,36 +1,87 @@
+/**
+ * Represents a store in the Dukkani platform.
+ * Each store is owned by a user and can have products, orders, team members, and customers.
+ * Stores have customizable themes, categories, and subscription plans that control their features and limits.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `name`: Display name of the store
+ * - `slug`: URL-friendly unique identifier for the store (e.g., "ahmed-fashion")
+ * - `description`: Optional description of the store
+ * - `category`: Store category (FASHION, ELECTRONICS, FOOD, HOME, BEAUTY, SPORTS, BOOKS, TOYS, OTHER)
+ * - `theme`: Visual theme for the store (LIGHT, DARK, MINIMAL, MODERN, CLASSIC)
+ * - `ownerId`: Reference to the User who owns this store
+ * - `whatsappNumber`: Optional WhatsApp number for customer communication
+ * **Relationships:**
+ * - Belongs to one User (owner)
+ * - Has many Products
+ * - Has many Orders
+ * - Has many TeamMembers (staff/employees)
+ * - Has many Customers
+ * - Has one StorePlan (subscription plan)
+ * - Has many SalesMetrics (daily sales data)
+ * **Business Logic:**
+ * - Each store must have a unique slug for URL routing
+ * - When the owner is deleted, the store is cascade deleted
+ * - Store plans control order limits and feature access
+ */
 model Store {
-  id             BigInt         @id @default(autoincrement())
-  name           String
-  slug           String         @unique
-  description    String?
-  category       StoreCategory?
-  theme          StoreTheme?
-  ownerId        String         @map("ownerid")
-  whatsappNumber String?        @map("whatsappnumber")
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  id   String @id @default(cuid())
+  slug String @unique
 
-  owner        User          @relation("StoreOwner", fields: [ownerId], references: [id], onDelete: Cascade)
-  products     Product[]
+  name           String
+  description    String?
+  whatsappNumber String? @map("whatsappnumber")
+
+  storePlan StorePlan?
+  theme     StoreTheme?
+  category  StoreCategory?
+
   orders       Order[]
-  teamMembers  TeamMember[]
+  products     Product[]
   customers    Customer[]
-  storePlan    StorePlan?
+  teamMembers  TeamMember[]
   salesMetrics SalesMetric[]
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  ownerId String @map("ownerid")
+  owner   User   @relation("StoreOwner", fields: [ownerId], references: [id], onDelete: Cascade)
 
   @@map("store")
 }
 
+/**
+ * Represents a subscription plan for a store.
+ * Each store has one plan that defines its order limits, features, and billing tier.
+ * Plans can be FREE, BASIC, PREMIUM, or ENTERPRISE with different order limits.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `storeId`: Reference to the Store this plan belongs to (one-to-one relationship)
+ * - `planType`: Type of plan (FREE, BASIC, PREMIUM, ENTERPRISE)
+ * - `orderLimit`: Maximum number of orders allowed in the current period
+ * - `orderCount`: Current number of orders in the period (resets based on plan cycle)
+ * - `resetAt`: Optional timestamp when the order count should reset
+ * **Relationships:**
+ * - Belongs to one Store (one-to-one, unique constraint)
+ * **Business Logic:**
+ * - Each store must have exactly one plan
+ * - Order count tracks usage against the limit
+ * - Reset date can be used for monthly/annual billing cycles
+ * - When store is deleted, plan is cascade deleted
+ */
 model StorePlan {
-  id         BigInt        @id @default(autoincrement())
-  storeId    BigInt        @map("storeid")
+  id         String        @id @default(cuid())
+
   planType   StorePlanType @map("plantype")
   orderLimit Int           @map("orderlimit")
   orderCount Int           @default(0) @map("ordercount")
-  resetAt    DateTime?
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
 
+  resetAt    DateTime?
+  updatedAt  DateTime      @updatedAt
+  createdAt  DateTime      @default(now())
+
+  storeId    String        @map("storeid")
   store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@unique([storeId])

@@ -18,7 +18,7 @@ export class StoreSeeder extends BaseSeeder {
 
 	// Export seeded stores for use in other seeders
 	public seededStores: Array<{
-		id: bigint;
+		id: string;
 		name: string;
 		slug: string;
 		ownerId: string;

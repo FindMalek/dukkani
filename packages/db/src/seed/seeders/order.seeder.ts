@@ -20,7 +20,7 @@ export class OrderSeeder extends BaseSeeder {
 	public seededOrders: Array<{
 		id: string;
 		status: OrderStatus;
-		storeId: bigint;
+		storeId: string;
 		customerId: string | null;
 	}> = [];
 
@@ -76,7 +76,7 @@ export class OrderSeeder extends BaseSeeder {
 		}
 
 		// Group products by store
-		const productsByStore = new Map<bigint, typeof products>();
+		const productsByStore = new Map<string, typeof products>();
 		for (const product of products) {
 			if (!productsByStore.has(product.storeId)) {
 				productsByStore.set(product.storeId, []);
@@ -85,7 +85,7 @@ export class OrderSeeder extends BaseSeeder {
 		}
 
 		// Group customers by store
-		const customersByStore = new Map<bigint, typeof customers>();
+		const customersByStore = new Map<string, typeof customers>();
 		for (const customer of customers) {
 			if (!customersByStore.has(customer.storeId)) {
 				customersByStore.set(customer.storeId, []);
@@ -101,7 +101,7 @@ export class OrderSeeder extends BaseSeeder {
 			customerPhone: string;
 			address: string;
 			notes?: string;
-			storeId: bigint;
+			storeId: string;
 			customerId: string | null;
 			items: Array<{
 				productId: string;

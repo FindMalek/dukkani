@@ -17,7 +17,7 @@ export class ProductSeeder extends BaseSeeder {
 	public seededProducts: Array<{
 		id: string;
 		name: string;
-		storeId: bigint;
+		storeId: string;
 		price: Prisma.Decimal;
 	}> = [];
 
