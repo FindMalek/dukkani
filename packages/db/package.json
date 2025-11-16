@@ -23,11 +23,11 @@
 		"db:migrate": "prisma migrate dev",
 		"db:seed": "tsx src/seed/index.ts",
 		"db:reset-and-seed": "pnpm db:reset && pnpm db:seed",
-		"db:reset": "prisma migrate reset --force",
+			"db:reset": "prisma migrate reset --force",
 		"db:format": "prisma format"
 	},
 	"peerDependencies": {
-		"typescript": "^5"
+		"typescript": "^5.9.3"
 	},
 	"dependencies": {
 		"@dukkani/env": "workspace:*",
@@ -41,7 +41,7 @@
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
 		"@types/bcryptjs": "^2.4.6",
-		"prisma": "^6.15.0",
+		"prisma": "^6.19.0",
 		"tsdown": "catalog:",
 		"tsx": "catalog:"
 	}

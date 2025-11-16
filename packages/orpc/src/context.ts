@@ -2,11 +2,21 @@ import { auth } from "@dukkani/auth";
 import type { IncomingHttpHeaders } from "node:http";
 
 export async function createContext(headers: IncomingHttpHeaders | Headers) {
-	// Convert Headers to plain object if needed
+	// Convert to Headers object if needed
 	const headersObj =
 		headers instanceof Headers
-			? Object.fromEntries(headers.entries())
-			: headers;
+			? headers
+			: new Headers(
+					Object.entries(headers).reduce(
+						(acc, [key, value]) => {
+							if (value) {
+								acc[key] = Array.isArray(value) ? value.join(", ") : value;
+							}
+							return acc;
+						},
+						{} as Record<string, string>,
+					),
+				);
 
 	const session = await auth.api.getSession({
 		headers: headersObj,

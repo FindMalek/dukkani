@@ -1,6 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { orpc } from "@/utils/orpc";
+import { Button } from "@dukkani/ui/components/button";
 
 const TITLE_TEXT = `
  ██████╗ ███████╗████████╗████████╗███████╗██████╗
@@ -31,6 +32,7 @@ export default function Home() {
 						<div
 							className={`h-2 w-2 rounded-full ${healthCheck.data ? "bg-green-500" : "bg-red-500"}`}
 						/>
+						<Button>Click me</Button>
 						<span className="text-muted-foreground text-sm">
 							{healthCheck.isLoading
 								? "Checking..."

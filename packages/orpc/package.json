@@ -15,21 +15,21 @@
 		"build": "tsdown"
 	},
 	"devDependencies": {
-		"tsdown": "catalog:",
-		"@dukkani/config": "workspace:*"
+		"@dukkani/config": "workspace:*",
+		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
-		"typescript": "^5"
+		"typescript": "^5.9.3"
 	},
 	"dependencies": {
-		"@orpc/server": "catalog:",
+		"@dukkani/auth": "workspace:*",
+		"@dukkani/db": "workspace:*",
 		"@orpc/client": "catalog:",
 		"@orpc/openapi": "catalog:",
+		"@orpc/server": "catalog:",
 		"@orpc/zod": "catalog:",
 		"@prisma/client": "catalog:",
 		"dotenv": "catalog:",
-		"zod": "catalog:",
-		"@dukkani/auth": "workspace:*",
-		"@dukkani/db": "workspace:*"
+		"zod": "catalog:"
 	}
 }

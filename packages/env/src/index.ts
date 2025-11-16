@@ -1,19 +1,32 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { createEnv } from "@t3-oss/env-core";
-import dotenv from "dotenv";
 import { z } from "zod";
 
-// Load .env from root of monorepo
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-dotenv.config({
-	path: path.resolve(__dirname, "../../../.env"),
-});
+// Load .env from root of monorepo (only on server side)
+// Next.js automatically loads .env files, but we need to load from monorepo root
+// This code only runs on the server - client code should never execute this
+if (typeof process !== "undefined" && process.versions?.node) {
+	try {
+		// Use require for synchronous loading (only available in Node.js)
+		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		const path = require("node:path");
+		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		const { fileURLToPath } = require("node:url");
+		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		const dotenv = require("dotenv");
+
+		const __filename = fileURLToPath(import.meta.url);
+		const __dirname = path.dirname(__filename);
+		dotenv.config({
+			path: path.resolve(__dirname, "../../../.env"),
+		});
+	} catch {
+		// Ignore errors in environments where Node.js APIs aren't available
+	}
+}
 
 export const env = createEnv({
 	server: {
-		DATABASE_URL: z.string().url(),
+		DATABASE_URL: z.url(),
 	},
 	client: {
 		NEXT_PUBLIC_NODE_ENV: z

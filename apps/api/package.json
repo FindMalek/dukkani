@@ -8,21 +8,20 @@
 		"start": "next start"
 	},
 	"dependencies": {
-		"next": "catalog:",
-		"@orpc/server": "catalog:",
-		"@orpc/openapi": "catalog:",
-		"@orpc/zod": "catalog:",
-		"@prisma/client": "catalog:",
-		"zod": "catalog:",
-		"@dukkani/orpc": "workspace:*",
 		"@dukkani/auth": "workspace:*",
 		"@dukkani/db": "workspace:*",
-		"@dukkani/env": "workspace:*"
+		"@dukkani/env": "workspace:*",
+		"@dukkani/orpc": "workspace:*",
+		"@orpc/openapi": "catalog:",
+		"@orpc/server": "catalog:",
+		"@orpc/zod": "catalog:",
+		"@prisma/client": "catalog:",
+		"next": "catalog:",
+		"zod": "catalog:"
 	},
 	"devDependencies": {
-		"@types/node": "catalog:",
-		"typescript": "^5",
 		"@dukkani/config": "workspace:*",
-		"@t3-oss/env-nextjs": "catalog:"
+		"@t3-oss/env-nextjs": "catalog:",
+		"@types/node": "catalog:"
 	}
 }
