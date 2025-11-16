@@ -95,39 +95,40 @@ export class StoreSeeder extends BaseSeeder {
 			},
 		];
 
-		// Create stores with plans
-		for (const storeInfo of storeData) {
-			const store = await prisma.store.create({
-				data: {
-					name: storeInfo.name,
-					slug: storeInfo.slug,
-					description: storeInfo.description,
-					category: storeInfo.category,
-					theme: storeInfo.theme,
-					whatsappNumber: storeInfo.whatsappNumber,
-					ownerId: storeInfo.ownerId,
-					storePlan: {
-						create: {
-							planType: storeInfo.planType,
-							orderLimit: storeInfo.orderLimit,
-							orderCount: 0,
+		// Create stores (need individual creates for storePlan relation)
+		const createdStores = await Promise.all(
+			storeData.map((storeInfo) =>
+				prisma.store.create({
+					data: {
+						name: storeInfo.name,
+						slug: storeInfo.slug,
+						description: storeInfo.description,
+						category: storeInfo.category,
+						theme: storeInfo.theme,
+						whatsappNumber: storeInfo.whatsappNumber,
+						ownerId: storeInfo.ownerId,
+						storePlan: {
+							create: {
+								planType: storeInfo.planType,
+								orderLimit: storeInfo.orderLimit,
+								orderCount: 0,
+							},
 						},
 					},
-				},
-			});
+				}),
+			),
+		);
 
-			// Store for export
+		// Store for export
+		for (const store of createdStores) {
 			this.seededStores.push({
 				id: store.id,
 				name: store.name,
 				slug: store.slug,
 				ownerId: store.ownerId,
 			});
-
-			this.log(`Created store: ${store.name} (${store.slug})`);
 		}
 
-		this.log(`✅ Created ${storeData.length} stores with plans`);
+		this.log(`✅ Created ${createdStores.length} stores with plans`);
 	}
 }
-

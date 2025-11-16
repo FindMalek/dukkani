@@ -68,49 +68,48 @@ export class UserSeeder extends BaseSeeder {
 
 		const now = new Date();
 
-		// Create users and accounts
-		for (const userInfo of userData) {
-			// Hash password
-			const hashedPassword = await hashPassword(userInfo.password);
+		// Hash all passwords in parallel
+		const hashedPasswords = await Promise.all(
+			userData.map((user) => hashPassword(user.password)),
+		);
 
-			// Create user
-			const user = await prisma.user.create({
-				data: {
-					id: userInfo.id,
-					name: userInfo.name,
-					email: userInfo.email,
-					emailVerified: userInfo.emailVerified,
-					image: userInfo.image,
-					createdAt: now,
-					updatedAt: now,
-				},
-			});
-
-			// Create account with password for email/password authentication
-			await prisma.account.create({
-				data: {
-					id: `account_${userInfo.id}`,
-					accountId: userInfo.email,
-					providerId: "credential",
-					userId: user.id,
-					password: hashedPassword,
-					createdAt: now,
-					updatedAt: now,
-				},
-			});
-
-			// Store for export
-			this.seededUsers.push({
+		// Create all users at once
+		const users = await prisma.user.createMany({
+			data: userData.map((user) => ({
 				id: user.id,
-				email: user.email,
 				name: user.name,
+				email: user.email,
+				emailVerified: user.emailVerified,
+				image: user.image,
+				createdAt: now,
+				updatedAt: now,
+			})),
+		});
+
+		// Create all accounts at once
+		await prisma.account.createMany({
+			data: userData.map((user, index) => ({
+				id: `account_${user.id}`,
+				accountId: user.email,
+				providerId: "credential",
+				userId: user.id,
+				password: hashedPasswords[index]!,
+				createdAt: now,
+				updatedAt: now,
+			})),
+		});
+
+		// Store for export
+		for (const userInfo of userData) {
+			this.seededUsers.push({
+				id: userInfo.id,
+				email: userInfo.email,
+				name: userInfo.name,
 				password: userInfo.password,
 			});
-
-			this.log(`Created user: ${user.name} (${user.email})`);
 		}
 
-		this.log(`✅ Created ${userData.length} users with accounts`);
+		this.log(`✅ Created ${users.count} users with accounts`);
 		this.log("📝 User credentials saved for export");
 	}
 }

@@ -18,10 +18,6 @@
 	"scripts": {
 		"build": "tsdown"
 	},
-	"devDependencies": {
-		"tsdown": "catalog:",
-		"@dukkani/config": "workspace:*"
-	},
 	"peerDependencies": {
 		"typescript": "^5"
 	},
@@ -32,5 +28,9 @@
 		"@t3-oss/env-core": "catalog:",
 		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*"
+	},
+	"devDependencies": {
+		"tsdown": "catalog:",
+		"@dukkani/config": "workspace:*"
 	}
 }

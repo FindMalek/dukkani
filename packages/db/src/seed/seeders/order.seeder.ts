@@ -174,41 +174,40 @@ export class OrderSeeder extends BaseSeeder {
 			}
 		}
 
-		// Create orders with order items
-		for (const orderInfo of orderData) {
-			const order = await prisma.order.create({
-				data: {
-					status: orderInfo.status,
-					customerName: orderInfo.customerName,
-					customerPhone: orderInfo.customerPhone,
-					address: orderInfo.address,
-					notes: orderInfo.notes,
-					storeId: orderInfo.storeId,
-					customerId: orderInfo.customerId,
-					orderItems: {
-						create: orderInfo.items.map((item) => ({
-							productId: item.productId,
-							quantity: item.quantity,
-							price: item.price,
-						})),
+		// Create orders (need individual creates for orderItems relation)
+		const createdOrders = await Promise.all(
+			orderData.map((orderInfo) =>
+				prisma.order.create({
+					data: {
+						status: orderInfo.status,
+						customerName: orderInfo.customerName,
+						customerPhone: orderInfo.customerPhone,
+						address: orderInfo.address,
+						notes: orderInfo.notes,
+						storeId: orderInfo.storeId,
+						customerId: orderInfo.customerId,
+						orderItems: {
+							create: orderInfo.items.map((item) => ({
+								productId: item.productId,
+								quantity: item.quantity,
+								price: item.price,
+							})),
+						},
 					},
-				},
-			});
+				}),
+			),
+		);
 
-			// Store for export
+		// Store for export
+		for (const order of createdOrders) {
 			this.seededOrders.push({
 				id: order.id,
 				status: order.status,
 				storeId: order.storeId,
 				customerId: order.customerId,
 			});
-
-			this.log(
-				`Created order: ${order.id} (${order.status}) - ${order.customerName}`,
-			);
 		}
 
-		this.log(`✅ Created ${orderData.length} orders with order items`);
+		this.log(`✅ Created ${createdOrders.length} orders with order items`);
 	}
 }
-

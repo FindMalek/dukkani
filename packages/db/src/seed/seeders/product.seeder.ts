@@ -165,36 +165,37 @@ export class ProductSeeder extends BaseSeeder {
 			},
 		];
 
-		// Create products with images
-		for (const productInfo of productData) {
-			const product = await prisma.product.create({
-				data: {
-					name: productInfo.name,
-					description: productInfo.description,
-					price: productInfo.price,
-					stock: productInfo.stock,
-					published: productInfo.published,
-					storeId: productInfo.storeId,
-					images: {
-						create: productInfo.images.map((url) => ({
-							url,
-						})),
+		// Create products (need individual creates for images relation)
+		const createdProducts = await Promise.all(
+			productData.map((productInfo) =>
+				prisma.product.create({
+					data: {
+						name: productInfo.name,
+						description: productInfo.description,
+						price: productInfo.price,
+						stock: productInfo.stock,
+						published: productInfo.published,
+						storeId: productInfo.storeId,
+						images: {
+							create: productInfo.images.map((url) => ({
+								url,
+							})),
+						},
 					},
-				},
-			});
+				}),
+			),
+		);
 
-			// Store for export
+		// Store for export
+		for (const product of createdProducts) {
 			this.seededProducts.push({
 				id: product.id,
 				name: product.name,
 				storeId: product.storeId,
 				price: product.price,
 			});
-
-			this.log(`Created product: ${product.name} (Store ID: ${product.storeId})`);
 		}
 
-		this.log(`✅ Created ${productData.length} products with images`);
+		this.log(`✅ Created ${createdProducts.length} products with images`);
 	}
 }
-

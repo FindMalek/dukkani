@@ -94,28 +94,30 @@ export class CustomerSeeder extends BaseSeeder {
 			},
 		];
 
-		// Create customers
-		for (const customerInfo of customerData) {
-			const customer = await prisma.customer.create({
-				data: {
-					name: customerInfo.name,
-					phone: customerInfo.phone,
-					storeId: customerInfo.storeId,
-				},
-			});
+		// Create all customers at once
+		const customers = await prisma.customer.createMany({
+			data: customerData,
+		});
 
-			// Store for export
+		// Fetch created customers for export (need IDs)
+		const createdCustomers = await prisma.customer.findMany({
+			where: {
+				phone: {
+					in: customerData.map((c) => c.phone),
+				},
+			},
+		});
+
+		// Store for export
+		for (const customer of createdCustomers) {
 			this.seededCustomers.push({
 				id: customer.id,
 				name: customer.name,
 				phone: customer.phone,
 				storeId: customer.storeId,
 			});
-
-			this.log(`Created customer: ${customer.name} (${customer.phone})`);
 		}
 
-		this.log(`✅ Created ${customerData.length} customers`);
+		this.log(`✅ Created ${customers.count} customers`);
 	}
 }
-
