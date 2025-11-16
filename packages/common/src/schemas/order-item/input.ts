@@ -20,6 +20,8 @@ export const getOrderItemInputSchema = z.object({
 });
 
 export const listOrderItemsInputSchema = z.object({
+	page: z.number().int().min(1).default(1),
+	limit: z.number().int().min(1).max(100).default(10),
 	orderId: z.string().optional(),
 	productId: z.string().optional(),
 });

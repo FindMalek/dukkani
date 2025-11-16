@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { orderStatusSchema } from "./enums";
+import { orderStatusSchema } from "../enums";
 import { storeSimpleOutputSchema } from "../store/output";
 import { customerSimpleOutputSchema } from "../customer/output";
 import { orderItemSimpleOutputSchema } from "../order-item/output";

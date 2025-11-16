@@ -30,5 +30,6 @@ model TeamMember {
   storeId String @map("storeid")
   store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
+  @@unique([userId, storeId])
   @@map("teammember")
 }

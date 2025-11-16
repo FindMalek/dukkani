@@ -3,6 +3,8 @@ import type {
 	CustomerIncludeOutput,
 } from "../../schemas/customer/output";
 import type { CustomerSimpleDbData, CustomerIncludeDbData } from "./query";
+import { StoreEntity } from "../store/entity";
+import { OrderEntity } from "../order/entity";
 
 export class CustomerEntity {
 	static getSimpleRo(entity: CustomerSimpleDbData): CustomerSimpleOutput {
@@ -19,8 +21,8 @@ export class CustomerEntity {
 	static getRo(entity: CustomerIncludeDbData): CustomerIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			store: entity.store,
-			orders: entity.orders,
+			store: StoreEntity.getSimpleRo(entity.store),
+			orders: entity.orders.map(OrderEntity.getSimpleRo),
 		};
 	}
 }
