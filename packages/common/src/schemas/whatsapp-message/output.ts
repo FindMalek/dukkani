@@ -13,10 +13,14 @@ export const whatsappMessageSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
-export const whatsappMessageIncludeOutputSchema = whatsappMessageSimpleOutputSchema.extend({
-	order: orderSimpleOutputSchema.optional(),
-});
+export const whatsappMessageIncludeOutputSchema =
+	whatsappMessageSimpleOutputSchema.extend({
+		order: orderSimpleOutputSchema.optional(),
+	});
 
-export type WhatsAppMessageSimpleOutput = z.infer<typeof whatsappMessageSimpleOutputSchema>;
-export type WhatsAppMessageIncludeOutput = z.infer<typeof whatsappMessageIncludeOutputSchema>;
-
+export type WhatsAppMessageSimpleOutput = z.infer<
+	typeof whatsappMessageSimpleOutputSchema
+>;
+export type WhatsAppMessageIncludeOutput = z.infer<
+	typeof whatsappMessageIncludeOutputSchema
+>;

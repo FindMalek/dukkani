@@ -9,9 +9,11 @@ export const orderItemInputSchema = z.object({
 
 export const createOrderItemInputSchema = orderItemInputSchema;
 
-export const updateOrderItemInputSchema = orderItemInputSchema.partial().extend({
-	id: z.string().min(1, "Order Item ID is required"),
-});
+export const updateOrderItemInputSchema = orderItemInputSchema
+	.partial()
+	.extend({
+		id: z.string().min(1, "Order Item ID is required"),
+	});
 
 export const getOrderItemInputSchema = z.object({
 	id: z.string().min(1, "Order Item ID is required"),
@@ -27,4 +29,3 @@ export type CreateOrderItemInput = z.infer<typeof createOrderItemInputSchema>;
 export type UpdateOrderItemInput = z.infer<typeof updateOrderItemInputSchema>;
 export type GetOrderItemInput = z.infer<typeof getOrderItemInputSchema>;
 export type ListOrderItemsInput = z.infer<typeof listOrderItemsInputSchema>;
-

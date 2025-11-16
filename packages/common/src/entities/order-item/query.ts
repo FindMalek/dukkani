@@ -1,6 +1,5 @@
 import { type Prisma } from "@dukkani/db/prisma/generated";
 
-
 export type OrderItemSimpleDbData = Prisma.OrderItemGetPayload<{
 	include: ReturnType<typeof OrderItemQuery.getSimpleInclude>;
 }>;

@@ -17,12 +17,14 @@ export const updateStoreInputSchema = storeInputSchema.partial().extend({
 	id: z.string().min(1, "Store ID is required"),
 });
 
-export const getStoreInputSchema = z.object({
-	id: z.string().min(1, "Store ID is required").optional(),
-	slug: z.string().min(1, "Store slug is required").optional(),
-}).refine((data) => data.id || data.slug, {
-	message: "Either id or slug must be provided",
-});
+export const getStoreInputSchema = z
+	.object({
+		id: z.string().min(1, "Store ID is required").optional(),
+		slug: z.string().min(1, "Store slug is required").optional(),
+	})
+	.refine((data) => data.id || data.slug, {
+		message: "Either id or slug must be provided",
+	});
 
 export const listStoresInputSchema = z.object({
 	page: z.number().int().min(1).default(1),
@@ -37,4 +39,3 @@ export type CreateStoreInput = z.infer<typeof createStoreInputSchema>;
 export type UpdateStoreInput = z.infer<typeof updateStoreInputSchema>;
 export type GetStoreInput = z.infer<typeof getStoreInputSchema>;
 export type ListStoresInput = z.infer<typeof listStoresInputSchema>;
-

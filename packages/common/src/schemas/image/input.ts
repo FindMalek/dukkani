@@ -24,4 +24,3 @@ export type CreateImageInput = z.infer<typeof createImageInputSchema>;
 export type UpdateImageInput = z.infer<typeof updateImageInputSchema>;
 export type GetImageInput = z.infer<typeof getImageInputSchema>;
 export type ListImagesInput = z.infer<typeof listImagesInputSchema>;
-

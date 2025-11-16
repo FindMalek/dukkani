@@ -1,4 +1,7 @@
-import type { StorePlanSimpleOutput, StorePlanIncludeOutput } from "../../schemas/store-plan/output";
+import type {
+	StorePlanSimpleOutput,
+	StorePlanIncludeOutput,
+} from "../../schemas/store-plan/output";
 import type { StorePlanSimpleDbData, StorePlanIncludeDbData } from "./query";
 
 export class StorePlanEntity {
@@ -22,4 +25,3 @@ export class StorePlanEntity {
 		};
 	}
 }
-

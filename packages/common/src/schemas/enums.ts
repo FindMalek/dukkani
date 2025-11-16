@@ -23,8 +23,12 @@ export type OrderStatusInfer = z.infer<typeof orderStatusSchema>;
 export { WhatsAppMessageStatus };
 export const whatsappMessageStatusSchema = z.nativeEnum(WhatsAppMessageStatus);
 export const whatsappMessageStatusEnum = whatsappMessageStatusSchema.enum;
-export const LIST_WHATSAPP_MESSAGE_STATUSES = Object.values(WhatsAppMessageStatus);
-export type WhatsAppMessageStatusInfer = z.infer<typeof whatsappMessageStatusSchema>;
+export const LIST_WHATSAPP_MESSAGE_STATUSES = Object.values(
+	WhatsAppMessageStatus,
+);
+export type WhatsAppMessageStatusInfer = z.infer<
+	typeof whatsappMessageStatusSchema
+>;
 
 /**
  * Team Member Role Enum

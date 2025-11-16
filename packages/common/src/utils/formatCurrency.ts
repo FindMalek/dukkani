@@ -18,4 +18,3 @@ export function formatCurrency(
 		currency,
 	}).format(amount);
 }
-

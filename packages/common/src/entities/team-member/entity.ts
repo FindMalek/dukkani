@@ -1,4 +1,7 @@
-import type { TeamMemberSimpleOutput, TeamMemberIncludeOutput } from "../../schemas/team-member/output";
+import type {
+	TeamMemberSimpleOutput,
+	TeamMemberIncludeOutput,
+} from "../../schemas/team-member/output";
 import type { TeamMemberSimpleDbData, TeamMemberIncludeDbData } from "./query";
 
 export class TeamMemberEntity {
@@ -21,4 +24,3 @@ export class TeamMemberEntity {
 		};
 	}
 }
-

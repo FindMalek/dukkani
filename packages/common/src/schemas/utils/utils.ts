@@ -15,4 +15,3 @@ export const environmentClientSchema = z.object({
 
 export type EnvironmentServer = z.infer<typeof environmentServerSchema>;
 export type EnvironmentClient = z.infer<typeof environmentClientSchema>;
-

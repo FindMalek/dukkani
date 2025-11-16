@@ -1,4 +1,7 @@
-import type { OrderItemSimpleOutput, OrderItemIncludeOutput } from "../../schemas/order-item/output";
+import type {
+	OrderItemSimpleOutput,
+	OrderItemIncludeOutput,
+} from "../../schemas/order-item/output";
 import type { OrderItemSimpleDbData, OrderItemIncludeDbData } from "./query";
 
 export class OrderItemEntity {
@@ -22,4 +25,3 @@ export class OrderItemEntity {
 		};
 	}
 }
-

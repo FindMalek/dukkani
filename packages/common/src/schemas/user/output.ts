@@ -32,4 +32,3 @@ export const listUsersOutputSchema = z.object({
 export type UserSimpleOutput = z.infer<typeof userSimpleOutputSchema>;
 export type UserIncludeOutput = z.infer<typeof userIncludeOutputSchema>;
 export type ListUsersOutput = z.infer<typeof listUsersOutputSchema>;
-

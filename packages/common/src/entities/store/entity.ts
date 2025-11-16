@@ -1,4 +1,7 @@
-import type { StoreSimpleOutput, StoreIncludeOutput } from "../../schemas/store/output";
+import type {
+	StoreSimpleOutput,
+	StoreIncludeOutput,
+} from "../../schemas/store/output";
 import type { StoreSimpleDbData, StoreIncludeDbData } from "./query";
 
 export class StoreEntity {
@@ -30,4 +33,3 @@ export class StoreEntity {
 		};
 	}
 }
-

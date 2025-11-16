@@ -13,11 +13,15 @@ export const orderInputSchema = z.object({
 
 export const createOrderInputSchema = orderInputSchema.extend({
 	id: z.string().min(1, "Order ID is required"),
-	orderItems: z.array(z.object({
-		productId: z.string().min(1, "Product ID is required"),
-		quantity: z.number().int().min(1, "Quantity must be at least 1"),
-		price: z.number().positive("Price must be positive"),
-	})).min(1, "At least one order item is required"),
+	orderItems: z
+		.array(
+			z.object({
+				productId: z.string().min(1, "Product ID is required"),
+				quantity: z.number().int().min(1, "Quantity must be at least 1"),
+				price: z.number().positive("Price must be positive"),
+			}),
+		)
+		.min(1, "At least one order item is required"),
 });
 
 export const updateOrderInputSchema = orderInputSchema.partial().extend({
@@ -42,4 +46,3 @@ export type CreateOrderInput = z.infer<typeof createOrderInputSchema>;
 export type UpdateOrderInput = z.infer<typeof updateOrderInputSchema>;
 export type GetOrderInput = z.infer<typeof getOrderInputSchema>;
 export type ListOrdersInput = z.infer<typeof listOrdersInputSchema>;
-

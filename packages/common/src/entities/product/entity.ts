@@ -1,6 +1,8 @@
-import type { ProductSimpleOutput, ProductIncludeOutput } from "../../schemas/product/output";
+import type {
+	ProductSimpleOutput,
+	ProductIncludeOutput,
+} from "../../schemas/product/output";
 import type { ProductSimpleDbData, ProductIncludeDbData } from "./query";
-
 
 export class ProductEntity {
 	static getSimpleRo(entity: ProductSimpleDbData): ProductSimpleOutput {
@@ -26,4 +28,3 @@ export class ProductEntity {
 		};
 	}
 }
-

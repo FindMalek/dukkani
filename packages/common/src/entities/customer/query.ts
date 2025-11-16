@@ -31,4 +31,3 @@ export class CustomerQuery {
 		} satisfies Prisma.CustomerInclude;
 	}
 }
-

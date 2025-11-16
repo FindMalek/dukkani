@@ -137,10 +137,15 @@ export class CustomerSeeder extends BaseSeeder {
 					storeId: store.id,
 				};
 			})
-			.filter((customer): customer is NonNullable<typeof customer> => customer !== null);
+			.filter(
+				(customer): customer is NonNullable<typeof customer> =>
+					customer !== null,
+			);
 
 		if (customerData.length === 0) {
-			this.log("⚠️  No valid customers to create. All customers were skipped due to missing stores.");
+			this.log(
+				"⚠️  No valid customers to create. All customers were skipped due to missing stores.",
+			);
 			return;
 		}
 

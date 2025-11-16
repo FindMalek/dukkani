@@ -1,5 +1,11 @@
-import type { SalesMetricSimpleOutput, SalesMetricIncludeOutput } from "../../schemas/sales-metric/output";
-import type { SalesMetricSimpleDbData, SalesMetricIncludeDbData } from "./query";
+import type {
+	SalesMetricSimpleOutput,
+	SalesMetricIncludeOutput,
+} from "../../schemas/sales-metric/output";
+import type {
+	SalesMetricSimpleDbData,
+	SalesMetricIncludeDbData,
+} from "./query";
 
 export class SalesMetricEntity {
 	static getSimpleRo(entity: SalesMetricSimpleDbData): SalesMetricSimpleOutput {
@@ -21,4 +27,3 @@ export class SalesMetricEntity {
 		};
 	}
 }
-

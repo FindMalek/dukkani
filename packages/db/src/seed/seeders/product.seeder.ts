@@ -214,10 +214,14 @@ export class ProductSeeder extends BaseSeeder {
 					images: def.images,
 				};
 			})
-			.filter((product): product is NonNullable<typeof product> => product !== null);
+			.filter(
+				(product): product is NonNullable<typeof product> => product !== null,
+			);
 
 		if (productData.length === 0) {
-			this.log("⚠️  No valid products to create. All products were skipped due to missing stores.");
+			this.log(
+				"⚠️  No valid products to create. All products were skipped due to missing stores.",
+			);
 			return;
 		}
 

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { productSimpleOutputSchema } from "../product/output";
 
 export const imageSimpleOutputSchema = z.object({
 	id: z.string(),
@@ -8,20 +9,9 @@ export const imageSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
-// Lazy schema reference to avoid circular dependency
-let _productSimpleOutputSchema: typeof import("../product/output").productSimpleOutputSchema | undefined;
-
-function getProductSchema() {
-	if (!_productSimpleOutputSchema) {
-		_productSimpleOutputSchema = require("../product/output").productSimpleOutputSchema;
-	}
-	return _productSimpleOutputSchema!;
-}
-
 export const imageIncludeOutputSchema = imageSimpleOutputSchema.extend({
-	product: z.lazy(() => getProductSchema()).optional(),
+	product: productSimpleOutputSchema.optional(),
 });
 
 export type ImageSimpleOutput = z.infer<typeof imageSimpleOutputSchema>;
 export type ImageIncludeOutput = z.infer<typeof imageIncludeOutputSchema>;
-

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { storePlanTypeSchema } from "./enums";
+import { storeSimpleOutputSchema } from "../store/output";
 
 export const storePlanSimpleOutputSchema = z.object({
 	id: z.string(),
@@ -12,20 +13,11 @@ export const storePlanSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
-// Lazy schema reference to avoid circular dependency
-let _storeSimpleOutputSchema: typeof import("../store/output").storeSimpleOutputSchema | undefined;
-
-function getStoreSchema() {
-	if (!_storeSimpleOutputSchema) {
-		_storeSimpleOutputSchema = require("../store/output").storeSimpleOutputSchema;
-	}
-	return _storeSimpleOutputSchema!;
-}
-
 export const storePlanIncludeOutputSchema = storePlanSimpleOutputSchema.extend({
-	store: z.lazy(() => getStoreSchema()).optional(),
+	store: storeSimpleOutputSchema.optional(),
 });
 
 export type StorePlanSimpleOutput = z.infer<typeof storePlanSimpleOutputSchema>;
-export type StorePlanIncludeOutput = z.infer<typeof storePlanIncludeOutputSchema>;
-
+export type StorePlanIncludeOutput = z.infer<
+	typeof storePlanIncludeOutputSchema
+>;

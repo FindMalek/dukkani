@@ -11,9 +11,11 @@ export const whatsappMessageInputSchema = z.object({
 
 export const createWhatsAppMessageInputSchema = whatsappMessageInputSchema;
 
-export const updateWhatsAppMessageInputSchema = whatsappMessageInputSchema.partial().extend({
-	id: z.string().min(1, "WhatsApp Message ID is required"),
-});
+export const updateWhatsAppMessageInputSchema = whatsappMessageInputSchema
+	.partial()
+	.extend({
+		id: z.string().min(1, "WhatsApp Message ID is required"),
+	});
 
 export const getWhatsAppMessageInputSchema = z.object({
 	id: z.string().min(1, "WhatsApp Message ID is required"),
@@ -25,8 +27,15 @@ export const listWhatsAppMessagesInputSchema = z.object({
 });
 
 export type WhatsAppMessageInput = z.infer<typeof whatsappMessageInputSchema>;
-export type CreateWhatsAppMessageInput = z.infer<typeof createWhatsAppMessageInputSchema>;
-export type UpdateWhatsAppMessageInput = z.infer<typeof updateWhatsAppMessageInputSchema>;
-export type GetWhatsAppMessageInput = z.infer<typeof getWhatsAppMessageInputSchema>;
-export type ListWhatsAppMessagesInput = z.infer<typeof listWhatsAppMessagesInputSchema>;
-
+export type CreateWhatsAppMessageInput = z.infer<
+	typeof createWhatsAppMessageInputSchema
+>;
+export type UpdateWhatsAppMessageInput = z.infer<
+	typeof updateWhatsAppMessageInputSchema
+>;
+export type GetWhatsAppMessageInput = z.infer<
+	typeof getWhatsAppMessageInputSchema
+>;
+export type ListWhatsAppMessagesInput = z.infer<
+	typeof listWhatsAppMessagesInputSchema
+>;

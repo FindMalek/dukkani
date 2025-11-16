@@ -17,18 +17,18 @@
  * - When a store is deleted, all team member associations are cascade deleted
  */
 model TeamMember {
-  id        String         @id @default(cuid())
+  id String @id @default(cuid())
 
-  role      TeamMemberRole
-  
-  updatedAt DateTime       @updatedAt
-  createdAt DateTime       @default(now())
+  role TeamMemberRole
 
-  userId    String         @map("userid")
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 
-  storeId   String         @map("storeid")
-  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  userId String @map("userid")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  storeId String @map("storeid")
+  store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@map("teammember")
 }

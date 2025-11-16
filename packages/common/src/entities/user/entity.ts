@@ -1,4 +1,7 @@
-import type { UserSimpleOutput, UserIncludeOutput } from "../../schemas/user/output";
+import type {
+	UserSimpleOutput,
+	UserIncludeOutput,
+} from "../../schemas/user/output";
 import type { UserSimpleDbData, UserIncludeDbData } from "./query";
 
 export class UserEntity {

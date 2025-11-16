@@ -42,4 +42,3 @@ export const listStoresOutputSchema = z.object({
 export type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
 export type StoreIncludeOutput = z.infer<typeof storeIncludeOutputSchema>;
 export type ListStoresOutput = z.infer<typeof listStoresOutputSchema>;
-

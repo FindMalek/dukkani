@@ -9,9 +9,11 @@ export const salesMetricInputSchema = z.object({
 
 export const createSalesMetricInputSchema = salesMetricInputSchema;
 
-export const updateSalesMetricInputSchema = salesMetricInputSchema.partial().extend({
-	id: z.string().min(1, "Sales Metric ID is required"),
-});
+export const updateSalesMetricInputSchema = salesMetricInputSchema
+	.partial()
+	.extend({
+		id: z.string().min(1, "Sales Metric ID is required"),
+	});
 
 export const getSalesMetricInputSchema = z.object({
 	id: z.string().min(1, "Sales Metric ID is required"),
@@ -24,8 +26,11 @@ export const listSalesMetricsInputSchema = z.object({
 });
 
 export type SalesMetricInput = z.infer<typeof salesMetricInputSchema>;
-export type CreateSalesMetricInput = z.infer<typeof createSalesMetricInputSchema>;
-export type UpdateSalesMetricInput = z.infer<typeof updateSalesMetricInputSchema>;
+export type CreateSalesMetricInput = z.infer<
+	typeof createSalesMetricInputSchema
+>;
+export type UpdateSalesMetricInput = z.infer<
+	typeof updateSalesMetricInputSchema
+>;
 export type GetSalesMetricInput = z.infer<typeof getSalesMetricInputSchema>;
 export type ListSalesMetricsInput = z.infer<typeof listSalesMetricsInputSchema>;
-

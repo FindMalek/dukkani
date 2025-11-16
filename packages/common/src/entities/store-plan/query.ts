@@ -12,7 +12,6 @@ export type StorePlanClientSafeDbData = Prisma.StorePlanGetPayload<{
 	include: ReturnType<typeof StorePlanQuery.getClientSafeInclude>;
 }>;
 
-
 export class StorePlanQuery {
 	static getSimpleInclude() {
 		return {} satisfies Prisma.StorePlanInclude;
@@ -31,4 +30,3 @@ export class StorePlanQuery {
 		} satisfies Prisma.StorePlanInclude;
 	}
 }
-

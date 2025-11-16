@@ -32,4 +32,3 @@ export const listProductsOutputSchema = z.object({
 export type ProductSimpleOutput = z.infer<typeof productSimpleOutputSchema>;
 export type ProductIncludeOutput = z.infer<typeof productIncludeOutputSchema>;
 export type ListProductsOutput = z.infer<typeof listProductsOutputSchema>;
-

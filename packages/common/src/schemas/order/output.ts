@@ -36,4 +36,3 @@ export const listOrdersOutputSchema = z.object({
 export type OrderSimpleOutput = z.infer<typeof orderSimpleOutputSchema>;
 export type OrderIncludeOutput = z.infer<typeof orderIncludeOutputSchema>;
 export type ListOrdersOutput = z.infer<typeof listOrdersOutputSchema>;
-

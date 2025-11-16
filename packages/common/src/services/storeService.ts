@@ -6,4 +6,3 @@
 export class StoreService {
 	// Placeholder for store service methods
 }
-

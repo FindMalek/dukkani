@@ -27,4 +27,3 @@ export const listCustomersOutputSchema = z.object({
 export type CustomerSimpleOutput = z.infer<typeof customerSimpleOutputSchema>;
 export type CustomerIncludeOutput = z.infer<typeof customerIncludeOutputSchema>;
 export type ListCustomersOutput = z.infer<typeof listCustomersOutputSchema>;
-

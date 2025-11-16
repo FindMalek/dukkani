@@ -12,7 +12,6 @@ export type ImageClientSafeDbData = Prisma.ImageGetPayload<{
 	include: ReturnType<typeof ImageQuery.getClientSafeInclude>;
 }>;
 
-
 export class ImageQuery {
 	static getSimpleInclude() {
 		return {} satisfies Prisma.ImageInclude;
@@ -31,4 +30,3 @@ export class ImageQuery {
 		} satisfies Prisma.ImageInclude;
 	}
 }
-

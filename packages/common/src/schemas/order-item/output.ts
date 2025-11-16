@@ -1,5 +1,6 @@
 import { z } from "zod";
-
+import { orderSimpleOutputSchema } from "../order/output";
+import { productSimpleOutputSchema } from "../product/output";
 export const orderItemSimpleOutputSchema = z.object({
 	id: z.string(),
 	orderId: z.string(),
@@ -10,29 +11,12 @@ export const orderItemSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
-// Lazy schema references to avoid circular dependencies
-let _orderSimpleOutputSchema: typeof import("../order/output").orderSimpleOutputSchema | undefined;
-let _productSimpleOutputSchema: typeof import("../product/output").productSimpleOutputSchema | undefined;
-
-function getOrderSchema() {
-	if (!_orderSimpleOutputSchema) {
-		_orderSimpleOutputSchema = require("../order/output").orderSimpleOutputSchema;
-	}
-	return _orderSimpleOutputSchema!;
-}
-
-function getProductSchema() {
-	if (!_productSimpleOutputSchema) {
-		_productSimpleOutputSchema = require("../product/output").productSimpleOutputSchema;
-	}
-	return _productSimpleOutputSchema!;
-}
-
 export const orderItemIncludeOutputSchema = orderItemSimpleOutputSchema.extend({
-	order: z.lazy(() => getOrderSchema()).optional(),
-	product: z.lazy(() => getProductSchema()).optional(),
+	order: orderSimpleOutputSchema.optional(),
+	product: productSimpleOutputSchema.optional(),
 });
 
 export type OrderItemSimpleOutput = z.infer<typeof orderItemSimpleOutputSchema>;
-export type OrderItemIncludeOutput = z.infer<typeof orderItemIncludeOutputSchema>;
-
+export type OrderItemIncludeOutput = z.infer<
+	typeof orderItemIncludeOutputSchema
+>;

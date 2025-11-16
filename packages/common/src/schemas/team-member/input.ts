@@ -9,9 +9,11 @@ export const teamMemberInputSchema = z.object({
 
 export const createTeamMemberInputSchema = teamMemberInputSchema;
 
-export const updateTeamMemberInputSchema = teamMemberInputSchema.partial().extend({
-	id: z.string().min(1, "Team Member ID is required"),
-});
+export const updateTeamMemberInputSchema = teamMemberInputSchema
+	.partial()
+	.extend({
+		id: z.string().min(1, "Team Member ID is required"),
+	});
 
 export const getTeamMemberInputSchema = z.object({
 	id: z.string().min(1, "Team Member ID is required"),
@@ -28,4 +30,3 @@ export type CreateTeamMemberInput = z.infer<typeof createTeamMemberInputSchema>;
 export type UpdateTeamMemberInput = z.infer<typeof updateTeamMemberInputSchema>;
 export type GetTeamMemberInput = z.infer<typeof getTeamMemberInputSchema>;
 export type ListTeamMembersInput = z.infer<typeof listTeamMembersInputSchema>;
-

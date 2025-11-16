@@ -1,4 +1,7 @@
-import type { CustomerSimpleOutput, CustomerIncludeOutput } from "../../schemas/customer/output";
+import type {
+	CustomerSimpleOutput,
+	CustomerIncludeOutput,
+} from "../../schemas/customer/output";
 import type { CustomerSimpleDbData, CustomerIncludeDbData } from "./query";
 
 export class CustomerEntity {
@@ -21,4 +24,3 @@ export class CustomerEntity {
 		};
 	}
 }
-

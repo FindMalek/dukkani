@@ -6,7 +6,7 @@ import { hashPassword } from "../utils/password";
  * Seeder for User model
  * Creates 3 diverse users with proper authentication
  * Exports users for use in other seeders
- * 
+ *
  * Note: Passwords are intentionally excluded from the exported interface
  * for security reasons. Plaintext passwords are only used internally during
  * seeding and are never exposed in the public API.

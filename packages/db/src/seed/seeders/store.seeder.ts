@@ -147,7 +147,9 @@ export class StoreSeeder extends BaseSeeder {
 			.filter((store): store is NonNullable<typeof store> => store !== null);
 
 		if (storeData.length === 0) {
-			this.log("⚠️  No valid stores to create. All stores were skipped due to missing owners.");
+			this.log(
+				"⚠️  No valid stores to create. All stores were skipped due to missing owners.",
+			);
 			return;
 		}
 

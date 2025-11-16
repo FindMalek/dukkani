@@ -12,11 +12,15 @@ export const teamMemberSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
-export const teamMemberIncludeOutputSchema = teamMemberSimpleOutputSchema.extend({
-	user: userSimpleOutputSchema.optional(),
-	store: storeSimpleOutputSchema.optional(),
-});
+export const teamMemberIncludeOutputSchema =
+	teamMemberSimpleOutputSchema.extend({
+		user: userSimpleOutputSchema.optional(),
+		store: storeSimpleOutputSchema.optional(),
+	});
 
-export type TeamMemberSimpleOutput = z.infer<typeof teamMemberSimpleOutputSchema>;
-export type TeamMemberIncludeOutput = z.infer<typeof teamMemberIncludeOutputSchema>;
-
+export type TeamMemberSimpleOutput = z.infer<
+	typeof teamMemberSimpleOutputSchema
+>;
+export type TeamMemberIncludeOutput = z.infer<
+	typeof teamMemberIncludeOutputSchema
+>;

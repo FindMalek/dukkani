@@ -6,4 +6,3 @@
 export class OrderService {
 	// Placeholder for order service methods
 }
-

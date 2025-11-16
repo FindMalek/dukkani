@@ -31,4 +31,3 @@ export class TeamMemberQuery {
 		} satisfies Prisma.TeamMemberInclude;
 	}
 }
-

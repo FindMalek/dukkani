@@ -29,4 +29,3 @@ export type CreateCustomerInput = z.infer<typeof createCustomerInputSchema>;
 export type UpdateCustomerInput = z.infer<typeof updateCustomerInputSchema>;
 export type GetCustomerInput = z.infer<typeof getCustomerInputSchema>;
 export type ListCustomersInput = z.infer<typeof listCustomersInputSchema>;
-

@@ -1,4 +1,7 @@
-import type { OrderSimpleOutput, OrderIncludeOutput } from "../../schemas/order/output";
+import type {
+	OrderSimpleOutput,
+	OrderIncludeOutput,
+} from "../../schemas/order/output";
 import type { OrderSimpleDbData, OrderIncludeDbData } from "./query";
 
 export class OrderEntity {
@@ -27,4 +30,3 @@ export class OrderEntity {
 		};
 	}
 }
-

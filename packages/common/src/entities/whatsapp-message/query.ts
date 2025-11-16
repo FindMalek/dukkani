@@ -1,6 +1,5 @@
 import { type Prisma } from "@dukkani/db/prisma/generated";
 
-
 export type WhatsAppMessageSimpleDbData = Prisma.WhatsAppMessageGetPayload<{
 	include: ReturnType<typeof WhatsAppMessageQuery.getSimpleInclude>;
 }>;

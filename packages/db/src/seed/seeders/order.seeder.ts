@@ -125,7 +125,9 @@ export class OrderSeeder extends BaseSeeder {
 			const storeCustomers = customersByStoreSlug.get(storeSlug) || [];
 
 			if (storeProducts.length === 0) {
-				this.log(`⚠️  No products found for store "${store.name}" (${storeSlug}). Skipping orders for this store.`);
+				this.log(
+					`⚠️  No products found for store "${store.name}" (${storeSlug}). Skipping orders for this store.`,
+				);
 				continue;
 			}
 

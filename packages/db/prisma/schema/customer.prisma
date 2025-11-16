@@ -18,18 +18,18 @@
  * - Guest orders (without customer record) are also supported
  */
 model Customer {
-  id        String   @id @default(cuid())
+  id String @id @default(cuid())
 
-  name      String
-  phone     String
+  name  String
+  phone String
 
   orders Order[]
-  
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  storeId   String   @map("storeid")
-  store  Store   @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  storeId String @map("storeid")
+  store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@unique([phone, storeId])
   @@map("customer")

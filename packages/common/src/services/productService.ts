@@ -6,4 +6,3 @@
 export class ProductService {
 	// Placeholder for product service methods
 }
-

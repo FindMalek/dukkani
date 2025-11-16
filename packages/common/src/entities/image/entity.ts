@@ -1,4 +1,7 @@
-import type { ImageSimpleOutput, ImageIncludeOutput } from "../../schemas/image/output";
+import type {
+	ImageSimpleOutput,
+	ImageIncludeOutput,
+} from "../../schemas/image/output";
 import type { ImageSimpleDbData, ImageIncludeDbData } from "./query";
 
 export class ImageEntity {
@@ -19,4 +22,3 @@ export class ImageEntity {
 		};
 	}
 }
-

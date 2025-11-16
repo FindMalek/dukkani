@@ -31,4 +31,3 @@ export class UserQuery {
 		} satisfies Prisma.UserInclude;
 	}
 }
-

@@ -133,20 +133,20 @@ export function getSeeders() {
 
 /**
  * Example usage:
- * 
+ *
  * ```ts
  * import { getSeeders } from '@dukkani/db/seed/seeders';
- * 
+ *
  * const seeders = getSeeders();
- * 
+ *
  * // Find by stable keys
  * const ahmedStore = seeders.stores.findBySlug('ahmed-fashion');
  * const ahmedUser = seeders.users.findByEmail('ahmed@dukkani.com');
- * 
+ *
  * // Get grouped data
  * const productsByStore = seeders.products.getProductsByStoreSlug();
  * const ahmedProducts = productsByStore.get('ahmed-fashion');
- * 
+ *
  * // Direct access
  * const allStores = seeders.stores.seededStores;
  * ```

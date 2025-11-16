@@ -48,4 +48,3 @@ export type CreateUserInput = z.infer<typeof createUserInputSchema>;
 export type UpdateUserInput = z.infer<typeof updateUserInputSchema>;
 export type GetUserInput = z.infer<typeof getUserInputSchema>;
 export type ListUsersInput = z.infer<typeof listUsersInputSchema>;
-
