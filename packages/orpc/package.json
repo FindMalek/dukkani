@@ -29,6 +29,7 @@
 	},
 	"dependencies": {
 		"@dukkani/auth": "workspace:*",
+		"@dukkani/common": "workspace:*",
 		"@dukkani/db": "workspace:*",
 		"@orpc/client": "catalog:",
 		"@orpc/openapi": "catalog:",

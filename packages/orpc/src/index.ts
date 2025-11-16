@@ -1,9 +1,11 @@
 import { ORPCError, os } from "@orpc/server";
 import type { Context } from "./context";
+import { rateLimitPublic, rateLimitProtected } from "./middleware/rate-limit";
 
 export const o = os.$context<Context>();
 
-export const publicProcedure = o;
+// Public procedure with strict rate limiting
+export const publicProcedure = o.use(rateLimitPublic);
 
 const requireAuth = o.middleware(async ({ context, next }) => {
 	if (!context.session?.user) {
@@ -16,7 +18,11 @@ const requireAuth = o.middleware(async ({ context, next }) => {
 	});
 });
 
-export const protectedProcedure = publicProcedure.use(requireAuth);
+// Protected procedure with standard rate limiting and authentication
+// Rate limiting happens first, then authentication
+export const protectedProcedure = o
+	.use(rateLimitProtected)
+	.use(requireAuth);
 
 // Re-export router types for easier importing
 export type { AppRouter, AppRouterClient } from "./routers/index";

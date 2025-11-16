@@ -1,4 +1,4 @@
-export * from "./orderService";
-export * from "./productService";
-export * from "./storeService";
-export * from "./customerService";
+export { OrderService } from "./orderService";
+export { ProductService } from "./productService";
+export { StoreService } from "./storeService";
+export { CustomerService } from "./customerService";
