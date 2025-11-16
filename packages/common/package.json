@@ -1,0 +1,46 @@
+{
+	"name": "@dukkani/common",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./src/index.ts"
+		},
+		"./schemas": {
+			"types": "./dist/schemas/index.d.ts",
+			"default": "./src/schemas/index.ts"
+		},
+		"./entities": {
+			"types": "./dist/entities/index.d.ts",
+			"default": "./src/entities/index.ts"
+		},
+		"./services": {
+			"types": "./dist/services/index.d.ts",
+			"default": "./src/services/index.ts"
+		},
+		"./utils": {
+			"types": "./dist/utils/index.d.ts",
+			"default": "./src/utils/index.ts"
+		},
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"default": "./src/*.ts"
+		}
+	},
+	"scripts": {
+		"build": "tsdown"
+	},
+	"peerDependencies": {
+		"typescript": "^5.9.3"
+	},
+	"dependencies": {
+		"@dukkani/db": "workspace:*",
+		"@prisma/client": "catalog:",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@dukkani/config": "workspace:*",
+		"tsdown": "catalog:"
+	}
+}
+
