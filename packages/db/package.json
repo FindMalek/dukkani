@@ -40,6 +40,14 @@
 		"dotenv": "catalog:",
 		"zod": "catalog:",
 		"@t3-oss/env-core": "catalog:",
-		"@dukkani/env": "workspace:*"
+		"@dukkani/env": "workspace:*",
+		"bcryptjs": "^2.4.3"
+	},
+	"devDependencies": {
+		"prisma": "^6.15.0",
+		"tsdown": "catalog:",
+		"tsx": "catalog:",
+		"@dukkani/config": "workspace:*",
+		"@types/bcryptjs": "^2.4.6"
 	}
 }
