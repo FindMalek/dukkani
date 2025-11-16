@@ -1,17 +1,17 @@
 model Product {
-  id          BigInt      @id @default(autoincrement())
+  id          String   @id
   name        String
   description String?
-  price       Decimal     @db.Decimal(10, 2)
+  price       Decimal  @db.Decimal(10, 2)
   stock       Int
-  published   Boolean     @default(false)
-  storeId     BigInt      @map("storeid")
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  published   Boolean  @default(false)
+  storeId     BigInt   @map("storeid")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  store       Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
-  images      Image[]
-  orderItems  OrderItem[]
+  store      Store       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  images     Image[]
+  orderItems OrderItem[]
 
   @@map("product")
 }
@@ -19,13 +19,11 @@ model Product {
 model Image {
   id        BigInt   @id @default(autoincrement())
   url       String
-  productId BigInt   @map("productid")
+  productId String   @map("productid")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@map("image")
 }
-
-

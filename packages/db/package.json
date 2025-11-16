@@ -30,18 +30,19 @@
 		"typescript": "^5"
 	},
 	"dependencies": {
-		"@prisma/client": "catalog:",
-		"dotenv": "catalog:",
-		"zod": "catalog:",
-		"@t3-oss/env-core": "catalog:",
 		"@dukkani/env": "workspace:*",
-		"bcryptjs": "^2.4.3"
+		"@prisma/client": "catalog:",
+		"@t3-oss/env-core": "catalog:",
+		"bcryptjs": "^2.4.3",
+		"dotenv": "catalog:",
+		"nanoid": "^5.1.6",
+		"zod": "catalog:"
 	},
 	"devDependencies": {
+		"@dukkani/config": "workspace:*",
+		"@types/bcryptjs": "^2.4.6",
 		"prisma": "^6.15.0",
 		"tsdown": "catalog:",
-		"tsx": "catalog:",
-		"@dukkani/config": "workspace:*",
-		"@types/bcryptjs": "^2.4.6"
+		"tsx": "catalog:"
 	}
 }

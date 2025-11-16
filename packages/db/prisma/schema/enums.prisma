@@ -48,5 +48,3 @@ enum StoreTheme {
   MODERN
   CLASSIC
 }
-
-

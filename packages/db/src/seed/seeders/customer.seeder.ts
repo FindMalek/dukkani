@@ -13,7 +13,7 @@ export class CustomerSeeder extends BaseSeeder {
 
 	// Export seeded customers for use in other seeders
 	public seededCustomers: Array<{
-		id: bigint;
+		id: string;
 		name: string;
 		phone: string;
 		storeId: bigint;

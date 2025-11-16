@@ -1,35 +1,42 @@
 model Order {
-  id            BigInt            @id @default(autoincrement())
-  status        OrderStatus
-  customerName  String             @map("customername")
-  customerPhone String             @map("customerphone")
-  address       String?
-  notes         String?
-  storeId       BigInt             @map("storeid")
-  customerId    BigInt?            @map("customerid")
-  createdAt     DateTime           @default(now())
-  updatedAt     DateTime           @updatedAt
+  id            String      @id
 
-  store         Store              @relation(fields: [storeId], references: [id], onDelete: Cascade)
-  customer      Customer?          @relation(fields: [customerId], references: [id])
-  orderItems    OrderItem[]
+  status        OrderStatus
+
+  customerName  String      @map("customername")
+  customerPhone String      @map("customerphone")
+
+  address       String?
+
+  notes         String?
+
+  orderItems       OrderItem[]
   whatsappMessages WhatsAppMessage[]
+
+  updatedAt     DateTime    @updatedAt
+  createdAt     DateTime    @default(now())
+
+  storeId       BigInt      @map("storeid")
+  store            Store             @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  customerId    String?     @map("customerid")
+  customer         Customer?         @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
 
   @@map("orders")
 }
 
 model OrderItem {
   id        BigInt   @id @default(autoincrement())
-  orderId   BigInt   @map("orderid")
-  productId BigInt   @map("productid")
+  orderId   String   @map("orderid")
+  productId String   @map("productid")
   quantity  Int
   price     Decimal  @db.Decimal(10, 2)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@map("orderitem")
 }
-

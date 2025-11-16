@@ -1,16 +1,14 @@
 model SalesMetric {
-  id         BigInt    @id @default(autoincrement())
-  storeId    BigInt    @map("storeid")
-  date       DateTime  @db.Date
-  totalSales Decimal   @db.Decimal(10, 2) @map("totalsales")
-  orderCount Int       @map("ordercount")
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id         String   @id @default(cuid())
+  storeId    BigInt   @map("storeid")
+  date       DateTime @db.Date
+  totalSales Decimal  @map("totalsales") @db.Decimal(10, 2)
+  orderCount Int      @map("ordercount")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  store      Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@unique([storeId, date])
   @@map("salesmetric")
 }
-
-

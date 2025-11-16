@@ -5,6 +5,7 @@ import type { ProductSeeder } from "./product.seeder";
 import type { CustomerSeeder } from "./customer.seeder";
 import { OrderStatus } from "../../../prisma/generated/client";
 import { Prisma } from "../../../prisma/generated/client";
+import { generateOrderId } from "../../utils/generate-id";
 
 /**
  * Seeder for Order model
@@ -17,10 +18,10 @@ export class OrderSeeder extends BaseSeeder {
 
 	// Export seeded orders for use in other seeders
 	public seededOrders: Array<{
-		id: bigint;
+		id: string;
 		status: OrderStatus;
 		storeId: bigint;
-		customerId: bigint | null;
+		customerId: string | null;
 	}> = [];
 
 	private storeSeeder?: StoreSeeder;
@@ -94,15 +95,16 @@ export class OrderSeeder extends BaseSeeder {
 
 		// Define orders for each store
 		const orderData: Array<{
+			id: string;
 			status: OrderStatus;
 			customerName: string;
 			customerPhone: string;
 			address: string;
 			notes?: string;
 			storeId: bigint;
-			customerId: bigint | null;
+			customerId: string | null;
 			items: Array<{
-				productId: bigint;
+				productId: string;
 				quantity: number;
 				price: Prisma.Decimal;
 			}>;
@@ -120,6 +122,7 @@ export class OrderSeeder extends BaseSeeder {
 				const customer = storeCustomers[0]!;
 				const selectedProducts = storeProducts.slice(0, 2);
 				orderData.push({
+					id: generateOrderId(store.slug),
 					status: OrderStatus.CONFIRMED,
 					customerName: customer.name,
 					customerPhone: customer.phone,
@@ -139,6 +142,7 @@ export class OrderSeeder extends BaseSeeder {
 			if (storeProducts.length > 1) {
 				const selectedProducts = storeProducts.slice(1, 3);
 				orderData.push({
+					id: generateOrderId(store.slug),
 					status: OrderStatus.PROCESSING,
 					customerName: "Guest Customer",
 					customerPhone: "+971509999999",
@@ -157,6 +161,7 @@ export class OrderSeeder extends BaseSeeder {
 			if (storeProducts.length > 0) {
 				const selectedProduct = storeProducts[0]!;
 				orderData.push({
+					id: generateOrderId(store.slug),
 					status: OrderStatus.PENDING,
 					customerName: "New Customer",
 					customerPhone: "+971508888888",
@@ -179,6 +184,7 @@ export class OrderSeeder extends BaseSeeder {
 			orderData.map((orderInfo) =>
 				prisma.order.create({
 					data: {
+						id: orderInfo.id,
 						status: orderInfo.status,
 						customerName: orderInfo.customerName,
 						customerPhone: orderInfo.customerPhone,

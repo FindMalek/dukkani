@@ -2,6 +2,7 @@ import { BaseSeeder } from "../base";
 import type { PrismaClient } from "../../../prisma/generated/client";
 import type { StoreSeeder } from "./store.seeder";
 import { Prisma } from "../../../prisma/generated/client";
+import { generateProductId } from "../../utils/generate-id";
 
 /**
  * Seeder for Product model
@@ -14,7 +15,7 @@ export class ProductSeeder extends BaseSeeder {
 
 	// Export seeded products for use in other seeders
 	public seededProducts: Array<{
-		id: bigint;
+		id: string;
 		name: string;
 		storeId: bigint;
 		price: Prisma.Decimal;
@@ -62,6 +63,7 @@ export class ProductSeeder extends BaseSeeder {
 		const productData = [
 			// Products for Ahmed's Fashion Boutique (FASHION)
 			{
+				id: generateProductId(stores[0]!.slug),
 				name: "Premium Leather Jacket",
 				description: "Handcrafted genuine leather jacket with modern design",
 				price: new Prisma.Decimal("299.99"),
@@ -74,6 +76,7 @@ export class ProductSeeder extends BaseSeeder {
 				],
 			},
 			{
+				id: generateProductId(stores[0]!.slug),
 				name: "Designer Sunglasses",
 				description: "UV-protected designer sunglasses with polarized lenses",
 				price: new Prisma.Decimal("89.99"),
@@ -85,6 +88,7 @@ export class ProductSeeder extends BaseSeeder {
 				],
 			},
 			{
+				id: generateProductId(stores[0]!.slug),
 				name: "Classic White Sneakers",
 				description: "Comfortable and stylish white sneakers for everyday wear",
 				price: new Prisma.Decimal("129.99"),
@@ -97,6 +101,7 @@ export class ProductSeeder extends BaseSeeder {
 			},
 			// Products for Fatima's Electronics Hub (ELECTRONICS)
 			{
+				id: generateProductId(stores[1]!.slug),
 				name: "Wireless Bluetooth Earbuds",
 				description: "High-quality noise-canceling wireless earbuds",
 				price: new Prisma.Decimal("79.99"),
@@ -108,6 +113,7 @@ export class ProductSeeder extends BaseSeeder {
 				],
 			},
 			{
+				id: generateProductId(stores[1]!.slug),
 				name: "Smart Watch Pro",
 				description: "Feature-rich smartwatch with health tracking",
 				price: new Prisma.Decimal("249.99"),
@@ -119,6 +125,7 @@ export class ProductSeeder extends BaseSeeder {
 				],
 			},
 			{
+				id: generateProductId(stores[1]!.slug),
 				name: "USB-C Fast Charger",
 				description: "65W fast charging adapter with multiple ports",
 				price: new Prisma.Decimal("34.99"),
@@ -131,6 +138,7 @@ export class ProductSeeder extends BaseSeeder {
 			},
 			// Products for Omar's Home Essentials (HOME)
 			{
+				id: generateProductId(stores[2]!.slug),
 				name: "Stainless Steel Cookware Set",
 				description: "10-piece premium cookware set for your kitchen",
 				price: new Prisma.Decimal("149.99"),
@@ -142,6 +150,7 @@ export class ProductSeeder extends BaseSeeder {
 				],
 			},
 			{
+				id: generateProductId(stores[2]!.slug),
 				name: "Memory Foam Pillow Set",
 				description: "Set of 2 ergonomic memory foam pillows",
 				price: new Prisma.Decimal("49.99"),
@@ -153,6 +162,7 @@ export class ProductSeeder extends BaseSeeder {
 				],
 			},
 			{
+				id: generateProductId(stores[2]!.slug),
 				name: "LED Desk Lamp",
 				description: "Adjustable LED desk lamp with USB charging port",
 				price: new Prisma.Decimal("39.99"),
@@ -170,6 +180,7 @@ export class ProductSeeder extends BaseSeeder {
 			productData.map((productInfo) =>
 				prisma.product.create({
 					data: {
+						id: productInfo.id,
 						name: productInfo.name,
 						description: productInfo.description,
 						price: productInfo.price,

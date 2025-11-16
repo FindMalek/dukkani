@@ -1,6 +1,6 @@
 model WhatsAppMessage {
   id        BigInt                @id @default(autoincrement())
-  orderId   BigInt                @map("orderid")
+  orderId   String                @map("orderid")
   messageId String                @map("messageid")
   content   String
   sentAt    DateTime              @default(now()) @map("sentat")
@@ -8,8 +8,7 @@ model WhatsAppMessage {
   createdAt DateTime              @default(now())
   updatedAt DateTime              @updatedAt
 
-  order     Order                 @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@map("whatsappmessage")
 }
-

@@ -1,7 +1,11 @@
 import { BaseSeeder } from "../base";
 import type { PrismaClient } from "../../../prisma/generated/client";
 import type { UserSeeder } from "./user.seeder";
-import { StoreCategory, StorePlanType, StoreTheme } from "../../../prisma/generated/client";
+import {
+	StoreCategory,
+	StorePlanType,
+	StoreTheme,
+} from "../../../prisma/generated/client";
 
 /**
  * Seeder for Store model
