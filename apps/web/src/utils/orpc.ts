@@ -22,7 +22,7 @@ export const queryClient = new QueryClient({
 });
 
 export const link = new RPCLink({
-	url: `${env.CORS_ORIGIN}/api`,
+	url: `${env.NEXT_PUBLIC_CORS_ORIGIN}/api`,
 	fetch(url, options) {
 		return fetch(url, {
 			...options,

@@ -5,7 +5,7 @@ import { z } from "zod";
 export const env = createEnv({
 	extends: [baseEnv],
 	server: {
-		CORS_ORIGIN: z.url().default("http://localhost:3002"),
+		NEXT_PUBLIC_CORS_ORIGIN: z.url().default("http://localhost:3002"),
 	},
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,

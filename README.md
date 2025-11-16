@@ -42,7 +42,7 @@ DATABASE_URL="postgresql://postgres:password@localhost:5432/dukkani"
 
 **Auth Package Variables:**
 
-- `CORS_ORIGIN`: CORS origin URL (optional) - Used by auth package
+- `NEXT_PUBLIC_CORS_ORIGIN`: CORS origin URL (optional) - Used by auth package
 
 All environment variables are validated at runtime and provide type-safe access throughout the monorepo. Each package only includes the environment variables it needs:
 

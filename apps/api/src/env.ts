@@ -12,11 +12,8 @@ export const env = createEnv({
 		// Prefix with NEXT_PUBLIC_ for client-side access
 	},
 	runtimeEnv: {
-		// Server vars from base env
 		DATABASE_URL: process.env.DATABASE_URL,
-		// Server vars from auth env
-		CORS_ORIGIN: process.env.CORS_ORIGIN,
-		// Add any client vars here with NEXT_PUBLIC_ prefix
+		NEXT_PUBLIC_CORS_ORIGIN: process.env.NEXT_PUBLIC_CORS_ORIGIN,
 	},
 	emptyStringAsUndefined: true,
 });
