@@ -1,10 +1,10 @@
 /**
  * Password hashing utility for seeders
  * Uses bcrypt to hash passwords compatible with Better Auth
- * TODO: Move to common package in the future
+ * TODO: Move to `@dukkani/common` package in the future
  */
 
-import { hash } from "bcryptjs";
+import bcrypt from "bcryptjs";
 
 /**
  * Hash a password for use in seeders
@@ -12,6 +12,6 @@ import { hash } from "bcryptjs";
  * @returns Hashed password
  */
 export async function hashPassword(password: string): Promise<string> {
-	return await hash(password, 10);
+	return await bcrypt.hash(password, 10);
 }
 
