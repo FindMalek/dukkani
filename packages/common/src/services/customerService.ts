@@ -1,14 +1,14 @@
 import prisma from "@dukkani/db";
-import { CustomerQuery } from "../entities/customer/query";
-import { CustomerEntity } from "../entities/customer/entity";
+import { CustomerQuery } from "@/entities/customer/query";
+import { CustomerEntity } from "@/entities/customer/entity";
 import type {
 	CreateCustomerInput,
 	UpdateCustomerInput,
-} from "../schemas/customer/input";
+} from "@/schemas/customer/input";
 import type {
 	CustomerSimpleOutput,
-	CustomerIncludeOutput,
-} from "../schemas/customer/output";
+} from "@/schemas/customer/output";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 /**
  * Customer service - Shared business logic for customer operations
@@ -67,16 +67,23 @@ export class CustomerService {
 		}
 
 		// Create customer
-		const customer = await prisma.customer.create({
-			data: {
-				name: input.name,
-				phone: input.phone,
-				storeId: input.storeId,
-			},
-			include: CustomerQuery.getSimpleInclude(),
-		});
+		try {
+			const customer = await prisma.customer.create({
+				data: {
+					name: input.name,
+					phone: input.phone,
+					storeId: input.storeId,
+				},
+				include: CustomerQuery.getSimpleInclude(),
+			});
 
-		return CustomerEntity.getSimpleRo(customer);
+			return CustomerEntity.getSimpleRo(customer);
+		} catch (error) {
+			if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
+				throw new Error("Customer with this phone number already exists in this store");
+			}
+			throw error;
+		}
 	}
 
 	/**
@@ -129,12 +136,19 @@ export class CustomerService {
 		if (input.name !== undefined) updateData.name = input.name;
 		if (input.phone !== undefined) updateData.phone = input.phone;
 
-		const customer = await prisma.customer.update({
+		try {
+			const customer = await prisma.customer.update({
 			where: { id: input.id },
 			data: updateData,
 			include: CustomerQuery.getSimpleInclude(),
-		});
+			});
 
-		return CustomerEntity.getSimpleRo(customer);
+			return CustomerEntity.getSimpleRo(customer);
+		} catch (error) {
+			if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
+				throw new Error("Customer with this phone number already exists in this store");
+			}
+			throw error;
+		}
 	}
 }

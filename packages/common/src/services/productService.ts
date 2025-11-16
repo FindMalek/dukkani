@@ -1,4 +1,5 @@
 import prisma from "@dukkani/db";
+import type { Prisma } from "@prisma/client";
 import { generateProductId } from "../utils/generate-id";
 
 /**
@@ -18,8 +19,10 @@ export class ProductService {
 	static async validateProductsExist(
 		productIds: string[],
 		storeId: string,
+		tx?: Prisma.TransactionClient,
 	): Promise<void> {
-		const products = await prisma.product.findMany({
+		const client = tx ?? prisma;
+		const products = await client.product.findMany({
 			where: {
 				id: { in: productIds },
 				storeId,
@@ -42,9 +45,11 @@ export class ProductService {
 	static async checkStockAvailability(
 		items: Array<{ productId: string; quantity: number }>,
 		storeId: string,
+		tx?: Prisma.TransactionClient,
 	): Promise<void> {
+		const client = tx ?? prisma;
 		const productIds = items.map((item) => item.productId);
-		const products = await prisma.product.findMany({
+		const products = await client.product.findMany({
 			where: {
 				id: { in: productIds },
 				storeId,
@@ -62,7 +67,9 @@ export class ProductService {
 		}
 
 		for (const item of items) {
-			const product = products.find((p) => p.id === item.productId);
+			const product = products.find(
+				(p: { id: string; stock: number }) => p.id === item.productId,
+			);
 			if (!product || product.stock < item.quantity) {
 				throw new Error(`Insufficient stock for product ${item.productId}`);
 			}
@@ -76,8 +83,10 @@ export class ProductService {
 		productId: string,
 		quantity: number,
 		operation: "increment" | "decrement",
+		tx?: Prisma.TransactionClient,
 	): Promise<void> {
-		await prisma.product.update({
+		const client = tx ?? prisma;
+		await client.product.update({
 			where: { id: productId },
 			data: {
 				stock: {
@@ -93,10 +102,19 @@ export class ProductService {
 	static async updateMultipleProductStocks(
 		updates: Array<{ productId: string; quantity: number }>,
 		operation: "increment" | "decrement",
+		tx?: Prisma.TransactionClient,
 	): Promise<void> {
+		const client = tx ?? prisma;
 		await Promise.all(
 			updates.map((update) =>
-				this.updateProductStock(update.productId, update.quantity, operation),
+				client.product.update({
+					where: { id: update.productId },
+					data: {
+						stock: {
+							[operation]: update.quantity,
+						},
+					},
+				}),
 			),
 		);
 	}

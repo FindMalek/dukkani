@@ -42,13 +42,11 @@ export class CustomerQuery {
 			phone?: string;
 		},
 	): Prisma.CustomerWhereInput {
-		const where: Prisma.CustomerWhereInput = {
-			storeId: { in: storeIds },
-		};
+		const allowedStoreIds = filters?.storeId && storeIds.includes(filters.storeId) ? [filters.storeId] : storeIds;
 
-		if (filters?.storeId) {
-			where.storeId = { in: [filters.storeId] };
-		}
+		const where: Prisma.CustomerWhereInput = {
+			storeId: { in: allowedStoreIds },
+		};
 
 		if (filters?.search) {
 			where.OR = [

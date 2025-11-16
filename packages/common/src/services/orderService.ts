@@ -1,14 +1,13 @@
 import prisma from "@dukkani/db";
-import { generateOrderId } from "../utils/generate-id";
-import { ProductService } from "./productService";
-import { OrderQuery } from "../entities/order/query";
-import { OrderEntity } from "../entities/order/entity";
+import { generateOrderId } from "@dukkani/db/utils/generate-id";
+import { ProductService } from "@/services/productService";
+import { OrderQuery } from "@/entities/order/query";
+import { OrderEntity } from "@/entities/order/entity";
 import type {
 	CreateOrderInput,
-	UpdateOrderInput,
-} from "../schemas/order/input";
-import type { OrderIncludeOutput } from "../schemas/order/output";
-import type { OrderStatus } from "../schemas/order/enums";
+} from "@/schemas/order/input";
+import type { OrderIncludeOutput } from "@/schemas/order/output";
+import type { OrderStatus } from "@/schemas/order/enums";
 
 /**
  * Order service - Shared business logic for order operations
@@ -23,6 +22,7 @@ export class OrderService {
 
 	/**
 	 * Create order with stock validation and updates
+	 * Wrapped in transaction to ensure atomicity and prevent race conditions
 	 */
 	static async createOrder(
 		input: CreateOrderInput,
@@ -42,45 +42,53 @@ export class OrderService {
 			throw new Error("You don't have access to this store");
 		}
 
-		// Validate products exist and check stock
-		await ProductService.checkStockAvailability(
-			input.orderItems.map((item) => ({
-				productId: item.productId,
-				quantity: item.quantity,
-			})),
-			input.storeId,
-		);
+		// Wrap stock check, order creation, and stock updates in transaction
+		// This ensures atomicity: all operations succeed or fail together
+		const order = await prisma.$transaction(async (tx) => {
+			// Validate products exist and check stock (within transaction for isolation)
+			await ProductService.checkStockAvailability(
+				input.orderItems.map((item) => ({
+					productId: item.productId,
+					quantity: item.quantity,
+				})),
+				input.storeId,
+				tx,
+			);
 
-		// Create order with order items
-		const order = await prisma.order.create({
-			data: {
-				id: input.id,
-				storeId: input.storeId,
-				customerName: input.customerName,
-				customerPhone: input.customerPhone,
-				address: input.address,
-				notes: input.notes,
-				customerId: input.customerId,
-				status: input.status,
-				orderItems: {
-					create: input.orderItems.map((item) => ({
-						productId: item.productId,
-						quantity: item.quantity,
-						price: item.price,
-					})),
+			// Create order with order items (within transaction)
+			const createdOrder = await tx.order.create({
+				data: {
+					id: input.id,
+					storeId: input.storeId,
+					customerName: input.customerName,
+					customerPhone: input.customerPhone,
+					address: input.address,
+					notes: input.notes,
+					customerId: input.customerId,
+					status: input.status,
+					orderItems: {
+						create: input.orderItems.map((item) => ({
+							productId: item.productId,
+							quantity: item.quantity,
+							price: item.price,
+						})),
+					},
 				},
-			},
-			include: OrderQuery.getInclude(),
-		});
+				include: OrderQuery.getInclude(),
+			});
 
-		// Update product stock (decrement)
-		await ProductService.updateMultipleProductStocks(
-			input.orderItems.map((item) => ({
-				productId: item.productId,
-				quantity: item.quantity,
-			})),
-			"decrement",
-		);
+			// Update product stock (decrement) within same transaction
+			await ProductService.updateMultipleProductStocks(
+				input.orderItems.map((item) => ({
+					productId: item.productId,
+					quantity: item.quantity,
+				})),
+				"decrement",
+				tx,
+			);
+
+			return createdOrder;
+		});
 
 		return OrderEntity.getRo(order);
 	}
@@ -123,6 +131,7 @@ export class OrderService {
 
 	/**
 	 * Delete order and restore stock
+	 * Wrapped in transaction to ensure atomicity
 	 */
 	static async deleteOrder(orderId: string, userId: string): Promise<void> {
 		// Get order to verify ownership and get order items
@@ -152,20 +161,25 @@ export class OrderService {
 			throw new Error("You don't have access to this order");
 		}
 
-		// Restore product stock if order has items
-		if (order.orderItems.length > 0) {
-			await ProductService.updateMultipleProductStocks(
-				order.orderItems.map((item) => ({
-					productId: item.productId,
-					quantity: item.quantity,
-				})),
-				"increment",
-			);
-		}
+		// Wrap stock increment and order deletion in transaction
+		// This ensures atomicity: both operations succeed or fail together
+		await prisma.$transaction(async (tx) => {
+			// Restore product stock if order has items (within transaction)
+			if (order.orderItems.length > 0) {
+				await ProductService.updateMultipleProductStocks(
+					order.orderItems.map((item) => ({
+						productId: item.productId,
+						quantity: item.quantity,
+					})),
+					"increment",
+					tx,
+				);
+			}
 
-		// Delete order (order items will be cascade deleted)
-		await prisma.order.delete({
-			where: { id: orderId },
+			// Delete order (order items will be cascade deleted) within same transaction
+			await tx.order.delete({
+				where: { id: orderId },
+			});
 		});
 	}
 }
