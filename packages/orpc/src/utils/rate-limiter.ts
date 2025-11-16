@@ -230,7 +230,7 @@ export const rateLimiters = {
 
 	/**
 	 * Standard rate limiter for authenticated requests
-	 * 100 requests per minute
+	 * 30 requests per minute
 	 */
 	standard: new RateLimiter({
 		max: 30,

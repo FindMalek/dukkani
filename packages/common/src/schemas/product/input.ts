@@ -10,7 +10,6 @@ export const productInputSchema = z.object({
 });
 
 export const createProductInputSchema = productInputSchema.extend({
-	id: z.string().min(1, "Product ID is required"),
 	imageUrls: z.array(z.url()).optional(),
 });
 

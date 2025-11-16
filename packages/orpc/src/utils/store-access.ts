@@ -36,8 +36,8 @@ export async function verifyStoreOwnership(
 }
 
 /**
- * Verify that a user owns any of the provided stores
- * Throws ORPCError if user doesn't own any of the stores
+ * Verify that a user owns all of the provided stores.
+ * Throws ORPCError if the user doesn't own one or more stores.
  */
 export async function verifyStoreOwnershipMultiple(
 	userId: string,
