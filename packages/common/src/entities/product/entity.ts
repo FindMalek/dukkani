@@ -1,6 +1,7 @@
 import type { ProductSimpleOutput, ProductIncludeOutput } from "../../schemas/product/output";
 import type { ProductSimpleDbData, ProductIncludeDbData } from "./query";
 
+
 export class ProductEntity {
 	static getSimpleRo(entity: ProductSimpleDbData): ProductSimpleOutput {
 		return {
@@ -19,9 +20,9 @@ export class ProductEntity {
 	static getRo(entity: ProductIncludeDbData): ProductIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			store: entity.store ? entity.store : undefined,
-			images: entity.images?.map((image) => image) ?? [],
-			orderItems: entity.orderItems?.map((item) => item) ?? [],
+			store: entity.store,
+			images: entity.images,
+			orderItems: entity.orderItems,
 		};
 	}
 }

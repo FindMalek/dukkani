@@ -15,7 +15,7 @@ export class ImageEntity {
 	static getRo(entity: ImageIncludeDbData): ImageIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			product: entity.product ? entity.product : undefined,
+			product: entity.product,
 		};
 	}
 }

@@ -1,5 +1,9 @@
 import { z } from "zod";
 import { orderStatusSchema } from "./enums";
+import { storeSimpleOutputSchema } from "../store/output";
+import { customerSimpleOutputSchema } from "../customer/output";
+import { orderItemSimpleOutputSchema } from "../order-item/output";
+import { whatsappMessageSimpleOutputSchema } from "../whatsapp-message/output";
 
 export const orderSimpleOutputSchema = z.object({
 	id: z.string(),
@@ -15,10 +19,10 @@ export const orderSimpleOutputSchema = z.object({
 });
 
 export const orderIncludeOutputSchema = orderSimpleOutputSchema.extend({
-	store: z.unknown().optional(),
-	customer: z.unknown().optional(),
-	orderItems: z.array(z.unknown()).optional(),
-	whatsappMessages: z.array(z.unknown()).optional(),
+	store: storeSimpleOutputSchema.optional(),
+	customer: customerSimpleOutputSchema.optional(),
+	orderItems: z.array(orderItemSimpleOutputSchema).optional(),
+	whatsappMessages: z.array(whatsappMessageSimpleOutputSchema).optional(),
 });
 
 export const listOrdersOutputSchema = z.object({

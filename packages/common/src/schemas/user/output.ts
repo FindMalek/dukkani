@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { storeSimpleOutputSchema } from "../store/output";
+import { teamMemberSimpleOutputSchema } from "../team-member/output";
 
 /**
  * User output schemas (Return Objects)
@@ -14,20 +16,9 @@ export const userSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
-// Use lazy evaluation to handle circular references
-export const userIncludeOutputSchema: z.ZodType<{
-	id: string;
-	name: string;
-	email: string;
-	emailVerified: boolean;
-	image: string | null;
-	createdAt: Date;
-	updatedAt: Date;
-	stores?: unknown[];
-	teamMembers?: unknown[];
-}> = userSimpleOutputSchema.extend({
-	stores: z.array(z.unknown()).optional(),
-	teamMembers: z.array(z.unknown()).optional(),
+export const userIncludeOutputSchema = userSimpleOutputSchema.extend({
+	stores: z.array(storeSimpleOutputSchema).optional(),
+	teamMembers: z.array(teamMemberSimpleOutputSchema).optional(),
 });
 
 export const listUsersOutputSchema = z.object({

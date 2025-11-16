@@ -1,32 +1,34 @@
+import { type Prisma } from "@dukkani/db/prisma/generated";
+
+export type ImageSimpleDbData = Prisma.ImageGetPayload<{
+	include: ReturnType<typeof ImageQuery.getSimpleInclude>;
+}>;
+
+export type ImageIncludeDbData = Prisma.ImageGetPayload<{
+	include: ReturnType<typeof ImageQuery.getInclude>;
+}>;
+
+export type ImageClientSafeDbData = Prisma.ImageGetPayload<{
+	include: ReturnType<typeof ImageQuery.getClientSafeInclude>;
+}>;
+
+
 export class ImageQuery {
 	static getSimpleInclude() {
-		return {} as const;
+		return {} satisfies Prisma.ImageInclude;
 	}
 
 	static getInclude() {
 		return {
 			...this.getSimpleInclude(),
 			product: true,
-		} as const;
+		} satisfies Prisma.ImageInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
 			...this.getSimpleInclude(),
-		} as const;
+		} satisfies Prisma.ImageInclude;
 	}
 }
 
-export interface ImageSimpleDbData {
-	id: string;
-	url: string;
-	productId: string;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface ImageIncludeDbData extends ImageSimpleDbData {
-	product?: unknown;
-}
-
-export interface ImageClientSafeDbData extends ImageSimpleDbData {}

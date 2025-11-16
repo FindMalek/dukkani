@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { storeSimpleOutputSchema } from "../store/output";
+import { imageSimpleOutputSchema } from "../image/output";
+import { orderItemSimpleOutputSchema } from "../order-item/output";
 
 export const productSimpleOutputSchema = z.object({
 	id: z.string(),
@@ -13,9 +16,9 @@ export const productSimpleOutputSchema = z.object({
 });
 
 export const productIncludeOutputSchema = productSimpleOutputSchema.extend({
-	store: z.unknown().optional(),
-	images: z.array(z.unknown()).optional(),
-	orderItems: z.array(z.unknown()).optional(),
+	store: storeSimpleOutputSchema.optional(),
+	images: z.array(imageSimpleOutputSchema).optional(),
+	orderItems: z.array(orderItemSimpleOutputSchema).optional(),
 });
 
 export const listProductsOutputSchema = z.object({

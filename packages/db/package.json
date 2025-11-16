@@ -11,8 +11,8 @@
 			"default": "./src/env.ts"
 		},
 		"./prisma/generated": {
-			"types": "./prisma/generated/index.ts",
-			"default": "./prisma/generated/index.ts"
+			"types": "./prisma/generated",
+			"default": "./prisma/generated"
 		},
 		"./*": {
 			"types": "./dist/*.d.ts",
@@ -31,16 +31,15 @@
 		"db:format": "prisma format"
 	},
 	"peerDependencies": {
-		"typescript": "^5.9.3"
+		"typescript": "catalog:"
 	},
 	"dependencies": {
-		"@dukkani/common": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"@prisma/client": "catalog:",
 		"@t3-oss/env-core": "catalog:",
 		"bcryptjs": "^2.4.3",
 		"dotenv": "catalog:",
-		"nanoid": "^5.1.6",
+		"nanoid": "catalog:",
 		"zod": "catalog:"
 	},
 	"devDependencies": {

@@ -1,11 +1,20 @@
-/**
- * User query helpers - Define include objects for Prisma queries
- * These return plain objects that can be used with Prisma's include option
- */
+import { type Prisma } from "@dukkani/db/prisma/generated";
+
+export type UserSimpleDbData = Prisma.UserGetPayload<{
+	include: ReturnType<typeof UserQuery.getSimpleInclude>;
+}>;
+
+export type UserIncludeDbData = Prisma.UserGetPayload<{
+	include: ReturnType<typeof UserQuery.getInclude>;
+}>;
+
+export type UserClientSafeDbData = Prisma.UserGetPayload<{
+	include: ReturnType<typeof UserQuery.getClientSafeInclude>;
+}>;
 
 export class UserQuery {
 	static getSimpleInclude() {
-		return {} as const;
+		return {} satisfies Prisma.UserInclude;
 	}
 
 	static getInclude() {
@@ -13,33 +22,13 @@ export class UserQuery {
 			...this.getSimpleInclude(),
 			stores: true,
 			teamMembers: true,
-		} as const;
+		} satisfies Prisma.UserInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
 			...this.getSimpleInclude(),
-		} as const;
+		} satisfies Prisma.UserInclude;
 	}
 }
 
-/**
- * Type definitions for database entities
- * These match the Prisma schema structure
- */
-export interface UserSimpleDbData {
-	id: string;
-	name: string;
-	email: string;
-	emailVerified: boolean;
-	image: string | null;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface UserIncludeDbData extends UserSimpleDbData {
-	stores?: unknown[];
-	teamMembers?: unknown[];
-}
-
-export interface UserClientSafeDbData extends UserSimpleDbData {}

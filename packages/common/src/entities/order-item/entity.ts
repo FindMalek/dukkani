@@ -17,8 +17,8 @@ export class OrderItemEntity {
 	static getRo(entity: OrderItemIncludeDbData): OrderItemIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			order: entity.order ? entity.order : undefined,
-			product: entity.product ? entity.product : undefined,
+			order: entity.order,
+			product: entity.product,
 		};
 	}
 }

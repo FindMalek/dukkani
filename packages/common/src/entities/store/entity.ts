@@ -20,13 +20,13 @@ export class StoreEntity {
 	static getRo(entity: StoreIncludeDbData): StoreIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			owner: entity.owner ? entity.owner : undefined,
-			storePlan: entity.storePlan ? entity.storePlan : undefined,
-			products: entity.products?.map((product) => product) ?? [],
-			orders: entity.orders?.map((order) => order) ?? [],
-			customers: entity.customers?.map((customer) => customer) ?? [],
-			teamMembers: entity.teamMembers?.map((tm) => tm) ?? [],
-			salesMetrics: entity.salesMetrics?.map((metric) => metric) ?? [],
+			owner: entity.owner,
+			storePlan: entity.storePlan,
+			products: entity.products,
+			orders: entity.orders,
+			customers: entity.customers,
+			teamMembers: entity.teamMembers,
+			salesMetrics: entity.salesMetrics,
 		};
 	}
 }

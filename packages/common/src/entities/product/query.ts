@@ -1,6 +1,22 @@
+import { type Prisma } from "@dukkani/db/prisma/generated";
+
+
+export type ProductSimpleDbData = Prisma.ProductGetPayload<{
+	include: ReturnType<typeof ProductQuery.getSimpleInclude>;
+}>;
+
+export type ProductIncludeDbData = Prisma.ProductGetPayload<{
+	include: ReturnType<typeof ProductQuery.getInclude>;
+}>;
+
+export type ProductClientSafeDbData = Prisma.ProductGetPayload<{
+	include: ReturnType<typeof ProductQuery.getClientSafeInclude>;
+}>;
+
+
 export class ProductQuery {
 	static getSimpleInclude() {
-		return {} as const;
+		return {} satisfies Prisma.ProductInclude;
 	}
 
 	static getInclude() {
@@ -9,35 +25,13 @@ export class ProductQuery {
 			store: true,
 			images: true,
 			orderItems: true,
-		} as const;
+		} satisfies Prisma.ProductInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
 			...this.getSimpleInclude(),
 			images: true,
-		} as const;
+		} satisfies Prisma.ProductInclude;
 	}
-}
-
-export interface ProductSimpleDbData {
-	id: string;
-	name: string;
-	description: string | null;
-	price: number | string; // Can be Decimal from Prisma
-	stock: number;
-	published: boolean;
-	storeId: string;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface ProductIncludeDbData extends ProductSimpleDbData {
-	store?: unknown;
-	images?: unknown[];
-	orderItems?: unknown[];
-}
-
-export interface ProductClientSafeDbData extends ProductSimpleDbData {
-	images?: unknown[];
 }

@@ -16,8 +16,8 @@ export class CustomerEntity {
 	static getRo(entity: CustomerIncludeDbData): CustomerIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			store: entity.store ? entity.store : undefined,
-			orders: entity.orders?.map((order) => order) ?? [],
+			store: entity.store,
+			orders: entity.orders,
 		};
 	}
 }

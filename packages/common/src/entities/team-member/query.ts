@@ -1,4 +1,16 @@
-import type { Prisma } from "@dukkani/db/prisma/generated";
+import { type Prisma } from "@dukkani/db/prisma/generated";
+
+export type TeamMemberSimpleDbData = Prisma.TeamMemberGetPayload<{
+	include: ReturnType<typeof TeamMemberQuery.getSimpleInclude>;
+}>;
+
+export type TeamMemberIncludeDbData = Prisma.TeamMemberGetPayload<{
+	include: ReturnType<typeof TeamMemberQuery.getInclude>;
+}>;
+
+export type TeamMemberClientSafeDbData = Prisma.TeamMemberGetPayload<{
+	include: ReturnType<typeof TeamMemberQuery.getClientSafeInclude>;
+}>;
 
 export class TeamMemberQuery {
 	static getSimpleInclude() {
@@ -19,16 +31,4 @@ export class TeamMemberQuery {
 		} satisfies Prisma.TeamMemberInclude;
 	}
 }
-
-export type TeamMemberSimpleDbData = Prisma.TeamMemberGetPayload<{
-	include: ReturnType<typeof TeamMemberQuery.getSimpleInclude>;
-}>;
-
-export type TeamMemberIncludeDbData = Prisma.TeamMemberGetPayload<{
-	include: ReturnType<typeof TeamMemberQuery.getInclude>;
-}>;
-
-export type TeamMemberClientSafeDbData = Prisma.TeamMemberGetPayload<{
-	include: ReturnType<typeof TeamMemberQuery.getClientSafeInclude>;
-}>;
 

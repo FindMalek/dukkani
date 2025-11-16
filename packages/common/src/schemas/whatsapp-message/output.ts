@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { whatsappMessageStatusSchema } from "./enums";
+import { orderSimpleOutputSchema } from "../order/output";
 
 export const whatsappMessageSimpleOutputSchema = z.object({
 	id: z.string(),
@@ -13,7 +14,7 @@ export const whatsappMessageSimpleOutputSchema = z.object({
 });
 
 export const whatsappMessageIncludeOutputSchema = whatsappMessageSimpleOutputSchema.extend({
-	order: z.unknown().optional(),
+	order: orderSimpleOutputSchema.optional(),
 });
 
 export type WhatsAppMessageSimpleOutput = z.infer<typeof whatsappMessageSimpleOutputSchema>;

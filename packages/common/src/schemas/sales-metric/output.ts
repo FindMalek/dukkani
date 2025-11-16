@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { storeSimpleOutputSchema } from "../store/output";
 
 export const salesMetricSimpleOutputSchema = z.object({
 	id: z.string(),
@@ -11,7 +12,7 @@ export const salesMetricSimpleOutputSchema = z.object({
 });
 
 export const salesMetricIncludeOutputSchema = salesMetricSimpleOutputSchema.extend({
-	store: z.unknown().optional(),
+	store: storeSimpleOutputSchema.optional(),
 });
 
 export type SalesMetricSimpleOutput = z.infer<typeof salesMetricSimpleOutputSchema>;

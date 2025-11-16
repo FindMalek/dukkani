@@ -1,5 +1,12 @@
 import { z } from "zod";
 import { storeCategorySchema, storeThemeSchema } from "./enums";
+import { userSimpleOutputSchema } from "../user/output";
+import { storePlanSimpleOutputSchema } from "../store-plan/output";
+import { productSimpleOutputSchema } from "../product/output";
+import { orderSimpleOutputSchema } from "../order/output";
+import { customerSimpleOutputSchema } from "../customer/output";
+import { teamMemberSimpleOutputSchema } from "../team-member/output";
+import { salesMetricSimpleOutputSchema } from "../sales-metric/output";
 
 export const storeSimpleOutputSchema = z.object({
 	id: z.string(),
@@ -15,13 +22,13 @@ export const storeSimpleOutputSchema = z.object({
 });
 
 export const storeIncludeOutputSchema = storeSimpleOutputSchema.extend({
-	owner: z.unknown().optional(),
-	storePlan: z.unknown().optional(),
-	products: z.array(z.unknown()).optional(),
-	orders: z.array(z.unknown()).optional(),
-	customers: z.array(z.unknown()).optional(),
-	teamMembers: z.array(z.unknown()).optional(),
-	salesMetrics: z.array(z.unknown()).optional(),
+	owner: userSimpleOutputSchema.optional(),
+	storePlan: storePlanSimpleOutputSchema.optional(),
+	products: z.array(productSimpleOutputSchema).optional(),
+	orders: z.array(orderSimpleOutputSchema).optional(),
+	customers: z.array(customerSimpleOutputSchema).optional(),
+	teamMembers: z.array(teamMemberSimpleOutputSchema).optional(),
+	salesMetrics: z.array(salesMetricSimpleOutputSchema).optional(),
 });
 
 export const listStoresOutputSchema = z.object({

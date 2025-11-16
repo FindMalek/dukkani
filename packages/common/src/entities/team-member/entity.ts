@@ -16,8 +16,8 @@ export class TeamMemberEntity {
 	static getRo(entity: TeamMemberIncludeDbData): TeamMemberIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			user: entity.user ? entity.user : undefined,
-			store: entity.store ? entity.store : undefined,
+			user: entity.user,
+			store: entity.store,
 		};
 	}
 }

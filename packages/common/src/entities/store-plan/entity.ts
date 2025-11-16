@@ -18,7 +18,7 @@ export class StorePlanEntity {
 	static getRo(entity: StorePlanIncludeDbData): StorePlanIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			store: entity.store ? entity.store : undefined,
+			store: entity.store,
 		};
 	}
 }

@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { storeSimpleOutputSchema } from "../store/output";
+import { orderSimpleOutputSchema } from "../order/output";
 
 export const customerSimpleOutputSchema = z.object({
 	id: z.string(),
@@ -10,8 +12,8 @@ export const customerSimpleOutputSchema = z.object({
 });
 
 export const customerIncludeOutputSchema = customerSimpleOutputSchema.extend({
-	store: z.unknown().optional(),
-	orders: z.array(z.unknown()).optional(),
+	store: storeSimpleOutputSchema.optional(),
+	orders: z.array(orderSimpleOutputSchema).optional(),
 });
 
 export const listCustomersOutputSchema = z.object({

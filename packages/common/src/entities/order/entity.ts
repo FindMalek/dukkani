@@ -20,10 +20,10 @@ export class OrderEntity {
 	static getRo(entity: OrderIncludeDbData): OrderIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			store: entity.store ? entity.store : undefined,
-			customer: entity.customer ? entity.customer : undefined,
-			orderItems: entity.orderItems?.map((item) => item) ?? [],
-			whatsappMessages: entity.whatsappMessages?.map((msg) => msg) ?? [],
+			store: entity.store,
+			customer: entity.customer,
+			orderItems: entity.orderItems,
+			whatsappMessages: entity.whatsappMessages,
 		};
 	}
 }

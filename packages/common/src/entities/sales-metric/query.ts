@@ -1,4 +1,16 @@
-import type { Prisma } from "@dukkani/db/prisma/generated";
+import { type Prisma } from "@dukkani/db/prisma/generated";
+
+export type SalesMetricSimpleDbData = Prisma.SalesMetricGetPayload<{
+	include: ReturnType<typeof SalesMetricQuery.getSimpleInclude>;
+}>;
+
+export type SalesMetricIncludeDbData = Prisma.SalesMetricGetPayload<{
+	include: ReturnType<typeof SalesMetricQuery.getInclude>;
+}>;
+
+export type SalesMetricClientSafeDbData = Prisma.SalesMetricGetPayload<{
+	include: ReturnType<typeof SalesMetricQuery.getClientSafeInclude>;
+}>;
 
 export class SalesMetricQuery {
 	static getSimpleInclude() {
@@ -18,16 +30,4 @@ export class SalesMetricQuery {
 		} satisfies Prisma.SalesMetricInclude;
 	}
 }
-
-export type SalesMetricSimpleDbData = Prisma.SalesMetricGetPayload<{
-	include: ReturnType<typeof SalesMetricQuery.getSimpleInclude>;
-}>;
-
-export type SalesMetricIncludeDbData = Prisma.SalesMetricGetPayload<{
-	include: ReturnType<typeof SalesMetricQuery.getInclude>;
-}>;
-
-export type SalesMetricClientSafeDbData = Prisma.SalesMetricGetPayload<{
-	include: ReturnType<typeof SalesMetricQuery.getClientSafeInclude>;
-}>;
 

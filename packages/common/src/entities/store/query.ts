@@ -1,11 +1,21 @@
-import type { StoreCategory, StoreTheme } from "../../schemas/enums";
+import { type Prisma } from "@dukkani/db/prisma/generated";
 
-/**
- * Store query helpers - Define include objects for Prisma queries
- */
+export type StoreSimpleDbData = Prisma.StoreGetPayload<{
+	include: ReturnType<typeof StoreQuery.getSimpleInclude>;
+}>;
+
+export type StoreIncludeDbData = Prisma.StoreGetPayload<{
+	include: ReturnType<typeof StoreQuery.getInclude>;
+}>;
+
+export type StoreClientSafeDbData = Prisma.StoreGetPayload<{
+	include: ReturnType<typeof StoreQuery.getClientSafeInclude>;
+}>;
+
+
 export class StoreQuery {
 	static getSimpleInclude() {
-		return {} as const;
+		return {} satisfies Prisma.StoreInclude;
 	}
 
 	static getInclude() {
@@ -18,40 +28,14 @@ export class StoreQuery {
 			customers: true,
 			teamMembers: true,
 			salesMetrics: true,
-		} as const;
+		} satisfies Prisma.StoreInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
 			...this.getSimpleInclude(),
 			storePlan: true,
-		} as const;
+		} satisfies Prisma.StoreInclude;
 	}
 }
 
-export interface StoreSimpleDbData {
-	id: string;
-	slug: string;
-	name: string;
-	description: string | null;
-	whatsappNumber: string | null;
-	category: StoreCategory | null;
-	theme: StoreTheme | null;
-	ownerId: string;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface StoreIncludeDbData extends StoreSimpleDbData {
-	owner?: unknown;
-	storePlan?: unknown;
-	products?: unknown[];
-	orders?: unknown[];
-	customers?: unknown[];
-	teamMembers?: unknown[];
-	salesMetrics?: unknown[];
-}
-
-export interface StoreClientSafeDbData extends StoreSimpleDbData {
-	storePlan?: unknown;
-}

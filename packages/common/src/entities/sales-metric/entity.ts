@@ -17,7 +17,7 @@ export class SalesMetricEntity {
 	static getRo(entity: SalesMetricIncludeDbData): SalesMetricIncludeOutput {
 		return {
 			...this.getSimpleRo(entity),
-			store: entity.store ? entity.store : undefined,
+			store: entity.store,
 		};
 	}
 }

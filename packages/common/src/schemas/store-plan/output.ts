@@ -12,8 +12,18 @@ export const storePlanSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
+// Lazy schema reference to avoid circular dependency
+let _storeSimpleOutputSchema: typeof import("../store/output").storeSimpleOutputSchema | undefined;
+
+function getStoreSchema() {
+	if (!_storeSimpleOutputSchema) {
+		_storeSimpleOutputSchema = require("../store/output").storeSimpleOutputSchema;
+	}
+	return _storeSimpleOutputSchema!;
+}
+
 export const storePlanIncludeOutputSchema = storePlanSimpleOutputSchema.extend({
-	store: z.unknown().optional(),
+	store: z.lazy(() => getStoreSchema()).optional(),
 });
 
 export type StorePlanSimpleOutput = z.infer<typeof storePlanSimpleOutputSchema>;

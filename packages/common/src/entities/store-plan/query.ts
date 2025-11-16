@@ -1,37 +1,34 @@
-import type { StorePlanType } from "../../schemas/enums";
+import { type Prisma } from "@dukkani/db/prisma/generated";
+
+export type StorePlanSimpleDbData = Prisma.StorePlanGetPayload<{
+	include: ReturnType<typeof StorePlanQuery.getSimpleInclude>;
+}>;
+
+export type StorePlanIncludeDbData = Prisma.StorePlanGetPayload<{
+	include: ReturnType<typeof StorePlanQuery.getInclude>;
+}>;
+
+export type StorePlanClientSafeDbData = Prisma.StorePlanGetPayload<{
+	include: ReturnType<typeof StorePlanQuery.getClientSafeInclude>;
+}>;
+
 
 export class StorePlanQuery {
 	static getSimpleInclude() {
-		return {} as const;
+		return {} satisfies Prisma.StorePlanInclude;
 	}
 
 	static getInclude() {
 		return {
 			...this.getSimpleInclude(),
 			store: true,
-		} as const;
+		} satisfies Prisma.StorePlanInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
 			...this.getSimpleInclude(),
-		} as const;
+		} satisfies Prisma.StorePlanInclude;
 	}
 }
 
-export interface StorePlanSimpleDbData {
-	id: string;
-	planType: StorePlanType;
-	orderLimit: number;
-	orderCount: number;
-	resetAt: Date | null;
-	storeId: string;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface StorePlanIncludeDbData extends StorePlanSimpleDbData {
-	store?: unknown;
-}
-
-export interface StorePlanClientSafeDbData extends StorePlanSimpleDbData {}

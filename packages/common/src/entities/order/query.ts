@@ -1,8 +1,22 @@
-import type { OrderStatus } from "../../schemas/enums";
+import { type Prisma } from "@dukkani/db/prisma/generated";
+
+
+export type OrderSimpleDbData = Prisma.OrderGetPayload<{
+	include: ReturnType<typeof OrderQuery.getSimpleInclude>;
+}>;
+
+export type OrderIncludeDbData = Prisma.OrderGetPayload<{
+	include: ReturnType<typeof OrderQuery.getInclude>;
+}>;
+
+export type OrderClientSafeDbData = Prisma.OrderGetPayload<{
+	include: ReturnType<typeof OrderQuery.getClientSafeInclude>;
+}>;
+
 
 export class OrderQuery {
 	static getSimpleInclude() {
-		return {} as const;
+		return {} satisfies Prisma.OrderInclude;
 	}
 
 	static getInclude() {
@@ -12,37 +26,13 @@ export class OrderQuery {
 			customer: true,
 			orderItems: true,
 			whatsappMessages: true,
-		} as const;
+		} satisfies Prisma.OrderInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
 			...this.getSimpleInclude(),
 			orderItems: true,
-		} as const;
+		} satisfies Prisma.OrderInclude;
 	}
-}
-
-export interface OrderSimpleDbData {
-	id: string;
-	status: OrderStatus;
-	customerName: string;
-	customerPhone: string;
-	address: string | null;
-	notes: string | null;
-	storeId: string;
-	customerId: string | null;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface OrderIncludeDbData extends OrderSimpleDbData {
-	store?: unknown;
-	customer?: unknown;
-	orderItems?: unknown[];
-	whatsappMessages?: unknown[];
-}
-
-export interface OrderClientSafeDbData extends OrderSimpleDbData {
-	orderItems?: unknown[];
 }

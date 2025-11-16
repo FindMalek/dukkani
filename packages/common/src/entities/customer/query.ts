@@ -1,6 +1,20 @@
+import { type Prisma } from "@dukkani/db/prisma/generated";
+
+export type CustomerSimpleDbData = Prisma.CustomerGetPayload<{
+	include: ReturnType<typeof CustomerQuery.getSimpleInclude>;
+}>;
+
+export type CustomerIncludeDbData = Prisma.CustomerGetPayload<{
+	include: ReturnType<typeof CustomerQuery.getInclude>;
+}>;
+
+export type CustomerClientSafeDbData = Prisma.CustomerGetPayload<{
+	include: ReturnType<typeof CustomerQuery.getClientSafeInclude>;
+}>;
+
 export class CustomerQuery {
 	static getSimpleInclude() {
-		return {} as const;
+		return {} satisfies Prisma.CustomerInclude;
 	}
 
 	static getInclude() {
@@ -8,28 +22,13 @@ export class CustomerQuery {
 			...this.getSimpleInclude(),
 			store: true,
 			orders: true,
-		} as const;
+		} satisfies Prisma.CustomerInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
 			...this.getSimpleInclude(),
-		} as const;
+		} satisfies Prisma.CustomerInclude;
 	}
 }
 
-export interface CustomerSimpleDbData {
-	id: string;
-	name: string;
-	phone: string;
-	storeId: string;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export interface CustomerIncludeDbData extends CustomerSimpleDbData {
-	store?: unknown;
-	orders?: unknown[];
-}
-
-export interface CustomerClientSafeDbData extends CustomerSimpleDbData {}

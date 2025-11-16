@@ -8,8 +8,18 @@ export const imageSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
+// Lazy schema reference to avoid circular dependency
+let _productSimpleOutputSchema: typeof import("../product/output").productSimpleOutputSchema | undefined;
+
+function getProductSchema() {
+	if (!_productSimpleOutputSchema) {
+		_productSimpleOutputSchema = require("../product/output").productSimpleOutputSchema;
+	}
+	return _productSimpleOutputSchema!;
+}
+
 export const imageIncludeOutputSchema = imageSimpleOutputSchema.extend({
-	product: z.unknown().optional(),
+	product: z.lazy(() => getProductSchema()).optional(),
 });
 
 export type ImageSimpleOutput = z.infer<typeof imageSimpleOutputSchema>;
