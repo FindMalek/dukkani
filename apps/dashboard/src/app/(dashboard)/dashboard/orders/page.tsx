@@ -34,9 +34,6 @@ const statusColors: Record<
 export default function OrdersPage() {
 	const { data, isLoading, error } = useOrders({ page: 1, limit: 50 });
 
-	const ordersData =
-		data && typeof data === "object" && "orders" in data ? data : null;
-
 	if (error) {
 		return (
 			<div className="container mx-auto max-w-7xl p-4 md:p-6">
@@ -70,8 +67,8 @@ export default function OrdersPage() {
 				<CardHeader>
 					<CardTitle>Orders</CardTitle>
 					<CardDescription>
-						{ordersData
-							? `Order management (${ordersData.total} total)`
+						{data
+							? `Order management (${data.total} total)`
 							: "Order management"}
 					</CardDescription>
 				</CardHeader>
@@ -87,7 +84,7 @@ export default function OrdersPage() {
 								</div>
 							))}
 						</div>
-					) : ordersData && ordersData.orders.length > 0 ? (
+					) : data && data.orders.length > 0 ? (
 						<Table>
 							<TableHeader>
 								<TableRow>
@@ -99,7 +96,7 @@ export default function OrdersPage() {
 								</TableRow>
 							</TableHeader>
 							<TableBody>
-								{ordersData.orders.map((order) => (
+								{data.orders.map((order) => (
 									<TableRow key={order.id}>
 										<TableCell className="font-medium font-mono text-sm">
 											{order.id}
