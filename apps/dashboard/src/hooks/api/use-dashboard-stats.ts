@@ -1,7 +1,6 @@
-// Placeholder for dashboard stats hooks
-// TODO: Implement TanStack Query hooks for dashboard stats API calls
+import { useQuery } from "@tanstack/react-query";
+import { orpc } from "@/utils/orpc";
 
 export function useDashboardStats() {
-	// Placeholder
-	return { data: null, isLoading: false, error: null };
+	return useQuery(orpc.dashboard.getStats.queryOptions());
 }

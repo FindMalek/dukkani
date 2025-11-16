@@ -44,7 +44,6 @@ export const productRouter = {
 			if (input?.storeId && !userStoreIds.includes(input.storeId)) {
 				throw new Error("You don't have access to this store");
 			}
-
 			const where = ProductQuery.getWhere(userStoreIds, {
 				storeId: input?.storeId,
 				published: input?.published,

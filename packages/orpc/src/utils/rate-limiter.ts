@@ -233,7 +233,7 @@ export const rateLimiters = {
 	 * 100 requests per minute
 	 */
 	standard: new RateLimiter({
-		max: 100,
+		max: 30,
 		windowMs: 60 * 1000, // 1 minute
 		keyPrefix: "ratelimit:standard",
 	}),

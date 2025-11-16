@@ -6,7 +6,7 @@ import {
 	StorePlanType,
 	StoreCategory,
 	StoreTheme,
-} from "@dukkani/db/prisma/generated";
+} from "@dukkani/db/prisma/generated/enums";
 
 /**
  * Order Status Enum

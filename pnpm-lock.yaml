@@ -175,6 +175,9 @@ importers:
       '@dukkani/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@dukkani/common':
+        specifier: workspace:*
+        version: link:../../packages/common
       '@dukkani/env':
         specifier: workspace:*
         version: link:../../packages/env

@@ -1,7 +1,7 @@
-// Placeholder for products hooks
-// TODO: Implement TanStack Query hooks for products API calls
+import { useQuery } from "@tanstack/react-query";
+import { orpc } from "@/utils/orpc";
+import type { ListProductsInput } from "@dukkani/common/schemas/product/input";
 
-export function useProducts() {
-	// Placeholder
-	return { data: [], isLoading: false, error: null };
+export function useProducts(input: ListProductsInput) {
+	return useQuery(orpc.product.getAll.queryOptions({ input }));
 }

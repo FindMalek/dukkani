@@ -1,7 +1,7 @@
-// Placeholder for orders hooks
-// TODO: Implement TanStack Query hooks for orders API calls
+import { useQuery } from "@tanstack/react-query";
+import { orpc } from "@/utils/orpc";
+import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
 
-export function useOrders() {
-	// Placeholder
-	return { data: [], isLoading: false, error: null };
+export function useOrders(input: ListOrdersInput) {
+	return useQuery(orpc.order.getAll.queryOptions({ input }));
 }

@@ -9,6 +9,7 @@
 	},
 	"dependencies": {
 		"@dukkani/auth": "workspace:*",
+		"@dukkani/common": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"@dukkani/orpc": "workspace:*",
 		"@dukkani/ui": "workspace:*",
