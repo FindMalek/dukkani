@@ -13,6 +13,7 @@
 		"ruler:apply": "pnpm dlx @intellectronica/ruler@latest apply --local-only",
 		"dev": "turbo dev",
 		"build": "turbo build",
+		"build:packages": "turbo build --filter='@dukkani/db' --filter='@dukkani/auth' --filter='@dukkani/orpc'",
 		"check-types": "turbo check-types",
 		"dev:native": "turbo -F native dev",
 		"dev:api": "turbo -F @dukkani/api dev",
