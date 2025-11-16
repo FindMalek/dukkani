@@ -34,4 +34,61 @@ export class ProductQuery {
 			images: ImageQuery.getSimpleInclude(),
 		} satisfies Prisma.ProductInclude;
 	}
+
+	/**
+	 * Generate where clause for filtering products by store IDs and optional filters
+	 */
+	static getWhere(
+		storeIds: string[],
+		filters?: {
+			storeId?: string;
+			published?: boolean;
+			search?: string;
+			stock?: { lte?: number; gte?: number };
+		},
+	): Prisma.ProductWhereInput {
+		const where: Prisma.ProductWhereInput = {
+			storeId: { in: storeIds },
+		};
+
+		if (filters?.storeId) {
+			where.storeId = { in: [filters.storeId] };
+		}
+
+		if (filters?.published !== undefined) {
+			where.published = filters.published;
+		}
+
+		if (filters?.search) {
+			where.OR = [
+				{ name: { contains: filters.search, mode: "insensitive" } },
+				{ description: { contains: filters.search, mode: "insensitive" } },
+			];
+		}
+
+		if (filters?.stock) {
+			const stockFilter: { lte?: number; gte?: number } = {};
+			if (filters.stock.lte !== undefined) {
+				stockFilter.lte = filters.stock.lte;
+			}
+			if (filters.stock.gte !== undefined) {
+				stockFilter.gte = filters.stock.gte;
+			}
+			if (Object.keys(stockFilter).length > 0) {
+				where.stock = stockFilter;
+			}
+		}
+
+		return where;
+	}
+
+	/**
+	 * Generate orderBy clause for products
+	 */
+	static getOrder(
+		orderBy: "asc" | "desc" = "desc",
+		field: "createdAt" | "updatedAt" | "name" | "price" | "stock" = "createdAt",
+	): Prisma.ProductOrderByWithRelationInput {
+		return { [field]: orderBy };
+	}
 }

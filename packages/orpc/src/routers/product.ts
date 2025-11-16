@@ -16,16 +16,6 @@ import type {
 } from "@dukkani/common/schemas/product/output";
 import { z } from "zod";
 
-// Extended schema for create with imageUrls
-const createProductWithImagesSchema = createProductInputSchema.extend({
-	imageUrls: z.array(z.url()).optional(),
-});
-
-// Extended schema for update with imageUrls
-const updateProductWithImagesSchema = updateProductInputSchema.extend({
-	imageUrls: z.array(z.url()).optional(),
-});
-
 export const productRouter = {
 	/**
 	 * Get all products for user's stores (with pagination/filtering)
@@ -50,44 +40,23 @@ export const productRouter = {
 			const limit = input?.limit ?? 20;
 			const skip = (page - 1) * limit;
 
-			const where: {
-				storeId: { in: string[] };
-				published?: boolean;
-				OR?: Array<
-					| { name: { contains: string; mode: "insensitive" } }
-					| { description: { contains: string; mode: "insensitive" } }
-				>;
-			} = {
-				storeId: { in: userStoreIds },
-			};
-
-			if (input?.published !== undefined) {
-				where.published = input.published;
+			// Verify store ownership if filtering by specific store
+			if (input?.storeId && !userStoreIds.includes(input.storeId)) {
+				throw new Error("You don't have access to this store");
 			}
 
-			if (input?.storeId) {
-				// Verify user owns this store
-				if (!userStoreIds.includes(input.storeId)) {
-					throw new Error("You don't have access to this store");
-				}
-				where.storeId = { in: [input.storeId] };
-			}
-
-			if (input?.search) {
-				where.OR = [
-					{ name: { contains: input.search, mode: "insensitive" } },
-					{ description: { contains: input.search, mode: "insensitive" } },
-				];
-			}
+			const where = ProductQuery.getWhere(userStoreIds, {
+				storeId: input?.storeId,
+				published: input?.published,
+				search: input?.search,
+			});
 
 			const [products, total] = await Promise.all([
 				prisma.product.findMany({
 					where,
 					skip,
 					take: limit,
-					orderBy: {
-						createdAt: "desc",
-					},
+					orderBy: ProductQuery.getOrder("desc", "createdAt"),
 					include: ProductQuery.getClientSafeInclude(),
 				}),
 				prisma.product.count({ where }),
@@ -131,7 +100,7 @@ export const productRouter = {
 	 * Create new product (verify store ownership)
 	 */
 	create: protectedProcedure
-		.input(createProductWithImagesSchema)
+		.input(createProductInputSchema)
 		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
 			const userId = context.session.user.id;
 
@@ -177,7 +146,7 @@ export const productRouter = {
 	 * Update product (verify store ownership)
 	 */
 	update: protectedProcedure
-		.input(updateProductWithImagesSchema)
+		.input(updateProductInputSchema)
 		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
 			const userId = context.session.user.id;
 

@@ -40,39 +40,23 @@ export const customerRouter = {
 			const limit = input?.limit ?? 20;
 			const skip = (page - 1) * limit;
 
-			const where: {
-				storeId: { in: string[] };
-				OR?: Array<
-					| { name: { contains: string; mode: "insensitive" } }
-					| { phone: { contains: string; mode: "insensitive" } }
-				>;
-			} = {
-				storeId: { in: userStoreIds },
-			};
-
-			if (input?.storeId) {
-				// Verify user owns this store
-				if (!userStoreIds.includes(input.storeId)) {
-					throw new Error("You don't have access to this store");
-				}
-				where.storeId = { in: [input.storeId] };
+			// Verify store ownership if filtering by specific store
+			if (input?.storeId && !userStoreIds.includes(input.storeId)) {
+				throw new Error("You don't have access to this store");
 			}
 
-			if (input?.search) {
-				where.OR = [
-					{ name: { contains: input.search, mode: "insensitive" } },
-					{ phone: { contains: input.search, mode: "insensitive" } },
-				];
-			}
+			const where = CustomerQuery.getWhere(userStoreIds, {
+				storeId: input?.storeId,
+				search: input?.search,
+				phone: input?.phone,
+			});
 
 			const [customers, total] = await Promise.all([
 				prisma.customer.findMany({
 					where,
 					skip,
 					take: limit,
-					orderBy: {
-						createdAt: "desc",
-					},
+					orderBy: CustomerQuery.getOrder("desc", "createdAt"),
 					include: CustomerQuery.getInclude(),
 				}),
 				prisma.customer.count({ where }),

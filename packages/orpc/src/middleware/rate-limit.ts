@@ -55,8 +55,11 @@ export function createRateLimitMiddleware(options: RateLimitOptions = {}) {
 
 		if (!result.success) {
 			const resetTime = new Date(result.reset).toISOString();
+			const retryAfterMessage = result.retryAfter
+				? ` Please try again in ${result.retryAfter} second${result.retryAfter !== 1 ? "s" : ""}.`
+				: ` Please try again after ${resetTime}.`;
 			throw new ORPCError("TOO_MANY_REQUESTS", {
-				message: `Rate limit exceeded. Please try again after ${resetTime}. Remaining: ${result.remaining}`,
+				message: `Rate limit exceeded.${retryAfterMessage} Remaining: ${result.remaining}`,
 			});
 		}
 

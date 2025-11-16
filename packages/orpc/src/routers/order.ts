@@ -49,52 +49,24 @@ export const orderRouter = {
 			const limit = input?.limit ?? 20;
 			const skip = (page - 1) * limit;
 
-			const where: {
-				storeId: { in: string[] };
-				status?:
-					| "PENDING"
-					| "CONFIRMED"
-					| "PROCESSING"
-					| "SHIPPED"
-					| "DELIVERED"
-					| "CANCELLED";
-				OR?: Array<
-					| {
-							customerName: { contains: string; mode: "insensitive" };
-					  }
-					| { customerPhone: { contains: string; mode: "insensitive" } }
-				>;
-			} = {
-				storeId: { in: userStoreIds },
-			};
-
-			if (input?.status) {
-				where.status = input.status;
+			// Verify store ownership if filtering by specific store
+			if (input?.storeId && !userStoreIds.includes(input.storeId)) {
+				throw new Error("You don't have access to this store");
 			}
 
-			if (input?.storeId) {
-				// Verify user owns this store
-				if (!userStoreIds.includes(input.storeId)) {
-					throw new Error("You don't have access to this store");
-				}
-				where.storeId = { in: [input.storeId] };
-			}
-
-			if (input?.search) {
-				where.OR = [
-					{ customerName: { contains: input.search, mode: "insensitive" } },
-					{ customerPhone: { contains: input.search, mode: "insensitive" } },
-				];
-			}
+			const where = OrderQuery.getWhere(userStoreIds, {
+				storeId: input?.storeId,
+				status: input?.status,
+				customerId: input?.customerId,
+				search: input?.search,
+			});
 
 			const [orders, total] = await Promise.all([
 				prisma.order.findMany({
 					where,
 					skip,
 					take: limit,
-					orderBy: {
-						createdAt: "desc",
-					},
+					orderBy: OrderQuery.getOrder("desc", "createdAt"),
 					include: OrderQuery.getInclude(),
 				}),
 				prisma.order.count({ where }),

@@ -22,6 +22,7 @@ interface RateLimitResult {
 	success: boolean;
 	remaining: number;
 	reset: number;
+	retryAfter?: number; // Seconds until the rate limit resets
 }
 
 /**
@@ -83,19 +84,20 @@ class MemoryStore {
 // Global memory store instance
 const memoryStore = new MemoryStore();
 
-// Cleanup expired entries every 5 minutes
+// Cleanup expired entries every minute (improved from article recommendations)
 if (typeof setInterval !== "undefined") {
 	setInterval(
 		() => {
 			memoryStore.cleanup();
 		},
-		5 * 60 * 1000,
+		60 * 1000, // Every minute
 	);
 }
 
 /**
  * Get identifier for rate limiting
  * Uses IP address or user ID if authenticated
+ * Improved IP detection based on https://www.zero-locker.com/articles/building-bulletproof-apis-rate-limiting-orpc
  */
 function getIdentifier(
 	headers: Record<string, string | string[] | undefined>,
@@ -106,19 +108,23 @@ function getIdentifier(
 		return `user:${userId}`;
 	}
 
-	// Otherwise, use IP address
+	// Otherwise, use IP address with improved detection
+	// Priority: x-vercel-forwarded-for > x-forwarded-for > cf-connecting-ip > x-real-ip
+	const vercelIp = headers["x-vercel-forwarded-for"];
 	const forwardedFor = headers["x-forwarded-for"];
-	const realIp = headers["x-real-ip"];
 	const cfConnectingIp = headers["cf-connecting-ip"]; // Cloudflare
+	const realIp = headers["x-real-ip"];
 
 	let ip: string | undefined;
 
-	if (typeof forwardedFor === "string") {
+	if (typeof vercelIp === "string") {
+		ip = vercelIp.split(",")[0]?.trim();
+	} else if (typeof forwardedFor === "string") {
 		ip = forwardedFor.split(",")[0]?.trim();
-	} else if (typeof realIp === "string") {
-		ip = realIp;
 	} else if (typeof cfConnectingIp === "string") {
 		ip = cfConnectingIp;
+	} else if (typeof realIp === "string") {
+		ip = realIp;
 	}
 
 	// Fallback to a default identifier if IP cannot be determined
@@ -160,6 +166,7 @@ export class RateLimiter {
 				success: true,
 				remaining: this.config.max - 1,
 				reset: resetTime,
+				retryAfter: undefined,
 			};
 		}
 
@@ -171,6 +178,7 @@ export class RateLimiter {
 				success: true,
 				remaining: this.config.max - 1,
 				reset: resetTime,
+				retryAfter: undefined,
 			};
 		}
 
@@ -178,10 +186,12 @@ export class RateLimiter {
 		const newCount = await this.store.increment(key, entry.resetTime);
 
 		if (newCount > this.config.max) {
+			const retryAfterSeconds = Math.ceil((entry.resetTime - now) / 1000);
 			return {
 				success: false,
 				remaining: 0,
 				reset: entry.resetTime,
+				retryAfter: retryAfterSeconds,
 			};
 		}
 
@@ -189,6 +199,7 @@ export class RateLimiter {
 			success: true,
 			remaining: this.config.max - newCount,
 			reset: entry.resetTime,
+			retryAfter: undefined,
 		};
 	}
 

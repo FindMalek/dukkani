@@ -31,4 +31,14 @@ export class OrderItemQuery {
 			product: true,
 		} satisfies Prisma.OrderItemInclude;
 	}
+
+	/**
+	 * Get select object for revenue calculations (only quantity and price)
+	 */
+	static getRevenueSelect(): { quantity: true; price: true } {
+		return {
+			quantity: true,
+			price: true,
+		};
+	}
 }

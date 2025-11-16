@@ -30,4 +30,47 @@ export class CustomerQuery {
 			...this.getSimpleInclude(),
 		} satisfies Prisma.CustomerInclude;
 	}
+
+	/**
+	 * Generate where clause for filtering customers by store IDs and optional filters
+	 */
+	static getWhere(
+		storeIds: string[],
+		filters?: {
+			storeId?: string;
+			search?: string;
+			phone?: string;
+		},
+	): Prisma.CustomerWhereInput {
+		const where: Prisma.CustomerWhereInput = {
+			storeId: { in: storeIds },
+		};
+
+		if (filters?.storeId) {
+			where.storeId = { in: [filters.storeId] };
+		}
+
+		if (filters?.search) {
+			where.OR = [
+				{ name: { contains: filters.search, mode: "insensitive" } },
+				{ phone: { contains: filters.search, mode: "insensitive" } },
+			];
+		}
+
+		if (filters?.phone) {
+			where.phone = filters.phone;
+		}
+
+		return where;
+	}
+
+	/**
+	 * Generate orderBy clause for customers
+	 */
+	static getOrder(
+		orderBy: "asc" | "desc" = "desc",
+		field: "createdAt" | "updatedAt" | "name" = "createdAt",
+	): Prisma.CustomerOrderByWithRelationInput {
+		return { [field]: orderBy };
+	}
 }
