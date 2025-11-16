@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { orpc } from "@/utils/orpc";
 
 export default function DashboardPage() {
-	const privateData = useQuery(orpc.privateData.queryOptions());
+	const privateData = useQuery(orpc.dashboard.getStats.queryOptions());
 
 	return (
 		<div className="container mx-auto max-w-7xl p-4 md:p-6">
