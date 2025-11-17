@@ -14,14 +14,17 @@ export default function Header() {
 		<div>
 			<div className="flex flex-row items-center justify-between px-2 py-1">
 				<nav className="flex gap-4 text-lg">
-					{links.map(({ to, label, exact }) => {
+					{links.map(({ to, label, exact, icon: Icon }) => {
 						const isActive = isActiveRoute(pathname, to, exact);
 						return (
 							<Link
 								key={to}
 								href={to as Route}
-								className={isActive ? "font-semibold underline" : ""}
+								className={`flex items-center gap-2 ${
+									isActive ? "font-semibold underline" : ""
+								}`}
 							>
+								{Icon && <Icon className="h-4 w-4" />}
 								{label}
 							</Link>
 						);

@@ -1,11 +1,11 @@
 import prisma from "@dukkani/db";
 import { generateOrderId } from "@dukkani/db/utils/generate-id";
-import { ProductService } from "@/services/productService";
-import { OrderQuery } from "@/entities/order/query";
-import { OrderEntity } from "@/entities/order/entity";
-import type { CreateOrderInput } from "@/schemas/order/input";
-import type { OrderIncludeOutput } from "@/schemas/order/output";
-import type { OrderStatus } from "@/schemas/order/enums";
+import { ProductService } from "./productService";
+import { OrderQuery } from "../entities/order/query";
+import { OrderEntity } from "../entities/order/entity";
+import type { CreateOrderInput } from "../schemas/order/input";
+import type { OrderIncludeOutput } from "../schemas/order/output";
+import type { OrderStatus } from "../schemas/order/enums";
 
 /**
  * Order service - Shared business logic for order operations

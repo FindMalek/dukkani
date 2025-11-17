@@ -3,6 +3,15 @@
  * Provides type-safe route generation for all dashboard pages
  */
 
+import type { LucideIcon } from "lucide-react";
+import {
+	LayoutDashboard,
+	Package,
+	ShoppingCart,
+	Settings,
+	Users,
+} from "lucide-react";
+
 /**
  * Centralized route definitions
  * All routes should be defined here for type safety and maintainability
@@ -31,8 +40,19 @@ export const routes = {
 		settings: {
 			index: "/dashboard/settings",
 			profile: "/dashboard/settings/profile",
-			account: "/dashboard/settings/account",
-			security: "/dashboard/settings/security",
+			store: {
+				index: "/dashboard/settings/store",
+				detail: (id: string) => `/dashboard/settings/store/${id}`,
+				create: "/dashboard/settings/store/new",
+				edit: (id: string) => `/dashboard/settings/store/${id}/edit`,
+			},
+			payments: "/dashboard/settings/payments",
+		},
+		customers: {
+			index: "/dashboard/customers",
+			detail: (id: string) => `/dashboard/customers/${id}`,
+			create: "/dashboard/customers/new",
+			edit: (id: string) => `/dashboard/customers/${id}/edit`,
 		},
 	},
 } as const;
@@ -44,6 +64,19 @@ export type NavLink = {
 	to: string;
 	label: string;
 	exact?: boolean;
+	icon?: LucideIcon;
+};
+
+/**
+ * Route icon mapping for main navigation titles
+ * Maps route paths to their corresponding icons
+ */
+const routeIcons: Record<string, LucideIcon> = {
+	[routes.dashboard.overview]: LayoutDashboard,
+	[routes.dashboard.products.index]: Package,
+	[routes.dashboard.orders.index]: ShoppingCart,
+	[routes.dashboard.settings.index]: Settings,
+	[routes.dashboard.customers.index]: Users,
 };
 
 /**
@@ -51,10 +84,32 @@ export type NavLink = {
  */
 export function getMainNavLinks(): NavLink[] {
 	return [
-		{ to: routes.dashboard.overview, label: "Overview", exact: true },
-		{ to: routes.dashboard.products.index, label: "Products" },
-		{ to: routes.dashboard.orders.index, label: "Orders" },
-		{ to: routes.dashboard.settings.index, label: "Settings" },
+		{
+			to: routes.dashboard.overview,
+			label: "Overview",
+			exact: true,
+			icon: routeIcons[routes.dashboard.overview],
+		},
+		{
+			to: routes.dashboard.products.index,
+			label: "Products",
+			icon: routeIcons[routes.dashboard.products.index],
+		},
+		{
+			to: routes.dashboard.orders.index,
+			label: "Orders",
+			icon: routeIcons[routes.dashboard.orders.index],
+		},
+		{
+			to: routes.dashboard.customers.index,
+			label: "Customers",
+			icon: routeIcons[routes.dashboard.customers.index],
+		},
+		{
+			to: routes.dashboard.settings.index,
+			label: "Settings",
+			icon: routeIcons[routes.dashboard.settings.index],
+		},
 	];
 }
 
