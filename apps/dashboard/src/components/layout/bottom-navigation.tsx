@@ -1,17 +1,61 @@
 "use client";
 
-import { getMainNavLinks, isActiveRoute } from "@/utils/navigation";
+import { RoutePaths } from "@/lib/routes";
+import { Icons } from "@dukkani/ui/components/icons";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import type { Route } from "next";
 
+const mainNavLinks = [
+	{
+		to: RoutePaths.DASHBOARD,
+		label: "Overview",
+		exact: true as const,
+		icon: Icons.layoutDashboard,
+	},
+	{
+		to: RoutePaths.PRODUCTS.INDEX,
+		label: "Products",
+		exact: false as const,
+		icon: Icons.package,
+	},
+	{
+		to: RoutePaths.ORDERS.INDEX,
+		label: "Orders",
+		exact: false as const,
+		icon: Icons.shoppingCart,
+	},
+	{
+		to: RoutePaths.CUSTOMERS.INDEX,
+		label: "Customers",
+		exact: false as const,
+		icon: Icons.users,
+	},
+	{
+		to: RoutePaths.SETTINGS.INDEX,
+		label: "Settings",
+		exact: false as const,
+		icon: Icons.settings,
+	},
+] as const;
+
+function isActiveRoute(
+	currentPath: string,
+	targetPath: string,
+	exact = false,
+): boolean {
+	if (exact) {
+		return currentPath === targetPath;
+	}
+	return currentPath.startsWith(targetPath);
+}
+
 export function BottomNavigation() {
-	const links = getMainNavLinks();
 	const pathname = usePathname();
 
 	return (
 		<nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border px-4 py-3 flex items-center justify-around">
-			{links.map((item) => {
+			{mainNavLinks.map((item) => {
 				const Icon = item.icon;
 				const isActive = isActiveRoute(pathname, item.to, item.exact);
 				return (

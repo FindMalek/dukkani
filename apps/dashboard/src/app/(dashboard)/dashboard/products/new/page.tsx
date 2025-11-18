@@ -10,7 +10,7 @@ import {
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { routes } from "@/utils/navigation";
+import { routes } from "@/lib/routes";
 
 export default function NewProductPage() {
 	return (

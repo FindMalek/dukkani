@@ -11,7 +11,7 @@ import { Button } from "@dukkani/ui/components/button";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { routes } from "@/utils/navigation";
+import { routes } from "@/lib/routes";
 
 export default function PaymentSettingsPage() {
 	return (

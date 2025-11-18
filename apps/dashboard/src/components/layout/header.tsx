@@ -3,18 +3,58 @@ import Link from "next/link";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
 import { ModeToggle } from "@dukkani/ui/components/mode-toggle";
-import { getMainNavLinks, isActiveRoute } from "@/utils/navigation";
+import { RoutePaths } from "@/lib/routes";
+import { Icons } from "@dukkani/ui/components/icons";
 import UserMenu from "./user-menu";
+
+const mainNavLinks = [
+	{
+		to: RoutePaths.DASHBOARD,
+		label: "Overview",
+		exact: true,
+		icon: Icons.layoutDashboard,
+	},
+	{
+		to: RoutePaths.PRODUCTS.INDEX,
+		label: "Products",
+		icon: Icons.package,
+	},
+	{
+		to: RoutePaths.ORDERS.INDEX,
+		label: "Orders",
+		icon: Icons.shoppingCart,
+	},
+	{
+		to: RoutePaths.CUSTOMERS.INDEX,
+		label: "Customers",
+		icon: Icons.users,
+	},
+	{
+		to: RoutePaths.SETTINGS.INDEX,
+		label: "Settings",
+		icon: Icons.settings,
+	},
+] as const;
+
+function isActiveRoute(
+	currentPath: string,
+	targetPath: string,
+	exact = false,
+): boolean {
+	if (exact) {
+		return currentPath === targetPath;
+	}
+	return currentPath.startsWith(targetPath);
+}
 
 export default function Header() {
 	const pathname = usePathname();
-	const links = getMainNavLinks();
 
 	return (
 		<div>
 			<div className="flex flex-row items-center justify-between px-2 py-1">
 				<nav className="flex gap-4 text-lg">
-					{links.map(({ to, label, exact, icon: Icon }) => {
+					{mainNavLinks.map(({ to, label, exact, icon: Icon }) => {
 						const isActive = isActiveRoute(pathname, to, exact);
 						return (
 							<Link
