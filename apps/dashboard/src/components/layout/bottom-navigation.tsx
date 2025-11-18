@@ -2,6 +2,8 @@
 
 import { getMainNavLinks, isActiveRoute } from "@/utils/navigation";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import type { Route } from "next";
 
 export function BottomNavigation() {
 	const links = getMainNavLinks();
@@ -13,8 +15,9 @@ export function BottomNavigation() {
 				const Icon = item.icon;
 				const isActive = isActiveRoute(pathname, item.to, item.exact);
 				return (
-					<button
+					<Link
 						key={item.to}
+						href={item.to as Route}
 						className={`flex flex-col items-center gap-1 py-2 px-3 rounded-lg transition-colors ${
 							isActive
 								? "text-primary bg-accent/20"
@@ -26,7 +29,7 @@ export function BottomNavigation() {
 						<span className="text-xs font-medium hidden sm:inline">
 							{item.label}
 						</span>
-					</button>
+					</Link>
 				);
 			})}
 		</nav>
