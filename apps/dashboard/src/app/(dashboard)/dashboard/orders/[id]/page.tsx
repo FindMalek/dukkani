@@ -67,7 +67,9 @@ export default function OrderDetailPage() {
 							<label className="text-sm font-medium text-muted-foreground">
 								Created
 							</label>
-							<p className="mt-1 text-sm">Order creation date will appear here</p>
+							<p className="mt-1 text-sm">
+								Order creation date will appear here
+							</p>
 						</div>
 					</CardContent>
 				</Card>
@@ -82,9 +84,7 @@ export default function OrderDetailPage() {
 							<label className="text-sm font-medium text-muted-foreground">
 								Items
 							</label>
-							<p className="mt-1 text-sm">
-								Order items list will appear here
-							</p>
+							<p className="mt-1 text-sm">Order items list will appear here</p>
 						</div>
 						<div>
 							<label className="text-sm font-medium text-muted-foreground">
@@ -120,4 +120,3 @@ export default function OrderDetailPage() {
 		</div>
 	);
 }
-

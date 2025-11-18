@@ -83,7 +83,9 @@ export default function ProductDetailPage() {
 				<Card>
 					<CardHeader>
 						<CardTitle>Product Preview</CardTitle>
-						<CardDescription>How customers will see this product</CardDescription>
+						<CardDescription>
+							How customers will see this product
+						</CardDescription>
 					</CardHeader>
 					<CardContent>
 						<div className="aspect-square bg-muted rounded-lg flex items-center justify-center">
@@ -113,4 +115,3 @@ export default function ProductDetailPage() {
 		</div>
 	);
 }
-

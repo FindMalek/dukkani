@@ -23,7 +23,9 @@ export default function StorefrontSettingsPage() {
 						</Button>
 					</Link>
 					<div>
-						<h1 className="text-2xl font-bold md:text-3xl">Storefront Editor</h1>
+						<h1 className="text-2xl font-bold md:text-3xl">
+							Storefront Editor
+						</h1>
 						<p className="text-muted-foreground mt-2 text-sm md:text-base">
 							Customize your storefront appearance
 						</p>
@@ -105,4 +107,3 @@ export default function StorefrontSettingsPage() {
 		</div>
 	);
 }
-

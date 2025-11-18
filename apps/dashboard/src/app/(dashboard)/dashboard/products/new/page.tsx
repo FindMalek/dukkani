@@ -23,7 +23,9 @@ export default function NewProductPage() {
 						</Button>
 					</Link>
 					<div>
-						<h1 className="text-2xl font-bold md:text-3xl">Create New Product</h1>
+						<h1 className="text-2xl font-bold md:text-3xl">
+							Create New Product
+						</h1>
 						<p className="text-muted-foreground mt-2 text-sm md:text-base">
 							Add a new product to your catalog
 						</p>
@@ -87,4 +89,3 @@ export default function NewProductPage() {
 		</div>
 	);
 }
-

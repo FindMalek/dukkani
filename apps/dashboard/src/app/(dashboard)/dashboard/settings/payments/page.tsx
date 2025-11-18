@@ -36,7 +36,8 @@ export default function PaymentSettingsPage() {
 				<CardHeader>
 					<CardTitle>Payment Methods</CardTitle>
 					<CardDescription>
-						Enable payment methods for your customers (MVP: Cash on Delivery only)
+						Enable payment methods for your customers (MVP: Cash on Delivery
+						only)
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -119,4 +120,3 @@ export default function PaymentSettingsPage() {
 		</div>
 	);
 }
-

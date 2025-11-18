@@ -23,7 +23,9 @@ export default function ProfileSettingsPage() {
 						</Button>
 					</Link>
 					<div>
-						<h1 className="text-2xl font-bold md:text-3xl">Profile Management</h1>
+						<h1 className="text-2xl font-bold md:text-3xl">
+							Profile Management
+						</h1>
 						<p className="text-muted-foreground mt-2 text-sm md:text-base">
 							Manage your account profile and preferences
 						</p>
@@ -35,14 +37,14 @@ export default function ProfileSettingsPage() {
 				<Card>
 					<CardHeader>
 						<CardTitle>Personal Information</CardTitle>
-						<CardDescription>Update your name and contact details</CardDescription>
+						<CardDescription>
+							Update your name and contact details
+						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-6">
 						<div className="space-y-2">
 							<label className="text-sm font-medium">Full Name</label>
-							<p className="text-muted-foreground text-sm">
-								Your display name
-							</p>
+							<p className="text-muted-foreground text-sm">Your display name</p>
 						</div>
 
 						<div className="space-y-2">
@@ -66,7 +68,9 @@ export default function ProfileSettingsPage() {
 				<Card>
 					<CardHeader>
 						<CardTitle>Security</CardTitle>
-						<CardDescription>Change your password and security settings</CardDescription>
+						<CardDescription>
+							Change your password and security settings
+						</CardDescription>
 					</CardHeader>
 					<CardContent className="space-y-6">
 						<div className="space-y-2">
@@ -84,7 +88,9 @@ export default function ProfileSettingsPage() {
 						</div>
 
 						<div className="space-y-2">
-							<label className="text-sm font-medium">Confirm New Password</label>
+							<label className="text-sm font-medium">
+								Confirm New Password
+							</label>
 							<p className="text-muted-foreground text-sm">
 								Re-enter your new password
 							</p>
@@ -128,4 +134,3 @@ export default function ProfileSettingsPage() {
 		</div>
 	);
 }
-
