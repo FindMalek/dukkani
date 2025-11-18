@@ -17,7 +17,7 @@ import {
 } from "@dukkani/ui/components/table";
 import { Button } from "@dukkani/ui/components/button";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
-import { Plus } from "lucide-react";
+import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
 import { routes } from "@/utils/navigation";
 
@@ -34,7 +34,7 @@ export default function CustomersPage() {
 					</div>
 					<Link href={routes.dashboard.customers.create}>
 						<Button>
-							<Plus className="h-4 w-4 mr-2" />
+							<Icons.plus className="h-4 w-4 mr-2" />
 							Add Customer
 						</Button>
 					</Link>

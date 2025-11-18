@@ -20,7 +20,6 @@
 		"@tanstack/react-query": "catalog:",
 		"babel-plugin-react-compiler": "catalog:",
 		"better-auth": "catalog:",
-		"lucide-react": "catalog:",
 		"next": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",

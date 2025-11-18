@@ -3,14 +3,8 @@
  * Provides type-safe route generation for all dashboard pages
  */
 
-import type { LucideIcon } from "lucide-react";
-import {
-	LayoutDashboard,
-	Package,
-	ShoppingCart,
-	Settings,
-	Users,
-} from "lucide-react";
+import type { Icon } from "@dukkani/ui/components/icons";
+import { Icons } from "@dukkani/ui/components/icons";
 
 /**
  * Centralized route definitions
@@ -65,19 +59,19 @@ export type NavLink = {
 	to: string;
 	label: string;
 	exact?: boolean;
-	icon?: LucideIcon;
+	icon?: Icon;
 };
 
 /**
  * Route icon mapping for main navigation titles
  * Maps route paths to their corresponding icons
  */
-const routeIcons: Record<string, LucideIcon> = {
-	[routes.dashboard.overview]: LayoutDashboard,
-	[routes.dashboard.products.index]: Package,
-	[routes.dashboard.orders.index]: ShoppingCart,
-	[routes.dashboard.settings.index]: Settings,
-	[routes.dashboard.customers.index]: Users,
+const routeIcons: Record<string, Icon> = {
+	[routes.dashboard.overview]: Icons.layoutDashboard,
+	[routes.dashboard.products.index]: Icons.package,
+	[routes.dashboard.orders.index]: Icons.shoppingCart,
+	[routes.dashboard.settings.index]: Icons.settings,
+	[routes.dashboard.customers.index]: Icons.users,
 };
 
 /**

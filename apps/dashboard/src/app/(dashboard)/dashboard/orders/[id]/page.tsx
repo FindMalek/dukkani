@@ -9,7 +9,7 @@ import {
 } from "@dukkani/ui/components/card";
 import { Button } from "@dukkani/ui/components/button";
 import { Badge } from "@dukkani/ui/components/badge";
-import { ArrowLeft } from "lucide-react";
+import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
 import { routes } from "@/utils/navigation";
 import { useParams } from "next/navigation";
@@ -24,7 +24,7 @@ export default function OrderDetailPage() {
 				<div className="flex items-center gap-4 mb-4">
 					<Link href={routes.dashboard.orders.index}>
 						<Button variant="ghost" size="icon">
-							<ArrowLeft className="h-4 w-4" />
+							<Icons.arrowLeft className="h-4 w-4" />
 						</Button>
 					</Link>
 					<div>
