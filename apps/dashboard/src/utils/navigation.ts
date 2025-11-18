@@ -40,13 +40,14 @@ export const routes = {
 		settings: {
 			index: "/dashboard/settings",
 			profile: "/dashboard/settings/profile",
+			storefront: "/dashboard/settings/storefront",
+			payments: "/dashboard/settings/payments",
 			store: {
 				index: "/dashboard/settings/store",
 				detail: (id: string) => `/dashboard/settings/store/${id}`,
 				create: "/dashboard/settings/store/new",
 				edit: (id: string) => `/dashboard/settings/store/${id}/edit`,
 			},
-			payments: "/dashboard/settings/payments",
 		},
 		customers: {
 			index: "/dashboard/customers",
