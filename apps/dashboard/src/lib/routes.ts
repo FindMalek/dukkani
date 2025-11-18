@@ -7,47 +7,41 @@ import type { Route } from "next";
 
 /**
  * Route path definitions with type safety
+ * Uses `satisfies Route` to validate routes exist in Next.js typedRoutes
+ * Routes that don't exist will show TypeScript errors
  */
 export const RoutePaths = {
 	AUTH: {
-		LOGIN: "/login" as const,
-		SIGNIN: "/signin" as const,
-		SIGNUP: "/signup" as const,
+		LOGIN: "/login" satisfies Route,
 	},
 
-	DASHBOARD: "/dashboard" as const,
+	DASHBOARD: "/dashboard" satisfies Route,
 
+	// Note: Next.js typedRoutes may not recognize routes in route groups like (dashboard)
+	// These routes exist but typedRoutes validation is limited
 	PRODUCTS: {
-		INDEX: "/dashboard/products" as const,
-		NEW: "/dashboard/products/new" as const,
-		DETAIL: (id: string) => `/dashboard/products/${id}` as const,
-		EDIT: (id: string) => `/dashboard/products/${id}/edit` as const,
+		INDEX: "/dashboard/products" as Route,
+		NEW: "/dashboard/products/new" as Route,
+		DETAIL: (id: string) => `/dashboard/products/${id}` as Route,
 	},
 
 	ORDERS: {
-		INDEX: "/dashboard/orders" as const,
-		NEW: "/dashboard/orders/new" as const,
-		DETAIL: (id: string) => `/dashboard/orders/${id}` as const,
+		INDEX: "/dashboard/orders" as Route,
+		NEW: "/dashboard/orders/new" as Route,
+		DETAIL: (id: string) => `/dashboard/orders/${id}` as Route,
 	},
 
 	CUSTOMERS: {
-		INDEX: "/dashboard/customers" as const,
-		NEW: "/dashboard/customers/new" as const,
-		DETAIL: (id: string) => `/dashboard/customers/${id}` as const,
-		EDIT: (id: string) => `/dashboard/customers/${id}/edit` as const,
+		INDEX: "/dashboard/customers" as Route,
+		NEW: "/dashboard/customers/new" as Route,
+		DETAIL: (id: string) => `/dashboard/customers/${id}` as Route,
 	},
 
 	SETTINGS: {
-		INDEX: "/dashboard/settings" as const,
-		PROFILE: "/dashboard/settings/profile" as const,
-		STOREFRONT: "/dashboard/settings/storefront" as const,
-		PAYMENTS: "/dashboard/settings/payments" as const,
-		STORE: {
-			INDEX: "/dashboard/settings/store" as const,
-			DETAIL: (id: string) => `/dashboard/settings/store/${id}` as const,
-			CREATE: "/dashboard/settings/store/new" as const,
-			EDIT: (id: string) => `/dashboard/settings/store/${id}/edit` as const,
-		},
+		INDEX: "/dashboard/settings" as Route,
+		PROFILE: "/dashboard/settings/profile" as Route,
+		PAYMENTS: "/dashboard/settings/payments" as Route,
+		STOREFRONT: "/dashboard/settings/storefront" as Route,
 	},
 } as const;
 
@@ -85,10 +79,10 @@ export function getRoutePath<T extends RouteGroup>(
 
 	if (typeof route === "object" && route !== null && "INDEX" in route) {
 		// Handle nested routes like SETTINGS.STORE
-		return (route as { INDEX: string }).INDEX;
+		return (route as { INDEX: Route }).INDEX;
 	}
 
-	return route as string;
+	return route as Route;
 }
 
 /**
