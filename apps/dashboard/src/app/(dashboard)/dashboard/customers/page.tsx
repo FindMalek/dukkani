@@ -19,7 +19,7 @@ import { Button } from "@dukkani/ui/components/button";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { routes } from "@/lib/routes";
+import { RoutePaths } from "@/lib/routes";
 
 export default function CustomersPage() {
 	return (
@@ -32,7 +32,7 @@ export default function CustomersPage() {
 							Manage your customer database
 						</p>
 					</div>
-					<Link href={routes.dashboard.customers.create}>
+					<Link href={RoutePaths.CUSTOMERS.NEW}>
 						<Button>
 							<Icons.plus className="h-4 w-4 mr-2" />
 							Add Customer

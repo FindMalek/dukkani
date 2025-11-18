@@ -11,7 +11,7 @@ import { Button } from "@dukkani/ui/components/button";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { routes } from "@/lib/routes";
+import { RoutePaths } from "@/lib/routes";
 import { useParams } from "next/navigation";
 
 export default function OrderDetailPage() {
@@ -22,7 +22,7 @@ export default function OrderDetailPage() {
 		<div className="container mx-auto max-w-7xl p-4 md:p-6">
 			<div className="mb-6">
 				<div className="flex items-center gap-4 mb-4">
-					<Link href={routes.dashboard.orders.index}>
+					<Link href={RoutePaths.ORDERS.INDEX}>
 						<Button variant="ghost" size="icon">
 							<Icons.arrowLeft className="h-4 w-4" />
 						</Button>
