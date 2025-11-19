@@ -31,7 +31,6 @@ import {
 	MoreHorizontal,
 	OctagonX,
 	PanelLeft,
-	Package,
 	Plus,
 	Search,
 	Settings,
@@ -41,6 +40,11 @@ import {
 	Users,
 	X,
 	type LucideIcon,
+	User2Icon,
+	LandmarkIcon,
+	StoreIcon,
+	PackageIcon,
+	HouseIcon,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -65,8 +69,6 @@ export const Icons = {
 	panelLeft: PanelLeft,
 	gripVertical: GripVertical,
 	layoutDashboard: LayoutDashboard,
-	package: Package,
-	shoppingCart: ShoppingCart,
 	settings: Settings,
 	users: Users,
 	moon: Moon,
@@ -75,4 +77,10 @@ export const Icons = {
 	info: Info,
 	octagonX: OctagonX,
 	triangleAlert: TriangleAlert,
+	user: User2Icon,
+	payments: LandmarkIcon,
+	storefront: StoreIcon,
+	orders: PackageIcon,
+	products: ShoppingCart,
+	home: HouseIcon,
 } as const;

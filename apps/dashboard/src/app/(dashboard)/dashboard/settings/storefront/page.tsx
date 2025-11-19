@@ -17,7 +17,7 @@ export default function StorefrontSettingsPage() {
 		<div className="container mx-auto max-w-7xl p-4 md:p-6">
 			<div className="mb-6">
 				<div className="flex items-center gap-4 mb-4">
-					<Link href={RoutePaths.SETTINGS.INDEX}>
+					<Link href={RoutePaths.SETTINGS.STOREFRONT.url}>
 						<Button variant="ghost" size="icon">
 							<Icons.arrowLeft className="h-4 w-4" />
 						</Button>
@@ -100,7 +100,7 @@ export default function StorefrontSettingsPage() {
 
 			<div className="mt-6 flex gap-4">
 				<Button disabled>Save Changes</Button>
-				<Link href={RoutePaths.SETTINGS.INDEX}>
+				<Link href={RoutePaths.SETTINGS.STOREFRONT.url}>
 					<Button variant="outline">Cancel</Button>
 				</Link>
 			</div>

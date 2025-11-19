@@ -32,7 +32,7 @@ export default function CustomersPage() {
 							Manage your customer database
 						</p>
 					</div>
-					<Link href={RoutePaths.CUSTOMERS.NEW}>
+					<Link href={RoutePaths.CUSTOMERS.NEW.url}>
 						<Button>
 							<Icons.plus className="h-4 w-4 mr-2" />
 							Add Customer

@@ -22,7 +22,7 @@ export default function ProductDetailPage() {
 		<div className="container mx-auto max-w-7xl p-4 md:p-6">
 			<div className="mb-6">
 				<div className="flex items-center gap-4 mb-4">
-					<Link href={RoutePaths.PRODUCTS.INDEX}>
+					<Link href={RoutePaths.PRODUCTS.INDEX.url}>
 						<Button variant="ghost" size="icon">
 							<Icons.arrowLeft className="h-4 w-4" />
 						</Button>
