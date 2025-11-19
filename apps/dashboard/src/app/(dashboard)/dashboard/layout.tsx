@@ -1,7 +1,7 @@
 import { auth } from "@dukkani/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import Header from "@/components/layout/header";
+import { BottomNavigation } from "@/components/layout/bottom-navigation";
 
 export default async function DashboardLayout({
 	children,
@@ -18,8 +18,8 @@ export default async function DashboardLayout({
 
 	return (
 		<div className="grid h-svh grid-rows-[auto_1fr]">
-			<Header />
 			<main className="overflow-auto">{children}</main>
+			<BottomNavigation />
 		</div>
 	);
 }

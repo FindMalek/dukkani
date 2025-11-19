@@ -1,11 +1,11 @@
 import prisma from "@dukkani/db";
-import { CustomerQuery } from "@/entities/customer/query";
-import { CustomerEntity } from "@/entities/customer/entity";
+import { CustomerQuery } from "../entities/customer/query";
+import { CustomerEntity } from "../entities/customer/entity";
 import type {
 	CreateCustomerInput,
 	UpdateCustomerInput,
-} from "@/schemas/customer/input";
-import type { CustomerSimpleOutput } from "@/schemas/customer/output";
+} from "../schemas/customer/input";
+import type { CustomerSimpleOutput } from "../schemas/customer/output";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 /**

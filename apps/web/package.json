@@ -19,7 +19,6 @@
 		"@tanstack/react-query": "^5.90.9",
 		"babel-plugin-react-compiler": "^1.0.0",
 		"better-auth": "catalog:",
-		"lucide-react": "catalog:",
 		"next": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
