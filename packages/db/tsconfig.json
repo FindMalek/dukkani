@@ -8,7 +8,7 @@
 		"composite": true,
 		"paths": {
 			"@/*": ["./src/*"],
-			"@/prisma/generated/*": ["prisma/generated/*"]
+			"@/prisma/generated/*": ["./prisma/generated/*"]
 		}
 	}
 }
