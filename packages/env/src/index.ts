@@ -7,11 +7,8 @@ import { z } from "zod";
 if (typeof process !== "undefined" && process.versions?.node) {
 	try {
 		// Use require for synchronous loading (only available in Node.js)
-		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const path = require("node:path");
-		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const { fileURLToPath } = require("node:url");
-		// eslint-disable-next-line @typescript-eslint/no-require-imports
 		const dotenv = require("dotenv");
 
 		const __filename = fileURLToPath(import.meta.url);

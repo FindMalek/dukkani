@@ -6,7 +6,14 @@
 			"dependsOn": ["^build", "db:generate"],
 			"inputs": ["$TURBO_DEFAULT$", ".env*"],
 			"outputs": ["dist/**", ".next/**"],
-			"env": ["DATABASE_URL"]
+			"env": [
+				"DATABASE_URL",
+				"BETTER_AUTH_SECRET",
+				"GOOGLE_CLIENT_ID",
+				"GOOGLE_CLIENT_SECRET",
+				"FACEBOOK_CLIENT_ID",
+				"FACEBOOK_CLIENT_SECRET"
+			]
 		},
 		"lint": {
 			"dependsOn": ["^lint"]

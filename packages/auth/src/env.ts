@@ -10,6 +10,7 @@ export const env = createEnv({
 		GOOGLE_CLIENT_SECRET: z.string(),
 		FACEBOOK_CLIENT_ID: z.string(),
 		FACEBOOK_CLIENT_SECRET: z.string(),
+		BETTER_AUTH_SECRET: z.string(),
 	},
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
