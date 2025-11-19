@@ -11,14 +11,14 @@ import { Button } from "@dukkani/ui/components/button";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { routes } from "@/utils/navigation";
+import { RoutePaths } from "@/lib/routes";
 
 export default function PaymentSettingsPage() {
 	return (
 		<div className="container mx-auto max-w-7xl p-4 md:p-6">
 			<div className="mb-6">
 				<div className="flex items-center gap-4 mb-4">
-					<Link href={routes.dashboard.settings.index}>
+					<Link href={RoutePaths.SETTINGS.INDEX}>
 						<Button variant="ghost" size="icon">
 							<Icons.arrowLeft className="h-4 w-4" />
 						</Button>

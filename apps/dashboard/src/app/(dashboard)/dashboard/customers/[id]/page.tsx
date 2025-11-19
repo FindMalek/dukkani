@@ -10,7 +10,7 @@ import {
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { routes } from "@/utils/navigation";
+import { RoutePaths } from "@/lib/routes";
 import { useParams } from "next/navigation";
 import {
 	Table,
@@ -29,7 +29,7 @@ export default function CustomerDetailPage() {
 		<div className="container mx-auto max-w-7xl p-4 md:p-6">
 			<div className="mb-6">
 				<div className="flex items-center gap-4 mb-4">
-					<Link href={routes.dashboard.customers.index}>
+					<Link href={RoutePaths.CUSTOMERS.INDEX}>
 						<Button variant="ghost" size="icon">
 							<Icons.arrowLeft className="h-4 w-4" />
 						</Button>
