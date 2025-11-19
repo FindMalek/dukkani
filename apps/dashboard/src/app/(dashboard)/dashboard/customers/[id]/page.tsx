@@ -10,7 +10,6 @@ import {
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { RoutePaths } from "@/lib/routes";
 import { useParams } from "next/navigation";
 import {
 	Table,
@@ -20,6 +19,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@dukkani/ui/components/table";
+import { RoutePaths } from "@/lib/routes";
 
 export default function CustomerDetailPage() {
 	const params = useParams();
