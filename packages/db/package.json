@@ -45,13 +45,18 @@
 		"bcryptjs": "^2.4.3",
 		"dotenv": "catalog:",
 		"nanoid": "catalog:",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"@neondatabase/serverless": "^0.10.4",
+		"@prisma/adapter-neon": "6.18.0",
+		"ws": "^8.18.2"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
 		"@types/bcryptjs": "^2.4.6",
 		"prisma": "catalog:",
 		"tsdown": "catalog:",
-		"tsx": "catalog:"
+		"tsx": "catalog:",
+		"@types/ws": "^8.18.1",
+		"ws": "^8.18.2"
 	}
 }
