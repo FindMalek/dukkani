@@ -73,7 +73,7 @@ catalogs:
       specifier: ^16.0.3
       version: 16.0.3
     prisma:
-      specifier: ^6.15.0
+      specifier: ^6.18.0
       version: 6.19.0
     react:
       specifier: 19.2.0
