@@ -1,0 +1,99 @@
+# Web App
+
+## Purpose
+
+The `web` app is a Next.js public-facing application. It's the customer-facing storefront for the Dukkani platform.
+
+## Structure
+
+```
+apps/web/src/
+├── app/                # Next.js App Router
+│   ├── layout.tsx      # Root layout
+│   ├── page.tsx       # Home page
+│   └── manifest.ts     # PWA manifest
+└── components/         # React components
+    └── header.tsx
+```
+
+## Routes
+
+### Home Page
+
+**Location**: `apps/web/src/app/page.tsx`
+
+Public home page with welcome content and features.
+
+### Layout
+
+**Location**: `apps/web/src/app/layout.tsx`
+
+Root layout with providers and metadata.
+
+## Components
+
+### Organization
+
+Components are organized by feature:
+
+```
+components/
+  └── header.tsx
+```
+
+### File Naming
+
+- **kebab-case** for file names
+- **PascalCase** for component names
+
+### Component Pattern
+
+```typescript
+// apps/web/src/components/header.tsx
+"use client";
+
+import Link from "next/link";
+
+export function Header() {
+  return (
+    <header>
+      <nav>
+        <Link href="/">Home</Link>
+      </nav>
+    </header>
+  );
+}
+```
+
+## Imports
+
+### Path Aliases
+
+- `@/` - `apps/web/src/`
+- `@dukkani/*` - Package imports
+
+### Import Pattern
+
+```typescript
+// Local imports (use @/)
+import { Header } from "@/components/header";
+
+// Package imports
+import { Button } from "@dukkani/ui/components/button";
+import { env } from "@dukkani/env";
+```
+
+## Dependencies
+
+- `next` - Next.js framework
+- `react` - React library
+- `@dukkani/ui` - UI components
+- `@dukkani/env` - Environment variables
+
+## Best Practices
+
+- Use server components by default
+- Add `"use client"` only when needed for interactivity
+- Use UI components from `@dukkani/ui`
+- Keep components simple and focused
+- Use path aliases for cleaner imports

@@ -1,0 +1,67 @@
+# @dukkani/config Package
+
+## Purpose
+
+The `config` package contains shared TypeScript configuration files used across the monorepo. It ensures consistent TypeScript settings.
+
+## Structure
+
+```
+packages/config/
+├── tsconfig.base.json      # Base TypeScript configuration
+└── tsconfig.nextjs.json    # Next.js-specific configuration
+```
+
+## Configuration Files
+
+### Base Configuration
+`tsconfig.base.json` - Shared TypeScript settings for all packages
+
+### Next.js Configuration
+`tsconfig.nextjs.json` - Next.js-specific TypeScript settings
+
+## Usage
+
+### In Packages
+
+```json
+// packages/{package}/tsconfig.json
+{
+  "extends": "@dukkani/config/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"]
+}
+```
+
+### In Apps
+
+```json
+// apps/{app}/tsconfig.json
+{
+  "extends": "@dukkani/config/tsconfig.nextjs.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"]
+}
+```
+
+## Best Practices
+
+- Extend base configuration instead of duplicating settings
+- Use path aliases for cleaner imports
+- Keep configurations consistent across packages
+- Document any package-specific overrides
+
+## Dependencies
+
+None (configuration only)
+
+## Dependents
+
+- All packages and apps (via tsconfig.json extends)

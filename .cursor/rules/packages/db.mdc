@@ -1,0 +1,234 @@
+# @dukkani/db Package
+
+## Purpose
+
+The `db` package contains the Prisma database schema, client, seeders, and database utilities. It's the data access layer of the application.
+
+## Structure
+
+```
+packages/db/
+├── prisma/
+│   ├── schema/        # Prisma schema files (split by domain)
+│   │   └── {model}.prisma
+│   ├── generated/     # Generated Prisma client (gitignored)
+│   └── migrations/    # Database migrations
+├── src/
+│   ├── seed/          # Database seeders
+│   │   └── {entity}.seeder.ts
+│   ├── utils/         # Database utilities
+│   ├── env.ts         # Database environment variables
+│   └── index.ts       # Database client export
+└── prisma.config.ts   # Prisma configuration
+```
+
+## Prisma Schema
+
+### Location
+`packages/db/prisma/schema/`
+
+### Pattern
+
+Schema files are split by domain/model. Each model has its own `.prisma` file.
+
+### Example
+
+```prisma
+// packages/db/prisma/schema/store.prisma
+model Store {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  name          String
+  description   String?
+  ownerId       String
+  owner         User     @relation("StoreOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  products      Product[]
+  orders        Order[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([ownerId])
+  @@map("stores")
+}
+```
+
+### Best Practices
+
+- Use `cuid()` for IDs (not auto-increment)
+- Use `@map` to specify table names (snake_case)
+- Use `@relation` for relationships
+- Use `onDelete: Cascade` for dependent records
+- Add indexes for frequently queried fields
+- Use `DateTime @default(now())` and `@updatedAt` for timestamps
+
+## Database Client
+
+### Location
+`packages/db/src/index.ts`
+
+### Pattern
+
+The database client is configured based on environment (production uses Neon serverless, development uses PostgreSQL).
+
+```typescript
+import { database } from "@dukkani/db";
+
+// Use in services
+const stores = await database.store.findMany({
+  where: { ownerId: userId },
+  include: StoreQuery.getInclude(),
+});
+```
+
+### Exports
+
+- `database` - Prisma client instance
+- `PrismaClientKnownRequestError` - Prisma error type
+
+### Usage
+
+```typescript
+import { database } from "@dukkani/db";
+
+// In services
+const store = await database.store.findUnique({
+  where: { id },
+  include: StoreQuery.getInclude(),
+});
+```
+
+## Seeders
+
+### Location
+`packages/db/src/seed/`
+
+### File Naming
+`{entity}.seeder.ts` (kebab-case)
+
+### Pattern
+
+Seeders are classes with a `seed` method and optional `order` property.
+
+```typescript
+export const userSeeder: Seeder = {
+  name: "UserSeeder",
+  order: 1, // Execute first
+  async seed(db: PrismaClient) {
+    // Seed users
+    const users = await db.user.createMany({ data: [...] });
+    return users;
+  },
+};
+```
+
+### Seeder Registration
+
+Seeders are registered in `packages/db/src/seed/seeders.ts`:
+
+```typescript
+import { userSeeder } from "./user.seeder";
+import { storeSeeder } from "./store.seeder";
+
+export const seeders = [
+  userSeeder,
+  storeSeeder,
+  // ...
+];
+```
+
+### Running Seeders
+
+```bash
+pnpm run db:seed
+```
+
+## Environment Variables
+
+### Location
+`packages/db/src/env.ts`
+
+### Pattern
+
+Database environment variables are validated and exported.
+
+```typescript
+import { z } from "zod";
+
+const dbEnvSchema = z.object({
+  DATABASE_URL: z.string().url(),
+});
+
+export const env = dbEnvSchema.parse(process.env);
+```
+
+## Database Commands
+
+All database commands are run from the root:
+
+```bash
+pnpm run db:push        # Push schema changes to database
+pnpm run db:studio     # Open Prisma Studio
+pnpm run db:generate   # Generate Prisma client
+pnpm run db:migrate    # Run database migrations
+pnpm run db:seed       # Seed database
+pnpm run db:reset      # Reset database
+pnpm run db:reset-and-seed  # Reset and seed
+```
+
+## Utilities
+
+### Location
+`packages/db/src/utils/`
+
+### Pattern
+
+Database utilities include ID generation, password hashing, etc.
+
+```typescript
+// generate-id.ts
+export function generateOrderId(storeSlug: string): string {
+  const timestamp = Date.now();
+  const random = Math.random().toString(36).substring(2, 8);
+  return `${storeSlug}-${timestamp}-${random}`;
+}
+```
+
+## Generated Types
+
+### Location
+`packages/db/prisma/generated/`
+
+### Usage
+
+Prisma generates TypeScript types that are used in entities:
+
+```typescript
+import type { Prisma } from "@dukkani/db/prisma/generated";
+
+export type StoreSimpleDbData = Prisma.StoreGetPayload<{
+  include: ReturnType<typeof StoreQuery.getSimpleInclude>;
+}>;
+```
+
+## Dependencies
+
+- `@prisma/client` - Prisma client
+- `@prisma/adapter-neon` - Neon serverless adapter (production)
+- `@prisma/adapter-pg` - PostgreSQL adapter (development)
+- `@neondatabase/serverless` - Neon serverless client
+- `zod` - Environment variable validation
+
+## Dependents
+
+- `@dukkani/common` - Uses database client in services
+- `@dukkani/auth` - Uses database for authentication
+- All packages that need database access
+
+## Best Practices
+
+- Never import Prisma client directly, always use `@dukkani/db`
+- Use transactions for operations that modify multiple records
+- Use seeders for development/test data
+- Keep schema files organized by domain
+- Run `db:generate` after schema changes
+- Use migrations for production schema changes

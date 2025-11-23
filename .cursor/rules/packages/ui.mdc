@@ -1,0 +1,231 @@
+# @dukkani/ui Package
+
+## Purpose
+
+The `ui` package contains shared UI components built with shadcn/ui and Radix UI. It provides a consistent design system across all applications.
+
+## Structure
+
+```
+packages/ui/src/
+├── components/        # UI components
+│   └── {component}.tsx
+├── hooks/             # Component hooks
+│   └── use-{hook}.ts
+├── lib/               # Utilities
+│   └── utils.ts       # cn() utility
+└── styles/            # Global styles
+    └── globals.css
+```
+
+## Components
+
+### Location
+`packages/ui/src/components/`
+
+### File Naming
+`{component}.tsx` (kebab-case)
+
+### Pattern
+
+Components follow shadcn/ui patterns with Radix UI primitives and Tailwind CSS styling.
+
+```typescript
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "../lib/utils";
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center rounded-md font-medium",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground",
+        outline: "border bg-background",
+      },
+      size: {
+        default: "h-9 px-4",
+        sm: "h-8 px-3",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+
+function Button({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+  }) {
+  const Comp = asChild ? Slot : "button";
+
+  return (
+    <Comp
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  );
+}
+
+export { Button, buttonVariants };
+```
+
+### Component Naming
+
+- File: `{component}.tsx` (kebab-case)
+- Export: `PascalCase` component name
+- Variants: Export variant function if using CVA
+
+### Best Practices
+
+- Use `cn()` utility for className merging
+- Use CVA (class-variance-authority) for variant-based styling
+- Use Radix UI primitives for accessibility
+- Export both component and variants when using CVA
+- Use `asChild` prop pattern for composition
+- Support all standard HTML attributes via `...props`
+
+## Utilities
+
+### Location
+`packages/ui/src/lib/utils.ts`
+
+### Pattern
+
+The `cn()` utility combines classnames using `clsx` and `tailwind-merge`.
+
+```typescript
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+### Usage
+
+```typescript
+import { cn } from "@dukkani/ui/lib/utils";
+
+<div className={cn("base-classes", condition && "conditional-classes")} />
+```
+
+## Hooks
+
+### Location
+`packages/ui/src/hooks/`
+
+### Pattern
+
+Component-specific hooks (e.g., `use-toast` for toast notifications).
+
+## Styles
+
+### Location
+`packages/ui/src/styles/globals.css`
+
+### Pattern
+
+Global CSS with Tailwind directives and CSS variables for theming.
+
+## Configuration
+
+### Location
+`packages/ui/components.json`
+
+### Pattern
+
+shadcn/ui configuration file. Used by shadcn CLI for adding components.
+
+## Exports
+
+### Component Exports
+
+Components are exported individually:
+
+```typescript
+// packages/ui/src/components/button.tsx
+export { Button, buttonVariants };
+
+// Usage
+import { Button } from "@dukkani/ui/components/button";
+```
+
+### Index Exports (Optional)
+
+Some components may have index files for convenience:
+
+```typescript
+// packages/ui/src/components/index.ts
+export { Button } from "./button";
+export { Card } from "./card";
+```
+
+## Usage in Apps
+
+### Import Pattern
+
+```typescript
+// Import from specific component file
+import { Button } from "@dukkani/ui/components/button";
+import { Card, CardContent, CardHeader } from "@dukkani/ui/components/card";
+
+// Or from index if available
+import { Button, Card } from "@dukkani/ui/components";
+```
+
+### Example
+
+```typescript
+// apps/dashboard/src/components/dashboard/orders/orders-list.tsx
+import { Card, CardContent, CardHeader, CardTitle } from "@dukkani/ui/components/card";
+import { Button } from "@dukkani/ui/components/button";
+
+export default function OrdersList() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Orders</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Button>Create Order</Button>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## Dependencies
+
+- `@radix-ui/*` - UI primitives
+- `class-variance-authority` - Variant-based styling
+- `clsx` - Classname utility
+- `tailwind-merge` - Tailwind class merging
+- `tailwindcss` - Styling
+- `react` - React framework
+
+## Dependents
+
+- `apps/dashboard` - Uses UI components
+- `apps/web` - Uses UI components
+
+## Best Practices
+
+- Follow shadcn/ui patterns and conventions
+- Use Radix UI for accessibility
+- Use Tailwind CSS for styling
+- Use CVA for variant-based components
+- Export variants when using CVA
+- Support composition with `asChild` prop
+- Use `cn()` for className merging
+- Keep components focused and reusable
+- Document component props with TypeScript types

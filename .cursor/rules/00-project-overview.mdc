@@ -1,0 +1,101 @@
+# Project Overview
+
+## Monorepo Structure
+
+This is a **Turborepo monorepo** using **pnpm workspaces** for the Dukkani project, created with Better-T-Stack CLI.
+
+### Workspace Organization
+
+```text
+dukkani/
+├── apps/              # Applications (Next.js apps)
+│   ├── api/          # API server (Next.js API routes)
+│   ├── dashboard/    # Dashboard application (Next.js)
+│   └── web/          # Public web application (Next.js)
+├── packages/          # Shared packages
+│   ├── auth/         # Authentication logic (Better Auth)
+│   ├── common/       # Shared entities, schemas, services, utils
+│   ├── config/       # TypeScript configuration files
+│   ├── db/           # Database schema (Prisma) and utilities
+│   ├── env/          # Environment variable management
+│   ├── orpc/         # oRPC API routers and client
+│   └── ui/           # Shared UI components (shadcn/ui)
+└── docker/           # Docker configuration for local development
+```
+
+## Package Manager
+
+- **pnpm** is used for package management
+- Workspaces are defined in `pnpm-workspace.yaml`
+- Use `pnpm` commands from the root to run across all workspaces
+- Use `pnpm -F @dukkani/{package}` to run commands in specific packages
+
+## Build System
+
+- **Turborepo** handles build caching and parallel execution
+- Build tasks are defined in `turbo.json`
+- Dependencies between tasks are automatically resolved
+
+## Development Workflow
+
+### Starting Development
+
+```bash
+# Start all apps in development mode
+pnpm run dev
+
+# Start specific apps
+pnpm run dev:dashboard  # Dashboard only
+pnpm run dev:api        # API only
+pnpm run dev:ad         # API + Dashboard
+```
+
+### Database Operations
+
+All database operations should be run from the root:
+
+```bash
+pnpm run db:push        # Push schema changes
+pnpm run db:studio     # Open Prisma Studio
+pnpm run db:generate   # Generate Prisma client
+pnpm run db:migrate    # Run migrations
+pnpm run db:seed       # Seed database
+```
+
+Database schema is located in `packages/db/prisma/schema/`
+
+## Code Quality
+
+- **Biome** is used for linting and formatting
+- Configuration in `biome.json`
+- Run `pnpm run lint` to lint all packages
+- Run `pnpm format` to format all code
+
+## Key Technologies
+
+- **Next.js** (App Router) for applications
+- **TypeScript** for type safety
+- **Prisma** for database ORM
+- **oRPC** for type-safe API
+- **Better Auth** for authentication
+- **React Query** for data fetching
+- **shadcn/ui** for UI components
+- **Tailwind CSS** for styling
+
+## Import Conventions
+
+- Use package-scoped imports: `@dukkani/{package}/path`
+- Example: `import { database } from "@dukkani/db"`
+- Example: `import { StoreService } from "@dukkani/common/services"`
+
+## Environment Variables
+
+- Environment variables are managed in `packages/env`
+- Use `env` from `@dukkani/env` package
+- Never import directly from `process.env` in application code
+
+## Type Safety
+
+- All packages export TypeScript types
+- Use shared types from `@dukkani/common` for entities and schemas
+- API types are auto-generated from oRPC routers

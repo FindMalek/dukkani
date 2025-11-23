@@ -1,0 +1,311 @@
+# @dukkani/orpc Package
+
+## Purpose
+
+The `orpc` package defines the API layer using oRPC (type-safe RPC). It contains routers, procedures, middleware, context, and client utilities.
+
+## Structure
+
+```
+packages/orpc/src/
+├── routers/           # API route handlers
+│   └── {entity}.ts
+├── middleware/        # oRPC middleware
+│   └── rate-limit.ts
+├── utils/             # Router utilities
+│   └── store-access.ts
+├── context.ts         # Request context creation
+├── client.ts          # Client utilities for React Query
+├── index.ts           # Main exports (procedures, router)
+└── ...
+```
+
+## Routers
+
+### Location
+`packages/orpc/src/routers/`
+
+### File Naming
+`{entity}.ts` (kebab-case, singular)
+
+### Pattern
+
+Routers export an object with procedures. Each procedure uses `protectedProcedure` or `publicProcedure`.
+
+### Example
+
+```typescript
+import { protectedProcedure } from "../index";
+import { StoreService } from "@dukkani/common/services";
+import { listStoresInputSchema, getStoreInputSchema } from "@dukkani/common/schemas/store/input";
+import { ORPCError } from "@orpc/server";
+
+export const storeRouter = {
+  /**
+   * Get all stores owned by the authenticated user
+   */
+  getAll: protectedProcedure
+    .input(listStoresInputSchema.optional())
+    .handler(async ({ context }) => {
+      const userId = context.session.user.id;
+      return await StoreService.getAllStores(userId);
+    }),
+
+  /**
+   * Get a specific store by ID (verify ownership)
+   */
+  getById: protectedProcedure
+    .input(getStoreInputSchema)
+    .handler(async ({ input, context }) => {
+      const userId = context.session.user.id;
+
+      if (!input.id) {
+        throw new ORPCError("BAD_REQUEST", {
+          message: "Store ID is required",
+        });
+      }
+
+      return await StoreService.getStoreById(input.id, userId);
+    }),
+
+  /**
+   * Create new store
+   */
+  create: protectedProcedure
+    .input(createStoreInputSchema)
+    .handler(async ({ input, context }) => {
+      const userId = context.session.user.id;
+      return await StoreService.createStore(input, userId);
+    }),
+};
+```
+
+### Router Naming
+
+- File: `{entity}.ts` (singular, kebab-case)
+- Export: `{entity}Router` (camelCase with Router suffix)
+- Procedures: `getAll`, `getById`, `create`, `update`, `delete`, `updateStatus`
+
+### Procedure Types
+
+- **protectedProcedure** - Requires authentication, uses standard rate limiting
+- **publicProcedure** - No authentication required, uses strict rate limiting
+
+### Best Practices
+
+- Always use services for business logic (don't put database queries directly in routers)
+- Verify ownership/access in services, not routers
+- Use ORPCError for API errors with appropriate status codes
+- Document procedures with JSDoc comments
+- Use input schemas from `@dukkani/common/schemas`
+- Return output types from services (already transformed by entities)
+
+## Procedures
+
+### Available Procedures
+
+- `publicProcedure` - Public endpoint with strict rate limiting
+- `protectedProcedure` - Protected endpoint with authentication and standard rate limiting
+
+### Usage
+
+```typescript
+// Public endpoint
+export const healthRouter = {
+  check: publicProcedure.handler(async () => {
+    return { status: "ok" };
+  }),
+};
+
+// Protected endpoint
+export const storeRouter = {
+  getAll: protectedProcedure
+    .input(listStoresInputSchema.optional())
+    .handler(async ({ context }) => {
+      const userId = context.session.user.id;
+      return await StoreService.getAllStores(userId);
+    }),
+};
+```
+
+## Context
+
+### Location
+`packages/orpc/src/context.ts`
+
+### Pattern
+
+Context is created from request headers and includes session information.
+
+```typescript
+export async function createContext(headers: IncomingHttpHeaders | Headers) {
+  const headersObj = headersToHeaders(headers);
+  const session = await auth.api.getSession({
+    headers: headersObj,
+  });
+  return {
+    session,
+    headers: headersPlain,
+  };
+}
+```
+
+### Context Type
+
+```typescript
+export type Context = Awaited<ReturnType<typeof createContext>>;
+```
+
+### Access in Routers
+
+```typescript
+.handler(async ({ context }) => {
+  const userId = context.session.user.id;
+  // Use userId for authorization
+})
+```
+
+## Middleware
+
+### Location
+`packages/orpc/src/middleware/`
+
+### Rate Limiting
+
+Rate limiting is applied automatically:
+- `publicProcedure` uses `rateLimitPublic` (strict)
+- `protectedProcedure` uses `rateLimitProtected` (standard)
+
+### Custom Middleware
+
+```typescript
+const customMiddleware = o.middleware(async ({ context, next }) => {
+  // Custom logic
+  return next();
+});
+```
+
+## Client
+
+### Location
+`packages/orpc/src/client.ts`
+
+### Pattern
+
+Client utilities create React Query integration with oRPC.
+
+```typescript
+export function createORPCClientUtils(apiUrl: string) {
+  const queryClient = new QueryClient({ ... });
+  const link = new RPCLink({ url: `${apiUrl}/api`, ... });
+  const client: AppRouterClient = createORPCClient(link);
+  const orpc = createTanstackQueryUtils(client);
+
+  return { queryClient, client, orpc };
+}
+```
+
+### Usage in Apps
+
+```typescript
+// apps/dashboard/src/utils/orpc.ts
+import { createORPCClientUtils } from "@dukkani/orpc/client";
+import { env } from "@dukkani/env";
+
+export const { queryClient, client, orpc } = createORPCClientUtils(
+  env.NEXT_PUBLIC_CORS_ORIGIN,
+);
+```
+
+## Router Registration
+
+### Location
+`packages/orpc/src/routers/index.ts`
+
+### Pattern
+
+All routers are registered in the main router object.
+
+```typescript
+import { customerRouter } from "./customer";
+import { dashboardRouter } from "./dashboard";
+import { orderRouter } from "./order";
+import { productRouter } from "./product";
+import { storeRouter } from "./store";
+
+export const appRouter = {
+  health: healthRouter,
+  store: storeRouter,
+  product: productRouter,
+  order: orderRouter,
+  customer: customerRouter,
+  dashboard: dashboardRouter,
+};
+
+export type AppRouter = typeof appRouter;
+export type AppRouterClient = RouterClient<typeof appRouter>;
+```
+
+## Error Handling
+
+### ORPCError
+
+Use ORPCError for API errors:
+
+```typescript
+import { ORPCError } from "@orpc/server";
+
+if (!input.id) {
+  throw new ORPCError("BAD_REQUEST", {
+    message: "Store ID is required",
+  });
+}
+
+if (!store) {
+  throw new ORPCError("NOT_FOUND", {
+    message: "Store not found",
+  });
+}
+```
+
+### Error Codes
+
+- `BAD_REQUEST` - Invalid input
+- `UNAUTHORIZED` - Not authenticated
+- `NOT_FOUND` - Resource not found
+- `TOO_MANY_REQUESTS` - Rate limit exceeded
+- `INTERNAL_SERVER_ERROR` - Server error
+
+## Exports
+
+### Main Index
+`packages/orpc/src/index.ts` exports:
+- `publicProcedure` - Public procedure
+- `protectedProcedure` - Protected procedure
+- `appRouter` - Main router
+- `AppRouter`, `AppRouterClient` - Types
+- `createORPCClientUtils` - Client utilities
+
+### Usage
+
+```typescript
+import { protectedProcedure } from "@dukkani/orpc";
+import { appRouter } from "@dukkani/orpc/routers";
+import type { AppRouter } from "@dukkani/orpc";
+```
+
+## Dependencies
+
+- `@dukkani/common` - Services and schemas
+- `@dukkani/auth` - Authentication
+- `@dukkani/db` - Database (via services)
+- `@orpc/server` - oRPC server
+- `@orpc/client` - oRPC client
+- `@orpc/tanstack-query` - React Query integration
+- `@tanstack/react-query` - Data fetching
+
+## Dependents
+
+- `apps/api` - Uses routers in API route handler
+- `apps/dashboard` - Uses client utilities
+- `apps/web` - Uses client utilities

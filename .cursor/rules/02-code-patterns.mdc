@@ -1,0 +1,333 @@
+# Code Patterns
+
+## Entity Pattern
+
+Entities transform database data to output schemas. Each entity has three files:
+
+### Structure
+
+```
+packages/common/src/entities/{entity-name}/
+  ├── entity.ts      # Transformation logic (getSimpleRo, getRo)
+  ├── query.ts       # Prisma query builders (getInclude, getWhere, getOrder)
+  └── index.ts       # Exports
+```
+
+### Entity Class Pattern
+
+```typescript
+// entity.ts
+export class StoreEntity {
+  // Transform simple database data to simple output
+  static getSimpleRo(entity: StoreSimpleDbData): StoreSimpleOutput {
+    return {
+      id: entity.id,
+      name: entity.name,
+      // ... map all simple fields
+    };
+  }
+
+  // Transform database data with relations to include output
+  static getRo(entity: StoreIncludeDbData): StoreIncludeOutput {
+    return {
+      ...this.getSimpleRo(entity),
+      // Add relations using other entities
+      owner: UserEntity.getSimpleRo(entity.owner),
+      products: entity.products.map(ProductEntity.getSimpleRo),
+    };
+  }
+}
+```
+
+### Query Class Pattern
+
+```typescript
+// query.ts
+export class StoreQuery {
+  // Simple include (no relations)
+  static getSimpleInclude() {
+    return {} satisfies Prisma.StoreInclude;
+  }
+
+  // Full include (all relations)
+  static getInclude() {
+    return {
+      ...this.getSimpleInclude(),
+      owner: UserQuery.getSimpleInclude(),
+      products: ProductQuery.getSimpleInclude(),
+    } satisfies Prisma.StoreInclude;
+  }
+
+  // Client-safe include (excludes sensitive data)
+  static getClientSafeInclude() {
+    return {
+      ...this.getSimpleInclude(),
+      storePlan: true,
+    } satisfies Prisma.StoreInclude;
+  }
+
+  // Where clause builder
+  static getWhere(storeIds: string[], filters?: FilterOptions) {
+    return {
+      id: { in: storeIds },
+      ...(filters?.search && { name: { contains: filters.search } }),
+    } satisfies Prisma.StoreWhereInput;
+  }
+
+  // Order by builder
+  static getOrder(direction: "asc" | "desc", field: string) {
+    return { [field]: direction } satisfies Prisma.StoreOrderByWithRelationInput;
+  }
+}
+```
+
+## Schema Pattern
+
+Schemas define input/output validation using Zod. Each schema has multiple files:
+
+### Structure
+
+```
+packages/common/src/schemas/{entity-name}/
+  ├── input.ts       # Input validation schemas
+  ├── output.ts      # Output type schemas
+  ├── enums.ts       # Enum schemas
+  └── index.ts       # Exports
+```
+
+### Input Schema Pattern
+
+```typescript
+// input.ts
+export const storeInputSchema = z.object({
+  name: z.string().min(1, "Store name is required"),
+  slug: z.string().min(1, "Store slug is required"),
+  description: z.string().optional(),
+});
+
+export const createStoreInputSchema = storeInputSchema;
+export const updateStoreInputSchema = storeInputSchema.partial().extend({
+  id: z.string().min(1, "Store ID is required"),
+});
+
+export const getStoreInputSchema = z.object({
+  id: z.string().min(1, "Store ID is required"),
+});
+
+export const listStoresInputSchema = z.object({
+  page: z.number().int().min(1).default(1),
+  limit: z.number().int().min(1).max(100).default(10),
+  search: z.string().optional(),
+});
+
+// Export types
+export type StoreInput = z.infer<typeof storeInputSchema>;
+export type CreateStoreInput = z.infer<typeof createStoreInputSchema>;
+export type UpdateStoreInput = z.infer<typeof updateStoreInputSchema>;
+export type GetStoreInput = z.infer<typeof getStoreInputSchema>;
+export type ListStoresInput = z.infer<typeof listStoresInputSchema>;
+```
+
+### Output Schema Pattern
+
+```typescript
+// output.ts
+export const storeSimpleOutputSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
+
+export const storeIncludeOutputSchema = storeSimpleOutputSchema.extend({
+  owner: userSimpleOutputSchema.optional(),
+  products: z.array(productSimpleOutputSchema).optional(),
+});
+
+export const listStoresOutputSchema = z.object({
+  stores: z.array(storeSimpleOutputSchema),
+  total: z.number().int(),
+  hasMore: z.boolean(),
+  page: z.number().int(),
+  limit: z.number().int(),
+});
+
+// Export types
+export type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
+export type StoreIncludeOutput = z.infer<typeof storeIncludeOutputSchema>;
+export type ListStoresOutput = z.infer<typeof listStoresOutputSchema>;
+```
+
+## Service Pattern
+
+Services contain business logic and database operations. They use entities and queries.
+
+### Structure
+
+```typescript
+// packages/common/src/services/{entity}-service.ts
+import { database } from "@dukkani/db";
+import { StoreEntity } from "../entities/store/entity";
+import { StoreQuery } from "../entities/store/query";
+import type { StoreIncludeOutput, StoreSimpleOutput } from "../schemas/store/output";
+
+export class StoreService {
+  // Get all stores for a user
+  static async getAllStores(userId: string): Promise<StoreSimpleOutput[]> {
+    const stores = await database.store.findMany({
+      where: { ownerId: userId },
+      orderBy: { createdAt: "desc" },
+      include: StoreQuery.getClientSafeInclude(),
+    });
+
+    return stores.map(StoreEntity.getSimpleRo);
+  }
+
+  // Get store by ID with ownership verification
+  static async getStoreById(
+    id: string,
+    userId: string,
+  ): Promise<StoreIncludeOutput> {
+    const store = await database.store.findUnique({
+      where: { id },
+      include: StoreQuery.getInclude(),
+    });
+
+    if (!store) {
+      throw new Error("Store not found");
+    }
+
+    if (store.ownerId !== userId) {
+      throw new Error("You don't have access to this store");
+    }
+
+    return StoreEntity.getRo(store);
+  }
+}
+```
+
+## Router Pattern
+
+Routers define API endpoints using oRPC. They use services and schemas.
+
+### Structure
+
+```typescript
+// packages/orpc/src/routers/{entity}.ts
+import { protectedProcedure } from "../index";
+import { StoreService } from "@dukkani/common/services";
+import { listStoresInputSchema, getStoreInputSchema } from "@dukkani/common/schemas/store/input";
+import { ORPCError } from "@orpc/server";
+
+export const storeRouter = {
+  /**
+   * Get all stores owned by the authenticated user
+   */
+  getAll: protectedProcedure
+    .input(listStoresInputSchema.optional())
+    .handler(async ({ context }) => {
+      const userId = context.session.user.id;
+      return await StoreService.getAllStores(userId);
+    }),
+
+  /**
+   * Get a specific store by ID (verify ownership)
+   */
+  getById: protectedProcedure
+    .input(getStoreInputSchema)
+    .handler(async ({ input, context }) => {
+      const userId = context.session.user.id;
+
+      if (!input.id) {
+        throw new ORPCError("BAD_REQUEST", {
+          message: "Store ID is required",
+        });
+      }
+
+      return await StoreService.getStoreById(input.id, userId);
+    }),
+};
+```
+
+## Component Pattern
+
+Components are organized by feature and use kebab-case file names.
+
+### Structure
+
+```typescript
+// apps/dashboard/src/components/dashboard/orders/orders-list.tsx
+"use client";
+
+import { useOrders } from "@/hooks/api/use-orders";
+import { Card, CardContent, CardHeader, CardTitle } from "@dukkani/ui/components/card";
+
+export default function OrdersList() {
+  const { data: orders, isLoading } = useOrders({ page: 1, limit: 10 });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Orders</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {/* Render orders */}
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## Hook Pattern
+
+Hooks use React Query with oRPC client for data fetching.
+
+### Structure
+
+```typescript
+// apps/dashboard/src/hooks/api/use-orders.ts
+import { useQuery } from "@tanstack/react-query";
+import { orpc } from "@/utils/orpc";
+import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
+
+export function useOrders(input: ListOrdersInput) {
+  return useQuery(orpc.order.getAll.queryOptions({ input }));
+}
+```
+
+## Error Handling
+
+### Service Errors
+
+```typescript
+if (!store) {
+  throw new Error("Store not found");
+}
+```
+
+### Router Errors
+
+```typescript
+if (!input.id) {
+  throw new ORPCError("BAD_REQUEST", {
+    message: "Store ID is required",
+  });
+}
+```
+
+## Type Safety
+
+Always use TypeScript types from schemas:
+
+```typescript
+// ✅ Correct
+import type { StoreInput, StoreSimpleOutput } from "@dukkani/common/schemas/store/input";
+
+// ❌ Incorrect
+type StoreInput = { name: string; slug: string; };
+```

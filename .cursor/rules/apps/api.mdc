@@ -1,0 +1,173 @@
+# API App
+
+## Purpose
+
+The `api` app is a Next.js API server that handles oRPC requests. It provides the API endpoint for all applications.
+
+## Structure
+
+```
+apps/api/src/
+└── app/
+    └── api/
+        └── [[...rest]]/
+            └── route.ts    # Catch-all API route handler
+```
+
+## API Route Handler
+
+### Location
+`apps/api/src/app/api/[[...rest]]/route.ts`
+
+### Pattern
+
+The catch-all route handler processes all API requests:
+
+```typescript
+import { createContext } from "@dukkani/orpc/context";
+import { appRouter } from "@dukkani/orpc/routers/index";
+import { RPCHandler } from "@orpc/server/fetch";
+import { OpenAPIHandler } from "@orpc/openapi/fetch";
+import type { NextRequest } from "next/server";
+
+const rpcHandler = new RPCHandler(appRouter, {
+  interceptors: [
+    onError((error) => {
+      console.error(error);
+    }),
+  ],
+});
+
+async function handleRequest(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  const corsHeaders = getCorsHeaders(origin);
+
+  // Handle RPC requests
+  const rpcResult = await rpcHandler.handle(req, {
+    prefix: "/api",
+    context: await createContext(req.headers),
+  });
+
+  if (rpcResult.response) {
+    const response = rpcResult.response;
+    Object.entries(corsHeaders).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
+    return response;
+  }
+
+  // Handle OpenAPI requests (playground and spec)
+  const apiResult = await apiHandler.handle(req, {
+    prefix: "/api",
+    context: await createContext(req.headers),
+  });
+
+  if (apiResult.response) {
+    const response = apiResult.response;
+    Object.entries(corsHeaders).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
+    return response;
+  }
+
+  return new Response("Not found", { status: 404 });
+}
+
+export const GET = handleRequest;
+export const POST = handleRequest;
+export const PUT = handleRequest;
+export const PATCH = handleRequest;
+export const DELETE = handleRequest;
+
+// Handle OPTIONS requests for CORS preflight
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  const corsHeaders = getCorsHeaders(origin);
+  return new Response(null, {
+    status: 204,
+    headers: corsHeaders,
+  });
+}
+```
+
+## CORS Configuration
+
+### Pattern
+
+CORS headers are configured based on environment:
+
+```typescript
+function getCorsHeaders(origin: string | null): HeadersInit {
+  const isDevelopment = env.NEXT_PUBLIC_NODE_ENV === "local";
+  const isLocalhost = origin?.startsWith("http://localhost:") ?? false;
+
+  const allowedOrigin =
+    isDevelopment && isLocalhost && origin
+      ? origin
+      : env.NEXT_PUBLIC_CORS_ORIGIN;
+
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Credentials": "true",
+  };
+}
+```
+
+## Request Handling
+
+### RPC Handler
+
+Handles oRPC requests from clients.
+
+### OpenAPI Handler
+
+Handles OpenAPI spec and playground requests.
+
+### Context Creation
+
+Context is created from request headers:
+
+```typescript
+const context = await createContext(req.headers);
+```
+
+## HTTP Methods
+
+All HTTP methods are handled:
+- `GET` - Read operations
+- `POST` - Create operations
+- `PUT` - Update operations
+- `PATCH` - Partial update operations
+- `DELETE` - Delete operations
+- `OPTIONS` - CORS preflight
+
+## Error Handling
+
+Errors are logged via interceptors:
+
+```typescript
+interceptors: [
+  onError((error) => {
+    console.error(error);
+  }),
+],
+```
+
+## Dependencies
+
+- `next` - Next.js framework
+- `@dukkani/orpc` - oRPC routers and context
+- `@orpc/server` - oRPC server
+- `@orpc/openapi` - OpenAPI integration
+- `@dukkani/env` - Environment variables
+
+## Best Practices
+
+- Handle all HTTP methods
+- Add CORS headers to all responses
+- Handle OPTIONS for CORS preflight
+- Create context from request headers
+- Log errors via interceptors
+- Support both RPC and OpenAPI handlers
