@@ -2,6 +2,7 @@ import "server-only";
 
 import { neonConfig } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 import ws from "ws";
 
@@ -20,8 +21,9 @@ if (env.NEXT_PUBLIC_NODE_ENV === "production") {
 
 	database = globalForPrisma.prisma || new PrismaClient({ adapter });
 } else {
-	// Development: Use standard Prisma client
-	database = globalForPrisma.prisma || new PrismaClient();
+	// Development/Local: Use PostgreSQL adapter for standard PostgreSQL
+	const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
+	database = globalForPrisma.prisma || new PrismaClient({ adapter });
 }
 
 if (env.NEXT_PUBLIC_NODE_ENV === "local") {
