@@ -3,21 +3,20 @@ import { database as dbSingleton, initializeDatabase } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env/presets/api";
 
 /**
- * Server initialization module
+ * Core initialization module
  *
  * This module initializes all server-side dependencies (database, auth)
  * and exports them as singletons. This is the single source of truth
  * for server initialization, ensuring proper dependency order and
  * eliminating circular dependencies.
  *
- * Initialization happens on first access (runtime), not at module load.
- * This ensures environment variables are available when needed.
+ * Initialization happens automatically when the module is imported.
+ * The exports are initialized lazily on first access.
  *
  * Usage:
  * ```ts
- * import { getDatabase, getAuth } from "@dukkani/server";
- * const db = getDatabase();
- * const auth = getAuth();
+ * import { database, auth } from "@dukkani/core";
+ * // Both are automatically initialized and ready to use
  * ```
  */
 
@@ -69,7 +68,7 @@ export function getAuth() {
 	return authSingleton;
 }
 
-// Export convenience getters that match the original API
-// These are simple function calls, not Proxies
+// Export initialized singletons
+// These initialize automatically when imported (lazy on first access)
 export const database = getDatabase();
 export const auth = getAuth();

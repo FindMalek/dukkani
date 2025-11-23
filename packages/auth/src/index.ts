@@ -45,43 +45,37 @@ async function verifyPassword({
 }
 
 /**
- * Type for auth environment variables
- * Inferred from the auth env schema - automatically stays in sync with env changes
- */
-type AuthEnv = Pick<
-	typeof authEnvType,
-	| "BETTER_AUTH_SECRET"
-	| "NEXT_PUBLIC_CORS_ORIGIN"
-	| "GOOGLE_CLIENT_ID"
-	| "GOOGLE_CLIENT_SECRET"
-	| "FACEBOOK_CLIENT_ID"
-	| "FACEBOOK_CLIENT_SECRET"
-> & {
-	NEXT_PUBLIC_DASHBOARD_URL?: string; // Optional - if not provided, only CORS_ORIGIN is used
-};
-
-/**
  * Factory function to create a Better Auth instance
  * Uses dependency injection to avoid circular dependencies
  *
  * @param database - Prisma database client instance
- * @param env - Environment object with auth configuration
+ * @param envConfig - Partial environment config (can omit NEXT_PUBLIC_DASHBOARD_URL)
  * @returns Better Auth instance
  */
 export function createAuth(
 	database: PrismaClient,
-	env: AuthEnv,
+	envConfig: Pick<
+		typeof env,
+		| "BETTER_AUTH_SECRET"
+		| "NEXT_PUBLIC_CORS_ORIGIN"
+		| "GOOGLE_CLIENT_ID"
+		| "GOOGLE_CLIENT_SECRET"
+		| "FACEBOOK_CLIENT_ID"
+		| "FACEBOOK_CLIENT_SECRET"
+	> & {
+		NEXT_PUBLIC_DASHBOARD_URL?: string; // Optional - if not provided, only CORS_ORIGIN is used
+	},
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
 	// Build trusted origins array - always include CORS_ORIGIN, optionally include DASHBOARD_URL
-	const trustedOrigins = env.NEXT_PUBLIC_DASHBOARD_URL
-		? [env.NEXT_PUBLIC_CORS_ORIGIN, env.NEXT_PUBLIC_DASHBOARD_URL]
-		: [env.NEXT_PUBLIC_CORS_ORIGIN];
+	const trustedOrigins = envConfig.NEXT_PUBLIC_DASHBOARD_URL
+		? [envConfig.NEXT_PUBLIC_CORS_ORIGIN, envConfig.NEXT_PUBLIC_DASHBOARD_URL]
+		: [envConfig.NEXT_PUBLIC_CORS_ORIGIN];
 
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
 			provider: "postgresql",
 		}),
-		secret: env.BETTER_AUTH_SECRET,
+		secret: envConfig.BETTER_AUTH_SECRET,
 		trustedOrigins,
 		emailAndPassword: {
 			enabled: true,
@@ -92,12 +86,12 @@ export function createAuth(
 		},
 		socialProviders: {
 			facebook: {
-				clientId: env.FACEBOOK_CLIENT_ID,
-				clientSecret: env.FACEBOOK_CLIENT_SECRET,
+				clientId: envConfig.FACEBOOK_CLIENT_ID,
+				clientSecret: envConfig.FACEBOOK_CLIENT_SECRET,
 			},
 			google: {
-				clientId: env.GOOGLE_CLIENT_ID,
-				clientSecret: env.GOOGLE_CLIENT_SECRET,
+				clientId: envConfig.GOOGLE_CLIENT_ID,
+				clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
 			},
 		},
 		plugins: [nextCookies()],
@@ -113,9 +107,12 @@ export let auth: ReturnType<typeof betterAuth<BetterAuthOptions>>;
 
 /**
  * Initialize the auth singleton
- * Called by server initialization module
+ * Called by core initialization module
  * @internal
  */
-export function initializeAuth(database: PrismaClient, env: AuthEnv): void {
-	auth = createAuth(database, env);
+export function initializeAuth(
+	database: PrismaClient,
+	envConfig: Parameters<typeof createAuth>[1],
+): void {
+	auth = createAuth(database, envConfig);
 }

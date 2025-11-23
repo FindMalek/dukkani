@@ -1,5 +1,5 @@
 {
-	"name": "@dukkani/server",
+	"name": "@dukkani/core",
 	"type": "module",
 	"exports": {
 		".": {

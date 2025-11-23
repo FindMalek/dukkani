@@ -1,5 +1,5 @@
 import type { IncomingHttpHeaders } from "node:http";
-import { auth } from "@dukkani/server";
+import { auth } from "@dukkani/core";
 import { headersToHeaders, headersToObject } from "./utils/headers";
 
 export async function createContext(headers: IncomingHttpHeaders | Headers) {
