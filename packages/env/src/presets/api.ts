@@ -12,4 +12,3 @@ export const apiEnv = createEnv({
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
 });
-

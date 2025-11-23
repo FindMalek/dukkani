@@ -17,4 +17,3 @@ export const webEnv = createEnv({
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
 });
-

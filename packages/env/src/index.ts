@@ -31,6 +31,5 @@ export const baseEnv = createEnv({
 	emptyStringAsUndefined: true,
 });
 
-
 export const env = baseEnv;
 export * from "./presets";

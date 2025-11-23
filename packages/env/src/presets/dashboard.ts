@@ -15,4 +15,3 @@ export const dashboardEnv = createEnv({
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
 });
-

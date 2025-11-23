@@ -60,7 +60,9 @@ export default function Header() {
 					<div className="flex items-center gap-4">
 						<ModeToggle />
 						<Link
-							href={webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]}
+							href={
+								webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+							}
 							className="font-medium text-muted-foreground text-sm hover:text-foreground"
 						>
 							Sign In

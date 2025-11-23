@@ -12,4 +12,3 @@ export const dbEnv = createEnv({
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
 });
-
