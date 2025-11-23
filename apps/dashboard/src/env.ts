@@ -32,4 +32,3 @@ export const dashboardEnv = createEnv({
 	},
 	emptyStringAsUndefined: true,
 });
-

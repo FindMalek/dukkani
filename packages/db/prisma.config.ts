@@ -6,7 +6,7 @@ import { defineConfig } from "prisma/config";
 // In Vercel/production, DATABASE_URL is injected directly
 if (!process.env.VERCEL) {
 	dotenv.config({
-		path: path.resolve(__dirname, "../.env.local"),
+		path: path.resolve(__dirname, "./.env"),
 	});
 }
 

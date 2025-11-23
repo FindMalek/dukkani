@@ -59,7 +59,5 @@ export function getAuth() {
 	return authSingleton;
 }
 
-// Export initialized singletons
-// These initialize automatically when imported (lazy on first access)
 export const database = getDatabase();
 export const auth = getAuth();

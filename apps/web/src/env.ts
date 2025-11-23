@@ -15,4 +15,3 @@ export const webEnv = createEnv({
 	},
 	emptyStringAsUndefined: true,
 });
-
