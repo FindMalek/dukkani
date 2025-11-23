@@ -1,6 +1,6 @@
 "use client";
 
-import { env } from "@dukkani/env";
+import { webEnv } from "@dukkani/env/presets/web";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
@@ -56,7 +56,7 @@ export function Hero() {
 						>
 							<Link
 								href={
-									env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+									webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 								}
 							>
 								Start for free

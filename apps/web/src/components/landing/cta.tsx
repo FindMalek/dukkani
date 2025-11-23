@@ -1,15 +1,15 @@
 "use client";
 
+import { webEnv } from "@dukkani/env/presets/web";
 import { Button } from "@dukkani/ui/components/button";
-import { env } from "@dukkani/env";
-import Link from "next/link";
 import type { LinkProps } from "next/link";
+import Link from "next/link";
 
 export function CTA() {
 	return (
 		<section className="bg-primary py-24 text-primary-foreground">
 			<div className="container mx-auto px-4 text-center">
-				<h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+				<h2 className="mb-6 font-bold text-3xl tracking-tight sm:text-4xl">
 					Ready to transform your business?
 				</h2>
 				<p className="mx-auto mb-10 max-w-2xl text-lg opacity-90 sm:text-xl">
@@ -20,11 +20,13 @@ export function CTA() {
 					<Button
 						size="lg"
 						variant="secondary"
-						className="h-14 px-8 text-lg font-semibold"
+						className="h-14 px-8 font-semibold text-lg"
 						asChild
 					>
 						<Link
-							href={env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]}
+							href={
+								webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+							}
 						>
 							Get Started for Free
 						</Link>

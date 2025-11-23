@@ -1,6 +1,6 @@
 "use client";
 
-import { env } from "@dukkani/env";
+import { webEnv } from "@dukkani/env/presets/web";
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Card,
@@ -76,7 +76,7 @@ export function Pricing() {
 							<Button variant="outline" className="w-full" asChild>
 								<Link
 									href={
-										env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+										webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 									}
 								>
 									Start Free
@@ -121,7 +121,7 @@ export function Pricing() {
 							<Button className="w-full" asChild>
 								<Link
 									href={
-										env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+										webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 									}
 								>
 									Get Started
@@ -163,7 +163,7 @@ export function Pricing() {
 							<Button variant="outline" className="w-full" asChild>
 								<Link
 									href={
-										env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+										webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 									}
 								>
 									Contact Sales

@@ -1,38 +1,36 @@
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
-// Load .env from monorepo root in all environments
-// Vercel environment variables will override .env values when set
-if (typeof process !== "undefined" && process.versions?.node) {
-	try {
-		const path = await import("node:path");
-		const { fileURLToPath } = await import("node:url");
-		const dotenv = await import("dotenv");
+// This package is validation-only - it does NOT load environment variables.
+// Environment loading is handled by:
+// - Next.js apps: automatically loads .env.local from app directory
+// - Vercel: automatic injection into process.env
+// - Other packages: should load their own env vars if needed
 
-		const __filename = fileURLToPath(import.meta.url);
-		const __dirname = path.dirname(__filename);
-
-		// Always load .env from monorepo root
-		// Vercel env vars will override these when set in dashboard
-		dotenv.config({
-			path: path.resolve(__dirname, "../../../.env"),
-		});
-	} catch {
-		// Ignore errors in environments where Node.js APIs aren't available
-	}
-}
-
-export const env = createEnv({
+/**
+ * Base environment with shared variables used across all apps/packages
+ * This is the foundation that all presets extend from
+ */
+export const baseEnv = createEnv({
 	server: {
 		DATABASE_URL: z.url(),
 	},
 	client: {
-		NEXT_PUBLIC_NODE_ENV: z.enum(["development", "production", "local"]),
-		NEXT_PUBLIC_DASHBOARD_URL: z.url(),
-		NEXT_PUBLIC_WEB_URL: z.url(),
+		NEXT_PUBLIC_NODE_ENV: z
+			.enum(["development", "production", "local"])
+			.default("local")
+			.transform((val) => {
+				// Map Vercel's preview environment to development
+				if (process.env.VERCEL_ENV === "preview") return "development";
+				return val;
+			}),
 		NEXT_PUBLIC_CORS_ORIGIN: z.url(),
 	},
 	clientPrefix: "NEXT_PUBLIC_",
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
 });
+
+
+export const env = baseEnv;
+export * from "./presets";
