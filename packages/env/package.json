@@ -3,6 +3,10 @@
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
+	"scripts": {
+		"build": "tsdown",
+		"clean": "rm -rf dist node_modules"
+	},
 	"exports": {
 		".": {
 			"types": "./src/index.ts",

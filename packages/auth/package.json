@@ -16,7 +16,8 @@
 	},
 	"type": "module",
 	"scripts": {
-		"build": "tsdown"
+		"build": "tsdown",
+		"clean": "rm -rf dist node_modules"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",

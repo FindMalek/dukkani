@@ -33,7 +33,8 @@
 		"db:seed": "tsx src/seed/index.ts",
 		"db:reset-and-seed": "pnpm db:reset && pnpm db:seed",
 		"db:reset": "prisma migrate reset --force",
-		"db:format": "prisma format"
+		"db:format": "prisma format",
+		"clean": "rm -rf dist node_modules prisma/generated"
 	},
 	"peerDependencies": {
 		"typescript": "catalog:"

@@ -1,7 +1,8 @@
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
-// Handle environment loading for different platforms
+// Load .env from monorepo root in all environments
+// Vercel environment variables will override .env values when set
 if (typeof process !== "undefined" && process.versions?.node) {
 	try {
 		const path = await import("node:path");
@@ -11,16 +12,11 @@ if (typeof process !== "undefined" && process.versions?.node) {
 		const __filename = fileURLToPath(import.meta.url);
 		const __dirname = path.dirname(__filename);
 
-		// Detect Vercel environments (production, preview, development)
-		const isVercel = process.env.VERCEL || process.env.VERCEL_ENV;
-
-		// Only load .env in local development (not Vercel)
-		if (!isVercel) {
-			dotenv.config({
-				path: path.resolve(__dirname, "../../../.env"),
-			});
-		}
-		// In Vercel, environment variables are injected automatically
+		// Always load .env from monorepo root
+		// Vercel env vars will override these when set in dashboard
+		dotenv.config({
+			path: path.resolve(__dirname, "../../../.env"),
+		});
 	} catch {
 		// Ignore errors in environments where Node.js APIs aren't available
 	}
