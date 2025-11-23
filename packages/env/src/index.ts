@@ -1,9 +1,7 @@
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
-// Load .env from root of monorepo (only on server side)
-// Next.js automatically loads .env files, but we need to load from monorepo root
-// This code only runs on the server - client code should never execute this
+// Handle environment loading for different platforms
 if (typeof process !== "undefined" && process.versions?.node) {
 	try {
 		const path = await import("node:path");
@@ -12,13 +10,17 @@ if (typeof process !== "undefined" && process.versions?.node) {
 
 		const __filename = fileURLToPath(import.meta.url);
 		const __dirname = path.dirname(__filename);
-		
-		// Only load .env file in development, not in production (Vercel)
-		if (process.env.NODE_ENV !== "production") {
+
+		// Detect Vercel environments (production, preview, development)
+		const isVercel = process.env.VERCEL || process.env.VERCEL_ENV;
+
+		// Only load .env in local development (not Vercel)
+		if (!isVercel) {
 			dotenv.config({
 				path: path.resolve(__dirname, "../../../.env"),
 			});
 		}
+		// In Vercel, environment variables are injected automatically
 	} catch {
 		// Ignore errors in environments where Node.js APIs aren't available
 	}
