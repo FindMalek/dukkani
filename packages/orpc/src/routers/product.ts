@@ -1,21 +1,21 @@
-import prisma from "@dukkani/db";
-import { protectedProcedure } from "../index";
-import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
-import { ProductService } from "@dukkani/common/services/productService";
-import {
-	listProductsInputSchema,
-	createProductInputSchema,
-	updateProductInputSchema,
-	getProductInputSchema,
-} from "@dukkani/common/schemas/product/input";
-import { ProductQuery } from "@dukkani/common/entities/product/query";
 import { ProductEntity } from "@dukkani/common/entities/product/entity";
+import { ProductQuery } from "@dukkani/common/entities/product/query";
+import {
+	createProductInputSchema,
+	getProductInputSchema,
+	listProductsInputSchema,
+	updateProductInputSchema,
+} from "@dukkani/common/schemas/product/input";
 import type {
 	ListProductsOutput,
 	ProductIncludeOutput,
 } from "@dukkani/common/schemas/product/output";
-import { z } from "zod";
+import { ProductService } from "@dukkani/common/services/productService";
+import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
+import { z } from "zod";
+import { protectedProcedure } from "../index";
+import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
 export const productRouter = {
 	/**
@@ -54,14 +54,14 @@ export const productRouter = {
 			});
 
 			const [products, total] = await Promise.all([
-				prisma.product.findMany({
+				database.product.findMany({
 					where,
 					skip,
 					take: limit,
 					orderBy: ProductQuery.getOrder("desc", "createdAt"),
 					include: ProductQuery.getClientSafeInclude(),
 				}),
-				prisma.product.count({ where }),
+				database.product.count({ where }),
 			]);
 
 			const hasMore = skip + products.length < total;
@@ -83,7 +83,7 @@ export const productRouter = {
 		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
 			const userId = context.session.user.id;
 
-			const product = await prisma.product.findUnique({
+			const product = await database.product.findUnique({
 				where: { id: input.id },
 				include: ProductQuery.getInclude(),
 			});
@@ -112,7 +112,7 @@ export const productRouter = {
 			await verifyStoreOwnership(userId, input.storeId);
 
 			// Get store to generate product ID
-			const store = await prisma.store.findUnique({
+			const store = await database.store.findUnique({
 				where: { id: input.storeId },
 				select: { slug: true },
 			});
@@ -127,7 +127,7 @@ export const productRouter = {
 			const productId = ProductService.generateProductId(store.slug);
 
 			// Create product with images
-			const product = await prisma.product.create({
+			const product = await database.product.create({
 				data: {
 					id: productId,
 					name: input.name,
@@ -157,7 +157,7 @@ export const productRouter = {
 			const userId = context.session.user.id;
 
 			// Get product to verify ownership
-			const existingProduct = await prisma.product.findUnique({
+			const existingProduct = await database.product.findUnique({
 				where: { id: input.id },
 				select: { storeId: true },
 			});
@@ -190,13 +190,13 @@ export const productRouter = {
 			// Handle image updates
 			if (input.imageUrls !== undefined) {
 				// Delete existing images
-				await prisma.image.deleteMany({
+				await database.image.deleteMany({
 					where: { productId: input.id },
 				});
 
 				// Create new images
 				if (input.imageUrls.length > 0) {
-					await prisma.image.createMany({
+					await database.image.createMany({
 						data: input.imageUrls.map((url) => ({
 							url,
 							productId: input.id,
@@ -205,7 +205,7 @@ export const productRouter = {
 				}
 			}
 
-			const product = await prisma.product.update({
+			const product = await database.product.update({
 				where: { id: input.id },
 				data: updateData,
 				include: ProductQuery.getInclude(),
@@ -223,7 +223,7 @@ export const productRouter = {
 			const userId = context.session.user.id;
 
 			// Get product to verify ownership
-			const product = await prisma.product.findUnique({
+			const product = await database.product.findUnique({
 				where: { id: input.id },
 				select: { storeId: true },
 			});
@@ -238,7 +238,7 @@ export const productRouter = {
 			await verifyStoreOwnership(userId, product.storeId);
 
 			// Delete product (images will be cascade deleted)
-			await prisma.product.delete({
+			await database.product.delete({
 				where: { id: input.id },
 			});
 
@@ -254,7 +254,7 @@ export const productRouter = {
 			const userId = context.session.user.id;
 
 			// Get product to verify ownership
-			const product = await prisma.product.findUnique({
+			const product = await database.product.findUnique({
 				where: { id: input.id },
 				select: { storeId: true },
 			});
@@ -269,7 +269,7 @@ export const productRouter = {
 			await verifyStoreOwnership(userId, product.storeId);
 
 			// Update published status
-			const updated = await prisma.product.update({
+			const updated = await database.product.update({
 				where: { id: input.id },
 				data: { published: input.published },
 				include: ProductQuery.getInclude(),

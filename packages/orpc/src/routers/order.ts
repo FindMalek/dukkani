@@ -1,21 +1,21 @@
-import prisma from "@dukkani/db";
-import { protectedProcedure } from "../index";
-import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
-import { OrderService } from "@dukkani/common/services/orderService";
+import { OrderEntity } from "@dukkani/common/entities/order/entity";
+import { OrderQuery } from "@dukkani/common/entities/order/query";
+import { orderStatusSchema } from "@dukkani/common/schemas/order/enums";
 import {
-	listOrdersInputSchema,
 	createOrderInputSchema,
 	getOrderInputSchema,
+	listOrdersInputSchema,
 } from "@dukkani/common/schemas/order/input";
-import { orderStatusSchema } from "@dukkani/common/schemas/order/enums";
-import { OrderQuery } from "@dukkani/common/entities/order/query";
-import { OrderEntity } from "@dukkani/common/entities/order/entity";
 import type {
 	ListOrdersOutput,
 	OrderIncludeOutput,
 } from "@dukkani/common/schemas/order/output";
-import { z } from "zod";
+import { OrderService } from "@dukkani/common/services/orderService";
+import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
+import { z } from "zod";
+import { protectedProcedure } from "../index";
+import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
 // Schema for creating order without id (will be generated)
 const createOrderWithoutIdSchema = createOrderInputSchema.omit({ id: true });
@@ -63,14 +63,14 @@ export const orderRouter = {
 			});
 
 			const [orders, total] = await Promise.all([
-				prisma.order.findMany({
+				database.order.findMany({
 					where,
 					skip,
 					take: limit,
 					orderBy: OrderQuery.getOrder("desc", "createdAt"),
 					include: OrderQuery.getInclude(),
 				}),
-				prisma.order.count({ where }),
+				database.order.count({ where }),
 			]);
 
 			const hasMore = skip + orders.length < total;
@@ -92,7 +92,7 @@ export const orderRouter = {
 		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
 			const userId = context.session.user.id;
 
-			const order = await prisma.order.findUnique({
+			const order = await database.order.findUnique({
 				where: { id: input.id },
 				include: OrderQuery.getInclude(),
 			});
@@ -118,7 +118,7 @@ export const orderRouter = {
 			const userId = context.session.user.id;
 
 			// Get store to generate order ID
-			const store = await prisma.store.findUnique({
+			const store = await database.store.findUnique({
 				where: { id: input.storeId },
 				select: { slug: true },
 			});

@@ -1,4 +1,4 @@
-import prisma from "@dukkani/db";
+import { database } from "@dukkani/db";
 import type { Prisma } from "@prisma/client";
 import { generateProductId } from "../utils/generate-id";
 

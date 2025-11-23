@@ -1,11 +1,11 @@
-import { BaseSeeder } from "../base";
 import type { PrismaClient } from "../../../prisma/generated/client";
-import type { UserSeeder } from "./user.seeder";
 import {
 	StoreCategory,
 	StorePlanType,
 	StoreTheme,
 } from "../../../prisma/generated/client";
+import { BaseSeeder } from "../base";
+import type { UserSeeder } from "./user.seeder";
 
 /**
  * Seeder for Store model
@@ -64,7 +64,7 @@ export class StoreSeeder extends BaseSeeder {
 		}
 
 		// Check if stores already exist
-		const existingStores = await prisma.store.findMany();
+		const existingStores = await database.store.findMany();
 		if (existingStores.length > 0) {
 			this.log(`Skipping: ${existingStores.length} stores already exist`);
 			// Load existing stores for export
@@ -156,7 +156,7 @@ export class StoreSeeder extends BaseSeeder {
 		// Create stores (need individual creates for storePlan relation)
 		const createdStores = await Promise.all(
 			storeData.map((storeInfo) =>
-				prisma.store.create({
+				database.store.create({
 					data: {
 						name: storeInfo.name,
 						slug: storeInfo.slug,

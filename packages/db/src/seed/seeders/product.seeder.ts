@@ -1,8 +1,8 @@
-import { BaseSeeder } from "../base";
-import type { PrismaClient } from "../../../prisma/generated/client";
-import type { StoreSeeder } from "./store.seeder";
-import { Prisma } from "../../../prisma/generated/client";
 import { generateProductId } from "@/utils/generate-id";
+import type { PrismaClient } from "../../../prisma/generated/client";
+import { Prisma } from "../../../prisma/generated/client";
+import { BaseSeeder } from "../base";
+import type { StoreSeeder } from "./store.seeder";
 
 /**
  * Seeder for Product model
@@ -65,7 +65,7 @@ export class ProductSeeder extends BaseSeeder {
 		}
 
 		// Check if products already exist
-		const existingProducts = await prisma.product.findMany();
+		const existingProducts = await database.product.findMany();
 		if (existingProducts.length > 0) {
 			this.log(`Skipping: ${existingProducts.length} products already exist`);
 			// Load existing products for export
@@ -228,7 +228,7 @@ export class ProductSeeder extends BaseSeeder {
 		// Create products (need individual creates for images relation)
 		const createdProducts = await Promise.all(
 			productData.map((productInfo) =>
-				prisma.product.create({
+				database.product.create({
 					data: {
 						id: productInfo.id,
 						name: productInfo.name,

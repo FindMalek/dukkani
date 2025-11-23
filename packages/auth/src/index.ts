@@ -1,10 +1,10 @@
-import prisma from "@dukkani/db";
+import { scrypt } from "node:crypto";
+import { database } from "@dukkani/db";
+import { hashPassword } from "@dukkani/db/utils/generate-id";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
-import { scrypt } from "node:crypto";
 import { env } from "./env";
-import { hashPassword } from "@dukkani/db/utils/generate-id";
 
 /**
  * Custom password verifier to match seeder format

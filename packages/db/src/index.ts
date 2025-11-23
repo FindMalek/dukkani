@@ -1,11 +1,10 @@
-import "server-only";
-
 import { neonConfig } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@prisma/client";
 import ws from "ws";
-import { env } from "@/env";
+import { PrismaClient } from "../prisma/generated/client";
+import { PrismaClientKnownRequestError } from "../prisma/generated/internal/prismaNamespace";
+import { env } from "./env";
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
@@ -14,6 +13,7 @@ if (!env.DATABASE_URL) {
 	throw new Error("DATABASE_URL environment variable is required");
 }
 
+// Explicitly type the database with full PrismaClient type
 let database: PrismaClient;
 
 if (env.NEXT_PUBLIC_NODE_ENV === "production") {
@@ -34,6 +34,4 @@ if (env.NEXT_PUBLIC_NODE_ENV === "local") {
 	globalForPrisma.prisma = database;
 }
 
-export { database };
-export * from "@prisma/client";
-export * from "./client";
+export { database, PrismaClientKnownRequestError };

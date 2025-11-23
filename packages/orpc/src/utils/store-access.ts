@@ -1,11 +1,11 @@
-import prisma from "@dukkani/db";
+import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 
 /**
  * Get all store IDs owned by a user
  */
 export async function getUserStoreIds(userId: string): Promise<string[]> {
-	const stores = await prisma.store.findMany({
+	const stores = await database.store.findMany({
 		where: { ownerId: userId },
 		select: { id: true },
 	});
@@ -20,12 +20,11 @@ export async function verifyStoreOwnership(
 	userId: string,
 	storeId: string,
 ): Promise<void> {
-	const store = await prisma.store.findFirst({
+	const store = await database.store.findFirst({
 		where: {
 			id: storeId,
 			ownerId: userId,
 		},
-		select: { id: true },
 	});
 
 	if (!store) {

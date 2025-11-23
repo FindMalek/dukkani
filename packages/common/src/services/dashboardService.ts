@@ -1,9 +1,9 @@
-import prisma from "@dukkani/db";
-import { ProductQuery } from "../entities/product/query";
-import { ProductEntity } from "../entities/product/entity";
-import { OrderQuery } from "../entities/order/query";
+import { database } from "@dukkani/db";
 import { OrderEntity } from "../entities/order/entity";
+import { OrderQuery } from "../entities/order/query";
 import { OrderItemQuery } from "../entities/order-item/query";
+import { ProductEntity } from "../entities/product/entity";
+import { ProductQuery } from "../entities/product/query";
 import { OrderStatus } from "../schemas/order/enums";
 
 /**
@@ -16,7 +16,7 @@ export class DashboardService {
 	 */
 	static async getDashboardStats(userId: string) {
 		// Get user's store IDs first
-		const userStoreIds = await prisma.store.findMany({
+		const userStoreIds = await database.store.findMany({
 			where: { ownerId: userId },
 			select: { id: true },
 		});
@@ -52,19 +52,19 @@ export class DashboardService {
 			deliveredOrders,
 			recentOrders,
 			lowStockProducts,
-		] = await prisma.$transaction([
+		] = await database.$transaction([
 			// Get total products count
-			prisma.product.count({
+			database.product.count({
 				where: baseProductWhere,
 			}),
 
 			// Get total orders count
-			prisma.order.count({
+			database.order.count({
 				where: baseOrderWhere,
 			}),
 
 			// Get orders by status
-			prisma.order.groupBy({
+			database.order.groupBy({
 				by: ["status"],
 				where: baseOrderWhere,
 				_count: {
@@ -76,7 +76,7 @@ export class DashboardService {
 			}),
 
 			// Get delivered orders for revenue calculation
-			prisma.order.findMany({
+			database.order.findMany({
 				where: {
 					...baseOrderWhere,
 					status: OrderStatus.DELIVERED,
@@ -89,7 +89,7 @@ export class DashboardService {
 			}),
 
 			// Get recent orders (last 10)
-			prisma.order.findMany({
+			database.order.findMany({
 				where: baseOrderWhere,
 				take: 10,
 				orderBy: OrderQuery.getOrder("desc", "createdAt"),
@@ -97,7 +97,7 @@ export class DashboardService {
 			}),
 
 			// Get low stock products (stock <= 10)
-			prisma.product.findMany({
+			database.product.findMany({
 				where: {
 					...baseProductWhere,
 					stock: { lte: 10 },

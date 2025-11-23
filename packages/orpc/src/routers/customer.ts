@@ -1,21 +1,21 @@
-import prisma from "@dukkani/db";
+import { CustomerEntity } from "@dukkani/common/entities/customer/entity";
+import { CustomerQuery } from "@dukkani/common/entities/customer/query";
+import {
+	createCustomerInputSchema,
+	getCustomerInputSchema,
+	listCustomersInputSchema,
+	updateCustomerInputSchema,
+} from "@dukkani/common/schemas/customer/input";
+import type {
+	CustomerIncludeOutput,
+	CustomerSimpleOutput,
+	ListCustomersOutput,
+} from "@dukkani/common/schemas/customer/output";
+import { CustomerService } from "@dukkani/common/services/customerService";
+import { database } from "@dukkani/db";
+import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
-import { CustomerService } from "@dukkani/common/services/customerService";
-import {
-	listCustomersInputSchema,
-	createCustomerInputSchema,
-	updateCustomerInputSchema,
-	getCustomerInputSchema,
-} from "@dukkani/common/schemas/customer/input";
-import { CustomerQuery } from "@dukkani/common/entities/customer/query";
-import { CustomerEntity } from "@dukkani/common/entities/customer/entity";
-import type {
-	ListCustomersOutput,
-	CustomerSimpleOutput,
-	CustomerIncludeOutput,
-} from "@dukkani/common/schemas/customer/output";
-import { ORPCError } from "@orpc/server";
 
 export const customerRouter = {
 	/**
@@ -55,14 +55,14 @@ export const customerRouter = {
 			});
 
 			const [customers, total] = await Promise.all([
-				prisma.customer.findMany({
+				database.customer.findMany({
 					where,
 					skip,
 					take: limit,
 					orderBy: CustomerQuery.getOrder("desc", "createdAt"),
 					include: CustomerQuery.getInclude(),
 				}),
-				prisma.customer.count({ where }),
+				database.customer.count({ where }),
 			]);
 
 			const hasMore = skip + customers.length < total;
@@ -84,7 +84,7 @@ export const customerRouter = {
 		.handler(async ({ input, context }): Promise<CustomerIncludeOutput> => {
 			const userId = context.session.user.id;
 
-			const customer = await prisma.customer.findUnique({
+			const customer = await database.customer.findUnique({
 				where: { id: input.id },
 				include: CustomerQuery.getInclude(),
 			});
@@ -130,7 +130,7 @@ export const customerRouter = {
 			const userId = context.session.user.id;
 
 			// Get customer to verify ownership
-			const customer = await prisma.customer.findUnique({
+			const customer = await database.customer.findUnique({
 				where: { id: input.id },
 				select: { storeId: true },
 			});
@@ -145,7 +145,7 @@ export const customerRouter = {
 			await verifyStoreOwnership(userId, customer.storeId);
 
 			// Delete customer (orders will have customerId set to null)
-			await prisma.customer.delete({
+			await database.customer.delete({
 				where: { id: input.id },
 			});
 

@@ -1,12 +1,11 @@
-import prisma from "@dukkani/db";
-import { CustomerQuery } from "../entities/customer/query";
+import { database, PrismaClientKnownRequestError } from "@dukkani/db";
 import { CustomerEntity } from "../entities/customer/entity";
+import { CustomerQuery } from "../entities/customer/query";
 import type {
 	CreateCustomerInput,
 	UpdateCustomerInput,
 } from "../schemas/customer/input";
 import type { CustomerSimpleOutput } from "../schemas/customer/output";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 /**
  * Customer service - Shared business logic for customer operations
@@ -19,7 +18,7 @@ export class CustomerService {
 		phone: string,
 		storeId: string,
 	): Promise<boolean> {
-		const existing = await prisma.customer.findUnique({
+		const existing = await database.customer.findUnique({
 			where: {
 				phone_storeId: {
 					phone,
@@ -39,7 +38,7 @@ export class CustomerService {
 		userId: string,
 	): Promise<CustomerSimpleOutput> {
 		// Verify store ownership
-		const store = await prisma.store.findUnique({
+		const store = await database.store.findUnique({
 			where: { id: input.storeId },
 			select: { ownerId: true },
 		});
@@ -53,7 +52,7 @@ export class CustomerService {
 		}
 
 		// Check for duplicate phone
-		const isDuplicate = await this.checkDuplicatePhone(
+		const isDuplicate = await CustomerService.checkDuplicatePhone(
 			input.phone,
 			input.storeId,
 		);
@@ -66,7 +65,7 @@ export class CustomerService {
 
 		// Create customer
 		try {
-			const customer = await prisma.customer.create({
+			const customer = await database.customer.create({
 				data: {
 					name: input.name,
 					phone: input.phone,
@@ -97,7 +96,7 @@ export class CustomerService {
 		userId: string,
 	): Promise<CustomerSimpleOutput> {
 		// Get existing customer to verify ownership
-		const existingCustomer = await prisma.customer.findUnique({
+		const existingCustomer = await database.customer.findUnique({
 			where: { id: input.id },
 			select: { storeId: true, phone: true },
 		});
@@ -107,7 +106,7 @@ export class CustomerService {
 		}
 
 		// Verify store ownership
-		const store = await prisma.store.findUnique({
+		const store = await database.store.findUnique({
 			where: { id: existingCustomer.storeId },
 			select: { ownerId: true },
 		});
@@ -118,7 +117,7 @@ export class CustomerService {
 
 		// If phone is being updated, check for duplicates
 		if (input.phone && input.phone !== existingCustomer.phone) {
-			const isDuplicate = await this.checkDuplicatePhone(
+			const isDuplicate = await CustomerService.checkDuplicatePhone(
 				input.phone,
 				existingCustomer.storeId,
 			);
@@ -140,7 +139,7 @@ export class CustomerService {
 		if (input.phone !== undefined) updateData.phone = input.phone;
 
 		try {
-			const customer = await prisma.customer.update({
+			const customer = await database.customer.update({
 				where: { id: input.id },
 				data: updateData,
 				include: CustomerQuery.getSimpleInclude(),

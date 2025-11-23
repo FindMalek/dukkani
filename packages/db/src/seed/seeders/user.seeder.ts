@@ -1,6 +1,6 @@
-import { BaseSeeder } from "../base";
-import type { PrismaClient } from "../../../prisma/generated/client";
 import { hashPassword } from "@/seed/utils/password";
+import type { PrismaClient } from "../../../prisma/generated/client";
+import { BaseSeeder } from "../base";
 
 /**
  * Seeder for User model
@@ -49,7 +49,7 @@ export class UserSeeder extends BaseSeeder {
 		this.log("Starting User seeding...");
 
 		// Check if users already exist
-		const existingUsers = await prisma.user.findMany();
+		const existingUsers = await database.user.findMany();
 		if (existingUsers.length > 0) {
 			this.log(`Skipping: ${existingUsers.length} users already exist`);
 			// Load existing users for export (passwords intentionally excluded for security)
@@ -107,7 +107,7 @@ export class UserSeeder extends BaseSeeder {
 		}
 
 		// Create all users at once
-		const users = await prisma.user.createMany({
+		const users = await database.user.createMany({
 			data: userData.map((user) => ({
 				id: user.id,
 				name: user.name,
@@ -120,7 +120,7 @@ export class UserSeeder extends BaseSeeder {
 		});
 
 		// Create all accounts at once (with hashed passwords)
-		await prisma.account.createMany({
+		await database.account.createMany({
 			data: userData.map((user, index) => {
 				const hashedPassword = hashedPasswords[index];
 				if (!hashedPassword) {

@@ -17,7 +17,8 @@
 		"@orpc/zod": "catalog:",
 		"@prisma/client": "catalog:",
 		"next": "catalog:",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"pg": "^8.16.3"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",

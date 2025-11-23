@@ -10,7 +10,7 @@ dotenv.config({
 });
 
 import prisma from "../index";
-import { seeders, setupSeederDependencies, getSeededData } from "./seeders";
+import { getSeededData, seeders, setupSeederDependencies } from "./seeders";
 
 /**
  * Main seed function that orchestrates all seeders
@@ -56,7 +56,7 @@ export async function seed(): Promise<void> {
 		console.error("\n💥 Database seeding failed:", error);
 		throw error;
 	} finally {
-		await prisma.$disconnect();
+		await database.$disconnect();
 	}
 }
 

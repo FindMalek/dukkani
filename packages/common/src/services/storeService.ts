@@ -1,9 +1,9 @@
-import prisma from "@dukkani/db";
-import { StoreQuery } from "../entities/store/query";
+import { database } from "@dukkani/db";
 import { StoreEntity } from "../entities/store/entity";
+import { StoreQuery } from "../entities/store/query";
 import type {
-	StoreSimpleOutput,
 	StoreIncludeOutput,
+	StoreSimpleOutput,
 } from "../schemas/store/output";
 
 /**
@@ -14,7 +14,7 @@ export class StoreService {
 	 * Get all stores owned by a user
 	 */
 	static async getAllStores(userId: string): Promise<StoreSimpleOutput[]> {
-		const stores = await prisma.store.findMany({
+		const stores = await database.store.findMany({
 			where: {
 				ownerId: userId,
 			},
@@ -34,7 +34,7 @@ export class StoreService {
 		id: string,
 		userId: string,
 	): Promise<StoreIncludeOutput> {
-		const store = await prisma.store.findUnique({
+		const store = await database.store.findUnique({
 			where: { id },
 			include: StoreQuery.getInclude(),
 		});
@@ -57,7 +57,7 @@ export class StoreService {
 		slug: string,
 		userId: string,
 	): Promise<StoreIncludeOutput> {
-		const store = await prisma.store.findUnique({
+		const store = await database.store.findUnique({
 			where: { slug },
 			include: StoreQuery.getInclude(),
 		});

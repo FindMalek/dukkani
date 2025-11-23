@@ -1,5 +1,5 @@
-import { BaseSeeder } from "../base";
 import type { PrismaClient } from "../../../prisma/generated/client";
+import { BaseSeeder } from "../base";
 import type { StoreSeeder } from "./store.seeder";
 
 /**
@@ -63,7 +63,7 @@ export class CustomerSeeder extends BaseSeeder {
 		}
 
 		// Check if customers already exist
-		const existingCustomers = await prisma.customer.findMany();
+		const existingCustomers = await database.customer.findMany();
 		if (existingCustomers.length > 0) {
 			this.log(`Skipping: ${existingCustomers.length} customers already exist`);
 			// Load existing customers for export
@@ -150,12 +150,12 @@ export class CustomerSeeder extends BaseSeeder {
 		}
 
 		// Create all customers at once
-		const customers = await prisma.customer.createMany({
+		const customers = await database.customer.createMany({
 			data: customerData,
 		});
 
 		// Fetch created customers for export (need IDs)
-		const createdCustomers = await prisma.customer.findMany({
+		const createdCustomers = await database.customer.findMany({
 			where: {
 				phone: {
 					in: customerData.map((c) => c.phone),

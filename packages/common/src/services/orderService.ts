@@ -1,11 +1,11 @@
-import prisma from "@dukkani/db";
+import { database } from "@dukkani/db";
 import { generateOrderId } from "@dukkani/db/utils/generate-id";
-import { ProductService } from "./productService";
-import { OrderQuery } from "../entities/order/query";
 import { OrderEntity } from "../entities/order/entity";
+import { OrderQuery } from "../entities/order/query";
+import type { OrderStatus } from "../schemas/order/enums";
 import type { CreateOrderInput } from "../schemas/order/input";
 import type { OrderIncludeOutput } from "../schemas/order/output";
-import type { OrderStatus } from "../schemas/order/enums";
+import { ProductService } from "./productService";
 
 /**
  * Order service - Shared business logic for order operations
@@ -27,7 +27,7 @@ export class OrderService {
 		userId: string,
 	): Promise<OrderIncludeOutput> {
 		// Get store to verify ownership and generate ID
-		const store = await prisma.store.findUnique({
+		const store = await database.store.findUnique({
 			where: { id: input.storeId },
 			select: { id: true, slug: true, ownerId: true },
 		});
@@ -42,7 +42,7 @@ export class OrderService {
 
 		// Wrap stock check, order creation, and stock updates in transaction
 		// This ensures atomicity: all operations succeed or fail together
-		const order = await prisma.$transaction(async (tx) => {
+		const order = await database.$transaction(async (tx) => {
 			// Validate products exist and check stock (within transaction for isolation)
 			await ProductService.checkStockAvailability(
 				input.orderItems.map((item) => ({
@@ -100,7 +100,7 @@ export class OrderService {
 		userId: string,
 	): Promise<OrderIncludeOutput> {
 		// Get order to verify ownership
-		const order = await prisma.order.findUnique({
+		const order = await database.order.findUnique({
 			where: { id: orderId },
 			select: { storeId: true },
 		});
@@ -109,7 +109,7 @@ export class OrderService {
 			throw new Error("Order not found");
 		}
 
-		const store = await prisma.store.findUnique({
+		const store = await database.store.findUnique({
 			where: { id: order.storeId },
 			select: { ownerId: true },
 		});
@@ -118,7 +118,7 @@ export class OrderService {
 			throw new Error("You don't have access to this order");
 		}
 
-		const updatedOrder = await prisma.order.update({
+		const updatedOrder = await database.order.update({
 			where: { id: orderId },
 			data: { status },
 			include: OrderQuery.getInclude(),
@@ -133,7 +133,7 @@ export class OrderService {
 	 */
 	static async deleteOrder(orderId: string, userId: string): Promise<void> {
 		// Get order to verify ownership and get order items
-		const order = await prisma.order.findUnique({
+		const order = await database.order.findUnique({
 			where: { id: orderId },
 			select: {
 				storeId: true,
@@ -150,7 +150,7 @@ export class OrderService {
 			throw new Error("Order not found");
 		}
 
-		const store = await prisma.store.findUnique({
+		const store = await database.store.findUnique({
 			where: { id: order.storeId },
 			select: { ownerId: true },
 		});
@@ -161,7 +161,7 @@ export class OrderService {
 
 		// Wrap stock increment and order deletion in transaction
 		// This ensures atomicity: both operations succeed or fail together
-		await prisma.$transaction(async (tx) => {
+		await database.$transaction(async (tx) => {
 			// Restore product stock if order has items (within transaction)
 			if (order.orderItems.length > 0) {
 				await ProductService.updateMultipleProductStocks(

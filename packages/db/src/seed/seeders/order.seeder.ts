@@ -1,11 +1,10 @@
-import { BaseSeeder } from "../base";
-import type { PrismaClient } from "../../../prisma/generated/client";
-import type { StoreSeeder } from "./store.seeder";
-import type { ProductSeeder } from "./product.seeder";
-import type { CustomerSeeder } from "./customer.seeder";
-import { OrderStatus } from "../../../prisma/generated/client";
-import { Prisma } from "../../../prisma/generated/client";
 import { generateOrderId } from "@/utils/generate-id";
+import type { PrismaClient } from "../../../prisma/generated/client";
+import { OrderStatus, type Prisma } from "../../../prisma/generated/client";
+import { BaseSeeder } from "../base";
+import type { CustomerSeeder } from "./customer.seeder";
+import type { ProductSeeder } from "./product.seeder";
+import type { StoreSeeder } from "./store.seeder";
 
 /**
  * Seeder for Order model
@@ -78,7 +77,7 @@ export class OrderSeeder extends BaseSeeder {
 		}
 
 		// Check if orders already exist
-		const existingOrders = await prisma.order.findMany();
+		const existingOrders = await database.order.findMany();
 		if (existingOrders.length > 0) {
 			this.log(`Skipping: ${existingOrders.length} orders already exist`);
 			// Load existing orders for export
@@ -205,7 +204,7 @@ export class OrderSeeder extends BaseSeeder {
 		// Create orders (need individual creates for orderItems relation)
 		const createdOrders = await Promise.all(
 			orderData.map((orderInfo) =>
-				prisma.order.create({
+				database.order.create({
 					data: {
 						id: orderInfo.id,
 						status: orderInfo.status,
