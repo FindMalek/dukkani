@@ -6,10 +6,9 @@ import { z } from "zod";
 // This code only runs on the server - client code should never execute this
 if (typeof process !== "undefined" && process.versions?.node) {
 	try {
-		// Use require for synchronous loading (only available in Node.js)
-		const path = require("node:path");
-		const { fileURLToPath } = require("node:url");
-		const dotenv = require("dotenv");
+		const path = await import("node:path");
+		const { fileURLToPath } = await import("node:url");
+		const dotenv = await import("dotenv");
 
 		const __filename = fileURLToPath(import.meta.url);
 		const __dirname = path.dirname(__filename);
