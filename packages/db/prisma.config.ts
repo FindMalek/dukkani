@@ -1,5 +1,4 @@
 import path from "node:path";
-import { env } from "@dukkani/env";
 import dotenv from "dotenv";
 import { defineConfig } from "prisma/config";
 
@@ -13,6 +12,6 @@ export default defineConfig({
 		path: path.join("prisma", "migrations"),
 	},
 	datasource: {
-		url: env.DATABASE_URL,
+		url: process.env.DATABASE_URL! 
 	},
 });
