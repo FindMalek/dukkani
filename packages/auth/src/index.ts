@@ -45,7 +45,7 @@ async function verifyPassword({
 }
 
 export const auth = betterAuth<BetterAuthOptions>({
-	database: prismaAdapter(prisma, {
+	database: prismaAdapter(database, {
 		provider: "postgresql",
 	}),
 	secret: env.BETTER_AUTH_SECRET,

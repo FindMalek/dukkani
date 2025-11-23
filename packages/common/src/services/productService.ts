@@ -1,5 +1,5 @@
 import { database } from "@dukkani/db";
-import type { Prisma } from "@prisma/client";
+import type { PrismaClient } from "@prisma/client/extension";
 import { generateProductId } from "../utils/generate-id";
 
 /**
@@ -19,9 +19,9 @@ export class ProductService {
 	static async validateProductsExist(
 		productIds: string[],
 		storeId: string,
-		tx?: Prisma.TransactionClient,
+		tx?: PrismaClient,
 	): Promise<void> {
-		const client = tx ?? prisma;
+		const client = tx ?? database;
 		const products = await client.product.findMany({
 			where: {
 				id: { in: productIds },
@@ -46,9 +46,9 @@ export class ProductService {
 	static async checkStockAvailability(
 		items: Array<{ productId: string; quantity: number }>,
 		storeId: string,
-		tx?: Prisma.TransactionClient,
+		tx?: PrismaClient,
 	): Promise<void> {
-		const client = tx ?? prisma;
+		const client = tx ?? database;
 
 		// Aggregate required quantities by productId to handle duplicates
 		const requiredByProduct = new Map<string, number>();
@@ -98,9 +98,9 @@ export class ProductService {
 		productId: string,
 		quantity: number,
 		operation: "increment" | "decrement",
-		tx?: Prisma.TransactionClient,
+		tx?: PrismaClient,
 	): Promise<void> {
-		const client = tx ?? prisma;
+		const client = tx ?? database;
 		await client.product.update({
 			where: { id: productId },
 			data: {
@@ -118,9 +118,9 @@ export class ProductService {
 	static async updateMultipleProductStocks(
 		updates: Array<{ productId: string; quantity: number }>,
 		operation: "increment" | "decrement",
-		tx?: Prisma.TransactionClient,
+		tx?: PrismaClient,
 	): Promise<void> {
-		const client = tx ?? prisma;
+		const client = tx ?? database;
 
 		// Aggregate quantities by productId to handle duplicates
 		const aggregatedUpdates = new Map<string, number>();
