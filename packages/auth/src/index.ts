@@ -49,7 +49,7 @@ export const auth = betterAuth<BetterAuthOptions>({
 		provider: "postgresql",
 	}),
 	secret: env.BETTER_AUTH_SECRET,
-	trustedOrigins: [env.NEXT_PUBLIC_CORS_ORIGIN],
+	trustedOrigins: [env.NEXT_PUBLIC_CORS_ORIGIN, env.NEXT_PUBLIC_DASHBOARD_URL],
 	emailAndPassword: {
 		enabled: true,
 		password: {
