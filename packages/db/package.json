@@ -42,12 +42,14 @@
 		"@dukkani/env": "workspace:*",
 		"@prisma/client": "catalog:",
 		"@t3-oss/env-core": "catalog:",
+		"@prisma/client-runtime-utils": "^7.0.0",
 		"bcryptjs": "^2.4.3",
 		"dotenv": "catalog:",
 		"nanoid": "catalog:",
 		"zod": "catalog:",
 		"@neondatabase/serverless": "^0.10.4",
-		"@prisma/adapter-neon": "6.18.0",
+		"@prisma/adapter-neon": "^7.0.0",
+		"@prisma/adapter-pg": "^7.0.0",
 		"ws": "^8.18.2"
 	},
 	"devDependencies": {
