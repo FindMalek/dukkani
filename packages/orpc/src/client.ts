@@ -25,7 +25,6 @@ export function createORPCClientUtils(apiUrl: string) {
 	const link = new RPCLink({
 		url: `${apiUrl}/api`,
 		fetch(url, options) {
-			console.log("🚀 ORPC Fetch URL:", url);
 			return fetch(url, {
 				...options,
 				credentials: "include",
