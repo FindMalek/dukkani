@@ -1,6 +1,17 @@
 import path from "node:path";
 import { env } from "@dukkani/env";
 import { defineConfig } from "prisma/config";
+import dotenv from "dotenv";
+
+if (process.env.NODE_ENV === "production") {
+	// In production (Vercel), use direct process.env access
+} else {
+	dotenv.config({
+		path: path.resolve(__dirname, "../../../.env"),
+	});
+}
+
+
 
 export default defineConfig({
 	schema: path.join("prisma", "schema"),
