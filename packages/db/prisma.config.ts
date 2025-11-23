@@ -10,7 +10,7 @@ export default defineConfig({
 	datasource: {
 		url:
 			process.env.NEXT_PUBLIC_NODE_ENV === "production"
-				? env.DATABASE_URL
-				: (process.env.DATABASE_URL ?? ""),
+				? (process.env.DATABASE_URL ?? "")
+				: env.DATABASE_URL,
 	},
 });
