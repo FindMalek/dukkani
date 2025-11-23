@@ -12,9 +12,13 @@ if (typeof process !== "undefined" && process.versions?.node) {
 
 		const __filename = fileURLToPath(import.meta.url);
 		const __dirname = path.dirname(__filename);
-		dotenv.config({
-			path: path.resolve(__dirname, "../../../.env"),
-		});
+		
+		// Only load .env file in development, not in production (Vercel)
+		if (process.env.NODE_ENV !== "production") {
+			dotenv.config({
+				path: path.resolve(__dirname, "../../../.env"),
+			});
+		}
 	} catch {
 		// Ignore errors in environments where Node.js APIs aren't available
 	}
