@@ -29,7 +29,7 @@ export interface Seeder {
  */
 export abstract class BaseSeeder implements Seeder {
 	abstract name: string;
-	order: number = 0;
+	order = 0;
 
 	abstract seed(prisma: PrismaClient): Promise<void>;
 

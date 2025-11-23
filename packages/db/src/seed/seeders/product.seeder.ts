@@ -57,7 +57,7 @@ export class ProductSeeder extends BaseSeeder {
 		this.storeSeeder = storeSeeder;
 	}
 
-	async seed(prisma: PrismaClient): Promise<void> {
+	async seed(database: PrismaClient): Promise<void> {
 		this.log("Starting Product seeding...");
 
 		if (!this.storeSeeder) {

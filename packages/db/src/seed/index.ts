@@ -9,7 +9,7 @@ dotenv.config({
 	path: path.resolve(__dirname, "../../../../.env"),
 });
 
-import prisma from "../index";
+import { database } from "../index";
 import { getSeededData, seeders, setupSeederDependencies } from "./seeders";
 
 /**
@@ -34,7 +34,7 @@ export async function seed(): Promise<void> {
 		for (const seeder of sortedSeeders) {
 			try {
 				console.log(`\n📦 Running ${seeder.name}...`);
-				await seeder.seed(prisma);
+				await seeder.seed(database);
 				console.log(`✅ ${seeder.name} completed`);
 			} catch (error) {
 				console.error(`❌ ${seeder.name} failed:`, error);

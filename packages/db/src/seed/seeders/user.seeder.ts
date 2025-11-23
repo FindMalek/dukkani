@@ -45,7 +45,7 @@ export class UserSeeder extends BaseSeeder {
 		return new Map(this.seededUsers.map((u) => [u.email, u]));
 	}
 
-	async seed(prisma: PrismaClient): Promise<void> {
+	async seed(database: PrismaClient): Promise<void> {
 		this.log("Starting User seeding...");
 
 		// Check if users already exist
