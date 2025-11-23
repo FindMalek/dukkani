@@ -5,7 +5,7 @@ import { z } from "zod";
 export const env = createEnv({
 	extends: [baseEnv],
 	server: {
-		NEXT_PUBLIC_CORS_ORIGIN: z.url().default("http://localhost:3002"),
+		NEXT_PUBLIC_CORS_ORIGIN: z.url(),
 		GOOGLE_CLIENT_ID: z.string(),
 		GOOGLE_CLIENT_SECRET: z.string(),
 		FACEBOOK_CLIENT_ID: z.string(),

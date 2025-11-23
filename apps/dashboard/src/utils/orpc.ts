@@ -1,11 +1,17 @@
 import { env } from "@dukkani/env";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
 
-// Debug logging (remove after confirming it works)
-console.log("🔍 CORS_ORIGIN:", env.NEXT_PUBLIC_CORS_ORIGIN);
-console.log("🔍 VERCEL:", process.env.VERCEL);
-console.log("🔍 VERCEL_ENV:", process.env.VERCEL_ENV);
+// Lazy ORPC client creation - only create when accessed
+let orpcClient: ReturnType<typeof createORPCClientUtils> | null = null;
 
-export const { queryClient, client, orpc } = createORPCClientUtils(
-	env.NEXT_PUBLIC_CORS_ORIGIN,
-);
+function getORPCClient() {
+	if (!orpcClient) {
+		console.log("🔧 Creating ORPC client with:", env.NEXT_PUBLIC_CORS_ORIGIN);
+		orpcClient = createORPCClientUtils(env.NEXT_PUBLIC_CORS_ORIGIN);
+	}
+	return orpcClient;
+}
+
+export const queryClient = getORPCClient().queryClient;
+export const client = getORPCClient().client;
+export const orpc = getORPCClient().orpc;
