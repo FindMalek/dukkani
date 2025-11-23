@@ -144,6 +144,9 @@ importers:
       '@dukkani/orpc':
         specifier: workspace:*
         version: link:../../packages/orpc
+      '@dukkani/server':
+        specifier: workspace:*
+        version: link:../../packages/server
       '@orpc/openapi':
         specifier: 'catalog:'
         version: 1.11.2(ws@8.18.3)
@@ -483,6 +486,9 @@ importers:
       '@dukkani/db':
         specifier: workspace:*
         version: link:../db
+      '@dukkani/server':
+        specifier: workspace:*
+        version: link:../server
       '@orpc/client':
         specifier: 'catalog:'
         version: 1.11.2
@@ -523,6 +529,28 @@ importers:
       next:
         specifier: 'catalog:'
         version: 16.0.3(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      tsdown:
+        specifier: 'catalog:'
+        version: 0.16.4(ms@2.1.3)(typescript@5.9.3)
+
+  packages/server:
+    dependencies:
+      '@dukkani/auth':
+        specifier: workspace:*
+        version: link:../auth
+      '@dukkani/db':
+        specifier: workspace:*
+        version: link:../db
+      '@dukkani/env':
+        specifier: workspace:*
+        version: link:../env
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+    devDependencies:
+      '@dukkani/config':
+        specifier: workspace:*
+        version: link:../config
       tsdown:
         specifier: 'catalog:'
         version: 0.16.4(ms@2.1.3)(typescript@5.9.3)

@@ -1,4 +1,5 @@
 import { apiEnv } from "@dukkani/env/presets/api";
+import "@dukkani/server";
 import { createContext } from "@dukkani/orpc/context";
 import { appRouter } from "@dukkani/orpc/routers/index";
 import { OpenAPIHandler } from "@orpc/openapi/fetch";

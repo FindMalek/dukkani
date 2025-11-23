@@ -4,28 +4,67 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import ws from "ws";
 import { PrismaClient } from "../prisma/generated/client";
 import { PrismaClientKnownRequestError } from "../prisma/generated/internal/prismaNamespace";
-import { env } from "./env";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
-let database: PrismaClient;
+/**
+ * Environment schema for database initialization
+ * Must have DATABASE_URL in server schema
+ */
+type DatabaseEnv = {
+	DATABASE_URL: string;
+};
 
-if (env.NEXT_PUBLIC_NODE_ENV === "production") {
-	// Production: Use Neon serverless adapter
-	neonConfig.webSocketConstructor = ws;
-	neonConfig.poolQueryViaFetch = true;
+/**
+ * Factory function to create a Prisma database client
+ * Uses appropriate adapter based on environment (Neon for production, PostgreSQL for dev)
+ *
+ * @param env - Environment object with DATABASE_URL
+ * @returns PrismaClient instance
+ */
+export function createDatabase(env: DatabaseEnv): PrismaClient {
+	// Return existing instance if already created (singleton pattern)
+	if (globalForPrisma.prisma) {
+		return globalForPrisma.prisma;
+	}
+
+	// Use process.env.NODE_ENV directly (always available, no circular dependency)
+	// Check both NODE_ENV and VERCEL_ENV for production detection
+	const isProduction =
+		process.env.NODE_ENV === "production" ||
+		process.env.VERCEL_ENV === "production";
 	const connectionString = env.DATABASE_URL;
-	const adapter = new PrismaNeon({ connectionString });
 
-	database = globalForPrisma.prisma || new PrismaClient({ adapter });
-} else {
-	// Development/Local: Use PostgreSQL adapter for standard PostgreSQL
-	const adapter = new PrismaPg({ connectionString: env.DATABASE_URL });
-	database = globalForPrisma.prisma || new PrismaClient({ adapter });
+	if (isProduction) {
+		// Production: Use Neon serverless adapter
+		neonConfig.webSocketConstructor = ws;
+		neonConfig.poolQueryViaFetch = true;
+		const adapter = new PrismaNeon({ connectionString });
+		globalForPrisma.prisma = new PrismaClient({ adapter });
+	} else {
+		// Development/Local/Preview: Use PostgreSQL adapter
+		const adapter = new PrismaPg({ connectionString });
+		globalForPrisma.prisma = new PrismaClient({ adapter });
+	}
+
+	return globalForPrisma.prisma;
 }
 
-if (env.NEXT_PUBLIC_NODE_ENV === "local") {
-	globalForPrisma.prisma = database;
+/**
+ * Singleton database instance
+ * Must be initialized by calling createDatabase() before use
+ * This is initialized by the server package at app startup
+ */
+export let database: PrismaClient;
+
+/**
+ * Initialize the database singleton
+ * Called by server initialization module
+ * @internal
+ */
+export function initializeDatabase(env: DatabaseEnv): void {
+	database = createDatabase(env);
 }
 
-export { database, PrismaClientKnownRequestError };
+export { PrismaClientKnownRequestError };
+export type { PrismaClient } from "../prisma/generated/client";

@@ -1,0 +1,30 @@
+{
+	"name": "@dukkani/server",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./src/index.ts"
+		},
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"default": "./src/*.ts"
+		}
+	},
+	"scripts": {
+		"build": "tsdown",
+		"clean": "rm -rf dist node_modules"
+	},
+	"devDependencies": {
+		"@dukkani/config": "workspace:*",
+		"tsdown": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:"
+	},
+	"dependencies": {
+		"@dukkani/auth": "workspace:*",
+		"@dukkani/db": "workspace:*",
+		"@dukkani/env": "workspace:*"
+	}
+}

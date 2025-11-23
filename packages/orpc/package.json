@@ -32,6 +32,7 @@
 		"@dukkani/auth": "workspace:*",
 		"@dukkani/common": "workspace:*",
 		"@dukkani/db": "workspace:*",
+		"@dukkani/server": "workspace:*",
 		"@orpc/client": "catalog:",
 		"@orpc/openapi": "catalog:",
 		"@orpc/server": "catalog:",

@@ -1,9 +1,11 @@
 import { createEnv } from "@t3-oss/env-core";
-import { baseEnv } from "../index";
+import { baseEnv } from "../base";
 
 /**
  * API app environment preset
- * Uses base env only - no app-specific variables needed
+ * Uses base env only - NEXT_PUBLIC_DASHBOARD_URL is obtained from process.env
+ * directly in server initialization (not validated here to avoid requiring it
+ * in API app's .env.local, but it's still needed for auth trusted origins)
  */
 export const apiEnv = createEnv({
 	extends: [baseEnv],
