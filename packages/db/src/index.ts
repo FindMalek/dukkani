@@ -10,6 +10,11 @@ import { env } from "@/env";
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
+// Validate DATABASE_URL exists at runtime
+if (!env.DATABASE_URL) {
+	throw new Error("DATABASE_URL environment variable is required");
+}
+
 let database: PrismaClient;
 
 if (env.NEXT_PUBLIC_NODE_ENV === "production") {
