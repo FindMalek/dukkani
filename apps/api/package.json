@@ -18,6 +18,7 @@
 		"@orpc/server": "catalog:",
 		"@orpc/zod": "catalog:",
 		"@prisma/client": "catalog:",
+		"better-auth": "catalog:",
 		"next": "catalog:",
 		"zod": "catalog:"
 	},
