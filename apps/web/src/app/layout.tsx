@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@dukkani/ui/styles/globals.css";
 import Header from "@/components/header";
+import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 
 const geistSans = Geist({
@@ -35,9 +36,10 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<div className="grid min-h-svh grid-rows-[auto_1fr]">
+					<div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
 						<Header />
 						<main>{children}</main>
+						<Footer />
 					</div>
 				</ThemeProvider>
 			</body>
