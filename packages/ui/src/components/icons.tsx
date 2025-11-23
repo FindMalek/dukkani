@@ -35,6 +35,7 @@ import {
 	Search,
 	Settings,
 	ShoppingCart,
+	Star,
 	Sun,
 	TriangleAlert,
 	Users,
@@ -83,4 +84,5 @@ export const Icons = {
 	orders: PackageIcon,
 	products: ShoppingCart,
 	home: HouseIcon,
+	star: Star,
 } as const;
