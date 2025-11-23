@@ -1,4 +1,5 @@
 import { auth as authSingleton, initializeAuth } from "@dukkani/auth";
+import { env as authEnv } from "@dukkani/auth/env";
 import { database as dbSingleton, initializeDatabase } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env/presets/api";
 
@@ -43,25 +44,15 @@ export function getAuth() {
 	if (!authInitialized) {
 		getDatabase(); // Ensure database is initialized first
 
-		// Use apiEnv for base vars and process.env for auth-specific vars
-		// NEXT_PUBLIC_DASHBOARD_URL is optional - if not set, only CORS_ORIGIN is used for trusted origins
-		const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARD_URL;
-
-		// Get required env vars with fallbacks (warnings will be shown by Better Auth if missing)
-		const betterAuthSecret = process.env.BETTER_AUTH_SECRET ?? "";
-		const googleClientId = process.env.GOOGLE_CLIENT_ID ?? "";
-		const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET ?? "";
-		const facebookClientId = process.env.FACEBOOK_CLIENT_ID ?? "";
-		const facebookClientSecret = process.env.FACEBOOK_CLIENT_SECRET ?? "";
-
+		// Use validated env schemas - all env vars are type-safe and validated
 		initializeAuth(dbSingleton, {
-			BETTER_AUTH_SECRET: betterAuthSecret,
+			BETTER_AUTH_SECRET: authEnv.BETTER_AUTH_SECRET,
 			NEXT_PUBLIC_CORS_ORIGIN: apiEnv.NEXT_PUBLIC_CORS_ORIGIN,
-			NEXT_PUBLIC_DASHBOARD_URL: dashboardUrl,
-			GOOGLE_CLIENT_ID: googleClientId,
-			GOOGLE_CLIENT_SECRET: googleClientSecret,
-			FACEBOOK_CLIENT_ID: facebookClientId,
-			FACEBOOK_CLIENT_SECRET: facebookClientSecret,
+			NEXT_PUBLIC_DASHBOARD_URL: authEnv.NEXT_PUBLIC_DASHBOARD_URL,
+			GOOGLE_CLIENT_ID: authEnv.GOOGLE_CLIENT_ID,
+			GOOGLE_CLIENT_SECRET: authEnv.GOOGLE_CLIENT_SECRET,
+			FACEBOOK_CLIENT_ID: authEnv.FACEBOOK_CLIENT_ID,
+			FACEBOOK_CLIENT_SECRET: authEnv.FACEBOOK_CLIENT_SECRET,
 		});
 		authInitialized = true;
 	}

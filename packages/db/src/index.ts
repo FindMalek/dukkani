@@ -29,8 +29,10 @@ export function createDatabase(env: DatabaseEnv): PrismaClient {
 		return globalForPrisma.prisma;
 	}
 
-	// Use process.env.NODE_ENV directly (always available, no circular dependency)
-	// Check both NODE_ENV and VERCEL_ENV for production detection
+	// Check production environment
+	// Use NODE_ENV directly (always available) and VERCEL_ENV for Vercel deployments
+	// Note: We can't use env.NEXT_PUBLIC_NODE_ENV here because this function
+	// is called before env validation, and NODE_ENV is a standard Node.js var
 	const isProduction =
 		process.env.NODE_ENV === "production" ||
 		process.env.VERCEL_ENV === "production";

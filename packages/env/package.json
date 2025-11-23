@@ -12,25 +12,29 @@
 			"types": "./src/index.ts",
 			"default": "./src/index.ts"
 		},
-		"./presets/web": {
-			"types": "./src/presets/web.ts",
-			"default": "./src/presets/web.ts"
+		"./presets": {
+			"types": "./src/presets/index.ts",
+			"default": "./src/presets/index.ts"
 		},
-		"./presets/dashboard": {
-			"types": "./src/presets/dashboard.ts",
-			"default": "./src/presets/dashboard.ts"
+		"./base": {
+			"types": "./src/base.ts",
+			"default": "./src/base.ts"
 		},
 		"./presets/api": {
 			"types": "./src/presets/api.ts",
 			"default": "./src/presets/api.ts"
 		},
+		"./presets/dashboard": {
+			"types": "./src/presets/dashboard.ts",
+			"default": "./src/presets/dashboard.ts"
+		},
 		"./presets/db": {
 			"types": "./src/presets/db.ts",
 			"default": "./src/presets/db.ts"
 		},
-		"./presets": {
-			"types": "./src/presets/index.ts",
-			"default": "./src/presets/index.ts"
+		"./presets/web": {
+			"types": "./src/presets/web.ts",
+			"default": "./src/presets/web.ts"
 		}
 	},
 	"dependencies": {
