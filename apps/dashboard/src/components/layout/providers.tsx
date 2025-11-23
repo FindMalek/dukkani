@@ -1,10 +1,10 @@
 "use client";
 
-import { dashboardEnv } from "@dukkani/env/presets/dashboard";
 import { Toaster } from "@dukkani/ui/components/sonner";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { dashboardEnv } from "@/env";
 import { queryClient } from "@/utils/orpc";
 
 export default function Providers({ children }: { children: React.ReactNode }) {

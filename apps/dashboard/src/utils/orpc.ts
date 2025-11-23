@@ -1,4 +1,4 @@
-import { dashboardEnv } from "@dukkani/env/presets/dashboard";
+import { dashboardEnv } from "@/env";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
 
 // Lazy ORPC client creation - only create when accessed

@@ -1,9 +1,9 @@
 "use client";
 
-import { webEnv } from "@dukkani/env/presets/web";
 import { Button } from "@dukkani/ui/components/button";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
+import { webEnv } from "@/env";
 
 export function CTA() {
 	return (

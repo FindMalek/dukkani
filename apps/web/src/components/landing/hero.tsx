@@ -1,12 +1,12 @@
 "use client";
 
-import { webEnv } from "@dukkani/env/presets/web";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { motion } from "framer-motion";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
+import { webEnv } from "@/env";
 
 export function Hero() {
 	return (

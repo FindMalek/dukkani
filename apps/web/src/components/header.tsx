@@ -1,6 +1,6 @@
 "use client";
 
-import { webEnv } from "@dukkani/env/presets/web";
+import { webEnv } from "@/env";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { ModeToggle } from "@dukkani/ui/components/mode-toggle";
