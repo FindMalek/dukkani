@@ -1,0 +1,225 @@
+# Naming Conventions
+
+## File Naming
+
+### General Rules
+
+- **kebab-case** for all file names
+- Use descriptive, clear names
+- Group related files in feature folders
+
+### Examples
+
+```text
+✅ Correct:
+- use-orders.ts
+- orders-list.tsx
+- sign-in-form.tsx
+- store-service.ts
+
+❌ Incorrect:
+- useOrders.ts (camelCase)
+- OrdersList.tsx (PascalCase)
+- sign_in_form.tsx (snake_case)
+```
+
+## TypeScript Files
+
+### Components (React/Next.js)
+
+- **kebab-case** for file names
+- **PascalCase** for component names (exported)
+- File name should match component name (lowercase)
+
+```typescript
+// File: orders-list.tsx
+export default function OrdersList() { ... }
+
+// File: sign-in-form.tsx
+export function SignInForm() { ... }
+```
+
+### Hooks
+
+- **kebab-case** with `use-` prefix
+- **camelCase** for hook function names
+
+```typescript
+// File: use-orders.ts
+export function useOrders(input: ListOrdersInput) { ... }
+
+// File: use-dashboard-stats.ts
+export function useDashboardStats() { ... }
+```
+
+### Utilities
+
+- **kebab-case** for file names
+- **camelCase** for function names
+
+```typescript
+// File: format-currency.ts
+export function formatCurrency(amount: number): string { ... }
+
+// File: generate-id.ts
+export function generateId(): string { ... }
+```
+
+### Services
+
+- **kebab-case** for file names with `-service` suffix
+- **PascalCase** for class names with `Service` suffix
+- **camelCase** for static methods
+
+```typescript
+// File: store-service.ts
+export class StoreService {
+  static async getAllStores(userId: string) { ... }
+  static async getStoreById(id: string, userId: string) { ... }
+}
+```
+
+### Entities
+
+- **kebab-case** for folder names
+- **PascalCase** for class names with `Entity` or `Query` suffix
+- **camelCase** for methods
+
+```typescript
+// File: packages/common/src/entities/store/entity.ts
+export class StoreEntity {
+  static getSimpleRo(entity: StoreSimpleDbData): StoreSimpleOutput { ... }
+  static getRo(entity: StoreIncludeDbData): StoreIncludeOutput { ... }
+}
+
+// File: packages/common/src/entities/store/query.ts
+export class StoreQuery {
+  static getSimpleInclude() { ... }
+  static getInclude() { ... }
+}
+```
+
+### Schemas
+
+- **kebab-case** for folder names
+- **camelCase** for schema variable names with descriptive suffix
+- **PascalCase** for TypeScript types
+
+```typescript
+// File: packages/common/src/schemas/store/input.ts
+export const storeInputSchema = z.object({ ... });
+export const createStoreInputSchema = storeInputSchema.extend({ ... });
+export type StoreInput = z.infer<typeof storeInputSchema>;
+export type CreateStoreInput = z.infer<typeof createStoreInputSchema>;
+
+// File: packages/common/src/schemas/store/output.ts
+export const storeSimpleOutputSchema = z.object({ ... });
+export const storeIncludeOutputSchema = storeSimpleOutputSchema.extend({ ... });
+export type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
+export type StoreIncludeOutput = z.infer<typeof storeIncludeOutputSchema>;
+```
+
+### Routers
+
+- **kebab-case** for file names
+- **camelCase** for router object names with `Router` suffix
+- **camelCase** for procedure names
+
+```typescript
+// File: packages/orpc/src/routers/store.ts
+export const storeRouter = {
+  getAll: protectedProcedure.handler(async ({ context }) => { ... }),
+  getById: protectedProcedure.handler(async ({ input, context }) => { ... }),
+};
+```
+
+## Variable Naming
+
+### Constants
+
+- **UPPER_SNAKE_CASE** for environment variables and constants
+- **camelCase** for regular constants
+
+```typescript
+const DATABASE_URL = process.env.DATABASE_URL;
+const maxRetries = 3;
+```
+
+### Functions
+
+- **camelCase** for function names
+- Use descriptive verbs: `get`, `create`, `update`, `delete`, `find`, `list`
+
+```typescript
+function getAllStores(userId: string) { ... }
+function createOrder(input: CreateOrderInput) { ... }
+function updateOrderStatus(id: string, status: OrderStatus) { ... }
+```
+
+### Classes
+
+- **PascalCase** for class names
+- Use descriptive suffixes: `Entity`, `Service`, `Query`, `Router`
+
+```typescript
+class StoreEntity { ... }
+class StoreService { ... }
+class StoreQuery { ... }
+```
+
+### Types and Interfaces
+
+- **PascalCase** for type and interface names
+- Use descriptive suffixes: `Input`, `Output`, `SimpleOutput`, `IncludeOutput`, `DbData`
+
+```typescript
+type StoreInput = z.infer<typeof storeInputSchema>;
+type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
+type StoreIncludeDbData = Prisma.StoreGetPayload<{ ... }>;
+```
+
+## Folder Structure
+
+### Feature-Based Organization
+
+Group files by feature/domain, not by file type:
+
+```text
+✅ Correct:
+src/
+  components/
+    dashboard/
+      orders/
+        orders-list.tsx
+      products/
+        products-list.tsx
+  hooks/
+    api/
+      use-orders.ts
+      use-products.ts
+
+❌ Incorrect:
+src/
+  components/
+    OrdersList.tsx
+    ProductsList.tsx
+  hooks/
+    useOrders.ts
+    useProducts.ts
+```
+
+## Route Groups (Next.js)
+
+- Use parentheses for route groups: `(auth)`, `(dashboard)`
+- Route groups don't appear in URL
+- Use for layout organization
+
+```text
+app/
+  (auth)/
+    login/
+      page.tsx
+  (dashboard)/
+    dashboard/
+      page.tsx
+```

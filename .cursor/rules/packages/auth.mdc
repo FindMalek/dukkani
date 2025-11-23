@@ -1,0 +1,145 @@
+# @dukkani/auth Package
+
+## Purpose
+
+The `auth` package contains Better Auth configuration and authentication logic. It handles user authentication, session management, and password hashing.
+
+## Structure
+
+```
+packages/auth/src/
+├── env.ts         # Auth environment variables
+└── index.ts       # Auth instance export
+```
+
+## Auth Configuration
+
+### Location
+`packages/auth/src/index.ts`
+
+### Pattern
+
+Better Auth is configured with Prisma adapter, email/password authentication, and social providers.
+
+```typescript
+import { betterAuth } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
+import { database } from "@dukkani/db";
+
+export const auth = betterAuth({
+  database: prismaAdapter(database, {
+    provider: "postgresql",
+  }),
+  secret: env.BETTER_AUTH_SECRET,
+  trustedOrigins: [env.NEXT_PUBLIC_CORS_ORIGIN],
+  emailAndPassword: {
+    enabled: true,
+    password: {
+      hash: hashPassword,
+      verify: verifyPassword,
+    },
+  },
+  socialProviders: {
+    facebook: {
+      clientId: env.FACEBOOK_CLIENT_ID,
+      clientSecret: env.FACEBOOK_CLIENT_SECRET,
+    },
+    google: {
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    },
+  },
+  plugins: [nextCookies()],
+});
+```
+
+## Password Hashing
+
+### Pattern
+
+Custom password hashing to match seeder format (salt:hash, both base64 encoded).
+
+```typescript
+async function verifyPassword({
+  hash: hashedPassword,
+  password,
+}: {
+  hash: string;
+  password: string;
+}): Promise<boolean> {
+  const [saltBase64, hashBase64] = hashedPassword.split(":");
+  // ... verification logic
+}
+```
+
+## Environment Variables
+
+### Location
+`packages/auth/src/env.ts`
+
+### Required Variables
+
+- `BETTER_AUTH_SECRET` - Secret for session encryption
+- `NEXT_PUBLIC_CORS_ORIGIN` - Allowed CORS origin
+- `FACEBOOK_CLIENT_ID` - Facebook OAuth client ID (optional)
+- `FACEBOOK_CLIENT_SECRET` - Facebook OAuth client secret (optional)
+- `GOOGLE_CLIENT_ID` - Google OAuth client ID (optional)
+- `GOOGLE_CLIENT_SECRET` - Google OAuth client secret (optional)
+
+## Usage
+
+### Server-Side
+
+```typescript
+import { auth } from "@dukkani/auth";
+
+// Get session
+const session = await auth.api.getSession({
+  headers: request.headers,
+});
+```
+
+### Client-Side
+
+```typescript
+// apps/dashboard/src/lib/auth-client.ts
+import { createAuthClient } from "better-auth/react";
+
+export const authClient = createAuthClient({
+  baseURL: env.NEXT_PUBLIC_CORS_ORIGIN,
+});
+```
+
+## Exports
+
+### Main Export
+`packages/auth/src/index.ts` exports:
+- `auth` - Better Auth instance
+
+### Usage
+
+```typescript
+import { auth } from "@dukkani/auth";
+```
+
+## Dependencies
+
+- `better-auth` - Authentication library
+- `better-auth/adapters/prisma` - Prisma adapter
+- `better-auth/next-js` - Next.js integration
+- `@dukkani/db` - Database client
+
+## Dependents
+
+- `@dukkani/orpc` - Uses auth for session management in context
+- `apps/dashboard` - Uses auth client for authentication
+- `apps/web` - Uses auth client for authentication
+- `apps/api` - Uses auth for session validation
+
+## Best Practices
+
+- Always use `auth.api.getSession()` for server-side session checks
+- Use `authClient` for client-side authentication
+- Never expose secrets in client-side code
+- Use environment variables for all configuration
+- Verify session in protected procedures

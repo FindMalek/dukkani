@@ -1,0 +1,345 @@
+# Dashboard App
+
+## Purpose
+
+The `dashboard` app is a Next.js application for managing stores, products, orders, and customers. It's the main admin interface for the Dukkani platform.
+
+## Structure
+
+```
+apps/dashboard/src/
+├── app/                    # Next.js App Router
+│   ├── (auth)/            # Auth route group (login, signup)
+│   │   ├── layout.tsx
+│   │   └── login/
+│   │       └── page.tsx
+│   ├── (dashboard)/       # Dashboard route group
+│   │   └── dashboard/
+│   │       ├── layout.tsx # Dashboard layout with auth check
+│   │       ├── page.tsx   # Dashboard overview
+│   │       ├── products/  # Products routes
+│   │       ├── orders/    # Orders routes
+│   │       ├── customers/ # Customers routes
+│   │       └── settings/  # Settings routes
+│   ├── api/               # API routes
+│   │   └── auth/
+│   │       └── [...all]/
+│   │           └── route.ts
+│   ├── layout.tsx         # Root layout
+│   └── manifest.ts        # PWA manifest
+├── components/            # React components
+│   ├── auth/             # Auth components
+│   ├── dashboard/        # Dashboard feature components
+│   └── layout/           # Layout components
+├── hooks/                # React hooks
+│   ├── api/              # API hooks (React Query)
+│   └── auth/             # Auth hooks
+├── lib/                  # Library utilities
+│   ├── auth-client.ts    # Better Auth client
+│   └── routes.ts         # Type-safe routing
+└── utils/                # Utilities
+    └── orpc.ts           # oRPC client setup
+```
+
+## Route Groups
+
+### (auth) Route Group
+
+Public authentication routes. Layout handles unauthenticated state.
+
+**Location**: `apps/dashboard/src/app/(auth)/`
+
+**Routes**:
+- `/login` - Login page
+
+**Layout**: `apps/dashboard/src/app/(auth)/layout.tsx`
+
+### (dashboard) Route Group
+
+Protected dashboard routes. Layout handles authentication and redirects.
+
+**Location**: `apps/dashboard/src/app/(dashboard)/dashboard/`
+
+**Layout**: `apps/dashboard/src/app/(dashboard)/dashboard/layout.tsx`
+
+**Pattern**:
+```typescript
+export default async function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  return (
+    <div className="grid h-svh grid-rows-[auto_1fr]">
+      <main className="overflow-auto">{children}</main>
+      <BottomNavigation />
+    </div>
+  );
+}
+```
+
+## Components
+
+### Organization
+
+Components are organized by feature/domain:
+
+```
+components/
+  ├── auth/              # Authentication components
+  │   ├── sign-in-form.tsx
+  │   └── sign-up-form.tsx
+  ├── dashboard/          # Dashboard feature components
+  │   ├── orders/
+  │   │   └── orders-list.tsx
+  │   ├── products/
+  │   │   └── products-list.tsx
+  │   └── settings/
+  │       └── settings-form.tsx
+  └── layout/             # Layout components
+      ├── bottom-navigation.tsx
+      ├── providers.tsx
+      └── user-menu.tsx
+```
+
+### File Naming
+
+- **kebab-case** for file names
+- **PascalCase** for component names
+
+### Component Pattern
+
+```typescript
+// apps/dashboard/src/components/dashboard/orders/orders-list.tsx
+"use client";
+
+import { useOrders } from "@/hooks/api/use-orders";
+import { Card, CardContent, CardHeader, CardTitle } from "@dukkani/ui/components/card";
+
+export default function OrdersList() {
+  const { data: orders, isLoading } = useOrders({ page: 1, limit: 10 });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Orders</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {/* Render orders */}
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+### Best Practices
+
+- Use `"use client"` directive for client components
+- Use UI components from `@dukkani/ui`
+- Use hooks for data fetching
+- Handle loading and error states
+- Keep components focused and reusable
+
+## Hooks
+
+### Organization
+
+Hooks are organized by category:
+
+```
+hooks/
+  ├── api/                # API hooks (React Query)
+  │   ├── use-orders.ts
+  │   ├── use-products.ts
+  │   └── use-dashboard-stats.ts
+  └── auth/               # Auth hooks
+      └── use-auth.ts
+```
+
+### File Naming
+
+- **kebab-case** with `use-` prefix
+- **camelCase** for hook function names
+
+### Hook Pattern
+
+```typescript
+// apps/dashboard/src/hooks/api/use-orders.ts
+import { useQuery } from "@tanstack/react-query";
+import { orpc } from "@/utils/orpc";
+import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
+
+export function useOrders(input: ListOrdersInput) {
+  return useQuery(orpc.order.getAll.queryOptions({ input }));
+}
+```
+
+### Best Practices
+
+- Use `orpc` client from `@/utils/orpc`
+- Use input types from `@dukkani/common/schemas`
+- Return React Query hooks directly
+- Handle errors in components or via QueryClient error handling
+
+## Routing
+
+### Type-Safe Routes
+
+Routes are defined in `apps/dashboard/src/lib/routes.ts`:
+
+```typescript
+import { getRouteHref } from "@/lib/routes";
+
+// Use in components
+<Link href={getRouteHref("PRODUCTS", "INDEX")}>Products</Link>
+<Link href={getRouteHref("PRODUCTS", "DETAIL", productId)}>View Product</Link>
+```
+
+### Route Groups
+
+- `(auth)` - Authentication routes (not in URL)
+- `(dashboard)` - Dashboard routes (not in URL)
+
+### Dynamic Routes
+
+Use `[id]` for dynamic segments:
+
+```
+dashboard/
+  products/
+    [id]/
+      page.tsx
+```
+
+## Data Fetching
+
+### Pattern
+
+Use React Query hooks with oRPC client:
+
+```typescript
+// In component
+const { data, isLoading, error } = useOrders({ page: 1, limit: 10 });
+
+// In server components (if needed)
+const orders = await orpc.order.getAll({ input: { page: 1, limit: 10 } });
+```
+
+### oRPC Client Setup
+
+```typescript
+// apps/dashboard/src/utils/orpc.ts
+import { createORPCClientUtils } from "@dukkani/orpc/client";
+import { env } from "@dukkani/env";
+
+export const { queryClient, client, orpc } = createORPCClientUtils(
+  env.NEXT_PUBLIC_CORS_ORIGIN,
+);
+```
+
+## Authentication
+
+### Auth Client
+
+```typescript
+// apps/dashboard/src/lib/auth-client.ts
+import { createAuthClient } from "better-auth/react";
+import { env } from "@dukkani/env";
+
+export const authClient = createAuthClient({
+  baseURL: env.NEXT_PUBLIC_CORS_ORIGIN,
+});
+```
+
+### Server-Side Auth Check
+
+```typescript
+// In layout or page
+const session = await auth.api.getSession({
+  headers: await headers(),
+});
+
+if (!session?.user) {
+  redirect("/login");
+}
+```
+
+## Providers
+
+### Location
+`apps/dashboard/src/components/layout/providers.tsx`
+
+### Pattern
+
+```typescript
+"use client";
+
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
+import { queryClient } from "@/utils/orpc";
+
+export default function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        {children}
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+}
+```
+
+## Imports
+
+### Path Aliases
+
+- `@/` - `apps/dashboard/src/`
+- `@dukkani/*` - Package imports
+
+### Import Pattern
+
+```typescript
+// Local imports (use @/)
+import { useOrders } from "@/hooks/api/use-orders";
+import { Button } from "@/components/ui/button";
+
+// Package imports
+import { StoreService } from "@dukkani/common/services";
+import { Button } from "@dukkani/ui/components/button";
+import { env } from "@dukkani/env";
+```
+
+## Dependencies
+
+- `next` - Next.js framework
+- `react` - React library
+- `@tanstack/react-query` - Data fetching
+- `@dukkani/orpc` - API client
+- `@dukkani/ui` - UI components
+- `@dukkani/auth` - Authentication
+- `@dukkani/common` - Shared types and schemas
+- `@dukkani/env` - Environment variables
+
+## Best Practices
+
+- Use route groups for layout organization
+- Use server components by default, add `"use client"` only when needed
+- Use type-safe routing from `@/lib/routes`
+- Use React Query hooks for data fetching
+- Handle loading and error states in components
+- Use UI components from `@dukkani/ui`
+- Keep components focused and feature-based
+- Use path aliases for cleaner imports
+- Verify authentication in layouts, not individual pages
