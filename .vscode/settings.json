@@ -4,5 +4,4 @@
       "source.fixAll.biome": "explicit",
       "source.organizeImports.biome": "explicit"
     },
-    "database.pinToPrisma6": true
 }
