@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export function Hero() {
 	return (
-		<section className="relative overflow-hidden pt-16 pb-16 md:pt-24 md:pb-32 lg:pt-32">
+		<section className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-32 lg:pt-40">
 			<div className="container mx-auto px-4">
 				<div className="flex flex-col items-center text-center">
 					<motion.div
@@ -51,7 +51,7 @@ export function Hero() {
 					>
 						<Button
 							size="lg"
-							className="h-14 w-full px-8 text-lg sm:w-auto"
+							className="h-12 w-full px-8 text-lg sm:h-14 sm:w-auto"
 							asChild
 						>
 							<Link
@@ -65,7 +65,7 @@ export function Hero() {
 						<Button
 							size="lg"
 							variant="outline"
-							className="h-14 w-full px-8 text-lg sm:w-auto"
+							className="h-12 w-full px-8 text-lg sm:h-14 sm:w-auto"
 						>
 							Watch Demo
 						</Button>
@@ -76,9 +76,9 @@ export function Hero() {
 						initial={{ opacity: 0, y: 40 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.7, delay: 0.4 }}
-						className="relative mt-16 w-full max-w-5xl"
+						className="relative mt-12 w-full max-w-5xl sm:mt-16"
 					>
-						<div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl border bg-background shadow-2xl md:aspect-video">
+						<div className="relative aspect-3/4 w-full overflow-hidden rounded-2xl border bg-background shadow-2xl sm:aspect-video">
 							{/* Mockup UI - Chat Interface */}
 							<div className="flex h-full w-full flex-col md:flex-row">
 								{/* Sidebar (Hidden on mobile) */}
@@ -102,7 +102,7 @@ export function Hero() {
 								{/* Main Chat Area */}
 								<div className="flex flex-1 flex-col bg-background">
 									{/* Chat Header */}
-									<div className="flex items-center border-b p-4">
+									<div className="flex items-center border-b p-3 sm:p-4">
 										<div className="flex items-center gap-3">
 											<div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
 												<Icons.storefront className="h-5 w-5" />
@@ -116,9 +116,9 @@ export function Hero() {
 										</div>
 									</div>
 									{/* Chat Messages */}
-									<div className="flex-1 space-y-4 p-4">
+									<div className="flex-1 space-y-4 p-3 sm:p-4">
 										<div className="flex justify-start">
-											<div className="max-w-[80%] rounded-2xl rounded-tl-none bg-muted p-3">
+											<div className="max-w-[85%] rounded-2xl rounded-tl-none bg-muted p-3 sm:max-w-[80%]">
 												<p className="text-sm">
 													Hi! Welcome to Dukkani Store. How can we help you
 													today?
@@ -126,14 +126,14 @@ export function Hero() {
 											</div>
 										</div>
 										<div className="flex justify-end">
-											<div className="max-w-[80%] rounded-2xl rounded-tr-none bg-primary p-3 text-primary-foreground">
+											<div className="max-w-[85%] rounded-2xl rounded-tr-none bg-primary p-3 text-primary-foreground sm:max-w-[80%]">
 												<p className="text-sm">
 													I'd like to order the Premium Package.
 												</p>
 											</div>
 										</div>
 										<div className="flex justify-start">
-											<div className="max-w-[80%] rounded-2xl rounded-tl-none bg-muted p-3">
+											<div className="max-w-[90%] rounded-2xl rounded-tl-none bg-muted p-3 sm:max-w-[80%]">
 												<div className="space-y-2">
 													<p className="font-medium text-sm">Order Summary</p>
 													<div className="h-20 w-full rounded bg-background/50" />

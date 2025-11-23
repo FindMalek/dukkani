@@ -16,6 +16,7 @@ const features = [
 			"Let customers order directly through a beautiful, mobile-optimized form that syncs with WhatsApp.",
 		icon: "orders",
 		color: "text-green-600",
+		bgColor: "bg-green-100 dark:bg-green-900/20",
 	},
 	{
 		title: "Instant Management",
@@ -23,6 +24,7 @@ const features = [
 			"Track orders, manage inventory, and handle customer inquiries from a single powerful dashboard.",
 		icon: "layoutDashboard",
 		color: "text-blue-600",
+		bgColor: "bg-blue-100 dark:bg-blue-900/20",
 	},
 	{
 		title: "Global Payments",
@@ -30,6 +32,7 @@ const features = [
 			"Accept payments via cards, digital wallets, or cash on delivery with automated receipt generation.",
 		icon: "payments",
 		color: "text-purple-600",
+		bgColor: "bg-purple-100 dark:bg-purple-900/20",
 	},
 	{
 		title: "Store Customization",
@@ -37,15 +40,16 @@ const features = [
 			"Build your brand with custom domains, themes, and product showcases that look great on any device.",
 		icon: "storefront",
 		color: "text-orange-600",
+		bgColor: "bg-orange-100 dark:bg-orange-900/20",
 	},
 ] as const;
 
 export function Features() {
 	return (
-		<section id="features" className="bg-muted/30 py-24">
+		<section id="features" className="bg-muted/30 py-16 md:py-24">
 			<div className="container mx-auto px-4">
-				<div className="mb-16 text-center">
-					<h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+				<div className="mb-12 text-center md:mb-16">
+					<h2 className="mb-4 font-bold text-3xl tracking-tight sm:text-4xl">
 						Everything needed to scale
 					</h2>
 					<p className="mx-auto max-w-2xl text-lg text-muted-foreground">
@@ -53,7 +57,7 @@ export function Features() {
 						businesses.
 					</p>
 				</div>
-				<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+				<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 					{features.map((feature) => {
 						const Icon = Icons[feature.icon as keyof typeof Icons];
 						return (
@@ -63,7 +67,7 @@ export function Features() {
 							>
 								<CardHeader>
 									<div
-										className={`mb-4 w-fit rounded-lg p-3 bg-background shadow-sm ${feature.color}`}
+										className={`mb-4 w-fit rounded-xl p-3 ${feature.bgColor} ${feature.color}`}
 									>
 										<Icon className="h-6 w-6" />
 									</div>

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@dukkani/ui/styles/globals.css";
-import Header from "@/components/header";
-import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
+import { Footer } from "@/components/footer";
+import Header from "@/components/header";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -18,6 +18,18 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
 	title: "Dukkani - Business Management Solution",
 	description: "Your all-in-one business management solution",
+	manifest: "/favicon/site.webmanifest",
+	icons: {
+		icon: [
+			{ url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+			{ url: "/favicon/favicon.svg", type: "image/svg+xml" },
+		],
+		shortcut: "/favicon/favicon.ico",
+		apple: "/favicon/apple-touch-icon.png",
+	},
+	appleWebApp: {
+		title: "Dukkani",
+	},
 };
 
 export default function RootLayout({
