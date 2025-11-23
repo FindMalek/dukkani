@@ -1,6 +1,6 @@
 "use client";
 
-import { env } from "@dukkani/env";
+import { webEnv } from "@/env";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { ModeToggle } from "@dukkani/ui/components/mode-toggle";
@@ -60,7 +60,9 @@ export default function Header() {
 					<div className="flex items-center gap-4">
 						<ModeToggle />
 						<Link
-							href={env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]}
+							href={
+								webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+							}
 							className="font-medium text-muted-foreground text-sm hover:text-foreground"
 						>
 							Sign In
@@ -68,7 +70,7 @@ export default function Header() {
 						<Button asChild size="sm">
 							<Link
 								href={
-									env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+									webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 								}
 							>
 								Get Started
@@ -128,7 +130,7 @@ export default function Header() {
 							<hr />
 							<Link
 								href={
-									env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+									webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 								}
 								className="font-medium text-lg text-muted-foreground"
 							>
@@ -137,7 +139,7 @@ export default function Header() {
 							<Button asChild className="w-full">
 								<Link
 									href={
-										env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+										webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 									}
 								>
 									Get Started

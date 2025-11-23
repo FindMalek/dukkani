@@ -1,20 +1,16 @@
 {
-	"name": "@dukkani/auth",
+	"name": "@dukkani/core",
+	"type": "module",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
 			"default": "./src/index.ts"
-		},
-		"./env": {
-			"types": "./dist/env.d.ts",
-			"default": "./src/env.ts"
 		},
 		"./*": {
 			"types": "./dist/*.d.ts",
 			"default": "./src/*.ts"
 		}
 	},
-	"type": "module",
 	"scripts": {
 		"build": "tsdown",
 		"clean": "rm -rf dist node_modules"
@@ -24,14 +20,11 @@
 		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
-		"typescript": "^5.9.3"
+		"typescript": "catalog:"
 	},
 	"dependencies": {
+		"@dukkani/auth": "workspace:*",
 		"@dukkani/db": "workspace:*",
-		"@dukkani/env": "workspace:*",
-		"@t3-oss/env-core": "catalog:",
-		"better-auth": "catalog:",
-		"dotenv": "catalog:",
-		"zod": "catalog:"
+		"@dukkani/env": "workspace:*"
 	}
 }

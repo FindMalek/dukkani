@@ -1,10 +1,10 @@
 import { scrypt } from "node:crypto";
-import { database } from "@dukkani/db";
+import type { PrismaClient } from "@dukkani/db";
 import { hashPassword } from "@dukkani/db/utils/generate-id";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
-import { env } from "./env";
+import type { env } from "./env";
 
 /**
  * Custom password verifier to match seeder format
@@ -44,28 +44,75 @@ async function verifyPassword({
 	return hash.toString("base64") === hashBase64;
 }
 
-export const auth = betterAuth<BetterAuthOptions>({
-	database: prismaAdapter(database, {
-		provider: "postgresql",
-	}),
-	secret: env.BETTER_AUTH_SECRET,
-	trustedOrigins: [env.NEXT_PUBLIC_CORS_ORIGIN],
-	emailAndPassword: {
-		enabled: true,
-		password: {
-			hash: hashPassword,
-			verify: verifyPassword,
-		},
+/**
+ * Factory function to create a Better Auth instance
+ * Uses dependency injection to avoid circular dependencies
+ *
+ * @param database - Prisma database client instance
+ * @param envConfig - Partial environment config (can omit NEXT_PUBLIC_DASHBOARD_URL)
+ * @returns Better Auth instance
+ */
+export function createAuth(
+	database: PrismaClient,
+	envConfig: Pick<
+		typeof env,
+		| "BETTER_AUTH_SECRET"
+		| "NEXT_PUBLIC_CORS_ORIGIN"
+		| "GOOGLE_CLIENT_ID"
+		| "GOOGLE_CLIENT_SECRET"
+		| "FACEBOOK_CLIENT_ID"
+		| "FACEBOOK_CLIENT_SECRET"
+	> & {
+		NEXT_PUBLIC_DASHBOARD_URL?: string; // Optional - if not provided, only CORS_ORIGIN is used
 	},
-	socialProviders: {
-		facebook: {
-			clientId: env.FACEBOOK_CLIENT_ID,
-			clientSecret: env.FACEBOOK_CLIENT_SECRET,
+): ReturnType<typeof betterAuth<BetterAuthOptions>> {
+	// Build trusted origins array - always include CORS_ORIGIN, optionally include DASHBOARD_URL
+	const trustedOrigins = envConfig.NEXT_PUBLIC_DASHBOARD_URL
+		? [envConfig.NEXT_PUBLIC_CORS_ORIGIN, envConfig.NEXT_PUBLIC_DASHBOARD_URL]
+		: [envConfig.NEXT_PUBLIC_CORS_ORIGIN];
+
+	return betterAuth<BetterAuthOptions>({
+		database: prismaAdapter(database, {
+			provider: "postgresql",
+		}),
+		secret: envConfig.BETTER_AUTH_SECRET,
+		trustedOrigins,
+		emailAndPassword: {
+			enabled: true,
+			password: {
+				hash: hashPassword,
+				verify: verifyPassword,
+			},
 		},
-		google: {
-			clientId: env.GOOGLE_CLIENT_ID,
-			clientSecret: env.GOOGLE_CLIENT_SECRET,
+		socialProviders: {
+			facebook: {
+				clientId: envConfig.FACEBOOK_CLIENT_ID,
+				clientSecret: envConfig.FACEBOOK_CLIENT_SECRET,
+			},
+			google: {
+				clientId: envConfig.GOOGLE_CLIENT_ID,
+				clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
+			},
 		},
-	},
-	plugins: [nextCookies()],
-});
+		plugins: [nextCookies()],
+	});
+}
+
+/**
+ * Singleton auth instance
+ * Must be initialized by calling initializeAuth() before use
+ * This is initialized by the server package at app startup
+ */
+export let auth: ReturnType<typeof betterAuth<BetterAuthOptions>>;
+
+/**
+ * Initialize the auth singleton
+ * Called by core initialization module
+ * @internal
+ */
+export function initializeAuth(
+	database: PrismaClient,
+	envConfig: Parameters<typeof createAuth>[1],
+): void {
+	auth = createAuth(database, envConfig);
+}

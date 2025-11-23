@@ -28,7 +28,8 @@
 		}
 	},
 	"scripts": {
-		"build": "tsdown"
+		"build": "tsdown",
+		"clean": "rm -rf dist node_modules"
 	},
 	"peerDependencies": {
 		"typescript": "catalog:"

@@ -1,4 +1,4 @@
-import { auth } from "@dukkani/auth";
+import { auth } from "@dukkani/core";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { BottomNavigation } from "@/components/layout/bottom-navigation";

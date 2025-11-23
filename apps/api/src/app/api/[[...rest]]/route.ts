@@ -1,3 +1,4 @@
+import { apiEnv } from "@dukkani/env/presets/api";
 import { createContext } from "@dukkani/orpc/context";
 import { appRouter } from "@dukkani/orpc/routers/index";
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
@@ -6,7 +7,6 @@ import { onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import type { NextRequest } from "next/server";
-import { env } from "@dukkani/env";
 
 const rpcHandler = new RPCHandler(appRouter, {
 	interceptors: [
@@ -38,14 +38,14 @@ const apiHandler = new OpenAPIHandler(appRouter, {
 
 function getCorsHeaders(origin: string | null): HeadersInit {
 	// In development, allow requests from localhost origins
-	const isDevelopment = env.NEXT_PUBLIC_NODE_ENV === "local";
+	const isDevelopment = apiEnv.NEXT_PUBLIC_NODE_ENV === "local";
 	const isLocalhost = origin?.startsWith("http://localhost:") ?? false;
 
 	// Allow the origin if it's from localhost in development, or use the configured origin
 	const allowedOrigin =
 		isDevelopment && isLocalhost && origin
 			? origin
-			: env.NEXT_PUBLIC_CORS_ORIGIN;
+			: apiEnv.NEXT_PUBLIC_CORS_ORIGIN;
 
 	return {
 		"Access-Control-Allow-Origin": allowedOrigin,

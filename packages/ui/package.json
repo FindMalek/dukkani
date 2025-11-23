@@ -10,7 +10,8 @@
 		"./styles/globals.css": "./src/styles/globals.css"
 	},
 	"scripts": {
-		"build": "tsdown"
+		"build": "tsdown",
+		"clean": "rm -rf dist node_modules"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.2.2",

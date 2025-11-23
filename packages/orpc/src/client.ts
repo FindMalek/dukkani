@@ -1,9 +1,9 @@
-import type { AppRouterClient } from "./index";
 import { createORPCClient } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import type { AppRouterClient } from "./index";
 import { headersToObject } from "./utils/headers";
 
 export function createORPCClientUtils(apiUrl: string) {

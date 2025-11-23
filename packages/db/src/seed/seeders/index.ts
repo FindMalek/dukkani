@@ -2,23 +2,24 @@
  * Export all seeders and their types from this file
  * Add new seeders here to register them
  */
-export { UserSeeder, type SeededUser } from "./user.seeder";
-export { StoreSeeder, type SeededStore } from "./store.seeder";
-export { ProductSeeder, type SeededProduct } from "./product.seeder";
+
 export { CustomerSeeder, type SeededCustomer } from "./customer.seeder";
 export { OrderSeeder, type SeededOrder } from "./order.seeder";
+export { ProductSeeder, type SeededProduct } from "./product.seeder";
+export { type SeededStore, StoreSeeder } from "./store.seeder";
+export { type SeededUser, UserSeeder } from "./user.seeder";
 
+import type { Seeder } from "../base";
+import { CustomerSeeder } from "./customer.seeder";
+import { OrderSeeder } from "./order.seeder";
+import { ProductSeeder } from "./product.seeder";
+import { StoreSeeder } from "./store.seeder";
 /**
  * Register all seeders here
  * Seeders will be executed in order based on their `order` property
  * Dependencies are set up after seeders are instantiated
  */
 import { UserSeeder } from "./user.seeder";
-import { StoreSeeder } from "./store.seeder";
-import { ProductSeeder } from "./product.seeder";
-import { CustomerSeeder } from "./customer.seeder";
-import { OrderSeeder } from "./order.seeder";
-import type { Seeder } from "../base";
 
 export const seeders: Seeder[] = [
 	new UserSeeder(),

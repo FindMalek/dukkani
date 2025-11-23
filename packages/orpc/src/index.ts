@@ -1,6 +1,6 @@
 import { ORPCError, os } from "@orpc/server";
 import type { Context } from "./context";
-import { rateLimitPublic, rateLimitProtected } from "./middleware/rate-limit";
+import { rateLimitProtected, rateLimitPublic } from "./middleware/rate-limit";
 
 export const o = os.$context<Context>();
 
@@ -22,9 +22,8 @@ const requireAuth = o.middleware(async ({ context, next }) => {
 // Rate limiting happens first, then authentication
 export const protectedProcedure = o.use(rateLimitProtected).use(requireAuth);
 
+// Re-export client utilities
+export { createORPCClientUtils } from "./client";
 // Re-export router types for easier importing
 export type { AppRouter, AppRouterClient } from "./routers/index";
 export { appRouter } from "./routers/index";
-
-// Re-export client utilities
-export { createORPCClientUtils } from "./client";

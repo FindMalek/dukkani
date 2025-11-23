@@ -16,7 +16,8 @@
 	},
 	"type": "module",
 	"scripts": {
-		"build": "tsdown"
+		"build": "tsdown",
+		"clean": "rm -rf dist node_modules"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
@@ -31,6 +32,7 @@
 		"@dukkani/auth": "workspace:*",
 		"@dukkani/common": "workspace:*",
 		"@dukkani/db": "workspace:*",
+		"@dukkani/core": "workspace:*",
 		"@orpc/client": "catalog:",
 		"@orpc/openapi": "catalog:",
 		"@orpc/server": "catalog:",

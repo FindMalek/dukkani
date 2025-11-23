@@ -1,5 +1,5 @@
-import { protectedProcedure } from "../index";
 import { DashboardService } from "@dukkani/common/services";
+import { protectedProcedure } from "../index";
 
 export const dashboardRouter = {
 	/**

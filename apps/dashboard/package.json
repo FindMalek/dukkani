@@ -5,13 +5,15 @@
 	"scripts": {
 		"dev": "next dev --port=3003",
 		"build": "next build",
-		"start": "next start"
+		"start": "next start",
+		"clean": "rm -rf .next node_modules"
 	},
 	"dependencies": {
 		"@dukkani/auth": "workspace:*",
 		"@dukkani/common": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"@dukkani/orpc": "workspace:*",
+		"@dukkani/core": "workspace:*",
 		"@dukkani/ui": "workspace:*",
 		"@orpc/client": "catalog:",
 		"@prisma/client": "catalog:",
