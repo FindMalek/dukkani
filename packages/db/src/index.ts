@@ -7,13 +7,14 @@ import { PrismaClientKnownRequestError } from "../prisma/generated/internal/pris
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
+// Import env type for inference (lazy to avoid circular dependency)
+import type { env as dbEnvType } from "./env";
+
 /**
- * Environment schema for database initialization
- * Must have DATABASE_URL in server schema
+ * Type for database environment variables
+ * Inferred from the db env schema - automatically stays in sync with env changes
  */
-type DatabaseEnv = {
-	DATABASE_URL: string;
-};
+type DatabaseEnv = Pick<typeof dbEnvType, "DATABASE_URL">;
 
 /**
  * Factory function to create a Prisma database client

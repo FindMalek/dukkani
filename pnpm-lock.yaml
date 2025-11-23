@@ -190,6 +190,9 @@ importers:
       '@dukkani/orpc':
         specifier: workspace:*
         version: link:../../packages/orpc
+      '@dukkani/server':
+        specifier: workspace:*
+        version: link:../../packages/server
       '@dukkani/ui':
         specifier: workspace:*
         version: link:../../packages/ui

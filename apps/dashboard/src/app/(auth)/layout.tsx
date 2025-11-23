@@ -1,4 +1,5 @@
-import { auth } from "@dukkani/auth";
+import "@dukkani/server"; 
+import { auth } from "@dukkani/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 

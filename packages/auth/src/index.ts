@@ -4,6 +4,7 @@ import { hashPassword } from "@dukkani/db/utils/generate-id";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
+import type { env } from "./env";
 
 /**
  * Custom password verifier to match seeder format
@@ -44,16 +45,19 @@ async function verifyPassword({
 }
 
 /**
- * Environment schema for auth initialization
+ * Type for auth environment variables
+ * Inferred from the auth env schema - automatically stays in sync with env changes
  */
-type AuthEnv = {
-	BETTER_AUTH_SECRET: string;
-	NEXT_PUBLIC_CORS_ORIGIN: string;
+type AuthEnv = Pick<
+	typeof authEnvType,
+	| "BETTER_AUTH_SECRET"
+	| "NEXT_PUBLIC_CORS_ORIGIN"
+	| "GOOGLE_CLIENT_ID"
+	| "GOOGLE_CLIENT_SECRET"
+	| "FACEBOOK_CLIENT_ID"
+	| "FACEBOOK_CLIENT_SECRET"
+> & {
 	NEXT_PUBLIC_DASHBOARD_URL?: string; // Optional - if not provided, only CORS_ORIGIN is used
-	GOOGLE_CLIENT_ID: string;
-	GOOGLE_CLIENT_SECRET: string;
-	FACEBOOK_CLIENT_ID: string;
-	FACEBOOK_CLIENT_SECRET: string;
 };
 
 /**

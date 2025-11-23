@@ -13,6 +13,7 @@
 		"@dukkani/common": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"@dukkani/orpc": "workspace:*",
+		"@dukkani/server": "workspace:*",
 		"@dukkani/ui": "workspace:*",
 		"@orpc/client": "catalog:",
 		"@prisma/client": "catalog:",
