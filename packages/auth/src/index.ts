@@ -102,18 +102,18 @@ export function createAuth(
 		envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://") ||
 		apiEnv.NEXT_PUBLIC_NODE_ENV === "production";
 
-	// Debug logging for cookie configuration
-	if (process.env.VERCEL || apiEnv.NEXT_PUBLIC_NODE_ENV !== "local") {
-		console.log("[Auth] Cookie configuration:");
-		console.log("  - NEXT_PUBLIC_NODE_ENV:", apiEnv.NEXT_PUBLIC_NODE_ENV);
-		console.log("  - VERCEL:", !!process.env.VERCEL);
-		console.log("  - VERCEL_ENV:", process.env.VERCEL_ENV);
-		console.log("  - CORS_ORIGIN:", envConfig.NEXT_PUBLIC_CORS_ORIGIN);
-		console.log("  - isLocal:", isLocal);
-		console.log("  - isProduction:", isProduction);
-		console.log("  - Cookie SameSite:", isProduction ? "none" : "lax");
-		console.log("  - Cookie Secure:", isProduction);
-	}
+	// Debug logging for cookie configuration - always log in Vercel or non-local
+	// This helps diagnose cookie configuration issues
+	console.log("[Auth] Cookie configuration:");
+	console.log("  - NEXT_PUBLIC_NODE_ENV:", apiEnv.NEXT_PUBLIC_NODE_ENV);
+	console.log("  - VERCEL:", !!process.env.VERCEL);
+	console.log("  - VERCEL_ENV:", process.env.VERCEL_ENV);
+	console.log("  - CORS_ORIGIN:", envConfig.NEXT_PUBLIC_CORS_ORIGIN);
+	console.log("  - CORS_ORIGIN starts with https:", envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://"));
+	console.log("  - isLocal:", isLocal);
+	console.log("  - isProduction:", isProduction);
+	console.log("  - Cookie SameSite:", isProduction ? "none" : "lax");
+	console.log("  - Cookie Secure:", isProduction);
 
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
