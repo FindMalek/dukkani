@@ -69,10 +69,14 @@ export function createAuth(
 	},
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
 	// CRITICAL: Log immediately to verify this function is being called
+	// Version: 2025-11-25-00:40 - Force rebuild to clear cache
+	console.log("[Auth] ========================================");
 	console.log("[Auth] createAuth called - Initializing Better Auth instance");
+	console.log("[Auth] Version: 2025-11-25-00:40");
 	console.log("[Auth] Environment check - VERCEL:", !!process.env.VERCEL);
 	console.log("[Auth] Environment check - VERCEL_ENV:", process.env.VERCEL_ENV);
 	console.log("[Auth] Environment check - CORS_ORIGIN:", envConfig.NEXT_PUBLIC_CORS_ORIGIN);
+	console.log("[Auth] ========================================");
 	
 	// Build trusted origins array with Vercel support
 	const trustedOrigins = [
