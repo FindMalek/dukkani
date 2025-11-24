@@ -4,6 +4,7 @@ import { hashPassword } from "@dukkani/db/utils/generate-id";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
+import { openAPI } from "better-auth/plugins";
 import type { env } from "./env";
 
 /**
@@ -66,10 +67,19 @@ export function createAuth(
 		NEXT_PUBLIC_DASHBOARD_URL?: string; // Optional - if not provided, only CORS_ORIGIN is used
 	},
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
-	// Build trusted origins array - always include CORS_ORIGIN, optionally include DASHBOARD_URL
-	const trustedOrigins = envConfig.NEXT_PUBLIC_DASHBOARD_URL
-		? [envConfig.NEXT_PUBLIC_CORS_ORIGIN, envConfig.NEXT_PUBLIC_DASHBOARD_URL]
-		: [envConfig.NEXT_PUBLIC_CORS_ORIGIN];
+	// Build trusted origins array with Vercel support
+	const trustedOrigins = [
+		envConfig.NEXT_PUBLIC_CORS_ORIGIN,
+		envConfig.NEXT_PUBLIC_DASHBOARD_URL || null,
+		// Add Vercel URLs if available
+		process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+		process.env.VERCEL_BRANCH_URL
+			? `https://${process.env.VERCEL_BRANCH_URL}`
+			: null,
+		process.env.VERCEL_PROJECT_PRODUCTION_URL
+			? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+			: null,
+	].filter((url): url is string => url !== null);
 
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
@@ -94,7 +104,7 @@ export function createAuth(
 				clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
 			},
 		},
-		plugins: [nextCookies()],
+		plugins: [nextCookies(), openAPI()],
 	});
 }
 

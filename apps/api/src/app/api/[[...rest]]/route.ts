@@ -1,4 +1,4 @@
-import { apiEnv } from "@dukkani/env/presets/api";
+import { auth } from "@dukkani/core";
 import { createContext } from "@dukkani/orpc/context";
 import { appRouter } from "@dukkani/orpc/routers/index";
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
@@ -7,6 +7,7 @@ import { onError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import type { NextRequest } from "next/server";
+import { getCorsHeaders } from "@/lib/cors";
 
 const rpcHandler = new RPCHandler(appRouter, {
 	interceptors: [
@@ -36,41 +37,6 @@ const apiHandler = new OpenAPIHandler(appRouter, {
 	],
 });
 
-function getCorsHeaders(origin: string | null): HeadersInit {
-	// In development, allow requests from localhost origins
-	const isDevelopment = apiEnv.NEXT_PUBLIC_NODE_ENV === "local";
-	const isLocalhost = origin?.startsWith("http://localhost:") ?? false;
-
-	// Build list of allowed origins
-	const allowedOrigins: string[] = [apiEnv.NEXT_PUBLIC_CORS_ORIGIN];
-
-	// Add dashboard URL if available (for production)
-	const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARD_URL;
-	if (dashboardUrl) {
-		allowedOrigins.push(dashboardUrl);
-	}
-
-	// Determine the allowed origin
-	let allowedOrigin: string;
-	if (isDevelopment && isLocalhost && origin) {
-		// In development, allow any localhost origin
-		allowedOrigin = origin;
-	} else if (origin && allowedOrigins.includes(origin)) {
-		// If the origin matches one of the allowed origins, use it
-		allowedOrigin = origin;
-	} else {
-		// Fallback to the configured CORS origin
-		allowedOrigin = apiEnv.NEXT_PUBLIC_CORS_ORIGIN;
-	}
-
-	return {
-		"Access-Control-Allow-Origin": allowedOrigin,
-		"Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
-		"Access-Control-Allow-Headers": "Content-Type, Authorization",
-		"Access-Control-Allow-Credentials": "true",
-	};
-}
-
 async function handleRequest(req: NextRequest) {
 	const origin = req.headers.get("origin");
 	const corsHeaders = getCorsHeaders(origin);
@@ -84,7 +50,7 @@ async function handleRequest(req: NextRequest) {
 		// Add CORS headers to the response
 		const response = rpcResult.response;
 		Object.entries(corsHeaders).forEach(([key, value]) => {
-			response.headers.set(key, value);
+			response.headers.set(key, String(value));
 		});
 		return response;
 	}
@@ -95,17 +61,82 @@ async function handleRequest(req: NextRequest) {
 		context: await createContext(req.headers),
 	});
 	if (apiResult.response) {
+		// If this is an OpenAPI spec request, merge better-auth schema
+		const url = new URL(req.url);
+		if (
+			url.pathname.includes("/openapi.json") ||
+			url.pathname.includes("/openapi.yaml") ||
+			url.pathname.endsWith("/openapi")
+		) {
+			try {
+				// Get better-auth OpenAPI schema
+				// The OpenAPI plugin adds this method to the auth.api object
+				const authSchema = await (
+					auth.api as unknown as {
+						generateOpenAPISchema: () => Promise<{
+							paths?: Record<string, unknown>;
+						}>;
+					}
+				).generateOpenAPISchema();
+
+				// Clone the response to modify it
+				const responseText = await apiResult.response.text();
+				const orpcSchema = JSON.parse(responseText);
+
+				// Merge schemas
+				const mergedSchema = {
+					...orpcSchema,
+					paths: {
+						// Prepend /auth to all better-auth paths
+						...Object.fromEntries(
+							Object.entries(authSchema.paths || {}).map(([key, value]) => [
+								`/auth${key}`,
+								value,
+							]),
+						),
+						// Include oRPC paths
+						...orpcSchema.paths,
+					},
+					servers: [{ url: "/api" }],
+					info: {
+						title: "Dukkani API",
+						version: "1.0.0",
+						description:
+							"API documentation and playground for Dukkani - includes oRPC endpoints and Better Auth authentication endpoints",
+					},
+				};
+
+				// Create new response with merged schema
+				const mergedResponse = new Response(
+					JSON.stringify(mergedSchema, null, 2),
+					{
+						status: apiResult.response.status,
+						headers: apiResult.response.headers,
+					},
+				);
+
+				// Add CORS headers
+				Object.entries(corsHeaders).forEach(([key, value]) => {
+					mergedResponse.headers.set(key, String(value));
+				});
+				return mergedResponse;
+			} catch (error) {
+				// If merging fails, return original response
+				console.error("Failed to merge OpenAPI schemas:", error);
+			}
+		}
+
 		// Add CORS headers to the response
 		const response = apiResult.response;
 		Object.entries(corsHeaders).forEach(([key, value]) => {
-			response.headers.set(key, value);
+			response.headers.set(key, String(value));
 		});
 		return response;
 	}
 
 	const notFoundResponse = new Response("Not found", { status: 404 });
 	Object.entries(corsHeaders).forEach(([key, value]) => {
-		notFoundResponse.headers.set(key, value);
+		notFoundResponse.headers.set(key, String(value));
 	});
 	return notFoundResponse;
 }
