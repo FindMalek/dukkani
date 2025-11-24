@@ -68,6 +68,12 @@ export function createAuth(
 		NEXT_PUBLIC_DASHBOARD_URL?: string; // Optional - if not provided, only CORS_ORIGIN is used
 	},
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
+	// CRITICAL: Log immediately to verify this function is being called
+	console.log("[Auth] createAuth called - Initializing Better Auth instance");
+	console.log("[Auth] Environment check - VERCEL:", !!process.env.VERCEL);
+	console.log("[Auth] Environment check - VERCEL_ENV:", process.env.VERCEL_ENV);
+	console.log("[Auth] Environment check - CORS_ORIGIN:", envConfig.NEXT_PUBLIC_CORS_ORIGIN);
+	
 	// Build trusted origins array with Vercel support
 	const trustedOrigins = [
 		envConfig.NEXT_PUBLIC_CORS_ORIGIN,
@@ -96,8 +102,11 @@ export function createAuth(
 
 	// In Vercel (any environment) or HTTPS, we need SameSite=None and Secure
 	// Only use lax in true localhost development
-	// Priority: Vercel > HTTPS > NODE_ENV
+	// Priority: VERCEL_ENV > VERCEL > HTTPS > NODE_ENV
+	// Use VERCEL_ENV as primary check since it's more reliable in Vercel
 	const isProduction =
+		process.env.VERCEL_ENV === "production" ||
+		process.env.VERCEL_ENV === "preview" ||
 		!!process.env.VERCEL ||
 		envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://") ||
 		apiEnv.NEXT_PUBLIC_NODE_ENV === "production";
