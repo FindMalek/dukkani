@@ -18,15 +18,18 @@ async function handleWithCors(
 
 	// Add CORS headers to the response
 	Object.entries(corsHeaders).forEach(([key, value]) => {
-		response.headers.set(key, value);
+		response.headers.set(key, String(value));
 	});
 
 	return response;
 }
 
 export async function GET(req: NextRequest) {
-	// Debug logging (development only)
-	if (process.env.NODE_ENV === "development") {
+	// Debug logging (development and Vercel preview)
+	if (
+		process.env.NODE_ENV === "development" ||
+		process.env.VERCEL_ENV === "preview"
+	) {
 		console.log("Auth GET - Origin:", req.headers.get("origin"));
 		console.log(
 			"Auth GET - Cookies:",
@@ -38,8 +41,11 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-	// Debug logging (development only)
-	if (process.env.NODE_ENV === "development") {
+	// Debug logging (development and Vercel preview)
+	if (
+		process.env.NODE_ENV === "development" ||
+		process.env.VERCEL_ENV === "preview"
+	) {
 		console.log("Auth POST - Origin:", req.headers.get("origin"));
 		console.log(
 			"Auth POST - Cookies:",
