@@ -25,10 +25,28 @@ async function handleWithCors(
 }
 
 export async function GET(req: NextRequest) {
+	// Debug logging (development only)
+	if (process.env.NODE_ENV === "development") {
+		console.log("Auth GET - Origin:", req.headers.get("origin"));
+		console.log(
+			"Auth GET - Cookies:",
+			req.cookies.getAll().map((c) => c.name),
+		);
+	}
+
 	return handleWithCors(req, authHandlers.GET);
 }
 
 export async function POST(req: NextRequest) {
+	// Debug logging (development only)
+	if (process.env.NODE_ENV === "development") {
+		console.log("Auth POST - Origin:", req.headers.get("origin"));
+		console.log(
+			"Auth POST - Cookies:",
+			req.cookies.getAll().map((c) => c.name),
+		);
+	}
+
 	return handleWithCors(req, authHandlers.POST);
 }
 

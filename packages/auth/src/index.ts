@@ -1,6 +1,7 @@
 import { scrypt } from "node:crypto";
 import type { PrismaClient } from "@dukkani/db";
 import { hashPassword } from "@dukkani/db/utils/generate-id";
+import { apiEnv } from "@dukkani/env/presets/api";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
@@ -81,12 +82,40 @@ export function createAuth(
 			: null,
 	].filter((url): url is string => url !== null);
 
+	// Log trusted origins in development for debugging
+	if (apiEnv.NEXT_PUBLIC_NODE_ENV === "local") {
+		console.log("[Auth] Trusted origins:", trustedOrigins);
+	}
+
+	// Determine if we're in a local development environment
+	// In Vercel (preview/production), we need cross-origin cookies
+	const isLocal =
+		apiEnv.NEXT_PUBLIC_NODE_ENV === "local" &&
+		!process.env.VERCEL &&
+		!envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://");
+
+	// In Vercel or any HTTPS environment, we need SameSite=None and Secure
+	// Only use lax in true localhost development
+	const isProduction = !isLocal;
+
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
 			provider: "postgresql",
 		}),
 		secret: envConfig.BETTER_AUTH_SECRET,
 		trustedOrigins,
+		baseURL: envConfig.NEXT_PUBLIC_CORS_ORIGIN,
+		advanced: {
+			cookies: {
+				sessionToken: {
+					attributes: {
+						sameSite: isProduction ? "none" : "lax",
+						secure: isProduction,
+						httpOnly: true,
+					},
+				},
+			},
+		},
 		emailAndPassword: {
 			enabled: true,
 			password: {
