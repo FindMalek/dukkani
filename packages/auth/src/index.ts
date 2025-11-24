@@ -94,9 +94,26 @@ export function createAuth(
 		!process.env.VERCEL &&
 		!envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://");
 
-	// In Vercel or any HTTPS environment, we need SameSite=None and Secure
+	// In Vercel (any environment) or HTTPS, we need SameSite=None and Secure
 	// Only use lax in true localhost development
-	const isProduction = !isLocal;
+	// Priority: Vercel > HTTPS > NODE_ENV
+	const isProduction =
+		!!process.env.VERCEL ||
+		envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://") ||
+		apiEnv.NEXT_PUBLIC_NODE_ENV === "production";
+
+	// Debug logging for cookie configuration
+	if (process.env.VERCEL || apiEnv.NEXT_PUBLIC_NODE_ENV !== "local") {
+		console.log("[Auth] Cookie configuration:");
+		console.log("  - NEXT_PUBLIC_NODE_ENV:", apiEnv.NEXT_PUBLIC_NODE_ENV);
+		console.log("  - VERCEL:", !!process.env.VERCEL);
+		console.log("  - VERCEL_ENV:", process.env.VERCEL_ENV);
+		console.log("  - CORS_ORIGIN:", envConfig.NEXT_PUBLIC_CORS_ORIGIN);
+		console.log("  - isLocal:", isLocal);
+		console.log("  - isProduction:", isProduction);
+		console.log("  - Cookie SameSite:", isProduction ? "none" : "lax");
+		console.log("  - Cookie Secure:", isProduction);
+	}
 
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {

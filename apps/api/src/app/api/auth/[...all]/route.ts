@@ -21,6 +21,24 @@ async function handleWithCors(
 		response.headers.set(key, String(value));
 	});
 
+	// Debug logging for cookie setting (development and Vercel preview)
+	if (
+		process.env.NODE_ENV === "development" ||
+		process.env.VERCEL_ENV === "preview"
+	) {
+		const setCookieHeader = response.headers.get("set-cookie");
+		if (setCookieHeader) {
+			console.log("[Auth] Set-Cookie header:", setCookieHeader);
+			// Parse and log cookie attributes
+			const cookies = setCookieHeader.split(", ");
+			cookies.forEach((cookie) => {
+				console.log("[Auth] Cookie:", cookie);
+			});
+		} else {
+			console.log("[Auth] No Set-Cookie header in response");
+		}
+	}
+
 	return response;
 }
 
