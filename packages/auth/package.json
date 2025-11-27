@@ -1,5 +1,6 @@
 {
 	"name": "@dukkani/auth",
+	"version": "0.1.1",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",

@@ -18,7 +18,7 @@ async function handleWithCors(
 
 	// Add CORS headers to the response
 	Object.entries(corsHeaders).forEach(([key, value]) => {
-		response.headers.set(key, value);
+		response.headers.set(key, String(value));
 	});
 
 	return response;

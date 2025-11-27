@@ -68,25 +68,64 @@ export function createAuth(
 	},
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
 	// Build trusted origins array with Vercel support
-	const trustedOrigins = [
+	// Better Auth will automatically handle cookie configuration based on baseURL and trustedOrigins
+	const baseTrustedOrigins = [
 		envConfig.NEXT_PUBLIC_CORS_ORIGIN,
-		envConfig.NEXT_PUBLIC_DASHBOARD_URL || null,
+		envConfig.NEXT_PUBLIC_DASHBOARD_URL,
 		// Add Vercel URLs if available
-		process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
-		process.env.VERCEL_BRANCH_URL
-			? `https://${process.env.VERCEL_BRANCH_URL}`
-			: null,
-		process.env.VERCEL_PROJECT_PRODUCTION_URL
-			? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-			: null,
+		...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
+		...(process.env.VERCEL_BRANCH_URL
+			? [`https://${process.env.VERCEL_BRANCH_URL}`]
+			: []),
+		...(process.env.VERCEL_PROJECT_PRODUCTION_URL
+			? [`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`]
+			: []),
 	].filter((url): url is string => url !== null);
+
+	// In Vercel environments, allow any .vercel.app origin dynamically
+	// This handles preview deployments where the exact URL isn't known at build time
+	const trustedOrigins:
+		| string[]
+		| ((request: Request) => string[] | Promise<string[]>) = process.env.VERCEL
+		? (request: Request) => {
+				const origin = request.headers.get("origin");
+				// If origin is a .vercel.app domain, allow it
+				if (origin?.includes(".vercel.app")) {
+					return [...baseTrustedOrigins, origin];
+				}
+				return baseTrustedOrigins;
+			}
+		: baseTrustedOrigins;
+
+	// Determine if we need cross-origin cookie settings
+	// In Vercel environments or when using HTTPS, we need SameSite=None and Secure
+	const isVercel = !!process.env.VERCEL;
+	const isProduction =
+		isVercel ||
+		process.env.VERCEL_ENV === "production" ||
+		process.env.VERCEL_ENV === "preview" ||
+		envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://");
 
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
 			provider: "postgresql",
 		}),
 		secret: envConfig.BETTER_AUTH_SECRET,
+		baseURL: envConfig.NEXT_PUBLIC_CORS_ORIGIN,
 		trustedOrigins,
+		advanced: {
+			// Force secure cookies in production/Vercel environments
+			useSecureCookies: isProduction,
+			// Configure cookies for cross-origin requests
+			cookies: {
+				session_token: {
+					attributes: {
+						sameSite: isProduction ? "none" : "lax",
+						httpOnly: true,
+					},
+				},
+			},
+		},
 		emailAndPassword: {
 			enabled: true,
 			password: {

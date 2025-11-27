@@ -1,16 +1,13 @@
-import { auth } from "@dukkani/core";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { BottomNavigation } from "@/components/layout/bottom-navigation";
+import { getServerSession } from "@/lib/get-server-session";
 
 export default async function DashboardLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const session = await auth.api.getSession({
-		headers: await headers(),
-	});
+	const session = await getServerSession();
 
 	if (!session?.user) {
 		redirect("/login");

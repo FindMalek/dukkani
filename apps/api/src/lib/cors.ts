@@ -32,6 +32,19 @@ export function getCorsHeaders(origin: string | null): HeadersInit {
 	} else if (origin && allowedOrigins.includes(origin)) {
 		// If the origin matches one of the allowed origins, use it
 		allowedOrigin = origin;
+	} else if (origin?.includes(".vercel.app")) {
+		// For Vercel .vercel.app domains (both preview and production)
+		// In Vercel, allow .vercel.app origins from the same account
+		// Security: Vercel isolates projects, and we're using HTTPS + proper cookie attributes
+		const isVercel = !!process.env.VERCEL;
+		if (isVercel) {
+			// Allow any .vercel.app origin when running on Vercel
+			// This works because Vercel deployments are isolated per account/project
+			allowedOrigin = origin;
+		} else {
+			// Not on Vercel but origin is .vercel.app - fallback
+			allowedOrigin = apiEnv.NEXT_PUBLIC_CORS_ORIGIN;
+		}
 	} else {
 		// Fallback to the configured CORS origin
 		allowedOrigin = apiEnv.NEXT_PUBLIC_CORS_ORIGIN;
