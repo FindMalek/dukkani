@@ -72,6 +72,7 @@ export function createAuth(
 	const baseTrustedOrigins = [
 		envConfig.NEXT_PUBLIC_CORS_ORIGIN,
 		envConfig.NEXT_PUBLIC_DASHBOARD_URL,
+		"https://dukkani-dashboard-git-fin-197-findmalek-team.vercel.app",
 		// Add Vercel URLs if available
 		...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
 		...(process.env.VERCEL_BRANCH_URL
