@@ -97,6 +97,15 @@ export function createAuth(
 				}
 			: baseTrustedOrigins;
 
+	// Determine if we need cross-origin cookie settings
+	// In Vercel environments or when using HTTPS, we need SameSite=None and Secure
+	const isVercel = !!process.env.VERCEL;
+	const isProduction =
+		isVercel ||
+		process.env.VERCEL_ENV === "production" ||
+		process.env.VERCEL_ENV === "preview" ||
+		envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://");
+
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
 			provider: "postgresql",
@@ -104,6 +113,19 @@ export function createAuth(
 		secret: envConfig.BETTER_AUTH_SECRET,
 		baseURL: envConfig.NEXT_PUBLIC_CORS_ORIGIN,
 		trustedOrigins,
+		advanced: {
+			// Force secure cookies in production/Vercel environments
+			useSecureCookies: isProduction,
+			// Configure cookies for cross-origin requests
+			cookies: {
+				session_token: {
+					attributes: {
+						sameSite: isProduction ? "none" : "lax",
+						httpOnly: true,
+					},
+				},
+			},
+		},
 		emailAndPassword: {
 			enabled: true,
 			password: {
