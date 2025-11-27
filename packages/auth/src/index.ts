@@ -72,7 +72,6 @@ export function createAuth(
 	const baseTrustedOrigins = [
 		envConfig.NEXT_PUBLIC_CORS_ORIGIN,
 		envConfig.NEXT_PUBLIC_DASHBOARD_URL,
-		"https://dukkani-dashboard-git-fin-197-findmalek-team.vercel.app",
 		// Add Vercel URLs if available
 		...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
 		...(process.env.VERCEL_BRANCH_URL
@@ -85,17 +84,18 @@ export function createAuth(
 
 	// In Vercel environments, allow any .vercel.app origin dynamically
 	// This handles preview deployments where the exact URL isn't known at build time
-	const trustedOrigins: string[] | ((request: Request) => string[] | Promise<string[]>) =
-		process.env.VERCEL
-			? (request: Request) => {
-					const origin = request.headers.get("origin");
-					// If origin is a .vercel.app domain, allow it
-					if (origin?.includes(".vercel.app")) {
-						return [...baseTrustedOrigins, origin];
-					}
-					return baseTrustedOrigins;
+	const trustedOrigins:
+		| string[]
+		| ((request: Request) => string[] | Promise<string[]>) = process.env.VERCEL
+		? (request: Request) => {
+				const origin = request.headers.get("origin");
+				// If origin is a .vercel.app domain, allow it
+				if (origin?.includes(".vercel.app")) {
+					return [...baseTrustedOrigins, origin];
 				}
-			: baseTrustedOrigins;
+				return baseTrustedOrigins;
+			}
+		: baseTrustedOrigins;
 
 	// Determine if we need cross-origin cookie settings
 	// In Vercel environments or when using HTTPS, we need SameSite=None and Secure

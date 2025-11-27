@@ -1,15 +1,12 @@
-import { auth } from "@dukkani/core";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { getServerSession } from "@/lib/get-server-session";
 
 export default async function AuthLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const session = await auth.api.getSession({
-		headers: await headers(),
-	});
+	const session = await getServerSession();
 
 	// If user is already logged in, redirect to dashboard
 	if (session?.user) {

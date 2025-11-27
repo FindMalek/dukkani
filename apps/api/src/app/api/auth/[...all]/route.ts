@@ -21,23 +21,6 @@ async function handleWithCors(
 		response.headers.set(key, String(value));
 	});
 
-	// Debug logging for cookie inspection (development and Vercel preview)
-	if (
-		process.env.NODE_ENV === "development" ||
-		process.env.VERCEL_ENV === "preview"
-	) {
-		const setCookieHeader = response.headers.get("set-cookie");
-		if (setCookieHeader) {
-			console.log("[Auth] Set-Cookie header:", setCookieHeader);
-		}
-		const cookieHeader = req.headers.get("cookie");
-		if (cookieHeader) {
-			console.log("[Auth] Request Cookie header:", cookieHeader);
-		} else {
-			console.log("[Auth] No Cookie header in request");
-		}
-	}
-
 	return response;
 }
 

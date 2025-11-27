@@ -8,7 +8,6 @@ export function getCorsHeaders(origin: string | null): HeadersInit {
 	// In development, allow requests from localhost origins
 	const isDevelopment = apiEnv.NEXT_PUBLIC_NODE_ENV === "local";
 	const isLocalhost = origin?.startsWith("http://localhost:") ?? false;
-	const isVercelPreview = process.env.VERCEL_ENV === "preview";
 
 	// Build comprehensive allowed origins list
 	const allowedOrigins: (string | null)[] = [
@@ -23,7 +22,6 @@ export function getCorsHeaders(origin: string | null): HeadersInit {
 		process.env.VERCEL_PROJECT_PRODUCTION_URL
 			? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
 			: null,
-		"https://dukkani-dashboard-git-fin-197-findmalek-team.vercel.app",
 	].filter((url): url is string => url !== null);
 
 	// Determine the allowed origin
@@ -50,14 +48,6 @@ export function getCorsHeaders(origin: string | null): HeadersInit {
 	} else {
 		// Fallback to the configured CORS origin
 		allowedOrigin = apiEnv.NEXT_PUBLIC_CORS_ORIGIN;
-	}
-
-	// Debug logging in development/Vercel environments
-	if (isDevelopment || process.env.VERCEL) {
-		console.log("[CORS] Request origin:", origin);
-		console.log("[CORS] Allowed origin:", allowedOrigin);
-		console.log("[CORS] VERCEL_ENV:", process.env.VERCEL_ENV);
-		console.log("[CORS] Allowed origins list:", allowedOrigins);
 	}
 
 	// Return headers with credentials support
