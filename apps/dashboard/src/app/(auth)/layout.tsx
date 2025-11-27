@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "@/lib/get-server-session";
+import { AuthRedirectGuard } from "@/components/auth/auth-redirect-guard";
 
 export default async function AuthLayout({
 	children,
@@ -8,10 +9,11 @@ export default async function AuthLayout({
 }>) {
 	const session = await getServerSession();
 
-	// If user is already logged in, redirect to dashboard
+	// If we have a session server-side, redirect immediately
 	if (session?.user) {
 		redirect("/dashboard");
 	}
 
-	return <>{children}</>;
+	// If server-side check failed (Vercel cross-origin), use client-side check
+	return <AuthRedirectGuard>{children}</AuthRedirectGuard>;
 }
