@@ -1,7 +1,6 @@
 import { scrypt } from "node:crypto";
 import type { PrismaClient } from "@dukkani/db";
 import { hashPassword } from "@dukkani/db/utils/generate-id";
-import { apiEnv } from "@dukkani/env/presets/api";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
@@ -70,7 +69,7 @@ export function createAuth(
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
 	// Build trusted origins array with Vercel support
 	// Better Auth will automatically handle cookie configuration based on baseURL and trustedOrigins
-	const trustedOrigins = [
+	const baseTrustedOrigins = [
 		envConfig.NEXT_PUBLIC_CORS_ORIGIN,
 		envConfig.NEXT_PUBLIC_DASHBOARD_URL,
 		// Add Vercel URLs if available
@@ -82,6 +81,20 @@ export function createAuth(
 			? [`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`]
 			: []),
 	].filter((url): url is string => url !== null);
+
+	// In Vercel environments, allow any .vercel.app origin dynamically
+	// This handles preview deployments where the exact URL isn't known at build time
+	const trustedOrigins: string[] | ((request: Request) => string[] | Promise<string[]>) =
+		process.env.VERCEL
+			? (request: Request) => {
+					const origin = request.headers.get("origin");
+					// If origin is a .vercel.app domain, allow it
+					if (origin?.includes(".vercel.app")) {
+						return [...baseTrustedOrigins, origin];
+					}
+					return baseTrustedOrigins;
+				}
+			: baseTrustedOrigins;
 
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
