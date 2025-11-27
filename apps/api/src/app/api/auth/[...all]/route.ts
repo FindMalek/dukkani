@@ -21,56 +21,14 @@ async function handleWithCors(
 		response.headers.set(key, String(value));
 	});
 
-	// Debug logging for cookie setting (development and Vercel preview)
-	if (
-		process.env.NODE_ENV === "development" ||
-		process.env.VERCEL_ENV === "preview"
-	) {
-		const setCookieHeader = response.headers.get("set-cookie");
-		if (setCookieHeader) {
-			console.log("[Auth] Set-Cookie header:", setCookieHeader);
-			// Parse and log cookie attributes
-			const cookies = setCookieHeader.split(", ");
-			cookies.forEach((cookie) => {
-				console.log("[Auth] Cookie:", cookie);
-			});
-		} else {
-			console.log("[Auth] No Set-Cookie header in response");
-		}
-	}
-
 	return response;
 }
 
 export async function GET(req: NextRequest) {
-	// Debug logging (development and Vercel preview)
-	if (
-		process.env.NODE_ENV === "development" ||
-		process.env.VERCEL_ENV === "preview"
-	) {
-		console.log("Auth GET - Origin:", req.headers.get("origin"));
-		console.log(
-			"Auth GET - Cookies:",
-			req.cookies.getAll().map((c) => c.name),
-		);
-	}
-
 	return handleWithCors(req, authHandlers.GET);
 }
 
 export async function POST(req: NextRequest) {
-	// Debug logging (development and Vercel preview)
-	if (
-		process.env.NODE_ENV === "development" ||
-		process.env.VERCEL_ENV === "preview"
-	) {
-		console.log("Auth POST - Origin:", req.headers.get("origin"));
-		console.log(
-			"Auth POST - Cookies:",
-			req.cookies.getAll().map((c) => c.name),
-		);
-	}
-
 	return handleWithCors(req, authHandlers.POST);
 }
 

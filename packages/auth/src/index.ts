@@ -68,84 +68,28 @@ export function createAuth(
 		NEXT_PUBLIC_DASHBOARD_URL?: string; // Optional - if not provided, only CORS_ORIGIN is used
 	},
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
-	// CRITICAL: Log immediately to verify this function is being called
-	// Version: 2025-11-25-00:40 - Force rebuild to clear cache
-	console.log("[Auth] ========================================");
-	console.log("[Auth] createAuth called - Initializing Better Auth instance");
-	console.log("[Auth] Version: 2025-11-25-00:40");
-	console.log("[Auth] Environment check - VERCEL:", !!process.env.VERCEL);
-	console.log("[Auth] Environment check - VERCEL_ENV:", process.env.VERCEL_ENV);
-	console.log("[Auth] Environment check - CORS_ORIGIN:", envConfig.NEXT_PUBLIC_CORS_ORIGIN);
-	console.log("[Auth] ========================================");
-	
 	// Build trusted origins array with Vercel support
+	// Better Auth will automatically handle cookie configuration based on baseURL and trustedOrigins
 	const trustedOrigins = [
 		envConfig.NEXT_PUBLIC_CORS_ORIGIN,
-		envConfig.NEXT_PUBLIC_DASHBOARD_URL || null,
+		envConfig.NEXT_PUBLIC_DASHBOARD_URL,
 		// Add Vercel URLs if available
-		process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
-		process.env.VERCEL_BRANCH_URL
-			? `https://${process.env.VERCEL_BRANCH_URL}`
-			: null,
-		process.env.VERCEL_PROJECT_PRODUCTION_URL
-			? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-			: null,
+		...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
+		...(process.env.VERCEL_BRANCH_URL
+			? [`https://${process.env.VERCEL_BRANCH_URL}`]
+			: []),
+		...(process.env.VERCEL_PROJECT_PRODUCTION_URL
+			? [`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`]
+			: []),
 	].filter((url): url is string => url !== null);
-
-	// Log trusted origins in development for debugging
-	if (apiEnv.NEXT_PUBLIC_NODE_ENV === "local") {
-		console.log("[Auth] Trusted origins:", trustedOrigins);
-	}
-
-	// Determine if we're in a local development environment
-	// In Vercel (preview/production), we need cross-origin cookies
-	const isLocal =
-		apiEnv.NEXT_PUBLIC_NODE_ENV === "local" &&
-		!process.env.VERCEL &&
-		!envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://");
-
-	// In Vercel (any environment) or HTTPS, we need SameSite=None and Secure
-	// Only use lax in true localhost development
-	// Priority: VERCEL_ENV > VERCEL > HTTPS > NODE_ENV
-	// Use VERCEL_ENV as primary check since it's more reliable in Vercel
-	const isProduction =
-		process.env.VERCEL_ENV === "production" ||
-		process.env.VERCEL_ENV === "preview" ||
-		!!process.env.VERCEL ||
-		envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://") ||
-		apiEnv.NEXT_PUBLIC_NODE_ENV === "production";
-
-	// Debug logging for cookie configuration - always log in Vercel or non-local
-	// This helps diagnose cookie configuration issues
-	console.log("[Auth] Cookie configuration:");
-	console.log("  - NEXT_PUBLIC_NODE_ENV:", apiEnv.NEXT_PUBLIC_NODE_ENV);
-	console.log("  - VERCEL:", !!process.env.VERCEL);
-	console.log("  - VERCEL_ENV:", process.env.VERCEL_ENV);
-	console.log("  - CORS_ORIGIN:", envConfig.NEXT_PUBLIC_CORS_ORIGIN);
-	console.log("  - CORS_ORIGIN starts with https:", envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://"));
-	console.log("  - isLocal:", isLocal);
-	console.log("  - isProduction:", isProduction);
-	console.log("  - Cookie SameSite:", isProduction ? "none" : "lax");
-	console.log("  - Cookie Secure:", isProduction);
 
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
 			provider: "postgresql",
 		}),
 		secret: envConfig.BETTER_AUTH_SECRET,
-		trustedOrigins,
 		baseURL: envConfig.NEXT_PUBLIC_CORS_ORIGIN,
-		advanced: {
-			cookies: {
-				sessionToken: {
-					attributes: {
-						sameSite: isProduction ? "none" : "lax",
-						secure: isProduction,
-						httpOnly: true,
-					},
-				},
-			},
-		},
+		trustedOrigins,
 		emailAndPassword: {
 			enabled: true,
 			password: {
