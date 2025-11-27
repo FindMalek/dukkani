@@ -23,6 +23,7 @@ export function getCorsHeaders(origin: string | null): HeadersInit {
 		process.env.VERCEL_PROJECT_PRODUCTION_URL
 			? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
 			: null,
+		"https://dukkani-dashboard-git-fin-197-findmalek-team.vercel.app",
 	].filter((url): url is string => url !== null);
 
 	// Determine the allowed origin
