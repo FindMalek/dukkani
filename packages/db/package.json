@@ -28,7 +28,7 @@
 		"build": "tsdown",
 		"db:push": "prisma db push",
 		"db:studio": "prisma studio",
-		"db:generate": "prisma generate",
+		"db:generate": "PRISMA_TELEMETRY_DISABLED=1 prisma generate",
 		"db:migrate": "prisma migrate dev",
 		"db:seed": "tsx src/seed/index.ts",
 		"db:reset-and-seed": "pnpm db:reset && pnpm db:seed",
