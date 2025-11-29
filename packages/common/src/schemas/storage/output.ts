@@ -66,7 +66,6 @@ export const uploadFilesOutputSchema = z.object({
 });
 
 export const storageFileResultSchema = z.object({
-	id: z.string(),
 	bucket: z.string(),
 	path: z.string(),
 	originalUrl: z.string(),

@@ -224,42 +224,36 @@ export const storageRouter = {
 					return { success: true, deleted: 0 };
 				}
 
-				// Group files by bucket for efficient deletion
-				const filesByBucket = new Map<string, typeof files>();
+				// Prepare paths for storage deletion (group by bucket)
+				const filesByBucket = new Map<
+					string,
+					Array<{ paths: string[]; fileId: string }>
+				>();
 				for (const file of files) {
-					const bucketFiles = filesByBucket.get(file.bucket) ?? [];
-					bucketFiles.push(file);
-					filesByBucket.set(file.bucket, bucketFiles);
-				}
-
-				// Delete from storage and database in transaction
-				await database.$transaction(async (tx) => {
-					// Delete from storage (group by bucket)
-					for (const [bucket, bucketFiles] of filesByBucket.entries()) {
-						const pathsToDelete: string[] = [];
-						for (const file of bucketFiles) {
-							pathsToDelete.push(file.path);
-							for (const variant of file.variants) {
-								try {
-									const url = new URL(variant.url);
-									// Extract path after /object/public/{bucket}/
-									const pathMatch = url.pathname.match(
-										/\/object\/public\/[^/]+\/(.+)$/,
-									);
-									if (pathMatch?.[1]) {
-										pathsToDelete.push(pathMatch[1]);
-									}
-								} catch {
-									// If URL parsing fails, skip this variant
-									console.warn("Failed to parse variant URL:", variant.url);
-								}
+					const paths = [file.path];
+					for (const variant of file.variants) {
+						try {
+							const url = new URL(variant.url);
+							// Extract path after /object/public/{bucket}/
+							const pathMatch = url.pathname.match(
+								/\/object\/public\/[^/]+\/(.+)$/,
+							);
+							if (pathMatch?.[1]) {
+								paths.push(pathMatch[1]);
 							}
-						}
-						if (pathsToDelete.length > 0) {
-							await StorageService.deleteFiles(bucket, pathsToDelete);
+						} catch {
+							// If URL parsing fails, skip this variant
+							console.warn("Failed to parse variant URL:", variant.url);
 						}
 					}
 
+					const bucketFiles = filesByBucket.get(file.bucket) ?? [];
+					bucketFiles.push({ paths, fileId: file.id });
+					filesByBucket.set(file.bucket, bucketFiles);
+				}
+
+				// Delete from database first (within transaction)
+				await database.$transaction(async (tx) => {
 					// Delete from database
 					await Promise.all(
 						files.map((file) =>
@@ -268,7 +262,36 @@ export const storageRouter = {
 					);
 				});
 
-				return { success: true, deleted: files.length };
+				// Delete from storage after DB commit succeeds
+				const storageErrors: Array<{
+					bucket: string;
+					paths: string[];
+					error: unknown;
+				}> = [];
+				for (const [bucket, bucketFiles] of filesByBucket.entries()) {
+					const allPaths = bucketFiles.flatMap((f) => f.paths);
+					if (allPaths.length > 0) {
+						try {
+							await StorageService.deleteFiles(bucket, allPaths);
+						} catch (error) {
+							// Log for cleanup - DB records are already deleted
+							storageErrors.push({ bucket, paths: allPaths, error });
+							console.error(
+								"Failed to delete storage files, orphaned:",
+								{ bucket, paths: allPaths },
+								error,
+							);
+						}
+					}
+				}
+
+				return {
+					success: true,
+					deleted: files.length,
+					...(storageErrors.length > 0 && {
+						warnings: storageErrors.length,
+					}),
+				};
 			} catch (error) {
 				if (error instanceof ORPCError) {
 					throw error;

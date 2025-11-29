@@ -153,7 +153,6 @@ export class StorageService {
 			variants.find((v) => v.variant === "MEDIUM")?.url || originalUrl;
 
 		return {
-			id: nanoid(),
 			bucket,
 			path: uploadData.path,
 			originalUrl,
