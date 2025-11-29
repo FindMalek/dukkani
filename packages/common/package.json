@@ -36,6 +36,7 @@
 	},
 	"dependencies": {
 		"@dukkani/db": "workspace:*",
+		"@orpc/zod": "catalog:",
 		"@prisma/client": "catalog:",
 		"nanoid": "catalog:",
 		"zod": "catalog:"

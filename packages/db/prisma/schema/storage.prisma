@@ -1,0 +1,91 @@
+/**
+ * Represents a file stored in cloud storage (Supabase Storage).
+ * This model tracks uploaded files and their metadata.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `bucket`: Storage bucket name (e.g., "products", "avatars", "store-assets")
+ * - `path`: File path in storage (e.g., "abc123/original.webp")
+ * - `originalUrl`: URL to the original uploaded file
+ * - `url`: Default URL (typically the medium size variant for images)
+ * - `mimeType`: File MIME type (e.g., "image/webp", "image/jpeg")
+ * - `fileSize`: Original file size in bytes
+ * - `optimizedSize`: Optimized file size in bytes (after compression)
+ * - `width`: Image width in pixels (null for non-images)
+ * - `height`: Image height in pixels (null for non-images)
+ * - `alt`: Optional alt text for accessibility/SEO
+ * **Relationships:**
+ * - Has many StorageFileVariant (size variants for images)
+ * **Business Logic:**
+ * - Files are stored in Supabase Storage
+ * - Size variants are generated automatically on upload for images
+ * - When file is deleted, all variants are cascade deleted
+ */
+model StorageFile {
+  id String @id @default(cuid())
+
+  // Storage metadata
+  bucket      String
+  path        String
+  originalUrl String @map("originalurl")
+  url         String // Default URL (medium size for images, original for others)
+
+  // File metadata
+  mimeType      String @map("mimetype")
+  fileSize      Int    @map("filesize") // Original size in bytes
+  optimizedSize Int?   @map("optimizedsize") // Optimized size in bytes
+  width         Int? // Image width in pixels
+  height        Int? // Image height in pixels
+
+  // Additional metadata
+  alt String? // Alt text for accessibility/SEO
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  variants StorageFileVariant[]
+
+  @@index([bucket])
+  @@index([mimeType])
+  @@map("storagefile")
+}
+
+/**
+ * Represents a size variant of a StorageFile.
+ * For images, multiple variants are generated (thumbnail, small, medium, large).
+ * For non-image files, this may not be used.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `storageFileId`: Reference to the parent StorageFile
+ * - `variant`: Size variant type (THUMBNAIL, SMALL, MEDIUM, LARGE)
+ * - `url`: URL to this specific size variant
+ * - `width`: Variant width in pixels
+ * - `height`: Variant height in pixels
+ * - `fileSize`: Variant file size in bytes
+ * **Relationships:**
+ * - Belongs to one StorageFile
+ * **Business Logic:**
+ * - Variants are generated automatically during image upload
+ * - When parent file is deleted, variants are cascade deleted
+ */
+model StorageFileVariant {
+  id String @id @default(cuid())
+
+  storageFileId String      @map("storagefileid")
+  storageFile   StorageFile @relation(fields: [storageFileId], references: [id], onDelete: Cascade)
+
+  variant StorageFileVariantType
+  url     String
+
+  width    Int? // Variant width in pixels
+  height   Int? // Variant height in pixels
+  fileSize Int  @map("filesize") // Variant file size in bytes
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([storageFileId, variant])
+  @@index([storageFileId])
+  @@index([variant])
+  @@map("storagefilevariant")
+}

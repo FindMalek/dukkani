@@ -5,10 +5,9 @@ import ws from "ws";
 import { PrismaClient } from "../prisma/generated/client";
 import { PrismaClientKnownRequestError } from "../prisma/generated/internal/prismaNamespace";
 
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
-
-// Import env type for inference (lazy to avoid circular dependency)
 import type { env as dbEnvType } from "./env";
+
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
 /**
  * Type for database environment variables

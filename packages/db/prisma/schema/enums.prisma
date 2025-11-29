@@ -55,3 +55,10 @@ enum HealthStatus {
   UNHEALTHY
   UNKNOWN
 }
+
+enum StorageFileVariantType {
+  THUMBNAIL // 150x150px
+  SMALL // 400x400px
+  MEDIUM // 800x800px
+  LARGE // 1200x1200px
+}
