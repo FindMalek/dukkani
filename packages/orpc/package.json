@@ -38,7 +38,6 @@
 		"@orpc/openapi": "catalog:",
 		"@orpc/server": "catalog:",
 		"@orpc/tanstack-query": "catalog:",
-		"@orpc/zod": "catalog:",
 		"@prisma/client": "catalog:",
 		"@tanstack/react-query": "catalog:",
 		"dotenv": "catalog:",
