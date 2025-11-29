@@ -10,17 +10,18 @@
 	},
 	"dependencies": {
 		"@dukkani/auth": "workspace:*",
+		"@dukkani/common": "workspace:*",
+		"@dukkani/core": "workspace:*",
 		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"@dukkani/orpc": "workspace:*",
-		"@dukkani/core": "workspace:*",
-		"@dukkani/common": "workspace:*",
 		"@orpc/openapi": "catalog:",
 		"@orpc/server": "catalog:",
 		"@orpc/zod": "catalog:",
 		"@prisma/client": "catalog:",
 		"better-auth": "catalog:",
 		"next": "catalog:",
+		"sharp": "catalog:",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
