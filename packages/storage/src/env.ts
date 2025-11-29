@@ -1,7 +1,7 @@
-import { storageEnv } from "@dukkani/env/presets";
+import { apiEnv } from "@dukkani/env/presets";
 
 /**
  * Storage package environment
  * Uses storageEnv preset which includes Supabase credentials and storage configuration
  */
-export const env = storageEnv;
+export const env = apiEnv;

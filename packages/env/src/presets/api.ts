@@ -8,7 +8,12 @@ import { baseEnv } from "../base";
  */
 export const apiEnv = createEnv({
 	extends: [baseEnv],
-	server: {},
+	server: {
+		SUPABASE_URL: z.url(),
+		SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+		STORAGE_MAX_FILE_SIZE: z.number().int().positive().default(5242880), // 5MB default
+		STORAGE_ALLOWED_MIME_TYPES: z.string().default("image/*"),
+	},
 	client: {
 		NEXT_PUBLIC_DASHBOARD_URL: z.url(),
 		NEXT_PUBLIC_ALLOWED_ORIGIN: z.string(),
