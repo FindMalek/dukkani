@@ -1,0 +1,38 @@
+{
+	"name": "@dukkani/storage",
+	"version": "0.1.0",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./src/index.ts"
+		},
+		"./env": {
+			"types": "./dist/env.d.ts",
+			"default": "./src/env.ts"
+		},
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"default": "./src/*.ts"
+		}
+	},
+	"type": "module",
+	"scripts": {
+		"build": "tsdown",
+		"clean": "rm -rf dist node_modules"
+	},
+	"devDependencies": {
+		"@dukkani/config": "workspace:*",
+		"tsdown": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "^5.9.3"
+	},
+	"dependencies": {
+		"@dukkani/db": "workspace:*",
+		"@dukkani/env": "workspace:*",
+		"@dukkani/common": "workspace:*",
+		"@supabase/supabase-js": "^2.47.10",
+		"sharp": "catalog:",
+		"nanoid": "^5.0.6"
+	}
+}
