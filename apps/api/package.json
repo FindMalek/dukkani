@@ -14,6 +14,7 @@
 		"@dukkani/env": "workspace:*",
 		"@dukkani/orpc": "workspace:*",
 		"@dukkani/core": "workspace:*",
+		"@dukkani/common": "workspace:*",
 		"@orpc/openapi": "catalog:",
 		"@orpc/server": "catalog:",
 		"@orpc/zod": "catalog:",

@@ -135,6 +135,9 @@ importers:
       '@dukkani/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@dukkani/common':
+        specifier: workspace:*
+        version: link:../../packages/common
       '@dukkani/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -345,6 +348,9 @@ importers:
 
   packages/auth:
     dependencies:
+      '@dukkani/common':
+        specifier: workspace:*
+        version: link:../common
       '@dukkani/db':
         specifier: workspace:*
         version: link:../db

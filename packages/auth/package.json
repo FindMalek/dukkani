@@ -30,6 +30,7 @@
 	"dependencies": {
 		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*",
+		"@dukkani/common": "workspace:*",
 		"@t3-oss/env-core": "catalog:",
 		"better-auth": "catalog:",
 		"dotenv": "catalog:",

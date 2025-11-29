@@ -36,15 +36,6 @@ export function AuthGuard({
 		}
 	}, [session, isPending, router, redirectTo, requireAuth]);
 
-	// Show loading state while checking session
-	if (isPending) {
-		return (
-			<div className="flex h-screen items-center justify-center">
-				<div className="text-muted-foreground">Loading...</div>
-			</div>
-		);
-	}
-
 	// If requireAuth and no session, don't render (redirect will happen)
 	// If !requireAuth and has session, don't render (redirect will happen)
 	const hasSession = !!session?.user;

@@ -1,4 +1,3 @@
-import { scrypt } from "node:crypto";
 import type { PrismaClient } from "@dukkani/db";
 import { hashPassword } from "@dukkani/db/utils/generate-id";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
@@ -6,44 +5,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
 import { openAPI } from "better-auth/plugins";
 import type { env } from "./env";
-
-/**
- * Custom password verifier to match seeder format
- * Format: salt:hash (both base64 encoded)
- * BetterAuth expects: verify({ hash, password })
- */
-async function verifyPassword({
-	hash: hashedPassword,
-	password,
-}: {
-	hash: string;
-	password: string;
-}): Promise<boolean> {
-	const [saltBase64, hashBase64] = hashedPassword.split(":");
-	if (!saltBase64 || !hashBase64) {
-		return false;
-	}
-
-	const salt = Buffer.from(saltBase64, "base64");
-	const hash = await new Promise<Buffer>((resolve, reject) => {
-		scrypt(
-			password,
-			salt,
-			64,
-			{
-				N: 16384,
-				r: 8,
-				p: 1,
-			},
-			(err, derivedKey) => {
-				if (err) reject(err);
-				else resolve(derivedKey);
-			},
-		);
-	});
-
-	return hash.toString("base64") === hashBase64;
-}
+import { buildTrustedOrigins, verifyPassword } from "./utils";
 
 /**
  * Factory function to create a Better Auth instance
@@ -55,56 +17,26 @@ async function verifyPassword({
  */
 export function createAuth(
 	database: PrismaClient,
-	envConfig: Pick<
-		typeof env,
-		| "BETTER_AUTH_SECRET"
-		| "NEXT_PUBLIC_CORS_ORIGIN"
-		| "GOOGLE_CLIENT_ID"
-		| "GOOGLE_CLIENT_SECRET"
-		| "FACEBOOK_CLIENT_ID"
-		| "FACEBOOK_CLIENT_SECRET"
-	> & {
-		NEXT_PUBLIC_DASHBOARD_URL?: string; // Optional - if not provided, only CORS_ORIGIN is used
-	},
+	envConfig: typeof env,
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
-	// Build trusted origins array with Vercel support
-	// Better Auth will automatically handle cookie configuration based on baseURL and trustedOrigins
-	const baseTrustedOrigins = [
+	const originConfig = [
 		envConfig.NEXT_PUBLIC_CORS_ORIGIN,
 		envConfig.NEXT_PUBLIC_DASHBOARD_URL,
-		// Add Vercel URLs if available
-		...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
-		...(process.env.VERCEL_BRANCH_URL
-			? [`https://${process.env.VERCEL_BRANCH_URL}`]
-			: []),
-		...(process.env.VERCEL_PROJECT_PRODUCTION_URL
-			? [`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`]
-			: []),
-	].filter((url): url is string => url !== null);
+		envConfig.VERCEL_BRANCH_URL,
+		envConfig.VERCEL_PROJECT_PRODUCTION_URL,
+	];
 
-	// In Vercel environments, allow any .vercel.app origin dynamically
-	// This handles preview deployments where the exact URL isn't known at build time
-	const trustedOrigins:
-		| string[]
-		| ((request: Request) => string[] | Promise<string[]>) = process.env.VERCEL
-		? (request: Request) => {
-				const origin = request.headers.get("origin");
-				// If origin is a .vercel.app domain, allow it
-				if (origin?.includes(".vercel.app")) {
-					return [...baseTrustedOrigins, origin];
-				}
-				return baseTrustedOrigins;
-			}
-		: baseTrustedOrigins;
+	const trustedOrigins = buildTrustedOrigins(
+		originConfig,
+		!!envConfig.VERCEL,
+		envConfig.NEXT_PUBLIC_ALLOWED_ORIGIN,
+	);
 
 	// Determine if we need cross-origin cookie settings
 	// In Vercel environments or when using HTTPS, we need SameSite=None and Secure
-	const isVercel = !!process.env.VERCEL;
+	const isVercel = !!envConfig.VERCEL;
 	const isProduction =
-		isVercel ||
-		process.env.VERCEL_ENV === "production" ||
-		process.env.VERCEL_ENV === "preview" ||
-		envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://");
+		isVercel || envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://");
 
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
@@ -114,9 +46,7 @@ export function createAuth(
 		baseURL: envConfig.NEXT_PUBLIC_CORS_ORIGIN,
 		trustedOrigins,
 		advanced: {
-			// Force secure cookies in production/Vercel environments
 			useSecureCookies: isProduction,
-			// Configure cookies for cross-origin requests
 			cookies: {
 				session_token: {
 					attributes: {
