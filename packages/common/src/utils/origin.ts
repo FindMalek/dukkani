@@ -15,6 +15,14 @@ export function isOriginAllowed(
 
 	// Wildcard pattern matching (e.g., *.vercel.app)
 	if (allowedOriginPattern.includes("*")) {
+		// Validate pattern safety: only allow simple wildcard patterns
+		// Pattern must be: optional wildcard, followed by domain segments
+		const safePatternRegex =
+			/^\*?\.?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+		if (!safePatternRegex.test(allowedOriginPattern)) {
+			return false;
+		}
+
 		// Convert wildcard pattern to regex
 		// *.vercel.app -> ^.*\.vercel\.app$
 		const regexPattern = allowedOriginPattern

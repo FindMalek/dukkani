@@ -14,10 +14,8 @@ export function getCorsHeaders(origin: string | null): HeadersInit {
 		apiEnv.NEXT_PUBLIC_DASHBOARD_URL,
 		apiEnv.VERCEL_BRANCH_URL,
 		apiEnv.VERCEL_PROJECT_PRODUCTION_URL,
-	].filter(
-		(origin) => origin !== undefined,
-	);
-	
+	].filter((origin) => origin !== undefined);
+
 	let allowedOrigin: string;
 	if (isDevelopment && isLocalhost && origin) {
 		allowedOrigin = origin;
