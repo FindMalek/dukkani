@@ -391,9 +391,6 @@ importers:
       '@dukkani/db':
         specifier: workspace:*
         version: link:../db
-      '@orpc/zod':
-        specifier: 'catalog:'
-        version: 1.11.2(@orpc/contract@1.11.2)(@orpc/server@1.11.2(ws@8.18.3))(ws@8.18.3)(zod@4.1.12)
       '@prisma/client':
         specifier: 'catalog:'
         version: 7.0.0(prisma@7.0.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(typescript@5.9.3)
@@ -547,9 +544,6 @@ importers:
       '@orpc/tanstack-query':
         specifier: 'catalog:'
         version: 1.11.2(@orpc/client@1.11.2)(@tanstack/query-core@5.90.9)
-      '@orpc/zod':
-        specifier: 'catalog:'
-        version: 1.11.2(@orpc/contract@1.11.2)(@orpc/server@1.11.2(ws@8.18.3))(ws@8.18.3)(zod@4.1.12)
       '@prisma/client':
         specifier: 'catalog:'
         version: 7.0.0(prisma@7.0.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(typescript@5.9.3)
