@@ -1,4 +1,4 @@
-import { z } from "@orpc/zod";
+import { z } from "zod";
 
 export const uploadFileInputSchema = z.object({
 	file: z.file(),
@@ -16,8 +16,7 @@ export const uploadFilesInputSchema = z.object({
 });
 
 export const deleteFileInputSchema = z.object({
-	bucket: z.string().min(1, "Bucket name is required"),
-	path: z.string().min(1, "Path is required"),
+	id: z.string().min(1, "File ID is required"),
 });
 
 export const deleteFilesInputSchema = z.object({

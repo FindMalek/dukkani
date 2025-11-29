@@ -32,26 +32,8 @@ export const storageRouter = {
 				);
 
 				// Create database record with variants
-				const fileData = {
-					bucket: result.bucket,
-					path: result.path,
-					originalUrl: result.originalUrl,
-					url: result.url,
-					mimeType: result.mimeType,
-					fileSize: result.fileSize,
-					optimizedSize: result.optimizedSize ?? null,
-					width: result.width ?? null,
-					height: result.height ?? null,
-					alt: input.alt ?? null,
-				};
-
-				const variants = result.variants.map((v) => ({
-					variant: v.variant,
-					url: v.url,
-					width: v.width ?? null,
-					height: v.height ?? null,
-					fileSize: v.fileSize,
-				}));
+				const fileData = StorageFileEntity.createFileData(result);
+				const variants = StorageFileEntity.createVariantData(result);
 
 				// Use transaction to ensure atomicity
 				const storageFile = await database.$transaction(async (tx) => {
@@ -109,26 +91,8 @@ export const storageRouter = {
 					const createdFileIds: string[] = [];
 
 					for (const result of results) {
-						const fileData = {
-							bucket: result.bucket,
-							path: result.path,
-							originalUrl: result.originalUrl,
-							url: result.url,
-							mimeType: result.mimeType,
-							fileSize: result.fileSize,
-							optimizedSize: result.optimizedSize ?? null,
-							width: result.width ?? null,
-							height: result.height ?? null,
-							alt: input.alt ?? null,
-						};
-
-						const variants = result.variants.map((v) => ({
-							variant: v.variant,
-							url: v.url,
-							width: v.width ?? null,
-							height: v.height ?? null,
-							fileSize: v.fileSize,
-						}));
+						const fileData = StorageFileEntity.createFileData(result);
+						const variants = StorageFileEntity.createVariantData(result);
 
 						const storageFile =
 							await StorageDbService.createStorageFileWithVariants(
@@ -202,7 +166,7 @@ export const storageRouter = {
 						const pathMatch = url.pathname.match(
 							/\/object\/public\/[^/]+\/(.+)$/,
 						);
-						if (pathMatch) {
+						if (pathMatch?.[1]) {
 							paths.push(pathMatch[1]);
 						}
 					} catch {
@@ -282,7 +246,7 @@ export const storageRouter = {
 									const pathMatch = url.pathname.match(
 										/\/object\/public\/[^/]+\/(.+)$/,
 									);
-									if (pathMatch) {
+									if (pathMatch?.[1]) {
 										pathsToDelete.push(pathMatch[1]);
 									}
 								} catch {

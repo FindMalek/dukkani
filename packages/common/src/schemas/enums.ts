@@ -1,13 +1,14 @@
-import { z } from "zod";
 import {
-	OrderStatus,
-	WhatsAppMessageStatus,
-	TeamMemberRole,
-	StorePlanType,
-	StoreCategory,
-	StoreTheme,
 	HealthStatus,
+	OrderStatus,
+	StorageFileVariantType,
+	StoreCategory,
+	StorePlanType,
+	StoreTheme,
+	TeamMemberRole,
+	WhatsAppMessageStatus,
 } from "@dukkani/db/prisma/generated/enums";
+import { z } from "zod";
 
 /**
  * Order Status Enum
@@ -75,3 +76,18 @@ export const healthStatusSchema = z.nativeEnum(HealthStatus);
 export const healthStatusEnum = healthStatusSchema.enum;
 export const LIST_HEALTH_STATUSES = Object.values(HealthStatus);
 export type HealthStatusInfer = z.infer<typeof healthStatusSchema>;
+
+/**
+ * Storage File Variant Type Enum
+ */
+export { StorageFileVariantType };
+export const storageFileVariantTypeSchema = z.nativeEnum(
+	StorageFileVariantType,
+);
+export const storageFileVariantTypeEnum = storageFileVariantTypeSchema.enum;
+export const LIST_STORAGE_FILE_VARIANT_TYPES = Object.values(
+	StorageFileVariantType,
+);
+export type StorageFileVariantTypeInfer = z.infer<
+	typeof storageFileVariantTypeSchema
+>;

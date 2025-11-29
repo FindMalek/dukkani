@@ -1,32 +1,9 @@
+import { VARIANT_SIZES } from "@dukkani/common/schemas/storage/constants";
+import type {
+	ImageVariant,
+	ProcessedImage,
+} from "@dukkani/common/schemas/storage/output";
 import sharp from "sharp";
-
-export type ImageVariant = {
-	variant: "THUMBNAIL" | "SMALL" | "MEDIUM" | "LARGE";
-	buffer: Buffer;
-	width: number;
-	height: number;
-	fileSize: number;
-	mimeType: string;
-};
-
-export type ProcessedImage = {
-	original: {
-		buffer: Buffer;
-		width: number;
-		height: number;
-		fileSize: number;
-		mimeType: string;
-	};
-	variants: ImageVariant[];
-	optimizedSize: number;
-};
-
-const VARIANT_SIZES = {
-	THUMBNAIL: { width: 150, height: 150 },
-	SMALL: { width: 400, height: 400 },
-	MEDIUM: { width: 800, height: 800 },
-	LARGE: { width: 1200, height: 1200 },
-} as const;
 
 /**
  * Image processor for optimization and variant generation
@@ -75,7 +52,7 @@ export class ImageProcessor {
 					height: variantMetadata.height ?? size.height,
 					fileSize: resized.length,
 					mimeType,
-				};
+				} satisfies Omit<ImageVariant, "buffer"> & { buffer: Buffer };
 			},
 		);
 
@@ -141,7 +118,7 @@ export class ImageProcessor {
 					height: variantMetadata.height ?? size.height,
 					fileSize: resized.length,
 					mimeType: outputMimeType,
-				};
+				} satisfies Omit<ImageVariant, "buffer"> & { buffer: Buffer };
 			},
 		);
 

@@ -30,6 +30,7 @@
 	"dependencies": {
 		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*",
+		"@dukkani/common": "workspace:*",
 		"@supabase/supabase-js": "^2.47.10",
 		"sharp": "^0.34.5",
 		"nanoid": "^5.0.6"

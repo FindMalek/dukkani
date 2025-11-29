@@ -575,6 +575,9 @@ importers:
 
   packages/storage:
     dependencies:
+      '@dukkani/common':
+        specifier: workspace:*
+        version: link:../common
       '@dukkani/db':
         specifier: workspace:*
         version: link:../db

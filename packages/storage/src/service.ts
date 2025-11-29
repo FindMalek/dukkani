@@ -1,31 +1,14 @@
+import type {
+	ProcessedImage,
+	StorageFileResult,
+} from "@dukkani/common/schemas/storage/output";
 import { nanoid } from "nanoid";
 import { storageClient } from "./client";
 import { env } from "./env";
-import { ImageProcessor, type ProcessedImage } from "./image-processor";
+import { ImageProcessor } from "./image-processor";
 
 export type UploadOptions = {
 	alt?: string;
-};
-
-export type StorageFileResult = {
-	id: string;
-	bucket: string;
-	path: string;
-	originalUrl: string;
-	url: string;
-	mimeType: string;
-	fileSize: number;
-	optimizedSize?: number;
-	width?: number;
-	height?: number;
-	alt?: string;
-	variants: Array<{
-		variant: "THUMBNAIL" | "SMALL" | "MEDIUM" | "LARGE";
-		url: string;
-		width: number;
-		height: number;
-		fileSize: number;
-	}>;
 };
 
 /**
@@ -67,7 +50,6 @@ export class StorageService {
 	 */
 	private static generateFilePath(fileName: string): string {
 		const id = nanoid();
-		const extension = fileName.split(".").pop() || "";
 		const sanitizedName = fileName.replace(/[^a-zA-Z0-9.-]/g, "_").slice(0, 50);
 		return `${id}/${sanitizedName}`;
 	}
@@ -105,9 +87,9 @@ export class StorageService {
 		}
 
 		// Upload original file
-		const originalBuffer = processedImage
-			? processedImage.original.buffer
-			: Buffer.from(await file.arrayBuffer());
+		// Upload original file
+		const originalBuffer =
+			processedImage?.original.buffer ?? Buffer.from(await file.arrayBuffer());
 
 		const { data: uploadData, error: uploadError } = await storageClient.storage
 			.from(bucket)
@@ -125,8 +107,12 @@ export class StorageService {
 		// Upload variants if image was processed
 		const variants: StorageFileResult["variants"] = [];
 		if (processedImage) {
-			const variantUploadPromises = processedImage.variants.map(
-				async (variant) => {
+			const variantUploadPromises = processedImage.variants
+				.filter(
+					(variant): variant is typeof variant & { buffer: Buffer } =>
+						variant.buffer !== undefined,
+				)
+				.map(async (variant) => {
 					const variantPath = `${filePath.replace(/\.[^/.]+$/, "")}_${variant.variant.toLowerCase()}.${variant.mimeType.split("/")[1]}`;
 
 					const { data: variantData, error: variantError } =
@@ -152,8 +138,7 @@ export class StorageService {
 						height: variant.height,
 						fileSize: variant.fileSize,
 					};
-				},
-			);
+				});
 
 			const uploadedVariants = await Promise.all(variantUploadPromises);
 			variants.push(

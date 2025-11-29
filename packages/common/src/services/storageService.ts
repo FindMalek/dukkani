@@ -1,27 +1,9 @@
+import type {
+	CreateStorageFileData,
+	CreateVariantData,
+} from "@dukkani/common/schemas/storage/output";
 import { database } from "@dukkani/db";
-import type { StorageFileVariantType } from "@dukkani/db/prisma/generated/enums";
 import type { PrismaClient } from "@prisma/client/extension";
-
-export type CreateStorageFileData = {
-	bucket: string;
-	path: string;
-	originalUrl: string;
-	url: string;
-	mimeType: string;
-	fileSize: number;
-	optimizedSize?: number | null;
-	width?: number | null;
-	height?: number | null;
-	alt?: string | null;
-};
-
-export type CreateVariantData = {
-	variant: StorageFileVariantType;
-	url: string;
-	width?: number | null;
-	height?: number | null;
-	fileSize: number;
-};
 
 /**
  * Storage database service - Database operations for storage files

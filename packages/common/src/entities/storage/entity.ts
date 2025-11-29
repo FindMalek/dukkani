@@ -1,10 +1,13 @@
 import type {
-	StorageFileSimpleOutput,
+	CreateStorageFileData,
+	CreateVariantData,
 	StorageFileIncludeOutput,
+	StorageFileResult,
+	StorageFileSimpleOutput,
 } from "../../schemas/storage/output";
 import type {
-	StorageFileSimpleDbData,
 	StorageFileIncludeDbData,
+	StorageFileSimpleDbData,
 } from "./query";
 
 export class StorageFileEntity {
@@ -28,7 +31,7 @@ export class StorageFileEntity {
 
 	static getRo(entity: StorageFileIncludeDbData): StorageFileIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...StorageFileEntity.getSimpleRo(entity),
 			variants: entity.variants.map((variant) => ({
 				id: variant.id,
 				storageFileId: variant.storageFileId,
@@ -41,5 +44,30 @@ export class StorageFileEntity {
 				updatedAt: variant.updatedAt,
 			})),
 		};
+	}
+
+	static createFileData(result: StorageFileResult): CreateStorageFileData {
+		return {
+			bucket: result.bucket,
+			path: result.path,
+			originalUrl: result.originalUrl,
+			url: result.url,
+			mimeType: result.mimeType,
+			fileSize: result.fileSize,
+			optimizedSize: result.optimizedSize ?? null,
+			width: result.width ?? null,
+			height: result.height ?? null,
+			alt: result.alt ?? null,
+		};
+	}
+
+	static createVariantData(result: StorageFileResult): CreateVariantData[] {
+		return result.variants.map((variant) => ({
+			variant: variant.variant,
+			url: variant.url,
+			width: variant.width ?? null,
+			height: variant.height ?? null,
+			fileSize: variant.fileSize,
+		}));
 	}
 }
