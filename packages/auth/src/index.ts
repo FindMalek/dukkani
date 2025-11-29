@@ -24,7 +24,9 @@ export function createAuth(
 		envConfig.NEXT_PUBLIC_DASHBOARD_URL,
 		envConfig.VERCEL_BRANCH_URL,
 		envConfig.VERCEL_PROJECT_PRODUCTION_URL,
-	];
+	].filter(
+		(origin) => origin !== undefined,
+	);
 
 	const trustedOrigins = buildTrustedOrigins(
 		originConfig,

@@ -11,11 +11,11 @@ import { z } from "zod";
 export const baseEnv = createEnv({
 	server: {
 		DATABASE_URL: z.url(),
-		VERCEL_BRANCH_URL: z.string(),
-		VERCEL_PROJECT_PRODUCTION_URL: z.string(),
-		VERCEL_REGION: z.string(),
-		VERCEL_DEPLOYMENT_ID: z.string(),
-		VERCEL_PROJECT_ID: z.string(),
+		VERCEL_BRANCH_URL: z.string().optional(),
+		VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
+		VERCEL_REGION: z.string().optional(),
+		VERCEL_DEPLOYMENT_ID: z.string().optional(),
+		VERCEL_PROJECT_ID: z.string().optional(),
 		VERCEL: z
 			.string()
 			.optional()
