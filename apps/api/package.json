@@ -27,6 +27,7 @@
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
 		"@t3-oss/env-nextjs": "catalog:",
-		"@types/node": "catalog:"
+		"@types/node": "catalog:",
+		"baseline-browser-mapping": "^2.8.32"
 	}
 }

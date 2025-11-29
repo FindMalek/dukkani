@@ -11,13 +11,13 @@
 	"dependencies": {
 		"@dukkani/auth": "workspace:*",
 		"@dukkani/common": "workspace:*",
+		"@dukkani/core": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"@dukkani/orpc": "workspace:*",
-		"@dukkani/core": "workspace:*",
 		"@dukkani/ui": "workspace:*",
 		"@orpc/client": "catalog:",
-		"@prisma/client": "catalog:",
 		"@orpc/tanstack-query": "catalog:",
+		"@prisma/client": "catalog:",
 		"@tanstack/react-form": "catalog:",
 		"@tanstack/react-query": "catalog:",
 		"babel-plugin-react-compiler": "catalog:",
@@ -37,6 +37,7 @@
 		"@types/node": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
+		"baseline-browser-mapping": "^2.8.32",
 		"tailwindcss": "catalog:"
 	}
 }
