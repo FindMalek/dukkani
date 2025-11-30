@@ -1,11 +1,11 @@
+import "@dukkani/ui/styles/globals.css";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "@dukkani/ui/styles/globals.css";
-import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
+import { getMessages } from "next-intl/server";
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
-import type { Locale } from "@/lib/i18n";
-import { getDictionary } from "@/lib/i18n";
+import { Providers } from "@/components/layout/providers";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -34,37 +34,29 @@ export const metadata: Metadata = {
 	},
 };
 
-export async function generateStaticParams() {
-	return [{ lang: "en" }, { lang: "fr" }];
+interface RootLayoutProps {
+	children: React.ReactNode;
+	params: { locale: string };
 }
 
 export default async function RootLayout({
 	children,
-	params,
-}: Readonly<{
-	children: React.ReactNode;
-	params: Promise<{ lang: Locale }>;
-}>) {
-	const { lang } = await params;
-	const dict = await getDictionary(lang);
+	params: { locale },
+}: Readonly<RootLayoutProps>) {
+	const messages = await getMessages();
 
 	return (
-		<html lang={lang} suppressHydrationWarning>
+		<html lang={locale} suppressHydrationWarning>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
+				<Providers locale={locale} messages={messages}>
 					<div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
 						<Header />
 						<main>{children}</main>
 						<Footer />
 					</div>
-				</ThemeProvider>
+				</Providers>
 			</body>
 		</html>
 	);

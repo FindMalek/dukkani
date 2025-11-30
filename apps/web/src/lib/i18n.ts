@@ -12,7 +12,7 @@ export default getRequestConfig(async ({ locale }) => {
 
 	return {
 		locale: finalLocale,
-		messages: (await import(`@dukkani/common/local/web/${finalLocale}.json`))
+		messages: (await import(`@dukkani/common/locale/web/${finalLocale}.json`))
 			.default,
 	};
 });
