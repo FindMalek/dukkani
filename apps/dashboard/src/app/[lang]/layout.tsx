@@ -1,9 +1,10 @@
+import "@dukkani/ui/styles/globals.css";
+
+import { LOCALES } from "@dukkani/common/schemas/constants";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "@dukkani/ui/styles/globals.css";
+import { getMessages } from "next-intl/server";
 import Providers from "@/components/layout/providers";
-import type { Locale } from "@/lib/i18n";
-import { getDictionary } from "@/lib/i18n";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -38,25 +39,26 @@ export const viewport: Viewport = {
 };
 
 export async function generateStaticParams() {
-	return [{ lang: "en" }, { lang: "fr" }];
+	return LOCALES.map((lang) => ({ lang }));
 }
 
 export default async function RootLayout({
 	children,
 	params,
-}: Readonly<{
+}: {
 	children: React.ReactNode;
-	params: Promise<{ lang: Locale }>;
-}>) {
+	params: Promise<{ lang: string }>;}) {
 	const { lang } = await params;
-	const dict = await getDictionary(lang);
+	const messages = await getMessages();
 
 	return (
 		<html lang={lang} suppressHydrationWarning>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<Providers>{children}</Providers>
+				<Providers locale={lang} messages={messages}>
+					{children}
+				</Providers>
 			</body>
 		</html>
 	);

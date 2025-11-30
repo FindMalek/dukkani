@@ -1,15 +1,17 @@
-import { DEFAULT_LOCALE, LOCALES, type Locale } from "@dukkani/common/schemas";
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@dukkani/common/schemas/constants";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 function getLocale(request: NextRequest): string {
+	// Check cookie first (user preference)
 	const cookieLocale = request.cookies.get("locale")?.value;
 	if (cookieLocale && LOCALES.includes(cookieLocale as Locale)) {
 		return cookieLocale;
 	}
 
+	// Then check Accept-Language header
 	const acceptLanguage = request.headers.get("accept-language") ?? undefined;
 	const headers = { "accept-language": acceptLanguage };
 	const languages = new Negotiator({ headers }).languages();
@@ -17,9 +19,10 @@ function getLocale(request: NextRequest): string {
 	return match(languages, LOCALES, DEFAULT_LOCALE);
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
+	// Skip API routes, static files, and Next.js internals
 	if (
 		pathname.startsWith("/api") ||
 		pathname.startsWith("/_next") ||
@@ -30,6 +33,7 @@ export function middleware(request: NextRequest) {
 		return NextResponse.next();
 	}
 
+	// Check if pathname already has a locale
 	const pathnameHasLocale = LOCALES.some(
 		(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
 	);

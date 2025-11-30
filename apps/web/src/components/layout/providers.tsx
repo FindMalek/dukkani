@@ -1,5 +1,6 @@
 "use client";
 
+import type { Locale } from "@dukkani/common/schemas";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 
@@ -11,7 +12,7 @@ interface ProvidersProps {
 
 export function Providers({ children, locale, messages }: ProvidersProps) {
 	return (
-		<NextIntlClientProvider locale={locale} messages={messages}>
+		<NextIntlClientProvider locale={locale as Locale} messages={messages}>
 			<ThemeProvider
 				attribute="class"
 				defaultTheme="system"

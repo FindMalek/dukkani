@@ -1,5 +1,6 @@
 import "@dukkani/ui/styles/globals.css";
 
+import { LOCALES } from "@dukkani/common/schemas/constants";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { getMessages } from "next-intl/server";
@@ -34,23 +35,25 @@ export const metadata: Metadata = {
 	},
 };
 
-interface RootLayoutProps {
-	children: React.ReactNode;
-	params: { locale: string };
+export async function generateStaticParams() {
+	return LOCALES.map((lang) => ({ lang }));
 }
 
 export default async function RootLayout({
 	children,
-	params: { locale },
-}: Readonly<RootLayoutProps>) {
+	params,
+}: {
+	children: React.ReactNode;
+params: Promise<{ lang: string }>;}) {
+	const { lang } = await params;
 	const messages = await getMessages();
 
 	return (
-		<html lang={locale} suppressHydrationWarning>
+		<html lang={lang} suppressHydrationWarning>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<Providers locale={locale} messages={messages}>
+				<Providers locale={lang} messages={messages}>
 					<div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
 						<Header />
 						<main>{children}</main>
