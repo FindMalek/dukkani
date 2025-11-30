@@ -10,13 +10,9 @@ import {
 } from "@dukkani/ui/components/card";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { cn } from "@dukkani/ui/lib/utils";
-import { useParams } from "next/navigation";
 import { useDashboardStats } from "@/hooks/api/use-dashboard-stats";
-import { useDictionary } from "@/hooks/use-dictionary";
 
 export default function DashboardPage() {
-	const { lang } = useParams<{ lang: string }>();
-	const dict = useDictionary(lang);
 	const { data: stats, isLoading, error } = useDashboardStats();
 
 	if (error) {

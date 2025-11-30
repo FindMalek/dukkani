@@ -3,8 +3,8 @@
  * Provides full compatibility with Next.js's typedRoutes while maintaining custom structure
  */
 
-import type { Route } from "next";
 import { Icons } from "@dukkani/ui/components/icons";
+import type { Route } from "next";
 
 /**
  * Route path definitions with type safety
@@ -29,70 +29,70 @@ export const RoutePaths = {
 	// These routes exist but typedRoutes validation is limited
 	PRODUCTS: {
 		INDEX: {
-			url: "/dashboard/products" as Route,
+			url: "/products" as Route,
 			label: "Products",
 			icon: Icons.products,
 		},
 		NEW: {
-			url: "/dashboard/products/new" as Route,
+			url: "/products/new" as Route,
 			label: "New Product",
 		},
 		DETAIL: {
-			url: (id: string) => `/dashboard/products/${id}` as Route,
+			url: (id: string) => `/products/${id}` as Route,
 			label: "Product Details",
 		},
 	},
 
 	ORDERS: {
 		INDEX: {
-			url: "/dashboard/orders" as Route,
+			url: "/orders" as Route,
 			label: "Orders",
 			icon: Icons.orders,
 		},
 		NEW: {
-			url: "/dashboard/orders/new" as Route,
+			url: "/orders/new" as Route,
 			label: "New Order",
 		},
 		DETAIL: {
-			url: (id: string) => `/dashboard/orders/${id}` as Route,
+			url: (id: string) => `/orders/${id}` as Route,
 			label: "Order Details",
 		},
 	},
 
 	CUSTOMERS: {
 		INDEX: {
-			url: "/dashboard/customers" as Route,
+			url: "/customers" as Route,
 			label: "Customers",
 			icon: Icons.users,
 		},
 		NEW: {
-			url: "/dashboard/customers/new" as Route,
+			url: "/customers/new" as Route,
 			label: "New Customer",
 		},
 		DETAIL: {
-			url: (id: string) => `/dashboard/customers/${id}` as Route,
+			url: (id: string) => `/customers/${id}` as Route,
 			label: "Customer Details",
 		},
 	},
 
 	SETTINGS: {
 		INDEX: {
-			url: "/dashboard/settings" as Route,
+			url: "/settings" as Route,
 			label: "Settings",
 			icon: Icons.settings,
 		},
 		PROFILE: {
-			url: "/dashboard/settings/profile" as Route,
+			url: "/settings/profile" as Route,
 			label: "Profile",
 			icon: Icons.user,
 		},
 		PAYMENTS: {
-			url: "/dashboard/settings/payments" as Route,
+			url: "/settings/payments" as Route,
 			label: "Payments",
 			icon: Icons.payments,
 		},
 		STOREFRONT: {
-			url: "/dashboard/settings/storefront" as Route,
+			url: "/settings/storefront" as Route,
 			label: "Storefront",
 			icon: Icons.storefront,
 		},

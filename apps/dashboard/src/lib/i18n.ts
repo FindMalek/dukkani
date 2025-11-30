@@ -1,4 +1,8 @@
-import { DEFAULT_LOCALE, LOCALES, type Locale } from "@dukkani/common/schemas";
+import {
+	DEFAULT_LOCALE,
+	LOCALES,
+	type Locale,
+} from "@dukkani/common/schemas/constants";
 import { cookies } from "next/headers";
 import { getRequestConfig } from "next-intl/server";
 
