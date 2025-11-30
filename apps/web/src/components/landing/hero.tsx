@@ -11,6 +11,7 @@ import { webEnv } from "@/env";
 
 export function Hero() {
 	const t = useTranslations("common");
+	
 	return (
 		<section className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-32 lg:pt-40">
 			<div className="container mx-auto px-4">

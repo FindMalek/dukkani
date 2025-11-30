@@ -7,7 +7,7 @@ import {
 } from "@dukkani/common/schemas/constants";
 import { Globe } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { Button } from "./button";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "./select";
 
@@ -23,7 +23,6 @@ export function LanguageSwitcher({
 	const router = useRouter();
 	const pathname = usePathname();
 	const currentLocale = useLocale();
-	const t = useTranslations("common");
 
 	const switchLanguage = (newLocale: Locale) => {
 		// Replace the current locale in the pathname
