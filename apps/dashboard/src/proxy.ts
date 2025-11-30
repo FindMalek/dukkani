@@ -1,15 +1,17 @@
+import {
+	DEFAULT_LOCALE,
+	LOCALES,
+	type Locale,
+} from "@dukkani/common/schemas/constants";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-const locales = ["en", "fr"];
-const defaultLocale = "en";
-
 function getLocale(request: NextRequest): string {
 	// Check cookie first (user preference)
 	const cookieLocale = request.cookies.get("locale")?.value;
-	if (cookieLocale && locales.includes(cookieLocale)) {
+	if (cookieLocale && LOCALES.includes(cookieLocale as Locale)) {
 		return cookieLocale;
 	}
 
@@ -18,7 +20,7 @@ function getLocale(request: NextRequest): string {
 	const headers = { "accept-language": acceptLanguage };
 	const languages = new Negotiator({ headers }).languages();
 
-	return match(languages, locales, defaultLocale);
+	return match(languages, LOCALES, DEFAULT_LOCALE);
 }
 
 export function proxy(request: NextRequest) {
@@ -36,7 +38,7 @@ export function proxy(request: NextRequest) {
 	}
 
 	// Check if pathname already has a locale
-	const pathnameHasLocale = locales.some(
+	const pathnameHasLocale = LOCALES.some(
 		(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
 	);
 
