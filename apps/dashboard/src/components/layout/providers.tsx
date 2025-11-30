@@ -11,7 +11,7 @@ import { queryClient } from "@/lib/orpc";
 
 interface ProvidersProps {
 	children: React.ReactNode;
-	locale: string;
+	locale: Locale;
 	messages: Record<string, any>;
 }
 
@@ -21,7 +21,7 @@ export default function Providers({
 	messages,
 }: ProvidersProps) {
 	return (
-		<NextIntlClientProvider locale={locale as Locale} messages={messages}>
+		<NextIntlClientProvider locale={locale} messages={messages}>
 			<ThemeProvider
 				attribute="class"
 				defaultTheme="system"

@@ -1,6 +1,6 @@
 import "@dukkani/ui/styles/globals.css";
 
-import { LOCALES } from "@dukkani/common/schemas/constants";
+import { LOCALES, type Locale } from "@dukkani/common/schemas/constants";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { getMessages } from "next-intl/server";
@@ -46,7 +46,7 @@ export default async function RootLayout({
 	children: React.ReactNode;
 	params: Promise<{ lang: string }>;
 }) {
-	const { lang } = await params;
+	const { lang } = (await params) as { lang: Locale };
 	const messages = await getMessages();
 
 	return (

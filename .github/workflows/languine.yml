@@ -4,8 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'packages/common/src/locale/dashboard/en.json'
-      - 'packages/common/src/locale/web/[locale].json'
+      - 'packages/common/src/locale/**/*.json'
   pull_request:
     branches: [main]
 

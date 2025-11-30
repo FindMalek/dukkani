@@ -7,13 +7,13 @@ import { NextIntlClientProvider } from "next-intl";
 
 interface ProvidersProps {
 	children: React.ReactNode;
-	locale: string;
+	locale: Locale;
 	messages: Record<string, any>;
 }
 
 export function Providers({ children, locale, messages }: ProvidersProps) {
 	return (
-		<NextIntlClientProvider locale={locale as Locale} messages={messages}>
+		<NextIntlClientProvider locale={locale} messages={messages}>
 			<ThemeProvider
 				attribute="class"
 				defaultTheme="system"
