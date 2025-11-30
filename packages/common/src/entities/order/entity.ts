@@ -26,7 +26,7 @@ export class OrderEntity {
 
 	static getRo(entity: OrderIncludeDbData): OrderIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...OrderEntity.getSimpleRo(entity),
 			store: StoreEntity.getSimpleRo(entity.store),
 			customer: entity.customer
 				? CustomerEntity.getSimpleRo(entity.customer)

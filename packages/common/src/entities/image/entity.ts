@@ -18,7 +18,7 @@ export class ImageEntity {
 
 	static getRo(entity: ImageIncludeDbData): ImageIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...ImageEntity.getSimpleRo(entity),
 			product: ProductEntity.getSimpleRo(entity.product),
 		};
 	}

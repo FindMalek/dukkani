@@ -29,7 +29,7 @@ export class StoreEntity {
 
 	static getRo(entity: StoreIncludeDbData): StoreIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...StoreEntity.getSimpleRo(entity),
 			owner: UserEntity.getSimpleRo(entity.owner),
 			storePlan: entity.storePlan
 				? StorePlanEntity.getSimpleRo(entity.storePlan)

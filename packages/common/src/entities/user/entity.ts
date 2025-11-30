@@ -21,7 +21,7 @@ export class UserEntity {
 
 	static getRo(entity: UserIncludeDbData): UserIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...UserEntity.getSimpleRo(entity),
 			stores: entity.stores.map(StoreEntity.getSimpleRo),
 			teamMembers: entity.teamMembers.map(TeamMemberEntity.getSimpleRo),
 		};

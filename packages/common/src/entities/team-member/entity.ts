@@ -20,7 +20,7 @@ export class TeamMemberEntity {
 
 	static getRo(entity: TeamMemberIncludeDbData): TeamMemberIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...TeamMemberEntity.getSimpleRo(entity),
 			user: UserEntity.getSimpleRo(entity.user),
 			store: StoreEntity.getSimpleRo(entity.store),
 		};

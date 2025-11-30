@@ -1,4 +1,4 @@
-import { type Prisma } from "@dukkani/db/prisma/generated";
+import type { Prisma } from "@dukkani/db/prisma/generated";
 
 export type TeamMemberSimpleDbData = Prisma.TeamMemberGetPayload<{
 	include: ReturnType<typeof TeamMemberQuery.getSimpleInclude>;
@@ -19,7 +19,7 @@ export class TeamMemberQuery {
 
 	static getInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...TeamMemberQuery.getSimpleInclude(),
 			user: true,
 			store: true,
 		} satisfies Prisma.TeamMemberInclude;
@@ -27,7 +27,7 @@ export class TeamMemberQuery {
 
 	static getClientSafeInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...TeamMemberQuery.getSimpleInclude(),
 		} satisfies Prisma.TeamMemberInclude;
 	}
 }

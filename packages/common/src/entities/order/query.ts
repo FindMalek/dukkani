@@ -1,5 +1,5 @@
-import { type Prisma } from "@dukkani/db/prisma/generated";
-import { OrderStatus } from "@dukkani/common/schemas/order/enums";
+import type { Prisma } from "@dukkani/db/prisma/generated";
+import type { OrderStatus } from "@dukkani/common/schemas/order/enums";
 import { CustomerQuery } from "../customer/query";
 
 export type OrderSimpleDbData = Prisma.OrderGetPayload<{
@@ -21,7 +21,7 @@ export class OrderQuery {
 
 	static getInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...OrderQuery.getSimpleInclude(),
 			store: true,
 			customer: CustomerQuery.getSimpleInclude(),
 			orderItems: true,
@@ -31,7 +31,7 @@ export class OrderQuery {
 
 	static getClientSafeInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...OrderQuery.getSimpleInclude(),
 			orderItems: true,
 		} satisfies Prisma.OrderInclude;
 	}

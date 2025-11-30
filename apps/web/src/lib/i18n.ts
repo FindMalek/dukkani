@@ -1,15 +1,18 @@
-import "server-only";
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@dukkani/common/schemas";
+import { cookies } from "next/headers";
+import { getRequestConfig } from "next-intl/server";
 
-const dictionaries = {
-	en: () => import("@/locale/en.json").then((module) => module.default),
-	fr: () => import("@/locale/fr.json").then((module) => module.default),
-};
+export default getRequestConfig(async ({ locale }) => {
+	const cookieStore = await cookies();
+	const cookieLocale = cookieStore.get("locale")?.value;
 
-export type Locale = keyof typeof dictionaries;
+	const finalLocale = LOCALES.includes(cookieLocale as Locale)
+		? (cookieLocale as Locale)
+		: locale || DEFAULT_LOCALE;
 
-export const getDictionary = async (locale: Locale) => {
-	return dictionaries[locale]?.() ?? dictionaries.en();
-};
-
-export const locales = Object.keys(dictionaries) as Locale[];
-export const defaultLocale: Locale = "en";
+	return {
+		locale: finalLocale,
+		messages: (await import(`@dukkani/common/local/web/${finalLocale}.json`))
+			.default,
+	};
+});

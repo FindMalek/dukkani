@@ -28,7 +28,7 @@ export class WhatsAppMessageEntity {
 		entity: WhatsAppMessageIncludeDbData,
 	): WhatsAppMessageIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...WhatsAppMessageEntity.getSimpleRo(entity),
 			order: OrderEntity.getSimpleRo(entity.order),
 		};
 	}

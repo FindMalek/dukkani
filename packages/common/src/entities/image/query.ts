@@ -1,4 +1,4 @@
-import { type Prisma } from "@dukkani/db/prisma/generated";
+import type { Prisma } from "@dukkani/db/prisma/generated";
 
 export type ImageSimpleDbData = Prisma.ImageGetPayload<{
 	include: ReturnType<typeof ImageQuery.getSimpleInclude>;
@@ -19,14 +19,14 @@ export class ImageQuery {
 
 	static getInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...ImageQuery.getSimpleInclude(),
 			product: true,
 		} satisfies Prisma.ImageInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...ImageQuery.getSimpleInclude(),
 		} satisfies Prisma.ImageInclude;
 	}
 }

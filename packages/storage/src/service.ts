@@ -14,6 +14,7 @@ export type UploadOptions = {
 /**
  * Storage service for file uploads and management
  * Handles Supabase Storage operations with image optimization
+ * @note Should we have an export in the `dukkani/common` package?
  */
 export class StorageService {
 	/**

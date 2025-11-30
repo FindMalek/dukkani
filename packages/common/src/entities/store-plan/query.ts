@@ -1,4 +1,4 @@
-import { type Prisma } from "@dukkani/db/prisma/generated";
+import type { Prisma } from "@dukkani/db/prisma/generated";
 import { StoreQuery } from "../store/query";
 
 export type StorePlanSimpleDbData = Prisma.StorePlanGetPayload<{
@@ -20,14 +20,14 @@ export class StorePlanQuery {
 
 	static getInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...StorePlanQuery.getSimpleInclude(),
 			store: StoreQuery.getSimpleInclude(),
 		} satisfies Prisma.StorePlanInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...StorePlanQuery.getSimpleInclude(),
 		} satisfies Prisma.StorePlanInclude;
 	}
 }

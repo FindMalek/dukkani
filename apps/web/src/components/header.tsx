@@ -1,6 +1,5 @@
 "use client";
 
-import { webEnv } from "@/env";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { ModeToggle } from "@dukkani/ui/components/mode-toggle";
@@ -8,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { webEnv } from "@/env";
 
 export default function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);

@@ -1,4 +1,4 @@
-import { type Prisma } from "@dukkani/db/prisma/generated";
+import type { Prisma } from "@dukkani/db/prisma/generated";
 
 export type WhatsAppMessageSimpleDbData = Prisma.WhatsAppMessageGetPayload<{
 	include: ReturnType<typeof WhatsAppMessageQuery.getSimpleInclude>;
@@ -19,14 +19,14 @@ export class WhatsAppMessageQuery {
 
 	static getInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...WhatsAppMessageQuery.getSimpleInclude(),
 			order: true,
 		} satisfies Prisma.WhatsAppMessageInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...WhatsAppMessageQuery.getSimpleInclude(),
 		} satisfies Prisma.WhatsAppMessageInclude;
 	}
 }

@@ -1,10 +1,8 @@
+import { defaultLocale, locales } from "@dukkani/common/utils";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-
-const locales = ["en", "fr"];
-const defaultLocale = "en";
 
 function getLocale(request: NextRequest): string {
 	// Check cookie first (user preference)
