@@ -1,0 +1,66 @@
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@dukkani/common/schemas";
+import { match } from "@formatjs/intl-localematcher";
+import Negotiator from "negotiator";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+
+function getLocale(request: NextRequest): string {
+	const cookieLocale = request.cookies.get("locale")?.value;
+	if (cookieLocale && LOCALES.includes(cookieLocale as Locale)) {
+		return cookieLocale;
+	}
+
+	const acceptLanguage = request.headers.get("accept-language") ?? undefined;
+	const headers = { "accept-language": acceptLanguage };
+	const languages = new Negotiator({ headers }).languages();
+
+	return match(languages, LOCALES, DEFAULT_LOCALE);
+}
+
+export function middleware(request: NextRequest) {
+	const { pathname } = request.nextUrl;
+
+	if (
+		pathname.startsWith("/api") ||
+		pathname.startsWith("/_next") ||
+		pathname.startsWith("/favicon") ||
+		pathname.startsWith("/manifest") ||
+		pathname.includes(".")
+	) {
+		return NextResponse.next();
+	}
+
+	const pathnameHasLocale = LOCALES.some(
+		(locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+	);
+
+	if (pathnameHasLocale) {
+		// Update cookie if needed
+		const locale = pathname.split("/")[1];
+		const response = NextResponse.next();
+		response.cookies.set("locale", locale, {
+			maxAge: 60 * 60 * 24 * 365, // 1 year
+			path: "/",
+		});
+		return response;
+	}
+
+	// Redirect to add locale
+	const locale = getLocale(request);
+	request.nextUrl.pathname = `/${locale}${pathname}`;
+
+	const response = NextResponse.redirect(request.nextUrl);
+	response.cookies.set("locale", locale, {
+		maxAge: 60 * 60 * 24 * 365,
+		path: "/",
+	});
+
+	return response;
+}
+
+export const config = {
+	matcher: [
+		// Skip all internal paths (_next)
+		"/((?!_next|api|favicon|manifest|.*\\..*).*)",
+	],
+};
