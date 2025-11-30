@@ -1,7 +1,8 @@
 "use client";
 
-import type { Locale } from "@dukkani/common/schemas";
+import type { Locale } from "@dukkani/common/schemas/constants";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
+
 import { NextIntlClientProvider } from "next-intl";
 
 interface ProvidersProps {

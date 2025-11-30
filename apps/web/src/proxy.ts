@@ -1,4 +1,8 @@
-import { DEFAULT_LOCALE, LOCALES, type Locale } from "@dukkani/common/schemas/constants";
+import {
+	DEFAULT_LOCALE,
+	LOCALES,
+	type Locale,
+} from "@dukkani/common/schemas/constants";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import type { NextRequest } from "next/server";

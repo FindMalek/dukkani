@@ -1,6 +1,6 @@
 "use client";
 
-import type { Locale } from "@dukkani/common/schemas";
+import type { Locale } from "@dukkani/common/schemas/constants";
 import { Toaster } from "@dukkani/ui/components/sonner";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";

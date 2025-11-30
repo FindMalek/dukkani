@@ -7,8 +7,8 @@ import { Features } from "@/components/landing/features";
 import { Hero } from "@/components/landing/hero";
 import { Pricing } from "@/components/landing/pricing";
 
-export default async function Home() {
-	const t = useTranslations("common");
+export default function Home() {
+	// const t = useTranslations("common");
 
 	return (
 		<>
