@@ -657,6 +657,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@dukkani/common':
+        specifier: workspace:*
+        version: link:../common
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.66.0(react@19.2.0))
@@ -759,6 +762,12 @@ importers:
       lucide-react:
         specifier: 'catalog:'
         version: 0.553.0(react@19.2.0)
+      next:
+        specifier: 'catalog:'
+        version: 16.0.3(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      next-intl:
+        specifier: 'catalog:'
+        version: 4.5.6(next@16.0.3(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)

@@ -18,3 +18,8 @@ export type VariantSize = (typeof VARIANT_SIZES)[keyof typeof VARIANT_SIZES];
 export const LOCALES = ["en", "fr"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "en";
+export const LOCALES_MAP = {
+	en: "English",
+	fr: "French",
+} as const;
+export type LocaleMap = (typeof LOCALES_MAP)[keyof typeof LOCALES_MAP];
