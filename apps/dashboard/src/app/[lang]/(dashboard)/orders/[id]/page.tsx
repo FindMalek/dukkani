@@ -1,5 +1,7 @@
 "use client";
 
+import { Badge } from "@dukkani/ui/components/badge";
+import { Button } from "@dukkani/ui/components/button";
 import {
 	Card,
 	CardContent,
@@ -7,12 +9,10 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@dukkani/ui/components/card";
-import { Button } from "@dukkani/ui/components/button";
-import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { RoutePaths } from "@/lib/routes";
 import { useParams } from "next/navigation";
+import { RoutePaths } from "@/lib/routes";
 
 export default function OrderDetailPage() {
 	const params = useParams();
