@@ -1,21 +1,14 @@
 {
-  "locale": {
-    "source": "en",
-    "targets": [
-      "es",
-      "fr",
-      "de",
-      "zh",
-      "ja",
-      "pt"
-    ]
-  },
-  "files": {
-    "json": {
-      "include": [
-        "packages/common/src/locale/dashboard/[locale].json",
-        "packages/common/src/locale/web/[locale].json"
-      ]
-    }
-  }
+	"locale": {
+		"source": "en",
+		"targets": ["es", "fr", "de", "zh", "ja", "pt"]
+	},
+	"files": {
+		"json": {
+			"include": [
+				"packages/common/src/locale/dashboard/[locale].json",
+				"packages/common/src/locale/web/[locale].json"
+			]
+		}
+	}
 }

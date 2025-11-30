@@ -1,3 +1,5 @@
+import enMessages from "@dukkani/common/locale/dashboard/en.json";
+import frMessages from "@dukkani/common/locale/dashboard/fr.json";
 import {
 	DEFAULT_LOCALE,
 	LOCALES,
@@ -5,6 +7,15 @@ import {
 } from "@dukkani/common/schemas/constants";
 import { cookies } from "next/headers";
 import { getRequestConfig } from "next-intl/server";
+
+type MessagesMap = {
+	[K in Locale]: typeof enMessages;
+};
+
+const messages: MessagesMap = {
+	en: enMessages,
+	fr: frMessages,
+} as const;
 
 export default getRequestConfig(async ({ locale }) => {
 	const cookieStore = await cookies();
@@ -16,8 +27,6 @@ export default getRequestConfig(async ({ locale }) => {
 
 	return {
 		locale: finalLocale,
-		messages: (
-			await import(`@dukkani/common/locale/dashboard/${finalLocale}.json`)
-		).default,
+		messages: messages[finalLocale],
 	};
 });

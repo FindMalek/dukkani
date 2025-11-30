@@ -6,9 +6,11 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { motion } from "framer-motion";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { webEnv } from "@/env";
 
 export function Hero() {
+	const t = useTranslations("common");
 	return (
 		<section className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-32 lg:pt-40">
 			<div className="container mx-auto px-4">
@@ -159,6 +161,9 @@ export function Hero() {
 					</motion.div>
 				</div>
 			</div>
+			<p className="text-center text-4xl text-muted-foreground">
+				{t("description")}
+			</p>
 		</section>
 	);
 }

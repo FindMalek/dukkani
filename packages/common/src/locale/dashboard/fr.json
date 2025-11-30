@@ -1,1 +1,6 @@
-{}
+{
+	"dashboard": {
+		"title": "Tableau de bord",
+		"description": "salut"
+	}
+}
