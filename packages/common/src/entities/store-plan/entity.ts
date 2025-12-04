@@ -20,7 +20,7 @@ export class StorePlanEntity {
 
 	static getRo(entity: StorePlanIncludeDbData): StorePlanIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...StorePlanEntity.getSimpleRo(entity),
 			store: StoreEntity.getSimpleRo(entity.store),
 		};
 	}

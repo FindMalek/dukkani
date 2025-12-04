@@ -28,7 +28,7 @@ export function BottomNavigation() {
 	const pathname = usePathname();
 
 	return (
-		<nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border px-4 py-3 flex items-center justify-around">
+		<nav className="fixed right-0 bottom-0 left-0 flex items-center justify-around border-border border-t bg-card px-4 py-3">
 			{mainNavLinks.map((item) => {
 				const Icon = item.icon;
 				const isActive = isActiveRoute(pathname, item.url, true);
@@ -38,15 +38,15 @@ export function BottomNavigation() {
 						href={item.url}
 						aria-label={item.label}
 						className={cn(
-							"flex flex-col items-center gap-1 py-2 px-3 rounded-lg transition-colors",
+							"flex flex-col items-center gap-1 rounded-lg px-3 py-2 transition-colors",
 							{
-								"text-primary bg-accent/20": isActive,
+								"bg-accent/20 text-primary": isActive,
 								"text-muted-foreground hover:text-foreground": !isActive,
 							},
 						)}
 					>
-						{Icon && <Icon className="w-5 h-5" />}
-						<span className="text-xs font-medium hidden sm:inline">
+						{Icon && <Icon className="h-5 w-5" />}
+						<span className="hidden font-medium text-xs sm:inline">
 							{item.label}
 						</span>
 					</Link>

@@ -9,8 +9,8 @@
  */
 export function formatCurrency(
 	amount: number,
-	currency: string = "USD",
-	locale: string = "en-US",
+	currency = "USD",
+	locale = "en-US",
 ): string {
 	// Placeholder implementation
 	return new Intl.NumberFormat(locale, {

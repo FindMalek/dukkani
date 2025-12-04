@@ -24,7 +24,7 @@ export class ProductEntity {
 
 	static getRo(entity: ProductIncludeDbData): ProductIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...ProductEntity.getSimpleRo(entity),
 			store: StoreEntity.getSimpleRo(entity.store),
 			images: entity.images.map(ImageEntity.getSimpleRo),
 			orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),

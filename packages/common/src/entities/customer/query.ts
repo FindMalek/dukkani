@@ -1,4 +1,4 @@
-import { type Prisma } from "@dukkani/db/prisma/generated";
+import type { Prisma } from "@dukkani/db/prisma/generated";
 
 export type CustomerSimpleDbData = Prisma.CustomerGetPayload<{
 	include: ReturnType<typeof CustomerQuery.getSimpleInclude>;
@@ -19,7 +19,7 @@ export class CustomerQuery {
 
 	static getInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...CustomerQuery.getSimpleInclude(),
 			store: true,
 			orders: true,
 		} satisfies Prisma.CustomerInclude;
@@ -27,7 +27,7 @@ export class CustomerQuery {
 
 	static getClientSafeInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...CustomerQuery.getSimpleInclude(),
 		} satisfies Prisma.CustomerInclude;
 	}
 

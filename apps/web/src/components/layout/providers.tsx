@@ -1,0 +1,27 @@
+"use client";
+
+import type { Locale } from "@dukkani/common/schemas/constants";
+import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
+
+import { NextIntlClientProvider } from "next-intl";
+
+interface ProvidersProps {
+	children: React.ReactNode;
+	locale: Locale;
+	messages: Record<string, any>;
+}
+
+export function Providers({ children, locale, messages }: ProvidersProps) {
+	return (
+		<NextIntlClientProvider locale={locale} messages={messages}>
+			<ThemeProvider
+				attribute="class"
+				defaultTheme="system"
+				enableSystem
+				disableTransitionOnChange
+			>
+				{children}
+			</ThemeProvider>
+		</NextIntlClientProvider>
+	);
+}

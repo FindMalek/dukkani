@@ -1,4 +1,4 @@
-import { type Prisma } from "@dukkani/db/prisma/generated";
+import type { Prisma } from "@dukkani/db/prisma/generated";
 
 export type StorageFileSimpleDbData = Prisma.StorageFileGetPayload<{
 	include: ReturnType<typeof StorageFileQuery.getSimpleInclude>;
@@ -15,14 +15,14 @@ export class StorageFileQuery {
 
 	static getInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...StorageFileQuery.getSimpleInclude(),
 			variants: true,
 		} satisfies Prisma.StorageFileInclude;
 	}
 
 	static getClientSafeInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...StorageFileQuery.getSimpleInclude(),
 			variants: true,
 		} satisfies Prisma.StorageFileInclude;
 	}

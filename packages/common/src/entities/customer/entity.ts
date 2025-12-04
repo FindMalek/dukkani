@@ -20,7 +20,7 @@ export class CustomerEntity {
 
 	static getRo(entity: CustomerIncludeDbData): CustomerIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...CustomerEntity.getSimpleRo(entity),
 			store: StoreEntity.getSimpleRo(entity.store),
 			orders: entity.orders.map(OrderEntity.getSimpleRo),
 		};

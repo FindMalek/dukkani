@@ -7,6 +7,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@dukkani/ui/components/dropdown-menu";
+import { LanguageSwitcher } from "@dukkani/ui/components/language-switcher";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -37,6 +38,11 @@ export default function UserMenu() {
 				<DropdownMenuLabel>My Account</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>{session.user.email}</DropdownMenuItem>
+				<DropdownMenuSeparator />
+				<div className="flex justify-center">
+					<LanguageSwitcher variant="select" />
+				</div>
+				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
 					<Button
 						variant="destructive"

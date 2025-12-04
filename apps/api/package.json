@@ -28,6 +28,6 @@
 		"@dukkani/config": "workspace:*",
 		"@t3-oss/env-nextjs": "catalog:",
 		"@types/node": "catalog:",
-		"baseline-browser-mapping": "^2.8.32"
+		"baseline-browser-mapping": "catalog:"
 	}
 }

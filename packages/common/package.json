@@ -25,7 +25,11 @@
 		"./*": {
 			"types": "./dist/*.d.ts",
 			"default": "./src/*.ts"
-		}
+		},
+		"./locale/web/en.json": "./src/locale/web/en.json",
+		"./locale/web/fr.json": "./src/locale/web/fr.json",
+		"./locale/dashboard/en.json": "./src/locale/dashboard/en.json",
+		"./locale/dashboard/fr.json": "./src/locale/dashboard/fr.json"
 	},
 	"scripts": {
 		"build": "tsdown",

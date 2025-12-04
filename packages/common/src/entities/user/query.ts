@@ -1,4 +1,4 @@
-import { type Prisma } from "@dukkani/db/prisma/generated";
+import type { Prisma } from "@dukkani/db/prisma/generated";
 import { StoreQuery } from "../store/query";
 import { TeamMemberQuery } from "../team-member/query";
 
@@ -21,7 +21,7 @@ export class UserQuery {
 
 	static getInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...UserQuery.getSimpleInclude(),
 			stores: StoreQuery.getSimpleInclude(),
 			teamMembers: TeamMemberQuery.getSimpleInclude(),
 		} satisfies Prisma.UserInclude;
@@ -29,7 +29,7 @@ export class UserQuery {
 
 	static getClientSafeInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...UserQuery.getSimpleInclude(),
 		} satisfies Prisma.UserInclude;
 	}
 }

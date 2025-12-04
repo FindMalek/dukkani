@@ -16,6 +16,8 @@
 		"@dukkani/orpc": "workspace:*",
 		"@dukkani/ui": "workspace:*",
 		"@orpc/client": "catalog:",
+		"@formatjs/intl-localematcher": "catalog:",
+		"negotiator": "catalog:",
 		"@orpc/tanstack-query": "catalog:",
 		"@prisma/client": "catalog:",
 		"@tanstack/react-form": "catalog:",
@@ -23,6 +25,7 @@
 		"babel-plugin-react-compiler": "catalog:",
 		"better-auth": "catalog:",
 		"next": "catalog:",
+		"next-intl": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"sonner": "catalog:",
@@ -31,13 +34,14 @@
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
+		"@types/negotiator": "catalog:",
 		"@t3-oss/env-nextjs": "catalog:",
 		"@tailwindcss/postcss": "catalog:",
 		"@tanstack/react-query-devtools": "catalog:",
 		"@types/node": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
-		"baseline-browser-mapping": "^2.8.32",
+		"baseline-browser-mapping": "catalog:",
 		"tailwindcss": "catalog:"
 	}
 }

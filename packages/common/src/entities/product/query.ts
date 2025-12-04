@@ -1,4 +1,4 @@
-import { type Prisma } from "@dukkani/db/prisma/generated";
+import type { Prisma } from "@dukkani/db/prisma/generated";
 import { StoreQuery } from "../store/query";
 import { ImageQuery } from "../image/query";
 import { OrderItemQuery } from "../order-item/query";
@@ -21,7 +21,7 @@ export class ProductQuery {
 
 	static getInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...ProductQuery.getSimpleInclude(),
 			store: StoreQuery.getSimpleInclude(),
 			images: ImageQuery.getSimpleInclude(),
 			orderItems: OrderItemQuery.getSimpleInclude(),
@@ -30,7 +30,7 @@ export class ProductQuery {
 
 	static getClientSafeInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...ProductQuery.getSimpleInclude(),
 			images: ImageQuery.getSimpleInclude(),
 		} satisfies Prisma.ProductInclude;
 	}

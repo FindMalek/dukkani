@@ -1,0 +1,29 @@
+name: Languine Translation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/common/src/locale/**/*.json'
+  pull_request:
+    branches: [main]
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Languine Translation
+        uses: languine-ai/languine@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          api-key: ${{ secrets.LANGUINE_API_KEY }}
+          project-id: ${{ secrets.LANGUINE_PROJECT_ID }}
+          create-pull-request: true

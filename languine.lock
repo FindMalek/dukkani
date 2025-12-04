@@ -1,0 +1,3 @@
+version: 1
+files:
+  apps/dashboard/src/locale/en.json: {}

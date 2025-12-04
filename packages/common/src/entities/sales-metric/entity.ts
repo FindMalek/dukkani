@@ -23,7 +23,7 @@ export class SalesMetricEntity {
 
 	static getRo(entity: SalesMetricIncludeDbData): SalesMetricIncludeOutput {
 		return {
-			...this.getSimpleRo(entity),
+			...SalesMetricEntity.getSimpleRo(entity),
 			store: StoreEntity.getSimpleRo(entity.store),
 		};
 	}
