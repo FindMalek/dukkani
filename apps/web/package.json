@@ -40,7 +40,7 @@
 		"@types/node": "catalog:",
 		"@types/react": "19.2.2",
 		"@types/react-dom": "19.2.2",
-		"tailwindcss": "^4.1.17",
+		"tailwindcss": "catalog:",
 		"baseline-browser-mapping": "catalog:"
 	}
 }

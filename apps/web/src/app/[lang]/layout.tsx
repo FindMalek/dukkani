@@ -3,7 +3,7 @@ import "@dukkani/ui/styles/globals.css";
 import { LOCALES, type Locale } from "@dukkani/common/schemas/constants";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { Footer } from "@/components/footer";
 import Header from "@/components/header";
 import { Providers } from "@/components/layout/providers";
@@ -47,6 +47,7 @@ export default async function RootLayout({
 	params: Promise<{ lang: string }>;
 }) {
 	const { lang } = (await params) as { lang: Locale };
+	setRequestLocale(lang);
 	const messages = await getMessages();
 
 	return (
