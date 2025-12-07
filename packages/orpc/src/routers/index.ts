@@ -1,5 +1,5 @@
 import type { RouterClient } from "@orpc/server";
-import { authRouter } from "./auth";
+import { accountRouter } from "./account";
 import { customerRouter } from "./customer";
 import { dashboardRouter } from "./dashboard";
 import { healthRouter } from "./health";
@@ -16,7 +16,7 @@ export const appRouter = {
 	customer: customerRouter,
 	dashboard: dashboardRouter,
 	storage: storageRouter,
-	auth: authRouter,
+	account: accountRouter,
 };
 export type AppRouter = typeof appRouter;
 export type AppRouterClient = RouterClient<typeof appRouter>;

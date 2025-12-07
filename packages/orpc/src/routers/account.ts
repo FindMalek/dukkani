@@ -5,7 +5,7 @@ import { z } from "zod";
 import { publicProcedure } from "../index";
 import { rateLimitSensitive } from "../middleware/rate-limit";
 
-export const authRouter = {
+export const accountRouter = {
 	/**
 	 * Check if an email address is already registered
 	 * Rate limited to prevent email enumeration attacks
