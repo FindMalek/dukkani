@@ -42,9 +42,8 @@ export function getDatabase() {
  */
 export function getAuth() {
 	if (!authInitialized) {
-		getDatabase(); // Ensure database is initialized first
+		getDatabase();
 
-		// Use validated env schemas - all env vars are type-safe and validated
 		initializeAuth(dbSingleton, {
 			BETTER_AUTH_SECRET: authEnv.BETTER_AUTH_SECRET,
 			NEXT_PUBLIC_CORS_ORIGIN: apiEnv.NEXT_PUBLIC_CORS_ORIGIN,
@@ -62,6 +61,8 @@ export function getAuth() {
 			VERCEL: apiEnv.VERCEL,
 			NEXT_PUBLIC_ALLOWED_ORIGIN: apiEnv.NEXT_PUBLIC_ALLOWED_ORIGIN,
 			NEXT_PUBLIC_NODE_ENV: apiEnv.NEXT_PUBLIC_NODE_ENV,
+			APPLE_CLIENT_ID: authEnv.APPLE_CLIENT_ID,
+			APPLE_CLIENT_SECRET: authEnv.APPLE_CLIENT_SECRET,
 		});
 		authInitialized = true;
 	}
