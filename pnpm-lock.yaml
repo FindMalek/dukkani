@@ -241,6 +241,9 @@ importers:
       '@orpc/client':
         specifier: 'catalog:'
         version: 1.11.2
+      '@orpc/server':
+        specifier: 'catalog:'
+        version: 1.11.2(ws@8.18.3)
       '@orpc/tanstack-query':
         specifier: 'catalog:'
         version: 1.11.2(@orpc/client@1.11.2)(@tanstack/query-core@5.90.9)

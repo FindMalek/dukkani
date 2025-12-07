@@ -1,3 +1,4 @@
+import type { AppRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
 import { dashboardEnv } from "@/env";
 
@@ -11,6 +12,9 @@ function getORPCClient() {
 	return orpcClient;
 }
 
+// Use server-side client during SSR, fallback to client-side client
+export const client: AppRouterClient =
+	globalThis.$orpcClient ?? getORPCClient().client;
+
 export const queryClient = getORPCClient().queryClient;
-export const client = getORPCClient().client;
 export const orpc = getORPCClient().orpc;
