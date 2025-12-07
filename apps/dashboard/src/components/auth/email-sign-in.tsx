@@ -11,7 +11,6 @@ import {
 	FormControl,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from "@dukkani/ui/components/form";
 import { Input } from "@dukkani/ui/components/input";
@@ -142,7 +141,6 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 							name="email"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Email</FormLabel>
 									<FormControl>
 										<Input
 											type="email"
@@ -182,7 +180,6 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 							name="password"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Password</FormLabel>
 									<FormControl>
 										<Input
 											type="password"
@@ -236,7 +233,6 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 							name="name"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Name</FormLabel>
 									<FormControl>
 										<Input placeholder="Enter your name" {...field} />
 									</FormControl>
@@ -250,7 +246,6 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 							name="password"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Password</FormLabel>
 									<FormControl>
 										<Input
 											type="password"
