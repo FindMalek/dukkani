@@ -48,3 +48,9 @@ export type CreateUserInput = z.infer<typeof createUserInputSchema>;
 export type UpdateUserInput = z.infer<typeof updateUserInputSchema>;
 export type GetUserInput = z.infer<typeof getUserInputSchema>;
 export type ListUsersInput = z.infer<typeof listUsersInputSchema>;
+
+export const checkEmailExistsInputSchema = z.object({
+	email: z.email("Please enter a valid email address"),
+});
+
+export type CheckEmailExistsInput = z.infer<typeof checkEmailExistsInputSchema>;

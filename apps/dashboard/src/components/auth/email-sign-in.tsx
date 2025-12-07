@@ -1,5 +1,10 @@
 "use client";
 
+import {
+	checkEmailExistsInputSchema,
+	loginInputSchema,
+	signUpInputSchema,
+} from "@dukkani/common/schemas/user/input";
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Form,
@@ -15,7 +20,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
+import type { z } from "zod";
 import { useCheckEmailExists } from "@/hooks/api/use-check-email";
 import { authClient } from "@/lib/auth-client";
 import { RoutePaths } from "@/lib/routes";
@@ -24,22 +29,17 @@ interface EmailSignInProps {
 	className?: string;
 }
 
-// Step 1: Email only
-const emailSchema = z.object({
-	email: z.email("Invalid email address"),
-});
+// Step 1: Email only - extract email from checkEmailExistsInputSchema
+const emailSchema = checkEmailExistsInputSchema;
 
-// Step 2a: Password for existing user
-const passwordSchema = z.object({
-	email: z.email(),
-	password: z.string().min(1, "Password is required"),
-});
+// Step 2a: Password for existing user - use loginInputSchema but make password optional for form
+const passwordSchema = loginInputSchema.pick({ email: true, password: true });
 
-// Step 2b: Name + Password for new user
-const signupSchema = z.object({
-	email: z.email(),
-	name: z.string().min(2, "Name must be at least 2 characters"),
-	password: z.string().min(8, "Password must be at least 8 characters"),
+// Step 2b: Name + Password for new user - use signUpInputSchema
+const signupSchema = signUpInputSchema.pick({
+	email: true,
+	name: true,
+	password: true,
 });
 
 type EmailFormValues = z.infer<typeof emailSchema>;

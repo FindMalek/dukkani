@@ -1,12 +1,9 @@
 import { UserQuery } from "@dukkani/common/entities/user/query";
+import { checkEmailExistsInputSchema } from "@dukkani/common/schemas/user/input";
 import { database } from "@dukkani/db";
 import { z } from "zod";
 import { publicProcedure } from "../index";
 import { rateLimitSensitive } from "../middleware/rate-limit";
-
-const checkEmailExistsInputSchema = z.object({
-	email: z.email("Please enter a valid email address"),
-});
 
 export const authRouter = {
 	/**
