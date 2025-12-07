@@ -32,4 +32,10 @@ export class UserQuery {
 			...UserQuery.getSimpleInclude(),
 		} satisfies Prisma.UserInclude;
 	}
+
+	static getMinimalSelect() {
+		return {
+			id: true,
+		} satisfies Prisma.UserSelect;
+	}
 }

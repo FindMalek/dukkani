@@ -17,6 +17,10 @@ export const RoutePaths = {
 			url: "/login" as Route,
 			label: "Login",
 		},
+		ONBOARDING: {
+			url: "/onboarding" as Route,
+			label: "Onboarding",
+		},
 	},
 
 	DASHBOARD: {

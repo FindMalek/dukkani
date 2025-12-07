@@ -1,6 +1,6 @@
 import { ORPCError, os } from "@orpc/server";
 import type { Context } from "../context";
-import { rateLimiters } from "../utils/rate-limiter";
+import { type RateLimiter, rateLimiters } from "../utils/rate-limiter";
 
 const o = os.$context<Context>();
 
@@ -36,7 +36,7 @@ export function createRateLimitMiddleware(options: RateLimitOptions = {}) {
 			options.limiter ?? (isAuthenticated ? "standard" : "strict");
 
 		// Import RateLimiter dynamically if custom config is provided
-		let limiter;
+		let limiter: RateLimiter;
 		if (options.custom) {
 			const { RateLimiter } = await import("../utils/rate-limiter");
 			limiter = new RateLimiter(options.custom);
