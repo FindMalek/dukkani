@@ -15,7 +15,7 @@
 		},
 		"./routers": {
 			"types": "./dist/routers.d.ts",
-			"default": "./src/routers.ts"
+			"default": "./src/routers/index.ts"
 		}
 	},
 	"type": "module",
