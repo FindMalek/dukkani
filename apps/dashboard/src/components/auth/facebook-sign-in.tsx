@@ -3,6 +3,7 @@
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { authClient } from "@/lib/auth-client";
+import { RoutePaths } from "@/lib/routes";
 
 interface FacebookSignInProps {
 	showLastUsed?: boolean;
@@ -12,7 +13,7 @@ export function FacebookSignIn({ showLastUsed = false }: FacebookSignInProps) {
 	const handleSignIn = () => {
 		authClient.signIn.social({
 			provider: "facebook",
-			callbackURL: "/dashboard",
+			callbackURL: RoutePaths.DASHBOARD.url,
 		});
 	};
 

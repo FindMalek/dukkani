@@ -3,10 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { authClient } from "@/lib/auth-client";
+import type { RoutePaths } from "@/lib/routes";
 
 interface AuthGuardProps {
 	children: React.ReactNode;
-	redirectTo: "/login" | "/dashboard";
+	redirectTo:
+		| typeof RoutePaths.AUTH.LOGIN.url
+		| typeof RoutePaths.DASHBOARD.url;
 	requireAuth: boolean;
 }
 

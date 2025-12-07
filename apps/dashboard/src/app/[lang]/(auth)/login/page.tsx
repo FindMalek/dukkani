@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 
 export default async function LoginPage() {
 	const cookieStore = await cookies();
-	const preferred = cookieStore.get(Cookies.PreferredSignInProvider);
 	const { device } = userAgent({ headers: await headers() });
+	const preferred = cookieStore.get(Cookies.PreferredSignInProvider);
 
 	let moreSignInOptions = null;
 	let preferredSignInOption =
@@ -39,7 +39,7 @@ export default async function LoginPage() {
 				<>
 					<GoogleSignIn />
 					<FacebookSignIn />
-					<EmailSignIn className="border-border border-t-[1px] pt-8" />
+					<EmailSignIn className="border-border border-t pt-8" />
 				</>
 			);
 			break;
@@ -50,7 +50,7 @@ export default async function LoginPage() {
 				<>
 					<GoogleSignIn />
 					<AppleSignIn />
-					<EmailSignIn className="border-border border-t-[1px] pt-8" />
+					<EmailSignIn className="border-border border-t pt-8" />
 				</>
 			);
 			break;
@@ -61,7 +61,7 @@ export default async function LoginPage() {
 				<>
 					<AppleSignIn />
 					<FacebookSignIn />
-					<EmailSignIn className="border-border border-t-[1px] pt-8" />
+					<EmailSignIn className="border-border border-t pt-8" />
 				</>
 			);
 			break;
@@ -82,7 +82,7 @@ export default async function LoginPage() {
 				moreSignInOptions = (
 					<>
 						<FacebookSignIn />
-						<EmailSignIn className="border-border border-t-[1px] pt-8" />
+						<EmailSignIn className="border-border border-t pt-8" />
 					</>
 				);
 			} else {
@@ -90,7 +90,7 @@ export default async function LoginPage() {
 					<>
 						<AppleSignIn />
 						<FacebookSignIn />
-						<EmailSignIn className="border-border border-t-[1px] pt-8" />
+						<EmailSignIn className="border-border border-t pt-8" />
 					</>
 				);
 			}
@@ -107,7 +107,7 @@ export default async function LoginPage() {
 					<div className="flex flex-1 flex-col justify-center space-y-8">
 						{/* Header */}
 						<div className="space-y-2 text-center">
-							<h1 className="mb-4 font-serif text-lg">Welcome to Dukkani</h1>
+							<h1 className="font-semibold text-lg">Welcome to Dukkani</h1>
 							<p className="font-sans text-[#878787] text-sm">
 								Sign in or create an account
 							</p>

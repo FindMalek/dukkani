@@ -16,13 +16,14 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { authClient } from "@/lib/auth-client";
+import { RoutePaths } from "@/lib/routes";
 
 interface EmailSignInProps {
 	className?: string;
 }
 
 const emailSignInSchema = z.object({
-	email: z.string().email("Invalid email address"),
+	email: z.email("Invalid email address"),
 	password: z.string().min(1, "Password is required"),
 });
 
@@ -47,7 +48,7 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 			},
 			{
 				onSuccess: () => {
-					router.push("/dashboard");
+					router.push(RoutePaths.DASHBOARD.url);
 					toast.success("Sign in successful");
 				},
 				onError: (error) => {
