@@ -1,6 +1,13 @@
+import { Icons } from "@dukkani/ui/components/icons";
+
 export function AuthBackground() {
 	return (
 		<div className="relative hidden bg-linear-to-br from-background to-muted lg:block lg:w-1/2">
+			{/* Logo in top left */}
+			<div className="absolute top-6 left-6 z-10">
+				<Icons.logo className="size-6" />
+			</div>
+
 			<div className="absolute inset-0 opacity-40">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

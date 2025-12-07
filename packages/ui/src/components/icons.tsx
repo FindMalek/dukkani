@@ -23,6 +23,7 @@ import {
 	ChevronsRight,
 	ChevronUp,
 	Circle,
+	CompassIcon,
 	GripVertical,
 	HouseIcon,
 	Info,
@@ -90,4 +91,5 @@ export const Icons = {
 	google: FaGoogle,
 	apple: FaApple,
 	facebook: FaFacebook,
+	logo: CompassIcon,
 } as const;

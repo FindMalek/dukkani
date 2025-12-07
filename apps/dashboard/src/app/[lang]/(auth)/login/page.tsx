@@ -1,3 +1,4 @@
+import { Icons } from "@dukkani/ui/components/icons";
 import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import Link from "next/link";
@@ -107,6 +108,7 @@ export default async function LoginPage() {
 					<div className="flex flex-1 flex-col justify-center space-y-8">
 						{/* Header */}
 						<div className="space-y-2 text-center">
+							<Icons.logo className="mx-auto size-10" />
 							<h1 className="font-semibold text-lg">Welcome to Dukkani</h1>
 							<p className="font-sans text-[#878787] text-sm">
 								Sign in or create an account
