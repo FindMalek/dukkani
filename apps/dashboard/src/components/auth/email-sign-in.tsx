@@ -35,7 +35,7 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 	const router = useRouter();
 	const checkEmailMutation = useCheckEmailExists();
 
-	const [step, setStep] = useState<"email" | "password" | "signup">("email");
+	const [step, setStep] = useState<"email" | "password">("email");
 
 	const emailForm = useForm<CheckEmailExistsInput>({
 		resolver: zodResolver(checkEmailExistsInputSchema),
