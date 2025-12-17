@@ -5,21 +5,14 @@ import { z } from "zod";
  */
 
 export const loginInputSchema = z.object({
-	email: z.string().email("Please enter a valid email address"),
+	email: z.email("Please enter a valid email address"),
 	password: z.string().min(8, "Password must be at least 8 characters"),
 	rememberMe: z.boolean().optional(),
 });
 
-export const signUpInputSchema = z.object({
-	name: z.string().min(2, "Name must be at least 2 characters"),
-	email: z.string().email("Please enter a valid email address"),
-	password: z.string().min(8, "Password must be at least 8 characters"),
-	image: z.string().url("Please enter a valid image URL").optional(),
-});
-
 export const userInputSchema = z.object({
 	name: z.string().min(2, "Name must be at least 2 characters"),
-	email: z.string().email("Please enter a valid email address"),
+	email: z.email("Please enter a valid email address"),
 	image: z.string().url("Please enter a valid image URL").optional(),
 });
 
@@ -42,7 +35,6 @@ export const listUsersInputSchema = z.object({
 });
 
 export type LoginInput = z.infer<typeof loginInputSchema>;
-export type SignUpInput = z.infer<typeof signUpInputSchema>;
 export type UserInput = z.infer<typeof userInputSchema>;
 export type CreateUserInput = z.infer<typeof createUserInputSchema>;
 export type UpdateUserInput = z.infer<typeof updateUserInputSchema>;
