@@ -1,13 +1,14 @@
 /**
  * Unified Icons Component
  *
- * This file centralizes all icon exports from lucide-react.
- * All apps should import icons from this file instead of directly from lucide-react
+ * This file centralizes all icon exports from lucide-react and react-icons.
+ * All apps should import icons from this file instead of directly from lucide-react or react-icons
  * to ensure consistency across the codebase.
  *
  * Usage:
  *   import { Icons } from "@dukkani/ui/components/icons";
  *   <Icons.arrowLeft className="..." />
+ *   <Icons.google className="..." />
  */
 
 import {
@@ -18,35 +19,37 @@ import {
 	ChevronDown,
 	ChevronLeft,
 	ChevronRight,
-	ChevronUp,
 	ChevronsLeft,
 	ChevronsRight,
+	ChevronUp,
 	Circle,
+	CompassIcon,
 	GripVertical,
+	HouseIcon,
 	Info,
+	LandmarkIcon,
 	LayoutDashboard,
 	Loader2,
+	type LucideIcon,
 	Minus,
 	Moon,
 	MoreHorizontal,
 	OctagonX,
+	PackageIcon,
 	PanelLeft,
 	Plus,
 	Search,
 	Settings,
 	ShoppingCart,
 	Star,
+	StoreIcon,
 	Sun,
 	TriangleAlert,
+	User2Icon,
 	Users,
 	X,
-	type LucideIcon,
-	User2Icon,
-	LandmarkIcon,
-	StoreIcon,
-	PackageIcon,
-	HouseIcon,
 } from "lucide-react";
+import { FaApple, FaFacebook, FaGoogle } from "react-icons/fa";
 
 export type Icon = LucideIcon;
 
@@ -85,4 +88,8 @@ export const Icons = {
 	products: ShoppingCart,
 	home: HouseIcon,
 	star: Star,
+	google: FaGoogle,
+	apple: FaApple,
+	facebook: FaFacebook,
+	logo: CompassIcon,
 } as const;

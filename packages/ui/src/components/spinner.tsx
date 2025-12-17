@@ -1,6 +1,5 @@
-import { Icons } from "./icons";
-
 import { cn } from "../lib/utils";
+import { Icons } from "./icons";
 
 function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
 	return (

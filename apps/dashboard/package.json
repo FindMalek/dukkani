@@ -25,12 +25,15 @@
 		"babel-plugin-react-compiler": "catalog:",
 		"better-auth": "catalog:",
 		"next": "catalog:",
+		"@hookform/resolvers": "catalog:",
+		"react-hook-form": "catalog:",
 		"next-intl": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"sonner": "catalog:",
 		"tw-animate-css": "catalog:",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"@orpc/server": "catalog:"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",

@@ -1,6 +1,7 @@
-import { Icons } from "./icons";
 import { useTheme } from "next-themes";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
+import { Icons } from "./icons";
+import { Spinner } from "./spinner";
 
 const Toaster = ({ ...props }: ToasterProps) => {
 	const { theme = "system" } = useTheme();
@@ -14,7 +15,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 				info: <Icons.info className="size-4" />,
 				warning: <Icons.triangleAlert className="size-4" />,
 				error: <Icons.octagonX className="size-4" />,
-				loading: <Icons.spinner className="size-4 animate-spin" />,
+				loading: <Spinner className="size-4 animate-spin" />,
 			}}
 			style={
 				{

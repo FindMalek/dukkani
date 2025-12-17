@@ -332,6 +332,83 @@ import { env } from "@dukkani/env";
 - `@dukkani/common` - Shared types and schemas
 - `@dukkani/env` - Environment variables
 
+## Error Handling
+
+### Pattern
+
+Always use the centralized `handleAPIError` function for error handling:
+
+```typescript
+// apps/dashboard/src/lib/error.ts
+import { handleAPIError } from "@/lib/error";
+
+// In try-catch blocks
+try {
+  await someAPI();
+} catch (error) {
+  handleAPIError(error);
+}
+
+// In React Query hooks
+const mutation = useMutation({
+  mutationFn: someAPI,
+  onError: (error) => {
+    handleAPIError(error);
+  },
+});
+
+// In Better Auth callbacks
+await authClient.signIn.email(
+  { email, password },
+  {
+    onError: (error) => {
+      handleAPIError(error);
+    },
+  },
+);
+```
+
+### Best Practices
+
+- **Never use inline `toast.error()`** - Always use `handleAPIError()`
+- **Never use generic error messages** - Let `handleAPIError` categorize errors
+- **Import from `@/lib/error`** - Use the centralized error handler
+- **Handle errors at the right level** - In mutation callbacks, try-catch blocks, or error boundaries
+- **Don't suppress errors** - Always show user-friendly messages via `handleAPIError`
+
+### Error Categories
+
+The `handleAPIError` function automatically handles:
+- Rate limiting errors (`TOO_MANY_REQUESTS`)
+- Network errors (fetch failures)
+- Validation errors (`BAD_REQUEST`, 400)
+- Authentication errors (`UNAUTHORIZED`, 401)
+- Server errors (`INTERNAL_SERVER_ERROR`, 500+)
+- Fallback for unknown errors
+
+### Example
+
+```typescript
+// ❌ Bad - Inline error handling
+try {
+  await createProduct(data);
+  toast.success("Product created");
+} catch (error) {
+  toast.error("Failed to create product");
+}
+
+// ✅ Good - Using handleAPIError
+import { handleAPIError } from "@/lib/error";
+
+try {
+  await createProduct(data);
+  toast.success("Product created");
+} catch (error) {
+  handleAPIError(error);
+}
+```
+Add these sections to the appropriate files. The issue document tracks the refactoring task, and the cursor rules ensure future code uses `handleAPIError` consistently.
+
 ## Best Practices
 
 - Use route groups for layout organization

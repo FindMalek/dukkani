@@ -17,6 +17,10 @@ export const RoutePaths = {
 			url: "/login" as Route,
 			label: "Login",
 		},
+		ONBOARDING: {
+			url: "/onboarding" as Route,
+			label: "Onboarding",
+		},
 	},
 
 	DASHBOARD: {
@@ -149,4 +153,30 @@ export function getRouteHref<T extends RouteGroup>(
 	id?: string,
 ): Route {
 	return getRoutePath(group, key, id) as Route;
+}
+
+/**
+ * Get route with query parameters
+ * Type-safe helper for building URLs with query strings
+ *
+ * @param baseRoute - The base route path (Route type or string)
+ * @param params - Query parameters as an object
+ * @returns URL string with query parameters appended
+ *
+ * @example
+ *
+ * getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.url, { email: "user@example.com" })
+ * // Returns: "/onboarding?email=user%40example.com"
+ *  */
+export function getRouteWithQuery(
+	baseRoute: Route | string,
+	params: Record<string, string | number | boolean | undefined | null>,
+): string {
+	const queryString = new URLSearchParams(
+		Object.entries(params)
+			.filter(([_, value]) => value !== undefined && value !== null)
+			.map(([key, value]) => [key, String(value)]),
+	).toString();
+
+	return queryString ? `${baseRoute}?${queryString}` : baseRoute;
 }

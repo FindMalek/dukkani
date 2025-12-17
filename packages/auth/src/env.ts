@@ -15,6 +15,8 @@ export const env = createEnv({
 		FACEBOOK_CLIENT_ID: z.string(),
 		FACEBOOK_CLIENT_SECRET: z.string(),
 		BETTER_AUTH_SECRET: z.string(),
+		APPLE_CLIENT_ID: z.string(),
+		APPLE_CLIENT_SECRET: z.string(),
 	},
 	client: {
 		NEXT_PUBLIC_DASHBOARD_URL: z.url(),

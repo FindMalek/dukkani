@@ -12,6 +12,9 @@ catalogs:
     '@formatjs/intl-localematcher':
       specifier: ^0.6.2
       version: 0.6.2
+    '@hookform/resolvers':
+      specifier: ^5.2.2
+      version: 5.2.2
     '@orpc/client':
       specifier: ^1.11.2
       version: 1.11.2
@@ -96,6 +99,9 @@ catalogs:
     react-dom:
       specifier: 19.2.1
       version: 19.2.1
+    react-hook-form:
+      specifier: ^7.66.0
+      version: 7.66.0
     sharp:
       specifier: ^0.34.5
       version: 0.34.5
@@ -229,9 +235,15 @@ importers:
       '@formatjs/intl-localematcher':
         specifier: 'catalog:'
         version: 0.6.2
+      '@hookform/resolvers':
+        specifier: 'catalog:'
+        version: 5.2.2(react-hook-form@7.66.0(react@19.2.1))
       '@orpc/client':
         specifier: 'catalog:'
         version: 1.11.2
+      '@orpc/server':
+        specifier: 'catalog:'
+        version: 1.11.2(ws@8.18.3)
       '@orpc/tanstack-query':
         specifier: 'catalog:'
         version: 1.11.2(@orpc/client@1.11.2)(@tanstack/query-core@5.90.9)
@@ -265,6 +277,9 @@ importers:
       react-dom:
         specifier: 'catalog:'
         version: 19.2.1(react@19.2.1)
+      react-hook-form:
+        specifier: 'catalog:'
+        version: 7.66.0(react@19.2.1)
       sonner:
         specifier: 'catalog:'
         version: 2.0.7(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -661,7 +676,7 @@ importers:
         specifier: workspace:*
         version: link:../common
       '@hookform/resolvers':
-        specifier: ^5.2.2
+        specifier: 'catalog:'
         version: 5.2.2(react-hook-form@7.66.0(react@19.2.1))
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
@@ -784,8 +799,11 @@ importers:
         specifier: 'catalog:'
         version: 19.2.1(react@19.2.1)
       react-hook-form:
-        specifier: ^7.66.0
+        specifier: 'catalog:'
         version: 7.66.0(react@19.2.1)
+      react-icons:
+        specifier: ^5.2.1
+        version: 5.5.0(react@19.2.1)
       react-resizable-panels:
         specifier: ^3.0.6
         version: 3.0.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -3557,6 +3575,11 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
+
+  react-icons@5.5.0:
+    resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
+    peerDependencies:
+      react: '*'
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -6709,6 +6732,10 @@ snapshots:
       scheduler: 0.27.0
 
   react-hook-form@7.66.0(react@19.2.1):
+    dependencies:
+      react: 19.2.1
+
+  react-icons@5.5.0(react@19.2.1):
     dependencies:
       react: 19.2.1
 

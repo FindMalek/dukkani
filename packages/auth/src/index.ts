@@ -6,6 +6,7 @@ import { nextCookies } from "better-auth/next-js";
 import { openAPI } from "better-auth/plugins";
 import type { env } from "./env";
 import { buildTrustedOrigins, verifyPassword } from "./utils";
+import { lastLoginMethod } from "better-auth/plugins";
 
 /**
  * Factory function to create a Better Auth instance
@@ -72,8 +73,12 @@ export function createAuth(
 				clientId: envConfig.GOOGLE_CLIENT_ID,
 				clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
 			},
+			apple: {
+				clientId: envConfig.APPLE_CLIENT_ID,
+				clientSecret: envConfig.APPLE_CLIENT_SECRET,
+			},
 		},
-		plugins: [nextCookies(), openAPI()],
+		plugins: [nextCookies(), openAPI(), lastLoginMethod()],
 	});
 }
 
