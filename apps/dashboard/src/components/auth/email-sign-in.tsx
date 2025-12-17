@@ -17,11 +17,11 @@ import {
 	FormMessage,
 } from "@dukkani/ui/components/form";
 import { Input } from "@dukkani/ui/components/input";
+import { Spinner } from "@dukkani/ui/components/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { useCheckEmailExists } from "@/hooks/api/use-check-email";
 import { authClient } from "@/lib/auth-client";
 import { handleAPIError } from "@/lib/error";
@@ -80,7 +80,6 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 			{
 				onSuccess: () => {
 					router.push(RoutePaths.DASHBOARD.url);
-					toast.success("Sign in successful");
 				},
 				onError: (error) => {
 					handleAPIError(error);
@@ -120,7 +119,8 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 							className="h-11 w-full"
 							disabled={checkEmailMutation.isPending}
 						>
-							{checkEmailMutation.isPending ? "Checking..." : "Continue"}
+							{checkEmailMutation.isPending && <Spinner />}
+							Continue
 						</Button>
 					</form>
 				</Form>
@@ -204,9 +204,8 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 								className="h-11 flex-1"
 								disabled={passwordForm.formState.isSubmitting}
 							>
-								{passwordForm.formState.isSubmitting
-									? "Signing in..."
-									: "Sign in"}
+								{passwordForm.formState.isSubmitting && <Spinner />}
+								Sign in
 							</Button>
 						</div>
 					</form>
