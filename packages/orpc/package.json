@@ -1,51 +1,51 @@
 {
-  "name": "@dukkani/orpc",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
-    },
-    "./client": {
-      "types": "./dist/client.d.ts",
-      "default": "./src/client.ts"
-    },
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "default": "./src/*.ts"
-    },
-    "./routers": {
-      "types": "./dist/routers.d.ts",
-      "default": "./src/routers/index.ts"
-    }
-  },
-  "type": "module",
-  "scripts": {
-    "build": "tsdown",
-    "clean": "rm -rf dist node_modules"
-  },
-  "devDependencies": {
-    "@dukkani/config": "workspace:*",
-    "next": "15.5.8",
-    "tsdown": "catalog:"
-  },
-  "peerDependencies": {
-    "typescript": "^5.9.3",
-    "next": ">=14.0.0"
-  },
-  "dependencies": {
-    "@dukkani/auth": "workspace:*",
-    "@dukkani/common": "workspace:*",
-    "@dukkani/db": "workspace:*",
-    "@dukkani/core": "workspace:*",
-    "@dukkani/storage": "workspace:*",
-    "@orpc/client": "catalog:",
-    "@orpc/openapi": "catalog:",
-    "@orpc/server": "catalog:",
-    "@orpc/tanstack-query": "catalog:",
-    "@prisma/client": "catalog:",
-    "@tanstack/react-query": "catalog:",
-    "dotenv": "catalog:",
-    "sonner": "catalog:",
-    "zod": "catalog:"
-  }
+	"name": "@dukkani/orpc",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./src/index.ts"
+		},
+		"./client": {
+			"types": "./dist/client.d.ts",
+			"default": "./src/client.ts"
+		},
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"default": "./src/*.ts"
+		},
+		"./routers": {
+			"types": "./dist/routers.d.ts",
+			"default": "./src/routers/index.ts"
+		}
+	},
+	"type": "module",
+	"scripts": {
+		"build": "tsdown",
+		"clean": "rm -rf dist node_modules"
+	},
+	"devDependencies": {
+		"@dukkani/config": "workspace:*",
+		"next": "catalog:",
+		"tsdown": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "^5.9.3",
+		"next": ">=14.0.0"
+	},
+	"dependencies": {
+		"@dukkani/auth": "workspace:*",
+		"@dukkani/common": "workspace:*",
+		"@dukkani/db": "workspace:*",
+		"@dukkani/core": "workspace:*",
+		"@dukkani/storage": "workspace:*",
+		"@orpc/client": "catalog:",
+		"@orpc/openapi": "catalog:",
+		"@orpc/server": "catalog:",
+		"@orpc/tanstack-query": "catalog:",
+		"@prisma/client": "catalog:",
+		"@tanstack/react-query": "catalog:",
+		"dotenv": "catalog:",
+		"sonner": "catalog:",
+		"zod": "catalog:"
+	}
 }
