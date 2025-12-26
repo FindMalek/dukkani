@@ -158,13 +158,9 @@ export const orderRouter = {
 						name: item.product.name,
 						quantity: item.quantity,
 					})),
-					total:
-						`${orderWithItems.orderItems
-							.reduce(
-								(sum, item) => sum + Number(item.price) * item.quantity,
-								0,
-							)
-							.toFixed(2)} TND`,
+					total: `${orderWithItems.orderItems
+						.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0)
+						.toFixed(2)} TND`,
 				}).catch((error) => {
 					// Log but don't throw - notification failure shouldn't affect order creation
 					console.error("Telegram notification failed:", {

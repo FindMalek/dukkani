@@ -33,7 +33,8 @@
 		"sonner": "catalog:",
 		"tw-animate-css": "catalog:",
 		"zod": "catalog:",
-		"@orpc/server": "catalog:"
+		"@orpc/server": "catalog:",
+		"qrcode.react": "4.2.0"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",

@@ -10,3 +10,10 @@ export const sendOTPInputSchema = z.object({
 
 export type CreateLinkTokenInput = z.infer<typeof createLinkTokenInputSchema>;
 export type SendOTPInput = z.infer<typeof sendOTPInputSchema>;
+
+export const handleWebhookInputSchema = z.object({
+	update: z.any(),
+	secretToken: z.string().optional(),
+});
+
+export type HandleWebhookInput = z.infer<typeof handleWebhookInputSchema>;
