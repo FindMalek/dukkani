@@ -160,6 +160,7 @@ export const orderRouter = {
 					})),
 					total: `${orderWithItems.orderItems
 						.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0)
+						// TODO: Check FIN-209
 						.toFixed(2)} TND`,
 				}).catch((error) => {
 					// Log but don't throw - notification failure shouldn't affect order creation
