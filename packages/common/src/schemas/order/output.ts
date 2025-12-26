@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { orderStatusSchema } from "../enums";
-import { storeSimpleOutputSchema } from "../store/output";
 import { customerSimpleOutputSchema } from "../customer/output";
+import { orderStatusSchema } from "../enums";
 import { orderItemSimpleOutputSchema } from "../order-item/output";
+import { storeSimpleOutputSchema } from "../store/output";
 import { whatsappMessageSimpleOutputSchema } from "../whatsapp-message/output";
 
 export const orderSimpleOutputSchema = z.object({
