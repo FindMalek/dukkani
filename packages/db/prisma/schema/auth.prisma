@@ -20,17 +20,25 @@
  * - Authentication is handled through Better Auth library
  */
 model User {
-  id            String       @id @map("_id")
-  name          String
+  id   String @id @map("_id")
+  name String
+
   email         String
   emailVerified Boolean
-  image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
-  sessions      Session[]
-  accounts      Account[]
-  stores        Store[]      @relation("StoreOwner")
-  teamMembers   TeamMember[]
+
+  image          String?
+  telegramChatId String? @map("telegramchatid")
+
+  telegramLinkedAt DateTime? @map("telegramlinkedat")
+  createdAt        DateTime
+  updatedAt        DateTime
+
+  sessions    Session[]
+  accounts    Account[]
+  teamMembers TeamMember[]
+  stores      Store[]      @relation("StoreOwner")
+
+  telegramLinkTokens TelegramLinkToken[]
 
   @@unique([email])
   @@map("user")
