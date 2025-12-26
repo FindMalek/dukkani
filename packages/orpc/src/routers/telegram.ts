@@ -1,7 +1,8 @@
+// packages/orpc/src/routers/telegram.ts
 import {
 	createLinkTokenInputSchema,
-	handleWebhookInputSchema,
 	sendOTPInputSchema,
+	telegramUpdateSchema,
 } from "@dukkani/common/schemas/telegram/input";
 import { OrderService, TelegramService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
@@ -74,22 +75,26 @@ export const telegramRouter = {
 	 * Public procedure (no auth required) - Telegram calls this
 	 */
 	webhook: publicProcedure
-		.input(handleWebhookInputSchema)
-		.handler(async ({ input }) => {
-			if (input.secretToken !== apiEnv.TELEGRAM_WEBHOOK_SECRET) {
+		.input(telegramUpdateSchema)
+		.handler(async ({ input, context }) => {
+			const secretToken = context.headers["x-telegram-bot-api-secret-token"];
+
+			if (secretToken !== apiEnv.TELEGRAM_WEBHOOK_SECRET) {
 				throw new ORPCError("UNAUTHORIZED", {
 					message: "Invalid webhook secret",
 				});
 			}
 
-			const { update } = input;
-
 			// Handle deep link account linking
-			if (update.message?.text?.startsWith("/start link_")) {
-				const parts = update.message.text.split("_");
+			if (input.message?.text?.startsWith("/start link_")) {
+				const text = input.message.text;
+				const parts = text.split("_");
 				if (parts.length === 3) {
-					const [, userId, token] = parts;
-					const chatId = update.message.chat.id.toString();
+					const token = parts[2];
+					if (!token) {
+						return { ok: true };
+					}
+					const chatId = input.message.chat.id.toString();
 
 					try {
 						await TelegramService.linkAccount(token, chatId);
@@ -113,14 +118,39 @@ export const telegramRouter = {
 			}
 
 			// Handle callback queries (button clicks)
-			if (update.callback_query) {
-				const { data, id: callbackQueryId, message } = update.callback_query;
+			if (input.callback_query) {
+				const { data, id: callbackQueryId, message } = input.callback_query;
 
-				if (data?.startsWith("ship_")) {
-					const [, orderId, shopId] = data.split("_");
+				if (!data || !callbackQueryId) {
+					return { ok: true };
+				}
 
-					const user = await database.user.findUnique({
-						where: { telegramChatId: message.chat.id.toString() },
+				if (data.startsWith("ship_")) {
+					const parts = data.split("_");
+					if (parts.length < 2) {
+						return { ok: true };
+					}
+
+					const orderId = parts[1];
+					if (!orderId) {
+						return { ok: true };
+					}
+
+					// message is optional in callback_query, need to check
+					if (!message) {
+						await TelegramService.answerCallbackQuery(
+							callbackQueryId,
+							"❌ Message not found",
+							true,
+						);
+						return { ok: true };
+					}
+
+					const chatId = message.chat.id.toString();
+
+					// telegramChatId is not unique, use findFirst instead
+					const user = await database.user.findFirst({
+						where: { telegramChatId: chatId },
 					});
 
 					if (!user) {
@@ -139,7 +169,7 @@ export const telegramRouter = {
 							`✅ Order #${orderId} marked as shipped!`,
 						);
 						await TelegramService.sendMessage(
-							message.chat.id.toString(),
+							chatId,
 							`✅ Order #${orderId} has been marked as shipped.`,
 							{ parseMode: "HTML" },
 						);
@@ -157,11 +187,8 @@ export const telegramRouter = {
 			}
 
 			// Handle commands
-			if (
-				update.message?.text === "/help" ||
-				update.message?.text === "/start"
-			) {
-				const chatId = update.message.chat.id.toString();
+			if (input.message?.text === "/help" || input.message?.text === "/start") {
+				const chatId = input.message.chat.id.toString();
 				await TelegramService.sendMessage(
 					chatId,
 					"👋 <b>Welcome to Dukkani Notifications Bot!</b>\n\nThis bot sends you real-time order notifications from your Dukkani stores.\n\n<b>Commands:</b>\n/start - Link your account\n/help - Show this help message\n\nTo link your account, use the link provided in your Dukkani dashboard settings.",

@@ -6,5 +6,5 @@ export function useTelegramStatus() {
 }
 
 export function useCreateTelegramLink() {
-	return useMutation(orpc.telegram.createLinkToken.mutateOptions());
+	return useMutation(orpc.telegram.createLinkToken.mutationOptions());
 }
