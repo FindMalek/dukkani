@@ -5,14 +5,14 @@
 	},
 	"settings": {
 		"telegram": {
-			"title": "Telegram Notifications",
-			"description": "Link your Telegram account to receive instant order notifications",
-			"linked": "Telegram account linked on",
-			"recently": "recently",
-			"linkButton": "Link via Telegram",
-			"option1": "Option 1: Click the link below",
-			"option2": "Option 2: Scan QR code",
-			"expires": "This link expires in 10 minutes. If Telegram is not installed, you can install it from"
+			"title": "Notifications Telegram",
+			"description": "Liez votre compte Telegram pour recevoir des notifications de commande instantanées",
+			"linked": "Compte Telegram lié le",
+			"recently": "récemment",
+			"linkButton": "Lier via Telegram",
+			"option1": "Option 1 : Cliquez sur le lien ci-dessous",
+			"option2": "Option 2 : Scannez le code QR",
+			"expires": "Ce lien expire dans 10 minutes. Si Telegram n'est pas installé, vous pouvez l'installer depuis"
 		}
 	}
 }
