@@ -1,3 +1,9 @@
+/*
+  Warnings:
+
+  - A unique constraint covering the columns `[telegramchatid]` on the table `user` will be added. If there are existing duplicate values, this will fail.
+
+*/
 -- AlterTable
 ALTER TABLE "user" ADD COLUMN     "telegramchatid" TEXT,
 ADD COLUMN     "telegramlinkedat" TIMESTAMP(3);
@@ -22,6 +28,9 @@ CREATE INDEX "telegramlinktoken_token_idx" ON "telegramlinktoken"("token");
 
 -- CreateIndex
 CREATE INDEX "telegramlinktoken_userid_idx" ON "telegramlinktoken"("userid");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "user_telegramchatid_key" ON "user"("telegramchatid");
 
 -- AddForeignKey
 ALTER TABLE "telegramlinktoken" ADD CONSTRAINT "telegramlinktoken_userid_fkey" FOREIGN KEY ("userid") REFERENCES "user"("_id") ON DELETE CASCADE ON UPDATE CASCADE;

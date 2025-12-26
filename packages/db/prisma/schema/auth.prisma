@@ -27,8 +27,8 @@ model User {
   emailVerified Boolean
 
   image          String?
-  telegramChatId String? @map("telegramchatid")
-
+  telegramChatId String? @unique @map("telegramchatid")
+  
   telegramLinkedAt DateTime? @map("telegramlinkedat")
   createdAt        DateTime
   updatedAt        DateTime
