@@ -20,6 +20,7 @@ export const baseEnv = createEnv({
 			.string()
 			.optional()
 			.transform((val) => val === "1"),
+
 	},
 	client: {
 		NEXT_PUBLIC_NODE_ENV: z

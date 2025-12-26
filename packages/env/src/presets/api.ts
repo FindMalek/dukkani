@@ -8,7 +8,10 @@ import { baseEnv } from "../base";
  */
 export const apiEnv = createEnv({
 	extends: [baseEnv],
-	server: {},
+	server: {
+		TELEGRAM_API_TOKEN: z.string(),
+		TELEGRAM_WEBHOOK_SECRET: z.string(),
+	},
 	client: {
 		NEXT_PUBLIC_DASHBOARD_URL: z.url(),
 		NEXT_PUBLIC_ALLOWED_ORIGIN: z.string(),

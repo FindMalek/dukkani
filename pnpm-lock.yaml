@@ -457,6 +457,9 @@ importers:
       '@dukkani/db':
         specifier: workspace:*
         version: link:../db
+      '@dukkani/env':
+        specifier: workspace:*
+        version: link:../env
       '@prisma/client':
         specifier: 'catalog:'
         version: 7.0.0(prisma@7.0.0(@types/react@19.2.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3))(typescript@5.9.3)

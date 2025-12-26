@@ -4,3 +4,4 @@ export { OrderService } from "./orderService";
 export { ProductService } from "./productService";
 export { StorageService } from "./storageService";
 export { StoreService } from "./storeService";
+export { TelegramService } from "./telegramService";
