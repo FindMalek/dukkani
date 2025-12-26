@@ -5,26 +5,18 @@ import {
 	createOrderInputSchema,
 	getOrderInputSchema,
 	listOrdersInputSchema,
+	updateOrderStatusInputSchema,
 } from "@dukkani/common/schemas/order/input";
 import type {
 	ListOrdersOutput,
 	OrderIncludeOutput,
 } from "@dukkani/common/schemas/order/output";
+import { TelegramService } from "@dukkani/common/services";
 import { OrderService } from "@dukkani/common/services/orderService";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
-import { z } from "zod";
 import { protectedProcedure } from "../index";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
-
-// Schema for creating order without id (will be generated)
-const createOrderWithoutIdSchema = createOrderInputSchema.omit({ id: true });
-
-// Schema for updating order status
-const updateOrderStatusSchema = z.object({
-	id: z.string().min(1),
-	status: orderStatusSchema,
-});
 
 export const orderRouter = {
 	/**
@@ -113,7 +105,7 @@ export const orderRouter = {
 	 * Create new order (verify store ownership)
 	 */
 	create: protectedProcedure
-		.input(createOrderWithoutIdSchema)
+		.input(createOrderInputSchema)
 		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
 			const userId = context.session.user.id;
 
@@ -133,7 +125,7 @@ export const orderRouter = {
 			const orderId = OrderService.generateOrderId(store.slug);
 
 			// Create order using service (handles stock validation and updates)
-			return await OrderService.createOrder(
+			const order = await OrderService.createOrder(
 				{
 					...input,
 					id: orderId,
@@ -141,13 +133,56 @@ export const orderRouter = {
 				},
 				userId,
 			);
+
+			// Fire-and-forget Telegram notification (don't block order creation)
+			// Get order items with product names for notification
+			const orderWithItems = await database.order.findUnique({
+				where: { id: orderId },
+				include: {
+					orderItems: {
+						include: {
+							product: {
+								select: { name: true },
+							},
+						},
+					},
+				},
+			});
+
+			if (orderWithItems) {
+				TelegramService.sendOrderNotification(input.storeId, {
+					id: orderId,
+					customerName: input.customerName,
+					customerPhone: input.customerPhone,
+					items: orderWithItems.orderItems.map((item) => ({
+						name: item.product.name,
+						quantity: item.quantity,
+					})),
+					total:
+						`${orderWithItems.orderItems
+							.reduce(
+								(sum, item) => sum + Number(item.price) * item.quantity,
+								0,
+							)
+							.toFixed(2)} TND`,
+				}).catch((error) => {
+					// Log but don't throw - notification failure shouldn't affect order creation
+					console.error("Telegram notification failed:", {
+						orderId,
+						storeId: input.storeId,
+						error: error instanceof Error ? error.message : String(error),
+					});
+				});
+			}
+
+			return order;
 		}),
 
 	/**
 	 * Update order status (verify store ownership)
 	 */
 	updateStatus: protectedProcedure
-		.input(updateOrderStatusSchema)
+		.input(updateOrderStatusInputSchema)
 		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
 			const userId = context.session.user.id;
 			return await OrderService.updateOrderStatus(

@@ -1,7 +1,14 @@
 import { z } from "zod";
 import { orderStatusSchema } from "./enums";
 
-export const orderInputSchema = z.object({
+export const orderItemInputSchema = z.object({
+	productId: z.string().min(1, "Product ID is required"),
+	quantity: z.number().int().min(1, "Quantity must be at least 1"),
+	price: z.number().positive("Price must be positive"),
+});
+
+export const createOrderInputSchema = z.object({
+	id: z.string().min(1, "Order ID is required"),
 	status: orderStatusSchema,
 	customerName: z.string().min(1, "Customer name is required"),
 	customerPhone: z.string().min(1, "Customer phone is required"),
@@ -9,22 +16,12 @@ export const orderInputSchema = z.object({
 	notes: z.string().optional(),
 	storeId: z.string().min(1, "Store ID is required"),
 	customerId: z.string().optional(),
-});
-
-export const createOrderInputSchema = orderInputSchema.extend({
-	id: z.string().min(1, "Order ID is required"),
 	orderItems: z
-		.array(
-			z.object({
-				productId: z.string().min(1, "Product ID is required"),
-				quantity: z.number().int().min(1, "Quantity must be at least 1"),
-				price: z.number().positive("Price must be positive"),
-			}),
-		)
+		.array(orderItemInputSchema)
 		.min(1, "At least one order item is required"),
 });
 
-export const updateOrderInputSchema = orderInputSchema.partial().extend({
+export const updateOrderInputSchema = createOrderInputSchema.partial().extend({
 	id: z.string().min(1, "Order ID is required"),
 });
 
@@ -41,8 +38,16 @@ export const listOrdersInputSchema = z.object({
 	status: orderStatusSchema.optional(),
 });
 
-export type OrderInput = z.infer<typeof orderInputSchema>;
 export type CreateOrderInput = z.infer<typeof createOrderInputSchema>;
 export type UpdateOrderInput = z.infer<typeof updateOrderInputSchema>;
 export type GetOrderInput = z.infer<typeof getOrderInputSchema>;
 export type ListOrdersInput = z.infer<typeof listOrdersInputSchema>;
+
+export const updateOrderStatusInputSchema = z.object({
+	id: z.string().min(1, "Order ID is required"),
+	status: orderStatusSchema,
+});
+
+export type UpdateOrderStatusInput = z.infer<
+	typeof updateOrderStatusInputSchema
+>;

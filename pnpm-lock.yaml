@@ -598,6 +598,9 @@ importers:
       '@dukkani/db':
         specifier: workspace:*
         version: link:../db
+      '@dukkani/env':
+        specifier: workspace:*
+        version: link:../env
       '@dukkani/storage':
         specifier: workspace:*
         version: link:../storage
