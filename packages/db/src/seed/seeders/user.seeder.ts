@@ -73,6 +73,8 @@ export class UserSeeder extends BaseSeeder {
 				password: "Admin123!", // Private: only used for hashing during seeding
 				emailVerified: true,
 				image: null,
+				telegramChatId: "123456789", // Test Telegram chat ID for development
+				telegramLinkedAt: new Date(),
 			},
 			{
 				id: "user_merchant_001",
@@ -81,6 +83,7 @@ export class UserSeeder extends BaseSeeder {
 				password: "Merchant123!", // Private: only used for hashing during seeding
 				emailVerified: true,
 				image: null,
+				telegramChatId: null, // Not linked - can test linking flow
 			},
 			{
 				id: "user_store_owner_001",
@@ -89,6 +92,7 @@ export class UserSeeder extends BaseSeeder {
 				password: "Store123!", // Private: only used for hashing during seeding
 				emailVerified: true,
 				image: null,
+				telegramChatId: null, // Not linked - can test linking flow
 			},
 		];
 
@@ -107,6 +111,7 @@ export class UserSeeder extends BaseSeeder {
 		}
 
 		// Create all users at once
+		// Note: createMany doesn't support different fields per record, so we create base users first
 		const users = await database.user.createMany({
 			data: userData.map((user) => ({
 				id: user.id,
@@ -117,6 +122,15 @@ export class UserSeeder extends BaseSeeder {
 				createdAt: now,
 				updatedAt: now,
 			})),
+		});
+
+		// Update Ahmed's user with Telegram chat ID for testing
+		await database.user.update({
+			where: { id: "user_admin_001" },
+			data: {
+				telegramChatId: "123456789",
+				telegramLinkedAt: now,
+			},
 		});
 
 		// Create all accounts at once (with hashed passwords)
@@ -152,5 +166,8 @@ export class UserSeeder extends BaseSeeder {
 
 		this.log(`✅ Created ${users.count} users with accounts`);
 		this.log("📝 User data exported (passwords excluded for security)");
+		this.log(
+			"📱 Ahmed's account has Telegram linked (chat ID: 123456789) for testing",
+		);
 	}
 }

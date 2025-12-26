@@ -10,11 +10,11 @@ export default async function AuthLayout({
 	const session = await getServerSession();
 
 	if (session?.user) {
-		redirect("/dashboard");
+		redirect("/");
 	}
 
 	return (
-		<AuthGuard redirectTo="/dashboard" requireAuth={false}>
+		<AuthGuard redirectTo="/" requireAuth={false}>
 			{children}
 		</AuthGuard>
 	);

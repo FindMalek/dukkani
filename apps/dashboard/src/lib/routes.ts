@@ -24,7 +24,7 @@ export const RoutePaths = {
 	},
 
 	DASHBOARD: {
-		url: "/dashboard" as Route,
+		url: "/" as Route,
 		label: "Dashboard",
 		icon: Icons.home,
 	},
