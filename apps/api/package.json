@@ -13,7 +13,6 @@
 		"@dukkani/common": "workspace:*",
 		"@dukkani/core": "workspace:*",
 		"@dukkani/db": "workspace:*",
-		"@dukkani/logger": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"@dukkani/orpc": "workspace:*",
 		"@orpc/openapi": "catalog:",

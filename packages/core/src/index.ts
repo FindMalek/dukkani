@@ -63,6 +63,7 @@ export function getAuth() {
 			NEXT_PUBLIC_NODE_ENV: apiEnv.NEXT_PUBLIC_NODE_ENV,
 			APPLE_CLIENT_ID: authEnv.APPLE_CLIENT_ID,
 			APPLE_CLIENT_SECRET: authEnv.APPLE_CLIENT_SECRET,
+			TELEGRAM_BOT_NAME: apiEnv.TELEGRAM_BOT_NAME,
 		});
 		authInitialized = true;
 	}

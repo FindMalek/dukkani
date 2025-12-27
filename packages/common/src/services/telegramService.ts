@@ -1,6 +1,5 @@
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
-import { telegramLogger } from "@dukkani/logger";
 import { OrderService } from "./orderService";
 
 /**
@@ -177,14 +176,6 @@ export class TelegramService {
 
 		if (!response.ok) {
 			const errorMessage = responseData?.description || response.statusText;
-			telegramLogger.warn(
-				{
-					status: response.status,
-					error: errorMessage,
-					chatId,
-				},
-				"Telegram API error",
-			);
 			throw new Error(
 				`Telegram API error: ${errorMessage || response.statusText}`,
 			);
@@ -332,18 +323,7 @@ ${itemsText}
 		const handler = commandMap[command.toLowerCase()];
 
 		if (handler) {
-			try {
 				await handler(args, chatId);
-			} catch (error) {
-				telegramLogger.warn(
-					{
-						error: error instanceof Error ? error.message : String(error),
-						command,
-					},
-					"Error handling command",
-				);
-				throw error;
-			}
 		}
 	}
 
@@ -539,15 +519,6 @@ ${itemsText}
 				return;
 			}
 		} catch (error) {
-			telegramLogger.error(
-				{
-					error: error instanceof Error ? error.message : String(error),
-					stack: error instanceof Error ? error.stack : undefined,
-				},
-				"Error processing Telegram webhook update",
-			);
-
-			// Try to send error message to user if we have chatId
 			if (update.message?.chat?.id) {
 				try {
 					await TelegramService.sendMessage(
@@ -556,11 +527,13 @@ ${itemsText}
 						{ parseMode: "HTML" },
 					);
 				} catch (sendError) {
-					telegramLogger.warn(
-						{ error: sendError },
-						"Failed to send error message to user",
-					);
+					// If we can't send error message, log it but don't throw
+					// This prevents infinite error loops
+					console.error("Failed to send error message to user:", sendError);
 				}
+			} else {
+				// Log error when we can't send message to user
+				console.error("Telegram webhook processing error:", error);
 			}
 		}
 	}
