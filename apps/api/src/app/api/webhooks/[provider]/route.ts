@@ -50,9 +50,10 @@ const webhookHandlers: Record<string, WebhookHandler> = {
 
 export async function POST(
 	req: NextRequest,
-	{ params }: { params: { provider: string } },
+	{ params }: { params: Promise<{ provider: string }> },
 ) {
-	const handler = webhookHandlers[params.provider];
+	const { provider } = await params;
+	const handler = webhookHandlers[provider];
 
 	if (!handler) {
 		return NextResponse.json(
