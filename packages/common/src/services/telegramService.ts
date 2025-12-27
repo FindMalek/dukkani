@@ -277,7 +277,7 @@ ${itemsText}
 	): Promise<void> {
 		await TelegramService.rateLimit();
 
-		await fetch(`${TelegramService.BOT_API_URL}/answerCallbackQuery`, {
+		const response = await fetch(`${TelegramService.BOT_API_URL}/answerCallbackQuery`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
@@ -286,6 +286,21 @@ ${itemsText}
 				show_alert: showAlert,
 			}),
 		});
+
+		const responseData = await response.json().catch(() => null);
+
+		if (!response.ok) {
+			const errorMessage = responseData?.description || response.statusText;
+			console.error("Telegram callback query answer failed:", {
+				callbackQueryId,
+				status: response.status,
+				statusText: response.statusText,
+				error: errorMessage,
+			});
+			throw new Error(
+				`Telegram API error: ${errorMessage || response.statusText}`,
+			);
+		}
 	}
 
 	/**
@@ -435,8 +450,9 @@ ${itemsText}
 	): Promise<void> {
 		const parts = callbackData.split("_");
 		const orderId = parts[1];
+		const shopId = parts[2];
 
-		if (!orderId) {
+		if (!orderId || !shopId) {
 			await TelegramService.answerCallbackQuery(
 				callbackQueryId,
 				"❌ Invalid callback data",
@@ -454,6 +470,24 @@ ${itemsText}
 			await TelegramService.answerCallbackQuery(
 				callbackQueryId,
 				"❌ User not found",
+				true,
+			);
+			return;
+		}
+
+		// Verify user owns the shop before proceeding
+		const store = await database.store.findFirst({
+			where: {
+				id: shopId,
+				ownerId: user.id,
+			},
+			select: { id: true },
+		});
+
+		if (!store) {
+			await TelegramService.answerCallbackQuery(
+				callbackQueryId,
+				"❌ You don't have access to this order",
 				true,
 			);
 			return;
