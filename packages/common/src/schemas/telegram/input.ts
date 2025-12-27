@@ -60,3 +60,17 @@ export const telegramUpdateSchema = z.object({
 export type CreateLinkTokenInput = z.infer<typeof createLinkTokenInputSchema>;
 export type SendOTPInput = z.infer<typeof sendOTPInputSchema>;
 export type TelegramUpdate = z.infer<typeof telegramUpdateSchema>;
+
+export const sendTestMessageInputSchema = z.object({
+	message: z.string().min(1),
+	parseMode: z.enum(["HTML", "Markdown"]).optional(),
+});
+
+export const sendTestOrderNotificationInputSchema = z.object({
+	storeId: z.string().min(1),
+});
+
+export type SendTestMessageInput = z.infer<typeof sendTestMessageInputSchema>;
+export type SendTestOrderNotificationInput = z.infer<
+	typeof sendTestOrderNotificationInputSchema
+>;

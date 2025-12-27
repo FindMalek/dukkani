@@ -8,3 +8,11 @@ export function useTelegramStatus() {
 export function useCreateTelegramLink() {
 	return useMutation(orpc.telegram.createLinkToken.mutationOptions());
 }
+
+export function useSendTestMessage() {
+	return useMutation(orpc.telegram.sendTestMessage.mutationOptions());
+}
+
+export function useSendTestOrderNotification() {
+	return useMutation(orpc.telegram.sendTestOrderNotification.mutationOptions());
+}
