@@ -48,6 +48,8 @@ import {
 	User2Icon,
 	Users,
 	X,
+	KeyIcon,
+	CopyIcon,
 } from "lucide-react";
 import { FaApple, FaFacebook, FaGoogle, FaTelegram } from "react-icons/fa";
 
@@ -93,4 +95,6 @@ export const Icons = {
 	facebook: FaFacebook,
 	telegram: FaTelegram,
 	logo: CompassIcon,
+	key: KeyIcon,
+	copy: CopyIcon,
 } as const;
