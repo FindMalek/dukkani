@@ -180,11 +180,8 @@ export class TelegramService {
 			telegramLogger.warn(
 				{
 					status: response.status,
-					statusText: response.statusText,
 					error: errorMessage,
-					responseData,
 					chatId,
-					textLength: text.length,
 				},
 				"Telegram API error",
 			);
@@ -192,15 +189,6 @@ export class TelegramService {
 				`Telegram API error: ${errorMessage || response.statusText}`,
 			);
 		}
-
-		// Log success for debugging
-		telegramLogger.info(
-			{
-				chatId,
-				messageId: responseData?.result?.message_id,
-			},
-			"Telegram message sent successfully",
-		);
 	}
 
 	/**
@@ -320,16 +308,15 @@ ${itemsText}
 		return result.count;
 	}
 
-	// In handleCommand, add logging:
+	/**
+	 * Handle Telegram command
+	 */
 	static async handleCommand(
 		command: string,
 		args: string[],
 		chatId: string,
 	): Promise<void> {
-		telegramLogger.info({ command, args, chatId }, "Handling command");
-
 		if (!command) {
-			telegramLogger.info("No command provided");
 			return;
 		}
 
@@ -343,21 +330,20 @@ ${itemsText}
 		};
 
 		const handler = commandMap[command.toLowerCase()];
-		telegramLogger.info(
-			{ handler: !!handler, command: command.toLowerCase() },
-			"Handler found",
-		);
 
 		if (handler) {
 			try {
 				await handler(args, chatId);
-				telegramLogger.info("Command handler completed successfully");
 			} catch (error) {
-				telegramLogger.warn({ error, command }, "Error handling command");
-				throw error; // Re-throw to see in logs
+				telegramLogger.warn(
+					{
+						error: error instanceof Error ? error.message : String(error),
+						command,
+					},
+					"Error handling command",
+				);
+				throw error;
 			}
-		} else {
-			telegramLogger.info({ command }, "No handler found for command");
 		}
 	}
 
@@ -419,23 +405,11 @@ ${itemsText}
 		_args: string[],
 		chatId: string,
 	): Promise<void> {
-		telegramLogger.info({ chatId }, "handleHelpCommand called with chatId");
-		telegramLogger.info(
-			{ BOT_API_URL: TelegramService.BOT_API_URL },
-			"BOT_API_URL",
+		await TelegramService.sendMessage(
+			chatId,
+			"📖 <b>Dukkani Bot Commands</b>\n\n/link CODE - Link your Telegram account\n/help - Show this help message\n/start - Welcome message\n\n<b>Need help?</b>\nContact support through your Dukkani dashboard.",
+			{ parseMode: "HTML" },
 		);
-
-		try {
-			await TelegramService.sendMessage(
-				chatId,
-				"📖 <b>Dukkani Bot Commands</b>\n\n/link CODE - Link your Telegram account\n/help - Show this help message\n/start - Welcome message\n\n<b>Need help?</b>\nContact support through your Dukkani dashboard.",
-				{ parseMode: "HTML" },
-			);
-			telegramLogger.info("Help message sent successfully");
-		} catch (error) {
-			telegramLogger.warn({ error }, "Failed to send help message");
-			throw error; // Re-throw to see in webhook handler
-		}
 	}
 
 	/**
@@ -559,26 +533,16 @@ ${itemsText}
 				const args = parts.slice(1);
 				const chatId = update.message.chat.id.toString();
 
-				telegramLogger.info(
-					{ command, args, chatId, fullText: text },
-					"Processing command",
-				);
-
 				if (command) {
 					await TelegramService.handleCommand(command, args, chatId);
-				} else {
-					telegramLogger.info({ text }, "No command found in text");
 				}
 				return;
 			}
 		} catch (error) {
-			// Log error with full context
-			telegramLogger.warn(
+			telegramLogger.error(
 				{
-					error,
-					errorMessage: error instanceof Error ? error.message : String(error),
-					errorStack: error instanceof Error ? error.stack : undefined,
-					update,
+					error: error instanceof Error ? error.message : String(error),
+					stack: error instanceof Error ? error.stack : undefined,
 				},
 				"Error processing Telegram webhook update",
 			);
@@ -592,7 +556,10 @@ ${itemsText}
 						{ parseMode: "HTML" },
 					);
 				} catch (sendError) {
-					telegramLogger.warn({ sendError }, "Failed to send error message");
+					telegramLogger.warn(
+						{ error: sendError },
+						"Failed to send error message to user",
+					);
 				}
 			}
 		}

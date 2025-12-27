@@ -2,13 +2,11 @@ import {
 	sendOTPInputSchema,
 	sendTestMessageInputSchema,
 	sendTestOrderNotificationInputSchema,
-	telegramUpdateSchema,
 } from "@dukkani/common/schemas/telegram/input";
-import { OrderService, TelegramService } from "@dukkani/common/services";
+import { TelegramService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
-import { apiEnv } from "@dukkani/env";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure, publicProcedure } from "../index";
+import { protectedProcedure } from "../index";
 
 export const telegramRouter = {
 	/**
@@ -160,25 +158,5 @@ export const telegramRouter = {
 							: "Failed to send test order notification",
 				});
 			}
-		}),
-
-	/**
-	 * Handle Telegram webhook updates
-	 * Processes incoming updates from Telegram Bot API
-	 */
-	webhook: publicProcedure
-		.input(telegramUpdateSchema)
-		.handler(async ({ input, context }) => {
-			const secretToken = context.headers["x-telegram-bot-api-secret-token"];
-			if (secretToken !== apiEnv.TELEGRAM_WEBHOOK_SECRET) {
-				throw new ORPCError("UNAUTHORIZED", {
-					message: "Invalid webhook secret token",
-				});
-			}
-
-			// Process update through service layer
-			await TelegramService.processWebhookUpdate(input);
-
-			return { ok: true };
 		}),
 };
