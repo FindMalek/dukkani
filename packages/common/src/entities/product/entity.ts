@@ -1,11 +1,11 @@
 import type {
-	ProductSimpleOutput,
 	ProductIncludeOutput,
+	ProductSimpleOutput,
 } from "../../schemas/product/output";
 import { ImageEntity } from "../image/entity";
 import { OrderItemEntity } from "../order-item/entity";
-import type { ProductSimpleDbData, ProductIncludeDbData } from "./query";
 import { StoreEntity } from "../store/entity";
+import type { ProductIncludeDbData, ProductSimpleDbData } from "./query";
 
 export class ProductEntity {
 	static getSimpleRo(entity: ProductSimpleDbData): ProductSimpleOutput {

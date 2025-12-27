@@ -1,12 +1,12 @@
 import type {
-	WhatsAppMessageSimpleOutput,
 	WhatsAppMessageIncludeOutput,
+	WhatsAppMessageSimpleOutput,
 } from "../../schemas/whatsapp-message/output";
-import type {
-	WhatsAppMessageSimpleDbData,
-	WhatsAppMessageIncludeDbData,
-} from "./query";
 import { OrderEntity } from "../order/entity";
+import type {
+	WhatsAppMessageIncludeDbData,
+	WhatsAppMessageSimpleDbData,
+} from "./query";
 
 export class WhatsAppMessageEntity {
 	static getSimpleRo(

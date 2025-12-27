@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { storePlanTypeSchema } from "./enums";
 import { storeSimpleOutputSchema } from "../store/output";
+import { storePlanTypeSchema } from "./enums";
 
 export const storePlanSimpleOutputSchema = z.object({
 	id: z.string(),

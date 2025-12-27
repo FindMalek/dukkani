@@ -1,9 +1,9 @@
 import type {
-	StorePlanSimpleOutput,
 	StorePlanIncludeOutput,
+	StorePlanSimpleOutput,
 } from "../../schemas/store-plan/output";
-import type { StorePlanSimpleDbData, StorePlanIncludeDbData } from "./query";
 import { StoreEntity } from "../store/entity";
+import type { StorePlanIncludeDbData, StorePlanSimpleDbData } from "./query";
 export class StorePlanEntity {
 	static getSimpleRo(entity: StorePlanSimpleDbData): StorePlanSimpleOutput {
 		return {

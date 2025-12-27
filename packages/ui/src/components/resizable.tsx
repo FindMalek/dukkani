@@ -1,8 +1,7 @@
-import { Icons } from "./icons";
 import type * as React from "react";
 import * as ResizablePrimitive from "react-resizable-panels";
-
 import { cn } from "../lib/utils";
+import { Icons } from "./icons";
 
 function ResizablePanelGroup({
 	className,

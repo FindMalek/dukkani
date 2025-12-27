@@ -1,10 +1,10 @@
 import type {
-	CustomerSimpleOutput,
 	CustomerIncludeOutput,
+	CustomerSimpleOutput,
 } from "../../schemas/customer/output";
-import type { CustomerSimpleDbData, CustomerIncludeDbData } from "./query";
-import { StoreEntity } from "../store/entity";
 import { OrderEntity } from "../order/entity";
+import { StoreEntity } from "../store/entity";
+import type { CustomerIncludeDbData, CustomerSimpleDbData } from "./query";
 
 export class CustomerEntity {
 	static getSimpleRo(entity: CustomerSimpleDbData): CustomerSimpleOutput {

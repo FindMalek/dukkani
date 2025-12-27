@@ -1,5 +1,6 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import { Button } from "./button";
 import {
 	DropdownMenu,
@@ -8,8 +9,6 @@ import {
 	DropdownMenuTrigger,
 } from "./dropdown-menu";
 import { Icons } from "./icons";
-import { useTheme } from "next-themes";
-import * as React from "react";
 
 export function ModeToggle() {
 	const { setTheme } = useTheme();

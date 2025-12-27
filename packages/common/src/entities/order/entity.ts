@@ -1,12 +1,12 @@
 import type {
-	OrderSimpleOutput,
 	OrderIncludeOutput,
+	OrderSimpleOutput,
 } from "../../schemas/order/output";
-import type { OrderSimpleDbData, OrderIncludeDbData } from "./query";
-import { StoreEntity } from "../store/entity";
 import { CustomerEntity } from "../customer/entity";
 import { OrderItemEntity } from "../order-item/entity";
+import { StoreEntity } from "../store/entity";
 import { WhatsAppMessageEntity } from "../whatsapp-message/entity";
+import type { OrderIncludeDbData, OrderSimpleDbData } from "./query";
 
 export class OrderEntity {
 	static getSimpleRo(entity: OrderSimpleDbData): OrderSimpleOutput {

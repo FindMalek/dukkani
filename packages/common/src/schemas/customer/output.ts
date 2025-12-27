@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { storeSimpleOutputSchema } from "../store/output";
 import { orderSimpleOutputSchema } from "../order/output";
+import { storeSimpleOutputSchema } from "../store/output";
 
 export const customerSimpleOutputSchema = z.object({
 	id: z.string(),

@@ -1,6 +1,5 @@
 import { OrderEntity } from "@dukkani/common/entities/order/entity";
 import { OrderQuery } from "@dukkani/common/entities/order/query";
-import { orderStatusSchema } from "@dukkani/common/schemas/order/enums";
 import {
 	createOrderInputSchema,
 	getOrderInputSchema,

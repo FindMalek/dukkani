@@ -1,6 +1,5 @@
 "use client";
 
-import { webEnv } from "@/env";
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Card,
@@ -10,15 +9,11 @@ import {
 	CardTitle,
 } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
-import {
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "@dukkani/ui/components/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@dukkani/ui/components/tabs";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
 import { useState } from "react";
+import { webEnv } from "@/env";
 
 export function Pricing() {
 	const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");

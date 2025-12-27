@@ -1,9 +1,9 @@
 "use client";
 
-import { RoutePaths } from "@/lib/routes";
-import Link from "next/link";
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
+import Link from "next/link";
+import { RoutePaths } from "@/lib/routes";
 
 export default function SettingsPage() {
 	return (

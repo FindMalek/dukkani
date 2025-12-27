@@ -1,10 +1,10 @@
 import type {
-	UserSimpleOutput,
 	UserIncludeOutput,
+	UserSimpleOutput,
 } from "../../schemas/user/output";
 import { StoreEntity } from "../store/entity";
 import { TeamMemberEntity } from "../team-member/entity";
-import type { UserSimpleDbData, UserIncludeDbData } from "./query";
+import type { UserIncludeDbData, UserSimpleDbData } from "./query";
 
 export class UserEntity {
 	static getSimpleRo(entity: UserSimpleDbData): UserSimpleOutput {

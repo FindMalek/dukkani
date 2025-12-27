@@ -1,15 +1,15 @@
 import type {
-	StoreSimpleOutput,
 	StoreIncludeOutput,
+	StoreSimpleOutput,
 } from "../../schemas/store/output";
-import type { StoreSimpleDbData, StoreIncludeDbData } from "./query";
-import { UserEntity } from "../user/entity";
-import { StorePlanEntity } from "../store-plan/entity";
-import { ProductEntity } from "../product/entity";
-import { OrderEntity } from "../order/entity";
 import { CustomerEntity } from "../customer/entity";
-import { TeamMemberEntity } from "../team-member/entity";
+import { OrderEntity } from "../order/entity";
+import { ProductEntity } from "../product/entity";
 import { SalesMetricEntity } from "../sales-metric/entity";
+import { StorePlanEntity } from "../store-plan/entity";
+import { TeamMemberEntity } from "../team-member/entity";
+import { UserEntity } from "../user/entity";
+import type { StoreIncludeDbData, StoreSimpleDbData } from "./query";
 
 export class StoreEntity {
 	static getSimpleRo(entity: StoreSimpleDbData): StoreSimpleOutput {

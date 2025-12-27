@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@dukkani/ui/components/button";
 import {
 	Card,
 	CardContent,
@@ -7,10 +8,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@dukkani/ui/components/card";
-import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
-import Link from "next/link";
-import { useParams } from "next/navigation";
 import {
 	Table,
 	TableBody,
@@ -19,6 +17,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@dukkani/ui/components/table";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import { RoutePaths } from "@/lib/routes";
 
 export default function CustomerDetailPage() {

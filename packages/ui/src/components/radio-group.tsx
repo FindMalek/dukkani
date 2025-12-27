@@ -1,10 +1,9 @@
 "use client";
 
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import { Icons } from "./icons";
 import type * as React from "react";
-
 import { cn } from "../lib/utils";
+import { Icons } from "./icons";
 
 function RadioGroup({
 	className,

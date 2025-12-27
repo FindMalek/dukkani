@@ -1,9 +1,9 @@
 "use client";
 
-import { RoutePaths } from "@/lib/routes";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { cn } from "@dukkani/ui/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { RoutePaths } from "@/lib/routes";
 
 const mainNavLinks = [
 	RoutePaths.DASHBOARD,

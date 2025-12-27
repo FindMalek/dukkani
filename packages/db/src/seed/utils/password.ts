@@ -4,7 +4,7 @@
  * Better Auth uses scrypt by default, so we must match that format
  */
 
-import { scrypt, randomBytes } from "node:crypto";
+import { randomBytes, scrypt } from "node:crypto";
 
 /**
  * Hash a password for use in seeders

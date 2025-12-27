@@ -1,9 +1,9 @@
 import type {
-	ImageSimpleOutput,
 	ImageIncludeOutput,
+	ImageSimpleOutput,
 } from "../../schemas/image/output";
-import type { ImageSimpleDbData, ImageIncludeDbData } from "./query";
 import { ProductEntity } from "../product/entity";
+import type { ImageIncludeDbData, ImageSimpleDbData } from "./query";
 
 export class ImageEntity {
 	static getSimpleRo(entity: ImageSimpleDbData): ImageSimpleOutput {

@@ -1,14 +1,14 @@
 "use client";
 
-import { Icons } from "./icons";
 import * as React from "react";
 import {
 	type DayButton,
 	DayPicker,
 	getDefaultClassNames,
 } from "react-day-picker";
-import { Button, buttonVariants } from "./button";
 import { cn } from "../lib/utils";
+import { Button, buttonVariants } from "./button";
+import { Icons } from "./icons";
 
 function Calendar({
 	className,

@@ -1,8 +1,7 @@
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { Icons } from "./icons";
 import type * as React from "react";
-
 import { cn } from "../lib/utils";
+import { Icons } from "./icons";
 
 function Accordion({
 	...props

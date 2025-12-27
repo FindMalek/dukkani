@@ -1,10 +1,10 @@
-import { protectedProcedure } from "../index";
-import { StoreService } from "@dukkani/common/services";
 import {
-	listStoresInputSchema,
 	getStoreInputSchema,
+	listStoresInputSchema,
 } from "@dukkani/common/schemas/store/input";
+import { StoreService } from "@dukkani/common/services";
 import { ORPCError } from "@orpc/server";
+import { protectedProcedure } from "../index";
 
 export const storeRouter = {
 	/**

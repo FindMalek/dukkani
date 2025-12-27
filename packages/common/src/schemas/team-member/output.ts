@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { teamMemberRoleSchema } from "./enums";
-import { userSimpleOutputSchema } from "../user/output";
 import { storeSimpleOutputSchema } from "../store/output";
+import { userSimpleOutputSchema } from "../user/output";
+import { teamMemberRoleSchema } from "./enums";
 
 export const teamMemberSimpleOutputSchema = z.object({
 	id: z.string(),

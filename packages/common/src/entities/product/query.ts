@@ -1,7 +1,7 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
-import { StoreQuery } from "../store/query";
 import { ImageQuery } from "../image/query";
 import { OrderItemQuery } from "../order-item/query";
+import { StoreQuery } from "../store/query";
 export type ProductSimpleDbData = Prisma.ProductGetPayload<{
 	include: ReturnType<typeof ProductQuery.getSimpleInclude>;
 }>;

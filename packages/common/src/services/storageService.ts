@@ -115,7 +115,7 @@ export class StorageService {
 			// Extract path from public URL
 			const url = new URL(variant.url);
 			const pathParts = url.pathname.split("/");
-			const bucketIndex = pathParts.findIndex((part) => part === file.bucket);
+			const bucketIndex = pathParts.indexOf(file.bucket);
 			if (bucketIndex >= 0 && bucketIndex < pathParts.length - 1) {
 				paths.push(pathParts.slice(bucketIndex + 1).join("/"));
 			}

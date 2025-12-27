@@ -1,11 +1,11 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
-import { UserQuery } from "../user";
-import { StorePlanQuery } from "../store-plan";
-import { ProductQuery } from "../product";
-import { OrderQuery } from "../order";
 import { CustomerQuery } from "../customer";
-import { TeamMemberQuery } from "../team-member";
+import { OrderQuery } from "../order";
+import { ProductQuery } from "../product";
 import { SalesMetricQuery } from "../sales-metric";
+import { StorePlanQuery } from "../store-plan";
+import { TeamMemberQuery } from "../team-member";
+import { UserQuery } from "../user";
 
 export type StoreSimpleDbData = Prisma.StoreGetPayload<{
 	include: ReturnType<typeof StoreQuery.getSimpleInclude>;

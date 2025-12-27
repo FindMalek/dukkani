@@ -1,6 +1,6 @@
 import { Command as CommandPrimitive } from "cmdk";
-import { Icons } from "./icons";
 import type * as React from "react";
+import { cn } from "../lib/utils";
 import {
 	Dialog,
 	DialogContent,
@@ -8,7 +8,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "./dialog";
-import { cn } from "../lib/utils";
+import { Icons } from "./icons";
 
 function Command({
 	className,

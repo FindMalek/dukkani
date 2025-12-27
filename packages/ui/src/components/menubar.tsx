@@ -1,8 +1,7 @@
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
-import { Icons } from "./icons";
 import type * as React from "react";
-
 import { cn } from "../lib/utils";
+import { Icons } from "./icons";
 
 function Menubar({
 	className,

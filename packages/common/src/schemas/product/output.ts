@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { storeSimpleOutputSchema } from "../store/output";
 import { imageSimpleOutputSchema } from "../image/output";
 import { orderItemSimpleOutputSchema } from "../order-item/output";
+import { storeSimpleOutputSchema } from "../store/output";
 
 export const productSimpleOutputSchema = z.object({
 	id: z.string(),

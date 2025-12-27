@@ -1,12 +1,12 @@
 import { z } from "zod";
-import { storeCategorySchema, storeThemeSchema } from "./enums";
-import { userSimpleOutputSchema } from "../user/output";
-import { storePlanSimpleOutputSchema } from "../store-plan/output";
-import { productSimpleOutputSchema } from "../product/output";
-import { orderSimpleOutputSchema } from "../order/output";
 import { customerSimpleOutputSchema } from "../customer/output";
-import { teamMemberSimpleOutputSchema } from "../team-member/output";
+import { orderSimpleOutputSchema } from "../order/output";
+import { productSimpleOutputSchema } from "../product/output";
 import { salesMetricSimpleOutputSchema } from "../sales-metric/output";
+import { storePlanSimpleOutputSchema } from "../store-plan/output";
+import { teamMemberSimpleOutputSchema } from "../team-member/output";
+import { userSimpleOutputSchema } from "../user/output";
+import { storeCategorySchema, storeThemeSchema } from "./enums";
 
 export const storeSimpleOutputSchema = z.object({
 	id: z.string(),

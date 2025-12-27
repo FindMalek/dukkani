@@ -1,10 +1,10 @@
 import type {
-	OrderItemSimpleOutput,
 	OrderItemIncludeOutput,
+	OrderItemSimpleOutput,
 } from "../../schemas/order-item/output";
-import type { OrderItemSimpleDbData, OrderItemIncludeDbData } from "./query";
-import { ProductEntity } from "../product/entity";
 import { OrderEntity } from "../order/entity";
+import { ProductEntity } from "../product/entity";
+import type { OrderItemIncludeDbData, OrderItemSimpleDbData } from "./query";
 
 export class OrderItemEntity {
 	static getSimpleRo(entity: OrderItemSimpleDbData): OrderItemSimpleOutput {

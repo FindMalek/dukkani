@@ -1,5 +1,7 @@
 "use client";
 
+import { formatCurrency } from "@dukkani/common/utils";
+import { Badge } from "@dukkani/ui/components/badge";
 import {
 	Card,
 	CardContent,
@@ -7,6 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@dukkani/ui/components/card";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import {
 	Table,
 	TableBody,
@@ -15,10 +18,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@dukkani/ui/components/table";
-import { Badge } from "@dukkani/ui/components/badge";
-import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useProducts } from "@/hooks/api/use-products";
-import { formatCurrency } from "@dukkani/common/utils";
 
 export default function ProductsPage() {
 	const { data, isLoading, error } = useProducts({ page: 1, limit: 50 });

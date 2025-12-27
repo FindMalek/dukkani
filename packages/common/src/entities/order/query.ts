@@ -1,5 +1,5 @@
-import type { Prisma } from "@dukkani/db/prisma/generated";
 import type { OrderStatus } from "@dukkani/common/schemas/order/enums";
+import type { Prisma } from "@dukkani/db/prisma/generated";
 import { CustomerQuery } from "../customer/query";
 
 export type OrderSimpleDbData = Prisma.OrderGetPayload<{

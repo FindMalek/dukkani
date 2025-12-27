@@ -3,10 +3,9 @@ import { hashPassword } from "@dukkani/db/utils/generate-id";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
-import { openAPI } from "better-auth/plugins";
+import { lastLoginMethod, openAPI } from "better-auth/plugins";
 import type { env } from "./env";
 import { buildTrustedOrigins, verifyPassword } from "./utils";
-import { lastLoginMethod } from "better-auth/plugins";
 
 /**
  * Factory function to create a Better Auth instance

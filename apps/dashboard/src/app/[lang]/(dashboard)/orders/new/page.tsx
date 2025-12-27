@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@dukkani/ui/components/button";
 import {
 	Card,
 	CardContent,
@@ -7,7 +8,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@dukkani/ui/components/card";
-import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
 import { RoutePaths } from "@/lib/routes";
