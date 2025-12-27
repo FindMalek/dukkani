@@ -41,6 +41,7 @@
 	"dependencies": {
 		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*",
+		"@dukkani/logger": "workspace:*",
 		"@prisma/client": "catalog:",
 		"nanoid": "catalog:",
 		"zod": "catalog:"

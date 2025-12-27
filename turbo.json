@@ -29,7 +29,8 @@
 		},
 		"dev": {
 			"cache": false,
-			"persistent": true
+			"persistent": true,
+			"outputLogs": "full"
 		},
 		"db:push": {
 			"cache": false
