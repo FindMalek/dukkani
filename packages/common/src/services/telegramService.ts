@@ -1,3 +1,4 @@
+import { randomInt } from "node:crypto";
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
 import { OrderService } from "./orderService";
@@ -39,7 +40,7 @@ export class TelegramService {
 
 		while (attempts < maxRetries) {
 			// Generate 6-digit OTP
-			const code = Math.floor(100000 + Math.random() * 900000).toString();
+			const code = randomInt(100000, 999999).toString();
 			const expiresAt = new Date(Date.now() + expiresInMinutes * 60 * 1000);
 
 			try {
@@ -323,7 +324,7 @@ ${itemsText}
 		const handler = commandMap[command.toLowerCase()];
 
 		if (handler) {
-				await handler(args, chatId);
+			await handler(args, chatId);
 		}
 	}
 
