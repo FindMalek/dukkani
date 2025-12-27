@@ -38,8 +38,6 @@ model User {
   teamMembers TeamMember[]
   stores      Store[]      @relation("StoreOwner")
 
-  telegramLinkTokens TelegramLinkToken[]
-
   @@unique([email])
   @@map("user")
 }

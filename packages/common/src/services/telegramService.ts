@@ -19,77 +19,6 @@ export class TelegramService {
 	private static lastMessageTime = 0;
 
 	/**
-	 * Generate secure token for deep linking
-	 */
-	static generateLinkToken(): string {
-		return randomBytes(32).toString("hex");
-	}
-
-	/**
-	 * Create deep link token for user
-	 */
-	static async createLinkToken(
-		userId: string,
-		expiresInMinutes = 10,
-	): Promise<string> {
-		const token = TelegramService.generateLinkToken();
-		const expiresAt = new Date(Date.now() + expiresInMinutes * 60 * 1000);
-
-		await database.telegramLinkToken.create({
-			data: {
-				userId,
-				token,
-				expiresAt,
-			},
-		});
-
-		return token;
-	}
-
-	/**
-	 * Link Telegram account to user via deep link token
-	 */
-	static async linkAccount(
-		token: string,
-		telegramChatId: string,
-	): Promise<{ userId: string }> {
-		const linkToken = await database.telegramLinkToken.findUnique({
-			where: { token },
-			include: { user: true },
-		});
-
-		if (!linkToken) {
-			throw new Error("Invalid link token");
-		}
-
-		if (linkToken.used) {
-			throw new Error("Link token already used");
-		}
-
-		if (linkToken.expiresAt < new Date()) {
-			throw new Error("Link token expired");
-		}
-
-		// Update user and mark token as used in transaction
-		await database.$transaction(async (tx) => {
-			await tx.user.update({
-				where: { id: linkToken.userId },
-				data: {
-					telegramChatId,
-					telegramLinkedAt: new Date(),
-				},
-			});
-
-			await tx.telegramLinkToken.update({
-				where: { id: linkToken.id },
-				data: { used: true },
-			});
-		});
-
-		return { userId: linkToken.userId };
-	}
-
-	/**
 	 * Rate-limited message sending
 	 * MVP: Uses simple delay
 	 * TODO: Replace with proper queue system
@@ -252,17 +181,5 @@ ${itemsText}
 				show_alert: showAlert,
 			}),
 		});
-	}
-
-	/**
-	 * Clean up expired tokens (run via cron)
-	 */
-	static async cleanupExpiredTokens(): Promise<number> {
-		const result = await database.telegramLinkToken.deleteMany({
-			where: {
-				expiresAt: { lt: new Date() },
-			},
-		});
-		return result.count;
 	}
 }

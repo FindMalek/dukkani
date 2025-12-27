@@ -5,10 +5,6 @@ export function useTelegramStatus() {
 	return useQuery(orpc.telegram.getStatus.queryOptions());
 }
 
-export function useCreateTelegramLink() {
-	return useMutation(orpc.telegram.createLinkToken.mutationOptions());
-}
-
 export function useSendTestMessage() {
 	return useMutation(orpc.telegram.sendTestMessage.mutationOptions());
 }

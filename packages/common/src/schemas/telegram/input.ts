@@ -1,9 +1,5 @@
 import { z } from "zod";
 
-export const createLinkTokenInputSchema = z.object({
-	expiresInMinutes: z.number().int().min(1).max(60).optional().default(10),
-});
-
 export const sendOTPInputSchema = z.object({
 	otp: z.string().min(4).max(8),
 });
@@ -57,7 +53,6 @@ export const telegramUpdateSchema = z.object({
 	callback_query: telegramCallbackQuerySchema.optional(),
 });
 
-export type CreateLinkTokenInput = z.infer<typeof createLinkTokenInputSchema>;
 export type SendOTPInput = z.infer<typeof sendOTPInputSchema>;
 export type TelegramUpdate = z.infer<typeof telegramUpdateSchema>;
 
