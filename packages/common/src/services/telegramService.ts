@@ -1,5 +1,6 @@
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
+import { OrderService } from "./orderService";
 
 /**
  * Telegram Service - Handles all Telegram Bot API interactions
@@ -296,5 +297,225 @@ ${itemsText}
 			},
 		});
 		return result.count;
+	}
+
+	/**
+	 * Handle Telegram command
+	 */
+	static async handleCommand(
+		command: string,
+		args: string[],
+		chatId: string,
+	): Promise<void> {
+		if (!command) {
+			return;
+		}
+
+		const commandMap: Record<
+			string,
+			(args: string[], chatId: string) => Promise<void>
+		> = {
+			link: TelegramService.handleLinkCommand,
+			start: TelegramService.handleStartCommand,
+			help: TelegramService.handleHelpCommand,
+		};
+
+		const handler = commandMap[command.toLowerCase()];
+		if (handler) {
+			await handler(args, chatId);
+		}
+		// Unknown commands are silently ignored
+	}
+
+	/**
+	 * Handle /link command - Link account using OTP code
+	 */
+	private static async handleLinkCommand(
+		args: string[],
+		chatId: string,
+	): Promise<void> {
+		const otpCode = args[0]?.trim();
+
+		if (!otpCode) {
+			await TelegramService.sendMessage(
+				chatId,
+				"❌ <b>Invalid Command</b>\n\nUsage: /link OTP_CODE\n\nExample: /link 123456",
+				{ parseMode: "HTML" },
+			);
+			return;
+		}
+
+		try {
+			await TelegramService.validateLinkOTP(otpCode, chatId);
+			await TelegramService.sendMessage(
+				chatId,
+				"✅ <b>Account Linked Successfully!</b>\n\nYou will now receive order notifications from Dukkani.",
+				{ parseMode: "HTML" },
+			);
+		} catch (error) {
+			await TelegramService.sendMessage(
+				chatId,
+				"❌ <b>Linking Failed</b>\n\n" +
+					(error instanceof Error
+						? error.message
+						: "Invalid or expired OTP code."),
+				{ parseMode: "HTML" },
+			);
+		}
+	}
+
+	/**
+	 * Handle /start command - Welcome message
+	 */
+	private static async handleStartCommand(
+		_args: string[],
+		chatId: string,
+	): Promise<void> {
+		await TelegramService.sendMessage(
+			chatId,
+			"👋 <b>Welcome to Dukkani Notifications Bot!</b>\n\nThis bot sends you real-time order notifications from your Dukkani stores.\n\n<b>Commands:</b>\n/link CODE - Link your account using OTP code\n/help - Show this help message\n\nTo link your account:\n1. Go to your Dukkani dashboard settings\n2. Generate an OTP code\n3. Send /link CODE to this bot",
+			{ parseMode: "HTML" },
+		);
+	}
+
+	/**
+	 * Handle /help command - Show help message
+	 */
+	private static async handleHelpCommand(
+		_args: string[],
+		chatId: string,
+	): Promise<void> {
+		await TelegramService.sendMessage(
+			chatId,
+			"📖 <b>Dukkani Bot Commands</b>\n\n/link CODE - Link your Telegram account\n/help - Show this help message\n/start - Welcome message\n\n<b>Need help?</b>\nContact support through your Dukkani dashboard.",
+			{ parseMode: "HTML" },
+		);
+	}
+
+	/**
+	 * Handle Telegram callback query (button clicks)
+	 * Routes callbacks to appropriate handlers
+	 */
+	static async handleCallbackQuery(
+		callbackData: string,
+		callbackQueryId: string,
+		chatId: string,
+	): Promise<void> {
+		const parts = callbackData.split("_");
+		const action = parts[0]?.toLowerCase();
+
+		if (!action) {
+			// Invalid callback data - silently ignore
+			return;
+		}
+
+		const callbackMap: Record<
+			string,
+			(data: string, callbackQueryId: string, chatId: string) => Promise<void>
+		> = {
+			ship: TelegramService.handleShipCallback,
+		};
+
+		const handler = callbackMap[action];
+		if (handler) {
+			await handler(callbackData, callbackQueryId, chatId);
+		}
+		// Unknown callbacks are silently ignored
+	}
+
+	/**
+	 * Handle ship callback - Mark order as shipped
+	 * Called when user clicks "Mark as Shipped" button
+	 */
+	private static async handleShipCallback(
+		callbackData: string,
+		callbackQueryId: string,
+		chatId: string,
+	): Promise<void> {
+		const parts = callbackData.split("_");
+		const orderId = parts[1];
+
+		if (!orderId) {
+			await TelegramService.answerCallbackQuery(
+				callbackQueryId,
+				"❌ Invalid callback data",
+				true,
+			);
+			return;
+		}
+
+		// Find user by telegramChatId
+		const user = await database.user.findFirst({
+			where: { telegramChatId: chatId },
+		});
+
+		if (!user) {
+			await TelegramService.answerCallbackQuery(
+				callbackQueryId,
+				"❌ User not found",
+				true,
+			);
+			return;
+		}
+
+		try {
+			await OrderService.updateOrderStatus(orderId, "SHIPPED", user.id);
+			await TelegramService.answerCallbackQuery(
+				callbackQueryId,
+				`✅ Order #${orderId} marked as shipped!`,
+			);
+			await TelegramService.sendMessage(
+				chatId,
+				`✅ Order #${orderId} has been marked as shipped.`,
+				{ parseMode: "HTML" },
+			);
+		} catch (error) {
+			await TelegramService.answerCallbackQuery(
+				callbackQueryId,
+				error instanceof Error ? error.message : "❌ Failed to update order",
+				true,
+			);
+		}
+	}
+
+	/**
+	 * Process Telegram webhook update
+	 * Main entry point for handling Telegram updates
+	 */
+	static async processWebhookUpdate(update: {
+		message?: { text?: string; chat: { id: number } };
+		callback_query?: {
+			data?: string;
+			id: string;
+			message?: { chat: { id: number } };
+		};
+	}): Promise<void> {
+		// Handle callback queries (button clicks) - priority over commands
+		if (update.callback_query) {
+			const { data, id: callbackQueryId, message } = update.callback_query;
+			if (data && callbackQueryId && message) {
+				const chatId = message.chat.id.toString();
+				await TelegramService.handleCallbackQuery(
+					data,
+					callbackQueryId,
+					chatId,
+				);
+			}
+			return;
+		}
+
+		// Handle commands (text messages starting with /)
+		if (update.message?.text?.startsWith("/")) {
+			const text = update.message.text;
+			const parts = text.slice(1).split(/\s+/);
+			const command = parts[0];
+			const args = parts.slice(1);
+			const chatId = update.message.chat.id.toString();
+
+			if (command) {
+				await TelegramService.handleCommand(command, args, chatId);
+			}
+			return;
+		}
 	}
 }
