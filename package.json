@@ -9,7 +9,6 @@
 	"scripts": {
 		"check": "biome check --write .",
 		"lint": "biome lint --write .",
-		"fix": "biome check --write .",
 		"fix:all": "biome check --write --unsafe . || true",
 		"format": "biome format --write . && turbo -F @dukkani/db db:format",
 		"ruler:apply": "pnpm dlx @intellectronica/ruler@latest apply --local-only",
