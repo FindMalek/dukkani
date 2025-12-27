@@ -6,11 +6,26 @@ import {
 } from "@dukkani/common/schemas/telegram/input";
 import { OrderService, TelegramService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
-import { apiEnv, env } from "@dukkani/env";
+import { apiEnv } from "@dukkani/env";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure, publicProcedure } from "../index";
 
 export const telegramRouter = {
+	/**
+	 * Get Telegram bot link and generate OTP for account linking
+	 */
+	getBotLink: protectedProcedure.handler(async ({ context }) => {
+		const userId = context.session.user.id;
+		const botLink = TelegramService.getBotLink();
+		const otpCode = await TelegramService.generateLinkOTP(userId);
+
+		return {
+			botLink,
+			otpCode,
+			instructions: `1. Open ${botLink}\n2. Send: /link ${otpCode}\n3. Your account will be linked!`,
+		};
+	}),
+
 	/**
 	 * Send OTP to user's linked Telegram account
 	 */
@@ -161,6 +176,41 @@ export const telegramRouter = {
 				});
 			}
 
+			// Handle /link command
+			if (input.message?.text?.startsWith("/link ")) {
+				const text = input.message.text;
+				const otpCode = text.replace("/link ", "").trim();
+				const chatId = input.message.chat.id.toString();
+
+				if (!otpCode) {
+					await TelegramService.sendMessage(
+						chatId,
+						"❌ <b>Invalid Command</b>\n\nUsage: /link OTP_CODE\n\nExample: /link 123456",
+						{ parseMode: "HTML" },
+					);
+					return { ok: true };
+				}
+
+				try {
+					await TelegramService.validateLinkOTP(otpCode, chatId);
+					await TelegramService.sendMessage(
+						chatId,
+						"✅ <b>Account Linked Successfully!</b>\n\nYou will now receive order notifications from Dukkani.",
+						{ parseMode: "HTML" },
+					);
+				} catch (error) {
+					await TelegramService.sendMessage(
+						chatId,
+						"❌ <b>Linking Failed</b>\n\n" +
+							(error instanceof Error
+								? error.message
+								: "Invalid or expired OTP code."),
+						{ parseMode: "HTML" },
+					);
+				}
+				return { ok: true };
+			}
+
 			// Handle callback queries (button clicks)
 			if (input.callback_query) {
 				const { data, id: callbackQueryId, message } = input.callback_query;
@@ -223,7 +273,7 @@ export const telegramRouter = {
 				const chatId = input.message.chat.id.toString();
 				await TelegramService.sendMessage(
 					chatId,
-					"👋 <b>Welcome to Dukkani Notifications Bot!</b>\n\nThis bot sends you real-time order notifications from your Dukkani stores.\n\n<b>Commands:</b>\n/start - Link your account\n/help - Show this help message\n\nTo link your account, use the link provided in your Dukkani dashboard settings.",
+					"👋 <b>Welcome to Dukkani Notifications Bot!</b>\n\nThis bot sends you real-time order notifications from your Dukkani stores.\n\n<b>Commands:</b>\n/link CODE - Link your account using OTP code\n/help - Show this help message\n\nTo link your account:\n1. Go to your Dukkani dashboard settings\n2. Generate an OTP code\n3. Send /link CODE to this bot",
 					{ parseMode: "HTML" },
 				);
 				return { ok: true };

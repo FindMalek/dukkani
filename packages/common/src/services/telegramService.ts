@@ -1,4 +1,3 @@
-import { randomBytes } from "node:crypto";
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
 
@@ -17,6 +16,110 @@ export class TelegramService {
 	// Production: Should use BullMQ/Redis queue for proper rate limiting
 	private static readonly RATE_LIMIT_DELAY = 50; // 20 messages/second (50ms between messages)
 	private static lastMessageTime = 0;
+
+	/**
+	 * Get Telegram bot deep link URL
+	 */
+	static getBotLink(): string {
+		return `https://t.me/${apiEnv.TELEGRAM_BOT_NAME}`;
+	}
+
+	/**
+	 * Generate 6-digit OTP code for account linking
+	 * Format: 123456
+	 * Handles collisions by retrying (very rare but possible)
+	 */
+	static async generateLinkOTP(
+		userId: string,
+		expiresInMinutes = 10,
+	): Promise<string> {
+		const maxRetries = 5;
+		let attempts = 0;
+
+		while (attempts < maxRetries) {
+			// Generate 6-digit OTP
+			const code = Math.floor(100000 + Math.random() * 900000).toString();
+			const expiresAt = new Date(Date.now() + expiresInMinutes * 60 * 1000);
+
+			try {
+				// Try to store OTP in database
+				await database.telegramOTP.create({
+					data: {
+						userId,
+						code,
+						expiresAt,
+					},
+				});
+
+				return code;
+			} catch (error) {
+				// If unique constraint violation, retry with new code
+				// Prisma error code P2002 = unique constraint violation
+				if (
+					error &&
+					typeof error === "object" &&
+					"code" in error &&
+					error.code === "P2002"
+				) {
+					attempts++;
+					if (attempts >= maxRetries) {
+						throw new Error(
+							"Failed to generate unique OTP code after multiple attempts",
+						);
+					}
+					// Retry with new code
+					continue;
+				}
+				// Re-throw other errors
+				throw error;
+			}
+		}
+
+		throw new Error("Failed to generate OTP code");
+	}
+
+	/**
+	 * Validate OTP code and link Telegram account
+	 */
+	static async validateLinkOTP(
+		otpCode: string,
+		telegramChatId: string,
+	): Promise<{ userId: string }> {
+		const otp = await database.telegramOTP.findUnique({
+			where: { code: otpCode },
+			include: { user: true },
+		});
+
+		if (!otp) {
+			throw new Error("Invalid OTP code");
+		}
+
+		if (otp.used) {
+			throw new Error("OTP code already used");
+		}
+
+		if (otp.expiresAt < new Date()) {
+			throw new Error("OTP code expired");
+		}
+
+		// Link account and mark OTP as used in transaction
+		await database.$transaction(async (tx) => {
+			await tx.user.update({
+				where: { id: otp.userId },
+				data: {
+					telegramChatId,
+					telegramLinkedAt: new Date(),
+				},
+			});
+
+			await tx.telegramOTP.update({
+				where: { id: otp.id },
+				data: { used: true },
+			});
+		});
+
+		return { userId: otp.userId };
+	}
 
 	/**
 	 * Rate-limited message sending
@@ -181,5 +284,17 @@ ${itemsText}
 				show_alert: showAlert,
 			}),
 		});
+	}
+
+	/**
+	 * Clean up expired OTP codes (run via cron)
+	 */
+	static async cleanupExpiredOTPs(): Promise<number> {
+		const result = await database.telegramOTP.deleteMany({
+			where: {
+				OR: [{ expiresAt: { lt: new Date() } }, { used: true }],
+			},
+		});
+		return result.count;
 	}
 }

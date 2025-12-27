@@ -1,0 +1,17 @@
+model TelegramOTP {
+  id   String @id @default(cuid())
+  code String @unique
+
+  used Boolean @default(false)
+
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([code])
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("telegramotp")
+}

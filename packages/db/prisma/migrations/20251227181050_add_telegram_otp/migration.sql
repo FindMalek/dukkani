@@ -1,0 +1,26 @@
+-- CreateTable
+CREATE TABLE "telegramotp" (
+    "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
+    "used" BOOLEAN NOT NULL DEFAULT false,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userId" TEXT NOT NULL,
+
+    CONSTRAINT "telegramotp_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "telegramotp_code_key" ON "telegramotp"("code");
+
+-- CreateIndex
+CREATE INDEX "telegramotp_code_idx" ON "telegramotp"("code");
+
+-- CreateIndex
+CREATE INDEX "telegramotp_userId_idx" ON "telegramotp"("userId");
+
+-- CreateIndex
+CREATE INDEX "telegramotp_expiresAt_idx" ON "telegramotp"("expiresAt");
+
+-- AddForeignKey
+ALTER TABLE "telegramotp" ADD CONSTRAINT "telegramotp_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("_id") ON DELETE CASCADE ON UPDATE CASCADE;
