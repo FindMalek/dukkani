@@ -277,15 +277,18 @@ ${itemsText}
 	): Promise<void> {
 		await TelegramService.rateLimit();
 
-		const response = await fetch(`${TelegramService.BOT_API_URL}/answerCallbackQuery`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				callback_query_id: callbackQueryId,
-				text,
-				show_alert: showAlert,
-			}),
-		});
+		const response = await fetch(
+			`${TelegramService.BOT_API_URL}/answerCallbackQuery`,
+			{
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					callback_query_id: callbackQueryId,
+					text,
+					show_alert: showAlert,
+				}),
+			},
+		);
 
 		const responseData = await response.json().catch(() => null);
 
