@@ -5,4 +5,3 @@ export const sendOTPInputSchema = z.object({
 });
 
 export type SendOTPInput = z.infer<typeof sendOTPInputSchema>;
-

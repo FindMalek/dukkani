@@ -104,6 +104,17 @@ export class TelegramService {
 			throw new Error("OTP code expired");
 		}
 
+		const existingUser = await database.user.findUnique({
+			where: { telegramChatId },
+			select: { id: true },
+		});
+
+		if (existingUser && existingUser.id !== otp.userId) {
+			throw new Error(
+				"This Telegram account is already linked to another Dukkani account",
+			);
+		}
+
 		// Link account and mark OTP as used in transaction
 		await database.$transaction(async (tx) => {
 			await tx.user.update({

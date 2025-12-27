@@ -1,6 +1,4 @@
-import {
-	sendOTPInputSchema,
-} from "@dukkani/common/schemas/telegram/input";
+import { sendOTPInputSchema } from "@dukkani/common/schemas/telegram/input";
 import { TelegramService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
