@@ -5,6 +5,7 @@ import {
 	type SignupInput,
 	signupInputSchema,
 } from "@dukkani/common/schemas/user/input";
+import { Alert, AlertDescription } from "@dukkani/ui/components/alert";
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Form,
@@ -34,6 +35,7 @@ export default function SignupPage() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const emailFromQuery = searchParams.get("email");
+	const hasEmail = !!emailFromQuery;
 
 	const form = useForm<SignupInput>({
 		resolver: zodResolver(signupInputSchema),
@@ -79,6 +81,19 @@ export default function SignupPage() {
 						</div>
 					</div>
 
+					{/* Missing Email Warning */}
+					{!hasEmail && (
+						<Alert
+							variant="default"
+							className="border-yellow-500/50 bg-yellow-500/10"
+						>
+							<Icons.alertCircle className="h-4 w-4 text-yellow-600" />
+							<AlertDescription className="text-sm text-yellow-800">
+								{t("email.missingWarning")}
+							</AlertDescription>
+						</Alert>
+					)}
+
 					{/* Form Section */}
 					<Form {...form}>
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -93,7 +108,7 @@ export default function SignupPage() {
 										<FormControl>
 											<Input
 												placeholder={t("name.placeholder")}
-												autoFocus
+												autoFocus={hasEmail}
 												{...field}
 												className="h-12 border-muted-foreground/20 bg-muted/5 focus-visible:ring-primary"
 											/>
@@ -114,14 +129,22 @@ export default function SignupPage() {
 										<FormControl>
 											<Input
 												type="email"
-												readOnly
+												readOnly={hasEmail}
+												placeholder={t("email.placeholder")}
+												autoFocus={!hasEmail}
 												{...field}
-												className="h-12 cursor-not-allowed border-muted-foreground/10 bg-muted/30 text-muted-foreground"
+												className={
+													hasEmail
+														? "h-12 cursor-not-allowed border-muted-foreground/10 bg-muted/30 text-muted-foreground"
+														: "h-12 border-muted-foreground/20 bg-muted/5 focus-visible:ring-primary"
+												}
 											/>
 										</FormControl>
-										<p className="px-1 text-[10px] text-muted-foreground italic">
-											{t("email.description")}
-										</p>
+										{hasEmail ? (
+											<p className="px-1 text-[10px] text-muted-foreground italic">
+												{t("email.description")}
+											</p>
+										) : null}
 										<FormMessage />
 									</FormItem>
 								)}
@@ -177,13 +200,13 @@ export default function SignupPage() {
 						</p>
 
 						<p className="mx-auto max-w-[280px] text-[11px] text-muted-foreground leading-relaxed">
-							By continuing, you agree to our{" "}
+							{t("agreeText")}{" "}
 							<Link href="/terms" className="underline hover:text-foreground">
-								Terms
-							</Link>
-							{" & "}
+								{t("terms")}
+							</Link>{" "}
+							{t("and")}{" "}
 							<Link href="/policy" className="underline hover:text-foreground">
-								Privacy Policy
+								{t("privacy")}
 							</Link>
 						</p>
 					</div>

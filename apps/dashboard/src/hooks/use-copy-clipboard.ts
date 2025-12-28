@@ -1,5 +1,4 @@
 import { toast } from "sonner";
-import { handleAPIError } from "@/lib/error";
 
 /**
  * Hook to copy text to clipboard
@@ -17,7 +16,7 @@ export function useCopyClipboard(): (
 			await navigator.clipboard.writeText(text);
 			toast.success(successMessage);
 		} catch {
-			handleAPIError(new Error("Failed to copy"));
+			toast.error("Failed to copy to clipboard");
 		}
 	};
 

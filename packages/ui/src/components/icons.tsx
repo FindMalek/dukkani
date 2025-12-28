@@ -12,6 +12,7 @@
  */
 
 import {
+	AlertCircle,
 	ArrowLeft,
 	ArrowRight,
 	Check,
@@ -56,6 +57,7 @@ import { FaApple, FaFacebook, FaGoogle, FaTelegram } from "react-icons/fa";
 export type Icon = LucideIcon;
 
 export const Icons = {
+	alertCircle: AlertCircle,
 	arrowLeft: ArrowLeft,
 	arrowRight: ArrowRight,
 	chevronDown: ChevronDown,
