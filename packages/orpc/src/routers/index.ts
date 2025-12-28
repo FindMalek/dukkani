@@ -3,6 +3,7 @@ import { accountRouter } from "./account";
 import { customerRouter } from "./customer";
 import { dashboardRouter } from "./dashboard";
 import { healthRouter } from "./health";
+import { onboardingRouter } from "./onboarding";
 import { orderRouter } from "./order";
 import { productRouter } from "./product";
 import { storageRouter } from "./storage";
@@ -19,6 +20,7 @@ export const appRouter = {
 	storage: storageRouter,
 	account: accountRouter,
 	telegram: telegramRouter,
+	onboarding: onboardingRouter,
 };
 export type AppRouter = typeof appRouter;
 export type AppRouterClient = RouterClient<typeof appRouter>;
