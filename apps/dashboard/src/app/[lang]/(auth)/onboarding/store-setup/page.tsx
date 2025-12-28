@@ -6,7 +6,7 @@ import {
 	storeThemeEnum,
 } from "@dukkani/common/schemas/enums";
 import {
-	type CreateStoreOnboardingFormInput,
+	type CreateStoreOnboardingInput,
 	createStoreOnboardingInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import { Button } from "@dukkani/ui/components/button";
@@ -30,13 +30,13 @@ import { toast } from "sonner";
 import { AuthBackground } from "@/components/layout/auth-background";
 import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
-import { RoutePaths } from "@/lib/routes";
+import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
 
 export default function StoreSetupPage() {
 	const router = useRouter();
 	const t = useTranslations("onboarding.storeSetup");
 
-	const form = useForm<CreateStoreOnboardingFormInput>({
+	const form = useForm<CreateStoreOnboardingInput>({
 		resolver: zodResolver(createStoreOnboardingInputSchema),
 		defaultValues: {
 			name: "",
@@ -46,12 +46,14 @@ export default function StoreSetupPage() {
 	});
 
 	const createStoreMutation = useMutation({
-		mutationFn: (input: CreateStoreOnboardingFormInput) =>
+		mutationFn: (input: CreateStoreOnboardingInput) =>
 			client.store.create(input),
 		onSuccess: (data) => {
 			toast.success(t("success"));
 			router.push(
-				`${RoutePaths.AUTH.ONBOARDING.COMPLETE.url}?storeId=${data.id}`,
+				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.COMPLETE.url, {
+					storeId: data.id,
+				}),
 			);
 		},
 		onError: (error) => {
@@ -59,7 +61,7 @@ export default function StoreSetupPage() {
 		},
 	});
 
-	const onSubmit = async (values: CreateStoreOnboardingFormInput) => {
+	const onSubmit = async (values: CreateStoreOnboardingInput) => {
 		createStoreMutation.mutate(values);
 	};
 
@@ -123,16 +125,10 @@ export default function StoreSetupPage() {
 														className="flex flex-1 cursor-pointer flex-col"
 													>
 														<span className="font-medium">
-															{StoreEntity.getNotificationMethodLabel(
-																storeNotificationMethodEnum.EMAIL,
-																t,
-															)}
+															{t("notifications.options.email.label")}
 														</span>
 														<span className="font-normal text-muted-foreground text-xs">
-															{StoreEntity.getNotificationMethodDescription(
-																storeNotificationMethodEnum.EMAIL,
-																t,
-															)}
+															{t("notifications.options.email.description")}
 														</span>
 													</label>
 												</div>
@@ -147,16 +143,10 @@ export default function StoreSetupPage() {
 														className="flex flex-1 cursor-pointer flex-col"
 													>
 														<span className="font-medium">
-															{StoreEntity.getNotificationMethodLabel(
-																storeNotificationMethodEnum.TELEGRAM,
-																t,
-															)}
+															{t("notifications.options.telegram.label")}
 														</span>
 														<span className="font-normal text-muted-foreground text-xs">
-															{StoreEntity.getNotificationMethodDescription(
-																storeNotificationMethodEnum.TELEGRAM,
-																t,
-															)}
+															{t("notifications.options.telegram.description")}
 														</span>
 													</label>
 												</div>
@@ -171,16 +161,10 @@ export default function StoreSetupPage() {
 														className="flex flex-1 cursor-pointer flex-col"
 													>
 														<span className="font-medium">
-															{StoreEntity.getNotificationMethodLabel(
-																storeNotificationMethodEnum.BOTH,
-																t,
-															)}
+															{t("notifications.options.both.label")}
 														</span>
 														<span className="font-normal text-muted-foreground text-xs">
-															{StoreEntity.getNotificationMethodDescription(
-																storeNotificationMethodEnum.BOTH,
-																t,
-															)}
+															{t("notifications.options.both.description")}
 														</span>
 													</label>
 												</div>

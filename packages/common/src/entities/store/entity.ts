@@ -65,34 +65,4 @@ export class StoreEntity {
 		}
 		return StoreNotificationMethod.EMAIL;
 	}
-
-	/**
-	 * Get translated label for notification method (for next-intl)
-	 * @param method - The notification method enum value
-	 * @param t - Translation function from next-intl useTranslations
-	 */
-	static getNotificationMethodLabel(
-		method: StoreNotificationMethod | null | undefined,
-		t: (key: string) => string,
-	): string {
-		const key = method || StoreNotificationMethod.EMAIL;
-		return t(
-			`onboarding.storeSetup.notifications.options.${key.toLowerCase()}.label`,
-		);
-	}
-
-	/**
-	 * Get translated description for notification method (for next-intl)
-	 * @param method - The notification method enum value
-	 * @param t - Translation function from next-intl useTranslations
-	 */
-	static getNotificationMethodDescription(
-		method: StoreNotificationMethod | null | undefined,
-		t: (key: string) => string,
-	): string {
-		const key = method || StoreNotificationMethod.EMAIL;
-		return t(
-			`onboarding.storeSetup.notifications.options.${key.toLowerCase()}.description`,
-		);
-	}
 }

@@ -1,7 +1,3 @@
-import {
-	StoreNotificationMethod,
-	StoreTheme,
-} from "@dukkani/db/prisma/generated/enums";
 import { z } from "zod";
 import {
 	storeCategorySchema,
@@ -20,21 +16,12 @@ export const storeInputSchema = z.object({
 	ownerId: z.string().min(1, "Owner ID is required"),
 });
 
-// Separate schema for onboarding (slug is auto-generated, ownerId comes from context)
 export const createStoreOnboardingInputSchema = z.object({
 	name: z.string().min(3, "Store name must be at least 3 characters"),
 	description: z.string().optional(),
-	theme: storeThemeSchema.optional().default(StoreTheme.MODERN),
-	notificationMethod: storeNotificationMethodSchema
-		.optional()
-		.default(StoreNotificationMethod.EMAIL),
+	theme: storeThemeSchema.optional(),
+	notificationMethod: storeNotificationMethodSchema.optional(),
 });
-
-// Type representing the form's actual shape after defaults are applied
-export type CreateStoreOnboardingFormInput = z.input<typeof createStoreOnboardingInputSchema> & {
-	theme: StoreTheme;
-	notificationMethod: StoreNotificationMethod;
-};
 
 export const createStoreInputSchema = storeInputSchema;
 
@@ -61,7 +48,9 @@ export const listStoresInputSchema = z.object({
 
 export type StoreInput = z.infer<typeof storeInputSchema>;
 export type CreateStoreInput = z.infer<typeof createStoreInputSchema>;
-export type CreateStoreOnboardingInput = z.infer<typeof createStoreOnboardingInputSchema>;
+export type CreateStoreOnboardingInput = z.output<
+	typeof createStoreOnboardingInputSchema
+>;
 export type UpdateStoreInput = z.infer<typeof updateStoreInputSchema>;
 export type GetStoreInput = z.infer<typeof getStoreInputSchema>;
 export type ListStoresInput = z.infer<typeof listStoresInputSchema>;
