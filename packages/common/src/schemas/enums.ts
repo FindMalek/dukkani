@@ -107,3 +107,15 @@ export const LIST_STORE_NOTIFICATION_METHODS = Object.values(
 export type StoreNotificationMethodInfer = z.infer<
 	typeof storeNotificationMethodSchema
 >;
+
+/**
+ * User Onboarding Step Enum
+ */
+export enum UserOnboardingStep {
+	STORE_SETUP = "STORE_SETUP",
+	COMPLETE = "COMPLETE",
+}
+export const userOnboardingStepSchema = z.nativeEnum(UserOnboardingStep);
+export const userOnboardingStepEnum = userOnboardingStepSchema.enum;
+export const LIST_USER_ONBOARDING_STEPS = Object.values(UserOnboardingStep);
+export type UserOnboardingStepInfer = z.infer<typeof userOnboardingStepSchema>;
