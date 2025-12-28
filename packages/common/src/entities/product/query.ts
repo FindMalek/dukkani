@@ -1,7 +1,7 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ImageQuery } from "../image/query";
 import { OrderItemQuery } from "../order-item/query";
-import { StoreQuery } from "../store/query";
+
 export type ProductSimpleDbData = Prisma.ProductGetPayload<{
 	include: ReturnType<typeof ProductQuery.getSimpleInclude>;
 }>;
@@ -22,7 +22,6 @@ export class ProductQuery {
 	static getInclude() {
 		return {
 			...ProductQuery.getSimpleInclude(),
-			store: StoreQuery.getSimpleInclude(),
 			images: ImageQuery.getSimpleInclude(),
 			orderItems: OrderItemQuery.getSimpleInclude(),
 		} satisfies Prisma.ProductInclude;

@@ -14,13 +14,13 @@ import {
 	listOrdersOutputSchema,
 	orderIncludeOutputSchema,
 } from "@dukkani/common/schemas/order/output";
+import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { TelegramService } from "@dukkani/common/services";
 import { OrderService } from "@dukkani/common/services/orderService";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
-import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 
 export const orderRouter = {
 	/**

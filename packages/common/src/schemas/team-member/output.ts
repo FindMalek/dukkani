@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { storeSimpleOutputSchema } from "../store/output";
 import { userSimpleOutputSchema } from "../user/output";
 import { teamMemberRoleSchema } from "./enums";
 
@@ -15,7 +14,6 @@ export const teamMemberSimpleOutputSchema = z.object({
 export const teamMemberIncludeOutputSchema =
 	teamMemberSimpleOutputSchema.extend({
 		user: userSimpleOutputSchema.optional(),
-		store: storeSimpleOutputSchema.optional(),
 	});
 
 export type TeamMemberSimpleOutput = z.infer<

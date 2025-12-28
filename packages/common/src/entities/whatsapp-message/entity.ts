@@ -1,12 +1,5 @@
-import type {
-	WhatsAppMessageIncludeOutput,
-	WhatsAppMessageSimpleOutput,
-} from "../../schemas/whatsapp-message/output";
-import { OrderEntity } from "../order/entity";
-import type {
-	WhatsAppMessageIncludeDbData,
-	WhatsAppMessageSimpleDbData,
-} from "./query";
+import type { WhatsAppMessageSimpleOutput } from "../../schemas/whatsapp-message/output";
+import type { WhatsAppMessageSimpleDbData } from "./query";
 
 export class WhatsAppMessageEntity {
 	static getSimpleRo(
@@ -21,15 +14,6 @@ export class WhatsAppMessageEntity {
 			sentAt: entity.sentAt,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
-		};
-	}
-
-	static getRo(
-		entity: WhatsAppMessageIncludeDbData,
-	): WhatsAppMessageIncludeOutput {
-		return {
-			...WhatsAppMessageEntity.getSimpleRo(entity),
-			order: OrderEntity.getSimpleRo(entity.order),
 		};
 	}
 }

@@ -1,9 +1,5 @@
-import type {
-	ImageIncludeOutput,
-	ImageSimpleOutput,
-} from "../../schemas/image/output";
-import { ProductEntity } from "../product/entity";
-import type { ImageIncludeDbData, ImageSimpleDbData } from "./query";
+import type { ImageSimpleOutput } from "../../schemas/image/output";
+import type { ImageSimpleDbData } from "./query";
 
 export class ImageEntity {
 	static getSimpleRo(entity: ImageSimpleDbData): ImageSimpleOutput {
@@ -13,13 +9,6 @@ export class ImageEntity {
 			productId: entity.productId,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
-		};
-	}
-
-	static getRo(entity: ImageIncludeDbData): ImageIncludeOutput {
-		return {
-			...ImageEntity.getSimpleRo(entity),
-			product: ProductEntity.getSimpleRo(entity.product),
 		};
 	}
 }

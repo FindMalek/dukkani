@@ -1,10 +1,5 @@
-import type {
-	OrderItemIncludeOutput,
-	OrderItemSimpleOutput,
-} from "../../schemas/order-item/output";
-import { OrderEntity } from "../order/entity";
-import { ProductEntity } from "../product/entity";
-import type { OrderItemIncludeDbData, OrderItemSimpleDbData } from "./query";
+import type { OrderItemSimpleOutput } from "../../schemas/order-item/output";
+import type { OrderItemSimpleDbData } from "./query";
 
 export class OrderItemEntity {
 	static getSimpleRo(entity: OrderItemSimpleDbData): OrderItemSimpleOutput {
@@ -16,14 +11,6 @@ export class OrderItemEntity {
 			price: Number(entity.price),
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
-		};
-	}
-
-	static getRo(entity: OrderItemIncludeDbData): OrderItemIncludeOutput {
-		return {
-			...OrderItemEntity.getSimpleRo(entity),
-			order: OrderEntity.getSimpleRo(entity.order),
-			product: ProductEntity.getSimpleRo(entity.product),
 		};
 	}
 }

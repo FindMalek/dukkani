@@ -4,7 +4,6 @@ import type {
 } from "../../schemas/product/output";
 import { ImageEntity } from "../image/entity";
 import { OrderItemEntity } from "../order-item/entity";
-import { StoreEntity } from "../store/entity";
 import type { ProductIncludeDbData, ProductSimpleDbData } from "./query";
 
 export class ProductEntity {
@@ -25,7 +24,6 @@ export class ProductEntity {
 	static getRo(entity: ProductIncludeDbData): ProductIncludeOutput {
 		return {
 			...ProductEntity.getSimpleRo(entity),
-			store: StoreEntity.getSimpleRo(entity.store),
 			images: entity.images.map(ImageEntity.getSimpleRo),
 			orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
 		};
