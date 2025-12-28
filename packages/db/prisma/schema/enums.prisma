@@ -62,3 +62,9 @@ enum StorageFileVariantType {
   MEDIUM // 800x800px
   LARGE // 1200x1200px
 }
+
+enum StoreNotificationMethod {
+  EMAIL
+  TELEGRAM
+  BOTH
+}

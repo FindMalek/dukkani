@@ -9,6 +9,7 @@
  * - `description`: Optional description of the store
  * - `category`: Store category (FASHION, ELECTRONICS, FOOD, HOME, BEAUTY, SPORTS, BOOKS, TOYS, OTHER)
  * - `theme`: Visual theme for the store (LIGHT, DARK, MINIMAL, MODERN, CLASSIC)
+ * - `notificationMethod`: Notification method for the store (EMAIL, TELEGRAM, BOTH)
  * - `ownerId`: Reference to the User who owns this store
  * - `whatsappNumber`: Optional WhatsApp number for customer communication
  * **Relationships:**
@@ -35,6 +36,7 @@ model Store {
   storePlan StorePlan?
   theme     StoreTheme?
   category  StoreCategory?
+  notificationMethod StoreNotificationMethod? @default(EMAIL) @map("notificationmethod")
 
   orders       Order[]
   products     Product[]
