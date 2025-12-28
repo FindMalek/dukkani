@@ -30,6 +30,11 @@ export const listProductsInputSchema = z.object({
 	published: z.boolean().optional(),
 });
 
+export const togglePublishProductInputSchema = z.object({
+	id: z.string().min(1, "Product ID is required"),
+	published: z.boolean(),
+});
+
 export type ProductInput = z.infer<typeof productInputSchema>;
 export type CreateProductInput = z.infer<typeof createProductInputSchema>;
 export type UpdateProductInput = z.infer<typeof updateProductInputSchema>;

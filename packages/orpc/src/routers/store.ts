@@ -2,8 +2,10 @@ import {
 	getStoreInputSchema,
 	listStoresInputSchema,
 } from "@dukkani/common/schemas/store/input";
+import { storeIncludeOutputSchema, storeSimpleOutputSchema } from "@dukkani/common/schemas/store/output";
 import { StoreService } from "@dukkani/common/services";
 import { ORPCError } from "@orpc/server";
+import { z } from "zod";
 import { protectedProcedure } from "../index";
 
 export const storeRouter = {
@@ -12,6 +14,7 @@ export const storeRouter = {
 	 */
 	getAll: protectedProcedure
 		.input(listStoresInputSchema.optional())
+		.output(z.array(storeSimpleOutputSchema))
 		.handler(async ({ context }) => {
 			const userId = context.session.user.id;
 
@@ -23,6 +26,7 @@ export const storeRouter = {
 	 */
 	getById: protectedProcedure
 		.input(getStoreInputSchema)
+		.output(storeIncludeOutputSchema)
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 
@@ -40,6 +44,7 @@ export const storeRouter = {
 	 */
 	getBySlug: protectedProcedure
 		.input(getStoreInputSchema)
+		.output(storeIncludeOutputSchema)
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 
