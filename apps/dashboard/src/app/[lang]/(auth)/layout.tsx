@@ -15,7 +15,6 @@ export default async function AuthLayout({
 
 	if (session?.user) {
 		try {
-			// Check user's onboarding status
 			const headersList = await headers();
 			const user = await client.account.getCurrentUser({
 				headers: headersList,
