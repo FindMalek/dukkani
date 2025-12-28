@@ -58,7 +58,8 @@
 			"email": {
 				"label": "Adresse e-mail",
 				"placeholder": "votre@email.com",
-				"description": "Nous avons prérempli ce champ à partir de l'étape précédente"
+				"description": "Nous avons prérempli ce champ à partir de l'étape précédente",
+				"missingWarning": "L'adresse e-mail n'a pas été fournie. Veuillez entrer votre adresse e-mail pour continuer."
 			},
 			"password": {
 				"label": "Choisissez un mot de passe",
@@ -67,7 +68,11 @@
 			"submit": "Continuer vers la configuration du magasin",
 			"success": "Compte créé ! Maintenant, configurons votre magasin.",
 			"alreadyHaveAccount": "Vous avez déjà un compte ?",
-			"login": "Se connecter"
+			"login": "Se connecter",
+			"agreeText": "En continuant, vous acceptez nos",
+			"terms": "Conditions",
+			"and": "et",
+			"privacy": "Politique de confidentialité"
 		},
 		"complete": {
 			"title": "Tout est prêt !",
