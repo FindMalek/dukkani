@@ -10,6 +10,7 @@ export const userSimpleOutputSchema = z.object({
 	email: z.string(),
 	emailVerified: z.boolean(),
 	image: z.string().nullable(),
+	onboardingStep: z.string().nullable(),
 	createdAt: z.date(),
 	updatedAt: z.date(),
 });

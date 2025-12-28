@@ -19,6 +19,7 @@ export class StoreEntity {
 			whatsappNumber: entity.whatsappNumber,
 			category: entity.category,
 			theme: entity.theme,
+			notificationMethod: entity.notificationMethod,
 			ownerId: entity.ownerId,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,

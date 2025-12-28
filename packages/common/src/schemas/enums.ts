@@ -3,6 +3,7 @@ import {
 	OrderStatus,
 	StorageFileVariantType,
 	StoreCategory,
+	StoreNotificationMethod,
 	StorePlanType,
 	StoreTheme,
 	TeamMemberRole,
@@ -90,4 +91,19 @@ export const LIST_STORAGE_FILE_VARIANT_TYPES = Object.values(
 );
 export type StorageFileVariantTypeInfer = z.infer<
 	typeof storageFileVariantTypeSchema
+>;
+
+/**
+ * Store Notification Method Enum
+ */
+export type { StoreNotificationMethod };
+export const storeNotificationMethodSchema = z.nativeEnum(
+	StoreNotificationMethod,
+);
+export const storeNotificationMethodEnum = storeNotificationMethodSchema.enum;
+export const LIST_STORE_NOTIFICATION_METHODS = Object.values(
+	StoreNotificationMethod,
+);
+export type StoreNotificationMethodInfer = z.infer<
+	typeof storeNotificationMethodSchema
 >;
