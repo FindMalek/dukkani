@@ -10,12 +10,17 @@ import type {
 	ListOrdersOutput,
 	OrderIncludeOutput,
 } from "@dukkani/common/schemas/order/output";
+import {
+	listOrdersOutputSchema,
+	orderIncludeOutputSchema,
+} from "@dukkani/common/schemas/order/output";
 import { TelegramService } from "@dukkani/common/services";
 import { OrderService } from "@dukkani/common/services/orderService";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
+import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 
 export const orderRouter = {
 	/**
@@ -23,6 +28,7 @@ export const orderRouter = {
 	 */
 	getAll: protectedProcedure
 		.input(listOrdersInputSchema.optional())
+		.output(listOrdersOutputSchema)
 		.handler(async ({ input, context }): Promise<ListOrdersOutput> => {
 			const userId = context.session.user.id;
 			const userStoreIds = await getUserStoreIds(userId);
@@ -80,6 +86,7 @@ export const orderRouter = {
 	 */
 	getById: protectedProcedure
 		.input(getOrderInputSchema)
+		.output(orderIncludeOutputSchema)
 		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
 			const userId = context.session.user.id;
 
@@ -105,6 +112,7 @@ export const orderRouter = {
 	 */
 	create: protectedProcedure
 		.input(createOrderInputSchema)
+		.output(orderIncludeOutputSchema)
 		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
 			const userId = context.session.user.id;
 
@@ -179,6 +187,7 @@ export const orderRouter = {
 	 */
 	updateStatus: protectedProcedure
 		.input(updateOrderStatusInputSchema)
+		.output(orderIncludeOutputSchema)
 		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
 			const userId = context.session.user.id;
 			return await OrderService.updateOrderStatus(
@@ -193,6 +202,7 @@ export const orderRouter = {
 	 */
 	delete: protectedProcedure
 		.input(getOrderInputSchema)
+		.output(successOutputSchema)
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 			await OrderService.deleteOrder(input.id, userId);
