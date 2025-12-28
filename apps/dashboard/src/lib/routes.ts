@@ -18,11 +18,20 @@ export const RoutePaths = {
 			label: "Login",
 		},
 		ONBOARDING: {
-			url: "/onboarding" as Route,
-			label: "Onboarding",
+			INDEX: {
+				url: "/onboarding" as Route,
+				label: "Onboarding",
+			},
+			STORE_SETUP: {
+				url: "/onboarding/store-setup" as Route,
+				label: "Store Setup",
+			},
+			COMPLETE: {
+				url: "/onboarding/complete" as Route,
+				label: "Setup Complete",
+			},
 		},
 	},
-
 	DASHBOARD: {
 		url: "/" as Route,
 		label: "Dashboard",
