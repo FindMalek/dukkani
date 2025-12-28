@@ -1,12 +1,12 @@
 import { sendOTPInputSchema } from "@dukkani/common/schemas/telegram/input";
 import {
-	type SuccessOutput,
-	successOutputSchema,
 	type TelegramBotLinkOutput,
 	type TelegramStatusOutput,
 	telegramBotLinkOutputSchema,
 	telegramStatusOutputSchema,
 } from "@dukkani/common/schemas/telegram/output";
+import type { SuccessOutput } from "@dukkani/common/schemas/utils/success";
+import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { TelegramService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";

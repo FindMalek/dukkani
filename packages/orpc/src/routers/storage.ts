@@ -7,10 +7,12 @@ import {
 	uploadFilesInputSchema,
 } from "@dukkani/common/schemas/storage/input";
 import type {
+	DeleteManyOutput,
 	UploadFileOutput,
 	UploadFilesOutput,
 } from "@dukkani/common/schemas/storage/output";
 import {
+	deleteManyOutputSchema,
 	uploadFileOutputSchema,
 	uploadFilesOutputSchema,
 } from "@dukkani/common/schemas/storage/output";
@@ -209,8 +211,8 @@ export const storageRouter = {
 	 */
 	deleteMany: protectedProcedure
 		.input(deleteFilesInputSchema)
-		.output(successOutputSchema)
-		.handler(async ({ input }) => {
+		.output(deleteManyOutputSchema)
+		.handler(async ({ input }): Promise<DeleteManyOutput> => {
 			try {
 				// Get all file records
 				const files = await database.storageFile.findMany({

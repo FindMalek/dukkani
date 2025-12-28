@@ -108,6 +108,14 @@ export const createVariantDataSchema = z.object({
 	fileSize: z.number().int(),
 });
 
+export const deleteManyOutputSchema = z.object({
+	success: z.boolean(),
+	deleted: z.number().int(),
+	warnings: z.number().int().optional(),
+  });
+
+export type DeleteManyOutput = z.infer<typeof deleteManyOutputSchema>;
+
 export type StorageFileVariantOutput = z.infer<
 	typeof storageFileVariantOutputSchema
 >;
