@@ -8,11 +8,12 @@ export default async function OnboardingPage() {
 	const headersList = await headers();
 
 	try {
+		// Try to get current user (if authenticated)
 		const user = await client.account.getCurrentUser({
 			headers: headersList,
 		});
 
-		// Redirect based on onboarding step
+		// User is authenticated - redirect based on onboarding step
 		if (user.onboardingStep === UserOnboardingStep.STORE_SETUP) {
 			redirect(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
 		}
@@ -21,10 +22,12 @@ export default async function OnboardingPage() {
 			redirect(RoutePaths.DASHBOARD.url);
 		}
 
-		// Default fallback
+		// Default fallback for authenticated users
 		redirect(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
 	} catch {
-		// Not authenticated or error
-		redirect(RoutePaths.AUTH.LOGIN.url);
+		// User is NOT authenticated - this is a new signup
+		// Redirect to store setup page (they'll sign up there)
+		// Or you could create a signup page first
+		redirect(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
 	}
 }

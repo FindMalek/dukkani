@@ -1,9 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { authClient } from "@/lib/auth-client";
-import type { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/lib/routes";
 
 interface AuthGuardProps {
 	children: React.ReactNode;
@@ -26,23 +26,38 @@ export function AuthGuard({
 	requireAuth,
 }: AuthGuardProps) {
 	const router = useRouter();
+	const pathname = usePathname();
 	const { data: session, isPending } = authClient.useSession();
 
 	useEffect(() => {
 		if (!isPending) {
 			const hasSession = !!session?.user;
-			const shouldRedirect = requireAuth ? !hasSession : hasSession;
+			const isLoginPage = pathname === RoutePaths.AUTH.LOGIN.url;
 
-			if (shouldRedirect) {
+			// If requireAuth=false (redirect authenticated users):
+			// - Only redirect from LOGIN page
+			// - Allow authenticated users on onboarding pages
+			if (!requireAuth && hasSession) {
+				if (isLoginPage) {
+					router.push(redirectTo);
+				}
+				// Don't redirect from onboarding pages - let them handle their own logic
+				return;
+			}
+
+			// If requireAuth=true (redirect unauthenticated users):
+			// - Redirect to login
+			if (requireAuth && !hasSession) {
 				router.push(redirectTo);
 			}
 		}
-	}, [session, isPending, router, redirectTo, requireAuth]);
+	}, [session, isPending, router, redirectTo, requireAuth, pathname]);
 
 	// If requireAuth and no session, don't render (redirect will happen)
-	// If !requireAuth and has session, don't render (redirect will happen)
+	// If !requireAuth and has session on login page, don't render (redirect will happen)
 	const hasSession = !!session?.user;
-	const shouldRender = requireAuth ? hasSession : !hasSession;
+	const isLoginPage = pathname === RoutePaths.AUTH.LOGIN.url;
+	const shouldRender = requireAuth ? hasSession : !hasSession || !isLoginPage; // Allow authenticated users on non-login pages
 
 	if (!shouldRender) {
 		return null;

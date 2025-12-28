@@ -1,6 +1,5 @@
 import { database } from "@dukkani/db";
 import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
-import { apiEnv } from "@dukkani/env";
 import { OrderQuery } from "../entities/order/query";
 import type { OrderSimpleOutput } from "../schemas/order/output";
 import { TelegramService } from "./telegramService";
@@ -130,27 +129,5 @@ export class NotificationService {
 			items,
 			total: total.toFixed(2),
 		});
-	}
-
-	/**
-	 * Render email template for order notification
-	 * TODO: Implement proper email template (FIN-203)
-	 */
-	private static renderEmailTemplate(
-		storeName: string,
-		order: OrderSimpleOutput,
-	): string {
-		// TODO: we want to use this `apps/dashboard/src/lib/routes.ts`
-		const orderUrl = `${apiEnv.NEXT_PUBLIC_DASHBOARD_URL}/orders/${order.id}`;
-
-		return `
-			Hello ${storeName} Owner,
-
-			You have a new order:
-			- Order ID: ${order.id}
-			- Status: ${order.status}
-
-			View Order: ${orderUrl}
-		`;
 	}
 }
