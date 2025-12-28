@@ -30,6 +30,12 @@ export const createStoreOnboardingInputSchema = z.object({
 		.default(StoreNotificationMethod.EMAIL),
 });
 
+// Type representing the form's actual shape after defaults are applied
+export type CreateStoreOnboardingFormInput = z.input<typeof createStoreOnboardingInputSchema> & {
+	theme: StoreTheme;
+	notificationMethod: StoreNotificationMethod;
+};
+
 export const createStoreInputSchema = storeInputSchema;
 
 export const updateStoreInputSchema = storeInputSchema.partial().extend({
@@ -55,9 +61,7 @@ export const listStoresInputSchema = z.object({
 
 export type StoreInput = z.infer<typeof storeInputSchema>;
 export type CreateStoreInput = z.infer<typeof createStoreInputSchema>;
-export type CreateStoreOnboardingInput = z.infer<
-	typeof createStoreOnboardingInputSchema
->;
+export type CreateStoreOnboardingInput = z.infer<typeof createStoreOnboardingInputSchema>;
 export type UpdateStoreInput = z.infer<typeof updateStoreInputSchema>;
 export type GetStoreInput = z.infer<typeof getStoreInputSchema>;
 export type ListStoresInput = z.infer<typeof listStoresInputSchema>;

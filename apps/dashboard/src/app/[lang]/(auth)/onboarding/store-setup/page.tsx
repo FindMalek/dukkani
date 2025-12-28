@@ -6,7 +6,7 @@ import {
 	storeThemeEnum,
 } from "@dukkani/common/schemas/enums";
 import {
-	type CreateStoreOnboardingInput,
+	type CreateStoreOnboardingFormInput,
 	createStoreOnboardingInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import { Button } from "@dukkani/ui/components/button";
@@ -36,7 +36,7 @@ export default function StoreSetupPage() {
 	const router = useRouter();
 	const t = useTranslations("onboarding.storeSetup");
 
-	const form = useForm<CreateStoreOnboardingInput>({
+	const form = useForm<CreateStoreOnboardingFormInput>({
 		resolver: zodResolver(createStoreOnboardingInputSchema),
 		defaultValues: {
 			name: "",
@@ -46,7 +46,7 @@ export default function StoreSetupPage() {
 	});
 
 	const createStoreMutation = useMutation({
-		mutationFn: (input: CreateStoreOnboardingInput) =>
+		mutationFn: (input: CreateStoreOnboardingFormInput) =>
 			client.store.create(input),
 		onSuccess: (data) => {
 			toast.success(t("success"));
@@ -59,7 +59,7 @@ export default function StoreSetupPage() {
 		},
 	});
 
-	const onSubmit = async (values: CreateStoreOnboardingInput) => {
+	const onSubmit = async (values: CreateStoreOnboardingFormInput) => {
 		createStoreMutation.mutate(values);
 	};
 
