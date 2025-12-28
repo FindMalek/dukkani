@@ -1,15 +1,83 @@
 import { database } from "@dukkani/db";
+import { StorePlanType } from "@dukkani/db/prisma/generated/enums";
 import { StoreEntity } from "../entities/store/entity";
 import { StoreQuery } from "../entities/store/query";
+import type { CreateStoreOnboardingInput } from "../schemas/store/input";
 import type {
 	StoreIncludeOutput,
 	StoreSimpleOutput,
 } from "../schemas/store/output";
+import { getOrderLimitForPlan } from "../schemas/store-plan/constants";
 
 /**
  * Store service - Shared business logic for store operations
  */
 export class StoreService {
+	/**
+	 * Generate a unique slug from store name
+	 * Handles conflicts by appending numbers
+	 */
+	private static async generateUniqueSlug(baseName: string): Promise<string> {
+		// Convert to slug: lowercase, replace spaces with hyphens, remove special chars
+		const baseSlug = baseName
+			.toLowerCase()
+			.trim()
+			.replace(/\s+/g, "-")
+			.replace(/[^a-z0-9-]/g, "")
+			.replace(/-+/g, "-")
+			.replace(/^-|-$/g, "");
+
+		let slug = baseSlug;
+		let counter = 1;
+
+		// Check if slug exists, if so append number
+		while (true) {
+			const existing = await database.store.findUnique({
+				where: { slug },
+				select: { id: true },
+			});
+
+			if (!existing) {
+				return slug;
+			}
+
+			slug = `${baseSlug}-${counter}`;
+			counter++;
+		}
+	}
+
+	/**
+	 * Create a new store with auto-generated slug and default plan
+	 */
+	static async createStore(
+		input: CreateStoreOnboardingInput,
+		userId: string,
+	): Promise<StoreSimpleOutput> {
+		const slug = await StoreService.generateUniqueSlug(input.name);
+		const orderLimit = getOrderLimitForPlan(StorePlanType.FREE);
+
+		const store = await database.store.create({
+			data: {
+				name: input.name,
+				slug,
+				description: input.description,
+				theme: input.theme,
+				notificationMethod: input.notificationMethod,
+				ownerId: userId,
+				storePlan: {
+					create: {
+						planType: StorePlanType.FREE,
+						orderLimit,
+						orderCount: 0,
+					},
+				},
+			},
+			include: StoreQuery.getClientSafeInclude(),
+		});
+
+		return StoreEntity.getSimpleRo(store);
+	}
+
 	/**
 	 * Get all stores owned by a user
 	 */

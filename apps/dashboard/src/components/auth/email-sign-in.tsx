@@ -58,7 +58,7 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 				setStep("password");
 			} else {
 				const onboardingUrl = getRouteWithQuery(
-					RoutePaths.AUTH.ONBOARDING.url,
+					RoutePaths.AUTH.ONBOARDING.INDEX.url,
 					{
 						email: values.email,
 					},

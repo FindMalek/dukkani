@@ -1,81 +1,61 @@
-import type { Metadata } from "next";
+import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { dashboardEnv } from "@/env";
+import { isAuthError } from "@/lib/auth-client";
 import { client } from "@/lib/orpc";
-import { RoutePaths } from "@/lib/routes";
-
-interface OnboardingPageProps {
-	searchParams: Promise<{
-		email?: string;
-	}>;
-}
-
-export const metadata: Metadata = {
-	title: "Create Your Account | Dukkani",
-	description:
-		"Join Dukkani and start managing your business with our powerful dashboard. Create your account to get started.",
-	keywords: ["signup", "register", "account", "business", "dashboard"],
-	openGraph: {
-		title: "Create Your Account | Dukkani",
-		description:
-			"Join Dukkani and start managing your business with our powerful dashboard.",
-		url: `${dashboardEnv.NEXT_PUBLIC_DASHBOARD_URL}/onboarding`,
-		siteName: "Dukkani",
-		type: "website",
-		images: [
-			{
-				url: `${dashboardEnv.NEXT_PUBLIC_DASHBOARD_URL}/og-image.png`,
-				width: 1200,
-				height: 630,
-				alt: "Dukkani - Business Management Dashboard",
-			},
-		],
-	},
-	twitter: {
-		card: "summary_large_image",
-		title: "Create Your Account | Dukkani",
-		description:
-			"Join Dukkani and start managing your business with our powerful dashboard.",
-		images: [`${dashboardEnv.NEXT_PUBLIC_DASHBOARD_URL}/og-image.png`],
-	},
-	robots: {
-		index: false,
-		follow: false,
-	},
-};
+import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
 
 export default async function OnboardingPage({
 	searchParams,
-}: OnboardingPageProps) {
+}: {
+	searchParams: Promise<{ email?: string }>;
+}) {
+	const headersList = await headers();
 	const params = await searchParams;
 	const email = params.email;
 
-	if (!email) {
-		redirect(RoutePaths.AUTH.LOGIN.url);
-	}
-
 	try {
-		const emailExists = await client.account.checkEmailExists({ email });
+		const user = await client.account.getCurrentUser({
+			headers: headersList,
+		});
 
-		if (emailExists) {
-			const loginUrl = `${RoutePaths.AUTH.LOGIN.url}?error=email_taken`;
-			redirect(loginUrl);
+		// User is authenticated - redirect based on onboarding step
+		if (user.onboardingStep === UserOnboardingStep.STORE_SETUP) {
+			redirect(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
 		}
-	} catch {
-		redirect(RoutePaths.AUTH.LOGIN.url);
-	}
 
-	return (
-		<div className="flex min-h-screen items-center justify-center bg-background">
-			<div className="w-full max-w-md space-y-4 p-8">
-				<div className="space-y-2 text-center">
-					<h1 className="font-semibold text-2xl">Welcome to Dukkani!</h1>
-					<p className="text-muted-foreground">
-						Create your account to get started
-					</p>
-				</div>
-				<p>Creating account for {email}</p>
-			</div>
-		</div>
-	);
+		if (
+			user.onboardingStep === UserOnboardingStep.STORE_CREATED ||
+			user.onboardingStep === UserOnboardingStep.STORE_CONFIGURED ||
+			user.onboardingStep === UserOnboardingStep.STORE_LAUNCHED
+		) {
+			redirect(RoutePaths.DASHBOARD.url);
+		}
+
+		// Default fallback for authenticated users
+		redirect(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
+	} catch (error) {
+		// Only redirect to signup if this is an authentication error
+		if (isAuthError(error)) {
+			// User is NOT authenticated - redirect to signup page
+			if (email) {
+				redirect(
+					getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.SIGNUP.url, { email }),
+				);
+			} else {
+				redirect(RoutePaths.AUTH.ONBOARDING.SIGNUP.url);
+			}
+		}
+
+		// For non-auth errors, log and rethrow so Next.js error boundary can handle it
+		console.error("Error fetching user data in onboarding page:", {
+			error,
+			code: (error as { code?: string })?.code,
+			status: (error as { status?: number })?.status,
+			message: error instanceof Error ? error.message : String(error),
+		});
+
+		// Rethrow the error so Next.js can handle it with error boundary
+		throw error;
+	}
 }

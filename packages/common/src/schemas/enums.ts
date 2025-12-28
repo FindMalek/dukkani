@@ -3,9 +3,11 @@ import {
 	OrderStatus,
 	StorageFileVariantType,
 	StoreCategory,
+	StoreNotificationMethod,
 	StorePlanType,
 	StoreTheme,
 	TeamMemberRole,
+	UserOnboardingStep,
 	WhatsAppMessageStatus,
 } from "@dukkani/db/prisma/generated/enums";
 import { z } from "zod";
@@ -91,3 +93,27 @@ export const LIST_STORAGE_FILE_VARIANT_TYPES = Object.values(
 export type StorageFileVariantTypeInfer = z.infer<
 	typeof storageFileVariantTypeSchema
 >;
+
+/**
+ * Store Notification Method Enum
+ */
+export type { StoreNotificationMethod };
+export const storeNotificationMethodSchema = z.nativeEnum(
+	StoreNotificationMethod,
+);
+export const storeNotificationMethodEnum = storeNotificationMethodSchema.enum;
+export const LIST_STORE_NOTIFICATION_METHODS = Object.values(
+	StoreNotificationMethod,
+);
+export type StoreNotificationMethodInfer = z.infer<
+	typeof storeNotificationMethodSchema
+>;
+
+/**
+ * User Onboarding Step Enum
+ */
+export { UserOnboardingStep };
+export const userOnboardingStepSchema = z.nativeEnum(UserOnboardingStep);
+export const userOnboardingStepEnum = userOnboardingStepSchema.enum;
+export const LIST_USER_ONBOARDING_STEPS = Object.values(UserOnboardingStep);
+export type UserOnboardingStepInfer = z.infer<typeof userOnboardingStepSchema>;

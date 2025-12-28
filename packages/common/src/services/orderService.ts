@@ -72,10 +72,20 @@ export class OrderService {
 						})),
 					},
 				},
-				include: OrderQuery.getInclude(),
+				include: {
+					...OrderQuery.getInclude(),
+					orderItems: {
+						include: {
+							product: {
+								select: {
+									name: true,
+								},
+							},
+						},
+					},
+				},
 			});
 
-			// Update product stock (decrement) within same transaction
 			await ProductService.updateMultipleProductStocks(
 				input.orderItems.map((item) => ({
 					productId: item.productId,

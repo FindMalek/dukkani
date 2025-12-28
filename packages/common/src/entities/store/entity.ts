@@ -1,3 +1,4 @@
+import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
 import type {
 	StoreIncludeOutput,
 	StoreSimpleOutput,
@@ -19,6 +20,7 @@ export class StoreEntity {
 			whatsappNumber: entity.whatsappNumber,
 			category: entity.category,
 			theme: entity.theme,
+			notificationMethod: entity.notificationMethod,
 			ownerId: entity.ownerId,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
@@ -36,5 +38,31 @@ export class StoreEntity {
 			teamMembers: entity.teamMembers.map(TeamMemberEntity.getSimpleRo),
 			salesMetrics: entity.salesMetrics.map(SalesMetricEntity.getSimpleRo),
 		};
+	}
+
+	/**
+	 * Convert StoreNotificationMethod enum to string value for forms/API
+	 * Supports Prisma enum -> Zod schema -> Form value conversion
+	 */
+	static notificationMethodToValue(
+		method: StoreNotificationMethod | null | undefined,
+	): string {
+		if (!method) return StoreNotificationMethod.EMAIL;
+		return method;
+	}
+
+	/**
+	 * Convert string value to StoreNotificationMethod enum
+	 * Supports Form value -> Zod schema -> Prisma enum conversion
+	 */
+	static valueToNotificationMethod(value: string): StoreNotificationMethod {
+		if (
+			value === StoreNotificationMethod.EMAIL ||
+			value === StoreNotificationMethod.TELEGRAM ||
+			value === StoreNotificationMethod.BOTH
+		) {
+			return value;
+		}
+		return StoreNotificationMethod.EMAIL;
 	}
 }

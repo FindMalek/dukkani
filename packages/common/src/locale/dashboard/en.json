@@ -14,5 +14,84 @@
 			"option2": "Option 2: Scan QR code",
 			"expires": "This link expires in 10 minutes. If Telegram is not installed, you can install it from"
 		}
+	},
+	"onboarding": {
+		"storeSetup": {
+			"title": "Create your store",
+			"subtitle": "Just one more step to get started",
+			"storeName": {
+				"label": "Store Name",
+				"placeholder": "My Awesome Store"
+			},
+			"notifications": {
+				"label": "How do you want to receive new order alerts?",
+				"options": {
+					"email": {
+						"label": "Email Notifications",
+						"description": "Sent to your login email address"
+					},
+					"telegram": {
+						"label": "Telegram Alerts",
+						"description": "Fast and instant alerts via our Telegram bot"
+					},
+					"both": {
+						"label": "Both",
+						"description": "Get notified everywhere so you never miss an order"
+					}
+				}
+			},
+			"submit": "Finish Setup",
+			"success": "Store created successfully!"
+		},
+		"steps": {
+			"signup": "Account",
+			"storeSetup": "Store",
+			"complete": "Ready"
+		},
+		"signup": {
+			"title": "Create your account",
+			"subtitle": "Join Dukkani and start selling today",
+			"name": {
+				"label": "What should we call you?",
+				"placeholder": "Enter your full name"
+			},
+			"email": {
+				"label": "Email address",
+				"placeholder": "your@email.com",
+				"description": "We pre-filled this from the previous step",
+				"missingWarning": "Email address was not provided. Please enter your email address to continue."
+			},
+			"password": {
+				"label": "Choose a password",
+				"placeholder": "Minimum 8 characters"
+			},
+			"submit": "Continue to Store Setup",
+			"success": "Account created! Now let's set up your store.",
+			"alreadyHaveAccount": "Already have an account?",
+			"login": "Log in",
+			"agreeText": "By continuing, you agree to our",
+			"terms": "Terms",
+			"and": "&",
+			"privacy": "Privacy Policy"
+		},
+		"complete": {
+			"title": "You're all set!",
+			"subtitle": "Your store is ready to start receiving orders.",
+			"storeLink": {
+				"label": "Your Store Link",
+				"copied": "Link copied to clipboard!"
+			},
+			"telegram": {
+				"title": "Instant Order Alerts",
+				"description": "Connect your Telegram to get notified the second a customer places an order.",
+				"otpLabel": "Your OTP Code",
+				"connectButton": "Connect",
+				"instructions": "Send /link {code} to the bot if you're not redirected."
+			},
+			"actions": {
+				"addProduct": "Add Your First Product",
+				"goToDashboard": "Go to Dashboard"
+			}
+		}
 	}
 }

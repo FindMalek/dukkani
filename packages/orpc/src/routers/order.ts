@@ -15,8 +15,7 @@ import {
 	orderIncludeOutputSchema,
 } from "@dukkani/common/schemas/order/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
-import { TelegramService } from "@dukkani/common/services";
-import { OrderService } from "@dukkani/common/services/orderService";
+import { NotificationService, OrderService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
@@ -141,43 +140,17 @@ export const orderRouter = {
 				userId,
 			);
 
-			// Fire-and-forget Telegram notification (don't block order creation)
-			// Get order items with product names for notification
-			const orderWithItems = await database.order.findUnique({
-				where: { id: orderId },
-				include: {
-					orderItems: {
-						include: {
-							product: {
-								select: { name: true },
-							},
-						},
-					},
-				},
-			});
-
-			if (orderWithItems) {
-				TelegramService.sendOrderNotification(input.storeId, {
-					id: orderId,
-					customerName: input.customerName,
-					customerPhone: input.customerPhone,
-					items: orderWithItems.orderItems.map((item) => ({
-						name: item.product.name,
-						quantity: item.quantity,
-					})),
-					total: `${orderWithItems.orderItems
-						.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0)
-						// TODO: Check FIN-209
-						.toFixed(2)} TND`,
-				}).catch((error) => {
+			// Fire-and-forget notification (respects store's notificationMethod preference)
+			NotificationService.sendOrderNotification(input.storeId, order).catch(
+				(error) => {
 					// Log but don't throw - notification failure shouldn't affect order creation
-					console.error("Telegram notification failed:", {
+					console.error("Order notification failed:", {
 						orderId,
 						storeId: input.storeId,
 						error: error instanceof Error ? error.message : String(error),
 					});
-				});
-			}
+				},
+			);
 
 			return order;
 		}),

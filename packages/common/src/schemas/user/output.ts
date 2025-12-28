@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { userOnboardingStepSchema } from "../enums";
 
 /**
  * User output schemas (Return Objects)
@@ -10,6 +11,7 @@ export const userSimpleOutputSchema = z.object({
 	email: z.string(),
 	emailVerified: z.boolean(),
 	image: z.string().nullable(),
+	onboardingStep: userOnboardingStepSchema,
 	createdAt: z.date(),
 	updatedAt: z.date(),
 });

@@ -10,6 +10,10 @@ export type OrderIncludeDbData = Prisma.OrderGetPayload<{
 	include: ReturnType<typeof OrderQuery.getInclude>;
 }>;
 
+export type OrderIncludeWithProductDbData = Prisma.OrderGetPayload<{
+	include: ReturnType<typeof OrderQuery.getIncludeWithProduct>;
+}>;
+
 export type OrderClientSafeDbData = Prisma.OrderGetPayload<{
 	include: ReturnType<typeof OrderQuery.getClientSafeInclude>;
 }>;
@@ -25,6 +29,25 @@ export class OrderQuery {
 			store: true,
 			customer: CustomerQuery.getSimpleInclude(),
 			orderItems: true,
+			whatsappMessages: true,
+		} satisfies Prisma.OrderInclude;
+	}
+
+	static getIncludeWithProduct() {
+		return {
+			...OrderQuery.getSimpleInclude(),
+			store: true,
+			customer: CustomerQuery.getSimpleInclude(),
+			orderItems: {
+				include: {
+					product: {
+						select: {
+							id: true,
+							name: true,
+						},
+					},
+				},
+			},
 			whatsappMessages: true,
 		} satisfies Prisma.OrderInclude;
 	}

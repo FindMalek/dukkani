@@ -112,7 +112,7 @@ export const deleteManyOutputSchema = z.object({
 	success: z.boolean(),
 	deleted: z.number().int(),
 	warnings: z.number().int().optional(),
-  });
+});
 
 export type DeleteManyOutput = z.infer<typeof deleteManyOutputSchema>;
 

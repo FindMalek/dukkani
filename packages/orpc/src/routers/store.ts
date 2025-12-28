@@ -1,4 +1,6 @@
+import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import {
+	createStoreOnboardingInputSchema,
 	getStoreInputSchema,
 	listStoresInputSchema,
 } from "@dukkani/common/schemas/store/input";
@@ -7,11 +9,34 @@ import {
 	storeSimpleOutputSchema,
 } from "@dukkani/common/schemas/store/output";
 import { StoreService } from "@dukkani/common/services";
+import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
 import { protectedProcedure } from "../index";
 
 export const storeRouter = {
+	/**
+	 * Create a new store (onboarding flow)
+	 * Auto-generates slug from store name and creates default FREE plan
+	 */
+	create: protectedProcedure
+		.input(createStoreOnboardingInputSchema)
+		.output(storeSimpleOutputSchema)
+		.handler(async ({ input, context }) => {
+			const userId = context.session.user.id;
+
+			// Create store using service
+			const store = await StoreService.createStore(input, userId);
+
+			// Update user onboarding step to COMPLETE
+			await database.user.update({
+				where: { id: userId },
+				data: { onboardingStep: UserOnboardingStep.STORE_CREATED },
+			});
+
+			return store;
+		}),
+
 	/**
 	 * Get all stores owned by the authenticated user
 	 */

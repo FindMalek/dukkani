@@ -19,6 +19,10 @@ export type StoreClientSafeDbData = Prisma.StoreGetPayload<{
 	include: ReturnType<typeof StoreQuery.getClientSafeInclude>;
 }>;
 
+export type StoreMinimalDbData = Prisma.StoreGetPayload<{
+	select: ReturnType<typeof StoreQuery.getMinimalSelect>;
+}>;
+
 export class StoreQuery {
 	static getSimpleInclude() {
 		return {} satisfies Prisma.StoreInclude;
@@ -42,5 +46,12 @@ export class StoreQuery {
 			...StoreQuery.getSimpleInclude(),
 			storePlan: true,
 		} satisfies Prisma.StoreInclude;
+	}
+
+	static getMinimalSelect() {
+		return {
+			id: true,
+			slug: true,
+		} satisfies Prisma.StoreSelect;
 	}
 }

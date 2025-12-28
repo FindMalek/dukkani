@@ -8,6 +8,9 @@
  * - `email`: User's email address (must be unique)
  * - `emailVerified`: Whether the email has been verified
  * - `image`: Optional profile image URL
+ * - `telegramChatId`: Optional Telegram chat ID for notifications
+ * - `telegramLinkedAt`: Optional timestamp when Telegram was linked
+ * - `onboardingStep`: Optional onboarding step (STORE_SETUP, STORE_CREATED, STORE_CONFIGURED, STORE_LAUNCHED)
  * **Relationships:**
  * - Has many Sessions (authentication sessions)
  * - Has many Accounts (OAuth/credential providers)
@@ -28,6 +31,8 @@ model User {
 
   image          String?
   telegramChatId String? @unique @map("telegramchatid")
+
+  onboardingStep UserOnboardingStep @default(STORE_SETUP)
 
   telegramLinkedAt DateTime? @map("telegramlinkedat")
   createdAt        DateTime
