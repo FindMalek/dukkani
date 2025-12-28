@@ -2,8 +2,6 @@ import type {
 	StoreIncludeOutput,
 	StoreSimpleOutput,
 } from "../../schemas/store/output";
-import { CustomerEntity } from "../customer/entity";
-import { OrderEntity } from "../order/entity";
 import { ProductEntity } from "../product/entity";
 import { SalesMetricEntity } from "../sales-metric/entity";
 import { StorePlanEntity } from "../store-plan/entity";
@@ -35,8 +33,6 @@ export class StoreEntity {
 				? StorePlanEntity.getSimpleRo(entity.storePlan)
 				: undefined,
 			products: entity.products.map(ProductEntity.getSimpleRo),
-			orders: entity.orders.map(OrderEntity.getSimpleRo),
-			customers: entity.customers.map(CustomerEntity.getSimpleRo),
 			teamMembers: entity.teamMembers.map(TeamMemberEntity.getSimpleRo),
 			salesMetrics: entity.salesMetrics.map(SalesMetricEntity.getSimpleRo),
 		};

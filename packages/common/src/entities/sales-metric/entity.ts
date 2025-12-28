@@ -1,12 +1,5 @@
-import type {
-	SalesMetricIncludeOutput,
-	SalesMetricSimpleOutput,
-} from "../../schemas/sales-metric/output";
-import { StoreEntity } from "../store/entity";
-import type {
-	SalesMetricIncludeDbData,
-	SalesMetricSimpleDbData,
-} from "./query";
+import type { SalesMetricSimpleOutput } from "../../schemas/sales-metric/output";
+import type { SalesMetricSimpleDbData } from "./query";
 
 export class SalesMetricEntity {
 	static getSimpleRo(entity: SalesMetricSimpleDbData): SalesMetricSimpleOutput {
@@ -18,13 +11,6 @@ export class SalesMetricEntity {
 			totalSales: Number(entity.totalSales),
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
-		};
-	}
-
-	static getRo(entity: SalesMetricIncludeDbData): SalesMetricIncludeOutput {
-		return {
-			...SalesMetricEntity.getSimpleRo(entity),
-			store: StoreEntity.getSimpleRo(entity.store),
 		};
 	}
 }
