@@ -16,12 +16,12 @@ import {
 	customerSimpleOutputSchema,
 	listCustomersOutputSchema,
 } from "@dukkani/common/schemas/customer/output";
+import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { CustomerService } from "@dukkani/common/services/customerService";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
-import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 
 export const customerRouter = {
 	/**
