@@ -1,3 +1,4 @@
+import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import {
 	createStoreOnboardingInputSchema,
 	getStoreInputSchema,
@@ -30,7 +31,7 @@ export const storeRouter = {
 			// Update user onboarding step to COMPLETE
 			await database.user.update({
 				where: { id: userId },
-				data: { onboardingStep: "COMPLETE" },
+				data: { onboardingStep: UserOnboardingStep.STORE_CREATED },
 			});
 
 			return store;

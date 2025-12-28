@@ -9,9 +9,10 @@ interface OnboardingStepperProps {
 
 export function OnboardingStepper({ currentStep }: OnboardingStepperProps) {
 	const steps = [
-		UserOnboardingStep.SIGNUP,
 		UserOnboardingStep.STORE_SETUP,
-		UserOnboardingStep.COMPLETE,
+		UserOnboardingStep.STORE_CREATED,
+		UserOnboardingStep.STORE_CONFIGURED,
+		UserOnboardingStep.STORE_LAUNCHED,
 	] as const;
 
 	const currentIndex = steps.indexOf(currentStep);

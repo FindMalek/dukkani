@@ -68,7 +68,7 @@ export default function SignupPage() {
 			<div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/2 lg:px-12">
 				<div className="flex w-full max-w-md flex-col gap-10">
 					{/* Progress Indicator */}
-					<OnboardingStepper currentStep={UserOnboardingStep.SIGNUP} />
+					<OnboardingStepper currentStep={UserOnboardingStep.STORE_SETUP} />
 
 					{/* Header Section */}
 					<div className="space-y-3 text-center">

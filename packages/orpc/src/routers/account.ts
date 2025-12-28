@@ -3,6 +3,7 @@ import { UserQuery } from "@dukkani/common/entities/user/query";
 import { checkEmailExistsInputSchema } from "@dukkani/common/schemas/user/input";
 import { userSimpleOutputSchema } from "@dukkani/common/schemas/user/output";
 import { database } from "@dukkani/db";
+import { ORPCError } from "@orpc/server";
 import { z } from "zod";
 import { protectedProcedure, publicProcedure } from "../index";
 import { rateLimitSensitive } from "../middleware/rate-limit";
@@ -22,7 +23,9 @@ export const accountRouter = {
 			});
 
 			if (!user) {
-				throw new Error("User not found");
+				throw new ORPCError("NOT_FOUND", {
+					message: "User not found",
+				});
 			}
 
 			return UserEntity.getSimpleRo(user);

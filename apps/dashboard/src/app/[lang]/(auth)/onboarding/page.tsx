@@ -15,7 +15,6 @@ export default async function OnboardingPage({
 	const email = params.email;
 
 	try {
-		// Try to get current user (if authenticated)
 		const user = await client.account.getCurrentUser({
 			headers: headersList,
 		});
@@ -25,7 +24,11 @@ export default async function OnboardingPage({
 			redirect(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
 		}
 
-		if (user.onboardingStep === UserOnboardingStep.COMPLETE) {
+		if (
+			user.onboardingStep === UserOnboardingStep.STORE_CREATED ||
+			user.onboardingStep === UserOnboardingStep.STORE_CONFIGURED ||
+			user.onboardingStep === UserOnboardingStep.STORE_LAUNCHED
+		) {
 			redirect(RoutePaths.DASHBOARD.url);
 		}
 

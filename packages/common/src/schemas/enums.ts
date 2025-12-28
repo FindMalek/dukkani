@@ -7,6 +7,7 @@ import {
 	StorePlanType,
 	StoreTheme,
 	TeamMemberRole,
+	UserOnboardingStep,
 	WhatsAppMessageStatus,
 } from "@dukkani/db/prisma/generated/enums";
 import { z } from "zod";
@@ -111,11 +112,7 @@ export type StoreNotificationMethodInfer = z.infer<
 /**
  * User Onboarding Step Enum
  */
-export enum UserOnboardingStep {
-	SIGNUP = "SIGNUP",
-	STORE_SETUP = "STORE_SETUP",
-	COMPLETE = "COMPLETE",
-}
+export { UserOnboardingStep };
 export const userOnboardingStepSchema = z.nativeEnum(UserOnboardingStep);
 export const userOnboardingStepEnum = userOnboardingStepSchema.enum;
 export const LIST_USER_ONBOARDING_STEPS = Object.values(UserOnboardingStep);

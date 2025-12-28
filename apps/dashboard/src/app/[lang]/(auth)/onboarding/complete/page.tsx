@@ -51,7 +51,7 @@ export default function OnboardingCompletePage() {
 			<div className="flex w-full flex-col items-center justify-center p-8 lg:w-1/2">
 				<div className="w-full max-w-md space-y-8">
 					{/* Progress Indicator */}
-					<OnboardingStepper currentStep={UserOnboardingStep.COMPLETE} />
+					<OnboardingStepper currentStep={UserOnboardingStep.STORE_LAUNCHED} />
 
 					<div className="space-y-2 text-center">
 						<div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
