@@ -2,7 +2,6 @@ import type {
 	TeamMemberIncludeOutput,
 	TeamMemberSimpleOutput,
 } from "../../schemas/team-member/output";
-import { StoreEntity } from "../store/entity";
 import { UserEntity } from "../user/entity";
 import type { TeamMemberIncludeDbData, TeamMemberSimpleDbData } from "./query";
 
@@ -22,7 +21,6 @@ export class TeamMemberEntity {
 		return {
 			...TeamMemberEntity.getSimpleRo(entity),
 			user: UserEntity.getSimpleRo(entity.user),
-			store: StoreEntity.getSimpleRo(entity.store),
 		};
 	}
 }

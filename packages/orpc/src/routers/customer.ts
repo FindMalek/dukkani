@@ -11,6 +11,12 @@ import type {
 	CustomerSimpleOutput,
 	ListCustomersOutput,
 } from "@dukkani/common/schemas/customer/output";
+import {
+	customerIncludeOutputSchema,
+	customerSimpleOutputSchema,
+	listCustomersOutputSchema,
+} from "@dukkani/common/schemas/customer/output";
+import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { CustomerService } from "@dukkani/common/services/customerService";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
@@ -23,6 +29,7 @@ export const customerRouter = {
 	 */
 	getAll: protectedProcedure
 		.input(listCustomersInputSchema.optional())
+		.output(listCustomersOutputSchema)
 		.handler(async ({ input, context }): Promise<ListCustomersOutput> => {
 			const userId = context.session.user.id;
 			const userStoreIds = await getUserStoreIds(userId);
@@ -81,6 +88,7 @@ export const customerRouter = {
 	 */
 	getById: protectedProcedure
 		.input(getCustomerInputSchema)
+		.output(customerIncludeOutputSchema)
 		.handler(async ({ input, context }): Promise<CustomerIncludeOutput> => {
 			const userId = context.session.user.id;
 
@@ -106,6 +114,7 @@ export const customerRouter = {
 	 */
 	create: protectedProcedure
 		.input(createCustomerInputSchema)
+		.output(customerSimpleOutputSchema)
 		.handler(async ({ input, context }): Promise<CustomerSimpleOutput> => {
 			const userId = context.session.user.id;
 			return await CustomerService.createCustomer(input, userId);
@@ -116,6 +125,7 @@ export const customerRouter = {
 	 */
 	update: protectedProcedure
 		.input(updateCustomerInputSchema)
+		.output(customerSimpleOutputSchema)
 		.handler(async ({ input, context }): Promise<CustomerSimpleOutput> => {
 			const userId = context.session.user.id;
 			return await CustomerService.updateCustomer(input, userId);
@@ -126,10 +136,10 @@ export const customerRouter = {
 	 */
 	delete: protectedProcedure
 		.input(getCustomerInputSchema)
+		.output(successOutputSchema)
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 
-			// Get customer to verify ownership
 			const customer = await database.customer.findUnique({
 				where: { id: input.id },
 				select: { storeId: true },
@@ -141,7 +151,6 @@ export const customerRouter = {
 				});
 			}
 
-			// Verify ownership
 			await verifyStoreOwnership(userId, customer.storeId);
 
 			// Delete customer (orders will have customerId set to null)

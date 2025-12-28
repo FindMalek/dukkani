@@ -4,16 +4,21 @@ import {
 	createProductInputSchema,
 	getProductInputSchema,
 	listProductsInputSchema,
+	togglePublishProductInputSchema,
 	updateProductInputSchema,
 } from "@dukkani/common/schemas/product/input";
 import type {
 	ListProductsOutput,
 	ProductIncludeOutput,
 } from "@dukkani/common/schemas/product/output";
+import {
+	listProductsOutputSchema,
+	productIncludeOutputSchema,
+} from "@dukkani/common/schemas/product/output";
+import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { ProductService } from "@dukkani/common/services/productService";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
-import { z } from "zod";
 import { protectedProcedure } from "../index";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
@@ -23,6 +28,7 @@ export const productRouter = {
 	 */
 	getAll: protectedProcedure
 		.input(listProductsInputSchema.optional())
+		.output(listProductsOutputSchema)
 		.handler(async ({ input, context }): Promise<ListProductsOutput> => {
 			const userId = context.session.user.id;
 			const userStoreIds = await getUserStoreIds(userId);
@@ -80,6 +86,7 @@ export const productRouter = {
 	 */
 	getById: protectedProcedure
 		.input(getProductInputSchema)
+		.output(productIncludeOutputSchema)
 		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
 			const userId = context.session.user.id;
 
@@ -105,6 +112,7 @@ export const productRouter = {
 	 */
 	create: protectedProcedure
 		.input(createProductInputSchema)
+		.output(productIncludeOutputSchema)
 		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
 			const userId = context.session.user.id;
 
@@ -153,6 +161,7 @@ export const productRouter = {
 	 */
 	update: protectedProcedure
 		.input(updateProductInputSchema)
+		.output(productIncludeOutputSchema)
 		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
 			const userId = context.session.user.id;
 
@@ -219,6 +228,7 @@ export const productRouter = {
 	 */
 	delete: protectedProcedure
 		.input(getProductInputSchema)
+		.output(successOutputSchema)
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 
@@ -249,7 +259,8 @@ export const productRouter = {
 	 * Toggle product published status
 	 */
 	togglePublish: protectedProcedure
-		.input(z.object({ id: z.string().min(1), published: z.boolean() }))
+		.input(togglePublishProductInputSchema)
+		.output(productIncludeOutputSchema)
 		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
 			const userId = context.session.user.id;
 

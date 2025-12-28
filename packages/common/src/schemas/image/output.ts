@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { productSimpleOutputSchema } from "../product/output";
 
 export const imageSimpleOutputSchema = z.object({
 	id: z.string(),
@@ -9,9 +8,4 @@ export const imageSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
-export const imageIncludeOutputSchema = imageSimpleOutputSchema.extend({
-	product: productSimpleOutputSchema.optional(),
-});
-
 export type ImageSimpleOutput = z.infer<typeof imageSimpleOutputSchema>;
-export type ImageIncludeOutput = z.infer<typeof imageIncludeOutputSchema>;

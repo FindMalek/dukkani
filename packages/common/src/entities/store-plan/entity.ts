@@ -1,9 +1,6 @@
-import type {
-	StorePlanIncludeOutput,
-	StorePlanSimpleOutput,
-} from "../../schemas/store-plan/output";
-import { StoreEntity } from "../store/entity";
-import type { StorePlanIncludeDbData, StorePlanSimpleDbData } from "./query";
+import type { StorePlanSimpleOutput } from "../../schemas/store-plan/output";
+import type { StorePlanSimpleDbData } from "./query";
+
 export class StorePlanEntity {
 	static getSimpleRo(entity: StorePlanSimpleDbData): StorePlanSimpleOutput {
 		return {
@@ -15,13 +12,6 @@ export class StorePlanEntity {
 			storeId: entity.storeId,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
-		};
-	}
-
-	static getRo(entity: StorePlanIncludeDbData): StorePlanIncludeOutput {
-		return {
-			...StorePlanEntity.getSimpleRo(entity),
-			store: StoreEntity.getSimpleRo(entity.store),
 		};
 	}
 }

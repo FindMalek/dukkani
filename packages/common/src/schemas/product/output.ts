@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { imageSimpleOutputSchema } from "../image/output";
 import { orderItemSimpleOutputSchema } from "../order-item/output";
-import { storeSimpleOutputSchema } from "../store/output";
 
 export const productSimpleOutputSchema = z.object({
 	id: z.string(),
@@ -16,7 +15,6 @@ export const productSimpleOutputSchema = z.object({
 });
 
 export const productIncludeOutputSchema = productSimpleOutputSchema.extend({
-	store: storeSimpleOutputSchema.optional(),
 	images: z.array(imageSimpleOutputSchema).optional(),
 	orderItems: z.array(orderItemSimpleOutputSchema).optional(),
 });

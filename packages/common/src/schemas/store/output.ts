@@ -1,6 +1,4 @@
 import { z } from "zod";
-import { customerSimpleOutputSchema } from "../customer/output";
-import { orderSimpleOutputSchema } from "../order/output";
 import { productSimpleOutputSchema } from "../product/output";
 import { salesMetricSimpleOutputSchema } from "../sales-metric/output";
 import { storePlanSimpleOutputSchema } from "../store-plan/output";
@@ -25,8 +23,6 @@ export const storeIncludeOutputSchema = storeSimpleOutputSchema.extend({
 	owner: userSimpleOutputSchema.optional(),
 	storePlan: storePlanSimpleOutputSchema.optional(),
 	products: z.array(productSimpleOutputSchema).optional(),
-	orders: z.array(orderSimpleOutputSchema).optional(),
-	customers: z.array(customerSimpleOutputSchema).optional(),
 	teamMembers: z.array(teamMemberSimpleOutputSchema).optional(),
 	salesMetrics: z.array(salesMetricSimpleOutputSchema).optional(),
 });

@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { storeSimpleOutputSchema } from "../store/output";
 import { storePlanTypeSchema } from "./enums";
 
 export const storePlanSimpleOutputSchema = z.object({
@@ -13,11 +12,4 @@ export const storePlanSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
-export const storePlanIncludeOutputSchema = storePlanSimpleOutputSchema.extend({
-	store: storeSimpleOutputSchema.optional(),
-});
-
 export type StorePlanSimpleOutput = z.infer<typeof storePlanSimpleOutputSchema>;
-export type StorePlanIncludeOutput = z.infer<
-	typeof storePlanIncludeOutputSchema
->;
