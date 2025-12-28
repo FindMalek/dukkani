@@ -31,7 +31,7 @@ model User {
 
   image          String?
   telegramChatId String? @unique @map("telegramchatid")
-  onboardingStep   String    @default("STORE_SETUP") @map("onboardingstep")
+  onboardingStep String  @default("STORE_SETUP") @map("onboardingstep")
 
   telegramLinkedAt DateTime? @map("telegramlinkedat")
   createdAt        DateTime

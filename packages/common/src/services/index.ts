@@ -1,5 +1,6 @@
 export { CustomerService } from "./customerService";
 export { DashboardService } from "./dashboardService";
+export { NotificationService } from "./notificationService";
 export { OrderService } from "./orderService";
 export { ProductService } from "./productService";
 export { StorageService } from "./storageService";

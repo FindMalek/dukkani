@@ -6,4 +6,6 @@ export const onboardingCompleteOutputSchema = z.object({
 	storeUrl: z.string(),
 });
 
-export type OnboardingCompleteOutput = z.infer<typeof onboardingCompleteOutputSchema>;
+export type OnboardingCompleteOutput = z.infer<
+	typeof onboardingCompleteOutputSchema
+>;

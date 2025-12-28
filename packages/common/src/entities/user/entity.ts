@@ -9,6 +9,7 @@ export class UserEntity {
 			email: entity.email,
 			emailVerified: entity.emailVerified,
 			image: entity.image,
+			onboardingStep: entity.onboardingStep,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
 		};

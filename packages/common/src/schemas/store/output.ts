@@ -4,7 +4,11 @@ import { salesMetricSimpleOutputSchema } from "../sales-metric/output";
 import { storePlanSimpleOutputSchema } from "../store-plan/output";
 import { teamMemberSimpleOutputSchema } from "../team-member/output";
 import { userSimpleOutputSchema } from "../user/output";
-import { storeCategorySchema, storeNotificationMethodSchema, storeThemeSchema } from "./enums";
+import {
+	storeCategorySchema,
+	storeNotificationMethodSchema,
+	storeThemeSchema,
+} from "./enums";
 
 export const storeSimpleOutputSchema = z.object({
 	id: z.string(),

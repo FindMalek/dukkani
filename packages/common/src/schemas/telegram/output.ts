@@ -11,7 +11,5 @@ export const telegramStatusOutputSchema = z.object({
 	linkedAt: z.date().nullable(),
 });
 
-
-
 export type TelegramBotLinkOutput = z.infer<typeof telegramBotLinkOutputSchema>;
 export type TelegramStatusOutput = z.infer<typeof telegramStatusOutputSchema>;
