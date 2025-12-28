@@ -1,19 +1,12 @@
 import { database } from "@dukkani/db";
 import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
-import { OrderQuery } from "../entities/order/query";
-import type { OrderSimpleOutput } from "../schemas/order/output";
+import type { OrderIncludeOutput } from "../schemas/order/output";
 import { TelegramService } from "./telegramService";
 
-/**
- * Notification Service - Handles order notifications via Email and Telegram
- */
 export class NotificationService {
-	/**
-	 * Send order notification based on store's notification preferences
-	 */
 	static async sendOrderNotification(
 		storeId: string,
-		order: OrderSimpleOutput,
+		order: OrderIncludeOutput,
 	): Promise<void> {
 		const store = await database.store.findUnique({
 			where: { id: storeId },
@@ -34,7 +27,6 @@ export class NotificationService {
 		const notificationMethod =
 			store.notificationMethod || StoreNotificationMethod.EMAIL;
 
-		// Send email notifications
 		if (
 			notificationMethod === StoreNotificationMethod.EMAIL ||
 			notificationMethod === StoreNotificationMethod.BOTH
@@ -46,7 +38,6 @@ export class NotificationService {
 			);
 		}
 
-		// Send Telegram notifications
 		if (
 			(notificationMethod === StoreNotificationMethod.TELEGRAM ||
 				notificationMethod === StoreNotificationMethod.BOTH) &&
@@ -56,72 +47,39 @@ export class NotificationService {
 		}
 	}
 
-	/**
-	 * Send email notification for new order
-	 */
 	private static async sendEmailNotification(
 		email: string,
 		storeName: string,
-		order: OrderSimpleOutput,
+		order: OrderIncludeOutput,
 	): Promise<void> {
 		// TODO: Implement email sending (Resend) (FIN-203)
-		// For now, log the notification
 		console.log("Email notification (not implemented yet):", {
 			to: email,
 			storeName,
 			orderId: order.id,
 		});
-
-		// Example implementation structure:
-		// const emailContent = NotificationService.renderEmailTemplate(storeName, order);
-		// await sendEmail(email, "New Order on Dukkani", emailContent);
 	}
 
-	/**
-	 * Send Telegram notification for new order
-	 */
 	private static async sendTelegramNotification(
 		storeId: string,
-		order: OrderSimpleOutput,
+		order: OrderIncludeOutput,
 	): Promise<void> {
-		// Get order with items and customer for display
-		// Need to include product relation within orderItems
-		const orderWithDetails = await database.order.findUnique({
-			where: { id: order.id },
-			include: {
-				...OrderQuery.getInclude(),
-				orderItems: {
-					include: {
-						product: {
-							select: {
-								name: true,
-							},
-						},
-					},
-				},
-			},
-		});
-
-		if (!orderWithDetails) {
+		if (!order.orderItems || order.orderItems.length === 0) {
 			return;
 		}
 
-		const customerName =
-			orderWithDetails.customer?.name || order.customerName || "Guest";
-		const customerPhone =
-			orderWithDetails.customer?.phone || order.customerPhone || "N/A";
+		const customerName = order.customer?.name || order.customerName;
+		const customerPhone = order.customer?.phone || order.customerPhone;
 
-		// Calculate total from order items
-		const total = orderWithDetails.orderItems.reduce((sum, item) => {
-			return sum + Number(item.price) * item.quantity;
+		const total = order.orderItems.reduce((sum, item) => {
+			return sum + item.price * item.quantity;
 		}, 0);
 
-		const items = orderWithDetails.orderItems.map((item) => ({
-			name: item.product.name,
+		const items = order.orderItems.map((item) => ({
+			name: item.product?.name || `Product #${item.productId}`,
 			quantity: item.quantity,
 		}));
 
-		// TelegramService.sendOrderNotification fetches store and telegramChatId internally
 		await TelegramService.sendOrderNotification(storeId, {
 			id: order.id,
 			customerName,

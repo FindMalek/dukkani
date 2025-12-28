@@ -6,7 +6,11 @@ import { CustomerEntity } from "../customer/entity";
 import { OrderItemEntity } from "../order-item/entity";
 import { StoreEntity } from "../store/entity";
 import { WhatsAppMessageEntity } from "../whatsapp-message/entity";
-import type { OrderIncludeDbData, OrderSimpleDbData } from "./query";
+import type {
+	OrderIncludeDbData,
+	OrderIncludeWithProductDbData,
+	OrderSimpleDbData,
+} from "./query";
 
 export class OrderEntity {
 	static getSimpleRo(entity: OrderSimpleDbData): OrderSimpleOutput {
@@ -32,6 +36,22 @@ export class OrderEntity {
 				? CustomerEntity.getSimpleRo(entity.customer)
 				: undefined,
 			orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
+			whatsappMessages: entity.whatsappMessages.map(
+				WhatsAppMessageEntity.getSimpleRo,
+			),
+		};
+	}
+
+	static getRoWithProduct(
+		entity: OrderIncludeWithProductDbData,
+	): OrderIncludeOutput {
+		return {
+			...OrderEntity.getSimpleRo(entity),
+			store: StoreEntity.getSimpleRo(entity.store),
+			customer: entity.customer
+				? CustomerEntity.getSimpleRo(entity.customer)
+				: undefined,
+			orderItems: entity.orderItems.map(OrderItemEntity.getRoWithProduct),
 			whatsappMessages: entity.whatsappMessages.map(
 				WhatsAppMessageEntity.getSimpleRo,
 			),

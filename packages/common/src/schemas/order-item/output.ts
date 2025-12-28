@@ -10,4 +10,17 @@ export const orderItemSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
+const productMinimalOutputSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+});
+
+export const orderItemWithProductOutputSchema =
+	orderItemSimpleOutputSchema.extend({
+		product: productMinimalOutputSchema.optional(),
+	});
+
 export type OrderItemSimpleOutput = z.infer<typeof orderItemSimpleOutputSchema>;
+export type OrderItemWithProductOutput = z.infer<
+	typeof orderItemWithProductOutputSchema
+>;
