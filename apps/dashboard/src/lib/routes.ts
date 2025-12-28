@@ -22,6 +22,10 @@ export const RoutePaths = {
 				url: "/onboarding" as Route,
 				label: "Onboarding",
 			},
+			SIGNUP: {
+				url: "/onboarding/signup" as Route,
+				label: "Sign Up",
+			},
 			STORE_SETUP: {
 				url: "/onboarding/store-setup" as Route,
 				label: "Store Setup",

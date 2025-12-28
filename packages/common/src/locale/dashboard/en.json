@@ -43,6 +43,26 @@
 			"submit": "Finish Setup",
 			"success": "Store created successfully!"
 		},
+		"signup": {
+			"title": "Create your account",
+			"subtitle": "Just a few details to get started",
+			"name": {
+				"label": "Full Name",
+				"placeholder": "John Doe"
+			},
+			"email": {
+				"label": "Email",
+				"placeholder": "you@example.com"
+			},
+			"password": {
+				"label": "Password",
+				"placeholder": "At least 8 characters"
+			},
+			"alreadyHaveAccount": "Already have an account?",
+			"login": "Log in",
+			"submit": "Create Account",
+			"success": "Account created successfully!"
+		},
 		"complete": {
 			"title": "You're all set!",
 			"subtitle": "Your store is ready to start receiving orders.",
