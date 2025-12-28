@@ -43,25 +43,31 @@
 			"submit": "Finish Setup",
 			"success": "Store created successfully!"
 		},
+		"steps": {
+			"signup": "Account",
+			"storeSetup": "Store",
+			"complete": "Ready"
+		},
 		"signup": {
 			"title": "Create your account",
-			"subtitle": "Just a few details to get started",
+			"subtitle": "Join Dukkani and start selling today",
 			"name": {
-				"label": "Full Name",
-				"placeholder": "John Doe"
+				"label": "What should we call you?",
+				"placeholder": "Enter your full name"
 			},
 			"email": {
-				"label": "Email",
-				"placeholder": "you@example.com"
+				"label": "Email address",
+				"placeholder": "your@email.com",
+				"description": "We pre-filled this from the previous step"
 			},
 			"password": {
-				"label": "Password",
-				"placeholder": "At least 8 characters"
+				"label": "Choose a password",
+				"placeholder": "Minimum 8 characters"
 			},
+			"submit": "Continue to Store Setup",
+			"success": "Account created! Now let's set up your store.",
 			"alreadyHaveAccount": "Already have an account?",
-			"login": "Log in",
-			"submit": "Create Account",
-			"success": "Account created successfully!"
+			"login": "Log in"
 		},
 		"complete": {
 			"title": "You're all set!",

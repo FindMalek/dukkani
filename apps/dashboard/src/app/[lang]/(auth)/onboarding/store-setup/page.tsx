@@ -4,6 +4,7 @@ import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import {
 	storeNotificationMethodEnum,
 	storeThemeEnum,
+	UserOnboardingStep,
 } from "@dukkani/common/schemas/enums";
 import {
 	type CreateStoreOnboardingInput,
@@ -27,6 +28,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { OnboardingStepper } from "@/components/dashboard/onboarding/onboarding-stepper";
 import { AuthBackground } from "@/components/layout/auth-background";
 import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
@@ -71,6 +73,9 @@ export default function StoreSetupPage() {
 
 			<div className="flex w-full flex-col items-center justify-center p-8 lg:w-1/2">
 				<div className="w-full max-w-md space-y-8">
+					{/* Progress Indicator */}
+					<OnboardingStepper currentStep={UserOnboardingStep.STORE_SETUP} />
+
 					<div className="space-y-2 text-center">
 						<h1 className="font-semibold text-2xl tracking-tight">
 							{t("title")}

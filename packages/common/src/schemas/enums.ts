@@ -112,6 +112,7 @@ export type StoreNotificationMethodInfer = z.infer<
  * User Onboarding Step Enum
  */
 export enum UserOnboardingStep {
+	SIGNUP = "SIGNUP",
 	STORE_SETUP = "STORE_SETUP",
 	COMPLETE = "COMPLETE",
 }

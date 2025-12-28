@@ -1,5 +1,6 @@
 "use client";
 
+import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { Button } from "@dukkani/ui/components/button";
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
@@ -8,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { OnboardingStepper } from "@/components/dashboard/onboarding/onboarding-stepper";
 import { AuthBackground } from "@/components/layout/auth-background";
 import { useCopyClipboard } from "@/hooks/use-copy-clipboard";
 import { orpc } from "@/lib/orpc";
@@ -48,6 +50,9 @@ export default function OnboardingCompletePage() {
 
 			<div className="flex w-full flex-col items-center justify-center p-8 lg:w-1/2">
 				<div className="w-full max-w-md space-y-8">
+					{/* Progress Indicator */}
+					<OnboardingStepper currentStep={UserOnboardingStep.COMPLETE} />
+
 					<div className="space-y-2 text-center">
 						<div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
 							<Icons.check className="h-6 w-6 text-primary" />
