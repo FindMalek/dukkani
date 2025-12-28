@@ -10,6 +10,11 @@ import type {
 	UploadFileOutput,
 	UploadFilesOutput,
 } from "@dukkani/common/schemas/storage/output";
+import {
+	uploadFileOutputSchema,
+	uploadFilesOutputSchema,
+} from "@dukkani/common/schemas/storage/output";
+import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { StorageService as StorageDbService } from "@dukkani/common/services/storageService";
 import { database } from "@dukkani/db";
 import { StorageService } from "@dukkani/storage";
@@ -22,6 +27,7 @@ export const storageRouter = {
 	 */
 	upload: protectedProcedure
 		.input(uploadFileInputSchema)
+		.output(uploadFileOutputSchema)
 		.handler(async ({ input }): Promise<UploadFileOutput> => {
 			try {
 				// Upload file to storage
@@ -77,6 +83,7 @@ export const storageRouter = {
 	 */
 	uploadMany: protectedProcedure
 		.input(uploadFilesInputSchema)
+		.output(uploadFilesOutputSchema)
 		.handler(async ({ input }): Promise<UploadFilesOutput> => {
 			try {
 				// Upload all files to storage
@@ -134,6 +141,7 @@ export const storageRouter = {
 	 */
 	delete: protectedProcedure
 		.input(deleteFileInputSchema)
+		.output(successOutputSchema)
 		.handler(async ({ input }) => {
 			try {
 				// Get file paths (including variants) before deletion
@@ -201,6 +209,7 @@ export const storageRouter = {
 	 */
 	deleteMany: protectedProcedure
 		.input(deleteFilesInputSchema)
+		.output(successOutputSchema)
 		.handler(async ({ input }) => {
 			try {
 				// Get all file records
