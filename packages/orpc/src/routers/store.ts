@@ -2,7 +2,10 @@ import {
 	getStoreInputSchema,
 	listStoresInputSchema,
 } from "@dukkani/common/schemas/store/input";
-import { storeIncludeOutputSchema, storeSimpleOutputSchema } from "@dukkani/common/schemas/store/output";
+import {
+	storeIncludeOutputSchema,
+	storeSimpleOutputSchema,
+} from "@dukkani/common/schemas/store/output";
 import { StoreService } from "@dukkani/common/services";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
