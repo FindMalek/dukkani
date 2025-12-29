@@ -195,3 +195,9 @@ This project is licensed under a Business Source License (BSL).
 **Non-Commercial Use**: You are free to view, modify, and use this software for non-commercial purposes, including personal projects, learning, and contributing to the open-source community.
 
 See [LICENSE](./LICENSE) for full details.
+
+---
+
+![Alt](https://repobeats.axiom.co/api/embed/5253724feea20074afb52b53c0ed0ec9a83f0733.svg "Repobeats analytics image")
+
+[![Star History Chart](https://api.star-history.com/svg?repos=FindMalek/dukkani&type=date&legend=top-left)](https://www.star-history.com/#FindMalek/dukkani&type=date&legend=top-left)
