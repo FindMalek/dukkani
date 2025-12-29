@@ -1,103 +1,197 @@
-# dukkani
+# Dukkani
 
-This project was created with [Better-T-Stack](https://github.com/AmanVarshney01/create-better-t-stack), a modern TypeScript stack that combines Next.js, Self, ORPC, and more.
+<div align="center">
 
-## Features
+![GitHub stars](https://img.shields.io/github/stars/FindMalek/dukkani?style=for-the-badge&logo=github)
+![License](https://img.shields.io/badge/license-BSL-blue?style=for-the-badge)
+![Contributors](https://img.shields.io/github/contributors/FindMalek/dukkani?style=for-the-badge)
 
-- **TypeScript** - For type safety and improved developer experience
-- **Next.js** - Full-stack React framework
-- **TailwindCSS** - Utility-first CSS for rapid UI development
-- **shadcn/ui** - Reusable UI components
-- **oRPC** - End-to-end type-safe APIs with OpenAPI integration
-- **Prisma** - TypeScript-first ORM
-- **PostgreSQL** - Database engine
-- **Authentication** - Better-Auth
-- **Biome** - Linting and formatting
-- **PWA** - Progressive Web App support
-- **Turborepo** - Optimized monorepo build system
+**Enable every small and medium Tunisian business to sell online, easily and professionally.**
 
-## Getting Started
+[Features](#-core-features) • [Getting Started](#-getting-started) • [Contributing](#-contributing) • [Documentation](#-documentation)
 
-First, install the dependencies:
+</div>
+
+---
+
+## 🌟 Vision
+
+Enable every small and medium Tunisian business to sell online, easily and professionally. We want to make launching an online store as simple as creating an Instagram account — no coding, no complexity, no barriers.
+
+### The Problem
+
+Most Tunisian and North African merchants still rely on physical stores and social media (like Instagram or Facebook) for sales. They lack easy access to affordable e-commerce tools that integrate with local delivery systems and payment gateways. Shopify and WooCommerce are too complicated or expensive for most.
+
+### The Solution
+
+A localized SaaS platform that helps businesses:
+
+- Create a beautiful online store in minutes (with AI-assisted setup)
+- Accept payments through local gateways (e.g., D17, Flouci, E-Dinar)
+- Manage inventory, delivery, and orders all in one dashboard
+- Offer multilingual experiences (Arabic, French, English)
+- Seamlessly sync with Instagram or WhatsApp for quick sharing
+
+### Target Market
+
+- Small to medium local stores
+- Artisan brands and clothing shops
+- Food delivery or grocery shops
+- Local resellers and social sellers (Instagram / Facebook merchants)
+
+### Long-Term Vision
+
+To become the **Shopify of North Africa** — starting with Tunisia, then scaling across Francophone and Arabic-speaking markets with localized infrastructure.
+
+---
+
+## 🚀 Core Features
+
+- 🛍️ **Instant Store Setup Wizard** - Get your store online in minutes
+- 💳 **Local Payment Integration** - D17, Flouci, E-Dinar and more
+- 🗺️ **Delivery Partner Integration** - Connect with local delivery services
+- 🌐 **Multi-language Support** - Arabic, French, and English
+- 📱 **Mobile-First Design** - Beautiful, responsive store templates
+- 📦 **Inventory & Order Management** - Complete e-commerce solution
+- 📊 **Sales Analytics Dashboard** - Track your business performance
+- 🤖 **AI-Powered Features** - Product descriptions & SEO (coming soon)
+
+---
+
+## 🏗️ Tech Stack
+
+This project is built with modern, type-safe technologies:
+
+- **Framework**: [Next.js](https://nextjs.org/) (App Router) - Full-stack React framework
+- **Language**: [TypeScript](https://www.typescriptlang.org/) - Type safety throughout
+- **Database**: [PostgreSQL](https://www.postgresql.org/) with [Prisma](https://www.prisma.io/) ORM
+- **API**: [oRPC](https://orpc.dev/) - End-to-end type-safe APIs with OpenAPI
+- **Authentication**: [Better Auth](https://www.better-auth.com/) - Modern auth solution
+- **UI**: [shadcn/ui](https://ui.shadcn.com/) + [Tailwind CSS](https://tailwindcss.com/)
+- **Monorepo**: [Turborepo](https://turbo.build/) - Optimized build system
+- **Code Quality**: [Biome](https://biomejs.dev/) - Fast linting and formatting
+- **PWA**: Progressive Web App support
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) 20+ and [pnpm](https://pnpm.io/) 10+
+- [Docker](https://www.docker.com/) (for local database)
+- Git
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/FindMalek/dukkani.git
+cd dukkani
+```
+
+2. **Install dependencies**
 
 ```bash
 pnpm install
 ```
 
-## Environment Setup
+3. **Set up environment variables**
 
-This project uses [T3 Env](https://env.t3.gg) for type-safe environment variable management.
-
-Create a `.env` file at the root of the project with your configuration:
-
-**Base/Shared Variables:**
-
-- `DATABASE_URL`: Your PostgreSQL connection string (required) - Used by db, auth, and all apps
-
-Example for local Docker setup:
-
-```env
+Create a `.env` file at the root of the project:
+```bash
+# Database (required)
 DATABASE_URL="postgresql://postgres:password@localhost:5432/dukkani"
+
+# CORS Origin (required for auth)
+NEXT_PUBLIC_CORS_ORIGIN="http://localhost:3002"
 ```
 
-**Auth Package Variables:**
-
-- `NEXT_PUBLIC_CORS_ORIGIN`: CORS origin URL (optional) - Used by auth package
-
-All environment variables are validated at runtime and provide type-safe access throughout the monorepo. Each package only includes the environment variables it needs:
-
-- `@dukkani/env`: Base env with `DATABASE_URL` (shared by all)
-- `@dukkani/auth/env`: Auth-specific env vars (extends base)
-- `@dukkani/db/env`: Database env (extends base, lightweight)
-- `apps/web/env`: Next.js app env (extends base + auth)
-
-## Database Setup
-
-This project uses PostgreSQL with Prisma. To set up the database with Docker and push the schema, run:
+4. **Set up the database**
 
 ```bash
 pnpm run db:setup
 ```
 
-This command will:
-
+This will:
 - Start the PostgreSQL database container
 - Push the Prisma schema to create all tables
 
-**Note:** Make sure you have created a `.env` file with `DATABASE_URL` before running this command (see Environment Setup above).
-
-**Other Database Commands:**
-
-- `pnpm run db:studio` - Open Prisma Studio to view/edit data
-- `pnpm run db:seed` - Seed the database with initial data
-- `cd docker && docker compose down` - Stop the database container
-
-Then, run the development server:
+5. **Seed the database (optional)**
 
 ```bash
-pnpm run dev
+pnpm run db:seed
 ```
 
-Open [http://localhost:3001](http://localhost:3001) in your browser to see your fullstack application.
+This creates default users and sample data for development. See [Database Package README](./packages/db/README.md) for details.
 
-## Project Structure
+6. **Start the development server**
 
-```text
-dukkani/
-├── apps/
-│   └── web/         # Fullstack application (Next.js)
-├── packages/
-│   ├── api/         # API layer / business logic
-│   ├── auth/        # Authentication configuration & logic
-│   └── db/          # Database schema & queries
+- **Web App**: [http://localhost:3001](http://localhost:3001) - Public-facing storefront
+- **API Server**: [http://localhost:3002](http://localhost:3002) - API endpoints
+- **Dashboard**: [http://localhost:3003](http://localhost:3003) - Merchant dashboard
+
+### Quick Commands
+
+```bash
+# Development
+pnpm run dev              # Start all apps
+pnpm run dev:api          # Start API only
+pnpm run dev:dashboard    # Start Dashboard only
+pnpm run dev:web          # Start Web app only
+
+# Database
+pnpm run db:studio        # Open Prisma Studio
+pnpm run db:push          # Push schema changes
+pnpm run db:seed          # Seed database
+pnpm run db:reset-and-seed # Reset and seed
+
+# Code Quality
+pnpm run check            # Lint and format
+pnpm run check-types      # Type check all packages
+pnpm run build            # Build all packages
 ```
 
-## Available Scripts
+---
 
-- `pnpm run dev`: Start all applications in development mode
-- `pnpm run build`: Build all applications
-- `pnpm run check-types`: Check TypeScript types across all apps
-- `pnpm run db:push`: Push schema changes to database
-- `pnpm run db:studio`: Open database studio UI
-- `pnpm run check`: Run Biome formatting and linting
-- `cd apps/web && pnpm run generate-pwa-assets`: Generate PWA assets
+
+## 🤝 Contributing
+
+We welcome contributions! Whether you're fixing bugs, adding features, or improving documentation, your help makes Dukkani better for everyone.
+
+**Please read our [Contributing Guidelines](./CONTRIBUTING.md) before submitting a PR.**
+
+### Quick Contribution Guide
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feat/amazing-feature`)
+3. Make your changes
+4. Run `pnpm run check` to ensure code quality
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to your branch (`git push origin feat/amazing-feature`)
+7. Open a Pull Request
+
+For detailed guidelines on development setup, code style, and PR process, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+---
+
+## 👥 Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START -->
+<!-- This section will be populated by all-contributors bot -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+We love our contributors! See [CONTRIBUTING.md](./CONTRIBUTING.md) to learn how you can contribute.
+
+---
+
+## 📄 License
+
+This project is licensed under a Business Source License (BSL). 
+
+**Commercial Use Restrictions**: This software may not be used for commercial purposes or financial gain without explicit written permission from the copyright holder. For commercial licensing inquiries, please contact the project maintainers.
+
+**Non-Commercial Use**: You are free to view, modify, and use this software for non-commercial purposes, including personal projects, learning, and contributing to the open-source community.
+
+See [LICENSE](./LICENSE) for full details.
