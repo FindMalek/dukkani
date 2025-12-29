@@ -1,0 +1,62 @@
+name: Prisma Migrate Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/db/prisma/migrations/**'
+      - 'packages/db/prisma/schema/**'
+      - 'packages/db/prisma.config.ts'
+      - 'packages/db/package.json'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Generate Prisma Client
+        working-directory: packages/db
+        run: pnpm db:generate
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      
+      - name: Deploy Prisma Migrations
+        working-directory: packages/db
+        run: |
+          echo "🚀 Starting Prisma migration deployment..."
+          pnpm exec prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        continue-on-error: false
+      
+      - name: Migration Status
+        if: success()
+        run: |
+          echo "✅ Migrations deployed successfully!"
+          echo "::notice title=Migration Success::All Prisma migrations have been applied to production"
+      
+      - name: Migration Failure Alert
+        if: failure()
+        run: |
+          echo "❌ Migration deployment failed!"
+          echo "::error title=Migration Failure::Prisma migration deployment failed. Please check the logs and rollback if necessary."
+          exit 1
