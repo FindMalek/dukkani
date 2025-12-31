@@ -29,7 +29,9 @@
 		"./locale/web/en.json": "./src/locale/web/en.json",
 		"./locale/web/fr.json": "./src/locale/web/fr.json",
 		"./locale/dashboard/en.json": "./src/locale/dashboard/en.json",
-		"./locale/dashboard/fr.json": "./src/locale/dashboard/fr.json"
+		"./locale/dashboard/fr.json": "./src/locale/dashboard/fr.json",
+		"./locale/storefront/en.json": "./src/locale/storefront/en.json",
+		"./locale/storefront/fr.json": "./src/locale/storefront/fr.json"
 	},
 	"scripts": {
 		"build": "tsdown",

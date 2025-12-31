@@ -140,4 +140,21 @@ export class StoreService {
 
 		return StoreEntity.getRo(store);
 	}
+
+	/**
+	 * Get store by slug (public - no ownership verification)
+	 * Used for public storefronts
+	 */
+	static async getStoreBySlugPublic(slug: string): Promise<StoreIncludeOutput> {
+		const store = await database.store.findUnique({
+			where: { slug },
+			include: StoreQuery.getInclude(),
+		});
+
+		if (!store) {
+			throw new Error("Store not found");
+		}
+
+		return StoreEntity.getRo(store);
+	}
 }

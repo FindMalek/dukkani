@@ -35,6 +35,10 @@
 		"./presets/web": {
 			"types": "./src/presets/web.ts",
 			"default": "./src/presets/web.ts"
+		},
+		"./storefront": {
+			"types": "./src/presets/storefront.ts",
+			"default": "./src/presets/storefront.ts"
 		}
 	},
 	"dependencies": {
