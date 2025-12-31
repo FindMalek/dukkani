@@ -8,7 +8,9 @@ import { getStoreSlugFromHost } from "@/lib/utils";
 export default async function StorePage() {
 	const headersList = await headers();
 	const host = headersList.get("host");
-	const storeSlug = getStoreSlugFromHost(host);
+	// const storeSlug = getStoreSlugFromHost(host);
+	const storeSlug = "omar-home";
+	console.log("storeSlug", storeSlug);
 
 	if (!storeSlug) {
 		return notFound();
