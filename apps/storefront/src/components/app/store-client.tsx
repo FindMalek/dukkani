@@ -52,18 +52,14 @@ export function StoreClient({ store }: { store: StorePublicOutput }) {
 										TND
 									</p>
 								)}
-								{product.imagesUrls && product.imagesUrls.length > 0 && (
-									<div className="mt-2">
-										{product.imagesUrls.map((imageUrl, idx) => (
-											<img
-												key={idx}
-												src={imageUrl}
-												alt={product.name}
-												className="h-32 w-full rounded object-cover"
-											/>
-										))}
-									</div>
-								)}
+								{product.imagesUrls.map((imageUrl) => (
+									<img
+										key={imageUrl}
+										src={imageUrl}
+										alt={product.name}
+										className="h-32 w-full rounded object-cover"
+									/>
+								))}
 							</div>
 						))}
 					</div>

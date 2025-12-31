@@ -94,43 +94,6 @@ export class ProductQuery {
 		return where;
 	}
 
-	static getPublicWhere(
-		storeIds: string[],
-		filters?: {
-			published?: boolean;
-			search?: string;
-			stock?: { lte?: number; gte?: number };
-		},
-	): Prisma.ProductWhereInput {
-		const where: Prisma.ProductWhereInput = { storeId: { in: storeIds } };
-
-		if (filters?.published !== undefined) {
-			where.published = filters.published;
-		}
-
-		if (filters?.search) {
-			where.OR = [
-				{ name: { contains: filters.search, mode: "insensitive" } },
-				{ description: { contains: filters.search, mode: "insensitive" } },
-			];
-		}
-
-		if (filters?.stock) {
-			const stockFilter: { lte?: number; gte?: number } = {};
-			if (filters.stock.lte !== undefined) {
-				stockFilter.lte = filters.stock.lte;
-			}
-			if (filters.stock.gte !== undefined) {
-				stockFilter.gte = filters.stock.gte;
-			}
-			if (Object.keys(stockFilter).length > 0) {
-				where.stock = stockFilter;
-			}
-		}
-
-		return where;
-	}
-
 	/**
 	 * Get where clause for products that should be visible publicly
 	 * Centralizes logic for determining publishable products
