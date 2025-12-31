@@ -1,6 +1,7 @@
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import {
 	createStoreOnboardingInputSchema,
+	getStoreBySlugPublicInputSchema,
 	getStoreInputSchema,
 	listStoresInputSchema,
 } from "@dukkani/common/schemas/store/input";
@@ -87,21 +88,25 @@ export const storeRouter = {
 			return await StoreService.getStoreBySlug(input.slug, userId);
 		}),
 
-	/**
-	 * Get store by slug (public - for storefronts)
-	 * No authentication required, uses storefront rate limiting (100/min)
-	 */
-	getBySlugPublic: publicProcedure
-		.use(rateLimitPublicSafe)
-		.input(z.object({ slug: z.string() }))
-		.output(storePublicOutputSchema)
-		.handler(async ({ input }) => {
-			if (!input.slug) {
-				throw new ORPCError("BAD_REQUEST", {
-					message: "Store slug is required",
-				});
-			}
+/**
+ * Get store by slug (public - for storefronts)
+ * No authentication required, uses storefront rate limiting (100/min)
+ * Supports pagination for products
+ */
+getBySlugPublic: publicProcedure
+	.use(rateLimitPublicSafe)
+	.input(getStoreBySlugPublicInputSchema)
+	.output(storePublicOutputSchema)
+	.handler(async ({ input }) => {
+		if (!input.slug) {
+			throw new ORPCError("BAD_REQUEST", {
+				message: "Store slug is required",
+			});
+		}
 
-			return await StoreService.getStoreBySlugPublic(input.slug);
-		}),
+		return await StoreService.getStoreBySlugPublic(input.slug, {
+			productPage: input.productPage,
+			productLimit: input.productLimit,
+		});
+	}),
 };

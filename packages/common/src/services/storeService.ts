@@ -142,20 +142,65 @@ export class StoreService {
 		return StoreEntity.getRo(store);
 	}
 
-	/**
-	 * Get store by slug (public - for storefronts)
-	 * Returns public data with owner (limited) and products (published only)
-	 */
-	static async getStoreBySlugPublic(slug: string): Promise<StorePublicOutput> {
-		const store = await database.store.findUnique({
-			where: { slug },
-			include: StoreQuery.getPublicInclude(),
-		});
+/**
+ * Get store by slug (public - for storefronts)
+ * Returns public data with owner (limited) and products (published only, paginated)
+ */
+static async getStoreBySlugPublic(
+	slug: string,
+	options?: {
+		productPage?: number;
+		productLimit?: number;
+	},
+): Promise<StorePublicOutput> {
+	const productPage = options?.productPage ?? 1;
+	const productLimit = options?.productLimit ?? 20;
 
-		if (!store) {
-			throw new Error("Store not found");
-		}
+	// First, get the store to find its ID
+	const store = await database.store.findUnique({
+		where: { slug },
+		select: { id: true },
+	});
 
-		return StoreEntity.getPublicRo(store);
+	if (!store) {
+		throw new Error("Store not found");
 	}
+
+	// Get total count of published products
+	const totalProducts = await database.product.count({
+		where: {
+			storeId: store.id,
+			published: true,
+		},
+	});
+
+	// Get store with paginated products
+	const storeWithProducts = await database.store.findUnique({
+		where: { slug },
+		include: StoreQuery.getPublicInclude({
+			productPage,
+			productLimit,
+		}),
+	});
+
+	if (!storeWithProducts) {
+		throw new Error("Store not found");
+	}
+
+	const result = StoreEntity.getPublicRo(storeWithProducts);
+
+	// Add pagination metadata
+	const productSkip = (productPage - 1) * productLimit;
+	const hasMoreProducts = productSkip + (storeWithProducts.products?.length ?? 0) < totalProducts;
+
+	return {
+		...result,
+		productsPagination: {
+			total: totalProducts,
+			hasMore: hasMoreProducts,
+			page: productPage,
+			limit: productLimit,
+		},
+	};
+}
 }

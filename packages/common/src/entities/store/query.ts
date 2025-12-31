@@ -59,8 +59,14 @@ export class StoreQuery {
 		} satisfies Prisma.StoreSelect;
 	}
 
-	// TODO: add pagination and other filters
-	static getPublicInclude() {
+	static getPublicInclude(options?: {
+		productPage?: number;
+		productLimit?: number;
+	}) {
+		const productPage = options?.productPage ?? 1;
+		const productLimit = options?.productLimit ?? 20;
+		const productSkip = (productPage - 1) * productLimit;
+	
 		return {
 			...StoreQuery.getSimpleInclude(),
 			storePlan: StorePlanQuery.getSimpleInclude(),
@@ -79,6 +85,8 @@ export class StoreQuery {
 						},
 					},
 				},
+				skip: productSkip,
+				take: productLimit,
 				orderBy: {
 					createdAt: "desc",
 				},

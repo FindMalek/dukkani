@@ -56,11 +56,18 @@ export const storePublicOutputSchema = storeSafeOutputSchema
 			})
 			.optional(),
 		products: z.array(productPublicOutputSchema).optional(),
+		productsPagination: z
+			.object({
+				total: z.number().int(),
+				hasMore: z.boolean(),
+				page: z.number().int(),
+				limit: z.number().int(),
+			})
+			.optional(),
 	})
 	.omit({
 		ownerId: true,
-		createdAt: true,
-		updatedAt: true,
+		notificationMethod: true,
 	});
 
 export type StorePublicOutput = z.infer<typeof storePublicOutputSchema>;
