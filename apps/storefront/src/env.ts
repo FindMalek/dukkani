@@ -23,7 +23,7 @@ export const storefrontEnv = createEnv({
 				return val;
 			}),
 		NEXT_PUBLIC_CORS_ORIGIN: z.url(),
-		NEXT_PUBLIC_ALLOWED_ORIGIN: z.string(),
+		NEXT_PUBLIC_ALLOWED_ORIGIN: z.union([z.literal("*"), z.url()]),
 		NEXT_PUBLIC_STORE_DOMAIN: z.string(),
 	},
 	runtimeEnv: {

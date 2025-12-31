@@ -4,7 +4,7 @@ import { onboardingCompleteInputSchema } from "@dukkani/common/schemas/onboardin
 import type { OnboardingCompleteOutput } from "@dukkani/common/schemas/onboarding/output";
 import { onboardingCompleteOutputSchema } from "@dukkani/common/schemas/onboarding/output";
 import { database } from "@dukkani/db";
-import { storefrontEnv } from "@dukkani/env/storefront";
+import { apiEnv } from "@dukkani/env";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
 
@@ -58,7 +58,7 @@ export const onboardingRouter = {
 			}
 
 			// Generate store URL (e.g., store-name.dukkani.tn)
-			const storeUrl = `https://${store.slug}.${storefrontEnv.NEXT_PUBLIC_STORE_DOMAIN}`;
+			const storeUrl = `https://${store.slug}.${apiEnv.NEXT_PUBLIC_STORE_DOMAIN}`;
 
 			return {
 				storeId: store.id,

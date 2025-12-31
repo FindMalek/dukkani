@@ -34,7 +34,7 @@ export const baseEnv = createEnv({
 				return val;
 			}),
 		NEXT_PUBLIC_CORS_ORIGIN: z.url(),
-		NEXT_PUBLIC_ALLOWED_ORIGIN: z.string(),
+		NEXT_PUBLIC_ALLOWED_ORIGIN: z.union([z.literal("*"), z.url()]),
 	},
 	clientPrefix: "NEXT_PUBLIC_",
 	runtimeEnv: process.env,

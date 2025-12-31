@@ -14,7 +14,9 @@ export const apiEnv = createEnv({
 	},
 	client: {
 		NEXT_PUBLIC_DASHBOARD_URL: z.url(),
-		NEXT_PUBLIC_ALLOWED_ORIGIN: z.string(),
+		NEXT_PUBLIC_ALLOWED_ORIGIN: z.union([z.literal("*"), z.url()]),
+		NEXT_PUBLIC_STORE_DOMAIN: z.string(),
+		NEXT_PUBLIC_CORS_ORIGIN: z.url(),
 	},
 	clientPrefix: "NEXT_PUBLIC_",
 	runtimeEnv: process.env,
