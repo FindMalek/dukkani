@@ -23,10 +23,36 @@ export const storefrontEnv = createEnv({
 				return val;
 			}),
 		NEXT_PUBLIC_CORS_ORIGIN: z.url(),
-		NEXT_PUBLIC_ALLOWED_ORIGIN: z.union([z.literal("*"), z.url()]),
-		NEXT_PUBLIC_STORE_DOMAIN: z.string().refine((val) => val.includes("."), {
-			message: "NEXT_PUBLIC_STORE_DOMAIN must be a valid domain name.",
-		}),
+        NEXT_PUBLIC_ALLOWED_ORIGIN: z.string().refine(
+            (val) => {
+                // Allow literal "*"
+                if (val === "*") return true;
+                
+                // Allow valid URLs
+                try {
+                    new URL(val);
+                    return true;
+                } catch {
+                    // Not a URL, check if it's a wildcard pattern
+                }
+                
+                // Allow wildcard patterns like *.domain.com
+                if (val.includes("*")) {
+                    const safePatternRegex =
+                        /^\*?\.?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+                    return safePatternRegex.test(val);
+                }
+                
+                return false;
+            },
+            {
+                message:
+                    "NEXT_PUBLIC_ALLOWED_ORIGIN must be '*', a valid URL, or a wildcard pattern like *.domain.com",
+            },
+        ),
+        NEXT_PUBLIC_STORE_DOMAIN: z.string().refine((val) => val.includes("."), {
+            message: "NEXT_PUBLIC_STORE_DOMAIN must be a valid domain name.",
+        }),
 	},
 	runtimeEnv: {
 		DATABASE_URL: process.env.DATABASE_URL,
