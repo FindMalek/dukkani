@@ -2,9 +2,7 @@
 
 import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import {
-	StoreCategory,
 	type StoreTheme,
-	storeCategoryEnum,
 	storeThemeEnum,
 	UserOnboardingStep,
 } from "@dukkani/common/schemas/enums";

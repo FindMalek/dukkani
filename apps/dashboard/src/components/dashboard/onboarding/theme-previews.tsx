@@ -6,6 +6,14 @@ interface ThemePreviewBaseProps {
 	className?: string;
 }
 
+export const THEME_PREVIEWS: Record<StoreTheme, React.ComponentType> = {
+	[StoreTheme.MODERN]: ModernPreview,
+	[StoreTheme.DARK]: DarkPreview,
+	[StoreTheme.MINIMAL]: MinimalPreview,
+	[StoreTheme.CLASSIC]: ClassicPreview,
+	[StoreTheme.LIGHT]: LightPreview,
+};
+
 function ThemePreviewBase({ children, className }: ThemePreviewBaseProps) {
 	return (
 		<div
@@ -81,11 +89,3 @@ export function LightPreview() {
 		</ThemePreviewBase>
 	);
 }
-
-export const THEME_PREVIEWS: Record<StoreTheme, React.ComponentType> = {
-	[StoreTheme.MODERN]: ModernPreview,
-	[StoreTheme.DARK]: DarkPreview,
-	[StoreTheme.MINIMAL]: MinimalPreview,
-	[StoreTheme.CLASSIC]: ClassicPreview,
-	[StoreTheme.LIGHT]: LightPreview,
-};

@@ -8,7 +8,10 @@ import { ScrollArea, ScrollBar } from "@dukkani/ui/components/scroll-area";
 import { cn } from "@dukkani/ui/lib/utils";
 import type { useTranslations } from "next-intl";
 
-const CATEGORY_ICONS = {
+const CATEGORY_ICONS: Record<
+	StoreCategory,
+	React.ComponentType<{ className?: string }>
+> = {
 	[StoreCategory.FASHION]: Icons.shirt,
 	[StoreCategory.ELECTRONICS]: Icons.laptop,
 	[StoreCategory.FOOD]: Icons.utensils,
@@ -19,6 +22,7 @@ const CATEGORY_ICONS = {
 	[StoreCategory.TOYS]: Icons.toys,
 	[StoreCategory.OTHER]: Icons.other,
 };
+
 export function CategorySelector({
 	value,
 	onChange,
@@ -29,43 +33,45 @@ export function CategorySelector({
 	t: ReturnType<typeof useTranslations>;
 }) {
 	return (
-		<ScrollArea className="w-full whitespace-nowrap rounded-md">
-			<div className="flex w-max space-x-4 p-1">
-				{Object.values(storeCategoryEnum).map((cat) => {
-					const Icon = CATEGORY_ICONS[cat as StoreCategory];
-					const isActive = value === cat;
-					return (
-						<button
-							key={cat}
-							type="button"
-							onClick={() => onChange(cat)}
-							className={cn(
-								"flex flex-col items-center gap-2 outline-none transition-all",
-								isActive ? "scale-105" : "opacity-60 hover:opacity-100",
-							)}
-						>
-							<div
+		<div className="w-full overflow-hidden">
+			<ScrollArea className="w-full">
+				<div className="flex w-max gap-4 pt-1 pb-4">
+					{Object.values(storeCategoryEnum).map((cat) => {
+						const Icon = CATEGORY_ICONS[cat as StoreCategory];
+						const isActive = value === cat;
+						return (
+							<button
+								key={cat}
+								type="button"
+								onClick={() => onChange(cat)}
 								className={cn(
-									"flex h-11 w-11 items-center justify-center rounded-xl border transition-colors",
-									isActive
-										? "border-primary bg-primary text-primary-foreground"
-										: "border-muted bg-muted/20",
+									"flex flex-col items-center gap-2 outline-none transition-all",
+									isActive ? "scale-105" : "opacity-60 hover:opacity-100",
 								)}
 							>
-								<Icon className="h-5 w-5" />
-							</div>
-							<span className="font-medium text-[11px]">
-								{
-									t(
-										StoreEntity.getCategoryLabelKey(cat as StoreCategory),
-									).split(" ")[0]
-								}
-							</span>
-						</button>
-					);
-				})}
-			</div>
-			<ScrollBar orientation="horizontal" />
-		</ScrollArea>
+								<div
+									className={cn(
+										"flex h-11 w-11 items-center justify-center rounded-xl border transition-colors",
+										isActive
+											? "border-primary bg-primary text-primary-foreground"
+											: "border-muted bg-muted/20",
+									)}
+								>
+									<Icon className="h-5 w-5" />
+								</div>
+								<span className="font-medium text-[11px]">
+									{
+										t(
+											StoreEntity.getCategoryLabelKey(cat as StoreCategory),
+										).split(" ")[0]
+									}
+								</span>
+							</button>
+						);
+					})}
+				</div>
+				<ScrollBar orientation="horizontal" className="h-2" />
+			</ScrollArea>
+		</div>
 	);
 }
