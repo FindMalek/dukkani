@@ -62,7 +62,18 @@ export class StoreEntity {
 	 */
 	static getPublicRo(entity: StorePublicDbData): StorePublicOutput {
 		return {
-			...StoreEntity.getSafeRo(entity),
+			id: entity.id,
+			slug: entity.slug,
+			name: entity.name,
+			description: entity.description,
+			whatsappNumber: entity.whatsappNumber,
+			category: entity.category,
+			theme: entity.theme,
+			createdAt: entity.createdAt,
+			updatedAt: entity.updatedAt,
+			storePlan: entity.storePlan
+				? StorePlanEntity.getSimpleRo(entity.storePlan)
+				: undefined,
 			owner: entity.owner
 				? {
 						name: entity.owner.name,
