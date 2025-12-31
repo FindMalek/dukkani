@@ -8,8 +8,20 @@ export function isOriginAllowed(
 ): boolean {
 	if (!origin || !allowedOriginPattern) return false;
 
+	// Extract hostname from origin (remove protocol and port)
+	// e.g., "https://omar-home.dukkani.malek.engineering" -> "omar-home.dukkani.malek.engineering"
+	let hostname: string = origin;
+	try {
+		const url = new URL(origin);
+		hostname = url.hostname || origin;
+	} catch {
+		// If origin is not a valid URL, use it as-is (fallback)
+		// origin is guaranteed to be string here due to early return check
+		hostname = origin.replace(/^https?:\/\//, "").split(":")[0] || origin;
+	}
+
 	// Exact match
-	if (origin === allowedOriginPattern) {
+	if (hostname === allowedOriginPattern || origin === allowedOriginPattern) {
 		return true;
 	}
 
@@ -24,12 +36,13 @@ export function isOriginAllowed(
 		}
 
 		// Convert wildcard pattern to regex
-		// *.vercel.app -> ^.*\.vercel\.app$
+		// *.dukkani.malek.engineering -> ^.*\.dukkani\.malek\.engineering$
 		const regexPattern = allowedOriginPattern
 			.replace(/\./g, "\\.")
 			.replace(/\*/g, ".*");
 		const regex = new RegExp(`^${regexPattern}$`);
-		return regex.test(origin);
+		// Match against hostname (without protocol)
+		return regex.test(hostname);
 	}
 
 	return false;
