@@ -30,5 +30,6 @@ export default getRequestConfig(async ({ locale }) => {
 	return {
 		locale: finalLocale,
 		messages: messages[finalLocale],
+		timeZone: "Africa/Tunis",
 	};
 });

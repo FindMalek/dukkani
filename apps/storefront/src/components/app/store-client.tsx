@@ -17,16 +17,14 @@ export function StoreClient({ store }: { store: StorePublicOutput }) {
 				)}
 			</div>
 
-			{store.owner && (
+			{store.owner?.name && (
 				<div className="mb-6 rounded-lg border p-4">
 					<h2 className="font-semibold text-xl">{t("owner.title")}</h2>
-					{store.owner.name && (
-						<p className="text-muted-foreground">{store.owner.name}</p>
-					)}
+					<p className="text-muted-foreground">{store.owner.name}</p>
 					{store.owner.image && (
 						<img
 							src={store.owner.image}
-							alt={store.owner.name || "Owner"}
+							alt={store.owner.name}
 							className="mt-2 h-16 w-16 rounded-full"
 						/>
 					)}
@@ -52,14 +50,16 @@ export function StoreClient({ store }: { store: StorePublicOutput }) {
 										TND
 									</p>
 								)}
-								{product.imagesUrls.map((imageUrl) => (
-									<img
-										key={imageUrl}
-										src={imageUrl}
-										alt={product.name}
-										className="h-32 w-full rounded object-cover"
-									/>
-								))}
+								{product.imagesUrls && product.imagesUrls.length > 0 && (
+									product.imagesUrls.map((imageUrl) => (
+										<img
+											key={imageUrl}
+											src={imageUrl}
+											alt={product.name || "Product image"}
+											className="h-32 w-full rounded object-cover"
+										/>
+									))
+								)}
 							</div>
 						))}
 					</div>

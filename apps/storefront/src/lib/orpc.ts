@@ -12,9 +12,6 @@ function getORPCClient() {
 	return orpcClient;
 }
 
-// Use server-side client during SSR, fallback to client-side client
-export const client: AppRouterClient =
-	globalThis.$orpcClient ?? getORPCClient().client;
-
+export const client: AppRouterClient = getORPCClient().client;
 export const queryClient = getORPCClient().queryClient;
 export const orpc = getORPCClient().orpc;
