@@ -21,6 +21,12 @@ export default async function StorePage() {
 			slug: storeSlug,
 		});
 
+		// Add validation check before rendering
+		if (!store || !store.name) {
+			console.error("Invalid store data:", store);
+			return notFound();
+		}
+
 		return <StoreClient store={store} />;
 	} catch (error) {
 		if (error instanceof ORPCError && error.status === 404) {
