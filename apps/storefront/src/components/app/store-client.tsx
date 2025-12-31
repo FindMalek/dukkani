@@ -3,19 +3,6 @@
 import type { StoreIncludeOutput } from "@dukkani/common/schemas/store/output";
 
 export function StoreClient({ store }: { store: StoreIncludeOutput }) {
-	if (!store) {
-		return (
-			<div className="flex min-h-screen items-center justify-center">
-				<div className="text-center">
-					<h1 className="font-bold text-2xl">No store specified</h1>
-					<p className="mt-2 text-muted-foreground">
-						Please provide a store slug in the URL
-					</p>
-				</div>
-			</div>
-		);
-	}
-
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<div className="mb-8">

@@ -22,10 +22,10 @@ export default async function StorePage() {
 		return <StoreClient store={store} />;
 	} catch (error) {
 		if (error instanceof ORPCError && error.status === 404) {
+			// TODO: Show a message to the user that the store does not exist and a button to redirect to the home page
 			return notFound();
 		}
 
-		// Handle other errors
 		throw error;
 	}
 }
