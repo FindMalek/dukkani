@@ -4,6 +4,13 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export function proxy(request: NextRequest) {
+	const hostname = request.headers.get("host");
+
+	// Exclude api/dashboard subdomains (shouldn't reach here, but safety check)
+	if (hostname?.startsWith("api.") || hostname?.startsWith("dashboard.")) {
+		return NextResponse.next();
+	}
+
 	const { pathname } = request.nextUrl;
 
 	// Skip API routes, static files, and Next.js internals
