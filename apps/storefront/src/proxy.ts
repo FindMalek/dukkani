@@ -5,9 +5,9 @@ import { NextResponse } from "next/server";
 
 export function proxy(request: NextRequest) {
 	const hostname = request.headers.get("host");
-	
+
 	// Exclude api/dashboard subdomains (shouldn't reach here, but safety check)
-	if (hostname?.includes("api.") || hostname?.includes("dashboard.")) {
+	if (hostname?.startsWith("api.") || hostname?.startsWith("dashboard.")) {
 		return NextResponse.next();
 	}
 
