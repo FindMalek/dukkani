@@ -192,15 +192,9 @@ export default function StoreConfigurationPage() {
 															/>
 															<Preview />
 															<div className="flex items-center justify-between px-1">
-																<span className="font-medium text-xs">
-																	{
-																		t(
-																			StoreEntity.getThemeLabelKey(
-																				theme as StoreTheme,
-																			),
-																		).split(" ")[0]
-																	}
-																</span>
+                                                            <span className="font-medium text-xs">
+	{t(StoreEntity.getThemeLabelKey(theme))}
+</span>
 																{isActive && (
 																	<Icons.check className="h-3 w-3 text-primary" />
 																)}

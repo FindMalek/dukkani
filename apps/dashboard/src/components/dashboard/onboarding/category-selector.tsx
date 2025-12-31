@@ -59,12 +59,8 @@ export function CategorySelector({
 								>
 									<Icon className="h-5 w-5" />
 								</div>
-								<span className="font-medium text-[11px]">
-									{
-										t(
-											StoreEntity.getCategoryLabelKey(cat as StoreCategory),
-										).split(" ")[0]
-									}
+								<span className="max-w-[60px] truncate text-center font-medium text-[11px]">
+									{t(StoreEntity.getCategoryLabelKey(cat))}
 								</span>
 							</button>
 						);
