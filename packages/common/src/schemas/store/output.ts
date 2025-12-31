@@ -66,7 +66,6 @@ export const storePublicOutputSchema = storeSafeOutputSchema
 			.optional(),
 	})
 	.omit({
-		ownerId: true,
 		notificationMethod: true,
 	});
 

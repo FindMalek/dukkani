@@ -1,4 +1,4 @@
-import { storefrontEnv } from "@dukkani/env/storefront";
+import { storefrontEnv } from "@/env";
 
 export function getStoreSlugFromHost(host: string | null): string | null {
 	if (!host) return null;

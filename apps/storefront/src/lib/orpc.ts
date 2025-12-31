@@ -1,6 +1,6 @@
-import { storefrontEnv } from "@dukkani/env/storefront";
 import type { AppRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
+import { storefrontEnv } from "@/env";
 
 // Lazy ORPC client creation - only create when accessed
 let orpcClient: ReturnType<typeof createORPCClientUtils> | null = null;

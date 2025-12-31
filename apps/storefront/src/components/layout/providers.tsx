@@ -1,11 +1,11 @@
 "use client";
 
 import type { Locale } from "@dukkani/common/schemas/constants";
-import { storefrontEnv } from "@dukkani/env/storefront";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NextIntlClientProvider } from "next-intl";
+import { storefrontEnv } from "@/env";
 import { queryClient } from "@/lib/orpc";
 
 interface ProvidersProps {
