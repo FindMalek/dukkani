@@ -9,7 +9,7 @@ export interface RateLimitOptions {
 	 * Rate limiter to use
 	 * @default "standard" for authenticated, "strict" for unauthenticated
 	 */
-	limiter?: "strict" | "standard" | "generous" | "veryStrict";
+	limiter?: "strict" | "standard" | "generous" | "veryStrict" | "public";
 	/**
 	 * Custom rate limit configuration
 	 */
@@ -89,4 +89,12 @@ export const rateLimitProtected = createRateLimitMiddleware({
  */
 export const rateLimitSensitive = createRateLimitMiddleware({
 	limiter: "veryStrict",
+});
+
+/**
+ * Rate limit middleware for public procedures
+ * Uses public rate limiting
+ */
+export const rateLimitPublicSafe = createRateLimitMiddleware({
+	limiter: "public",
 });

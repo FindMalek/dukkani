@@ -27,6 +27,17 @@ export const listProductsOutputSchema = z.object({
 	limit: z.number().int(),
 });
 
+export const productPublicOutputSchema = productSimpleOutputSchema
+	.extend({
+		imagesUrls: z.array(z.string()),
+	})
+	.omit({
+		storeId: true,
+		createdAt: true,
+		updatedAt: true,
+	});
+
+export type ProductPublicOutput = z.infer<typeof productPublicOutputSchema>;
 export type ProductSimpleOutput = z.infer<typeof productSimpleOutputSchema>;
 export type ProductIncludeOutput = z.infer<typeof productIncludeOutputSchema>;
 export type ListProductsOutput = z.infer<typeof listProductsOutputSchema>;

@@ -257,4 +257,14 @@ export const rateLimiters = {
 		windowMs: 15 * 60 * 1000, // 15 minutes
 		keyPrefix: "ratelimit:verystrict",
 	}),
+
+	/**
+	 * Public rate limiter for unauthenticated requests
+	 * 100 requests per minute
+	 */
+	public: new RateLimiter({
+		max: 100,
+		windowMs: 60 * 1000, // 1 minute
+		keyPrefix: "ratelimit:public",
+	}),
 };

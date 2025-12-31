@@ -29,4 +29,10 @@ export class ImageQuery {
 			...ImageQuery.getSimpleInclude(),
 		} satisfies Prisma.ImageInclude;
 	}
+
+	static getPublicSelect() {
+		return {
+			url: true,
+		} satisfies Prisma.ImageSelect;
+	}
 }

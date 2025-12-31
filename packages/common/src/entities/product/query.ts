@@ -14,9 +14,22 @@ export type ProductClientSafeDbData = Prisma.ProductGetPayload<{
 	include: ReturnType<typeof ProductQuery.getClientSafeInclude>;
 }>;
 
+export type ProductPublicDbData = Prisma.ProductGetPayload<{
+	include: ReturnType<typeof ProductQuery.getPublicInclude>;
+}>;
+
 export class ProductQuery {
 	static getSimpleInclude() {
 		return {} satisfies Prisma.ProductInclude;
+	}
+
+	static getPublicInclude() {
+		return {
+			...ProductQuery.getSimpleInclude(),
+			images: {
+				select: ImageQuery.getPublicSelect(),
+			},
+		} satisfies Prisma.ProductInclude;
 	}
 
 	static getInclude() {
@@ -53,6 +66,43 @@ export class ProductQuery {
 		if (filters?.storeId) {
 			where.storeId = { in: [filters.storeId] };
 		}
+
+		if (filters?.published !== undefined) {
+			where.published = filters.published;
+		}
+
+		if (filters?.search) {
+			where.OR = [
+				{ name: { contains: filters.search, mode: "insensitive" } },
+				{ description: { contains: filters.search, mode: "insensitive" } },
+			];
+		}
+
+		if (filters?.stock) {
+			const stockFilter: { lte?: number; gte?: number } = {};
+			if (filters.stock.lte !== undefined) {
+				stockFilter.lte = filters.stock.lte;
+			}
+			if (filters.stock.gte !== undefined) {
+				stockFilter.gte = filters.stock.gte;
+			}
+			if (Object.keys(stockFilter).length > 0) {
+				where.stock = stockFilter;
+			}
+		}
+
+		return where;
+	}
+
+	static getPublicWhere(
+		storeIds: string[],
+		filters?: {
+			published?: boolean;
+			search?: string;
+			stock?: { lte?: number; gte?: number };
+		},
+	): Prisma.ProductWhereInput {
+		const where: Prisma.ProductWhereInput = { storeId: { in: storeIds } };
 
 		if (filters?.published !== undefined) {
 			where.published = filters.published;

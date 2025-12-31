@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { productSimpleOutputSchema } from "../product/output";
+import {
+	productPublicOutputSchema,
+	productSimpleOutputSchema,
+} from "../product/output";
 import { salesMetricSimpleOutputSchema } from "../sales-metric/output";
 import { storePlanSimpleOutputSchema } from "../store-plan/output";
 import { teamMemberSimpleOutputSchema } from "../team-member/output";
@@ -44,6 +47,23 @@ export const listStoresOutputSchema = z.object({
 	limit: z.number().int(),
 });
 
+export const storePublicOutputSchema = storeSafeOutputSchema
+	.extend({
+		owner: z
+			.object({
+				name: z.string().nullable(),
+				image: z.string().nullable(),
+			})
+			.optional(),
+		products: z.array(productPublicOutputSchema).optional(),
+	})
+	.omit({
+		ownerId: true,
+		createdAt: true,
+		updatedAt: true,
+	});
+
+export type StorePublicOutput = z.infer<typeof storePublicOutputSchema>;
 export type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
 export type StoreSafeOutput = z.infer<typeof storeSafeOutputSchema>;
 export type StoreIncludeOutput = z.infer<typeof storeIncludeOutputSchema>;

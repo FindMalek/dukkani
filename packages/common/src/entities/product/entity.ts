@@ -1,10 +1,15 @@
 import type {
 	ProductIncludeOutput,
+	ProductPublicOutput,
 	ProductSimpleOutput,
 } from "../../schemas/product/output";
 import { ImageEntity } from "../image/entity";
 import { OrderItemEntity } from "../order-item/entity";
-import type { ProductIncludeDbData, ProductSimpleDbData } from "./query";
+import type {
+	ProductIncludeDbData,
+	ProductPublicDbData,
+	ProductSimpleDbData,
+} from "./query";
 
 export class ProductEntity {
 	static getSimpleRo(entity: ProductSimpleDbData): ProductSimpleOutput {
@@ -26,6 +31,18 @@ export class ProductEntity {
 			...ProductEntity.getSimpleRo(entity),
 			images: entity.images.map(ImageEntity.getSimpleRo),
 			orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
+		};
+	}
+
+	static getPublicRo(entity: ProductPublicDbData): ProductPublicOutput {
+		return {
+			id: entity.id,
+			name: entity.name,
+			description: entity.description,
+			price: Number(entity.price),
+			stock: entity.stock,
+			published: entity.published,
+			imagesUrls: entity.images.map((image) => image.url),
 		};
 	}
 }

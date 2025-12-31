@@ -23,6 +23,10 @@ export type StoreMinimalDbData = Prisma.StoreGetPayload<{
 	select: ReturnType<typeof StoreQuery.getMinimalSelect>;
 }>;
 
+export type StorePublicDbData = Prisma.StoreGetPayload<{
+	include: ReturnType<typeof StoreQuery.getPublicInclude>;
+}>;
+
 export class StoreQuery {
 	static getSimpleInclude() {
 		return {} satisfies Prisma.StoreInclude;
@@ -53,5 +57,32 @@ export class StoreQuery {
 			id: true,
 			slug: true,
 		} satisfies Prisma.StoreSelect;
+	}
+
+	// TODO: add pagination and other filters
+	static getPublicInclude() {
+		return {
+			...StoreQuery.getSimpleInclude(),
+			storePlan: StorePlanQuery.getSimpleInclude(),
+			owner: {
+				select: {
+					name: true,
+					image: true,
+				},
+			},
+			products: {
+				where: { published: true },
+				include: {
+					images: {
+						select: {
+							url: true,
+						},
+					},
+				},
+				orderBy: {
+					createdAt: "desc",
+				},
+			},
+		} satisfies Prisma.StoreInclude;
 	}
 }

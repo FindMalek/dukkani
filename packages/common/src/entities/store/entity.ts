@@ -1,6 +1,7 @@
 import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
 import type {
 	StoreIncludeOutput,
+	StorePublicOutput,
 	StoreSafeOutput,
 	StoreSimpleOutput,
 } from "../../schemas/store/output";
@@ -12,6 +13,7 @@ import { UserEntity } from "../user/entity";
 import type {
 	StoreClientSafeDbData,
 	StoreIncludeDbData,
+	StorePublicDbData,
 	StoreSimpleDbData,
 } from "./query";
 
@@ -51,6 +53,23 @@ export class StoreEntity {
 			ownerId: entity.ownerId,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
+		};
+	}
+
+	/**
+	 * Get public read-only output (for public storefronts)
+	 * Includes owner (limited fields) and products (public only)
+	 */
+	static getPublicRo(entity: StorePublicDbData): StorePublicOutput {
+		return {
+			...StoreEntity.getSafeRo(entity),
+			owner: entity.owner
+				? {
+						name: entity.owner.name,
+						image: entity.owner.image,
+					}
+				: undefined,
+			products: entity.products?.map(ProductEntity.getPublicRo),
 		};
 	}
 
