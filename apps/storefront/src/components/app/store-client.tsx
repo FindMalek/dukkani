@@ -1,8 +1,11 @@
 "use client";
 
 import type { StoreIncludeOutput } from "@dukkani/common/schemas/store/output";
+import { useTranslations } from "next-intl";
 
 export function StoreClient({ store }: { store: StoreIncludeOutput }) {
+	const t = useTranslations("storefront.store");
+
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<div className="mb-8">
@@ -16,7 +19,7 @@ export function StoreClient({ store }: { store: StoreIncludeOutput }) {
 
 			{store.owner && (
 				<div className="mb-6 rounded-lg border p-4">
-					<h2 className="font-semibold text-xl">Store Owner</h2>
+					<h2 className="font-semibold text-xl">{t("owner.title")}</h2>
 					<p className="text-muted-foreground">
 						{store.owner.name || store.owner.email}
 					</p>
@@ -25,7 +28,7 @@ export function StoreClient({ store }: { store: StoreIncludeOutput }) {
 
 			{store.products && store.products.length > 0 ? (
 				<div>
-					<h2 className="mb-4 font-semibold text-2xl">Products</h2>
+					<h2 className="mb-4 font-semibold text-2xl">{t("products.title")}</h2>
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 						{store.products.map((product) => (
 							<div key={product.id} className="rounded-lg border p-4">
@@ -36,7 +39,11 @@ export function StoreClient({ store }: { store: StoreIncludeOutput }) {
 									</p>
 								)}
 								{product.price && (
-									<p className="mt-2 font-bold">{product.price} TND</p>
+									<p className="mt-2 font-bold">
+										{product.price}{" "}
+										{/* TODO: FIN-209 Replace hardcoded TND with dynamic currency from store settings */}
+										TND
+									</p>
 								)}
 							</div>
 						))}
@@ -44,7 +51,7 @@ export function StoreClient({ store }: { store: StoreIncludeOutput }) {
 				</div>
 			) : (
 				<div className="text-center text-muted-foreground">
-					No products available yet
+					{t("products.empty")}
 				</div>
 			)}
 		</div>

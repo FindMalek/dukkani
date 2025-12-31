@@ -1,6 +1,15 @@
 {
 	"storefront": {
 		"title": "Storefront",
-		"description": "Storefront description"
+		"description": "Description de la vitrine",
+		"store": {
+			"owner": {
+				"title": "Propriétaire du magasin"
+			},
+			"products": {
+				"title": "Produits",
+				"empty": "Aucun produit disponible pour le moment"
+			}
+		}
 	}
 }

@@ -1,6 +1,15 @@
 {
 	"storefront": {
 		"title": "Storefront",
-		"description": "Storefront description"
+		"description": "Storefront description",
+		"store": {
+			"owner": {
+				"title": "Store Owner"
+			},
+			"products": {
+				"title": "Products",
+				"empty": "No products available yet"
+			}
+		}
 	}
 }
