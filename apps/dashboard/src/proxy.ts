@@ -23,6 +23,13 @@ function getLocale(request: NextRequest): string {
 	return match(languages, LOCALES, DEFAULT_LOCALE);
 }
 
+function setLocaleCookie(response: NextResponse, locale: string): void {
+	response.cookies.set("locale", locale, {
+		maxAge: 60 * 60 * 24 * 365, // 1 year
+		path: "/",
+	});
+}
+
 export function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
@@ -46,10 +53,7 @@ export function proxy(request: NextRequest) {
 		// Update cookie if needed
 		const locale = pathname.split("/")[1];
 		const response = NextResponse.next();
-		response.cookies.set("locale", locale, {
-			maxAge: 60 * 60 * 24 * 365, // 1 year
-			path: "/",
-		});
+		setLocaleCookie(response, locale);
 		return response;
 	}
 
@@ -58,10 +62,7 @@ export function proxy(request: NextRequest) {
 	request.nextUrl.pathname = `/${locale}${pathname}`;
 
 	const response = NextResponse.redirect(request.nextUrl);
-	response.cookies.set("locale", locale, {
-		maxAge: 60 * 60 * 24 * 365,
-		path: "/",
-	});
+	setLocaleCookie(response, locale);
 
 	return response;
 }
