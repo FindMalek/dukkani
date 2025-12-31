@@ -50,7 +50,8 @@ export function StoreClient({ store }: { store: StorePublicOutput }) {
 										TND
 									</p>
 								)}
-								{product.imagesUrls && product.imagesUrls.length > 0 && (
+								{product.imagesUrls &&
+									product.imagesUrls.length > 0 &&
 									product.imagesUrls.map((imageUrl) => (
 										<img
 											key={imageUrl}
@@ -58,8 +59,7 @@ export function StoreClient({ store }: { store: StorePublicOutput }) {
 											alt={product.name || "Product image"}
 											className="h-32 w-full rounded object-cover"
 										/>
-									))
-								)}
+									))}
 							</div>
 						))}
 					</div>

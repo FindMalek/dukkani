@@ -13,9 +13,7 @@ export const telegramStatusOutputSchema = z.object({
 	telegramUserName: z.string().nullable(),
 	userName: z.string().nullable(),
 	userEmail: z.string().nullable(),
-	stores: z.array(
-		storeMinimalOutputSchema
-	),
+	stores: z.array(storeMinimalOutputSchema),
 });
 
 export type TelegramBotLinkOutput = z.infer<typeof telegramBotLinkOutputSchema>;

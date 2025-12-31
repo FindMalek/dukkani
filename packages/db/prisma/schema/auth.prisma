@@ -29,9 +29,9 @@ model User {
   email         String
   emailVerified Boolean
 
-  image          String?
-  telegramUserName String? 
-  telegramChatId String? @unique @map("telegramchatid")
+  image            String?
+  telegramUserName String?
+  telegramChatId   String? @unique @map("telegramchatid")
 
   onboardingStep UserOnboardingStep @default(STORE_SETUP)
 
