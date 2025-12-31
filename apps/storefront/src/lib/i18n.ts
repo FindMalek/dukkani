@@ -23,7 +23,9 @@ export default getRequestConfig(async ({ locale }) => {
 
 	const finalLocale: Locale = LOCALES.includes(cookieLocale as Locale)
 		? (cookieLocale as Locale)
-		: (LOCALES.includes(locale as Locale) ? (locale as Locale) : DEFAULT_LOCALE);
+		: LOCALES.includes(locale as Locale)
+			? (locale as Locale)
+			: DEFAULT_LOCALE;
 
 	return {
 		locale: finalLocale,
