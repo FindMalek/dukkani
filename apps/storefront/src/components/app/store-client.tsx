@@ -6,16 +6,6 @@ import { useTranslations } from "next-intl";
 export function StoreClient({ store }: { store: StorePublicOutput }) {
 	const t = useTranslations("storefront.store");
 
-	// Add defensive check for store itself
-	if (!store) {
-		return <div>Store not found</div>;
-	}
-
-	// Add defensive check for store.name
-	if (!store.name) {
-		return <div>Invalid store data</div>;
-	}
-
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<div className="mb-8">
@@ -27,8 +17,7 @@ export function StoreClient({ store }: { store: StorePublicOutput }) {
 				)}
 			</div>
 
-			{/* Ensure owner exists AND has a name before rendering */}
-			{store.owner && store.owner.name && (
+			{store.owner?.name && (
 				<div className="mb-6 rounded-lg border p-4">
 					<h2 className="font-semibold text-xl">{t("owner.title")}</h2>
 					<p className="text-muted-foreground">{store.owner.name}</p>
@@ -46,40 +35,33 @@ export function StoreClient({ store }: { store: StorePublicOutput }) {
 				<div>
 					<h2 className="mb-4 font-semibold text-2xl">{t("products.title")}</h2>
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-						{store.products.map((product) => {
-							// Add defensive check for product.name
-							if (!product || !product.name) {
-								return null;
-							}
-							
-							return (
-								<div key={product.id} className="rounded-lg border p-4">
-									<h3 className="font-semibold">{product.name}</h3>
-									{product.description && (
-										<p className="mt-2 text-muted-foreground text-sm">
-											{product.description}
-										</p>
-									)}
-									{product.price && (
-										<p className="mt-2 font-bold">
-											{product.price}{" "}
-											{/* TODO: FIN-209 Replace hardcoded TND with dynamic currency from store settings */}
-											TND
-										</p>
-									)}
-									{product.imagesUrls && product.imagesUrls.length > 0 && (
-										product.imagesUrls.map((imageUrl) => (
-											<img
-												key={imageUrl}
-												src={imageUrl}
-												alt={product.name || "Product image"}
-												className="h-32 w-full rounded object-cover"
-											/>
-										))
-									)}
-								</div>
-							);
-						})}
+						{store.products.map((product) => (
+							<div key={product.id} className="rounded-lg border p-4">
+								<h3 className="font-semibold">{product.name}</h3>
+								{product.description && (
+									<p className="mt-2 text-muted-foreground text-sm">
+										{product.description}
+									</p>
+								)}
+								{product.price && (
+									<p className="mt-2 font-bold">
+										{product.price}{" "}
+										{/* TODO: FIN-209 Replace hardcoded TND with dynamic currency from store settings */}
+										TND
+									</p>
+								)}
+								{product.imagesUrls && product.imagesUrls.length > 0 && (
+									product.imagesUrls.map((imageUrl) => (
+										<img
+											key={imageUrl}
+											src={imageUrl}
+											alt={product.name || "Product image"}
+											className="h-32 w-full rounded object-cover"
+										/>
+									))
+								)}
+							</div>
+						))}
 					</div>
 				</div>
 			) : (
