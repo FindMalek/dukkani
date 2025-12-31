@@ -1,6 +1,7 @@
 import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
 import type {
 	StoreIncludeOutput,
+	StoreSafeOutput,
 	StoreSimpleOutput,
 } from "../../schemas/store/output";
 import { ProductEntity } from "../product/entity";
@@ -8,9 +9,35 @@ import { SalesMetricEntity } from "../sales-metric/entity";
 import { StorePlanEntity } from "../store-plan/entity";
 import { TeamMemberEntity } from "../team-member/entity";
 import { UserEntity } from "../user/entity";
-import type { StoreIncludeDbData, StoreSimpleDbData } from "./query";
+import type {
+	StoreClientSafeDbData,
+	StoreIncludeDbData,
+	StoreSimpleDbData,
+} from "./query";
 
 export class StoreEntity {
+	/**
+	 * Get safe read-only output (for public endpoints)
+	 * Excludes sensitive fields like ownerId
+	 */
+	static getSafeRo(entity: StoreClientSafeDbData): StoreSafeOutput {
+		return {
+			id: entity.id,
+			slug: entity.slug,
+			name: entity.name,
+			description: entity.description,
+			whatsappNumber: entity.whatsappNumber,
+			category: entity.category,
+			theme: entity.theme,
+			notificationMethod: entity.notificationMethod,
+			createdAt: entity.createdAt,
+			updatedAt: entity.updatedAt,
+			storePlan: entity.storePlan
+				? StorePlanEntity.getSimpleRo(entity.storePlan)
+				: undefined,
+		};
+	}
+
 	static getSimpleRo(entity: StoreSimpleDbData): StoreSimpleOutput {
 		return {
 			id: entity.id,

@@ -10,7 +10,7 @@ import {
 	storeThemeSchema,
 } from "./enums";
 
-export const storeSimpleOutputSchema = z.object({
+export const storeSafeOutputSchema = z.object({
 	id: z.string(),
 	slug: z.string(),
 	name: z.string(),
@@ -19,9 +19,13 @@ export const storeSimpleOutputSchema = z.object({
 	category: storeCategorySchema.nullable(),
 	theme: storeThemeSchema.nullable(),
 	notificationMethod: storeNotificationMethodSchema.nullable(),
-	ownerId: z.string(),
 	createdAt: z.date(),
 	updatedAt: z.date(),
+	storePlan: storePlanSimpleOutputSchema.optional(),
+});
+
+export const storeSimpleOutputSchema = storeSafeOutputSchema.extend({
+	ownerId: z.string(),
 });
 
 export const storeIncludeOutputSchema = storeSimpleOutputSchema.extend({
@@ -41,5 +45,6 @@ export const listStoresOutputSchema = z.object({
 });
 
 export type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
+export type StoreSafeOutput = z.infer<typeof storeSafeOutputSchema>;
 export type StoreIncludeOutput = z.infer<typeof storeIncludeOutputSchema>;
 export type ListStoresOutput = z.infer<typeof listStoresOutputSchema>;

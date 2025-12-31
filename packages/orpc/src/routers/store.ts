@@ -6,6 +6,7 @@ import {
 } from "@dukkani/common/schemas/store/input";
 import {
 	storeIncludeOutputSchema,
+	storeSafeOutputSchema,
 	storeSimpleOutputSchema,
 } from "@dukkani/common/schemas/store/output";
 import { StoreService } from "@dukkani/common/services";
@@ -92,7 +93,7 @@ export const storeRouter = {
 	 */
 	getBySlugPublic: publicProcedure
 		.input(z.object({ slug: z.string() }))
-		.output(storeIncludeOutputSchema)
+		.output(storeSafeOutputSchema)
 		.handler(async ({ input }) => {
 			if (!input.slug) {
 				throw new ORPCError("BAD_REQUEST", {
