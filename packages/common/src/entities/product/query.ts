@@ -132,6 +132,22 @@ export class ProductQuery {
 	}
 
 	/**
+	 * Get where clause for products that should be visible publicly
+	 * Centralizes logic for determining publishable products
+	 * Currently: published = true
+	 * Future: Can extend to include isDeleted = false, archived = false, etc.
+	 */
+	static getPublishableWhere(): Prisma.ProductWhereInput {
+		return {
+			published: true,
+			// Future: Add additional conditions here as needed
+			// isDeleted: false,
+			// archived: false,
+			// etc.
+		};
+	}
+
+	/**
 	 * Generate orderBy clause for products
 	 */
 	static getOrder(

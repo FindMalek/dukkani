@@ -55,11 +55,12 @@ export type UpdateStoreInput = z.infer<typeof updateStoreInputSchema>;
 export type GetStoreInput = z.infer<typeof getStoreInputSchema>;
 export type ListStoresInput = z.infer<typeof listStoresInputSchema>;
 
-
 export const getStoreBySlugPublicInputSchema = z.object({
 	slug: z.string().min(1, "Store slug is required"),
 	productPage: z.number().int().min(1).default(1).optional(),
 	productLimit: z.number().int().min(1).max(100).default(20).optional(),
 });
 
-export type GetStoreBySlugPublicInput = z.infer<typeof getStoreBySlugPublicInputSchema>;
+export type GetStoreBySlugPublicInput = z.infer<
+	typeof getStoreBySlugPublicInputSchema
+>;
