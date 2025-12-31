@@ -1,25 +1,9 @@
 "use client";
 
-import { Spinner } from "@dukkani/ui/components/spinner";
-import { ORPCError } from "@orpc/server";
-import { useStoreBySlug } from "@/hooks/api/use-store-by-slug";
+import type { StoreIncludeOutput } from "@dukkani/common/schemas/store/output";
 
-interface StoreClientProps {
-	slug: string;
-}
-
-export function StoreClient({ slug }: StoreClientProps) {
-	const { data: store, isLoading, error } = useStoreBySlug(slug);
-
-	if (isLoading) {
-		return (
-			<div className="flex min-h-screen items-center justify-center">
-				<Spinner className="h-8 w-8" />
-			</div>
-		);
-	}
-
-	if (!slug) {
+export function StoreClient({ store }: { store: StoreIncludeOutput }) {
+	if (!store) {
 		return (
 			<div className="flex min-h-screen items-center justify-center">
 				<div className="text-center">
@@ -30,34 +14,6 @@ export function StoreClient({ slug }: StoreClientProps) {
 				</div>
 			</div>
 		);
-	}
-
-	if (error) {
-		if (error instanceof ORPCError && error.status === 404) {
-			return (
-				<div className="flex min-h-screen items-center justify-center">
-					<div className="text-center">
-						<h1 className="font-bold text-2xl">Store not found</h1>
-						<p className="mt-2 text-muted-foreground">
-							The store &quot;{slug}&quot; does not exist
-						</p>
-					</div>
-				</div>
-			);
-		}
-
-		return (
-			<div className="flex min-h-screen items-center justify-center">
-				<div className="text-center">
-					<h1 className="font-bold text-2xl">Error loading store</h1>
-					<p className="mt-2 text-muted-foreground">Please try again later</p>
-				</div>
-			</div>
-		);
-	}
-
-	if (!store) {
-		return null;
 	}
 
 	return (

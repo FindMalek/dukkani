@@ -1,7 +1,8 @@
+import { ORPCError } from "@orpc/server";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { StoreClient } from "@/components/app/store-client";
-
+import { client } from "@/lib/orpc";
 import { getStoreSlugFromHost } from "@/lib/utils";
 
 export default async function StorePage() {
@@ -10,9 +11,21 @@ export default async function StorePage() {
 	const storeSlug = getStoreSlugFromHost(host);
 
 	if (!storeSlug) {
-		// TODO: Show no store exists and show a message or redirect to the home page
 		return notFound();
 	}
 
-	return <StoreClient slug={storeSlug} />;
+	try {
+		const store = await client.store.getBySlugPublic({
+			slug: storeSlug,
+		});
+
+		return <StoreClient store={store} />;
+	} catch (error) {
+		if (error instanceof ORPCError && error.status === 404) {
+			return notFound();
+		}
+
+		// Handle other errors
+		throw error;
+	}
 }
