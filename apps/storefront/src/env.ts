@@ -24,7 +24,9 @@ export const storefrontEnv = createEnv({
 			}),
 		NEXT_PUBLIC_CORS_ORIGIN: z.url(),
 		NEXT_PUBLIC_ALLOWED_ORIGIN: z.union([z.literal("*"), z.url()]),
-		NEXT_PUBLIC_STORE_DOMAIN: z.string(),
+		NEXT_PUBLIC_STORE_DOMAIN: z.string().refine((val) => val.includes("."), {
+			message: "NEXT_PUBLIC_STORE_DOMAIN must be a valid domain name.",
+		}),
 	},
 	runtimeEnv: {
 		DATABASE_URL: process.env.DATABASE_URL,
