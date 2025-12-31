@@ -10,6 +10,13 @@
 			"linked": "Telegram account linked on",
 			"recently": "recently",
 			"linkButton": "Link via Telegram",
+			"disconnectButton": "Disconnect Telegram",
+			"disconnectTitle": "Disconnect Telegram Account",
+			"disconnectDescription": "To confirm disconnection, please enter the name of one of your stores:",
+			"disconnectPlaceholder": "Enter store name",
+			"disconnectSuccess": "Telegram account disconnected successfully",
+			"disconnectError": "Store name doesn't match. Please try again.",
+			"disconnectNotLinked": "Telegram account is not linked",
 			"option1": "Option 1: Click the link below",
 			"option2": "Option 2: Scan QR code",
 			"expires": "This link expires in 10 minutes. If Telegram is not installed, you can install it from"

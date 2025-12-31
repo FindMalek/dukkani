@@ -1,4 +1,7 @@
-import { sendOTPInputSchema } from "@dukkani/common/schemas/telegram/input";
+import {
+	disconnectTelegramInputSchema,
+	sendOTPInputSchema,
+} from "@dukkani/common/schemas/telegram/input";
 import {
 	type TelegramBotLinkOutput,
 	type TelegramStatusOutput,
@@ -11,6 +14,15 @@ import { TelegramService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
+import { createRateLimitMiddleware } from "../middleware/rate-limit";
+
+// Rate limiter for link/disconnect operations: 3 per hour
+const telegramLinkRateLimit = createRateLimitMiddleware({
+	custom: {
+		max: 3,
+		windowMs: 60 * 60 * 1000, // 1 hour
+	},
+});
 
 export const telegramRouter = {
 	/**
@@ -69,5 +81,55 @@ export const telegramRouter = {
 				linked: !!user?.telegramChatId,
 				linkedAt: user?.telegramLinkedAt ?? null,
 			};
+		}),
+
+	/**
+	 * Disconnect Telegram account
+	 * Requires store name confirmation
+	 */
+	disconnect: protectedProcedure
+		.use(telegramLinkRateLimit)
+		.input(disconnectTelegramInputSchema)
+		.output(successOutputSchema)
+		.handler(async ({ input, context }): Promise<SuccessOutput> => {
+			const userId = context.session.user.id;
+
+			// Verify user owns a store with this name
+			const store = await database.store.findFirst({
+				where: {
+					ownerId: userId,
+					name: input.storeName.trim(),
+				},
+				select: { id: true },
+			});
+
+			if (!store) {
+				throw new ORPCError("BAD_REQUEST", {
+					message: "Store name doesn't match any of your stores",
+				});
+			}
+
+			// Verify user has Telegram linked
+			const user = await database.user.findUnique({
+				where: { id: userId },
+				select: { telegramChatId: true },
+			});
+
+			if (!user?.telegramChatId) {
+				throw new ORPCError("BAD_REQUEST", {
+					message: "Telegram account is not linked",
+				});
+			}
+
+			// Disconnect Telegram account
+			await database.user.update({
+				where: { id: userId },
+				data: {
+					telegramChatId: null,
+					telegramLinkedAt: null,
+				},
+			});
+
+			return { success: true };
 		}),
 };

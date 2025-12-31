@@ -1,0 +1,231 @@
+"use client";
+
+import type { DisconnectTelegramInput } from "@dukkani/common/schemas/telegram/input";
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+} from "@dukkani/ui/components/alert-dialog";
+import { Button } from "@dukkani/ui/components/button";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@dukkani/ui/components/card";
+import { Icons } from "@dukkani/ui/components/icons";
+import { Input } from "@dukkani/ui/components/input";
+import { Label } from "@dukkani/ui/components/label";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { toast } from "sonner";
+import { client, orpc } from "@/lib/orpc";
+import { RoutePaths } from "@/lib/routes";
+
+export default function TelegramSettingsPage() {
+	const t = useTranslations("settings.telegram");
+	const queryClient = useQueryClient();
+	const [disconnectOpen, setDisconnectOpen] = useState(false);
+	const [storeName, setStoreName] = useState("");
+
+	const { data: telegramStatus, isLoading: statusLoading } = useQuery(
+		orpc.telegram.getStatus.queryOptions(),
+	);
+
+	const { data: stores, isLoading: storesLoading } = useQuery(
+		orpc.store.getAll.queryOptions(),
+	);
+
+	const { data: botLinkData } = useQuery({
+		...orpc.telegram.getBotLink.queryOptions(),
+		enabled: !telegramStatus?.linked,
+	});
+
+	const disconnectMutation = useMutation({
+		mutationFn: (input: DisconnectTelegramInput) =>
+			client.telegram.disconnect(input),
+		onSuccess: () => {
+			toast.success(t("disconnectSuccess"));
+			setDisconnectOpen(false);
+			setStoreName("");
+			// Invalidate queries to refetch updated status
+			queryClient.invalidateQueries({
+				queryKey: orpc.telegram.getStatus.queryKey(),
+			});
+		},
+		onError: (error: Error) => {
+			toast.error(error.message || t("disconnectError"));
+		},
+	});
+
+	const handleDisconnect = () => {
+		if (!storeName.trim()) {
+			toast.error(t("disconnectError"));
+			return;
+		}
+		disconnectMutation.mutate({ storeName: storeName.trim() });
+	};
+
+	if (statusLoading || storesLoading) {
+		return (
+			<div className="container mx-auto max-w-7xl p-4 md:p-6">
+				<div className="flex items-center justify-center py-12">
+					<Icons.spinner className="h-8 w-8 animate-spin" />
+				</div>
+			</div>
+		);
+	}
+
+	return (
+		<div className="container mx-auto max-w-7xl p-4 md:p-6">
+			<div className="mb-6">
+				<div className="mb-4 flex items-center gap-4">
+					<Link href={RoutePaths.SETTINGS.INDEX.url}>
+						<Button variant="ghost" size="icon">
+							<Icons.arrowLeft className="h-4 w-4" />
+						</Button>
+					</Link>
+					<div>
+						<h1 className="font-bold text-2xl md:text-3xl">{t("title")}</h1>
+						<p className="mt-2 text-muted-foreground text-sm md:text-base">
+							{t("description")}
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<Card>
+				<CardHeader>
+					<CardTitle className="flex items-center gap-2">
+						<Icons.telegram className="h-5 w-5 text-[#0088cc]" />
+						{t("title")}
+					</CardTitle>
+					<CardDescription>{t("description")}</CardDescription>
+				</CardHeader>
+				<CardContent className="space-y-6">
+					{telegramStatus?.linked ? (
+						<>
+							<div className="space-y-2">
+								<Label>{t("linked")}</Label>
+								<p className="text-muted-foreground text-sm">
+									{telegramStatus.linkedAt
+										? new Date(telegramStatus.linkedAt).toLocaleDateString()
+										: t("recently")}
+								</p>
+							</div>
+
+							<div className="space-y-4">
+								<Label>{t("disconnectTitle")}</Label>
+								<p className="text-muted-foreground text-sm">
+									{t("disconnectDescription")}
+								</p>
+								{stores && stores.length > 0 && (
+									<div className="space-y-2">
+										<p className="text-muted-foreground text-xs">
+											Your stores: {stores.map((s) => s.name).join(", ")}
+										</p>
+									</div>
+								)}
+								<Button
+									variant="destructive"
+									onClick={() => setDisconnectOpen(true)}
+								>
+									{t("disconnectButton")}
+								</Button>
+							</div>
+						</>
+					) : (
+						<div className="space-y-4">
+							<p className="text-muted-foreground text-sm">
+								{t("disconnectNotLinked")}
+							</p>
+							{botLinkData && (
+								<div className="space-y-4 rounded-xl border bg-muted/20 p-6">
+									<div className="flex flex-col gap-2">
+										<p className="font-medium text-muted-foreground text-xs uppercase">
+											OTP Code
+										</p>
+										<div className="flex items-center gap-2">
+											<code className="flex-1 rounded-md border bg-background p-2 text-center font-bold text-lg tracking-widest">
+												{botLinkData.otpCode}
+											</code>
+											<Button
+												variant="outline"
+												className="gap-2"
+												onClick={() =>
+													window.open(
+														`${botLinkData.botLink}?start=link_${botLinkData.otpCode}`,
+														"_blank",
+													)
+												}
+											>
+												{t("linkButton")}
+											</Button>
+										</div>
+										<p className="text-[10px] text-muted-foreground">
+											{botLinkData.instructions}
+										</p>
+									</div>
+								</div>
+							)}
+						</div>
+					)}
+				</CardContent>
+			</Card>
+
+			<AlertDialog open={disconnectOpen} onOpenChange={setDisconnectOpen}>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>{t("disconnectTitle")}</AlertDialogTitle>
+						<AlertDialogDescription>
+							{t("disconnectDescription")}
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<div className="space-y-4 py-4">
+						{stores && stores.length > 0 && (
+							<div className="space-y-2">
+								<p className="text-muted-foreground text-xs">
+									Your stores: {stores.map((s) => s.name).join(", ")}
+								</p>
+							</div>
+						)}
+						<div className="space-y-2">
+							<Label htmlFor="storeName">Store Name</Label>
+							<Input
+								id="storeName"
+								placeholder={t("disconnectPlaceholder")}
+								value={storeName}
+								onChange={(e) => setStoreName(e.target.value)}
+								onKeyDown={(e) => {
+									if (e.key === "Enter") {
+										handleDisconnect();
+									}
+								}}
+							/>
+						</div>
+					</div>
+					<AlertDialogFooter>
+						<AlertDialogCancel>Cancel</AlertDialogCancel>
+						<AlertDialogAction
+							onClick={handleDisconnect}
+							disabled={disconnectMutation.isPending || !storeName.trim()}
+						>
+							{disconnectMutation.isPending ? (
+								<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+							) : null}
+							{t("disconnectButton")}
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
+		</div>
+	);
+}

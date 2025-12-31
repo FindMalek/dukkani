@@ -10,6 +10,13 @@
 			"linked": "Compte Telegram lié le",
 			"recently": "récemment",
 			"linkButton": "Lier via Telegram",
+			"disconnectButton": "Déconnecter Telegram",
+			"disconnectTitle": "Déconnecter le compte Telegram",
+			"disconnectDescription": "Pour confirmer la déconnexion, veuillez entrer le nom d'un de vos magasins :",
+			"disconnectPlaceholder": "Entrez le nom du magasin",
+			"disconnectSuccess": "Compte Telegram déconnecté avec succès",
+			"disconnectError": "Le nom du magasin ne correspond pas. Veuillez réessayer.",
+			"disconnectNotLinked": "Le compte Telegram n'est pas lié",
 			"option1": "Option 1 : Cliquez sur le lien ci-dessous",
 			"option2": "Option 2 : Scannez le code QR",
 			"expires": "Ce lien expire dans 10 minutes. Si Telegram n'est pas installé, vous pouvez l'installer depuis"
