@@ -1,5 +1,9 @@
 import { database } from "@dukkani/db";
-import { StorePlanType } from "@dukkani/db/prisma/generated/enums";
+import {
+	type StoreCategory,
+	StorePlanType,
+	type StoreTheme,
+} from "@dukkani/db/prisma/generated/enums";
 import { ProductQuery } from "../entities/product/query";
 import { StoreEntity } from "../entities/store/entity";
 import { StoreQuery } from "../entities/store/query";
@@ -63,7 +67,6 @@ export class StoreService {
 				name: input.name,
 				slug,
 				description: input.description,
-				theme: input.theme,
 				notificationMethod: input.notificationMethod,
 				ownerId: userId,
 				storePlan: {
@@ -204,5 +207,43 @@ export class StoreService {
 				limit: productLimit,
 			},
 		};
+	}
+
+	/**
+	 * Update store configuration (theme and category)
+	 */
+	static async updateStoreConfiguration(
+		storeId: string,
+		userId: string,
+		updates: {
+			theme?: StoreTheme;
+			category?: StoreCategory;
+		},
+	): Promise<StoreSimpleOutput> {
+		// Verify ownership
+		const store = await database.store.findUnique({
+			where: { id: storeId },
+			select: { ownerId: true },
+		});
+
+		if (!store) {
+			throw new Error("Store not found");
+		}
+
+		if (store.ownerId !== userId) {
+			throw new Error("You don't have access to this store");
+		}
+
+		// Update store
+		const updatedStore = await database.store.update({
+			where: { id: storeId },
+			data: {
+				theme: updates.theme,
+				category: updates.category,
+			},
+			include: StoreQuery.getClientSafeInclude(),
+		});
+
+		return StoreEntity.getSimpleRo(updatedStore);
 	}
 }

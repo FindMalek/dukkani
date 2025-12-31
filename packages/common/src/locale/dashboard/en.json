@@ -15,6 +15,7 @@
 			"expires": "This link expires in 10 minutes. If Telegram is not installed, you can install it from"
 		}
 	},
+
 	"onboarding": {
 		"storeSetup": {
 			"title": "Create your store",
@@ -40,12 +41,85 @@
 					}
 				}
 			},
-			"submit": "Finish Setup",
+			"submit": "Continue",
 			"success": "Store created successfully!"
+		},
+		"storeConfiguration": {
+			"title": "Configure your store",
+			"subtitle": "Customize your store's appearance and category",
+			"category": {
+				"label": "What category best describes your store?",
+				"options": {
+					"fashion": {
+						"label": "Fashion",
+						"description": "Clothing, accessories, and style"
+					},
+					"electronics": {
+						"label": "Electronics",
+						"description": "Gadgets, devices, and tech"
+					},
+					"food": {
+						"label": "Food",
+						"description": "Food items and beverages"
+					},
+					"home": {
+						"label": "Home",
+						"description": "Home decor and essentials"
+					},
+					"beauty": {
+						"label": "Beauty",
+						"description": "Cosmetics and personal care"
+					},
+					"sports": {
+						"label": "Sports",
+						"description": "Sports equipment and gear"
+					},
+					"books": {
+						"label": "Books",
+						"description": "Books and reading materials"
+					},
+					"toys": {
+						"label": "Toys",
+						"description": "Toys and games"
+					},
+					"other": {
+						"label": "Other",
+						"description": "Other categories"
+					}
+				}
+			},
+			"theme": {
+				"label": "Choose your store theme",
+				"options": {
+					"light": {
+						"label": "Light",
+						"description": "Clean and bright"
+					},
+					"dark": {
+						"label": "Dark",
+						"description": "Modern and sleek"
+					},
+					"minimal": {
+						"label": "Minimal",
+						"description": "Simple and elegant"
+					},
+					"modern": {
+						"label": "Modern",
+						"description": "Contemporary design"
+					},
+					"classic": {
+						"label": "Classic",
+						"description": "Timeless style"
+					}
+				}
+			},
+			"submit": "Finish Setup",
+			"success": "Store configured successfully!"
 		},
 		"steps": {
 			"signup": "Account",
 			"storeSetup": "Store",
+			"storeConfiguration": "Configure",
 			"complete": "Ready"
 		},
 		"signup": {

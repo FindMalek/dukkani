@@ -19,7 +19,6 @@ export const storeInputSchema = z.object({
 export const createStoreOnboardingInputSchema = z.object({
 	name: z.string().min(3, "Store name must be at least 3 characters"),
 	description: z.string().optional(),
-	theme: storeThemeSchema.optional(),
 	notificationMethod: storeNotificationMethodSchema.optional(),
 });
 
@@ -63,4 +62,14 @@ export const getStoreBySlugPublicInputSchema = z.object({
 
 export type GetStoreBySlugPublicInput = z.infer<
 	typeof getStoreBySlugPublicInputSchema
+>;
+
+export const configureStoreOnboardingInputSchema = z.object({
+	storeId: z.string().min(1, "Store ID is required"),
+	theme: storeThemeSchema,
+	category: storeCategorySchema,
+});
+
+export type ConfigureStoreOnboardingInput = z.infer<
+	typeof configureStoreOnboardingInputSchema
 >;
