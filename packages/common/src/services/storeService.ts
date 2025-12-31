@@ -1,5 +1,6 @@
 import { database } from "@dukkani/db";
 import { StorePlanType } from "@dukkani/db/prisma/generated/enums";
+import { ProductQuery } from "../entities/product/query";
 import { StoreEntity } from "../entities/store/entity";
 import { StoreQuery } from "../entities/store/query";
 import type { CreateStoreOnboardingInput } from "../schemas/store/input";
@@ -9,7 +10,6 @@ import type {
 	StoreSimpleOutput,
 } from "../schemas/store/output";
 import { getOrderLimitForPlan } from "../schemas/store-plan/constants";
-import { ProductQuery } from "@/entities/product/query";
 
 /**
  * Store service - Shared business logic for store operations
