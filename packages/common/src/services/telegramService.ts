@@ -27,6 +27,14 @@ export class TelegramService {
 	}
 
 	/**
+	 * Map of user IDs to disconnect confirmation data
+	 */
+	private static disconnectConfirmations = new Map<
+		string,
+		{ userId: string; expiresAt: number }
+	>();
+
+	/**
 	 * Generate 6-digit OTP code for account linking
 	 * Format: 123456
 	 * Handles collisions by retrying (very rare but possible)
@@ -348,6 +356,7 @@ ${itemsText}
 			link: TelegramService.handleLinkCommand,
 			start: TelegramService.handleStartCommand,
 			help: TelegramService.handleHelpCommand,
+			disconnect: TelegramService.handleDisconnectCommand,
 		};
 
 		const handler = commandMap[command.toLowerCase()];
@@ -567,6 +576,24 @@ ${itemsText}
 				}
 				return;
 			}
+
+			// Handle text messages (for disconnect confirmation)
+			if (update.message?.text) {
+				const chatId = update.message.chat.id.toString();
+				const text = update.message.text.trim();
+
+				// Check if user is waiting for disconnect confirmation
+				const confirmation =
+					TelegramService.disconnectConfirmations.get(chatId);
+				if (confirmation && Date.now() < confirmation.expiresAt) {
+					await TelegramService.handleDisconnectConfirmation(
+						text,
+						chatId,
+						confirmation.userId,
+					);
+					return;
+				}
+			}
 		} catch (error) {
 			if (update.message?.chat?.id) {
 				try {
@@ -584,6 +611,121 @@ ${itemsText}
 				// Log error when we can't send message to user
 				console.error("Telegram webhook processing error:", error);
 			}
+		}
+	}
+
+	/**
+	 * Handle /disconnect command - Start disconnect flow
+	 */
+	private static async handleDisconnectCommand(
+		_args: string[],
+		chatId: string,
+	): Promise<void> {
+		// Find user by telegramChatId
+		const user = await database.user.findFirst({
+			where: { telegramChatId: chatId },
+			include: {
+				stores: {
+					select: { name: true },
+					orderBy: { createdAt: "desc" },
+				},
+			},
+		});
+
+		if (!user) {
+			await TelegramService.sendMessage(
+				chatId,
+				"❌ <b>Not Linked</b>\n\nYour Telegram account is not linked to any Dukkani account.",
+				{ parseMode: "HTML" },
+			);
+			return;
+		}
+
+		if (user.stores.length === 0) {
+			await TelegramService.sendMessage(
+				chatId,
+				"❌ <b>No Stores Found</b>\n\nYou don't have any stores to disconnect from.",
+				{ parseMode: "HTML" },
+			);
+			return;
+		}
+
+		// Show stores and ask for confirmation
+		const storeNames = user.stores.map((s) => s.name).join(", ");
+
+		// Store confirmation state (expires in 5 minutes)
+		TelegramService.disconnectConfirmations.set(chatId, {
+			userId: user.id,
+			expiresAt: Date.now() + 5 * 60 * 1000,
+		});
+
+		await TelegramService.sendMessage(
+			chatId,
+			"⚠️ <b>Disconnect Telegram Account</b>\n\n" +
+				"To confirm disconnection, please type the name of one of your stores:\n\n" +
+				`<b>Your stores:</b> ${storeNames}\n\n` +
+				"Type the store name exactly as shown above to disconnect.\n" +
+				"This confirmation expires in 5 minutes.",
+			{ parseMode: "HTML" },
+		);
+	}
+
+	/**
+	 * Handle disconnect confirmation - Validate store name and disconnect
+	 */
+	private static async handleDisconnectConfirmation(
+		storeName: string,
+		chatId: string,
+		userId: string,
+	): Promise<void> {
+		// Clean up confirmation state
+		TelegramService.disconnectConfirmations.delete(chatId);
+
+		// Verify user owns a store with this name
+		const store = await database.store.findFirst({
+			where: {
+				ownerId: userId,
+				name: storeName.trim(),
+			},
+			select: { id: true },
+		});
+
+		if (!store) {
+			await TelegramService.sendMessage(
+				chatId,
+				"❌ <b>Invalid Store Name</b>\n\n" +
+					"The store name you entered doesn't match any of your stores. " +
+					"Please try again with /disconnect",
+				{ parseMode: "HTML" },
+			);
+			return;
+		}
+
+		// Disconnect Telegram account
+		try {
+			await database.user.update({
+				where: { id: userId },
+				data: {
+					telegramChatId: null,
+					telegramLinkedAt: null,
+				},
+			});
+
+			await TelegramService.sendMessage(
+				chatId,
+				"✅ <b>Account Disconnected</b>\n\n" +
+					"Your Telegram account has been successfully disconnected from Dukkani. " +
+					"You will no longer receive order notifications.\n\n" +
+					"To link again, use /link CODE from your dashboard.",
+				{ parseMode: "HTML" },
+			);
+		} catch (error) {
+			await TelegramService.sendMessage(
+				chatId,
+				"❌ <b>Disconnect Failed</b>\n\n" +
+					"An error occurred while disconnecting your account. Please try again later.",
+				{ parseMode: "HTML" },
+			);
 		}
 	}
 }
