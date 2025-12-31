@@ -3,6 +3,7 @@
 import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import {
 	type StoreTheme,
+	storeCategoryEnum,
 	storeThemeEnum,
 	UserOnboardingStep,
 } from "@dukkani/common/schemas/enums";
@@ -69,6 +70,7 @@ export default function StoreConfigurationPage() {
 		defaultValues: {
 			storeId: storeId || "",
 			theme: storeThemeEnum.MODERN,
+			category: storeCategoryEnum.FASHION,
 		},
 	});
 
