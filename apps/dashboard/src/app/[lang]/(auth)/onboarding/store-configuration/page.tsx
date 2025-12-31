@@ -20,11 +20,13 @@ import {
 } from "@dukkani/ui/components/form";
 import { Icons } from "@dukkani/ui/components/icons";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
+import { Spinner } from "@dukkani/ui/components/spinner";
 import { cn } from "@dukkani/ui/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { CategorySelector } from "@/components/dashboard/onboarding/category-selector";
@@ -32,20 +34,50 @@ import { OnboardingStepper } from "@/components/dashboard/onboarding/onboarding-
 import { THEME_PREVIEWS } from "@/components/dashboard/onboarding/theme-previews";
 import { AuthBackground } from "@/components/layout/auth-background";
 import { handleAPIError } from "@/lib/error";
-import { client } from "@/lib/orpc";
+import { client, orpc } from "@/lib/orpc";
 
 import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
 
 export default function StoreConfigurationPage() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const storeId = searchParams.get("storeId");
+	const urlStoreId = searchParams.get("storeId");
 	const t = useTranslations("onboarding.storeConfiguration");
+
+	// Fetch stores if storeId is missing
+	const { data: stores, isLoading: isLoadingStores } = useQuery({
+		...orpc.store.getAll.queryOptions({ input: undefined }),
+		enabled: !urlStoreId, // Only fetch if storeId is missing
+	});
+
+	// Determine the storeId to use
+	const storeId = urlStoreId || stores?.[0]?.id;
+
+	// Update URL if we found a storeId from stores but it's not in the URL
+	useEffect(() => {
+		if (!urlStoreId && storeId) {
+			router.replace(
+				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.STORE_CONFIGURATION.url, {
+					storeId,
+				}),
+			);
+		}
+	}, [urlStoreId, storeId, router]);
 
 	const form = useForm<ConfigureStoreOnboardingInput>({
 		resolver: zodResolver(configureStoreOnboardingInputSchema),
-		defaultValues: { storeId: storeId || "", theme: storeThemeEnum.MODERN },
+		defaultValues: {
+			storeId: storeId || "",
+			theme: storeThemeEnum.MODERN,
+		},
 	});
+
+	// Update form when storeId is determined
+	useEffect(() => {
+		if (storeId) {
+			form.setValue("storeId", storeId);
+		}
+	}, [storeId, form]);
 
 	const configureStoreMutation = useMutation({
 		mutationFn: (input: ConfigureStoreOnboardingInput) =>
@@ -53,13 +85,35 @@ export default function StoreConfigurationPage() {
 		onSuccess: () => {
 			toast.success(t("success"));
 			router.push(
-				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.COMPLETE.url, { storeId }),
+				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.COMPLETE.url, {
+					storeId: storeId!,
+				}),
 			);
 		},
 		onError: (error) => {
 			handleAPIError(error);
 		},
 	});
+
+	// Show loading state while fetching stores
+	if (!storeId && isLoadingStores) {
+		return (
+			<div className="flex min-h-screen items-center justify-center">
+				<Spinner className="h-8 w-8" />
+			</div>
+		);
+	}
+
+	// Redirect if no store found
+	if (!storeId && !isLoadingStores) {
+		router.replace(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
+		return null;
+	}
+
+	// Don't render form until we have a storeId
+	if (!storeId) {
+		return null;
+	}
 
 	return (
 		<div className="flex min-h-screen bg-background">
