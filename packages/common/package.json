@@ -38,17 +38,21 @@
 		"clean": "rm -rf dist node_modules"
 	},
 	"peerDependencies": {
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"next": "catalog:"
 	},
 	"dependencies": {
 		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"@prisma/client": "catalog:",
+		"@formatjs/intl-localematcher": "catalog:",
+		"negotiator": "catalog:",
 		"nanoid": "catalog:",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
+		"@types/negotiator": "catalog:",
 		"tsdown": "catalog:"
 	}
 }

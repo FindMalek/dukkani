@@ -16,8 +16,6 @@
 		"@dukkani/orpc": "workspace:*",
 		"@dukkani/ui": "workspace:*",
 		"@orpc/client": "catalog:",
-		"@formatjs/intl-localematcher": "catalog:",
-		"negotiator": "catalog:",
 		"@orpc/tanstack-query": "catalog:",
 		"@prisma/client": "catalog:",
 		"@tanstack/react-form": "catalog:",
@@ -38,7 +36,6 @@
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
-		"@types/negotiator": "catalog:",
 		"@t3-oss/env-nextjs": "catalog:",
 		"@tailwindcss/postcss": "catalog:",
 		"@tanstack/react-query-devtools": "catalog:",

@@ -1,6 +1,6 @@
 /**
  * Format currency utility - Formats numbers as currency strings
- * TODO: Implement currency formatting logic
+ * TODO: Implement currency formatting logic (FIN-209)
  *
  * @param amount - The amount to format
  * @param currency - The currency code (e.g., "USD", "EUR")
