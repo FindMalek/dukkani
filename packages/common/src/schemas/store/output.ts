@@ -39,6 +39,12 @@ export const storeIncludeOutputSchema = storeSimpleOutputSchema.extend({
 	salesMetrics: z.array(salesMetricSimpleOutputSchema).optional(),
 });
 
+export const storeMinimalOutputSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	slug: z.string(),
+});
+
 export const listStoresOutputSchema = z.object({
 	stores: z.array(storeSimpleOutputSchema),
 	total: z.number().int(),
@@ -71,6 +77,7 @@ export const storePublicOutputSchema = storeSafeOutputSchema
 
 export type StorePublicOutput = z.infer<typeof storePublicOutputSchema>;
 export type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
+export type StoreMinimalOutput = z.infer<typeof storeMinimalOutputSchema>;
 export type StoreSafeOutput = z.infer<typeof storeSafeOutputSchema>;
 export type StoreIncludeOutput = z.infer<typeof storeIncludeOutputSchema>;
 export type ListStoresOutput = z.infer<typeof listStoresOutputSchema>;

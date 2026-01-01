@@ -2,6 +2,7 @@ import {
 	disconnectTelegramInputSchema,
 	sendOTPInputSchema,
 } from "@dukkani/common/schemas/telegram/input";
+import { StoreQuery } from "@dukkani/common/entities/store/query";
 import {
 	type TelegramBotLinkOutput,
 	type TelegramStatusOutput,
@@ -74,12 +75,22 @@ export const telegramRouter = {
 				select: {
 					telegramChatId: true,
 					telegramLinkedAt: true,
+					telegramUserName: true,
+					name: true,
+					email: true,
+					stores: {
+						select: StoreQuery.getMinimalSelect(),
+					},
 				},
 			});
 
 			return {
 				linked: !!user?.telegramChatId,
 				linkedAt: user?.telegramLinkedAt ?? null,
+				telegramUserName: user?.telegramUserName ?? null,
+				userName: user?.name ?? null,
+				userEmail: user?.email ?? null,
+				stores: user?.stores ?? [],
 			};
 		}),
 
