@@ -1,6 +1,8 @@
 import { randomInt } from "node:crypto";
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
+import { StoreQuery } from "../entities/store/query";
+import type { StoreMinimalOutput } from "../schemas/store/output";
 import { OrderService } from "./orderService";
 
 /**
@@ -86,7 +88,16 @@ export class TelegramService {
 	static async validateLinkOTP(
 		otpCode: string,
 		telegramChatId: string,
-	): Promise<{ userId: string }> {
+		telegramUserInfo?: {
+			username?: string;
+			firstName?: string;
+			lastName?: string;
+		},
+	): Promise<{
+		userId: string;
+		stores: StoreMinimalOutput[];
+		user: { name: string; email: string };
+	}> {
 		const otp = await database.telegramOTP.findUnique({
 			where: { code: otpCode },
 			include: { user: true },
@@ -115,12 +126,19 @@ export class TelegramService {
 			);
 		}
 
+		// Get user's stores for display
+		const userStores = await database.store.findMany({
+			where: { ownerId: otp.userId },
+			select: StoreQuery.getMinimalSelect(),
+		});
+
 		// Link account and mark OTP as used in transaction
 		await database.$transaction(async (tx) => {
 			await tx.user.update({
 				where: { id: otp.userId },
 				data: {
 					telegramChatId,
+					telegramUserName: telegramUserInfo?.username || null,
 					telegramLinkedAt: new Date(),
 				},
 			});
@@ -131,7 +149,14 @@ export class TelegramService {
 			});
 		});
 
-		return { userId: otp.userId };
+		return {
+			userId: otp.userId,
+			stores: userStores,
+			user: {
+				name: otp.user.name,
+				email: otp.user.email,
+			},
+		};
 	}
 
 	/**
@@ -153,6 +178,15 @@ export class TelegramService {
 		}
 
 		TelegramService.lastMessageTime = Date.now();
+	}
+
+	/**
+	 * Format store list for display in Telegram messages
+	 */
+	private static formatStoreList(stores: { name: string }[]): string {
+		return stores.length > 0
+			? stores.map((store) => `  • ${store.name}`).join("\n")
+			: "  • No stores yet";
 	}
 
 	/**
@@ -336,6 +370,11 @@ ${itemsText}
 		command: string,
 		args: string[],
 		chatId: string,
+		telegramUserInfo?: {
+			username?: string;
+			firstName?: string;
+			lastName?: string;
+		},
 	): Promise<void> {
 		if (!command) {
 			return;
@@ -343,7 +382,15 @@ ${itemsText}
 
 		const commandMap: Record<
 			string,
-			(args: string[], chatId: string) => Promise<void>
+			(
+				args: string[],
+				chatId: string,
+				telegramUserInfo?: {
+					username?: string;
+					firstName?: string;
+					lastName?: string;
+				},
+			) => Promise<void>
 		> = {
 			link: TelegramService.handleLinkCommand,
 			start: TelegramService.handleStartCommand,
@@ -353,7 +400,7 @@ ${itemsText}
 		const handler = commandMap[command.toLowerCase()];
 
 		if (handler) {
-			await handler(args, chatId);
+			await handler(args, chatId, telegramUserInfo);
 		}
 	}
 
@@ -363,6 +410,11 @@ ${itemsText}
 	private static async handleLinkCommand(
 		args: string[],
 		chatId: string,
+		telegramUserInfo?: {
+			username?: string;
+			firstName?: string;
+			lastName?: string;
+		},
 	): Promise<void> {
 		const otpCode = args[0]?.trim();
 
@@ -375,11 +427,45 @@ ${itemsText}
 			return;
 		}
 
-		try {
-			await TelegramService.validateLinkOTP(otpCode, chatId);
+		// Check if chatId is already linked
+		const existingUser = await database.user.findUnique({
+			where: { telegramChatId: chatId },
+			include: {
+				stores: {
+					select: { id: true, name: true, slug: true },
+					take: 5, // Limit to first 5 stores
+				},
+			},
+		});
+
+		if (existingUser) {
+			const storeList = TelegramService.formatStoreList(existingUser.stores);
+
 			await TelegramService.sendMessage(
 				chatId,
-				"✅ <b>Account Linked Successfully!</b>\n\nYou will now receive order notifications from Dukkani.",
+				"✅ <b>Already Linked!</b>\n\n" +
+					`<b>Account:</b> ${existingUser.name} (${existingUser.email})\n\n` +
+					`<b>Connected Stores:</b>\n${storeList}`,
+				{ parseMode: "HTML" },
+			);
+			return;
+		}
+
+		try {
+			const result = await TelegramService.validateLinkOTP(
+				otpCode,
+				chatId,
+				telegramUserInfo,
+			);
+
+			const storeList = TelegramService.formatStoreList(result.stores);
+
+			await TelegramService.sendMessage(
+				chatId,
+				"✅ <b>Account Linked Successfully!</b>\n\n" +
+					`<b>Account:</b> ${result.user.name || "User"} (${result.user.email || "N/A"})\n\n` +
+					`<b>Your Stores:</b>\n${storeList}\n\n` +
+					"You will now receive order notifications from Dukkani.",
 				{ parseMode: "HTML" },
 			);
 		} catch (error) {
@@ -400,6 +486,11 @@ ${itemsText}
 	private static async handleStartCommand(
 		_args: string[],
 		chatId: string,
+		_telegramUserInfo?: {
+			username?: string;
+			firstName?: string;
+			lastName?: string;
+		},
 	): Promise<void> {
 		await TelegramService.sendMessage(
 			chatId,
@@ -414,6 +505,11 @@ ${itemsText}
 	private static async handleHelpCommand(
 		_args: string[],
 		chatId: string,
+		_telegramUserInfo?: {
+			username?: string;
+			firstName?: string;
+			lastName?: string;
+		},
 	): Promise<void> {
 		await TelegramService.sendMessage(
 			chatId,
@@ -532,7 +628,15 @@ ${itemsText}
 	 * Main entry point for handling Telegram updates
 	 */
 	static async processWebhookUpdate(update: {
-		message?: { text?: string; chat: { id: number } };
+		message?: {
+			text?: string;
+			chat: { id: number };
+			from?: {
+				username?: string;
+				first_name?: string;
+				last_name?: string;
+			};
+		};
 		callback_query?: {
 			data?: string;
 			id: string;
@@ -561,9 +665,21 @@ ${itemsText}
 				const command = parts[0];
 				const args = parts.slice(1);
 				const chatId = update.message.chat.id.toString();
+				const telegramUserInfo = update.message.from
+					? {
+							username: update.message.from.username,
+							firstName: update.message.from.first_name,
+							lastName: update.message.from.last_name,
+						}
+					: undefined;
 
 				if (command) {
-					await TelegramService.handleCommand(command, args, chatId);
+					await TelegramService.handleCommand(
+						command,
+						args,
+						chatId,
+						telegramUserInfo,
+					);
 				}
 				return;
 			}

@@ -56,6 +56,7 @@ export class StoreQuery {
 		return {
 			id: true,
 			slug: true,
+			name: true,
 		} satisfies Prisma.StoreSelect;
 	}
 
