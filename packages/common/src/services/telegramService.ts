@@ -1,8 +1,8 @@
 import { randomInt } from "node:crypto";
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
-import { StoreQuery } from "@/entities/store/query";
-import type { StoreMinimalOutput } from "@/schemas/store/output";
+import { StoreQuery } from "../entities/store/query";
+import type { StoreMinimalOutput } from "../schemas/store/output";
 import { OrderService } from "./orderService";
 
 /**
