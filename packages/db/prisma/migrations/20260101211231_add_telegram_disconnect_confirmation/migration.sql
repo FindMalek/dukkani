@@ -13,9 +13,6 @@ CREATE TABLE "telegramdisconnectconfirmation" (
 CREATE UNIQUE INDEX "telegramdisconnectconfirmation_telegramChatId_key" ON "telegramdisconnectconfirmation"("telegramChatId");
 
 -- CreateIndex
-CREATE INDEX "telegramdisconnectconfirmation_telegramChatId_idx" ON "telegramdisconnectconfirmation"("telegramChatId");
-
--- CreateIndex
 CREATE INDEX "telegramdisconnectconfirmation_expiresAt_idx" ON "telegramdisconnectconfirmation"("expiresAt");
 
 -- AddForeignKey

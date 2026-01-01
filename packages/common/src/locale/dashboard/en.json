@@ -28,7 +28,6 @@
 			"storeNameRequired": "Store name is required"
 		}
 	},
-
 	"onboarding": {
 		"storeSetup": {
 			"title": "Create your store",

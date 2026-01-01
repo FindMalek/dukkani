@@ -25,7 +25,7 @@
 			"option2": "Option 2 : Scannez le code QR",
 			"expires": "Ce lien expire dans 10 minutes. Si Telegram n'est pas installé, vous pouvez l'installer depuis",
 			"error": "Une erreur est survenue. Veuillez réessayer.",
-			"storeNameRequired": "Store name is required"
+			"storeNameRequired": "Le nom du magasin est requis"
 		}
 	},
 	"onboarding": {
@@ -53,12 +53,85 @@
 					}
 				}
 			},
-			"submit": "Terminer la configuration",
+			"submit": "Continuer",
 			"success": "Magasin créé avec succès !"
+		},
+		"storeConfiguration": {
+			"title": "Configurez votre magasin",
+			"subtitle": "Personnalisez l'apparence et la catégorie de votre magasin",
+			"category": {
+				"label": "Quelle catégorie décrit le mieux votre magasin ?",
+				"options": {
+					"fashion": {
+						"label": "Mode",
+						"description": "Vêtements, accessoires et style"
+					},
+					"electronics": {
+						"label": "Électronique",
+						"description": "Gadgets, appareils et technologie"
+					},
+					"food": {
+						"label": "Alimentation",
+						"description": "Produits alimentaires et boissons"
+					},
+					"home": {
+						"label": "Maison",
+						"description": "Décoration et essentiels pour la maison"
+					},
+					"beauty": {
+						"label": "Beauté",
+						"description": "Cosmétiques et soins personnels"
+					},
+					"sports": {
+						"label": "Sports",
+						"description": "Équipement et matériel de sport"
+					},
+					"books": {
+						"label": "Livres",
+						"description": "Livres et matériel de lecture"
+					},
+					"toys": {
+						"label": "Jouets",
+						"description": "Jouets et jeux"
+					},
+					"other": {
+						"label": "Autre",
+						"description": "Autres catégories"
+					}
+				}
+			},
+			"theme": {
+				"label": "Choisissez le thème de votre magasin",
+				"options": {
+					"light": {
+						"label": "Clair",
+						"description": "Propre et lumineux"
+					},
+					"dark": {
+						"label": "Sombre",
+						"description": "Moderne et élégant"
+					},
+					"minimal": {
+						"label": "Minimal",
+						"description": "Simple et élégant"
+					},
+					"modern": {
+						"label": "Moderne",
+						"description": "Design contemporain"
+					},
+					"classic": {
+						"label": "Classique",
+						"description": "Style intemporel"
+					}
+				}
+			},
+			"submit": "Terminer la configuration",
+			"success": "Magasin configuré avec succès !"
 		},
 		"steps": {
 			"signup": "Compte",
 			"storeSetup": "Magasin",
+			"storeConfiguration": "Configurer",
 			"complete": "Prêt"
 		},
 		"signup": {

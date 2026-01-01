@@ -18,13 +18,13 @@ model TelegramOTP {
 model TelegramDisconnectConfirmation {
   id             String   @id @default(cuid())
   telegramChatId String   @unique
-  userId         String
+  
   expiresAt      DateTime
   createdAt      DateTime @default(now())
 
+  userId         String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([telegramChatId])
   @@index([expiresAt])
   @@map("telegramdisconnectconfirmation")
 }
