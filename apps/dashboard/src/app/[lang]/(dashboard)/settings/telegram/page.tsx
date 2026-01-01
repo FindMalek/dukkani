@@ -62,13 +62,13 @@ export default function TelegramSettingsPage() {
 			});
 		},
 		onError: (error: Error) => {
-			toast.error(error.message || t("disconnectError"));
+			toast.error(error.message || t("error"));
 		},
 	});
 
 	const handleDisconnect = () => {
 		if (!storeName.trim()) {
-			toast.error(t("disconnectError"));
+			toast.error(t("storeNameRequired"));
 			return;
 		}
 		disconnectMutation.mutate({ storeName: storeName.trim() });
@@ -130,7 +130,7 @@ export default function TelegramSettingsPage() {
 								{stores && stores.length > 0 && (
 									<div className="space-y-2">
 										<p className="text-muted-foreground text-xs">
-											Your stores: {stores.map((s) => s.name).join(", ")}
+											{t("yourStores")} {stores.map((s) => s.name).join(", ")}
 										</p>
 									</div>
 								)}
@@ -193,7 +193,7 @@ export default function TelegramSettingsPage() {
 						{stores && stores.length > 0 && (
 							<div className="space-y-2">
 								<p className="text-muted-foreground text-xs">
-									Your stores: {stores.map((s) => s.name).join(", ")}
+									{t("yourStores")} {stores.map((s) => s.name).join(", ")}
 								</p>
 							</div>
 						)}

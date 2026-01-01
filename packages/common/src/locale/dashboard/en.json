@@ -17,9 +17,12 @@
 			"disconnectSuccess": "Telegram account disconnected successfully",
 			"disconnectError": "Store name doesn't match. Please try again.",
 			"disconnectNotLinked": "Telegram account is not linked",
+			"yourStores": "Your stores:",
 			"option1": "Option 1: Click the link below",
 			"option2": "Option 2: Scan QR code",
-			"expires": "This link expires in 10 minutes. If Telegram is not installed, you can install it from"
+			"expires": "This link expires in 10 minutes. If Telegram is not installed, you can install it from",
+			"error": "An error occurred. Please try again.",
+			"storeNameRequired": "Store name is required"
 		}
 	},
 	"onboarding": {
