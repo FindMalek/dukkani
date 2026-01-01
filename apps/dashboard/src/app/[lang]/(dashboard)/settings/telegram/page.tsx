@@ -151,7 +151,7 @@ export default function TelegramSettingsPage() {
 								<div className="space-y-4 rounded-xl border bg-muted/20 p-6">
 									<div className="flex flex-col gap-2">
 										<p className="font-medium text-muted-foreground text-xs uppercase">
-											OTP Code
+											{t("otpCode")}
 										</p>
 										<div className="flex items-center gap-2">
 											<code className="flex-1 rounded-md border bg-background p-2 text-center font-bold text-lg tracking-widest">
@@ -198,7 +198,7 @@ export default function TelegramSettingsPage() {
 							</div>
 						)}
 						<div className="space-y-2">
-							<Label htmlFor="storeName">Store Name</Label>
+							<Label htmlFor="storeName">{t("storeNameLabel")}</Label>
 							<Input
 								id="storeName"
 								placeholder={t("disconnectPlaceholder")}
@@ -213,7 +213,7 @@ export default function TelegramSettingsPage() {
 						</div>
 					</div>
 					<AlertDialogFooter>
-						<AlertDialogCancel>Cancel</AlertDialogCancel>
+						<AlertDialogCancel>{t("cancelButton")}</AlertDialogCancel>
 						<AlertDialogAction
 							onClick={handleDisconnect}
 							disabled={disconnectMutation.isPending || !storeName.trim()}

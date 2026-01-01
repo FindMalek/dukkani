@@ -47,11 +47,30 @@ export const baseEnv = createEnv({
 					// Not a URL, check if it's a wildcard pattern
 				}
 
-				// Allow wildcard patterns like *.domain.com
+				// Allow wildcard patterns like *.domain.com or *.*.example.com
 				if (val.includes("*")) {
-					const safePatternRegex =
-						/^\*?\.?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-					return safePatternRegex.test(val);
+					// DNS label pattern: alphanumeric start/end, hyphens allowed in middle, 1-63 chars
+					// Or just "*" for wildcard labels
+					const dnsLabel = /^(\*|[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/;
+
+					// Split by dots and validate each label
+					const labels = val.split(".");
+
+					// Must have at least 2 labels (e.g., "*.com" not just "*")
+					if (labels.length < 2) return false;
+
+					// Each label must be valid DNS label or wildcard
+					for (const label of labels) {
+						if (!dnsLabel.test(label)) return false;
+					}
+
+					// If wildcard is used, it must be followed by a dot (enforce *.)
+					// This prevents invalid patterns like "*example.com"
+					if (val.startsWith("*") && !val.startsWith("*.")) {
+						return false;
+					}
+
+					return true;
 				}
 
 				return false;
