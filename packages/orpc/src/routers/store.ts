@@ -1,5 +1,6 @@
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import {
+	configureStoreOnboardingInputSchema,
 	createStoreOnboardingInputSchema,
 	getStoreBySlugPublicInputSchema,
 	getStoreInputSchema,
@@ -108,5 +109,33 @@ export const storeRouter = {
 				productPage: input.productPage,
 				productLimit: input.productLimit,
 			});
+		}),
+
+	/**
+	 * Configure store (onboarding flow - theme and category)
+	 */
+	configure: protectedProcedure
+		.input(configureStoreOnboardingInputSchema)
+		.output(storeSimpleOutputSchema)
+		.handler(async ({ input, context }) => {
+			const userId = context.session.user.id;
+
+			// Update store configuration
+			const store = await StoreService.updateStoreConfiguration(
+				input.storeId,
+				userId,
+				{
+					theme: input.theme,
+					category: input.category,
+				},
+			);
+
+			// Update user onboarding step to STORE_CONFIGURED
+			await database.user.update({
+				where: { id: userId },
+				data: { onboardingStep: UserOnboardingStep.STORE_CONFIGURED },
+			});
+
+			return store;
 		}),
 };

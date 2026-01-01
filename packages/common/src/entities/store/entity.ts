@@ -1,4 +1,8 @@
-import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
+import {
+	type StoreCategory,
+	StoreNotificationMethod,
+	type StoreTheme,
+} from "@dukkani/db/prisma/generated/enums";
 import type {
 	StoreIncludeOutput,
 	StorePublicOutput,
@@ -121,5 +125,56 @@ export class StoreEntity {
 			return value;
 		}
 		return StoreNotificationMethod.EMAIL;
+	}
+
+	/**
+	 * Get translation key for theme or category options
+	 */
+	private static getOptionTranslationKey<
+		E extends string,
+		P extends "theme" | "category",
+		S extends "label" | "description",
+	>(enumValue: E, prefix: P, suffix: S): `${P}.options.${Lowercase<E>}.${S}` {
+		return `${prefix}.options.${enumValue.toLowerCase() as Lowercase<E>}.${suffix}`;
+	}
+
+	/**
+	 * Get translation key for theme option label
+	 */
+	static getThemeLabelKey(
+		theme: StoreTheme,
+	): `theme.options.${Lowercase<StoreTheme>}.label` {
+		return StoreEntity.getOptionTranslationKey(theme, "theme", "label");
+	}
+
+	/**
+	 * Get translation key for theme option description
+	 */
+	static getThemeDescriptionKey(
+		theme: StoreTheme,
+	): `theme.options.${Lowercase<StoreTheme>}.description` {
+		return StoreEntity.getOptionTranslationKey(theme, "theme", "description");
+	}
+
+	/**
+	 * Get translation key for category option label
+	 */
+	static getCategoryLabelKey(
+		category: StoreCategory,
+	): `category.options.${Lowercase<StoreCategory>}.label` {
+		return StoreEntity.getOptionTranslationKey(category, "category", "label");
+	}
+
+	/**
+	 * Get translation key for category option description
+	 */
+	static getCategoryDescriptionKey(
+		category: StoreCategory,
+	): `category.options.${Lowercase<StoreCategory>}.description` {
+		return StoreEntity.getOptionTranslationKey(
+			category,
+			"category",
+			"description",
+		);
 	}
 }

@@ -5,8 +5,6 @@ on:
     branches: [main]
     paths:
       - 'packages/common/src/locale/**/*.json'
-  pull_request:
-    branches: [main]
 
 jobs:
   translate:
@@ -16,8 +14,6 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       
       - name: Languine Translation
         uses: languine-ai/languine@v1
@@ -26,4 +22,3 @@ jobs:
         with:
           api-key: ${{ secrets.LANGUINE_API_KEY }}
           project-id: ${{ secrets.LANGUINE_PROJECT_ID }}
-          create-pull-request: true

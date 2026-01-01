@@ -3,7 +3,6 @@
 import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import {
 	storeNotificationMethodEnum,
-	storeThemeEnum,
 	UserOnboardingStep,
 } from "@dukkani/common/schemas/enums";
 import {
@@ -42,7 +41,6 @@ export default function StoreSetupPage() {
 		resolver: zodResolver(createStoreOnboardingInputSchema),
 		defaultValues: {
 			name: "",
-			theme: storeThemeEnum.MODERN,
 			notificationMethod: storeNotificationMethodEnum.EMAIL,
 		},
 	});
@@ -53,7 +51,7 @@ export default function StoreSetupPage() {
 		onSuccess: (data) => {
 			toast.success(t("success"));
 			router.push(
-				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.COMPLETE.url, {
+				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.STORE_CONFIGURATION.url, {
 					storeId: data.id,
 				}),
 			);
