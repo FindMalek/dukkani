@@ -1,15 +1,15 @@
 {
-  "storefront": {
-    "title": "Vitrine",
-    "description": "Description de la vitrine",
-    "store": {
-      "owner": {
-        "title": "Propriétaire du magasin"
-      },
-      "products": {
-        "title": "Produits",
-        "empty": "Aucun produit disponible pour le moment"
-      }
-    }
-  }
+	"storefront": {
+		"title": "Vitrine",
+		"description": "Description de la vitrine",
+		"store": {
+			"owner": {
+				"title": "Propriétaire du magasin"
+			},
+			"products": {
+				"title": "Produits",
+				"empty": "Aucun produit disponible pour le moment"
+			}
+		}
+	}
 }
