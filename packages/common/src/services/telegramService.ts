@@ -85,7 +85,6 @@ export class TelegramService {
 	/**
 	 * Validate OTP code and link Telegram account
 	 */
-
 	static async validateLinkOTP(
 		otpCode: string,
 		telegramChatId: string,
@@ -94,7 +93,11 @@ export class TelegramService {
 			firstName?: string;
 			lastName?: string;
 		},
-	): Promise<{ userId: string; stores: StoreMinimalOutput[] }> {
+	): Promise<{
+		userId: string;
+		stores: StoreMinimalOutput[];
+		user: { name: string; email: string };
+	}> {
 		const otp = await database.telegramOTP.findUnique({
 			where: { code: otpCode },
 			include: { user: true },
@@ -146,7 +149,14 @@ export class TelegramService {
 			});
 		});
 
-		return { userId: otp.userId, stores: userStores };
+		return {
+			userId: otp.userId,
+			stores: userStores,
+			user: {
+				name: otp.user.name,
+				email: otp.user.email,
+			},
+		};
 	}
 
 	/**
@@ -168,6 +178,15 @@ export class TelegramService {
 		}
 
 		TelegramService.lastMessageTime = Date.now();
+	}
+
+	/**
+	 * Format store list for display in Telegram messages
+	 */
+	private static formatStoreList(stores: { name: string }[]): string {
+		return stores.length > 0
+			? stores.map((store) => `  • ${store.name}`).join("\n")
+			: "  • No stores yet";
 	}
 
 	/**
@@ -351,6 +370,11 @@ ${itemsText}
 		command: string,
 		args: string[],
 		chatId: string,
+		telegramUserInfo?: {
+			username?: string;
+			firstName?: string;
+			lastName?: string;
+		},
 	): Promise<void> {
 		if (!command) {
 			return;
@@ -358,7 +382,15 @@ ${itemsText}
 
 		const commandMap: Record<
 			string,
-			(args: string[], chatId: string) => Promise<void>
+			(
+				args: string[],
+				chatId: string,
+				telegramUserInfo?: {
+					username?: string;
+					firstName?: string;
+					lastName?: string;
+				},
+			) => Promise<void>
 		> = {
 			link: TelegramService.handleLinkCommand,
 			start: TelegramService.handleStartCommand,
@@ -368,7 +400,7 @@ ${itemsText}
 		const handler = commandMap[command.toLowerCase()];
 
 		if (handler) {
-			await handler(args, chatId);
+			await handler(args, chatId, telegramUserInfo);
 		}
 	}
 
@@ -407,10 +439,7 @@ ${itemsText}
 		});
 
 		if (existingUser) {
-			const storeList =
-				existingUser.stores.length > 0
-					? existingUser.stores.map((store) => `  • ${store.name}`).join("\n")
-					: "  • No stores yet";
+			const storeList = TelegramService.formatStoreList(existingUser.stores);
 
 			await TelegramService.sendMessage(
 				chatId,
@@ -429,21 +458,12 @@ ${itemsText}
 				telegramUserInfo,
 			);
 
-			// Get user info for display
-			const user = await database.user.findUnique({
-				where: { id: result.userId },
-				select: { name: true, email: true },
-			});
-
-			const storeList =
-				result.stores.length > 0
-					? result.stores.map((store) => `  • ${store.name}`).join("\n")
-					: "  • No stores yet";
+			const storeList = TelegramService.formatStoreList(result.stores);
 
 			await TelegramService.sendMessage(
 				chatId,
 				"✅ <b>Account Linked Successfully!</b>\n\n" +
-					`<b>Account:</b> ${user?.name || "User"} (${user?.email || "N/A"})\n\n` +
+					`<b>Account:</b> ${result.user.name || "User"} (${result.user.email || "N/A"})\n\n` +
 					`<b>Your Stores:</b>\n${storeList}\n\n` +
 					"You will now receive order notifications from Dukkani.",
 				{ parseMode: "HTML" },
@@ -466,6 +486,11 @@ ${itemsText}
 	private static async handleStartCommand(
 		_args: string[],
 		chatId: string,
+		_telegramUserInfo?: {
+			username?: string;
+			firstName?: string;
+			lastName?: string;
+		},
 	): Promise<void> {
 		await TelegramService.sendMessage(
 			chatId,
@@ -480,6 +505,11 @@ ${itemsText}
 	private static async handleHelpCommand(
 		_args: string[],
 		chatId: string,
+		_telegramUserInfo?: {
+			username?: string;
+			firstName?: string;
+			lastName?: string;
+		},
 	): Promise<void> {
 		await TelegramService.sendMessage(
 			chatId,
@@ -644,16 +674,12 @@ ${itemsText}
 					: undefined;
 
 				if (command) {
-					// Pass user info to command handlers
-					if (command.toLowerCase() === "link") {
-						await TelegramService.handleLinkCommand(
-							args,
-							chatId,
-							telegramUserInfo,
-						);
-					} else {
-						await TelegramService.handleCommand(command, args, chatId);
-					}
+					await TelegramService.handleCommand(
+						command,
+						args,
+						chatId,
+						telegramUserInfo,
+					);
 				}
 				return;
 			}
