@@ -27,14 +27,6 @@ export class TelegramService {
 	}
 
 	/**
-	 * Map of user IDs to disconnect confirmation data
-	 */
-	private static disconnectConfirmations = new Map<
-		string,
-		{ userId: string; expiresAt: number }
-	>();
-
-	/**
 	 * Generate 6-digit OTP code for account linking
 	 * Format: 123456
 	 * Handles collisions by retrying (very rare but possible)
@@ -584,8 +576,8 @@ ${itemsText}
 
 				// Check if user is waiting for disconnect confirmation
 				const confirmation =
-					TelegramService.disconnectConfirmations.get(chatId);
-				if (confirmation && Date.now() < confirmation.expiresAt) {
+					await TelegramService.getDisconnectConfirmation(chatId);
+				if (confirmation) {
 					await TelegramService.handleDisconnectConfirmation(
 						text,
 						chatId,
@@ -653,11 +645,12 @@ ${itemsText}
 		// Show stores and ask for confirmation
 		const storeNames = user.stores.map((s) => s.name).join(", ");
 
-		// Store confirmation state (expires in 5 minutes)
-		TelegramService.disconnectConfirmations.set(chatId, {
-			userId: user.id,
-			expiresAt: Date.now() + 5 * 60 * 1000,
-		});
+		// Store confirmation state in database (expires in 5 minutes)
+		await TelegramService.storeDisconnectConfirmation(
+			chatId,
+			user.id,
+			new Date(Date.now() + 5 * 60 * 1000),
+		);
 
 		await TelegramService.sendMessage(
 			chatId,
@@ -679,7 +672,7 @@ ${itemsText}
 		userId: string,
 	): Promise<void> {
 		// Clean up confirmation state
-		TelegramService.disconnectConfirmations.delete(chatId);
+		await TelegramService.deleteDisconnectConfirmation(chatId);
 
 		// Verify user owns a store with this name
 		const store = await database.store.findFirst({
@@ -727,5 +720,70 @@ ${itemsText}
 				{ parseMode: "HTML" },
 			);
 		}
+	}
+
+	/**
+	 * Store disconnect confirmation in database (replaces in-memory Map)
+	 * This ensures state is shared across serverless/multi-instance deployments
+	 */
+	private static async storeDisconnectConfirmation(
+		telegramChatId: string,
+		userId: string,
+		expiresAt: Date,
+	): Promise<void> {
+		// Delete any existing confirmation for this chat
+		await database.telegramDisconnectConfirmation.deleteMany({
+			where: { telegramChatId },
+		});
+
+		// Create new confirmation
+		await database.telegramDisconnectConfirmation.create({
+			data: {
+				telegramChatId,
+				userId,
+				expiresAt,
+			},
+		});
+	}
+
+	/**
+	 * Get disconnect confirmation from database
+	 */
+	private static async getDisconnectConfirmation(
+		telegramChatId: string,
+	): Promise<{ userId: string; expiresAt: Date } | null> {
+		const confirmation =
+			await database.telegramDisconnectConfirmation.findUnique({
+				where: { telegramChatId },
+			});
+
+		if (!confirmation) {
+			return null;
+		}
+
+		// Check if expired
+		if (confirmation.expiresAt < new Date()) {
+			// Clean up expired confirmation
+			await database.telegramDisconnectConfirmation.delete({
+				where: { id: confirmation.id },
+			});
+			return null;
+		}
+
+		return {
+			userId: confirmation.userId,
+			expiresAt: confirmation.expiresAt,
+		};
+	}
+
+	/**
+	 * Delete disconnect confirmation from database
+	 */
+	private static async deleteDisconnectConfirmation(
+		telegramChatId: string,
+	): Promise<void> {
+		await database.telegramDisconnectConfirmation.deleteMany({
+			where: { telegramChatId },
+		});
 	}
 }

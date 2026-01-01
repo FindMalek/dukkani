@@ -38,11 +38,12 @@ model User {
   createdAt        DateTime
   updatedAt        DateTime
 
-  sessions     Session[]
-  accounts     Account[]
-  teamMembers  TeamMember[]
-  telegramOTPs TelegramOTP[]
-  stores       Store[]       @relation("StoreOwner")
+  sessions                        Session[]
+  accounts                        Account[]
+  teamMembers                     TeamMember[]
+  telegramOTPs                    TelegramOTP[]
+  stores                          Store[]                          @relation("StoreOwner")
+  telegramDisconnectConfirmations TelegramDisconnectConfirmation[]
 
   @@unique([email])
   @@map("user")
