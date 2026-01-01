@@ -1,14 +1,18 @@
 {
-	"locale": {
-		"source": "en",
-		"targets": ["en", "fr"]
-	},
-	"files": {
-		"json": {
-			"include": [
-				"packages/common/src/locale/dashboard/[locale].json",
-				"packages/common/src/locale/web/[locale].json"
-			]
-		}
-	}
+  "projectId": "prj_dXf1hBhGpsv73KrI0cnAu",
+  "locale": {
+    "source": "en",
+    "targets": [
+      "fr"
+    ]
+  },
+  "files": {
+    "json": {
+      "include": [
+        "packages/common/src/locale/dashboard/[locale].json",
+		"packages/common/src/locale/web/[locale].json",
+		"packages/common/src/locale/storefront/[locale].json"
+      ]
+    }
+  }
 }

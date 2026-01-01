@@ -1,97 +1,97 @@
 {
-	"dashboard": {
-		"title": "Tableau de bord",
-		"description": "Description du tableau de bord"
-	},
-	"settings": {
-		"telegram": {
-			"title": "Notifications Telegram",
-			"description": "Liez votre compte Telegram pour recevoir des notifications de commande instantanées",
-			"linked": "Compte Telegram lié le",
-			"recently": "récemment",
-			"linkButton": "Lier via Telegram",
-			"option1": "Option 1 : Cliquez sur le lien ci-dessous",
-			"option2": "Option 2 : Scannez le code QR",
-			"expires": "Ce lien expire dans 10 minutes. Si Telegram n'est pas installé, vous pouvez l'installer depuis"
-		}
-	},
-	"onboarding": {
-		"storeSetup": {
-			"title": "Créez votre magasin",
-			"subtitle": "Plus qu'une étape pour commencer",
-			"storeName": {
-				"label": "Nom du magasin",
-				"placeholder": "Mon Super Magasin"
-			},
-			"notifications": {
-				"label": "Comment souhaitez-vous recevoir les alertes de nouvelles commandes ?",
-				"options": {
-					"email": {
-						"label": "Notifications par e-mail",
-						"description": "Envoyées à votre adresse e-mail de connexion"
-					},
-					"telegram": {
-						"label": "Alertes Telegram",
-						"description": "Alertes rapides et instantanées via notre bot Telegram"
-					},
-					"both": {
-						"label": "Les deux",
-						"description": "Soyez notifié partout pour ne jamais manquer une commande"
-					}
-				}
-			},
-			"submit": "Terminer la configuration",
-			"success": "Magasin créé avec succès !"
-		},
-		"steps": {
-			"signup": "Compte",
-			"storeSetup": "Magasin",
-			"complete": "Prêt"
-		},
-		"signup": {
-			"title": "Créez votre compte",
-			"subtitle": "Rejoignez Dukkani et commencez à vendre dès aujourd'hui",
-			"name": {
-				"label": "Comment devrions-nous vous appeler ?",
-				"placeholder": "Entrez votre nom complet"
-			},
-			"email": {
-				"label": "Adresse e-mail",
-				"placeholder": "votre@email.com",
-				"description": "Nous avons prérempli ce champ à partir de l'étape précédente",
-				"missingWarning": "L'adresse e-mail n'a pas été fournie. Veuillez entrer votre adresse e-mail pour continuer."
-			},
-			"password": {
-				"label": "Choisissez un mot de passe",
-				"placeholder": "Minimum 8 caractères"
-			},
-			"submit": "Continuer vers la configuration du magasin",
-			"success": "Compte créé ! Maintenant, configurons votre magasin.",
-			"alreadyHaveAccount": "Vous avez déjà un compte ?",
-			"login": "Se connecter",
-			"agreeText": "En continuant, vous acceptez nos",
-			"terms": "Conditions",
-			"and": "et",
-			"privacy": "Politique de confidentialité"
-		},
-		"complete": {
-			"title": "Tout est prêt !",
-			"subtitle": "Votre magasin est prêt à commencer à recevoir des commandes.",
-			"storeLink": {
-				"label": "Lien de votre magasin",
-				"copied": "Lien copié dans le presse-papiers !"
-			},
-			"telegram": {
-				"title": "Alertes de commande instantanées",
-				"description": "Connectez votre Telegram pour être notifié dès qu'un client passe une commande.",
-				"otpLabel": "Votre code OTP",
-				"connectButton": "Connecter",
-				"instructions": "Envoyez /link {code} au bot si vous n'êtes pas redirigé."
-			},
-			"actions": {
-				"addProduct": "Ajouter votre premier produit",
-				"goToDashboard": "Aller au tableau de bord"
-			}
-		}
-	}
+  "dashboard": {
+    "title": "Tableau de bord",
+    "description": "Description du tableau de bord"
+  },
+  "settings": {
+    "telegram": {
+      "title": "Notifications Telegram",
+      "description": "Liez votre compte Telegram pour recevoir des notifications de commande instantanées",
+      "linked": "Compte Telegram lié le",
+      "recently": "récemment",
+      "linkButton": "Lier via Telegram",
+      "option1": "Option 1 : Cliquez sur le lien ci-dessous",
+      "option2": "Option 2 : Scannez le code QR",
+      "expires": "Ce lien expire dans 10 minutes. Si Telegram n'est pas installé, vous pouvez l'installer depuis"
+    }
+  },
+  "onboarding": {
+    "storeSetup": {
+      "title": "Créez votre boutique",
+      "subtitle": "Une étape de plus pour commencer",
+      "storeName": {
+        "label": "Nom de la boutique",
+        "placeholder": "Ma super boutique"
+      },
+      "notifications": {
+        "label": "Comment souhaitez-vous recevoir des alertes de nouvelles commandes ?",
+        "options": {
+          "email": {
+            "label": "Notifications par e-mail",
+            "description": "Envoyé à votre adresse e-mail de connexion"
+          },
+          "telegram": {
+            "label": "Alertes Telegram",
+            "description": "Alertes rapides et instantanées via notre bot Telegram"
+          },
+          "both": {
+            "label": "Les deux",
+            "description": "Recevez des notifications partout pour ne jamais manquer une commande"
+          }
+        }
+      },
+      "submit": "Terminer la configuration",
+      "success": "Boutique créée avec succès !"
+    },
+    "steps": {
+      "signup": "Compte",
+      "storeSetup": "Boutique",
+      "complete": "Prêt"
+    },
+    "signup": {
+      "title": "Créez votre compte",
+      "subtitle": "Rejoignez Dukkani et commencez à vendre aujourd'hui",
+      "name": {
+        "label": "Comment devrions-nous vous appeler ?",
+        "placeholder": "Entrez votre nom complet"
+      },
+      "email": {
+        "label": "Adresse e-mail",
+        "placeholder": "votre@email.com",
+        "description": "Nous avons pré-rempli cela à partir de l'étape précédente",
+        "missingWarning": "L'adresse e-mail n'a pas été fournie. Veuillez entrer votre adresse e-mail pour continuer."
+      },
+      "password": {
+        "label": "Choisissez un mot de passe",
+        "placeholder": "Minimum 8 caractères"
+      },
+      "submit": "Continuer vers la configuration de la boutique",
+      "success": "Compte créé ! Maintenant, configurons votre boutique.",
+      "alreadyHaveAccount": "Vous avez déjà un compte ?",
+      "login": "Connectez-vous",
+      "agreeText": "En continuant, vous acceptez nos",
+      "terms": "Conditions",
+      "and": "&",
+      "privacy": "Politique de confidentialité"
+    },
+    "complete": {
+      "title": "Vous êtes prêt !",
+      "subtitle": "Votre boutique est prête à commencer à recevoir des commandes.",
+      "storeLink": {
+        "label": "Votre lien de boutique",
+        "copied": "Lien copié dans le presse-papiers !"
+      },
+      "telegram": {
+        "title": "Alertes de commande instantanées",
+        "description": "Connectez votre Telegram pour être notifié dès qu'un client passe une commande.",
+        "otpLabel": "Votre code OTP",
+        "connectButton": "Connecter",
+        "instructions": "Envoyez /link {code} au bot si vous n'êtes pas redirigé."
+      },
+      "actions": {
+        "addProduct": "Ajoutez votre premier produit",
+        "goToDashboard": "Aller au tableau de bord"
+      }
+    }
+  }
 }
