@@ -94,42 +94,19 @@ export const telegramRouter = {
 		.handler(async ({ input, context }): Promise<SuccessOutput> => {
 			const userId = context.session.user.id;
 
-			// Verify user owns a store with this name
-			const store = await database.store.findFirst({
-				where: {
-					ownerId: userId,
-					name: input.storeName.trim(),
-				},
-				select: { id: true },
-			});
-
-			if (!store) {
+			try {
+				await TelegramService.disconnectTelegramAccount(
+					userId,
+					input.storeName,
+				);
+				return { success: true };
+			} catch (error) {
 				throw new ORPCError("BAD_REQUEST", {
-					message: "Store name doesn't match any of your stores",
+					message:
+						error instanceof Error
+							? error.message
+							: "Failed to disconnect Telegram account",
 				});
 			}
-
-			// Verify user has Telegram linked
-			const user = await database.user.findUnique({
-				where: { id: userId },
-				select: { telegramChatId: true },
-			});
-
-			if (!user?.telegramChatId) {
-				throw new ORPCError("BAD_REQUEST", {
-					message: "Telegram account is not linked",
-				});
-			}
-
-			// Disconnect Telegram account
-			await database.user.update({
-				where: { id: userId },
-				data: {
-					telegramChatId: null,
-					telegramLinkedAt: null,
-				},
-			});
-
-			return { success: true };
 		}),
 };
