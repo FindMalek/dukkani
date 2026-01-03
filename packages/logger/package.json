@@ -1,0 +1,26 @@
+{
+	"name": "@dukkani/logger",
+	"version": "0.0.0",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./src/index.ts"
+		}
+	},
+	"scripts": {
+		"build": "tsdown",
+		"clean": "rm -rf dist node_modules"
+	},
+	"dependencies": {
+		"pino": "catalog:"
+	},
+	"devDependencies": {
+		"@dukkani/config": "workspace:*",
+		"pino-pretty": "catalog:",
+		"tsdown": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:"
+	}
+}
