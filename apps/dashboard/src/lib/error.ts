@@ -1,3 +1,4 @@
+import { logger } from "@dukkani/logger";
 import { toast } from "sonner";
 
 export interface APIError {
@@ -13,7 +14,7 @@ export function handleAPIError(
 	error: any,
 	fallbackMessage = "An error occurred. Please try again.",
 ) {
-	console.error("API Error:", error);
+	logger.error({ error }, "API Error");
 
 	// Rate limiting errors
 	if (error?.code === "TOO_MANY_REQUESTS") {

@@ -17,6 +17,7 @@ import {
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { NotificationService, OrderService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
+import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
@@ -144,11 +145,14 @@ export const orderRouter = {
 			NotificationService.sendOrderNotification(input.storeId, order).catch(
 				(error) => {
 					// Log but don't throw - notification failure shouldn't affect order creation
-					console.error("Order notification failed:", {
-						orderId,
-						storeId: input.storeId,
-						error: error instanceof Error ? error.message : String(error),
-					});
+					logger.error(
+						{
+							orderId,
+							storeId: input.storeId,
+							error: error instanceof Error ? error.message : String(error),
+						},
+						"Order notification failed",
+					);
 				},
 			);
 

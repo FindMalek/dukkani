@@ -1,3 +1,4 @@
+import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
@@ -21,7 +22,7 @@ export default async function StorePage() {
 
 		// Add validation check before rendering
 		if (!store || !store.name) {
-			console.error("Invalid store data:", store);
+			logger.error({ store }, "Invalid store data");
 			return notFound();
 		}
 

@@ -1,5 +1,6 @@
 import { database } from "@dukkani/db";
 import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
+import { logger } from "@dukkani/logger";
 import type { OrderIncludeOutput } from "../schemas/order/output";
 import { TelegramService } from "./telegramService";
 
@@ -53,11 +54,14 @@ export class NotificationService {
 		order: OrderIncludeOutput,
 	): Promise<void> {
 		// TODO: Implement email sending (Resend) (FIN-203)
-		console.log("Email notification (not implemented yet):", {
-			to: email,
-			storeName,
-			orderId: order.id,
-		});
+		logger.info(
+			{
+				to: email,
+				storeName,
+				orderId: order.id,
+			},
+			"Email notification (not implemented yet)",
+		);
 	}
 
 	private static async sendTelegramNotification(

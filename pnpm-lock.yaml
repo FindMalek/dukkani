@@ -235,6 +235,9 @@ importers:
       '@dukkani/env':
         specifier: workspace:*
         version: link:../../packages/env
+      '@dukkani/logger':
+        specifier: workspace:*
+        version: link:../../packages/logger
       '@dukkani/orpc':
         specifier: workspace:*
         version: link:../../packages/orpc
@@ -338,6 +341,9 @@ importers:
       '@dukkani/env':
         specifier: workspace:*
         version: link:../../packages/env
+      '@dukkani/logger':
+        specifier: workspace:*
+        version: link:../../packages/logger
       '@dukkani/orpc':
         specifier: workspace:*
         version: link:../../packages/orpc
@@ -539,6 +545,9 @@ importers:
       '@dukkani/env':
         specifier: workspace:*
         version: link:../env
+      '@dukkani/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@formatjs/intl-localematcher':
         specifier: 'catalog:'
         version: 0.6.2
@@ -600,6 +609,9 @@ importers:
       '@dukkani/env':
         specifier: workspace:*
         version: link:../env
+      '@dukkani/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@neondatabase/serverless':
         specifier: ^0.10.4
         version: 0.10.4
@@ -766,6 +778,9 @@ importers:
       '@dukkani/env':
         specifier: workspace:*
         version: link:../env
+      '@dukkani/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@supabase/supabase-js':
         specifier: ^2.47.10
         version: 2.86.0

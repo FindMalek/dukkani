@@ -42,6 +42,7 @@
 	},
 	"dependencies": {
 		"@dukkani/env": "workspace:*",
+		"@dukkani/logger": "workspace:*",
 		"@prisma/client": "catalog:",
 		"@t3-oss/env-core": "catalog:",
 		"@prisma/client-runtime-utils": "^7.0.0",

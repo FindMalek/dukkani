@@ -1,6 +1,7 @@
 import { randomInt } from "node:crypto";
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
+import { logger } from "@dukkani/logger";
 import { StoreQuery } from "../entities/store/query";
 import type { StoreMinimalOutput } from "../schemas/store/output";
 import { OrderService } from "./orderService";
@@ -339,12 +340,15 @@ ${itemsText}
 
 		if (!response.ok) {
 			const errorMessage = responseData?.description || response.statusText;
-			console.error("Telegram callback query answer failed:", {
-				callbackQueryId,
-				status: response.status,
-				statusText: response.statusText,
-				error: errorMessage,
-			});
+			logger.error(
+				{
+					callbackQueryId,
+					status: response.status,
+					statusText: response.statusText,
+					error: errorMessage,
+				},
+				"Telegram callback query answer failed",
+			);
 			throw new Error(
 				`Telegram API error: ${errorMessage || response.statusText}`,
 			);
@@ -713,11 +717,11 @@ ${itemsText}
 				} catch (sendError) {
 					// If we can't send error message, log it but don't throw
 					// This prevents infinite error loops
-					console.error("Failed to send error message to user:", sendError);
+					logger.error({ error: sendError }, "Failed to send error message to user");
 				}
 			} else {
 				// Log error when we can't send message to user
-				console.error("Telegram webhook processing error:", error);
+				logger.error({ error }, "Telegram webhook processing error");
 			}
 		}
 	}
