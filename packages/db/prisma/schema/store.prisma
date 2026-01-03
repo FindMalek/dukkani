@@ -79,10 +79,10 @@ model Store {
 model StorePlan {
   id String @id @default(cuid())
 
-  planType   StorePlanType @map("plan_type")
-  
-  orderLimit Int           @map("order_limit")
-  orderCount Int           @default(0) @map("order_count")
+  planType StorePlanType @map("plan_type")
+
+  orderLimit Int @map("order_limit")
+  orderCount Int @default(0) @map("order_count")
 
   resetAt   DateTime? @map("reset_at")
   updatedAt DateTime  @updatedAt @map("updated_at")

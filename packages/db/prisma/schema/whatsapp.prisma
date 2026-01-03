@@ -23,8 +23,8 @@ model WhatsAppMessage {
   id String @id @default(cuid())
 
   status    WhatsAppMessageStatus
-  content   String @map("content")
-  messageId String @map("message_id")
+  content   String                @map("content")
+  messageId String                @map("message_id")
 
   updatedAt DateTime @updatedAt @map("updated_at")
   sentAt    DateTime @map("sent_at")

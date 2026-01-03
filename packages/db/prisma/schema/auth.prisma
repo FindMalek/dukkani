@@ -164,14 +164,14 @@ model Account {
  * - Expiration prevents stale verification attempts
  */
 model Verification {
-  id         String    @id @map("_id")
+  id String @id @map("_id")
 
   identifier String
   value      String
-  
-  expiresAt  DateTime  @map("expires_at")
-  createdAt  DateTime? @map("created_at")
-  updatedAt  DateTime? @map("updated_at")
+
+  expiresAt DateTime  @map("expires_at")
+  createdAt DateTime? @map("created_at")
+  updatedAt DateTime? @map("updated_at")
 
   @@map("verifications")
 }

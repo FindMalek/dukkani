@@ -51,14 +51,14 @@ model TelegramOTP {
  * - Indexed on expiresAt for efficient cleanup queries
  */
 model TelegramDisconnectConfirmation {
-  id             String   @id @default(cuid())
-  telegramChatId String   @unique @map("telegram_chat_id")
-  
-  expiresAt      DateTime @map("expires_at")
-  createdAt      DateTime @default(now()) @map("created_at")
+  id             String @id @default(cuid())
+  telegramChatId String @unique @map("telegram_chat_id")
 
-  userId         String   @map("user_id")
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([expiresAt])
   @@map("telegram_disconnect_confirmations")
