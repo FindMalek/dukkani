@@ -45,7 +45,6 @@ catalog:
   '@hookform/resolvers': ^5.2.2
   'react-hook-form': ^7.66.0
   pino: ^9.5.0
-  pino-pretty: ^13.0.0
 
 onlyBuiltDependencies:
   - '@prisma/client'

@@ -17,7 +17,6 @@
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
-		"pino-pretty": "catalog:",
 		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
