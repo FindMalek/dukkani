@@ -149,7 +149,7 @@ export const orderRouter = {
 						{
 							orderId,
 							storeId: input.storeId,
-							error: error instanceof Error ? error.message : String(error),
+							error,
 						},
 						"Order notification failed",
 					);

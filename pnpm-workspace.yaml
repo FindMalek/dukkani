@@ -44,7 +44,7 @@ catalog:
   baseline-browser-mapping: ^2.8.32
   '@hookform/resolvers': ^5.2.2
   'react-hook-form': ^7.66.0
-  pino: ^9.5.0
+  pino: ^9.9.5
 
 onlyBuiltDependencies:
   - '@prisma/client'

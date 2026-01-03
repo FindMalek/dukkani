@@ -54,7 +54,6 @@ export default async function OnboardingPage({
 				error,
 				code: (error as { code?: string })?.code,
 				status: (error as { status?: number })?.status,
-				message: error instanceof Error ? error.message : String(error),
 			},
 			"Error fetching user data in onboarding page",
 		);

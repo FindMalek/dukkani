@@ -91,7 +91,7 @@ catalogs:
       specifier: ^4.5.6
       version: 4.5.6
     pino:
-      specifier: ^9.5.0
+      specifier: ^9.9.5
       version: 9.14.0
     prisma:
       specifier: ^7.0.0
