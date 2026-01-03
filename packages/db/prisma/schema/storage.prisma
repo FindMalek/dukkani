@@ -13,6 +13,8 @@
  * - `width`: Image width in pixels (null for non-images)
  * - `height`: Image height in pixels (null for non-images)
  * - `alt`: Optional alt text for accessibility/SEO
+ * - `createdAt`: Timestamp when the file was uploaded
+ * - `updatedAt`: Timestamp when the file was last updated
  * **Relationships:**
  * - Has many StorageFileVariant (size variants for images)
  * **Business Logic:**
@@ -26,28 +28,28 @@ model StorageFile {
   // Storage metadata
   bucket      String
   path        String
-  originalUrl String @map("originalurl")
+  originalUrl String @map("original_url")
   url         String // Default URL (medium size for images, original for others)
 
   // File metadata
-  mimeType      String @map("mimetype")
-  fileSize      Int    @map("filesize") // Original size in bytes
-  optimizedSize Int?   @map("optimizedsize") // Optimized size in bytes
+  mimeType      String @map("mime_type")
+  fileSize      Int    @map("file_size") // Original size in bytes
+  optimizedSize Int?   @map("optimized_size") // Optimized size in bytes
   width         Int? // Image width in pixels
   height        Int? // Image height in pixels
 
   // Additional metadata
   alt String? // Alt text for accessibility/SEO
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
   variants StorageFileVariant[]
 
   @@index([bucket])
   @@index([mimeType])
-  @@map("storagefile")
+  @@map("storage_files")
 }
 
 /**
@@ -62,16 +64,19 @@ model StorageFile {
  * - `width`: Variant width in pixels
  * - `height`: Variant height in pixels
  * - `fileSize`: Variant file size in bytes
+ * - `createdAt`: Timestamp when the variant was created
+ * - `updatedAt`: Timestamp when the variant was last updated
  * **Relationships:**
  * - Belongs to one StorageFile
  * **Business Logic:**
  * - Variants are generated automatically during image upload
  * - When parent file is deleted, variants are cascade deleted
+ * - Each file can have one variant of each type (enforced by unique constraint)
  */
 model StorageFileVariant {
   id String @id @default(cuid())
 
-  storageFileId String      @map("storagefileid")
+  storageFileId String      @map("storage_file_id")
   storageFile   StorageFile @relation(fields: [storageFileId], references: [id], onDelete: Cascade)
 
   variant StorageFileVariantType
@@ -79,13 +84,13 @@ model StorageFileVariant {
 
   width    Int? // Variant width in pixels
   height   Int? // Variant height in pixels
-  fileSize Int  @map("filesize") // Variant file size in bytes
+  fileSize Int  @map("file_size") // Variant file size in bytes
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@unique([storageFileId, variant])
   @@index([storageFileId])
   @@index([variant])
-  @@map("storagefilevariant")
+  @@map("storage_file_variants")
 }

@@ -8,6 +8,8 @@
  * - `date`: The date these metrics represent (stored as Date, no time component)
  * - `totalSales`: Total sales amount for the day (stored as Decimal for accuracy)
  * - `orderCount`: Number of orders placed on this day
+ * - `createdAt`: Timestamp when the metric record was created
+ * - `updatedAt`: Timestamp when the metric record was last updated
  * **Relationships:**
  * - Belongs to one Store
  * **Business Logic:**
@@ -21,15 +23,15 @@ model SalesMetric {
   id String @id @default(cuid())
 
   date       DateTime @db.Date
-  orderCount Int      @map("ordercount")
-  totalSales Decimal  @map("totalsales") @db.Decimal(10, 2)
+  orderCount Int      @map("order_count")
+  totalSales Decimal  @map("total_sales") @db.Decimal(10, 2)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  storeId String @map("storeid")
+  storeId String @map("store_id")
   store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@unique([storeId, date])
-  @@map("salesmetric")
+  @@map("sales_metrics")
 }

@@ -7,6 +7,8 @@
  * - `userId`: Reference to the User who is a team member
  * - `storeId`: Reference to the Store they belong to
  * - `role`: Permission level (OWNER, ADMIN, MANAGER, STAFF)
+ * - `createdAt`: Timestamp when the team member was added
+ * - `updatedAt`: Timestamp when the team member was last updated
  * **Relationships:**
  * - Belongs to one User
  * - Belongs to one Store
@@ -15,21 +17,22 @@
  * - Roles define permission levels: OWNER (full access), ADMIN (management), MANAGER (operations), STAFF (limited)
  * - When a user is deleted, their team member records are cascade deleted
  * - When a store is deleted, all team member associations are cascade deleted
+ * - A user can only be a team member once per store (enforced by unique constraint)
  */
 model TeamMember {
   id String @id @default(cuid())
 
   role TeamMemberRole
 
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
-  userId String @map("userid")
+  userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  storeId String @map("storeid")
+  storeId String @map("store_id")
   store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@unique([userId, storeId])
-  @@map("teammember")
+  @@map("team_members")
 }

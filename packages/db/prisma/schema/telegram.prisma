@@ -1,30 +1,65 @@
+/**
+ * Represents a Telegram OTP (One-Time Password) code for linking a Telegram account.
+ * Used to securely link a user's Telegram account to their Dukkani account.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `code`: Unique OTP code (must be unique)
+ * - `used`: Whether the OTP code has been used (default: false)
+ * - `expiresAt`: Timestamp when the OTP expires
+ * - `createdAt`: Timestamp when the OTP was created
+ * - `userId`: Reference to the User this OTP belongs to
+ * **Relationships:**
+ * - Belongs to one User
+ * **Business Logic:**
+ * - OTP codes are single-use and expire after a set time
+ * - Used for secure Telegram account linking
+ * - When a user is deleted, all their OTPs are cascade deleted
+ * - Indexed on userId and expiresAt for efficient queries
+ */
 model TelegramOTP {
   id   String @id @default(cuid())
   code String @unique
 
   used Boolean @default(false)
 
-  expiresAt DateTime
-  createdAt DateTime @default(now())
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
-  userId String
+  userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([expiresAt])
-  @@map("telegramotp")
+  @@map("telegram_otps")
 }
 
+/**
+ * Represents a confirmation token for disconnecting a Telegram account.
+ * Used to securely confirm the disconnection of a Telegram account from a Dukkani user.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `telegramChatId`: Unique Telegram chat ID (must be unique)
+ * - `expiresAt`: Timestamp when the confirmation expires
+ * - `createdAt`: Timestamp when the confirmation was created
+ * - `userId`: Reference to the User this confirmation belongs to
+ * **Relationships:**
+ * - Belongs to one User
+ * **Business Logic:**
+ * - Confirmation tokens are time-limited for security
+ * - Used to prevent accidental disconnection of Telegram accounts
+ * - When a user is deleted, all their disconnect confirmations are cascade deleted
+ * - Indexed on expiresAt for efficient cleanup queries
+ */
 model TelegramDisconnectConfirmation {
   id             String   @id @default(cuid())
-  telegramChatId String   @unique
+  telegramChatId String   @unique @map("telegram_chat_id")
   
-  expiresAt      DateTime
-  createdAt      DateTime @default(now())
+  expiresAt      DateTime @map("expires_at")
+  createdAt      DateTime @default(now()) @map("created_at")
 
-  userId         String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String   @map("user_id")
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([expiresAt])
-  @@map("telegramdisconnectconfirmation")
+  @@map("telegram_disconnect_confirmations")
 }

@@ -1,8 +1,15 @@
 /**
- * Represents the health of the database.
+ * Represents the health status of the database system.
+ * Used for monitoring and health checks of the database connection and performance.
  * **Key Fields:**
  * - `id`: Unique identifier (CUID)
- * - `status`: Current health status (HEALTHY, DEGRADED, UNHEALTHY)
+ * - `status`: Current health status (HEALTHY, DEGRADED, UNHEALTHY, UNKNOWN)
+ * - `duration`: Health check duration in milliseconds
+ * - `startTime`: Timestamp when the health check started
+ * - `endTime`: Timestamp when the health check completed
+ * **Business Logic:**
+ * - Used for system monitoring and alerting
+ * - Tracks database performance and availability
  */
 model Health {
   id String @id @default(cuid())
@@ -10,8 +17,8 @@ model Health {
   duration Int          @map("duration")
   status   HealthStatus @default(HEALTHY)
 
-  startTime DateTime @map("starttime")
-  endTime   DateTime @map("endtime")
+  startTime DateTime @map("start_time")
+  endTime   DateTime @map("end_time")
 
   @@map("health")
 }

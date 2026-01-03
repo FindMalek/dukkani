@@ -8,14 +8,19 @@
  * - `email`: User's email address (must be unique)
  * - `emailVerified`: Whether the email has been verified
  * - `image`: Optional profile image URL
+ * - `telegramUserName`: Optional Telegram username
  * - `telegramChatId`: Optional Telegram chat ID for notifications
  * - `telegramLinkedAt`: Optional timestamp when Telegram was linked
  * - `onboardingStep`: Optional onboarding step (STORE_SETUP, STORE_CREATED, STORE_CONFIGURED, STORE_LAUNCHED)
+ * - `createdAt`: Timestamp when the user was created
+ * - `updatedAt`: Timestamp when the user was last updated
  * **Relationships:**
  * - Has many Sessions (authentication sessions)
  * - Has many Accounts (OAuth/credential providers)
  * - Has many Stores (as owner)
  * - Has many TeamMembers (as team member in stores)
+ * - Has many TelegramOTPs (OTP codes for linking Telegram)
+ * - Has many TelegramDisconnectConfirmations (disconnect confirmation tokens)
  * **Business Logic:**
  * - Email must be unique across all users
  * - Users can own multiple stores
@@ -27,17 +32,17 @@ model User {
   name String
 
   email         String
-  emailVerified Boolean
+  emailVerified Boolean @map("email_verified")
 
-  image            String?
-  telegramUserName String?
-  telegramChatId   String? @unique @map("telegramchatid")
+  image            String? @map("image")
+  telegramUserName String? @map("telegram_user_name")
+  telegramChatId   String? @unique @map("telegram_chat_id")
 
-  onboardingStep UserOnboardingStep @default(STORE_SETUP)
+  onboardingStep UserOnboardingStep @default(STORE_SETUP) @map("onboarding_step")
 
-  telegramLinkedAt DateTime? @map("telegramlinkedat")
-  createdAt        DateTime
-  updatedAt        DateTime
+  telegramLinkedAt DateTime? @map("telegram_linked_at")
+  createdAt        DateTime  @map("created_at")
+  updatedAt        DateTime  @map("updated_at")
 
   sessions                        Session[]
   accounts                        Account[]
@@ -47,7 +52,7 @@ model User {
   telegramDisconnectConfirmations TelegramDisconnectConfirmation[]
 
   @@unique([email])
-  @@map("user")
+  @@map("users")
 }
 
 /**
@@ -61,6 +66,8 @@ model User {
  * - `userId`: Reference to the User this session belongs to
  * - `ipAddress`: Optional IP address where session was created
  * - `userAgent`: Optional browser/client user agent string
+ * - `createdAt`: Timestamp when the session was created
+ * - `updatedAt`: Timestamp when the session was last updated
  * **Relationships:**
  * - Belongs to one User
  * **Business Logic:**
@@ -70,18 +77,22 @@ model User {
  * - IP and user agent help with security monitoring
  */
 model Session {
-  id        String   @id @map("_id")
-  expiresAt DateTime
-  token     String
-  createdAt DateTime
-  updatedAt DateTime
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id String @id @map("_id")
+
+  token String
+
+  ipAddress String? @map("ip_address")
+  userAgent String? @map("user_agent")
+
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
-  @@map("session")
+  @@map("sessions")
 }
 
 /**
@@ -100,6 +111,8 @@ model Session {
  * - `refreshTokenExpiresAt`: Optional expiration for refresh token
  * - `scope`: Optional OAuth scope string
  * - `password`: Optional hashed password (for credential provider)
+ * - `createdAt`: Timestamp when the account was created
+ * - `updatedAt`: Timestamp when the account was last updated
  * **Relationships:**
  * - Belongs to one User
  * **Business Logic:**
@@ -109,22 +122,28 @@ model Session {
  * - When a user is deleted, all their accounts are cascade deleted
  */
 model Account {
-  id                    String    @id @map("_id")
-  accountId             String
-  providerId            String
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?
-  createdAt             DateTime
-  updatedAt             DateTime
+  id String @id @map("_id")
 
-  @@map("account")
+  accountId  String @map("account_id")
+  providerId String @map("provider_id")
+
+  scope    String?
+  password String?
+
+  accessToken  String? @map("access_token")
+  refreshToken String? @map("refresh_token")
+  idToken      String? @map("id_token")
+
+  accessTokenExpiresAt  DateTime? @map("access_token_expires_at")
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at")
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("accounts")
 }
 
 /**
@@ -136,6 +155,8 @@ model Account {
  * - `identifier`: What is being verified (e.g., email address)
  * - `value`: The verification token or code
  * - `expiresAt`: Timestamp when the verification expires
+ * - `createdAt`: Optional timestamp when the verification was created
+ * - `updatedAt`: Optional timestamp when the verification was last updated
  * **Business Logic:**
  * - Verification tokens are time-limited for security
  * - Used for email verification, password resets, etc.
@@ -144,11 +165,13 @@ model Account {
  */
 model Verification {
   id         String    @id @map("_id")
+
   identifier String
   value      String
-  expiresAt  DateTime
-  createdAt  DateTime?
-  updatedAt  DateTime?
+  
+  expiresAt  DateTime  @map("expires_at")
+  createdAt  DateTime? @map("created_at")
+  updatedAt  DateTime? @map("updated_at")
 
-  @@map("verification")
+  @@map("verifications")
 }

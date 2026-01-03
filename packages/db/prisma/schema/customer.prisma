@@ -7,6 +7,8 @@
  * - `name`: Customer's name
  * - `phone`: Customer's phone number (used for identification)
  * - `storeId`: Reference to the Store this customer belongs to
+ * - `createdAt`: Timestamp when the customer was created
+ * - `updatedAt`: Timestamp when the customer was last updated
  * **Relationships:**
  * - Belongs to one Store
  * - Has many Orders
@@ -25,12 +27,12 @@ model Customer {
 
   orders Order[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  storeId String @map("storeid")
+  storeId String @map("store_id")
   store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@unique([phone, storeId])
-  @@map("customer")
+  @@map("customers")
 }
