@@ -6,7 +6,12 @@ const withNextIntl = createNextIntlPlugin("./src/lib/i18n.ts");
 const nextConfig: NextConfig = {
 	reactCompiler: true,
 	transpilePackages: ["@dukkani/ui"],
-	serverExternalPackages: ["@prisma/client"],
+	serverExternalPackages: [
+		"@prisma/client",
+		"pino",
+		"pino-pretty",
+		"thread-stream",
+	],
 };
 
 export default withNextIntl(nextConfig);

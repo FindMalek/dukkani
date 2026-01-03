@@ -1,5 +1,4 @@
 import { Transform } from "node:stream";
-import pino from "pino";
 
 /**
  * Custom synchronous formatter for development
@@ -62,39 +61,75 @@ class PrettyFormatter extends Transform {
 }
 
 /**
+ * Console logger for production (matches pino API)
+ */
+const createConsoleLogger = () => {
+	const log = (obj: unknown, msg?: string) => {
+		if (msg) {
+			console.log(msg, obj);
+		} else {
+			console.log(obj);
+		}
+	};
+
+	return {
+		trace: log,
+		debug: log,
+		info: log,
+		warn: (obj: unknown, msg?: string) => {
+			if (msg) {
+				console.warn(msg, obj);
+			} else {
+				console.warn(obj);
+			}
+		},
+		error: (obj: unknown, msg?: string) => {
+			if (msg) {
+				console.error(msg, obj);
+			} else {
+				console.error(obj);
+			}
+		},
+		fatal: (obj: unknown, msg?: string) => {
+			if (msg) {
+				console.error(msg, obj);
+			} else {
+				console.error(obj);
+			}
+		},
+	};
+};
+
+/**
  * Logger configuration based on environment
- * - Development: Pretty-printed logs with timestamps (synchronous, no worker threads)
- * - Production: Structured JSON logs
+ * - Development: Pretty-printed logs with timestamps using pino (synchronous, no worker threads)
+ * - Production: Simple console.log/error/warn
  */
 const isDevelopment = process.env.NODE_ENV !== "production";
 
-// Create formatter and pipe to stdout in development
-const prettyFormatter = isDevelopment ? new PrettyFormatter() : undefined;
-if (prettyFormatter) {
-	prettyFormatter.pipe(process.stdout);
-}
+let logger: ReturnType<typeof createConsoleLogger>;
 
-export const logger = isDevelopment
-	? pino(
-			{
-				level: process.env.LOG_LEVEL || "info",
-				formatters: {
-					level: (label) => {
-						return { level: label.toUpperCase() };
-					},
-				},
-				timestamp: pino.stdTimeFunctions.isoTime,
-			},
-			prettyFormatter,
-		)
-	: pino({
+if (isDevelopment) {
+	// Dynamic import pino only in development
+	const pino = require("pino");
+	const prettyFormatter = new PrettyFormatter();
+	prettyFormatter.pipe(process.stdout);
+
+	logger = pino(
+		{
 			level: process.env.LOG_LEVEL || "info",
 			formatters: {
-				level: (label) => {
+				level: (label: string) => {
 					return { level: label.toUpperCase() };
 				},
 			},
 			timestamp: pino.stdTimeFunctions.isoTime,
-		});
+		},
+		prettyFormatter,
+	);
+} else {
+	logger = createConsoleLogger();
+}
 
+export { logger };
 export default logger;

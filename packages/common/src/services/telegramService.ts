@@ -717,7 +717,10 @@ ${itemsText}
 				} catch (sendError) {
 					// If we can't send error message, log it but don't throw
 					// This prevents infinite error loops
-					logger.error({ error: sendError }, "Failed to send error message to user");
+					logger.error(
+						{ error: sendError },
+						"Failed to send error message to user",
+					);
 				}
 			} else {
 				// Log error when we can't send message to user
