@@ -11,6 +11,8 @@
  * - `notes`: Optional special instructions or notes
  * - `storeId`: Reference to the Store where the order was placed
  * - `customerId`: Optional reference to a registered Customer (null for guest orders)
+ * - `createdAt`: Timestamp when the order was created
+ * - `updatedAt`: Timestamp when the order was last updated
  * **Relationships:**
  * - Belongs to one Store
  * - Optionally belongs to one Customer (can be null for guest orders)
@@ -27,23 +29,22 @@ model Order {
 
   status OrderStatus
 
-  customerName  String @map("customername")
-  customerPhone String @map("customerphone")
+  customerName  String @map("customer_name")
+  customerPhone String @map("customer_phone")
 
   address String?
-
-  notes String?
+  notes   String?
 
   orderItems       OrderItem[]
   whatsappMessages WhatsAppMessage[]
 
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
-  storeId String @map("storeid")
+  storeId String @map("store_id")
   store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
-  customerId String?   @map("customerid")
+  customerId String?   @map("customer_id")
   customer   Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
 
   @@map("orders")
@@ -59,6 +60,8 @@ model Order {
  * - `productId`: Reference to the Product being ordered
  * - `quantity`: Number of units ordered
  * - `price`: Price per unit at the time of order (stored as Decimal for accuracy)
+ * - `createdAt`: Timestamp when the order item was created
+ * - `updatedAt`: Timestamp when the order item was last updated
  * **Relationships:**
  * - Belongs to one Order
  * - Belongs to one Product
@@ -70,17 +73,17 @@ model Order {
 model OrderItem {
   id String @id @default(cuid())
 
-  orderId   String @map("orderid")
-  productId String @map("productid")
+  orderId   String @map("order_id")
+  productId String @map("product_id")
 
   quantity Int
   price    Decimal @db.Decimal(10, 2)
 
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
   order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  @@map("orderitem")
+  @@map("order_items")
 }

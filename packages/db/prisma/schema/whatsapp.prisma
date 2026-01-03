@@ -7,8 +7,10 @@
  * - `orderId`: Reference to the Order this message is related to
  * - `messageId`: External message ID from WhatsApp API
  * - `content`: The message content/text
- * - `sentAt`: Timestamp when the message was sent
  * - `status`: Current delivery status (PENDING, SENT, DELIVERED, READ, FAILED)
+ * - `sentAt`: Timestamp when the message was sent
+ * - `createdAt`: Timestamp when the message record was created
+ * - `updatedAt`: Timestamp when the message was last updated
  * **Relationships:**
  * - Belongs to one Order
  * **Business Logic:**
@@ -22,14 +24,14 @@ model WhatsAppMessage {
 
   status    WhatsAppMessageStatus
   content   String                @map("content")
-  messageId String                @map("messageid")
+  messageId String                @map("message_id")
 
-  updatedAt DateTime @updatedAt
-  sentAt    DateTime @map("sentat")
-  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @map("updated_at")
+  sentAt    DateTime @map("sent_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
-  orderId String @map("orderid")
+  orderId String @map("order_id")
   order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
-  @@map("whatsappmessage")
+  @@map("whatsapp_messages")
 }

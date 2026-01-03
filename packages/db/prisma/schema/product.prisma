@@ -10,6 +10,8 @@
  * - `stock`: Current inventory count
  * - `published`: Whether the product is visible to customers (default: false)
  * - `storeId`: Reference to the Store that owns this product
+ * - `createdAt`: Timestamp when the product was created
+ * - `updatedAt`: Timestamp when the product was last updated
  * **Relationships:**
  * - Belongs to one Store
  * - Has many Images (product photos)
@@ -33,13 +35,13 @@ model Product {
   images     Image[]
   orderItems OrderItem[]
 
-  updatedAt DateTime @updatedAt
-  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
-  storeId String @map("storeid")
+  storeId String @map("store_id")
   store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
-  @@map("product")
+  @@map("products")
 }
 
 /**
@@ -50,6 +52,8 @@ model Product {
  * - `id`: Unique identifier (CUID)
  * - `url`: URL of the image (can be external or internal)
  * - `productId`: Reference to the Product this image belongs to
+ * - `createdAt`: Timestamp when the image was created
+ * - `updatedAt`: Timestamp when the image was last updated
  * **Relationships:**
  * - Belongs to one Product
  * **Business Logic:**
@@ -61,11 +65,11 @@ model Image {
   id  String @id @default(cuid())
   url String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  productId String  @map("productid")
+  productId String  @map("product_id")
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  @@map("image")
+  @@map("images")
 }
