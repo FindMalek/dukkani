@@ -1,3 +1,4 @@
+import { logger } from "@dukkani/logger";
 import { createContext } from "@dukkani/orpc/context";
 import { appRouter } from "@dukkani/orpc/routers/index";
 import { OpenAPIHandler } from "@orpc/openapi/fetch";
@@ -11,7 +12,7 @@ import { getCorsHeaders } from "@/lib/cors";
 const rpcHandler = new RPCHandler(appRouter, {
 	interceptors: [
 		onError((error) => {
-			console.error(error);
+			logger.error(error);
 		}),
 	],
 });
@@ -31,7 +32,7 @@ const apiHandler = new OpenAPIHandler(appRouter, {
 	],
 	interceptors: [
 		onError((error) => {
-			console.error(error);
+			logger.error(error);
 		}),
 	],
 });
@@ -40,13 +41,11 @@ async function handleRequest(req: NextRequest) {
 	const origin = req.headers.get("origin");
 	const corsHeaders = getCorsHeaders(origin);
 
-	// Handle RPC requests
 	const rpcResult = await rpcHandler.handle(req, {
 		prefix: "/api",
 		context: await createContext(req.headers),
 	});
 	if (rpcResult.response) {
-		// Add CORS headers to the response
 		const response = rpcResult.response;
 		Object.entries(corsHeaders).forEach(([key, value]) => {
 			response.headers.set(key, String(value));
@@ -54,13 +53,11 @@ async function handleRequest(req: NextRequest) {
 		return response;
 	}
 
-	// Handle OpenAPI requests (playground and spec)
 	const apiResult = await apiHandler.handle(req, {
 		prefix: "/api",
 		context: await createContext(req.headers),
 	});
 	if (apiResult.response) {
-		// Add CORS headers to the response
 		const response = apiResult.response;
 		Object.entries(corsHeaders).forEach(([key, value]) => {
 			response.headers.set(key, String(value));
@@ -81,10 +78,10 @@ export const PUT = handleRequest;
 export const PATCH = handleRequest;
 export const DELETE = handleRequest;
 
-// Handle OPTIONS requests for CORS preflight
 export async function OPTIONS(req: NextRequest) {
 	const origin = req.headers.get("origin");
 	const corsHeaders = getCorsHeaders(origin);
+
 	return new Response(null, {
 		status: 204,
 		headers: corsHeaders,

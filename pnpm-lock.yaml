@@ -177,6 +177,9 @@ importers:
       '@dukkani/env':
         specifier: workspace:*
         version: link:../../packages/env
+      '@dukkani/logger':
+        specifier: workspace:*
+        version: link:../../packages/logger
       '@dukkani/orpc':
         specifier: workspace:*
         version: link:../../packages/orpc
@@ -711,6 +714,9 @@ importers:
       '@dukkani/env':
         specifier: workspace:*
         version: link:../env
+      '@dukkani/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@dukkani/storage':
         specifier: workspace:*
         version: link:../storage
