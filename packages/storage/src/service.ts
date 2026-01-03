@@ -2,6 +2,7 @@ import type {
 	ProcessedImage,
 	StorageFileResult,
 } from "@dukkani/common/schemas/storage/output";
+import { logger } from "@dukkani/logger";
 import { nanoid } from "nanoid";
 import { storageClient } from "./client";
 import { env } from "./env";
@@ -82,7 +83,7 @@ export class StorageService {
 				processedImage = await ImageProcessor.processImage(file);
 			} catch (error) {
 				// If image processing fails, upload original
-				console.warn("Image processing failed, uploading original:", error);
+				logger.warn({ error }, "Image processing failed, uploading original");
 			}
 		}
 
@@ -124,9 +125,9 @@ export class StorageService {
 							});
 
 					if (variantError) {
-						console.warn(
-							`Failed to upload variant ${variant.variant}:`,
-							variantError,
+						logger.warn(
+							{ variant: variant.variant, error: variantError },
+							"Failed to upload variant",
 						);
 						return null;
 					}
@@ -207,7 +208,7 @@ export class StorageService {
 
 		// If there are errors, log them but still return successful uploads
 		if (errors.length > 0) {
-			console.warn("Some files failed to upload:", errors);
+			logger.warn({ errors }, "Some files failed to upload");
 		}
 
 		return successful;

@@ -44,6 +44,7 @@
 	"dependencies": {
 		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*",
+		"@dukkani/logger": "workspace:*",
 		"@prisma/client": "catalog:",
 		"@formatjs/intl-localematcher": "catalog:",
 		"negotiator": "catalog:",

@@ -19,6 +19,7 @@ import {
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { StorageService as StorageDbService } from "@dukkani/common/services/storageService";
 import { database } from "@dukkani/db";
+import { logger } from "@dukkani/logger";
 import { StorageService } from "@dukkani/storage";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
@@ -181,7 +182,7 @@ export const storageRouter = {
 						}
 					} catch {
 						// If URL parsing fails, skip this variant
-						console.warn("Failed to parse variant URL:", variant.url);
+						logger.warn({ url: variant.url }, "Failed to parse variant URL");
 					}
 				}
 
@@ -254,7 +255,7 @@ export const storageRouter = {
 							}
 						} catch {
 							// If URL parsing fails, skip this variant
-							console.warn("Failed to parse variant URL:", variant.url);
+							logger.warn({ url: variant.url }, "Failed to parse variant URL");
 						}
 					}
 
@@ -287,10 +288,9 @@ export const storageRouter = {
 						} catch (error) {
 							// Log for cleanup - DB records are already deleted
 							storageErrors.push({ bucket, paths: allPaths, error });
-							console.error(
-								"Failed to delete storage files, orphaned:",
-								{ bucket, paths: allPaths },
-								error,
+							logger.error(
+								{ bucket, paths: allPaths, error },
+								"Failed to delete storage files, orphaned",
 							);
 						}
 					}

@@ -1,4 +1,5 @@
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
+import { logger } from "@dukkani/logger";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { isAuthError } from "@/lib/auth-client";
@@ -48,12 +49,14 @@ export default async function OnboardingPage({
 		}
 
 		// For non-auth errors, log and rethrow so Next.js error boundary can handle it
-		console.error("Error fetching user data in onboarding page:", {
-			error,
-			code: (error as { code?: string })?.code,
-			status: (error as { status?: number })?.status,
-			message: error instanceof Error ? error.message : String(error),
-		});
+		logger.error(
+			{
+				error,
+				code: (error as { code?: string })?.code,
+				status: (error as { status?: number })?.status,
+			},
+			"Error fetching user data in onboarding page",
+		);
 
 		// Rethrow the error so Next.js can handle it with error boundary
 		throw error;

@@ -1,5 +1,6 @@
 import { TelegramService } from "@dukkani/common/services";
 import { apiEnv } from "@dukkani/env";
+import { logger } from "@dukkani/logger";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getCorsHeaders } from "@/lib/cors";
@@ -19,7 +20,7 @@ const webhookHandlers: Record<string, WebhookHandler> = {
 			await TelegramService.processWebhookUpdate(telegramUpdate);
 			return NextResponse.json({ ok: true });
 		} catch (error) {
-			console.error("Telegram webhook error:", error);
+			logger.error({ error, provider: "telegram" }, "Telegram webhook error");
 			return NextResponse.json({ ok: true }, { status: 200 });
 		}
 	},

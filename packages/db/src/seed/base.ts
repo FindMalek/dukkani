@@ -1,3 +1,4 @@
+import { logger } from "@dukkani/logger";
 import type { PrismaClient } from "../../prisma/generated/client";
 
 /**
@@ -37,13 +38,13 @@ export abstract class BaseSeeder implements Seeder {
 	 * Log a message with the seeder name prefix
 	 */
 	protected log(message: string): void {
-		console.log(`[${this.name}] ${message}`);
+		logger.info({ seeder: this.name }, message);
 	}
 
 	/**
 	 * Log an error with the seeder name prefix
 	 */
 	protected error(message: string, error?: unknown): void {
-		console.error(`[${this.name}] ${message}`, error);
+		logger.error({ seeder: this.name, error }, message);
 	}
 }

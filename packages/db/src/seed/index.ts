@@ -1,5 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { logger } from "@dukkani/logger";
 import dotenv from "dotenv";
 
 // Load .env from db package root BEFORE any imports that use env validation
@@ -25,7 +26,7 @@ export async function seed(): Promise<void> {
 		"./seeders"
 	);
 
-	console.log("🌱 Starting database seeding...\n");
+	logger.info("Starting database seeding");
 
 	// Initialize database before using it
 	dbModule.initializeDatabase({
@@ -50,27 +51,31 @@ export async function seed(): Promise<void> {
 		// Execute each seeder
 		for (const seeder of sortedSeeders) {
 			try {
-				console.log(`\n📦 Running ${seeder.name}...`);
+				logger.info({ seeder: seeder.name }, "Running seeder");
 				await seeder.seed(database);
-				console.log(`✅ ${seeder.name} completed`);
+				logger.info({ seeder: seeder.name }, "Seeder completed");
 			} catch (error) {
-				console.error(`❌ ${seeder.name} failed:`, error);
+				logger.error({ seeder: seeder.name, error }, "Seeder failed");
 				throw error; // Re-throw to stop seeding on error
 			}
 		}
 
 		// Display seeded data summary
 		const seededData = getSeededData();
-		console.log("\n📊 Seeding Summary:");
-		console.log(`   Users: ${seededData.users.length}`);
-		console.log(`   Stores: ${seededData.stores.length}`);
-		console.log(`   Products: ${seededData.products.length}`);
-		console.log(`   Customers: ${seededData.customers.length}`);
-		console.log(`   Orders: ${seededData.orders.length}`);
+		logger.info(
+			{
+				users: seededData.users.length,
+				stores: seededData.stores.length,
+				products: seededData.products.length,
+				customers: seededData.customers.length,
+				orders: seededData.orders.length,
+			},
+			"Seeding summary",
+		);
 
-		console.log("\n✨ Database seeding completed successfully!");
+		logger.info("Database seeding completed successfully");
 	} catch (error) {
-		console.error("\n💥 Database seeding failed:", error);
+		logger.error({ error }, "Database seeding failed");
 		throw error;
 	} finally {
 		await database.$disconnect();
@@ -79,6 +84,6 @@ export async function seed(): Promise<void> {
 
 // Run the seed function when this file is executed directly
 seed().catch((error) => {
-	console.error(error);
+	logger.error({ error }, "Seed script error");
 	process.exit(1);
 });
