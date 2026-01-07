@@ -11,6 +11,10 @@ export const apiEnv = createEnv({
 	server: {
 		TELEGRAM_API_TOKEN: z.string(),
 		TELEGRAM_WEBHOOK_SECRET: z.string(),
+		BETTER_STACK_API_KEY: z.string().optional(),
+		OTEL_SERVICE_NAME: z.string(),
+		OTEL_SAMPLING_RATE: z.coerce.number().min(0).max(1),
+		OTEL_ENABLED: z.boolean(),
 	},
 	client: {
 		NEXT_PUBLIC_DASHBOARD_URL: z.url(),
