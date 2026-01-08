@@ -1,5 +1,7 @@
 import { Resource } from "@opentelemetry/resources";
+import { BatchLogRecordProcessor } from "@opentelemetry/sdk-logs";
 import { NodeSDK } from "@opentelemetry/sdk-node";
+import { TraceIdRatioBasedSampler } from "@opentelemetry/sdk-trace-base";
 import {
 	SEMRESATTRS_DEPLOYMENT_ENVIRONMENT,
 	SEMRESATTRS_SERVICE_NAME,
@@ -7,7 +9,6 @@ import {
 } from "@opentelemetry/semantic-conventions";
 import {
 	createBetterStackLogExporter,
-	createBetterStackMetricsExporter,
 	createBetterStackTraceExporter,
 } from "./better-stack";
 import { getInstrumentations } from "./instrumentations";
@@ -24,6 +25,8 @@ let sdk: NodeSDK | null = null;
 
 /**
  * Initialize OpenTelemetry SDK
+ * Aligned with Next.js OpenTelemetry best practices
+ * @see https://nextjs.org/docs/app/guides/open-telemetry
  */
 export function initializeSDK(config: TracingConfig): NodeSDK | null {
 	if (config.enabled === false) {
@@ -40,6 +43,7 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 		config.environment ?? process.env.NODE_ENV ?? "development";
 
 	// Create resource with service information
+	// Using Resource directly (Next.js uses resourceFromAttributes helper, but Resource works too)
 	const resource = new Resource({
 		[SEMRESATTRS_SERVICE_NAME]: config.serviceName,
 		[SEMRESATTRS_SERVICE_VERSION]: process.env.npm_package_version ?? "0.0.0",
@@ -51,20 +55,24 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 		config.betterStackApiKey,
 	);
 	const logExporter = createBetterStackLogExporter(config.betterStackApiKey);
-	const metricsExporter = createBetterStackMetricsExporter(
-		config.betterStackApiKey,
-	);
+	
+	// Note: Metrics temporarily disabled due to version conflicts
+	// Will be re-enabled once we resolve SDK version compatibility
 
-	// Create SDK - only pass traceExporter and let NodeSDK handle the rest
-	// This avoids version conflicts
+	// Create SDK following Next.js OpenTelemetry patterns
+	// Next.js automatically instruments HTTP requests, so we don't need to add that manually
 	sdk = new NodeSDK({
 		resource,
 		instrumentations: getInstrumentations(),
 		traceExporter,
-		// Sampling configuration - use simple ratio-based sampling
-		// NodeSDK will handle this internally if we don't provide a sampler
-		// For now, skip explicit sampler to avoid import issues
-		// Sampling can be configured via environment variables if needed
+		logRecordProcessor: logExporter
+			? new BatchLogRecordProcessor(logExporter, {
+					maxExportBatchSize: 512,
+					exportTimeoutMillis: 30000,
+				})
+			: undefined,
+		// Sampling configuration - Next.js supports sampling via sampler
+		sampler: new TraceIdRatioBasedSampler(samplingRate),
 	});
 
 	// Start SDK

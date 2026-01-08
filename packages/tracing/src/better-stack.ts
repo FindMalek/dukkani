@@ -22,44 +22,47 @@ function getHeaders(apiKey: string): Record<string, string> {
 }
 
 /**
+ * Generic factory function to create exporters
+ */
+function createExporter<T>(
+	Exporter: new (config: { url: string; headers: Record<string, string> }) => T,
+	url: string,
+	apiKey?: string,
+): T | undefined {
+	if (!apiKey) {
+		return undefined;
+	}
+	return new Exporter({
+		url,
+		headers: getHeaders(apiKey),
+	});
+}
+
+/**
  * Create Better Stack trace exporter
  */
 export function createBetterStackTraceExporter(apiKey?: string) {
-	if (!apiKey) {
-		// Return console exporter for local development
-		return undefined;
-	}
-
-	return new OTLPTraceExporter({
-		url: BETTER_STACK_ENDPOINTS.traces,
-		headers: getHeaders(apiKey),
-	});
+	return createExporter(
+		OTLPTraceExporter,
+		BETTER_STACK_ENDPOINTS.traces,
+		apiKey,
+	);
 }
 
 /**
  * Create Better Stack log exporter
  */
 export function createBetterStackLogExporter(apiKey?: string) {
-	if (!apiKey) {
-		return undefined;
-	}
-
-	return new OTLPLogExporter({
-		url: BETTER_STACK_ENDPOINTS.logs,
-		headers: getHeaders(apiKey),
-	});
+	return createExporter(OTLPLogExporter, BETTER_STACK_ENDPOINTS.logs, apiKey);
 }
 
 /**
  * Create Better Stack metrics exporter
  */
 export function createBetterStackMetricsExporter(apiKey?: string) {
-	if (!apiKey) {
-		return undefined;
-	}
-
-	return new OTLPMetricExporter({
-		url: BETTER_STACK_ENDPOINTS.metrics,
-		headers: getHeaders(apiKey),
-	});
+	return createExporter(
+		OTLPMetricExporter,
+		BETTER_STACK_ENDPOINTS.metrics,
+		apiKey,
+	);
 }
