@@ -1,14 +1,16 @@
 import { Resource } from "@opentelemetry/resources";
 import { BatchLogRecordProcessor } from "@opentelemetry/sdk-logs";
+import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { NodeSDK } from "@opentelemetry/sdk-node";
 import { TraceIdRatioBasedSampler } from "@opentelemetry/sdk-trace-base";
 import {
-	SEMRESATTRS_DEPLOYMENT_ENVIRONMENT,
 	SEMRESATTRS_SERVICE_NAME,
 	SEMRESATTRS_SERVICE_VERSION,
+	SEMRESATTRS_DEPLOYMENT_ENVIRONMENT,
 } from "@opentelemetry/semantic-conventions";
 import {
 	createBetterStackLogExporter,
+	createBetterStackMetricsExporter,
 	createBetterStackTraceExporter,
 } from "./better-stack";
 import { getInstrumentations } from "./instrumentations";
@@ -43,7 +45,7 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 		config.environment ?? process.env.NODE_ENV ?? "development";
 
 	// Create resource with service information
-	// Using Resource directly (Next.js uses resourceFromAttributes helper, but Resource works too)
+	// Using Resource constructor (resourceFromAttributes is not available in v1.30.0)
 	const resource = new Resource({
 		[SEMRESATTRS_SERVICE_NAME]: config.serviceName,
 		[SEMRESATTRS_SERVICE_VERSION]: process.env.npm_package_version ?? "0.0.0",
@@ -55,23 +57,24 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 		config.betterStackApiKey,
 	);
 	const logExporter = createBetterStackLogExporter(config.betterStackApiKey);
-	
-	// Note: Metrics temporarily disabled due to version conflicts
-	// Will be re-enabled once we resolve SDK version compatibility
+	const metricsExporter = createBetterStackMetricsExporter(
+		config.betterStackApiKey,
+	);
 
 	// Create SDK following Next.js OpenTelemetry patterns
-	// Next.js automatically instruments HTTP requests, so we don't need to add that manually
 	sdk = new NodeSDK({
 		resource,
 		instrumentations: getInstrumentations(),
 		traceExporter,
 		logRecordProcessor: logExporter
-			? new BatchLogRecordProcessor(logExporter, {
-					maxExportBatchSize: 512,
-					exportTimeoutMillis: 30000,
+			? new BatchLogRecordProcessor(logExporter)
+			: undefined,
+		metricReader: metricsExporter
+			? new PeriodicExportingMetricReader({
+					exporter: metricsExporter,
+					exportIntervalMillis: 30000,
 				})
 			: undefined,
-		// Sampling configuration - Next.js supports sampling via sampler
 		sampler: new TraceIdRatioBasedSampler(samplingRate),
 	});
 

@@ -6,7 +6,6 @@
  * but we export utilities for manual log correlation.
  */
 
-import { trace } from "@opentelemetry/api";
 import { getSpanId, getTraceId } from "./utils";
 
 /**

@@ -1,4 +1,4 @@
-import { context, SpanStatusCode, trace } from "@opentelemetry/api";
+import { SpanStatusCode, trace } from "@opentelemetry/api";
 
 /**
  * Helper to create a manual span
