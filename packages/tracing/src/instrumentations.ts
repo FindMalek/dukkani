@@ -9,9 +9,7 @@ import { PrismaInstrumentation } from "@prisma/instrumentation";
  */
 export function getInstrumentations(): Instrumentation[] {
 	const instrumentations: Instrumentation[] = [
-		// HTTP instrumentation - automatically tracks Next.js routes
 		new HttpInstrumentation({
-			// Capture request/response headers using correct property names
 			headersToSpanAttributes: {
 				client: {
 					requestHeaders: [
@@ -29,12 +27,9 @@ export function getInstrumentations(): Instrumentation[] {
 		new FsInstrumentation(),
 
 		// Prisma database instrumentation
-		new PrismaInstrumentation({
-			// Enable middleware tracing
-			middleware: true,
-		}),
+		new PrismaInstrumentation(),
 
-		// Pino logger instrumentation - remove invalid config
+		// Pino logger instrumentation
 		new PinoInstrumentation(),
 	];
 

@@ -47,9 +47,12 @@ export function buildTrustedOrigins(
 	baseOrigins: string[],
 	isVercel: boolean,
 	allowedOriginPattern?: string,
-): string[] | ((request: Request) => string[] | Promise<string[]>) {
+): string[] | ((request?: Request) => string[] | Promise<string[]>) {
 	if (isVercel && allowedOriginPattern) {
-		return (request: Request) => {
+		return (request?: Request) => {
+			if (!request) {
+				return baseOrigins;
+			}
 			const origin = request.headers.get("origin");
 			if (
 				origin &&
