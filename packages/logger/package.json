@@ -13,7 +13,8 @@
 		"clean": "rm -rf dist node_modules"
 	},
 	"dependencies": {
-		"pino": "catalog:"
+		"pino": "catalog:",
+		"@opentelemetry/instrumentation-pino": "latest"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
