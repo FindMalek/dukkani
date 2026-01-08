@@ -1,12 +1,12 @@
-import { Resource } from "@opentelemetry/resources";
+import { resourceFromAttributes } from "@opentelemetry/resources";
 import { BatchLogRecordProcessor } from "@opentelemetry/sdk-logs";
 import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { NodeSDK } from "@opentelemetry/sdk-node";
 import { TraceIdRatioBasedSampler } from "@opentelemetry/sdk-trace-base";
 import {
+	SEMRESATTRS_DEPLOYMENT_ENVIRONMENT,
 	SEMRESATTRS_SERVICE_NAME,
 	SEMRESATTRS_SERVICE_VERSION,
-	SEMRESATTRS_DEPLOYMENT_ENVIRONMENT,
 } from "@opentelemetry/semantic-conventions";
 import {
 	createBetterStackLogExporter,
@@ -44,9 +44,8 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 	const environment =
 		config.environment ?? process.env.NODE_ENV ?? "development";
 
-	// Create resource with service information
-	// Using Resource constructor (resourceFromAttributes is not available in v1.30.0)
-	const resource = new Resource({
+	// Create resource with service information using resourceFromAttributes
+	const resource = resourceFromAttributes({
 		[SEMRESATTRS_SERVICE_NAME]: config.serviceName,
 		[SEMRESATTRS_SERVICE_VERSION]: process.env.npm_package_version ?? "0.0.0",
 		[SEMRESATTRS_DEPLOYMENT_ENVIRONMENT]: environment,
