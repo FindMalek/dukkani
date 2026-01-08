@@ -830,6 +830,9 @@ importers:
 
   packages/tracing:
     dependencies:
+      '@dukkani/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@opentelemetry/api':
         specifier: ^1.9.0
         version: 1.9.0

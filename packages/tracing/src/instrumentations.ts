@@ -35,4 +35,3 @@ export function getInstrumentations(): Instrumentation[] {
 
 	return instrumentations;
 }
-

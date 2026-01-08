@@ -4,8 +4,9 @@ import {
 	healthSimpleOutputSchema,
 } from "@dukkani/common/schemas/health/output";
 import { database } from "@dukkani/db";
-import { publicProcedure } from "../index";
 import { logger } from "@dukkani/logger";
+import { enhanceLogWithTraceContext } from "@dukkani/tracing";
+import { publicProcedure } from "../index";
 
 const HEALTH_CHECK_CONFIG = {
 	DEGRADED_THRESHOLD_MS: 1000,
@@ -37,7 +38,12 @@ export const healthRouter = {
 			dbLatency = dbEndTime - dbStartTime;
 		} catch (error) {
 			dbConnected = false;
-			logger.error(error, "Database connection failed");
+			logger.error(
+				enhanceLogWithTraceContext({
+					error: error instanceof Error ? error.message : String(error),
+				}),
+				"Database connection failed",
+			);
 		}
 
 		// Determine overall health status

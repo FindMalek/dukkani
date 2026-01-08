@@ -47,7 +47,7 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 	const environment =
 		config.environment ?? process.env.NODE_ENV ?? "development";
 
-	// Create resource with service information using resourceFromAttributes
+	// Create resource with service information
 	const resource = resourceFromAttributes({
 		[ATTR_SERVICE_NAME]: config.serviceName,
 		[ATTR_SERVICE_VERSION]: process.env.npm_package_version ?? "0.0.0",

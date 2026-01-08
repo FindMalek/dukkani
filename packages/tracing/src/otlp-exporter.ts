@@ -2,6 +2,7 @@ import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 import { CompressionAlgorithm } from "@opentelemetry/otlp-exporter-base";
+import { logger } from "@dukkani/logger";
 
 export interface OTLPExporterConfig {
 	/**
@@ -43,6 +44,7 @@ function getCompressionAlgorithm(
  * - "Authorization=Basic ..."
  * - "key1=value1,key2=value2"
  * - "key1=value1, key2=value2" (with spaces)
+ * - URL-encoded values (e.g., "Authorization=Basic%20...")
  */
 function parseHeaders(headersString?: string): Record<string, string> {
 	if (!headersString) {
@@ -57,11 +59,66 @@ function parseHeaders(headersString?: string): Record<string, string> {
 		if (key && valueParts.length > 0) {
 			// Rejoin value in case it contains '=' (e.g., base64 strings)
 			const value = valueParts.join("=").trim();
-			headers[key.trim()] = value;
+
+			// Decode URL-encoded values (e.g., %20 -> space)
+			let decodedValue: string;
+			try {
+				decodedValue = decodeURIComponent(value);
+			} catch {
+				// If decoding fails, use original value (might already be decoded)
+				decodedValue = value;
+			}
+
+			headers[key.trim()] = decodedValue;
 		}
 	}
 
 	return headers;
+}
+
+/**
+ * Create OTLP trace exporter with error handling
+ */
+export function createOTLPTraceExporter(
+	config: OTLPExporterConfig,
+): OTLPTraceExporter | undefined {
+	const endpoint = buildEndpoint(
+		config.endpoint,
+		config.tracesEndpoint,
+		"/v1/traces",
+	);
+
+	if (!endpoint) {
+		return undefined;
+	}
+
+	const headers = parseHeaders(config.headers);
+
+	const exporter = new OTLPTraceExporter({
+		url: endpoint,
+		headers,
+		compression: getCompressionAlgorithm(config.compression),
+	});
+
+	// Add error handling for export failures
+	const originalExport = exporter.export.bind(exporter);
+	exporter.export = (spans, resultCallback) => {
+		originalExport(spans, (result) => {
+			if (result.code !== 0 && result.error) {
+				logger.error(
+					{
+						error: result.error.message || String(result.error),
+						endpoint,
+						spanCount: spans.length,
+					},
+					"Failed to export traces",
+				);
+			}
+			resultCallback(result);
+		});
+	};
+
+	return exporter;
 }
 
 /**
@@ -84,31 +141,6 @@ function buildEndpoint(
 		return `${base}${signalPath}`;
 	}
 	return undefined;
-}
-
-/**
- * Create OTLP trace exporter
- */
-export function createOTLPTraceExporter(
-	config: OTLPExporterConfig,
-): OTLPTraceExporter | undefined {
-	const endpoint = buildEndpoint(
-		config.endpoint,
-		config.tracesEndpoint,
-		"/v1/traces",
-	);
-
-	if (!endpoint) {
-		return undefined;
-	}
-
-	const headers = parseHeaders(config.headers);
-
-	return new OTLPTraceExporter({
-		url: endpoint,
-		headers,
-		compression: getCompressionAlgorithm(config.compression),
-	});
 }
 
 /**
