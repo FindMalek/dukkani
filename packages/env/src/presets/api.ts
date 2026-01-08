@@ -11,10 +11,18 @@ export const apiEnv = createEnv({
 	server: {
 		TELEGRAM_API_TOKEN: z.string(),
 		TELEGRAM_WEBHOOK_SECRET: z.string(),
-		BETTER_STACK_API_KEY: z.string().optional(),
+		// OpenTelemetry configuration
 		OTEL_SERVICE_NAME: z.string(),
 		OTEL_SAMPLING_RATE: z.coerce.number().min(0).max(1),
-		OTEL_ENABLED: z.boolean(),
+		OTEL_ENABLED: z.coerce.boolean(),
+		// OTLP exporter configuration
+		OTEL_EXPORTER_OTLP_ENDPOINT: z.url().optional(),
+		OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: z.url().optional(),
+		OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: z.url().optional(),
+		OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: z.url().optional(),
+		OTEL_EXPORTER_OTLP_HEADERS: z.string().optional(),
+		OTEL_EXPORTER_OTLP_PROTOCOL: z.enum(["http/protobuf"]).optional(),
+		OTEL_EXPORTER_OTLP_COMPRESSION: z.enum(["gzip"]).optional(),
 	},
 	client: {
 		NEXT_PUBLIC_DASHBOARD_URL: z.url(),

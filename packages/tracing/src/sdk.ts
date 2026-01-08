@@ -8,18 +8,22 @@ import {
 	ATTR_SERVICE_VERSION,
 } from "@opentelemetry/semantic-conventions";
 import {
-	createBetterStackLogExporter,
-	createBetterStackMetricsExporter,
-	createBetterStackTraceExporter,
-} from "./better-stack";
+	createOTLPLogExporter,
+	createOTLPMetricExporter,
+	createOTLPTraceExporter,
+	type OTLPExporterConfig,
+} from "./otlp-exporter";
 import { getInstrumentations } from "./instrumentations";
 
 export interface TracingConfig {
 	serviceName: string;
-	betterStackApiKey?: string;
 	samplingRate?: number;
 	enabled?: boolean;
 	environment?: string;
+	/**
+	 * OTLP exporter configuration
+	 */
+	otlp?: OTLPExporterConfig;
 }
 
 let sdk: NodeSDK | null = null;
@@ -50,14 +54,16 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 		["deployment.environment.name"]: environment,
 	});
 
-	// Create exporters
-	const traceExporter = createBetterStackTraceExporter(
-		config.betterStackApiKey,
-	);
-	const logExporter = createBetterStackLogExporter(config.betterStackApiKey);
-	const metricsExporter = createBetterStackMetricsExporter(
-		config.betterStackApiKey,
-	);
+	// Create exporters from OTLP config
+	const traceExporter = config.otlp
+		? createOTLPTraceExporter(config.otlp)
+		: undefined;
+	const logExporter = config.otlp
+		? createOTLPLogExporter(config.otlp)
+		: undefined;
+	const metricsExporter = config.otlp
+		? createOTLPMetricExporter(config.otlp)
+		: undefined;
 
 	// Create SDK following Next.js OpenTelemetry patterns
 	sdk = new NodeSDK({

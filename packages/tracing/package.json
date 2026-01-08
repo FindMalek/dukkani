@@ -29,7 +29,7 @@
 		"@opentelemetry/sdk-trace-base": "^2.3.0",
 		"@opentelemetry/semantic-conventions": "^1.38.0",
 		"@orpc/otel": "catalog:",
-		"@prisma/instrumentation": "^5.9.0",
+		"@prisma/instrumentation": "catalog:",
 		"pino": "catalog:"
 	},
 	"devDependencies": {
