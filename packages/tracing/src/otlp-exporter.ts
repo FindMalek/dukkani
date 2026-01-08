@@ -1,7 +1,7 @@
 import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
-import type { CompressionAlgorithm } from "@opentelemetry/otlp-exporter-base";
+import { CompressionAlgorithm } from "@opentelemetry/otlp-exporter-base";
 
 export interface OTLPExporterConfig {
 	/**
@@ -20,12 +20,71 @@ export interface OTLPExporterConfig {
 	 */
 	headers?: string;
 	/**
-	 * Compression: 'gzip' or undefined
+	 * Compression: 'gzip' string from env, will be converted to CompressionAlgorithm
 	 */
-	compression?: CompressionAlgorithm;
+	compression?: "gzip";
 }
 
-// ... existing parseHeaders and buildEndpoint functions ...
+/**
+ * Convert compression string to CompressionAlgorithm enum
+ */
+function getCompressionAlgorithm(
+	compression?: "gzip",
+): CompressionAlgorithm | undefined {
+	if (compression === "gzip") {
+		return CompressionAlgorithm.GZIP;
+	}
+	return undefined;
+}
+
+/**
+ * Parse headers string into object
+ * Supports formats:
+ * - "Authorization=Basic ..."
+ * - "key1=value1,key2=value2"
+ * - "key1=value1, key2=value2" (with spaces)
+ */
+function parseHeaders(headersString?: string): Record<string, string> {
+	if (!headersString) {
+		return {};
+	}
+
+	const headers: Record<string, string> = {};
+	const pairs = headersString.split(",").map((pair) => pair.trim());
+
+	for (const pair of pairs) {
+		const [key, ...valueParts] = pair.split("=");
+		if (key && valueParts.length > 0) {
+			// Rejoin value in case it contains '=' (e.g., base64 strings)
+			const value = valueParts.join("=").trim();
+			headers[key.trim()] = value;
+		}
+	}
+
+	return headers;
+}
+
+/**
+ * Build endpoint URL for a signal type
+ * If per-signal endpoint is provided, use it
+ * Otherwise, append signal path to base endpoint
+ */
+function buildEndpoint(
+	baseEndpoint: string | undefined,
+	signalEndpoint: string | undefined,
+	signalPath: string,
+): string | undefined {
+	if (signalEndpoint) {
+		return signalEndpoint;
+	}
+	if (baseEndpoint) {
+		// Remove trailing slash if present
+		const base = baseEndpoint.replace(/\/$/, "");
+		// Append signal path
+		return `${base}${signalPath}`;
+	}
+	return undefined;
+}
 
 /**
  * Create OTLP trace exporter
@@ -48,7 +107,7 @@ export function createOTLPTraceExporter(
 	return new OTLPTraceExporter({
 		url: endpoint,
 		headers,
-		compression: config.compression,
+		compression: getCompressionAlgorithm(config.compression),
 	});
 }
 
@@ -73,7 +132,7 @@ export function createOTLPLogExporter(
 	return new OTLPLogExporter({
 		url: endpoint,
 		headers,
-		compression: config.compression,
+		compression: getCompressionAlgorithm(config.compression),
 	});
 }
 
@@ -98,6 +157,6 @@ export function createOTLPMetricExporter(
 	return new OTLPMetricExporter({
 		url: endpoint,
 		headers,
-		compression: config.compression,
+		compression: getCompressionAlgorithm(config.compression),
 	});
 }
