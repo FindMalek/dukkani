@@ -28,7 +28,7 @@
 		"build": "tsdown",
 		"db:push": "dotenvx run -f ../../.env -- prisma db push",
 		"db:studio": "dotenvx run -f ../../.env -- prisma studio",
-		"db:generate": "dotenvx run -f ../../.env --env=\"CI=true\" -- prisma generate",
+		"db:generate": "dotenvx run -f ../../.env --env=\"CI=true\" --ignore=MISSING_ENV_FILE -- prisma generate",
 		"db:migrate": "dotenvx run -f ../../.env -- prisma migrate dev",
 		"db:migrate:deploy": "prisma migrate deploy",
 		"db:reset": "dotenvx run -f ../../.env -- prisma migrate reset --force",
