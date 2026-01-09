@@ -4,6 +4,7 @@ packages:
 
 catalog:
   '@biomejs/biome': ^2.3.5
+  '@dotenvx/dotenvx': ^1.51.4
   '@formatjs/intl-localematcher': ^0.6.2
   '@orpc/client': ^1.11.2
   '@orpc/openapi': ^1.11.2
