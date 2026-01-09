@@ -1,4 +1,5 @@
 import { Transform } from "node:stream";
+import pino from "pino";
 
 /**
  * Custom synchronous formatter for development
@@ -110,8 +111,6 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 let logger: ReturnType<typeof createConsoleLogger>;
 
 if (isDevelopment) {
-	// Dynamic import pino only in development
-	const pino = require("pino");
 	const prettyFormatter = new PrettyFormatter();
 	prettyFormatter.pipe(process.stdout);
 
