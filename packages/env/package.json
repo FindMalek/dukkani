@@ -39,6 +39,10 @@
 		"./storefront": {
 			"types": "./src/presets/storefront.ts",
 			"default": "./src/presets/storefront.ts"
+		},
+		"./db": {
+			"types": "./src/presets/v1/db.ts",
+			"default": "./src/presets/v1/db.ts"
 		}
 	},
 	"dependencies": {
