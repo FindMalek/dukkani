@@ -24,7 +24,7 @@
 		}
 	},
 	"scripts": {
-		"postinstall": "CI=true prisma generate",
+		"postinstall": "pnpm db:generate",
 		"build": "tsdown",
 		"db:push": "prisma db push",
 		"db:studio": "prisma studio",
