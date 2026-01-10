@@ -1,12 +1,15 @@
 import { database } from "@dukkani/db";
 import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
 import { logger } from "@dukkani/logger";
-import { addSpanAttributes, Trace } from "@dukkani/tracing";
+import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { OrderIncludeOutput } from "../schemas/order/output";
 import { TelegramService } from "./telegramService";
 
-export class NotificationService {
-	@Trace("notification.send_order")
+/**
+ * Notification service - Handles sending notifications
+ * All methods are automatically traced via traceStaticClass
+ */
+class NotificationServiceBase {
 	static async sendOrderNotification(
 		storeId: string,
 		order: OrderIncludeOutput,
@@ -100,3 +103,5 @@ export class NotificationService {
 		});
 	}
 }
+
+export const NotificationService = traceStaticClass(NotificationServiceBase);

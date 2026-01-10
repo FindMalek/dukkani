@@ -1,7 +1,4 @@
-import {
-	SpanStatusCode,
-	trace,
-} from "@opentelemetry/api";
+import { SpanStatusCode, trace } from "@opentelemetry/api";
 
 /**
  * Helper to create a manual span
@@ -93,7 +90,11 @@ export function addSpanEvent(
  *
  * This is for classes with only static methods (like your services)
  */
-export function traceStaticClass<T extends abstract new (...args: never[]) => unknown>(
+export function traceStaticClass<
+	T extends abstract new (
+		...args: never[]
+	) => unknown,
+>(
 	Class: T,
 	options?: {
 		prefix?: string;
@@ -101,7 +102,15 @@ export function traceStaticClass<T extends abstract new (...args: never[]) => un
 	},
 ): T {
 	const prefix = options?.prefix || Class.name.toLowerCase();
-	const exclude = new Set(options?.exclude || ["constructor", "prototype", "length", "name", "prototype"]);
+	const exclude = new Set(
+		options?.exclude || [
+			"constructor",
+			"prototype",
+			"length",
+			"name",
+			"prototype",
+		],
+	);
 
 	// Create a function constructor (for static-only classes, this is never instantiated)
 	const TracedClass = function TracedClassConstructor(
@@ -113,7 +122,9 @@ export function traceStaticClass<T extends abstract new (...args: never[]) => un
 		throw new Error(
 			`Cannot instantiate ${Class.name} - it only has static methods. Use the static methods directly.`,
 		);
-	} as unknown as new (...args: never[]) => unknown;
+	} as unknown as new (
+		...args: never[]
+	) => unknown;
 
 	// Copy prototype to maintain instanceof checks (if needed)
 	TracedClass.prototype = Class.prototype;

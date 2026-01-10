@@ -1,6 +1,6 @@
 import { database } from "@dukkani/db";
 import { generateOrderId } from "@dukkani/db/utils/generate-id";
-import { addSpanAttributes, Trace } from "@dukkani/tracing";
+import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import type { OrderStatus } from "../schemas/order/enums";
@@ -10,8 +10,9 @@ import { ProductService } from "./productService";
 
 /**
  * Order service - Shared business logic for order operations
+ * All methods are automatically traced via traceStaticClass
  */
-export class OrderService {
+class OrderServiceBase {
 	/**
 	 * Generate order ID using store slug
 	 */
@@ -23,7 +24,6 @@ export class OrderService {
 	 * Create order with stock validation and updates
 	 * Wrapped in transaction to ensure atomicity and prevent race conditions
 	 */
-	@Trace("order.create")
 	static async createOrder(
 		input: CreateOrderInput,
 		userId: string,
@@ -94,13 +94,6 @@ export class OrderService {
 				},
 			});
 
-			addSpanAttributes({
-				"order.id": order.id,
-				"order.total_items": order.orderItems.length,
-				"order.status": order.status,
-				"order.has_customer": !!order.customerId,
-			});
-
 			await ProductService.updateMultipleProductStocks(
 				input.orderItems.map((item) => ({
 					productId: item.productId,
@@ -113,13 +106,19 @@ export class OrderService {
 			return createdOrder;
 		});
 
+		addSpanAttributes({
+			"order.id": order.id,
+			"order.total_items": order.orderItems.length,
+			"order.status": order.status,
+			"order.has_customer": !!order.customerId,
+		});
+
 		return OrderEntity.getRo(order);
 	}
 
 	/**
 	 * Update order status
 	 */
-	@Trace("order.update_status")
 	static async updateOrderStatus(
 		orderId: string,
 		status: OrderStatus,
@@ -168,7 +167,6 @@ export class OrderService {
 	 * Delete order and restore stock
 	 * Wrapped in transaction to ensure atomicity
 	 */
-	@Trace("order.delete")
 	static async deleteOrder(orderId: string, userId: string): Promise<void> {
 		addSpanAttributes({
 			"order.id": orderId,
@@ -228,3 +226,5 @@ export class OrderService {
 		});
 	}
 }
+
+export const OrderService = traceStaticClass(OrderServiceBase);

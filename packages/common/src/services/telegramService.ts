@@ -2,7 +2,11 @@ import { randomInt } from "node:crypto";
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
 import { logger } from "@dukkani/logger";
-import { addSpanAttributes, fetchWithTrace, Trace } from "@dukkani/tracing";
+import {
+	addSpanAttributes,
+	fetchWithTrace,
+	traceStaticClass,
+} from "@dukkani/tracing";
 import { StoreQuery } from "../entities/store/query";
 import type { StoreMinimalOutput } from "../schemas/store/output";
 import { OrderService } from "./orderService";
@@ -13,8 +17,10 @@ import { OrderService } from "./orderService";
  * Rate Limiting: Uses simple delay-based rate limiting (MVP approach)
  * TODO: Replace with proper queue system (BullMQ/Redis) for production scale
  * Telegram limit: 30 messages/second globally, 20 messages/minute per user
+ *
+ * All methods are automatically traced via traceStaticClass
  */
-export class TelegramService {
+class TelegramServiceBase {
 	private static readonly BOT_API_URL =
 		`https://api.telegram.org/bot${apiEnv.TELEGRAM_API_TOKEN}`;
 
@@ -168,18 +174,18 @@ export class TelegramService {
 	 */
 	private static async rateLimit(): Promise<void> {
 		const now = Date.now();
-		const timeSinceLastMessage = now - TelegramService.lastMessageTime;
+		const timeSinceLastMessage = now - TelegramServiceBase.lastMessageTime;
 
-		if (timeSinceLastMessage < TelegramService.RATE_LIMIT_DELAY) {
+		if (timeSinceLastMessage < TelegramServiceBase.RATE_LIMIT_DELAY) {
 			await new Promise((resolve) =>
 				setTimeout(
 					resolve,
-					TelegramService.RATE_LIMIT_DELAY - timeSinceLastMessage,
+					TelegramServiceBase.RATE_LIMIT_DELAY - timeSinceLastMessage,
 				),
 			);
 		}
 
-		TelegramService.lastMessageTime = Date.now();
+		TelegramServiceBase.lastMessageTime = Date.now();
 	}
 
 	/**
@@ -195,7 +201,6 @@ export class TelegramService {
 	 * Send message to Telegram chat
 	 * Implements rate limiting (20 messages/second)
 	 */
-	@Trace("telegram.send_message")
 	static async sendMessage(
 		chatId: string,
 		text: string,
@@ -213,11 +218,11 @@ export class TelegramService {
 			"telegram.message_length": text.length,
 		});
 
-		await TelegramService.rateLimit();
+		await TelegramServiceBase.rateLimit();
 
 		// Use fetchWithTrace for context propagation
 		const response = await fetchWithTrace(
-			`${TelegramService.BOT_API_URL}/sendMessage`,
+			`${TelegramServiceBase.BOT_API_URL}/sendMessage`,
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -248,7 +253,6 @@ export class TelegramService {
 	/**
 	 * Send OTP to user's Telegram
 	 */
-	@Trace("telegram.send_otp")
 	static async sendOTP(userId: string, otp: string): Promise<void> {
 		const user = await database.user.findUnique({
 			where: { id: userId },
@@ -259,7 +263,7 @@ export class TelegramService {
 			throw new Error("Telegram account not linked");
 		}
 
-		await TelegramService.sendMessage(
+		await TelegramServiceBase.sendMessage(
 			user.telegramChatId,
 			`🔐 <b>Your Dukkani OTP</b>\n\nYour verification code is: <b>${otp}</b>\n\nThis code expires in 5 minutes.`,
 			{ parseMode: "HTML" },
@@ -270,7 +274,6 @@ export class TelegramService {
 	 * Send order notification to shop owner
 	 * Includes shop context for multi-shop support
 	 */
-	@Trace("telegram.send_order_notification")
 	static async sendOrderNotification(
 		shopId: string,
 		order: {
@@ -312,7 +315,7 @@ ${itemsText}
 
 <a href="${apiEnv.NEXT_PUBLIC_DASHBOARD_URL}/orders/${order.id}">View Order →</a>`;
 
-		await TelegramService.sendMessage(shop.owner.telegramChatId, message, {
+		await TelegramServiceBase.sendMessage(shop.owner.telegramChatId, message, {
 			parseMode: "HTML",
 			replyMarkup: {
 				inline_keyboard: [
@@ -339,10 +342,10 @@ ${itemsText}
 		text?: string,
 		showAlert = false,
 	): Promise<void> {
-		await TelegramService.rateLimit();
+		await TelegramServiceBase.rateLimit();
 
 		const response = await fetchWithTrace(
-			`${TelegramService.BOT_API_URL}/answerCallbackQuery`,
+			`${TelegramServiceBase.BOT_API_URL}/answerCallbackQuery`,
 			{
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -388,7 +391,6 @@ ${itemsText}
 	/**
 	 * Handle Telegram command
 	 */
-	@Trace("telegram.command")
 	static async handleCommand(
 		command: string,
 		args: string[],
@@ -415,10 +417,10 @@ ${itemsText}
 				},
 			) => Promise<void>
 		> = {
-			link: TelegramService.handleLinkCommand,
-			start: TelegramService.handleStartCommand,
-			help: TelegramService.handleHelpCommand,
-			disconnect: TelegramService.handleDisconnectCommand,
+			link: TelegramServiceBase.handleLinkCommand,
+			start: TelegramServiceBase.handleStartCommand,
+			help: TelegramServiceBase.handleHelpCommand,
+			disconnect: TelegramServiceBase.handleDisconnectCommand,
 		};
 
 		const handler = commandMap[command.toLowerCase()];
@@ -443,7 +445,7 @@ ${itemsText}
 		const otpCode = args[0]?.trim();
 
 		if (!otpCode) {
-			await TelegramService.sendMessage(
+			await TelegramServiceBase.sendMessage(
 				chatId,
 				"❌ <b>Invalid Command</b>\n\nUsage: /link OTP_CODE\n\nExample: /link 123456",
 				{ parseMode: "HTML" },
@@ -463,9 +465,11 @@ ${itemsText}
 		});
 
 		if (existingUser) {
-			const storeList = TelegramService.formatStoreList(existingUser.stores);
+			const storeList = TelegramServiceBase.formatStoreList(
+				existingUser.stores,
+			);
 
-			await TelegramService.sendMessage(
+			await TelegramServiceBase.sendMessage(
 				chatId,
 				"✅ <b>Already Linked!</b>\n\n" +
 					`<b>Account:</b> ${existingUser.name} (${existingUser.email})\n\n` +
@@ -476,15 +480,15 @@ ${itemsText}
 		}
 
 		try {
-			const result = await TelegramService.validateLinkOTP(
+			const result = await TelegramServiceBase.validateLinkOTP(
 				otpCode,
 				chatId,
 				telegramUserInfo,
 			);
 
-			const storeList = TelegramService.formatStoreList(result.stores);
+			const storeList = TelegramServiceBase.formatStoreList(result.stores);
 
-			await TelegramService.sendMessage(
+			await TelegramServiceBase.sendMessage(
 				chatId,
 				"✅ <b>Account Linked Successfully!</b>\n\n" +
 					`<b>Account:</b> ${result.user.name || "User"} (${result.user.email || "N/A"})\n\n` +
@@ -493,7 +497,7 @@ ${itemsText}
 				{ parseMode: "HTML" },
 			);
 		} catch (error) {
-			await TelegramService.sendMessage(
+			await TelegramServiceBase.sendMessage(
 				chatId,
 				"❌ <b>Linking Failed</b>\n\n" +
 					(error instanceof Error
@@ -516,7 +520,7 @@ ${itemsText}
 			lastName?: string;
 		},
 	): Promise<void> {
-		await TelegramService.sendMessage(
+		await TelegramServiceBase.sendMessage(
 			chatId,
 			"👋 <b>Welcome to Dukkani Notifications Bot!</b>\n\nThis bot sends you real-time order notifications from your Dukkani stores.\n\n<b>Commands:</b>\n/link CODE - Link your account using OTP code\n/help - Show this help message\n\nTo link your account:\n1. Go to your Dukkani dashboard settings\n2. Generate an OTP code\n3. Send /link CODE to this bot",
 			{ parseMode: "HTML" },
@@ -535,7 +539,7 @@ ${itemsText}
 			lastName?: string;
 		},
 	): Promise<void> {
-		await TelegramService.sendMessage(
+		await TelegramServiceBase.sendMessage(
 			chatId,
 			"📖 <b>Dukkani Bot Commands</b>\n\n/link CODE - Link your Telegram account\n/help - Show this help message\n/start - Welcome message\n\n<b>Need help?</b>\nContact support through your Dukkani dashboard.",
 			{ parseMode: "HTML" },
@@ -546,7 +550,6 @@ ${itemsText}
 	 * Handle Telegram callback query (button clicks)
 	 * Routes callbacks to appropriate handlers
 	 */
-	@Trace("telegram.callback_query")
 	static async handleCallbackQuery(
 		callbackData: string,
 		callbackQueryId: string,
@@ -564,7 +567,7 @@ ${itemsText}
 			string,
 			(data: string, callbackQueryId: string, chatId: string) => Promise<void>
 		> = {
-			ship: TelegramService.handleShipCallback,
+			ship: TelegramServiceBase.handleShipCallback,
 		};
 
 		const handler = callbackMap[action];
@@ -588,7 +591,7 @@ ${itemsText}
 		const shopId = parts[2];
 
 		if (!orderId || !shopId) {
-			await TelegramService.answerCallbackQuery(
+			await TelegramServiceBase.answerCallbackQuery(
 				callbackQueryId,
 				"❌ Invalid callback data",
 				true,
@@ -602,7 +605,7 @@ ${itemsText}
 		});
 
 		if (!user) {
-			await TelegramService.answerCallbackQuery(
+			await TelegramServiceBase.answerCallbackQuery(
 				callbackQueryId,
 				"❌ User not found",
 				true,
@@ -620,7 +623,7 @@ ${itemsText}
 		});
 
 		if (!store) {
-			await TelegramService.answerCallbackQuery(
+			await TelegramServiceBase.answerCallbackQuery(
 				callbackQueryId,
 				"❌ You don't have access to this order",
 				true,
@@ -630,17 +633,17 @@ ${itemsText}
 
 		try {
 			await OrderService.updateOrderStatus(orderId, "SHIPPED", user.id);
-			await TelegramService.answerCallbackQuery(
+			await TelegramServiceBase.answerCallbackQuery(
 				callbackQueryId,
 				`✅ Order #${orderId} marked as shipped!`,
 			);
-			await TelegramService.sendMessage(
+			await TelegramServiceBase.sendMessage(
 				chatId,
 				`✅ Order #${orderId} has been marked as shipped.`,
 				{ parseMode: "HTML" },
 			);
 		} catch (error) {
-			await TelegramService.answerCallbackQuery(
+			await TelegramServiceBase.answerCallbackQuery(
 				callbackQueryId,
 				error instanceof Error ? error.message : "❌ Failed to update order",
 				true,
@@ -652,7 +655,6 @@ ${itemsText}
 	 * Process Telegram webhook update
 	 * Main entry point for handling Telegram updates
 	 */
-	@Trace("telegram.process_webhook")
 	static async processWebhookUpdate(update: {
 		message?: {
 			text?: string;
@@ -680,7 +682,7 @@ ${itemsText}
 				const { data, id: callbackQueryId, message } = update.callback_query;
 				if (data && callbackQueryId && message) {
 					const chatId = message.chat.id.toString();
-					await TelegramService.handleCallbackQuery(
+					await TelegramServiceBase.handleCallbackQuery(
 						data,
 						callbackQueryId,
 						chatId,
@@ -709,7 +711,7 @@ ${itemsText}
 						"telegram.chat_id": chatId,
 					});
 
-					await TelegramService.handleCommand(
+					await TelegramServiceBase.handleCommand(
 						command,
 						args,
 						chatId,
@@ -725,9 +727,9 @@ ${itemsText}
 				const text = update.message.text.trim();
 
 				const confirmation =
-					await TelegramService.getDisconnectConfirmation(chatId);
+					await TelegramServiceBase.getDisconnectConfirmation(chatId);
 				if (confirmation) {
-					await TelegramService.handleDisconnectConfirmation(
+					await TelegramServiceBase.handleDisconnectConfirmation(
 						text,
 						chatId,
 						confirmation.userId,
@@ -738,7 +740,7 @@ ${itemsText}
 		} catch (error) {
 			if (update.message?.chat?.id) {
 				try {
-					await TelegramService.sendMessage(
+					await TelegramServiceBase.sendMessage(
 						update.message.chat.id.toString(),
 						"❌ An error occurred processing your request. Please try again later.",
 						{ parseMode: "HTML" },
@@ -777,7 +779,7 @@ ${itemsText}
 		});
 
 		if (!user) {
-			await TelegramService.sendMessage(
+			await TelegramServiceBase.sendMessage(
 				chatId,
 				"❌ <b>Not Linked</b>\n\nYour Telegram account is not linked to any Dukkani account.",
 				{ parseMode: "HTML" },
@@ -786,7 +788,7 @@ ${itemsText}
 		}
 
 		if (user.stores.length === 0) {
-			await TelegramService.sendMessage(
+			await TelegramServiceBase.sendMessage(
 				chatId,
 				"❌ <b>No Stores Found</b>\n\nYou don't have any stores to disconnect from.",
 				{ parseMode: "HTML" },
@@ -798,13 +800,13 @@ ${itemsText}
 		const storeNames = user.stores.map((s) => s.name).join(", ");
 
 		// Store confirmation state in database (expires in 5 minutes)
-		await TelegramService.storeDisconnectConfirmation(
+		await TelegramServiceBase.storeDisconnectConfirmation(
 			chatId,
 			user.id,
 			new Date(Date.now() + 5 * 60 * 1000),
 		);
 
-		await TelegramService.sendMessage(
+		await TelegramServiceBase.sendMessage(
 			chatId,
 			"⚠️ <b>Disconnect Telegram Account</b>\n\n" +
 				"To confirm disconnection, please type the name of one of your stores:\n\n" +
@@ -824,13 +826,13 @@ ${itemsText}
 		userId: string,
 	): Promise<void> {
 		// Clean up confirmation state
-		await TelegramService.deleteDisconnectConfirmation(chatId);
+		await TelegramServiceBase.deleteDisconnectConfirmation(chatId);
 
 		try {
 			// Use the shared disconnect logic
-			await TelegramService.disconnectTelegramAccount(userId, storeName);
+			await TelegramServiceBase.disconnectTelegramAccount(userId, storeName);
 
-			await TelegramService.sendMessage(
+			await TelegramServiceBase.sendMessage(
 				chatId,
 				"✅ <b>Account Disconnected</b>\n\n" +
 					"Your Telegram account has been successfully disconnected from Dukkani. " +
@@ -844,7 +846,7 @@ ${itemsText}
 
 			// Handle specific error cases
 			if (errorMessage.includes("Store name doesn't match")) {
-				await TelegramService.sendMessage(
+				await TelegramServiceBase.sendMessage(
 					chatId,
 					"❌ <b>Invalid Store Name</b>\n\n" +
 						"The store name you entered doesn't match any of your stores. " +
@@ -852,14 +854,14 @@ ${itemsText}
 					{ parseMode: "HTML" },
 				);
 			} else if (errorMessage.includes("not linked")) {
-				await TelegramService.sendMessage(
+				await TelegramServiceBase.sendMessage(
 					chatId,
 					"❌ <b>Not Linked</b>\n\n" +
 						"Your Telegram account is not linked to any Dukkani account.",
 					{ parseMode: "HTML" },
 				);
 			} else {
-				await TelegramService.sendMessage(
+				await TelegramServiceBase.sendMessage(
 					chatId,
 					"❌ <b>Disconnect Failed</b>\n\n" +
 						"An error occurred while disconnecting your account. Please try again later.",
@@ -979,3 +981,5 @@ ${itemsText}
 		});
 	}
 }
+
+export const TelegramService = traceStaticClass(TelegramServiceBase);

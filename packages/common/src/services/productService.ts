@@ -1,12 +1,13 @@
 import { database } from "@dukkani/db";
-import { addSpanAttributes, Trace, traceStaticClass } from "@dukkani/tracing";
+import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
 import { generateProductId } from "../utils/generate-id";
 
 /**
  * Product service - Shared business logic for product operations
+ * All methods are automatically traced via traceStaticClass
  */
-class Service {
+class ProductServiceBase {
 	/**
 	 * Generate product ID using store slug
 	 */
@@ -44,7 +45,6 @@ class Service {
 	 * Check stock availability for order items
 	 * Aggregates quantities by productId to handle duplicate products correctly
 	 */
-	@Trace("product.check_stock")
 	static async checkStockAvailability(
 		items: Array<{ productId: string; quantity: number }>,
 		storeId: string,
@@ -109,7 +109,6 @@ class Service {
 	/**
 	 * Update product stock
 	 */
-	@Trace("product.update_stock")
 	static async updateProductStock(
 		productId: string,
 		quantity: number,
@@ -137,7 +136,6 @@ class Service {
 	 * Update multiple product stocks
 	 * Aggregates quantities by productId to handle duplicate products correctly
 	 */
-	@Trace("product.update_multiple_stocks")
 	static async updateMultipleProductStocks(
 		updates: Array<{ productId: string; quantity: number }>,
 		operation: "increment" | "decrement",
@@ -181,4 +179,4 @@ class Service {
 	}
 }
 
-export const ProductService = traceStaticClass(Service);
+export const ProductService = traceStaticClass(ProductServiceBase);

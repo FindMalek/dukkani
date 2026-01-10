@@ -1,5 +1,5 @@
 import { database } from "@dukkani/db";
-import { addSpanAttributes, Trace } from "@dukkani/tracing";
+import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import { OrderItemQuery } from "../entities/order-item/query";
@@ -9,13 +9,13 @@ import { OrderStatus } from "../schemas/order/enums";
 
 /**
  * Dashboard service - Aggregated statistics and dashboard data
+ * All methods are automatically traced via traceStaticClass
  */
-export class DashboardService {
+class DashboardServiceBase {
 	/**
 	 * Get dashboard statistics for a user's stores
 	 * Uses transactions to optimize database queries
 	 */
-	@Trace("dashboard.get_stats")
 	static async getDashboardStats(userId: string) {
 		addSpanAttributes({
 			"dashboard.user_id": userId,
@@ -162,3 +162,5 @@ export class DashboardService {
 		};
 	}
 }
+
+export const DashboardService = traceStaticClass(DashboardServiceBase);
