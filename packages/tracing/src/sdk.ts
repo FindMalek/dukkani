@@ -42,6 +42,23 @@ export interface TracingConfig {
 let sdk: NodeSDK | null = null;
 
 /**
+ * Check if tracer provider is NoOp (not initialized)
+ */
+function isNoOpTracerProvider(): boolean {
+	try {
+		const provider = trace.getTracerProvider();
+		// NoOpTracerProvider doesn't have forceFlush method
+		// Real providers (like SDK's TracerProvider) have forceFlush
+		return (
+			!provider ||
+			typeof (provider as { forceFlush?: unknown }).forceFlush !== "function"
+		);
+	} catch {
+		return true;
+	}
+}
+
+/**
  * Initialize OpenTelemetry SDK
  * Aligned with Next.js OpenTelemetry best practices
  * @see https://nextjs.org/docs/app/guides/open-telemetry
@@ -96,12 +113,12 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 		resource,
 		instrumentations: getInstrumentations(),
 		// Use SimpleSpanProcessor if configured (for testing serverless export timing)
-		spanProcessor:
-			traceExporter && useSimpleProcessor
-				? new SimpleSpanProcessor(traceExporter)
-				: undefined, // Default BatchSpanProcessor will be used
-		traceExporter:
-			traceExporter && !useSimpleProcessor ? traceExporter : undefined,
+		spanProcessor: traceExporter && useSimpleProcessor
+			? new SimpleSpanProcessor(traceExporter)
+			: undefined, // Default BatchSpanProcessor will be used
+		traceExporter: traceExporter && !useSimpleProcessor
+			? traceExporter
+			: undefined,
 		logRecordProcessor: logExporter
 			? new BatchLogRecordProcessor(logExporter)
 			: undefined,
@@ -119,6 +136,18 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 	// Start SDK
 	sdk.start();
 
+	// CRITICAL: Verify tracer provider is registered
+	// In Vercel/serverless, sdk.start() may not complete before function execution
+	// Check if provider is actually registered
+	if (isNoOpTracerProvider()) {
+		console.error("[OTEL] CRITICAL: Tracer provider is NoOp after SDK.start()");
+		console.error("[OTEL] This usually means instrumentation.ts did not execute");
+		console.error("[OTEL] Environment:", environment);
+		console.error("[OTEL] Vercel:", !!process.env.VERCEL);
+	} else {
+		console.log("[OTEL] SDK initialized successfully - tracer provider registered");
+	}
+
 	return sdk;
 }
 
@@ -133,67 +162,9 @@ export async function shutdownSDK(): Promise<void> {
 }
 
 /**
- * Get SDK initialization status
- * Useful for debugging
+ * Check if tracing is properly initialized
+ * Returns true if tracer provider is registered (not NoOp)
  */
-export function getSDKStatus(): {
-	initialized: boolean;
-	hasTracerProvider: boolean;
-	hasLoggerProvider: boolean;
-	hasMeterProvider: boolean;
-} {
-	if (!sdk) {
-		return {
-			initialized: false,
-			hasTracerProvider: false,
-			hasLoggerProvider: false,
-			hasMeterProvider: false,
-		};
-	}
-
-	// Check providers using OpenTelemetry API instead of internal SDK properties
-	// NodeSDK doesn't expose these as public properties
-	let hasTracerProvider = false;
-	let hasLoggerProvider = false;
-	let hasMeterProvider = false;
-
-	try {
-		// Check tracer provider by trying to get it from the API
-		const tracerProvider = trace.getTracerProvider();
-		hasTracerProvider =
-			tracerProvider !== undefined &&
-			typeof (tracerProvider as { forceFlush?: unknown }).forceFlush ===
-				"function";
-	} catch {
-		// Provider not registered
-	}
-
-	try {
-		// Check logger provider (if available in API)
-		// Note: Logger provider API may not be available in all versions
-		const loggerProvider = (
-			trace as unknown as { getLoggerProvider?: () => unknown }
-		).getLoggerProvider?.();
-		hasLoggerProvider = loggerProvider !== undefined;
-	} catch {
-		// Logger provider not available or not registered
-	}
-
-	try {
-		// Check meter provider (if available in API)
-		// Note: Meter provider API may not be available in all versions
-		const meterProvider = (
-			trace as unknown as { getMeterProvider?: () => unknown }
-		).getMeterProvider?.();
-		hasMeterProvider = meterProvider !== undefined;
-	} catch {
-		// Meter provider not available or not registered
-	}
-
-	return {
-		initialized: true,
-		hasTracerProvider,
-		hasLoggerProvider,
-		hasMeterProvider,
-	};
+export function isTracingInitialized(): boolean {
+	return !isNoOpTracerProvider();
 }

@@ -1,7 +1,19 @@
-import { registerTracing } from "@dukkani/tracing";
 import { apiEnv } from "@dukkani/env";
+import { registerTracing } from "@dukkani/tracing";
 
 export function register() {
+	console.log("[OTEL] instrumentation.ts register() called");
+	console.log("[OTEL] Environment:", process.env.NODE_ENV);
+	console.log("[OTEL] Vercel:", !!process.env.VERCEL);
+	console.log("[OTEL] OTEL_ENABLED:", apiEnv.OTEL_ENABLED);
+	console.log("[OTEL] Service Name:", apiEnv.OTEL_SERVICE_NAME);
+	console.log(
+		"[OTEL] Endpoint:",
+		apiEnv.OTEL_EXPORTER_OTLP_ENDPOINT ||
+			apiEnv.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT ||
+			"not configured",
+	);
+
 	registerTracing({
 		serviceName: apiEnv.OTEL_SERVICE_NAME,
 		samplingRate: apiEnv.OTEL_SAMPLING_RATE,
@@ -16,4 +28,6 @@ export function register() {
 			compression: apiEnv.OTEL_EXPORTER_OTLP_COMPRESSION,
 		},
 	});
+
+	console.log("[OTEL] Tracing registration complete");
 }

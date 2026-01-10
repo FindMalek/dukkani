@@ -9,6 +9,33 @@ import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import type { NextRequest } from "next/server";
 import { getCorsHeaders } from "@/lib/cors";
 
+// Ensure tracing is initialized (fallback if instrumentation.ts didn't run)
+if (typeof window === "undefined") {
+	// Lazy import to avoid circular dependencies
+	import("@dukkani/tracing").then(({ isTracingInitialized, registerTracing }) => {
+		if (!isTracingInitialized()) {
+			// Fallback initialization
+			console.warn("[OTEL] Fallback initialization - instrumentation.ts may not have executed");
+			import("@dukkani/env/presets/api").then(({ apiEnv }) => {
+				registerTracing({
+					serviceName: apiEnv.OTEL_SERVICE_NAME,
+					samplingRate: apiEnv.OTEL_SAMPLING_RATE,
+					enabled: apiEnv.OTEL_ENABLED,
+					environment: apiEnv.NEXT_PUBLIC_NODE_ENV,
+					otlp: {
+						endpoint: apiEnv.OTEL_EXPORTER_OTLP_ENDPOINT,
+						tracesEndpoint: apiEnv.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT,
+						metricsEndpoint: apiEnv.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT,
+						logsEndpoint: apiEnv.OTEL_EXPORTER_OTLP_LOGS_ENDPOINT,
+						headers: apiEnv.OTEL_EXPORTER_OTLP_HEADERS,
+						compression: apiEnv.OTEL_EXPORTER_OTLP_COMPRESSION,
+					},
+				});
+			});
+		}
+	});
+}
+
 const rpcHandler = new RPCHandler(appRouter, {
 	interceptors: [
 		onError((error) => {
