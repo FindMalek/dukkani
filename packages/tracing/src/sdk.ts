@@ -1,5 +1,4 @@
 import {
-	CompositePropagator,
 	W3CTraceContextPropagator,
 } from "@opentelemetry/core";
 import {
@@ -9,7 +8,10 @@ import {
 import { BatchLogRecordProcessor } from "@opentelemetry/sdk-logs";
 import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { NodeSDK } from "@opentelemetry/sdk-node";
-import { TraceIdRatioBasedSampler } from "@opentelemetry/sdk-trace-base";
+import {
+	SimpleSpanProcessor,
+	TraceIdRatioBasedSampler,
+} from "@opentelemetry/sdk-trace-base";
 import {
 	ATTR_SERVICE_NAME,
 	ATTR_SERVICE_VERSION,
@@ -27,6 +29,11 @@ export interface TracingConfig {
 	samplingRate?: number;
 	enabled?: boolean;
 	environment?: string;
+	/**
+	 * Use SimpleSpanProcessor for immediate export (useful for serverless/debugging)
+	 * Default: false (uses BatchSpanProcessor)
+	 */
+	useSimpleSpanProcessor?: boolean;
 	/**
 	 * OTLP exporter configuration
 	 */
@@ -78,11 +85,23 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 		? createOTLPMetricExporter(config.otlp)
 		: undefined;
 
+	// Choose span processor based on config
+	// SimpleSpanProcessor: immediate export (good for serverless/debugging)
+	// BatchSpanProcessor: batched export (better performance, default)
+	const useSimpleProcessor =
+		config.useSimpleSpanProcessor ?? process.env.OTEL_USE_SIMPLE_PROCESSOR === "true";
+
 	// Create SDK following Next.js OpenTelemetry patterns
 	sdk = new NodeSDK({
 		resource,
 		instrumentations: getInstrumentations(),
-		traceExporter,
+		// Use SimpleSpanProcessor if configured (for testing serverless export timing)
+		spanProcessor: traceExporter && useSimpleProcessor
+			? new SimpleSpanProcessor(traceExporter)
+			: undefined, // Default BatchSpanProcessor will be used
+		traceExporter: traceExporter && !useSimpleProcessor
+			? traceExporter
+			: undefined,
 		logRecordProcessor: logExporter
 			? new BatchLogRecordProcessor(logExporter)
 			: undefined,
@@ -94,7 +113,6 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 			: undefined,
 		sampler: new TraceIdRatioBasedSampler(samplingRate),
 		// Restrict propagation to W3C Trace Context only (exclude Baggage)
-		// This prevents sending baggage to third-party endpoints via fetchWithTrace
 		textMapPropagator: new W3CTraceContextPropagator(),
 	});
 

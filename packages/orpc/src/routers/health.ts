@@ -5,7 +5,14 @@ import {
 } from "@dukkani/common/schemas/health/output";
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
-import { enhanceLogWithTraceContext } from "@dukkani/tracing";
+import {
+	addSpanAttributes,
+	enhanceLogWithTraceContext,
+	getSpanId,
+	getTraceId,
+	withSpan,
+} from "@dukkani/tracing";
+import { z } from "zod";
 import { publicProcedure } from "../index";
 
 const HEALTH_CHECK_CONFIG = {
@@ -79,4 +86,65 @@ export const healthRouter = {
 
 		return health;
 	}),
+
+	/**
+	 * OpenTelemetry debug endpoint
+	 * Returns current trace/span context and tests span creation
+	 * Use this to verify tracing is working in production
+	 */
+	otelDebug: publicProcedure
+		.output(
+			z.object({
+				traceId: z.string().nullable(),
+				spanId: z.string().nullable(),
+				testSpanCreated: z.boolean(),
+				sdkInitialized: z.boolean(),
+				message: z.string(),
+				environment: z.string(),
+			}),
+		)
+		.handler(async () => {
+			// Get current trace context
+			const traceId = getTraceId();
+			const spanId = getSpanId();
+
+			// Check if SDK is initialized (traceId/spanId exist = SDK is working)
+			const sdkInitialized = traceId !== undefined;
+
+			// Test span creation
+			let testSpanCreated = false;
+			let spanError: string | null = null;
+			try {
+				await withSpan("health.otelDebug.test", async (span) => {
+					addSpanAttributes({
+						"debug.test": true,
+						"debug.timestamp": Date.now(),
+						"debug.environment": process.env.NODE_ENV || "unknown",
+						"debug.vercel": process.env.VERCEL ? "true" : "false",
+					});
+					testSpanCreated = true;
+				});
+			} catch (error) {
+				spanError = error instanceof Error ? error.message : String(error);
+				logger.error(
+					enhanceLogWithTraceContext({
+						error: spanError,
+					}),
+					"Failed to create test span",
+				);
+			}
+
+			const message = traceId
+				? "OpenTelemetry is active and tracing"
+				: "No active trace context found - SDK may not be initialized";
+
+			return {
+				traceId: traceId ?? null,
+				spanId: spanId ?? null,
+				testSpanCreated,
+				sdkInitialized,
+				message: spanError ? `${message} (Error: ${spanError})` : message,
+				environment: process.env.NODE_ENV || "unknown",
+			};
+		}),
 };
