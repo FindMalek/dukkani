@@ -36,7 +36,6 @@ function getCompressionAlgorithm(
 	}
 	return undefined;
 }
-
 /**
  * Parse headers string into object
  * According to OpenTelemetry spec, values with commas MUST be URL-encoded (%2C)

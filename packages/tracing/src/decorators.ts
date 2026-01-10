@@ -118,5 +118,5 @@ export function Trace(
 		}
 
 		return resolvedDescriptor;
-	}) as any; // Type assertion to bypass TypeScript's strict decorator type checking
+	}); // Type assertion to bypass TypeScript's strict decorator type checking
 }

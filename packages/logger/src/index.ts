@@ -1,5 +1,4 @@
 import { Transform } from "node:stream";
-import { getSpanId, getTraceId } from "@dukkani/tracing";
 
 /**
  * Custom synchronous formatter for development
@@ -148,8 +147,6 @@ function getLogger(): ReturnType<typeof createConsoleLogger> {
 						},
 					},
 					timestamp: pino.stdTimeFunctions.isoTime,
-					traceId: getTraceId() ?? undefined,
-					spanId: getSpanId() ?? undefined,
 				},
 				prettyFormatter,
 			) as ReturnType<typeof createConsoleLogger>;

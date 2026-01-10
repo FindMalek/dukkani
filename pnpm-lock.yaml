@@ -62,7 +62,7 @@ catalogs:
       version: 0.6.4
     '@types/node':
       specifier: ^22.19.1
-      version: 22.19.3
+      version: 22.19.5
     '@types/react':
       specifier: 19.2.2
       version: 19.2.2
@@ -74,7 +74,7 @@ catalogs:
       version: 19.1.0-rc.3
     baseline-browser-mapping:
       specifier: ^2.8.32
-      version: 2.9.13
+      version: 2.9.14
     better-auth:
       specifier: ^1.3.34
       version: 1.4.10
@@ -152,7 +152,7 @@ importers:
         version: 2.3.11
       '@types/node':
         specifier: 'catalog:'
-        version: 22.19.3
+        version: 22.19.5
       tsdown:
         specifier: 'catalog:'
         version: 0.16.8(typescript@5.9.3)
@@ -225,10 +225,10 @@ importers:
         version: 0.13.10(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))(zod@4.1.12)
       '@types/node':
         specifier: 'catalog:'
-        version: 22.19.3
+        version: 22.19.5
       baseline-browser-mapping:
         specifier: 'catalog:'
-        version: 2.9.13
+        version: 2.9.14
 
   apps/dashboard:
     dependencies:
@@ -325,7 +325,7 @@ importers:
         version: 5.91.2(@tanstack/react-query@5.90.16(react@19.2.1))(react@19.2.1)
       '@types/node':
         specifier: 'catalog:'
-        version: 22.19.3
+        version: 22.19.5
       '@types/react':
         specifier: 'catalog:'
         version: 19.2.2
@@ -334,7 +334,7 @@ importers:
         version: 19.2.2(@types/react@19.2.2)
       baseline-browser-mapping:
         specifier: 'catalog:'
-        version: 2.9.13
+        version: 2.9.14
       tailwindcss:
         specifier: 'catalog:'
         version: 4.1.18
@@ -416,7 +416,7 @@ importers:
         version: 5.91.2(@tanstack/react-query@5.90.16(react@19.2.1))(react@19.2.1)
       '@types/node':
         specifier: 'catalog:'
-        version: 22.19.3
+        version: 22.19.5
       '@types/react':
         specifier: 'catalog:'
         version: 19.2.2
@@ -425,7 +425,7 @@ importers:
         version: 19.2.2(@types/react@19.2.2)
       baseline-browser-mapping:
         specifier: 'catalog:'
-        version: 2.9.13
+        version: 2.9.14
       tailwindcss:
         specifier: 'catalog:'
         version: 4.1.18
@@ -473,7 +473,7 @@ importers:
         version: 1.4.10(@prisma/client@7.2.0(prisma@7.2.0(@types/react@19.2.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3))(typescript@5.9.3))(mysql2@3.15.3)(next@16.1.1(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(pg@8.16.3)(prisma@7.2.0(@types/react@19.2.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       framer-motion:
         specifier: ^12.23.24
-        version: 12.24.12(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+        version: 12.25.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       next:
         specifier: 'catalog:'
         version: 16.1.1(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -507,7 +507,7 @@ importers:
         version: 5.91.2(@tanstack/react-query@5.90.16(react@19.2.1))(react@19.2.1)
       '@types/node':
         specifier: 'catalog:'
-        version: 22.19.3
+        version: 22.19.5
       '@types/react':
         specifier: 19.2.2
         version: 19.2.2
@@ -516,7 +516,7 @@ importers:
         version: 19.2.2(@types/react@19.2.2)
       baseline-browser-mapping:
         specifier: 'catalog:'
-        version: 2.9.13
+        version: 2.9.14
       tailwindcss:
         specifier: 'catalog:'
         version: 4.1.18
@@ -713,9 +713,6 @@ importers:
 
   packages/logger:
     dependencies:
-      '@dukkani/tracing':
-        specifier: workspace:*
-        version: link:../tracing
       '@opentelemetry/instrumentation-pino':
         specifier: latest
         version: 0.55.1(@opentelemetry/api@1.9.0)
@@ -900,6 +897,9 @@ importers:
       '@dukkani/config':
         specifier: workspace:*
         version: link:../config
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.19.5
       tsdown:
         specifier: 'catalog:'
         version: 0.16.8(typescript@5.9.3)
@@ -3392,11 +3392,11 @@ packages:
   '@types/negotiator@0.6.4':
     resolution: {integrity: sha512-elf6BsTq+AkyNsb2h5cGNst2Mc7dPliVoAPm1fXglC/BM3f2pFA40BaSSv3E5lyHteEawVKLP+8TwiY1DMNb3A==}
 
-  '@types/node@22.19.3':
-    resolution: {integrity: sha512-1N9SBnWYOJTrNZCdh/yJE+t910Y128BoyY+zBLWhL3r0TYzlTmFdXrPwHL9DyFZmlEXNQQolTZh3KHV31QDhyA==}
+  '@types/node@22.19.5':
+    resolution: {integrity: sha512-HfF8+mYcHPcPypui3w3mvzuIErlNOh2OAG+BCeBZCEwyiD5ls2SiCwEyT47OELtf7M3nHxBdu0FsmzdKxkN52Q==}
 
-  '@types/node@25.0.3':
-    resolution: {integrity: sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA==}
+  '@types/node@25.0.6':
+    resolution: {integrity: sha512-NNu0sjyNxpoiW3YuVFfNz7mxSQ+S4X2G28uqg2s+CzoqoQjLPsWSbsFFyztIAqt2vb8kfEAsJNepMGPTxFDx3Q==}
 
   '@types/pg@8.11.6':
     resolution: {integrity: sha512-/2WmmBXHLsfRqzfHW7BNZ8SbYzE8OSk7i3WjFYvfgRHj7S1xj+16Je5fUKv3lVdVzk/zn9TXOqf+avFCFIE0yQ==}
@@ -3459,8 +3459,8 @@ packages:
   babel-plugin-react-compiler@19.1.0-rc.3:
     resolution: {integrity: sha512-mjRn69WuTz4adL0bXGx8Rsyk1086zFJeKmes6aK0xPuK3aaXmDJdLHqwKKMrpm6KAI1MCoUK72d2VeqQbu8YIA==}
 
-  baseline-browser-mapping@2.9.13:
-    resolution: {integrity: sha512-WhtvB2NG2wjr04+h77sg3klAIwrgOqnjS49GGudnUPGFFgg7G17y7Qecqp+2Dr5kUDxNRBca0SK7cG8JwzkWDQ==}
+  baseline-browser-mapping@2.9.14:
+    resolution: {integrity: sha512-B0xUquLkiGLgHhpPBqvl7GWegWBUNuujQ6kXd/r1U38ElPT6Ok8KZ8e+FpUGEc2ZoRQUzq/aUnaKFc/svWUGSg==}
     hasBin: true
 
   bcryptjs@2.4.3:
@@ -3806,8 +3806,8 @@ packages:
   forwarded-parse@2.1.2:
     resolution: {integrity: sha512-alTFZZQDKMporBH77856pXgzhEzaUVmLCDk+egLgIgHst3Tpndzz8MnKe+GzRJRfvVdn69HhpW7cmXzvtLvJAw==}
 
-  framer-motion@12.24.12:
-    resolution: {integrity: sha512-W+tBOI1SDGNMH4D4mADY95qYd16Drke2Tj9zlGlwTGSCi6yy8wbMmPY1mvirfcTK8HBeuuCd2PflHdN/zbL4ew==}
+  framer-motion@12.25.0:
+    resolution: {integrity: sha512-mlWqd0rApIjeyhTCSNCqPYsUAEhkcUukZxH3ke6KbstBRPcxhEpuIjmiUQvB+1E9xkEm5SpNHBgHCapH/QHTWg==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -7045,17 +7045,17 @@ snapshots:
 
   '@types/negotiator@0.6.4': {}
 
-  '@types/node@22.19.3':
+  '@types/node@22.19.5':
     dependencies:
       undici-types: 6.21.0
 
-  '@types/node@25.0.3':
+  '@types/node@25.0.6':
     dependencies:
       undici-types: 7.16.0
 
   '@types/pg@8.11.6':
     dependencies:
-      '@types/node': 25.0.3
+      '@types/node': 25.0.6
       pg-protocol: 1.10.3
       pg-types: 4.1.0
 
@@ -7071,7 +7071,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 25.0.3
+      '@types/node': 25.0.6
 
   acorn-import-attributes@1.9.5(acorn@8.15.0):
     dependencies:
@@ -7108,7 +7108,7 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.5
 
-  baseline-browser-mapping@2.9.13: {}
+  baseline-browser-mapping@2.9.14: {}
 
   bcryptjs@2.4.3: {}
 
@@ -7422,7 +7422,7 @@ snapshots:
 
   forwarded-parse@2.1.2: {}
 
-  framer-motion@12.24.12(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+  framer-motion@12.25.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
     dependencies:
       motion-dom: 12.24.11
       motion-utils: 12.24.10
@@ -7673,7 +7673,7 @@ snapshots:
     dependencies:
       '@next/env': 16.1.1
       '@swc/helpers': 0.5.15
-      baseline-browser-mapping: 2.9.13
+      baseline-browser-mapping: 2.9.14
       caniuse-lite: 1.0.30001763
       postcss: 8.4.31
       react: 19.2.1
@@ -7699,7 +7699,7 @@ snapshots:
     dependencies:
       '@next/env': 16.1.1
       '@swc/helpers': 0.5.15
-      baseline-browser-mapping: 2.9.13
+      baseline-browser-mapping: 2.9.14
       caniuse-lite: 1.0.30001763
       postcss: 8.4.31
       react: 19.2.1
@@ -7910,7 +7910,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 25.0.3
+      '@types/node': 25.0.6
       long: 5.3.2
 
   protobufjs@8.0.0:
@@ -7925,7 +7925,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 25.0.3
+      '@types/node': 25.0.6
       long: 5.3.2
 
   pure-rand@6.1.0: {}

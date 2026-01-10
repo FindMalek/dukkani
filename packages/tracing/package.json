@@ -34,7 +34,8 @@
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
-		"tsdown": "catalog:"
+		"tsdown": "catalog:",
+		"@types/node": "catalog:"
 	},
 	"peerDependencies": {
 		"typescript": "catalog:"
