@@ -1,4 +1,10 @@
-import { initializeSDK, shutdownSDK, type TracingConfig } from "./sdk";
+import {
+	flushTelemetry,
+	initializeSDK,
+	isTracingInitialized,
+	shutdownSDK,
+	type TracingConfig,
+} from "./sdk";
 
 /**
  * Register OpenTelemetry tracing
@@ -19,6 +25,12 @@ export function registerTracing(config: TracingConfig): void {
  */
 export { shutdownSDK };
 
+/**
+ * Check if tracing is properly initialized
+ * Returns true if tracer provider is registered (not NoOp)
+ */
+export { isTracingInitialized };
+
 export {
 	fetchWithTrace,
 	propagateTraceContext,
@@ -37,3 +49,4 @@ export {
 	withSpan,
 } from "./utils";
 export type { TracingConfig };
+export { flushTelemetry };

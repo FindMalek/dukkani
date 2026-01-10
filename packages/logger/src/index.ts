@@ -112,7 +112,6 @@ function isNodeEnvironment(): boolean {
 	);
 }
 
-
 /**
  * Initialize logger lazily - only when actually used
  * This prevents Edge Runtime errors
