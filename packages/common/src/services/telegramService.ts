@@ -336,7 +336,7 @@ ${itemsText}
 	): Promise<void> {
 		await TelegramService.rateLimit();
 
-		const response = await fetch(
+		const response = await fetchWithTrace(
 			`${TelegramService.BOT_API_URL}/answerCallbackQuery`,
 			{
 				method: "POST",

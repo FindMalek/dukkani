@@ -811,6 +811,9 @@ importers:
       '@dukkani/logger':
         specifier: workspace:*
         version: link:../logger
+      '@dukkani/tracing':
+        specifier: workspace:*
+        version: link:../tracing
       '@supabase/supabase-js':
         specifier: ^2.47.10
         version: 2.90.1

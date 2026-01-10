@@ -3,6 +3,7 @@ import type {
 	StorageFileResult,
 } from "@dukkani/common/schemas/storage/output";
 import { logger } from "@dukkani/logger";
+import { addSpanAttributes, Trace } from "@dukkani/tracing";
 import { nanoid } from "nanoid";
 import { storageClient } from "./client";
 import { env } from "./env";
@@ -66,11 +67,18 @@ export class StorageService {
 	/**
 	 * Upload a single file
 	 */
+	@Trace("storage.upload")
 	static async uploadFile(
 		file: File,
 		bucket: string,
 		options?: UploadOptions,
 	): Promise<StorageFileResult> {
+		addSpanAttributes({
+			"storage.bucket": bucket,
+			"storage.file_size": file.size,
+			"storage.file_type": file.type,
+		});
+
 		StorageService.validateFile(file);
 
 		const isImage = ImageProcessor.isImage(file.type);
