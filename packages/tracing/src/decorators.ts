@@ -68,8 +68,11 @@ export function Trace(
 		}
 
 		const originalMethod = resolvedDescriptor.value;
-		const name =
-			spanName || `${target.constructor.name}.${String(propertyKey)}`;
+		
+		// Determine class name: for static methods use target.name, for instance use target.constructor.name
+		const isStatic = typeof target === "function";
+		const className = isStatic ? target.name : target.constructor.name;
+		const name = spanName || `${className}.${String(propertyKey)}`;
 
 		// Create the wrapped method - preserves original return type (sync/async)
 		const wrappedMethod = function (this: unknown, ...args: unknown[]) {
@@ -164,9 +167,9 @@ export function Trace(
 		resolvedDescriptor.value = wrappedMethod;
 
 		// Update the property descriptor on the correct target
-		const isStatic = typeof target === "function";
-		const targetObj = isStatic ? target : target.constructor;
-		const descriptorSource = isStatic ? targetObj : targetObj.prototype;
+		const isStaticForUpdate = typeof target === "function";
+		const targetObj = isStaticForUpdate ? target : target.constructor;
+		const descriptorSource = isStaticForUpdate ? targetObj : targetObj.prototype;
 
 		try {
 			Object.defineProperty(descriptorSource, propertyKey, resolvedDescriptor);

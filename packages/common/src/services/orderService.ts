@@ -115,10 +115,10 @@ class OrderServiceBase {
 			addSpanEvent("order.created", { order_id: createdOrder.id });
 			logger.info(
 				enhanceLogWithTraceContext({
-					order_id: order.id,
+					order_id: createdOrder.id,
 					store_id: input.storeId,
-					total_items: order.orderItems.length,
-					status: order.status,
+					total_items: createdOrder.orderItems.length,
+					status: createdOrder.status,
 				}),
 				"Order created successfully",
 			);

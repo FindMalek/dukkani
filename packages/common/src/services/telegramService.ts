@@ -761,17 +761,17 @@ ${itemsText}
 						chatId,
 						confirmation.userId,
 					);
+					
+					logger.info(
+						enhanceLogWithTraceContext({
+							chat_id: chatId,
+							text,
+							confirmation: !!confirmation,
+						}),
+						"Disconnect confirmation processed",
+					);
 					return;
 				}
-
-				logger.info(
-					enhanceLogWithTraceContext({
-						chat_id: chatId,
-						text,
-						confirmation: !!confirmation,
-					}),
-					"Disconnect confirmation processed",
-				);
 			}
 		} catch (error) {
 			if (update.message?.chat?.id) {
