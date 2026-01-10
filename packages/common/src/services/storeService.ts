@@ -1,9 +1,11 @@
+// packages/common/src/services/storeService.ts
 import { database } from "@dukkani/db";
 import {
 	type StoreCategory,
 	StorePlanType,
 	type StoreTheme,
 } from "@dukkani/db/prisma/generated/enums";
+import { addSpanAttributes, withSpan } from "@dukkani/tracing";
 import { ProductQuery } from "../entities/product/query";
 import { StoreEntity } from "../entities/store/entity";
 import { StoreQuery } from "../entities/store/query";
@@ -24,32 +26,42 @@ export class StoreService {
 	 * Handles conflicts by appending numbers
 	 */
 	private static async generateUniqueSlug(baseName: string): Promise<string> {
-		// Convert to slug: lowercase, replace spaces with hyphens, remove special chars
-		const baseSlug = baseName
-			.toLowerCase()
-			.trim()
-			.replace(/\s+/g, "-")
-			.replace(/[^a-z0-9-]/g, "")
-			.replace(/-+/g, "-")
-			.replace(/^-|-$/g, "");
-
-		let slug = baseSlug;
-		let counter = 1;
-
-		// Check if slug exists, if so append number
-		while (true) {
-			const existing = await database.store.findUnique({
-				where: { slug },
-				select: { id: true },
+		return withSpan("store.generate_slug", async (span) => {
+			addSpanAttributes({
+				"store.slug_base": baseName,
 			});
 
-			if (!existing) {
-				return slug;
-			}
+			// Convert to slug: lowercase, replace spaces with hyphens, remove special chars
+			const baseSlug = baseName
+				.toLowerCase()
+				.trim()
+				.replace(/\s+/g, "-")
+				.replace(/[^a-z0-9-]/g, "")
+				.replace(/-+/g, "-")
+				.replace(/^-|-$/g, "");
 
-			slug = `${baseSlug}-${counter}`;
-			counter++;
-		}
+			let slug = baseSlug;
+			let counter = 1;
+
+			// Check if slug exists, if so append number
+			while (true) {
+				const existing = await database.store.findUnique({
+					where: { slug },
+					select: { id: true },
+				});
+
+				if (!existing) {
+					addSpanAttributes({
+						"store.slug_final": slug,
+						"store.slug_attempts": counter,
+					});
+					return slug;
+				}
+
+				slug = `${baseSlug}-${counter}`;
+				counter++;
+			}
+		});
 	}
 
 	/**
@@ -59,45 +71,67 @@ export class StoreService {
 		input: CreateStoreOnboardingInput,
 		userId: string,
 	): Promise<StoreSimpleOutput> {
-		const slug = await StoreService.generateUniqueSlug(input.name);
-		const orderLimit = getOrderLimitForPlan(StorePlanType.FREE);
+		return withSpan("store.create", async (span) => {
+			addSpanAttributes({
+				"store.user_id": userId,
+				"store.name": input.name,
+			});
 
-		const store = await database.store.create({
-			data: {
-				name: input.name,
-				slug,
-				description: input.description,
-				notificationMethod: input.notificationMethod,
-				ownerId: userId,
-				storePlan: {
-					create: {
-						planType: StorePlanType.FREE,
-						orderLimit,
-						orderCount: 0,
+			const slug = await StoreService.generateUniqueSlug(input.name);
+			const orderLimit = getOrderLimitForPlan(StorePlanType.FREE);
+
+			const store = await database.store.create({
+				data: {
+					name: input.name,
+					slug,
+					description: input.description,
+					notificationMethod: input.notificationMethod,
+					ownerId: userId,
+					storePlan: {
+						create: {
+							planType: StorePlanType.FREE,
+							orderLimit,
+							orderCount: 0,
+						},
 					},
 				},
-			},
-			include: StoreQuery.getClientSafeInclude(),
-		});
+				include: StoreQuery.getClientSafeInclude(),
+			});
 
-		return StoreEntity.getSimpleRo(store);
+			addSpanAttributes({
+				"store.id": store.id,
+				"store.slug": store.slug,
+			});
+
+			return StoreEntity.getSimpleRo(store);
+		});
 	}
 
 	/**
 	 * Get all stores owned by a user
 	 */
 	static async getAllStores(userId: string): Promise<StoreSimpleOutput[]> {
-		const stores = await database.store.findMany({
-			where: {
-				ownerId: userId,
-			},
-			orderBy: {
-				createdAt: "desc",
-			},
-			include: StoreQuery.getClientSafeInclude(),
-		});
+		return withSpan("store.get_all", async (span) => {
+			addSpanAttributes({
+				"store.user_id": userId,
+			});
 
-		return stores.map(StoreEntity.getSimpleRo);
+			const stores = await database.store.findMany({
+				where: {
+					ownerId: userId,
+				},
+				orderBy: {
+					createdAt: "desc",
+				},
+				include: StoreQuery.getClientSafeInclude(),
+			});
+
+			addSpanAttributes({
+				"store.count": stores.length,
+			});
+
+			return stores.map(StoreEntity.getSimpleRo);
+		});
 	}
 
 	/**
@@ -107,20 +141,27 @@ export class StoreService {
 		id: string,
 		userId: string,
 	): Promise<StoreIncludeOutput> {
-		const store = await database.store.findUnique({
-			where: { id },
-			include: StoreQuery.getInclude(),
+		return withSpan("store.get_by_id", async (span) => {
+			addSpanAttributes({
+				"store.id": id,
+				"store.user_id": userId,
+			});
+
+			const store = await database.store.findUnique({
+				where: { id },
+				include: StoreQuery.getInclude(),
+			});
+
+			if (!store) {
+				throw new Error("Store not found");
+			}
+
+			if (store.ownerId !== userId) {
+				throw new Error("You don't have access to this store");
+			}
+
+			return StoreEntity.getRo(store);
 		});
-
-		if (!store) {
-			throw new Error("Store not found");
-		}
-
-		if (store.ownerId !== userId) {
-			throw new Error("You don't have access to this store");
-		}
-
-		return StoreEntity.getRo(store);
 	}
 
 	/**
@@ -130,20 +171,27 @@ export class StoreService {
 		slug: string,
 		userId: string,
 	): Promise<StoreIncludeOutput> {
-		const store = await database.store.findUnique({
-			where: { slug },
-			include: StoreQuery.getInclude(),
+		return withSpan("store.get_by_slug", async () => {
+			addSpanAttributes({
+				"store.slug": slug,
+				"store.user_id": userId,
+			});
+
+			const store = await database.store.findUnique({
+				where: { slug },
+				include: StoreQuery.getInclude(),
+			});
+
+			if (!store) {
+				throw new Error("Store not found");
+			}
+
+			if (store.ownerId !== userId) {
+				throw new Error("You don't have access to this store");
+			}
+
+			return StoreEntity.getRo(store);
 		});
-
-		if (!store) {
-			throw new Error("Store not found");
-		}
-
-		if (store.ownerId !== userId) {
-			throw new Error("You don't have access to this store");
-		}
-
-		return StoreEntity.getRo(store);
 	}
 
 	/**
@@ -157,56 +205,69 @@ export class StoreService {
 			productLimit?: number;
 		},
 	): Promise<StorePublicOutput> {
-		const productPage = options?.productPage ?? 1;
-		const productLimit = options?.productLimit ?? 20;
+		return withSpan("store.get_by_slug_public", async (span) => {
+			const productPage = options?.productPage ?? 1;
+			const productLimit = options?.productLimit ?? 20;
 
-		// First, get the store to find its ID
-		const store = await database.store.findUnique({
-			where: { slug },
-			select: { id: true },
+			addSpanAttributes({
+				"store.slug": slug,
+				"store.product_page": productPage,
+				"store.product_limit": productLimit,
+			});
+
+			// First, get the store to find its ID
+			const store = await database.store.findUnique({
+				where: { slug },
+				select: { id: true },
+			});
+
+			if (!store) {
+				throw new Error("Store not found");
+			}
+
+			// Get total count of published products
+			const totalProducts = await database.product.count({
+				where: {
+					storeId: store.id,
+					...ProductQuery.getPublishableWhere(),
+				},
+			});
+
+			// Get store with paginated products
+			const storeWithProducts = await database.store.findUnique({
+				where: { slug },
+				include: StoreQuery.getPublicInclude({
+					productPage,
+					productLimit,
+				}),
+			});
+
+			if (!storeWithProducts) {
+				throw new Error("Store not found");
+			}
+
+			const result = StoreEntity.getPublicRo(storeWithProducts);
+
+			// Add pagination metadata
+			const productSkip = (productPage - 1) * productLimit;
+			const hasMoreProducts =
+				productSkip + (storeWithProducts.products?.length ?? 0) < totalProducts;
+
+			addSpanAttributes({
+				"store.total_products": totalProducts,
+				"store.products_returned": storeWithProducts.products?.length ?? 0,
+			});
+
+			return {
+				...result,
+				productsPagination: {
+					total: totalProducts,
+					hasMore: hasMoreProducts,
+					page: productPage,
+					limit: productLimit,
+				},
+			};
 		});
-
-		if (!store) {
-			throw new Error("Store not found");
-		}
-
-		// Get total count of published products
-		const totalProducts = await database.product.count({
-			where: {
-				storeId: store.id,
-				...ProductQuery.getPublishableWhere(),
-			},
-		});
-
-		// Get store with paginated products
-		const storeWithProducts = await database.store.findUnique({
-			where: { slug },
-			include: StoreQuery.getPublicInclude({
-				productPage,
-				productLimit,
-			}),
-		});
-
-		if (!storeWithProducts) {
-			throw new Error("Store not found");
-		}
-
-		const result = StoreEntity.getPublicRo(storeWithProducts);
-
-		// Add pagination metadata
-		const productSkip = (productPage - 1) * productLimit;
-		const hasMoreProducts =
-			productSkip + (storeWithProducts.products?.length ?? 0) < totalProducts;
-
-		return {
-			...result,
-			productsPagination: {
-				total: totalProducts,
-				hasMore: hasMoreProducts,
-				page: productPage,
-				limit: productLimit,
-			},
-		};
 	}
 
 	/**
@@ -220,30 +281,39 @@ export class StoreService {
 			category?: StoreCategory;
 		},
 	): Promise<StoreSimpleOutput> {
-		// Verify ownership
-		const store = await database.store.findUnique({
-			where: { id: storeId },
-			select: { ownerId: true },
+		return withSpan("store.update_config", async (span) => {
+			addSpanAttributes({
+				"store.id": storeId,
+				"store.user_id": userId,
+				"store.theme": updates.theme ?? "",
+				"store.category": updates.category ?? "",
+			});
+
+			// Verify ownership
+			const store = await database.store.findUnique({
+				where: { id: storeId },
+				select: { ownerId: true },
+			});
+
+			if (!store) {
+				throw new Error("Store not found");
+			}
+
+			if (store.ownerId !== userId) {
+				throw new Error("You don't have access to this store");
+			}
+
+			// Update store
+			const updatedStore = await database.store.update({
+				where: { id: storeId },
+				data: {
+					theme: updates.theme,
+					category: updates.category,
+				},
+				include: StoreQuery.getClientSafeInclude(),
+			});
+
+			return StoreEntity.getSimpleRo(updatedStore);
 		});
-
-		if (!store) {
-			throw new Error("Store not found");
-		}
-
-		if (store.ownerId !== userId) {
-			throw new Error("You don't have access to this store");
-		}
-
-		// Update store
-		const updatedStore = await database.store.update({
-			where: { id: storeId },
-			data: {
-				theme: updates.theme,
-				category: updates.category,
-			},
-			include: StoreQuery.getClientSafeInclude(),
-		});
-
-		return StoreEntity.getSimpleRo(updatedStore);
 	}
 }

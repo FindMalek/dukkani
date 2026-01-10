@@ -2,7 +2,6 @@ import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 import { CompressionAlgorithm } from "@opentelemetry/otlp-exporter-base";
-import { logger } from "@dukkani/logger";
 
 export interface OTLPExporterConfig {
 	/**
@@ -105,14 +104,14 @@ export function createOTLPTraceExporter(
 	exporter.export = (spans, resultCallback) => {
 		originalExport(spans, (result) => {
 			if (result.code !== 0 && result.error) {
-				logger.error(
-					{
-						error: result.error.message || String(result.error),
-						endpoint,
-						spanCount: spans.length,
-					},
-					"Failed to export traces",
-				);
+				// logger.error(
+				// 	{
+				// 		error: result.error.message || String(result.error),
+				// 		endpoint,
+				// 		spanCount: spans.length,
+				// 	},
+				// 	"Failed to export traces",
+				// );
 			}
 			resultCallback(result);
 		});

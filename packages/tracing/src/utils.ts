@@ -91,3 +91,42 @@ export function addSpanEvent(
 export function hasActiveSpan(): boolean {
 	return trace.getActiveSpan() !== undefined;
 }
+
+/**
+ * Create a traced method - cleaner alternative to decorators
+ * Usage: static methodName = traceMethod("span.name", async (span, ...args) => { ... })
+ */
+export function traceMethod<T extends (...args: any[]) => Promise<any>>(
+	spanName: string,
+	fn: (
+		span: ReturnType<typeof trace.getActiveSpan>,
+		...args: Parameters<T>
+	) => Promise<ReturnType<T>>,
+	staticAttributes?: Record<string, string | number | boolean>,
+): T {
+	return (async (...args: Parameters<T>) => {
+		const tracer = trace.getTracer("dukkani");
+		return tracer.startActiveSpan(spanName, async (span) => {
+			try {
+				if (staticAttributes) {
+					Object.entries(staticAttributes).forEach(([key, value]) => {
+						span.setAttribute(key, value);
+					});
+				}
+
+				const result = await fn(span, ...args);
+				span.setStatus({ code: SpanStatusCode.OK });
+				return result;
+			} catch (error) {
+				span.recordException(error as Error);
+				span.setStatus({
+					code: SpanStatusCode.ERROR,
+					message: error instanceof Error ? error.message : String(error),
+				});
+				throw error;
+			} finally {
+				span.end();
+			}
+		});
+	}) as T;
+}

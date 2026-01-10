@@ -1,11 +1,11 @@
 import { database } from "@dukkani/db";
+import { addSpanAttributes, Trace } from "@dukkani/tracing";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import { OrderItemQuery } from "../entities/order-item/query";
 import { ProductEntity } from "../entities/product/entity";
 import { ProductQuery } from "../entities/product/query";
 import { OrderStatus } from "../schemas/order/enums";
-import { Trace, addSpanAttributes } from "@dukkani/tracing";
 
 /**
  * Dashboard service - Aggregated statistics and dashboard data

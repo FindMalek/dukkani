@@ -1,5 +1,4 @@
 import type { Instrumentation } from "@opentelemetry/instrumentation";
-import { FsInstrumentation } from "@opentelemetry/instrumentation-fs";
 import { HttpInstrumentation } from "@opentelemetry/instrumentation-http";
 import { PinoInstrumentation } from "@opentelemetry/instrumentation-pino";
 import { ORPCInstrumentation } from "@orpc/otel";
@@ -24,8 +23,6 @@ export function getInstrumentations(): Instrumentation[] {
 			},
 		}),
 
-		// File system instrumentation
-		new FsInstrumentation(),
 
 		// Prisma database instrumentation
 		new PrismaInstrumentation(),

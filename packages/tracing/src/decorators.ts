@@ -1,3 +1,4 @@
+// packages/tracing/src/decorators.ts
 import { SpanStatusCode, trace } from "@opentelemetry/api";
 
 type Constructor = new (...args: unknown[]) => unknown;
@@ -5,36 +6,83 @@ type Constructor = new (...args: unknown[]) => unknown;
 /**
  * Decorator to automatically trace method execution
  * Creates child spans within existing trace context (respects parent-child relationships)
+ *
+ * Compatible with both TypeScript experimental decorators and new decorator proposal
  */
 export function Trace(
 	spanName: string,
 	staticAttributes?: Record<string, string | number | boolean>,
 ) {
-	return (
+	// Support both old (experimentalDecorators) and new decorator APIs
+	return ((
 		target: Constructor | object,
-		propertyKey: string | symbol,
-		descriptor: PropertyDescriptor,
+		propertyKey: string | symbol | undefined,
+		descriptor?: PropertyDescriptor,
 	) => {
-		const originalMethod = descriptor.value;
+		// Guard: propertyKey is required for method decorators
+		if (propertyKey === undefined) {
+			// Return early - decorator called incorrectly (might be class decorator)
+			return;
+		}
+
+		// Resolve descriptor from target if not provided
+		let resolvedDescriptor: PropertyDescriptor;
+
+		if (descriptor && typeof descriptor.value === "function") {
+			resolvedDescriptor = descriptor;
+		} else {
+			// Determine if this is a static method (target is constructor) or instance method
+			const isStatic = typeof target === "function";
+			const targetObj = isStatic ? target : target.constructor;
+
+			// For static methods, descriptor is on the constructor itself
+			// For instance methods, descriptor is on the prototype
+			const descriptorSource = isStatic ? targetObj : targetObj.prototype;
+
+			// Try to get the descriptor
+			const ownDescriptor = Object.getOwnPropertyDescriptor(
+				descriptorSource,
+				propertyKey,
+			);
+
+			if (ownDescriptor && typeof ownDescriptor.value === "function") {
+				resolvedDescriptor = ownDescriptor;
+			} else {
+				// Fallback: get the method directly and create descriptor
+				const originalMethod = descriptorSource[propertyKey];
+				if (typeof originalMethod !== "function") {
+					return;
+				}
+
+				resolvedDescriptor = {
+					value: originalMethod,
+					writable: true,
+					enumerable: false,
+					configurable: true,
+				};
+			}
+		}
+
+		if (!resolvedDescriptor || typeof resolvedDescriptor.value !== "function") {
+			return;
+		}
+
+		const originalMethod = resolvedDescriptor.value;
 		const name =
 			spanName || `${target.constructor.name}.${String(propertyKey)}`;
 
-		descriptor.value = async function (this: unknown, ...args: unknown[]) {
+		// Create the wrapped method
+		const wrappedMethod = async function (this: unknown, ...args: unknown[]) {
 			const tracer = trace.getTracer("dukkani");
 
-			// startActiveSpan automatically creates child span if active span exists
-			// This respects parent-child relationships - no new trace!
 			return tracer.startActiveSpan(name, async (span) => {
 				try {
-					// Add static attributes if provided
 					if (staticAttributes) {
 						Object.entries(staticAttributes).forEach(([key, value]) => {
 							span.setAttribute(key, value);
 						});
 					}
 
-					// Add method arguments as attributes (sanitized, optional)
-					// Only add if they're simple types to avoid sensitive data
 					if (args.length > 0) {
 						span.setAttribute("method.args_count", args.length);
 					}
@@ -55,6 +103,21 @@ export function Trace(
 			});
 		};
 
-		return descriptor;
-	};
+		// Update descriptor with wrapped method
+		resolvedDescriptor.value = wrappedMethod;
+
+		// Update the property descriptor on the correct target
+		const isStatic = typeof target === "function";
+		const targetObj = isStatic ? target : target.constructor;
+		const descriptorSource = isStatic ? targetObj : targetObj.prototype;
+
+		try {
+			Object.defineProperty(descriptorSource, propertyKey, resolvedDescriptor);
+		} catch {
+			// Silently fail if we can't define property
+			return;
+		}
+
+		return resolvedDescriptor;
+	}) as any; // Type assertion to bypass TypeScript's strict decorator type checking
 }

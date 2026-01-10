@@ -101,35 +101,72 @@ const createConsoleLogger = () => {
 };
 
 /**
- * Logger configuration based on environment
- * - Development: Pretty-printed logs with timestamps using pino (synchronous, no worker threads)
- * - Production: Simple console.log/error/warn
+ * Check if we're in a Node.js environment (not Edge Runtime)
  */
-const isDevelopment = process.env.NODE_ENV !== "production";
-
-let logger: ReturnType<typeof createConsoleLogger>;
-
-if (isDevelopment) {
-	// Dynamic import pino only in development
-	const pino = require("pino");
-	const prettyFormatter = new PrettyFormatter();
-	prettyFormatter.pipe(process.stdout);
-
-	logger = pino(
-		{
-			level: process.env.LOG_LEVEL || "info",
-			formatters: {
-				level: (label: string) => {
-					return { level: label.toUpperCase() };
-				},
-			},
-			timestamp: pino.stdTimeFunctions.isoTime,
-		},
-		prettyFormatter,
+function isNodeEnvironment(): boolean {
+	return (
+		typeof process !== "undefined" &&
+		typeof process.stdout !== "undefined" &&
+		typeof window === "undefined"
 	);
-} else {
-	logger = createConsoleLogger();
 }
 
-export { logger };
+/**
+ * Initialize logger lazily - only when actually used
+ * This prevents Edge Runtime errors
+ */
+let loggerInstance: ReturnType<typeof createConsoleLogger> | null = null;
+
+function getLogger(): ReturnType<typeof createConsoleLogger> {
+	if (loggerInstance) {
+		return loggerInstance;
+	}
+
+	// In Edge Runtime or browser, use console logger
+	if (!isNodeEnvironment()) {
+		loggerInstance = createConsoleLogger();
+		return loggerInstance;
+	}
+
+	// In Node.js environment, check if development
+	const isDevelopment = process.env.NODE_ENV !== "production";
+
+	if (isDevelopment) {
+		try {
+			// Dynamic import pino only in development and Node.js
+			const pino = require("pino");
+			const prettyFormatter = new PrettyFormatter();
+			prettyFormatter.pipe(process.stdout);
+
+			loggerInstance = pino(
+				{
+					level: process.env.LOG_LEVEL || "info",
+					formatters: {
+						level: (label: string) => {
+							return { level: label.toUpperCase() };
+						},
+					},
+					timestamp: pino.stdTimeFunctions.isoTime,
+				},
+				prettyFormatter,
+			) as ReturnType<typeof createConsoleLogger>;
+		} catch {
+			// Fallback to console logger if pino fails
+			loggerInstance = createConsoleLogger();
+		}
+	} else {
+		loggerInstance = createConsoleLogger();
+	}
+
+	return loggerInstance;
+}
+
+// Export logger as a getter that initializes lazily
+export const logger = new Proxy({} as ReturnType<typeof createConsoleLogger>, {
+	get(_target, prop) {
+		const loggerInstance = getLogger();
+		return loggerInstance[prop as keyof ReturnType<typeof createConsoleLogger>];
+	},
+});
+
 export default logger;

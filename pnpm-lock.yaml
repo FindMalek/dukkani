@@ -857,9 +857,6 @@ importers:
       '@opentelemetry/instrumentation':
         specifier: ^0.209.0
         version: 0.209.0(@opentelemetry/api@1.9.0)
-      '@opentelemetry/instrumentation-fs':
-        specifier: ^0.28.0
-        version: 0.28.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/instrumentation-http':
         specifier: ^0.209.0
         version: 0.209.0(@opentelemetry/api@1.9.0)
@@ -1755,12 +1752,6 @@ packages:
     engines: {node: ^18.19.0 || >=20.6.0}
     peerDependencies:
       '@opentelemetry/api': ^1.0.0
-
-  '@opentelemetry/instrumentation-fs@0.28.0':
-    resolution: {integrity: sha512-FFvg8fq53RRXVBRHZViP+EMxMR03tqzEGpuq55lHNbVPyFklSVfQBN50syPhK5UYYwaStx0eyCtHtbRreusc5g==}
-    engines: {node: ^18.19.0 || >=20.6.0}
-    peerDependencies:
-      '@opentelemetry/api': ^1.3.0
 
   '@opentelemetry/instrumentation-http@0.209.0':
     resolution: {integrity: sha512-hsZt3bwnbpDGYv397YnYHMydwJwwk+aCfezrX/pkBt3/sKnZ3lte6e8V/qfmU6TlwEnhS3ewcgnzHpa23ZcckA==}
@@ -5385,14 +5376,6 @@ snapshots:
       '@opentelemetry/resources': 2.3.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 2.3.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.38.0
-
-  '@opentelemetry/instrumentation-fs@0.28.0(@opentelemetry/api@1.9.0)':
-    dependencies:
-      '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 2.3.0(@opentelemetry/api@1.9.0)
-      '@opentelemetry/instrumentation': 0.208.0(@opentelemetry/api@1.9.0)
-    transitivePeerDependencies:
-      - supports-color
 
   '@opentelemetry/instrumentation-http@0.209.0(@opentelemetry/api@1.9.0)':
     dependencies:
