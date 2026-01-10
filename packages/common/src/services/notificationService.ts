@@ -55,7 +55,6 @@ export class NotificationService {
 		}
 	}
 
-	@Trace("notification.send_telegram")
 	private static async sendEmailNotification(
 		email: string,
 		storeName: string,

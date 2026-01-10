@@ -265,6 +265,7 @@ export class TelegramService {
 	 * Send order notification to shop owner
 	 * Includes shop context for multi-shop support
 	 */
+	@Trace("telegram.send_order_notification")
 	static async sendOrderNotification(
 		shopId: string,
 		order: {

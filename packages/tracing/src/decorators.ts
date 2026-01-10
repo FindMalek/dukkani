@@ -1,25 +1,25 @@
 import { SpanStatusCode, trace } from "@opentelemetry/api";
 
+type Constructor = new (...args: unknown[]) => unknown;
+
 /**
  * Decorator to automatically trace method execution
  * Creates child spans within existing trace context (respects parent-child relationships)
- *
- * Usage:
- * @Trace("telegram.process_webhook")
- * static async processWebhookUpdate(...) { ... }
- *
- * @Trace("telegram.send_message", { "telegram.chat_id": "chatId" })
- * static async sendMessage(chatId: string, ...) { ... }
  */
 export function Trace(
 	spanName: string,
 	staticAttributes?: Record<string, string | number | boolean>,
 ) {
-	return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+	return (
+		target: Constructor | object,
+		propertyKey: string | symbol,
+		descriptor: PropertyDescriptor,
+	) => {
 		const originalMethod = descriptor.value;
-		const name = spanName || `${target.constructor.name}.${propertyKey}`;
+		const name =
+			spanName || `${target.constructor.name}.${String(propertyKey)}`;
 
-		descriptor.value = async function (...args: any[]) {
+		descriptor.value = async function (this: unknown, ...args: unknown[]) {
 			const tracer = trace.getTracer("dukkani");
 
 			// startActiveSpan automatically creates child span if active span exists
