@@ -1,14 +1,21 @@
 import { database } from "@dukkani/db";
 import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
 import { logger } from "@dukkani/logger";
+import { addSpanAttributes, Trace } from "@dukkani/tracing";
 import type { OrderIncludeOutput } from "../schemas/order/output";
 import { TelegramService } from "./telegramService";
 
 export class NotificationService {
+	@Trace("notification.send_order")
 	static async sendOrderNotification(
 		storeId: string,
 		order: OrderIncludeOutput,
 	): Promise<void> {
+		addSpanAttributes({
+			"notification.store_id": storeId,
+			"notification.order_id": order.id,
+		});
+
 		const store = await database.store.findUnique({
 			where: { id: storeId },
 			include: {
@@ -48,6 +55,7 @@ export class NotificationService {
 		}
 	}
 
+	@Trace("notification.send_telegram")
 	private static async sendEmailNotification(
 		email: string,
 		storeName: string,

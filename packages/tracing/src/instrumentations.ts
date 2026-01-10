@@ -2,6 +2,7 @@ import type { Instrumentation } from "@opentelemetry/instrumentation";
 import { FsInstrumentation } from "@opentelemetry/instrumentation-fs";
 import { HttpInstrumentation } from "@opentelemetry/instrumentation-http";
 import { PinoInstrumentation } from "@opentelemetry/instrumentation-pino";
+import { OrpcOtel } from "@orpc/otel";
 import { PrismaInstrumentation } from "@prisma/instrumentation";
 
 /**
@@ -31,6 +32,9 @@ export function getInstrumentations(): Instrumentation[] {
 
 		// Pino logger instrumentation
 		new PinoInstrumentation(),
+
+		// oRPC procedure instrumentation
+		new OrpcOtel(),
 	];
 
 	return instrumentations;

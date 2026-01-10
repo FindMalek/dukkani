@@ -45,6 +45,7 @@
 		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"@dukkani/logger": "workspace:*",
+		"@dukkani/tracing": "workspace:*",
 		"@prisma/client": "catalog:",
 		"@formatjs/intl-localematcher": "catalog:",
 		"negotiator": "catalog:",

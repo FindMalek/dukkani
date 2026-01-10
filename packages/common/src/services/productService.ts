@@ -1,7 +1,7 @@
 import { database } from "@dukkani/db";
+import { addSpanAttributes, Trace } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
 import { generateProductId } from "../utils/generate-id";
-
 /**
  * Product service - Shared business logic for product operations
  */
@@ -43,11 +43,17 @@ export class ProductService {
 	 * Check stock availability for order items
 	 * Aggregates quantities by productId to handle duplicate products correctly
 	 */
+	@Trace("product.check_stock")
 	static async checkStockAvailability(
 		items: Array<{ productId: string; quantity: number }>,
 		storeId: string,
 		tx?: PrismaClient,
 	): Promise<void> {
+		addSpanAttributes({
+			"product.store_id": storeId,
+			"product.items_count": items.length,
+		});
+
 		const client = tx ?? database;
 
 		// Aggregate required quantities by productId to handle duplicates
@@ -94,12 +100,19 @@ export class ProductService {
 	/**
 	 * Update product stock
 	 */
+	@Trace("product.update_stock")
 	static async updateProductStock(
 		productId: string,
 		quantity: number,
 		operation: "increment" | "decrement",
 		tx?: PrismaClient,
 	): Promise<void> {
+		addSpanAttributes({
+			"product.id": productId,
+			"product.quantity": quantity,
+			"product.operation": operation,
+		});
+
 		const client = tx ?? database;
 		await client.product.update({
 			where: { id: productId },
@@ -115,11 +128,16 @@ export class ProductService {
 	 * Update multiple product stocks
 	 * Aggregates quantities by productId to handle duplicate products correctly
 	 */
+	@Trace("product.update_multiple_stocks")
 	static async updateMultipleProductStocks(
 		updates: Array<{ productId: string; quantity: number }>,
 		operation: "increment" | "decrement",
 		tx?: PrismaClient,
 	): Promise<void> {
+		addSpanAttributes({
+			"product.updates_count": updates.length,
+			"product.operation": operation,
+		});
 		const client = tx ?? database;
 
 		// Aggregate quantities by productId to handle duplicates

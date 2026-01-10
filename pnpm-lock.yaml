@@ -566,6 +566,9 @@ importers:
       '@dukkani/logger':
         specifier: workspace:*
         version: link:../logger
+      '@dukkani/tracing':
+        specifier: workspace:*
+        version: link:../tracing
       '@formatjs/intl-localematcher':
         specifier: 'catalog:'
         version: 0.6.2

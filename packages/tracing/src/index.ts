@@ -20,17 +20,20 @@ export function registerTracing(config: TracingConfig): void {
 export { shutdownSDK };
 
 export {
+	fetchWithTrace,
+	propagateTraceContext,
+} from "./context-propagation";
+export { Trace } from "./decorators";
+export {
 	enhanceLogWithTraceContext,
 	getTraceContext,
 } from "./logger-integration";
-/**
- * Re-export utilities for manual instrumentation
- */
 export {
 	addSpanAttributes,
+	addSpanEvent,
 	getSpanId,
 	getTraceId,
+	hasActiveSpan,
 	withSpan,
 } from "./utils";
-
 export type { TracingConfig };

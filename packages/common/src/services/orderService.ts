@@ -1,5 +1,6 @@
 import { database } from "@dukkani/db";
 import { generateOrderId } from "@dukkani/db/utils/generate-id";
+import { addSpanAttributes, Trace } from "@dukkani/tracing";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import type { OrderStatus } from "../schemas/order/enums";
@@ -22,10 +23,17 @@ export class OrderService {
 	 * Create order with stock validation and updates
 	 * Wrapped in transaction to ensure atomicity and prevent race conditions
 	 */
+	@Trace("order.create")
 	static async createOrder(
 		input: CreateOrderInput,
 		userId: string,
 	): Promise<OrderIncludeOutput> {
+		addSpanAttributes({
+			"order.store_id": input.storeId,
+			"order.items_count": input.orderItems.length,
+			"order.user_id": userId,
+		});
+
 		// Get store to verify ownership and generate ID
 		const store = await database.store.findUnique({
 			where: { id: input.storeId },
@@ -104,11 +112,18 @@ export class OrderService {
 	/**
 	 * Update order status
 	 */
+	@Trace("order.update_status")
 	static async updateOrderStatus(
 		orderId: string,
 		status: OrderStatus,
 		userId: string,
 	): Promise<OrderIncludeOutput> {
+		addSpanAttributes({
+			"order.id": orderId,
+			"order.status": status,
+			"order.user_id": userId,
+		});
+
 		// Get order to verify ownership
 		const order = await database.order.findUnique({
 			where: { id: orderId },
@@ -141,7 +156,13 @@ export class OrderService {
 	 * Delete order and restore stock
 	 * Wrapped in transaction to ensure atomicity
 	 */
+	@Trace("order.delete")
 	static async deleteOrder(orderId: string, userId: string): Promise<void> {
+		addSpanAttributes({
+			"order.id": orderId,
+			"order.user_id": userId,
+		});
+
 		// Get order to verify ownership and get order items
 		const order = await database.order.findUnique({
 			where: { id: orderId },

@@ -2,6 +2,7 @@ import { randomInt } from "node:crypto";
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
 import { logger } from "@dukkani/logger";
+import { addSpanAttributes, fetchWithTrace, Trace } from "@dukkani/tracing";
 import { StoreQuery } from "../entities/store/query";
 import type { StoreMinimalOutput } from "../schemas/store/output";
 import { OrderService } from "./orderService";
@@ -194,6 +195,7 @@ export class TelegramService {
 	 * Send message to Telegram chat
 	 * Implements rate limiting (20 messages/second)
 	 */
+	@Trace("telegram.send_message")
 	static async sendMessage(
 		chatId: string,
 		text: string,
@@ -206,18 +208,27 @@ export class TelegramService {
 			};
 		},
 	): Promise<void> {
+		addSpanAttributes({
+			"telegram.chat_id": chatId,
+			"telegram.message_length": text.length,
+		});
+
 		await TelegramService.rateLimit();
 
-		const response = await fetch(`${TelegramService.BOT_API_URL}/sendMessage`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				chat_id: chatId,
-				text,
-				parse_mode: options?.parseMode,
-				reply_markup: options?.replyMarkup,
-			}),
-		});
+		// Use fetchWithTrace for context propagation
+		const response = await fetchWithTrace(
+			`${TelegramService.BOT_API_URL}/sendMessage`,
+			{
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					chat_id: chatId,
+					text,
+					parse_mode: options?.parseMode,
+					reply_markup: options?.replyMarkup,
+				}),
+			},
+		);
 
 		const responseData = await response.json().catch(() => null);
 
@@ -232,6 +243,7 @@ export class TelegramService {
 	/**
 	 * Send OTP to user's Telegram
 	 */
+	@Trace("telegram.send_otp")
 	static async sendOTP(userId: string, otp: string): Promise<void> {
 		const user = await database.user.findUnique({
 			where: { id: userId },
@@ -370,6 +382,7 @@ ${itemsText}
 	/**
 	 * Handle Telegram command
 	 */
+	@Trace("telegram.command")
 	static async handleCommand(
 		command: string,
 		args: string[],
@@ -527,6 +540,7 @@ ${itemsText}
 	 * Handle Telegram callback query (button clicks)
 	 * Routes callbacks to appropriate handlers
 	 */
+	@Trace("telegram.callback_query")
 	static async handleCallbackQuery(
 		callbackData: string,
 		callbackQueryId: string,
@@ -632,6 +646,7 @@ ${itemsText}
 	 * Process Telegram webhook update
 	 * Main entry point for handling Telegram updates
 	 */
+	@Trace("telegram.process_webhook")
 	static async processWebhookUpdate(update: {
 		message?: {
 			text?: string;
@@ -648,8 +663,13 @@ ${itemsText}
 			message?: { chat: { id: number } };
 		};
 	}): Promise<void> {
+		addSpanAttributes({
+			"telegram.update.type": update.callback_query
+				? "callback_query"
+				: "message",
+		});
+
 		try {
-			// Handle callback queries (button clicks) - priority over commands
 			if (update.callback_query) {
 				const { data, id: callbackQueryId, message } = update.callback_query;
 				if (data && callbackQueryId && message) {
@@ -663,7 +683,6 @@ ${itemsText}
 				return;
 			}
 
-			// Handle commands (text messages starting with /)
 			if (update.message?.text?.startsWith("/")) {
 				const text = update.message.text;
 				const parts = text.slice(1).split(/\s+/);
@@ -679,6 +698,11 @@ ${itemsText}
 					: undefined;
 
 				if (command) {
+					addSpanAttributes({
+						"telegram.command": command,
+						"telegram.chat_id": chatId,
+					});
+
 					await TelegramService.handleCommand(
 						command,
 						args,
@@ -694,7 +718,6 @@ ${itemsText}
 				const chatId = update.message.chat.id.toString();
 				const text = update.message.text.trim();
 
-				// Check if user is waiting for disconnect confirmation
 				const confirmation =
 					await TelegramService.getDisconnectConfirmation(chatId);
 				if (confirmation) {

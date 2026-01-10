@@ -69,3 +69,25 @@ export function addSpanAttributes(
 		});
 	}
 }
+
+/**
+ * Add event to current active span
+ * Use for important milestones within an operation
+ */
+export function addSpanEvent(
+	name: string,
+	attributes?: Record<string, string | number | boolean>,
+): void {
+	const span = trace.getActiveSpan();
+	if (span) {
+		span.addEvent(name, attributes);
+	}
+}
+
+/**
+ * Check if we're currently in a trace context
+ * Useful for conditional instrumentation
+ */
+export function hasActiveSpan(): boolean {
+	return trace.getActiveSpan() !== undefined;
+}
