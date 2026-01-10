@@ -42,7 +42,7 @@ class NotificationServiceBase {
 			notificationMethod === StoreNotificationMethod.EMAIL ||
 			notificationMethod === StoreNotificationMethod.BOTH
 		) {
-			await NotificationService.sendEmailNotification(
+			await NotificationServiceBase.sendEmailNotification(
 				store.owner.email,
 				store.name,
 				order,
@@ -54,7 +54,7 @@ class NotificationServiceBase {
 				notificationMethod === StoreNotificationMethod.BOTH) &&
 			store.owner.telegramChatId
 		) {
-			await NotificationService.sendTelegramNotification(storeId, order);
+			await NotificationServiceBase.sendTelegramNotification(storeId, order);
 		}
 	}
 
