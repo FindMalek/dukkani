@@ -713,6 +713,9 @@ importers:
 
   packages/logger:
     dependencies:
+      '@dukkani/env':
+        specifier: workspace:*
+        version: link:../env
       '@opentelemetry/instrumentation-pino':
         specifier: latest
         version: 0.55.1(@opentelemetry/api@1.9.0)

@@ -1,4 +1,5 @@
 import { Transform } from "node:stream";
+import { env } from "@dukkani/env";
 
 /**
  * Custom synchronous formatter for development
@@ -111,6 +112,7 @@ function isNodeEnvironment(): boolean {
 	);
 }
 
+
 /**
  * Initialize logger lazily - only when actually used
  * This prevents Edge Runtime errors
@@ -129,7 +131,9 @@ function getLogger(): ReturnType<typeof createConsoleLogger> {
 	}
 
 	// In Node.js environment, check if development
-	const isDevelopment = process.env.NODE_ENV !== "production";
+	// Use NEXT_PUBLIC_NODE_ENV from env, fallback to process.env.NODE_ENV
+	const nodeEnv = env.NEXT_PUBLIC_NODE_ENV || process.env.NODE_ENV;
+	const isDevelopment = nodeEnv !== "production";
 
 	if (isDevelopment) {
 		try {
@@ -138,9 +142,12 @@ function getLogger(): ReturnType<typeof createConsoleLogger> {
 			const prettyFormatter = new PrettyFormatter();
 			prettyFormatter.pipe(process.stdout);
 
+			// Use LOG_LEVEL from env if available, fallback to process.env.LOG_LEVEL or "info"
+			const logLevel = env.LOG_LEVEL ?? "info";
+
 			loggerInstance = pino(
 				{
-					level: process.env.LOG_LEVEL || "info",
+					level: logLevel,
 					formatters: {
 						level: (label: string) => {
 							return { level: label.toUpperCase() };

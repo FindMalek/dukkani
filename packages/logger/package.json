@@ -14,7 +14,8 @@
 	},
 	"dependencies": {
 		"pino": "catalog:",
-		"@opentelemetry/instrumentation-pino": "latest"
+		"@opentelemetry/instrumentation-pino": "latest",
+		"@dukkani/env": "workspace:*"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
