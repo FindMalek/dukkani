@@ -761,7 +761,7 @@ ${itemsText}
 						chatId,
 						confirmation.userId,
 					);
-					
+
 					logger.info(
 						enhanceLogWithTraceContext({
 							chat_id: chatId,

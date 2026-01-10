@@ -37,3 +37,4 @@ export {
 	withSpan,
 } from "./utils";
 export type { TracingConfig };
+export { getSDKStatus } from "./sdk";
