@@ -16,6 +16,8 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
 		"types": ["node"],
 		"lib": ["ESNext", "DOM"]
 	}

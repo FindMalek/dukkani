@@ -1,11 +1,13 @@
 import { database } from "@dukkani/db";
+import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
 import { generateProductId } from "../utils/generate-id";
 
 /**
  * Product service - Shared business logic for product operations
+ * All methods are automatically traced via traceStaticClass
  */
-export class ProductService {
+class ProductServiceBase {
 	/**
 	 * Generate product ID using store slug
 	 */
@@ -48,6 +50,11 @@ export class ProductService {
 		storeId: string,
 		tx?: PrismaClient,
 	): Promise<void> {
+		addSpanAttributes({
+			"product.store_id": storeId,
+			"product.items_count": items.length,
+		});
+
 		const client = tx ?? database;
 
 		// Aggregate required quantities by productId to handle duplicates
@@ -80,6 +87,14 @@ export class ProductService {
 			);
 		}
 
+		addSpanAttributes({
+			"product.unique_products": uniqueProductIds.length,
+			"product.total_quantity": Array.from(requiredByProduct.values()).reduce(
+				(a, b) => a + b,
+				0,
+			),
+		});
+
 		// Validate aggregated quantities against stock
 		for (const [productId, required] of requiredByProduct.entries()) {
 			const product = products.find(
@@ -100,6 +115,12 @@ export class ProductService {
 		operation: "increment" | "decrement",
 		tx?: PrismaClient,
 	): Promise<void> {
+		addSpanAttributes({
+			"product.id": productId,
+			"product.quantity": quantity,
+			"product.operation": operation,
+		});
+
 		const client = tx ?? database;
 		await client.product.update({
 			where: { id: productId },
@@ -120,6 +141,10 @@ export class ProductService {
 		operation: "increment" | "decrement",
 		tx?: PrismaClient,
 	): Promise<void> {
+		addSpanAttributes({
+			"product.updates_count": updates.length,
+			"product.operation": operation,
+		});
 		const client = tx ?? database;
 
 		// Aggregate quantities by productId to handle duplicates
@@ -144,5 +169,14 @@ export class ProductService {
 				}),
 			),
 		);
+
+		addSpanAttributes({
+			"product.products_updated": aggregatedUpdates.size,
+			"product.total_quantity_change": Array.from(
+				aggregatedUpdates.values(),
+			).reduce((a, b) => a + b, 0),
+		});
 	}
 }
+
+export const ProductService = traceStaticClass(ProductServiceBase);

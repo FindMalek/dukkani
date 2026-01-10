@@ -5,12 +5,14 @@ packages:
 catalog:
   '@biomejs/biome': ^2.3.5
   '@formatjs/intl-localematcher': ^0.6.2
-  '@orpc/client': ^1.11.2
-  '@orpc/openapi': ^1.11.2
-  '@orpc/server': ^1.11.2
-  '@orpc/tanstack-query': ^1.11.2
-  '@orpc/zod': ^1.11.2
+  '@orpc/client': ^1.13.2
+  '@orpc/openapi': ^1.13.2
+  '@orpc/server': ^1.13.2
+  '@orpc/tanstack-query': ^1.13.2
+  '@orpc/zod': ^1.13.2
+  '@orpc/otel': ^1.13.2
   '@prisma/client': ^7.0.0
+  '@prisma/instrumentation': ^7.0.0
   '@t3-oss/env-core': ^0.13.8
   '@t3-oss/env-nextjs': ^0.13.8
   '@tailwindcss/postcss': ^4.1.17

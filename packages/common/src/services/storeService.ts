@@ -1,9 +1,16 @@
+// packages/common/src/services/storeService.ts
 import { database } from "@dukkani/db";
 import {
 	type StoreCategory,
 	StorePlanType,
 	type StoreTheme,
 } from "@dukkani/db/prisma/generated/enums";
+import logger from "@dukkani/logger";
+import {
+	addSpanAttributes,
+	enhanceLogWithTraceContext,
+	traceStaticClass,
+} from "@dukkani/tracing";
 import { ProductQuery } from "../entities/product/query";
 import { StoreEntity } from "../entities/store/entity";
 import { StoreQuery } from "../entities/store/query";
@@ -17,13 +24,18 @@ import { getOrderLimitForPlan } from "../schemas/store-plan/constants";
 
 /**
  * Store service - Shared business logic for store operations
+ * All methods are automatically traced via traceStaticClass
  */
-export class StoreService {
+class StoreServiceBase {
 	/**
 	 * Generate a unique slug from store name
 	 * Handles conflicts by appending numbers
 	 */
 	private static async generateUniqueSlug(baseName: string): Promise<string> {
+		addSpanAttributes({
+			"store.slug_base": baseName,
+		});
+
 		// Convert to slug: lowercase, replace spaces with hyphens, remove special chars
 		const baseSlug = baseName
 			.toLowerCase()
@@ -44,6 +56,10 @@ export class StoreService {
 			});
 
 			if (!existing) {
+				addSpanAttributes({
+					"store.slug_final": slug,
+					"store.slug_attempts": counter,
+				});
 				return slug;
 			}
 
@@ -59,7 +75,12 @@ export class StoreService {
 		input: CreateStoreOnboardingInput,
 		userId: string,
 	): Promise<StoreSimpleOutput> {
-		const slug = await StoreService.generateUniqueSlug(input.name);
+		addSpanAttributes({
+			"store.user_id": userId,
+			"store.name": input.name,
+		});
+
+		const slug = await StoreServiceBase.generateUniqueSlug(input.name);
 		const orderLimit = getOrderLimitForPlan(StorePlanType.FREE);
 
 		const store = await database.store.create({
@@ -80,6 +101,20 @@ export class StoreService {
 			include: StoreQuery.getClientSafeInclude(),
 		});
 
+		addSpanAttributes({
+			"store.id": store.id,
+			"store.slug": store.slug,
+		});
+
+		logger.info(
+			enhanceLogWithTraceContext({
+				store_id: store.id,
+				store_slug: store.slug,
+				user_id: userId,
+			}),
+			"Store created successfully",
+		);
+
 		return StoreEntity.getSimpleRo(store);
 	}
 
@@ -87,6 +122,10 @@ export class StoreService {
 	 * Get all stores owned by a user
 	 */
 	static async getAllStores(userId: string): Promise<StoreSimpleOutput[]> {
+		addSpanAttributes({
+			"store.user_id": userId,
+		});
+
 		const stores = await database.store.findMany({
 			where: {
 				ownerId: userId,
@@ -95,6 +134,10 @@ export class StoreService {
 				createdAt: "desc",
 			},
 			include: StoreQuery.getClientSafeInclude(),
+		});
+
+		addSpanAttributes({
+			"store.count": stores.length,
 		});
 
 		return stores.map(StoreEntity.getSimpleRo);
@@ -107,6 +150,11 @@ export class StoreService {
 		id: string,
 		userId: string,
 	): Promise<StoreIncludeOutput> {
+		addSpanAttributes({
+			"store.id": id,
+			"store.user_id": userId,
+		});
+
 		const store = await database.store.findUnique({
 			where: { id },
 			include: StoreQuery.getInclude(),
@@ -130,6 +178,11 @@ export class StoreService {
 		slug: string,
 		userId: string,
 	): Promise<StoreIncludeOutput> {
+		addSpanAttributes({
+			"store.slug": slug,
+			"store.user_id": userId,
+		});
+
 		const store = await database.store.findUnique({
 			where: { slug },
 			include: StoreQuery.getInclude(),
@@ -159,6 +212,12 @@ export class StoreService {
 	): Promise<StorePublicOutput> {
 		const productPage = options?.productPage ?? 1;
 		const productLimit = options?.productLimit ?? 20;
+
+		addSpanAttributes({
+			"store.slug": slug,
+			"store.product_page": productPage,
+			"store.product_limit": productLimit,
+		});
 
 		// First, get the store to find its ID
 		const store = await database.store.findUnique({
@@ -198,6 +257,12 @@ export class StoreService {
 		const hasMoreProducts =
 			productSkip + (storeWithProducts.products?.length ?? 0) < totalProducts;
 
+		addSpanAttributes({
+			"store.total_products": totalProducts,
+			"store.products_returned": storeWithProducts.products?.length ?? 0,
+			"store.has_more_products": hasMoreProducts,
+		});
+
 		return {
 			...result,
 			productsPagination: {
@@ -220,6 +285,13 @@ export class StoreService {
 			category?: StoreCategory;
 		},
 	): Promise<StoreSimpleOutput> {
+		addSpanAttributes({
+			"store.id": storeId,
+			"store.user_id": userId,
+			"store.theme": updates.theme ?? "",
+			"store.category": updates.category ?? "",
+		});
+
 		// Verify ownership
 		const store = await database.store.findUnique({
 			where: { id: storeId },
@@ -247,3 +319,5 @@ export class StoreService {
 		return StoreEntity.getSimpleRo(updatedStore);
 	}
 }
+
+export const StoreService = traceStaticClass(StoreServiceBase);
