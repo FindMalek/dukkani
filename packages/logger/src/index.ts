@@ -112,7 +112,6 @@ function isNodeEnvironment(): boolean {
 	);
 }
 
-
 /**
  * Initialize logger lazily - only when actually used
  * This prevents Edge Runtime errors
@@ -142,12 +141,9 @@ function getLogger(): ReturnType<typeof createConsoleLogger> {
 			const prettyFormatter = new PrettyFormatter();
 			prettyFormatter.pipe(process.stdout);
 
-			// Use LOG_LEVEL from env if available, fallback to process.env.LOG_LEVEL or "info"
-			const logLevel = env.LOG_LEVEL ?? "info";
-
 			loggerInstance = pino(
 				{
-					level: logLevel,
+					level: "info",
 					formatters: {
 						level: (label: string) => {
 							return { level: label.toUpperCase() };

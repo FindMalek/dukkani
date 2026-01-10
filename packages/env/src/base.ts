@@ -21,7 +21,6 @@ export const baseEnv = createEnv({
 			.optional()
 			.transform((val) => val === "1"),
 		TELEGRAM_BOT_NAME: z.string(),
-		LOG_LEVEL: z.enum(["trace", "debug", "info", "warn", "error", "fatal"]).default("info"),
 	},
 	client: {
 		NEXT_PUBLIC_NODE_ENV: z

@@ -6,14 +6,15 @@ type Constructor = new (...args: unknown[]) => unknown;
  * Decorator to automatically trace method execution
  * Creates child spans within existing trace context (respects parent-child relationships)
  *
- * Compatible with both TypeScript experimental decorators and new decorator proposal
+ * Supports TypeScript experimental decorators API (signature: target, propertyKey, descriptor).
+ * Does not support the new decorator proposal (signature: value, context).
  */
 export function Trace(
 	spanName: string,
 	staticAttributes?: Record<string, string | number | boolean>,
 ) {
-	// Support both old (experimentalDecorators) and new decorator APIs
-	return ((
+	// TypeScript experimental decorator API (experimentalDecorators: true)
+	return (
 		target: Constructor | object,
 		propertyKey: string | symbol | undefined,
 		descriptor?: PropertyDescriptor,
@@ -70,36 +71,93 @@ export function Trace(
 		const name =
 			spanName || `${target.constructor.name}.${String(propertyKey)}`;
 
-		// Create the wrapped method
-		const wrappedMethod = async function (this: unknown, ...args: unknown[]) {
+		// Create the wrapped method - preserves original return type (sync/async)
+		const wrappedMethod = function (this: unknown, ...args: unknown[]) {
 			const tracer = trace.getTracer("dukkani");
 
-			return tracer.startActiveSpan(name, async (span) => {
+			// Call original method and detect if result is a Promise/thenable
+			let result: unknown;
+			try {
+				result = originalMethod.apply(this, args);
+			} catch (error) {
+				// Synchronous exception - create span, record error, then rethrow
+				const span = tracer.startSpan(name);
 				try {
 					if (staticAttributes) {
 						Object.entries(staticAttributes).forEach(([key, value]) => {
 							span.setAttribute(key, value);
 						});
 					}
-
 					if (args.length > 0) {
 						span.setAttribute("method.args_count", args.length);
 					}
-
-					const result = await originalMethod.apply(this, args);
-					span.setStatus({ code: SpanStatusCode.OK });
-					return result;
-				} catch (error) {
 					span.recordException(error as Error);
 					span.setStatus({
 						code: SpanStatusCode.ERROR,
 						message: error instanceof Error ? error.message : String(error),
 					});
-					throw error;
 				} finally {
 					span.end();
 				}
-			});
+				throw error;
+			}
+
+			// Check if result is a Promise/thenable
+			const isPromise =
+				result && typeof (result as { then?: unknown }).then === "function";
+
+			if (isPromise) {
+				// Async path: wrap Promise with tracing
+				return tracer.startActiveSpan(name, async (span) => {
+					try {
+						if (staticAttributes) {
+							Object.entries(staticAttributes).forEach(([key, value]) => {
+								span.setAttribute(key, value);
+							});
+						}
+						if (args.length > 0) {
+							span.setAttribute("method.args_count", args.length);
+						}
+
+						const awaitedResult = await (result as Promise<unknown>);
+						span.setStatus({ code: SpanStatusCode.OK });
+						return awaitedResult;
+					} catch (error) {
+						span.recordException(error as Error);
+						span.setStatus({
+							code: SpanStatusCode.ERROR,
+							message: error instanceof Error ? error.message : String(error),
+						});
+						throw error;
+					} finally {
+						span.end();
+					}
+				});
+			}
+
+			// Synchronous path: create span, execute, end span
+			const span = tracer.startSpan(name);
+			try {
+				if (staticAttributes) {
+					Object.entries(staticAttributes).forEach(([key, value]) => {
+						span.setAttribute(key, value);
+					});
+				}
+				if (args.length > 0) {
+					span.setAttribute("method.args_count", args.length);
+				}
+				span.setStatus({ code: SpanStatusCode.OK });
+				return result;
+			} catch (error) {
+				span.recordException(error as Error);
+				span.setStatus({
+					code: SpanStatusCode.ERROR,
+					message: error instanceof Error ? error.message : String(error),
+				});
+				throw error;
+			} finally {
+				span.end();
+			}
 		};
 
 		// Update descriptor with wrapped method
@@ -118,5 +176,5 @@ export function Trace(
 		}
 
 		return resolvedDescriptor;
-	}); // Type assertion to bypass TypeScript's strict decorator type checking
+	};
 }

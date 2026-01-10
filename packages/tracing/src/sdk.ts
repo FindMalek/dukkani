@@ -1,4 +1,8 @@
 import {
+	CompositePropagator,
+	W3CTraceContextPropagator,
+} from "@opentelemetry/core";
+import {
 	detectResources,
 	resourceFromAttributes,
 } from "@opentelemetry/resources";
@@ -89,6 +93,9 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 				})
 			: undefined,
 		sampler: new TraceIdRatioBasedSampler(samplingRate),
+		// Restrict propagation to W3C Trace Context only (exclude Baggage)
+		// This prevents sending baggage to third-party endpoints via fetchWithTrace
+		textMapPropagator: new W3CTraceContextPropagator(),
 	});
 
 	// Start SDK

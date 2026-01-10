@@ -47,7 +47,7 @@ function parseHeaders(headersString?: string): Record<string, string> {
 	}
 
 	const headers: Record<string, string> = {};
-	
+
 	// Split by comma, but only when NOT preceded by %2C (URL-encoded comma)
 	// We'll use a regex to find all commas that aren't part of %2C
 	const parts: string[] = [];
@@ -59,8 +59,7 @@ function parseHeaders(headersString?: string): Record<string, string> {
 		if (headersString[i] === ",") {
 			// Check if this comma is URL-encoded (%2C or %2c)
 			// Look back 3 characters to see if we have %2C
-			if (i >= 3 && 
-			    headersString.substring(i - 3, i).toUpperCase() === "%2C") {
+			if (i >= 3 && headersString.substring(i - 3, i).toUpperCase() === "%2C") {
 				// This comma is URL-encoded, keep it
 				currentPart += headersString[i];
 			} else {
@@ -73,7 +72,7 @@ function parseHeaders(headersString?: string): Record<string, string> {
 		}
 		i++;
 	}
-	
+
 	// Add the last part
 	if (currentPart) {
 		parts.push(currentPart);
@@ -86,7 +85,7 @@ function parseHeaders(headersString?: string): Record<string, string> {
 		if (equalIndex > 0) {
 			const key = trimmed.substring(0, equalIndex).trim();
 			const value = trimmed.substring(equalIndex + 1).trim();
-			
+
 			if (key && value) {
 				try {
 					headers[key] = decodeURIComponent(value);

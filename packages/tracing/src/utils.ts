@@ -1,4 +1,5 @@
 import { type Span, SpanStatusCode, trace } from "@opentelemetry/api";
+
 /**
  * Helper to create a manual span
  */
@@ -92,6 +93,7 @@ export function addSpanEvent(
  * Usage: export const TracedService = traceStaticClass(Service);
  *
  * This is for classes with only static methods (like your services)
+ * Preserves original return types: sync methods return values, async methods return Promises
  */
 export function traceStaticClass<
 	T extends abstract new (
@@ -106,13 +108,7 @@ export function traceStaticClass<
 ): T {
 	const prefix = options?.prefix || Class.name.toLowerCase();
 	const exclude = new Set(
-		options?.exclude || [
-			"constructor",
-			"prototype",
-			"length",
-			"name",
-			"prototype",
-		],
+		options?.exclude || ["constructor", "length", "name", "prototype"],
 	);
 
 	// Create a function constructor (for static-only classes, this is never instantiated)
@@ -143,19 +139,97 @@ export function traceStaticClass<
 		if (descriptor && typeof descriptor.value === "function") {
 			const originalMethod = descriptor.value;
 
-			// Wrap the method with tracing
+			// Wrap the method with tracing - preserves sync/async return types
 			Object.defineProperty(TracedClass, prop, {
 				...descriptor,
-				value: async function (this: unknown, ...args: unknown[]) {
+				value: function (this: unknown, ...args: unknown[]) {
 					const spanName = `${prefix}.${prop}`;
-					return withSpan(spanName, async (span) => {
+					const tracer = trace.getTracer("dukkani");
+
+					// Call original method and detect if result is a Promise/thenable
+					let result: unknown;
+					try {
+						result = originalMethod.apply(this, args);
+					} catch (error) {
+						// Synchronous exception - create span, record error, then rethrow
+						const span = tracer.startSpan(spanName);
+						try {
+							addSpanAttributes({
+								"class.name": Class.name,
+								"method.name": prop,
+							});
+							if (error instanceof Error) {
+								span.recordException(error);
+							} else {
+								span.recordException(new Error(String(error)));
+							}
+							span.setStatus({
+								code: SpanStatusCode.ERROR,
+								message: error instanceof Error ? error.message : String(error),
+							});
+						} finally {
+							span.end();
+						}
+						throw error;
+					}
+
+					// Check if result is a Promise/thenable
+					const isPromise =
+						result && typeof (result as { then?: unknown }).then === "function";
+
+					if (isPromise) {
+						// Async path: use startActiveSpan with async callback
+						return tracer.startActiveSpan(spanName, async (span) => {
+							try {
+								addSpanAttributes({
+									"class.name": Class.name,
+									"method.name": prop,
+								});
+
+								const awaitedResult = await (result as Promise<unknown>);
+								span.setStatus({ code: SpanStatusCode.OK });
+								return awaitedResult;
+							} catch (error) {
+								if (error instanceof Error) {
+									span.recordException(error);
+								} else {
+									span.recordException(new Error(String(error)));
+								}
+								span.setStatus({
+									code: SpanStatusCode.ERROR,
+									message:
+										error instanceof Error ? error.message : String(error),
+								});
+								throw error;
+							} finally {
+								span.end();
+							}
+						});
+					}
+
+					// Synchronous path: use startSpan, execute synchronously, end span
+					const span = tracer.startSpan(spanName);
+					try {
 						addSpanAttributes({
 							"class.name": Class.name,
 							"method.name": prop,
 						});
-
-						return originalMethod.apply(this, args);
-					});
+						span.setStatus({ code: SpanStatusCode.OK });
+						return result;
+					} catch (error) {
+						if (error instanceof Error) {
+							span.recordException(error);
+						} else {
+							span.recordException(new Error(String(error)));
+						}
+						span.setStatus({
+							code: SpanStatusCode.ERROR,
+							message: error instanceof Error ? error.message : String(error),
+						});
+						throw error;
+					} finally {
+						span.end();
+					}
 				},
 			});
 		} else if (descriptor) {
