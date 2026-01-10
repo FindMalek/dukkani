@@ -1,11 +1,10 @@
-import { SpanStatusCode, trace } from "@opentelemetry/api";
-
+import { type Span, SpanStatusCode, trace } from "@opentelemetry/api";
 /**
  * Helper to create a manual span
  */
 export async function withSpan<T>(
 	name: string,
-	fn: (span: ReturnType<typeof trace.getActiveSpan>) => Promise<T>,
+	fn: (span: Span) => Promise<T>,
 	attributes?: Record<string, string | number | boolean>,
 ): Promise<T> {
 	const tracer = trace.getTracer("dukkani");
@@ -22,7 +21,11 @@ export async function withSpan<T>(
 			span.setStatus({ code: SpanStatusCode.OK });
 			return result;
 		} catch (error) {
-			span.recordException(error as Error);
+			if (error instanceof Error) {
+				span.recordException(error);
+			} else {
+				span.recordException(new Error(String(error)));
+			}
 			span.setStatus({
 				code: SpanStatusCode.ERROR,
 				message: error instanceof Error ? error.message : String(error),
