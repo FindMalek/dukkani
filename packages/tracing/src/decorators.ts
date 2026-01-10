@@ -1,4 +1,3 @@
-// packages/tracing/src/decorators.ts
 import { SpanStatusCode, trace } from "@opentelemetry/api";
 
 type Constructor = new (...args: unknown[]) => unknown;

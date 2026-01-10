@@ -713,6 +713,9 @@ importers:
 
   packages/logger:
     dependencies:
+      '@dukkani/tracing':
+        specifier: workspace:*
+        version: link:../tracing
       '@opentelemetry/instrumentation-pino':
         specifier: latest
         version: 0.55.1(@opentelemetry/api@1.9.0)
@@ -836,9 +839,6 @@ importers:
 
   packages/tracing:
     dependencies:
-      '@dukkani/logger':
-        specifier: workspace:*
-        version: link:../logger
       '@opentelemetry/api':
         specifier: ^1.9.0
         version: 1.9.0

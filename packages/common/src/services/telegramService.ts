@@ -4,6 +4,7 @@ import { apiEnv } from "@dukkani/env";
 import { logger } from "@dukkani/logger";
 import {
 	addSpanAttributes,
+	enhanceLogWithTraceContext,
 	fetchWithTrace,
 	traceStaticClass,
 } from "@dukkani/tracing";
@@ -217,6 +218,13 @@ class TelegramServiceBase {
 			"telegram.chat_id": chatId,
 			"telegram.message_length": text.length,
 		});
+		logger.debug(
+			enhanceLogWithTraceContext({
+				chat_id: chatId,
+				text_length: text.length,
+			}),
+			"Sending Telegram message",
+		);
 
 		await TelegramServiceBase.rateLimit();
 
@@ -248,6 +256,17 @@ class TelegramServiceBase {
 			"telegram.message_sent": true,
 			"telegram.response_ok": response.ok,
 		});
+		logger.debug(
+			enhanceLogWithTraceContext({
+				chat_id: chatId,
+				success: response.ok,
+				response_ok: response.ok,
+				response_status: response.status,
+				response_status_text: response.statusText,
+				response_data: responseData,
+			}),
+			"Telegram message sent",
+		);
 	}
 
 	/**
@@ -362,13 +381,13 @@ ${itemsText}
 		if (!response.ok) {
 			const errorMessage = responseData?.description || response.statusText;
 			logger.error(
-				{
+				enhanceLogWithTraceContext({
 					callbackQueryId,
 					status: response.status,
 					statusText: response.statusText,
 					error: errorMessage,
-				},
-				"Telegram callback query answer failed",
+				}),
+				"Failed to answer callback query",
 			);
 			throw new Error(
 				`Telegram API error: ${errorMessage || response.statusText}`,
@@ -676,6 +695,14 @@ ${itemsText}
 				? "callback_query"
 				: "message",
 		});
+		logger.info(
+			enhanceLogWithTraceContext({
+				update_type: update.callback_query ? "callback_query" : "message",
+				chat_id:
+					update.message?.chat?.id || update.callback_query?.message?.chat?.id,
+			}),
+			"Telegram webhook received",
+		);
 
 		try {
 			if (update.callback_query) {
@@ -736,6 +763,15 @@ ${itemsText}
 					);
 					return;
 				}
+
+				logger.info(
+					enhanceLogWithTraceContext({
+						chat_id: chatId,
+						text,
+						confirmation: !!confirmation,
+					}),
+					"Disconnect confirmation processed",
+				);
 			}
 		} catch (error) {
 			if (update.message?.chat?.id) {
@@ -749,13 +785,16 @@ ${itemsText}
 					// If we can't send error message, log it but don't throw
 					// This prevents infinite error loops
 					logger.error(
-						{ error: sendError },
+						enhanceLogWithTraceContext({ error: sendError }),
 						"Failed to send error message to user",
 					);
 				}
 			} else {
 				// Log error when we can't send message to user
-				logger.error({ error }, "Telegram webhook processing error");
+				logger.error(
+					enhanceLogWithTraceContext({ error }),
+					"Failed to send error message to user",
+				);
 			}
 		}
 	}

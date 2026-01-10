@@ -5,7 +5,12 @@ import {
 	StorePlanType,
 	type StoreTheme,
 } from "@dukkani/db/prisma/generated/enums";
-import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
+import logger from "@dukkani/logger";
+import {
+	addSpanAttributes,
+	enhanceLogWithTraceContext,
+	traceStaticClass,
+} from "@dukkani/tracing";
 import { ProductQuery } from "../entities/product/query";
 import { StoreEntity } from "../entities/store/entity";
 import { StoreQuery } from "../entities/store/query";
@@ -100,6 +105,15 @@ class StoreServiceBase {
 			"store.id": store.id,
 			"store.slug": store.slug,
 		});
+
+		logger.info(
+			enhanceLogWithTraceContext({
+				store_id: store.id,
+				store_slug: store.slug,
+				user_id: userId,
+			}),
+			"Store created successfully",
+		);
 
 		return StoreEntity.getSimpleRo(store);
 	}

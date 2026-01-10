@@ -1,6 +1,12 @@
 import { database } from "@dukkani/db";
 import { generateOrderId } from "@dukkani/db/utils/generate-id";
-import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
+import logger from "@dukkani/logger";
+import {
+	addSpanAttributes,
+	addSpanEvent,
+	enhanceLogWithTraceContext,
+	traceStaticClass,
+} from "@dukkani/tracing";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import type { OrderStatus } from "../schemas/order/enums";
@@ -48,6 +54,16 @@ class OrderServiceBase {
 			throw new Error("You don't have access to this store");
 		}
 
+		addSpanEvent("order.store.verified", { store_id: store.id });
+		logger.info(
+			enhanceLogWithTraceContext({
+				store_id: input.storeId,
+				items_count: input.orderItems.length,
+				user_id: userId,
+			}),
+			"Order creation started",
+		);
+
 		// Wrap stock check, order creation, and stock updates in transaction
 		// This ensures atomicity: all operations succeed or fail together
 		const order = await database.$transaction(async (tx) => {
@@ -60,6 +76,8 @@ class OrderServiceBase {
 				input.storeId,
 				tx,
 			);
+
+			addSpanEvent("order.stock.validated", { store_id: store.id });
 
 			// Create order with order items (within transaction)
 			const createdOrder = await tx.order.create({
@@ -94,6 +112,17 @@ class OrderServiceBase {
 				},
 			});
 
+			addSpanEvent("order.created", { order_id: createdOrder.id });
+			logger.info(
+				enhanceLogWithTraceContext({
+					order_id: order.id,
+					store_id: input.storeId,
+					total_items: order.orderItems.length,
+					status: order.status,
+				}),
+				"Order created successfully",
+			);
+
 			await ProductService.updateMultipleProductStocks(
 				input.orderItems.map((item) => ({
 					productId: item.productId,
@@ -102,6 +131,8 @@ class OrderServiceBase {
 				"decrement",
 				tx,
 			);
+
+			addSpanEvent("order.stock.updated", { order_id: createdOrder.id });
 
 			return createdOrder;
 		});
@@ -148,6 +179,16 @@ class OrderServiceBase {
 		if (!store || store.ownerId !== userId) {
 			throw new Error("You don't have access to this order");
 		}
+
+		logger.info(
+			enhanceLogWithTraceContext({
+				order_id: orderId,
+				previous_status: order.status,
+				new_status: status,
+				user_id: userId,
+			}),
+			"Order status updated",
+		);
 
 		const updatedOrder = await database.order.update({
 			where: { id: orderId },
@@ -199,6 +240,15 @@ class OrderServiceBase {
 		if (!store || store.ownerId !== userId) {
 			throw new Error("You don't have access to this order");
 		}
+
+		logger.info(
+			enhanceLogWithTraceContext({
+				order_id: orderId,
+				items_to_restore: order.orderItems.length,
+				user_id: userId,
+			}),
+			"Order deleted",
+		);
 
 		// Wrap stock increment and order deletion in transaction
 		// This ensures atomicity: both operations succeed or fail together
