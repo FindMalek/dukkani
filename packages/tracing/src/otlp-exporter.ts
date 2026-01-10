@@ -39,11 +39,8 @@ function getCompressionAlgorithm(
 
 /**
  * Parse headers string into object
- * Supports formats:
- * - "Authorization=Basic ..."
- * - "key1=value1,key2=value2"
- * - "key1=value1, key2=value2" (with spaces)
- * - URL-encoded values (e.g., "Authorization=Basic%20...")
+ * According to OpenTelemetry spec, values with commas MUST be URL-encoded (%2C)
+ * This parser correctly handles URL-encoded commas by checking for %2C before splitting
  */
 function parseHeaders(headersString?: string): Record<string, string> {
 	if (!headersString) {
@@ -51,24 +48,54 @@ function parseHeaders(headersString?: string): Record<string, string> {
 	}
 
 	const headers: Record<string, string> = {};
-	const pairs = headersString.split(",").map((pair) => pair.trim());
+	
+	// Split by comma, but only when NOT preceded by %2C (URL-encoded comma)
+	// We'll use a regex to find all commas that aren't part of %2C
+	const parts: string[] = [];
+	let currentPart = "";
+	let i = 0;
 
-	for (const pair of pairs) {
-		const [key, ...valueParts] = pair.split("=");
-		if (key && valueParts.length > 0) {
-			// Rejoin value in case it contains '=' (e.g., base64 strings)
-			const value = valueParts.join("=").trim();
-
-			// Decode URL-encoded values (e.g., %20 -> space)
-			let decodedValue: string;
-			try {
-				decodedValue = decodeURIComponent(value);
-			} catch {
-				// If decoding fails, use original value (might already be decoded)
-				decodedValue = value;
+	while (i < headersString.length) {
+		// Check if we're at a comma
+		if (headersString[i] === ",") {
+			// Check if this comma is URL-encoded (%2C or %2c)
+			// Look back 3 characters to see if we have %2C
+			if (i >= 3 && 
+			    headersString.substring(i - 3, i).toUpperCase() === "%2C") {
+				// This comma is URL-encoded, keep it
+				currentPart += headersString[i];
+			} else {
+				// This is a separator comma
+				parts.push(currentPart);
+				currentPart = "";
 			}
+		} else {
+			currentPart += headersString[i];
+		}
+		i++;
+	}
+	
+	// Add the last part
+	if (currentPart) {
+		parts.push(currentPart);
+	}
 
-			headers[key.trim()] = decodedValue;
+	// Parse each part as key=value
+	for (const part of parts) {
+		const trimmed = part.trim();
+		const equalIndex = trimmed.indexOf("=");
+		if (equalIndex > 0) {
+			const key = trimmed.substring(0, equalIndex).trim();
+			const value = trimmed.substring(equalIndex + 1).trim();
+			
+			if (key && value) {
+				try {
+					headers[key] = decodeURIComponent(value);
+				} catch {
+					// If decoding fails, use original value
+					headers[key] = value;
+				}
+			}
 		}
 	}
 
