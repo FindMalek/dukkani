@@ -68,7 +68,7 @@ export function Trace(
 		}
 
 		const originalMethod = resolvedDescriptor.value;
-		
+
 		// Determine class name: for static methods use target.name, for instance use target.constructor.name
 		const isStatic = typeof target === "function";
 		const className = isStatic ? target.name : target.constructor.name;
@@ -169,7 +169,9 @@ export function Trace(
 		// Update the property descriptor on the correct target
 		const isStaticForUpdate = typeof target === "function";
 		const targetObj = isStaticForUpdate ? target : target.constructor;
-		const descriptorSource = isStaticForUpdate ? targetObj : targetObj.prototype;
+		const descriptorSource = isStaticForUpdate
+			? targetObj
+			: targetObj.prototype;
 
 		try {
 			Object.defineProperty(descriptorSource, propertyKey, resolvedDescriptor);

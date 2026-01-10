@@ -113,12 +113,12 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 		resource,
 		instrumentations: getInstrumentations(),
 		// Use SimpleSpanProcessor if configured (for testing serverless export timing)
-		spanProcessor: traceExporter && useSimpleProcessor
-			? new SimpleSpanProcessor(traceExporter)
-			: undefined, // Default BatchSpanProcessor will be used
-		traceExporter: traceExporter && !useSimpleProcessor
-			? traceExporter
-			: undefined,
+		spanProcessor:
+			traceExporter && useSimpleProcessor
+				? new SimpleSpanProcessor(traceExporter)
+				: undefined, // Default BatchSpanProcessor will be used
+		traceExporter:
+			traceExporter && !useSimpleProcessor ? traceExporter : undefined,
 		logRecordProcessor: logExporter
 			? new BatchLogRecordProcessor(logExporter)
 			: undefined,
@@ -137,15 +137,35 @@ export function initializeSDK(config: TracingConfig): NodeSDK | null {
 	sdk.start();
 
 	// CRITICAL: Verify tracer provider is registered
-	// In Vercel/serverless, sdk.start() may not complete before function execution
-	// Check if provider is actually registered
 	if (isNoOpTracerProvider()) {
 		console.error("[OTEL] CRITICAL: Tracer provider is NoOp after SDK.start()");
-		console.error("[OTEL] This usually means instrumentation.ts did not execute");
+		console.error(
+			"[OTEL] This usually means instrumentation.ts did not execute",
+		);
 		console.error("[OTEL] Environment:", environment);
 		console.error("[OTEL] Vercel:", !!process.env.VERCEL);
 	} else {
-		console.log("[OTEL] SDK initialized successfully - tracer provider registered");
+		console.log(
+			"[OTEL] SDK initialized successfully - tracer provider registered",
+		);
+	}
+
+	// For Vercel/serverless: Ensure spans are flushed before function termination
+	// This is critical for serverless environments where functions terminate quickly
+	if (typeof process !== "undefined" && process.env.VERCEL) {
+		// Flush on process exit (Vercel serverless functions)
+		const flushOnExit = async () => {
+			try {
+				await flushTelemetry();
+			} catch (error) {
+				// Silently fail - don't block function exit
+				console.error("[OTEL] Failed to flush on exit", error);
+			}
+		};
+
+		process.on("beforeExit", flushOnExit);
+		process.on("SIGTERM", flushOnExit);
+		process.on("SIGINT", flushOnExit);
 	}
 
 	return sdk;
@@ -167,4 +187,37 @@ export async function shutdownSDK(): Promise<void> {
  */
 export function isTracingInitialized(): boolean {
 	return !isNoOpTracerProvider();
+}
+
+/**
+ * Flush all pending spans immediately
+ * CRITICAL for serverless environments where functions terminate quickly
+ * Call this before function returns to ensure spans are exported
+ */
+export async function flushTelemetry(): Promise<void> {
+	if (!sdk) {
+		return;
+	}
+
+	try {
+		// Flush tracer provider (exports pending spans)
+		// The tracer provider is what actually exports spans
+		const tracerProvider = trace.getTracerProvider();
+
+		// Check if provider has forceFlush method (real providers do, NoOp doesn't)
+		// Use proper type casting through unknown
+		const providerWithFlush = tracerProvider as unknown as {
+			forceFlush?: () => Promise<void>;
+		};
+
+		if (
+			providerWithFlush &&
+			typeof providerWithFlush.forceFlush === "function"
+		) {
+			await providerWithFlush.forceFlush();
+		}
+	} catch (error) {
+		// Don't throw - flushing failures shouldn't break the app
+		console.error("[OTEL] Failed to flush telemetry:", error);
+	}
 }

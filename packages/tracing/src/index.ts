@@ -1,4 +1,5 @@
 import {
+	flushTelemetry,
 	initializeSDK,
 	isTracingInitialized,
 	shutdownSDK,
@@ -48,3 +49,4 @@ export {
 	withSpan,
 } from "./utils";
 export type { TracingConfig };
+export { flushTelemetry };
