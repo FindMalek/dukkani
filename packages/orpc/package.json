@@ -49,6 +49,7 @@
 		"@tanstack/react-query": "catalog:",
 		"dotenv": "catalog:",
 		"sonner": "catalog:",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"@opentelemetry/api": "^1.9.0"
 	}
 }
