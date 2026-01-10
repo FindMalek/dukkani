@@ -11,14 +11,9 @@ import { getCorsHeaders } from "@/lib/cors";
 
 // Ensure tracing is initialized (fallback if instrumentation.ts didn't run)
 if (typeof window === "undefined") {
-	// Lazy import to avoid circular dependencies
 	import("@dukkani/tracing").then(
 		({ isTracingInitialized, registerTracing }) => {
 			if (!isTracingInitialized()) {
-				// Fallback initialization
-				console.warn(
-					"[OTEL] Fallback initialization - instrumentation.ts may not have executed",
-				);
 				import("@dukkani/env/presets/api").then(({ apiEnv }) => {
 					registerTracing({
 						serviceName: apiEnv.OTEL_SERVICE_NAME,
@@ -102,17 +97,13 @@ async function handleRequest(req: NextRequest) {
 			}
 		}
 	} finally {
-		// CRITICAL: Flush spans before returning response
-		// In Vercel serverless, function terminates immediately after response
-		// This ensures all spans are exported before function ends
+		// Flush spans before returning response (critical for Vercel serverless)
 		if (typeof process !== "undefined" && process.env.VERCEL) {
 			try {
-				// Import and await flush synchronously
 				const { flushTelemetry } = await import("@dukkani/tracing");
 				await flushTelemetry();
-			} catch (error) {
-				// Log but don't throw - flushing failures shouldn't break the app
-				console.error("[OTEL] Failed to flush telemetry:", error);
+			} catch {
+				// Silently fail - flushing failures shouldn't break the app
 			}
 		}
 	}

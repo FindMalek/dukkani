@@ -88,11 +88,11 @@ export const healthRouter = {
 		return health;
 	}),
 
-		/**
+	/**
 	 * OpenTelemetry debug endpoint - Enhanced version
 	 * Returns comprehensive SDK status and trace context information
 	 */
-		otelDebug: publicProcedure
+	otelDebug: publicProcedure
 		.output(
 			z.object({
 				// Trace context
@@ -117,7 +117,12 @@ export const healthRouter = {
 				// Span processor configuration
 				useSimpleSpanProcessor: z.boolean(),
 				simpleProcessorEnv: z.string().nullable(),
-				flushTestResult: z.enum(["success", "failed", "not_supported", "not_tested"]),
+				flushTestResult: z.enum([
+					"success",
+					"failed",
+					"not_supported",
+					"not_tested",
+				]),
 
 				// Environment
 				environment: z.string(),
@@ -140,13 +145,18 @@ export const healthRouter = {
 				null;
 			const headers = process.env.OTEL_EXPORTER_OTLP_HEADERS || "";
 			const headersConfigured = headers.includes("Authorization");
-			
+
 			// Check span processor configuration
 			const simpleProcessorEnv = process.env.OTEL_USE_SIMPLE_PROCESSOR ?? null;
-			const useSimpleSpanProcessor = simpleProcessorEnv === "true" || !!process.env.VERCEL;
-			
-			diagnostics.push(`SimpleSpanProcessor configured: ${useSimpleSpanProcessor}`);
-			diagnostics.push(`OTEL_USE_SIMPLE_PROCESSOR env: ${simpleProcessorEnv ?? "not set"}`);
+			const useSimpleSpanProcessor =
+				simpleProcessorEnv === "true" || !!process.env.VERCEL;
+
+			diagnostics.push(
+				`SimpleSpanProcessor configured: ${useSimpleSpanProcessor}`,
+			);
+			diagnostics.push(
+				`OTEL_USE_SIMPLE_PROCESSOR env: ${simpleProcessorEnv ?? "not set"}`,
+			);
 			diagnostics.push(`Vercel detected: ${!!process.env.VERCEL}`);
 
 			// Check if tracer provider is registered
@@ -224,7 +234,11 @@ export const healthRouter = {
 			}
 
 			// Test flush functionality
-			let flushTestResult: "success" | "failed" | "not_supported" | "not_tested" = "not_tested";
+			let flushTestResult:
+				| "success"
+				| "failed"
+				| "not_supported"
+				| "not_tested" = "not_tested";
 			try {
 				const { flushTelemetry } = await import("@dukkani/tracing");
 				const tracerProvider = trace.getTracerProvider();
@@ -241,7 +255,9 @@ export const healthRouter = {
 					diagnostics.push("✅ Flush test: SUCCESS - spans should be exported");
 				} else {
 					flushTestResult = "not_supported";
-					diagnostics.push("⚠️ Flush test: NOT SUPPORTED - tracer provider doesn't have forceFlush");
+					diagnostics.push(
+						"⚠️ Flush test: NOT SUPPORTED - tracer provider doesn't have forceFlush",
+					);
 				}
 			} catch (error) {
 				flushTestResult = "failed";
@@ -285,13 +301,19 @@ export const healthRouter = {
 				diagnostics.push(
 					"✅ Tracing is working correctly - spans have valid trace IDs",
 				);
-				
+
 				// Add export strategy info
 				if (useSimpleSpanProcessor) {
-					diagnostics.push("✅ Using SimpleSpanProcessor - spans export immediately when ended");
+					diagnostics.push(
+						"✅ Using SimpleSpanProcessor - spans export immediately when ended",
+					);
 				} else {
-					diagnostics.push("⚠️ Using BatchSpanProcessor - spans are batched and may not export before function terminates");
-					diagnostics.push("💡 Recommendation: Enable SimpleSpanProcessor in Vercel by setting useSimpleSpanProcessor: true");
+					diagnostics.push(
+						"⚠️ Using BatchSpanProcessor - spans are batched and may not export before function terminates",
+					);
+					diagnostics.push(
+						"💡 Recommendation: Enable SimpleSpanProcessor in Vercel by setting useSimpleSpanProcessor: true",
+					);
 				}
 			}
 
