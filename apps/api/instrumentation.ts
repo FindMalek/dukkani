@@ -19,6 +19,7 @@ export function register() {
 		samplingRate: apiEnv.OTEL_SAMPLING_RATE,
 		enabled: apiEnv.OTEL_ENABLED,
 		environment: apiEnv.NEXT_PUBLIC_NODE_ENV,
+		useSimpleSpanProcessor: !!process.env.VERCEL,
 		otlp: {
 			endpoint: apiEnv.OTEL_EXPORTER_OTLP_ENDPOINT,
 			tracesEndpoint: apiEnv.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT,

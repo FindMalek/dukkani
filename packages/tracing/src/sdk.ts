@@ -196,10 +196,12 @@ export function isTracingInitialized(): boolean {
  */
 export async function flushTelemetry(): Promise<void> {
 	if (!sdk) {
+		console.log("[OTEL] Flush skipped - SDK not initialized");
 		return;
 	}
 
 	try {
+		console.log("[OTEL] Flushing telemetry...");
 		// Flush tracer provider (exports pending spans)
 		// The tracer provider is what actually exports spans
 		const tracerProvider = trace.getTracerProvider();
@@ -215,6 +217,9 @@ export async function flushTelemetry(): Promise<void> {
 			typeof providerWithFlush.forceFlush === "function"
 		) {
 			await providerWithFlush.forceFlush();
+			console.log("[OTEL] Telemetry flushed successfully");
+		} else {
+			console.warn("[OTEL] Tracer provider does not support forceFlush");
 		}
 	} catch (error) {
 		// Don't throw - flushing failures shouldn't break the app

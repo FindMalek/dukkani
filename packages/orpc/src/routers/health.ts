@@ -88,11 +88,11 @@ export const healthRouter = {
 		return health;
 	}),
 
-	/**
+		/**
 	 * OpenTelemetry debug endpoint - Enhanced version
 	 * Returns comprehensive SDK status and trace context information
 	 */
-	otelDebug: publicProcedure
+		otelDebug: publicProcedure
 		.output(
 			z.object({
 				// Trace context
@@ -113,6 +113,11 @@ export const healthRouter = {
 				exporterConfigured: z.boolean(),
 				endpoint: z.string().nullable(),
 				headersConfigured: z.boolean(),
+
+				// Span processor configuration
+				useSimpleSpanProcessor: z.boolean(),
+				simpleProcessorEnv: z.string().nullable(),
+				flushTestResult: z.enum(["success", "failed", "not_supported", "not_tested"]),
 
 				// Environment
 				environment: z.string(),
@@ -135,34 +140,34 @@ export const healthRouter = {
 				null;
 			const headers = process.env.OTEL_EXPORTER_OTLP_HEADERS || "";
 			const headersConfigured = headers.includes("Authorization");
+			
+			// Check span processor configuration
+			const simpleProcessorEnv = process.env.OTEL_USE_SIMPLE_PROCESSOR ?? null;
+			const useSimpleSpanProcessor = simpleProcessorEnv === "true" || !!process.env.VERCEL;
+			
+			diagnostics.push(`SimpleSpanProcessor configured: ${useSimpleSpanProcessor}`);
+			diagnostics.push(`OTEL_USE_SIMPLE_PROCESSOR env: ${simpleProcessorEnv ?? "not set"}`);
+			diagnostics.push(`Vercel detected: ${!!process.env.VERCEL}`);
 
 			// Check if tracer provider is registered
-			// Better detection: Check if we can create spans with valid trace IDs
 			let tracerProviderRegistered = false;
 			let tracerAvailable = false;
 			try {
 				const tracer = trace.getTracer("dukkani");
 				tracerAvailable = tracer !== undefined;
 
-				// Try to get tracer provider
 				const provider = trace.getTracerProvider();
 
-				// More accurate detection: Check if provider is NOT NoOp
-				// NoOp providers return trace IDs of all zeros
-				// Real providers return valid trace IDs
 				if (provider) {
-					// Try creating a test span to see if we get a valid trace ID
 					const testTracer = trace.getTracer("health-check");
 					const testSpan = testTracer.startSpan("test-detection");
 					const spanContext = testSpan.spanContext();
 					const traceId = spanContext.traceId;
 					testSpan.end();
 
-					// NoOp provider returns "00000000000000000000000000000000"
-					// Real provider returns a valid hex trace ID
 					tracerProviderRegistered =
 						traceId !== "00000000000000000000000000000000" &&
-						traceId.length === 32; // Valid trace ID is 32 hex chars
+						traceId.length === 32;
 
 					if (!tracerProviderRegistered) {
 						diagnostics.push(
@@ -190,14 +195,12 @@ export const healthRouter = {
 				await withSpan("health.otelDebug.test", async (span) => {
 					testSpanCreated = true;
 
-					// Capture trace/span IDs while span is active
 					const activeSpan = trace.getActiveSpan();
 					if (activeSpan) {
 						const spanContext = activeSpan.spanContext();
 						testSpanTraceId = spanContext.traceId;
 						testSpanSpanId = spanContext.spanId;
 
-						// Add diagnostic attributes
 						addSpanAttributes({
 							"debug.test": true,
 							"debug.timestamp": Date.now(),
@@ -205,6 +208,7 @@ export const healthRouter = {
 							"debug.vercel": process.env.VERCEL ? "true" : "false",
 							"debug.endpoint": endpoint || "not_configured",
 							"debug.headers_configured": headersConfigured,
+							"debug.use_simple_processor": useSimpleSpanProcessor,
 						});
 
 						diagnostics.push(
@@ -219,13 +223,39 @@ export const healthRouter = {
 				diagnostics.push(`Span creation failed: ${spanError}`);
 			}
 
+			// Test flush functionality
+			let flushTestResult: "success" | "failed" | "not_supported" | "not_tested" = "not_tested";
+			try {
+				const { flushTelemetry } = await import("@dukkani/tracing");
+				const tracerProvider = trace.getTracerProvider();
+				const providerWithFlush = tracerProvider as unknown as {
+					forceFlush?: () => Promise<void>;
+				};
+
+				if (
+					providerWithFlush &&
+					typeof providerWithFlush.forceFlush === "function"
+				) {
+					await flushTelemetry();
+					flushTestResult = "success";
+					diagnostics.push("✅ Flush test: SUCCESS - spans should be exported");
+				} else {
+					flushTestResult = "not_supported";
+					diagnostics.push("⚠️ Flush test: NOT SUPPORTED - tracer provider doesn't have forceFlush");
+				}
+			} catch (error) {
+				flushTestResult = "failed";
+				diagnostics.push(
+					`❌ Flush test: FAILED - ${error instanceof Error ? error.message : String(error)}`,
+				);
+			}
+
 			// Determine SDK initialization status
-			// SDK is initialized if spans can be created AND have valid trace IDs
-			// This is the most reliable check - if spans have trace IDs, tracing is working
 			const sdkInitialized =
 				testSpanCreated &&
 				testSpanTraceId !== null &&
-				testSpanTraceId !== "00000000000000000000000000000000";
+				testSpanTraceId !== "00000000000000000000000000000000" &&
+				(testSpanTraceId as string).length === 32;
 
 			// Build message
 			let message = "";
@@ -255,6 +285,14 @@ export const healthRouter = {
 				diagnostics.push(
 					"✅ Tracing is working correctly - spans have valid trace IDs",
 				);
+				
+				// Add export strategy info
+				if (useSimpleSpanProcessor) {
+					diagnostics.push("✅ Using SimpleSpanProcessor - spans export immediately when ended");
+				} else {
+					diagnostics.push("⚠️ Using BatchSpanProcessor - spans are batched and may not export before function terminates");
+					diagnostics.push("💡 Recommendation: Enable SimpleSpanProcessor in Vercel by setting useSimpleSpanProcessor: true");
+				}
 			}
 
 			if (spanError) {
@@ -286,6 +324,9 @@ export const healthRouter = {
 				exporterConfigured: !!endpoint && headersConfigured,
 				endpoint,
 				headersConfigured,
+				useSimpleSpanProcessor,
+				simpleProcessorEnv,
+				flushTestResult,
 				environment: process.env.NODE_ENV || "unknown",
 				vercel: !!process.env.VERCEL,
 				otelEnabled,

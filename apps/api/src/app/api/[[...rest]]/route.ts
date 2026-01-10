@@ -106,12 +106,14 @@ async function handleRequest(req: NextRequest) {
 		// In Vercel serverless, function terminates immediately after response
 		// This ensures all spans are exported before function ends
 		if (typeof process !== "undefined" && process.env.VERCEL) {
-			// Use dynamic import to avoid circular dependencies
-			import("@dukkani/tracing").then(({ flushTelemetry }) => {
-				flushTelemetry().catch((error) => {
-					console.error("[OTEL] Failed to flush telemetry:", error);
-				});
-			});
+			try {
+				// Import and await flush synchronously
+				const { flushTelemetry } = await import("@dukkani/tracing");
+				await flushTelemetry();
+			} catch (error) {
+				// Log but don't throw - flushing failures shouldn't break the app
+				console.error("[OTEL] Failed to flush telemetry:", error);
+			}
 		}
 	}
 
