@@ -94,6 +94,13 @@ export class OrderService {
 				},
 			});
 
+			addSpanAttributes({
+				"order.id": order.id,
+				"order.total_items": order.orderItems.length,
+				"order.status": order.status,
+				"order.has_customer": !!order.customerId,
+			});
+
 			await ProductService.updateMultipleProductStocks(
 				input.orderItems.map((item) => ({
 					productId: item.productId,
@@ -127,7 +134,7 @@ export class OrderService {
 		// Get order to verify ownership
 		const order = await database.order.findUnique({
 			where: { id: orderId },
-			select: { storeId: true },
+			select: { storeId: true, status: true },
 		});
 
 		if (!order) {
@@ -147,6 +154,11 @@ export class OrderService {
 			where: { id: orderId },
 			data: { status },
 			include: OrderQuery.getInclude(),
+		});
+
+		addSpanAttributes({
+			"order.previous_status": order.status,
+			"order.new_status": status,
 		});
 
 		return OrderEntity.getRo(updatedOrder);
@@ -204,6 +216,10 @@ export class OrderService {
 					tx,
 				);
 			}
+
+			addSpanAttributes({
+				"order.items_to_restore": order.orderItems.length,
+			});
 
 			// Delete order (order items will be cascade deleted) within same transaction
 			await tx.order.delete({

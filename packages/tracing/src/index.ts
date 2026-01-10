@@ -33,7 +33,7 @@ export {
 	addSpanEvent,
 	getSpanId,
 	getTraceId,
-	hasActiveSpan,
+	traceStaticClass,
 	withSpan,
 } from "./utils";
 export type { TracingConfig };

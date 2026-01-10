@@ -1,4 +1,7 @@
-import { SpanStatusCode, trace } from "@opentelemetry/api";
+import {
+	SpanStatusCode,
+	trace,
+} from "@opentelemetry/api";
 
 /**
  * Helper to create a manual span
@@ -85,48 +88,67 @@ export function addSpanEvent(
 }
 
 /**
- * Check if we're currently in a trace context
- * Useful for conditional instrumentation
+ * Automatically trace all static methods of a class
+ * Usage: export const TracedService = traceStaticClass(Service);
+ *
+ * This is for classes with only static methods (like your services)
  */
-export function hasActiveSpan(): boolean {
-	return trace.getActiveSpan() !== undefined;
-}
-
-/**
- * Create a traced method - cleaner alternative to decorators
- * Usage: static methodName = traceMethod("span.name", async (span, ...args) => { ... })
- */
-export function traceMethod<T extends (...args: any[]) => Promise<any>>(
-	spanName: string,
-	fn: (
-		span: ReturnType<typeof trace.getActiveSpan>,
-		...args: Parameters<T>
-	) => Promise<ReturnType<T>>,
-	staticAttributes?: Record<string, string | number | boolean>,
+export function traceStaticClass<T extends abstract new (...args: never[]) => unknown>(
+	Class: T,
+	options?: {
+		prefix?: string;
+		exclude?: string[];
+	},
 ): T {
-	return (async (...args: Parameters<T>) => {
-		const tracer = trace.getTracer("dukkani");
-		return tracer.startActiveSpan(spanName, async (span) => {
-			try {
-				if (staticAttributes) {
-					Object.entries(staticAttributes).forEach(([key, value]) => {
-						span.setAttribute(key, value);
-					});
-				}
+	const prefix = options?.prefix || Class.name.toLowerCase();
+	const exclude = new Set(options?.exclude || ["constructor", "prototype", "length", "name", "prototype"]);
 
-				const result = await fn(span, ...args);
-				span.setStatus({ code: SpanStatusCode.OK });
-				return result;
-			} catch (error) {
-				span.recordException(error as Error);
-				span.setStatus({
-					code: SpanStatusCode.ERROR,
-					message: error instanceof Error ? error.message : String(error),
-				});
-				throw error;
-			} finally {
-				span.end();
-			}
-		});
-	}) as T;
+	// Create a function constructor (for static-only classes, this is never instantiated)
+	const TracedClass = function TracedClassConstructor(
+		this: unknown,
+		...args: never[]
+	): unknown {
+		// This should never be called for static-only classes
+		// But if it is, throw an error
+		throw new Error(
+			`Cannot instantiate ${Class.name} - it only has static methods. Use the static methods directly.`,
+		);
+	} as unknown as new (...args: never[]) => unknown;
+
+	// Copy prototype to maintain instanceof checks (if needed)
+	TracedClass.prototype = Class.prototype;
+
+	// Copy static properties from original class
+	const propertyNames = Object.getOwnPropertyNames(Class);
+
+	for (const prop of propertyNames) {
+		if (exclude.has(prop)) continue;
+
+		const descriptor = Object.getOwnPropertyDescriptor(Class, prop);
+
+		if (descriptor && typeof descriptor.value === "function") {
+			const originalMethod = descriptor.value;
+
+			// Wrap the method with tracing
+			Object.defineProperty(TracedClass, prop, {
+				...descriptor,
+				value: async function (this: unknown, ...args: unknown[]) {
+					const spanName = `${prefix}.${prop}`;
+					return withSpan(spanName, async (span) => {
+						addSpanAttributes({
+							"class.name": Class.name,
+							"method.name": prop,
+						});
+
+						return originalMethod.apply(this, args);
+					});
+				},
+			});
+		} else if (descriptor) {
+			// Copy non-function properties as-is
+			Object.defineProperty(TracedClass, prop, descriptor);
+		}
+	}
+
+	return TracedClass as unknown as T;
 }

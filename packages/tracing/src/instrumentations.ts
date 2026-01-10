@@ -23,7 +23,6 @@ export function getInstrumentations(): Instrumentation[] {
 			},
 		}),
 
-
 		// Prisma database instrumentation
 		new PrismaInstrumentation(),
 

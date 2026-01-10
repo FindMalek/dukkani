@@ -143,6 +143,15 @@ export class DashboardService {
 			return sum + orderTotal;
 		}, 0);
 
+		addSpanAttributes({
+			"dashboard.stores_count": storeIds.length,
+			"dashboard.total_products": totalProducts,
+			"dashboard.total_orders": totalOrders,
+			"dashboard.total_revenue": totalRevenue,
+			"dashboard.recent_orders_count": recentOrders.length,
+			"dashboard.low_stock_count": lowStockProducts.length,
+		});
+
 		return {
 			totalProducts,
 			totalOrders,

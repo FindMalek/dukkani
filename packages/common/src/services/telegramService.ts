@@ -238,6 +238,11 @@ export class TelegramService {
 				`Telegram API error: ${errorMessage || response.statusText}`,
 			);
 		}
+
+		addSpanAttributes({
+			"telegram.message_sent": true,
+			"telegram.response_ok": response.ok,
+		});
 	}
 
 	/**

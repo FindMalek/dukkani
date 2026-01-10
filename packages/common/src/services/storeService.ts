@@ -16,11 +16,12 @@ import type {
 	StoreSimpleOutput,
 } from "../schemas/store/output";
 import { getOrderLimitForPlan } from "../schemas/store-plan/constants";
+import { traceStaticClass } from "../../../tracing/src/utils";
 
 /**
  * Store service - Shared business logic for store operations
  */
-export class StoreService {
+class Service {
 	/**
 	 * Generate a unique slug from store name
 	 * Handles conflicts by appending numbers
@@ -256,6 +257,7 @@ export class StoreService {
 			addSpanAttributes({
 				"store.total_products": totalProducts,
 				"store.products_returned": storeWithProducts.products?.length ?? 0,
+				"store.has_more_products": hasMoreProducts,
 			});
 
 			return {
@@ -317,3 +319,5 @@ export class StoreService {
 		});
 	}
 }
+
+export const StoreService = traceStaticClass(Service);

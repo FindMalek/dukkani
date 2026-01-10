@@ -1,11 +1,12 @@
 import { database } from "@dukkani/db";
-import { addSpanAttributes, Trace } from "@dukkani/tracing";
+import { addSpanAttributes, Trace, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
 import { generateProductId } from "../utils/generate-id";
+
 /**
  * Product service - Shared business logic for product operations
  */
-export class ProductService {
+class Service {
 	/**
 	 * Generate product ID using store slug
 	 */
@@ -86,6 +87,14 @@ export class ProductService {
 			);
 		}
 
+		addSpanAttributes({
+			"product.unique_products": uniqueProductIds.length,
+			"product.total_quantity": Array.from(requiredByProduct.values()).reduce(
+				(a, b) => a + b,
+				0,
+			),
+		});
+
 		// Validate aggregated quantities against stock
 		for (const [productId, required] of requiredByProduct.entries()) {
 			const product = products.find(
@@ -162,5 +171,14 @@ export class ProductService {
 				}),
 			),
 		);
+
+		addSpanAttributes({
+			"product.products_updated": aggregatedUpdates.size,
+			"product.total_quantity_change": Array.from(
+				aggregatedUpdates.values(),
+			).reduce((a, b) => a + b, 0),
+		});
 	}
 }
+
+export const ProductService = traceStaticClass(Service);
