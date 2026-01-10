@@ -15,21 +15,34 @@ export function getInstrumentations(): Instrumentation[] {
 					requestHeaders: [
 						"user-agent",
 						"content-type",
-						"authorization",
 						"x-forwarded-for",
 					],
 					responseHeaders: ["content-type", "content-length"],
 				},
 			},
+			requestHook: (span, request) => {
+				let hasAuth = false;
+				
+				if ("headers" in request && request.headers) {
+					const authLower = request.headers.authorization;
+					const authUpper = request.headers.Authorization;
+					hasAuth = Boolean(authLower || authUpper);
+				} else if ("getHeader" in request && typeof request.getHeader === "function") {
+					const authLower = request.getHeader("authorization");
+					const authUpper = request.getHeader("Authorization");
+					const authValue = authLower || authUpper;
+					hasAuth = Boolean(
+						authValue && (typeof authValue === "string" || Array.isArray(authValue))
+					);
+				}
+				
+				if (hasAuth) {
+					span.setAttribute("http.request.has_auth", true);
+				}
+			},
 		}),
-
-		// Prisma database instrumentation
 		new PrismaInstrumentation(),
-
-		// Pino logger instrumentation
 		new PinoInstrumentation(),
-
-		// oRPC procedure instrumentation
 		new ORPCInstrumentation(),
 	];
 
