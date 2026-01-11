@@ -11,7 +11,6 @@ export const uploadFilesInputSchema = z.object({
 		.array(z.file())
 		.min(1, "At least one file is required")
 		.max(10, "Maximum 10 files allowed"),
-	bucket: z.string().min(1, "Bucket name is required"),
 	alt: z.string().optional(),
 });
 

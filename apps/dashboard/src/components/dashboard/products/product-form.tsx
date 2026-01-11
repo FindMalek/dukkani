@@ -90,7 +90,6 @@ export function ProductForm({ storeId }: { storeId: string }) {
 			if (selectedFiles.length > 0) {
 				const res = await client.storage.uploadMany({
 					files: selectedFiles,
-					bucket: "product-images",
 				});
 				urls = res.files.map((f) => f.url);
 			}

@@ -34,11 +34,9 @@ export const storageRouter = {
 		.handler(async ({ input }): Promise<UploadFileOutput> => {
 			try {
 				// Upload file to storage
-				const result = await StorageService.uploadFile(
-					input.file,
-					input.bucket,
-					{ alt: input.alt },
-				);
+				const result = await StorageService.uploadFile(input.file, {
+					alt: input.alt,
+				});
 
 				// Create database record with variants
 				const fileData = StorageFileEntity.createFileData(result);
@@ -90,28 +88,44 @@ export const storageRouter = {
 		.handler(async ({ input }): Promise<UploadFilesOutput> => {
 			try {
 				// Upload all files to storage
-				const results = await StorageService.uploadFiles(
-					input.files,
-					input.bucket,
-					{ alt: input.alt },
-				);
+				const results = await StorageService.uploadFiles(input.files, {
+					alt: input.alt,
+				});
+
+				// Check if we have any successful uploads
+				if (results.length === 0) {
+					throw new ORPCError("BAD_REQUEST", {
+						message: "All file uploads failed",
+					});
+				}
 
 				// Create database records in transaction
 				const fileIds = await database.$transaction(async (tx) => {
 					const createdFileIds: string[] = [];
 
 					for (const result of results) {
-						const fileData = StorageFileEntity.createFileData(result);
-						const variants = StorageFileEntity.createVariantData(result);
+						try {
+							const fileData = StorageFileEntity.createFileData(result);
+							const variants = StorageFileEntity.createVariantData(result);
 
-						const storageFile =
-							await StorageDbService.createStorageFileWithVariants(
-								fileData,
-								variants,
-								tx,
+							const storageFile =
+								await StorageDbService.createStorageFileWithVariants(
+									fileData,
+									variants,
+									tx,
+								);
+
+							createdFileIds.push(storageFile.id);
+						} catch (error) {
+							logger.error(
+								{
+									error,
+									result,
+								},
+								"Failed to create database record for uploaded file",
 							);
-
-						createdFileIds.push(storageFile.id);
+							// Continue with other files even if one fails
+						}
 					}
 
 					return createdFileIds;
@@ -132,9 +146,25 @@ export const storageRouter = {
 				if (error instanceof ORPCError) {
 					throw error;
 				}
+
+				// Safely extract error message
+				const errorMessage =
+					error instanceof Error
+						? error.message
+						: typeof error === "string"
+							? error
+							: "Failed to upload files";
+
+				logger.error(
+					{
+						error,
+						fileCount: input.files.length,
+					},
+					"Storage uploadMany error",
+				);
+
 				throw new ORPCError("INTERNAL_SERVER_ERROR", {
-					message:
-						error instanceof Error ? error.message : "Failed to upload files",
+					message: errorMessage,
 				});
 			}
 		}),
