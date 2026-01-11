@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { categoryOutputSchema } from "../category/output";
 import { imageSimpleOutputSchema } from "../image/output";
 import { orderItemSimpleOutputSchema } from "../order-item/output";
 
@@ -80,7 +81,7 @@ export const productOutputSchema = z.object({
 	storeId: z.string(),
 	createdAt: z.date(),
 	updatedAt: z.date(),
-	category: z.any().optional(), // CategoryOutput
+	category: categoryOutputSchema.nullable().optional(),
 	variantOptions: z.array(variantOptionOutputSchema).optional(),
 	variants: z.array(variantOutputSchema).optional(),
 });

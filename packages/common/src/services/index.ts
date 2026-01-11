@@ -1,3 +1,4 @@
+export { CategoryService } from "./categoryService";
 export { CustomerService } from "./customerService";
 export { DashboardService } from "./dashboardService";
 export { NotificationService } from "./notificationService";

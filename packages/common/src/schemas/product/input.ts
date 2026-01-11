@@ -11,6 +11,16 @@ export const variantOptionInputSchema = z.object({
 		.min(1, "At least one value is required"),
 });
 
+/**
+ * Represents a product variant.
+ * @property {string} sku - The stock keeping unit of the variant.
+ * @property {number} price - The price of the variant.
+ * @property {number} stock - The stock of the variant.
+ * @property {Record<string, string>} selections - The selections of the variant.
+ *
+ * @example This means: Option "Size" has value "M", Option "Color" has value "Red"
+ * { "Size": "M", "Color": "Red" }
+ */
 export const variantInputSchema = z.object({
 	sku: z.string().optional(),
 	price: z.number().positive().optional(),
