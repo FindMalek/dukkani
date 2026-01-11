@@ -180,44 +180,61 @@
 			}
 		}
 	},
-	"products": {
-		"create": {
-			"title": "Create New Product",
-			"subtitle": "Add a new product to your catalog",
-			"success": "Product created successfully",
-			"form": {
-				"name": {
-					"label": "Product Name",
-					"placeholder": "e.g. Wireless Headphones"
-				},
-				"description": {
-					"label": "Description",
-					"placeholder": "Describe your product..."
-				},
-				"price": {
-					"label": "Price",
-					"placeholder": "0.00"
-				},
-				"stock": {
-					"label": "Stock Quantity",
-					"placeholder": "0"
-				},
-				"published": {
-					"label": "Published",
-					"description": "Make this product visible to customers"
-				},
-				"images": {
-					"label": "Product Images",
-					"description": "Upload up to 10 high-quality images",
-					"uploading": "Uploading images...",
-					"empty": "No images selected",
-					"maxImages": "Maximum 10 images allowed",
-					"previewAlt": "Preview {{index}}",
-					"uploadButton": "Upload"
-				},
-				"submit": "Create Product",
-				"cancel": "Cancel"
-			}
-		}
-	}
+"products": {
+    "create": {
+      "header": {
+        "title": "Nouveau produit",
+        "save": "Enregistrer"
+      },
+      "sections": {
+        "photos": "Photos du produit",
+        "essentials": "Essentiels",
+        "organization": "Organisation",
+        "options": "A des options"
+      },
+      "form": {
+        "name": {
+          "label": "Nom du produit",
+          "placeholder": "Entrez le nom du produit"
+        },
+        "price": {
+          "label": "Prix",
+          "placeholder": "Entrez le prix du produit"
+        },
+        "stock": {
+          "label": "Stock",
+          "placeholder": "Entrez le stock du produit"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Entrez la description du produit"
+        },
+        "published": {
+          "label": "Publié",
+          "placeholder": "Entrez le statut de publication du produit"
+        },
+        "addPhotos": "Ajouter des photos",
+        "priceHelp": "Prix payé par les clients (COD)",
+        "category": {
+          "label": "Catégorie",
+          "placeholder": "Non catégorisé",
+          "create": "Créer une catégorie",
+          "uncategorized": "Non catégorisé"
+        },
+        "options": {
+          "label": "A des options",
+          "description": "Taille, Couleur, etc."
+        },
+        "saveDraft": "Enregistrer comme brouillon",
+        "savePublish": "Enregistrer et publier",
+        "optional": "optionnel"
+      },
+      "success": "Produit créé avec succès !",
+      "noStore": {
+        "title": "Aucun magasin trouvé",
+        "description": "Veuillez d'abord créer un magasin pour ajouter des produits.",
+        "createStore": "Créer un magasin"
+      }
+    }
+  }
 }
