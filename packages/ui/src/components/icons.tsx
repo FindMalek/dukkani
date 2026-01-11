@@ -118,4 +118,5 @@ export const Icons = {
 	toys: Gamepad2Icon,
 	other: LayoutGridIcon,
 	upload: Upload,
+	package: PackageIcon,
 } as const;

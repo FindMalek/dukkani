@@ -41,15 +41,13 @@ export default function NewProductPage() {
 	if (!storeId) {
 		return (
 			<div className="container mx-auto p-6 text-center">
-				<h2 className="font-bold text-xl">No Store Found</h2>
-				<p className="text-muted-foreground">
-					Please create a store first to add products.
-				</p>
+				<h2 className="text-xl font-bold">{t("noStore.title")}</h2>
+				<p className="text-muted-foreground">{t("noStore.description")}</p>
 				<Link
 					href={RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url}
 					className="mt-4 inline-block"
 				>
-					<Button>Create Store</Button>
+					<Button>{t("noStore.createStore")}</Button>
 				</Link>
 			</div>
 		);
@@ -75,10 +73,10 @@ export default function NewProductPage() {
 
 			<Card className="border-none shadow-none md:border md:shadow-sm">
 				<CardHeader className="px-0 md:px-6">
-					<CardTitle className="text-lg md:text-xl">Product Details</CardTitle>
-					<CardDescription>
-						Fill in the information below to create your product.
-					</CardDescription>
+					<CardTitle className="text-lg md:text-xl">
+						{t("form.details")}
+					</CardTitle>
+					<CardDescription>{t("form.detailsDescription")}</CardDescription>
 				</CardHeader>
 				<CardContent className="px-0 md:px-6">
 					<ProductForm storeId={storeId} />

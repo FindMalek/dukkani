@@ -216,7 +216,26 @@
 					"uploadButton": "Upload"
 				},
 				"submit": "Create Product",
-				"cancel": "Cancel"
+				"cancel": "Cancel",
+				"details": "Product Details",
+				"detailsDescription": "Fill in the information below to create your product."
+			},
+			"sections": {
+				"general": "General Information",
+				"pricing": "Pricing & Inventory",
+				"media": "Product Media",
+				"preview": "Live Preview"
+			},
+			"preview": {
+				"unnamed": "Unnamed Product",
+				"noDescription": "No description provided yet.",
+				"inStock": "{{count}} in stock",
+				"outOfStock": "Out of stock"
+			},
+			"noStore": {
+				"title": "No Store Found",
+				"description": "Please create a store first to add products.",
+				"createStore": "Create Store"
 			}
 		}
 	}
