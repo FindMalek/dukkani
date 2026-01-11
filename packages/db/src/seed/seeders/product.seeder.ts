@@ -98,7 +98,9 @@ export class ProductSeeder extends BaseSeeder {
 			}
 
 			categoryMap.set(storeSlug, storeCategories);
-			this.log(`✅ Created ${categoryNames.length} categories for ${store.name}`);
+			this.log(
+				`✅ Created ${categoryNames.length} categories for ${store.name}`,
+			);
 		}
 
 		// Step 2: Define products with categories and variant support
@@ -146,7 +148,8 @@ export class ProductSeeder extends BaseSeeder {
 			},
 			{
 				name: "Premium Cotton T-Shirt",
-				description: "Soft, breathable cotton t-shirt available in multiple sizes and colors",
+				description:
+					"Soft, breathable cotton t-shirt available in multiple sizes and colors",
 				price: new Prisma.Decimal("29.99"),
 				stock: 0, // Stock managed by variants
 				published: true,
@@ -334,9 +337,16 @@ export class ProductSeeder extends BaseSeeder {
 				});
 
 				// Create variant options and variants if needed
-				if (productInfo.hasVariants && productInfo.variantOptions && productInfo.variants) {
+				if (
+					productInfo.hasVariants &&
+					productInfo.variantOptions &&
+					productInfo.variants
+				) {
 					// Create variant options and store their IDs
-					const optionMap = new Map<string, { optionId: string; values: Map<string, string> }>();
+					const optionMap = new Map<
+						string,
+						{ optionId: string; values: Map<string, string> }
+					>();
 
 					for (const optionDef of productInfo.variantOptions) {
 						const createdOption = await database.productVariantOption.create({
@@ -374,7 +384,9 @@ export class ProductSeeder extends BaseSeeder {
 
 						// Build selections from variant definition
 						// Assuming variantDef has properties like { size: "M", color: "Red" }
-						for (const [optionName, valueString] of Object.entries(variantDef)) {
+						for (const [optionName, valueString] of Object.entries(
+							variantDef,
+						)) {
 							if (optionName === "stock" || optionName === "price") continue;
 
 							const optionData = optionMap.get(optionName);
@@ -433,7 +445,9 @@ export class ProductSeeder extends BaseSeeder {
 			});
 		}
 
-		const productsWithVariants = productData.filter((p) => p.hasVariants).length;
+		const productsWithVariants = productData.filter(
+			(p) => p.hasVariants,
+		).length;
 		this.log(`✅ Created ${createdProducts.length} products with images`);
 		if (productsWithVariants > 0) {
 			this.log(`✅ ${productsWithVariants} products include variants`);

@@ -219,6 +219,10 @@
 					"label": "Category",
 					"placeholder": "Uncategorized",
 					"create": "Create category",
+					"created": "Category created successfully",
+					"nameLabel": "Category Name",
+					"namePlaceholder": "e.g. T-Shirts, Electronics",
+					"createDescription": "Create a new category to organize your products.",
 					"uncategorized": "Uncategorized"
 				},
 				"options": {
@@ -227,7 +231,8 @@
 				},
 				"saveDraft": "Save draft",
 				"savePublish": "Save & publish",
-				"optional": "optional"
+				"optional": "optional",
+				"cancel": "Cancel"
 			},
 			"success": "Product created successfully!",
 			"noStore": {

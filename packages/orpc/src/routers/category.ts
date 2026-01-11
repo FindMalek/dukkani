@@ -35,6 +35,7 @@ export const categoryRouter = {
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 			await verifyStoreOwnership(userId, input.storeId);
+
 			return await CategoryService.getAllCategories(input.storeId);
 		}),
 

@@ -36,7 +36,7 @@ export const productInputSchema = z.object({
 	published: z.boolean(),
 	storeId: z.string().min(1, "Store ID is required"),
 	categoryId: z.string().optional(),
-	hasVariants: z.boolean().default(false),
+	hasVariants: z.boolean(),
 });
 
 export const createProductInputSchema = productInputSchema.extend({

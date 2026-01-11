@@ -1,5 +1,7 @@
 "use client";
 
+import type { CreateCategoryInput } from "@dukkani/common/schemas/category/input";
+import { createCategoryInputSchema } from "@dukkani/common/schemas/category/input";
 import {
 	type CreateProductInput,
 	createProductInputSchema,
@@ -13,6 +15,16 @@ import {
 import { Button } from "@dukkani/ui/components/button";
 import { ButtonGroup } from "@dukkani/ui/components/button-group";
 import { Card, CardContent } from "@dukkani/ui/components/card";
+import {
+	Drawer,
+	DrawerClose,
+	DrawerContent,
+	DrawerDescription,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerTrigger,
+} from "@dukkani/ui/components/drawer";
 import {
 	Form,
 	FormControl,
@@ -34,22 +46,30 @@ import { Separator } from "@dukkani/ui/components/separator";
 import { Switch } from "@dukkani/ui/components/switch";
 import { Textarea } from "@dukkani/ui/components/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useCategories } from "@/hooks/api/use-categories";
 import { handleAPIError } from "@/lib/error";
-import { client } from "@/lib/orpc";
+import { client, orpc } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
 
 export function ProductForm({ storeId }: { storeId: string }) {
-	const t = useTranslations("products.create");
 	const router = useRouter();
-	const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-	const [previews, setPreviews] = useState<string[]>([]);
+	const queryClient = useQueryClient();
+	const t = useTranslations("products.create");
+
 	const [isUploading, setIsUploading] = useState(false);
+	const [previews, setPreviews] = useState<string[]>([]);
+	const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+	const [categoryDrawerOpen, setCategoryDrawerOpen] = useState(false);
+
+	const { data: categories, isLoading: isLoadingCategories } = useCategories({
+		storeId,
+	});
 
 	const form = useForm<CreateProductInput>({
 		resolver: zodResolver(createProductInputSchema),
@@ -61,6 +81,7 @@ export function ProductForm({ storeId }: { storeId: string }) {
 			published: false,
 			storeId,
 			imageUrls: [],
+			hasVariants: false,
 		},
 	});
 
@@ -69,6 +90,30 @@ export function ProductForm({ storeId }: { storeId: string }) {
 		onSuccess: () => {
 			toast.success(t("success"));
 			router.push(RoutePaths.PRODUCTS.INDEX.url);
+		},
+		onError: (error) => handleAPIError(error),
+	});
+
+	const categoryForm = useForm<CreateCategoryInput>({
+		resolver: zodResolver(createCategoryInputSchema),
+		defaultValues: {
+			name: "",
+			storeId,
+		},
+	});
+
+	const createCategoryMutation = useMutation({
+		mutationFn: (input: CreateCategoryInput) => client.category.create(input),
+		onSuccess: (newCategory) => {
+			toast.success(t("form.category.created"));
+			categoryForm.reset();
+			setCategoryDrawerOpen(false);
+			// Set the newly created category in the product form
+			form.setValue("categoryId", newCategory.id);
+			// Invalidate categories query to refetch
+			queryClient.invalidateQueries({
+				queryKey: orpc.category.getAll.queryKey({ input: { storeId } }),
+			});
 		},
 		onError: (error) => handleAPIError(error),
 	});
@@ -109,6 +154,10 @@ export function ProductForm({ storeId }: { storeId: string }) {
 		} finally {
 			setIsUploading(false);
 		}
+	};
+
+	const onCategorySubmit = (values: CreateCategoryInput) => {
+		createCategoryMutation.mutate(values);
 	};
 
 	return (
@@ -279,24 +328,104 @@ export function ProductForm({ storeId }: { storeId: string }) {
 							<FormLabel className="font-semibold text-xs">
 								{t("form.category.label")}
 							</FormLabel>
-							<Select>
-								<SelectTrigger className="w-full">
-									<SelectValue placeholder={t("form.category.placeholder")} />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectItem value="uncategorized">
-										{t("form.category.uncategorized")}
-									</SelectItem>
-								</SelectContent>
-							</Select>
-							<Button
-								// TODO: Add create category button
-								variant="link"
-								className="p-0 font-medium text-primary text-xs"
+							<FormField
+								control={form.control}
+								name="categoryId"
+								render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Select
+												value={field.value || "none"}
+												onValueChange={(value) => {
+													field.onChange(value === "none" ? undefined : value);
+												}}
+												disabled={isLoadingCategories}
+											>
+												<SelectTrigger className="w-full">
+													<SelectValue
+														placeholder={t("form.category.placeholder")}
+													/>
+												</SelectTrigger>
+												<SelectContent>
+													<SelectItem value="none">
+														{t("form.category.uncategorized")}
+													</SelectItem>
+													{categories?.map((category) => (
+														<SelectItem key={category.id} value={category.id}>
+															{category.name}
+														</SelectItem>
+													))}
+												</SelectContent>
+											</Select>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<Drawer
+								open={categoryDrawerOpen}
+								onOpenChange={setCategoryDrawerOpen}
 							>
-								<Icons.plus className="mr-1 h-3 w-3" />
-								{t("form.category.create")}
-							</Button>
+								<DrawerTrigger asChild>
+									<Button
+										variant="link"
+										type="button"
+										className="p-0 font-medium text-primary text-xs"
+									>
+										<Icons.plus className="mr-1 h-3 w-3" />
+										{t("form.category.create")}
+									</Button>
+								</DrawerTrigger>
+								<DrawerContent>
+									<DrawerHeader>
+										<DrawerTitle>{t("form.category.create")}</DrawerTitle>
+										<DrawerDescription>
+											{t("form.category.createDescription")}
+										</DrawerDescription>
+									</DrawerHeader>
+									<Form {...categoryForm}>
+										<form
+											onSubmit={categoryForm.handleSubmit(onCategorySubmit)}
+											className="px-4"
+										>
+											<FormField
+												control={categoryForm.control}
+												name="name"
+												render={({ field }) => (
+													<FormItem>
+														<FormLabel>
+															{t("form.category.nameLabel")}
+														</FormLabel>
+														<FormControl>
+															<Input
+																placeholder={t("form.category.namePlaceholder")}
+																{...field}
+															/>
+														</FormControl>
+														<FormMessage />
+													</FormItem>
+												)}
+											/>
+											<DrawerFooter>
+												<Button
+													type="submit"
+													disabled={createCategoryMutation.isPending}
+												>
+													{createCategoryMutation.isPending ? (
+														<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+													) : null}
+													{t("form.category.create")}
+												</Button>
+												<DrawerClose asChild>
+													<Button variant="outline" type="button">
+														{t("form.cancel")}
+													</Button>
+												</DrawerClose>
+											</DrawerFooter>
+										</form>
+									</Form>
+								</DrawerContent>
+							</Drawer>
 						</div>
 					</CardContent>
 				</Card>
