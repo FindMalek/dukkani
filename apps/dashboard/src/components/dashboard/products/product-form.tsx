@@ -4,13 +4,15 @@ import {
 	type CreateProductInput,
 	createProductInputSchema,
 } from "@dukkani/common/schemas/product/input";
-import { Button } from "@dukkani/ui/components/button";
-import { Card, CardContent } from "@dukkani/ui/components/card";
 import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-} from "@dukkani/ui/components/collapsible";
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@dukkani/ui/components/accordion";
+import { Button } from "@dukkani/ui/components/button";
+import { ButtonGroup } from "@dukkani/ui/components/button-group";
+import { Card, CardContent } from "@dukkani/ui/components/card";
 import {
 	Form,
 	FormControl,
@@ -28,6 +30,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@dukkani/ui/components/select";
+import { Separator } from "@dukkani/ui/components/separator";
 import { Switch } from "@dukkani/ui/components/switch";
 import { Textarea } from "@dukkani/ui/components/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -112,12 +115,12 @@ export function ProductForm({ storeId }: { storeId: string }) {
 		<Form {...form}>
 			<form
 				onSubmit={(e) => e.preventDefault()}
-				className="flex flex-col gap-4 pb-24"
+				className="flex flex-col gap-4 px-2 pb-24"
 			>
 				{/* Product Photos */}
-				<section className="px-4 py-2">
+				<section>
 					<h3 className="mb-3 font-semibold text-sm">{t("sections.photos")}</h3>
-					<div className="scrollbar-hide flex gap-3 overflow-x-auto pb-2">
+					<div className="scrollbar-hide flex gap-3 overflow-x-auto">
 						{previews.map((p, i) => (
 							<div
 								key={p}
@@ -152,8 +155,8 @@ export function ProductForm({ storeId }: { storeId: string }) {
 				</section>
 
 				{/* Essentials Card */}
-				<Card className="mx-4 border-muted/50 shadow-none">
-					<CardContent className="space-y-6 pt-6">
+				<Card className="bg-muted-foreground/5 py-2 shadow-none">
+					<CardContent className="space-y-4 px-4">
 						<h3 className="font-bold">{t("sections.essentials")}</h3>
 
 						<FormField
@@ -166,10 +169,7 @@ export function ProductForm({ storeId }: { storeId: string }) {
 										<span className="text-destructive">*</span>
 									</FormLabel>
 									<FormControl>
-										<Input
-											className="h-12 border-muted bg-muted/20 focus-visible:ring-0"
-											{...field}
-										/>
+										<Input {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -190,7 +190,6 @@ export function ProductForm({ storeId }: { storeId: string }) {
 											<Input
 												type="number"
 												step="0.01"
-												className="h-12 border-muted bg-muted/20 pr-12 focus-visible:ring-0"
 												{...field}
 												onChange={(e) => field.onChange(Number(e.target.value))}
 											/>
@@ -206,40 +205,42 @@ export function ProductForm({ storeId }: { storeId: string }) {
 							)}
 						/>
 
+						<Separator />
+
 						<FormField
 							control={form.control}
 							name="stock"
 							render={({ field }) => (
-								<FormItem className="flex items-center justify-between border-t pt-4">
+								<FormItem className="flex items-center justify-between">
 									<FormLabel className="font-semibold text-sm">
 										{t("form.stock.label")}
 									</FormLabel>
-									<div className="flex h-10 items-center overflow-hidden rounded-lg border border-muted bg-muted/10">
+									<ButtonGroup orientation="horizontal">
 										<Button
-											variant="ghost"
+											variant="outline"
 											size="icon"
-											className="h-full w-10 rounded-none border-r"
+											className="bg-muted-foreground/5"
 											onClick={() =>
 												field.onChange(Math.max(0, field.value - 1))
 											}
 										>
-											<Icons.minus className="h-4 w-4" />
+											<Icons.minus className="size-4" />
 										</Button>
 										<Input
 											type="number"
-											className="h-full w-16 border-none bg-transparent text-center focus-visible:ring-0"
+											className="w-16 rounded-none border-x-0 bg-muted-foreground/5 text-center"
 											{...field}
 											onChange={(e) => field.onChange(Number(e.target.value))}
 										/>
 										<Button
-											variant="ghost"
+											variant="outline"
 											size="icon"
-											className="h-full w-10 rounded-none border-l"
+											className="bg-muted-foreground/5"
 											onClick={() => field.onChange(field.value + 1)}
 										>
-											<Icons.plus className="h-4 w-4" />
+											<Icons.plus className="size-4" />
 										</Button>
-									</div>
+									</ButtonGroup>
 								</FormItem>
 							)}
 						/>
@@ -247,37 +248,38 @@ export function ProductForm({ storeId }: { storeId: string }) {
 				</Card>
 
 				{/* Description Accordion */}
-				<Collapsible className="mx-4 overflow-hidden rounded-xl border border-muted/50 bg-card">
-					<CollapsibleTrigger className="flex w-full items-center justify-between p-4 font-bold text-sm">
-						{t("form.description.label")} (optional)
-						<Icons.chevronDown className="h-4 w-4 text-muted-foreground" />
-					</CollapsibleTrigger>
-					<CollapsibleContent className="p-4 pt-0">
-						<FormField
-							control={form.control}
-							name="description"
-							render={({ field }) => (
-								<FormControl>
-									<Textarea
-										className="min-h-[100px] border-muted bg-muted/20"
-										{...field}
-									/>
-								</FormControl>
-							)}
-						/>
-					</CollapsibleContent>
-				</Collapsible>
+				<Accordion type="single" collapsible>
+					<AccordionItem
+						value="description"
+						className="rounded-xl border bg-muted-foreground/5 shadow-none"
+					>
+						<AccordionTrigger className="px-4 font-bold text-sm">
+							{t("form.description.label")} (optional)
+						</AccordionTrigger>
+						<AccordionContent className="px-2">
+							<FormField
+								control={form.control}
+								name="description"
+								render={({ field }) => (
+									<FormControl>
+										<Textarea className="min-h-[100px]" {...field} />
+									</FormControl>
+								)}
+							/>
+						</AccordionContent>
+					</AccordionItem>
+				</Accordion>
 
 				{/* Organization */}
-				<Card className="mx-4 border-muted/50 shadow-none">
-					<CardContent className="space-y-4 pt-6">
+				<Card className="bg-muted-foreground/5 py-2 shadow-none">
+					<CardContent className="space-y-4 px-4">
 						<h3 className="font-bold">{t("sections.organization")}</h3>
 						<div className="space-y-1.5">
 							<FormLabel className="font-semibold text-xs">
 								{t("form.category.label")}
 							</FormLabel>
 							<Select>
-								<SelectTrigger className="h-12 border-muted bg-muted/20">
+								<SelectTrigger className="w-full">
 									<SelectValue placeholder={t("form.category.placeholder")} />
 								</SelectTrigger>
 								<SelectContent>
