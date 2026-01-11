@@ -5,12 +5,12 @@ export const productInputSchema = z.object({
 	description: z.string().optional(),
 	price: z.number().positive("Price must be positive"),
 	stock: z.number().int().min(0, "Stock cannot be negative"),
-	published: z.boolean().default(false),
+	published: z.boolean(),
 	storeId: z.string().min(1, "Store ID is required"),
 });
 
 export const createProductInputSchema = productInputSchema.extend({
-	imageUrls: z.array(z.url()).optional(),
+	imageUrls: z.array(z.url()),
 });
 
 export const updateProductInputSchema = productInputSchema.partial().extend({

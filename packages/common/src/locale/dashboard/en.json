@@ -179,5 +179,62 @@
 				"goToDashboard": "Go to Dashboard"
 			}
 		}
+	},
+	"products": {
+		"create": {
+			"header": {
+				"title": "New product",
+				"save": "Save"
+			},
+			"sections": {
+				"photos": "Product Photos",
+				"essentials": "Essentials",
+				"organization": "Organization",
+				"options": "Has options"
+			},
+			"form": {
+				"name": {
+					"label": "Product Name",
+					"placeholder": "Enter product name"
+				},
+				"price": {
+					"label": "Price",
+					"placeholder": "Enter product price"
+				},
+				"stock": {
+					"label": "Stock",
+					"placeholder": "Enter product stock"
+				},
+				"description": {
+					"label": "Description",
+					"placeholder": "Enter product description"
+				},
+				"published": {
+					"label": "Published",
+					"placeholder": "Enter product published"
+				},
+				"addPhotos": "Add photos",
+				"priceHelp": "Price customers pay (COD)",
+				"category": {
+					"label": "Category",
+					"placeholder": "Uncategorized",
+					"create": "Create category",
+					"uncategorized": "Uncategorized"
+				},
+				"options": {
+					"label": "Has options",
+					"description": "Size, Color, etc."
+				},
+				"saveDraft": "Save draft",
+				"savePublish": "Save & publish",
+				"optional": "optional"
+			},
+			"success": "Product created successfully!",
+			"noStore": {
+				"title": "No Store Found",
+				"description": "Please create a store first to add products.",
+				"createStore": "Create Store"
+			}
+		}
 	}
 }
