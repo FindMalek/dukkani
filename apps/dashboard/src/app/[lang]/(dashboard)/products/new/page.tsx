@@ -51,16 +51,19 @@ export default function NewProductPage() {
 
 	return (
 		<div className="min-h-screen dark:bg-background">
-			{/* Top Bar */}
 			<header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b bg-background px-4">
-				<Link href={RoutePaths.PRODUCTS.INDEX.url}>
+				<Link href={RoutePaths.PRODUCTS.INDEX.url} className="z-10">
 					<Icons.arrowLeft className="h-5 w-5" />
 				</Link>
-				<h1 className="font-bold text-sm">{t("header.title")}</h1>
+
+				<h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-bold text-sm">
+					{t("header.title")}
+				</h1>
+
 				<Button
 					onClick={() => {}}
 					variant="ghost"
-					className="font-bold text-primary text-sm"
+					className="z-10 p-0 font-bold text-primary text-sm hover:bg-transparent"
 				>
 					{t("header.save")}
 				</Button>
