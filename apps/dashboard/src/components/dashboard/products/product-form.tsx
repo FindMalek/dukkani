@@ -254,7 +254,7 @@ export function ProductForm({ storeId }: { storeId: string }) {
 						className="rounded-xl border bg-muted-foreground/5 shadow-none"
 					>
 						<AccordionTrigger className="px-4 font-bold text-sm">
-							{t("form.description.label")} (optional)
+							{t("form.description.label")} ({t("form.optional")})
 						</AccordionTrigger>
 						<AccordionContent className="px-2">
 							<FormField
@@ -274,6 +274,7 @@ export function ProductForm({ storeId }: { storeId: string }) {
 				<Card className="bg-muted-foreground/5 py-2 shadow-none">
 					<CardContent className="space-y-4 px-4">
 						<h3 className="font-bold">{t("sections.organization")}</h3>
+
 						<div className="space-y-1.5">
 							<FormLabel className="font-semibold text-xs">
 								{t("form.category.label")}
@@ -283,12 +284,15 @@ export function ProductForm({ storeId }: { storeId: string }) {
 									<SelectValue placeholder={t("form.category.placeholder")} />
 								</SelectTrigger>
 								<SelectContent>
-									<SelectItem value="uncategorized">Uncategorized</SelectItem>
+									<SelectItem value="uncategorized">
+										{t("form.category.uncategorized")}
+									</SelectItem>
 								</SelectContent>
 							</Select>
 							<Button
+								// TODO: Add create category button
 								variant="link"
-								className="h-auto p-0 font-medium text-primary text-xs"
+								className="p-0 font-medium text-primary text-xs"
 							>
 								<Icons.plus className="mr-1 h-3 w-3" />
 								{t("form.category.create")}
@@ -298,8 +302,8 @@ export function ProductForm({ storeId }: { storeId: string }) {
 				</Card>
 
 				{/* Has Options */}
-				<Card className="mx-4 border-muted/50 shadow-none">
-					<CardContent className="flex items-center justify-between pt-6">
+				<Card className="bg-muted-foreground/5 py-2 shadow-none">
+					<CardContent className="flex items-center justify-between px-4">
 						<div className="space-y-1">
 							<h3 className="font-bold text-sm">{t("form.options.label")}</h3>
 							<p className="text-muted-foreground/60 text-xs">

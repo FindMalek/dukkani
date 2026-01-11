@@ -213,20 +213,21 @@
 					"label": "Published",
 					"placeholder": "Enter product published"
 				},
-
 				"addPhotos": "Add photos",
 				"priceHelp": "Price customers pay (COD)",
 				"category": {
 					"label": "Category",
 					"placeholder": "Uncategorized",
-					"create": "Create category"
+					"create": "Create category",
+					"uncategorized": "Uncategorized"
 				},
 				"options": {
 					"label": "Has options",
 					"description": "Size, Color, etc."
 				},
 				"saveDraft": "Save draft",
-				"savePublish": "Save & publish"
+				"savePublish": "Save & publish",
+				"optional": "optional"
 			},
 			"success": "Product created successfully!",
 			"noStore": {
