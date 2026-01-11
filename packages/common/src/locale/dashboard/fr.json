@@ -217,17 +217,64 @@
 				"priceHelp": "Prix payé par les clients (COD)",
 				"category": {
 					"label": "Catégorie",
-					"placeholder": "Non catégorisé",
+					"placeholder": "Sélectionner une catégorie...",
+					"searchPlaceholder": "Rechercher des catégories...",
+					"noResults": "Aucune catégorie trouvée.",
 					"create": "Créer une catégorie",
+					"created": "Catégorie créée avec succès",
+					"nameLabel": "Nom de la catégorie",
+					"namePlaceholder": "ex. T-Shirts, Électronique",
+					"createDescription": "Créez une nouvelle catégorie pour organiser vos produits.",
 					"uncategorized": "Non catégorisé"
 				},
 				"options": {
 					"label": "A des options",
-					"description": "Taille, Couleur, etc."
+					"description": "Ajoutez des options comme Taille, Couleur, Matériau, etc."
 				},
 				"saveDraft": "Enregistrer comme brouillon",
 				"savePublish": "Enregistrer et publier",
-				"optional": "optionnel"
+				"optional": "optionnel",
+				"cancel": "Annuler",
+				"validation": {
+					"errors": "Veuillez corriger les erreurs du formulaire avant de soumettre"
+				},
+				"variants": {
+					"options": {
+						"title": "Options de variante",
+						"add": "Ajouter une option",
+						"empty": "Ajoutez des options comme Taille, Couleur, Matériau, etc.",
+						"unnamed": "Option sans nom",
+						"optionName": "Nom de l'option",
+						"optionNamePlaceholder": "ex. Taille, Couleur",
+						"values": "Valeurs",
+						"addValue": "Ajouter une valeur",
+						"noValues": "Ajoutez au moins une valeur",
+						"remove": "Supprimer l'option",
+						"addAnother": "Ajouter une autre option"
+					},
+					"list": {
+						"title": "Variantes",
+						"empty": "Ajoutez des options de variante ci-dessus pour générer des variantes",
+						"unnamed": "Variante sans nom",
+						"price": "Prix",
+						"stock": "Stock",
+						"edit": "Modifier la variante"
+					},
+					"edit": {
+						"title": "Modifier la variante",
+						"sku": "SKU",
+						"skuPlaceholder": "Optionnel",
+						"price": "Prix",
+						"priceHelp": "Laissez vide pour utiliser le prix de base du produit",
+						"stock": "Stock"
+					},
+					"validation": {
+						"duplicateOptionName": "Nom d'option en double",
+						"duplicateOptionValues": "Valeurs d'option en double",
+						"duplicateValue": "Valeur en double",
+						"duplicateOption": "Option en double"
+					}
+				}
 			},
 			"success": "Produit créé avec succès !",
 			"noStore": {

@@ -8,9 +8,12 @@ import {
 	FormField,
 	FormItem,
 	FormLabel,
+	FormMessage,
 } from "@dukkani/ui/components/form";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
+import { cn } from "@dukkani/ui/lib/utils";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { type UseFormReturn, useFieldArray } from "react-hook-form";
 
@@ -25,6 +28,7 @@ export function VariantOptionCard({
 	index,
 	onRemove,
 }: VariantOptionCardProps) {
+	const t = useTranslations("products.create");
 	const [newValue, setNewValue] = useState("");
 	const [isAdding, setIsAdding] = useState(false);
 
@@ -33,12 +37,46 @@ export function VariantOptionCard({
 		name: `variantOptions.${index}.values`,
 	});
 
+	const variantOptions = form.watch("variantOptions") || [];
+	const currentOptionName = form.watch(`variantOptions.${index}.name`);
+	const currentValues = form.watch(`variantOptions.${index}.values`) || [];
+
+	// Check for duplicate option names (excluding current index)
+	const isDuplicateOptionName = variantOptions.some(
+		(opt, idx) =>
+			idx !== index &&
+			opt.name &&
+			opt.name.toLowerCase().trim() ===
+				currentOptionName?.toLowerCase().trim() &&
+			currentOptionName?.trim().length > 0,
+	);
+
+	// Check for duplicate values within this option
+	const isDuplicateValue = (value: string) => {
+		if (!value.trim()) return false;
+		const normalizedValue = value.toLowerCase().trim();
+		return currentValues.some(
+			(v) => v.value?.toLowerCase().trim() === normalizedValue,
+		);
+	};
+
 	const handleAddValue = () => {
-		if (newValue.trim()) {
-			append({ value: newValue.trim() });
-			setNewValue("");
-			setIsAdding(false);
+		const trimmedValue = newValue.trim();
+		if (!trimmedValue) return;
+
+		// Check for duplicate before adding
+		if (isDuplicateValue(trimmedValue)) {
+			form.setError(`variantOptions.${index}.values`, {
+				type: "manual",
+				message: t("form.variants.validation.duplicateValue"),
+			});
+			return;
 		}
+
+		append({ value: trimmedValue });
+		setNewValue("");
+		setIsAdding(false);
+		form.clearErrors(`variantOptions.${index}.values`);
 	};
 
 	return (
@@ -56,9 +94,35 @@ export function VariantOptionCard({
 								<Input
 									{...field}
 									placeholder="e.g. Size"
-									className="h-10 border-muted-foreground/10 bg-muted/20"
+									className={cn(
+										"h-10 border-muted-foreground/10 bg-muted/20",
+										isDuplicateOptionName && "border-destructive",
+									)}
+									onChange={(e) => {
+										field.onChange(e);
+										// Clear error when user starts typing
+										if (isDuplicateOptionName) {
+											form.clearErrors(`variantOptions.${index}.name`);
+										}
+									}}
+									onBlur={() => {
+										field.onBlur();
+										// Set error on blur if duplicate
+										if (isDuplicateOptionName) {
+											form.setError(`variantOptions.${index}.name`, {
+												type: "manual",
+												message: t("form.variants.validation.duplicateOption"),
+											});
+										}
+									}}
 								/>
 							</FormControl>
+							{isDuplicateOptionName && (
+								<p className="text-destructive text-xs">
+									{t("form.variants.validation.duplicateOption")}
+								</p>
+							)}
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
@@ -96,15 +160,26 @@ export function VariantOptionCard({
 						<Input
 							autoFocus
 							value={newValue}
-							onChange={(e) => setNewValue(e.target.value)}
+							onChange={(e) => {
+								setNewValue(e.target.value);
+								// Clear error when user starts typing
+								form.clearErrors(`variantOptions.${index}.values`);
+							}}
 							onKeyDown={(e) => {
 								if (e.key === "Enter") {
 									e.preventDefault();
 									handleAddValue();
 								}
-								if (e.key === "Escape") setIsAdding(false);
+								if (e.key === "Escape") {
+									setIsAdding(false);
+									setNewValue("");
+									form.clearErrors(`variantOptions.${index}.values`);
+								}
 							}}
-							className="h-8 w-24 text-xs"
+							className={cn(
+								"h-8 w-24 text-xs",
+								isDuplicateValue(newValue) && "border-destructive",
+							)}
 						/>
 						<Button size="icon" className="h-8 w-8" onClick={handleAddValue}>
 							<Icons.check className="h-3 w-3" />
@@ -123,6 +198,11 @@ export function VariantOptionCard({
 					</Button>
 				)}
 			</div>
+			{isDuplicateValue(newValue) && isAdding && (
+				<p className="text-destructive text-xs">
+					{t("form.variants.validation.duplicateValue")}
+				</p>
+			)}
 		</div>
 	);
 }

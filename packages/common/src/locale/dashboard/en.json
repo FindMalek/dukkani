@@ -229,12 +229,15 @@
 				},
 				"options": {
 					"label": "Has options",
-					"description": "Size, Color, etc."
+					"description": "Add options like Size, Color, Material, etc."
 				},
 				"saveDraft": "Save draft",
 				"savePublish": "Save & publish",
 				"optional": "optional",
 				"cancel": "Cancel",
+				"validation": {
+					"errors": "Please fix the form errors before submitting"
+				},
 				"variants": {
 					"options": {
 						"title": "Variant Options",
@@ -246,7 +249,8 @@
 						"values": "Values",
 						"addValue": "Add Value",
 						"noValues": "Add at least one value",
-						"remove": "Remove Option"
+						"remove": "Remove Option",
+						"addAnother": "Add another option"
 					},
 					"list": {
 						"title": "Variants",
@@ -263,6 +267,12 @@
 						"price": "Price",
 						"priceHelp": "Leave empty to use base product price",
 						"stock": "Stock"
+					},
+					"validation": {
+						"duplicateOptionName": "Duplicate option name",
+						"duplicateOptionValues": "Duplicate option values",
+						"duplicateValue": "Duplicate value",
+						"duplicateOption": "Duplicate option"
 					}
 				}
 			},

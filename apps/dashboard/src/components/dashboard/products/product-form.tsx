@@ -74,9 +74,16 @@ export function ProductForm({ storeId }: { storeId: string }) {
 
 	const onSubmit = async (published: boolean) => {
 		form.setValue("published", published);
+
+		const isValid = await form.trigger();
+		if (!isValid) {
+			toast.error(t("form.validation.errors"));
+			return;
+		}
+
 		const values = form.getValues();
 		const hasVariants = values.hasVariants;
-		
+
 		try {
 			setIsUploading(true);
 			let urls: string[] = [];
@@ -88,19 +95,18 @@ export function ProductForm({ storeId }: { storeId: string }) {
 				urls = res.files.map((f) => f.url);
 			}
 
-			// Only include variants if hasVariants is true
+			// Clean up data: only include variants if hasVariants is true
 			const submitData: CreateProductInput = {
 				...values,
 				imageUrls: urls,
-				...(hasVariants
-					? {
-							variantOptions: values.variantOptions || [],
-							variants: values.variants || [],
-						}
-					: {
-							variantOptions: undefined,
-							variants: undefined,
-						}),
+				hasVariants,
+				// Explicitly set to empty arrays/undefined when hasVariants is false
+				variantOptions: hasVariants
+					? values.variantOptions?.filter(
+							(opt) => opt.name && opt.values && opt.values.length > 0,
+						)
+					: undefined,
+				variants: hasVariants ? values.variants : undefined,
 			};
 
 			createProductMutation.mutate(submitData);

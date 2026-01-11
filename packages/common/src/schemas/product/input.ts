@@ -8,7 +8,16 @@ export const variantOptionInputSchema = z.object({
 	name: z.string().min(1, "Option name is required"),
 	values: z
 		.array(variantOptionValueInputSchema)
-		.min(1, "At least one value is required"),
+		.min(1, "At least one value is required")
+		.refine(
+			(values) => {
+				const valueStrings = values.map((v) => v.value.toLowerCase().trim());
+				return new Set(valueStrings).size === valueStrings.length;
+			},
+			{
+				message: "Duplicate values are not allowed in the same option",
+			},
+		),
 });
 
 /**
@@ -25,7 +34,7 @@ export const variantInputSchema = z.object({
 	sku: z.string().optional(),
 	price: z.number().positive().optional(),
 	stock: z.number().int().min(0),
-	selections: z.record(z.string(), z.string()), // { optionName: valueId }
+	selections: z.record(z.string(), z.string()),
 });
 
 export const productInputSchema = z.object({
@@ -39,11 +48,48 @@ export const productInputSchema = z.object({
 	hasVariants: z.boolean(),
 });
 
-export const createProductInputSchema = productInputSchema.extend({
-	imageUrls: z.array(z.url()).optional(),
-	variantOptions: z.array(variantOptionInputSchema).optional(),
-	variants: z.array(variantInputSchema).optional(),
-});
+export const createProductInputSchema = productInputSchema
+	.extend({
+		imageUrls: z.array(z.url()).optional(),
+		variantOptions: z.array(variantOptionInputSchema).optional(),
+		variants: z.array(variantInputSchema).optional(),
+	})
+	.refine(
+		(data) => {
+			// If hasVariants is false, variantOptions and variants should be empty/undefined
+			if (!data.hasVariants) {
+				return (
+					(!data.variantOptions || data.variantOptions.length === 0) &&
+					(!data.variants || data.variants.length === 0)
+				);
+			}
+			return true;
+		},
+		{
+			message: "Variants should not be provided when hasVariants is false",
+			path: ["hasVariants"],
+		},
+	)
+	.refine(
+		(data) => {
+			// If hasVariants is true, variantOptions must be provided and valid
+			if (data.hasVariants) {
+				if (!data.variantOptions || data.variantOptions.length === 0) {
+					return false;
+				}
+				// Check for duplicate option names
+				const optionNames = data.variantOptions
+					.map((opt) => opt.name.toLowerCase().trim())
+					.filter((name) => name.length > 0);
+				return new Set(optionNames).size === optionNames.length;
+			}
+			return true;
+		},
+		{
+			message: "Duplicate option names are not allowed",
+			path: ["variantOptions"],
+		},
+	);
 
 export const updateProductInputSchema = productInputSchema.partial().extend({
 	id: z.string().min(1, "Product ID is required"),

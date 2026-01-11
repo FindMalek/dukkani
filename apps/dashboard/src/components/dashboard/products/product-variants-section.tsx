@@ -35,7 +35,7 @@ export function ProductVariantsSection({ form }: ProductVariantsSectionProps) {
 		<Card className="overflow-hidden bg-muted-foreground/5 shadow-none transition-all">
 			<CardContent className="p-0">
 				{/* Header with Toggle */}
-				<div className="flex items-center justify-between p-4">
+				<div className="flex items-center justify-between px-4">
 					<div className="space-y-1">
 						<h3 className="font-bold text-sm">{t("form.options.label")}</h3>
 						<p className="max-w-[280px] text-muted-foreground/60 text-xs">
@@ -68,7 +68,7 @@ export function ProductVariantsSection({ form }: ProductVariantsSectionProps) {
 						hasVariants ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0",
 					)}
 				>
-					<div className="space-y-4 border-t bg-muted/5 p-4">
+					<div className="space-y-4 bg-muted/5 p-4">
 						{fields.map((field, index) => (
 							<VariantOptionCard
 								key={field.id}
