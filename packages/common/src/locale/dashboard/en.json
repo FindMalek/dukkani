@@ -179,5 +179,45 @@
 				"goToDashboard": "Go to Dashboard"
 			}
 		}
+	},
+	"products": {
+		"create": {
+			"title": "Create New Product",
+			"subtitle": "Add a new product to your catalog",
+			"success": "Product created successfully",
+			"form": {
+				"name": {
+					"label": "Product Name",
+					"placeholder": "e.g. Wireless Headphones"
+				},
+				"description": {
+					"label": "Description",
+					"placeholder": "Describe your product..."
+				},
+				"price": {
+					"label": "Price",
+					"placeholder": "0.00"
+				},
+				"stock": {
+					"label": "Stock Quantity",
+					"placeholder": "0"
+				},
+				"published": {
+					"label": "Published",
+					"description": "Make this product visible to customers"
+				},
+				"images": {
+					"label": "Product Images",
+					"description": "Upload up to 10 high-quality images",
+					"uploading": "Uploading images...",
+					"empty": "No images selected",
+					"maxImages": "Maximum 10 images allowed",
+					"previewAlt": "Preview {{index}}",
+					"uploadButton": "Upload"
+				},
+				"submit": "Create Product",
+				"cancel": "Cancel"
+			}
+		}
 	}
 }

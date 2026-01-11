@@ -56,6 +56,7 @@ import {
 	Sun,
 	TriangleAlert,
 	TrophyIcon,
+	Upload,
 	User2Icon,
 	Users,
 	UtensilsIcon,
@@ -116,4 +117,5 @@ export const Icons = {
 	books: BookIcon,
 	toys: Gamepad2Icon,
 	other: LayoutGridIcon,
+	upload: Upload,
 } as const;

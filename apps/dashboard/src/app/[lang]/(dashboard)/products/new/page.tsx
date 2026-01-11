@@ -9,81 +9,79 @@ import {
 	CardTitle,
 } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
+import { Spinner } from "@dukkani/ui/components/spinner";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { ProductForm } from "@/components/dashboard/products/product-form";
+import { orpc } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
 
 export default function NewProductPage() {
+	const t = useTranslations("products.create");
+	const searchParams = useSearchParams();
+	const urlStoreId = searchParams.get("storeId");
+
+	const { data: stores, isLoading: isLoadingStores } = useQuery({
+		...orpc.store.getAll.queryOptions(),
+		enabled: !urlStoreId,
+	});
+
+	const storeId = urlStoreId || stores?.[0]?.id;
+
+	if (isLoadingStores && !urlStoreId) {
+		return (
+			<div className="flex min-h-[400px] items-center justify-center">
+				<Spinner className="h-8 w-8" />
+			</div>
+		);
+	}
+
+	if (!storeId) {
+		return (
+			<div className="container mx-auto p-6 text-center">
+				<h2 className="font-bold text-xl">No Store Found</h2>
+				<p className="text-muted-foreground">
+					Please create a store first to add products.
+				</p>
+				<Link
+					href={RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url}
+					className="mt-4 inline-block"
+				>
+					<Button>Create Store</Button>
+				</Link>
+			</div>
+		);
+	}
+
 	return (
-		<div className="container mx-auto max-w-7xl p-4 md:p-6">
-			<div className="mb-6">
-				<div className="mb-4 flex items-center gap-4">
-					<Link href={RoutePaths.PRODUCTS.INDEX.url}>
-						<Button variant="ghost" size="icon">
-							<Icons.arrowLeft className="h-4 w-4" />
-						</Button>
-					</Link>
-					<div>
-						<h1 className="font-bold text-2xl md:text-3xl">
-							Create New Product
-						</h1>
-						<p className="mt-2 text-muted-foreground text-sm md:text-base">
-							Add a new product to your catalog
-						</p>
-					</div>
+		<div className="container mx-auto max-w-5xl p-4 md:p-6 lg:p-8">
+			<div className="mb-8 flex items-center gap-4">
+				<Link href={RoutePaths.PRODUCTS.INDEX.url}>
+					<Button variant="ghost" size="icon" className="h-9 w-9">
+						<Icons.arrowLeft className="h-5 w-5" />
+					</Button>
+				</Link>
+				<div>
+					<h1 className="font-bold text-2xl tracking-tight md:text-3xl">
+						{t("title")}
+					</h1>
+					<p className="text-muted-foreground text-sm md:text-base">
+						{t("subtitle")}
+					</p>
 				</div>
 			</div>
 
-			<Card>
-				<CardHeader>
-					<CardTitle>Product Form</CardTitle>
+			<Card className="border-none shadow-none md:border md:shadow-sm">
+				<CardHeader className="px-0 md:px-6">
+					<CardTitle className="text-lg md:text-xl">Product Details</CardTitle>
 					<CardDescription>
-						Fill in the details to create a new product
+						Fill in the information below to create your product.
 					</CardDescription>
 				</CardHeader>
-				<CardContent>
-					<div className="space-y-6">
-						<div className="space-y-2">
-							<label className="font-medium text-sm">Product Name</label>
-							<p className="text-muted-foreground text-sm">
-								Enter the name of the product
-							</p>
-						</div>
-
-						<div className="space-y-2">
-							<label className="font-medium text-sm">Price</label>
-							<p className="text-muted-foreground text-sm">
-								Set the product price
-							</p>
-						</div>
-
-						<div className="space-y-2">
-							<label className="font-medium text-sm">Description</label>
-							<p className="text-muted-foreground text-sm">
-								Add a description for the product
-							</p>
-						</div>
-
-						<div className="space-y-2">
-							<label className="font-medium text-sm">Images</label>
-							<p className="text-muted-foreground text-sm">
-								Upload product images
-							</p>
-						</div>
-
-						<div className="space-y-2">
-							<label className="font-medium text-sm">Stock</label>
-							<p className="text-muted-foreground text-sm">
-								Set the initial stock quantity
-							</p>
-						</div>
-
-						<div className="flex gap-4 pt-4">
-							<Button disabled>Create Product</Button>
-							<Link href={RoutePaths.PRODUCTS.INDEX.url}>
-								<Button variant="outline">Cancel</Button>
-							</Link>
-						</div>
-					</div>
+				<CardContent className="px-0 md:px-6">
+					<ProductForm storeId={storeId} />
 				</CardContent>
 			</Card>
 		</div>
