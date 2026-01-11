@@ -98,14 +98,14 @@ export function ProductEssentialsSection({
 								</Button>
 								<Input
 									type="number"
-									className="w-16 rounded-none border-x-0 bg-muted-foreground/5 text-center"
+									className="w-16 rounded-none bg-muted-foreground/5 text-center"
 									{...field}
 									onChange={(e) => field.onChange(Number(e.target.value))}
 								/>
 								<Button
 									variant="outline"
 									size="icon"
-									className="bg-muted-foreground/5"
+									className="border-l-0 bg-muted-foreground/5"
 									onClick={() => field.onChange(field.value + 1)}
 								>
 									<Icons.plus className="size-4" />

@@ -17,7 +17,7 @@ import { ProductDescriptionSection } from "@/components/dashboard/products/produ
 import { ProductEssentialsSection } from "@/components/dashboard/products/product-essentials-section";
 import { ProductFormActions } from "@/components/dashboard/products/product-form-actions";
 import { ProductPhotosSection } from "@/components/dashboard/products/product-photos-section";
-import { ProductVariantsToggle } from "@/components/dashboard/products/product-variants-toggle";
+import { ProductVariantsSection } from "@/components/dashboard/products/product-variants-section";
 import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
@@ -41,6 +41,8 @@ export function ProductForm({ storeId }: { storeId: string }) {
 			storeId,
 			imageUrls: [],
 			hasVariants: false,
+			variantOptions: [],
+			variants: [],
 		},
 	});
 
@@ -73,6 +75,8 @@ export function ProductForm({ storeId }: { storeId: string }) {
 	const onSubmit = async (published: boolean) => {
 		form.setValue("published", published);
 		const values = form.getValues();
+		const hasVariants = values.hasVariants;
+		
 		try {
 			setIsUploading(true);
 			let urls: string[] = [];
@@ -83,7 +87,23 @@ export function ProductForm({ storeId }: { storeId: string }) {
 				});
 				urls = res.files.map((f) => f.url);
 			}
-			createProductMutation.mutate({ ...values, imageUrls: urls });
+
+			// Only include variants if hasVariants is true
+			const submitData: CreateProductInput = {
+				...values,
+				imageUrls: urls,
+				...(hasVariants
+					? {
+							variantOptions: values.variantOptions || [],
+							variants: values.variants || [],
+						}
+					: {
+							variantOptions: undefined,
+							variants: undefined,
+						}),
+			};
+
+			createProductMutation.mutate(submitData);
 		} catch (e) {
 			handleAPIError(e);
 		} finally {
@@ -109,7 +129,7 @@ export function ProductForm({ storeId }: { storeId: string }) {
 
 				<ProductCategorySection form={form} storeId={storeId} />
 
-				<ProductVariantsToggle form={form} />
+				<ProductVariantsSection form={form} />
 
 				<ProductFormActions
 					onSubmit={onSubmit}

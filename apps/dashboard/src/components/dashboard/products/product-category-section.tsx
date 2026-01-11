@@ -1,7 +1,16 @@
 "use client";
 
 import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import { Button } from "@dukkani/ui/components/button";
 import { Card, CardContent } from "@dukkani/ui/components/card";
+import {
+	Command,
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+	CommandList,
+} from "@dukkani/ui/components/command";
 import {
 	FormControl,
 	FormField,
@@ -9,14 +18,15 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@dukkani/ui/components/form";
+import { Icons } from "@dukkani/ui/components/icons";
 import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@dukkani/ui/components/select";
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@dukkani/ui/components/popover";
+import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { CategoryDrawer } from "@/components/dashboard/products/category-drawer";
 import { useCategories } from "@/hooks/api/use-categories";
@@ -47,36 +57,87 @@ export function ProductCategorySection({
 					<FormField
 						control={form.control}
 						name="categoryId"
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<Select
-										value={field.value || "none"}
-										onValueChange={(value) => {
-											field.onChange(value === "none" ? undefined : value);
-										}}
-										disabled={isLoadingCategories}
-									>
-										<SelectTrigger className="w-full">
-											<SelectValue
-												placeholder={t("form.category.placeholder")}
-											/>
-										</SelectTrigger>
-										<SelectContent>
-											<SelectItem value="none">
-												{t("form.category.uncategorized")}
-											</SelectItem>
-											{categories?.map((category) => (
-												<SelectItem key={category.id} value={category.id}>
-													{category.name}
-												</SelectItem>
-											))}
-										</SelectContent>
-									</Select>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
+						render={({ field }) => {
+							const [open, setOpen] = useState(false);
+
+							// Compute selected category inside render function so it's reactive
+							const selectedCategory = categories?.find(
+								(cat) => cat.id === field.value,
+							);
+
+							return (
+								<FormItem>
+									<FormControl>
+										<Popover open={open} onOpenChange={setOpen}>
+											<PopoverTrigger asChild>
+												<Button
+													variant="outline"
+													role="combobox"
+													aria-expanded={open}
+													className="w-full justify-between"
+													disabled={isLoadingCategories}
+												>
+													{selectedCategory
+														? selectedCategory.name
+														: t("form.category.placeholder")}
+													<Icons.chevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+												</Button>
+											</PopoverTrigger>
+											<PopoverContent className="w-full p-0" align="start">
+												<Command>
+													<CommandInput
+														placeholder={t("form.category.searchPlaceholder")}
+													/>
+													<CommandList className="max-h-[300px]">
+														<CommandEmpty>
+															{t("form.category.noResults")}
+														</CommandEmpty>
+														<CommandGroup>
+															<CommandItem
+																value="none"
+																onSelect={() => {
+																	field.onChange(undefined);
+																	setOpen(false);
+																}}
+															>
+																<Icons.check
+																	className={cn(
+																		"mr-2 h-4 w-4",
+																		!field.value ? "opacity-100" : "opacity-0",
+																	)}
+																/>
+																{t("form.category.uncategorized")}
+															</CommandItem>
+															{categories?.map((category) => (
+																<CommandItem
+																	key={category.id}
+																	value={category.name}
+																	onSelect={() => {
+																		field.onChange(category.id);
+																		setOpen(false);
+																	}}
+																>
+																	<Icons.check
+																		className={cn(
+																			"mr-2 h-4 w-4",
+																			field.value === category.id
+																				? "opacity-100"
+																				: "opacity-0",
+																		)}
+																	/>
+																	{category.name}
+																</CommandItem>
+															))}
+														</CommandGroup>
+													</CommandList>
+												</Command>
+											</PopoverContent>
+										</Popover>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							);
+						}}
 					/>
 					<CategoryDrawer
 						storeId={storeId}

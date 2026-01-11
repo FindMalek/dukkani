@@ -217,7 +217,9 @@
 				"priceHelp": "Price customers pay (COD)",
 				"category": {
 					"label": "Category",
-					"placeholder": "Uncategorized",
+					"placeholder": "Select category...",
+					"searchPlaceholder": "Search categories...",
+					"noResults": "No categories found.",
 					"create": "Create category",
 					"created": "Category created successfully",
 					"nameLabel": "Category Name",
@@ -232,7 +234,37 @@
 				"saveDraft": "Save draft",
 				"savePublish": "Save & publish",
 				"optional": "optional",
-				"cancel": "Cancel"
+				"cancel": "Cancel",
+				"variants": {
+					"options": {
+						"title": "Variant Options",
+						"add": "Add Option",
+						"empty": "Add options like Size, Color, Material, etc.",
+						"unnamed": "Unnamed Option",
+						"optionName": "Option Name",
+						"optionNamePlaceholder": "e.g. Size, Color",
+						"values": "Values",
+						"addValue": "Add Value",
+						"noValues": "Add at least one value",
+						"remove": "Remove Option"
+					},
+					"list": {
+						"title": "Variants",
+						"empty": "Add variant options above to generate variants",
+						"unnamed": "Unnamed Variant",
+						"price": "Price",
+						"stock": "Stock",
+						"edit": "Edit Variant"
+					},
+					"edit": {
+						"title": "Edit Variant",
+						"sku": "SKU",
+						"skuPlaceholder": "Optional",
+						"price": "Price",
+						"priceHelp": "Leave empty to use base product price",
+						"stock": "Stock"
+					}
+				}
 			},
 			"success": "Product created successfully!",
 			"noStore": {

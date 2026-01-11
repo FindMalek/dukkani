@@ -90,16 +90,14 @@ export function CategoryDrawer({
 						{t("form.category.createDescription")}
 					</DrawerDescription>
 				</DrawerHeader>
+
 				<Form {...categoryForm}>
-					<form
-						onSubmit={categoryForm.handleSubmit(onCategorySubmit)}
-						className="px-4"
-					>
+					<form onSubmit={categoryForm.handleSubmit(onCategorySubmit)}>
 						<FormField
 							control={categoryForm.control}
 							name="name"
 							render={({ field }) => (
-								<FormItem>
+								<FormItem className="px-4">
 									<FormLabel>{t("form.category.nameLabel")}</FormLabel>
 									<FormControl>
 										<Input
@@ -112,14 +110,18 @@ export function CategoryDrawer({
 							)}
 						/>
 						<DrawerFooter>
-							<Button type="submit" disabled={createCategoryMutation.isPending}>
+							<Button
+								className="w-full"
+								type="submit"
+								disabled={createCategoryMutation.isPending}
+							>
 								{createCategoryMutation.isPending ? (
 									<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
 								) : null}
 								{t("form.category.create")}
 							</Button>
 							<DrawerClose asChild>
-								<Button variant="outline" type="button">
+								<Button variant="outline" type="button" className="w-full">
 									{t("form.cancel")}
 								</Button>
 							</DrawerClose>
