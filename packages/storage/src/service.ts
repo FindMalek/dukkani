@@ -126,7 +126,10 @@ class StorageServiceBase {
 				throw new Error(`Failed to upload file: ${errorMessage}`);
 			}
 
-			const originalUrl = StorageService.getPublicUrl(env.STORAGE_BUCKET_NAME, uploadData.path);
+			const originalUrl = StorageService.getPublicUrl(
+				env.STORAGE_BUCKET_NAME,
+				uploadData.path,
+			);
 
 			return {
 				bucket: env.STORAGE_BUCKET_NAME,
@@ -171,7 +174,10 @@ class StorageServiceBase {
 
 				return {
 					variant: variant.variant,
-					url: StorageService.getPublicUrl(env.STORAGE_BUCKET_NAME, variantData.path),
+					url: StorageService.getPublicUrl(
+						env.STORAGE_BUCKET_NAME,
+						variantData.path,
+					),
 					width: variant.width,
 					height: variant.height,
 					fileSize: variant.fileSize,

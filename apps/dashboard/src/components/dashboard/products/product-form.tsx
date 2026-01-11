@@ -75,14 +75,19 @@ export function ProductForm({ storeId }: { storeId: string }) {
 	const onSubmit = async (published: boolean) => {
 		form.setValue("published", published);
 
+		const values = form.getValues();
+		const hasVariants = values.hasVariants;
+
+		if (!hasVariants) {
+			form.setValue("variantOptions", []);
+			form.setValue("variants", []);
+		}
+
 		const isValid = await form.trigger();
 		if (!isValid) {
 			toast.error(t("form.validation.errors"));
 			return;
 		}
-
-		const values = form.getValues();
-		const hasVariants = values.hasVariants;
 
 		try {
 			setIsUploading(true);
@@ -99,7 +104,7 @@ export function ProductForm({ storeId }: { storeId: string }) {
 				...values,
 				imageUrls: urls,
 				hasVariants,
-				// Explicitly set to empty arrays/undefined when hasVariants is false
+				// Explicitly set to undefined when hasVariants is false
 				variantOptions: hasVariants
 					? values.variantOptions?.filter(
 							(opt) => opt.name && opt.values && opt.values.length > 0,

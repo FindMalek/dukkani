@@ -52,7 +52,12 @@ export function ProductVariantsSection({ form }: ProductVariantsSectionProps) {
 										checked={field.value}
 										onCheckedChange={(val) => {
 											field.onChange(val);
-											if (val && fields.length === 0) addOption();
+											if (val && fields.length === 0) {
+												addOption();
+											} else if (!val) {
+												form.setValue("variantOptions", []);
+												form.setValue("variants", []);
+											}
 										}}
 									/>
 								</FormControl>
