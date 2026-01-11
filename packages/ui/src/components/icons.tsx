@@ -19,6 +19,7 @@ import {
 	Check,
 	CheckCircle2,
 	ChevronDown,
+	CameraIcon,
 	ChevronLeft,
 	ChevronRight,
 	ChevronsLeft,
@@ -29,7 +30,6 @@ import {
 	Copy,
 	Gamepad2Icon,
 	GripVertical,
-	HomeIcon,
 	HouseIcon,
 	Info,
 	Key,
@@ -119,4 +119,5 @@ export const Icons = {
 	other: LayoutGridIcon,
 	upload: Upload,
 	package: PackageIcon,
+	camera: CameraIcon,
 } as const;

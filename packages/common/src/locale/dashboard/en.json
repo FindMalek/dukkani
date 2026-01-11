@@ -182,64 +182,53 @@
 	},
 	"products": {
 		"create": {
-			"tabs": {
-				"edit": "Edit Details",
-				"preview": "Live Preview"
+			"header": {
+				"title": "New product",
+				"save": "Save"
 			},
-			"status": {
-				"live": "Live",
-				"draft": "Draft"
+			"sections": {
+				"photos": "Product Photos",
+				"essentials": "Essentials",
+				"organization": "Organization",
+				"options": "Has options"
 			},
-			"title": "Create New Product",
-			"subtitle": "Add a new product to your catalog",
-			"success": "Product created successfully",
 			"form": {
 				"name": {
 					"label": "Product Name",
-					"placeholder": "e.g. Wireless Headphones"
-				},
-				"description": {
-					"label": "Description",
-					"placeholder": "Describe your product..."
+					"placeholder": "Enter product name"
 				},
 				"price": {
 					"label": "Price",
-					"placeholder": "0.00"
+					"placeholder": "Enter product price"
 				},
 				"stock": {
-					"label": "Stock Quantity",
-					"placeholder": "0"
+					"label": "Stock",
+					"placeholder": "Enter product stock"
+				},
+				"description": {
+					"label": "Description",
+					"placeholder": "Enter product description"
 				},
 				"published": {
 					"label": "Published",
-					"description": "Make this product visible to customers"
+					"placeholder": "Enter product published"
 				},
-				"images": {
-					"label": "Product Images",
-					"description": "Upload up to 10 high-quality images",
-					"uploading": "Uploading images...",
-					"empty": "No images selected",
-					"maxImages": "Maximum 10 images allowed",
-					"previewAlt": "Preview {{index}}",
-					"uploadButton": "Upload"
+
+				"addPhotos": "Add photos",
+				"priceHelp": "Price customers pay (COD)",
+				"category": {
+					"label": "Category",
+					"placeholder": "Uncategorized",
+					"create": "Create category"
 				},
-				"submit": "Create Product",
-				"cancel": "Cancel",
-				"details": "Product Details",
-				"detailsDescription": "Fill in the information below to create your product."
+				"options": {
+					"label": "Has options",
+					"description": "Size, Color, etc."
+				},
+				"saveDraft": "Save draft",
+				"savePublish": "Save & publish"
 			},
-			"sections": {
-				"general": "General Information",
-				"pricing": "Pricing & Inventory",
-				"media": "Product Media",
-				"preview": "Live Preview"
-			},
-			"preview": {
-				"unnamed": "Unnamed Product",
-				"noDescription": "No description provided yet.",
-				"inStock": "{{count}} in stock",
-				"outOfStock": "Out of stock"
-			},
+			"success": "Product created successfully!",
 			"noStore": {
 				"title": "No Store Found",
 				"description": "Please create a store first to add products.",

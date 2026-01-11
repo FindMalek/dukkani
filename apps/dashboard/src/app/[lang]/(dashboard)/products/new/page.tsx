@@ -1,4 +1,3 @@
-// apps/dashboard/src/app/[lang]/(dashboard)/products/new/page.tsx
 "use client";
 
 import { Button } from "@dukkani/ui/components/button";
@@ -51,27 +50,23 @@ export default function NewProductPage() {
 	}
 
 	return (
-		<div className="flex min-h-screen flex-col bg-background pb-24 md:pb-0">
-			{/* Mobile Header: Sticky and Minimal */}
-			<header className="sticky top-0 z-30 flex h-16 items-center border-b bg-background/80 px-4 backdrop-blur-md md:static md:h-auto md:border-none md:bg-transparent md:px-6 md:py-8">
-				<div className="container mx-auto flex max-w-7xl items-center gap-4">
-					<Link href={RoutePaths.PRODUCTS.INDEX.url}>
-						<Button variant="ghost" size="icon" className="h-9 w-9 shrink-0">
-							<Icons.arrowLeft className="h-5 w-5" />
-						</Button>
-					</Link>
-					<div className="flex flex-col">
-						<h1 className="font-bold text-lg leading-none tracking-tight md:text-3xl">
-							{t("title")}
-						</h1>
-						<p className="hidden text-muted-foreground text-sm md:mt-1 md:block">
-							{t("subtitle")}
-						</p>
-					</div>
-				</div>
+		<div className="min-h-screen dark:bg-background">
+			{/* Top Bar */}
+			<header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b bg-background px-4">
+				<Link href={RoutePaths.PRODUCTS.INDEX.url}>
+					<Icons.arrowLeft className="h-5 w-5" />
+				</Link>
+				<h1 className="font-bold text-sm">{t("header.title")}</h1>
+				<Button
+					onClick={() => {}}
+					variant="ghost"
+					className="font-bold text-primary text-sm"
+				>
+					{t("header.save")}
+				</Button>
 			</header>
 
-			<main className="container mx-auto max-w-7xl flex-1 px-0 md:px-6">
+			<main className="container max-w-lg px-2 pt-4">
 				<ProductForm storeId={storeId} />
 			</main>
 		</div>
