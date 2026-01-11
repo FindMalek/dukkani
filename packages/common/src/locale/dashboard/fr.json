@@ -180,61 +180,61 @@
 			}
 		}
 	},
-"products": {
-    "create": {
-      "header": {
-        "title": "Nouveau produit",
-        "save": "Enregistrer"
-      },
-      "sections": {
-        "photos": "Photos du produit",
-        "essentials": "Essentiels",
-        "organization": "Organisation",
-        "options": "A des options"
-      },
-      "form": {
-        "name": {
-          "label": "Nom du produit",
-          "placeholder": "Entrez le nom du produit"
-        },
-        "price": {
-          "label": "Prix",
-          "placeholder": "Entrez le prix du produit"
-        },
-        "stock": {
-          "label": "Stock",
-          "placeholder": "Entrez le stock du produit"
-        },
-        "description": {
-          "label": "Description",
-          "placeholder": "Entrez la description du produit"
-        },
-        "published": {
-          "label": "Publié",
-          "placeholder": "Entrez le statut de publication du produit"
-        },
-        "addPhotos": "Ajouter des photos",
-        "priceHelp": "Prix payé par les clients (COD)",
-        "category": {
-          "label": "Catégorie",
-          "placeholder": "Non catégorisé",
-          "create": "Créer une catégorie",
-          "uncategorized": "Non catégorisé"
-        },
-        "options": {
-          "label": "A des options",
-          "description": "Taille, Couleur, etc."
-        },
-        "saveDraft": "Enregistrer comme brouillon",
-        "savePublish": "Enregistrer et publier",
-        "optional": "optionnel"
-      },
-      "success": "Produit créé avec succès !",
-      "noStore": {
-        "title": "Aucun magasin trouvé",
-        "description": "Veuillez d'abord créer un magasin pour ajouter des produits.",
-        "createStore": "Créer un magasin"
-      }
-    }
-  }
+	"products": {
+		"create": {
+			"header": {
+				"title": "Nouveau produit",
+				"save": "Enregistrer"
+			},
+			"sections": {
+				"photos": "Photos du produit",
+				"essentials": "Essentiels",
+				"organization": "Organisation",
+				"options": "A des options"
+			},
+			"form": {
+				"name": {
+					"label": "Nom du produit",
+					"placeholder": "Entrez le nom du produit"
+				},
+				"price": {
+					"label": "Prix",
+					"placeholder": "Entrez le prix du produit"
+				},
+				"stock": {
+					"label": "Stock",
+					"placeholder": "Entrez le stock du produit"
+				},
+				"description": {
+					"label": "Description",
+					"placeholder": "Entrez la description du produit"
+				},
+				"published": {
+					"label": "Publié",
+					"placeholder": "Entrez le statut de publication du produit"
+				},
+				"addPhotos": "Ajouter des photos",
+				"priceHelp": "Prix payé par les clients (COD)",
+				"category": {
+					"label": "Catégorie",
+					"placeholder": "Non catégorisé",
+					"create": "Créer une catégorie",
+					"uncategorized": "Non catégorisé"
+				},
+				"options": {
+					"label": "A des options",
+					"description": "Taille, Couleur, etc."
+				},
+				"saveDraft": "Enregistrer comme brouillon",
+				"savePublish": "Enregistrer et publier",
+				"optional": "optionnel"
+			},
+			"success": "Produit créé avec succès !",
+			"noStore": {
+				"title": "Aucun magasin trouvé",
+				"description": "Veuillez d'abord créer un magasin pour ajouter des produits.",
+				"createStore": "Créer un magasin"
+			}
+		}
+	}
 }

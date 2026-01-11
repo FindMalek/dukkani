@@ -42,6 +42,7 @@ model Store {
 
   orders       Order[]
   products     Product[]
+  categories   Category[]
   customers    Customer[]
   teamMembers  TeamMember[]
   salesMetrics SalesMetric[]
