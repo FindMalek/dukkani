@@ -182,6 +182,14 @@
 	},
 	"products": {
 		"create": {
+			"tabs": {
+				"edit": "Edit Details",
+				"preview": "Live Preview"
+			},
+			"status": {
+				"live": "Live",
+				"draft": "Draft"
+			},
 			"title": "Create New Product",
 			"subtitle": "Add a new product to your catalog",
 			"success": "Product created successfully",

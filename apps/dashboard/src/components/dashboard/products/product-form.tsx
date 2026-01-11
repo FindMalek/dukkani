@@ -26,6 +26,12 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { Separator } from "@dukkani/ui/components/separator";
+import {
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from "@dukkani/ui/components/tabs";
 import { Textarea } from "@dukkani/ui/components/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -38,11 +44,7 @@ import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
 
-interface ProductFormProps {
-	storeId: string;
-}
-
-export function ProductForm({ storeId }: ProductFormProps) {
+export function ProductForm({ storeId }: { storeId: string }) {
 	const t = useTranslations("products.create");
 	const router = useRouter();
 	const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -62,7 +64,6 @@ export function ProductForm({ storeId }: ProductFormProps) {
 		},
 	});
 
-	// Watch form values for the live preview
 	const watchedValues = form.watch();
 
 	const createProductMutation = useMutation({
@@ -76,317 +77,319 @@ export function ProductForm({ storeId }: ProductFormProps) {
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = Array.from(e.target.files || []);
-		if (files.length + selectedFiles.length > 10) {
-			toast.error(t("form.images.maxImages"));
-			return;
-		}
-
-		const newFiles = [...selectedFiles, ...files];
-		setSelectedFiles(newFiles);
-
-		const newPreviews = files.map((file) => URL.createObjectURL(file));
-		setPreviews((prev) => [...prev, ...newPreviews]);
+		if (files.length + selectedFiles.length > 10)
+			return toast.error(t("form.images.maxImages"));
+		setSelectedFiles([...selectedFiles, ...files]);
+		setPreviews([...previews, ...files.map((f) => URL.createObjectURL(f))]);
 	};
 
-	const removeImage = (index: number) => {
-		const newFiles = [...selectedFiles];
-		newFiles.splice(index, 1);
-		setSelectedFiles(newFiles);
-
-		const newPreviews = [...previews];
-		URL.revokeObjectURL(newPreviews[index]);
-		newPreviews.splice(index, 1);
-		setPreviews(newPreviews);
+	const removeImage = (i: number) => {
+		const f = [...selectedFiles];
+		f.splice(i, 1);
+		setSelectedFiles(f);
+		const p = [...previews];
+		URL.revokeObjectURL(p[i]);
+		p.splice(i, 1);
+		setPreviews(p);
 	};
 
 	const onSubmit = async (values: CreateProductInput) => {
 		try {
-			let imageUrls: string[] = [];
-
+			setIsUploading(true);
+			let urls: string[] = [];
 			if (selectedFiles.length > 0) {
-				setIsUploading(true);
-				const uploadResult = await client.storage.uploadMany({
+				const res = await client.storage.uploadMany({
 					files: selectedFiles,
 					bucket: "product-images",
 				});
-				imageUrls = uploadResult.files.map((file) => file.url);
+				urls = res.files.map((f) => f.url);
 			}
-
-			createProductMutation.mutate({
-				...values,
-				imageUrls,
-			});
-		} catch (error) {
-			handleAPIError(error);
+			createProductMutation.mutate({ ...values, imageUrls: urls });
+		} catch (e) {
+			handleAPIError(e);
 		} finally {
 			setIsUploading(false);
 		}
 	};
 
+	const EditorContent = () => (
+		<div className="space-y-6">
+			<Card>
+				<CardHeader>
+					<CardTitle>{t("sections.general")}</CardTitle>
+				</CardHeader>
+				<CardContent className="space-y-4">
+					<FormField
+						control={form.control}
+						name="name"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>{t("form.name.label")}</FormLabel>
+								<FormControl>
+									<Input placeholder={t("form.name.placeholder")} {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="description"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>{t("form.description.label")}</FormLabel>
+								<FormControl>
+									<Textarea
+										placeholder={t("form.description.placeholder")}
+										className="min-h-[120px]"
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</CardContent>
+			</Card>
+
+			<Card>
+				<CardHeader>
+					<CardTitle>{t("sections.pricing")}</CardTitle>
+				</CardHeader>
+				<CardContent className="grid gap-6 sm:grid-cols-2">
+					<FormField
+						control={form.control}
+						name="price"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>{t("form.price.label")}</FormLabel>
+								<FormControl>
+									<div className="relative">
+										<span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground">
+											$
+										</span>
+										<Input
+											type="number"
+											step="0.01"
+											className="pl-7"
+											{...field}
+											onChange={(e) => field.onChange(Number(e.target.value))}
+										/>
+									</div>
+								</FormControl>
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="stock"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>{t("form.stock.label")}</FormLabel>
+								<FormControl>
+									<Input
+										type="number"
+										{...field}
+										onChange={(e) => field.onChange(Number(e.target.value))}
+									/>
+								</FormControl>
+							</FormItem>
+						)}
+					/>
+				</CardContent>
+			</Card>
+
+			<Card>
+				<CardHeader>
+					<CardTitle>{t("sections.media")}</CardTitle>
+					<CardDescription>{t("form.images.description")}</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<div className="grid grid-cols-3 gap-3">
+						{previews.map((p, i) => (
+							<div
+								key={p}
+								className="group relative aspect-square overflow-hidden rounded-md border bg-muted"
+							>
+								<img src={p} className="h-full w-full object-cover" alt="" />
+								<button
+									type="button"
+									onClick={() => removeImage(i)}
+									className="absolute top-1 right-1 h-6 w-6 rounded-full bg-destructive text-destructive-foreground opacity-0 transition-opacity group-hover:opacity-100"
+								>
+									<Icons.x className="mx-auto h-3.5 w-3.5" />
+								</button>
+							</div>
+						))}
+						{previews.length < 10 && (
+							<label className="flex aspect-square cursor-pointer flex-col items-center justify-center rounded-md border-2 border-dashed transition-colors hover:bg-muted/50">
+								<Icons.plus className="h-6 w-6 text-muted-foreground" />
+								<input
+									type="file"
+									multiple
+									accept="image/*"
+									className="hidden"
+									onChange={handleFileChange}
+								/>
+							</label>
+						)}
+					</div>
+				</CardContent>
+			</Card>
+
+			<Card>
+				<CardContent className="pt-6">
+					<FormField
+						control={form.control}
+						name="published"
+						render={({ field }) => (
+							<FormItem className="flex flex-row items-start space-x-3 space-y-0">
+								<FormControl>
+									<Checkbox
+										checked={field.value}
+										onCheckedChange={field.onChange}
+									/>
+								</FormControl>
+								<div className="space-y-1 leading-none">
+									<FormLabel>{t("form.published.label")}</FormLabel>
+									<FormDescription>
+										{t("form.published.description")}
+									</FormDescription>
+								</div>
+							</FormItem>
+						)}
+					/>
+				</CardContent>
+			</Card>
+		</div>
+	);
+
+	const PreviewContent = () => (
+		<div className="space-y-4">
+			<div className="flex items-center justify-between">
+				<h3 className="font-medium text-muted-foreground text-sm uppercase tracking-wider">
+					{t("sections.preview")}
+				</h3>
+				<Badge variant={watchedValues.published ? "default" : "secondary"}>
+					{watchedValues.published ? t("status.live") : t("status.draft")}
+				</Badge>
+			</div>
+			<Card className="overflow-hidden border-2 border-primary/5 shadow-lg">
+				<div className="flex aspect-square items-center justify-center bg-muted">
+					{previews[0] ? (
+						<img
+							src={previews[0]}
+							className="h-full w-full object-cover"
+							alt=""
+						/>
+					) : (
+						<Icons.package className="h-12 w-12 text-muted-foreground/20" />
+					)}
+				</div>
+				<CardContent className="space-y-3 p-5">
+					<div className="flex items-start justify-between gap-4">
+						<h4 className="line-clamp-1 font-bold text-lg">
+							{watchedValues.name || t("preview.unnamed")}
+						</h4>
+						<span className="font-bold text-lg text-primary">
+							${watchedValues.price || "0.00"}
+						</span>
+					</div>
+					<p className="line-clamp-2 text-muted-foreground text-sm">
+						{watchedValues.description || t("preview.noDescription")}
+					</p>
+					<Separator />
+					<div className="flex items-center justify-between font-semibold text-xs">
+						<span
+							className={
+								watchedValues.stock > 0 ? "text-green-600" : "text-destructive"
+							}
+						>
+							{watchedValues.stock > 0
+								? t("preview.inStock", { count: watchedValues.stock })
+								: t("preview.outOfStock")}
+						</span>
+						<span className="text-muted-foreground">
+							{watchedValues.published ? t("status.live") : t("status.draft")}
+						</span>
+					</div>
+				</CardContent>
+			</Card>
+		</div>
+	);
+
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-				<div className="grid gap-8 lg:grid-cols-3">
-					{/* LEFT COLUMN: EDITOR */}
-					<div className="space-y-6 lg:col-span-2">
-						{/* General Information */}
-						<Card className="border-none shadow-none md:border md:shadow-sm">
-							<CardHeader>
-								<CardTitle className="text-xl">
-									{t("sections.general")}
-								</CardTitle>
-							</CardHeader>
-							<CardContent className="space-y-6">
-								<FormField
-									control={form.control}
-									name="name"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>{t("form.name.label")}</FormLabel>
-											<FormControl>
-												<Input
-													placeholder={t("form.name.placeholder")}
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="pb-24 md:pb-0">
+				{/* Mobile: Tabs */}
+				<div className="md:hidden">
+					<Tabs defaultValue="edit" className="w-full">
+						<TabsList className="sticky top-16 z-20 grid h-12 w-full grid-cols-2 rounded-none border-b bg-background">
+							<TabsTrigger value="edit">{t("tabs.edit")}</TabsTrigger>
+							<TabsTrigger value="preview">{t("tabs.preview")}</TabsTrigger>
+						</TabsList>
+						<TabsContent value="edit" className="mt-0 p-4">
+							<EditorContent />
+						</TabsContent>
+						<TabsContent value="preview" className="mt-0 p-4">
+							<PreviewContent />
+						</TabsContent>
+					</Tabs>
 
-								<FormField
-									control={form.control}
-									name="description"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>{t("form.description.label")}</FormLabel>
-											<FormControl>
-												<Textarea
-													placeholder={t("form.description.placeholder")}
-													className="min-h-[150px] resize-none"
-													{...field}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-							</CardContent>
-						</Card>
-
-						{/* Pricing & Inventory */}
-						<Card className="border-none shadow-none md:border md:shadow-sm">
-							<CardHeader>
-								<CardTitle className="text-xl">
-									{t("sections.pricing")}
-								</CardTitle>
-							</CardHeader>
-							<CardContent className="grid gap-6 sm:grid-cols-2">
-								<FormField
-									control={form.control}
-									name="price"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>{t("form.price.label")}</FormLabel>
-											<FormControl>
-												<div className="relative">
-													<span className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground">
-														$
-													</span>
-													<Input
-														type="number"
-														step="0.01"
-														className="pl-7"
-														placeholder={t("form.price.placeholder")}
-														{...field}
-														onChange={(e) =>
-															field.onChange(Number.parseFloat(e.target.value))
-														}
-													/>
-												</div>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-
-								<FormField
-									control={form.control}
-									name="stock"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>{t("form.stock.label")}</FormLabel>
-											<FormControl>
-												<Input
-													type="number"
-													placeholder={t("form.stock.placeholder")}
-													{...field}
-													onChange={(e) =>
-														field.onChange(Number.parseInt(e.target.value))
-													}
-												/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-							</CardContent>
-						</Card>
-
-						{/* Media */}
-						<Card className="border-none shadow-none md:border md:shadow-sm">
-							<CardHeader>
-								<CardTitle className="text-xl">{t("sections.media")}</CardTitle>
-								<CardDescription>
-									{t("form.images.description")}
-								</CardDescription>
-							</CardHeader>
-							<CardContent>
-								<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-									{previews.map((preview, index) => (
-										<div
-											key={preview}
-											className="group relative aspect-square overflow-hidden rounded-lg border bg-muted"
-										>
-											<img
-												src={preview}
-												alt={t("form.images.previewAlt", { index: index + 1 })}
-												className="h-full w-full object-cover transition-transform group-hover:scale-105"
-											/>
-											<button
-												type="button"
-												onClick={() => removeImage(index)}
-												className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-destructive text-destructive-foreground opacity-0 transition-opacity group-hover:opacity-100"
-											>
-												<Icons.x className="h-4 w-4" />
-											</button>
-										</div>
-									))}
-									{previews.length < 10 && (
-										<label className="flex aspect-square cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors hover:bg-muted/50">
-											<Icons.upload className="mb-2 h-6 w-6 text-muted-foreground" />
-											<span className="text-muted-foreground text-xs">
-												{t("form.images.uploadButton")}
-											</span>
-											<input
-												type="file"
-												multiple
-												accept="image/*"
-												className="hidden"
-												onChange={handleFileChange}
-											/>
-										</label>
-									)}
-								</div>
-							</CardContent>
-						</Card>
-					</div>
-
-					{/* RIGHT COLUMN: PREVIEW */}
-					<div className="space-y-6">
-						<div className="sticky top-6 space-y-6">
-							<div className="flex items-center justify-between">
-								<h3 className="font-semibold text-muted-foreground text-sm uppercase tracking-wider">
-									{t("sections.preview")}
-								</h3>
-								{watchedValues.published && (
-									<Badge className="border-green-500/20 bg-green-500/10 text-green-600">
-										{t("form.published.label")}
-									</Badge>
+					{/* Sticky Bottom Actions */}
+					<div className="fixed bottom-0 left-0 z-40 w-full border-t bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+						<div className="container flex gap-3">
+							<Button
+								type="button"
+								variant="outline"
+								className="flex-1"
+								onClick={() => router.back()}
+							>
+								{t("form.cancel")}
+							</Button>
+							<Button
+								type="submit"
+								className="flex-[2]"
+								disabled={createProductMutation.isPending || isUploading}
+							>
+								{createProductMutation.isPending || isUploading ? (
+									<Icons.spinner className="h-4 w-4 animate-spin" />
+								) : (
+									t("form.submit")
 								)}
-							</div>
+							</Button>
+						</div>
+					</div>
+				</div>
 
-							{/* Live Preview Card */}
-							<Card className="overflow-hidden border-2 border-primary/10 shadow-xl transition-all">
-								<div className="relative flex aspect-square items-center justify-center bg-muted">
-									{previews.length > 0 ? (
-										<img
-											src={previews[0]}
-											className="h-full w-full object-cover"
-											alt="Primary preview"
-										/>
-									) : (
-										<Icons.package className="h-12 w-12 text-muted-foreground/40" />
-									)}
-								</div>
-								<CardContent className="space-y-3 p-5">
-									<div className="flex items-start justify-between">
-										<h4 className="line-clamp-1 font-bold text-lg">
-											{watchedValues.name || t("preview.unnamed")}
-										</h4>
-										<p className="font-bold text-lg text-primary">
-											${watchedValues.price || "0.00"}
-										</p>
-									</div>
-									<p className="line-clamp-2 text-muted-foreground text-sm">
-										{watchedValues.description || t("preview.noDescription")}
-									</p>
-									<Separator />
-									<div className="flex items-center justify-between font-medium text-xs">
-										<span
-											className={
-												watchedValues.stock > 0
-													? "text-green-600"
-													: "text-destructive"
-											}
-										>
-											{watchedValues.stock > 0
-												? t("preview.inStock", { count: watchedValues.stock })
-												: t("preview.outOfStock")}
-										</span>
-										<FormField
-											control={form.control}
-											name="published"
-											render={({ field }) => (
-												<div className="flex items-center gap-2">
-													<Checkbox
-														checked={field.value}
-														onCheckedChange={field.onChange}
-														id="preview-publish"
-													/>
-													<label
-														htmlFor="preview-publish"
-														className="cursor-pointer"
-													>
-														{t("form.published.label")}
-													</label>
-												</div>
-											)}
-										/>
-									</div>
-								</CardContent>
-							</Card>
-
-							{/* Actions */}
-							<Card className="lg:border-none lg:bg-transparent lg:shadow-none">
-								<CardContent className="flex flex-col gap-3 p-0">
-									<Button
-										type="submit"
-										size="lg"
-										className="w-full shadow-lg shadow-primary/20"
-										disabled={createProductMutation.isPending || isUploading}
-									>
-										{createProductMutation.isPending || isUploading ? (
-											<>
-												<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-												{isUploading
-													? t("form.images.uploading")
-													: t("form.submit")}
-											</>
-										) : (
-											t("form.submit")
-										)}
-									</Button>
-									<Button
-										type="button"
-										variant="ghost"
-										className="w-full"
-										onClick={() => router.back()}
-									>
-										{t("form.cancel")}
-									</Button>
-								</CardContent>
-							</Card>
+				{/* Desktop: Side-by-side */}
+				<div className="hidden py-6 md:grid md:grid-cols-3 md:gap-8">
+					<div className="space-y-6 md:col-span-2">
+						<EditorContent />
+					</div>
+					<div className="sticky top-6 h-fit space-y-6">
+						<PreviewContent />
+						<div className="flex flex-col gap-3">
+							<Button
+								type="submit"
+								size="lg"
+								className="w-full"
+								disabled={createProductMutation.isPending || isUploading}
+							>
+								{createProductMutation.isPending || isUploading ? (
+									<Icons.spinner className="h-4 w-4 animate-spin" />
+								) : (
+									t("form.submit")
+								)}
+							</Button>
+							<Button
+								type="button"
+								variant="ghost"
+								className="w-full"
+								onClick={() => router.back()}
+							>
+								{t("form.cancel")}
+							</Button>
 						</div>
 					</div>
 				</div>
