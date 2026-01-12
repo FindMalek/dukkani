@@ -673,6 +673,9 @@ importers:
       '@t3-oss/env-core':
         specifier: 'catalog:'
         version: 0.13.8(typescript@5.9.3)(valibot@1.1.0(typescript@5.9.3))(zod@4.1.12)
+      '@t3-oss/env-nextjs':
+        specifier: 'catalog:'
+        version: 0.13.8(typescript@5.9.3)(valibot@1.1.0(typescript@5.9.3))(zod@4.1.12)
       dotenv:
         specifier: 'catalog:'
         version: 17.2.3
