@@ -172,7 +172,7 @@ model ProductVariant {
   id String @id @default(cuid())
 
   sku   String?
-  price Decimal?
+  price Decimal? @db.Decimal(10, 2)
   stock Int
 
   orders     Order[]
