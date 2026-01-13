@@ -3,6 +3,7 @@ import type {
 	StorageFileResult,
 } from "@dukkani/common/schemas/storage/output";
 import { logger } from "@dukkani/logger";
+import { addSpanAttributes, Trace, traceStaticClass } from "@dukkani/tracing";
 import { nanoid } from "nanoid";
 import { storageClient } from "./client";
 import { env } from "./env";
@@ -16,7 +17,7 @@ export type UploadOptions = {
  * Storage service for file uploads and management
  * Handles Supabase Storage operations with image optimization
  */
-export class StorageService {
+class StorageServiceBase {
 	/**
 	 * Validate file before upload
 	 */
@@ -71,6 +72,12 @@ export class StorageService {
 		bucket: string,
 		options?: UploadOptions,
 	): Promise<StorageFileResult> {
+		addSpanAttributes({
+			"storage.bucket": bucket,
+			"storage.file_size": file.size,
+			"storage.file_type": file.type,
+		});
+
 		StorageService.validateFile(file);
 
 		const isImage = ImageProcessor.isImage(file.type);
@@ -240,3 +247,5 @@ export class StorageService {
 		}
 	}
 }
+
+export const StorageService = traceStaticClass(StorageServiceBase);

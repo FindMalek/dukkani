@@ -1,5 +1,12 @@
 import { database } from "@dukkani/db";
 import { generateOrderId } from "@dukkani/db/utils/generate-id";
+import logger from "@dukkani/logger";
+import {
+	addSpanAttributes,
+	addSpanEvent,
+	enhanceLogWithTraceContext,
+	traceStaticClass,
+} from "@dukkani/tracing";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import type { OrderStatus } from "../schemas/order/enums";
@@ -9,8 +16,9 @@ import { ProductService } from "./productService";
 
 /**
  * Order service - Shared business logic for order operations
+ * All methods are automatically traced via traceStaticClass
  */
-export class OrderService {
+class OrderServiceBase {
 	/**
 	 * Generate order ID using store slug
 	 */
@@ -26,6 +34,12 @@ export class OrderService {
 		input: CreateOrderInput,
 		userId: string,
 	): Promise<OrderIncludeOutput> {
+		addSpanAttributes({
+			"order.store_id": input.storeId,
+			"order.items_count": input.orderItems.length,
+			"order.user_id": userId,
+		});
+
 		// Get store to verify ownership and generate ID
 		const store = await database.store.findUnique({
 			where: { id: input.storeId },
@@ -40,6 +54,16 @@ export class OrderService {
 			throw new Error("You don't have access to this store");
 		}
 
+		addSpanEvent("order.store.verified", { store_id: store.id });
+		logger.info(
+			enhanceLogWithTraceContext({
+				store_id: input.storeId,
+				items_count: input.orderItems.length,
+				user_id: userId,
+			}),
+			"Order creation started",
+		);
+
 		// Wrap stock check, order creation, and stock updates in transaction
 		// This ensures atomicity: all operations succeed or fail together
 		const order = await database.$transaction(async (tx) => {
@@ -52,6 +76,8 @@ export class OrderService {
 				input.storeId,
 				tx,
 			);
+
+			addSpanEvent("order.stock.validated", { store_id: store.id });
 
 			// Create order with order items (within transaction)
 			const createdOrder = await tx.order.create({
@@ -86,6 +112,17 @@ export class OrderService {
 				},
 			});
 
+			addSpanEvent("order.created", { order_id: createdOrder.id });
+			logger.info(
+				enhanceLogWithTraceContext({
+					order_id: createdOrder.id,
+					store_id: input.storeId,
+					total_items: createdOrder.orderItems.length,
+					status: createdOrder.status,
+				}),
+				"Order created successfully",
+			);
+
 			await ProductService.updateMultipleProductStocks(
 				input.orderItems.map((item) => ({
 					productId: item.productId,
@@ -95,7 +132,16 @@ export class OrderService {
 				tx,
 			);
 
+			addSpanEvent("order.stock.updated", { order_id: createdOrder.id });
+
 			return createdOrder;
+		});
+
+		addSpanAttributes({
+			"order.id": order.id,
+			"order.total_items": order.orderItems.length,
+			"order.status": order.status,
+			"order.has_customer": !!order.customerId,
 		});
 
 		return OrderEntity.getRo(order);
@@ -109,10 +155,16 @@ export class OrderService {
 		status: OrderStatus,
 		userId: string,
 	): Promise<OrderIncludeOutput> {
+		addSpanAttributes({
+			"order.id": orderId,
+			"order.status": status,
+			"order.user_id": userId,
+		});
+
 		// Get order to verify ownership
 		const order = await database.order.findUnique({
 			where: { id: orderId },
-			select: { storeId: true },
+			select: { storeId: true, status: true },
 		});
 
 		if (!order) {
@@ -128,10 +180,25 @@ export class OrderService {
 			throw new Error("You don't have access to this order");
 		}
 
+		logger.info(
+			enhanceLogWithTraceContext({
+				order_id: orderId,
+				previous_status: order.status,
+				new_status: status,
+				user_id: userId,
+			}),
+			"Order status updated",
+		);
+
 		const updatedOrder = await database.order.update({
 			where: { id: orderId },
 			data: { status },
 			include: OrderQuery.getInclude(),
+		});
+
+		addSpanAttributes({
+			"order.previous_status": order.status,
+			"order.new_status": status,
 		});
 
 		return OrderEntity.getRo(updatedOrder);
@@ -142,6 +209,11 @@ export class OrderService {
 	 * Wrapped in transaction to ensure atomicity
 	 */
 	static async deleteOrder(orderId: string, userId: string): Promise<void> {
+		addSpanAttributes({
+			"order.id": orderId,
+			"order.user_id": userId,
+		});
+
 		// Get order to verify ownership and get order items
 		const order = await database.order.findUnique({
 			where: { id: orderId },
@@ -169,6 +241,15 @@ export class OrderService {
 			throw new Error("You don't have access to this order");
 		}
 
+		logger.info(
+			enhanceLogWithTraceContext({
+				order_id: orderId,
+				items_to_restore: order.orderItems.length,
+				user_id: userId,
+			}),
+			"Order deleted",
+		);
+
 		// Wrap stock increment and order deletion in transaction
 		// This ensures atomicity: both operations succeed or fail together
 		await database.$transaction(async (tx) => {
@@ -184,6 +265,10 @@ export class OrderService {
 				);
 			}
 
+			addSpanAttributes({
+				"order.items_to_restore": order.orderItems.length,
+			});
+
 			// Delete order (order items will be cascade deleted) within same transaction
 			await tx.order.delete({
 				where: { id: orderId },
@@ -191,3 +276,5 @@ export class OrderService {
 		});
 	}
 }
+
+export const OrderService = traceStaticClass(OrderServiceBase);

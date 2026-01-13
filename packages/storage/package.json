@@ -32,6 +32,7 @@
 		"@dukkani/env": "workspace:*",
 		"@dukkani/common": "workspace:*",
 		"@dukkani/logger": "workspace:*",
+		"@dukkani/tracing": "workspace:*",
 		"@supabase/supabase-js": "^2.47.10",
 		"sharp": "catalog:",
 		"nanoid": "^5.0.6"

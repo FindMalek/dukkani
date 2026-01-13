@@ -1,14 +1,24 @@
 import { database } from "@dukkani/db";
 import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
 import { logger } from "@dukkani/logger";
+import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { OrderIncludeOutput } from "../schemas/order/output";
 import { TelegramService } from "./telegramService";
 
-export class NotificationService {
+/**
+ * Notification service - Handles sending notifications
+ * All methods are automatically traced via traceStaticClass
+ */
+class NotificationServiceBase {
 	static async sendOrderNotification(
 		storeId: string,
 		order: OrderIncludeOutput,
 	): Promise<void> {
+		addSpanAttributes({
+			"notification.store_id": storeId,
+			"notification.order_id": order.id,
+		});
+
 		const store = await database.store.findUnique({
 			where: { id: storeId },
 			include: {
@@ -32,7 +42,7 @@ export class NotificationService {
 			notificationMethod === StoreNotificationMethod.EMAIL ||
 			notificationMethod === StoreNotificationMethod.BOTH
 		) {
-			await NotificationService.sendEmailNotification(
+			await NotificationServiceBase.sendEmailNotification(
 				store.owner.email,
 				store.name,
 				order,
@@ -44,7 +54,7 @@ export class NotificationService {
 				notificationMethod === StoreNotificationMethod.BOTH) &&
 			store.owner.telegramChatId
 		) {
-			await NotificationService.sendTelegramNotification(storeId, order);
+			await NotificationServiceBase.sendTelegramNotification(storeId, order);
 		}
 	}
 
@@ -93,3 +103,5 @@ export class NotificationService {
 		});
 	}
 }
+
+export const NotificationService = traceStaticClass(NotificationServiceBase);

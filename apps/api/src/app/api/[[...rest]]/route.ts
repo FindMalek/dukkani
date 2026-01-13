@@ -9,6 +9,32 @@ import { ZodToJsonSchemaConverter } from "@orpc/zod/zod4";
 import type { NextRequest } from "next/server";
 import { getCorsHeaders } from "@/lib/cors";
 
+// Ensure tracing is initialized (fallback if instrumentation.ts didn't run)
+if (typeof window === "undefined") {
+	import("@dukkani/tracing").then(
+		({ isTracingInitialized, registerTracing }) => {
+			if (!isTracingInitialized()) {
+				import("@dukkani/env/presets/api").then(({ apiEnv }) => {
+					registerTracing({
+						serviceName: apiEnv.OTEL_SERVICE_NAME,
+						samplingRate: apiEnv.OTEL_SAMPLING_RATE,
+						enabled: apiEnv.OTEL_ENABLED,
+						environment: apiEnv.NEXT_PUBLIC_NODE_ENV,
+						otlp: {
+							endpoint: apiEnv.OTEL_EXPORTER_OTLP_ENDPOINT,
+							tracesEndpoint: apiEnv.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT,
+							metricsEndpoint: apiEnv.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT,
+							logsEndpoint: apiEnv.OTEL_EXPORTER_OTLP_LOGS_ENDPOINT,
+							headers: apiEnv.OTEL_EXPORTER_OTLP_HEADERS,
+							compression: apiEnv.OTEL_EXPORTER_OTLP_COMPRESSION,
+						},
+					});
+				});
+			}
+		},
+	);
+}
+
 const rpcHandler = new RPCHandler(appRouter, {
 	interceptors: [
 		onError((error) => {
@@ -41,35 +67,48 @@ async function handleRequest(req: NextRequest) {
 	const origin = req.headers.get("origin");
 	const corsHeaders = getCorsHeaders(origin);
 
-	const rpcResult = await rpcHandler.handle(req, {
-		prefix: "/api",
-		context: await createContext(req.headers),
-	});
-	if (rpcResult.response) {
-		const response = rpcResult.response;
-		Object.entries(corsHeaders).forEach(([key, value]) => {
-			response.headers.set(key, String(value));
+	let response: Response;
+
+	try {
+		const rpcResult = await rpcHandler.handle(req, {
+			prefix: "/api",
+			context: await createContext(req.headers),
 		});
-		return response;
+		if (rpcResult.response) {
+			response = rpcResult.response;
+			Object.entries(corsHeaders).forEach(([key, value]) => {
+				response.headers.set(key, String(value));
+			});
+		} else {
+			const apiResult = await apiHandler.handle(req, {
+				prefix: "/api",
+				context: await createContext(req.headers),
+			});
+			if (apiResult.response) {
+				response = apiResult.response;
+				Object.entries(corsHeaders).forEach(([key, value]) => {
+					response.headers.set(key, String(value));
+				});
+			} else {
+				response = new Response("Not found", { status: 404 });
+				Object.entries(corsHeaders).forEach(([key, value]) => {
+					response.headers.set(key, String(value));
+				});
+			}
+		}
+	} finally {
+		// Flush spans before returning response (critical for Vercel serverless)
+		if (typeof process !== "undefined" && process.env.VERCEL) {
+			try {
+				const { flushTelemetry } = await import("@dukkani/tracing");
+				await flushTelemetry();
+			} catch {
+				// Silently fail - flushing failures shouldn't break the app
+			}
+		}
 	}
 
-	const apiResult = await apiHandler.handle(req, {
-		prefix: "/api",
-		context: await createContext(req.headers),
-	});
-	if (apiResult.response) {
-		const response = apiResult.response;
-		Object.entries(corsHeaders).forEach(([key, value]) => {
-			response.headers.set(key, String(value));
-		});
-		return response;
-	}
-
-	const notFoundResponse = new Response("Not found", { status: 404 });
-	Object.entries(corsHeaders).forEach(([key, value]) => {
-		notFoundResponse.headers.set(key, String(value));
-	});
-	return notFoundResponse;
+	return response;
 }
 
 export const GET = handleRequest;

@@ -1,4 +1,5 @@
 import { database } from "@dukkani/db";
+import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import { OrderItemQuery } from "../entities/order-item/query";
@@ -8,13 +9,18 @@ import { OrderStatus } from "../schemas/order/enums";
 
 /**
  * Dashboard service - Aggregated statistics and dashboard data
+ * All methods are automatically traced via traceStaticClass
  */
-export class DashboardService {
+class DashboardServiceBase {
 	/**
 	 * Get dashboard statistics for a user's stores
 	 * Uses transactions to optimize database queries
 	 */
 	static async getDashboardStats(userId: string) {
+		addSpanAttributes({
+			"dashboard.user_id": userId,
+		});
+
 		// Get user's store IDs first
 		const userStoreIds = await database.store.findMany({
 			where: { ownerId: userId },
@@ -137,6 +143,15 @@ export class DashboardService {
 			return sum + orderTotal;
 		}, 0);
 
+		addSpanAttributes({
+			"dashboard.stores_count": storeIds.length,
+			"dashboard.total_products": totalProducts,
+			"dashboard.total_orders": totalOrders,
+			"dashboard.total_revenue": totalRevenue,
+			"dashboard.recent_orders_count": recentOrders.length,
+			"dashboard.low_stock_count": lowStockProducts.length,
+		});
+
 		return {
 			totalProducts,
 			totalOrders,
@@ -147,3 +162,5 @@ export class DashboardService {
 		};
 	}
 }
+
+export const DashboardService = traceStaticClass(DashboardServiceBase);
