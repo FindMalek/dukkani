@@ -40,6 +40,11 @@
 			"types": "./src/presets/storefront.ts",
 			"default": "./src/presets/storefront.ts"
 		},
+
+		"./apps/api": {
+			"types": "./src/presets/api.app.ts",
+			"default": "./src/presets/api.app.ts"
+		},
 		"./db": {
 			"types": "./src/presets/partials/db.ts",
 			"default": "./src/presets/partials/db.ts"

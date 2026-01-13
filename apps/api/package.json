@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --port=3002",
+		"dev": "dotenvx run -f ../../.env -- next dev --port=3002",
 		"build": "next build",
 		"start": "next start",
 		"clean": "rm -rf .next node_modules"
@@ -27,6 +27,7 @@
 		"zod": "catalog:"
 	},
 	"devDependencies": {
+		"@dotenvx/dotenvx": "catalog:",
 		"@dukkani/config": "workspace:*",
 		"@t3-oss/env-nextjs": "catalog:",
 		"@types/node": "catalog:",
