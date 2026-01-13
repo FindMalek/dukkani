@@ -1,3 +1,6 @@
+import type { dbEnv } from "@dukkani/env/db";
+import { nodeEnv } from "@dukkani/env/node";
+import { vercelEnv } from "@dukkani/env/vercel";
 import { neonConfig } from "@neondatabase/serverless";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { PrismaPg } from "@prisma/adapter-pg";
@@ -5,15 +8,13 @@ import ws from "ws";
 import { PrismaClient } from "../prisma/generated/client";
 import { PrismaClientKnownRequestError } from "../prisma/generated/internal/prismaNamespace";
 
-import type { env as dbEnvType } from "./env";
-
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
 /**
  * Type for database environment variables
  * Inferred from the db env schema - automatically stays in sync with env changes
  */
-type DatabaseEnv = Pick<typeof dbEnvType, "DATABASE_URL">;
+type DatabaseEnv = Pick<typeof dbEnv, "DATABASE_URL">;
 
 /**
  * Factory function to create a Prisma database client
@@ -33,8 +34,7 @@ export function createDatabase(env: DatabaseEnv): PrismaClient {
 	// Note: NODE_ENV is a standard Node.js var, VERCEL_ENV is accessed from process.env
 	// as it's only available in Vercel deployments and may not be in env schema
 	const isProduction =
-		process.env.NODE_ENV === "production" ||
-		process.env.VERCEL_ENV === "production";
+		nodeEnv.NODE_ENV === "production" || vercelEnv.VERCEL_ENV === "production";
 	const connectionString = env.DATABASE_URL;
 
 	if (isProduction) {
