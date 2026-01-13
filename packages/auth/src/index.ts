@@ -1,10 +1,10 @@
 import type { PrismaClient } from "@dukkani/db";
 import { hashPassword } from "@dukkani/db/utils/generate-id";
+import { apiAppEnv } from "@dukkani/env/apps/api";
 import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
 import { lastLoginMethod, openAPI } from "better-auth/plugins";
-import type { env } from "./env";
 import { buildTrustedOrigins, verifyPassword } from "./utils";
 
 /**
@@ -12,38 +12,35 @@ import { buildTrustedOrigins, verifyPassword } from "./utils";
  * Uses dependency injection to avoid circular dependencies
  *
  * @param database - Prisma database client instance
- * @param envConfig - Partial environment config (can omit NEXT_PUBLIC_DASHBOARD_URL)
  * @returns Better Auth instance
  */
 export function createAuth(
 	database: PrismaClient,
-	envConfig: typeof env,
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
 	const originConfig = [
-		envConfig.NEXT_PUBLIC_CORS_ORIGIN,
-		envConfig.NEXT_PUBLIC_DASHBOARD_URL,
-		envConfig.VERCEL_BRANCH_URL,
-		envConfig.VERCEL_PROJECT_PRODUCTION_URL,
+		apiAppEnv.CORS_ORIGIN,
+		apiAppEnv.DASHBOARD_URL,
+		apiAppEnv.VERCEL_BRANCH_URL,
+		apiAppEnv.VERCEL_PROJECT_PRODUCTION_URL,
 	].filter((origin) => origin !== undefined);
 
 	const trustedOrigins = buildTrustedOrigins(
 		originConfig,
-		!!envConfig.VERCEL,
-		envConfig.NEXT_PUBLIC_ALLOWED_ORIGIN,
+		!!apiAppEnv.VERCEL,
+		apiAppEnv.ALLOWED_ORIGIN,
 	);
 
 	// Determine if we need cross-origin cookie settings
 	// In Vercel environments or when using HTTPS, we need SameSite=None and Secure
-	const isVercel = !!envConfig.VERCEL;
-	const isProduction =
-		isVercel || envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://");
+	const isVercel = !!apiAppEnv.VERCEL;
+	const isProduction = isVercel || apiAppEnv.CORS_ORIGIN.startsWith("https://");
 
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
 			provider: "postgresql",
 		}),
-		secret: envConfig.BETTER_AUTH_SECRET,
-		baseURL: envConfig.NEXT_PUBLIC_CORS_ORIGIN,
+		secret: apiAppEnv.BETTER_AUTH_SECRET,
+		baseURL: apiAppEnv.CORS_ORIGIN,
 		trustedOrigins,
 		advanced: {
 			useSecureCookies: isProduction,
@@ -65,16 +62,16 @@ export function createAuth(
 		},
 		socialProviders: {
 			facebook: {
-				clientId: envConfig.FACEBOOK_CLIENT_ID,
-				clientSecret: envConfig.FACEBOOK_CLIENT_SECRET,
+				clientId: apiAppEnv.FACEBOOK_CLIENT_ID,
+				clientSecret: apiAppEnv.FACEBOOK_CLIENT_SECRET,
 			},
 			google: {
-				clientId: envConfig.GOOGLE_CLIENT_ID,
-				clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
+				clientId: apiAppEnv.GOOGLE_CLIENT_ID,
+				clientSecret: apiAppEnv.GOOGLE_CLIENT_SECRET,
 			},
 			apple: {
-				clientId: envConfig.APPLE_CLIENT_ID,
-				clientSecret: envConfig.APPLE_CLIENT_SECRET,
+				clientId: apiAppEnv.APPLE_CLIENT_ID,
+				clientSecret: apiAppEnv.APPLE_CLIENT_SECRET,
 			},
 		},
 		plugins: [nextCookies(), openAPI(), lastLoginMethod()],
@@ -93,9 +90,6 @@ export let auth: ReturnType<typeof betterAuth<BetterAuthOptions>>;
  * Called by core initialization module
  * @internal
  */
-export function initializeAuth(
-	database: PrismaClient,
-	envConfig: Parameters<typeof createAuth>[1],
-): void {
-	auth = createAuth(database, envConfig);
+export function initializeAuth(database: PrismaClient): void {
+	auth = createAuth(database);
 }
