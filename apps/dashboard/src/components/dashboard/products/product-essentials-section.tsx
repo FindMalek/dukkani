@@ -6,6 +6,7 @@ import { ButtonGroup } from "@dukkani/ui/components/button-group";
 import { Card, CardContent } from "@dukkani/ui/components/card";
 import {
 	FormControl,
+	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -70,9 +71,10 @@ export function ProductEssentialsSection({
 									</span>
 								</div>
 							</FormControl>
-							<p className="text-[10px] text-muted-foreground/60">
+							<FormDescription className="text-[10px]">
 								{t("form.priceHelp")}
-							</p>
+							</FormDescription>
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
