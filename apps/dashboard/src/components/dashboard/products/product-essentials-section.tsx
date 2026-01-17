@@ -84,37 +84,64 @@ export function ProductEssentialsSection({
 				<FormField
 					control={form.control}
 					name="stock"
-					render={({ field }) => (
-						<FormItem className="flex items-center justify-between">
-							<FormLabel className="font-semibold text-sm">
-								{t("form.stock.label")}
-							</FormLabel>
-							<ButtonGroup orientation="horizontal">
-								<Button
-									variant="outline"
-									size="icon"
-									className="bg-muted-foreground/5"
-									onClick={() => field.onChange(Math.max(0, field.value - 1))}
-								>
-									<Icons.minus className="size-4" />
-								</Button>
-								<Input
-									type="number"
-									className="w-16 rounded-none bg-muted-foreground/5 text-center"
-									{...field}
-									onChange={(e) => field.onChange(Number(e.target.value))}
-								/>
-								<Button
-									variant="outline"
-									size="icon"
-									className="border-l-0 bg-muted-foreground/5"
-									onClick={() => field.onChange(field.value + 1)}
-								>
-									<Icons.plus className="size-4" />
-								</Button>
-							</ButtonGroup>
-						</FormItem>
-					)}
+					render={({ field }) => {
+						// Helper to safely get a valid number
+						const getValidStock = (value: unknown): number => {
+							const num = Number(value);
+							return Number.isFinite(num) && num >= 0 ? Math.floor(num) : 0;
+						};
+
+						const currentStock = getValidStock(field.value);
+
+						return (
+							<FormItem className="flex items-center justify-between">
+								<FormLabel className="font-semibold text-sm">
+									{t("form.stock.label")}
+								</FormLabel>
+								<ButtonGroup orientation="horizontal">
+									<Button
+										variant="outline"
+										size="icon"
+										className="bg-muted-foreground/5"
+										onClick={() => {
+											const newValue = Math.max(0, currentStock - 1);
+											field.onChange(newValue);
+										}}
+									>
+										<Icons.minus className="size-4" />
+									</Button>
+									<Input
+										type="number"
+										className="w-16 rounded-none bg-muted-foreground/5 text-center"
+										{...field}
+										value={field.value ?? ""}
+										onChange={(e) => {
+											const value = e.target.value;
+											if (value === "") {
+												field.onChange(0);
+												return;
+											}
+											const num = Number(value);
+											if (Number.isFinite(num)) {
+												field.onChange(Math.max(0, Math.floor(num)));
+											}
+										}}
+									/>
+									<Button
+										variant="outline"
+										size="icon"
+										className="border-l-0 bg-muted-foreground/5"
+										onClick={() => {
+											const newValue = currentStock + 1;
+											field.onChange(newValue);
+										}}
+									>
+										<Icons.plus className="size-4" />
+									</Button>
+								</ButtonGroup>
+							</FormItem>
+						);
+					}}
 				/>
 			</CardContent>
 		</Card>
