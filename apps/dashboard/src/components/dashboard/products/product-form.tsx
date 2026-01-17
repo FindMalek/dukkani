@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { ProductCategorySection } from "@/components/dashboard/products/product-category-section";
@@ -35,6 +35,15 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 		const [previews, setPreviews] = useState<string[]>([]);
 		const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
+		useEffect(() => {
+			// Clean up old URLs when previews change
+			return () => {
+				previews.forEach((url) => {
+					URL.revokeObjectURL(url);
+				});
+			};
+		}, [previews]); 
+		
 		const form = useForm<CreateProductInput>({
 			resolver: zodResolver(createProductInputSchema),
 			defaultValues: {
