@@ -29,7 +29,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { CategoryDrawer } from "@/components/dashboard/products/category-drawer";
-import { useCategories } from "@/hooks/api/use-categories";
+import { useCategoriesQuery } from "@/hooks/api/use-categories";
 
 interface ProductCategorySectionProps {
 	form: UseFormReturn<CreateProductInput>;
@@ -41,9 +41,10 @@ export function ProductCategorySection({
 	storeId,
 }: ProductCategorySectionProps) {
 	const t = useTranslations("products.create");
-	const { data: categories, isLoading: isLoadingCategories } = useCategories({
-		storeId,
-	});
+	const { data: categories, isLoading: isLoadingCategories } =
+		useCategoriesQuery({
+			storeId,
+		});
 
 	return (
 		<Card className="bg-muted-foreground/5 py-2 shadow-none">

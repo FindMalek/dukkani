@@ -30,4 +30,9 @@ export const queryKeys = {
 			input?: Parameters<typeof orpc.onboarding.complete.queryOptions>[0],
 		) => orpc.onboarding.complete.queryKey(input),
 	},
+	categories: {
+		all: (input: Parameters<typeof orpc.category.getAll.queryOptions>[0]) =>
+			orpc.category.getAll.queryKey(input),
+		byId: (id: string) => orpc.category.getById.queryKey({ input: { id } }),
+	},
 } as const;

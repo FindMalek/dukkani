@@ -80,7 +80,7 @@ export const categoryRouter = {
 	 */
 	delete: protectedProcedure
 		.input(getCategoryInputSchema)
-		.output(z.object({ success: z.boolean() }))
+		.output(z.object({ success: z.boolean(), storeId: z.string() }))
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 			const category = await database.category.findUnique({
@@ -91,6 +91,6 @@ export const categoryRouter = {
 			}
 			await verifyStoreOwnership(userId, category.storeId);
 			await CategoryService.deleteCategory(input.id);
-			return { success: true };
+			return { success: true, storeId: category.storeId };
 		}),
 };

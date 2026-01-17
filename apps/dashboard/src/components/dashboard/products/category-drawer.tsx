@@ -24,14 +24,10 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { handleAPIError } from "@/lib/error";
-import { client, orpc } from "@/lib/orpc";
-
+import { useCreateCategoryMutation } from "@/hooks/api/use-categories";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 
 interface CategoryDrawerProps {
@@ -41,9 +37,9 @@ interface CategoryDrawerProps {
 export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
 	const [open, setOpen] = useState(false);
 
-	const queryClient = useQueryClient();
 	const t = useTranslations("products.create");
 	const { selectedStoreId } = useActiveStoreStore();
+	const createCategoryMutation = useCreateCategoryMutation();
 
 	if (!selectedStoreId) {
 		return null;
@@ -55,22 +51,6 @@ export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
 			name: "",
 			storeId: selectedStoreId,
 		},
-	});
-
-	const createCategoryMutation = useMutation({
-		mutationFn: (input: CreateCategoryInput) => client.category.create(input),
-		onSuccess: (newCategory) => {
-			toast.success(t("form.category.created"));
-			categoryForm.reset();
-			setOpen(false);
-			onCategoryCreated?.(newCategory.id);
-			queryClient.invalidateQueries({
-				queryKey: orpc.category.getAll.queryKey({
-					input: { storeId: selectedStoreId },
-				}),
-			});
-		},
-		onError: (error) => handleAPIError(error),
 	});
 
 	const onCategorySubmit = (values: CreateCategoryInput) => {
