@@ -1,5 +1,5 @@
 import { Transform } from "node:stream";
-import { env } from "@dukkani/env";
+import pino from "pino";
 
 /**
  * Custom synchronous formatter for development
@@ -104,6 +104,27 @@ const createConsoleLogger = () => {
 /**
  * Check if we're in a Node.js environment (not Edge Runtime)
  */
+const isDevelopment = process.env.NODE_ENV !== "production";
+
+let logger: ReturnType<typeof createConsoleLogger>;
+
+if (isDevelopment) {
+	const prettyFormatter = new PrettyFormatter();
+	prettyFormatter.pipe(process.stdout);
+
+	logger = pino(
+		{
+			level: process.env.LOG_LEVEL || "info",
+			formatters: {
+				level: (label: string) => {
+					return { level: label.toUpperCase() };
+				},
+			},
+			timestamp: pino.stdTimeFunctions.isoTime,
+		},
+		prettyFormatter,
+    );
+}
 function isNodeEnvironment(): boolean {
 	return (
 		typeof process !== "undefined" &&

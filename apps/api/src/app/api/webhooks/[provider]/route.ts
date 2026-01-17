@@ -1,5 +1,5 @@
 import { TelegramService } from "@dukkani/common/services";
-import { apiEnv } from "@dukkani/env";
+import { apiAppEnv } from "@dukkani/env/apps/api";
 import { logger } from "@dukkani/logger";
 import { addSpanAttributes } from "@dukkani/tracing";
 import type { NextRequest } from "next/server";
@@ -18,7 +18,7 @@ const webhookHandlers: Record<string, WebhookHandler> = {
 			const telegramUpdate = await req.json();
 			const secretToken = req.headers.get("x-telegram-bot-api-secret-token");
 
-			if (secretToken !== apiEnv.TELEGRAM_WEBHOOK_SECRET) {
+			if (secretToken !== apiAppEnv.TELEGRAM_WEBHOOK_SECRET) {
 				return NextResponse.json({ ok: true }, { status: 200 });
 			}
 

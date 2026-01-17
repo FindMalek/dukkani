@@ -1,16 +1,5 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { dbEnv } from "@dukkani/env/db";
 import { logger } from "@dukkani/logger";
-import dotenv from "dotenv";
-
-// Load .env from db package root BEFORE any imports that use env validation
-// This must be done first to ensure environment variables are available
-// In ESM, imports are hoisted, so we need to load dotenv before any imports
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-dotenv.config({
-	path: path.resolve(__dirname, "../../.env"),
-});
 
 /**
  * Main seed function that orchestrates all seeders
@@ -20,7 +9,6 @@ dotenv.config({
 export async function seed(): Promise<void> {
 	// Use dynamic imports after dotenv is loaded to ensure env vars are available
 	// when modules validate environment variables
-	const { env } = await import("../env");
 	const dbModule = await import("../index");
 	const { getSeededData, seeders, setupSeederDependencies } = await import(
 		"./seeders"
@@ -30,7 +18,7 @@ export async function seed(): Promise<void> {
 
 	// Initialize database before using it
 	dbModule.initializeDatabase({
-		DATABASE_URL: env.DATABASE_URL,
+		DATABASE_URL: dbEnv.DATABASE_URL,
 	});
 
 	// Get a fresh reference to database after initialization
