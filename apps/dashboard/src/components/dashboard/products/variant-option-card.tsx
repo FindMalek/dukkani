@@ -12,6 +12,11 @@ import {
 } from "@dukkani/ui/components/form";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
+import {
+	InputGroup,
+	InputGroupButton,
+	InputGroupInput,
+} from "@dukkani/ui/components/input-group";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -142,22 +147,24 @@ export function VariantOptionCard({
 					<Badge
 						key={field.id}
 						variant="secondary"
-						className="flex items-center gap-1.5 rounded-full bg-muted/50 px-3 py-1 font-medium text-sm hover:bg-muted"
+						className="flex items-center gap-1.5 rounded-full bg-muted/50 px-2 py-1 font-medium text-xs hover:bg-muted"
 					>
 						{form.watch(`variantOptions.${index}.values.${vIndex}.value`)}
-						<button
+						<Button
 							type="button"
+							variant="ghost"
+							size="icon"
 							onClick={() => remove(vIndex)}
-							className="rounded-full hover:bg-muted-foreground/20"
+							className="size-3 rounded-full hover:bg-muted-foreground/20"
 						>
-							<Icons.x className="h-3 w-3" />
-						</button>
+							<Icons.x className="size-3" />
+						</Button>
 					</Badge>
 				))}
 
 				{isAdding ? (
-					<div className="flex items-center gap-2">
-						<Input
+					<InputGroup className="h-8 w-auto">
+						<InputGroupInput
 							autoFocus
 							value={newValue}
 							onChange={(e) => {
@@ -181,10 +188,15 @@ export function VariantOptionCard({
 								isDuplicateValue(newValue) && "border-destructive",
 							)}
 						/>
-						<Button size="icon" className="h-8 w-8" onClick={handleAddValue}>
-							<Icons.check className="h-3 w-3" />
-						</Button>
-					</div>
+						<InputGroupButton
+							type="button"
+							size="icon-xs"
+							onClick={handleAddValue}
+							className="mr-1 cursor-pointer"
+						>
+							<Icons.check className="size-3" />
+						</InputGroupButton>
+					</InputGroup>
 				) : (
 					<Button
 						type="button"
@@ -193,8 +205,8 @@ export function VariantOptionCard({
 						onClick={() => setIsAdding(true)}
 						className="h-9 rounded-full border-dashed px-4 text-muted-foreground"
 					>
-						<Icons.plus className="mr-2 h-4 w-4" />
-						Add value
+						<Icons.plus className="h-4 w-4" />
+						{t("form.variants.options.addValue")}
 					</Button>
 				)}
 			</div>

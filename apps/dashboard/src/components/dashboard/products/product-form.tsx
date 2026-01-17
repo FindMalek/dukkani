@@ -42,8 +42,8 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 					URL.revokeObjectURL(url);
 				});
 			};
-		}, [previews]); 
-		
+		}, [previews]);
+
 		const form = useForm<CreateProductInput>({
 			resolver: zodResolver(createProductInputSchema),
 			defaultValues: {
