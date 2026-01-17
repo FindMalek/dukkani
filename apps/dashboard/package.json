@@ -34,7 +34,8 @@
 		"tw-animate-css": "catalog:",
 		"zod": "catalog:",
 		"@orpc/server": "catalog:",
-		"qrcode.react": "4.2.0"
+		"qrcode.react": "4.2.0",
+		"zustand": "catalog:"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",

@@ -22,12 +22,18 @@ export const getProductInputSchema = z.object({
 	id: z.string().min(1, "Product ID is required"),
 });
 
+export const stockFilterSchema = z
+	.enum(["all", "in-stock", "low-stock", "out-of-stock"])
+	.optional();
+
 export const listProductsInputSchema = z.object({
 	page: z.number().int().min(1).default(1),
 	limit: z.number().int().min(1).max(100).default(10),
 	search: z.string().optional(),
 	storeId: z.string().optional(),
 	published: z.boolean().optional(),
+	categoryId: z.string().optional(),
+	stockFilter: stockFilterSchema,
 });
 
 export const togglePublishProductInputSchema = z.object({
@@ -40,3 +46,7 @@ export type CreateProductInput = z.infer<typeof createProductInputSchema>;
 export type UpdateProductInput = z.infer<typeof updateProductInputSchema>;
 export type GetProductInput = z.infer<typeof getProductInputSchema>;
 export type ListProductsInput = z.infer<typeof listProductsInputSchema>;
+export type StockFilter = z.infer<typeof stockFilterSchema>;
+export type TogglePublishProductInput = z.infer<
+	typeof togglePublishProductInputSchema
+>;

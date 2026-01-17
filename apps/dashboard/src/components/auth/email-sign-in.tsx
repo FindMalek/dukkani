@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useCheckEmailExists } from "@/hooks/api/use-check-email";
+import { useCheckEmailExists } from "@/hooks/api/use-check-email.hook";
 import { authClient } from "@/lib/auth-client";
 import { handleAPIError } from "@/lib/error";
 import { getRouteWithQuery, RoutePaths } from "@/lib/routes";

@@ -10,7 +10,7 @@ import {
 } from "@dukkani/ui/components/card";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { cn } from "@dukkani/ui/lib/utils";
-import { useDashboardStats } from "@/hooks/api/use-dashboard-stats";
+import { useDashboardStats } from "@/hooks/api/use-dashboard-stats.hook";
 
 export default function DashboardPage() {
 	const { data: stats, isLoading, error } = useDashboardStats();

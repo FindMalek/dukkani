@@ -53,10 +53,31 @@ export const productRouter = {
 					message: "You don't have access to this store",
 				});
 			}
+
+			// Convert stockFilter to stock range format
+			let stockFilter: { lte?: number; gte?: number } | undefined;
+			if (input?.stockFilter) {
+				switch (input.stockFilter) {
+					case "in-stock":
+						stockFilter = { gte: 1 };
+						break;
+					case "low-stock":
+						stockFilter = { gte: 1, lte: 10 };
+						break;
+					case "out-of-stock":
+						stockFilter = { lte: 0 };
+						break;
+					default:
+						// No filter
+						break;
+				}
+			}
+
 			const where = ProductQuery.getWhere(userStoreIds, {
 				storeId: input?.storeId,
 				published: input?.published,
 				search: input?.search,
+				stock: stockFilter,
 			});
 
 			const [products, total] = await Promise.all([

@@ -24,7 +24,7 @@ import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { cn } from "@dukkani/ui/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
@@ -34,8 +34,9 @@ import { CategorySelector } from "@/components/dashboard/onboarding/category-sel
 import { OnboardingStepper } from "@/components/dashboard/onboarding/onboarding-stepper";
 import { THEME_PREVIEWS } from "@/components/dashboard/onboarding/theme-previews";
 import { AuthBackground } from "@/components/layout/auth-background";
+import { useStoresQuery } from "@/hooks/api/use-stores.hook";
 import { handleAPIError } from "@/lib/error";
-import { client, orpc } from "@/lib/orpc";
+import { client } from "@/lib/orpc";
 
 import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
 
@@ -46,12 +47,9 @@ export default function StoreConfigurationPage() {
 	const t = useTranslations("onboarding.storeConfiguration");
 
 	// Fetch stores if storeId is missing
-	const { data: stores, isLoading: isLoadingStores } = useQuery({
-		...orpc.store.getAll.queryOptions({ input: undefined }),
-		enabled: !urlStoreId, // Only fetch if storeId is missing
-	});
-
-	// Determine the storeId to use
+	const { data: stores, isLoading: isLoadingStores } = useStoresQuery(
+		!urlStoreId,
+	);
 	const storeId = urlStoreId || stores?.[0]?.id;
 
 	// Update URL if we found a storeId from stores but it's not in the URL
@@ -88,7 +86,7 @@ export default function StoreConfigurationPage() {
 			toast.success(t("success"));
 			router.push(
 				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.COMPLETE.url, {
-					storeId: storeId!,
+					storeId,
 				}),
 			);
 		},
