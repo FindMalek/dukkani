@@ -3,6 +3,20 @@
 		"title": "Dashboard",
 		"description": "Dashboard description"
 	},
+	"auth": {
+		"emailSignIn": {
+			"continue": "Continue",
+			"rememberMe": "Remember me",
+			"back": "Back",
+			"signIn": "Sign in",
+			"email": {
+				"placeholder": "Enter your email"
+			},
+			"password": {
+				"placeholder": "Enter your password"
+			}
+		}
+	},
 	"settings": {
 		"telegram": {
 			"title": "Telegram Notifications",
@@ -177,6 +191,110 @@
 			"actions": {
 				"addProduct": "Add Your First Product",
 				"goToDashboard": "Go to Dashboard"
+			}
+		}
+	},
+	"products": {
+		"create": {
+			"header": {
+				"title": "New product",
+				"save": "Save"
+			},
+			"sections": {
+				"photos": "Product Photos",
+				"essentials": "Essentials",
+				"organization": "Organization",
+				"options": "Has options"
+			},
+			"form": {
+				"name": {
+					"label": "Product Name",
+					"placeholder": "Enter product name"
+				},
+				"price": {
+					"label": "Price",
+					"placeholder": "Enter product price"
+				},
+				"stock": {
+					"label": "Stock",
+					"placeholder": "Enter product stock"
+				},
+				"description": {
+					"label": "Description",
+					"placeholder": "Enter product description"
+				},
+				"published": {
+					"label": "Published",
+					"placeholder": "Enter product published"
+				},
+				"addPhotos": "Add photos",
+				"priceHelp": "Price customers pay (COD)",
+				"category": {
+					"label": "Category",
+					"placeholder": "Select category...",
+					"searchPlaceholder": "Search categories...",
+					"noResults": "No categories found.",
+					"create": "Create category",
+					"created": "Category created successfully",
+					"nameLabel": "Category Name",
+					"namePlaceholder": "e.g. T-Shirts, Electronics",
+					"createDescription": "Create a new category to organize your products.",
+					"uncategorized": "Uncategorized"
+				},
+				"options": {
+					"label": "Has options",
+					"description": "Add options like Size, Color, Material, etc."
+				},
+				"saveDraft": "Save draft",
+				"savePublish": "Save & publish",
+				"optional": "optional",
+				"cancel": "Cancel",
+				"validation": {
+					"errors": "Please fix the form errors before submitting"
+				},
+				"variants": {
+					"options": {
+						"title": "Variant Options",
+						"add": "Add Option",
+						"empty": "Add options like Size, Color, Material, etc.",
+						"unnamed": "Unnamed Option",
+						"optionName": "Option Name",
+						"optionNamePlaceholder": "e.g. Size, Color",
+						"values": "Values",
+						"addValue": "Add Value",
+						"noValues": "Add at least one value",
+						"remove": "Remove Option",
+						"addAnother": "Add another option"
+					},
+					"list": {
+						"title": "Variants",
+						"empty": "Add variant options above to generate variants",
+						"unnamed": "Unnamed Variant",
+						"price": "Price",
+						"stock": "Stock",
+						"edit": "Edit Variant"
+					},
+					"edit": {
+						"title": "Edit Variant",
+						"sku": "SKU",
+						"skuPlaceholder": "Optional",
+						"price": "Price",
+						"priceHelp": "Leave empty to use base product price",
+						"stock": "Stock"
+					},
+					"validation": {
+						"duplicateOptionName": "Duplicate option name",
+						"duplicateOptionValues": "Duplicate option values",
+						"duplicateValue": "Duplicate value",
+						"duplicateOption": "Duplicate option"
+					}
+				}
+			},
+			"success": "Product created successfully!",
+			"noStore": {
+				"title": "No Store Found",
+				"description": "Please create a store first to add products.",
+				"createStore": "Create Store"
 			}
 		}
 	}

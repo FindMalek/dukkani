@@ -11,11 +11,13 @@
  * - `notes`: Optional special instructions or notes
  * - `storeId`: Reference to the Store where the order was placed
  * - `customerId`: Optional reference to a registered Customer (null for guest orders)
+ * - `variantId`: Optional reference to a ProductVariant (null for product variants)
  * - `createdAt`: Timestamp when the order was created
  * - `updatedAt`: Timestamp when the order was last updated
  * **Relationships:**
  * - Belongs to one Store
  * - Optionally belongs to one Customer (can be null for guest orders)
+ * - Optionally belongs to one ProductVariant (can be null for product variants)
  * - Has many OrderItems (products in the order)
  * - Has many WhatsAppMessages (communication history)
  * **Business Logic:**
@@ -46,6 +48,9 @@ model Order {
 
   customerId String?   @map("customer_id")
   customer   Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  variantId String?         @map("variant_id")
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
 
   @@map("orders")
 }
@@ -82,8 +87,10 @@ model OrderItem {
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
 
-  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  order            Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product          Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productVariant   ProductVariant? @relation(fields: [productVariantId], references: [id])
+  productVariantId String?
 
   @@map("order_items")
 }

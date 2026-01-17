@@ -1,21 +1,113 @@
 import { z } from "zod";
 
+export const variantOptionValueInputSchema = z.object({
+	value: z.string().min(1, "Option value is required"),
+});
+
+export const variantOptionInputSchema = z.object({
+	name: z.string().trim().min(1, "Option name is required"),
+	values: z
+		.array(variantOptionValueInputSchema)
+		.min(1, "At least one value is required")
+		.refine(
+			(values) => {
+				const valueStrings = values.map((v) => v.value.toLowerCase().trim());
+				return new Set(valueStrings).size === valueStrings.length;
+			},
+			{
+				message: "Duplicate values are not allowed in the same option",
+			},
+		),
+});
+
+/**
+ * Represents a product variant.
+ * @property {string} sku - The stock keeping unit of the variant.
+ * @property {number} price - The price of the variant.
+ * @property {number} stock - The stock of the variant.
+ * @property {Record<string, string>} selections - The selections of the variant.
+ *
+ * @example This means: Option "Size" has value "M", Option "Color" has value "Red"
+ * { "Size": "M", "Color": "Red" }
+ */
+export const variantInputSchema = z.object({
+	sku: z.string().optional(),
+	price: z.number().positive().optional(),
+	stock: z.number().int().min(0),
+	selections: z.record(z.string(), z.string()),
+});
+
 export const productInputSchema = z.object({
 	name: z.string().min(1, "Product name is required"),
 	description: z.string().optional(),
 	price: z.number().positive("Price must be positive"),
 	stock: z.number().int().min(0, "Stock cannot be negative"),
-	published: z.boolean().default(false),
+	published: z.boolean(),
 	storeId: z.string().min(1, "Store ID is required"),
+	categoryId: z.string().optional(),
+	hasVariants: z.boolean(),
 });
 
-export const createProductInputSchema = productInputSchema.extend({
-	imageUrls: z.array(z.url()).optional(),
-});
+export const createProductInputSchema = productInputSchema
+	.extend({
+		imageUrls: z.array(z.url()).optional(),
+		variantOptions: z.array(variantOptionInputSchema).optional(),
+		variants: z.array(variantInputSchema).optional(),
+	})
+	.refine(
+		(data) => {
+			if (!data.hasVariants) {
+				return (
+					(!data.variantOptions || data.variantOptions.length === 0) &&
+					(!data.variants || data.variants.length === 0)
+				);
+			}
+			return true;
+		},
+		{
+			message: "Variants should not be provided when hasVariants is false",
+			path: ["hasVariants"],
+		},
+	)
+	.refine(
+		(data) => {
+			if (data.hasVariants) {
+				if (!data.variantOptions || data.variantOptions.length === 0) {
+					return false;
+				}
+				const optionNames = data.variantOptions
+					.map((opt) => opt.name.toLowerCase().trim())
+					.filter((name) => name.length > 0);
+				return new Set(optionNames).size === optionNames.length;
+			}
+			return true;
+		},
+		{
+			message: "Duplicate option names are not allowed",
+			path: ["variantOptions"],
+		},
+	)
+	.refine(
+		(data) => {
+			if (data.hasVariants && data.variants) {
+				const skus = data.variants
+					.map((v) => v.sku?.trim())
+					.filter((sku): sku is string => !!sku);
+				return new Set(skus).size === skus.length;
+			}
+			return true;
+		},
+		{
+			message: "Duplicate SKUs are not allowed within the same product",
+			path: ["variants"],
+		},
+	);
 
 export const updateProductInputSchema = productInputSchema.partial().extend({
 	id: z.string().min(1, "Product ID is required"),
 	imageUrls: z.array(z.url()).optional(),
+	variantOptions: z.array(variantOptionInputSchema).optional(),
+	variants: z.array(variantInputSchema).optional(),
 });
 
 export const getProductInputSchema = z.object({
@@ -46,6 +138,8 @@ export type CreateProductInput = z.infer<typeof createProductInputSchema>;
 export type UpdateProductInput = z.infer<typeof updateProductInputSchema>;
 export type GetProductInput = z.infer<typeof getProductInputSchema>;
 export type ListProductsInput = z.infer<typeof listProductsInputSchema>;
+export type VariantOptionInput = z.infer<typeof variantOptionInputSchema>;
+export type VariantInput = z.infer<typeof variantInputSchema>;
 export type StockFilter = z.infer<typeof stockFilterSchema>;
 export type TogglePublishProductInput = z.infer<
 	typeof togglePublishProductInputSchema

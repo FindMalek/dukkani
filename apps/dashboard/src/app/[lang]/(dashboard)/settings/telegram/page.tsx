@@ -215,11 +215,9 @@ export default function TelegramSettingsPage() {
 						<AlertDialogCancel>{t("cancelButton")}</AlertDialogCancel>
 						<AlertDialogAction
 							onClick={handleDisconnect}
-							disabled={disconnectMutation.isPending || !storeName.trim()}
+							isLoading={disconnectMutation.isPending}
+							disabled={!storeName.trim()}
 						>
-							{disconnectMutation.isPending ? (
-								<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-							) : null}
 							{t("disconnectButton")}
 						</AlertDialogAction>
 					</AlertDialogFooter>

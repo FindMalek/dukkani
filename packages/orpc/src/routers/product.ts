@@ -16,7 +16,7 @@ import {
 	productIncludeOutputSchema,
 } from "@dukkani/common/schemas/product/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
-import { ProductService } from "@dukkani/common/services/productService";
+import { ProductService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
@@ -137,10 +137,8 @@ export const productRouter = {
 		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
 			const userId = context.session.user.id;
 
-			// Verify ownership
 			await verifyStoreOwnership(userId, input.storeId);
 
-			// Get store to generate product ID
 			const store = await database.store.findUnique({
 				where: { id: input.storeId },
 				select: { slug: true },
@@ -152,27 +150,166 @@ export const productRouter = {
 				});
 			}
 
-			// Generate product ID
 			const productId = ProductService.generateProductId(store.slug);
 
-			// Create product with images
-			const product = await database.product.create({
-				data: {
-					id: productId,
-					name: input.name,
-					description: input.description,
-					price: input.price,
-					stock: input.stock,
-					published: input.published ?? false,
-					storeId: input.storeId,
-					images: input.imageUrls
-						? {
-								create: input.imageUrls.map((url) => ({ url })),
+			// Create product with variants in a transaction
+			const product = await database.$transaction(async (tx) => {
+				// 1. Create product base
+				const createdProduct = await tx.product.create({
+					data: {
+						id: productId,
+						name: input.name,
+						description: input.description,
+						price: input.price,
+						stock: input.stock,
+						published: input.published ?? false,
+						storeId: input.storeId,
+						categoryId: input.categoryId,
+						hasVariants: input.hasVariants ?? false,
+						images: input.imageUrls
+							? {
+									create: input.imageUrls.map((url) => ({ url })),
+								}
+							: undefined,
+					},
+				});
+
+				// 2. Create variant options if hasVariants is true
+				if (input.hasVariants && input.variantOptions) {
+					// First, create all options and store them in a map
+					const optionMap = new Map<
+						string,
+						{ optionId: string; values: Map<string, string> }
+					>();
+
+					for (const option of input.variantOptions) {
+						const createdOption = await tx.productVariantOption.create({
+							data: {
+								name: option.name,
+								productId: createdProduct.id,
+								values: {
+									create: option.values.map((v) => ({
+										value: v.value,
+									})),
+								},
+							},
+							include: {
+								values: true,
+							},
+						});
+
+						// Store option ID and create a map of value strings to value IDs
+						const valueMap = new Map<string, string>();
+						for (const value of createdOption.values) {
+							valueMap.set(value.value, value.id);
+						}
+
+						optionMap.set(option.name, {
+							optionId: createdOption.id,
+							values: valueMap,
+						});
+					}
+
+					if (input.variants) {
+						// Track SKUs we're about to create to detect duplicates within this batch
+						const skusInBatch = new Set<string>();
+
+						// Check for duplicate SKUs in the incoming payload
+						for (const variant of input.variants) {
+							if (variant.sku?.trim()) {
+								const normalizedSku = variant.sku.trim();
+								if (skusInBatch.has(normalizedSku)) {
+									throw new ORPCError("BAD_REQUEST", {
+										message: `Duplicate SKU "${normalizedSku}" found in variants`,
+									});
+								}
+								skusInBatch.add(normalizedSku);
 							}
-						: undefined,
-				},
-				include: ProductQuery.getInclude(),
+						}
+
+						// Check for existing SKUs in database for this product
+						// Note: Since we're creating a new product, this check is technically not needed
+						// but we'll keep it for safety and future-proofing (e.g., if update logic reuses this)
+						const existingVariants = await tx.productVariant.findMany({
+							where: {
+								productId: createdProduct.id,
+								sku: {
+									in: Array.from(skusInBatch),
+								},
+							},
+							select: { sku: true },
+						});
+
+						if (existingVariants.length > 0) {
+							const existingSkus = existingVariants
+								.map((v) => v.sku)
+								.join(", ");
+							throw new ORPCError("BAD_REQUEST", {
+								message: `SKU(s) already exist for this product: ${existingSkus}`,
+							});
+						}
+
+						for (const variant of input.variants) {
+							const variantSelections: Array<{
+								optionId: string;
+								valueId: string;
+							}> = [];
+
+							for (const [optionName, valueString] of Object.entries(
+								variant.selections,
+							)) {
+								const optionData = optionMap.get(optionName);
+
+								if (!optionData) {
+									throw new ORPCError("BAD_REQUEST", {
+										message: `Option "${optionName}" not found`,
+									});
+								}
+
+								const valueId = optionData.values.get(valueString);
+								if (!valueId) {
+									throw new ORPCError("BAD_REQUEST", {
+										message: `Value "${valueString}" not found for option "${optionName}"`,
+									});
+								}
+
+								variantSelections.push({
+									optionId: optionData.optionId,
+									valueId,
+								});
+							}
+
+							// Create variant with selections
+							await tx.productVariant.create({
+								data: {
+									sku: variant.sku,
+									price: variant.price,
+									stock: variant.stock,
+									productId: createdProduct.id,
+									selections: {
+										create: variantSelections.map((s) => ({
+											optionId: s.optionId,
+											valueId: s.valueId,
+										})),
+									},
+								},
+							});
+						}
+					}
+				}
+
+				// Fetch complete product with all relations
+				return await tx.product.findUnique({
+					where: { id: createdProduct.id },
+					include: ProductQuery.getInclude(),
+				});
 			});
+
+			if (!product) {
+				throw new ORPCError("INTERNAL_SERVER_ERROR", {
+					message: "Failed to create product",
+				});
+			}
 
 			return ProductEntity.getRo(product);
 		}),

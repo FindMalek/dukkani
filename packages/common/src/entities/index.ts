@@ -1,3 +1,4 @@
+export * as category from "./category";
 export * as customer from "./customer";
 export * as image from "./image";
 export * as order from "./order";

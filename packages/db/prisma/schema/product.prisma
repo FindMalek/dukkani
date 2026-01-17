@@ -1,26 +1,52 @@
 /**
+ * Represents a product category within a store.
+ * Categories are store-specific and reusable across multiple products.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `name`: Name of the category
+ * - `storeId`: Reference to the Store this category belongs to
+ * - `createdAt`: Timestamp when the category was created
+ * - `updatedAt`: Timestamp when the category was last updated
+ * **Relationships:**
+ * - Belongs to one Store
+ * - Has many Products
+ * **Business Logic:**
+ * - Categories are store-specific and reusable across multiple products
+ * - Categories can be used to group products for filtering and display
+ * - Categories can be used to create product variations
+ * - Categories can be used to create product variants
+ */
+model Category {
+  id String @id @default(cuid())
+
+  name String
+
+  products Product[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  storeId String @map("store_id")
+  store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, name])
+  @@index([storeId])
+  @@map("categories")
+}
+
+/**
  * Represents a product available for sale in a store.
  * Products have a custom ID format: {STORE_PREFIX}-{RANDOM} (e.g., "AHM-xyz98765").
  * Products can be published or unpublished to control visibility in the store.
- * **Key Fields:**
- * - `id`: Custom string ID with store prefix (e.g., "AHM-xyz98765")
- * - `name`: Product name
- * - `description`: Optional product description
- * - `price`: Product price (stored as Decimal for accuracy)
- * - `stock`: Current inventory count
- * - `published`: Whether the product is visible to customers (default: false)
- * - `storeId`: Reference to the Store that owns this product
- * - `createdAt`: Timestamp when the product was created
- * - `updatedAt`: Timestamp when the product was last updated
  * **Relationships:**
  * - Belongs to one Store
- * - Has many Images (product photos)
- * - Has many OrderItems (appears in orders)
- * **Business Logic:**
- * - Products must be published to appear in customer-facing store
- * - Stock count should be decremented when orders are placed
- * - Custom ID format makes products URL-friendly and identifiable by store
- * - When store is deleted, all products are cascade deleted
+ * - Belongs to one Category
+ * - Has many Images
+ * - Has many OrderItems
+ * - Has many ProductVariantOptions
+ * - Has many ProductVariants
+ * - Has many ProductVariantSelections
+ * - Has many ProductVariantOptionValues
  */
 model Product {
   id String @id
@@ -32,8 +58,17 @@ model Product {
   stock Int
   price Decimal @db.Decimal(10, 2)
 
-  images     Image[]
-  orderItems OrderItem[]
+  // Category relationship
+  categoryId String?   @map("category_id")
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  // Variant system
+  hasVariants Boolean @default(false) @map("has_variants")
+
+  images         Image[]
+  orderItems     OrderItem[]
+  variantOptions ProductVariantOption[]
+  variants       ProductVariant[]
 
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
@@ -41,25 +76,15 @@ model Product {
   storeId String @map("store_id")
   store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
+  @@index([categoryId])
+  @@index([storeId])
   @@map("products")
 }
 
 /**
  * Represents an image associated with a product.
- * Products can have multiple images for showcasing different angles or details.
- * Images are stored as URLs (typically pointing to cloud storage or CDN).
- * **Key Fields:**
- * - `id`: Unique identifier (CUID)
- * - `url`: URL of the image (can be external or internal)
- * - `productId`: Reference to the Product this image belongs to
- * - `createdAt`: Timestamp when the image was created
- * - `updatedAt`: Timestamp when the image was last updated
  * **Relationships:**
  * - Belongs to one Product
- * **Business Logic:**
- * - Multiple images per product are supported
- * - When a product is deleted, all its images are cascade deleted
- * - Image URLs should be validated and stored securely
  */
 model Image {
   id  String @id @default(cuid())
@@ -72,4 +97,124 @@ model Image {
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@map("images")
+}
+
+/**
+ * Represents a variant option type for a product (e.g., "Size", "Color", "Material").
+ * Each product can have multiple option types, and each option type can have multiple values.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `name`: Name of the option type
+ * - `productId`: Reference to the Product this option type belongs to
+ * - `createdAt`: Timestamp when the option type was created
+ * - `updatedAt`: Timestamp when the option type was last updated
+ */
+model ProductVariantOption {
+  id String @id @default(cuid())
+
+  name String // e.g., "Size", "Color", "Material"
+
+  values            ProductVariantOptionValue[]
+  variantSelections ProductVariantSelection[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, name])
+  @@index([productId])
+  @@map("product_variant_options")
+}
+
+/**
+ * Represents a specific value for a variant option (e.g., "S", "M", "L" for Size).
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `value`: Value of the option (e.g., "S", "M", "L", "Red", "Blue")
+ * - `optionId`: Reference to the ProductVariantOption this value belongs to
+ * - `createdAt`: Timestamp when the option value was created
+ * - `updatedAt`: Timestamp when the option value was last updated
+ */
+model ProductVariantOptionValue {
+  id String @id @default(cuid())
+
+  value String
+
+  selections ProductVariantSelection[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  optionId String               @map("option_id")
+  option   ProductVariantOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@unique([optionId, value])
+  @@index([optionId])
+  @@map("product_variant_option_values")
+}
+
+/**
+ * Represents a specific product variant (combination of option values).
+ * Each variant represents a unique combination like "Size: M, Color: Red" with its own price and stock.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `sku`: Stock Keeping Unit (unique identifier for the variant)
+ * - `price`: Price of the variant (optional, overrides product price)
+ * - `stock`: Stock of the variant
+ * - `productId`: Reference to the Product this variant belongs to
+ * - `createdAt`: Timestamp when the variant was created
+ * - `updatedAt`: Timestamp when the variant was last updated
+ */
+model ProductVariant {
+  id String @id @default(cuid())
+
+  sku   String?
+  price Decimal? @db.Decimal(10, 2)
+  stock Int
+
+  orders     Order[]
+  orderItems OrderItem[]
+  selections ProductVariantSelection[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, sku])
+  @@index([productId])
+  @@index([sku])
+  @@map("product_variants")
+}
+
+/**
+ * Junction table linking ProductVariant to ProductVariantOptionValue.
+ * Represents which option values are selected for a specific variant.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `variantId`: Reference to the ProductVariant this selection belongs to
+ * - `optionId`: Reference to the ProductVariantOption this selection belongs to
+ * - `valueId`: Reference to the ProductVariantOptionValue this selection belongs to
+ * - `createdAt`: Timestamp when the selection was created
+ * - `updatedAt`: Timestamp when the selection was last updated
+ */
+model ProductVariantSelection {
+  id String @id @default(cuid())
+
+  variantId String @map("variant_id")
+  optionId  String @map("option_id")
+  valueId   String @map("value_id")
+
+  variant ProductVariant            @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  option  ProductVariantOption      @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  value   ProductVariantOptionValue @relation(fields: [valueId], references: [id], onDelete: Cascade)
+
+  @@unique([variantId, optionId])
+  @@index([variantId])
+  @@index([optionId])
+  @@index([valueId])
+  @@map("product_variant_selections")
 }

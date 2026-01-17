@@ -12,6 +12,7 @@ export const storageEnv = createEnv({
 	server: {
 		SUPABASE_URL: z.url(),
 		SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+		STORAGE_BUCKET_NAME: z.string().default("production"), // Default bucket
 		STORAGE_MAX_FILE_SIZE: z.number().int().positive().default(5242880), // 5MB default
 		STORAGE_ALLOWED_MIME_TYPES: z.string().default("image/*"),
 	},

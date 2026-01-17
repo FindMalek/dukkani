@@ -1,5 +1,4 @@
 import { Transform } from "node:stream";
-import { env } from "@dukkani/env";
 
 /**
  * Custom synchronous formatter for development
@@ -131,7 +130,7 @@ function getLogger(): ReturnType<typeof createConsoleLogger> {
 
 	// In Node.js environment, check if development
 	// Use NEXT_PUBLIC_NODE_ENV from env, fallback to process.env.NODE_ENV
-	const nodeEnv = env.NEXT_PUBLIC_NODE_ENV || process.env.NODE_ENV;
+	const nodeEnv = process.env.NEXT_PUBLIC_NODE_ENV || process.env.NODE_ENV;
 	const isDevelopment = nodeEnv !== "production";
 
 	if (isDevelopment) {

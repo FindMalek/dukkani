@@ -69,11 +69,10 @@ class StorageServiceBase {
 	 */
 	static async uploadFile(
 		file: File,
-		bucket: string,
 		options?: UploadOptions,
 	): Promise<StorageFileResult> {
 		addSpanAttributes({
-			"storage.bucket": bucket,
+			"storage.bucket": env.STORAGE_BUCKET_NAME,
 			"storage.file_size": file.size,
 			"storage.file_type": file.type,
 		});
@@ -89,87 +88,136 @@ class StorageServiceBase {
 			try {
 				processedImage = await ImageProcessor.processImage(file);
 			} catch (error) {
-				// If image processing fails, upload original
-				logger.warn({ error }, "Image processing failed, uploading original");
+				logger.error({ error }, "Image processing failed");
+				throw new Error("Failed to process image");
 			}
 		}
 
-		// Upload original file
-		// Upload original file
-		const originalBuffer =
-			processedImage?.original.buffer ?? Buffer.from(await file.arrayBuffer());
+		// For images: only upload compressed variants, skip original
+		// For non-images: upload original file
+		if (!isImage || !processedImage) {
+			// Non-image file: upload original
+			const originalBuffer = Buffer.from(await file.arrayBuffer());
 
-		const { data: uploadData, error: uploadError } = await storageClient.storage
-			.from(bucket)
-			.upload(filePath, originalBuffer, {
-				contentType: file.type,
-				upsert: false,
+			const { data: uploadData, error: uploadError } =
+				await storageClient.storage
+					.from(env.STORAGE_BUCKET_NAME)
+					.upload(filePath, originalBuffer, {
+						contentType: file.type,
+						upsert: false,
+					});
+
+			if (uploadError) {
+				const errorMessage =
+					uploadError.message ||
+					(uploadError as unknown as { error?: string })?.error ||
+					JSON.stringify(uploadError) ||
+					"Unknown upload error";
+
+				logger.error(
+					{
+						uploadError,
+						fileName: file.name,
+						filePath,
+					},
+					"File upload failed",
+				);
+
+				throw new Error(`Failed to upload file: ${errorMessage}`);
+			}
+
+			const originalUrl = StorageService.getPublicUrl(
+				env.STORAGE_BUCKET_NAME,
+				uploadData.path,
+			);
+
+			return {
+				bucket: env.STORAGE_BUCKET_NAME,
+				path: uploadData.path,
+				originalUrl,
+				url: originalUrl,
+				mimeType: file.type,
+				fileSize: file.size,
+				variants: [],
+			};
+		}
+
+		// Image file: upload only compressed variants
+		const variants: StorageFileResult["variants"] = [];
+		const variantUploadPromises = processedImage.variants
+			.filter(
+				(variant): variant is typeof variant & { buffer: Buffer } =>
+					variant.buffer !== undefined,
+			)
+			.map(async (variant) => {
+				const variantPath = `${filePath.replace(/\.[^/.]+$/, "")}_${variant.variant.toLowerCase()}.${variant.mimeType.split("/")[1]}`;
+
+				const { data: variantData, error: variantError } =
+					await storageClient.storage
+						.from(env.STORAGE_BUCKET_NAME)
+						.upload(variantPath, variant.buffer, {
+							contentType: variant.mimeType,
+							upsert: false,
+						});
+
+				if (variantError) {
+					logger.error(
+						{
+							variant: variant.variant,
+							error: variantError,
+							fileName: file.name,
+						},
+						"Failed to upload variant",
+					);
+					return null;
+				}
+
+				return {
+					variant: variant.variant,
+					url: StorageService.getPublicUrl(
+						env.STORAGE_BUCKET_NAME,
+						variantData.path,
+					),
+					width: variant.width,
+					height: variant.height,
+					fileSize: variant.fileSize,
+				};
 			});
 
-		if (uploadError) {
-			throw new Error(`Failed to upload file: ${uploadError.message}`);
+		const uploadedVariants = await Promise.all(variantUploadPromises);
+		variants.push(
+			...uploadedVariants.filter((v): v is NonNullable<typeof v> => v !== null),
+		);
+
+		// Ensure we have at least one variant
+		if (variants.length === 0) {
+			throw new Error("Failed to upload any image variants");
 		}
 
-		const originalUrl = StorageService.getPublicUrl(bucket, uploadData.path);
-
-		// Upload variants if image was processed
-		const variants: StorageFileResult["variants"] = [];
-		if (processedImage) {
-			const variantUploadPromises = processedImage.variants
-				.filter(
-					(variant): variant is typeof variant & { buffer: Buffer } =>
-						variant.buffer !== undefined,
-				)
-				.map(async (variant) => {
-					const variantPath = `${filePath.replace(/\.[^/.]+$/, "")}_${variant.variant.toLowerCase()}.${variant.mimeType.split("/")[1]}`;
-
-					const { data: variantData, error: variantError } =
-						await storageClient.storage
-							.from(bucket)
-							.upload(variantPath, variant.buffer, {
-								contentType: variant.mimeType,
-								upsert: false,
-							});
-
-					if (variantError) {
-						logger.warn(
-							{ variant: variant.variant, error: variantError },
-							"Failed to upload variant",
-						);
-						return null;
-					}
-
-					return {
-						variant: variant.variant,
-						url: StorageService.getPublicUrl(bucket, variantData.path),
-						width: variant.width,
-						height: variant.height,
-						fileSize: variant.fileSize,
-					};
-				});
-
-			const uploadedVariants = await Promise.all(variantUploadPromises);
-			variants.push(
-				...uploadedVariants.filter(
-					(v): v is NonNullable<typeof v> => v !== null,
-				),
-			);
+		// Use MEDIUM variant as the "original" (primary file)
+		const mediumVariant = variants.find((v) => v.variant === "MEDIUM");
+		// TypeScript now knows variants[0] exists because we checked length > 0
+		const primaryVariant = mediumVariant || variants[0];
+		if (!primaryVariant) {
+			throw new Error("Failed to upload any image variants");
 		}
 
-		// Use medium variant URL as default, or original if no variants
-		const defaultUrl =
-			variants.find((v) => v.variant === "MEDIUM")?.url || originalUrl;
+		// Use the primary variant's path (without the variant suffix) as the base path
+		const basePath = filePath.replace(/\.[^/.]+$/, "");
+		const primaryPath = `${basePath}_${primaryVariant.variant.toLowerCase()}.${primaryVariant.url.split(".").pop()?.split("?")[0] || "webp"}`;
 
 		return {
-			bucket,
-			path: uploadData.path,
-			originalUrl,
-			url: defaultUrl,
-			mimeType: file.type,
-			fileSize: file.size,
-			optimizedSize: processedImage?.optimizedSize,
-			width: processedImage?.original.width,
-			height: processedImage?.original.height,
+			bucket: env.STORAGE_BUCKET_NAME,
+			path: primaryPath,
+			originalUrl: primaryVariant.url,
+			url: primaryVariant.url,
+			mimeType: primaryVariant.url.includes("webp")
+				? "image/webp"
+				: "image/jpeg",
+			fileSize: primaryVariant.fileSize,
+			optimizedSize: processedImage.optimizedSize,
+			width: primaryVariant.width,
+			height: primaryVariant.height,
 			alt: options?.alt,
 			variants,
 		};
@@ -180,7 +228,6 @@ class StorageServiceBase {
 	 */
 	static async uploadFiles(
 		files: File[],
-		bucket: string,
 		options?: UploadOptions,
 	): Promise<StorageFileResult[]> {
 		// Validate all files first
@@ -190,10 +237,26 @@ class StorageServiceBase {
 
 		// Upload files in parallel
 		const uploadPromises = files.map((file) =>
-			StorageService.uploadFile(file, bucket, options).catch((error) => {
+			StorageService.uploadFile(file, options).catch((error) => {
+				// Safely extract error message
+				const errorMessage =
+					error instanceof Error
+						? error.message
+						: typeof error === "string"
+							? error
+							: JSON.stringify(error);
+
+				logger.error(
+					{
+						error,
+						fileName: file.name,
+					},
+					"File upload failed in batch",
+				);
+
 				// Return error result instead of throwing
 				return {
-					error: error instanceof Error ? error.message : String(error),
+					error: errorMessage,
 					fileName: file.name,
 				} as const;
 			}),
@@ -215,7 +278,14 @@ class StorageServiceBase {
 
 		// If there are errors, log them but still return successful uploads
 		if (errors.length > 0) {
-			logger.warn({ errors }, "Some files failed to upload");
+			logger.warn(
+				{
+					errors,
+					successfulCount: successful.length,
+					failedCount: errors.length,
+				},
+				"Some files failed to upload",
+			);
 		}
 
 		return successful;
