@@ -5,14 +5,17 @@ import { Button } from "@dukkani/ui/components/button";
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { OnboardingStepper } from "@/components/dashboard/onboarding/onboarding-stepper";
 import { AuthBackground } from "@/components/layout/auth-background";
+import { useOnboardingCompleteQuery } from "@/hooks/api/use-onboarding.hook";
+import {
+	useTelegramBotLinkQuery,
+	useTelegramStatusQuery,
+} from "@/hooks/api/use-telegram.hook";
 import { useCopyClipboard } from "@/hooks/use-copy-clipboard";
-import { orpc } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
 
 export default function OnboardingCompletePage() {
@@ -21,20 +24,14 @@ export default function OnboardingCompletePage() {
 	const searchParams = useSearchParams();
 	const storeId = searchParams.get("storeId");
 
-	const { data: completionData, isLoading: isLoadingComplete } = useQuery({
-		...orpc.onboarding.complete.queryOptions({
-			input: storeId ? { storeId } : undefined,
-		}),
-	});
+	const { data: completionData, isLoading: isLoadingComplete } =
+		useOnboardingCompleteQuery(storeId ? { storeId } : undefined);
 
-	const { data: telegramStatus } = useQuery(
-		orpc.telegram.getStatus.queryOptions(),
+	const { data: telegramStatus } = useTelegramStatusQuery();
+
+	const { data: botLinkData } = useTelegramBotLinkQuery(
+		!!completionData && !telegramStatus?.linked,
 	);
-
-	const { data: botLinkData } = useQuery({
-		...orpc.telegram.getBotLink.queryOptions(),
-		enabled: !!completionData && !telegramStatus?.linked,
-	});
 
 	if (isLoadingComplete) {
 		return (

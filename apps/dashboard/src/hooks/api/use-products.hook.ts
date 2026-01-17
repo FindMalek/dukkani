@@ -35,9 +35,12 @@ export function useCreateProductMutation() {
 	return useMutation({
 		mutationFn: (input: CreateProductInput) => client.product.create(input),
 		onSuccess: () => {
-			// Invalidate products list queries
 			queryClient.invalidateQueries({
 				queryKey: queryKeys.products.all(),
+			});
+			// Also invalidate dashboard stats
+			queryClient.invalidateQueries({
+				queryKey: queryKeys.dashboard.stats(),
 			});
 		},
 	});
@@ -52,12 +55,15 @@ export function useUpdateProductMutation() {
 	return useMutation({
 		mutationFn: (input: UpdateProductInput) => client.product.update(input),
 		onSuccess: (data) => {
-			// Invalidate products list and specific product
 			queryClient.invalidateQueries({
 				queryKey: queryKeys.products.all(),
 			});
 			queryClient.invalidateQueries({
 				queryKey: queryKeys.products.byId(data.id),
+			});
+			// Also invalidate dashboard stats
+			queryClient.invalidateQueries({
+				queryKey: queryKeys.dashboard.stats(),
 			});
 		},
 	});
@@ -72,9 +78,13 @@ export function useDeleteProductMutation() {
 	return useMutation({
 		mutationFn: (id: string) => client.product.delete({ id }),
 		onSuccess: () => {
-			// Invalidate products list queries
+			// Invalidate all products list queries (with any input)
 			queryClient.invalidateQueries({
 				queryKey: queryKeys.products.all(),
+			});
+			// Also invalidate dashboard stats since products affect stats
+			queryClient.invalidateQueries({
+				queryKey: queryKeys.dashboard.stats(),
 			});
 		},
 	});
@@ -90,12 +100,17 @@ export function useTogglePublishProductMutation() {
 		mutationFn: (input: TogglePublishProductInput) =>
 			client.product.togglePublish(input),
 		onSuccess: (data) => {
-			// Invalidate products list and specific product
+			// Invalidate all products list queries
 			queryClient.invalidateQueries({
 				queryKey: queryKeys.products.all(),
 			});
+			// Invalidate specific product
 			queryClient.invalidateQueries({
 				queryKey: queryKeys.products.byId(data.id),
+			});
+			// Also invalidate dashboard stats
+			queryClient.invalidateQueries({
+				queryKey: queryKeys.dashboard.stats(),
 			});
 		},
 	});

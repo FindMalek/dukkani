@@ -23,5 +23,11 @@ export const queryKeys = {
 	},
 	telegram: {
 		status: () => orpc.telegram.getStatus.queryKey(),
+		botLink: () => orpc.telegram.getBotLink.queryKey(),
+	},
+	onboarding: {
+		complete: (
+			input?: Parameters<typeof orpc.onboarding.complete.queryOptions>[0],
+		) => orpc.onboarding.complete.queryKey(input),
 	},
 } as const;

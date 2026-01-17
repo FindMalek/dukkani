@@ -1,6 +1,5 @@
 "use client";
 
-import type { DisconnectTelegramInput } from "@dukkani/common/schemas/telegram/input";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -22,56 +21,52 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { Label } from "@dukkani/ui/components/label";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import { client, orpc } from "@/lib/orpc";
+import { useStoresQuery } from "@/hooks/api/use-stores.hook";
+import {
+	useDisconnectTelegramMutation,
+	useTelegramBotLinkQuery,
+	useTelegramStatusQuery,
+} from "@/hooks/api/use-telegram.hook";
 import { RoutePaths } from "@/lib/routes";
 
 export default function TelegramSettingsPage() {
 	const t = useTranslations("settings.telegram");
-	const queryClient = useQueryClient();
 	const [disconnectOpen, setDisconnectOpen] = useState(false);
 	const [storeName, setStoreName] = useState("");
 
-	const { data: telegramStatus, isLoading: statusLoading } = useQuery(
-		orpc.telegram.getStatus.queryOptions(),
+	const { data: telegramStatus, isLoading: statusLoading } =
+		useTelegramStatusQuery();
+
+	const { data: stores, isLoading: storesLoading } = useStoresQuery();
+
+	const { data: botLinkData } = useTelegramBotLinkQuery(
+		!telegramStatus?.linked,
 	);
 
-	const { data: stores, isLoading: storesLoading } = useQuery(
-		orpc.store.getAll.queryOptions(),
-	);
-
-	const { data: botLinkData } = useQuery({
-		...orpc.telegram.getBotLink.queryOptions(),
-		enabled: !telegramStatus?.linked,
-	});
-
-	const disconnectMutation = useMutation({
-		mutationFn: (input: DisconnectTelegramInput) =>
-			client.telegram.disconnect(input),
-		onSuccess: () => {
-			toast.success(t("disconnectSuccess"));
-			setDisconnectOpen(false);
-			setStoreName("");
-			// Invalidate queries to refetch updated status
-			queryClient.invalidateQueries({
-				queryKey: orpc.telegram.getStatus.queryKey(),
-			});
-		},
-		onError: (error: Error) => {
-			toast.error(error.message || t("error"));
-		},
-	});
+	const disconnectMutation = useDisconnectTelegramMutation();
 
 	const handleDisconnect = () => {
 		if (!storeName.trim()) {
 			toast.error(t("storeNameRequired"));
 			return;
 		}
-		disconnectMutation.mutate({ storeName: storeName.trim() });
+		disconnectMutation.mutate(
+			{ storeName: storeName.trim() },
+			{
+				onSuccess: () => {
+					toast.success(t("disconnectSuccess"));
+					setDisconnectOpen(false);
+					setStoreName("");
+				},
+				onError: (error: Error) => {
+					toast.error(error.message || t("error"));
+				},
+			},
+		);
 	};
 
 	if (statusLoading || storesLoading) {
