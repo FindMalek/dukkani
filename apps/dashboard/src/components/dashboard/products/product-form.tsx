@@ -88,21 +88,21 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 
 		const onSubmit = async (published: boolean) => {
 			form.setValue("published", published);
-
-			const values = form.getValues();
-			const hasVariants = values.hasVariants;
-
+		
+			const hasVariants = form.watch("hasVariants");
 			if (!hasVariants) {
 				form.setValue("variantOptions", []);
 				form.setValue("variants", []);
 			}
-
+		
 			const isValid = await form.trigger();
 			if (!isValid) {
 				toast.error(t("form.validation.errors"));
 				return;
 			}
-
+		
+			const values = form.getValues();
+		
 			try {
 				setIsUploading(true);
 				let urls: string[] = [];
@@ -112,13 +112,11 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 					});
 					urls = res.files.map((f) => f.url);
 				}
-
-				// Clean up data: only include variants if hasVariants is true
+		
 				const submitData: CreateProductInput = {
 					...values,
 					imageUrls: urls,
 					hasVariants,
-					// Explicitly set to undefined when hasVariants is false
 					variantOptions: hasVariants
 						? values.variantOptions?.filter(
 								(opt) => opt.name && opt.values && opt.values.length > 0,
@@ -126,7 +124,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 						: undefined,
 					variants: hasVariants ? values.variants : undefined,
 				};
-
+		
 				createProductMutation.mutate(submitData);
 			} catch (e) {
 				handleAPIError(e);
