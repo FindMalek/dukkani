@@ -9,7 +9,8 @@ import { useActiveStoreStore } from "@/stores/active-store.store";
  * if no store is currently selected. Should be used in dashboard layouts.
  */
 export function useInitializeActiveStore() {
-	const { selectedStoreId, setSelectedStoreId, setIsLoading } = useActiveStoreStore();
+	const { selectedStoreId, setSelectedStoreId, setIsLoading } =
+		useActiveStoreStore();
 	const { data: stores, isLoading } = useStoresQuery(!selectedStoreId);
 
 	// Update loading state whenever query loading state changes

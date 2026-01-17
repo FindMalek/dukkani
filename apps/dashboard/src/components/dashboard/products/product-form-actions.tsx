@@ -20,6 +20,8 @@ export function ProductFormActions({
 				<Button
 					variant="secondary"
 					className="flex-1"
+					isLoading={isPending}
+					disabled={isPending}
 					onClick={() => onSubmit(false)}
 				>
 					{t("form.saveDraft")}
@@ -27,6 +29,7 @@ export function ProductFormActions({
 				<Button
 					className="flex-1"
 					isLoading={isPending}
+					disabled={isPending}
 					onClick={() => onSubmit(true)}
 				>
 					{t("form.savePublish")}

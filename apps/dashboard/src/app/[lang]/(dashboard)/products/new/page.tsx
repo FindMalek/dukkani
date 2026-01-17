@@ -38,11 +38,7 @@ export default function NewProductPage() {
 				</div>
 				<h2 className="font-bold text-xl">{t("noStore.title")}</h2>
 				<p className="mt-2 text-muted-foreground">{t("noStore.description")}</p>
-				<Button
-					asChild
-					size="lg"
-					className="mt-6"
-				>
+				<Button asChild size="lg" className="mt-6">
 					<Link href={RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url}>
 						{t("noStore.createStore")}
 					</Link>

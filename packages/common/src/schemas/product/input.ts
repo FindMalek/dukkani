@@ -5,7 +5,7 @@ export const variantOptionValueInputSchema = z.object({
 });
 
 export const variantOptionInputSchema = z.object({
-	name: z.string().min(1, "Option name is required"),
+	name: z.string().trim().min(1, "Option name is required"),
 	values: z
 		.array(variantOptionValueInputSchema)
 		.min(1, "At least one value is required")

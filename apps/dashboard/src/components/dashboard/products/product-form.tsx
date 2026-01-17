@@ -87,22 +87,26 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 		};
 
 		const onSubmit = async (published: boolean) => {
+			if (createProductMutation.isPending || isUploading) {
+				return;
+			}
+
 			form.setValue("published", published);
-		
+
 			const hasVariants = form.watch("hasVariants");
 			if (!hasVariants) {
 				form.setValue("variantOptions", []);
 				form.setValue("variants", []);
 			}
-		
+
 			const isValid = await form.trigger();
 			if (!isValid) {
 				toast.error(t("form.validation.errors"));
 				return;
 			}
-		
+
 			const values = form.getValues();
-		
+
 			try {
 				setIsUploading(true);
 				let urls: string[] = [];
@@ -112,7 +116,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 					});
 					urls = res.files.map((f) => f.url);
 				}
-		
+
 				const submitData: CreateProductInput = {
 					...values,
 					imageUrls: urls,
@@ -124,7 +128,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 						: undefined,
 					variants: hasVariants ? values.variants : undefined,
 				};
-		
+
 				createProductMutation.mutate(submitData);
 			} catch (e) {
 				handleAPIError(e);
