@@ -2,6 +2,7 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
+import { Spinner } from "@dukkani/ui/components/spinner";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
@@ -14,13 +15,20 @@ import { useActiveStoreStore } from "@/stores/active-store.store";
 
 export default function NewProductPage() {
 	const t = useTranslations("products.create");
-	const { selectedStoreId } = useActiveStoreStore();
 	const formRef = useRef<ProductFormHandle>(null);
+	const { selectedStoreId, isLoading } = useActiveStoreStore();
 
 	const handleSave = () => {
-		// true = publish, false = save as draft
 		formRef.current?.submit(false);
 	};
+
+	if (isLoading) {
+		return (
+			<div className="flex min-h-screen items-center justify-center">
+				<Spinner className="h-8 w-8 text-primary" />
+			</div>
+		);
+	}
 
 	if (!selectedStoreId) {
 		return (
@@ -30,12 +38,15 @@ export default function NewProductPage() {
 				</div>
 				<h2 className="font-bold text-xl">{t("noStore.title")}</h2>
 				<p className="mt-2 text-muted-foreground">{t("noStore.description")}</p>
-				<Link
-					href={RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url}
+				<Button
+					asChild
+					size="lg"
 					className="mt-6"
 				>
-					<Button size="lg">{t("noStore.createStore")}</Button>
-				</Link>
+					<Link href={RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url}>
+						{t("noStore.createStore")}
+					</Link>
+				</Button>
 			</div>
 		);
 	}

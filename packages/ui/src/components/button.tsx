@@ -53,6 +53,19 @@ function Button({
 	}) {
 	const Comp = asChild ? Slot : "button";
 
+	if (asChild) {
+		return (
+			<Comp
+				data-slot="button"
+				className={cn(buttonVariants({ variant, size, className }))}
+				disabled={disabled || isLoading}
+				{...props}
+			>
+				{children}
+			</Comp>
+		);
+	}
+
 	return (
 		<Comp
 			data-slot="button"
@@ -60,7 +73,9 @@ function Button({
 			disabled={disabled || isLoading}
 			{...props}
 		>
-			{isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+			{isLoading && (
+				<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+			)}
 			{children}
 		</Comp>
 	);
