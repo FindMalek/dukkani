@@ -17,7 +17,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@dukkani/ui/components/table";
-import { useOrders } from "@/hooks/api/use-orders";
+import { useOrdersController } from "@/hooks/controllers/use-orders-controller";
 
 const statusColors: Record<
 	string,
@@ -32,7 +32,9 @@ const statusColors: Record<
 };
 
 export default function OrdersPage() {
-	const { data, isLoading, error } = useOrders({ page: 1, limit: 50 });
+	const {
+		ordersQuery: { data, isLoading, error },
+	} = useOrdersController();
 
 	if (error) {
 		return (

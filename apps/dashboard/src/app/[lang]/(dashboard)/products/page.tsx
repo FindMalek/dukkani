@@ -18,10 +18,12 @@ import {
 	TableHeader,
 	TableRow,
 } from "@dukkani/ui/components/table";
-import { useProducts } from "@/hooks/api/use-products";
+import { useProductsController } from "@/hooks/controllers/use-products-controller";
 
 export default function ProductsPage() {
-	const { data, isLoading, error } = useProducts({ page: 1, limit: 50 });
+	const {
+		productsQuery: { data, isLoading, error },
+	} = useProductsController();
 
 	if (error) {
 		return (
