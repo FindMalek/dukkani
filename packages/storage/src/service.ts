@@ -108,15 +108,38 @@ class StorageServiceBase {
 					});
 
 			if (uploadError) {
-				const errorMessage =
-					uploadError.message ||
-					(uploadError as unknown as { error?: string })?.error ||
-					JSON.stringify(uploadError) ||
-					"Unknown upload error";
+				// Safely extract error message without triggering JSON parsing
+				let errorMessage = "Unknown upload error";
+				try {
+					if (typeof uploadError === "string") {
+						errorMessage = uploadError;
+					} else if (uploadError && typeof uploadError === "object") {
+						// Try to get message property safely
+						if (
+							"message" in uploadError &&
+							typeof uploadError.message === "string"
+						) {
+							errorMessage = uploadError.message;
+						} else if (
+							"error" in uploadError &&
+							typeof uploadError.error === "string"
+						) {
+							errorMessage = uploadError.error;
+						} else if (
+							"name" in uploadError &&
+							typeof uploadError.name === "string"
+						) {
+							errorMessage = uploadError.name;
+						}
+					}
+				} catch {
+					// If any error occurs during extraction, use fallback
+					errorMessage = "Failed to upload file";
+				}
 
 				logger.error(
 					{
-						uploadError,
+						uploadError: errorMessage,
 						fileName: file.name,
 						filePath,
 					},
@@ -161,10 +184,46 @@ class StorageServiceBase {
 						});
 
 				if (variantError) {
+					// Safely extract error message without triggering JSON parsing
+					let errorMessage = "Unknown upload error";
+					try {
+						if (typeof variantError === "string") {
+							errorMessage = variantError;
+						} else if (variantError && typeof variantError === "object") {
+							// Check for Supabase StorageUnknownError structure
+							if (
+								"originalError" in variantError &&
+								variantError.originalError instanceof Error
+							) {
+								errorMessage =
+									variantError.originalError.message ||
+									"Storage error occurred";
+							} else if (
+								"message" in variantError &&
+								typeof variantError.message === "string"
+							) {
+								errorMessage = variantError.message;
+							} else if (
+								"error" in variantError &&
+								typeof variantError.error === "string"
+							) {
+								errorMessage = variantError.error;
+							} else if (
+								"name" in variantError &&
+								typeof variantError.name === "string"
+							) {
+								errorMessage = variantError.name;
+							}
+						}
+					} catch {
+						// If any error occurs during extraction, use fallback
+						errorMessage = "Failed to upload variant";
+					}
+
 					logger.error(
 						{
 							variant: variant.variant,
-							error: variantError,
+							error: errorMessage,
 							fileName: file.name,
 						},
 						"Failed to upload variant",
