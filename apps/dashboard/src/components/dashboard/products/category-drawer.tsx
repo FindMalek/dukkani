@@ -38,11 +38,9 @@ interface CategoryDrawerProps {
 	onCategoryCreated?: (categoryId: string) => void;
 }
 
-export function CategoryDrawer({
-	onCategoryCreated,
-}: CategoryDrawerProps) {
+export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
 	const [open, setOpen] = useState(false);
-	
+
 	const queryClient = useQueryClient();
 	const t = useTranslations("products.create");
 	const { selectedStoreId } = useActiveStoreStore();
@@ -67,7 +65,9 @@ export function CategoryDrawer({
 			setOpen(false);
 			onCategoryCreated?.(newCategory.id);
 			queryClient.invalidateQueries({
-				queryKey: orpc.category.getAll.queryKey({ input: { storeId: selectedStoreId } }),
+				queryKey: orpc.category.getAll.queryKey({
+					input: { storeId: selectedStoreId },
+				}),
 			});
 		},
 		onError: (error) => handleAPIError(error),
