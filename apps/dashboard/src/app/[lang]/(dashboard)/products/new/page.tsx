@@ -4,13 +4,23 @@ import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { ProductForm } from "@/components/dashboard/products/product-form";
+import { useRef } from "react";
+import {
+	ProductForm,
+	type ProductFormHandle,
+} from "@/components/dashboard/products/product-form";
 import { RoutePaths } from "@/lib/routes";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 
 export default function NewProductPage() {
 	const t = useTranslations("products.create");
 	const { selectedStoreId } = useActiveStoreStore();
+	const formRef = useRef<ProductFormHandle>(null);
+
+	const handleSave = () => {
+		// true = publish, false = save as draft
+		formRef.current?.submit(false);
+	};
 
 	if (!selectedStoreId) {
 		return (
@@ -42,7 +52,7 @@ export default function NewProductPage() {
 				</h1>
 
 				<Button
-					onClick={() => {}}
+					onClick={handleSave}
 					variant="ghost"
 					className="z-10 p-0 font-bold text-primary text-sm hover:bg-transparent"
 				>
@@ -51,7 +61,7 @@ export default function NewProductPage() {
 			</header>
 
 			<main className="container max-w-lg px-2 pt-4">
-				<ProductForm storeId={selectedStoreId} />
+				<ProductForm ref={formRef} storeId={selectedStoreId} />
 			</main>
 		</div>
 	);
