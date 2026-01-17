@@ -52,9 +52,20 @@ export function useProductsController() {
 		if (search) input.search = search;
 		if (categoryId) input.categoryId = categoryId;
 		if (published !== null) input.published = published;
+		if (stockFilter && stockFilter !== "all") {
+			input.stockFilter = stockFilter;
+		}
 
 		return input;
-	}, [selectedStoreId, search, categoryId, published, page, limit]);
+	}, [
+		selectedStoreId,
+		search,
+		categoryId,
+		published,
+		stockFilter,
+		page,
+		limit,
+	]);
 
 	// Query products
 	const productsQuery = useProductsQuery(queryInput);
