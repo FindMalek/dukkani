@@ -190,8 +190,15 @@ class StorageServiceBase {
 						if (typeof variantError === "string") {
 							errorMessage = variantError;
 						} else if (variantError && typeof variantError === "object") {
-							// Try to get message property safely
+							// Check for Supabase StorageUnknownError structure
 							if (
+								"originalError" in variantError &&
+								variantError.originalError instanceof Error
+							) {
+								errorMessage =
+									variantError.originalError.message ||
+									"Storage error occurred";
+							} else if (
 								"message" in variantError &&
 								typeof variantError.message === "string"
 							) {
