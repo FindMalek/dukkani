@@ -10,7 +10,7 @@ import {
 } from "@dukkani/tracing";
 import { StoreQuery } from "../entities/store/query";
 import type { StoreMinimalOutput } from "../schemas/store/output";
-import { OrderService } from "./orderService";
+import { OrderService } from "./order.service";
 
 /**
  * Telegram Service - Handles all Telegram Bot API interactions

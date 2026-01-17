@@ -17,7 +17,7 @@ import {
 	uploadFilesOutputSchema,
 } from "@dukkani/common/schemas/storage/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
-import { StorageService as StorageDbService } from "@dukkani/common/services/storageService";
+import { StorageService as StorageDbService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
 import { StorageService } from "@dukkani/storage";

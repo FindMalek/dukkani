@@ -6,7 +6,7 @@ import {
 	updateCategoryInputSchema,
 } from "@dukkani/common/schemas/category/input";
 import { categoryOutputSchema } from "@dukkani/common/schemas/category/output";
-import { CategoryService } from "@dukkani/common/services/categoryService";
+import { CategoryService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";

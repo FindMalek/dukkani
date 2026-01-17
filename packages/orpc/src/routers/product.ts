@@ -16,7 +16,7 @@ import {
 	productIncludeOutputSchema,
 } from "@dukkani/common/schemas/product/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
-import { ProductService } from "@dukkani/common/services/productService";
+import { ProductService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
@@ -210,8 +210,45 @@ export const productRouter = {
 						});
 					}
 
-					// 3. Create variants with selections (after all options are created)
 					if (input.variants) {
+						// Track SKUs we're about to create to detect duplicates within this batch
+						const skusInBatch = new Set<string>();
+
+						// Check for duplicate SKUs in the incoming payload
+						for (const variant of input.variants) {
+							if (variant.sku?.trim()) {
+								const normalizedSku = variant.sku.trim();
+								if (skusInBatch.has(normalizedSku)) {
+									throw new ORPCError("BAD_REQUEST", {
+										message: `Duplicate SKU "${normalizedSku}" found in variants`,
+									});
+								}
+								skusInBatch.add(normalizedSku);
+							}
+						}
+
+						// Check for existing SKUs in database for this product
+						// Note: Since we're creating a new product, this check is technically not needed
+						// but we'll keep it for safety and future-proofing (e.g., if update logic reuses this)
+						const existingVariants = await tx.productVariant.findMany({
+							where: {
+								productId: createdProduct.id,
+								sku: {
+									in: Array.from(skusInBatch),
+								},
+							},
+							select: { sku: true },
+						});
+
+						if (existingVariants.length > 0) {
+							const existingSkus = existingVariants
+								.map((v) => v.sku)
+								.join(", ");
+							throw new ORPCError("BAD_REQUEST", {
+								message: `SKU(s) already exist for this product: ${existingSkus}`,
+							});
+						}
+
 						for (const variant of input.variants) {
 							const variantSelections: Array<{
 								optionId: string;

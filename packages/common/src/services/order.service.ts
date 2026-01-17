@@ -12,7 +12,7 @@ import { OrderQuery } from "../entities/order/query";
 import type { OrderStatus } from "../schemas/order/enums";
 import type { CreateOrderInput } from "../schemas/order/input";
 import type { OrderIncludeOutput } from "../schemas/order/output";
-import { ProductService } from "./productService";
+import { ProductService } from "./product.service";
 
 /**
  * Order service - Shared business logic for order operations

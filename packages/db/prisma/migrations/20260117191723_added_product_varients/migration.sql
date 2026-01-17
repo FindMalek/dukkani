@@ -45,7 +45,7 @@ CREATE TABLE "product_variant_option_values" (
 CREATE TABLE "product_variants" (
     "id" TEXT NOT NULL,
     "sku" TEXT,
-    "price" DECIMAL(65,30),
+    "price" DECIMAL(10,2),
     "stock" INTEGER NOT NULL,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

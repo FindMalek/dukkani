@@ -3,7 +3,7 @@ import { StoreNotificationMethod } from "@dukkani/db/prisma/generated/enums";
 import { logger } from "@dukkani/logger";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { OrderIncludeOutput } from "../schemas/order/output";
-import { TelegramService } from "./telegramService";
+import { TelegramService } from "./telegram.service";
 
 /**
  * Notification service - Handles sending notifications

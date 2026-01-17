@@ -56,7 +56,6 @@ export const createProductInputSchema = productInputSchema
 	})
 	.refine(
 		(data) => {
-			// If hasVariants is false, variantOptions and variants should be empty/undefined
 			if (!data.hasVariants) {
 				return (
 					(!data.variantOptions || data.variantOptions.length === 0) &&
@@ -72,12 +71,10 @@ export const createProductInputSchema = productInputSchema
 	)
 	.refine(
 		(data) => {
-			// If hasVariants is true, variantOptions must be provided and valid
 			if (data.hasVariants) {
 				if (!data.variantOptions || data.variantOptions.length === 0) {
 					return false;
 				}
-				// Check for duplicate option names
 				const optionNames = data.variantOptions
 					.map((opt) => opt.name.toLowerCase().trim())
 					.filter((name) => name.length > 0);
@@ -88,6 +85,21 @@ export const createProductInputSchema = productInputSchema
 		{
 			message: "Duplicate option names are not allowed",
 			path: ["variantOptions"],
+		},
+	)
+	.refine(
+		(data) => {
+			if (data.hasVariants && data.variants) {
+				const skus = data.variants
+					.map((v) => v.sku?.trim())
+					.filter((sku): sku is string => !!sku);
+				return new Set(skus).size === skus.length;
+			}
+			return true;
+		},
+		{
+			message: "Duplicate SKUs are not allowed within the same product",
+			path: ["variants"],
 		},
 	);
 

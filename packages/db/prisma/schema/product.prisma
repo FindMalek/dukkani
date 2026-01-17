@@ -15,7 +15,6 @@
  * - Categories can be used to group products for filtering and display
  * - Categories can be used to create product variations
  * - Categories can be used to create product variants
- * - Categories can be used to create product variants
  */
 model Category {
   id String @id @default(cuid())
@@ -185,6 +184,7 @@ model ProductVariant {
   productId String  @map("product_id")
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
+  @@unique([productId, sku])
   @@index([productId])
   @@index([sku])
   @@map("product_variants")
