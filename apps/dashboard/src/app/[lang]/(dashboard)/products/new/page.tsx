@@ -2,36 +2,17 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
-import { Spinner } from "@dukkani/ui/components/spinner";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { ProductForm } from "@/components/dashboard/products/product-form";
-import { orpc } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
+import { useActiveStoreStore } from "@/stores/active-store.store";
 
 export default function NewProductPage() {
 	const t = useTranslations("products.create");
-	const searchParams = useSearchParams();
-	const urlStoreId = searchParams.get("storeId");
+	const { selectedStoreId } = useActiveStoreStore();
 
-	const { data: stores, isLoading: isLoadingStores } = useQuery({
-		...orpc.store.getAll.queryOptions(),
-		enabled: !urlStoreId,
-	});
-
-	const storeId = urlStoreId || stores?.[0]?.id;
-
-	if (isLoadingStores && !urlStoreId) {
-		return (
-			<div className="flex min-h-screen items-center justify-center">
-				<Spinner className="h-8 w-8 text-primary" />
-			</div>
-		);
-	}
-
-	if (!storeId) {
+	if (!selectedStoreId) {
 		return (
 			<div className="container mx-auto flex min-h-[60vh] flex-col items-center justify-center p-6 text-center">
 				<div className="mb-4 rounded-full bg-muted p-4">
@@ -70,7 +51,7 @@ export default function NewProductPage() {
 			</header>
 
 			<main className="container max-w-lg px-2 pt-4">
-				<ProductForm storeId={storeId} />
+				<ProductForm storeId={selectedStoreId} />
 			</main>
 		</div>
 	);
