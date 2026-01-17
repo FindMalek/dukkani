@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { ProductCategorySection } from "@/components/dashboard/products/product-category-section";
@@ -132,6 +132,10 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				setIsUploading(false);
 			}
 		};
+
+		useImperativeHandle(ref, () => ({
+			submit: onSubmit,
+		}));
 
 		return (
 			<Form {...form}>
