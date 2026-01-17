@@ -1,16 +1,10 @@
 "use client";
 
 import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import { formatPrice } from "@dukkani/common/utils";
 import { Button } from "@dukkani/ui/components/button";
-import {
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@dukkani/ui/components/form";
+import { FormLabel } from "@dukkani/ui/components/form";
 import { Icons } from "@dukkani/ui/components/icons";
-import { Input } from "@dukkani/ui/components/input";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
@@ -24,7 +18,9 @@ interface VariantRowProps {
 export function VariantRow({ form, index }: VariantRowProps) {
 	const t = useTranslations("products.create");
 	const [drawerOpen, setDrawerOpen] = useState(false);
+
 	const variant = form.watch(`variants.${index}`);
+	const basePrice = form.watch("price") ?? 0;
 
 	return (
 		<div className="space-y-4">
@@ -47,7 +43,7 @@ export function VariantRow({ form, index }: VariantRowProps) {
 						{t("form.variants.list.price")}
 					</FormLabel>
 					<p className="font-semibold text-sm">
-						{variant?.price?.toFixed(2) || form.watch("price").toFixed(2)} TND
+						{formatPrice(variant?.price, basePrice)} TND
 					</p>
 				</div>
 				<div>
