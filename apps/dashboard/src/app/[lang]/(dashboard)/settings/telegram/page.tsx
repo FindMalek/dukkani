@@ -50,6 +50,10 @@ export default function TelegramSettingsPage() {
 	const disconnectMutation = useDisconnectTelegramMutation();
 
 	const handleDisconnect = () => {
+		if (disconnectMutation.isPending) {
+			return;
+		}
+
 		if (!storeName.trim()) {
 			toast.error(t("storeNameRequired"));
 			return;

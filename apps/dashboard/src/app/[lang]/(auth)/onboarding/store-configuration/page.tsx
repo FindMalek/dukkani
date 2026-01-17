@@ -86,7 +86,7 @@ export default function StoreConfigurationPage() {
 			toast.success(t("success"));
 			router.push(
 				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.COMPLETE.url, {
-					storeId: storeId!,
+					storeId,
 				}),
 			);
 		},

@@ -59,7 +59,6 @@ export const useOrderStore = create<OrderStoreState>()(
 			partialize: (state) => ({
 				search: state.search,
 				status: state.status,
-				dateRange: state.dateRange,
 			}),
 		},
 	),
