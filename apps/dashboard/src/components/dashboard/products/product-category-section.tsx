@@ -140,7 +140,6 @@ export function ProductCategorySection({
 						}}
 					/>
 					<CategoryDrawer
-						storeId={storeId}
 						onCategoryCreated={(categoryId) => {
 							form.setValue("categoryId", categoryId);
 						}}

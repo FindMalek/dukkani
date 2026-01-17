@@ -32,24 +32,30 @@ import { toast } from "sonner";
 import { handleAPIError } from "@/lib/error";
 import { client, orpc } from "@/lib/orpc";
 
+import { useActiveStoreStore } from "@/stores/active-store.store";
+
 interface CategoryDrawerProps {
-	storeId: string;
 	onCategoryCreated?: (categoryId: string) => void;
 }
 
 export function CategoryDrawer({
-	storeId,
 	onCategoryCreated,
 }: CategoryDrawerProps) {
-	const t = useTranslations("products.create");
-	const queryClient = useQueryClient();
 	const [open, setOpen] = useState(false);
+	
+	const queryClient = useQueryClient();
+	const t = useTranslations("products.create");
+	const { selectedStoreId } = useActiveStoreStore();
+
+	if (!selectedStoreId) {
+		return null;
+	}
 
 	const categoryForm = useForm<CreateCategoryInput>({
 		resolver: zodResolver(createCategoryInputSchema),
 		defaultValues: {
 			name: "",
-			storeId,
+			storeId: selectedStoreId,
 		},
 	});
 
@@ -61,7 +67,7 @@ export function CategoryDrawer({
 			setOpen(false);
 			onCategoryCreated?.(newCategory.id);
 			queryClient.invalidateQueries({
-				queryKey: orpc.category.getAll.queryKey({ input: { storeId } }),
+				queryKey: orpc.category.getAll.queryKey({ input: { storeId: selectedStoreId } }),
 			});
 		},
 		onError: (error) => handleAPIError(error),
