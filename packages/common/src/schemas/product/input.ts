@@ -28,6 +28,7 @@ export const listProductsInputSchema = z.object({
 	search: z.string().optional(),
 	storeId: z.string().optional(),
 	published: z.boolean().optional(),
+	categoryId: z.string().optional(),
 });
 
 export const togglePublishProductInputSchema = z.object({
@@ -40,3 +41,6 @@ export type CreateProductInput = z.infer<typeof createProductInputSchema>;
 export type UpdateProductInput = z.infer<typeof updateProductInputSchema>;
 export type GetProductInput = z.infer<typeof getProductInputSchema>;
 export type ListProductsInput = z.infer<typeof listProductsInputSchema>;
+export type TogglePublishProductInput = z.infer<
+	typeof togglePublishProductInputSchema
+>;
