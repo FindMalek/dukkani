@@ -3,6 +3,12 @@ files:
   packages/common/src/locale/dashboard/en.json:
     dashboard.title: 2938c7f7e560ed972f8a4f68e80ff834
     dashboard.description: f650603046597390c7e202553b2b9033
+    auth.emailSignIn.continue: a0bfb8e59e6c13fc8d990781f77694fe
+    auth.emailSignIn.rememberMe: 878530871f0db73f004f5bd6591eeb76
+    auth.emailSignIn.back: 0557fa923dcee4d0f86b1409f5c2167f
+    auth.emailSignIn.signIn: b6d4223e60986fa4c9af77ee5f7149c5
+    auth.emailSignIn.email.placeholder: 95d3fa6b9e69c588a333f4e78139a7cd
+    auth.emailSignIn.password.placeholder: e8d28194f9b3498d21fbda21321d0226
     settings.telegram.title: 1ddbd0a49932f6c1784e13e31f285376
     settings.telegram.description: ad8f3be53a7eed24d89fb41b20b685b1
     settings.telegram.linked: 7330094b095d2229d0774a58fa8000ff
@@ -104,6 +110,72 @@ files:
     onboarding.complete.telegram.instructions: 11dbd658fa33381cec6642a66355870e
     onboarding.complete.actions.addProduct: eef8322794ae681e3a56fb490afbb327
     onboarding.complete.actions.goToDashboard: d19e8ab738bcb64f6c960a6ee116b3b5
+    products.create.header.title: 656c3be690ee43df4b845bd2a2ebe587
+    products.create.header.save: c9cc8cce247e49bae79f15173ce97354
+    products.create.sections.photos: c7c8998e1dd7c6ee3bd42f2bcb803d3c
+    products.create.sections.essentials: 4d55f77f062bf48891bd0f749c36a36d
+    products.create.sections.organization: d6b258792ff06f82933c74eeb8aef591
+    products.create.sections.options: f0f6020f40acb5426fa9318fca5f30b9
+    products.create.form.name.label: b9aefa40a54680bb258f9f9569290fae
+    products.create.form.name.placeholder: be43991fabbba520bbebf2fd9ed6e75b
+    products.create.form.price.label: 3601146c4e948c32b6424d2c0a7f0118
+    products.create.form.price.placeholder: 0a1e8a723e53e3c12daedcef25a5393a
+    products.create.form.stock.label: 27ce7f8b5623b2e2df568d64cf051607
+    products.create.form.stock.placeholder: 260aa7224c78018577d0b50bc451285e
+    products.create.form.description.label: b5a7adde1af5c87d7fd797b6245c2a39
+    products.create.form.description.placeholder: 12392215e6fc7d7af2ee56061ccf5f24
+    products.create.form.published.label: 9b9d8a976b42e0bd66381797644943d5
+    products.create.form.published.placeholder: 756a9d43c7bcefdea831d7980b344341
+    products.create.form.addPhotos: 937d4703e4b4b07953a8ec425230b3af
+    products.create.form.priceHelp: bc3cf15ac61e2b1f9ba6040723bd354f
+    products.create.form.category.label: 3adbdb3ac060038aa0e6e6c138ef9873
+    products.create.form.category.placeholder: b210532aab8d2d0eb5dedb0b6958802d
+    products.create.form.category.searchPlaceholder: 42020b9480701cf6bf9e2abc0f9081f7
+    products.create.form.category.noResults: b517d47ee7f199f132e17be3a7a7edc7
+    products.create.form.category.create: 6cf32a7a43bcd74a241a9e20c51e35e8
+    products.create.form.category.created: 377e3c310eabe9120532fda175bb761c
+    products.create.form.category.nameLabel: 99121ab27aaa7472cfada9071c5ba434
+    products.create.form.category.namePlaceholder: b28c83bba36c69d98d8422e09f002438
+    products.create.form.category.createDescription: d4d9a1ec4fb94199c5351dfb1d51112c
+    products.create.form.category.uncategorized: 0d015d96f63a8c12d96b8399482b593f
+    products.create.form.options.label: f0f6020f40acb5426fa9318fca5f30b9
+    products.create.form.options.description: b9e412ebf479f4186af2ac1167805b79
+    products.create.form.saveDraft: 48ca50ce77bf12c9e86c6b4a98973ec9
+    products.create.form.savePublish: 2157046d5665ca2ed2d41512dcf5106c
+    products.create.form.optional: d57c24f3fe52d16e7169b912dd647f0d
+    products.create.form.cancel: ea4788705e6873b424c65e91c2846b19
+    products.create.form.validation.errors: 4bd4d79c077eb90981d7b4599e6b7b7c
+    products.create.form.variants.options.title: ec1906ae787e4ccf7e8c6e8421e69d41
+    products.create.form.variants.options.add: 704468d3ab12246ce00c4529d723eb60
+    products.create.form.variants.options.empty: b9e412ebf479f4186af2ac1167805b79
+    products.create.form.variants.options.unnamed: 1d40afaa0eb8644830e94dc51af42743
+    products.create.form.variants.options.optionName: cad8a76c4d01c805ce0e9d2178709a2f
+    products.create.form.variants.options.optionNamePlaceholder: 7805d41ff700f716d9802dc6fdf06b6b
+    products.create.form.variants.options.values: c82a6100dace2b41087ba6cf99a5976a
+    products.create.form.variants.options.addValue: d9ec74f5aa29ceef6bf7b45f7fec5d0f
+    products.create.form.variants.options.noValues: b2559ddd60b40896fe3f7fb35e09a241
+    products.create.form.variants.options.remove: c13b301c5b8b91198f15ff137c18e1d0
+    products.create.form.variants.options.addAnother: a04a2b58943543054445c1a1a8fa86a6
+    products.create.form.variants.list.title: e9ad310d6d05f80daeaad048b877fdfd
+    products.create.form.variants.list.empty: 02606f5ce66ea3b29f1f16947d1dfa40
+    products.create.form.variants.list.unnamed: b3c26ee9cac44cdc4fc82d861080bd56
+    products.create.form.variants.list.price: 3601146c4e948c32b6424d2c0a7f0118
+    products.create.form.variants.list.stock: 27ce7f8b5623b2e2df568d64cf051607
+    products.create.form.variants.list.edit: dace99a05d1c934f6682e489b74910c7
+    products.create.form.variants.edit.title: dace99a05d1c934f6682e489b74910c7
+    products.create.form.variants.edit.sku: 6665e3761028c84e1d228de3432229ed
+    products.create.form.variants.edit.skuPlaceholder: ebb061953c0454b2c8ee7b0ac615ebcd
+    products.create.form.variants.edit.price: 3601146c4e948c32b6424d2c0a7f0118
+    products.create.form.variants.edit.priceHelp: 60864114fe2f1f67b0063027679ee0b1
+    products.create.form.variants.edit.stock: 27ce7f8b5623b2e2df568d64cf051607
+    products.create.form.variants.validation.duplicateOptionName: 49a2c0f863776472930cb7ae34972472
+    products.create.form.variants.validation.duplicateOptionValues: cab31c2e09b281b7fb4068cc9e52456a
+    products.create.form.variants.validation.duplicateValue: 6a865b75e7fa0d6efffc21041a2d6a56
+    products.create.form.variants.validation.duplicateOption: e62f59f46dc3d4ec62299b82ada0bdb5
+    products.create.success: 80604c9d11ae593198aefa4577c6ae41
+    products.create.noStore.title: 4b75c480bcac57bbee5c041bcedfe688
+    products.create.noStore.description: 7af36a206b40613d844617bfbac45595
+    products.create.noStore.createStore: 9c6e59d56dc4e8a12c07627b51ab3c27
   packages/common/src/locale/web/en.json:
     common.title: 320d58a491caec758288fbdf545c9a89
     common.description: 315dfc45ae153c215808d037f1e93d3f
