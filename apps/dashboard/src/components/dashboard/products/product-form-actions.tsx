@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@dukkani/ui/components/button";
-import { Icons } from "@dukkani/ui/components/icons";
 import { useTranslations } from "next-intl";
 
 interface ProductFormActionsProps {
@@ -27,14 +26,10 @@ export function ProductFormActions({
 				</Button>
 				<Button
 					className="flex-1"
-					disabled={isPending}
+					isLoading={isPending}
 					onClick={() => onSubmit(true)}
 				>
-					{isPending ? (
-						<Icons.spinner className="h-4 w-4 animate-spin" />
-					) : (
-						t("form.savePublish")
-					)}
+					{t("form.savePublish")}
 				</Button>
 			</div>
 		</div>

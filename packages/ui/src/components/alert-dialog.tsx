@@ -2,6 +2,7 @@ import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import type * as React from "react";
 import { cn } from "../lib/utils";
 import { buttonVariants } from "./button";
+import { Icons } from "./icons";
 
 function AlertDialog({
 	...props
@@ -117,13 +118,22 @@ function AlertDialogDescription({
 
 function AlertDialogAction({
 	className,
+	isLoading = false,
+	disabled,
+	children,
 	...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Action>) {
+}: React.ComponentProps<typeof AlertDialogPrimitive.Action> & {
+	isLoading?: boolean;
+}) {
 	return (
 		<AlertDialogPrimitive.Action
 			className={cn(buttonVariants(), className)}
+			disabled={disabled || isLoading}
 			{...props}
-		/>
+		>
+			{isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+			{children}
+		</AlertDialogPrimitive.Action>
 	);
 }
 

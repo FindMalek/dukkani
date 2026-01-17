@@ -3,6 +3,20 @@
 		"title": "Dashboard",
 		"description": "Dashboard description"
 	},
+	"auth": {
+		"emailSignIn": {
+			"continue": "Continue",
+			"rememberMe": "Remember me",
+			"back": "Back",
+			"signIn": "Sign in",
+			"email": {
+				"placeholder": "Enter your email"
+			},
+			"password": {
+				"placeholder": "Enter your password"
+			}
+		}
+	},
 	"settings": {
 		"telegram": {
 			"title": "Telegram Notifications",

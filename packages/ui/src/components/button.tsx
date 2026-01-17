@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 
 import { cn } from "../lib/utils";
+import { Icons } from "./icons";
 
 const buttonVariants = cva(
 	"inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium text-sm outline-none transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
@@ -41,10 +42,14 @@ function Button({
 	variant,
 	size,
 	asChild = false,
+	isLoading = false,
+	disabled,
+	children,
 	...props
 }: React.ComponentProps<"button"> &
 	VariantProps<typeof buttonVariants> & {
 		asChild?: boolean;
+		isLoading?: boolean;
 	}) {
 	const Comp = asChild ? Slot : "button";
 
@@ -52,8 +57,12 @@ function Button({
 		<Comp
 			data-slot="button"
 			className={cn(buttonVariants({ variant, size, className }))}
+			disabled={disabled || isLoading}
 			{...props}
-		/>
+		>
+			{isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+			{children}
+		</Comp>
 	);
 }
 

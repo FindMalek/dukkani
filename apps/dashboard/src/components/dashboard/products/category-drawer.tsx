@@ -99,11 +99,8 @@ export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
 							<Button
 								className="w-full"
 								type="submit"
-								disabled={createCategoryMutation.isPending}
+								isLoading={createCategoryMutation.isPending}
 							>
-								{createCategoryMutation.isPending ? (
-									<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-								) : null}
 								{t("form.category.create")}
 							</Button>
 							<DrawerClose asChild>

@@ -181,13 +181,9 @@ export default function StoreSetupPage() {
 							<Button
 								type="submit"
 								className="h-12 w-full text-lg"
-								disabled={createStoreMutation.isPending}
+								isLoading={createStoreMutation.isPending}
 							>
-								{createStoreMutation.isPending ? (
-									<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-								) : (
-									t("submit")
-								)}
+								{t("submit")}
 							</Button>
 						</form>
 					</Form>

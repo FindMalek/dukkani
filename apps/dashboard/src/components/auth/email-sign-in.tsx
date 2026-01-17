@@ -20,6 +20,7 @@ import { Input } from "@dukkani/ui/components/input";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCheckEmailExists } from "@/hooks/api/use-check-email.hook";
@@ -33,6 +34,7 @@ interface EmailSignInProps {
 
 export function EmailSignIn({ className }: EmailSignInProps) {
 	const router = useRouter();
+	const t = useTranslations("auth.emailSignIn");
 	const checkEmailMutation = useCheckEmailExists();
 
 	const [step, setStep] = useState<"email" | "password">("email");
@@ -105,7 +107,7 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 									<FormControl>
 										<Input
 											type="email"
-											placeholder="Enter your email"
+											placeholder={t("email.placeholder")}
 											{...field}
 										/>
 									</FormControl>
@@ -117,10 +119,9 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 						<Button
 							type="submit"
 							className="h-11 w-full"
-							disabled={checkEmailMutation.isPending}
+							isLoading={checkEmailMutation.isPending}
 						>
-							{checkEmailMutation.isPending && <Spinner />}
-							Continue
+							{t("continue")}
 						</Button>
 					</form>
 				</Form>
@@ -141,7 +142,7 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 									<FormControl>
 										<Input
 											type="email"
-											placeholder="Enter your email"
+											placeholder={t("email.placeholder")}
 											disabled
 											{...field}
 										/>
@@ -159,7 +160,7 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 									<FormControl>
 										<Input
 											type="password"
-											placeholder="Enter your password"
+											placeholder={t("password.placeholder")}
 											{...field}
 										/>
 									</FormControl>
@@ -181,7 +182,7 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 									</FormControl>
 									<div className="space-y-1 leading-none">
 										<FormLabel className="cursor-pointer font-normal text-sm">
-											Remember me
+											{t("rememberMe")}
 										</FormLabel>
 									</div>
 								</FormItem>
@@ -197,7 +198,7 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 									emailForm.reset();
 								}}
 							>
-								Back
+								{t("back")}
 							</Button>
 							<Button
 								type="submit"
@@ -205,7 +206,7 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 								disabled={passwordForm.formState.isSubmitting}
 							>
 								{passwordForm.formState.isSubmitting && <Spinner />}
-								Sign in
+								{t("signIn")}
 							</Button>
 						</div>
 					</form>

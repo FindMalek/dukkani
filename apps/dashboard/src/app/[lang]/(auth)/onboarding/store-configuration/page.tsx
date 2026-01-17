@@ -209,13 +209,9 @@ export default function StoreConfigurationPage() {
 							<Button
 								type="submit"
 								className="h-12 w-full font-medium text-base"
-								disabled={configureStoreMutation.isPending}
+								isLoading={configureStoreMutation.isPending}
 							>
-								{configureStoreMutation.isPending ? (
-									<Icons.spinner className="h-4 w-4 animate-spin" />
-								) : (
-									t("submit")
-								)}
+								{t("submit")}
 							</Button>
 						</form>
 					</Form>
