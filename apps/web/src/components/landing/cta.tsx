@@ -3,7 +3,7 @@
 import { Button } from "@dukkani/ui/components/button";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
-import { webEnv } from "@/env";
+import { env } from "@/env";
 
 export function CTA() {
 	return (
@@ -24,9 +24,7 @@ export function CTA() {
 						asChild
 					>
 						<Link
-							href={
-								webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
-							}
+							href={env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]}
 						>
 							Get Started for Free
 						</Link>

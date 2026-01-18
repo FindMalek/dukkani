@@ -19,7 +19,6 @@ export const baseEnv = createEnv({
 			.string()
 			.optional()
 			.transform((val) => val === "1"),
-		TELEGRAM_BOT_NAME: z.string(),
 	},
 	client: {
 		NEXT_PUBLIC_NODE_ENV: z
