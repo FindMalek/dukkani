@@ -28,7 +28,8 @@
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"@orpc/server": "catalog:",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"dotenv": "catalog:"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",

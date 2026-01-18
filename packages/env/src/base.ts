@@ -10,7 +10,6 @@ import { z } from "zod";
  */
 export const baseEnv = createEnv({
 	server: {
-		DATABASE_URL: z.url(),
 		VERCEL_BRANCH_URL: z.string().optional(),
 		VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
 		VERCEL_REGION: z.string().optional(),
@@ -84,4 +83,7 @@ export const baseEnv = createEnv({
 	clientPrefix: "NEXT_PUBLIC_",
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
+	skipValidation:
+		process.env.SKIP_ENV_VALIDATION === "true" ||
+		process.env.NODE_ENV === "test",
 });

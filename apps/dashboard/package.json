@@ -35,7 +35,8 @@
 		"zod": "catalog:",
 		"@orpc/server": "catalog:",
 		"qrcode.react": "4.2.0",
-		"zustand": "catalog:"
+		"zustand": "catalog:",
+		"dotenv": "catalog:"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
