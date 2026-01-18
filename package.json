@@ -36,6 +36,7 @@
 		"sync-repo": "chmod +x scripts/sync-repo.sh && scripts/sync-repo.sh"
 	},
 	"dependencies": {
+		"dotenv": "catalog:",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
