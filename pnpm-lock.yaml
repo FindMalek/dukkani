@@ -356,9 +356,6 @@ importers:
       '@dukkani/common':
         specifier: workspace:*
         version: link:../../packages/common
-      '@dukkani/core':
-        specifier: workspace:*
-        version: link:../../packages/core
       '@dukkani/env':
         specifier: workspace:*
         version: link:../../packages/env

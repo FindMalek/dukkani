@@ -1,14 +1,15 @@
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 import { baseEnv } from "../base";
-import { telegramModule, observabilityModule, urlsModule } from "../modules";
+import { observabilityModule, telegramModule, urlsModule } from "../modules";
+import { dbEnv } from "./db";
 
 /**
  * API app environment preset
- * Extends base env and adds API-specific variables
+ * Extends base env and db env, adds API-specific variables
  */
 export const apiEnv = createEnv({
-	extends: [baseEnv],
+	extends: [dbEnv, baseEnv],
 	server: {
 		...telegramModule.server,
 		...observabilityModule.server,
