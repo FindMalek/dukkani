@@ -2,11 +2,12 @@ import path from "node:path";
 import dotenv from "dotenv";
 import { defineConfig } from "prisma/config";
 
-// Load .env.local from db package directory (local dev only)
-// In Vercel/production, DATABASE_URL is injected directly
+// Load root .env file for local development
+// In Vercel/production, DATABASE_URL is injected directly via environment variables
 if (!process.env.VERCEL) {
+	const rootEnvPath = path.resolve(__dirname, "../../../.env");
 	dotenv.config({
-		path: path.resolve(__dirname, "./.env"),
+		path: rootEnvPath,
 	});
 }
 

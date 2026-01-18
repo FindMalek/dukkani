@@ -3,7 +3,7 @@ import { ORPCError } from "@orpc/server";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { StoreClient } from "@/components/app/store-client";
-import { client } from "@/lib/orpc"; // Use the HTTP client
+import { client } from "@/lib/orpc";
 import { getStoreSlugFromHost } from "@/lib/utils";
 
 export default async function StorePage() {

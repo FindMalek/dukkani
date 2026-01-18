@@ -1,4 +1,4 @@
-import { storefrontEnv } from "@/env";
+import { env } from "@/env";
 
 export function getStoreSlugFromHost(host: string | null): string | null {
 	if (!host) return null;
@@ -24,7 +24,7 @@ export function getStoreSlugFromHost(host: string | null): string | null {
 	}
 
 	// Get the base domain from environment (e.g., "dukkani.malek.engineering" or "dukkani.com")
-	const baseDomain = storefrontEnv.NEXT_PUBLIC_STORE_DOMAIN;
+	const baseDomain = env.NEXT_PUBLIC_STORE_DOMAIN;
 	const baseDomainParts = baseDomain.split(".");
 	const baseDomainLength = baseDomainParts.length;
 

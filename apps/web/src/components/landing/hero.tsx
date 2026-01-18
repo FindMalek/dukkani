@@ -6,7 +6,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { motion } from "framer-motion";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
-import { webEnv } from "@/env";
+import { env } from "@/env";
 
 export function Hero() {
 	return (
@@ -56,7 +56,7 @@ export function Hero() {
 						>
 							<Link
 								href={
-									webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+									env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 								}
 							>
 								Start for free

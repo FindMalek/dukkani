@@ -25,6 +25,7 @@
 		"next": "catalog:",
 		"pg": "^8.16.3",
 		"sharp": "catalog:",
+		"dotenv": "catalog:",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
