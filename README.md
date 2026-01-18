@@ -99,7 +99,12 @@ pnpm install
 
 3. **Set up environment variables**
 
-Create a `.env` file at the root of the project:
+Copy the example file and adjust values for your local setup:
+```bash
+cp .env.example .env
+```
+
+The `.env` file lives at the root of the project and is shared by all apps/packages:
 ```bash
 # Database (required)
 DATABASE_URL="postgresql://postgres:password@localhost:5432/dukkani"

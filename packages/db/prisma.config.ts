@@ -1,13 +1,11 @@
 import path from "node:path";
-import dotenv from "dotenv";
+import { loadRootEnv } from "@dukkani/env/load-env";
 import { defineConfig } from "prisma/config";
 
-// Load .env.local from db package directory (local dev only)
+// Load root .env for local Prisma CLI usage
 // In Vercel/production, DATABASE_URL is injected directly
 if (!process.env.VERCEL) {
-	dotenv.config({
-		path: path.resolve(__dirname, "./.env"),
-	});
+	loadRootEnv();
 }
 
 /**
