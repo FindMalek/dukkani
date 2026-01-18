@@ -11,6 +11,7 @@ import { queryClient } from "@/lib/orpc";
 interface ProvidersProps {
 	children: React.ReactNode;
 	locale: Locale;
+	// biome-ignore lint/suspicious/noExplicitAny: messages is a Record<string, any>
 	messages: Record<string, any>;
 }
 
