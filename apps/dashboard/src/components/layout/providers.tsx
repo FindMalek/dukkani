@@ -6,7 +6,7 @@ import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NextIntlClientProvider } from "next-intl";
-import { dashboardEnv } from "@/env";
+import { env } from "@/env";
 import { queryClient } from "@/lib/orpc";
 
 interface ProvidersProps {
@@ -30,7 +30,7 @@ export default function Providers({
 			>
 				<QueryClientProvider client={queryClient}>
 					{children}
-					{dashboardEnv.NEXT_PUBLIC_NODE_ENV === "development" && (
+					{env.NEXT_PUBLIC_NODE_ENV === "development" && (
 						<ReactQueryDevtools />
 					)}
 				</QueryClientProvider>
