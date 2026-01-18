@@ -32,6 +32,10 @@
 			"types": "./src/presets/db.ts",
 			"default": "./src/presets/db.ts"
 		},
+		"./load-env": {
+			"types": "./src/load-env.ts",
+			"default": "./src/load-env.ts"
+		},
 		"./presets/web": {
 			"types": "./src/presets/web.ts",
 			"default": "./src/presets/web.ts"

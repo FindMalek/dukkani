@@ -1,10 +1,11 @@
+import { otelServerSchema } from "@dukkani/env/presets/otel";
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
 /**
  * Storefront app environment configuration
- * Uses @t3-oss/env-nextjs which automatically loads .env.local files
- * This ensures Next.js environment variables are loaded before validation
+ * Uses @t3-oss/env-nextjs which reads env files from the app envDir (repo root)
+ * This ensures environment variables are loaded before validation
  * Includes base env variables (DATABASE_URL, NEXT_PUBLIC_NODE_ENV, NEXT_PUBLIC_CORS_ORIGIN, NEXT_PUBLIC_ALLOWED_ORIGIN)
  * and storefront-specific variables (NEXT_PUBLIC_STORE_DOMAIN)
  */
@@ -13,17 +14,7 @@ export const storefrontEnv = createEnv({
 		DATABASE_URL: z.url(),
 		TELEGRAM_BOT_NAME: z.string(),
 		BETTER_STACK_API_KEY: z.string().optional(),
-		OTEL_SERVICE_NAME: z.string(),
-		OTEL_SAMPLING_RATE: z.coerce.number().min(0).max(1),
-		OTEL_ENABLED: z.coerce.boolean(),
-		// OTLP exporter configuration
-		OTEL_EXPORTER_OTLP_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_HEADERS: z.string().optional(),
-		OTEL_EXPORTER_OTLP_PROTOCOL: z.enum(["http/protobuf"]).optional(),
-		OTEL_EXPORTER_OTLP_COMPRESSION: z.enum(["gzip"]).optional(),
+		...otelServerSchema,
 	},
 	client: {
 		NEXT_PUBLIC_NODE_ENV: z
