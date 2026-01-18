@@ -30,9 +30,7 @@ export default function Providers({
 			>
 				<QueryClientProvider client={queryClient}>
 					{children}
-					{env.NEXT_PUBLIC_NODE_ENV === "development" && (
-						<ReactQueryDevtools />
-					)}
+					{env.NEXT_PUBLIC_NODE_ENV === "development" && <ReactQueryDevtools />}
 				</QueryClientProvider>
 				<Toaster richColors />
 			</ThemeProvider>
