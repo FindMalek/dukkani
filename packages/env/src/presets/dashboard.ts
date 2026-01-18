@@ -8,13 +8,8 @@ import { observabilityModule, urlsModule } from "../modules";
  */
 export const dashboardEnv = createEnv({
 	extends: [baseEnv],
-	server: {
-		...observabilityModule.server,
-	},
-	client: {
-		...urlsModule.client,
-		NEXT_PUBLIC_DASHBOARD_URL: urlsModule.client.NEXT_PUBLIC_DASHBOARD_URL,
-	},
+	server: observabilityModule.server,
+	client: urlsModule.client,
 	clientPrefix: "NEXT_PUBLIC_",
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,

@@ -8,13 +8,8 @@ import { observabilityModule, urlsModule } from "../modules";
  */
 export const storefrontEnv = createEnv({
 	extends: [baseEnv],
-	server: {
-		...observabilityModule.server,
-	},
-	client: {
-		...urlsModule.client,
-		NEXT_PUBLIC_STORE_DOMAIN: urlsModule.client.NEXT_PUBLIC_STORE_DOMAIN,
-	},
+	server: observabilityModule.server,
+	client: urlsModule.client,
 	clientPrefix: "NEXT_PUBLIC_",
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
