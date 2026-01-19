@@ -6,10 +6,7 @@ import { Features } from "@/components/landing/features";
 import { Hero } from "@/components/landing/hero";
 import { Pricing } from "@/components/landing/pricing";
 
-import { env } from "@/env";
-
 export default function Home() {
-	console.log(env.NEXT_PUBLIC_API_URL);
 	return (
 		<>
 			<Hero />
