@@ -14,7 +14,6 @@ export const env = createEnv({
 	},
 	client: {
 		...urlsModule.client,
-		NEXT_PUBLIC_DASHBOARD_URL: urlsModule.client.NEXT_PUBLIC_DASHBOARD_URL,
 	},
 	clientPrefix: "NEXT_PUBLIC_",
 	runtimeEnv: process.env,
