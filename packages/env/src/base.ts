@@ -53,7 +53,8 @@ export const baseEnv = createEnv({
 					if (val.includes("*")) {
 						// DNS label pattern: alphanumeric start/end, hyphens allowed in middle, 1-63 chars
 						// Or just "*" for wildcard labels
-						const dnsLabel = /^(\*|[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/;
+						const dnsLabel =
+							/^(\*|[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/;
 
 						// Split by dots and validate each label
 						const labels = val.split(".");

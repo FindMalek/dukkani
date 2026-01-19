@@ -1,17 +1,19 @@
-import { createEnv } from "@t3-oss/env-core";
-import { baseEnv } from "../base";
-import { observabilityModule, urlsModule } from "../modules";
+import { createEnv } from "@t3-oss/env-nextjs";
+import { clientModule, observabilityModule, urlsModule } from "../modules";
+import { createNextjsRuntimeEnv } from "../utils/runtime-env";
 
 /**
  * Storefront app environment preset
- * Extends base env and adds storefront-specific variables
+ * Uses @t3-oss/env-nextjs for proper Next.js client-side inlining
+ * All NEXT_PUBLIC_* vars must be explicitly mapped in runtimeEnv for Next.js bundling
  */
 export const storefrontEnv = createEnv({
-	extends: [baseEnv],
 	server: observabilityModule.server,
-	client: urlsModule.client,
-	clientPrefix: "NEXT_PUBLIC_",
-	runtimeEnv: process.env,
+	client: {
+		...clientModule.client,
+		...urlsModule.client,
+	},
+	runtimeEnv: createNextjsRuntimeEnv(),
 	emptyStringAsUndefined: true,
 	skipValidation:
 		process.env.SKIP_ENV_VALIDATION === "true" ||

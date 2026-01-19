@@ -37,7 +37,16 @@
 		"dev": {
 			"cache": false,
 			"persistent": true,
-			"outputLogs": "full"
+			"outputLogs": "full",
+			"env": [
+				"NEXT_PUBLIC_API_URL",
+				"NEXT_PUBLIC_CORS_ORIGIN",
+				"NEXT_PUBLIC_ALLOWED_ORIGIN",
+				"NEXT_PUBLIC_WEB_URL",
+				"NEXT_PUBLIC_DASHBOARD_URL",
+				"NEXT_PUBLIC_STORE_DOMAIN",
+				"NEXT_PUBLIC_NODE_ENV"
+			]
 		},
 		"db:push": {
 			"cache": false
