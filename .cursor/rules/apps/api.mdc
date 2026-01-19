@@ -104,7 +104,7 @@ function getCorsHeaders(origin: string | null): HeadersInit {
   const allowedOrigin =
     isDevelopment && isLocalhost && origin
       ? origin
-      : env.NEXT_PUBLIC_CORS_ORIGIN;
+      : env.NEXT_PUBLIC_API_URL;
 
   return {
     "Access-Control-Allow-Origin": allowedOrigin,

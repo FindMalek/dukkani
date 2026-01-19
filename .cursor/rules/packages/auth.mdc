@@ -31,7 +31,7 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
   secret: env.BETTER_AUTH_SECRET,
-  trustedOrigins: [env.NEXT_PUBLIC_CORS_ORIGIN],
+  trustedOrigins: [env.NEXT_PUBLIC_API_URL],
   emailAndPassword: {
     enabled: true,
     password: {
@@ -80,7 +80,7 @@ async function verifyPassword({
 ### Required Variables
 
 - `BETTER_AUTH_SECRET` - Secret for session encryption
-- `NEXT_PUBLIC_CORS_ORIGIN` - Allowed CORS origin
+- `NEXT_PUBLIC_API_URL` - Allowed CORS origin
 - `FACEBOOK_CLIENT_ID` - Facebook OAuth client ID (optional)
 - `FACEBOOK_CLIENT_SECRET` - Facebook OAuth client secret (optional)
 - `GOOGLE_CLIENT_ID` - Google OAuth client ID (optional)
@@ -106,7 +106,7 @@ const session = await auth.api.getSession({
 import { createAuthClient } from "better-auth/react";
 
 export const authClient = createAuthClient({
-  baseURL: env.NEXT_PUBLIC_CORS_ORIGIN,
+  baseURL: env.NEXT_PUBLIC_API_URL,
 });
 ```
 

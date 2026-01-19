@@ -31,7 +31,7 @@ export const baseEnv = createEnv({
 				if (process.env.VERCEL_ENV === "preview") return "development";
 				return val;
 			}),
-		NEXT_PUBLIC_CORS_ORIGIN: z.url(),
+		NEXT_PUBLIC_API_URL: z.url(),
 		NEXT_PUBLIC_ALLOWED_ORIGIN: z
 			.string()
 			.optional()

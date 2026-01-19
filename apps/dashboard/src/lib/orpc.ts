@@ -7,7 +7,7 @@ let orpcClient: ReturnType<typeof createORPCClientUtils> | null = null;
 
 function getORPCClient() {
 	if (!orpcClient) {
-		orpcClient = createORPCClientUtils(env.NEXT_PUBLIC_CORS_ORIGIN);
+		orpcClient = createORPCClientUtils(env.NEXT_PUBLIC_API_URL);
 	}
 	return orpcClient;
 }

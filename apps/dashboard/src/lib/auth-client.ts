@@ -7,7 +7,7 @@ import { createAuthClient } from "better-auth/react";
 import { env } from "@/env";
 
 export const authClient = createAuthClient({
-	baseURL: env.NEXT_PUBLIC_CORS_ORIGIN,
+	baseURL: env.NEXT_PUBLIC_API_URL,
 	plugins: [inferAdditionalFields<typeof auth>(), lastLoginMethodClient()],
 });
 

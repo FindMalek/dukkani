@@ -60,7 +60,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 ```bash
    DATABASE_URL="postgresql://postgres:password@localhost:5432/dukkani"
-   NEXT_PUBLIC_CORS_ORIGIN="http://localhost:3002"
+   NEXT_PUBLIC_API_URL="http://localhost:3002"
 ```
 
    3. **Start the database**:

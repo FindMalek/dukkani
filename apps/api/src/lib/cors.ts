@@ -10,7 +10,7 @@ export function getCorsHeaders(origin: string | null): HeadersInit {
 	const isLocalhost = origin?.startsWith("http://localhost:") ?? false;
 
 	const originConfig = [
-		apiEnv.NEXT_PUBLIC_CORS_ORIGIN,
+		apiEnv.NEXT_PUBLIC_API_URL,
 		apiEnv.NEXT_PUBLIC_DASHBOARD_URL,
 		apiEnv.VERCEL_BRANCH_URL,
 		apiEnv.VERCEL_PROJECT_PRODUCTION_URL,
@@ -29,7 +29,7 @@ export function getCorsHeaders(origin: string | null): HeadersInit {
 	) {
 		allowedOrigin = origin;
 	} else {
-		allowedOrigin = apiEnv.NEXT_PUBLIC_CORS_ORIGIN;
+		allowedOrigin = apiEnv.NEXT_PUBLIC_API_URL;
 	}
 
 	return {

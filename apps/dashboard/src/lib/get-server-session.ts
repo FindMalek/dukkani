@@ -17,7 +17,7 @@ export async function getServerSession() {
 			.join("; ");
 
 		const response = await fetch(
-			`${env.NEXT_PUBLIC_CORS_ORIGIN}/api/auth/get-session`,
+			`${env.NEXT_PUBLIC_API_URL}/api/auth/get-session`,
 			{
 				method: "GET",
 				headers: {

@@ -36,7 +36,7 @@ export const apiEnv = createEnv({
 				},
 			),
 		]),
-		NEXT_PUBLIC_CORS_ORIGIN: z.url(),
+		NEXT_PUBLIC_API_URL: z.url(),
 	},
 	clientPrefix: "NEXT_PUBLIC_",
 	runtimeEnv: process.env,
