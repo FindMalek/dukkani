@@ -1,31 +1,21 @@
-import { createEnv } from "@t3-oss/env-core";
-import { z } from "zod";
-import { baseEnv } from "../base";
+import { createEnv } from "@t3-oss/env-nextjs";
+import { clientModule, observabilityModule, urlsModule } from "../modules";
+import { createNextjsRuntimeEnv } from "../utils/runtime-env";
 
 /**
  * Web app environment preset
- * Extends base env and adds web-specific variables
+ * Uses @t3-oss/env-nextjs for proper Next.js client-side inlining
+ * All NEXT_PUBLIC_* vars must be explicitly mapped in runtimeEnv for Next.js bundling
  */
 export const webEnv = createEnv({
-	extends: [baseEnv],
-	server: {
-		// OpenTelemetry configuration
-		OTEL_SERVICE_NAME: z.string(),
-		OTEL_SAMPLING_RATE: z.coerce.number().min(0).max(1),
-		OTEL_ENABLED: z.coerce.boolean(),
-		// OTLP exporter configuration
-		OTEL_EXPORTER_OTLP_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_HEADERS: z.string().optional(),
-		OTEL_EXPORTER_OTLP_PROTOCOL: z.enum(["http/protobuf"]).optional(),
-		OTEL_EXPORTER_OTLP_COMPRESSION: z.enum(["gzip"]).optional(),
-	},
+	server: observabilityModule.server,
 	client: {
-		NEXT_PUBLIC_DASHBOARD_URL: z.url(),
+		...clientModule.client,
+		...urlsModule.client,
 	},
-	clientPrefix: "NEXT_PUBLIC_",
-	runtimeEnv: process.env,
+	runtimeEnv: createNextjsRuntimeEnv(),
 	emptyStringAsUndefined: true,
+	skipValidation:
+		process.env.SKIP_ENV_VALIDATION === "true" ||
+		process.env.NODE_ENV === "test",
 });

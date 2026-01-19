@@ -1,55 +1,26 @@
 import { createEnv } from "@t3-oss/env-core";
-import { z } from "zod";
 import { baseEnv } from "../base";
+import { observabilityModule, telegramModule, urlsModule } from "../modules";
+import { dbEnv } from "./db";
 
 /**
  * API app environment preset
- * Extends base env and adds API-specific variables including Vercel system variables
+ * Extends base env and db env, adds API-specific variables
+ * Note: baseEnv already includes NEXT_PUBLIC_API_URL and NEXT_PUBLIC_ALLOWED_ORIGIN
  */
 export const apiEnv = createEnv({
-	extends: [baseEnv],
+	extends: [dbEnv, baseEnv],
 	server: {
-		TELEGRAM_API_TOKEN: z.string(),
-		TELEGRAM_WEBHOOK_SECRET: z.string(),
-		// OpenTelemetry configuration
-		OTEL_SERVICE_NAME: z.string(),
-		OTEL_SAMPLING_RATE: z.coerce.number().min(0).max(1),
-		OTEL_ENABLED: z.coerce.boolean(),
-		// OTLP exporter configuration
-		OTEL_EXPORTER_OTLP_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: z.url().optional(),
-		OTEL_EXPORTER_OTLP_HEADERS: z.string().optional(),
-		OTEL_EXPORTER_OTLP_PROTOCOL: z.enum(["http/protobuf"]).optional(),
-		OTEL_EXPORTER_OTLP_COMPRESSION: z.enum(["gzip"]).optional(),
+		...telegramModule.server,
+		...observabilityModule.server,
 	},
 	client: {
-		NEXT_PUBLIC_DASHBOARD_URL: z.url(),
-		NEXT_PUBLIC_ALLOWED_ORIGIN: z.union([
-			z.literal("*"),
-			z.url(),
-			z.string().refine(
-				(val) => {
-					// Allow wildcard patterns like *.domain.com
-					// This matches the pattern validation in isOriginAllowed function
-					if (val.includes("*")) {
-						const safePatternRegex =
-							/^\*?\.?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-						return safePatternRegex.test(val);
-					}
-					return false;
-				},
-				{
-					message:
-						"NEXT_PUBLIC_ALLOWED_ORIGIN must be '*', a valid URL, or a wildcard pattern like *.domain.com",
-				},
-			),
-		]),
-		NEXT_PUBLIC_STORE_DOMAIN: z.string(),
-		NEXT_PUBLIC_CORS_ORIGIN: z.url(),
+		...urlsModule.client,
 	},
 	clientPrefix: "NEXT_PUBLIC_",
 	runtimeEnv: process.env,
 	emptyStringAsUndefined: true,
+	skipValidation:
+		process.env.SKIP_ENV_VALIDATION === "true" ||
+		process.env.NODE_ENV === "test",
 });

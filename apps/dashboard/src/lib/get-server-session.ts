@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { dashboardEnv } from "@/env";
+import { env } from "@/env";
 
 /**
  * Get session from API by making an HTTP request
@@ -17,12 +17,12 @@ export async function getServerSession() {
 			.join("; ");
 
 		const response = await fetch(
-			`${dashboardEnv.NEXT_PUBLIC_CORS_ORIGIN}/api/auth/get-session`,
+			`${env.NEXT_PUBLIC_API_URL}/api/auth/get-session`,
 			{
 				method: "GET",
 				headers: {
 					...(cookieHeader ? { cookie: cookieHeader } : {}),
-					origin: dashboardEnv.NEXT_PUBLIC_DASHBOARD_URL,
+					origin: env.NEXT_PUBLIC_DASHBOARD_URL,
 				},
 				cache: "no-store",
 			},

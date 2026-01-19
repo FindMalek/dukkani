@@ -1,16 +1,15 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { logger } from "@dukkani/logger";
-import dotenv from "dotenv";
+import { loadEnvConfig } from "@next/env";
 
-// Load .env from db package root BEFORE any imports that use env validation
+// Load root .env file BEFORE any imports that use env validation
 // This must be done first to ensure environment variables are available
-// In ESM, imports are hoisted, so we need to load dotenv before any imports
+// In ESM, imports are hoisted, so we need to load env before any imports
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-dotenv.config({
-	path: path.resolve(__dirname, "../../.env"),
-});
+const rootEnvPath = path.resolve(__dirname, "../../..");
+loadEnvConfig(rootEnvPath);
 
 /**
  * Main seed function that orchestrates all seeders

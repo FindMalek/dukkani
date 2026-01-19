@@ -48,7 +48,6 @@
 		"@t3-oss/env-core": "catalog:",
 		"@prisma/client-runtime-utils": "^7.0.0",
 		"bcryptjs": "^2.4.3",
-		"dotenv": "catalog:",
 		"nanoid": "catalog:",
 		"zod": "catalog:",
 		"@neondatabase/serverless": "^0.10.4",
@@ -58,6 +57,7 @@
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
+		"@next/env": "catalog:",
 		"@types/bcryptjs": "^2.4.6",
 		"prisma": "catalog:",
 		"tsdown": "catalog:",

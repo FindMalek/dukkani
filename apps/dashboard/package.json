@@ -3,9 +3,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --port=3003",
-		"build": "next build",
-		"start": "next start",
+		"dev": "node ../../scripts/with-root-env.mjs next dev --port=3003",
+		"build": "node ../../scripts/with-root-env.mjs next build",
+		"start": "node ../../scripts/with-root-env.mjs next start",
 		"clean": "rm -rf .next node_modules"
 	},
 	"dependencies": {
@@ -35,7 +35,8 @@
 		"zod": "catalog:",
 		"@orpc/server": "catalog:",
 		"qrcode.react": "4.2.0",
-		"zustand": "catalog:"
+		"zustand": "catalog:",
+		"dotenv": "catalog:"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",

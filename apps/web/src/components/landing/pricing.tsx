@@ -13,7 +13,7 @@ import { Tabs, TabsList, TabsTrigger } from "@dukkani/ui/components/tabs";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
 import { useState } from "react";
-import { webEnv } from "@/env";
+import { env } from "@/env";
 
 export function Pricing() {
 	const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
@@ -71,7 +71,7 @@ export function Pricing() {
 							<Button variant="outline" className="w-full" asChild>
 								<Link
 									href={
-										webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+										env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 									}
 								>
 									Start Free
@@ -116,7 +116,7 @@ export function Pricing() {
 							<Button className="w-full" asChild>
 								<Link
 									href={
-										webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+										env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 									}
 								>
 									Get Started
@@ -158,7 +158,7 @@ export function Pricing() {
 							<Button variant="outline" className="w-full" asChild>
 								<Link
 									href={
-										webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+										env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 									}
 								>
 									Contact Sales

@@ -36,13 +36,14 @@
 			"types": "./src/presets/web.ts",
 			"default": "./src/presets/web.ts"
 		},
-		"./storefront": {
+		"./presets/storefront": {
 			"types": "./src/presets/storefront.ts",
 			"default": "./src/presets/storefront.ts"
 		}
 	},
 	"dependencies": {
 		"@t3-oss/env-core": "catalog:",
+		"@t3-oss/env-nextjs": "catalog:",
 		"dotenv": "catalog:",
 		"zod": "catalog:"
 	},

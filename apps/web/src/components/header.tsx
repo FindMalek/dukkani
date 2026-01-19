@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { webEnv } from "@/env";
+import { env } from "@/env";
 
 export default function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -61,9 +61,7 @@ export default function Header() {
 					<div className="flex items-center gap-4">
 						<ModeToggle />
 						<Link
-							href={
-								webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
-							}
+							href={env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]}
 							className="font-medium text-muted-foreground text-sm hover:text-foreground"
 						>
 							Sign In
@@ -71,7 +69,7 @@ export default function Header() {
 						<Button asChild size="sm">
 							<Link
 								href={
-									webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+									env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 								}
 							>
 								Get Started
@@ -131,7 +129,7 @@ export default function Header() {
 							<hr />
 							<Link
 								href={
-									webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+									env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 								}
 								className="font-medium text-lg text-muted-foreground"
 							>
@@ -140,7 +138,7 @@ export default function Header() {
 							<Button asChild className="w-full">
 								<Link
 									href={
-										webEnv.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
+										env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 									}
 								>
 									Get Started

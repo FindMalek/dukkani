@@ -4,10 +4,10 @@ import {
 	lastLoginMethodClient,
 } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
-import { dashboardEnv } from "@/env";
+import { env } from "@/env";
 
 export const authClient = createAuthClient({
-	baseURL: dashboardEnv.NEXT_PUBLIC_CORS_ORIGIN,
+	baseURL: env.NEXT_PUBLIC_API_URL,
 	plugins: [inferAdditionalFields<typeof auth>(), lastLoginMethodClient()],
 });
 

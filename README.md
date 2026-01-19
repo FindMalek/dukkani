@@ -105,7 +105,7 @@ Create a `.env` file at the root of the project:
 DATABASE_URL="postgresql://postgres:password@localhost:5432/dukkani"
 
 # CORS Origin (required for auth)
-NEXT_PUBLIC_CORS_ORIGIN="http://localhost:3002"
+NEXT_PUBLIC_API_URL="http://localhost:3002"
 ```
 
 4. **Set up the database**

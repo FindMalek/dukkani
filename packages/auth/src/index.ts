@@ -20,7 +20,7 @@ export function createAuth(
 	envConfig: typeof env,
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
 	const originConfig = [
-		envConfig.NEXT_PUBLIC_CORS_ORIGIN,
+		envConfig.NEXT_PUBLIC_API_URL,
 		envConfig.NEXT_PUBLIC_DASHBOARD_URL,
 		envConfig.VERCEL_BRANCH_URL,
 		envConfig.VERCEL_PROJECT_PRODUCTION_URL,
@@ -36,14 +36,14 @@ export function createAuth(
 	// In Vercel environments or when using HTTPS, we need SameSite=None and Secure
 	const isVercel = !!envConfig.VERCEL;
 	const isProduction =
-		isVercel || envConfig.NEXT_PUBLIC_CORS_ORIGIN.startsWith("https://");
+		isVercel || envConfig.NEXT_PUBLIC_API_URL.startsWith("https://");
 
 	return betterAuth<BetterAuthOptions>({
 		database: prismaAdapter(database, {
 			provider: "postgresql",
 		}),
 		secret: envConfig.BETTER_AUTH_SECRET,
-		baseURL: envConfig.NEXT_PUBLIC_CORS_ORIGIN,
+		baseURL: envConfig.NEXT_PUBLIC_API_URL,
 		trustedOrigins,
 		advanced: {
 			useSecureCookies: isProduction,

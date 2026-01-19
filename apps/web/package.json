@@ -3,9 +3,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --port=3001",
-		"build": "next build",
-		"start": "next start",
+		"dev": "node ../../scripts/with-root-env.mjs next dev --port=3001",
+		"build": "node ../../scripts/with-root-env.mjs next build",
+		"start": "node ../../scripts/with-root-env.mjs next start",
 		"clean": "rm -rf .next node_modules"
 	},
 	"dependencies": {
@@ -28,7 +28,8 @@
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"tw-animate-css": "^1.4.0",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"dotenv": "catalog:"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
