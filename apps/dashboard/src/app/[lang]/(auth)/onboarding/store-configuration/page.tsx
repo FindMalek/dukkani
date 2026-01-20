@@ -85,12 +85,13 @@ export default function StoreConfigurationPage() {
 		},
 	});
 
-	// Update form when storeId is determined
+	const { setFieldValue } = form;
+
 	useEffect(() => {
 		if (storeId) {
-			form.setFieldValue("storeId", storeId);
+			setFieldValue("storeId", storeId);
 		}
-	}, [storeId, form]);
+	}, [storeId, setFieldValue]);
 
 	// Show loading state while fetching stores
 	if (!storeId && isLoadingStores) {

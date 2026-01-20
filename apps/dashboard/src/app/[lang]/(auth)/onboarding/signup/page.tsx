@@ -24,9 +24,10 @@ import { handleAPIError } from "@/lib/error";
 import { RoutePaths } from "@/lib/routes";
 
 export default function SignupPage() {
-	const t = useTranslations("onboarding.signup");
 	const router = useRouter();
 	const searchParams = useSearchParams();
+	const t = useTranslations("onboarding.signup");
+
 	const emailFromQuery = searchParams.get("email");
 	const hasEmail = !!emailFromQuery;
 
@@ -54,12 +55,13 @@ export default function SignupPage() {
 		},
 	});
 
-	// Update email when emailFromQuery changes
+	const { setFieldValue } = form;
+
 	useEffect(() => {
 		if (emailFromQuery) {
-			form.setFieldValue("email", emailFromQuery);
+			setFieldValue("email", emailFromQuery);
 		}
-	}, [emailFromQuery, form]);
+	}, [emailFromQuery, setFieldValue]);
 
 	return (
 		<div className="flex min-h-screen bg-background">

@@ -55,12 +55,13 @@ export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
 		},
 	});
 
-	// Update storeId when selectedStoreId changes
+	const { setFieldValue } = categoryForm;
+
 	useEffect(() => {
 		if (selectedStoreId) {
-			categoryForm.setFieldValue("storeId", selectedStoreId);
+			setFieldValue("storeId", selectedStoreId);
 		}
-	}, [selectedStoreId, categoryForm]);
+	}, [selectedStoreId, setFieldValue]);
 
 	return (
 		<Drawer open={open} onOpenChange={setOpen}>
