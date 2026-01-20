@@ -85,6 +85,7 @@ export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
+						e.stopPropagation();
 						categoryForm.handleSubmit();
 					}}
 				>

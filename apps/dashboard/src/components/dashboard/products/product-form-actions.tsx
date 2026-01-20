@@ -5,12 +5,14 @@ import { useTranslations } from "next-intl";
 
 interface ProductFormActionsProps {
 	onSubmit: (published: boolean) => void;
-	isPending: boolean;
+	isDraftLoading: boolean;
+	isPublishLoading: boolean;
 }
 
 export function ProductFormActions({
 	onSubmit,
-	isPending,
+	isDraftLoading,
+	isPublishLoading,
 }: ProductFormActionsProps) {
 	const t = useTranslations("products.create");
 
@@ -20,16 +22,16 @@ export function ProductFormActions({
 				<Button
 					variant="secondary"
 					className="flex-1"
-					isLoading={isPending}
-					disabled={isPending}
+					disabled={isDraftLoading || isPublishLoading}
+					isLoading={isDraftLoading}
 					onClick={() => onSubmit(false)}
 				>
 					{t("form.saveDraft")}
 				</Button>
 				<Button
 					className="flex-1"
-					isLoading={isPending}
-					disabled={isPending}
+					isLoading={isPublishLoading}
+					disabled={isDraftLoading || isPublishLoading}
 					onClick={() => onSubmit(true)}
 				>
 					{t("form.savePublish")}

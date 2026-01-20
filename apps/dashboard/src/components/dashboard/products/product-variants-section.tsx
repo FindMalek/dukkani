@@ -3,7 +3,7 @@
 import type { createProductInputSchema } from "@dukkani/common/schemas/product/input";
 import { Button } from "@dukkani/ui/components/button";
 import { Card, CardContent } from "@dukkani/ui/components/card";
-import { Field, FieldError } from "@dukkani/ui/components/field";
+import { FieldError } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Switch } from "@dukkani/ui/components/switch";
 import type { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
@@ -33,7 +33,7 @@ export function ProductVariantsSection({ form }: ProductVariantsSectionProps) {
 					<form.Field name="hasVariants">
 						{(field) => {
 							return (
-								<Field>
+								<div className="shrink-0">
 									<Switch
 										id={field.name}
 										name={field.name}
@@ -54,7 +54,7 @@ export function ProductVariantsSection({ form }: ProductVariantsSectionProps) {
 											}
 										}}
 									/>
-								</Field>
+								</div>
 							);
 						}}
 					</form.Field>

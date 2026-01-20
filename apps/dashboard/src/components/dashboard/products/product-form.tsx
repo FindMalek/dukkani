@@ -32,6 +32,9 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 		const [isUploading, setIsUploading] = useState(false);
 		const [previews, setPreviews] = useState<string[]>([]);
 		const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+		const [submittingAction, setSubmittingAction] = useState<
+			"draft" | "publish" | null
+		>(null);
 
 		useEffect(() => {
 			// Clean up old URLs when previews change
@@ -48,8 +51,12 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				toast.success(t("success"));
 				router.push(RoutePaths.PRODUCTS.INDEX.url);
 				form.reset();
+				setSubmittingAction(null);
 			},
-			onError: (error) => handleAPIError(error),
+			onError: (error) => {
+				handleAPIError(error);
+				setSubmittingAction(null);
+			},
 		});
 
 		const form = useSchemaForm({
@@ -127,6 +134,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				return;
 			}
 
+			setSubmittingAction(published ? "publish" : "draft");
 			form.setFieldValue("published", published);
 
 			const hasVariants = form.state.values.hasVariants;
@@ -166,7 +174,15 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 
 				<ProductFormActions
 					onSubmit={onSubmit}
-					isPending={createProductMutation.isPending || isUploading}
+					isDraftLoading={
+						(submittingAction === "draft" && createProductMutation.isPending) ||
+						(submittingAction === "draft" && isUploading)
+					}
+					isPublishLoading={
+						(submittingAction === "publish" &&
+							createProductMutation.isPending) ||
+						(submittingAction === "publish" && isUploading)
+					}
 				/>
 			</form>
 		);

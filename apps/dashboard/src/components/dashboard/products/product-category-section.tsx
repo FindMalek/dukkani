@@ -29,7 +29,6 @@ interface ProductCategorySectionProps {
 	form: ReturnType<typeof useSchemaForm<typeof createProductInputSchema>>;
 	storeId: string;
 }
-
 export function ProductCategorySection({
 	form,
 	storeId,
@@ -39,6 +38,7 @@ export function ProductCategorySection({
 		useCategoriesQuery({
 			storeId,
 		});
+	const [open, setOpen] = useState(false);
 
 	return (
 		<Card className="bg-muted-foreground/5 py-2 shadow-none">
@@ -48,11 +48,9 @@ export function ProductCategorySection({
 				<div className="space-y-1.5">
 					<form.Field name="categoryId">
 						{(field) => {
-							const [open, setOpen] = useState(false);
 							const isInvalid =
 								field.state.meta.isTouched && !field.state.meta.isValid;
 
-							// Compute selected category inside render function so it's reactive
 							const selectedCategory = categories?.find(
 								(cat) => cat.id === field.state.value,
 							);
