@@ -4,13 +4,11 @@ import {
 	type CreateProductInput,
 	createProductInputSchema,
 } from "@dukkani/common/schemas/product/input";
-import { Form } from "@dukkani/ui/components/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { ProductCategorySection } from "@/components/dashboard/products/product-category-section";
 import { ProductDescriptionSection } from "@/components/dashboard/products/product-description-section";
@@ -44,8 +42,18 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 			};
 		}, [previews]);
 
-		const form = useForm<CreateProductInput>({
-			resolver: zodResolver(createProductInputSchema),
+		const createProductMutation = useMutation({
+			mutationFn: (input: CreateProductInput) => client.product.create(input),
+			onSuccess: () => {
+				toast.success(t("success"));
+				router.push(RoutePaths.PRODUCTS.INDEX.url);
+				form.reset();
+			},
+			onError: (error) => handleAPIError(error),
+		});
+
+		const form = useSchemaForm({
+			schema: createProductInputSchema,
 			defaultValues: {
 				name: "",
 				description: "",
@@ -58,15 +66,43 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				variantOptions: [],
 				variants: [],
 			},
-		});
+			validationMode: ["onBlur", "onSubmit"],
+			onSubmit: async (values: CreateProductInput) => {
+				if (createProductMutation.isPending || isUploading) {
+					return;
+				}
 
-		const createProductMutation = useMutation({
-			mutationFn: (input: CreateProductInput) => client.product.create(input),
-			onSuccess: () => {
-				toast.success(t("success"));
-				router.push(RoutePaths.PRODUCTS.INDEX.url);
+				const hasVariants = form.state.values.hasVariants;
+				const submitData: CreateProductInput = {
+					...values,
+					imageUrls: [], // Will be set after upload
+					hasVariants,
+					variantOptions: hasVariants
+						? values.variantOptions?.filter(
+								(opt) => opt.name && opt.values && opt.values.length > 0,
+							)
+						: undefined,
+					variants: hasVariants ? values.variants : undefined,
+				};
+
+				try {
+					setIsUploading(true);
+					let urls: string[] = [];
+					if (selectedFiles.length > 0) {
+						const res = await client.storage.uploadMany({
+							files: selectedFiles,
+						});
+						urls = res.files.map((f) => f.url);
+					}
+
+					submitData.imageUrls = urls;
+					createProductMutation.mutate(submitData);
+				} catch (e) {
+					handleAPIError(e);
+				} finally {
+					setIsUploading(false);
+				}
 			},
-			onError: (error) => handleAPIError(error),
 		});
 
 		const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,50 +127,15 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				return;
 			}
 
-			form.setValue("published", published);
+			form.setFieldValue("published", published);
 
-			const hasVariants = form.watch("hasVariants");
+			const hasVariants = form.state.values.hasVariants;
 			if (!hasVariants) {
-				form.setValue("variantOptions", []);
-				form.setValue("variants", []);
+				form.setFieldValue("variantOptions", []);
+				form.setFieldValue("variants", []);
 			}
 
-			const isValid = await form.trigger();
-			if (!isValid) {
-				toast.error(t("form.validation.errors"));
-				return;
-			}
-
-			const values = form.getValues();
-
-			try {
-				setIsUploading(true);
-				let urls: string[] = [];
-				if (selectedFiles.length > 0) {
-					const res = await client.storage.uploadMany({
-						files: selectedFiles,
-					});
-					urls = res.files.map((f) => f.url);
-				}
-
-				const submitData: CreateProductInput = {
-					...values,
-					imageUrls: urls,
-					hasVariants,
-					variantOptions: hasVariants
-						? values.variantOptions?.filter(
-								(opt) => opt.name && opt.values && opt.values.length > 0,
-							)
-						: undefined,
-					variants: hasVariants ? values.variants : undefined,
-				};
-
-				createProductMutation.mutate(submitData);
-			} catch (e) {
-				handleAPIError(e);
-			} finally {
-				setIsUploading(false);
-			}
+			await form.handleSubmit();
 		};
 
 		useImperativeHandle(ref, () => ({
@@ -142,31 +143,32 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 		}));
 
 		return (
-			<Form {...form}>
-				<form
-					onSubmit={(e) => e.preventDefault()}
-					className="flex flex-col gap-4 px-2 pb-24"
-				>
-					<ProductPhotosSection
-						previews={previews}
-						onFileChange={handleFileChange}
-						onRemoveImage={removeImage}
-					/>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					form.handleSubmit();
+				}}
+				className="flex flex-col gap-4 px-2 pb-24"
+			>
+				<ProductPhotosSection
+					previews={previews}
+					onFileChange={handleFileChange}
+					onRemoveImage={removeImage}
+				/>
 
-					<ProductEssentialsSection form={form} />
+				<ProductEssentialsSection form={form} />
 
-					<ProductDescriptionSection form={form} />
+				<ProductDescriptionSection form={form} />
 
-					<ProductCategorySection form={form} storeId={storeId} />
+				<ProductCategorySection form={form} storeId={storeId} />
 
-					<ProductVariantsSection form={form} />
+				<ProductVariantsSection form={form} />
 
-					<ProductFormActions
-						onSubmit={onSubmit}
-						isPending={createProductMutation.isPending || isUploading}
-					/>
-				</form>
-			</Form>
+				<ProductFormActions
+					onSubmit={onSubmit}
+					isPending={createProductMutation.isPending || isUploading}
+				/>
+			</form>
 		);
 	},
 );

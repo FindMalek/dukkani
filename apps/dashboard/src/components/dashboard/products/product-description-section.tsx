@@ -7,13 +7,13 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@dukkani/ui/components/accordion";
-import { FormControl, FormField } from "@dukkani/ui/components/form";
+import { Field, FieldError } from "@dukkani/ui/components/field";
 import { Textarea } from "@dukkani/ui/components/textarea";
+import type { UseFormApi } from "@tanstack/react-form";
 import { useTranslations } from "next-intl";
-import type { UseFormReturn } from "react-hook-form";
 
 interface ProductDescriptionSectionProps {
-	form: UseFormReturn<CreateProductInput>;
+	form: UseFormApi<CreateProductInput, unknown>;
 }
 
 export function ProductDescriptionSection({
@@ -31,15 +31,26 @@ export function ProductDescriptionSection({
 					{t("form.description.label")} ({t("form.optional")})
 				</AccordionTrigger>
 				<AccordionContent className="px-2">
-					<FormField
-						control={form.control}
-						name="description"
-						render={({ field }) => (
-							<FormControl>
-								<Textarea className="min-h-[100px]" {...field} />
-							</FormControl>
-						)}
-					/>
+					<form.Field name="description">
+						{(field) => {
+							const isInvalid =
+								field.state.meta.isTouched && !field.state.meta.isValid;
+							return (
+								<Field data-invalid={isInvalid}>
+									<Textarea
+										id={field.name}
+										name={field.name}
+										className="min-h-[100px]"
+										value={field.state.value ?? ""}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(e.target.value)}
+										aria-invalid={isInvalid}
+									/>
+									{isInvalid && <FieldError errors={field.state.meta.errors} />}
+								</Field>
+							);
+						}}
+					</form.Field>
 				</AccordionContent>
 			</AccordionItem>
 		</Accordion>

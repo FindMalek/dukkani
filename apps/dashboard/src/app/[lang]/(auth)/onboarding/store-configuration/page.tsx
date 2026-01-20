@@ -12,23 +12,16 @@ import {
 	configureStoreOnboardingInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import { Button } from "@dukkani/ui/components/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-} from "@dukkani/ui/components/form";
+import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
 import { Spinner } from "@dukkani/ui/components/spinner";
+import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { cn } from "@dukkani/ui/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { CategorySelector } from "@/components/dashboard/onboarding/category-selector";
 import { OnboardingStepper } from "@/components/dashboard/onboarding/onboarding-stepper";
@@ -63,22 +56,6 @@ export default function StoreConfigurationPage() {
 		}
 	}, [urlStoreId, storeId, router]);
 
-	const form = useForm<ConfigureStoreOnboardingInput>({
-		resolver: zodResolver(configureStoreOnboardingInputSchema),
-		defaultValues: {
-			storeId: storeId || "",
-			theme: storeThemeEnum.MODERN,
-			category: storeCategoryEnum.FASHION,
-		},
-	});
-
-	// Update form when storeId is determined
-	useEffect(() => {
-		if (storeId) {
-			form.setValue("storeId", storeId);
-		}
-	}, [storeId, form]);
-
 	const configureStoreMutation = useMutation({
 		mutationFn: (input: ConfigureStoreOnboardingInput) =>
 			client.store.configure(input),
@@ -94,6 +71,26 @@ export default function StoreConfigurationPage() {
 			handleAPIError(error);
 		},
 	});
+
+	const form = useSchemaForm({
+		schema: configureStoreOnboardingInputSchema,
+		defaultValues: {
+			storeId: storeId || "",
+			theme: storeThemeEnum.MODERN,
+			category: storeCategoryEnum.FASHION,
+		},
+		validationMode: ["onBlur", "onSubmit"],
+		onSubmit: async (values: ConfigureStoreOnboardingInput) => {
+			configureStoreMutation.mutate(values);
+		},
+	});
+
+	// Update form when storeId is determined
+	useEffect(() => {
+		if (storeId) {
+			form.setFieldValue("storeId", storeId);
+		}
+	}, [storeId, form]);
 
 	// Show loading state while fetching stores
 	if (!storeId && isLoadingStores) {
@@ -129,92 +126,99 @@ export default function StoreConfigurationPage() {
 						<p className="text-muted-foreground text-sm">{t("subtitle")}</p>
 					</div>
 
-					<Form {...form}>
-						<form
-							onSubmit={form.handleSubmit((v) =>
-								configureStoreMutation.mutate(v),
-							)}
-							className="space-y-8"
-						>
-							<FormField
-								control={form.control}
-								name="category"
-								render={({ field }) => (
-									<FormItem className="space-y-3">
-										<FormLabel className="font-medium text-sm">
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+							form.handleSubmit();
+						}}
+						className="space-y-8"
+					>
+						<form.Field name="category">
+							{(field) => {
+								const isInvalid =
+									field.state.meta.isTouched && !field.state.meta.isValid;
+								return (
+									<Field data-invalid={isInvalid} className="space-y-3">
+										<FieldLabel className="font-medium text-sm">
 											{t("category.label")}
-										</FormLabel>
-										<FormControl>
-											<CategorySelector
-												value={field.value}
-												onChange={field.onChange}
-												t={t}
-											/>
-										</FormControl>
-									</FormItem>
-								)}
-							/>
+										</FieldLabel>
+										<CategorySelector
+											value={field.state.value}
+											onChange={field.handleChange}
+											t={t}
+										/>
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</Field>
+								);
+							}}
+						</form.Field>
 
-							<FormField
-								control={form.control}
-								name="theme"
-								render={({ field }) => (
-									<FormItem className="space-y-3">
-										<FormLabel className="font-medium text-sm">
+						<form.Field name="theme">
+							{(field) => {
+								const isInvalid =
+									field.state.meta.isTouched && !field.state.meta.isValid;
+								return (
+									<Field data-invalid={isInvalid} className="space-y-3">
+										<FieldLabel className="font-medium text-sm">
 											{t("theme.label")}
-										</FormLabel>
-										<FormControl>
-											<RadioGroup
-												onValueChange={field.onChange}
-												value={field.value}
-												className="grid grid-cols-2 gap-3"
-											>
-												{Object.values(storeThemeEnum).map((theme) => {
-													const Preview = THEME_PREVIEWS[theme as StoreTheme];
-													const isActive = field.value === theme;
-													return (
-														<label
-															key={theme}
-															htmlFor={theme}
-															className={cn(
-																"relative flex cursor-pointer flex-col gap-2 rounded-xl border p-2 transition-all",
-																isActive
-																	? "border-primary bg-primary/5"
-																	: "border-muted hover:border-muted-foreground/30",
+										</FieldLabel>
+										<RadioGroup
+											name={field.name}
+											value={field.state.value}
+											onValueChange={field.handleChange}
+											className="grid grid-cols-2 gap-3"
+										>
+											{Object.values(storeThemeEnum).map((theme) => {
+												const Preview = THEME_PREVIEWS[theme as StoreTheme];
+												const isActive = field.state.value === theme;
+												return (
+													<label
+														key={theme}
+														htmlFor={theme}
+														className={cn(
+															"relative flex cursor-pointer flex-col gap-2 rounded-xl border p-2 transition-all",
+															isActive
+																? "border-primary bg-primary/5"
+																: "border-muted hover:border-muted-foreground/30",
+														)}
+													>
+														<RadioGroupItem
+															value={theme}
+															id={theme}
+															className="sr-only"
+															aria-invalid={isInvalid}
+														/>
+														<Preview />
+														<div className="flex items-center justify-between px-1">
+															<span className="font-medium text-xs">
+																{t(StoreEntity.getThemeLabelKey(theme))}
+															</span>
+															{isActive && (
+																<Icons.check className="h-3 w-3 text-primary" />
 															)}
-														>
-															<RadioGroupItem
-																value={theme}
-																id={theme}
-																className="sr-only"
-															/>
-															<Preview />
-															<div className="flex items-center justify-between px-1">
-																<span className="font-medium text-xs">
-																	{t(StoreEntity.getThemeLabelKey(theme))}
-																</span>
-																{isActive && (
-																	<Icons.check className="h-3 w-3 text-primary" />
-																)}
-															</div>
-														</label>
-													);
-												})}
-											</RadioGroup>
-										</FormControl>
-									</FormItem>
-								)}
-							/>
+														</div>
+													</label>
+												);
+											})}
+										</RadioGroup>
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</Field>
+								);
+							}}
+						</form.Field>
 
-							<Button
-								type="submit"
-								className="h-12 w-full font-medium text-base"
-								isLoading={configureStoreMutation.isPending}
-							>
-								{t("submit")}
-							</Button>
-						</form>
-					</Form>
+						<Button
+							type="submit"
+							className="h-12 w-full font-medium text-base"
+							isLoading={configureStoreMutation.isPending}
+						>
+							{t("submit")}
+						</Button>
+					</form>
 				</div>
 			</div>
 		</div>

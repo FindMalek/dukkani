@@ -3,33 +3,21 @@
 import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
 import { Button } from "@dukkani/ui/components/button";
 import { Card, CardContent } from "@dukkani/ui/components/card";
-import { FormControl, FormField, FormItem } from "@dukkani/ui/components/form";
+import { Field, FieldError } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Switch } from "@dukkani/ui/components/switch";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
-import { type UseFormReturn, useFieldArray } from "react-hook-form";
+import type { UseFormApi } from "@tanstack/react-form";
 import { VariantOptionCard } from "./variant-option-card";
 
 interface ProductVariantsSectionProps {
-	form: UseFormReturn<CreateProductInput>;
+	form: UseFormApi<CreateProductInput, unknown>;
 }
 
 export function ProductVariantsSection({ form }: ProductVariantsSectionProps) {
 	const t = useTranslations("products.create");
-	const hasVariants = form.watch("hasVariants");
-
-	const { fields, append, remove } = useFieldArray({
-		control: form.control,
-		name: "variantOptions",
-	});
-
-	const addOption = () => {
-		append({
-			name: "",
-			values: [],
-		});
-	};
+	const hasVariants = form.state.values.hasVariants;
 
 	return (
 		<Card className="overflow-hidden bg-muted-foreground/5 shadow-none transition-all">
@@ -42,28 +30,34 @@ export function ProductVariantsSection({ form }: ProductVariantsSectionProps) {
 							{t("form.options.description")}
 						</p>
 					</div>
-					<FormField
-						control={form.control}
-						name="hasVariants"
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
+					<form.Field name="hasVariants">
+						{(field) => {
+							return (
+								<Field>
 									<Switch
-										checked={field.value}
+										id={field.name}
+										name={field.name}
+										checked={field.state.value ?? false}
 										onCheckedChange={(val) => {
-											field.onChange(val);
-											if (val && fields.length === 0) {
-												addOption();
-											} else if (!val) {
-												form.setValue("variantOptions", []);
-												form.setValue("variants", []);
+											field.handleChange(val);
+											if (val) {
+												const currentOptions =
+													form.state.values.variantOptions || [];
+												if (currentOptions.length === 0) {
+													form.setFieldValue("variantOptions", [
+														{ name: "", values: [] },
+													]);
+												}
+											} else {
+												form.setFieldValue("variantOptions", []);
+												form.setFieldValue("variants", []);
 											}
 										}}
 									/>
-								</FormControl>
-							</FormItem>
-						)}
-					/>
+								</Field>
+							);
+						}}
+					</form.Field>
 				</div>
 
 				{/* Expanded Content with Animation */}
@@ -73,27 +67,36 @@ export function ProductVariantsSection({ form }: ProductVariantsSectionProps) {
 						hasVariants ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0",
 					)}
 				>
-					<div className="space-y-4 bg-muted/5 p-4">
-						{fields.map((field, index) => (
-							<VariantOptionCard
-								key={field.id}
-								form={form}
-								index={index}
-								onRemove={() => remove(index)}
-							/>
-						))}
+					<form.Field name="variantOptions" mode="array">
+						{(field) => {
+							const isInvalid =
+								field.state.meta.isTouched && !field.state.meta.isValid;
+							return (
+								<div className="space-y-4 bg-muted/5 p-4">
+									{field.state.value.map((_: any, index: number) => (
+										<VariantOptionCard
+											key={index}
+											form={form}
+											index={index}
+											onRemove={() => field.removeValue(index)}
+										/>
+									))}
 
-						<Button
-							type="button"
-							variant="ghost"
-							size="sm"
-							onClick={addOption}
-							className="h-auto p-0 font-bold text-primary hover:bg-transparent"
-						>
-							<Icons.plus className="mr-2 h-4 w-4" />
-							{t("form.variants.options.addAnother")}
-						</Button>
-					</div>
+									<Button
+										type="button"
+										variant="ghost"
+										size="sm"
+										onClick={() => field.pushValue({ name: "", values: [] })}
+										className="h-auto p-0 font-bold text-primary hover:bg-transparent"
+									>
+										<Icons.plus className="mr-2 h-4 w-4" />
+										{t("form.variants.options.addAnother")}
+									</Button>
+									{isInvalid && <FieldError errors={field.state.meta.errors} />}
+								</div>
+							);
+						}}
+					</form.Field>
 				</div>
 			</CardContent>
 		</Card>

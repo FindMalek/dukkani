@@ -13,20 +13,12 @@ import {
 	DrawerTitle,
 	DrawerTrigger,
 } from "@dukkani/ui/components/drawer";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@dukkani/ui/components/form";
+import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import { useCreateCategoryMutation } from "@/hooks/api/use-categories";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 
@@ -45,17 +37,30 @@ export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
 		return null;
 	}
 
-	const categoryForm = useForm<CreateCategoryInput>({
-		resolver: zodResolver(createCategoryInputSchema),
+	const categoryForm = useSchemaForm({
+		schema: createCategoryInputSchema,
 		defaultValues: {
 			name: "",
 			storeId: selectedStoreId,
 		},
+		validationMode: ["onBlur", "onSubmit"],
+		onSubmit: async (values: CreateCategoryInput) => {
+			createCategoryMutation.mutate(values, {
+				onSuccess: (data) => {
+					categoryForm.reset();
+					setOpen(false);
+					onCategoryCreated?.(data.id);
+				},
+			});
+		},
 	});
 
-	const onCategorySubmit = (values: CreateCategoryInput) => {
-		createCategoryMutation.mutate(values);
-	};
+	// Update storeId when selectedStoreId changes
+	useEffect(() => {
+		if (selectedStoreId) {
+			categoryForm.setFieldValue("storeId", selectedStoreId);
+		}
+	}, [selectedStoreId, categoryForm]);
 
 	return (
 		<Drawer open={open} onOpenChange={setOpen}>
@@ -77,40 +82,54 @@ export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
 					</DrawerDescription>
 				</DrawerHeader>
 
-				<Form {...categoryForm}>
-					<form onSubmit={categoryForm.handleSubmit(onCategorySubmit)}>
-						<FormField
-							control={categoryForm.control}
-							name="name"
-							render={({ field }) => (
-								<FormItem className="px-4">
-									<FormLabel>{t("form.category.nameLabel")}</FormLabel>
-									<FormControl>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						categoryForm.handleSubmit();
+					}}
+				>
+					<div className="px-4">
+						<categoryForm.Field name="name">
+							{(field) => {
+								const isInvalid =
+									field.state.meta.isTouched && !field.state.meta.isValid;
+								return (
+									<Field data-invalid={isInvalid}>
+										<FieldLabel htmlFor={field.name}>
+											{t("form.category.nameLabel")}
+										</FieldLabel>
 										<Input
+											id={field.name}
+											name={field.name}
 											placeholder={t("form.category.namePlaceholder")}
-											{...field}
+											value={field.state.value ?? ""}
+											onBlur={field.handleBlur}
+											onChange={(e) => field.handleChange(e.target.value)}
+											aria-invalid={isInvalid}
 										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-						<DrawerFooter>
-							<Button
-								className="w-full"
-								type="submit"
-								isLoading={createCategoryMutation.isPending}
-							>
-								{t("form.category.create")}
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</Field>
+								);
+							}}
+						</categoryForm.Field>
+					</div>
+					<DrawerFooter>
+						<Button
+							className="w-full"
+							type="submit"
+							isLoading={createCategoryMutation.isPending}
+						>
+							{t("form.category.create")}
+						</Button>
+						<DrawerClose asChild>
+							<Button variant="outline" type="button" className="w-full">
+								{t("form.cancel")}
 							</Button>
-							<DrawerClose asChild>
-								<Button variant="outline" type="button" className="w-full">
-									{t("form.cancel")}
-								</Button>
-							</DrawerClose>
-						</DrawerFooter>
-					</form>
-				</Form>
+						</DrawerClose>
+					</DrawerFooter>
+				</form>
 			</DrawerContent>
 		</Drawer>
 	);
