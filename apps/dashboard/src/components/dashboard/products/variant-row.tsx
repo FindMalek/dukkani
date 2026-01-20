@@ -1,17 +1,17 @@
 "use client";
 
-import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import type { createProductInputSchema } from "@dukkani/common/schemas/product/input";
 import { formatPrice } from "@dukkani/common/utils";
 import { Button } from "@dukkani/ui/components/button";
 import { FieldLabel } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
+import type { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import type { UseFormApi } from "@tanstack/react-form";
 import { VariantEditDrawer } from "./variant-edit-drawer";
 
 interface VariantRowProps {
-	form: UseFormApi<CreateProductInput, unknown>;
+	form: ReturnType<typeof useSchemaForm<typeof createProductInputSchema>>;
 	index: number;
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import type { createProductInputSchema } from "@dukkani/common/schemas/product/input";
 import {
 	Accordion,
 	AccordionContent,
@@ -9,11 +9,11 @@ import {
 } from "@dukkani/ui/components/accordion";
 import { Field, FieldError } from "@dukkani/ui/components/field";
 import { Textarea } from "@dukkani/ui/components/textarea";
-import type { UseFormApi } from "@tanstack/react-form";
+import type { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useTranslations } from "next-intl";
 
 interface ProductDescriptionSectionProps {
-	form: UseFormApi<CreateProductInput, unknown>;
+	form: ReturnType<typeof useSchemaForm<typeof createProductInputSchema>>;
 }
 
 export function ProductDescriptionSection({

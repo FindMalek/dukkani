@@ -193,7 +193,9 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 										id={field.name}
 										name={field.name}
 										checked={field.state.value ?? false}
-										onCheckedChange={field.handleChange}
+										onCheckedChange={(checked) =>
+											field.handleChange(checked === true)
+										}
 										aria-invalid={isInvalid}
 									/>
 									<div className="space-y-1 leading-none">

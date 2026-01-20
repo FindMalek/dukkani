@@ -1,6 +1,6 @@
 "use client";
 
-import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import type { createProductInputSchema } from "@dukkani/common/schemas/product/input";
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Drawer,
@@ -12,13 +12,12 @@ import {
 	DrawerTitle,
 } from "@dukkani/ui/components/drawer";
 import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
-import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
-import type { UseFormApi } from "@tanstack/react-form";
+import type { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useTranslations } from "next-intl";
 
 interface VariantEditDrawerProps {
-	form: UseFormApi<CreateProductInput, unknown>;
+	form: ReturnType<typeof useSchemaForm<typeof createProductInputSchema>>;
 	index: number;
 	open: boolean;
 	onOpenChange: (open: boolean) => void;

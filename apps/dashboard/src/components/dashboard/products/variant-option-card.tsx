@@ -1,6 +1,6 @@
 "use client";
 
-import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import type { createProductInputSchema } from "@dukkani/common/schemas/product/input";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
@@ -11,13 +11,13 @@ import {
 	InputGroupButton,
 	InputGroupInput,
 } from "@dukkani/ui/components/input-group";
+import type { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import type { UseFormApi } from "@tanstack/react-form";
 
 interface VariantOptionCardProps {
-	form: UseFormApi<CreateProductInput, unknown>;
+	form: ReturnType<typeof useSchemaForm<typeof createProductInputSchema>>;
 	index: number;
 	onRemove: () => void;
 }
@@ -131,7 +131,7 @@ export function VariantOptionCard({
 				{(field) => {
 					return (
 						<div className="flex flex-wrap gap-2">
-							{field.state.value.map((_: any, vIndex: number) => (
+							{(field.state.value ?? []).map((_, vIndex: number) => (
 								<Badge
 									key={vIndex}
 									variant="secondary"

@@ -167,7 +167,9 @@ export default function StoreConfigurationPage() {
 										<RadioGroup
 											name={field.name}
 											value={field.state.value}
-											onValueChange={field.handleChange}
+											onValueChange={(value) =>
+												field.handleChange(StoreEntity.valueToTheme(value))
+											}
 											className="grid grid-cols-2 gap-3"
 										>
 											{Object.values(storeThemeEnum).map((theme) => {

@@ -1,18 +1,18 @@
 "use client";
 
-import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import type { createProductInputSchema } from "@dukkani/common/schemas/product/input";
 import { Button } from "@dukkani/ui/components/button";
 import { Card, CardContent } from "@dukkani/ui/components/card";
 import { Field, FieldError } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Switch } from "@dukkani/ui/components/switch";
+import type { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
-import type { UseFormApi } from "@tanstack/react-form";
 import { VariantOptionCard } from "./variant-option-card";
 
 interface ProductVariantsSectionProps {
-	form: UseFormApi<CreateProductInput, unknown>;
+	form: ReturnType<typeof useSchemaForm<typeof createProductInputSchema>>;
 }
 
 export function ProductVariantsSection({ form }: ProductVariantsSectionProps) {
@@ -73,7 +73,7 @@ export function ProductVariantsSection({ form }: ProductVariantsSectionProps) {
 								field.state.meta.isTouched && !field.state.meta.isValid;
 							return (
 								<div className="space-y-4 bg-muted/5 p-4">
-									{field.state.value.map((_: any, index: number) => (
+									{(field.state.value ?? []).map((_, index: number) => (
 										<VariantOptionCard
 											key={index}
 											form={form}

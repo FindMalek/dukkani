@@ -3,6 +3,11 @@ import {
 	StoreNotificationMethod,
 	type StoreTheme,
 } from "@dukkani/db/prisma/generated/enums";
+import {
+	LIST_STORE_THEMES,
+	type StoreThemeInfer,
+	storeThemeEnum,
+} from "../../schemas/enums";
 import type {
 	StoreIncludeOutput,
 	StorePublicOutput,
@@ -176,5 +181,16 @@ export class StoreEntity {
 			"category",
 			"description",
 		);
+	}
+
+	/**
+	 * Convert string value to StoreTheme enum
+	 * Supports Form value -> Zod schema -> Prisma enum conversion
+	 */
+	static valueToTheme(value: string): StoreThemeInfer {
+		if (LIST_STORE_THEMES.includes(value as StoreTheme)) {
+			return value as StoreTheme;
+		}
+		return storeThemeEnum.MODERN;
 	}
 }

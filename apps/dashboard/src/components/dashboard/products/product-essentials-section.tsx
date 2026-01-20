@@ -1,6 +1,6 @@
 "use client";
 
-import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import type { createProductInputSchema } from "@dukkani/common/schemas/product/input";
 import { Button } from "@dukkani/ui/components/button";
 import { ButtonGroup } from "@dukkani/ui/components/button-group";
 import { Card, CardContent } from "@dukkani/ui/components/card";
@@ -13,11 +13,11 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { Separator } from "@dukkani/ui/components/separator";
-import type { UseFormApi } from "@tanstack/react-form";
+import type { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useTranslations } from "next-intl";
 
 interface ProductEssentialsSectionProps {
-	form: UseFormApi<CreateProductInput, unknown>;
+	form: ReturnType<typeof useSchemaForm<typeof createProductInputSchema>>;
 }
 
 export function ProductEssentialsSection({
