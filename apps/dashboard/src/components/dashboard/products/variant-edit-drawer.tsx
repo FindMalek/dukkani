@@ -1,6 +1,6 @@
 "use client";
 
-import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import type { createProductInputSchema } from "@dukkani/common/schemas/product/input";
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Drawer,
@@ -11,20 +11,13 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 } from "@dukkani/ui/components/drawer";
-import {
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@dukkani/ui/components/form";
-import { Icons } from "@dukkani/ui/components/icons";
+import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
 import { Input } from "@dukkani/ui/components/input";
+import type { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useTranslations } from "next-intl";
-import type { UseFormReturn } from "react-hook-form";
 
 interface VariantEditDrawerProps {
-	form: UseFormReturn<CreateProductInput>;
+	form: ReturnType<typeof useSchemaForm<typeof createProductInputSchema>>;
 	index: number;
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
@@ -37,7 +30,7 @@ export function VariantEditDrawer({
 	onOpenChange,
 }: VariantEditDrawerProps) {
 	const t = useTranslations("products.create");
-	const variant = form.watch(`variants.${index}`);
+	const variant = form.state.values.variants?.[index];
 
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
@@ -52,73 +45,90 @@ export function VariantEditDrawer({
 				</DrawerHeader>
 
 				<div className="space-y-4 px-4">
-					<FormField
-						control={form.control}
-						name={`variants.${index}.sku`}
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>{t("form.variants.edit.sku")}</FormLabel>
-								<FormControl>
+					<form.Field name={`variants[${index}].sku`}>
+						{(field) => {
+							const isInvalid =
+								field.state.meta.isTouched && !field.state.meta.isValid;
+							return (
+								<Field data-invalid={isInvalid}>
+									<FieldLabel htmlFor={field.name}>
+										{t("form.variants.edit.sku")}
+									</FieldLabel>
 									<Input
+										id={field.name}
+										name={field.name}
 										placeholder={t("form.variants.edit.skuPlaceholder")}
-										{...field}
+										value={field.state.value ?? ""}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(e.target.value)}
+										aria-invalid={isInvalid}
 									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+									{isInvalid && <FieldError errors={field.state.meta.errors} />}
+								</Field>
+							);
+						}}
+					</form.Field>
 
-					<FormField
-						control={form.control}
-						name={`variants.${index}.price`}
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>{t("form.variants.edit.price")}</FormLabel>
-								<FormControl>
+					<form.Field name={`variants[${index}].price`}>
+						{(field) => {
+							const isInvalid =
+								field.state.meta.isTouched && !field.state.meta.isValid;
+							return (
+								<Field data-invalid={isInvalid}>
+									<FieldLabel htmlFor={field.name}>
+										{t("form.variants.edit.price")}
+									</FieldLabel>
 									<div className="relative">
 										<Input
+											id={field.name}
+											name={field.name}
 											type="number"
 											step="0.01"
-											{...field}
-											value={field.value ?? ""}
+											value={field.state.value ?? ""}
+											onBlur={field.handleBlur}
 											onChange={(e) =>
-												field.onChange(
+												field.handleChange(
 													e.target.value ? Number(e.target.value) : undefined,
 												)
 											}
+											aria-invalid={isInvalid}
 										/>
 										<span className="absolute top-1/2 right-4 -translate-y-1/2 text-muted-foreground/50 text-sm">
 											TND
 										</span>
 									</div>
-								</FormControl>
-								<p className="text-muted-foreground text-xs">
-									{t("form.variants.edit.priceHelp")}
-								</p>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+									<p className="text-muted-foreground text-xs">
+										{t("form.variants.edit.priceHelp")}
+									</p>
+									{isInvalid && <FieldError errors={field.state.meta.errors} />}
+								</Field>
+							);
+						}}
+					</form.Field>
 
-					<FormField
-						control={form.control}
-						name={`variants.${index}.stock`}
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>{t("form.variants.edit.stock")}</FormLabel>
-								<FormControl>
+					<form.Field name={`variants[${index}].stock`}>
+						{(field) => {
+							const isInvalid =
+								field.state.meta.isTouched && !field.state.meta.isValid;
+							return (
+								<Field data-invalid={isInvalid}>
+									<FieldLabel htmlFor={field.name}>
+										{t("form.variants.edit.stock")}
+									</FieldLabel>
 									<Input
+										id={field.name}
+										name={field.name}
 										type="number"
-										{...field}
-										value={field.value ?? 0}
-										onChange={(e) => field.onChange(Number(e.target.value))}
+										value={field.state.value ?? 0}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(Number(e.target.value))}
+										aria-invalid={isInvalid}
 									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+									{isInvalid && <FieldError errors={field.state.meta.errors} />}
+								</Field>
+							);
+						}}
+					</form.Field>
 				</div>
 
 				<DrawerFooter>

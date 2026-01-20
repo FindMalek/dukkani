@@ -10,22 +10,13 @@ import {
 	createStoreOnboardingInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import { Button } from "@dukkani/ui/components/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@dukkani/ui/components/form";
-import { Icons } from "@dukkani/ui/components/icons";
+import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
 import { Input } from "@dukkani/ui/components/input";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { OnboardingStepper } from "@/components/dashboard/onboarding/onboarding-stepper";
 import { AuthBackground } from "@/components/layout/auth-background";
@@ -36,14 +27,6 @@ import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
 export default function StoreSetupPage() {
 	const router = useRouter();
 	const t = useTranslations("onboarding.storeSetup");
-
-	const form = useForm<CreateStoreOnboardingInput>({
-		resolver: zodResolver(createStoreOnboardingInputSchema),
-		defaultValues: {
-			name: "",
-			notificationMethod: storeNotificationMethodEnum.EMAIL,
-		},
-	});
 
 	const createStoreMutation = useMutation({
 		mutationFn: (input: CreateStoreOnboardingInput) =>
@@ -61,9 +44,17 @@ export default function StoreSetupPage() {
 		},
 	});
 
-	const onSubmit = async (values: CreateStoreOnboardingInput) => {
-		createStoreMutation.mutate(values);
-	};
+	const form = useSchemaForm({
+		schema: createStoreOnboardingInputSchema,
+		defaultValues: {
+			name: "",
+			notificationMethod: storeNotificationMethodEnum.EMAIL,
+		},
+		validationMode: ["onBlur", "onSubmit"],
+		onSubmit: async (values: CreateStoreOnboardingInput) => {
+			createStoreMutation.mutate(values);
+		},
+	});
 
 	return (
 		<div className="flex min-h-screen bg-background">
@@ -81,112 +72,131 @@ export default function StoreSetupPage() {
 						<p className="text-muted-foreground">{t("subtitle")}</p>
 					</div>
 
-					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-							<FormField
-								control={form.control}
-								name="name"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>{t("storeName.label")}</FormLabel>
-										<FormControl>
-											<Input
-												placeholder={t("storeName.placeholder")}
-												autoFocus
-												{...field}
-												className="h-12 text-lg"
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+							form.handleSubmit();
+						}}
+						className="space-y-6"
+					>
+						<form.Field name="name">
+							{(field) => {
+								const isInvalid =
+									field.state.meta.isTouched && !field.state.meta.isValid;
+								return (
+									<Field data-invalid={isInvalid}>
+										<FieldLabel htmlFor={field.name}>
+											{t("storeName.label")}
+										</FieldLabel>
+										<Input
+											id={field.name}
+											name={field.name}
+											placeholder={t("storeName.placeholder")}
+											autoFocus
+											value={field.state.value ?? ""}
+											onBlur={field.handleBlur}
+											onChange={(e) => field.handleChange(e.target.value)}
+											aria-invalid={isInvalid}
+											className="h-12 text-lg"
+										/>
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</Field>
+								);
+							}}
+						</form.Field>
 
-							<FormField
-								control={form.control}
-								name="notificationMethod"
-								render={({ field }) => (
-									<FormItem className="space-y-4">
-										<FormLabel>{t("notifications.label")}</FormLabel>
-										<FormControl>
-											<RadioGroup
-												onValueChange={(value) =>
-													field.onChange(
-														StoreEntity.valueToNotificationMethod(value),
-													)
-												}
-												defaultValue={field.value}
-												className="grid grid-cols-1 gap-4"
-											>
-												<div className="flex cursor-pointer items-center space-x-3 rounded-lg border p-4 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-													<RadioGroupItem
-														value={storeNotificationMethodEnum.EMAIL}
-														id="email"
-													/>
-													<label
-														htmlFor="email"
-														className="flex flex-1 cursor-pointer flex-col"
-													>
-														<span className="font-medium">
-															{t("notifications.options.email.label")}
-														</span>
-														<span className="font-normal text-muted-foreground text-xs">
-															{t("notifications.options.email.description")}
-														</span>
-													</label>
-												</div>
+						<form.Field name="notificationMethod">
+							{(field) => {
+								const isInvalid =
+									field.state.meta.isTouched && !field.state.meta.isValid;
+								return (
+									<Field data-invalid={isInvalid} className="space-y-4">
+										<FieldLabel>{t("notifications.label")}</FieldLabel>
+										<RadioGroup
+											name={field.name}
+											value={field.state.value}
+											onValueChange={(value) =>
+												field.handleChange(
+													StoreEntity.valueToNotificationMethod(value),
+												)
+											}
+											className="grid grid-cols-1 gap-4"
+										>
+											<div className="flex cursor-pointer items-center space-x-3 rounded-lg border p-4 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+												<RadioGroupItem
+													value={storeNotificationMethodEnum.EMAIL}
+													id="email"
+													aria-invalid={isInvalid}
+												/>
+												<label
+													htmlFor="email"
+													className="flex flex-1 cursor-pointer flex-col"
+												>
+													<span className="font-medium">
+														{t("notifications.options.email.label")}
+													</span>
+													<span className="font-normal text-muted-foreground text-xs">
+														{t("notifications.options.email.description")}
+													</span>
+												</label>
+											</div>
 
-												<div className="flex cursor-pointer items-center space-x-3 rounded-lg border p-4 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-													<RadioGroupItem
-														value={storeNotificationMethodEnum.TELEGRAM}
-														id="telegram"
-													/>
-													<label
-														htmlFor="telegram"
-														className="flex flex-1 cursor-pointer flex-col"
-													>
-														<span className="font-medium">
-															{t("notifications.options.telegram.label")}
-														</span>
-														<span className="font-normal text-muted-foreground text-xs">
-															{t("notifications.options.telegram.description")}
-														</span>
-													</label>
-												</div>
+											<div className="flex cursor-pointer items-center space-x-3 rounded-lg border p-4 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+												<RadioGroupItem
+													value={storeNotificationMethodEnum.TELEGRAM}
+													id="telegram"
+													aria-invalid={isInvalid}
+												/>
+												<label
+													htmlFor="telegram"
+													className="flex flex-1 cursor-pointer flex-col"
+												>
+													<span className="font-medium">
+														{t("notifications.options.telegram.label")}
+													</span>
+													<span className="font-normal text-muted-foreground text-xs">
+														{t("notifications.options.telegram.description")}
+													</span>
+												</label>
+											</div>
 
-												<div className="flex cursor-pointer items-center space-x-3 rounded-lg border p-4 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-													<RadioGroupItem
-														value={storeNotificationMethodEnum.BOTH}
-														id="both"
-													/>
-													<label
-														htmlFor="both"
-														className="flex flex-1 cursor-pointer flex-col"
-													>
-														<span className="font-medium">
-															{t("notifications.options.both.label")}
-														</span>
-														<span className="font-normal text-muted-foreground text-xs">
-															{t("notifications.options.both.description")}
-														</span>
-													</label>
-												</div>
-											</RadioGroup>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+											<div className="flex cursor-pointer items-center space-x-3 rounded-lg border p-4 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+												<RadioGroupItem
+													value={storeNotificationMethodEnum.BOTH}
+													id="both"
+													aria-invalid={isInvalid}
+												/>
+												<label
+													htmlFor="both"
+													className="flex flex-1 cursor-pointer flex-col"
+												>
+													<span className="font-medium">
+														{t("notifications.options.both.label")}
+													</span>
+													<span className="font-normal text-muted-foreground text-xs">
+														{t("notifications.options.both.description")}
+													</span>
+												</label>
+											</div>
+										</RadioGroup>
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</Field>
+								);
+							}}
+						</form.Field>
 
-							<Button
-								type="submit"
-								className="h-12 w-full text-lg"
-								isLoading={createStoreMutation.isPending}
-							>
-								{t("submit")}
-							</Button>
-						</form>
-					</Form>
+						<Button
+							type="submit"
+							className="h-12 w-full text-lg"
+							isLoading={createStoreMutation.isPending}
+						>
+							{t("submit")}
+						</Button>
+					</form>
 				</div>
 			</div>
 		</div>

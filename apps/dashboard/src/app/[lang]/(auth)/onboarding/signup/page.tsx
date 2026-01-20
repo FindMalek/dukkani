@@ -7,22 +7,15 @@ import {
 } from "@dukkani/common/schemas/user/input";
 import { Alert, AlertDescription } from "@dukkani/ui/components/alert";
 import { Button } from "@dukkani/ui/components/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@dukkani/ui/components/form";
+import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { Spinner } from "@dukkani/ui/components/spinner";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { OnboardingStepper } from "@/components/dashboard/onboarding/onboarding-stepper";
 import { AuthBackground } from "@/components/layout/auth-background";
@@ -31,35 +24,44 @@ import { handleAPIError } from "@/lib/error";
 import { RoutePaths } from "@/lib/routes";
 
 export default function SignupPage() {
-	const t = useTranslations("onboarding.signup");
 	const router = useRouter();
 	const searchParams = useSearchParams();
+	const t = useTranslations("onboarding.signup");
+
 	const emailFromQuery = searchParams.get("email");
 	const hasEmail = !!emailFromQuery;
 
-	const form = useForm<SignupInput>({
-		resolver: zodResolver(signupInputSchema),
+	const form = useSchemaForm({
+		schema: signupInputSchema,
 		defaultValues: {
 			name: "",
 			email: emailFromQuery || "",
 			password: "",
 		},
+		validationMode: ["onBlur", "onSubmit"],
+		onSubmit: async (values: SignupInput) => {
+			try {
+				await authClient.signUp.email({
+					email: values.email,
+					password: values.password,
+					name: values.name,
+				});
+
+				toast.success(t("success"));
+				router.push(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
+			} catch (error) {
+				handleAPIError(error);
+			}
+		},
 	});
 
-	const onSubmit = async (values: SignupInput) => {
-		try {
-			await authClient.signUp.email({
-				email: values.email,
-				password: values.password,
-				name: values.name,
-			});
+	const { setFieldValue } = form;
 
-			toast.success(t("success"));
-			router.push(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
-		} catch (error) {
-			handleAPIError(error);
+	useEffect(() => {
+		if (emailFromQuery) {
+			setFieldValue("email", emailFromQuery);
 		}
-	};
+	}, [emailFromQuery, setFieldValue]);
 
 	return (
 		<div className="flex min-h-screen bg-background">
@@ -95,95 +97,129 @@ export default function SignupPage() {
 					)}
 
 					{/* Form Section */}
-					<Form {...form}>
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-							<FormField
-								control={form.control}
-								name="name"
-								render={({ field }) => (
-									<FormItem className="space-y-1.5">
-										<FormLabel className="text-muted-foreground">
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+							form.handleSubmit();
+						}}
+						className="space-y-6"
+					>
+						<form.Field name="name">
+							{(field) => {
+								const isInvalid =
+									field.state.meta.isTouched && !field.state.meta.isValid;
+								return (
+									<Field data-invalid={isInvalid} className="space-y-1.5">
+										<FieldLabel
+											htmlFor={field.name}
+											className="text-muted-foreground"
+										>
 											{t("name.label")}
-										</FormLabel>
-										<FormControl>
-											<Input
-												placeholder={t("name.placeholder")}
-												autoFocus={hasEmail}
-												{...field}
-												className="h-12 border-muted-foreground/20 bg-muted/5 focus-visible:ring-primary"
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+										</FieldLabel>
+										<Input
+											id={field.name}
+											name={field.name}
+											placeholder={t("name.placeholder")}
+											autoFocus={hasEmail}
+											value={field.state.value ?? ""}
+											onBlur={field.handleBlur}
+											onChange={(e) => field.handleChange(e.target.value)}
+											aria-invalid={isInvalid}
+											className="h-12 border-muted-foreground/20 bg-muted/5 focus-visible:ring-primary"
+										/>
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</Field>
+								);
+							}}
+						</form.Field>
 
-							<FormField
-								control={form.control}
-								name="email"
-								render={({ field }) => (
-									<FormItem className="space-y-1.5">
-										<FormLabel className="text-muted-foreground">
+						<form.Field name="email">
+							{(field) => {
+								const isInvalid =
+									field.state.meta.isTouched && !field.state.meta.isValid;
+								return (
+									<Field data-invalid={isInvalid} className="space-y-1.5">
+										<FieldLabel
+											htmlFor={field.name}
+											className="text-muted-foreground"
+										>
 											{t("email.label")}
-										</FormLabel>
-										<FormControl>
-											<Input
-												type="email"
-												readOnly={hasEmail}
-												placeholder={t("email.placeholder")}
-												autoFocus={!hasEmail}
-												{...field}
-												className={
-													hasEmail
-														? "h-12 cursor-not-allowed border-muted-foreground/10 bg-muted/30 text-muted-foreground"
-														: "h-12 border-muted-foreground/20 bg-muted/5 focus-visible:ring-primary"
-												}
-											/>
-										</FormControl>
+										</FieldLabel>
+										<Input
+											id={field.name}
+											name={field.name}
+											type="email"
+											readOnly={hasEmail}
+											placeholder={t("email.placeholder")}
+											autoFocus={!hasEmail}
+											value={field.state.value ?? ""}
+											onBlur={field.handleBlur}
+											onChange={(e) => field.handleChange(e.target.value)}
+											aria-invalid={isInvalid}
+											className={
+												hasEmail
+													? "h-12 cursor-not-allowed border-muted-foreground/10 bg-muted/30 text-muted-foreground"
+													: "h-12 border-muted-foreground/20 bg-muted/5 focus-visible:ring-primary"
+											}
+										/>
 										{hasEmail ? (
 											<p className="px-1 text-[10px] text-muted-foreground italic">
 												{t("email.description")}
 											</p>
 										) : null}
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</Field>
+								);
+							}}
+						</form.Field>
 
-							<FormField
-								control={form.control}
-								name="password"
-								render={({ field }) => (
-									<FormItem className="space-y-1.5">
-										<FormLabel className="text-muted-foreground">
+						<form.Field name="password">
+							{(field) => {
+								const isInvalid =
+									field.state.meta.isTouched && !field.state.meta.isValid;
+								return (
+									<Field data-invalid={isInvalid} className="space-y-1.5">
+										<FieldLabel
+											htmlFor={field.name}
+											className="text-muted-foreground"
+										>
 											{t("password.label")}
-										</FormLabel>
-										<FormControl>
-											<Input
-												type="password"
-												placeholder={t("password.placeholder")}
-												{...field}
-												className="h-12 border-muted-foreground/20 bg-muted/5 focus-visible:ring-primary"
-											/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+										</FieldLabel>
+										<Input
+											id={field.name}
+											name={field.name}
+											type="password"
+											placeholder={t("password.placeholder")}
+											value={field.state.value ?? ""}
+											onBlur={field.handleBlur}
+											onChange={(e) => field.handleChange(e.target.value)}
+											aria-invalid={isInvalid}
+											className="h-12 border-muted-foreground/20 bg-muted/5 focus-visible:ring-primary"
+										/>
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</Field>
+								);
+							}}
+						</form.Field>
 
-							<Button
-								type="submit"
-								className="h-12 w-full font-semibold text-base transition-all hover:opacity-90 active:scale-[0.98]"
-								disabled={form.formState.isSubmitting}
-							>
-								{form.formState.isSubmitting ? (
-									<Spinner className="mr-2 h-4 w-4" />
-								) : (
-									t("submit")
-								)}
-							</Button>
-						</form>
-					</Form>
+						<Button
+							type="submit"
+							className="h-12 w-full font-semibold text-base transition-all hover:opacity-90 active:scale-[0.98]"
+							disabled={form.state.isSubmitting}
+						>
+							{form.state.isSubmitting ? (
+								<Spinner className="mr-2 h-4 w-4" />
+							) : (
+								t("submit")
+							)}
+						</Button>
+					</form>
 
 					{/* Footer Links */}
 					<div className="space-y-6 pt-4 text-center">

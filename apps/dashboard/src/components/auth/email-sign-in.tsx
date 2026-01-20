@@ -8,21 +8,13 @@ import {
 } from "@dukkani/common/schemas/user/input";
 import { Button } from "@dukkani/ui/components/button";
 import { Checkbox } from "@dukkani/ui/components/checkbox";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@dukkani/ui/components/form";
+import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
 import { Input } from "@dukkani/ui/components/input";
 import { Spinner } from "@dukkani/ui/components/spinner";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useCheckEmailExists } from "@/hooks/api/use-check-email.hook";
 import { authClient } from "@/lib/auth-client";
 import { handleAPIError } from "@/lib/error";
@@ -39,178 +31,208 @@ export function EmailSignIn({ className }: EmailSignInProps) {
 
 	const [step, setStep] = useState<"email" | "password">("email");
 
-	const emailForm = useForm<CheckEmailExistsInput>({
-		resolver: zodResolver(checkEmailExistsInputSchema),
+	const emailForm = useSchemaForm({
+		schema: checkEmailExistsInputSchema,
 		defaultValues: { email: "" },
-	});
+		validationMode: ["onBlur", "onSubmit"],
+		onSubmit: async (values: CheckEmailExistsInput) => {
+			try {
+				const exists = await checkEmailMutation.mutateAsync({
+					email: values.email,
+				});
 
-	const passwordForm = useForm<LoginInput>({
-		resolver: zodResolver(loginInputSchema),
-		defaultValues: { email: "", password: "", rememberMe: false },
-	});
-
-	const onEmailSubmit = async (values: CheckEmailExistsInput) => {
-		try {
-			const exists = await checkEmailMutation.mutateAsync({
-				email: values.email,
-			});
-
-			if (exists) {
-				passwordForm.setValue("email", values.email);
-				setStep("password");
-			} else {
-				const onboardingUrl = getRouteWithQuery(
-					RoutePaths.AUTH.ONBOARDING.INDEX.url,
-					{
-						email: values.email,
-					},
-				);
-				router.push(onboardingUrl);
+				if (exists) {
+					passwordForm.setFieldValue("email", values.email);
+					setStep("password");
+				} else {
+					const onboardingUrl = getRouteWithQuery(
+						RoutePaths.AUTH.ONBOARDING.INDEX.url,
+						{
+							email: values.email,
+						},
+					);
+					router.push(onboardingUrl);
+				}
+			} catch (error) {
+				handleAPIError(error);
 			}
-		} catch (error) {
-			handleAPIError(error);
-		}
-	};
+		},
+	});
 
-	const onPasswordSubmit = async (values: LoginInput) => {
-		await authClient.signIn.email(
-			{
-				email: values.email,
-				password: values.password,
-				rememberMe: values.rememberMe,
-			},
-			{
-				onSuccess: () => {
-					router.push(RoutePaths.DASHBOARD.url);
+	const passwordForm = useSchemaForm({
+		schema: loginInputSchema,
+		defaultValues: { email: "", password: "", rememberMe: false },
+		validationMode: ["onBlur", "onSubmit"],
+		onSubmit: async (values: LoginInput) => {
+			await authClient.signIn.email(
+				{
+					email: values.email,
+					password: values.password,
+					rememberMe: values.rememberMe,
 				},
-				onError: (error) => {
-					handleAPIError(error);
+				{
+					onSuccess: () => {
+						router.push(RoutePaths.DASHBOARD.url);
+					},
+					onError: (error) => {
+						handleAPIError(error);
+					},
 				},
-			},
-		);
-	};
+			);
+		},
+	});
 
 	return (
 		<div className={`space-y-4 ${className || ""}`}>
 			{/* Step 1: Email */}
 			{step === "email" && (
-				<Form {...emailForm}>
-					<form
-						onSubmit={emailForm.handleSubmit(onEmailSubmit)}
-						className="space-y-4"
-					>
-						<FormField
-							control={emailForm.control}
-							name="email"
-							render={({ field }) => (
-								<FormItem>
-									<FormControl>
-										<Input
-											type="email"
-											placeholder={t("email.placeholder")}
-											{...field}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						emailForm.handleSubmit();
+					}}
+					className="space-y-4"
+				>
+					<emailForm.Field name="email">
+						{(field) => {
+							const isInvalid =
+								field.state.meta.isTouched && !field.state.meta.isValid;
+							return (
+								<Field data-invalid={isInvalid}>
+									<Input
+										id={field.name}
+										name={field.name}
+										type="email"
+										placeholder={t("email.placeholder")}
+										value={field.state.value ?? ""}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(e.target.value)}
+										aria-invalid={isInvalid}
+									/>
+									{isInvalid && <FieldError errors={field.state.meta.errors} />}
+								</Field>
+							);
+						}}
+					</emailForm.Field>
 
-						<Button
-							type="submit"
-							className="h-11 w-full"
-							isLoading={checkEmailMutation.isPending}
-						>
-							{t("continue")}
-						</Button>
-					</form>
-				</Form>
+					<Button
+						type="submit"
+						className="h-11 w-full"
+						isLoading={checkEmailMutation.isPending}
+					>
+						{t("continue")}
+					</Button>
+				</form>
 			)}
 
 			{/* Step 2: Password for existing user */}
 			{step === "password" && (
-				<Form {...passwordForm}>
-					<form
-						onSubmit={passwordForm.handleSubmit(onPasswordSubmit)}
-						className="space-y-4"
-					>
-						<FormField
-							control={passwordForm.control}
-							name="email"
-							render={({ field }) => (
-								<FormItem>
-									<FormControl>
-										<Input
-											type="email"
-											placeholder={t("email.placeholder")}
-											disabled
-											{...field}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						passwordForm.handleSubmit();
+					}}
+					className="space-y-4"
+				>
+					<passwordForm.Field name="email">
+						{(field) => {
+							const isInvalid =
+								field.state.meta.isTouched && !field.state.meta.isValid;
+							return (
+								<Field data-invalid={isInvalid}>
+									<Input
+										id={field.name}
+										name={field.name}
+										type="email"
+										placeholder={t("email.placeholder")}
+										disabled
+										value={field.state.value ?? ""}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(e.target.value)}
+										aria-invalid={isInvalid}
+									/>
+									{isInvalid && <FieldError errors={field.state.meta.errors} />}
+								</Field>
+							);
+						}}
+					</passwordForm.Field>
 
-						<FormField
-							control={passwordForm.control}
-							name="password"
-							render={({ field }) => (
-								<FormItem>
-									<FormControl>
-										<Input
-											type="password"
-											placeholder={t("password.placeholder")}
-											{...field}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+					<passwordForm.Field name="password">
+						{(field) => {
+							const isInvalid =
+								field.state.meta.isTouched && !field.state.meta.isValid;
+							return (
+								<Field data-invalid={isInvalid}>
+									<Input
+										id={field.name}
+										name={field.name}
+										type="password"
+										placeholder={t("password.placeholder")}
+										value={field.state.value ?? ""}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(e.target.value)}
+										aria-invalid={isInvalid}
+									/>
+									{isInvalid && <FieldError errors={field.state.meta.errors} />}
+								</Field>
+							);
+						}}
+					</passwordForm.Field>
 
-						<FormField
-							control={passwordForm.control}
-							name="rememberMe"
-							render={({ field }) => (
-								<FormItem className="flex flex-row items-start space-x-3 space-y-0">
-									<FormControl>
-										<Checkbox
-											checked={field.value}
-											onCheckedChange={field.onChange}
-										/>
-									</FormControl>
+					<passwordForm.Field name="rememberMe">
+						{(field) => {
+							const isInvalid =
+								field.state.meta.isTouched && !field.state.meta.isValid;
+							return (
+								<Field
+									orientation="horizontal"
+									data-invalid={isInvalid}
+									className="flex flex-row items-start space-x-3 space-y-0"
+								>
+									<Checkbox
+										id={field.name}
+										name={field.name}
+										checked={field.state.value ?? false}
+										onCheckedChange={(checked) =>
+											field.handleChange(checked === true)
+										}
+										aria-invalid={isInvalid}
+									/>
 									<div className="space-y-1 leading-none">
-										<FormLabel className="cursor-pointer font-normal text-sm">
+										<FieldLabel
+											htmlFor={field.name}
+											className="cursor-pointer font-normal text-sm"
+										>
 											{t("rememberMe")}
-										</FormLabel>
+										</FieldLabel>
 									</div>
-								</FormItem>
-							)}
-						/>
+									{isInvalid && <FieldError errors={field.state.meta.errors} />}
+								</Field>
+							);
+						}}
+					</passwordForm.Field>
 
-						<div className="flex gap-2">
-							<Button
-								type="button"
-								variant="outline"
-								onClick={() => {
-									setStep("email");
-									emailForm.reset();
-								}}
-							>
-								{t("back")}
-							</Button>
-							<Button
-								type="submit"
-								className="h-11 flex-1"
-								disabled={passwordForm.formState.isSubmitting}
-							>
-								{passwordForm.formState.isSubmitting && <Spinner />}
-								{t("signIn")}
-							</Button>
-						</div>
-					</form>
-				</Form>
+					<div className="flex gap-2">
+						<Button
+							type="button"
+							variant="outline"
+							onClick={() => {
+								setStep("email");
+								emailForm.reset();
+							}}
+						>
+							{t("back")}
+						</Button>
+						<Button
+							type="submit"
+							className="h-11 flex-1"
+							disabled={passwordForm.state.isSubmitting}
+						>
+							{passwordForm.state.isSubmitting && <Spinner />}
+							{t("signIn")}
+						</Button>
+					</div>
+				</form>
 			)}
 		</div>
 	);

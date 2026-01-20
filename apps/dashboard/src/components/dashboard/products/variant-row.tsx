@@ -1,17 +1,17 @@
 "use client";
 
-import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import type { createProductInputSchema } from "@dukkani/common/schemas/product/input";
 import { formatPrice } from "@dukkani/common/utils";
 import { Button } from "@dukkani/ui/components/button";
-import { FormLabel } from "@dukkani/ui/components/form";
+import { FieldLabel } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
+import type { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import type { UseFormReturn } from "react-hook-form";
 import { VariantEditDrawer } from "./variant-edit-drawer";
 
 interface VariantRowProps {
-	form: UseFormReturn<CreateProductInput>;
+	form: ReturnType<typeof useSchemaForm<typeof createProductInputSchema>>;
 	index: number;
 }
 
@@ -19,8 +19,8 @@ export function VariantRow({ form, index }: VariantRowProps) {
 	const t = useTranslations("products.create");
 	const [drawerOpen, setDrawerOpen] = useState(false);
 
-	const variant = form.watch(`variants.${index}`);
-	const basePrice = form.watch("price") ?? 0;
+	const variant = form.state.values.variants?.[index];
+	const basePrice = form.state.values.price ?? 0;
 
 	return (
 		<div className="space-y-4">
@@ -39,17 +39,17 @@ export function VariantRow({ form, index }: VariantRowProps) {
 
 			<div className="grid grid-cols-2 gap-4">
 				<div>
-					<FormLabel className="text-muted-foreground text-xs">
+					<FieldLabel className="text-muted-foreground text-xs">
 						{t("form.variants.list.price")}
-					</FormLabel>
+					</FieldLabel>
 					<p className="font-semibold text-sm">
 						{formatPrice(variant?.price, basePrice)} TND
 					</p>
 				</div>
 				<div>
-					<FormLabel className="text-muted-foreground text-xs">
+					<FieldLabel className="text-muted-foreground text-xs">
 						{t("form.variants.list.stock")}
-					</FormLabel>
+					</FieldLabel>
 					<p className="font-semibold text-sm">{variant?.stock || 0}</p>
 				</div>
 			</div>
