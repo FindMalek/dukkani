@@ -2,6 +2,7 @@ import type { PrismaClient } from "../../../prisma/generated/client";
 import {
 	StoreCategory,
 	StorePlanType,
+	StoreStatus,
 	StoreTheme,
 } from "../../../prisma/generated/client";
 import { BaseSeeder } from "../base";
@@ -17,6 +18,7 @@ export interface SeededStore {
 	name: string;
 	slug: string;
 	ownerId: string;
+	status: StoreStatus;
 }
 
 export class StoreSeeder extends BaseSeeder {
@@ -74,6 +76,7 @@ export class StoreSeeder extends BaseSeeder {
 					name: store.name,
 					slug: store.slug,
 					ownerId: store.ownerId,
+					status: store.status,
 				});
 			}
 			return;
@@ -97,6 +100,7 @@ export class StoreSeeder extends BaseSeeder {
 				ownerEmail: "ahmed@dukkani.com",
 				planType: StorePlanType.PREMIUM,
 				orderLimit: 1000,
+				status: StoreStatus.PUBLISHED,
 			},
 			{
 				name: "Fatima's Electronics Hub",
@@ -108,6 +112,7 @@ export class StoreSeeder extends BaseSeeder {
 				ownerEmail: "fatima@dukkani.com",
 				planType: StorePlanType.BASIC,
 				orderLimit: 500,
+				status: StoreStatus.PUBLISHED,
 			},
 			{
 				name: "Omar's Home Essentials",
@@ -119,6 +124,7 @@ export class StoreSeeder extends BaseSeeder {
 				ownerEmail: "omar@dukkani.com",
 				planType: StorePlanType.FREE,
 				orderLimit: 100,
+				status: StoreStatus.PUBLISHED,
 			},
 		];
 
@@ -142,6 +148,7 @@ export class StoreSeeder extends BaseSeeder {
 					ownerId: owner.id,
 					planType: def.planType,
 					orderLimit: def.orderLimit,
+					status: def.status,
 				};
 			})
 			.filter((store): store is NonNullable<typeof store> => store !== null);
@@ -172,6 +179,7 @@ export class StoreSeeder extends BaseSeeder {
 								orderCount: 0,
 							},
 						},
+						status: storeInfo.status,
 					},
 				}),
 			),
@@ -184,6 +192,7 @@ export class StoreSeeder extends BaseSeeder {
 				name: store.name,
 				slug: store.slug,
 				ownerId: store.ownerId,
+				status: store.status,
 			});
 		}
 

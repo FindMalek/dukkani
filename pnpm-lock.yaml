@@ -691,6 +691,9 @@ importers:
       '@types/ws':
         specifier: ^8.18.1
         version: 8.18.1
+      dotenv:
+        specifier: 'catalog:'
+        version: 17.2.3
       prisma:
         specifier: 'catalog:'
         version: 7.2.0(@types/react@19.2.2)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)

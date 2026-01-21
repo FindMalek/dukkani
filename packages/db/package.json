@@ -55,13 +55,14 @@
 		"@prisma/adapter-pg": "^7.0.0",
 		"ws": "^8.18.2"
 	},
-	"devDependencies": {
-		"@dukkani/config": "workspace:*",
-		"@next/env": "catalog:",
-		"@types/bcryptjs": "^2.4.6",
-		"prisma": "catalog:",
-		"tsdown": "catalog:",
-		"tsx": "catalog:",
-		"@types/ws": "^8.18.1"
-	}
+"devDependencies": {
+  "@dukkani/config": "workspace:*",
+  "@next/env": "catalog:",
+  "@types/bcryptjs": "^2.4.6",
+  "prisma": "catalog:",
+  "tsdown": "catalog:",
+  "tsx": "catalog:",
+  "@types/ws": "^8.18.1",
+  "dotenv": "catalog:"
+}
 }
