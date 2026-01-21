@@ -71,10 +71,10 @@ enum HealthStatus {
  * - Variants are stored separately to optimize CDN delivery and caching
  */
 enum StorageFileVariantType {
-  THUMBNAIL 
-  SMALL 
-  MEDIUM 
-  LARGE 
+  THUMBNAIL
+  SMALL
+  MEDIUM
+  LARGE
 }
 
 enum StoreNotificationMethod {

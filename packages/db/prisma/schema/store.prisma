@@ -36,9 +36,9 @@ model Store {
   description    String?
   whatsappNumber String? @map("whatsapp_number")
 
-  storePlan          StorePlan?
-  theme              StoreTheme?
-  category           StoreCategory?
+  storePlan StorePlan?
+  theme     StoreTheme?
+  category  StoreCategory?
 
   status             StoreStatus              @default(DRAFT)
   notificationMethod StoreNotificationMethod? @default(EMAIL) @map("notification_method")

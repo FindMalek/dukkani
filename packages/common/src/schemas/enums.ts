@@ -9,6 +9,7 @@ import {
 	TeamMemberRole,
 	UserOnboardingStep,
 	WhatsAppMessageStatus,
+	StoreStatus,
 } from "@dukkani/db/prisma/generated/enums";
 import { z } from "zod";
 
@@ -117,3 +118,12 @@ export const userOnboardingStepSchema = z.nativeEnum(UserOnboardingStep);
 export const userOnboardingStepEnum = userOnboardingStepSchema.enum;
 export const LIST_USER_ONBOARDING_STEPS = Object.values(UserOnboardingStep);
 export type UserOnboardingStepInfer = z.infer<typeof userOnboardingStepSchema>;
+
+/**
+ * Store Status Enum
+ */
+export { StoreStatus };
+export const storeStatusSchema = z.nativeEnum(StoreStatus);
+export const storeStatusEnum = storeStatusSchema.enum;
+export const LIST_STORE_STATUSES = Object.values(StoreStatus);
+export type StoreStatusInfer = z.infer<typeof storeStatusSchema>;

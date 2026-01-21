@@ -67,7 +67,7 @@ export class StoreQuery {
 		const productPage = options?.productPage ?? 1;
 		const productLimit = options?.productLimit ?? 20;
 		const productSkip = (productPage - 1) * productLimit;
-
+	
 		return {
 			...StoreQuery.getSimpleInclude(),
 			storePlan: StorePlanQuery.getSimpleInclude(),

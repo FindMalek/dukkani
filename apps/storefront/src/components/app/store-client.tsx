@@ -1,10 +1,36 @@
 "use client";
 
+import { StoreStatus } from "@dukkani/common/schemas/enums";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { useTranslations } from "next-intl";
 
 export function StoreClient({ store }: { store: StorePublicOutput }) {
 	const t = useTranslations("storefront.store");
+
+	if (store.status === StoreStatus.DRAFT) {
+		return (
+			<div className="container mx-auto px-4 py-16">
+				<div className="mx-auto max-w-2xl text-center">
+					<div className="mb-6">
+						<h1 className="font-bold text-4xl">{store.name}</h1>
+						{store.description && (
+							<p className="mt-4 text-lg text-muted-foreground">
+								{store.description}
+							</p>
+						)}
+					</div>
+					<div className="rounded-lg border bg-muted/30 p-8">
+						<h2 className="mb-2 font-semibold text-2xl">
+							{t("comingSoon.title")}
+						</h2>
+						<p className="text-muted-foreground">
+							{t("comingSoon.description")}
+						</p>
+					</div>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="container mx-auto px-4 py-8">

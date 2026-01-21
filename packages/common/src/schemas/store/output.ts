@@ -10,6 +10,7 @@ import { userSimpleOutputSchema } from "../user/output";
 import {
 	storeCategorySchema,
 	storeNotificationMethodSchema,
+	storeStatusSchema,
 	storeThemeSchema,
 } from "./enums";
 
@@ -55,6 +56,7 @@ export const listStoresOutputSchema = z.object({
 
 export const storePublicOutputSchema = storeSafeOutputSchema
 	.extend({
+		status: storeStatusSchema,
 		owner: z
 			.object({
 				name: z.string().nullable(),

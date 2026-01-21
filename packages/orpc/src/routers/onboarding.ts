@@ -1,5 +1,7 @@
 import type { StoreMinimalDbData } from "@dukkani/common/entities/store/query";
 import { StoreQuery } from "@dukkani/common/entities/store/query";
+import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
+import { StoreStatus } from "@dukkani/db/prisma/generated/enums";
 import { onboardingCompleteInputSchema } from "@dukkani/common/schemas/onboarding/input";
 import type { OnboardingCompleteOutput } from "@dukkani/common/schemas/onboarding/output";
 import { onboardingCompleteOutputSchema } from "@dukkani/common/schemas/onboarding/output";
@@ -12,6 +14,7 @@ export const onboardingRouter = {
 	/**
 	 * Get onboarding completion data (store URL, etc.)
 	 * Returns the user's first store information
+	 * Also publishes the store and marks onboarding as complete
 	 */
 	complete: protectedProcedure
 		.input(onboardingCompleteInputSchema.optional())
@@ -56,6 +59,20 @@ export const onboardingRouter = {
 					});
 				}
 			}
+
+			// Publish the store and mark onboarding as complete
+			await database.$transaction([
+				// Update store status to PUBLISHED
+				database.store.update({
+					where: { id: store.id },
+					data: { status: StoreStatus.PUBLISHED },
+				}),
+				// Update user onboarding step to STORE_LAUNCHED
+				database.user.update({
+					where: { id: userId },
+					data: { onboardingStep: UserOnboardingStep.STORE_LAUNCHED },
+				}),
+			]);
 
 			// Generate store URL (e.g., store-name.dukkani.tn)
 			const storeUrl = `https://${store.slug}.${apiEnv.NEXT_PUBLIC_STORE_DOMAIN}`;

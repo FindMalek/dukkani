@@ -3,6 +3,7 @@ import { database } from "@dukkani/db";
 import {
 	type StoreCategory,
 	StorePlanType,
+	StoreStatus,
 	type StoreTheme,
 } from "@dukkani/db/prisma/generated/enums";
 import logger from "@dukkani/logger";
@@ -202,6 +203,7 @@ class StoreServiceBase {
 	/**
 	 * Get store by slug (public - for storefronts)
 	 * Returns public data with owner (limited) and products (published only, paginated)
+	 * For DRAFT stores, returns minimal data for "Coming Soon" display
 	 */
 	static async getStoreBySlugPublic(
 		slug: string,
@@ -219,17 +221,53 @@ class StoreServiceBase {
 			"store.product_limit": productLimit,
 		});
 
-		// First, get the store to find its ID
+		// First, get the store to check its status
 		const store = await database.store.findUnique({
 			where: { slug },
-			select: { id: true },
+			select: { id: true, status: true },
 		});
 
 		if (!store) {
 			throw new Error("Store not found");
 		}
 
-		// Get total count of published products
+		// For DRAFT stores, return minimal data for "Coming Soon" display
+		if (store.status === StoreStatus.DRAFT) {
+			const draftStore = await database.store.findUnique({
+				where: { slug },
+				include: StoreQuery.getPublicInclude({
+					productPage: 1,
+					productLimit: 0, // No products for draft stores
+				}),
+			});
+
+			if (!draftStore) {
+				throw new Error("Store not found");
+			}
+
+			const result = StoreEntity.getPublicRo(draftStore);
+
+			return {
+				...result,
+				products: [],
+				productsPagination: {
+					total: 0,
+					hasMore: false,
+					page: 1,
+					limit: 0,
+				},
+			};
+		}
+
+		// For SUSPENDED or ARCHIVED stores, throw error (not accessible)
+		if (
+			store.status === StoreStatus.SUSPENDED ||
+			store.status === StoreStatus.ARCHIVED
+		) {
+			throw new Error("Store is not available");
+		}
+
+		// Get total count of published products (only for PUBLISHED stores)
 		const totalProducts = await database.product.count({
 			where: {
 				storeId: store.id,

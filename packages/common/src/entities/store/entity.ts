@@ -78,6 +78,7 @@ export class StoreEntity {
 			whatsappNumber: entity.whatsappNumber,
 			category: entity.category,
 			theme: entity.theme,
+			status: entity.status,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
 			storePlan: entity.storePlan
