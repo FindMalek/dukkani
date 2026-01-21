@@ -1,7 +1,28 @@
 {
 	"dashboard": {
 		"title": "Dashboard",
-		"description": "Dashboard description"
+		"description": "Dashboard description",
+		"overview": {
+			"storeHeader": {
+				"liveStore": "Live store",
+				"yourStoreLink": "Your store link",
+				"tapToCopy": "Tap to copy and share"
+			},
+			"todaysPerformance": {
+				"title": "TODAY'S PERFORMANCE",
+				"orders": "Orders",
+				"revenue": "Revenue"
+			},
+			"thisWeek": {
+				"title": "This Week",
+				"orders": "Orders"
+			},
+			"quickActions": {
+				"title": "QUICK ACTIONS",
+				"addProduct": "Add new product",
+				"viewOrders": "View all orders"
+			}
+		}
 	},
 	"auth": {
 		"emailSignIn": {

@@ -22,7 +22,7 @@ import type { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { CategoryDrawer } from "@/components/dashboard/products/category-drawer";
+import { CategoryDrawer } from "@/components/app/products/category-drawer";
 import { useCategoriesQuery } from "@/hooks/api/use-categories";
 
 interface ProductCategorySectionProps {

@@ -1,5 +1,12 @@
 import { database } from "@dukkani/db";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
+import {
+	endOfDay,
+	endOfWeek,
+	startOfDay,
+	startOfWeek,
+	subDays,
+} from "date-fns";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import { OrderItemQuery } from "../entities/order-item/query";
@@ -16,9 +23,10 @@ class DashboardServiceBase {
 	 * Get dashboard statistics for a user's stores
 	 * Uses transactions to optimize database queries
 	 */
-	static async getDashboardStats(userId: string) {
+	static async getDashboardStats(userId: string, storeId: string) {
 		addSpanAttributes({
 			"dashboard.user_id": userId,
+			"dashboard.store_id": storeId,
 		});
 
 		// Get user's store IDs first
@@ -47,9 +55,21 @@ class DashboardServiceBase {
 			};
 		}
 
-		// Use transaction to run all queries in parallel for better performance
-		const baseOrderWhere = OrderQuery.getWhere(storeIds);
-		const baseProductWhere = ProductQuery.getWhere(storeIds);
+		// Filter to specific store if provided
+		const filteredStoreIds =
+			storeId && storeIds.includes(storeId) ? [storeId] : storeIds;
+
+		// Date calculations
+		const now = new Date();
+		const todayStart = startOfDay(now);
+		const todayEnd = endOfDay(now);
+		const yesterdayStart = startOfDay(subDays(now, 1));
+		const yesterdayEnd = endOfDay(subDays(now, 1));
+		const weekStart = startOfWeek(now, { weekStartsOn: 1 }); // Monday
+		const weekEnd = endOfWeek(now, { weekStartsOn: 1 });
+
+		const baseOrderWhere = OrderQuery.getWhere(filteredStoreIds);
+		const baseProductWhere = ProductQuery.getWhere(filteredStoreIds);
 
 		const [
 			totalProducts,
@@ -58,6 +78,10 @@ class DashboardServiceBase {
 			deliveredOrders,
 			recentOrders,
 			lowStockProducts,
+			todayOrders,
+			yesterdayOrders,
+			todayDeliveredOrders,
+			weekOrders,
 		] = await database.$transaction([
 			// Get total products count
 			database.product.count({
@@ -112,7 +136,74 @@ class DashboardServiceBase {
 				orderBy: ProductQuery.getOrder("asc", "stock"),
 				include: ProductQuery.getClientSafeInclude(),
 			}),
+
+			// Today's orders count
+			database.order.count({
+				where: {
+					...baseOrderWhere,
+					createdAt: {
+						gte: todayStart,
+						lte: todayEnd,
+					},
+				},
+			}),
+
+			// Yesterday's orders count (for change calculation)
+			database.order.count({
+				where: {
+					...baseOrderWhere,
+					createdAt: {
+						gte: yesterdayStart,
+						lte: yesterdayEnd,
+					},
+				},
+			}),
+
+			// Today's delivered orders for revenue
+			database.order.findMany({
+				where: {
+					...baseOrderWhere,
+					status: OrderStatus.DELIVERED,
+					createdAt: {
+						gte: todayStart,
+						lte: todayEnd,
+					},
+				},
+				include: {
+					orderItems: {
+						select: OrderItemQuery.getRevenueSelect(),
+					},
+				},
+			}),
+
+			// This week's orders count
+			database.order.count({
+				where: {
+					...baseOrderWhere,
+					createdAt: {
+						gte: weekStart,
+						lte: weekEnd,
+					},
+				},
+			}),
 		]);
+
+		// Calculate today's revenue
+		const todayRevenue = todayDeliveredOrders.reduce((sum, order) => {
+			const orderTotal = order.orderItems.reduce(
+				(itemSum, item) => itemSum + Number(item.price) * item.quantity,
+				0,
+			);
+			return sum + orderTotal;
+		}, 0);
+
+		// Calculate change (today vs yesterday)
+		const todayOrdersChange =
+			yesterdayOrders > 0
+				? todayOrders - yesterdayOrders
+				: todayOrders > 0
+					? todayOrders
+					: 0;
 
 		// Build orders by status map
 		const ordersByStatusMap: Record<OrderStatus, number> = {
@@ -159,6 +250,10 @@ class DashboardServiceBase {
 			totalRevenue,
 			recentOrders: recentOrders.map(OrderEntity.getSimpleRo),
 			lowStockProducts: lowStockProducts.map(ProductEntity.getSimpleRo),
+			todayOrders,
+			todayOrdersChange,
+			todayRevenue,
+			weekOrders,
 		};
 	}
 }
