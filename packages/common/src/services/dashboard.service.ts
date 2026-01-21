@@ -23,10 +23,10 @@ class DashboardServiceBase {
 	 * Get dashboard statistics for a user's stores
 	 * Uses transactions to optimize database queries
 	 */
-	static async getDashboardStats(userId: string, storeId: string) {
+	static async getDashboardStats(userId: string, storeId?: string) {
 		addSpanAttributes({
 			"dashboard.user_id": userId,
-			"dashboard.store_id": storeId,
+			"dashboard.store_id": storeId ?? "undefined",
 		});
 
 		// Get user's store IDs first
@@ -52,6 +52,10 @@ class DashboardServiceBase {
 				totalRevenue: 0,
 				recentOrders: [],
 				lowStockProducts: [],
+				todayOrders: 0,
+				todayOrdersChange: 0,
+				todayRevenue: 0,
+				weekOrders: 0,
 			};
 		}
 

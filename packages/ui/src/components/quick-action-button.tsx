@@ -65,7 +65,9 @@ export function QuickActionButton({
 			<Icons.chevronRight
 				className={cn(
 					"size-5",
-					variant === "primary" ? "text-white" : "text-muted-foreground",
+					variant === "primary"
+						? "text-primary-foreground"
+						: "text-muted-foreground",
 				)}
 			/>
 		</Comp>

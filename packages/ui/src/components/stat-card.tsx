@@ -39,8 +39,8 @@ export function StatCard({
 					<div
 						className={cn(
 							"mt-1 flex items-center gap-1 text-xs",
-							hasPositiveChange && "text-green-600 dark:text-green-400",
-							hasNegativeChange && "text-red-600 dark:text-red-400",
+							hasPositiveChange && "text-success dark:text-success",
+							hasNegativeChange && "text-destructive dark:text-destructive",
 						)}
 					>
 						{hasPositiveChange && <Icons.chevronUp className="size-3" />}

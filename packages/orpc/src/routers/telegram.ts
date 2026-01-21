@@ -1,8 +1,8 @@
+import { StoreQuery } from "@dukkani/common/entities/store/query";
 import {
 	disconnectTelegramInputSchema,
 	sendOTPInputSchema,
 } from "@dukkani/common/schemas/telegram/input";
-import { StoreQuery } from "@dukkani/common/entities/store/query";
 import {
 	type TelegramBotLinkOutput,
 	type TelegramStatusOutput,

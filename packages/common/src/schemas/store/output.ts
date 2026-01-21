@@ -21,6 +21,7 @@ export const storeSafeOutputSchema = z.object({
 	description: z.string().nullable(),
 	whatsappNumber: z.string().nullable(),
 	category: storeCategorySchema.nullable(),
+	status: storeStatusSchema,
 	theme: storeThemeSchema.nullable(),
 	notificationMethod: storeNotificationMethodSchema.nullable(),
 	createdAt: z.date(),

@@ -1,10 +1,10 @@
 "use client";
 
-import { LiveStoreBadge } from "@dukkani/ui/components/live-store-badge";
-import { StoreLink } from "@dukkani/ui/components/store-link";
+import { StoreBadge } from "@dukkani/ui/components/store-badge";
 import { useTranslations } from "next-intl";
-import { env } from "@/env";
+import { StoreLink } from "@/components/shared/store-link";
 import { useStoresQuery } from "@/hooks/api/use-stores.hook";
+import { getStoreUrl } from "@/lib/store-url";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 
 export function StoreHeader() {
@@ -18,16 +18,13 @@ export function StoreHeader() {
 		return null;
 	}
 
-	// Generate store URL - easy to extend for custom DNS later
-	const storeUrl = activeStore.customDomain
-		? `https://${activeStore.customDomain}`
-		: `https://${activeStore.slug}.${env.NEXT_PUBLIC_STORE_DOMAIN}`;
+	const storeUrl = getStoreUrl(activeStore);
 
 	return (
 		<div className="space-y-4">
 			<div className="flex items-center justify-between">
 				<h1 className="font-bold text-2xl md:text-3xl">{activeStore.name}</h1>
-				{activeStore.status === "PUBLISHED" && <LiveStoreBadge />}
+				<StoreBadge status={activeStore.status} />
 			</div>
 			<StoreLink
 				url={storeUrl}
