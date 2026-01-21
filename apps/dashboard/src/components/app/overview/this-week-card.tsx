@@ -17,14 +17,14 @@ export function ThisWeekCard({ stats }: ThisWeekCardProps) {
 	const t = useTranslations("dashboard.overview.thisWeek");
 
 	return (
-		<Card>
-			<CardHeader>
+		<Card className="border-border/50">
+			<CardHeader className="pb-3">
 				<CardTitle className="font-medium text-muted-foreground text-sm">
 					{t("title")}
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<div className="font-bold text-2xl">
+				<div className="font-bold text-2xl text-foreground">
 					{stats.weekOrders} {t("orders")}
 				</div>
 			</CardContent>

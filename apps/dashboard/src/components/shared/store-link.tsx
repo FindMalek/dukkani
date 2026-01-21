@@ -33,14 +33,16 @@ export function StoreLink({
 			<Button
 				variant="outline"
 				onClick={handleCopy}
-				className="h-auto w-full justify-between p-3 text-left font-normal"
+				className="h-auto w-full justify-between rounded-lg border-border/50 p-4 text-left font-normal transition-colors hover:bg-accent/50"
 			>
-				<span className="font-semibold text-base">{url}</span>
-				<div className="flex items-center gap-2">
+				<span className="truncate pr-2 font-semibold text-base text-foreground">
+					{url}
+				</span>
+				<div className="flex shrink-0 items-center gap-2">
 					{copied ? (
 						<Icons.check className="size-4 text-success" />
 					) : (
-						<Icons.copy className="size-4" />
+						<Icons.copy className="size-4 text-muted-foreground" />
 					)}
 				</div>
 			</Button>

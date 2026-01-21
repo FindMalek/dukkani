@@ -1,7 +1,7 @@
-import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import type * as React from "react";
+import * as React from "react";
 import { cn } from "../lib/utils";
+import { Button } from "./button";
 import { Icons } from "./icons";
 
 const quickActionButtonVariants = cva(
@@ -22,11 +22,14 @@ const quickActionButtonVariants = cva(
 );
 
 interface QuickActionButtonProps
-	extends React.ComponentProps<"button">,
+	extends Omit<
+			React.ComponentProps<typeof Button>,
+			"variant" | "size" | "children"
+		>,
 		VariantProps<typeof quickActionButtonVariants> {
-	asChild?: boolean;
 	icon?: React.ComponentType<{ className?: string }>;
 	iconBg?: "default" | "muted";
+	children: React.ReactNode;
 }
 
 export function QuickActionButton({
@@ -38,13 +41,28 @@ export function QuickActionButton({
 	children,
 	...props
 }: QuickActionButtonProps) {
-	const Comp = asChild ? Slot : "button";
+	const textContent = React.useMemo(() => {
+		if (asChild && React.isValidElement(children)) {
+			const childElement = children as React.ReactElement<{
+				children?: React.ReactNode;
+			}>;
+			const linkChildren = childElement.props.children;
+			if (typeof linkChildren === "string") {
+				return linkChildren;
+			}
+			if (React.isValidElement(linkChildren)) {
+				const nestedElement = linkChildren as React.ReactElement<{
+					children?: React.ReactNode;
+				}>;
+				return nestedElement.props.children || linkChildren;
+			}
+			return linkChildren;
+		}
+		return children;
+	}, [asChild, children]);
 
-	return (
-		<Comp
-			className={cn(quickActionButtonVariants({ variant }), className)}
-			{...props}
-		>
+	const content = (
+		<>
 			<div className="flex items-center gap-3">
 				{Icon && (
 					<div
@@ -60,7 +78,7 @@ export function QuickActionButton({
 						<Icon className="size-5" />
 					</div>
 				)}
-				<span className="font-medium">{children}</span>
+				<span className="font-medium">{textContent}</span>
 			</div>
 			<Icons.chevronRight
 				className={cn(
@@ -70,6 +88,40 @@ export function QuickActionButton({
 						: "text-muted-foreground",
 				)}
 			/>
-		</Comp>
+		</>
+	);
+
+	if (asChild) {
+		// When asChild is true, clone the child (Link) and replace its children with our content
+		const child = React.Children.only(children) as React.ReactElement<
+			React.HTMLAttributes<HTMLElement> & { className?: string }
+		>;
+
+		return (
+			<Button
+				asChild
+				className={cn(quickActionButtonVariants({ variant }), className)}
+				{...props}
+			>
+				{React.cloneElement(child, {
+					...child.props,
+					className: cn(
+						quickActionButtonVariants({ variant }),
+						className,
+						child.props.className,
+					),
+					children: content,
+				} as React.HTMLAttributes<HTMLElement>)}
+			</Button>
+		);
+	}
+
+	return (
+		<Button
+			className={cn(quickActionButtonVariants({ variant }), className)}
+			{...props}
+		>
+			{content}
+		</Button>
 	);
 }

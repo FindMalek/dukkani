@@ -15,10 +15,20 @@ export function QuickActions() {
 				{t("title")}
 			</h2>
 			<div className="space-y-3">
-				<QuickActionButton variant="primary" icon={Icons.plus} asChild>
+				<QuickActionButton
+					variant="primary"
+					icon={Icons.plus}
+					className="h-auto"
+					asChild
+				>
 					<Link href={getRouteHref("PRODUCTS", "NEW")}>{t("addProduct")}</Link>
 				</QuickActionButton>
-				<QuickActionButton variant="outline" icon={Icons.package} asChild>
+				<QuickActionButton
+					variant="outline"
+					icon={Icons.package}
+					className="h-auto"
+					asChild
+				>
 					<Link href={getRouteHref("ORDERS", "INDEX")}>{t("viewOrders")}</Link>
 				</QuickActionButton>
 			</div>

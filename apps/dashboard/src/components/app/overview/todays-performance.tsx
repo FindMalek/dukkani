@@ -17,7 +17,7 @@ export function TodaysPerformance({ stats }: TodaysPerformanceProps) {
 			<h2 className="font-medium text-muted-foreground text-sm uppercase tracking-wide">
 				{t("title")}
 			</h2>
-			<div className="grid gap-4 md:grid-cols-2">
+			<div className="grid grid-cols-2 gap-4">
 				<StatCard
 					title={t("orders")}
 					value={stats.todayOrders}
