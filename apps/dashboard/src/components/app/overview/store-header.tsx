@@ -41,7 +41,7 @@ export function StoreHeader() {
 		<div className="space-y-4">
 			{/* Store Name + Badge */}
 			<div className="flex items-center justify-between gap-3">
-				<h1 className="flex-1 font-bold text-2xl text-foreground">
+				<h1 className="flex-1 font-bold text-foreground text-xl">
 					{activeStore.name}
 				</h1>
 				<StoreBadge status={activeStore.status} />

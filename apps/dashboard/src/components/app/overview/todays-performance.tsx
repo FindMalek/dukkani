@@ -1,7 +1,6 @@
 "use client";
 
 import type { DashboardStatsOutput } from "@dukkani/common/schemas/dashboard/output";
-import { formatCurrency } from "@dukkani/common/utils";
 import { StatCard } from "@dukkani/ui/components/stat-card";
 import { useTranslations } from "next-intl";
 
@@ -25,7 +24,8 @@ export function TodaysPerformance({ stats }: TodaysPerformanceProps) {
 				/>
 				<StatCard
 					title={t("revenue")}
-					value={formatCurrency(stats.todayRevenue)}
+					value={stats.todayRevenue}
+					currency="TND"
 				/>
 			</div>
 		</div>

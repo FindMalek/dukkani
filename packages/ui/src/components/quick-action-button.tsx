@@ -1,7 +1,8 @@
+// packages/ui/src/components/quick-action-button.tsx
+
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { cn } from "../lib/utils";
-import { Button } from "./button";
 import { Icons } from "./icons";
 
 const quickActionButtonVariants = cva(
@@ -22,11 +23,9 @@ const quickActionButtonVariants = cva(
 );
 
 interface QuickActionButtonProps
-	extends Omit<
-			React.ComponentProps<typeof Button>,
-			"variant" | "size" | "children"
-		>,
+	extends Omit<React.ComponentProps<"button">, "variant" | "children">,
 		VariantProps<typeof quickActionButtonVariants> {
+	asChild?: boolean;
 	icon?: React.ComponentType<{ className?: string }>;
 	iconBg?: "default" | "muted";
 	children: React.ReactNode;
@@ -41,6 +40,7 @@ export function QuickActionButton({
 	children,
 	...props
 }: QuickActionButtonProps) {
+	// Extract text content when asChild is true (children is a Link)
 	const textContent = React.useMemo(() => {
 		if (asChild && React.isValidElement(children)) {
 			const childElement = children as React.ReactElement<{
@@ -92,36 +92,28 @@ export function QuickActionButton({
 	);
 
 	if (asChild) {
-		// When asChild is true, clone the child (Link) and replace its children with our content
+		// When asChild is true, clone the child (Link) and apply our styles directly
 		const child = React.Children.only(children) as React.ReactElement<
-			React.HTMLAttributes<HTMLElement> & { className?: string }
+			React.HTMLAttributes<HTMLElement> & { className?: string; href?: string }
 		>;
 
-		return (
-			<Button
-				asChild
-				className={cn(quickActionButtonVariants({ variant }), className)}
-				{...props}
-			>
-				{React.cloneElement(child, {
-					...child.props,
-					className: cn(
-						quickActionButtonVariants({ variant }),
-						className,
-						child.props.className,
-					),
-					children: content,
-				} as React.HTMLAttributes<HTMLElement>)}
-			</Button>
-		);
+		return React.cloneElement(child, {
+			...child.props,
+			className: cn(
+				quickActionButtonVariants({ variant }),
+				className,
+				child.props.className,
+			),
+			children: content,
+		} as React.HTMLAttributes<HTMLElement>);
 	}
 
 	return (
-		<Button
+		<button
 			className={cn(quickActionButtonVariants({ variant }), className)}
 			{...props}
 		>
 			{content}
-		</Button>
+		</button>
 	);
 }
