@@ -3,6 +3,17 @@ files:
   packages/common/src/locale/dashboard/en.json:
     dashboard.title: 2938c7f7e560ed972f8a4f68e80ff834
     dashboard.description: f650603046597390c7e202553b2b9033
+    dashboard.overview.storeHeader.liveStore: d2e0a4199be2b6f2aaae136b60c329e2
+    dashboard.overview.storeHeader.yourStoreLink: 5a903397955c2aef24a0a7672d9ec17e
+    dashboard.overview.storeHeader.tapToCopy: 18c64fb6514d553213c865b1a869a91e
+    dashboard.overview.todaysPerformance.title: 007ae933a4feac218b91b9a9b8e63e6c
+    dashboard.overview.todaysPerformance.orders: 7442e29d7d53e549b78d93c46b8cdcfc
+    dashboard.overview.todaysPerformance.revenue: 54358a914f51e1af19df8520159fe607
+    dashboard.overview.thisWeek.title: 983268bc2eba161bbc25dd3e73ecdba0
+    dashboard.overview.thisWeek.orders: 7442e29d7d53e549b78d93c46b8cdcfc
+    dashboard.overview.quickActions.title: 07a221d6f9e778b8b4de7cbd9fc415b9
+    dashboard.overview.quickActions.addProduct: 3fa8c89ef63fbb7056fc1d8d1b67f97a
+    dashboard.overview.quickActions.viewOrders: 2309d9606fa9660d65acfbb60d055284
     auth.emailSignIn.continue: a0bfb8e59e6c13fc8d990781f77694fe
     auth.emailSignIn.rememberMe: 878530871f0db73f004f5bd6591eeb76
     auth.emailSignIn.back: 0557fa923dcee4d0f86b1409f5c2167f
