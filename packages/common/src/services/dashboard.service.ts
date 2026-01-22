@@ -203,11 +203,7 @@ class DashboardServiceBase {
 
 		// Calculate change (today vs yesterday)
 		const todayOrdersChange =
-			yesterdayOrders > 0
-				? todayOrders - yesterdayOrders
-				: todayOrders > 0
-					? todayOrders
-					: 0;
+			yesterdayOrders > 0 ? todayOrders - yesterdayOrders : todayOrders;
 
 		// Build orders by status map
 		const ordersByStatusMap: Record<OrderStatus, number> = {

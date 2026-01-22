@@ -221,32 +221,22 @@ class StoreServiceBase {
 			"store.product_limit": productLimit,
 		});
 
-		// First, get the store to check its status
+		// Fetch all necessary data in a single query to avoid race conditions
 		const store = await database.store.findUnique({
 			where: { slug },
-			select: { id: true, status: true },
+			include: StoreQuery.getPublicInclude({
+				productPage,
+				productLimit,
+			}),
 		});
 
 		if (!store) {
 			throw new Error("Store not found");
 		}
 
-		// For DRAFT stores, return minimal data for "Coming Soon" display
+		// Handle DRAFT status - return minimal data for "Coming Soon" display
 		if (store.status === StoreStatus.DRAFT) {
-			const draftStore = await database.store.findUnique({
-				where: { slug },
-				include: StoreQuery.getPublicInclude({
-					productPage: 1,
-					productLimit: 0, // No products for draft stores
-				}),
-			});
-
-			if (!draftStore) {
-				throw new Error("Store not found");
-			}
-
-			const result = StoreEntity.getPublicRo(draftStore);
-
+			const result = StoreEntity.getPublicRo({ ...store, products: [] });
 			return {
 				...result,
 				products: [],
@@ -267,7 +257,7 @@ class StoreServiceBase {
 			throw new Error("Store is not available");
 		}
 
-		// Get total count of published products (only for PUBLISHED stores)
+		// For PUBLISHED stores, get total count of published products
 		const totalProducts = await database.product.count({
 			where: {
 				storeId: store.id,
@@ -275,29 +265,16 @@ class StoreServiceBase {
 			},
 		});
 
-		// Get store with paginated products
-		const storeWithProducts = await database.store.findUnique({
-			where: { slug },
-			include: StoreQuery.getPublicInclude({
-				productPage,
-				productLimit,
-			}),
-		});
-
-		if (!storeWithProducts) {
-			throw new Error("Store not found");
-		}
-
-		const result = StoreEntity.getPublicRo(storeWithProducts);
+		const result = StoreEntity.getPublicRo(store);
 
 		// Add pagination metadata
 		const productSkip = (productPage - 1) * productLimit;
 		const hasMoreProducts =
-			productSkip + (storeWithProducts.products?.length ?? 0) < totalProducts;
+			productSkip + (store.products?.length ?? 0) < totalProducts;
 
 		addSpanAttributes({
 			"store.total_products": totalProducts,
-			"store.products_returned": storeWithProducts.products?.length ?? 0,
+			"store.products_returned": store.products?.length ?? 0,
 			"store.has_more_products": hasMoreProducts,
 		});
 
