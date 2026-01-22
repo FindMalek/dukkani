@@ -1,12 +1,12 @@
 import path from "node:path";
-import { loadEnvConfig } from "@next/env";
+import { config } from "dotenv";
 import { defineConfig } from "prisma/config";
 
 // Load root .env file for local development
 // In Vercel/production, DATABASE_URL is injected directly via environment variables
 if (!process.env.VERCEL) {
-	const rootEnvPath = path.resolve(__dirname, "../../..");
-	loadEnvConfig(rootEnvPath);
+	const rootEnvPath = path.resolve(__dirname, "../../");
+	config({ path: path.resolve(rootEnvPath, ".env") });
 }
 
 /**

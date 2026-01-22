@@ -50,7 +50,8 @@
 		"@formatjs/intl-localematcher": "catalog:",
 		"negotiator": "catalog:",
 		"nanoid": "catalog:",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"date-fns": "catalog:"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",

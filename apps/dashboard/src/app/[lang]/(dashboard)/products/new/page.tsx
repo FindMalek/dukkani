@@ -9,7 +9,7 @@ import { useRef } from "react";
 import {
 	ProductForm,
 	type ProductFormHandle,
-} from "@/components/dashboard/products/product-form";
+} from "@/components/app/products/product-form";
 import { RoutePaths } from "@/lib/routes";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 

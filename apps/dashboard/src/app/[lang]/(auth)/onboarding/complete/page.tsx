@@ -8,7 +8,7 @@ import { Spinner } from "@dukkani/ui/components/spinner";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { OnboardingStepper } from "@/components/dashboard/onboarding/onboarding-stepper";
+import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { AuthBackground } from "@/components/layout/auth-background";
 import { useOnboardingCompleteQuery } from "@/hooks/api/use-onboarding.hook";
 import {

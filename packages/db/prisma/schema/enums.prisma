@@ -56,11 +56,25 @@ enum HealthStatus {
   UNKNOWN
 }
 
+/**
+ * Represents the size variants available for image files in storage.
+ * Multiple variants are automatically generated during image upload to optimize
+ * performance and bandwidth usage across different use cases.
+ * **Variants:**
+ * - `THUMBNAIL`: 150x150px - Used for small previews, thumbnails, and icons
+ * - `SMALL`: 400x400px - Used for product grids and list views
+ * - `MEDIUM`: 800x800px - Used for product detail pages and gallery views
+ * - `LARGE`: 1200x1200px - Used for high-resolution displays and zoom views
+ * **Business Logic:**
+ * - Variants are generated automatically during image upload processing
+ * - Each StorageFile can have one variant of each type
+ * - Variants are stored separately to optimize CDN delivery and caching
+ */
 enum StorageFileVariantType {
-  THUMBNAIL // 150x150px
-  SMALL // 400x400px
-  MEDIUM // 800x800px
-  LARGE // 1200x1200px
+  THUMBNAIL
+  SMALL
+  MEDIUM
+  LARGE
 }
 
 enum StoreNotificationMethod {
@@ -69,9 +83,44 @@ enum StoreNotificationMethod {
   BOTH
 }
 
+/**
+ * Represents the current step in the user onboarding process.
+ * Tracks progress through the store creation and configuration workflow.
+ * **Steps:**
+ * - `STORE_SETUP`: Initial step - user needs to create their store (name, description, notification method)
+ * - `STORE_CREATED`: Store has been created with basic information
+ * - `STORE_CONFIGURED`: Store theme and category have been configured
+ * - `STORE_LAUNCHED`: Onboarding is complete - store is ready for use
+ * **Business Logic:**
+ * - Default value for new users is `STORE_SETUP`
+ * - Steps progress sequentially through the onboarding flow
+ * - Used to determine which onboarding page to show and when to redirect to dashboard
+ * - Once `STORE_LAUNCHED` is reached, user has full access to the dashboard
+ */
 enum UserOnboardingStep {
   STORE_SETUP
   STORE_CREATED
   STORE_CONFIGURED
   STORE_LAUNCHED
+}
+
+/**
+ * Represents the current status of a store.
+ * Tracks the visibility and activity of a store in the platform.
+ * **Statuses:**
+ * - `DRAFT`: Work in progress, not publicly visible
+ * - `PUBLISHED`: Live and publicly accessible
+ * - `SUSPENDED`: Temporarily disabled
+ * - `ARCHIVED`: No longer active, historical data only
+ * **Business Logic:**
+ * - Stores start as `DRAFT` during creation
+ * - Can transition to `PUBLISHED` after configuration
+ * - Can be `SUSPENDED` if temporarily disabled by admin
+ * - Can be `ARCHIVED` when no longer needed (e.g., deleted by user)
+ */
+enum StoreStatus {
+  DRAFT
+  PUBLISHED
+  SUSPENDED
+  ARCHIVED
 }

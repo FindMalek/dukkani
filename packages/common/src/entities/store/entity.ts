@@ -39,6 +39,7 @@ export class StoreEntity {
 			description: entity.description,
 			whatsappNumber: entity.whatsappNumber,
 			category: entity.category,
+			status: entity.status,
 			theme: entity.theme,
 			notificationMethod: entity.notificationMethod,
 			createdAt: entity.createdAt,
@@ -57,6 +58,7 @@ export class StoreEntity {
 			description: entity.description,
 			whatsappNumber: entity.whatsappNumber,
 			category: entity.category,
+			status: entity.status,
 			theme: entity.theme,
 			notificationMethod: entity.notificationMethod,
 			ownerId: entity.ownerId,
@@ -78,6 +80,7 @@ export class StoreEntity {
 			whatsappNumber: entity.whatsappNumber,
 			category: entity.category,
 			theme: entity.theme,
+			status: entity.status,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
 			storePlan: entity.storePlan

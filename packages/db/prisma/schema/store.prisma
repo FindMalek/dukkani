@@ -11,6 +11,7 @@
  * - `theme`: Visual theme for the store (LIGHT, DARK, MINIMAL, MODERN, CLASSIC)
  * - `category`: Store category (FASHION, ELECTRONICS, FOOD, HOME, BEAUTY, SPORTS, BOOKS, TOYS, OTHER)
  * - `notificationMethod`: Notification method for the store (EMAIL, TELEGRAM, BOTH)
+ * - `status`: Status of the store (DRAFT, PUBLISHED, SUSPENDED, ARCHIVED)
  * - `ownerId`: Reference to the User who owns this store
  * - `createdAt`: Timestamp when the store was created
  * - `updatedAt`: Timestamp when the store was last updated
@@ -35,9 +36,11 @@ model Store {
   description    String?
   whatsappNumber String? @map("whatsapp_number")
 
-  storePlan          StorePlan?
-  theme              StoreTheme?
-  category           StoreCategory?
+  storePlan StorePlan?
+  theme     StoreTheme?
+  category  StoreCategory?
+
+  status             StoreStatus              @default(DRAFT)
   notificationMethod StoreNotificationMethod? @default(EMAIL) @map("notification_method")
 
   orders       Order[]

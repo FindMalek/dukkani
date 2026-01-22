@@ -62,6 +62,7 @@
 		"prisma": "catalog:",
 		"tsdown": "catalog:",
 		"tsx": "catalog:",
-		"@types/ws": "^8.18.1"
+		"@types/ws": "^8.18.1",
+		"dotenv": "catalog:"
 	}
 }

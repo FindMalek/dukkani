@@ -13,8 +13,10 @@
 
 import {
 	AlertCircle,
+	ArrowDownRight,
 	ArrowLeft,
 	ArrowRight,
+	ArrowUpRight,
 	BookIcon,
 	CameraIcon,
 	Check,
@@ -45,6 +47,7 @@ import {
 	OctagonX,
 	PackageIcon,
 	PanelLeft,
+	PencilIcon,
 	Plus,
 	Search,
 	Settings,
@@ -54,7 +57,6 @@ import {
 	Star,
 	StoreIcon,
 	Sun,
-	PencilIcon,
 	Trash2Icon,
 	TriangleAlert,
 	TrophyIcon,
@@ -124,4 +126,6 @@ export const Icons = {
 	camera: CameraIcon,
 	trash: Trash2Icon,
 	edit: PencilIcon,
+	upRight: ArrowUpRight,
+	downRight: ArrowDownRight,
 } as const;

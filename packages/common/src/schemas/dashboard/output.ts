@@ -16,6 +16,10 @@ export const dashboardStatsOutputSchema = z.object({
 	totalRevenue: z.number(),
 	recentOrders: z.array(orderSimpleOutputSchema),
 	lowStockProducts: z.array(productSimpleOutputSchema),
+	todayOrders: z.number().int(),
+	todayOrdersChange: z.number().int(),
+	todayRevenue: z.number(),
+	weekOrders: z.number().int(),
 });
 
 export type DashboardStatsOutput = z.infer<typeof dashboardStatsOutputSchema>;

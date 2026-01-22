@@ -10,6 +10,7 @@ import { userSimpleOutputSchema } from "../user/output";
 import {
 	storeCategorySchema,
 	storeNotificationMethodSchema,
+	storeStatusSchema,
 	storeThemeSchema,
 } from "./enums";
 
@@ -20,6 +21,7 @@ export const storeSafeOutputSchema = z.object({
 	description: z.string().nullable(),
 	whatsappNumber: z.string().nullable(),
 	category: storeCategorySchema.nullable(),
+	status: storeStatusSchema,
 	theme: storeThemeSchema.nullable(),
 	notificationMethod: storeNotificationMethodSchema.nullable(),
 	createdAt: z.date(),
@@ -55,6 +57,7 @@ export const listStoresOutputSchema = z.object({
 
 export const storePublicOutputSchema = storeSafeOutputSchema
 	.extend({
+		status: storeStatusSchema,
 		owner: z
 			.object({
 				name: z.string().nullable(),
