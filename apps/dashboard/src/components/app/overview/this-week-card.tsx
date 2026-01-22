@@ -18,7 +18,7 @@ export function ThisWeekCard({ stats }: ThisWeekCardProps) {
 
 	return (
 		<Card className="border-border/50">
-			<CardHeader className="pb-3">
+			<CardHeader className="-mb-3 pb-3">
 				<CardTitle className="font-medium text-muted-foreground text-sm">
 					{t("title")}
 				</CardTitle>

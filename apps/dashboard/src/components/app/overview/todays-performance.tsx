@@ -1,8 +1,9 @@
 "use client";
 
 import type { DashboardStatsOutput } from "@dukkani/common/schemas/dashboard/output";
-import { StatCard } from "@dukkani/ui/components/stat-card";
 import { useTranslations } from "next-intl";
+import { OrdersCard } from "@/components/shared/orders-card";
+import { RevenueCard } from "@/components/shared/revenue-card";
 
 interface TodaysPerformanceProps {
 	stats: DashboardStatsOutput;
@@ -17,12 +18,12 @@ export function TodaysPerformance({ stats }: TodaysPerformanceProps) {
 				{t("title")}
 			</h2>
 			<div className="grid grid-cols-2 gap-4">
-				<StatCard
+				<OrdersCard
 					title={t("orders")}
 					value={stats.todayOrders}
 					change={stats.todayOrdersChange}
 				/>
-				<StatCard
+				<RevenueCard
 					title={t("revenue")}
 					value={stats.todayRevenue}
 					currency="TND"
