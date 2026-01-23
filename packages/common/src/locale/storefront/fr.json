@@ -10,6 +10,23 @@
 				"title": "Produits",
 				"empty": "Aucun produit disponible pour le moment"
 			}
+		},
+		"comingSoon": {
+			"heading": "Nous lançons bientôt",
+			"description": {
+				"line1": "Soyez le premier informé de notre lancement.",
+				"line2": "Mises à jour exclusives pour les visiteurs précoces."
+			},
+			"input": {
+				"placeholder": "Entrez votre email ou numéro de téléphone"
+			},
+			"button": {
+				"label": "Me notifier",
+				"submitting": "Abonnement..."
+			},
+			"success": "Merci ! Nous vous notifierons lors du lancement.",
+			"error": "Une erreur s'est produite. Veuillez réessayer.",
+			"privacy": "Pas de spam. Seulement les mises à jour de lancement."
 		}
 	}
 }

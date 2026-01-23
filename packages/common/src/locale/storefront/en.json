@@ -10,6 +10,23 @@
 				"title": "Products",
 				"empty": "No products available yet"
 			}
+		},
+		"comingSoon": {
+			"heading": "We're launching soon",
+			"description": {
+				"line1": "Be the first to know when we go live.",
+				"line2": "Exclusive updates for early visitors."
+			},
+			"input": {
+				"placeholder": "Enter your email or phone number"
+			},
+			"button": {
+				"label": "Notify me",
+				"submitting": "Subscribing..."
+			},
+			"success": "Thank you! We'll notify you when we launch.",
+			"error": "Something went wrong. Please try again.",
+			"privacy": "No spam. Only launch updates."
 		}
 	}
 }

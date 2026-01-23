@@ -49,7 +49,8 @@ model Store {
   customers    Customer[]
   teamMembers  TeamMember[]
   salesMetrics SalesMetric[]
-
+  launchNotifications LaunchNotification[]
+  
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -96,4 +97,41 @@ model StorePlan {
   store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
   @@map("store_plans")
+}
+
+/**
+ * Represents a launch notification subscription for a store.
+ * Customers can subscribe to be notified when a DRAFT store goes live.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `storeId`: Reference to the Store
+ * - `email`: Optional email address
+ * - `phone`: Optional phone number
+ * - `notified`: Whether the subscriber has been notified
+ * - `notifiedAt`: Timestamp when notification was sent
+ * - `createdAt`: Timestamp when subscription was created
+ * **Business Logic:**
+ * - Either email or phone must be provided (not both required, but at least one)
+ * - When store status changes from DRAFT to PUBLISHED, all subscribers should be notified
+ * - Prevents duplicate subscriptions (same email/phone for same store)
+ */
+model LaunchNotification {
+  id String @id @default(cuid())
+
+  email String?
+  phone String?
+
+  notified Boolean @default(false)
+  notifiedAt DateTime? @map("notified_at")
+
+  storeId String @map("store_id")
+  store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([storeId, email])
+  @@unique([storeId, phone])
+  @@index([storeId])
+  @@index([storeId, notified])
+  @@map("launch_notifications")
 }

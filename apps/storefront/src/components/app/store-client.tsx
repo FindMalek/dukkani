@@ -1,11 +1,9 @@
-"use client";
-
 import { StoreStatus } from "@dukkani/common/schemas/enums";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-export function StoreClient({ store }: { store: StorePublicOutput }) {
-	const t = useTranslations("storefront.store");
+export async function StoreClient({ store }: { store: StorePublicOutput }) {
+	const t = await getTranslations("storefront.store");
 
 	if (store.status === StoreStatus.DRAFT) {
 		return (
