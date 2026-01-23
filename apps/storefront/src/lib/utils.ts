@@ -6,11 +6,21 @@ export function getStoreSlugFromHost(host: string | null): string | null {
 	// Remove port if present (e.g., "localhost:3000" -> "localhost")
 	const hostname = host.split(":")[0];
 
-	// Check for localhost or IP address
+	// Handle localhost subdomains for local development
+	// e.g., "omar-home.localhost" -> extract "omar-home"
+	if (hostname.endsWith(".localhost")) {
+		const subdomain = hostname.replace(".localhost", "");
+		if (subdomain && subdomain !== "www") {
+			return subdomain;
+		}
+		return null;
+	}
+
+	// Check for plain localhost or IP address (no subdomain)
 	if (
-		hostname.includes("localhost") ||
-		/^\d+\.\d+\.\d+\.\d+$/.test(hostname) ||
-		hostname === "127.0.0.1"
+		hostname === "localhost" ||
+		hostname === "127.0.0.1" ||
+		/^\d+\.\d+\.\d+\.\d+$/.test(hostname)
 	) {
 		return null;
 	}

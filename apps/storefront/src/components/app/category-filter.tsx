@@ -16,7 +16,7 @@ interface CategoryFilterProps {
 }
 
 export function CategoryFilter({ categories }: CategoryFilterProps) {
-	const t = useTranslations("storefront.store");
+	const t = useTranslations("storefront.store.categoryFilter");
 	const { selectedCategoryId, setSelectedCategoryId } = useFilterStore();
 	if (categories.length === 0) {
 		return null;

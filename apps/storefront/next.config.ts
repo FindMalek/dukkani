@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
 		"pino-pretty",
 		"thread-stream",
 	],
+	images: {
+		domains: ["images.unsplash.com"],
+	},
 };
 
 export default withNextIntl(nextConfig);

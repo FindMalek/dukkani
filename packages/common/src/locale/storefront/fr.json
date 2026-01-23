@@ -9,6 +9,9 @@
 			"products": {
 				"title": "Produits",
 				"empty": "Aucun produit disponible pour le moment"
+			},
+			"categoryFilter": {
+				"all": "Tous"
 			}
 		},
 		"comingSoon": {
