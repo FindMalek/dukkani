@@ -43,14 +43,14 @@ model Store {
   status             StoreStatus              @default(DRAFT)
   notificationMethod StoreNotificationMethod? @default(EMAIL) @map("notification_method")
 
-  orders       Order[]
-  products     Product[]
-  categories   Category[]
-  customers    Customer[]
-  teamMembers  TeamMember[]
-  salesMetrics SalesMetric[]
+  orders              Order[]
+  products            Product[]
+  categories          Category[]
+  customers           Customer[]
+  teamMembers         TeamMember[]
+  salesMetrics        SalesMetric[]
   launchNotifications LaunchNotification[]
-  
+
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -121,7 +121,7 @@ model LaunchNotification {
   email String?
   phone String?
 
-  notified Boolean @default(false)
+  notified   Boolean   @default(false)
   notifiedAt DateTime? @map("notified_at")
 
   storeId String @map("store_id")

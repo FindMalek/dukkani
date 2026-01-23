@@ -1,11 +1,17 @@
 "use client";
 
+import { subscribeToLaunchInputSchema } from "@dukkani/common/schemas/store/input";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { Button } from "@dukkani/ui/components/button";
+import { Field, FieldError } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
+import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
+import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { handleAPIError } from "@/lib/error";
+import { client } from "@/lib/orpc";
 
 interface ComingSoonProps {
 	store: StorePublicOutput;
@@ -13,28 +19,32 @@ interface ComingSoonProps {
 
 export function ComingSoon({ store }: ComingSoonProps) {
 	const t = useTranslations("storefront.comingSoon");
-	const [emailOrPhone, setEmailOrPhone] = useState("");
-	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isSuccess, setIsSuccess] = useState(false);
-	const [error, setError] = useState<string | null>(null);
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setError(null);
-		setIsSubmitting(true);
-
-		try {
-			// TODO: Call API endpoint to subscribe
-			// await client.store.subscribeToLaunch({ storeId: store.id, contact: emailOrPhone });
-
+	const subscribeMutation = useMutation({
+		mutationFn: (input: { storeId: string; emailOrPhone: string }) =>
+			client.store.subscribeToLaunch(input),
+		onSuccess: () => {
 			setIsSuccess(true);
-			setEmailOrPhone("");
-		} catch (err) {
-			setError(t("error"));
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
+			form.reset();
+		},
+		onError: handleAPIError,
+	});
+
+	const form = useSchemaForm({
+		schema: subscribeToLaunchInputSchema,
+		defaultValues: {
+			storeId: store.id,
+			emailOrPhone: "",
+		},
+		validationMode: ["onBlur", "onSubmit"],
+		onSubmit: async (values) => {
+			subscribeMutation.mutate({
+				storeId: values.storeId,
+				emailOrPhone: values.emailOrPhone,
+			});
+		},
+	});
 
 	return (
 		<div className="container mx-auto px-4 py-16">
@@ -61,23 +71,44 @@ export function ComingSoon({ store }: ComingSoonProps) {
 						<p className="text-muted-foreground">{t("success")}</p>
 					</div>
 				) : (
-					<form onSubmit={handleSubmit} className="space-y-4">
-						<Input
-							type="text"
-							placeholder={t("input.placeholder")}
-							value={emailOrPhone}
-							onChange={(e) => setEmailOrPhone(e.target.value)}
-							required
-							disabled={isSubmitting}
-							className="w-full"
-						/>
+					<form
+						onSubmit={(e) => {
+							e.preventDefault();
+							form.handleSubmit();
+						}}
+						className="space-y-4"
+					>
+						<form.Field name="emailOrPhone">
+							{(field) => {
+								const isInvalid =
+									field.state.meta.isTouched && !field.state.meta.isValid;
+								return (
+									<Field data-invalid={isInvalid}>
+										<Input
+											id={field.name}
+											name={field.name}
+											type="text"
+											placeholder={t("input.placeholder")}
+											value={field.state.value ?? ""}
+											onBlur={field.handleBlur}
+											onChange={(e) => field.handleChange(e.target.value)}
+											disabled={subscribeMutation.isPending}
+											aria-invalid={isInvalid}
+										/>
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</Field>
+								);
+							}}
+						</form.Field>
 
 						<Button
 							type="submit"
-							disabled={isSubmitting || !emailOrPhone.trim()}
+							disabled={subscribeMutation.isPending}
 							className="w-full"
 						>
-							{isSubmitting ? (
+							{subscribeMutation.isPending ? (
 								<>
 									<Icons.spinner className="mr-2 size-4 animate-spin" />
 									{t("button.submitting")}
@@ -87,8 +118,10 @@ export function ComingSoon({ store }: ComingSoonProps) {
 							)}
 						</Button>
 
-						{error && (
-							<p className="text-center text-destructive text-sm">{error}</p>
+						{subscribeMutation.isError && (
+							<p className="text-center text-destructive text-sm">
+								{t("error")}
+							</p>
 						)}
 					</form>
 				)}

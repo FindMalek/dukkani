@@ -5,13 +5,18 @@ import {
 	getStoreBySlugPublicInputSchema,
 	getStoreInputSchema,
 	listStoresInputSchema,
+	subscribeToLaunchInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import {
+	launchNotificationOutputSchema,
 	storeIncludeOutputSchema,
 	storePublicOutputSchema,
 	storeSimpleOutputSchema,
 } from "@dukkani/common/schemas/store/output";
-import { StoreService } from "@dukkani/common/services";
+import {
+	LaunchNotificationService,
+	StoreService,
+} from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
@@ -137,5 +142,29 @@ export const storeRouter = {
 			});
 
 			return store;
+		}),
+	/**
+	 * Subscribe to launch notifications for a store
+	 */
+	subscribeToLaunch: publicProcedure
+		.input(
+			subscribeToLaunchInputSchema
+				.extend({
+					email: z.email().optional(),
+					phone: z.string().optional(),
+				})
+				.transform((data) => {
+					// Transform emailOrPhone into email or phone
+					const isEmail = data.emailOrPhone.includes("@");
+					return {
+						storeId: data.storeId,
+						email: isEmail ? data.emailOrPhone : undefined,
+						phone: !isEmail ? data.emailOrPhone : undefined,
+					};
+				}),
+		)
+		.output(launchNotificationOutputSchema)
+		.handler(async ({ input }) => {
+			return await LaunchNotificationService.subscribe(input);
 		}),
 };

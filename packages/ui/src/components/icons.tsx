@@ -40,6 +40,7 @@ import {
 	LayoutDashboard,
 	LayoutGridIcon,
 	Loader2,
+	LockIcon,
 	type LucideIcon,
 	Minus,
 	Moon,
@@ -128,4 +129,5 @@ export const Icons = {
 	edit: PencilIcon,
 	upRight: ArrowUpRight,
 	downRight: ArrowDownRight,
+	lock: LockIcon,
 } as const;

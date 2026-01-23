@@ -84,3 +84,13 @@ export type StoreMinimalOutput = z.infer<typeof storeMinimalOutputSchema>;
 export type StoreSafeOutput = z.infer<typeof storeSafeOutputSchema>;
 export type StoreIncludeOutput = z.infer<typeof storeIncludeOutputSchema>;
 export type ListStoresOutput = z.infer<typeof listStoresOutputSchema>;
+
+export const launchNotificationOutputSchema = z.object({
+	id: z.string(),
+	email: z.string().nullable(),
+	phone: z.string().nullable(),
+});
+
+export type LaunchNotificationOutput = z.infer<
+	typeof launchNotificationOutputSchema
+>;

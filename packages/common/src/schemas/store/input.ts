@@ -73,3 +73,26 @@ export const configureStoreOnboardingInputSchema = z.object({
 export type ConfigureStoreOnboardingInput = z.infer<
 	typeof configureStoreOnboardingInputSchema
 >;
+
+export const subscribeToLaunchInputSchema = z.object({
+	storeId: z.string().min(1, "Store ID is required"),
+	emailOrPhone: z
+		.string()
+		.min(1, "Email or phone number is required")
+		.refine(
+			(value) => {
+				// Check if it's an email
+				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				// Check if it's a phone (basic validation - digits, spaces, +, -, parentheses)
+				const phoneRegex = /^[\d\s+\-()]+$/;
+				return emailRegex.test(value) || phoneRegex.test(value);
+			},
+			{
+				message: "Please enter a valid email address or phone number",
+			},
+		),
+});
+
+export type SubscribeToLaunchInput = z.infer<
+	typeof subscribeToLaunchInputSchema
+>;
