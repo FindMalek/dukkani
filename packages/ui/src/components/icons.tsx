@@ -54,6 +54,7 @@ import {
 	Settings,
 	ShirtIcon,
 	ShoppingCart,
+	ShoppingCartIcon,
 	SparklesIcon,
 	Star,
 	StoreIcon,
@@ -130,4 +131,5 @@ export const Icons = {
 	upRight: ArrowUpRight,
 	downRight: ArrowDownRight,
 	lock: LockIcon,
+	shoppingCart: ShoppingCartIcon,
 } as const;
