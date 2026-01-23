@@ -1,0 +1,78 @@
+/**
+ * Represents a collection of products for merchandising purposes.
+ * Collections are store-specific and allow manual curation of products
+ * for storefront organization (e.g., Featured, Best Sellers, New, etc.).
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `name`: Name of the collection
+ * - `slug`: URL-friendly identifier (unique per store)
+ * - `description`: Optional description of the collection
+ * - `image`: Optional cover image URL for the collection
+ * - `position`: Ordering position for storefront display
+ * - `storeId`: Reference to the Store this collection belongs to
+ * - `createdAt`: Timestamp when the collection was created
+ * - `updatedAt`: Timestamp when the collection was last updated
+ * **Relationships:**
+ * - Belongs to one Store
+ * - Has many ProductCollections (many-to-many with Products)
+ * **Business Logic:**
+ * - Collections are flat (no nesting)
+ * - A product can belong to multiple collections
+ * - Collections are manual only (no rule engine)
+ * - Product order within a collection is maintained via position in junction table
+ */
+model Collection {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String
+  description String?
+  image       String?
+  position    Int     @default(0)
+
+  storeId String @map("store_id")
+  store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  productCollections ProductCollection[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([storeId, slug])
+  @@index([storeId])
+  @@index([position])
+  @@map("collections")
+}
+
+/**
+ * Junction table for many-to-many relationship between Products and Collections.
+ * Maintains manual ordering of products within each collection.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `productId`: Reference to the Product
+ * - `collectionId`: Reference to the Collection
+ * - `position`: Ordering position within the collection (0-based)
+ * - `createdAt`: Timestamp when the relationship was created
+ * - `updatedAt`: Timestamp when the relationship was last updated
+ * **Business Logic:**
+ * - Each product can appear in a collection only once
+ * - Position determines display order within the collection
+ * - Position can be updated to reorder products
+ */
+model ProductCollection {
+  id           String @id @default(cuid())
+  productId    String @map("product_id")
+  collectionId String @map("collection_id")
+  position     Int    @default(0)
+
+  product    Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([productId, collectionId])
+  @@index([collectionId])
+  @@index([productId])
+  @@index([collectionId, position])
+  @@map("product_collections")
+}

@@ -55,26 +55,24 @@ model Product {
   description String?
   published   Boolean @default(false)
 
-  stock Int
-  price Decimal @db.Decimal(10, 2)
-
-  // Category relationship
-  categoryId String?   @map("category_id")
-  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-
-  // Variant system
+  stock       Int
+  price       Decimal @db.Decimal(10, 2)
   hasVariants Boolean @default(false) @map("has_variants")
 
-  images         Image[]
-  orderItems     OrderItem[]
-  variantOptions ProductVariantOption[]
-  variants       ProductVariant[]
+  images             Image[]
+  orderItems         OrderItem[]
+  variants           ProductVariant[]
+  productCollections ProductCollection[]
+  variantOptions     ProductVariantOption[]
 
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
 
   storeId String @map("store_id")
   store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  categoryId String?   @map("category_id")
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
   @@index([categoryId])
   @@index([storeId])
