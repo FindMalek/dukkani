@@ -1,6 +1,10 @@
+"use client";
+
 import { Button } from "@dukkani/ui/components/button";
 import { ScrollArea, ScrollBar } from "@dukkani/ui/components/scroll-area";
 import { cn } from "@dukkani/ui/lib/utils";
+import { useTranslations } from "next-intl";
+import { useFilterStore } from "@/stores/filter.store";
 
 interface Category {
 	id: string | null;
@@ -9,15 +13,15 @@ interface Category {
 
 interface CategoryFilterProps {
 	categories: Category[];
-	selectedCategoryId: string | null;
-	onCategoryChange: (categoryId: string | null) => void;
 }
 
-export function CategoryFilter({
-	categories,
-	selectedCategoryId,
-	onCategoryChange,
-}: CategoryFilterProps) {
+export function CategoryFilter({ categories }: CategoryFilterProps) {
+	const t = useTranslations("storefront.store");
+	const { selectedCategoryId, setSelectedCategoryId } = useFilterStore();
+	if (categories.length === 0) {
+		return null;
+	}
+
 	return (
 		<div className="container mx-auto mb-6 px-4">
 			<ScrollArea className="w-full whitespace-nowrap">
@@ -25,14 +29,14 @@ export function CategoryFilter({
 					<Button
 						variant={selectedCategoryId === null ? "default" : "outline"}
 						size="sm"
-						onClick={() => onCategoryChange(null)}
+						onClick={() => setSelectedCategoryId(null)}
 						className={cn(
 							"rounded-full",
 							selectedCategoryId === null &&
 								"bg-primary text-primary-foreground",
 						)}
 					>
-						All
+						{t("all")}
 					</Button>
 					{categories.map((category) => (
 						<Button
@@ -41,7 +45,7 @@ export function CategoryFilter({
 								selectedCategoryId === category.id ? "default" : "outline"
 							}
 							size="sm"
-							onClick={() => onCategoryChange(category.id)}
+							onClick={() => setSelectedCategoryId(category.id)}
 							className={cn(
 								"rounded-full",
 								selectedCategoryId === category.id &&

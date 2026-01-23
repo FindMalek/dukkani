@@ -5,8 +5,9 @@ import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NextIntlClientProvider } from "next-intl";
+import { useState } from "react";
 import { env } from "@/env";
-import { queryClient } from "@/lib/orpc";
+import { getQueryClient } from "@/lib/orpc";
 
 interface ProvidersProps {
 	children: React.ReactNode;
@@ -16,6 +17,8 @@ interface ProvidersProps {
 }
 
 export function Providers({ children, locale, messages }: ProvidersProps) {
+	const [queryClient] = useState(() => getQueryClient());
+
 	return (
 		<NextIntlClientProvider
 			locale={locale}

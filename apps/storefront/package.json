@@ -29,6 +29,7 @@
 		"react-dom": "catalog:",
 		"@orpc/server": "catalog:",
 		"zod": "catalog:",
+		"zustand": "catalog:",
 		"dotenv": "catalog:"
 	},
 	"devDependencies": {

@@ -1,14 +1,21 @@
+"use client";
+
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
+import { useCartStore } from "@/stores/cart.store";
 import { ProductCard } from "./product-card";
 
 interface ProductGridProps {
 	products: ProductPublicOutput[];
-	onAddToCart?: (productId: string) => void;
 }
 
-export async function ProductGrid({ products, onAddToCart }: ProductGridProps) {
-	const t = await getTranslations("storefront.store.products");
+export function ProductGrid({ products }: ProductGridProps) {
+	const t = useTranslations("storefront.store.products");
+	const addItem = useCartStore((state) => state.addItem);
+
+	const handleAddToCart = (productId: string) => {
+		addItem(productId, 1);
+	};
 
 	if (products.length === 0) {
 		return (
@@ -25,7 +32,7 @@ export async function ProductGrid({ products, onAddToCart }: ProductGridProps) {
 					<ProductCard
 						key={product.id}
 						product={product}
-						onAddToCart={onAddToCart}
+						onAddToCart={handleAddToCart}
 					/>
 				))}
 			</div>

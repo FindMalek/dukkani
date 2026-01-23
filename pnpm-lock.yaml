@@ -413,6 +413,9 @@ importers:
       zod:
         specifier: 'catalog:'
         version: 4.1.12
+      zustand:
+        specifier: 'catalog:'
+        version: 5.0.10(@types/react@19.2.2)(react@19.2.1)(use-sync-external-store@1.6.0(react@19.2.1))
     devDependencies:
       '@dukkani/config':
         specifier: workspace:*
