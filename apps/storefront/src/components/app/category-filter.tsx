@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@dukkani/ui/components/button";
 import { ScrollArea, ScrollBar } from "@dukkani/ui/components/scroll-area";
 import { cn } from "@dukkani/ui/lib/utils";

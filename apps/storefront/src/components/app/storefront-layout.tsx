@@ -1,8 +1,5 @@
-"use client";
-
-import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
-import { useMemo, useState } from "react";
+import { getTranslations } from "next-intl/server";
 import { CategoryFilter } from "./category-filter";
 import { HeroBanner } from "./hero-banner";
 import { ProductGrid } from "./product-grid";
@@ -13,53 +10,16 @@ interface StorefrontLayoutProps {
 	store: StorePublicOutput;
 }
 
-export function StorefrontLayout({ store }: StorefrontLayoutProps) {
-	const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
-		null,
-	);
-	const [cartCount, setCartCount] = useState(0);
+export async function StorefrontLayout({ store }: StorefrontLayoutProps) {
+	const t = await getTranslations("storefront.store");
 
-	// Extract unique categories from products
-	const categories = useMemo(() => {
-		if (!store.products) return [];
-		const categoryMap = new Map<string, { id: string; name: string }>();
+	const categories: Array<{ id: string | null; name: string }> = [];
 
-		store.products.forEach((product) => {
-			// Note: ProductPublicOutput doesn't include category, so we'd need to
-			// either modify the query or fetch categories separately
-			// For now, we'll create a placeholder that can be enhanced
-		});
-
-		// Since we don't have category in ProductPublicOutput, we'll need to
-		// either: 1) Modify the store query to include category, or
-		// 2) Create a separate API call for categories
-		// For now, returning empty array - you'll need to add category support
-		return Array.from(categoryMap.values());
-	}, [store.products]);
-
-	// Filter products by category
-	const filteredProducts = useMemo(() => {
-		if (!store.products) return [];
-		if (selectedCategoryId === null) return store.products;
-
-		// Filter by category when category data is available
-		// For now, return all products since category isn't in ProductPublicOutput
-		return store.products;
-	}, [store.products, selectedCategoryId]);
-
-	const handleAddToCart = (productId: string) => {
-		// TODO: Implement cart logic
-		setCartCount((prev) => prev + 1);
-	};
+	const products = store.products || [];
 
 	return (
 		<div className="min-h-screen bg-background">
-			<StoreHeader storeName={store.name} cartCount={cartCount} />
-			<HeroBanner
-				title="New Spring Collection"
-				subtitle="Shop the look →"
-				linkHref="#"
-			/>
+			<StoreHeader storeName={store.name} cartCount={0} />
 			{categories.length > 0 && (
 				<CategoryFilter
 					categories={categories}
@@ -67,8 +27,13 @@ export function StorefrontLayout({ store }: StorefrontLayoutProps) {
 					onCategoryChange={setSelectedCategoryId}
 				/>
 			)}
-			<ProductSectionHeader />
-			<ProductGrid products={filteredProducts} onAddToCart={handleAddToCart} />
+			<ProductGrid products={products} onAddToCart={handleAddToCart} />
+			<HeroBanner
+				title="New Spring Collection"
+				subtitle="Shop the look →"
+				linkHref="#"
+			/>
+			<ProductSectionHeader title={t("products.title")} />
 		</div>
 	);
 }
