@@ -1,4 +1,3 @@
-import { CollectionEntity } from "@dukkani/common/entities/collection/entity";
 import {
 	createCollectionInputSchema,
 	getCollectionInputSchema,
@@ -10,7 +9,6 @@ import {
 import {
 	collectionIncludeOutputSchema,
 	collectionSimpleOutputSchema,
-	listCollectionsOutputSchema,
 } from "@dukkani/common/schemas/collection/output";
 import { CollectionService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";

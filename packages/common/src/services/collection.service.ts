@@ -150,6 +150,7 @@ class CollectionServiceBase {
 
 		// If productIds are provided, update the product-collection relationships
 		if (input.productIds !== undefined) {
+			const productIds = input.productIds;
 			// Use transaction to ensure atomicity
 			return await database.$transaction(async (tx) => {
 				// Delete existing product-collection relationships
@@ -158,9 +159,9 @@ class CollectionServiceBase {
 				});
 
 				// Create new relationships with positions
-				if (input.productIds.length > 0) {
+				if (productIds.length > 0) {
 					await tx.productCollection.createMany({
-						data: input.productIds.map((productId, index) => ({
+						data: productIds.map((productId, index) => ({
 							collectionId: input.id,
 							productId,
 							position: index,

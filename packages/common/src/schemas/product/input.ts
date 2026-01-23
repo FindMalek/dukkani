@@ -53,6 +53,7 @@ export const createProductInputSchema = productInputSchema
 		imageUrls: z.array(z.url()).optional(),
 		variantOptions: z.array(variantOptionInputSchema).optional(),
 		variants: z.array(variantInputSchema).optional(),
+		collectionIds: z.array(z.string()).optional(),
 	})
 	.refine(
 		(data) => {
@@ -108,6 +109,7 @@ export const updateProductInputSchema = productInputSchema.partial().extend({
 	imageUrls: z.array(z.url()).optional(),
 	variantOptions: z.array(variantOptionInputSchema).optional(),
 	variants: z.array(variantInputSchema).optional(),
+	collectionIds: z.array(z.string()).optional(),
 });
 
 export const getProductInputSchema = z.object({
