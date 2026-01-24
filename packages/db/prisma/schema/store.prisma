@@ -48,6 +48,7 @@ model Store {
   categories   Category[]
   customers    Customer[]
   teamMembers  TeamMember[]
+  collections  Collection[]
   salesMetrics SalesMetric[]
 
   updatedAt DateTime @updatedAt @map("updated_at")
