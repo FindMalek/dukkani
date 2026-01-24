@@ -3,13 +3,15 @@
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
+import { useCartStore } from "@/stores/cart.store";
 
 interface StoreHeaderProps {
 	storeName: string;
-	cartCount?: number;
 }
 
-export function StoreHeader({ storeName, cartCount = 0 }: StoreHeaderProps) {
+export function StoreHeader({ storeName }: StoreHeaderProps) {
+	const cartCount = useCartStore((state) => state.getTotalItems());
+
 	return (
 		<header className="container mx-auto px-4 py-4">
 			<div className="flex items-center justify-between">

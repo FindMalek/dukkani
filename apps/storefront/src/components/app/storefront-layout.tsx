@@ -5,7 +5,7 @@ import { CategoryFilter } from "./category-filter";
 import { HeroBanner } from "./hero-banner";
 import { ProductGrid } from "./product-grid";
 import { ProductSectionHeader } from "./product-section-header";
-import { StoreHeaderClient } from "./store-header-client";
+import { StoreHeader } from "./store-header";
 
 interface StorefrontLayoutProps {
 	store: StorePublicOutput;
@@ -27,7 +27,7 @@ export async function StorefrontLayout({ store }: StorefrontLayoutProps) {
 
 	return (
 		<div className="min-h-screen bg-background">
-			<StoreHeaderClient storeName={store.name} />
+			<StoreHeader storeName={store.name} />
 			{categoryOptions.length > 0 && (
 				<CategoryFilter categories={categoryOptions} />
 			)}
