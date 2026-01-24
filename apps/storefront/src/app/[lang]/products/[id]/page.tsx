@@ -1,13 +1,12 @@
 import { ORPCError } from "@orpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
-import { AddToCartFooter } from "@/components/app/add-to-cart-footer";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { ProductDescription } from "@/components/app/product-description";
 import { ProductHeader } from "@/components/app/product-header";
 import { ProductImageCarousel } from "@/components/app/product-image-carousel";
+import { ProductVariantManager } from "@/components/app/product-variant-manager";
 import { StoreInfoCard } from "@/components/app/store-info-card";
-import { SizeSelector } from "@/components/shared/size-selector";
 import { getQueryClient, orpc } from "@/lib/orpc";
 
 export default async function ProductDetailPage({
@@ -36,10 +35,12 @@ export default async function ProductDetailPage({
 		// Determine if store is open (simplified - will be enhanced when opening hours are implemented)
 		const isStoreOpen = true;
 
+		// Check if product has variants
+		const hasVariants = (product.variants?.length ?? 0) > 0;
+
 		return (
 			<HydrationBoundary state={dehydrate(queryClient)}>
 				<div className="min-h-screen bg-background pb-20">
-					<div className="h-[49px]" />
 					<div className="container mx-auto px-4 py-4">
 						<ProductImageCarousel
 							images={product.imagesUrls || []}
@@ -57,19 +58,17 @@ export default async function ProductDetailPage({
 									isOpen={isStoreOpen}
 								/>
 							)}
-							<SizeSelector
+							<ProductVariantManager
+								productId={product.id}
+								productStock={product.stock}
+								productPrice={product.price}
+								hasVariants={hasVariants}
 								variantOptions={product.variantOptions}
 								variants={product.variants}
 							/>
 							<ProductDescription description={product.description} />
 						</div>
 					</div>
-					<AddToCartFooter
-						productId={product.id}
-						stock={product.stock}
-						price={product.price}
-						selectedVariantId={undefined} // TODO: Get from variant selection state
-					/>
 				</div>
 			</HydrationBoundary>
 		);

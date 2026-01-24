@@ -38,7 +38,7 @@ export function ProductImageCarousel({
 
 	if (images.length === 0) {
 		return (
-			<div className="relative w-full">
+			<div className="relative w-full overflow-hidden rounded-2xl">
 				<AspectRatio ratio={1}>
 					<Skeleton className="h-full w-full" />
 				</AspectRatio>
@@ -47,12 +47,12 @@ export function ProductImageCarousel({
 	}
 
 	return (
-		<div className="relative w-full">
+		<div className="relative w-full overflow-hidden rounded-2xl">
 			<Carousel setApi={setApi} className="w-full">
 				<CarouselContent>
 					{images.map((image, index) => (
 						<CarouselItem key={index}>
-							<AspectRatio ratio={1}>
+							<AspectRatio ratio={3 / 4}>
 								<Image
 									src={image}
 									alt={`${productName} - Image ${index + 1}`}
@@ -66,7 +66,7 @@ export function ProductImageCarousel({
 				</CarouselContent>
 			</Carousel>
 			{images.length > 1 && (
-				<div className="mt-4 flex justify-center gap-2">
+				<div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 justify-center gap-1 rounded-full bg-background/10 px-2 py-1.5 backdrop-blur-sm">
 					{images.map((_, index) => (
 						<button
 							key={index}
@@ -74,9 +74,7 @@ export function ProductImageCarousel({
 							onClick={() => api?.scrollTo(index)}
 							className={cn(
 								"h-2 rounded-full transition-all",
-								current === index
-									? "w-8 bg-foreground"
-									: "w-2 bg-muted-foreground/30",
+								current === index ? "w-8 bg-card" : "w-2 bg-card/40",
 							)}
 							aria-label={t("goToSlide", { index: index + 1 })}
 						/>

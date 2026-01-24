@@ -84,7 +84,7 @@ export default async function RootLayout({
 				<Providers locale={lang} messages={messages}>
 					<HydrationBoundary state={dehydrate(queryClient)}>
 						<div className="min-h-screen overflow-x-hidden bg-background">
-							<StoreHeader mode="home" storeName={store.name} />
+							<StoreHeader storeName={store.name} />
 							<div className="h-[49px]" />
 							<main>{children}</main>
 							<StoreFooter />

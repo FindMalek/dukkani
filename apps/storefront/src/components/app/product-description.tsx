@@ -1,49 +1,25 @@
-"use client";
-
-import { Button } from "@dukkani/ui/components/button";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { getTranslations } from "next-intl/server";
 
 interface ProductDescriptionProps {
 	description: string | null;
-	maxLength?: number;
 }
 
-export function ProductDescription({
+export async function ProductDescription({
 	description,
-	maxLength = 150,
 }: ProductDescriptionProps) {
-	const t = useTranslations("storefront.store.product.description");
-	const [isExpanded, setIsExpanded] = useState(false);
+	const t = await getTranslations("storefront.store.product.description");
 
 	if (!description) {
 		return null;
 	}
-
-	const shouldTruncate = description.length > maxLength;
-	const displayText =
-		isExpanded || !shouldTruncate
-			? description
-			: `${description.slice(0, maxLength)}...`;
-
 	return (
 		<div className="space-y-2">
 			<h3 className="font-medium text-muted-foreground text-sm">
 				{t("label", { defaultValue: "Description" })}
 			</h3>
 			<p className="text-muted-foreground text-sm leading-relaxed">
-				{displayText}
+				{description}
 			</p>
-			{shouldTruncate && (
-				<Button
-					variant="ghost"
-					size="sm"
-					onClick={() => setIsExpanded(!isExpanded)}
-					className="h-auto p-0 text-foreground underline"
-				>
-					{isExpanded ? t("readLess") : t("readMore")}
-				</Button>
-			)}
 		</div>
 	);
 }

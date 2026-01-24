@@ -27,40 +27,38 @@ export function StoreInfoCard({
 }: StoreInfoCardProps) {
 	const t = useTranslations("storefront.store.product.storeInfo");
 
-	const content = (
-		<div className="flex items-center gap-3 rounded-lg bg-muted/50 p-3">
-			<Avatar className="size-10">
-				<AvatarImage
-					src={ownerImage || undefined}
-					alt={ownerName || storeName}
-				/>
-				<AvatarFallback>{ownerName?.[0] || storeName[0] || "S"}</AvatarFallback>
-			</Avatar>
-			<div className="flex-1">
-				<p className="font-medium text-foreground">{storeName}</p>
-				{isOpen !== undefined && (
-					<p className="text-muted-foreground text-sm">
-						<span
-							className={cn(
-								"mr-1 inline-block size-2 rounded-full",
-								isOpen ? "bg-primary" : "bg-muted-foreground",
-							)}
-						/>
-						{isOpen ? t("openNow") : t("closed")}
-					</p>
-				)}
-			</div>
-			<Icons.chevronRight className="size-5 text-muted-foreground" />
-		</div>
-	);
-
-	if (storeSlug) {
-		return (
-			<Link href={`/${storeSlug}`} className="block">
-				{content}
-			</Link>
-		);
+	if (!storeSlug) {
+		return null;
 	}
 
-	return content;
+	return (
+		<Link href={`/${storeSlug}`} className="block">
+			<div className="flex items-center gap-3 rounded-lg bg-primary/10 p-3">
+				<Avatar className="size-10">
+					<AvatarImage
+						src={ownerImage || undefined}
+						alt={ownerName || storeName}
+					/>
+					<AvatarFallback>
+						{ownerName?.[0] || storeName[0] || "S"}
+					</AvatarFallback>
+				</Avatar>
+				<div className="flex-1">
+					<p className="font-medium text-foreground">{storeName}</p>
+					{isOpen !== undefined && (
+						<p className="text-muted-foreground text-sm">
+							<span
+								className={cn(
+									"mr-1 inline-block size-2 rounded-full",
+									isOpen ? "bg-primary" : "bg-muted-foreground",
+								)}
+							/>
+							{isOpen ? t("openNow") : t("closed")}
+						</p>
+					)}
+				</div>
+				<Icons.chevronRight className="size-5 text-muted-foreground" />
+			</div>
+		</Link>
+	);
 }

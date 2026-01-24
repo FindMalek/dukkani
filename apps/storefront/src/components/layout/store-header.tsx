@@ -4,26 +4,29 @@ import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCartHydration } from "@/hooks/use-cart-hydration";
+import { isDetailPage } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
 
 interface StoreHeaderProps {
 	storeName: string;
-	mode: "home" | "product";
 }
 
-export function StoreHeader({ storeName, mode }: StoreHeaderProps) {
+export function StoreHeader({ storeName }: StoreHeaderProps) {
 	const router = useRouter();
+	const pathname = usePathname();
 
 	const cartCount = useCartStore((state) => state.getTotalItems());
 	const isHydrated = useCartHydration();
+
+	const isDetail = isDetailPage(pathname);
 
 	return (
 		<header className="fixed top-0 right-0 left-0 z-50 border-border/30 border-b bg-background/80 backdrop-blur-md">
 			<div className="container mx-auto px-4 py-2">
 				<div className="flex items-center justify-between">
-					{mode === "product" ? (
+					{isDetail ? (
 						<Button
 							variant="ghost"
 							size="icon"
