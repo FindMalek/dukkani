@@ -39,7 +39,7 @@ export function StoreInfoCard({
 						src={ownerImage || undefined}
 						alt={ownerName || storeName}
 					/>
-					<AvatarFallback>
+					<AvatarFallback className="bg-secondary-foreground/10 text-secondary-foreground">
 						{ownerName?.[0] || storeName[0] || "S"}
 					</AvatarFallback>
 				</Avatar>
