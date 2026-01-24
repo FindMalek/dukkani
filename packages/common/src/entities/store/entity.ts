@@ -11,10 +11,10 @@ import {
 import type {
 	StoreIncludeOutput,
 	StorePublicOutput,
+	StorePublicSimpleOutput,
 	StoreSafeOutput,
 	StoreSimpleOutput,
 } from "../../schemas/store/output";
-import type { UserSimpleSelectOutput } from "../../schemas/user/output";
 import { ProductEntity } from "../product/entity";
 import { SalesMetricEntity } from "../sales-metric/entity";
 import { StorePlanEntity } from "../store-plan/entity";
@@ -24,6 +24,7 @@ import type {
 	StoreClientSafeDbData,
 	StoreIncludeDbData,
 	StorePublicDbData,
+	StorePublicSimpleDbData,
 	StoreSimpleDbData,
 } from "./query";
 
@@ -65,6 +66,21 @@ export class StoreEntity {
 			ownerId: entity.ownerId,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
+		};
+	}
+
+	/**
+	 * Get minimal store output for product detail pages
+	 * Only includes essential fields needed for store info card
+	 */
+	static getPublicSimpleRo(
+		entity: StorePublicSimpleDbData,
+	): StorePublicSimpleOutput {
+		return {
+			id: entity.id,
+			name: entity.name,
+			slug: entity.slug,
+			owner: entity.owner ? UserEntity.getSimpleRo(entity.owner) : undefined,
 		};
 	}
 

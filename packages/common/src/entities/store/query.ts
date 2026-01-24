@@ -27,6 +27,10 @@ export type StorePublicDbData = Prisma.StoreGetPayload<{
 	include: ReturnType<typeof StoreQuery.getPublicInclude>;
 }>;
 
+export type StorePublicSimpleDbData = Prisma.StoreGetPayload<{
+	select: ReturnType<typeof StoreQuery.getPublicSimpleSelect>;
+}>;
+
 export class StoreQuery {
 	static getSimpleInclude() {
 		return {} satisfies Prisma.StoreInclude;
@@ -64,12 +68,7 @@ export class StoreQuery {
 	static getPublicSimpleSelect() {
 		return {
 			...StoreQuery.getMinimalSelect(),
-			owner: {
-				select: {
-					name: true,
-					image: true,
-				},
-			},
+			owner: UserQuery.getSimpleInclude(),
 		} satisfies Prisma.StoreSelect;
 	}
 

@@ -2,6 +2,7 @@ import { z } from "zod";
 import { categoryOutputSchema } from "../category/output";
 import { imageSimpleOutputSchema } from "../image/output";
 import { orderItemSimpleOutputSchema } from "../order-item/output";
+import { userSimpleSelectOutputSchema } from "../user/output";
 import {
 	variantOptionOutputSchema,
 	variantOutputSchema,
@@ -32,9 +33,20 @@ export const listProductsOutputSchema = z.object({
 	limit: z.number().int(),
 });
 
+export const productPublicStoreSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	slug: z.string(),
+	owner: userSimpleSelectOutputSchema.optional(),
+});
+
 export const productPublicOutputSchema = productSimpleOutputSchema
 	.extend({
 		imagesUrls: z.array(z.string()),
+		tags: z.array(z.string()).optional(),
+		store: productPublicStoreSchema.optional(),
+		variants: z.array(variantOutputSchema).optional(),
+		variantOptions: z.array(variantOptionOutputSchema).optional(),
 	})
 	.omit({
 		storeId: true,

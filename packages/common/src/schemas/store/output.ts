@@ -6,7 +6,10 @@ import {
 import { salesMetricSimpleOutputSchema } from "../sales-metric/output";
 import { storePlanSimpleOutputSchema } from "../store-plan/output";
 import { teamMemberSimpleOutputSchema } from "../team-member/output";
-import { userSimpleOutputSchema } from "../user/output";
+import {
+	userSimpleOutputSchema,
+	userSimpleSelectOutputSchema,
+} from "../user/output";
 import {
 	storeCategorySchema,
 	storeNotificationMethodSchema,
@@ -78,6 +81,16 @@ export const storePublicOutputSchema = storeSafeOutputSchema
 		notificationMethod: true,
 	});
 
+export const storePublicSimpleOutputSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	slug: z.string(),
+	owner: userSimpleSelectOutputSchema.optional(),
+});
+
+export type StorePublicSimpleOutput = z.infer<
+	typeof storePublicSimpleOutputSchema
+>;
 export type StorePublicOutput = z.infer<typeof storePublicOutputSchema>;
 export type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
 export type StoreMinimalOutput = z.infer<typeof storeMinimalOutputSchema>;
