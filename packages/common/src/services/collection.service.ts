@@ -9,6 +9,7 @@ import type {
 import type {
 	CollectionIncludeOutput,
 	CollectionOutput,
+	ListCollectionsOutput,
 } from "../schemas/collection/output";
 
 class CollectionServiceBase {
@@ -32,32 +33,54 @@ class CollectionServiceBase {
 			.replace(/\s+/g, "-")
 			.replace(/[^a-z0-9-]/g, "");
 
-		let slug = baseSlug;
-		let counter = 1;
+		// Fetch all potentially conflicting slugs at once
+		const existingSlugs = await database.collection.findMany({
+			where: {
+				storeId,
+				slug: { startsWith: baseSlug },
+			},
+			select: { slug: true },
+		});
 
-		// Check if slug exists for this store, if so append number
-		while (true) {
-			const existing = await database.collection.findUnique({
-				where: {
-					storeId_slug: {
-						storeId,
-						slug,
-					},
-				},
-				select: { id: true },
+		// Extract existing slugs into a Set for O(1) lookup
+		const existingSlugSet = new Set(existingSlugs.map((c) => c.slug));
+
+		// If base slug is available, use it
+		if (!existingSlugSet.has(baseSlug)) {
+			addSpanAttributes({
+				"collection.slug_final": baseSlug,
+				"collection.slug_attempts": 1,
 			});
+			return baseSlug;
+		}
 
-			if (!existing) {
-				addSpanAttributes({
-					"collection.slug_final": slug,
-					"collection.slug_attempts": counter,
-				});
-				return slug;
+		// Find the next available counter by parsing existing slugs
+		// Pattern: baseSlug-{number}
+		const slugPattern = new RegExp(
+			`^${baseSlug.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}-(\\d+)$`,
+		);
+		const usedCounters = new Set<number>();
+
+		for (const slug of existingSlugSet) {
+			const match = slug.match(slugPattern);
+			if (match?.[1]) {
+				usedCounters.add(Number.parseInt(match[1], 10));
 			}
+		}
 
-			slug = `${baseSlug}-${counter}`;
+		// Find the next available counter
+		let counter = 1;
+		while (usedCounters.has(counter)) {
 			counter++;
 		}
+
+		const finalSlug = `${baseSlug}-${counter}`;
+		addSpanAttributes({
+			"collection.slug_final": finalSlug,
+			"collection.slug_attempts": counter + 1, // +1 because we checked baseSlug first
+		});
+
+		return finalSlug;
 	}
 
 	/**
@@ -104,18 +127,26 @@ class CollectionServiceBase {
 	static async getAllCollections(
 		storeId: string,
 		filters?: { search?: string },
-	): Promise<CollectionOutput[]> {
+	): Promise<ListCollectionsOutput> {
 		addSpanAttributes({
 			"collection.store_id": storeId,
 		});
 
-		const collections = await database.collection.findMany({
-			where: CollectionQuery.getWhere(storeId, filters),
-			include: CollectionQuery.getSimpleInclude(),
-			orderBy: CollectionQuery.getOrder("asc", "position"),
-		});
+		const [collections, total] = await Promise.all([
+			database.collection.findMany({
+				where: CollectionQuery.getWhere(storeId, filters),
+				include: CollectionQuery.getSimpleInclude(),
+				orderBy: CollectionQuery.getOrder("asc", "position"),
+			}),
+			database.collection.count({
+				where: CollectionQuery.getWhere(storeId, filters),
+			}),
+		]);
 
-		return collections.map(CollectionEntity.getSimpleRo);
+		return {
+			collections: collections.map(CollectionEntity.getSimpleRo),
+			total,
+		};
 	}
 
 	/**
@@ -148,6 +179,16 @@ class CollectionServiceBase {
 			"collection.id": input.id,
 		});
 
+		// Build update data object (reused in both branches)
+		const updateData = {
+			...(input.name && { name: input.name }),
+			...(input.description !== undefined && {
+				description: input.description || null,
+			}),
+			...(input.image !== undefined && { image: input.image || null }),
+			...(input.position !== undefined && { position: input.position }),
+		};
+
 		// If productIds are provided, update the product-collection relationships
 		if (input.productIds !== undefined) {
 			const productIds = input.productIds;
@@ -172,14 +213,7 @@ class CollectionServiceBase {
 				// Update collection fields
 				const collection = await tx.collection.update({
 					where: { id: input.id },
-					data: {
-						...(input.name && { name: input.name }),
-						...(input.description !== undefined && {
-							description: input.description || null,
-						}),
-						...(input.image !== undefined && { image: input.image || null }),
-						...(input.position !== undefined && { position: input.position }),
-					},
+					data: updateData,
 					include: CollectionQuery.getSimpleInclude(),
 				});
 
@@ -190,14 +224,7 @@ class CollectionServiceBase {
 		// Simple update without product changes
 		const collection = await database.collection.update({
 			where: { id: input.id },
-			data: {
-				...(input.name && { name: input.name }),
-				...(input.description !== undefined && {
-					description: input.description || null,
-				}),
-				...(input.image !== undefined && { image: input.image || null }),
-				...(input.position !== undefined && { position: input.position }),
-			},
+			data: updateData,
 			include: CollectionQuery.getSimpleInclude(),
 		});
 

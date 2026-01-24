@@ -1,3 +1,5 @@
+import { CollectionEntity } from "@dukkani/common/entities/collection/entity";
+import { CollectionQuery } from "@dukkani/common/entities/collection/query";
 import {
 	createCollectionInputSchema,
 	getCollectionInputSchema,
@@ -9,6 +11,7 @@ import {
 import {
 	collectionIncludeOutputSchema,
 	collectionSimpleOutputSchema,
+	listCollectionsOutputSchema,
 } from "@dukkani/common/schemas/collection/output";
 import { CollectionService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
@@ -54,7 +57,7 @@ export const collectionRouter = {
 	 */
 	getAll: protectedProcedure
 		.input(listCollectionsInputSchema)
-		.output(z.array(collectionSimpleOutputSchema))
+		.output(listCollectionsOutputSchema)
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 			await verifyStoreOwnership(userId, input.storeId);
@@ -74,6 +77,7 @@ export const collectionRouter = {
 			const userId = context.session.user.id;
 			const collection = await database.collection.findUnique({
 				where: { id: input.id },
+				include: CollectionQuery.getInclude(),
 			});
 
 			if (!collection) {
@@ -81,7 +85,7 @@ export const collectionRouter = {
 			}
 
 			await verifyStoreOwnership(userId, collection.storeId);
-			return await CollectionService.getCollectionById(input.id);
+			return CollectionEntity.getRo(collection);
 		}),
 
 	/**
@@ -162,19 +166,22 @@ export const collectionRouter = {
 
 			await verifyStoreOwnership(userId, collection.storeId);
 
-			// Validate product IDs belong to the collection
-			const existingProducts = await database.productCollection.findMany({
-				where: {
-					collectionId: input.collectionId,
-					productId: { in: input.productIds },
-				},
-				select: { productId: true },
-			});
-
-			if (existingProducts.length !== input.productIds.length) {
-				throw new ORPCError("BAD_REQUEST", {
-					message: "Some products do not belong to this collection",
+			// Validate product IDs belong to the store
+			if (input.productIds.length > 0) {
+				const products = await database.product.findMany({
+					where: {
+						id: { in: input.productIds },
+						storeId: collection.storeId,
+					},
+					select: { id: true },
 				});
+
+				if (products.length !== input.productIds.length) {
+					throw new ORPCError("BAD_REQUEST", {
+						message:
+							"Some products do not exist or belong to a different store",
+					});
+				}
 			}
 
 			await CollectionService.reorderCollectionProducts(

@@ -32,25 +32,6 @@ export class CollectionQuery {
 		} satisfies Prisma.CollectionInclude;
 	}
 
-	static getClientSafeInclude() {
-		return {
-			...this.getSimpleInclude(),
-			productCollections: {
-				include: {
-					product: {
-						include: {
-							images: true,
-							category: true,
-						},
-					},
-				},
-				orderBy: {
-					position: "asc",
-				},
-			},
-		} satisfies Prisma.CollectionInclude;
-	}
-
 	static getWhere(storeId: string, filters?: { search?: string }) {
 		return {
 			storeId,
