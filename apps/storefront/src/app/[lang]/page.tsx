@@ -4,15 +4,21 @@ import { ORPCError } from "@orpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { CategoryFilter } from "@/components/app/category-filter";
 import { ComingSoon } from "@/components/app/coming-soon";
-import { StorefrontLayout } from "@/components/app/storefront-layout";
-import { getQueryClient, orpc } from "@/lib/orpc";
+import { HeroBanner } from "@/components/app/hero-banner";
+import { ProductGrid } from "@/components/app/product-grid";
+import { ProductSectionHeader } from "@/components/app/product-section-header";
+import { StoreHeader } from "@/components/app/store-header";
+import { client, getQueryClient, orpc } from "@/lib/orpc";
 import { getStoreSlugFromHost } from "@/lib/utils";
 
 export default async function StorePage() {
 	const headersList = await headers();
 	const host = headersList.get("host");
 	const storeSlug = getStoreSlugFromHost(host);
+	const t = await getTranslations("storefront.store");
 
 	if (!storeSlug) {
 		return notFound();
@@ -21,14 +27,19 @@ export default async function StorePage() {
 	const queryClient = getQueryClient();
 
 	try {
-		// Prefetch using queryOptions for proper hydration
-		await queryClient.prefetchQuery(
-			orpc.store.getBySlugPublic.queryOptions({
+		await queryClient.prefetchQuery({
+			...orpc.store.getBySlugPublic.queryOptions({
 				input: { slug: storeSlug },
 			}),
-		);
+			// Override with longer cache time for this specific query
+			staleTime: process.env.NODE_ENV === "development" 
+				? 10 * 60 * 1000 // 10 minutes in dev
+				: 2 * 60 * 1000, // 2 minutes in prod
+			gcTime: process.env.NODE_ENV === "development"
+				? 60 * 60 * 1000 // 1 hour in dev
+				: 10 * 60 * 1000, // 10 minutes in prod
+		});
 
-		// Get the data from the query cache
 		const store = queryClient.getQueryData(
 			orpc.store.getBySlugPublic.queryKey({ input: { slug: storeSlug } }),
 		);
@@ -42,9 +53,32 @@ export default async function StorePage() {
 			return <ComingSoon store={store} />;
 		}
 
+		const categories = await client.category.getAllPublic({
+			storeId: store.id,
+		});
+
+		const categoryOptions = categories.map((cat) => ({
+			id: cat.id,
+			name: cat.name,
+		}));
+
+		const products = store.products || [];
+
 		return (
 			<HydrationBoundary state={dehydrate(queryClient)}>
-				<StorefrontLayout store={store} />
+				<div className="min-h-screen overflow-x-hidden bg-background">
+					<StoreHeader storeName={store.name} />
+					<HeroBanner
+						title="New Spring Collection"
+						subtitle="Shop the look →"
+						linkHref="#"
+					/>
+					{categoryOptions.length > 0 && (
+						<CategoryFilter categories={categoryOptions} />
+					)}
+					<ProductSectionHeader title={t("products.title")} /> 
+					<ProductGrid products={products} />
+				</div>
 			</HydrationBoundary>
 		);
 	} catch (error) {

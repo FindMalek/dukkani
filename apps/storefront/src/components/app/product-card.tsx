@@ -34,19 +34,19 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 						)}
 					</AspectRatio>
 					<Button
-						variant="default"
+						variant="outline"
 						size="icon"
-						className="absolute right-2 bottom-2 size-10 rounded-full"
+						className="absolute right-2 bottom-2 size-10 rounded-full border-border bg-secondary hover:bg-secondary/80"
 						onClick={(e) => {
 							e.preventDefault();
 							onAddToCart?.(product.id);
 						}}
 					>
-						<Icons.plus className="size-4" />
+						<Icons.plus className="size-4 text-primary" />
 					</Button>
 				</div>
 				<div className="p-4">
-					<h3 className="mb-1 font-semibold">{product.name}</h3>
+					<h3 className="mb-1 font-bold text-foreground">{product.name}</h3>
 					<p className="text-muted-foreground text-sm">{price} TND</p>
 				</div>
 			</Link>

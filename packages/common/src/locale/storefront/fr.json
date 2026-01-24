@@ -12,6 +12,9 @@
 			},
 			"categoryFilter": {
 				"all": "Tous"
+			},
+			"filter": {
+				"button": "Filtrer"
 			}
 		},
 		"comingSoon": {
