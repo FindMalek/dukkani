@@ -2,6 +2,7 @@ import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ImageQuery } from "../image/query";
 import { OrderItemQuery } from "../order-item/query";
 import { StoreQuery } from "../store/query";
+import { VariantQuery } from "../variant/query";
 
 export type ProductSimpleDbData = Prisma.ProductGetPayload<{
 	include: ReturnType<typeof ProductQuery.getSimpleInclude>;
@@ -24,27 +25,6 @@ export class ProductQuery {
 		return {} satisfies Prisma.ProductInclude;
 	}
 
-	static getVariantOptionInclude() {
-		return {
-			values: true,
-		} satisfies Prisma.ProductVariantOptionInclude;
-	}
-
-	static getVariantInclude() {
-		return {
-			selections: {
-				include: {
-					option: {
-						include: {
-							values: true,
-						},
-					},
-					value: true,
-				},
-			},
-		} satisfies Prisma.ProductVariantInclude;
-	}
-
 	static getPublicInclude() {
 		return {
 			...ProductQuery.getSimpleInclude(),
@@ -55,10 +35,10 @@ export class ProductQuery {
 				select: StoreQuery.getPublicSimpleSelect(),
 			},
 			variantOptions: {
-				include: ProductQuery.getVariantOptionInclude(),
+				include: VariantQuery.getVariantOptionInclude(),
 			},
 			variants: {
-				include: ProductQuery.getVariantInclude(),
+				include: VariantQuery.getVariantInclude(),
 			},
 		} satisfies Prisma.ProductInclude;
 	}
