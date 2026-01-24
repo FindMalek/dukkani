@@ -47,6 +47,7 @@ model Store {
   products            Product[]
   categories          Category[]
   customers           Customer[]
+  collections         Collection[]
   teamMembers         TeamMember[]
   salesMetrics        SalesMetric[]
   launchNotifications LaunchNotification[]
