@@ -19,6 +19,15 @@
 			"footer": {
 				"copyright": "All rights reserved",
 				"poweredBy": "Powered by Dukkani"
+			},
+			"product": {
+				"imageCarousel": {
+					"goToSlide": "Go to slide {index}"
+				},
+				"storeInfo": {
+					"openNow": "Open now",
+					"closed": "Closed"
+				}
 			}
 		},
 		"comingSoon": {

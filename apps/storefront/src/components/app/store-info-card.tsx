@@ -1,0 +1,66 @@
+"use client";
+
+import {
+	Avatar,
+	AvatarFallback,
+	AvatarImage,
+} from "@dukkani/ui/components/avatar";
+import { Icons } from "@dukkani/ui/components/icons";
+import { cn } from "@dukkani/ui/lib/utils";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+
+interface StoreInfoCardProps {
+	storeName: string;
+	ownerName?: string | null;
+	ownerImage?: string | null;
+	isOpen?: boolean;
+	storeSlug?: string;
+}
+
+export function StoreInfoCard({
+	storeName,
+	ownerName,
+	ownerImage,
+	isOpen,
+	storeSlug,
+}: StoreInfoCardProps) {
+	const t = useTranslations("storefront.store.product.storeInfo");
+
+	const content = (
+		<div className="flex items-center gap-3 rounded-lg bg-muted/50 p-3">
+			<Avatar className="size-10">
+				<AvatarImage
+					src={ownerImage || undefined}
+					alt={ownerName || storeName}
+				/>
+				<AvatarFallback>{ownerName?.[0] || storeName[0] || "S"}</AvatarFallback>
+			</Avatar>
+			<div className="flex-1">
+				<p className="font-medium text-foreground">{storeName}</p>
+				{isOpen !== undefined && (
+					<p className="text-muted-foreground text-sm">
+						<span
+							className={cn(
+								"mr-1 inline-block size-2 rounded-full",
+								isOpen ? "bg-primary" : "bg-muted-foreground",
+							)}
+						/>
+						{isOpen ? t("openNow") : t("closed")}
+					</p>
+				)}
+			</div>
+			<Icons.chevronRight className="size-5 text-muted-foreground" />
+		</div>
+	);
+
+	if (storeSlug) {
+		return (
+			<Link href={`/${storeSlug}`} className="block">
+				{content}
+			</Link>
+		);
+	}
+
+	return content;
+}
