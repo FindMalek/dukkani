@@ -61,6 +61,18 @@ export class StoreQuery {
 		} satisfies Prisma.StoreSelect;
 	}
 
+	static getPublicSimpleSelect() {
+		return {
+			...StoreQuery.getMinimalSelect(),
+			owner: {
+				select: {
+					name: true,
+					image: true,
+				},
+			},
+		} satisfies Prisma.StoreSelect;
+	}
+
 	static getPublicInclude(options?: {
 		productPage?: number;
 		productLimit?: number;
@@ -73,14 +85,12 @@ export class StoreQuery {
 			...StoreQuery.getSimpleInclude(),
 			storePlan: StorePlanQuery.getSimpleInclude(),
 			owner: {
-				select: {
-					name: true,
-					image: true,
-				},
+				select: UserQuery.getSimpleSelect(),
 			},
 			products: {
 				where: ProductQuery.getPublishableWhere(),
 				include: {
+					...ProductQuery.getPublicInclude(),
 					images: {
 						select: {
 							url: true,

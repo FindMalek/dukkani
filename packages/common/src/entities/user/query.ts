@@ -14,9 +14,21 @@ export type UserClientSafeDbData = Prisma.UserGetPayload<{
 	include: ReturnType<typeof UserQuery.getClientSafeInclude>;
 }>;
 
+export type UserSimpleSelectDbData = Prisma.UserGetPayload<{
+	select: ReturnType<typeof UserQuery.getSimpleSelect>;
+}>;
+
 export class UserQuery {
 	static getSimpleInclude() {
 		return {} satisfies Prisma.UserInclude;
+	}
+
+	static getSimpleSelect() {
+		return {
+			id: true,
+			name: true,
+			image: true,
+		} satisfies Prisma.UserSelect;
 	}
 
 	static getInclude() {

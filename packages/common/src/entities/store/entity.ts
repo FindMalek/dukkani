@@ -14,6 +14,7 @@ import type {
 	StoreSafeOutput,
 	StoreSimpleOutput,
 } from "../../schemas/store/output";
+import type { UserSimpleSelectOutput } from "../../schemas/user/output";
 import { ProductEntity } from "../product/entity";
 import { SalesMetricEntity } from "../sales-metric/entity";
 import { StorePlanEntity } from "../store-plan/entity";
@@ -87,10 +88,7 @@ export class StoreEntity {
 				? StorePlanEntity.getSimpleRo(entity.storePlan)
 				: undefined,
 			owner: entity.owner
-				? {
-						name: entity.owner.name,
-						image: entity.owner.image,
-					}
+				? UserEntity.getSimpleSelectRo(entity.owner)
 				: undefined,
 			products: entity.products?.map(ProductEntity.getPublicRo),
 		};

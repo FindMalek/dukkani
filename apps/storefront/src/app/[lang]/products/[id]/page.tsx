@@ -1,20 +1,20 @@
+import { ORPCError } from "@orpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
-import { ORPCError } from "@orpc/server";
+import { AddToCartFooter } from "@/components/app/add-to-cart-footer";
 import { ProductAttributes } from "@/components/app/product-attributes";
+import { ProductDescription } from "@/components/app/product-description";
+import { ProductDetailSkeleton } from "@/components/app/product-detail-skeleton";
 import { ProductHeader } from "@/components/app/product-header";
 import { ProductImageCarousel } from "@/components/app/product-image-carousel";
 import { StoreInfoCard } from "@/components/app/store-info-card";
 import { SizeSelector } from "@/components/shared/size-selector";
-import { ProductDescription } from "@/components/app/product-description";
-import { AddToCartFooter } from "@/components/app/add-to-cart-footer";
 import { getQueryClient, orpc } from "@/lib/orpc";
-import { ProductDetailSkeleton } from "@/components/app/product-detail-skeleton";
 
 export default async function ProductDetailPage({
 	params,
 }: {
-	params: Promise<{ id: string; lang: string }>;
+	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
 	const queryClient = getQueryClient();
