@@ -11,10 +11,12 @@ import {
 import type {
 	ListProductsOutput,
 	ProductIncludeOutput,
+	ProductPublicOutput,
 } from "@dukkani/common/schemas/product/output";
 import {
 	listProductsOutputSchema,
 	productIncludeOutputSchema,
+	productPublicOutputSchema,
 } from "@dukkani/common/schemas/product/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { ProductService } from "@dukkani/common/services";
@@ -527,5 +529,43 @@ export const productRouter = {
 			});
 
 			return ProductEntity.getRo(updated);
+		}),
+
+	/**
+	 * Get product by ID (public - for storefronts)
+	 * No authentication required, uses storefront rate limiting (100/min)
+	 * Returns product with store info, variants, and images
+	 */
+	getByIdPublic: publicProcedure
+		.use(rateLimitPublicSafe)
+		.input(getProductInputSchema)
+		.output(productPublicOutputSchema)
+		.handler(async ({ input }): Promise<ProductPublicOutput> => {
+			const product = await database.product.findUnique({
+				where: { id: input.id },
+				include: ProductQuery.getPublicInclude(),
+			});
+
+			if (!product) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "Product not found",
+				});
+			}
+
+			// Only return published products
+			if (!product.published) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "Product not found",
+				});
+			}
+
+			// Verify store is published
+			if (product.store.status !== StoreStatus.PUBLISHED) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "Product not found",
+				});
+			}
+
+			return ProductEntity.getPublicRo(product);
 		}),
 };
