@@ -53,7 +53,18 @@ export const createProductInputSchema = productInputSchema
 		imageUrls: z.array(z.url()).optional(),
 		variantOptions: z.array(variantOptionInputSchema).optional(),
 		variants: z.array(variantInputSchema).optional(),
-		collectionIds: z.array(z.string()).optional(),
+		collectionIds: z
+			.array(z.string().min(1, "Collection ID cannot be empty"))
+			.optional()
+			.refine(
+				(arr) => {
+					if (!arr || arr.length === 0) return true;
+					return new Set(arr).size === arr.length;
+				},
+				{
+					message: "Collection IDs must be unique",
+				},
+			),
 	})
 	.refine(
 		(data) => {
@@ -109,7 +120,18 @@ export const updateProductInputSchema = productInputSchema.partial().extend({
 	imageUrls: z.array(z.url()).optional(),
 	variantOptions: z.array(variantOptionInputSchema).optional(),
 	variants: z.array(variantInputSchema).optional(),
-	collectionIds: z.array(z.string()).optional(),
+	collectionIds: z
+		.array(z.string().min(1, "Collection ID cannot be empty"))
+		.optional()
+		.refine(
+			(arr) => {
+				if (!arr || arr.length === 0) return true;
+				return new Set(arr).size === arr.length;
+			},
+			{
+				message: "Collection IDs must be unique",
+			},
+		),
 });
 
 export const getProductInputSchema = z.object({
