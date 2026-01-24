@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
 		"thread-stream",
 	],
 	images: {
-		domains: ["images.unsplash.com"],
+		remotePatterns: [{ hostname: "images.unsplash.com" }],
 	},
 };
 

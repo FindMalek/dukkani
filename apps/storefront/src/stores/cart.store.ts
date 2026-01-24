@@ -66,6 +66,7 @@ export const useCartStore = create<CartStoreState>()(
 		}),
 		{
 			name: "storefront-cart",
+			skipHydration: true,
 		},
 	),
 );

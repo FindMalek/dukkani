@@ -8,6 +8,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { useState } from "react";
 import { env } from "@/env";
 import { getQueryClient } from "@/lib/orpc";
+import { CartHydrationProvider } from "./cart-hydration-provider";
 
 interface ProvidersProps {
 	children: React.ReactNode;
@@ -32,7 +33,7 @@ export function Providers({ children, locale, messages }: ProvidersProps) {
 				disableTransitionOnChange
 			>
 				<QueryClientProvider client={queryClient}>
-					{children}
+					<CartHydrationProvider>{children}</CartHydrationProvider>
 					{env.NEXT_PUBLIC_NODE_ENV === "development" && <ReactQueryDevtools />}
 				</QueryClientProvider>
 			</ThemeProvider>
