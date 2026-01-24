@@ -10,10 +10,8 @@ import { ComingSoon } from "@/components/app/coming-soon";
 import { HeroBanner } from "@/components/app/hero-banner";
 import { ProductGrid } from "@/components/app/product-grid";
 import { ProductSectionHeader } from "@/components/app/product-section-header";
-import { StoreHeader } from "@/components/app/store-header";
 import { client, getQueryClient, orpc } from "@/lib/orpc";
 import { getStoreSlugFromHost } from "@/lib/utils";
-import { StoreFooter } from "@/components/app/store-footer";
 
 export default async function StorePage() {
 	const headersList = await headers();
@@ -32,7 +30,6 @@ export default async function StorePage() {
 			...orpc.store.getBySlugPublic.queryOptions({
 				input: { slug: storeSlug },
 			}),
-			// Override with longer cache time for this specific query
 			staleTime:
 				process.env.NODE_ENV === "development"
 					? 10 * 60 * 1000 // 10 minutes in dev
@@ -70,8 +67,6 @@ export default async function StorePage() {
 		return (
 			<HydrationBoundary state={dehydrate(queryClient)}>
 				<div className="min-h-screen overflow-x-hidden bg-background">
-					<StoreHeader storeName={store.name} />
-					<div className="h-[49px]" />
 					<HeroBanner
 						title="New Spring Collection"
 						subtitle="Shop the look →"
@@ -82,7 +77,6 @@ export default async function StorePage() {
 					)}
 					<ProductSectionHeader title={t("products.title")} />
 					<ProductGrid products={products} />
-					<StoreFooter />
 				</div>
 			</HydrationBoundary>
 		);
