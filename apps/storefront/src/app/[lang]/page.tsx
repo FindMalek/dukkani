@@ -70,6 +70,7 @@ export default async function StorePage() {
 			<HydrationBoundary state={dehydrate(queryClient)}>
 				<div className="min-h-screen overflow-x-hidden bg-background">
 					<StoreHeader storeName={store.name} />
+					<div className="h-[49px]" />
 					<HeroBanner
 						title="New Spring Collection"
 						subtitle="Shop the look →"
