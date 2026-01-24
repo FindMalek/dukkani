@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { AddToCartFooter } from "@/components/app/add-to-cart-footer";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { ProductDescription } from "@/components/app/product-description";
-import { ProductDetailSkeleton } from "@/components/app/product-detail-skeleton";
 import { ProductHeader } from "@/components/app/product-header";
 import { ProductImageCarousel } from "@/components/app/product-image-carousel";
 import { StoreInfoCard } from "@/components/app/store-info-card";
@@ -35,7 +34,7 @@ export default async function ProductDetailPage({
 		}
 
 		// Determine if store is open (simplified - will be enhanced when opening hours are implemented)
-		const isStoreOpen = true; // TODO: Calculate from store.openingHours
+		const isStoreOpen = true;
 
 		return (
 			<HydrationBoundary state={dehydrate(queryClient)}>
@@ -66,12 +65,10 @@ export default async function ProductDetailPage({
 						</div>
 					</div>
 					<AddToCartFooter
+						productId={product.id}
 						stock={product.stock}
 						price={product.price}
-						onAddToCart={(quantity) => {
-							// TODO: Implement add to cart logic
-							console.log("Add to cart", quantity);
-						}}
+						selectedVariantId={undefined} // TODO: Get from variant selection state
 					/>
 				</div>
 			</HydrationBoundary>
@@ -80,6 +77,9 @@ export default async function ProductDetailPage({
 		if (error instanceof ORPCError && error.status === 404) {
 			return notFound();
 		}
-		throw error;
+
+		// Log unexpected errors
+		console.error("Product detail page error:", error);
+		return notFound();
 	}
 }

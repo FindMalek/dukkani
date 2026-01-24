@@ -2,31 +2,36 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
-import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCartStore } from "@/stores/cart.store";
 
 interface AddToCartFooterProps {
+	productId: string;
 	stock: number;
 	price: number;
 	currency?: string;
-	onAddToCart: (quantity: number) => void;
 	selectedVariantId?: string;
 }
 
 export function AddToCartFooter({
+	productId,
 	stock,
 	price,
 	currency = "TND",
-	onAddToCart,
 	selectedVariantId,
 }: AddToCartFooterProps) {
 	const t = useTranslations("storefront.store.product.addToCart");
+	const addItem = useCartStore((state) => state.addItem);
 	const [quantity, setQuantity] = useState(1);
+
+	// Reset quantity when variant changes
+	useEffect(() => {
+		setQuantity(1);
+	}, [selectedVariantId]);
 
 	const isOutOfStock = stock === 0;
 	const maxQuantity = Math.min(stock, 99);
-	const formattedPrice = (price * quantity).toFixed(2);
 
 	const handleDecrease = () => {
 		if (quantity > 1) {
@@ -42,7 +47,9 @@ export function AddToCartFooter({
 
 	const handleAddToCart = () => {
 		if (!isOutOfStock) {
-			onAddToCart(quantity);
+			// TODO: When variant support is added to cart, use selectedVariantId
+			// For now, we add the product with variant info stored separately
+			addItem(productId, quantity);
 		}
 	};
 

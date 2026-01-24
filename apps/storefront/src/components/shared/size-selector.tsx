@@ -3,7 +3,7 @@
 import type {
 	VariantOptionOutput,
 	VariantOutput,
-} from "@dukkani/common/schemas/product/output";
+} from "@dukkani/common/schemas/variant/output";
 import { Button } from "@dukkani/ui/components/button";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";

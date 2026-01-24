@@ -1,7 +1,8 @@
 import { AspectRatio } from "@dukkani/ui/components/aspect-ratio";
+
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 
-export function ProductDetailSkeleton() {
+export default function ProductDetailPageLoading() {
 	return (
 		<div className="min-h-screen bg-background pb-20">
 			<div className="h-[49px]" />
