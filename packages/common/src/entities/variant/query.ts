@@ -16,18 +16,22 @@ export type VariantValueDbData = Prisma.ProductVariantOptionValueGetPayload<{
 	select: ReturnType<typeof VariantQuery.getVariantValueSelect>;
 }>;
 
+export type VariantSelectionDbData = Prisma.ProductVariantSelectionGetPayload<{
+	include: ReturnType<typeof VariantQuery.getVariantSelectionInclude>;
+}>;
+
 export class VariantQuery {
 	static getSimpleInclude() {
 		return {} satisfies Prisma.ProductVariantInclude;
 	}
 
-    static getVariantValueSelect() {
-        return {
-           id: true,
-           value: true,
-           optionId: true,
-        } satisfies Prisma.ProductVariantOptionValueSelect;
-    }
+	static getVariantValueSelect() {
+		return {
+			id: true,
+			value: true,
+			optionId: true,
+		} satisfies Prisma.ProductVariantOptionValueSelect;
+	}
 
 	static getVariantOptionInclude() {
 		return {
@@ -35,17 +39,21 @@ export class VariantQuery {
 		} satisfies Prisma.ProductVariantOptionInclude;
 	}
 
+	static getVariantSelectionInclude() {
+		return {
+			option: {
+				include: VariantQuery.getVariantOptionInclude(),
+			},
+			value: {
+				select: VariantQuery.getVariantValueSelect(),
+			},
+		} satisfies Prisma.ProductVariantSelectionInclude;
+	}
+
 	static getVariantInclude() {
 		return {
 			selections: {
-				include: {
-					option: {
-						include: {
-							values: true,
-						},
-					},
-					value: true,
-				},
+				include: VariantQuery.getVariantSelectionInclude(),
 			},
 		} satisfies Prisma.ProductVariantInclude;
 	}

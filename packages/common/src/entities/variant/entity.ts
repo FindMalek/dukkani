@@ -2,14 +2,16 @@ import type {
 	VariantOptionOutput,
 	VariantOptionValueOutput,
 	VariantOutput,
+	VariantSelectionOutput,
 	VariantSimpleOutput,
 } from "../../schemas/variant/output";
 
 import type {
 	VariantDbData,
 	VariantOptionDbData,
+	VariantSelectionDbData,
 	VariantSimpleDbData,
-    VariantValueDbData
+	VariantValueDbData,
 } from "./query";
 
 export class VariantEntity {
@@ -22,13 +24,15 @@ export class VariantEntity {
 		};
 	}
 
-    static getVariantValues(entity: VariantValueDbData): VariantOptionValueOutput {
-        return {
-            id: entity.id,
-            value: entity.value,
-            optionId: entity.optionId,
-        };
-    }
+	static getVariantValues(
+		entity: VariantValueDbData,
+	): VariantOptionValueOutput {
+		return {
+			id: entity.id,
+			value: entity.value,
+			optionId: entity.optionId,
+		};
+	}
 
 	static getVariantOptionRo(entity: VariantOptionDbData): VariantOptionOutput {
 		return {
@@ -39,6 +43,19 @@ export class VariantEntity {
 		};
 	}
 
+	static getVariantSelectionRo(
+		selection: VariantSelectionDbData,
+	): VariantSelectionOutput {
+		return {
+			id: selection.id,
+			variantId: selection.variantId,
+			optionId: selection.optionId,
+			valueId: selection.valueId,
+			option: VariantEntity.getVariantOptionRo(selection.option),
+			value: VariantEntity.getVariantValues(selection.value),
+		};
+	}
+
 	static getVariantRo(entity: VariantDbData): VariantOutput {
 		return {
 			id: entity.id,
@@ -46,27 +63,7 @@ export class VariantEntity {
 			price: entity.price ? Number(entity.price) : null,
 			stock: entity.stock,
 			productId: entity.productId,
-			selections: entity.selections.map((selection) => ({
-				id: selection.id,
-				variantId: selection.variantId,
-				optionId: selection.optionId,
-				valueId: selection.valueId,
-				option: {
-					id: selection.option.id,
-					name: selection.option.name,
-					productId: selection.option.productId,
-					values: selection.option.values.map((value) => ({
-						id: value.id,
-						value: value.value,
-						optionId: value.optionId,
-					})),
-				},
-				value: {
-					id: selection.value.id,
-					value: selection.value.value,
-					optionId: selection.value.optionId,
-				},
-			})),
+			selections: entity.selections.map(VariantEntity.getVariantSelectionRo),
 		};
 	}
 }
