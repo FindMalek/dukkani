@@ -23,7 +23,7 @@ export function CategoryFilter({ categories }: CategoryFilterProps) {
 	}
 
 	return (
-		<div className="mb-6 w-full overflow-x-hidden px-4">
+		<div className="mb-2 w-full overflow-x-hidden px-4">
 			<ScrollArea className="w-full whitespace-nowrap">
 				<div className="flex gap-2 pb-4">
 					<Button
