@@ -13,6 +13,7 @@ import { ProductSectionHeader } from "@/components/app/product-section-header";
 import { StoreHeader } from "@/components/app/store-header";
 import { client, getQueryClient, orpc } from "@/lib/orpc";
 import { getStoreSlugFromHost } from "@/lib/utils";
+import { StoreFooter } from "@/components/app/store-footer";
 
 export default async function StorePage() {
 	const headersList = await headers();
@@ -81,6 +82,7 @@ export default async function StorePage() {
 					)}
 					<ProductSectionHeader title={t("products.title")} />
 					<ProductGrid products={products} />
+					<StoreFooter />
 				</div>
 			</HydrationBoundary>
 		);

@@ -15,6 +15,10 @@
 			},
 			"filter": {
 				"button": "Filter"
+			},
+			"footer": {
+				"copyright": "All rights reserved",
+				"poweredBy": "Powered by Dukkani"
 			}
 		},
 		"comingSoon": {

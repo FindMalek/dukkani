@@ -1,4 +1,3 @@
-// packages/common/src/services/launch-notification.service.ts
 import { database } from "@dukkani/db";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { z } from "zod";

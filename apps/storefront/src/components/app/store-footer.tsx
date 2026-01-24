@@ -1,0 +1,32 @@
+import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { env } from "@/env";
+
+export async function StoreFooter() {
+	const t = await getTranslations("storefront.store.footer");
+
+	return (
+		<footer className="border-border/30 border-t bg-background">
+			<div className="container mx-auto px-4 py-6">
+				<div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+					<p className="text-muted-foreground text-sm">
+						&copy; {new Date().getFullYear()}{" "}
+						{t("copyright", { defaultValue: "All rights reserved" })}
+					</p>
+					<p className="text-muted-foreground text-sm">
+						<Link
+							href={env.NEXT_PUBLIC_WEB_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-foreground hover:underline"
+						>
+							{t("poweredBy", {
+								defaultValue: "Powered by",
+							})}
+						</Link>
+					</p>
+				</div>
+			</div>
+		</footer>
+	);
+}
