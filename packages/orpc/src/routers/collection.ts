@@ -166,6 +166,34 @@ export const collectionRouter = {
 
 			await verifyStoreOwnership(userId, collection.storeId);
 
+			// Fetch all existing products in the collection
+			const existingProducts = await database.productCollection.findMany({
+				where: { collectionId: input.collectionId },
+				select: { productId: true },
+			});
+
+			const existingProductIds = existingProducts.map((pc) => pc.productId);
+			const inputProductIdsSet = new Set(input.productIds);
+
+			// Ensure all existing products are included in the reorder
+			if (existingProductIds.length !== input.productIds.length) {
+				throw new ORPCError("BAD_REQUEST", {
+					message:
+						"All products in the collection must be included in the reorder",
+				});
+			}
+
+			// Check that every existing product is present in input
+			const missingProducts = existingProductIds.filter(
+				(id) => !inputProductIdsSet.has(id),
+			);
+			if (missingProducts.length > 0) {
+				throw new ORPCError("BAD_REQUEST", {
+					message:
+						"All products in the collection must be included in the reorder",
+				});
+			}
+
 			// Validate product IDs belong to the store
 			if (input.productIds.length > 0) {
 				const products = await database.product.findMany({
