@@ -7,7 +7,7 @@ import { env } from "@/env";
 // This is important for SSR - each request should have its own client
 export function makeQueryClient() {
 	const isDev = process.env.NODE_ENV === "development";
-	
+
 	return new QueryClient({
 		defaultOptions: {
 			queries: {

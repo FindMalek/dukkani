@@ -32,12 +32,14 @@ export default async function StorePage() {
 				input: { slug: storeSlug },
 			}),
 			// Override with longer cache time for this specific query
-			staleTime: process.env.NODE_ENV === "development" 
-				? 10 * 60 * 1000 // 10 minutes in dev
-				: 2 * 60 * 1000, // 2 minutes in prod
-			gcTime: process.env.NODE_ENV === "development"
-				? 60 * 60 * 1000 // 1 hour in dev
-				: 10 * 60 * 1000, // 10 minutes in prod
+			staleTime:
+				process.env.NODE_ENV === "development"
+					? 10 * 60 * 1000 // 10 minutes in dev
+					: 2 * 60 * 1000, // 2 minutes in prod
+			gcTime:
+				process.env.NODE_ENV === "development"
+					? 60 * 60 * 1000 // 1 hour in dev
+					: 10 * 60 * 1000, // 10 minutes in prod
 		});
 
 		const store = queryClient.getQueryData(
@@ -76,7 +78,7 @@ export default async function StorePage() {
 					{categoryOptions.length > 0 && (
 						<CategoryFilter categories={categoryOptions} />
 					)}
-					<ProductSectionHeader title={t("products.title")} /> 
+					<ProductSectionHeader title={t("products.title")} />
 					<ProductGrid products={products} />
 				</div>
 			</HydrationBoundary>

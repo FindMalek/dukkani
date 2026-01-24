@@ -100,7 +100,7 @@ export const storeRouter = {
 	 * Supports pagination for products
 	 */
 	getBySlugPublic: publicProcedure
-		.use(rateLimitPublicSafe)
+		// .use(rateLimitPublicSafe)
 		.input(getStoreBySlugPublicInputSchema)
 		.output(storePublicOutputSchema)
 		.handler(async ({ input }) => {

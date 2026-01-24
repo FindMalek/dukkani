@@ -1,5 +1,6 @@
 import { AspectRatio } from "@dukkani/ui/components/aspect-ratio";
 import { Button } from "@dukkani/ui/components/button";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,7 +20,7 @@ export function HeroBanner({
 	return (
 		<div className="container mx-auto mb-6 px-4">
 			<div className="relative overflow-hidden rounded-lg">
-				<AspectRatio ratio={16 / 9}>
+				<AspectRatio ratio={16 / 8}>
 					{imageUrl ? (
 						<Image
 							src={imageUrl}
@@ -29,15 +30,15 @@ export function HeroBanner({
 							priority
 						/>
 					) : (
-						<div className="h-full w-full bg-muted" />
+						<Skeleton className="h-full w-full" />
 					)}
-					<div className="absolute inset-0 bg-black/20" />
-					<div className="absolute bottom-6 left-6 text-white">
-						<h2 className="mb-2 font-bold text-2xl">{title}</h2>
+					<div className="absolute inset-0 bg-linear-to-t from-foreground/60 via-foreground/20 to-transparent" />
+					<div className="absolute bottom-3 left-3 text-card">
+						<h2 className="font-bold text-lg">{title}</h2>
 						<Button
 							variant="ghost"
 							asChild
-							className="h-auto p-0 text-white hover:text-white/80"
+							className="h-auto p-0 text-card/70 text-sm"
 						>
 							<Link href={linkHref}>{subtitle}</Link>
 						</Button>
