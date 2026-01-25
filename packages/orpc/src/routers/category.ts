@@ -10,7 +10,7 @@ import { CategoryService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure } from "../index";
+import { baseProcedure, protectedProcedure, publicProcedure } from "../index";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { verifyStoreOwnership } from "../utils/store-access";
 
@@ -44,7 +44,7 @@ export const categoryRouter = {
 	 * Get all categories for a store (public - for storefronts)
 	 * Only returns categories that have published products
 	 */
-	getAllPublic: publicProcedure
+	getAllPublic: baseProcedure
 		.use(rateLimitPublicSafe)
 		.input(listCategoriesInputSchema)
 		.output(z.array(categoryOutputSchema))
