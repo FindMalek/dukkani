@@ -143,26 +143,13 @@ export const storeRouter = {
 
 			return store;
 		}),
+
 	/**
 	 * Subscribe to launch notifications for a store
 	 */
 	subscribeToLaunch: publicProcedure
-		.input(
-			subscribeToLaunchInputSchema
-				.extend({
-					email: z.email().optional(),
-					phone: z.string().optional(),
-				})
-				.transform((data) => {
-					// Transform emailOrPhone into email or phone
-					const isEmail = data.emailOrPhone.includes("@");
-					return {
-						storeId: data.storeId,
-						email: isEmail ? data.emailOrPhone : undefined,
-						phone: !isEmail ? data.emailOrPhone : undefined,
-					};
-				}),
-		)
+		.use(rateLimitPublicSafe)
+		.input(subscribeToLaunchInputSchema)
 		.output(launchNotificationOutputSchema)
 		.handler(async ({ input }) => {
 			return await LaunchNotificationService.subscribe(input);

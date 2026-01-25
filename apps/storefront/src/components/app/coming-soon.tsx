@@ -117,12 +117,6 @@ export function ComingSoon({ store }: ComingSoonProps) {
 								t("button.label")
 							)}
 						</Button>
-
-						{subscribeMutation.isError && (
-							<p className="text-center text-destructive text-sm">
-								{t("error")}
-							</p>
-						)}
 					</form>
 				)}
 

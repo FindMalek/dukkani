@@ -1,26 +1,21 @@
+import type { SubscribeToLaunchInput } from "@dukkani/common/schemas/store/input";
 import { database } from "@dukkani/db";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
-import { z } from "zod";
-
-const subscribeInputSchema = z
-	.object({
-		storeId: z.string(),
-		email: z.string().email().optional(),
-		phone: z.string().optional(),
-	})
-	.refine((data) => data.email || data.phone, {
-		message: "Either email or phone must be provided",
-	});
 
 class LaunchNotificationServiceBase {
 	/**
 	 * Subscribe to launch notifications for a store
 	 */
-	static async subscribe(input: z.infer<typeof subscribeInputSchema>) {
+	static async subscribe(input: SubscribeToLaunchInput) {
+		// Determine if emailOrPhone is an email or phone
+		const isEmail = input.emailOrPhone.includes("@");
+		const email = isEmail ? input.emailOrPhone : null;
+		const phone = !isEmail ? input.emailOrPhone : null;
+
 		addSpanAttributes({
 			"launch_notification.store_id": input.storeId,
-			"launch_notification.has_email": !!input.email,
-			"launch_notification.has_phone": !!input.phone,
+			"launch_notification.has_email": !!email,
+			"launch_notification.has_phone": !!phone,
 		});
 
 		// Check if store exists and is in DRAFT status
@@ -38,10 +33,10 @@ class LaunchNotificationServiceBase {
 		}
 
 		// Determine which unique constraint to use
-		const whereClause = input.email
-			? { storeId_email: { storeId: input.storeId, email: input.email } }
-			: input.phone
-				? { storeId_phone: { storeId: input.storeId, phone: input.phone } }
+		const whereClause = email
+			? { storeId_email: { storeId: input.storeId, email } }
+			: phone
+				? { storeId_phone: { storeId: input.storeId, phone } }
 				: null;
 
 		if (!whereClause) {
@@ -53,8 +48,8 @@ class LaunchNotificationServiceBase {
 			where: whereClause,
 			create: {
 				storeId: input.storeId,
-				email: input.email ?? null,
-				phone: input.phone ?? null,
+				email,
+				phone,
 			},
 			update: {
 				// Reset notified status if resubscribing

@@ -31,9 +31,15 @@ export function ProductImageCarousel({
 
 		setCurrent(api.selectedScrollSnap());
 
-		api.on("select", () => {
+		const handler = () => {
 			setCurrent(api.selectedScrollSnap());
-		});
+		};
+
+		api.on("select", handler);
+
+		return () => {
+			api.off("select", handler);
+		};
 	}, [api]);
 
 	if (images.length === 0) {

@@ -117,13 +117,20 @@ export const productRouter = {
 		.input(listProductsInputSchema.optional())
 		.output(listProductsOutputSchema)
 		.handler(async ({ input }): Promise<ListProductsOutput> => {
+			// Validate storeId is required
+			if (!input?.storeId) {
+				throw new ORPCError("BAD_REQUEST", {
+					message: "storeId is required",
+				});
+			}
+
 			const page = input?.page ?? 1;
 			const limit = input?.limit ?? 20;
 			const skip = (page - 1) * limit;
 
 			// Verify store exists and is published
 			const store = await database.store.findUnique({
-				where: { id: input?.storeId },
+				where: { id: input.storeId },
 				select: { id: true, status: true },
 			});
 
@@ -141,7 +148,7 @@ export const productRouter = {
 
 			// Build where clause for published products
 			const where: Prisma.ProductWhereInput = {
-				storeId: input?.storeId,
+				storeId: input.storeId,
 				...ProductQuery.getPublishableWhere(),
 			};
 

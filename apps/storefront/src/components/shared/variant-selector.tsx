@@ -6,7 +6,6 @@ import type {
 } from "@dukkani/common/schemas/variant/output";
 import { Button } from "@dukkani/ui/components/button";
 import { cn } from "@dukkani/ui/lib/utils";
-import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
 interface VariantSelectorProps {
@@ -22,16 +21,12 @@ export function VariantSelector({
 	selectedVariantId,
 	onVariantSelect,
 }: VariantSelectorProps) {
-	const t = useTranslations("storefront.store.product.variantSelector");
-
-	if (!variantOptions || variantOptions.length === 0 || !variants) {
-		return null;
-	}
-
 	// Get the selected variant to know which option values are selected
-	const selectedVariant = variants.find((v) => v.id === selectedVariantId);
+	// Compute this before early return so hooks can use it
+	const selectedVariant = variants?.find((v) => v.id === selectedVariantId);
 
 	// Create a map of selected option values from the selected variant
+	// Move useMemo before early return to satisfy Rules of Hooks
 	const selectedValues = useMemo(() => {
 		const map = new Map<string, string>(); // optionId -> valueId
 		selectedVariant?.selections.forEach((sel) => {
@@ -39,6 +34,10 @@ export function VariantSelector({
 		});
 		return map;
 	}, [selectedVariant]);
+
+	if (!variantOptions || variantOptions.length === 0 || !variants) {
+		return null;
+	}
 
 	// Helper to find a variant that matches selected option values
 	const findMatchingVariant = (

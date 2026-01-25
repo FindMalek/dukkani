@@ -11,8 +11,16 @@ export function useCartHydration() {
 	const [isHydrated, setIsHydrated] = useState(false);
 
 	useEffect(() => {
-		useCartStore.persist.rehydrate();
-		setIsHydrated(true);
+		const hydrate = async () => {
+			try {
+				await useCartStore.persist.rehydrate();
+				setIsHydrated(true);
+			} catch {
+				setIsHydrated(true);
+			}
+		};
+
+		hydrate();
 	}, []);
 
 	return isHydrated;

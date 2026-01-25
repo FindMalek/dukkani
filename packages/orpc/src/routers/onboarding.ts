@@ -1,13 +1,13 @@
 import type { StoreMinimalDbData } from "@dukkani/common/entities/store/query";
 import { StoreQuery } from "@dukkani/common/entities/store/query";
-import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
+import { StoreStatus, UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { onboardingCompleteInputSchema } from "@dukkani/common/schemas/onboarding/input";
 import type { OnboardingCompleteOutput } from "@dukkani/common/schemas/onboarding/output";
 import { onboardingCompleteOutputSchema } from "@dukkani/common/schemas/onboarding/output";
 import { LaunchNotificationService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
-import { StoreStatus } from "@dukkani/db/prisma/generated/enums";
 import { apiEnv } from "@dukkani/env";
+import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
 
@@ -81,8 +81,10 @@ export const onboardingRouter = {
 			if (oldStatus === StoreStatus.DRAFT) {
 				// Don't await - fire and forget to not block the response
 				LaunchNotificationService.notifySubscribers(store.id).catch((error) => {
-					// Log error but don't fail the request
-					console.error("Failed to notify subscribers:", error);
+					logger.error(
+						{ error, storeId: store.id },
+						"Failed to notify subscribers:",
+					);
 				});
 			}
 

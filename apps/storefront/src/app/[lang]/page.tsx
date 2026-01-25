@@ -30,18 +30,12 @@ export default async function StorePage() {
 			...orpc.store.getBySlugPublic.queryOptions({
 				input: { slug: storeSlug },
 			}),
-			staleTime:
-				process.env.NODE_ENV === "development"
-					? 10 * 60 * 1000 // 10 minutes in dev
-					: 2 * 60 * 1000, // 2 minutes in prod
-			gcTime:
-				process.env.NODE_ENV === "development"
-					? 60 * 60 * 1000 // 1 hour in dev
-					: 10 * 60 * 1000, // 10 minutes in prod
+			staleTime: 2 * 60 * 1000,
+			gcTime: 10 * 60 * 1000,
 		});
 
-		const store = queryClient.getQueryData(
-			orpc.store.getBySlugPublic.queryKey({ input: { slug: storeSlug } }),
+		const store = await queryClient.fetchQuery(
+			orpc.store.getBySlugPublic.queryOptions({ input: { slug: storeSlug } }),
 		);
 
 		if (!store || !store.name) {

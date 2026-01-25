@@ -19,7 +19,7 @@ export class VariantEntity {
 		return {
 			id: entity.id,
 			sku: entity.sku,
-			price: entity.price ? Number(entity.price) : null,
+			price: entity.price != null ? Number(entity.price) : null,
 			stock: entity.stock,
 		};
 	}
@@ -60,7 +60,7 @@ export class VariantEntity {
 		return {
 			id: entity.id,
 			sku: entity.sku,
-			price: entity.price ? Number(entity.price) : null,
+			price: entity.price != null ? Number(entity.price) : null,
 			stock: entity.stock,
 			productId: entity.productId,
 			selections: entity.selections.map(VariantEntity.getVariantSelectionRo),
