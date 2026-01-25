@@ -10,11 +10,7 @@ import { CategoryService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import {
-	baseProcedure,
-	protectedProcedure,
-	publicProcedure,
-} from "../index";
+import { baseProcedure, protectedProcedure, publicProcedure } from "../index";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { verifyStoreOwnership } from "../utils/store-access";
 

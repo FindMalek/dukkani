@@ -260,11 +260,11 @@ export const rateLimiters = {
 
 	/**
 	 * Public rate limiter for unauthenticated requests
-	 * 300 requests per minute
+	 * 100 requests per 2 minutes
 	 */
 	public: new RateLimiter({
-		max: 3000,
-		windowMs: 60 * 1000, // 1 minute
+		max: 100,
+		windowMs: 60 * 1000 * 2, // 2 minutes
 		keyPrefix: "ratelimit:public",
 	}),
 };
