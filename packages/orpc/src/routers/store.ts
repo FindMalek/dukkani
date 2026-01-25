@@ -20,7 +20,7 @@ import {
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure } from "../index";
+import { protectedProcedure, publicProcedure, baseProcedure } from "../index";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 
 export const storeRouter = {
@@ -99,8 +99,8 @@ export const storeRouter = {
 	 * No authentication required, uses storefront rate limiting (100/min)
 	 * Supports pagination for products
 	 */
-	getBySlugPublic: publicProcedure
-		// .use(rateLimitPublicSafe)
+	getBySlugPublic: baseProcedure
+		.use(rateLimitPublicSafe)
 		.input(getStoreBySlugPublicInputSchema)
 		.output(storePublicOutputSchema)
 		.handler(async ({ input }) => {
