@@ -5,13 +5,18 @@ import {
 	getStoreBySlugPublicInputSchema,
 	getStoreInputSchema,
 	listStoresInputSchema,
+	subscribeToLaunchInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import {
+	launchNotificationOutputSchema,
 	storeIncludeOutputSchema,
 	storePublicOutputSchema,
 	storeSimpleOutputSchema,
 } from "@dukkani/common/schemas/store/output";
-import { StoreService } from "@dukkani/common/services";
+import {
+	LaunchNotificationService,
+	StoreService,
+} from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
@@ -95,7 +100,7 @@ export const storeRouter = {
 	 * Supports pagination for products
 	 */
 	getBySlugPublic: publicProcedure
-		.use(rateLimitPublicSafe)
+		// .use(rateLimitPublicSafe)
 		.input(getStoreBySlugPublicInputSchema)
 		.output(storePublicOutputSchema)
 		.handler(async ({ input }) => {
@@ -137,5 +142,16 @@ export const storeRouter = {
 			});
 
 			return store;
+		}),
+
+	/**
+	 * Subscribe to launch notifications for a store
+	 */
+	subscribeToLaunch: publicProcedure
+		.use(rateLimitPublicSafe)
+		.input(subscribeToLaunchInputSchema)
+		.output(launchNotificationOutputSchema)
+		.handler(async ({ input }) => {
+			return await LaunchNotificationService.subscribe(input);
 		}),
 };

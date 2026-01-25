@@ -40,6 +40,7 @@ import {
 	LayoutDashboard,
 	LayoutGridIcon,
 	Loader2,
+	LockIcon,
 	type LucideIcon,
 	Minus,
 	Moon,
@@ -53,6 +54,7 @@ import {
 	Settings,
 	ShirtIcon,
 	ShoppingCart,
+	ShoppingCartIcon,
 	SparklesIcon,
 	Star,
 	StoreIcon,
@@ -128,4 +130,6 @@ export const Icons = {
 	edit: PencilIcon,
 	upRight: ArrowUpRight,
 	downRight: ArrowDownRight,
+	lock: LockIcon,
+	shoppingCart: ShoppingCartIcon,
 } as const;

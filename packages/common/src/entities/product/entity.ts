@@ -5,6 +5,8 @@ import type {
 } from "../../schemas/product/output";
 import { ImageEntity } from "../image/entity";
 import { OrderItemEntity } from "../order-item/entity";
+import { StoreEntity } from "../store/entity";
+import { VariantEntity } from "../variant/entity";
 import type {
 	ProductIncludeDbData,
 	ProductPublicDbData,
@@ -43,6 +45,11 @@ export class ProductEntity {
 			stock: entity.stock,
 			published: entity.published,
 			imagesUrls: entity.images.map((image) => image.url),
+			store: StoreEntity.getPublicSimpleRo(entity.store),
+			variants: entity.variants.map(VariantEntity.getVariantRo),
+			variantOptions: entity.variantOptions.map(
+				VariantEntity.getVariantOptionRo,
+			),
 		};
 	}
 }

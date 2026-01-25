@@ -11,6 +11,7 @@ import {
 import type {
 	StoreIncludeOutput,
 	StorePublicOutput,
+	StorePublicSimpleOutput,
 	StoreSafeOutput,
 	StoreSimpleOutput,
 } from "../../schemas/store/output";
@@ -23,6 +24,7 @@ import type {
 	StoreClientSafeDbData,
 	StoreIncludeDbData,
 	StorePublicDbData,
+	StorePublicSimpleDbData,
 	StoreSimpleDbData,
 } from "./query";
 
@@ -68,6 +70,21 @@ export class StoreEntity {
 	}
 
 	/**
+	 * Get minimal store output for product detail pages
+	 * Only includes essential fields needed for store info card
+	 */
+	static getPublicSimpleRo(
+		entity: StorePublicSimpleDbData,
+	): StorePublicSimpleOutput {
+		return {
+			id: entity.id,
+			name: entity.name,
+			slug: entity.slug,
+			owner: entity.owner ? UserEntity.getSimpleRo(entity.owner) : undefined,
+		};
+	}
+
+	/**
 	 * Get public read-only output (for public storefronts)
 	 * Includes owner (limited fields) and products (public only)
 	 */
@@ -87,10 +104,7 @@ export class StoreEntity {
 				? StorePlanEntity.getSimpleRo(entity.storePlan)
 				: undefined,
 			owner: entity.owner
-				? {
-						name: entity.owner.name,
-						image: entity.owner.image,
-					}
+				? UserEntity.getSimpleSelectRo(entity.owner)
 				: undefined,
 			products: entity.products?.map(ProductEntity.getPublicRo),
 		};

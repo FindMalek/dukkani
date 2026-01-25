@@ -22,12 +22,14 @@
 		"@tanstack/react-query": "catalog:",
 		"babel-plugin-react-compiler": "catalog:",
 		"better-auth": "catalog:",
+		"sonner": "catalog:",
 		"next": "catalog:",
 		"next-intl": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"@orpc/server": "catalog:",
 		"zod": "catalog:",
+		"zustand": "catalog:",
 		"dotenv": "catalog:"
 	},
 	"devDependencies": {

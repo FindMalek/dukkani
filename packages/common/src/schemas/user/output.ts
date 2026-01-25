@@ -26,3 +26,13 @@ export const listUsersOutputSchema = z.object({
 
 export type UserSimpleOutput = z.infer<typeof userSimpleOutputSchema>;
 export type ListUsersOutput = z.infer<typeof listUsersOutputSchema>;
+
+export const userSimpleSelectOutputSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	image: z.string().nullable(),
+});
+
+export type UserSimpleSelectOutput = z.infer<
+	typeof userSimpleSelectOutputSchema
+>;

@@ -15,4 +15,5 @@ export * as teamMember from "./team-member";
 export * as telegram from "./telegram";
 export * as user from "./user";
 export * as utils from "./utils";
+export * as variant from "./variant";
 export * as whatsappMessage from "./whatsapp-message";

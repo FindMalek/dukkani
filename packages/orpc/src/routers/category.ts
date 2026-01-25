@@ -10,7 +10,8 @@ import { CategoryService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import { protectedProcedure } from "../index";
+import { protectedProcedure, publicProcedure } from "../index";
+import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { verifyStoreOwnership } from "../utils/store-access";
 
 export const categoryRouter = {
@@ -37,6 +38,33 @@ export const categoryRouter = {
 			await verifyStoreOwnership(userId, input.storeId);
 
 			return await CategoryService.getAllCategories(input.storeId);
+		}),
+
+	/**
+	 * Get all categories for a store (public - for storefronts)
+	 * Only returns categories that have published products
+	 */
+	getAllPublic: publicProcedure
+		.use(rateLimitPublicSafe)
+		.input(listCategoriesInputSchema)
+		.output(z.array(categoryOutputSchema))
+		.handler(async ({ input }) => {
+			// Get categories that have at least one published product
+			const categories = await database.category.findMany({
+				where: {
+					storeId: input.storeId,
+					products: {
+						some: {
+							published: true,
+						},
+					},
+				},
+				orderBy: {
+					name: "asc",
+				},
+			});
+
+			return categories.map(CategoryEntity.getSimpleRo);
 		}),
 
 	/**

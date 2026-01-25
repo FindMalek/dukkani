@@ -1,15 +1,61 @@
 {
 	"storefront": {
-		"title": "Vitrine",
-		"description": "Description de la vitrine",
+		"title": "Storefront",
+		"description": "Storefront description",
 		"store": {
 			"owner": {
-				"title": "Propriétaire du magasin"
+				"title": "Store Owner"
 			},
 			"products": {
-				"title": "Produits",
-				"empty": "Aucun produit disponible pour le moment"
+				"title": "Products",
+				"empty": "No products available yet"
+			},
+			"categoryFilter": {
+				"all": "All"
+			},
+			"filter": {
+				"button": "Filter"
+			},
+			"footer": {
+				"copyright": "All rights reserved",
+				"poweredBy": "Powered by Dukkani"
+			},
+			"product": {
+				"imageCarousel": {
+					"goToSlide": "Go to slide {index}"
+				},
+				"storeInfo": {
+					"openNow": "Open now",
+					"closed": "Closed"
+				},
+				"sizeSelector": {
+					"label": "Size"
+				},
+				"description": {
+					"label": "Description"
+				},
+				"addToCart": {
+					"button": "Add to Cart",
+					"outOfStock": "Out of Stock"
+				}
 			}
+		},
+		"comingSoon": {
+			"heading": "We're launching soon",
+			"description": {
+				"line1": "Be the first to know when we go live.",
+				"line2": "Exclusive updates for early visitors."
+			},
+			"input": {
+				"placeholder": "Enter your email or phone number"
+			},
+			"button": {
+				"label": "Notify me",
+				"submitting": "Subscribing..."
+			},
+			"success": "Thank you! We'll notify you when we launch.",
+			"error": "Something went wrong. Please try again.",
+			"privacy": "No spam. Only launch updates."
 		}
 	}
 }

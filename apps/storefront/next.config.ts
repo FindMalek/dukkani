@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
 		"pino-pretty",
 		"thread-stream",
 	],
+	images: {
+		remotePatterns: [{ hostname: "images.unsplash.com" }],
+	},
 };
 
 export default withNextIntl(nextConfig);

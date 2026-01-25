@@ -1,5 +1,8 @@
-import type { UserSimpleOutput } from "../../schemas/user/output";
-import type { UserSimpleDbData } from "./query";
+import type {
+	UserSimpleOutput,
+	UserSimpleSelectOutput,
+} from "../../schemas/user/output";
+import type { UserSimpleDbData, UserSimpleSelectDbData } from "./query";
 
 export class UserEntity {
 	static getSimpleRo(entity: UserSimpleDbData): UserSimpleOutput {
@@ -12,6 +15,16 @@ export class UserEntity {
 			onboardingStep: entity.onboardingStep,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
+		};
+	}
+
+	static getSimpleSelectRo(
+		entity: UserSimpleSelectDbData,
+	): UserSimpleSelectOutput {
+		return {
+			id: entity.id,
+			name: entity.name,
+			image: entity.image,
 		};
 	}
 }

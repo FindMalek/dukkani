@@ -1,12 +1,13 @@
 import type { StoreMinimalDbData } from "@dukkani/common/entities/store/query";
 import { StoreQuery } from "@dukkani/common/entities/store/query";
-import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
-import { StoreStatus } from "@dukkani/db/prisma/generated/enums";
+import { StoreStatus, UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { onboardingCompleteInputSchema } from "@dukkani/common/schemas/onboarding/input";
 import type { OnboardingCompleteOutput } from "@dukkani/common/schemas/onboarding/output";
 import { onboardingCompleteOutputSchema } from "@dukkani/common/schemas/onboarding/output";
+import { LaunchNotificationService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
+import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
 
@@ -59,6 +60,8 @@ export const onboardingRouter = {
 					});
 				}
 			}
+			// Get old status before update
+			const oldStatus = store.status;
 
 			// Publish the store and mark onboarding as complete
 			await database.$transaction([
@@ -73,6 +76,17 @@ export const onboardingRouter = {
 					data: { onboardingStep: UserOnboardingStep.STORE_LAUNCHED },
 				}),
 			]);
+
+			// Notify subscribers if store was just published
+			if (oldStatus === StoreStatus.DRAFT) {
+				// Don't await - fire and forget to not block the response
+				LaunchNotificationService.notifySubscribers(store.id).catch((error) => {
+					logger.error(
+						{ error, storeId: store.id },
+						"Failed to notify subscribers:",
+					);
+				});
+			}
 
 			// Generate store URL (e.g., store-name.dukkani.tn)
 			const storeUrl = `https://${store.slug}.${apiEnv.NEXT_PUBLIC_STORE_DOMAIN}`;
