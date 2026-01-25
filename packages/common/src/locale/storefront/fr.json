@@ -27,6 +27,16 @@
 				"storeInfo": {
 					"openNow": "Open now",
 					"closed": "Closed"
+				},
+				"sizeSelector": {
+					"label": "Size"
+				},
+				"description": {
+					"label": "Description"
+				},
+				"addToCart": {
+					"button": "Add to Cart",
+					"outOfStock": "Out of Stock"
 				}
 			}
 		},

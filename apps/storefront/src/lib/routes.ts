@@ -11,7 +11,7 @@ import type { Route } from "next";
  */
 export const RoutePaths = {
 	HOME: {
-		url: (lang: string) => `/${lang}` as Route,
+		url: "/",
 		label: "Home",
 	},
 	PRODUCTS: {

@@ -8,7 +8,9 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { RoutePaths } from "@/lib/routes";
 
 interface StoreInfoCardProps {
 	storeName: string;
@@ -32,7 +34,7 @@ export function StoreInfoCard({
 	}
 
 	return (
-		<Link href={`/${storeSlug}`} className="block">
+		<Link href={RoutePaths.HOME.url} className="block">
 			<div className="flex items-center gap-3 rounded-lg bg-primary/10 p-3">
 				<Avatar className="size-10">
 					<AvatarImage

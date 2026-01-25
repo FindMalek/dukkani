@@ -32,6 +32,7 @@ export function AddToCartFooter({
 
 	const isOutOfStock = stock === 0;
 	const maxQuantity = Math.min(stock, 99);
+	const formattedPrice = price.toFixed(2);
 
 	const handleDecrease = () => {
 		if (quantity > 1) {
@@ -54,7 +55,7 @@ export function AddToCartFooter({
 	};
 
 	return (
-		<div className="fixed inset-x-0 bottom-0 mb-0 border-border border-t bg-background/95 backdrop-blur-sm">
+		<div className="fixed inset-x-0 bottom-0 mb-0 z-40 border-border border-t bg-background/95 backdrop-blur-sm">
 			<div className="container mx-auto px-4 py-3">
 				<div className="flex items-center gap-3">
 					{/* Quantity Selector */}
@@ -80,14 +81,22 @@ export function AddToCartFooter({
 						</Button>
 					</div>
 
-					{/* Add to Cart Button */}
+					{/* Add to Cart Button with Price */}
 					<Button
 						className="flex-1 bg-primary text-primary-foreground"
 						onClick={handleAddToCart}
 						disabled={isOutOfStock}
 					>
-						<Icons.shoppingCart className="mr-2 size-4" />
-						{isOutOfStock ? t("outOfStock") : t("button")}
+						<div className="flex flex-1 items-center justify-between">
+							<div className="flex items-center gap-2">
+								<Icons.shoppingCart className="size-4" />
+								<span>{isOutOfStock ? t("outOfStock") : t("button")}</span>
+							</div>
+							<span className="text-sm">-</span>
+							<span className="font-semibold">
+								{formattedPrice} {currency}
+							</span>
+						</div>
 					</Button>
 				</div>
 			</div>

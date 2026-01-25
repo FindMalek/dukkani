@@ -3,7 +3,6 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { ProductDescription } from "@/components/app/product-description";
-import { ProductHeader } from "@/components/app/product-header";
 import { ProductImageCarousel } from "@/components/app/product-image-carousel";
 import { ProductVariantManager } from "@/components/app/product-variant-manager";
 import { StoreInfoCard } from "@/components/app/store-info-card";
@@ -47,7 +46,9 @@ export default async function ProductDetailPage({
 							productName={product.name}
 						/>
 						<div className="mt-4 space-y-4">
-							<ProductHeader name={product.name} price={product.price} />
+							<h1 className="font-bold text-foreground text-xl">
+								{product.name}
+							</h1>
 							<ProductAttributes tags={product.tags} />
 							{product.store && (
 								<StoreInfoCard

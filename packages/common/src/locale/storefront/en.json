@@ -32,9 +32,7 @@
 					"label": "Size"
 				},
 				"description": {
-					"label": "Description",
-					"readMore": "Read more",
-					"readLess": "Read less"
+					"label": "Description"
 				},
 				"addToCart": {
 					"button": "Add to Cart",
