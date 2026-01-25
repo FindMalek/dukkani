@@ -4,7 +4,7 @@ import { rateLimitProtected, rateLimitPublic } from "./middleware/rate-limit";
 
 export const o = os.$context<Context>();
 
-// Public procedure with strict rate limiting
+export const baseProcedure = o;
 export const publicProcedure = o.use(rateLimitPublic);
 
 const requireAuth = o.middleware(async ({ context, next }) => {

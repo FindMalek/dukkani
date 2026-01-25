@@ -23,7 +23,7 @@ import { ProductService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure, publicProcedure } from "../index";
+import { baseProcedure, protectedProcedure, publicProcedure } from "../index";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
@@ -112,7 +112,7 @@ export const productRouter = {
 	 * No authentication required, uses storefront rate limiting
 	 * Only returns published products
 	 */
-	getAllPublic: publicProcedure
+	getAllPublic: baseProcedure
 		.use(rateLimitPublicSafe)
 		.input(listProductsInputSchema.optional())
 		.output(listProductsOutputSchema)
@@ -543,7 +543,7 @@ export const productRouter = {
 	 * No authentication required, uses storefront rate limiting (100/min)
 	 * Returns product with store info, variants, and images
 	 */
-	getByIdPublic: publicProcedure
+	getByIdPublic: baseProcedure
 		.use(rateLimitPublicSafe)
 		.input(getProductInputSchema)
 		.output(productPublicOutputSchema)

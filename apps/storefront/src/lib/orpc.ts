@@ -6,22 +6,15 @@ import { env } from "@/env";
 // Create a function to make a new query client
 // This is important for SSR - each request should have its own client
 export function makeQueryClient() {
-	const isDev = process.env.NODE_ENV === "development";
-
 	return new QueryClient({
 		defaultOptions: {
 			queries: {
-				// In dev mode, use much longer staleTime to avoid rate limiting
-				// In production, use shorter staleTime for fresher data
-				staleTime: isDev ? 5 * 60 * 1000 : 60 * 1000, // 5 minutes in dev, 1 minute in prod
-				gcTime: isDev ? 30 * 60 * 1000 : 5 * 60 * 1000, // 30 minutes in dev, 5 minutes in prod
-				// Retry configuration to avoid hammering the API
-				retry: isDev ? 1 : 3, // Only retry once in dev
+				staleTime: 60 * 1000, // 1 minute
+				gcTime: 60 * 1000, // 1 minute
+				retry: 3,
 				retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-				// Refetch on window focus only in production
-				refetchOnWindowFocus: !isDev,
-				// Refetch on reconnect only in production
-				refetchOnReconnect: !isDev,
+				refetchOnWindowFocus: false,
+				refetchOnReconnect: false,
 			},
 		},
 	});

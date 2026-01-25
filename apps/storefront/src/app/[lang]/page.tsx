@@ -26,16 +26,10 @@ export default async function StorePage() {
 	const queryClient = getQueryClient();
 
 	try {
-		await queryClient.prefetchQuery({
-			...orpc.store.getBySlugPublic.queryOptions({
+		const store = await queryClient.fetchQuery(
+			orpc.store.getBySlugPublic.queryOptions({
 				input: { slug: storeSlug },
 			}),
-			staleTime: 2 * 60 * 1000,
-			gcTime: 10 * 60 * 1000,
-		});
-
-		const store = await queryClient.fetchQuery(
-			orpc.store.getBySlugPublic.queryOptions({ input: { slug: storeSlug } }),
 		);
 
 		if (!store || !store.name) {
