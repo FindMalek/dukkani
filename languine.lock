@@ -196,3 +196,23 @@ files:
     storefront.store.owner.title: 6b3bc34167e5c57ad206297bdf17078f
     storefront.store.products.title: 068f80c7519d0528fb08e82137a72131
     storefront.store.products.empty: 85c435036ee6b5b6ae8dc26b5c336e3a
+    storefront.store.categoryFilter.all: b1c94ca2fbc3e78fc30069c8d0f01680
+    storefront.store.filter.button: d7778d0c64b6ba21494c97f77a66885a
+    storefront.store.footer.copyright: 5db707f74d87bd123c565cfe06c13522
+    storefront.store.footer.poweredBy: 647a731af2b0a777cdb1e9a50adc5c3e
+    storefront.store.product.imageCarousel.goToSlide: 9209ab5368c0c4d92f41f9909b3d0b9e
+    storefront.store.product.storeInfo.openNow: d5542204a83bcfff17f90ffdbf9711da
+    storefront.store.product.storeInfo.closed: 03f4a47830f97377a35321051685071e
+    storefront.store.product.sizeSelector.label: 6f6cb72d544962fa333e2e34ce64f719
+    storefront.store.product.description.label: b5a7adde1af5c87d7fd797b6245c2a39
+    storefront.store.product.addToCart.button: 638f592f71fc3fac3351534e69f9d29f
+    storefront.store.product.addToCart.outOfStock: e990b6285ed2a575c561235378a5e691
+    storefront.comingSoon.heading: bc14b01ef9721608391a4d58565a5fdb
+    storefront.comingSoon.description.line1: 1d881afbdd3af521120718b3def84876
+    storefront.comingSoon.description.line2: 7b213864800e2f12bb32bbf44e65d96f
+    storefront.comingSoon.input.placeholder: f5ebc8d38f363c3313ee9812dbd82e1c
+    storefront.comingSoon.button.label: 5c8e6fb71f9831e259d0e52c095acc38
+    storefront.comingSoon.button.submitting: 528785f925f4ccbf3a8ca717125fcaed
+    storefront.comingSoon.success: 40f3c900cfed74e1b848cc595b71a9cf
+    storefront.comingSoon.error: e9f36d65b0491f99ef8f0ce2c11bf998
+    storefront.comingSoon.privacy: 0f5d7793ff759ad336d50092b8857518
