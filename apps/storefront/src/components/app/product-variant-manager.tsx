@@ -44,9 +44,12 @@ export function ProductVariantManager({
 	const selectedVariant = variants?.find((v) => v.id === selectedVariantId);
 
 	// Determine stock and price to use
-	// Variant price can override product price, or be null to use product price
-	const stock = selectedVariant ? selectedVariant.stock : productStock;
-	const price = selectedVariant?.price ?? productPrice;
+	// For products with variants: use variant stock/price, or 0 if no variant selected yet
+	// For products without variants: use product stock/price
+	const stock = hasVariants ? (selectedVariant?.stock ?? 0) : productStock;
+	const price = hasVariants
+		? (selectedVariant?.price ?? productPrice)
+		: productPrice;
 
 	return (
 		<>

@@ -6,7 +6,7 @@ export async function StoreFooter() {
 	const t = await getTranslations("storefront.store.footer");
 
 	return (
-		<footer className="border-border/30 border-t bg-background">
+		<footer className="border-border/30 border-t bg-background pb-20">
 			<div className="container mx-auto px-4 py-6">
 				<div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
 					<p className="text-muted-foreground text-sm">

@@ -4,7 +4,7 @@ import { Skeleton } from "@dukkani/ui/components/skeleton";
 
 export default function ProductDetailPageLoading() {
 	return (
-		<div className="min-h-screen bg-background pb-20">
+		<div className="min-h-screen bg-background">
 			<div className="h-[49px]" />
 			<div className="container mx-auto px-4 py-4">
 				<AspectRatio ratio={1}>

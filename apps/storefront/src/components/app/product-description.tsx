@@ -15,7 +15,7 @@ export async function ProductDescription({
 	return (
 		<div className="space-y-2">
 			<h3 className="font-medium text-muted-foreground text-sm">
-				{t("label", { defaultValue: "Description" })}
+				{t("label")}
 			</h3>
 			<p className="text-muted-foreground text-sm leading-relaxed">
 				{description}

@@ -54,8 +54,8 @@ export function AddToCartFooter({
 	};
 
 	return (
-		<div className="fixed right-0 left-0 z-40 border-border border-t bg-background/95 backdrop-blur-sm">
-			<div className="container mx-auto px-4 py-2">
+		<div className="fixed inset-x-0 bottom-0 mb-0 border-border border-t bg-background/95 backdrop-blur-sm">
+			<div className="container mx-auto px-4 py-3">
 				<div className="flex items-center gap-3">
 					{/* Quantity Selector */}
 					<div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50">

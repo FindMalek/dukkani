@@ -40,7 +40,7 @@ export default async function ProductDetailPage({
 
 		return (
 			<HydrationBoundary state={dehydrate(queryClient)}>
-				<div className="min-h-screen bg-background pb-20">
+				<div className="min-h-screen bg-background">
 					<div className="container mx-auto px-4 py-4">
 						<ProductImageCarousel
 							images={product.imagesUrls || []}

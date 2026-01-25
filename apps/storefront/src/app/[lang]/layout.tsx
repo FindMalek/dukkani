@@ -86,7 +86,7 @@ export default async function RootLayout({
 						<div className="min-h-screen overflow-x-hidden bg-background">
 							<StoreHeader storeName={store.name} />
 							<div className="h-[49px]" />
-							<main>{children}</main>
+							<main className="pb-[73px]">{children}</main>
 							<StoreFooter />
 						</div>
 					</HydrationBoundary>
