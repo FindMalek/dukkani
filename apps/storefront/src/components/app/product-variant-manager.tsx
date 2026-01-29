@@ -60,7 +60,6 @@ export function ProductVariantManager({
 				onVariantSelect={setSelectedVariantId}
 			/>
 			<AddToCartFooter
-				productId={productId}
 				stock={stock}
 				price={price}
 				selectedVariantId={selectedVariantId}

@@ -1,60 +1,78 @@
 "use client";
 
+import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { CartDrawer } from "@/components/app/cart-drawer";
 import { useCartHydration } from "@/hooks/use-cart-hydration";
 import { isDetailPage } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
+import { useStorefrontStore } from "@/stores/storefront.store";
 
 interface StoreHeaderProps {
-	storeName: string;
+	store: StorePublicOutput;
 }
 
-export function StoreHeader({ storeName }: StoreHeaderProps) {
+export function StoreHeader({ store }: StoreHeaderProps) {
 	const router = useRouter();
 	const pathname = usePathname();
+	const [cartOpen, setCartOpen] = useState(false);
 
 	const cartCount = useCartStore((state) => state.getTotalItems());
 	const isHydrated = useCartHydration();
 
+	useEffect(() => {
+		useStorefrontStore.getState().setStore({ id: store.id, slug: store.slug });
+		useCartStore.getState().setCurrentStore(store.slug);
+	}, [store.id, store.slug]);
+
 	const isDetail = isDetailPage(pathname);
 
 	return (
-		<header className="fixed top-0 right-0 left-0 z-50 border-border/30 border-b bg-background/80 backdrop-blur-md">
-			<div className="container mx-auto px-4 py-2">
-				<div className="flex items-center justify-between">
-					{isDetail ? (
+		<>
+			<header className="fixed top-0 right-0 left-0 z-50 border-border/30 border-b bg-background/80 backdrop-blur-md">
+				<div className="container mx-auto px-4 py-2">
+					<div className="flex items-center justify-between">
+						{isDetail ? (
+							<Button
+								variant="ghost"
+								size="icon"
+								className="size-8"
+								onClick={() => router.back()}
+							>
+								<Icons.arrowLeft className="size-4" />
+							</Button>
+						) : (
+							<div className="flex items-center gap-2">
+								<h1 className="font-semibold text-base">{store.name}</h1>
+							</div>
+						)}
 						<Button
 							variant="ghost"
 							size="icon"
-							className="size-8"
-							onClick={() => router.back()}
+							className="relative size-8"
+							onClick={() => setCartOpen(true)}
 						>
-							<Icons.arrowLeft className="size-4" />
+							<Icons.shoppingCart className="size-4" />
+							{!isHydrated ? (
+								<Skeleton className="absolute -top-0.5 -right-0.5 size-4 rounded-full" />
+							) : cartCount > 0 ? (
+								<Badge
+									variant="default"
+									className="absolute -top-0.5 -right-0.5 size-4 p-0 text-[10px] leading-none"
+								>
+									{cartCount}
+								</Badge>
+							) : null}
 						</Button>
-					) : (
-						<div className="flex items-center gap-2">
-							<h1 className="font-semibold text-base">{storeName}</h1>
-						</div>
-					)}
-					<Button variant="ghost" size="icon" className="relative size-8">
-						<Icons.shoppingCart className="size-4" />
-						{!isHydrated ? (
-							<Skeleton className="absolute -top-0.5 -right-0.5 size-4 rounded-full" />
-						) : cartCount > 0 ? (
-							<Badge
-								variant="default"
-								className="absolute -top-0.5 -right-0.5 size-4 p-0 text-[10px] leading-none"
-							>
-								{cartCount}
-							</Badge>
-						) : null}
-					</Button>
+					</div>
 				</div>
-			</div>
-		</header>
+			</header>
+			<CartDrawer open={cartOpen} onOpenChange={setCartOpen} />
+		</>
 	);
 }

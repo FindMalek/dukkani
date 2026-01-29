@@ -1,11 +1,7 @@
 import { ORPCError } from "@orpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
-import { ProductAttributes } from "@/components/app/product-attributes";
-import { ProductDescription } from "@/components/app/product-description";
-import { ProductImageCarousel } from "@/components/app/product-image-carousel";
-import { ProductVariantManager } from "@/components/app/product-variant-manager";
-import { StoreInfoCard } from "@/components/app/store-info-card";
+import { ProductDetailContent } from "@/components/app/product-detail-content";
 import { getQueryClient, orpc } from "@/lib/orpc";
 
 export default async function ProductDetailPage({
@@ -39,38 +35,11 @@ export default async function ProductDetailPage({
 
 		return (
 			<HydrationBoundary state={dehydrate(queryClient)}>
-				<div className="min-h-screen bg-background">
-					<div className="container mx-auto px-4 py-4">
-						<ProductImageCarousel
-							images={product.imagesUrls || []}
-							productName={product.name}
-						/>
-						<div className="mt-4 space-y-4">
-							<h1 className="font-bold text-foreground text-xl">
-								{product.name}
-							</h1>
-							<ProductAttributes tags={product.tags} />
-							{product.store && (
-								<StoreInfoCard
-									storeName={product.store.name}
-									storeSlug={product.store.slug}
-									ownerName={product.store.owner?.name}
-									ownerImage={product.store.owner?.image}
-									isOpen={isStoreOpen}
-								/>
-							)}
-							<ProductVariantManager
-								productId={product.id}
-								productStock={product.stock}
-								productPrice={product.price}
-								hasVariants={hasVariants}
-								variantOptions={product.variantOptions}
-								variants={product.variants}
-							/>
-							<ProductDescription description={product.description} />
-						</div>
-					</div>
-				</div>
+				<ProductDetailContent
+					product={product}
+					isStoreOpen={isStoreOpen}
+					hasVariants={hasVariants}
+				/>
 			</HydrationBoundary>
 		);
 	} catch (error) {

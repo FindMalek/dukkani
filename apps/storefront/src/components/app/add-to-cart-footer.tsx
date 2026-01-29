@@ -4,10 +4,11 @@ import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { useCurrentProduct } from "@/contexts/current-product-context";
+import { capQuantity } from "@/lib/cart";
 import { useCartStore } from "@/stores/cart.store";
 
 interface AddToCartFooterProps {
-	productId: string;
 	stock: number;
 	price: number;
 	currency?: string;
@@ -15,17 +16,16 @@ interface AddToCartFooterProps {
 }
 
 export function AddToCartFooter({
-	productId,
 	stock,
 	price,
 	currency = "TND",
 	selectedVariantId,
 }: AddToCartFooterProps) {
 	const t = useTranslations("storefront.store.product.addToCart");
+	const product = useCurrentProduct();
 	const addItem = useCartStore((state) => state.addItem);
 	const [quantity, setQuantity] = useState(1);
 
-	// Reset quantity when variant changes
 	useEffect(() => {
 		setQuantity(1);
 	}, [selectedVariantId]);
@@ -47,18 +47,24 @@ export function AddToCartFooter({
 	};
 
 	const handleAddToCart = () => {
-		if (!isOutOfStock) {
-			// TODO: When variant support is added to cart, use selectedVariantId
-			// For now, we add the product with variant info stored separately
-			addItem(productId, quantity);
-		}
+		if (isOutOfStock || !product) return;
+		const capped = capQuantity(quantity, stock);
+		const cartProduct = {
+			id: product.id,
+			name: product.name,
+			imageUrl: product.imagesUrls?.[0],
+			price,
+			stock,
+		};
+		addItem(cartProduct, capped);
 	};
 
+	if (!product) return null;
+
 	return (
-		<div className="fixed inset-x-0 bottom-0 mb-0 z-40 border-border border-t bg-background/95 backdrop-blur-sm">
+		<div className="fixed inset-x-0 bottom-0 z-40 mb-0 border-border border-t bg-background/95 backdrop-blur-sm">
 			<div className="container mx-auto px-4 py-3">
 				<div className="flex items-center gap-3">
-					{/* Quantity Selector */}
 					<div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50">
 						<Button
 							variant="ghost"
@@ -81,7 +87,6 @@ export function AddToCartFooter({
 						</Button>
 					</div>
 
-					{/* Add to Cart Button with Price */}
 					<Button
 						className="flex-1 bg-primary text-primary-foreground"
 						onClick={handleAddToCart}

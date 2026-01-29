@@ -13,8 +13,8 @@ export function ProductGrid({ products }: ProductGridProps) {
 	const t = useTranslations("storefront.store.products");
 	const addItem = useCartStore((state) => state.addItem);
 
-	const handleAddToCart = (productId: string) => {
-		addItem(productId, 1);
+	const handleAddToCart = (product: ProductPublicOutput) => {
+		addItem(product, 1);
 	};
 
 	if (products.length === 0) {

@@ -1,17 +1,14 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 interface ProductDescriptionProps {
 	description: string | null;
 }
 
-export async function ProductDescription({
-	description,
-}: ProductDescriptionProps) {
-	const t = await getTranslations("storefront.store.product.description");
+export function ProductDescription({ description }: ProductDescriptionProps) {
+	const t = useTranslations("storefront.store.product.description");
 
-	if (!description) {
-		return null;
-	}
+	if (!description) return null;
+
 	return (
 		<div className="space-y-2">
 			<h3 className="font-medium text-muted-foreground text-sm">

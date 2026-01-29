@@ -38,6 +38,18 @@
 					"button": "Ajouter au panier",
 					"outOfStock": "Rupture de stock"
 				}
+			},
+			"cart": {
+				"title": "Votre panier",
+				"empty": {
+					"title": "Votre panier est vide",
+					"description": "Ajoutez des produits pour commencer"
+				},
+				"subtotal": "Sous-total",
+				"checkout": "Commander",
+				"item": {
+					"onlyNLeft": "Plus que {count} disponible(s)"
+				}
 			}
 		},
 		"comingSoon": {

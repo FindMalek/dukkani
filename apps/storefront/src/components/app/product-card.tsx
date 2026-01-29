@@ -10,7 +10,7 @@ import Link from "next/link";
 
 interface ProductCardProps {
 	product: ProductPublicOutput;
-	onAddToCart?: (productId: string) => void;
+	onAddToCart?: (product: ProductPublicOutput) => void;
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
@@ -39,7 +39,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 						className="absolute right-2 bottom-2 size-10 rounded-full"
 						onClick={(e) => {
 							e.preventDefault();
-							onAddToCart?.(product.id);
+							onAddToCart?.(product);
 						}}
 					>
 						<Icons.plus className="size-5 text-primary" />

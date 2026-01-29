@@ -38,6 +38,18 @@
 					"button": "Add to Cart",
 					"outOfStock": "Out of Stock"
 				}
+			},
+			"cart": {
+				"title": "Your Cart",
+				"empty": {
+					"title": "Your cart is empty",
+					"description": "Add some products to get started"
+				},
+				"subtotal": "Subtotal",
+				"checkout": "Checkout",
+				"item": {
+					"onlyNLeft": "Only {count} available"
+				}
 			}
 		},
 		"comingSoon": {
