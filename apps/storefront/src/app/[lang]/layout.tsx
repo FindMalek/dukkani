@@ -81,7 +81,7 @@ export default async function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<Providers locale={lang} messages={messages}>
+				<Providers locale={lang} messages={messages} storeSlug={store.slug}>
 					<HydrationBoundary state={dehydrate(queryClient)}>
 						<div className="min-h-screen overflow-x-hidden bg-background">
 							<StoreHeader storeName={store.name} />
