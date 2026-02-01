@@ -1,67 +1,214 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface CartItem {
+export interface CartItem {
 	productId: string;
+	variantId?: string;
 	quantity: number;
 }
 
 interface CartStoreState {
-	items: CartItem[];
-	addItem: (productId: string, quantity?: number) => void;
-	removeItem: (productId: string) => void;
-	updateQuantity: (productId: string, quantity: number) => void;
+	// Store carts per store slug: { "store-slug": [items] }
+	carts: Record<string, CartItem[]>;
+
+	// Current store slug (set when user navigates to a store)
+	currentStoreSlug: string | null;
+
+	// Actions
+	setCurrentStore: (storeSlug: string) => void;
+	addItem: (productId: string, quantity?: number, variantId?: string) => void;
+	removeItem: (productId: string, variantId?: string) => void;
+	updateQuantity: (
+		productId: string,
+		quantity: number,
+		variantId?: string,
+	) => void;
 	clearCart: () => void;
-	getItemQuantity: (productId: string) => number;
+	getItemQuantity: (productId: string, variantId?: string) => number;
 	getTotalItems: () => number;
+	getCartItems: () => CartItem[];
+}
+
+// Helper to get cart key for a store
+function getCartKey(storeSlug: string | null): string {
+	return storeSlug || "default";
 }
 
 export const useCartStore = create<CartStoreState>()(
 	persist(
 		(set, get) => ({
-			items: [],
-			addItem: (productId, quantity = 1) => {
+			carts: {},
+			currentStoreSlug: null,
+
+			setCurrentStore: (storeSlug: string) => {
+				set({ currentStoreSlug: storeSlug });
+			},
+
+			addItem: (productId, quantity, variantId) => {
 				set((state) => {
-					const existingItem = state.items.find(
-						(item) => item.productId === productId,
-					);
-					if (existingItem) {
+					const storeSlug = state.currentStoreSlug;
+					if (!storeSlug) {
+						console.warn("No store selected. Cannot add item to cart.");
+						return state;
+					}
+
+					const cartKey = getCartKey(storeSlug);
+					const currentCart = state.carts[cartKey] || [];
+
+					// Default quantity to 1 if not provided
+					const itemQuantity = quantity ?? 1;
+
+					// Create unique key for item (productId + variantId)
+					const itemKey = variantId ? `${productId}-${variantId}` : productId;
+
+					const existingItemIndex = currentCart.findIndex((item) => {
+						const itemKeyToCheck = item.variantId
+							? `${item.productId}-${item.variantId}`
+							: item.productId;
+						return itemKeyToCheck === itemKey;
+					});
+
+					if (existingItemIndex >= 0) {
+						// Update existing item quantity
+						const updatedCart = [...currentCart];
+						updatedCart[existingItemIndex] = {
+							...updatedCart[existingItemIndex],
+							quantity: updatedCart[existingItemIndex].quantity + itemQuantity,
+						};
 						return {
-							items: state.items.map((item) =>
-								item.productId === productId
-									? { ...item, quantity: item.quantity + quantity }
-									: item,
-							),
+							carts: {
+								...state.carts,
+								[cartKey]: updatedCart,
+							},
 						};
 					}
+
+					// Add new item - ensure quantity is always a number
 					return {
-						items: [...state.items, { productId, quantity }],
+						carts: {
+							...state.carts,
+							[cartKey]: [
+								...currentCart,
+								{ productId, variantId, quantity: itemQuantity },
+							],
+						},
 					};
 				});
 			},
-			removeItem: (productId) => {
-				set((state) => ({
-					items: state.items.filter((item) => item.productId !== productId),
-				}));
+
+			removeItem: (productId, variantId) => {
+				set((state) => {
+					const storeSlug = state.currentStoreSlug;
+					if (!storeSlug) return state;
+
+					const cartKey = getCartKey(storeSlug);
+					const currentCart = state.carts[cartKey] || [];
+
+					const itemKey = variantId ? `${productId}-${variantId}` : productId;
+
+					const filteredCart = currentCart.filter((item) => {
+						const itemKeyToCheck = item.variantId
+							? `${item.productId}-${item.variantId}`
+							: item.productId;
+						return itemKeyToCheck !== itemKey;
+					});
+
+					return {
+						carts: {
+							...state.carts,
+							[cartKey]: filteredCart,
+						},
+					};
+				});
 			},
-			updateQuantity: (productId, quantity) => {
+
+			updateQuantity: (productId, quantity, variantId) => {
 				if (quantity <= 0) {
-					get().removeItem(productId);
+					get().removeItem(productId, variantId);
 					return;
 				}
-				set((state) => ({
-					items: state.items.map((item) =>
-						item.productId === productId ? { ...item, quantity } : item,
-					),
-				}));
+
+				set((state) => {
+					const storeSlug = state.currentStoreSlug;
+					if (!storeSlug) return state;
+
+					const cartKey = getCartKey(storeSlug);
+					const currentCart = state.carts[cartKey] || [];
+
+					const itemKey = variantId ? `${productId}-${variantId}` : productId;
+
+					const updatedCart = currentCart.map((item) => {
+						const itemKeyToCheck = item.variantId
+							? `${item.productId}-${item.variantId}`
+							: item.productId;
+
+						if (itemKeyToCheck === itemKey) {
+							return { ...item, quantity };
+						}
+						return item;
+					});
+
+					return {
+						carts: {
+							...state.carts,
+							[cartKey]: updatedCart,
+						},
+					};
+				});
 			},
-			clearCart: () => set({ items: [] }),
-			getItemQuantity: (productId) => {
-				const item = get().items.find((item) => item.productId === productId);
+
+			clearCart: () => {
+				set((state) => {
+					const storeSlug = state.currentStoreSlug;
+					if (!storeSlug) return state;
+
+					const cartKey = getCartKey(storeSlug);
+					return {
+						carts: {
+							...state.carts,
+							[cartKey]: [],
+						},
+					};
+				});
+			},
+
+			getItemQuantity: (productId, variantId) => {
+				const state = get();
+				const storeSlug = state.currentStoreSlug;
+				if (!storeSlug) return 0;
+
+				const cartKey = getCartKey(storeSlug);
+				const cart = state.carts[cartKey] || [];
+
+				const itemKey = variantId ? `${productId}-${variantId}` : productId;
+
+				const item = cart.find((item) => {
+					const itemKeyToCheck = item.variantId
+						? `${item.productId}-${item.variantId}`
+						: item.productId;
+					return itemKeyToCheck === itemKey;
+				});
+
 				return item?.quantity ?? 0;
 			},
+
 			getTotalItems: () => {
-				return get().items.reduce((total, item) => total + item.quantity, 0);
+				const state = get();
+				const storeSlug = state.currentStoreSlug;
+				if (!storeSlug) return 0;
+
+				const cartKey = getCartKey(storeSlug);
+				const cart = state.carts[cartKey] || [];
+				return cart.reduce((total, item) => total + item.quantity, 0);
+			},
+
+			getCartItems: () => {
+				const state = get();
+				const storeSlug = state.currentStoreSlug;
+				if (!storeSlug) return [];
+
+				const cartKey = getCartKey(storeSlug);
+				return state.carts[cartKey] || [];
 			},
 		}),
 		{
