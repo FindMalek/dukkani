@@ -32,7 +32,7 @@ export function AddToCartFooter({
 
 	const isOutOfStock = stock === 0;
 	const maxQuantity = Math.min(stock, 99);
-	const formattedPrice = price.toFixed(2);
+	const formattedPrice = price.toFixed(3); 
 
 	const handleDecrease = () => {
 		if (quantity > 1) {
@@ -48,9 +48,8 @@ export function AddToCartFooter({
 
 	const handleAddToCart = () => {
 		if (!isOutOfStock) {
-			// TODO: When variant support is added to cart, use selectedVariantId
-			// For now, we add the product with variant info stored separately
-			addItem(productId, quantity);
+			// Add variant support - variantId is passed to cart store
+			addItem(productId, quantity, selectedVariantId);
 		}
 	};
 
