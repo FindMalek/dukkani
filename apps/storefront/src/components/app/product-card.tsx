@@ -35,7 +35,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 						)}
 					</AspectRatio>
 					<Button
-						variant="outline"
+						variant="secondary"
 						size="icon"
 						className="absolute right-2 bottom-2 size-10 rounded-full border-border bg-card hover:bg-card/90"
 						onClick={(e) => {

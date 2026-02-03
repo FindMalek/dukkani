@@ -80,6 +80,7 @@ export default async function RootLayout({
 		<html lang={lang} suppressHydrationWarning>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				suppressHydrationWarning
 			>
 				<Providers locale={lang} messages={messages} storeSlug={store.slug}>
 					<HydrationBoundary state={dehydrate(queryClient)}>
