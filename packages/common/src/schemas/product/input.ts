@@ -131,3 +131,9 @@ export type StockFilter = z.infer<typeof stockFilterSchema>;
 export type TogglePublishProductInput = z.infer<
 	typeof togglePublishProductInputSchema
 >;
+
+export const getProductsByIdsInputSchema = z.object({
+	ids: z.array(z.string().min(1)).min(1).max(50),
+});
+
+export type GetProductsByIdsInput = z.infer<typeof getProductsByIdsInputSchema>;

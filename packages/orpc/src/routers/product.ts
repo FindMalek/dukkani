@@ -4,6 +4,7 @@ import { StoreStatus } from "@dukkani/common/schemas/enums";
 import {
 	createProductInputSchema,
 	getProductInputSchema,
+	getProductsByIdsInputSchema,
 	listProductsInputSchema,
 	togglePublishProductInputSchema,
 	updateProductInputSchema,
@@ -17,13 +18,14 @@ import {
 	listProductsOutputSchema,
 	productIncludeOutputSchema,
 	productPublicOutputSchema,
+	productsPublicOutputSchema,
 } from "@dukkani/common/schemas/product/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { ProductService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ORPCError } from "@orpc/server";
-import { baseProcedure, protectedProcedure, publicProcedure } from "../index";
+import { baseProcedure, protectedProcedure } from "../index";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
@@ -574,5 +576,30 @@ export const productRouter = {
 			}
 
 			return ProductEntity.getPublicRo(product);
+		}),
+
+	/**
+	 * Get products by IDs (public - for storefronts)
+	 * No authentication required, uses storefront rate limiting (100/min)
+	 * Returns products with store info, variants, and images
+	 */
+	getByIdsPublic: baseProcedure
+		.use(rateLimitPublicSafe)
+		.input(getProductsByIdsInputSchema)
+		.output(productsPublicOutputSchema)
+		.handler(async ({ input }): Promise<ProductPublicOutput[]> => {
+			const products = await database.product.findMany({
+				where: {
+					id: { in: input.ids },
+					published: true,
+				},
+				include: ProductQuery.getPublicInclude(),
+			});
+
+			if (products.length === 0) {
+				return [];
+			}
+
+			return products.map((product) => ProductEntity.getPublicRo(product));
 		}),
 };

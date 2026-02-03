@@ -2,9 +2,14 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
-import Image from "next/image";
-import { type CartItem as CartItemType, useCartStore } from "@/stores/cart.store";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { QuantitySelector } from "@/components/shared/quantity-selector";
+import {
+	type CartItem as CartItemType,
+	useCartStore,
+} from "@/stores/cart.store";
 
 interface CartItemProps {
 	item: CartItemType;
@@ -25,8 +30,9 @@ export function CartItem({
 	stock,
 	currency = "TND",
 }: CartItemProps) {
-	const updateQuantity = useCartStore((state) => state.updateQuantity);
+	const t = useTranslations("storefront.store.cart.item");
 	const removeItem = useCartStore((state) => state.removeItem);
+	const updateQuantity = useCartStore((state) => state.updateQuantity);
 
 	const isLowStock = stock <= 5 && stock > 0;
 	const isOutOfStock = stock === 0;
@@ -80,12 +86,12 @@ export function CartItem({
 						)}
 						{isLowStock && !isOutOfStock && (
 							<p className="font-medium text-destructive text-sm">
-								Only {stock} left
+								{t("lowStock", { count: stock })}
 							</p>
 						)}
 						{isOutOfStock && (
 							<p className="font-medium text-destructive text-sm">
-								Out of stock
+								{t("outOfStock")}
 							</p>
 						)}
 					</div>
@@ -102,29 +108,15 @@ export function CartItem({
 				{/* Quantity and Price */}
 				<div className="flex items-center justify-between">
 					{/* Quantity Selector */}
-					<div className="flex items-center gap-2 rounded-lg border border-border bg-muted/50">
-						<Button
-							variant="ghost"
-							size="icon"
-							className="size-7"
-							onClick={handleDecrease}
-							disabled={item.quantity <= 1 || isOutOfStock}
-						>
-							<Icons.minus className="size-3.5" />
-						</Button>
-						<span className="min-w-6 text-center font-medium text-sm">
-							{item.quantity}
-						</span>
-						<Button
-							variant="ghost"
-							size="icon"
-							className="size-7"
-							onClick={handleIncrease}
-							disabled={item.quantity >= maxQuantity || isOutOfStock}
-						>
-							<Icons.plus className="size-3.5" />
-						</Button>
-					</div>
+					<QuantitySelector
+						quantity={item.quantity}
+						onDecrease={handleDecrease}
+						onIncrease={handleIncrease}
+						min={1}
+						max={maxQuantity}
+						disabled={isOutOfStock}
+						size="sm"
+					/>
 
 					{/* Price */}
 					<span className="font-semibold text-foreground">

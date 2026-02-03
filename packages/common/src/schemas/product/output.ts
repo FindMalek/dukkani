@@ -76,3 +76,6 @@ export type ProductSimpleOutput = z.infer<typeof productSimpleOutputSchema>;
 export type ProductIncludeOutput = z.infer<typeof productIncludeOutputSchema>;
 export type ListProductsOutput = z.infer<typeof listProductsOutputSchema>;
 export type ProductOutput = z.infer<typeof productOutputSchema>;
+
+export const productsPublicOutputSchema = z.array(productPublicOutputSchema);
+export type ProductsPublicOutput = z.infer<typeof productsPublicOutputSchema>;

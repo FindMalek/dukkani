@@ -11,6 +11,7 @@ import { productRouter } from "./product";
 import { storageRouter } from "./storage";
 import { storeRouter } from "./store";
 import { telegramRouter } from "./telegram";
+import { cartRouter } from "./cart";
 
 export const appRouter = {
 	health: healthRouter,
@@ -25,6 +26,7 @@ export const appRouter = {
 	onboarding: onboardingRouter,
 	category: categoryRouter,
 	collection: collectionRouter,
+	cart: cartRouter,
 };
 export type AppRouter = typeof appRouter;
 export type AppRouterClient = RouterClient<typeof appRouter>;
