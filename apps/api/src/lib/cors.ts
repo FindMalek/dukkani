@@ -7,16 +7,23 @@ import { apiEnv } from "@dukkani/env/presets/api";
  */
 export function getCorsHeaders(origin: string | null): HeadersInit {
 	const isDevelopment = apiEnv.NEXT_PUBLIC_NODE_ENV === "local";
-	const isLocalhost = origin?.startsWith("http://localhost:") ?? false;
+
+	// Check if origin is localhost (with or without subdomain)
+	const isLocalhost = origin
+		? origin.includes("localhost") || origin.includes("127.0.0.1")
+		: false;
 
 	const originConfig = [
 		apiEnv.NEXT_PUBLIC_API_URL,
 		apiEnv.NEXT_PUBLIC_DASHBOARD_URL,
 		apiEnv.VERCEL_BRANCH_URL,
 		apiEnv.VERCEL_PROJECT_PRODUCTION_URL,
+		apiEnv.NEXT_PUBLIC_STORE_DOMAIN,
 	].filter((origin) => origin !== undefined);
 
 	let allowedOrigin: string;
+
+	// In development, allow all localhost origins (including subdomains)
 	if (isDevelopment && isLocalhost && origin) {
 		allowedOrigin = origin;
 	} else if (

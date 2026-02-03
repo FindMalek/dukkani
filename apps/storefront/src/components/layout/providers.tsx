@@ -6,18 +6,24 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NextIntlClientProvider } from "next-intl";
 import { useState } from "react";
+import { CartStoreProvider } from "@/components/layout/cart-store-provider";
 import { env } from "@/env";
 import { getQueryClient } from "@/lib/orpc";
-import { CartHydrationProvider } from "./cart-hydration-provider";
 
 interface ProvidersProps {
 	children: React.ReactNode;
 	locale: Locale;
+	storeSlug: string;
 	// biome-ignore lint/suspicious/noExplicitAny: messages is a Record<string, any>
 	messages: Record<string, any>;
 }
 
-export function Providers({ children, locale, messages }: ProvidersProps) {
+export function Providers({
+	children,
+	locale,
+	messages,
+	storeSlug,
+}: ProvidersProps) {
 	const [queryClient] = useState(() => getQueryClient());
 
 	return (
@@ -33,7 +39,9 @@ export function Providers({ children, locale, messages }: ProvidersProps) {
 				disableTransitionOnChange
 			>
 				<QueryClientProvider client={queryClient}>
-					<CartHydrationProvider>{children}</CartHydrationProvider>
+					<CartStoreProvider storeSlug={storeSlug}>
+						{children}
+					</CartStoreProvider>
 					{env.NEXT_PUBLIC_NODE_ENV === "development" && <ReactQueryDevtools />}
 				</QueryClientProvider>
 			</ThemeProvider>

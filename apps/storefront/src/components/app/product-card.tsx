@@ -7,10 +7,11 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Image from "next/image";
 import Link from "next/link";
+import { RoutePaths } from "@/lib/routes";
 
 interface ProductCardProps {
 	product: ProductPublicOutput;
-	onAddToCart?: (productId: string) => void;
+	onAddToCart?: (product: ProductPublicOutput) => void;
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
@@ -19,7 +20,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 
 	return (
 		<div className="group">
-			<Link href={`/products/${product.id}`} className="block">
+			<Link href={RoutePaths.PRODUCTS.DETAIL.url(product.id)} className="block">
 				<div className="relative overflow-hidden rounded-lg">
 					<AspectRatio ratio={3 / 4}>
 						{imageUrl ? (
@@ -34,12 +35,12 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 						)}
 					</AspectRatio>
 					<Button
-						variant="outline"
+						variant="secondary"
 						size="icon"
 						className="absolute right-2 bottom-2 size-10 rounded-full border-border bg-card hover:bg-card/90"
 						onClick={(e) => {
 							e.preventDefault();
-							onAddToCart?.(product.id);
+							onAddToCart?.(product);
 						}}
 					>
 						<Icons.plus className="size-5 text-primary" />

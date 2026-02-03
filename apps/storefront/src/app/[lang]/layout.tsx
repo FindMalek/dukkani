@@ -80,8 +80,9 @@ export default async function RootLayout({
 		<html lang={lang} suppressHydrationWarning>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				suppressHydrationWarning
 			>
-				<Providers locale={lang} messages={messages}>
+				<Providers locale={lang} messages={messages} storeSlug={store.slug}>
 					<HydrationBoundary state={dehydrate(queryClient)}>
 						<div className="min-h-screen overflow-x-hidden bg-background">
 							<StoreHeader storeName={store.name} />
