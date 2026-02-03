@@ -1,3 +1,4 @@
+// apps/storefront/src/stores/cart.store.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -26,13 +27,18 @@ interface CartStoreState {
 	clearCart: () => void;
 	getItemQuantity: (productId: string, variantId?: string) => number;
 	getTotalItems: () => number;
-	getCartItems: () => CartItem[];
 }
 
 // Helper to get cart key for a store
 function getCartKey(storeSlug: string | null): string {
 	return storeSlug || "default";
 }
+
+// Cached server snapshot - empty cart on server
+const serverSnapshot = {
+	carts: {},
+	currentStoreSlug: null,
+};
 
 export const useCartStore = create<CartStoreState>()(
 	persist(
@@ -201,19 +207,14 @@ export const useCartStore = create<CartStoreState>()(
 				const cart = state.carts[cartKey] || [];
 				return cart.reduce((total, item) => total + item.quantity, 0);
 			},
-
-			getCartItems: () => {
-				const state = get();
-				const storeSlug = state.currentStoreSlug;
-				if (!storeSlug) return [];
-
-				const cartKey = getCartKey(storeSlug);
-				return state.carts[cartKey] || [];
-			},
 		}),
 		{
 			name: "storefront-cart",
 			skipHydration: true,
+			partialize: (state) => ({
+				carts: state.carts,
+				currentStoreSlug: state.currentStoreSlug,
+			}),
 		},
 	),
 );

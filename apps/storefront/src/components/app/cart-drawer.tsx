@@ -13,21 +13,35 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 import { orpc } from "@/lib/orpc";
 import { RoutePaths, useRouter } from "@/lib/routes";
-import { useCartStore } from "@/stores/cart.store";
-import { CartItem } from "./cart-item";
+import { type CartItem, useCartStore } from "@/stores/cart.store";
+import { CartItem as CartItemComponent } from "./cart-item";
 
 interface CartDrawerProps {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 }
 
+function getCartKey(storeSlug: string | null): string {
+	return storeSlug || "default";
+}
+
 export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 	const router = useRouter();
 	const t = useTranslations("storefront.store.cart");
 
-	const cartItems = useCartStore((state) => state.getCartItems());
+	// Select data directly instead of calling a function
+	const carts = useCartStore((state) => state.carts);
+	const currentStoreSlug = useCartStore((state) => state.currentStoreSlug);
+
+	// Compute cart items from state
+	const cartItems = useMemo(() => {
+		if (!currentStoreSlug) return [];
+		const cartKey = getCartKey(currentStoreSlug);
+		return carts[cartKey] || [];
+	}, [carts, currentStoreSlug]);
 
 	const enrichedCartItems = useQuery({
 		...orpc.cart.getCartItems.queryOptions({
@@ -83,7 +97,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 					) : (
 						<div className="py-2">
 							{enrichedCartItems.data.map((item) => (
-								<CartItem
+								<CartItemComponent
 									key={`${item.productId}-${item.variantId ?? "no-variant"}`}
 									item={{
 										productId: item.productId,
