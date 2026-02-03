@@ -4,7 +4,6 @@ import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Drawer,
-	DrawerClose,
 	DrawerContent,
 	DrawerDescription,
 	DrawerFooter,
@@ -12,13 +11,13 @@ import {
 	DrawerTitle,
 } from "@dukkani/ui/components/drawer";
 import { Icons } from "@dukkani/ui/components/icons";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import { ProductAttributes } from "@/components/app/product-attributes";
-import { ProductImageCarousel } from "@/components/app/product-image-carousel";
-import { ProductVariantManager } from "@/components/app/product-variant-manager";
-import { RoutePaths } from "@/lib/routes";
+import { VariantSelector } from "@/components/shared/variant-selector";
+import { useProductVariantSelection } from "@/hooks/use-product-variant-selection";
+import { useCartStore } from "@/stores/cart.store";
 
 interface QuickAddToCartProps {
 	product: ProductPublicOutput;
@@ -31,19 +30,57 @@ export function QuickAddToCart({
 	open,
 	onOpenChange,
 }: QuickAddToCartProps) {
-	const t = useTranslations("storefront.store.product.quickAdd");
-
-	const router = useRouter();
+	const t = useTranslations("storefront.store.product");
 	const hasVariants = (product.variants?.length ?? 0) > 0;
 
-	const handleViewDetails = () => {
-		onOpenChange(false);
-		router.push(RoutePaths.PRODUCTS.DETAIL.url(product.id));
+	const {
+		selectedVariantId,
+		setSelectedVariantId,
+		stock,
+		price,
+		isOutOfStock,
+	} = useProductVariantSelection({
+		hasVariants,
+		variants: product.variants,
+		productStock: product.stock,
+		productPrice: product.price,
+	});
+
+	const [quantity, setQuantity] = useState(1);
+	const addItem = useCartStore((state) => state.addItem);
+	const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
+
+	// Reset quantity when variant changes
+	useEffect(() => {
+		setQuantity(1);
+	}, [selectedVariantId]);
+
+	const maxQuantity = Math.min(stock, 99);
+	const formattedPrice = (price * quantity).toFixed(3);
+
+	const handleDecrease = () => {
+		if (quantity > 1) {
+			setQuantity(quantity - 1);
+		}
+	};
+
+	const handleIncrease = () => {
+		if (quantity < maxQuantity) {
+			setQuantity(quantity + 1);
+		}
+	};
+
+	const handleAddToCart = () => {
+		if (!isOutOfStock) {
+			addItem(product.id, quantity, selectedVariantId);
+			setCartDrawerOpen(true);
+			onOpenChange(false);
+		}
 	};
 
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
-			<DrawerContent className="max-h-[90vh]">
+			<DrawerContent className="flex max-h-[90vh] flex-col">
 				<DrawerHeader className="sr-only">
 					<DrawerTitle>{product.name}</DrawerTitle>
 					{product.description && (
@@ -51,49 +88,79 @@ export function QuickAddToCart({
 					)}
 				</DrawerHeader>
 
-				<div className="flex-1 overflow-y-auto px-4">
-					{/* Product Image Carousel - Same as detail page */}
-					<div className="w-full">
-						<ProductImageCarousel
-							images={product.imagesUrls || []}
-							productName={product.name}
-						/>
-					</div>
-
-					{/* Product Info - Exact same layout as detail page */}
-					<div className="mt-4 space-y-4">
+				{/* Scrollable Content */}
+				<div className="flex-1 overflow-y-auto px-4 pb-4">
+					{/* Product Info - Same branding as detail page */}
+					<div className="space-y-3">
+						{/* Product Name */}
 						<h2 className="font-bold text-foreground text-xl">
 							{product.name}
 						</h2>
 
+						{/* Tags */}
 						<ProductAttributes tags={product.tags} />
 
-						{/* Product Variant Manager - Reused exactly as-is */}
-						<ProductVariantManager
-							productId={product.id}
-							productStock={product.stock}
-							productPrice={product.price}
-							hasVariants={hasVariants}
-							variantOptions={product.variantOptions}
-							variants={product.variants}
-							variant="inline"
-							onAddToCart={() => onOpenChange(false)}
-						/>
+						{/* Variant Selector - Only if has variants */}
+						{hasVariants && (
+							<div className="pt-2">
+								<VariantSelector
+									variantOptions={product.variantOptions}
+									variants={product.variants}
+									selectedVariantId={selectedVariantId}
+									onVariantSelect={setSelectedVariantId}
+								/>
+							</div>
+						)}
+
+						{/* Quantity Selector - Compact, inline */}
+						<div className="flex items-center justify-between border-border border-t pt-4">
+							<span className="font-medium text-foreground text-sm">
+								Quantity
+							</span>
+							<QuantitySelector
+								quantity={quantity}
+								onDecrease={handleDecrease}
+								onIncrease={handleIncrease}
+								min={1}
+								max={maxQuantity}
+								disabled={isOutOfStock}
+								size="sm"
+							/>
+						</div>
+
+						{/* Stock Warning */}
+						{isOutOfStock && (
+							<p className="font-medium text-destructive text-sm">
+								{t("addToCart.outOfStock")}
+							</p>
+						)}
 					</div>
 				</div>
 
-				{/* View Full Details Link */}
-				<DrawerFooter className="border-border border-t pt-4">
+				{/* Footer - Same style as cart drawer */}
+				<DrawerFooter className="border-border border-t">
 					<Button
-						variant="outline"
-						className="w-full"
-						onClick={handleViewDetails}
-						asChild
+						className="w-full bg-primary text-primary-foreground"
+						size="lg"
+						onClick={handleAddToCart}
+						disabled={isOutOfStock}
 					>
-						<Link href={RoutePaths.PRODUCTS.DETAIL.url(product.id)}>
-							{t("viewDetails")}
-							<Icons.arrowRight className="ml-2 size-4" />
-						</Link>
+						<div className="flex w-full items-center justify-between">
+							<div className="flex items-center gap-2">
+								<Icons.shoppingCart className="size-4" />
+								<span>
+									{isOutOfStock
+										? t("addToCart.outOfStock")
+										: t("addToCart.button")}
+								</span>
+							</div>
+							<div className="flex items-center gap-2">
+								<span className="font-semibold text-sm">
+									{formattedPrice} TND
+								</span>
+								<Icons.arrowRight className="size-4" />
+							</div>
+						</div>
 					</Button>
 				</DrawerFooter>
 			</DrawerContent>
