@@ -2,9 +2,9 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
+import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { QuantitySelector } from "@/components/shared/quantity-selector";
 import { useCartStore } from "@/stores/cart.store";
 
 interface AddToCartFooterProps {
@@ -26,7 +26,6 @@ export function AddToCartFooter({
 	const addItem = useCartStore((state) => state.addItem);
 	const [quantity, setQuantity] = useState(1);
 
-	// Reset quantity when variant changes
 	useEffect(() => {
 		setQuantity(1);
 	}, [selectedVariantId]);

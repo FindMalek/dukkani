@@ -28,6 +28,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 	const t = useTranslations("storefront.store.cart");
 
 	const cartItems = useCartStore((state) => state.getCartItems());
+
 	const enrichedCartItems = useQuery({
 		...orpc.cart.getCartItems.queryOptions({
 			input: {
@@ -42,13 +43,13 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 		staleTime: 30 * 1000,
 	});
 
-	// Fix: enrichedCartItems.data is an array, so reduce works
 	const totalPrice =
 		enrichedCartItems.data?.reduce((total, item) => {
 			return total + item.price * item.quantity;
 		}, 0) ?? 0;
 
 	const formattedTotal = totalPrice.toFixed(3);
+	const hasItems = enrichedCartItems.data && enrichedCartItems.data.length > 0;
 
 	const handleCheckout = () => {
 		onOpenChange(false);
@@ -70,39 +71,43 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 				</DrawerHeader>
 
 				<div className="flex-1 overflow-y-auto px-4">
-					{productQueries.isLoading ? (
+					{enrichedCartItems.isLoading ? (
 						<div className="flex items-center justify-center py-8">
 							<Spinner className="size-6 animate-spin text-muted-foreground" />
 						</div>
-					) : itemsWithProduct.length === 0 ? (
+					) : !hasItems ? (
 						<div className="flex flex-col items-center justify-center gap-4 py-12">
 							<Icons.shoppingCart className="size-12 text-muted-foreground" />
 							<p className="text-center text-muted-foreground">{t("empty")}</p>
 						</div>
 					) : (
 						<div className="py-2">
-							{itemsWithProduct.map((item) => (
+							{enrichedCartItems.data.map((item) => (
 								<CartItem
 									key={`${item.productId}-${item.variantId ?? "no-variant"}`}
-									item={item}
-									productName={item.productName ?? "Unknown Product"}
+									item={{
+										productId: item.productId,
+										variantId: item.variantId,
+										quantity: item.quantity,
+									}}
+									productName={item.productName}
 									productImage={item.productImage}
 									productDescription={item.productDescription}
-									price={item.price ?? 0}
-									stock={item.stock ?? 0}
+									price={item.price}
+									stock={item.stock}
 								/>
 							))}
 						</div>
 					)}
 				</div>
 
-				{itemsWithProduct.length > 0 && (
+				{hasItems && (
 					<DrawerFooter className="border-border border-t">
 						<Button
 							className="w-full bg-primary text-primary-foreground"
 							size="lg"
 							onClick={handleCheckout}
-							disabled={productQueries.isLoading}
+							disabled={enrichedCartItems.isLoading}
 						>
 							<div className="flex w-full items-center justify-between">
 								<div className="flex items-center gap-2">

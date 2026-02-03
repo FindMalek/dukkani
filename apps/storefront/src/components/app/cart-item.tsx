@@ -2,10 +2,10 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
+import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { QuantitySelector } from "@/components/shared/quantity-selector";
 import {
 	type CartItem as CartItemType,
 	useCartStore,
