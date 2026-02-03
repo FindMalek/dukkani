@@ -39,7 +39,8 @@
 					"outOfStock": "Out of Stock"
 				},
 				"quickAdd": {
-					"viewDetails": "View Full Details"
+					"viewDetails": "View Full Details",
+					"quantity": "Quantity"
 				}
 			},
 			"cart": {

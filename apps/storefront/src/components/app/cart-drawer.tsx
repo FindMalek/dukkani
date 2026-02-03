@@ -29,11 +29,9 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 	const router = useRouter();
 	const t = useTranslations("storefront.store.cart");
 
-	// Select data directly instead of calling a function
 	const carts = useCartStore((state) => state.carts);
 	const currentStoreSlug = useCartStore((state) => state.currentStoreSlug);
 
-	// Compute cart items from state
 	const cartItems = useMemo(() => {
 		if (!currentStoreSlug) return [];
 		const cartKey = getCartKey(currentStoreSlug);
@@ -54,8 +52,6 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 				quantity: item.quantity,
 			})),
 		};
-		// Only depend on which items exist, not their quantities
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [itemKeysString]);
 
 	const enrichedCartItems = useQuery({
@@ -64,7 +60,6 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 		}),
 		enabled: open && cartItems.length > 0,
 		staleTime: 30 * 1000,
-		// Keep previous data to prevent flicker
 		placeholderData: (previousData) => previousData,
 	});
 
@@ -139,11 +134,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 							{enrichedData.map((item) => (
 								<CartItemComponent
 									key={`${item.productId}-${item.variantId ?? "no-variant"}`}
-									item={{
-										productId: item.productId,
-										variantId: item.variantId,
-										quantity: item.quantity,
-									}}
+									item={item}
 									productName={item.productName}
 									productImage={item.productImage}
 									productDescription={item.productDescription}

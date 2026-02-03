@@ -39,7 +39,8 @@
 					"outOfStock": "Rupture de stock"
 				},
 				"quickAdd": {
-					"viewDetails": "Voir les détails complets"
+					"viewDetails": "Voir les détails complets",
+					"quantity": "Quantité"
 				}
 			},
 			"cart": {

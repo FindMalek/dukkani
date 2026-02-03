@@ -58,7 +58,7 @@ export const cartRouter = {
 			const products = await database.product.findMany({
 				where: {
 					id: { in: productIds },
-					published: true,
+					...ProductQuery.getPublishableWhere(),
 				},
 				include: ProductQuery.getPublicInclude(),
 			});

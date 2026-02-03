@@ -115,7 +115,7 @@ export function QuickAddToCart({
 						{/* Quantity Selector - Compact, inline */}
 						<div className="flex items-center justify-between border-border border-t pt-4">
 							<span className="font-medium text-foreground text-sm">
-								Quantity
+								{t("quickAdd.quantity")}
 							</span>
 							<QuantitySelector
 								quantity={quantity}
