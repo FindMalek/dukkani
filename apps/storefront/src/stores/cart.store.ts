@@ -1,6 +1,6 @@
-// apps/storefront/src/stores/cart.store.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { areItemsEqual, getCartKey } from "@/lib/cart-utils";
 
 export interface CartItem {
 	productId: string;
@@ -29,17 +29,6 @@ interface CartStoreState {
 	getTotalItems: () => number;
 }
 
-// Helper to get cart key for a store
-function getCartKey(storeSlug: string | null): string {
-	return storeSlug || "default";
-}
-
-// Cached server snapshot - empty cart on server
-const serverSnapshot = {
-	carts: {},
-	currentStoreSlug: null,
-};
-
 export const useCartStore = create<CartStoreState>()(
 	persist(
 		(set, get) => ({
@@ -50,6 +39,9 @@ export const useCartStore = create<CartStoreState>()(
 				set({ currentStoreSlug: storeSlug });
 			},
 
+			/**
+			 * Add item to cart or update quantity if item already exists
+			 */
 			addItem: (productId, quantity, variantId) => {
 				set((state) => {
 					const storeSlug = state.currentStoreSlug;
@@ -60,19 +52,17 @@ export const useCartStore = create<CartStoreState>()(
 
 					const cartKey = getCartKey(storeSlug);
 					const currentCart = state.carts[cartKey] || [];
-
-					// Default quantity to 1 if not provided
 					const itemQuantity = quantity ?? 1;
+					const newItem: CartItem = {
+						productId,
+						variantId,
+						quantity: itemQuantity,
+					};
 
-					// Create unique key for item (productId + variantId)
-					const itemKey = variantId ? `${productId}-${variantId}` : productId;
-
-					const existingItemIndex = currentCart.findIndex((item) => {
-						const itemKeyToCheck = item.variantId
-							? `${item.productId}-${item.variantId}`
-							: item.productId;
-						return itemKeyToCheck === itemKey;
-					});
+					// Find existing item by key
+					const existingItemIndex = currentCart.findIndex((item) =>
+						areItemsEqual(item, newItem),
+					);
 
 					if (existingItemIndex >= 0) {
 						// Update existing item quantity
@@ -89,19 +79,19 @@ export const useCartStore = create<CartStoreState>()(
 						};
 					}
 
-					// Add new item - ensure quantity is always a number
+					// Add new item
 					return {
 						carts: {
 							...state.carts,
-							[cartKey]: [
-								...currentCart,
-								{ productId, variantId, quantity: itemQuantity },
-							],
+							[cartKey]: [...currentCart, newItem],
 						},
 					};
 				});
 			},
 
+			/**
+			 * Remove item from cart
+			 */
 			removeItem: (productId, variantId) => {
 				set((state) => {
 					const storeSlug = state.currentStoreSlug;
@@ -109,15 +99,12 @@ export const useCartStore = create<CartStoreState>()(
 
 					const cartKey = getCartKey(storeSlug);
 					const currentCart = state.carts[cartKey] || [];
+					const itemToRemove: CartItem = { productId, variantId, quantity: 0 };
 
-					const itemKey = variantId ? `${productId}-${variantId}` : productId;
-
-					const filteredCart = currentCart.filter((item) => {
-						const itemKeyToCheck = item.variantId
-							? `${item.productId}-${item.variantId}`
-							: item.productId;
-						return itemKeyToCheck !== itemKey;
-					});
+					// Filter out the item to remove
+					const filteredCart = currentCart.filter(
+						(item) => !areItemsEqual(item, itemToRemove),
+					);
 
 					return {
 						carts: {
@@ -128,6 +115,10 @@ export const useCartStore = create<CartStoreState>()(
 				});
 			},
 
+			/**
+			 * Update quantity of an item in cart
+			 * If quantity <= 0, removes the item instead
+			 */
 			updateQuantity: (productId, quantity, variantId) => {
 				if (quantity <= 0) {
 					get().removeItem(productId, variantId);
@@ -140,19 +131,11 @@ export const useCartStore = create<CartStoreState>()(
 
 					const cartKey = getCartKey(storeSlug);
 					const currentCart = state.carts[cartKey] || [];
+					const itemToUpdate: CartItem = { productId, variantId, quantity: 0 };
 
-					const itemKey = variantId ? `${productId}-${variantId}` : productId;
-
-					const updatedCart = currentCart.map((item) => {
-						const itemKeyToCheck = item.variantId
-							? `${item.productId}-${item.variantId}`
-							: item.productId;
-
-						if (itemKeyToCheck === itemKey) {
-							return { ...item, quantity };
-						}
-						return item;
-					});
+					const updatedCart = currentCart.map((item) =>
+						areItemsEqual(item, itemToUpdate) ? { ...item, quantity } : item,
+					);
 
 					return {
 						carts: {
@@ -178,6 +161,9 @@ export const useCartStore = create<CartStoreState>()(
 				});
 			},
 
+			/**
+			 * Get quantity of a specific item in cart
+			 */
 			getItemQuantity: (productId, variantId) => {
 				const state = get();
 				const storeSlug = state.currentStoreSlug;
@@ -185,16 +171,9 @@ export const useCartStore = create<CartStoreState>()(
 
 				const cartKey = getCartKey(storeSlug);
 				const cart = state.carts[cartKey] || [];
+				const itemToFind: CartItem = { productId, variantId, quantity: 0 };
 
-				const itemKey = variantId ? `${productId}-${variantId}` : productId;
-
-				const item = cart.find((item) => {
-					const itemKeyToCheck = item.variantId
-						? `${item.productId}-${item.variantId}`
-						: item.productId;
-					return itemKeyToCheck === itemKey;
-				});
-
+				const item = cart.find((item) => areItemsEqual(item, itemToFind));
 				return item?.quantity ?? 0;
 			},
 

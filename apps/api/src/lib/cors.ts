@@ -1,4 +1,3 @@
-// apps/api/src/lib/cors.ts
 import { isOriginAllowedForRequest } from "@dukkani/common/utils/origin";
 import { apiEnv } from "@dukkani/env/presets/api";
 

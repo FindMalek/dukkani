@@ -6,6 +6,7 @@ import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { memo, useCallback, useMemo } from "react";
 import {
 	type CartItem as CartItemType,
 	useCartStore,
@@ -21,7 +22,7 @@ interface CartItemProps {
 	currency?: string;
 }
 
-export function CartItem({
+export const CartItem = memo(function CartItem({
 	item,
 	productName,
 	productImage,
@@ -37,23 +38,32 @@ export function CartItem({
 	const isLowStock = stock <= 5 && stock > 0;
 	const isOutOfStock = stock === 0;
 	const maxQuantity = Math.min(stock, 99);
-	const formattedPrice = (price * item.quantity).toFixed(3);
+	const formattedPrice = useMemo(
+		() => (price * item.quantity).toFixed(3),
+		[price, item.quantity],
+	);
 
-	const handleDecrease = () => {
+	const handleDecrease = useCallback(() => {
 		if (item.quantity > 1) {
 			updateQuantity(item.productId, item.quantity - 1, item.variantId);
 		}
-	};
+	}, [item.quantity, item.productId, item.variantId, updateQuantity]);
 
-	const handleIncrease = () => {
+	const handleIncrease = useCallback(() => {
 		if (item.quantity < maxQuantity) {
 			updateQuantity(item.productId, item.quantity + 1, item.variantId);
 		}
-	};
+	}, [
+		item.quantity,
+		item.productId,
+		item.variantId,
+		maxQuantity,
+		updateQuantity,
+	]);
 
-	const handleRemove = () => {
+	const handleRemove = useCallback(() => {
 		removeItem(item.productId, item.variantId);
-	};
+	}, [item.productId, item.variantId, removeItem]);
 
 	return (
 		<div className="flex gap-3 border-border border-b py-4 last:border-b-0">
@@ -80,17 +90,17 @@ export function CartItem({
 					<div className="flex-1">
 						<h3 className="font-semibold text-foreground">{productName}</h3>
 						{productDescription && (
-							<p className="text-muted-foreground text-sm">
+							<p className="text-muted-foreground text-xs">
 								{productDescription}
 							</p>
 						)}
 						{isLowStock && !isOutOfStock && (
-							<p className="font-medium text-destructive text-sm">
+							<p className="font-medium text-destructive text-xs">
 								{t("lowStock", { count: stock })}
 							</p>
 						)}
 						{isOutOfStock && (
-							<p className="font-medium text-destructive text-sm">
+							<p className="font-medium text-destructive text-xs">
 								{t("outOfStock")}
 							</p>
 						)}
@@ -126,4 +136,4 @@ export function CartItem({
 			</div>
 		</div>
 	);
-}
+});
