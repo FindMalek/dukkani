@@ -18,7 +18,9 @@ interface StoreHeaderProps {
 export function StoreHeader({ storeName }: StoreHeaderProps) {
 	const router = useRouter();
 	const pathname = usePathname();
-	const [cartOpen, setCartOpen] = useState(false);
+
+	const isCartDrawerOpen = useCartStore((state) => state.isCartDrawerOpen);
+	const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
 
 	const isHydrated = useCartHydration();
 	const isDetail = isDetailPage(pathname);
@@ -47,7 +49,7 @@ export function StoreHeader({ storeName }: StoreHeaderProps) {
 							variant="ghost"
 							size="icon"
 							className="relative size-8"
-							onClick={() => setCartOpen(true)}
+							onClick={() => setCartDrawerOpen(true)}
 						>
 							<Icons.shoppingCart className="size-4" />
 							{!isHydrated ? (
@@ -64,7 +66,7 @@ export function StoreHeader({ storeName }: StoreHeaderProps) {
 					</div>
 				</div>
 			</header>
-			<CartDrawer open={cartOpen} onOpenChange={setCartOpen} />
+			<CartDrawer open={isCartDrawerOpen} onOpenChange={setCartDrawerOpen} />
 		</>
 	);
 }

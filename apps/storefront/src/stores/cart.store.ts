@@ -15,6 +15,10 @@ interface CartStoreState {
 	// Current store slug (set when user navigates to a store)
 	currentStoreSlug: string | null;
 
+	// Cart drawer state
+	isCartDrawerOpen: boolean;
+	setCartDrawerOpen: (open: boolean) => void;
+
 	// Actions
 	setCurrentStore: (storeSlug: string) => void;
 	addItem: (productId: string, quantity?: number, variantId?: string) => void;
@@ -34,9 +38,14 @@ export const useCartStore = create<CartStoreState>()(
 		(set, get) => ({
 			carts: {},
 			currentStoreSlug: null,
+			isCartDrawerOpen: false,
 
 			setCurrentStore: (storeSlug: string) => {
 				set({ currentStoreSlug: storeSlug });
+			},
+
+			setCartDrawerOpen: (open: boolean) => {
+				set({ isCartDrawerOpen: open });
 			},
 
 			/**

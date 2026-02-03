@@ -23,8 +23,10 @@ export function AddToCartFooter({
 	selectedVariantId,
 }: AddToCartFooterProps) {
 	const t = useTranslations("storefront.store.product.addToCart");
-	const addItem = useCartStore((state) => state.addItem);
 	const [quantity, setQuantity] = useState(1);
+
+	const addItem = useCartStore((state) => state.addItem);
+	const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
 
 	useEffect(() => {
 		setQuantity(1);
@@ -50,6 +52,8 @@ export function AddToCartFooter({
 		if (!isOutOfStock) {
 			// Add variant support - variantId is passed to cart store
 			addItem(productId, quantity, selectedVariantId);
+			// Open drawer after adding item
+			setCartDrawerOpen(true);
 		}
 	};
 
