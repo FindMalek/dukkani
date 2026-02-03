@@ -121,6 +121,9 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
 			<DrawerContent className="max-h-[85vh]">
+				<DrawerHeader className="sr-only">
+					<DrawerTitle>{t("title")}</DrawerTitle>
+				</DrawerHeader>
 				<div className="flex-1 overflow-y-auto px-4">
 					{enrichedCartItems.isLoading && !enrichedData ? (
 						<div className="flex items-center justify-center py-8">
