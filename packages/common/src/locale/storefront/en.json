@@ -37,6 +37,9 @@
 				"addToCart": {
 					"button": "Add to Cart",
 					"outOfStock": "Out of Stock"
+				},
+				"quickAdd": {
+					"viewDetails": "View Full Details"
 				}
 			},
 			"cart": {

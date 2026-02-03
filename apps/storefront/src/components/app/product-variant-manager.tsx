@@ -4,8 +4,8 @@ import type {
 	VariantOptionOutput,
 	VariantOutput,
 } from "@dukkani/common/schemas/variant/output";
-import { useEffect, useState } from "react";
 import { VariantSelector } from "@/components/shared/variant-selector";
+import { useProductVariantSelection } from "@/hooks/use-product-variant-selection";
 import { AddToCartFooter } from "./add-to-cart-footer";
 
 interface ProductVariantManagerProps {
@@ -15,6 +15,8 @@ interface ProductVariantManagerProps {
 	hasVariants: boolean;
 	variantOptions?: VariantOptionOutput[];
 	variants?: VariantOutput[];
+	variant?: "fixed" | "inline";
+	onAddToCart?: () => void;
 }
 
 export function ProductVariantManager({
@@ -24,32 +26,16 @@ export function ProductVariantManager({
 	hasVariants,
 	variantOptions,
 	variants,
+	variant = "fixed",
+	onAddToCart,
 }: ProductVariantManagerProps) {
-	const [selectedVariantId, setSelectedVariantId] = useState<
-		string | undefined
-	>();
-
-	// Auto-select first available variant when product has variants
-	useEffect(() => {
-		if (hasVariants && variants && variants.length > 0) {
-			// Find first variant with stock > 0, or just first variant if all are out of stock
-			const firstAvailable = variants.find((v) => v.stock > 0) || variants[0];
-			if (firstAvailable) {
-				setSelectedVariantId(firstAvailable.id);
-			}
-		}
-	}, [hasVariants, variants]);
-
-	// Get selected variant data
-	const selectedVariant = variants?.find((v) => v.id === selectedVariantId);
-
-	// Determine stock and price to use
-	// For products with variants: use variant stock/price, or 0 if no variant selected yet
-	// For products without variants: use product stock/price
-	const stock = hasVariants ? (selectedVariant?.stock ?? 0) : productStock;
-	const price = hasVariants
-		? (selectedVariant?.price ?? productPrice)
-		: productPrice;
+	const { selectedVariantId, setSelectedVariantId, stock, price } =
+		useProductVariantSelection({
+			hasVariants,
+			variants,
+			productStock,
+			productPrice,
+		});
 
 	return (
 		<>
@@ -64,6 +50,8 @@ export function ProductVariantManager({
 				stock={stock}
 				price={price}
 				selectedVariantId={selectedVariantId}
+				variant={variant}
+				onAddToCart={onAddToCart}
 			/>
 		</>
 	);

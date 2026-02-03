@@ -13,6 +13,8 @@ interface AddToCartFooterProps {
 	price: number;
 	currency?: string;
 	selectedVariantId?: string;
+	variant?: "fixed" | "inline";
+	onAddToCart?: () => void;
 }
 
 export function AddToCartFooter({
@@ -21,6 +23,8 @@ export function AddToCartFooter({
 	price,
 	currency = "TND",
 	selectedVariantId,
+	variant = "fixed",
+	onAddToCart,
 }: AddToCartFooterProps) {
 	const t = useTranslations("storefront.store.product.addToCart");
 	const [quantity, setQuantity] = useState(1);
@@ -50,15 +54,19 @@ export function AddToCartFooter({
 
 	const handleAddToCart = () => {
 		if (!isOutOfStock) {
-			// Add variant support - variantId is passed to cart store
 			addItem(productId, quantity, selectedVariantId);
-			// Open drawer after adding item
 			setCartDrawerOpen(true);
+			onAddToCart?.();
 		}
 	};
 
+	const containerClass =
+		variant === "fixed"
+			? "fixed inset-x-0 bottom-0 z-40 mb-0 border-border border-t bg-background/95 backdrop-blur-sm"
+			: "border-border border-t bg-background pt-3";
+
 	return (
-		<div className="fixed inset-x-0 bottom-0 z-40 mb-0 border-border border-t bg-background/95 backdrop-blur-sm">
+		<div className={containerClass}>
 			<div className="container mx-auto px-4 py-3">
 				<div className="flex items-center gap-3">
 					{/* Quantity Selector */}
