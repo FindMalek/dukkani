@@ -15,6 +15,8 @@ import type {
 	CreateOrderPublicInput,
 } from "../schemas/order/input";
 import type { OrderIncludeOutput } from "../schemas/order/output";
+import { AddressService } from "./address.service";
+import { CustomerService } from "./customer.service";
 import { ProductService } from "./product.service";
 
 /**
@@ -88,11 +90,10 @@ class OrderServiceBase {
 					id: input.id,
 					storeId: input.storeId,
 					paymentMethod: input.paymentMethod,
-					customerName: input.customerName,
-					customerPhone: input.customerPhone,
-					address: input.address,
+					isWhatsApp: input.isWhatsApp,
 					notes: input.notes,
 					customerId: input.customerId,
+					addressId: input.addressId,
 					status: input.status,
 					orderItems: {
 						create: input.orderItems.map((item) => ({
@@ -174,6 +175,7 @@ class OrderServiceBase {
 				slug: true,
 				status: true,
 				supportedPaymentMethods: true,
+				shippingCost: true,
 			},
 		});
 
@@ -201,7 +203,7 @@ class OrderServiceBase {
 		// Generate order ID from store slug
 		const orderId = OrderService.generateOrderId(store.slug);
 
-		// Wrap stock check, order creation, and stock updates in transaction
+		// Wrap stock check, customer/address creation, order creation, and stock updates in transaction
 		const order = await database.$transaction(async (tx) => {
 			// Validate products exist and check stock (within transaction for isolation)
 			await ProductService.checkStockAvailability(
@@ -215,17 +217,53 @@ class OrderServiceBase {
 
 			addSpanEvent("order.stock.validated", { store_id: store.id });
 
+			// Find or create customer
+			const customer = await CustomerService.findOrCreateCustomer(
+				input.customerPhone,
+				input.customerName,
+				input.storeId,
+			);
+
+			addSpanEvent("order.customer.created_or_found", {
+				customer_id: customer.id,
+			});
+
+			// Update customer's WhatsApp preference to match this order's choice
+			if (customer.prefersWhatsApp !== input.isWhatsApp) {
+				await tx.customer.update({
+					where: { id: customer.id },
+					data: { prefersWhatsApp: input.isWhatsApp },
+				});
+			}
+
+			// Create or find address
+			// If addressId is provided, use it; otherwise create/find from address object
+			let addressId: string | null = null;
+			if (input.addressId) {
+				addressId = input.addressId;
+			} else {
+				const address = await AddressService.createOrFindAddress({
+					...input.address,
+					customerId: customer.id,
+					isDefault: false, // Don't set as default on order creation
+				});
+				addressId = address.id;
+			}
+
+			addSpanEvent("order.address.created_or_found", {
+				address_id: addressId,
+			});
+
 			// Create order with order items (within transaction)
 			const createdOrder = await tx.order.create({
 				data: {
 					id: orderId,
 					storeId: input.storeId,
 					paymentMethod: input.paymentMethod,
-					customerName: input.customerName,
-					customerPhone: input.customerPhone,
-					address: input.address,
+					isWhatsApp: input.isWhatsApp,
 					notes: input.notes,
-					customerId: null,
+					customerId: customer.id,
+					addressId,
 					status: OrderStatus.PENDING,
 					orderItems: {
 						create: input.orderItems.map((item) => ({

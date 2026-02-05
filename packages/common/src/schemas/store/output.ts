@@ -29,6 +29,7 @@ export const storeSafeOutputSchema = z.object({
 	theme: storeThemeSchema.nullable(),
 	notificationMethod: storeNotificationMethodSchema.nullable(),
 	supportedPaymentMethods: z.array(paymentMethodSchema),
+	shippingCost: z.number(),
 	createdAt: z.date(),
 	updatedAt: z.date(),
 	storePlan: storePlanSimpleOutputSchema.optional(),

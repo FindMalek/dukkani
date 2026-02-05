@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { addressSimpleOutputSchema } from "../address/output";
 import { customerSimpleOutputSchema } from "../customer/output";
 import { orderStatusSchema, paymentMethodSchema } from "../enums";
 import { orderItemWithProductOutputSchema } from "../order-item/output";
@@ -9,12 +10,11 @@ export const orderSimpleOutputSchema = z.object({
 	id: z.string(),
 	status: orderStatusSchema,
 	paymentMethod: paymentMethodSchema,
-	customerName: z.string(),
-	customerPhone: z.string(),
-	address: z.string().nullable(),
+	isWhatsApp: z.boolean(),
 	notes: z.string().nullable(),
 	storeId: z.string(),
-	customerId: z.string().nullable(),
+	customerId: z.string(),
+	addressId: z.string().nullable(),
 	createdAt: z.date(),
 	updatedAt: z.date(),
 });
@@ -22,6 +22,7 @@ export const orderSimpleOutputSchema = z.object({
 export const orderIncludeOutputSchema = orderSimpleOutputSchema.extend({
 	store: storeSimpleOutputSchema.optional(),
 	customer: customerSimpleOutputSchema.optional(),
+	address: addressSimpleOutputSchema.optional(),
 	orderItems: z.array(orderItemWithProductOutputSchema).optional(),
 	whatsappMessages: z.array(whatsappMessageSimpleOutputSchema).optional(),
 });

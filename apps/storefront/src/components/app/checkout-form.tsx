@@ -8,6 +8,7 @@ import { Checkbox } from "@dukkani/ui/components/checkbox";
 import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
+import { PhoneInput } from "@dukkani/ui/components/phone-input";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { Textarea } from "@dukkani/ui/components/textarea";
@@ -15,15 +16,13 @@ import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
-import { z } from "zod";
+import { useAddressMap } from "@/hooks/use-address-map";
 import { useCreateOrder } from "@/hooks/use-create-order";
-import { useGeolocation } from "@/hooks/use-geolocation";
 import { getItemKey } from "@/lib/cart-utils";
 import { orpc } from "@/lib/orpc";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
 import { OrderSummary } from "./order-summary";
-import { PhoneInput } from "./phone-input";
 
 interface CheckoutFormProps {
 	store: StorePublicOutput;
@@ -36,8 +35,8 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 	const [paymentMethod, setPaymentMethod] = useState<PaymentMethodInfer>(
 		store.supportedPaymentMethods[0],
 	);
-	const geolocation = useGeolocation();
 	const createOrderMutation = useCreateOrder();
+	const addressMap = useAddressMap();
 
 	const carts = useCartStore((state) => state.carts);
 	const currentStoreSlug = useCartStore((state) => state.currentStoreSlug);
@@ -105,25 +104,18 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 		enrichedData?.reduce((total, item) => {
 			return total + item.price * item.quantity;
 		}, 0) ?? 0;
-	const shippingCost = 12;
-	const total = subtotal + shippingCost;
-
-	// Extended form schema for frontend (includes address breakdown)
-	const checkoutFormSchema = createOrderPublicInputSchema.extend({
-		address: z.string().min(1, "Street address is required"),
-		city: z.string().min(1, "City is required"),
-		postalCode: z.string().optional(),
-		isWhatsApp: z.boolean().optional(),
-	});
+	const total = subtotal + store.shippingCost;
 
 	const form = useSchemaForm({
-		schema: checkoutFormSchema,
+		schema: createOrderPublicInputSchema,
 		defaultValues: {
 			customerName: "",
 			customerPhone: "",
-			address: "",
-			city: "",
-			postalCode: "",
+			address: {
+				street: "",
+				city: "",
+				postalCode: "",
+			},
 			notes: "",
 			paymentMethod,
 			storeId: store.id,
@@ -132,16 +124,8 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 		},
 		validationMode: ["onBlur", "onSubmit"],
 		onSubmit: async (values) => {
-			// Build notes field with WhatsApp status (payment method is now a separate field)
-			const notesParts: string[] = [];
-			if (values.notes) {
-				notesParts.push(values.notes);
-			}
-			if (values.isWhatsApp) {
-				notesParts.push("WhatsApp: Yes");
-			}
-			const combinedNotes =
-				notesParts.length > 0 ? notesParts.join("\n") : undefined;
+			// Notes field - WhatsApp preference is now stored separately in isWhatsApp
+			const combinedNotes = values.notes || undefined;
 
 			// Build order items from cart
 			if (!enrichedData || enrichedData.length === 0) {
@@ -155,29 +139,42 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 				price: item.price,
 			}));
 
-			// Combine address fields
-			const fullAddress = [values.address, values.city, values.postalCode]
-				.filter(Boolean)
-				.join(", ");
-
 			await createOrderMutation.mutateAsync({
 				customerName: values.customerName,
 				customerPhone: values.customerPhone,
-				address: fullAddress,
+				address: values.address,
 				notes: combinedNotes,
 				paymentMethod,
+				isWhatsApp: values.isWhatsApp,
 				storeId: store.id,
 				orderItems,
 			});
 		},
 	});
 
-	const handleUseLocation = async () => {
-		await geolocation.getLocation();
-		if (geolocation.city) {
-			form.setFieldValue("city", geolocation.city);
+	// Update form when address is selected from map
+	useEffect(() => {
+		if (addressMap.city) {
+			form.setFieldValue("address.city", addressMap.city);
 		}
-	};
+		if (addressMap.street) {
+			form.setFieldValue("address.street", addressMap.street);
+		}
+		if (addressMap.postalCode) {
+			form.setFieldValue("address.postalCode", addressMap.postalCode);
+		}
+		if (addressMap.latitude && addressMap.longitude) {
+			form.setFieldValue("address.latitude", addressMap.latitude);
+			form.setFieldValue("address.longitude", addressMap.longitude);
+		}
+	}, [
+		addressMap.city,
+		addressMap.street,
+		addressMap.postalCode,
+		addressMap.latitude,
+		addressMap.longitude,
+		form,
+	]);
 
 	return (
 		<div className="container mx-auto max-w-4xl px-4 py-8">
@@ -247,8 +244,8 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 												value={field.state.value ?? ""}
 												onChange={field.handleChange}
 												onBlur={field.handleBlur}
-												error={isInvalid}
 												disabled={createOrderMutation.isPending}
+												aria-invalid={isInvalid}
 											/>
 											{isInvalid && (
 												<FieldError errors={field.state.meta.errors} />
@@ -281,7 +278,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 							</form.Field>
 
 							{/* Street Address */}
-							<form.Field name="address">
+							<form.Field name="address.street">
 								{(field) => {
 									const isInvalid =
 										field.state.meta.isTouched && !field.state.meta.isValid;
@@ -308,7 +305,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 							</form.Field>
 
 							{/* City */}
-							<form.Field name="city">
+							<form.Field name="address.city">
 								{(field) => {
 									const isInvalid =
 										field.state.meta.isTouched && !field.state.meta.isValid;
@@ -335,7 +332,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 							</form.Field>
 
 							{/* Postal Code */}
-							<form.Field name="postalCode">
+							<form.Field name="address.postalCode">
 								{(field) => {
 									const isInvalid =
 										field.state.meta.isTouched && !field.state.meta.isValid;
@@ -361,24 +358,14 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 								}}
 							</form.Field>
 
-							{/* Use Phone Location */}
-							<button
-								type="button"
-								onClick={handleUseLocation}
-								disabled={geolocation.loading || createOrderMutation.isPending}
-								className="flex w-full items-center gap-2 rounded-md border border-input bg-muted/30 p-3 text-left transition-colors hover:bg-muted/50"
-							>
-								<Icons.logo className="size-5 shrink-0" />
-								<div className="flex-1">
-									<div className="font-medium">{t("delivery.useLocation")}</div>
-									<div className="text-muted-foreground text-sm">
-										{t("delivery.useLocationDescription")}
-									</div>
+							{/* Map Location Selector */}
+							{/* TODO: Install mapcn: npx shadcn@latest add https://mapcn.dev/maps/map.json */}
+							{/* Then add Map component here for address selection */}
+							{addressMap.error && (
+								<div className="text-destructive text-sm">
+									{addressMap.error}
 								</div>
-								{geolocation.loading && (
-									<Spinner className="size-4 animate-spin" />
-								)}
-							</button>
+							)}
 						</div>
 					</section>
 
@@ -475,7 +462,10 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 				{/* Right Column - Order Summary */}
 				<div>
 					{enrichedData && enrichedData.length > 0 ? (
-						<OrderSummary items={enrichedData} shippingCost={shippingCost} />
+						<OrderSummary
+							items={enrichedData}
+							shippingCost={store.shippingCost}
+						/>
 					) : (
 						<div className="flex items-center justify-center py-8">
 							<Spinner className="size-6 animate-spin text-muted-foreground" />

@@ -2,6 +2,7 @@ import type {
 	OrderIncludeOutput,
 	OrderSimpleOutput,
 } from "../../schemas/order/output";
+import { AddressEntity } from "../address/entity";
 import { CustomerEntity } from "../customer/entity";
 import { OrderItemEntity } from "../order-item/entity";
 import { StoreEntity } from "../store/entity";
@@ -18,12 +19,11 @@ export class OrderEntity {
 			id: entity.id,
 			status: entity.status,
 			paymentMethod: entity.paymentMethod,
-			customerName: entity.customerName,
-			customerPhone: entity.customerPhone,
-			address: entity.address,
+			isWhatsApp: entity.isWhatsApp,
 			notes: entity.notes,
 			storeId: entity.storeId,
 			customerId: entity.customerId,
+			addressId: entity.addressId,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
 		};
@@ -35,6 +35,9 @@ export class OrderEntity {
 			store: StoreEntity.getSimpleRo(entity.store),
 			customer: entity.customer
 				? CustomerEntity.getSimpleRo(entity.customer)
+				: undefined,
+			address: entity.address
+				? AddressEntity.getSimpleRo(entity.address)
 				: undefined,
 			orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
 			whatsappMessages: entity.whatsappMessages.map(
@@ -51,6 +54,9 @@ export class OrderEntity {
 			store: StoreEntity.getSimpleRo(entity.store),
 			customer: entity.customer
 				? CustomerEntity.getSimpleRo(entity.customer)
+				: undefined,
+			address: entity.address
+				? AddressEntity.getSimpleRo(entity.address)
 				: undefined,
 			orderItems: entity.orderItems.map(OrderItemEntity.getRoWithProduct),
 			whatsappMessages: entity.whatsappMessages.map(

@@ -174,6 +174,7 @@ export class StoreSeeder extends BaseSeeder {
 						whatsappNumber: storeInfo.whatsappNumber,
 						ownerId: storeInfo.ownerId,
 						supportedPaymentMethods: [PaymentMethod.COD],
+						shippingCost: 12.0,
 						storePlan: {
 							create: {
 								planType: storeInfo.planType,

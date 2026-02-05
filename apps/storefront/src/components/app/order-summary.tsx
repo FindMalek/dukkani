@@ -5,15 +5,10 @@ import { useTranslations } from "next-intl";
 
 interface OrderSummaryProps {
 	items: CartItemOutput[];
-	shippingCost?: number;
+	shippingCost: number;
 }
 
-const SHIPPING_COST = 12; // TND
-
-export function OrderSummary({
-	items,
-	shippingCost = SHIPPING_COST,
-}: OrderSummaryProps) {
+export function OrderSummary({ items, shippingCost }: OrderSummaryProps) {
 	const t = useTranslations("storefront.store.checkout.orderSummary");
 
 	const subtotal = items.reduce(
@@ -52,7 +47,7 @@ export function OrderSummary({
 			</div>
 
 			{/* Summary */}
-			<div className="border-t pt-4 space-y-2">
+			<div className="space-y-2 border-t pt-4">
 				<div className="flex items-center justify-between">
 					<span className="text-muted-foreground">{t("subtotal")}</span>
 					<span>{subtotal.toFixed(3)} TND</span>

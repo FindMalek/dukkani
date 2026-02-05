@@ -12,12 +12,11 @@ export const createOrderInputSchema = z.object({
 	id: z.string().min(1, "Order ID is required"),
 	status: orderStatusSchema,
 	paymentMethod: paymentMethodSchema,
-	customerName: z.string().min(1, "Customer name is required"),
-	customerPhone: z.string().min(1, "Customer phone is required"),
-	address: z.string().optional(),
+	isWhatsApp: z.boolean().default(false),
 	notes: z.string().optional(),
 	storeId: z.string().min(1, "Store ID is required"),
-	customerId: z.string().optional(),
+	customerId: z.string().min(1, "Customer ID is required"),
+	addressId: z.string().min(1, "Address ID is required"),
 	orderItems: z
 		.array(orderItemInputSchema)
 		.min(1, "At least one order item is required"),
@@ -57,14 +56,24 @@ export type UpdateOrderStatusInput = z.infer<
 /**
  * Public order creation input schema (for storefront)
  * No id or status required - auto-generated
- * No userId required - guest orders
+ * Customer and address are created/found automatically
  */
+const addressInputSchema = z.object({
+	street: z.string().min(1, "Street address is required"),
+	city: z.string().min(1, "City is required"),
+	postalCode: z.string().optional(),
+	latitude: z.number().optional(),
+	longitude: z.number().optional(),
+});
+
 export const createOrderPublicInputSchema = z.object({
 	customerName: z.string().min(1, "Customer name is required"),
 	customerPhone: z.string().min(1, "Customer phone is required"),
-	address: z.string().optional(),
+	address: addressInputSchema,
+	addressId: z.string().optional(),
 	notes: z.string().optional(),
 	paymentMethod: paymentMethodSchema,
+	isWhatsApp: z.boolean().default(false),
 	storeId: z.string().min(1, "Store ID is required"),
 	orderItems: z
 		.array(orderItemInputSchema)

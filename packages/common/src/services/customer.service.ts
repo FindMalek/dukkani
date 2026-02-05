@@ -89,6 +89,54 @@ export class CustomerService {
 	}
 
 	/**
+	 * Find or create customer by phone number
+	 * If customer exists, update name if changed
+	 * If not, create new customer
+	 * No ownership check - used for public order creation
+	 */
+	static async findOrCreateCustomer(
+		phone: string,
+		name: string,
+		storeId: string,
+	): Promise<CustomerSimpleOutput> {
+		// Find existing customer
+		const existing = await database.customer.findUnique({
+			where: {
+				phone_storeId: {
+					phone,
+					storeId,
+				},
+			},
+			include: CustomerQuery.getSimpleInclude(),
+		});
+
+		if (existing) {
+			// Update name if changed
+			if (existing.name !== name) {
+				const updated = await database.customer.update({
+					where: { id: existing.id },
+					data: { name },
+					include: CustomerQuery.getSimpleInclude(),
+				});
+				return CustomerEntity.getSimpleRo(updated);
+			}
+			return CustomerEntity.getSimpleRo(existing);
+		}
+
+		// Create new customer
+		const customer = await database.customer.create({
+			data: {
+				name,
+				phone,
+				storeId,
+			},
+			include: CustomerQuery.getSimpleInclude(),
+		});
+
+		return CustomerEntity.getSimpleRo(customer);
+	}
+
+	/**
 	 * Update customer with duplicate check
 	 */
 	static async updateCustomer(
