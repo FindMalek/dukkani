@@ -9,8 +9,11 @@ import {
 } from "@dukkani/tracing";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
-import type { OrderStatus } from "../schemas/order/enums";
-import type { CreateOrderInput } from "../schemas/order/input";
+import { OrderStatus } from "../schemas/order/enums";
+import type {
+	CreateOrderInput,
+	CreateOrderPublicInput,
+} from "../schemas/order/input";
 import type { OrderIncludeOutput } from "../schemas/order/output";
 import { ProductService } from "./product.service";
 
@@ -84,6 +87,7 @@ class OrderServiceBase {
 				data: {
 					id: input.id,
 					storeId: input.storeId,
+					paymentMethod: input.paymentMethod,
 					customerName: input.customerName,
 					customerPhone: input.customerPhone,
 					address: input.address,
@@ -93,6 +97,7 @@ class OrderServiceBase {
 					orderItems: {
 						create: input.orderItems.map((item) => ({
 							productId: item.productId,
+							productVariantId: item.variantId,
 							quantity: item.quantity,
 							price: item.price,
 						})),
@@ -142,6 +147,139 @@ class OrderServiceBase {
 			"order.total_items": order.orderItems.length,
 			"order.status": order.status,
 			"order.has_customer": !!order.customerId,
+		});
+
+		return OrderEntity.getRo(order);
+	}
+
+	/**
+	 * Create order for public storefront (guest orders)
+	 * No userId required, no ownership check
+	 * Status automatically set to PENDING
+	 */
+	static async createOrderPublic(
+		input: CreateOrderPublicInput,
+	): Promise<OrderIncludeOutput> {
+		addSpanAttributes({
+			"order.store_id": input.storeId,
+			"order.items_count": input.orderItems.length,
+			"order.is_guest": true,
+		});
+
+		// Get store to generate ID and validate payment method (no ownership check)
+		const store = await database.store.findUnique({
+			where: { id: input.storeId },
+			select: {
+				id: true,
+				slug: true,
+				status: true,
+				supportedPaymentMethods: true,
+			},
+		});
+
+		if (!store) {
+			throw new Error("Store not found");
+		}
+
+		// Validate payment method is supported by store
+		if (!store.supportedPaymentMethods.includes(input.paymentMethod)) {
+			throw new Error(
+				`Payment method ${input.paymentMethod} is not supported by this store. Supported methods: ${store.supportedPaymentMethods.join(", ")}`,
+			);
+		}
+
+		addSpanEvent("order.store.verified", { store_id: store.id });
+		logger.info(
+			enhanceLogWithTraceContext({
+				store_id: input.storeId,
+				items_count: input.orderItems.length,
+				is_guest: true,
+			}),
+			"Public order creation started",
+		);
+
+		// Generate order ID from store slug
+		const orderId = OrderService.generateOrderId(store.slug);
+
+		// Wrap stock check, order creation, and stock updates in transaction
+		const order = await database.$transaction(async (tx) => {
+			// Validate products exist and check stock (within transaction for isolation)
+			await ProductService.checkStockAvailability(
+				input.orderItems.map((item) => ({
+					productId: item.productId,
+					quantity: item.quantity,
+				})),
+				input.storeId,
+				tx,
+			);
+
+			addSpanEvent("order.stock.validated", { store_id: store.id });
+
+			// Create order with order items (within transaction)
+			const createdOrder = await tx.order.create({
+				data: {
+					id: orderId,
+					storeId: input.storeId,
+					paymentMethod: input.paymentMethod,
+					customerName: input.customerName,
+					customerPhone: input.customerPhone,
+					address: input.address,
+					notes: input.notes,
+					customerId: null,
+					status: OrderStatus.PENDING,
+					orderItems: {
+						create: input.orderItems.map((item) => ({
+							productId: item.productId,
+							productVariantId: item.variantId,
+							quantity: item.quantity,
+							price: item.price,
+						})),
+					},
+				},
+				include: {
+					...OrderQuery.getInclude(),
+					orderItems: {
+						include: {
+							product: {
+								select: {
+									name: true,
+								},
+							},
+						},
+					},
+				},
+			});
+
+			addSpanEvent("order.created", { order_id: createdOrder.id });
+			logger.info(
+				enhanceLogWithTraceContext({
+					order_id: createdOrder.id,
+					store_id: input.storeId,
+					total_items: createdOrder.orderItems.length,
+					status: createdOrder.status,
+				}),
+				"Public order created successfully",
+			);
+
+			await ProductService.updateMultipleProductStocks(
+				input.orderItems.map((item) => ({
+					productId: item.productId,
+					quantity: item.quantity,
+				})),
+				"decrement",
+				tx,
+			);
+
+			addSpanEvent("order.stock.updated", { order_id: createdOrder.id });
+
+			return createdOrder;
+		});
+
+		addSpanAttributes({
+			"order.id": order.id,
+			"order.total_items": order.orderItems.length,
+			"order.status": order.status,
+			"order.has_customer": false,
 		});
 
 		return OrderEntity.getRo(order);

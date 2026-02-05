@@ -1,5 +1,6 @@
 import type { PrismaClient } from "../../../prisma/generated/client";
 import {
+	PaymentMethod,
 	StoreCategory,
 	StorePlanType,
 	StoreStatus,
@@ -172,6 +173,7 @@ export class StoreSeeder extends BaseSeeder {
 						theme: storeInfo.theme,
 						whatsappNumber: storeInfo.whatsappNumber,
 						ownerId: storeInfo.ownerId,
+						supportedPaymentMethods: [PaymentMethod.COD],
 						storePlan: {
 							create: {
 								planType: storeInfo.planType,

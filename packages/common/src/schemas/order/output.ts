@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { customerSimpleOutputSchema } from "../customer/output";
-import { orderStatusSchema } from "../enums";
+import { orderStatusSchema, paymentMethodSchema } from "../enums";
 import { orderItemWithProductOutputSchema } from "../order-item/output";
 import { storeSimpleOutputSchema } from "../store/output";
 import { whatsappMessageSimpleOutputSchema } from "../whatsapp-message/output";
@@ -8,6 +8,7 @@ import { whatsappMessageSimpleOutputSchema } from "../whatsapp-message/output";
 export const orderSimpleOutputSchema = z.object({
 	id: z.string(),
 	status: orderStatusSchema,
+	paymentMethod: paymentMethodSchema,
 	customerName: z.string(),
 	customerPhone: z.string(),
 	address: z.string().nullable(),

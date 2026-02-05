@@ -17,6 +17,7 @@ export class OrderEntity {
 		return {
 			id: entity.id,
 			status: entity.status,
+			paymentMethod: entity.paymentMethod,
 			customerName: entity.customerName,
 			customerPhone: entity.customerPhone,
 			address: entity.address,

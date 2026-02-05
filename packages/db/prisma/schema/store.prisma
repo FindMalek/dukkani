@@ -11,6 +11,7 @@
  * - `theme`: Visual theme for the store (LIGHT, DARK, MINIMAL, MODERN, CLASSIC)
  * - `category`: Store category (FASHION, ELECTRONICS, FOOD, HOME, BEAUTY, SPORTS, BOOKS, TOYS, OTHER)
  * - `notificationMethod`: Notification method for the store (EMAIL, TELEGRAM, BOTH)
+ * - `supportedPaymentMethods`: Array of payment methods the store accepts (COD, CARD)
  * - `status`: Status of the store (DRAFT, PUBLISHED, SUSPENDED, ARCHIVED)
  * - `ownerId`: Reference to the User who owns this store
  * - `createdAt`: Timestamp when the store was created
@@ -40,8 +41,9 @@ model Store {
   theme     StoreTheme?
   category  StoreCategory?
 
-  status             StoreStatus              @default(DRAFT)
-  notificationMethod StoreNotificationMethod? @default(EMAIL) @map("notification_method")
+  status                  StoreStatus              @default(DRAFT)
+  notificationMethod      StoreNotificationMethod? @default(EMAIL) @map("notification_method")
+  supportedPaymentMethods PaymentMethod[]          @default([COD]) @map("supported_payment_methods")
 
   orders              Order[]
   products            Product[]

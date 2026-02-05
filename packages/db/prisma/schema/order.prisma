@@ -5,6 +5,7 @@
  * **Key Fields:**
  * - `id`: Custom string ID with store prefix (e.g., "AHM-abc12345")
  * - `status`: Current order status (PENDING, CONFIRMED, PROCESSING, SHIPPED, DELIVERED, CANCELLED)
+ * - `paymentMethod`: Payment method used for the order (COD, CARD)
  * - `customerName`: Name of the customer placing the order
  * - `customerPhone`: Contact phone number for the order
  * - `address`: Optional delivery address
@@ -30,6 +31,8 @@ model Order {
   id String @id
 
   status OrderStatus
+
+  paymentMethod PaymentMethod @default(COD) @map("payment_method")
 
   customerName  String @map("customer_name")
   customerPhone String @map("customer_phone")
