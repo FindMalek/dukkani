@@ -15,7 +15,7 @@ export interface SeededOrder {
 	id: string;
 	status: OrderStatus;
 	storeId: string;
-	customerId: string | null;
+	customerId: string;
 }
 
 export class OrderSeeder extends BaseSeeder {
@@ -105,12 +105,10 @@ export class OrderSeeder extends BaseSeeder {
 		const orderData: Array<{
 			id: string;
 			status: OrderStatus;
-			customerName: string;
-			customerPhone: string;
-			address: string;
 			notes?: string;
 			storeId: string;
-			customerId: string | null;
+			customerId: string;
+			addressId?: string;
 			items: Array<{
 				productId: string;
 				quantity: number;
@@ -123,48 +121,47 @@ export class OrderSeeder extends BaseSeeder {
 			const storeProducts = productsByStoreSlug.get(storeSlug) || [];
 			const storeCustomers = customersByStoreSlug.get(storeSlug) || [];
 
-			if (storeProducts.length === 0) {
+			if (storeProducts.length === 0 || storeCustomers.length === 0) {
 				this.log(
-					`⚠️  No products found for store "${store.name}" (${storeSlug}). Skipping orders for this store.`,
+					`⚠️  Missing products or customers for store "${store.name}" (${storeSlug}). Skipping orders.`,
 				);
 				continue;
 			}
 
-			// Order 1: Confirmed order with customer
-			if (storeCustomers.length > 0) {
-				const customer = storeCustomers[0];
-				if (customer && storeProducts.length >= 2) {
-					const selectedProducts = storeProducts.slice(0, 2);
-					orderData.push({
-						id: generateOrderId(store.slug),
-						status: OrderStatus.CONFIRMED,
-						customerName: customer.name,
-						customerPhone: customer.phone,
-						address: "123 Main Street, Dubai, UAE",
-						notes: "Please deliver before 5 PM",
-						storeId: store.id,
-						customerId: customer.id,
-						items: selectedProducts.map((p) => ({
-							productId: p.id,
-							quantity: 1,
-							price: p.price,
-						})),
-					});
-				}
+			// Order 1: Confirmed order with first customer
+			const customer1 = storeCustomers[0];
+			if (customer1 && storeProducts.length >= 2) {
+				const address = this.customerSeeder?.findAddressByCustomerId(
+					customer1.id,
+				);
+				orderData.push({
+					id: generateOrderId(store.slug),
+					status: OrderStatus.CONFIRMED,
+					notes: "Please deliver before 5 PM",
+					storeId: store.id,
+					customerId: customer1.id,
+					addressId: address?.id,
+					items: storeProducts.slice(0, 2).map((p) => ({
+						productId: p.id,
+						quantity: 1,
+						price: p.price,
+					})),
+				});
 			}
 
-			// Order 2: Processing order
-			if (storeProducts.length > 1) {
-				const selectedProducts = storeProducts.slice(1, 3);
+			// Order 2: Processing order with second customer (or first)
+			const customer2 = storeCustomers[1] ?? storeCustomers[0];
+			if (customer2 && storeProducts.length > 1) {
+				const address = this.customerSeeder?.findAddressByCustomerId(
+					customer2.id,
+				);
 				orderData.push({
 					id: generateOrderId(store.slug),
 					status: OrderStatus.PROCESSING,
-					customerName: "Guest Customer",
-					customerPhone: "+971509999999",
-					address: "456 Business Bay, Dubai, UAE",
 					storeId: store.id,
-					customerId: null,
-					items: selectedProducts.map((p) => ({
+					customerId: customer2.id,
+					addressId: address?.id,
+					items: storeProducts.slice(1, 3).map((p) => ({
 						productId: p.id,
 						quantity: 2,
 						price: p.price,
@@ -172,27 +169,23 @@ export class OrderSeeder extends BaseSeeder {
 				});
 			}
 
-			// Order 3: Pending order
-			if (storeProducts.length > 0) {
-				const selectedProduct = storeProducts[0];
-				if (selectedProduct) {
-					orderData.push({
-						id: generateOrderId(store.slug),
-						status: OrderStatus.PENDING,
-						customerName: "New Customer",
-						customerPhone: "+971508888888",
-						address: "789 Jumeirah, Dubai, UAE",
-						storeId: store.id,
-						customerId: null,
-						items: [
-							{
-								productId: selectedProduct.id,
-								quantity: 1,
-								price: selectedProduct.price,
-							},
-						],
-					});
-				}
+			// Order 3: Pending order with first customer
+			const customer3 = storeCustomers[0];
+			const selectedProduct = storeProducts[0];
+			if (customer3 && selectedProduct) {
+				orderData.push({
+					id: generateOrderId(store.slug),
+					status: OrderStatus.PENDING,
+					storeId: store.id,
+					customerId: customer3.id,
+					items: [
+						{
+							productId: selectedProduct.id,
+							quantity: 1,
+							price: selectedProduct.price,
+						},
+					],
+				});
 			}
 		}
 
@@ -208,12 +201,10 @@ export class OrderSeeder extends BaseSeeder {
 					data: {
 						id: orderInfo.id,
 						status: orderInfo.status,
-						customerName: orderInfo.customerName,
-						customerPhone: orderInfo.customerPhone,
-						address: orderInfo.address,
 						notes: orderInfo.notes,
 						storeId: orderInfo.storeId,
 						customerId: orderInfo.customerId,
+						addressId: orderInfo.addressId,
 						orderItems: {
 							create: orderInfo.items.map((item) => ({
 								productId: item.productId,
