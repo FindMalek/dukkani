@@ -1,5 +1,6 @@
 import type { OrderStatus } from "@dukkani/common/schemas/order/enums";
 import type { Prisma } from "@dukkani/db/prisma/generated";
+import { AddressQuery } from "../address/query";
 import { CustomerQuery } from "../customer/query";
 
 export type OrderSimpleDbData = Prisma.OrderGetPayload<{
@@ -28,6 +29,9 @@ export class OrderQuery {
 			...OrderQuery.getSimpleInclude(),
 			store: true,
 			customer: CustomerQuery.getSimpleInclude(),
+			address: {
+				select: AddressQuery.getSimpleSelect(),
+			},
 			orderItems: true,
 			whatsappMessages: true,
 		} satisfies Prisma.OrderInclude;
@@ -38,6 +42,9 @@ export class OrderQuery {
 			...OrderQuery.getSimpleInclude(),
 			store: true,
 			customer: CustomerQuery.getSimpleInclude(),
+			address: {
+				select: AddressQuery.getSimpleSelect(),
+			},
 			orderItems: {
 				include: {
 					product: {
@@ -89,8 +96,16 @@ export class OrderQuery {
 
 		if (filters?.search) {
 			where.OR = [
-				{ customerName: { contains: filters.search, mode: "insensitive" } },
-				{ customerPhone: { contains: filters.search, mode: "insensitive" } },
+				{
+					customer: {
+						name: { contains: filters.search, mode: "insensitive" },
+					},
+				},
+				{
+					customer: {
+						phone: { contains: filters.search, mode: "insensitive" },
+					},
+				},
 			];
 		}
 

@@ -1,0 +1,45 @@
+/**
+ * Represents a delivery address for a customer.
+ * Customers can have multiple addresses (home, work, etc.).
+ * Addresses are linked to orders for delivery tracking.
+ * **Key Fields:**
+ * - `id`: Unique identifier (CUID)
+ * - `street`: Street address (required)
+ * - `city`: City name (required)
+ * - `postalCode`: Optional postal/ZIP code
+ * - `latitude`: Optional latitude for map display
+ * - `longitude`: Optional longitude for map display
+ * - `isDefault`: Whether this is the customer's default address
+ * - `customerId`: Reference to the Customer who owns this address
+ * - `createdAt`: Timestamp when the address was created
+ * - `updatedAt`: Timestamp when the address was last updated
+ * **Relationships:**
+ * - Belongs to one Customer
+ * - Has many Orders (via order.addressId)
+ * **Business Logic:**
+ * - When a customer is deleted, all their addresses are cascade deleted
+ * - Only one address per customer can be marked as default
+ * - Coordinates are optional but recommended for map integration
+ */
+model Address {
+  id String @id @default(cuid())
+
+  street     String
+  city       String
+  postalCode String? @map("postal_code")
+
+  latitude  Float?
+  longitude Float?
+
+  isDefault Boolean @default(false) @map("is_default")
+
+  customerId String   @map("customer_id")
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  orders Order[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("addresses")
+}

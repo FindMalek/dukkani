@@ -12,13 +12,6 @@ export function getItemKey(item: {
 }
 
 /**
- * Get cart key for a store slug
- */
-export function getCartKey(storeSlug: string | null): string {
-	return storeSlug || "default";
-}
-
-/**
  * Check if two cart items are the same (same product + variant)
  */
 export function areItemsEqual(

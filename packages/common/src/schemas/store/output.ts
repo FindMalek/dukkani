@@ -11,6 +11,7 @@ import {
 	userSimpleSelectOutputSchema,
 } from "../user/output";
 import {
+	paymentMethodSchema,
 	storeCategorySchema,
 	storeNotificationMethodSchema,
 	storeStatusSchema,
@@ -27,6 +28,8 @@ export const storeSafeOutputSchema = z.object({
 	status: storeStatusSchema,
 	theme: storeThemeSchema.nullable(),
 	notificationMethod: storeNotificationMethodSchema.nullable(),
+	supportedPaymentMethods: z.array(paymentMethodSchema),
+	shippingCost: z.number(),
 	createdAt: z.date(),
 	updatedAt: z.date(),
 	storePlan: storePlanSimpleOutputSchema.optional(),

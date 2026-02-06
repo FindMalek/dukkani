@@ -124,3 +124,20 @@ enum StoreStatus {
   SUSPENDED
   ARCHIVED
 }
+
+/**
+ * Represents the payment method used for an order.
+ * Tracks how customers pay for their purchases at checkout.
+ * **Methods:**
+ * - `COD`: Cash on Delivery - Customer pays when the order is delivered
+ * - `CARD`: Credit/Debit Card - Customer pays online via card payment gateway
+ * **Business Logic:**
+ * - Each order must have exactly one payment method
+ * - Stores can configure which payment methods they support via `supportedPaymentMethods`
+ * - Default payment method for new orders is `COD`
+ * - Payment method is stored on the order to track fulfillment requirements (e.g., COD orders need cash collection)
+ */
+enum PaymentMethod {
+  COD
+  CARD
+}

@@ -2,6 +2,7 @@ import { OrderEntity } from "@dukkani/common/entities/order/entity";
 import { OrderQuery } from "@dukkani/common/entities/order/query";
 import {
 	createOrderInputSchema,
+	createOrderPublicInputSchema,
 	getOrderInputSchema,
 	listOrdersInputSchema,
 	updateOrderStatusInputSchema,
@@ -19,7 +20,8 @@ import { NotificationService, OrderService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure } from "../index";
+import { baseProcedure, protectedProcedure } from "../index";
+import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
 export const orderRouter = {
@@ -108,15 +110,15 @@ export const orderRouter = {
 		}),
 
 	/**
-	 * Create new order (verify store ownership)
+	 * Create new order (public - for storefronts)
+	 * No authentication required, uses public rate limiting
+	 * Guest orders only, status automatically set to PENDING
 	 */
-	create: protectedProcedure
-		.input(createOrderInputSchema)
+	createPublic: baseProcedure
+		.use(rateLimitPublicSafe)
+		.input(createOrderPublicInputSchema)
 		.output(orderIncludeOutputSchema)
-		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
-			const userId = context.session.user.id;
-
-			// Get store to generate order ID
+		.handler(async ({ input }): Promise<OrderIncludeOutput> => {
 			const store = await database.store.findUnique({
 				where: { id: input.storeId },
 				select: { slug: true },
@@ -128,26 +130,13 @@ export const orderRouter = {
 				});
 			}
 
-			// Generate order ID
-			const orderId = OrderService.generateOrderId(store.slug);
+			const order = await OrderService.createOrderPublic(input);
 
-			// Create order using service (handles stock validation and updates)
-			const order = await OrderService.createOrder(
-				{
-					...input,
-					id: orderId,
-					status: input.status,
-				},
-				userId,
-			);
-
-			// Fire-and-forget notification (respects store's notificationMethod preference)
 			NotificationService.sendOrderNotification(input.storeId, order).catch(
 				(error) => {
-					// Log but don't throw - notification failure shouldn't affect order creation
 					logger.error(
 						{
-							orderId,
+							orderId: order.id,
 							storeId: input.storeId,
 							error,
 						},

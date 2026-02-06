@@ -63,7 +63,7 @@ export class UserSeeder extends BaseSeeder {
 			return;
 		}
 
-		// Define 3 diverse users with passwords (private, only used during seeding)
+		// Define 3 Tunisian users with passwords (private, only used during seeding)
 		// Passwords are hashed and stored in the database, but never exported
 		const userData = [
 			{
@@ -124,7 +124,7 @@ export class UserSeeder extends BaseSeeder {
 			})),
 		});
 
-		// Update Ahmed's user with Telegram chat ID for testing
+		// Update Amine's user with Telegram chat ID for testing
 		await database.user.update({
 			where: { id: "user_admin_001" },
 			data: {

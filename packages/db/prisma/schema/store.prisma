@@ -11,6 +11,8 @@
  * - `theme`: Visual theme for the store (LIGHT, DARK, MINIMAL, MODERN, CLASSIC)
  * - `category`: Store category (FASHION, ELECTRONICS, FOOD, HOME, BEAUTY, SPORTS, BOOKS, TOYS, OTHER)
  * - `notificationMethod`: Notification method for the store (EMAIL, TELEGRAM, BOTH)
+ * - `supportedPaymentMethods`: Array of payment methods the store accepts (COD, CARD)
+ * - `shippingCost`: Fixed shipping cost for all orders (default: 12.0 TND)
  * - `status`: Status of the store (DRAFT, PUBLISHED, SUSPENDED, ARCHIVED)
  * - `ownerId`: Reference to the User who owns this store
  * - `createdAt`: Timestamp when the store was created
@@ -40,8 +42,10 @@ model Store {
   theme     StoreTheme?
   category  StoreCategory?
 
-  status             StoreStatus              @default(DRAFT)
-  notificationMethod StoreNotificationMethod? @default(EMAIL) @map("notification_method")
+  status                  StoreStatus              @default(DRAFT)
+  notificationMethod      StoreNotificationMethod? @default(EMAIL) @map("notification_method")
+  supportedPaymentMethods PaymentMethod[]          @default([COD]) @map("supported_payment_methods")
+  shippingCost            Decimal                  @default(12.0) @map("shipping_cost") @db.Decimal(10, 2)
 
   orders              Order[]
   products            Product[]

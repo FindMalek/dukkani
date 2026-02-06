@@ -44,6 +44,8 @@ export class StoreEntity {
 			status: entity.status,
 			theme: entity.theme,
 			notificationMethod: entity.notificationMethod,
+			supportedPaymentMethods: entity.supportedPaymentMethods,
+			shippingCost: Number(entity.shippingCost),
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
 			storePlan: entity.storePlan
@@ -63,6 +65,8 @@ export class StoreEntity {
 			status: entity.status,
 			theme: entity.theme,
 			notificationMethod: entity.notificationMethod,
+			supportedPaymentMethods: entity.supportedPaymentMethods,
+			shippingCost: Number(entity.shippingCost),
 			ownerId: entity.ownerId,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
@@ -98,6 +102,8 @@ export class StoreEntity {
 			category: entity.category,
 			theme: entity.theme,
 			status: entity.status,
+			supportedPaymentMethods: entity.supportedPaymentMethods,
+			shippingCost: Number(entity.shippingCost),
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
 			storePlan: entity.storePlan

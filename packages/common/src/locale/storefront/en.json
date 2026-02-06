@@ -51,6 +51,42 @@
 					"lowStock": "Only {count} left",
 					"outOfStock": "Out of stock"
 				}
+			},
+			"checkout": {
+				"title": "Checkout",
+				"submitting": "Placing order...",
+				"placeOrder": "Place order",
+				"error": "Something went wrong. Please try again.",
+				"delivery": {
+					"title": "Delivery",
+					"fastDelivery": "Fast 24-48h delivery",
+					"fullName": "Full name",
+					"phone": "Phone",
+					"whatsapp": "This number is on WhatsApp",
+					"streetAddress": "Street address",
+					"city": "City",
+					"postalCode": "Postal code",
+					"instructions": "Delivery instructions",
+					"useLocation": "Use phone location",
+					"useLocationDescription": "Fill city and area automatically."
+				},
+				"payment": {
+					"title": "Payment",
+					"cod": "Cash on Delivery (COD)",
+					"creditCard": "Credit Card",
+					"comingSoon": "Coming soon"
+				},
+				"orderSummary": {
+					"title": "Order",
+					"subtotal": "Subtotal",
+					"shipping": "Shipping",
+					"total": "Total"
+				},
+				"success": {
+					"title": "Order created successfully",
+					"message": "Thank you for your order! The merchant will receive your order and contact you soon.",
+					"continueShopping": "Continue Shopping"
+				}
 			}
 		},
 		"comingSoon": {

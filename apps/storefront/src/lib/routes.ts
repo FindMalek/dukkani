@@ -22,8 +22,14 @@ export const RoutePaths = {
 		},
 	},
 	CHECKOUT: {
-		url: "/checkout" as Route,
-		label: "Checkout",
+		INDEX: {
+			url: "/checkout" as Route,
+			label: "Checkout",
+		},
+		SUCCESS: {
+			url: "/checkout/success" as Route,
+			label: "Checkout Success",
+		},
 	},
 } as const;
 

@@ -6,12 +6,14 @@
  * - `id`: Unique identifier (CUID)
  * - `name`: Customer's name
  * - `phone`: Customer's phone number (used for identification)
+ * - `prefersWhatsApp`: Whether customer prefers to receive order updates via WhatsApp (default preference)
  * - `storeId`: Reference to the Store this customer belongs to
  * - `createdAt`: Timestamp when the customer was created
  * - `updatedAt`: Timestamp when the customer was last updated
  * **Relationships:**
  * - Belongs to one Store
  * - Has many Orders
+ * - Has many Addresses
  * **Business Logic:**
  * - Phone number must be unique per store (enforced by unique constraint on [phone, storeId])
  * - Same phone number can exist in different stores
@@ -25,7 +27,10 @@ model Customer {
   name  String
   phone String
 
-  orders Order[]
+  prefersWhatsApp Boolean @default(false) @map("prefers_whatsapp")
+
+  orders    Order[]
+  addresses Address[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
