@@ -6,7 +6,6 @@ import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { Button } from "@dukkani/ui/components/button";
 import { Checkbox } from "@dukkani/ui/components/checkbox";
 import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
-import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { PhoneInput } from "@dukkani/ui/components/phone-input";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
@@ -178,30 +177,11 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 
 	return (
 		<div className="container mx-auto max-w-4xl px-4 py-8">
-			{/* Header */}
-			<div className="mb-6 flex items-center gap-4">
-				<button
-					type="button"
-					onClick={() => window.history.back()}
-					className="flex items-center justify-center"
-				>
-					<Icons.arrowLeft className="size-5" />
-				</button>
-				<h1 className="font-bold text-2xl">{t("title")}</h1>
-			</div>
-
-			<div className="grid gap-8 md:grid-cols-2">
+			<div className="flex flex-col-reverse gap-8 md:grid md:grid-cols-2">
 				{/* Left Column - Form */}
 				<div className="space-y-6">
 					{/* Delivery Section */}
 					<section>
-						<div className="mb-4 flex items-center justify-between">
-							<h2 className="font-semibold text-lg">{t("delivery.title")}</h2>
-							<span className="text-muted-foreground text-sm">
-								{t("delivery.fastDelivery")}
-							</span>
-						</div>
-
 						<div className="space-y-4">
 							{/* Full Name */}
 							<form.Field name="customerName">
@@ -241,6 +221,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 												{t("delivery.phone")}
 											</FieldLabel>
 											<PhoneInput
+												defaultCountry="TN"
 												value={field.state.value ?? ""}
 												onChange={field.handleChange}
 												onBlur={field.handleBlur}
@@ -304,59 +285,60 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 								}}
 							</form.Field>
 
-							{/* City */}
-							<form.Field name="address.city">
-								{(field) => {
-									const isInvalid =
-										field.state.meta.isTouched && !field.state.meta.isValid;
-									return (
-										<Field data-invalid={isInvalid}>
-											<FieldLabel htmlFor={field.name}>
-												{t("delivery.city")}
-											</FieldLabel>
-											<Input
-												id={field.name}
-												name={field.name}
-												value={field.state.value ?? ""}
-												onBlur={field.handleBlur}
-												onChange={(e) => field.handleChange(e.target.value)}
-												disabled={createOrderMutation.isPending}
-												aria-invalid={isInvalid}
-											/>
-											{isInvalid && (
-												<FieldError errors={field.state.meta.errors} />
-											)}
-										</Field>
-									);
-								}}
-							</form.Field>
+							{/* City & Postal Code - side by side */}
+							<div className="grid grid-cols-2 gap-4">
+								<form.Field name="address.city">
+									{(field) => {
+										const isInvalid =
+											field.state.meta.isTouched && !field.state.meta.isValid;
+										return (
+											<Field data-invalid={isInvalid}>
+												<FieldLabel htmlFor={field.name}>
+													{t("delivery.city")}
+												</FieldLabel>
+												<Input
+													id={field.name}
+													name={field.name}
+													value={field.state.value ?? ""}
+													onBlur={field.handleBlur}
+													onChange={(e) => field.handleChange(e.target.value)}
+													disabled={createOrderMutation.isPending}
+													aria-invalid={isInvalid}
+												/>
+												{isInvalid && (
+													<FieldError errors={field.state.meta.errors} />
+												)}
+											</Field>
+										);
+									}}
+								</form.Field>
 
-							{/* Postal Code */}
-							<form.Field name="address.postalCode">
-								{(field) => {
-									const isInvalid =
-										field.state.meta.isTouched && !field.state.meta.isValid;
-									return (
-										<Field data-invalid={isInvalid}>
-											<FieldLabel htmlFor={field.name}>
-												{t("delivery.postalCode")}
-											</FieldLabel>
-											<Input
-												id={field.name}
-												name={field.name}
-												value={field.state.value ?? ""}
-												onBlur={field.handleBlur}
-												onChange={(e) => field.handleChange(e.target.value)}
-												disabled={createOrderMutation.isPending}
-												aria-invalid={isInvalid}
-											/>
-											{isInvalid && (
-												<FieldError errors={field.state.meta.errors} />
-											)}
-										</Field>
-									);
-								}}
-							</form.Field>
+								<form.Field name="address.postalCode">
+									{(field) => {
+										const isInvalid =
+											field.state.meta.isTouched && !field.state.meta.isValid;
+										return (
+											<Field data-invalid={isInvalid}>
+												<FieldLabel htmlFor={field.name}>
+													{t("delivery.postalCode")}
+												</FieldLabel>
+												<Input
+													id={field.name}
+													name={field.name}
+													value={field.state.value ?? ""}
+													onBlur={field.handleBlur}
+													onChange={(e) => field.handleChange(e.target.value)}
+													disabled={createOrderMutation.isPending}
+													aria-invalid={isInvalid}
+												/>
+												{isInvalid && (
+													<FieldError errors={field.state.meta.errors} />
+												)}
+											</Field>
+										);
+									}}
+								</form.Field>
+							</div>
 
 							{/* Map Location Selector */}
 							{/* TODO: Install mapcn: npx shadcn@latest add https://mapcn.dev/maps/map.json */}
@@ -487,19 +469,11 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 						!enrichedData ||
 						enrichedData.length === 0
 					}
-					className="w-full bg-primary text-primary-foreground"
+					isLoading={createOrderMutation.isPending}
+					className="w-full"
 					size="lg"
 				>
-					{createOrderMutation.isPending ? (
-						<>
-							<Spinner className="mr-2 size-4 animate-spin" />
-							{t("submitting")}
-						</>
-					) : (
-						<>
-							{t("placeOrder")} {total.toFixed(3)} TND
-						</>
-					)}
+					{t("placeOrder")} {total.toFixed(3)} TND
 				</Button>
 
 				{createOrderMutation.isError && (

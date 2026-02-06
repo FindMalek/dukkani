@@ -26,8 +26,5 @@ export default async function CheckoutPage() {
 		redirect("/");
 	}
 
-	// Note: Cart items will be fetched on client side since cart store is client-only
-	// We pass store data to the client component
-
 	return <CheckoutForm store={store} />;
 }

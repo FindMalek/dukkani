@@ -26,7 +26,7 @@ export function OrderSummary({ items, shippingCost }: OrderSummaryProps) {
 				{items.map((item) => (
 					<div
 						key={`${item.productId}-${item.variantId ?? "no-variant"}`}
-						className="flex items-center justify-between"
+						className="flex items-start justify-between"
 					>
 						<div className="flex-1">
 							<div className="font-medium">{item.productName}</div>
