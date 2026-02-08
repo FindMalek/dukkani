@@ -12,12 +12,12 @@ import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { Textarea } from "@dukkani/ui/components/textarea";
 import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
+import { cn } from "@dukkani/ui/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useAddressMap } from "@/hooks/use-address-map";
 import { useCreateOrder } from "@/hooks/use-create-order";
-import { getItemKey } from "@/lib/cart-utils";
 import { orpc } from "@/lib/orpc";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
@@ -34,6 +34,8 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 	const [paymentMethod, setPaymentMethod] = useState<PaymentMethodInfer>(
 		store.supportedPaymentMethods[0],
 	);
+	const [isMinimal, setIsMinimal] = useState(false);
+	const sentinelRef = useRef<HTMLDivElement>(null);
 	const createOrderMutation = useCreateOrder();
 	const addressMap = useAddressMap();
 
@@ -52,10 +54,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 		}
 	}, [cartItems.length, router]);
 
-	const itemKeysString = useMemo(() => {
-		return cartItems.map(getItemKey).sort().join(",");
-	}, [cartItems]);
-
 	const queryInput = useMemo(() => {
 		return {
 			items: cartItems.map((item) => ({
@@ -64,7 +62,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 				quantity: item.quantity,
 			})),
 		};
-	}, [itemKeysString]);
+	}, [cartItems]);
 
 	const enrichedCartItems = useQuery({
 		...orpc.cart.getCartItems.queryOptions({
@@ -175,11 +173,33 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 		form,
 	]);
 
+	// Scroll-driven collapse: when sentinel leaves viewport, collapse summary to minimal
+	useEffect(() => {
+		const sentinel = sentinelRef.current;
+		if (!sentinel) return;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const [entry] = entries;
+				if (entry) {
+					setIsMinimal(!entry.isIntersecting);
+				}
+			},
+			{
+				root: null,
+				threshold: 0,
+				rootMargin: "-20px 0px 0px 0px",
+			},
+		);
+		observer.observe(sentinel);
+		return () => observer.disconnect();
+	}, []);
+
 	return (
 		<div className="container mx-auto max-w-4xl px-4 py-8">
 			<div className="flex flex-col-reverse gap-8 md:grid md:grid-cols-2">
-				{/* Left Column - Form */}
-				<div className="space-y-6">
+				{/* Form column - left on desktop, below summary on mobile */}
+				<div className="space-y-6 pb-24">
 					{/* Delivery Section */}
 					<section>
 						<div className="space-y-4">
@@ -441,43 +461,53 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 					</section>
 				</div>
 
-				{/* Right Column - Order Summary */}
-				<div>
-					{enrichedData && enrichedData.length > 0 ? (
-						<OrderSummary
-							items={enrichedData}
-							shippingCost={store.shippingCost}
-						/>
-					) : (
-						<div className="flex items-center justify-center py-8">
-							<Spinner className="size-6 animate-spin text-muted-foreground" />
-						</div>
-					)}
+				{/* Order summary column - right on desktop, above form on mobile; sticky wrapper + sentinel */}
+				<div className="space-y-0">
+					<div
+						className={cn(
+							"sticky top-0 z-10 overflow-hidden bg-background pt-[env(safe-area-inset-top)] transition-[max-height] duration-250 ease-out motion-reduce:transition-none",
+							isMinimal ? "max-h-[140px]" : "max-h-[70vh]",
+						)}
+					>
+						{enrichedData && enrichedData.length > 0 ? (
+							<OrderSummary
+								items={enrichedData}
+								shippingCost={store.shippingCost}
+								variant={isMinimal ? "minimal" : "expanded"}
+							/>
+						) : (
+							<div className="flex items-center justify-center py-8">
+								<Spinner className="size-6 animate-spin text-muted-foreground" />
+							</div>
+						)}
+					</div>
+					<div ref={sentinelRef} aria-hidden className="h-px w-full" />
 				</div>
 			</div>
 
-			{/* Submit Button */}
-			<div className="mt-8">
-				<Button
-					type="submit"
-					onClick={(e) => {
-						e.preventDefault();
-						form.handleSubmit();
-					}}
-					disabled={
-						createOrderMutation.isPending ||
-						!enrichedData ||
-						enrichedData.length === 0
-					}
-					isLoading={createOrderMutation.isPending}
-					className="w-full"
-					size="lg"
-				>
-					{t("placeOrder")} {total.toFixed(3)} TND
-				</Button>
-
+			{/* Sticky footer - total + Place order */}
+			<div className="fixed right-0 bottom-0 left-0 z-10 border-t bg-background px-4 py-3">
+				<div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
+					<Button
+						type="submit"
+						onClick={(e) => {
+							e.preventDefault();
+							form.handleSubmit();
+						}}
+						disabled={
+							createOrderMutation.isPending ||
+							!enrichedData ||
+							enrichedData.length === 0
+						}
+						isLoading={createOrderMutation.isPending}
+						className="w-full"
+						size="lg"
+					>
+						{t("placeOrder")} {total.toFixed(3)} TND
+					</Button>
+				</div>
 				{createOrderMutation.isError && (
-					<div className="mt-4 rounded-md border border-destructive bg-destructive/10 p-3 text-destructive text-sm">
+					<div className="mt-2 rounded-md border border-destructive bg-destructive/10 p-2 text-destructive text-sm">
 						{createOrderMutation.error instanceof Error
 							? createOrderMutation.error.message
 							: t("error")}
