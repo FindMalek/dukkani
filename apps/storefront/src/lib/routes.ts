@@ -34,6 +34,16 @@ export const RoutePaths = {
 } as const;
 
 /**
+ * Check if current pathname is the checkout page (not success).
+ * Used to show order summary in the store header.
+ */
+export function isCheckoutPage(pathname: string): boolean {
+	if (!pathname.includes(RoutePaths.CHECKOUT.INDEX.url)) return false;
+	if (pathname.includes(RoutePaths.CHECKOUT.SUCCESS.url)) return false;
+	return true;
+}
+
+/**
  * Check if current pathname is a detail page (has dynamic segments)
  * Detail pages should show back button, others show store name/logo
  */

@@ -80,7 +80,9 @@
 					"title": "Order",
 					"subtotal": "Subtotal",
 					"shipping": "Shipping",
-					"total": "Total"
+					"total": "Total",
+					"free": "Free",
+					"quantity": "Quantity"
 				},
 				"success": {
 					"title": "Order created successfully",

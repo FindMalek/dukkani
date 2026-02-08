@@ -80,7 +80,9 @@
 					"title": "Commande",
 					"subtotal": "Sous-total",
 					"shipping": "Livraison",
-					"total": "Total"
+					"total": "Total",
+					"free": "Gratuit",
+					"quantity": "Quantité"
 				},
 				"success": {
 					"title": "Commande créée avec succès",
