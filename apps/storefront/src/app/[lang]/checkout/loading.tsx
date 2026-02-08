@@ -1,12 +1,8 @@
 import { Skeleton } from "@dukkani/ui/components/skeleton";
-import { CHECKOUT_HEADER_OFFSET_PX } from "@/lib/constants";
 
 export default function CheckoutLoading() {
 	return (
-		<div
-			className="container mx-auto max-w-4xl px-4 py-8"
-			style={{ paddingTop: `${CHECKOUT_HEADER_OFFSET_PX}px` }}
-		>
+		<div className="container mx-auto max-w-4xl px-4 py-8">
 			<div className="space-y-6">
 				<div className="space-y-4">
 					{Array.from({ length: 3 }).map((_, i) => (

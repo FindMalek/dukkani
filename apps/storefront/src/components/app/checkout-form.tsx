@@ -9,18 +9,18 @@ import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
 import { Input } from "@dukkani/ui/components/input";
 import { PhoneInput } from "@dukkani/ui/components/phone-input";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { Textarea } from "@dukkani/ui/components/textarea";
 import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAddressMap } from "@/hooks/use-address-map";
 import { useCreateOrder } from "@/hooks/use-create-order";
-import { CHECKOUT_HEADER_OFFSET_PX } from "@/lib/constants";
 import { orpc } from "@/lib/orpc";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
-import { useCheckoutStore } from "@/stores/checkout.store";
+import { OrderSummary } from "./order-summary";
 
 interface CheckoutFormProps {
 	store: StorePublicOutput;
@@ -32,10 +32,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 
 	const [paymentMethod, setPaymentMethod] = useState<PaymentMethodInfer>(
 		store.supportedPaymentMethods[0],
-	);
-	const sentinelRef = useRef<HTMLDivElement>(null);
-	const setSummaryMinimal = useCheckoutStore(
-		(state) => state.setSummaryMinimal,
 	);
 	const createOrderMutation = useCreateOrder();
 	const addressMap = useAddressMap();
@@ -174,31 +170,9 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 		form,
 	]);
 
-	// Scroll-driven collapse: when sentinel leaves viewport, header summary goes minimal
-	useEffect(() => {
-		const sentinel = sentinelRef.current;
-		if (!sentinel) return;
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				const [entry] = entries;
-				if (entry) {
-					setSummaryMinimal(!entry.isIntersecting);
-				}
-			},
-			{ root: null, threshold: 0, rootMargin: "0px 0px 0px 0px" },
-		);
-		observer.observe(sentinel);
-		return () => observer.disconnect();
-	}, [setSummaryMinimal]);
-
 	return (
-		<div
-			className="container mx-auto max-w-4xl px-4 py-8 pb-24"
-			style={{ paddingTop: `${CHECKOUT_HEADER_OFFSET_PX}px` }}
-		>
-			<div ref={sentinelRef} aria-hidden className="h-px w-full" />
-			<div className="mt-8 space-y-6">
+		<div className="container mx-auto max-w-4xl px-4 py-8 pb-24">
+			<div className="space-y-6">
 				{/* Delivery Section */}
 				<section>
 					<div className="space-y-4">
@@ -455,6 +429,32 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 					</form.Field>
 				</section>
 			</div>
+
+			{/* Order summary - below form */}
+			<section className="mt-8 border-t pt-6">
+				{enrichedCartItems.isLoading || !enrichedData ? (
+					<div className="space-y-3">
+						<Skeleton className="h-5 w-32" />
+						{Array.from({ length: 2 }).map((_, i) => (
+							<div key={i} className="flex justify-between py-2">
+								<Skeleton className="h-4 w-24" />
+								<Skeleton className="h-4 w-16" />
+							</div>
+						))}
+						<Skeleton className="h-px w-full" />
+						<div className="space-y-2 pt-3">
+							<Skeleton className="h-4 w-full" />
+							<Skeleton className="h-4 w-full" />
+							<Skeleton className="h-5 w-24" />
+						</div>
+					</div>
+				) : (
+					<OrderSummary
+						items={enrichedData}
+						shippingCost={store.shippingCost}
+					/>
+				)}
+			</section>
 
 			{/* Sticky footer - total + Place order */}
 			<div className="fixed right-0 bottom-0 left-0 z-10 border-t bg-background px-4 py-3">
