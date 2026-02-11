@@ -6,6 +6,7 @@ import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { Button } from "@dukkani/ui/components/button";
 import { Checkbox } from "@dukkani/ui/components/checkbox";
 import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
+import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { PhoneInput } from "@dukkani/ui/components/phone-input";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
@@ -33,9 +34,8 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 	const [paymentMethod, setPaymentMethod] = useState<PaymentMethodInfer>(
 		store.supportedPaymentMethods[0],
 	);
-	const createOrderMutation = useCreateOrder();
 	const addressMap = useAddressMap();
-
+	const createOrderMutation = useCreateOrder();
 	const carts = useCartStore((state) => state.carts);
 	const currentStoreSlug = useCartStore((state) => state.currentStoreSlug);
 
@@ -99,6 +99,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 			return total + item.price * item.quantity;
 		}, 0) ?? 0;
 	const total = subtotal + store.shippingCost;
+	const formattedTotal = total.toFixed(3);
 
 	const form = useSchemaForm({
 		schema: createOrderPublicInputSchema,
@@ -446,35 +447,19 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 
 			{/* Order summary - below form */}
 			<section className="mt-8 border-t pt-6">
-				{enrichedCartItems.isLoading || !enrichedData ? (
-					<div className="space-y-3">
-						<Skeleton className="h-5 w-32" />
-						{Array.from({ length: 2 }).map((_, i) => (
-							<div key={i} className="flex justify-between py-2">
-								<Skeleton className="h-4 w-24" />
-								<Skeleton className="h-4 w-16" />
-							</div>
-						))}
-						<Skeleton className="h-px w-full" />
-						<div className="space-y-2 pt-3">
-							<Skeleton className="h-4 w-full" />
-							<Skeleton className="h-4 w-full" />
-							<Skeleton className="h-5 w-24" />
-						</div>
-					</div>
-				) : (
-					<OrderSummary
-						items={enrichedData}
-						shippingCost={store.shippingCost}
-					/>
-				)}
+				<OrderSummary
+					items={enrichedData ?? []}
+					shippingCost={store.shippingCost}
+					loading={enrichedCartItems.isLoading || !enrichedData}
+				/>
 			</section>
 
 			{/* Sticky footer - total + Place order */}
 			<div className="fixed right-0 bottom-0 left-0 z-10 border-t bg-background px-4 py-3">
 				<div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
 					<Button
-						type="submit"
+						className="w-full bg-primary text-primary-foreground"
+						size="lg"
 						onClick={(e) => {
 							e.preventDefault();
 							form.handleSubmit();
@@ -485,10 +470,19 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 							enrichedData.length === 0
 						}
 						isLoading={createOrderMutation.isPending}
-						className="w-full"
-						size="lg"
 					>
-						{t("placeOrder")} {total.toFixed(3)} TND
+						<div className="flex w-full items-center justify-between">
+							<div className="flex items-center gap-2">
+								<Icons.shoppingCart className="size-4" />
+								<span>{t("placeOrder")}</span>
+							</div>
+							<div className="flex items-center gap-2">
+								<span className="font-semibold text-sm">
+									{formattedTotal} TND
+								</span>
+								<Icons.arrowRight className="size-4" />
+							</div>
+						</div>
 					</Button>
 				</div>
 				{createOrderMutation.isError && (

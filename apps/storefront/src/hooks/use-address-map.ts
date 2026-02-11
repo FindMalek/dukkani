@@ -121,7 +121,8 @@ export function useAddressMap() {
 			setResult((prev) => ({
 				...prev,
 				loading: false,
-				error: "Geolocation is not supported. Please enter your address manually.",
+				error:
+					"Geolocation is not supported. Please enter your address manually.",
 			}));
 			return;
 		}
