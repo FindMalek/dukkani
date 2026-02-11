@@ -220,6 +220,13 @@ class OrderServiceBase {
 
 			addSpanEvent("order.stock.validated", { store_id: store.id });
 
+			// Fetch server-side prices (never trust client-provided values)
+			const orderItemsWithPrices = await ProductService.getOrderItemPrices(
+				input.orderItems,
+				input.storeId,
+				tx,
+			);
+
 			// Find or create customer
 			const customer = await CustomerService.findOrCreateCustomer(
 				input.customerPhone,
@@ -269,7 +276,7 @@ class OrderServiceBase {
 					addressId,
 					status: OrderStatus.PENDING,
 					orderItems: {
-						create: input.orderItems.map((item) => ({
+						create: orderItemsWithPrices.map((item) => ({
 							productId: item.productId,
 							productVariantId: item.variantId,
 							quantity: item.quantity,

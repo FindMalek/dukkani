@@ -1,6 +1,8 @@
 import { database } from "@dukkani/db";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
+import { ProductQuery } from "../entities/product/query";
+import type { ProductLineItem } from "../schemas/product/input";
 import { generateProductId } from "../utils/generate-id";
 
 /**
@@ -13,6 +15,67 @@ class ProductServiceBase {
 	 */
 	static generateProductId(storeSlug: string): string {
 		return generateProductId(storeSlug);
+	}
+
+	/**
+	 * Get server-side prices for order items (public storefront)
+	 * Fetches actual prices from DB - never trust client-provided prices
+	 * - For items with variantId: uses ProductVariant.price if set, else Product.price
+	 * - For items without variantId: uses Product.price
+	 */
+	static async getOrderItemPrices(
+		items: ProductLineItem[],
+		storeId: string,
+		tx?: PrismaClient,
+	): Promise<Array<ProductLineItem & { price: number }>> {
+		if (items.length === 0) {
+			return [];
+		}
+
+		const client = tx ?? database;
+		const productIds = [...new Set(items.map((i) => i.productId))];
+
+		const products = await client.product.findMany({
+			where: {
+				id: { in: productIds },
+				storeId,
+				...ProductQuery.getPublishableWhere(),
+			},
+			select: {
+				id: true,
+				price: true,
+				variants: {
+					select: { id: true, price: true },
+				},
+			},
+		});
+
+		type ProductWithPrices = (typeof products)[number];
+		const productMap = new Map<string, ProductWithPrices>(
+			products.map((p: ProductWithPrices) => [p.id, p]),
+		);
+
+		return items.map((item) => {
+			const product = productMap.get(item.productId);
+			if (!product) {
+				throw new Error(
+					`Product ${item.productId} not found or not available for this store`,
+				);
+			}
+			const variant = item.variantId
+				? product.variants.find(
+						(v: { id: string; price: unknown }) => v.id === item.variantId,
+					)
+				: null;
+			const price =
+				variant?.price != null ? Number(variant.price) : Number(product.price);
+			return {
+				productId: item.productId,
+				variantId: item.variantId,
+				quantity: item.quantity,
+				price,
+			};
+		});
 	}
 
 	/**
@@ -48,7 +111,7 @@ class ProductServiceBase {
 	 * Aggregates quantities by (productId, variantId) to handle duplicates correctly
 	 */
 	static async checkStockAvailability(
-		items: Array<{ productId: string; variantId?: string; quantity: number }>,
+		items: ProductLineItem[],
 		storeId: string,
 		tx?: PrismaClient,
 	): Promise<void> {
@@ -187,7 +250,7 @@ class ProductServiceBase {
 	 * Aggregates quantities by (productId, variantId) to handle duplicates correctly
 	 */
 	static async updateMultipleProductStocks(
-		updates: Array<{ productId: string; variantId?: string; quantity: number }>,
+		updates: ProductLineItem[],
 		operation: "increment" | "decrement",
 		tx?: PrismaClient,
 	): Promise<void> {

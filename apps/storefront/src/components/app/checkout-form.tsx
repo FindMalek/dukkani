@@ -151,7 +151,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 				productId: item.productId,
 				variantId: item.variantId,
 				quantity: item.quantity,
-				price: item.price,
 			}));
 
 			await createOrderMutation.mutateAsync({
@@ -198,7 +197,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 				productId: item.productId,
 				variantId: item.variantId ?? undefined,
 				quantity: item.quantity,
-				price: item.price,
 			}));
 			form.setFieldValue("orderItems", orderItems);
 		}

@@ -1,12 +1,13 @@
 import { z } from "zod";
+import { productLineItemSchema } from "../product/input";
 import { orderStatusSchema, paymentMethodSchema } from "./enums";
 
-export const orderItemInputSchema = z.object({
-	productId: z.string().min(1, "Product ID is required"),
-	variantId: z.string().optional(),
-	quantity: z.number().int().min(1, "Quantity must be at least 1"),
+export const orderItemInputSchema = productLineItemSchema.extend({
 	price: z.number().positive("Price must be positive"),
 });
+
+/** Public order item - no price (server fetches from DB to prevent tampering) */
+export const orderItemPublicInputSchema = productLineItemSchema;
 
 export const createOrderInputSchema = z.object({
 	id: z.string().min(1, "Order ID is required"),
@@ -76,7 +77,7 @@ export const createOrderPublicInputSchema = z.object({
 	isWhatsApp: z.boolean().default(false),
 	storeId: z.string().min(1, "Store ID is required"),
 	orderItems: z
-		.array(orderItemInputSchema)
+		.array(orderItemPublicInputSchema)
 		.min(1, "At least one order item is required"),
 });
 
