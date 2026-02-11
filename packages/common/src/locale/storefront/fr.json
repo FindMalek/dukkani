@@ -63,6 +63,7 @@
 					"fullName": "Nom complet",
 					"phone": "Téléphone",
 					"whatsapp": "Ce numéro est sur WhatsApp",
+					"whatsappDescription": "Nous vous enverrons une notification sur WhatsApp lorsque votre commande sera prête à être livrée.",
 					"streetAddress": "Adresse",
 					"city": "Ville",
 					"postalCode": "Code postal",

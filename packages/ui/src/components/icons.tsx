@@ -68,7 +68,13 @@ import {
 	UtensilsIcon,
 	X,
 } from "lucide-react";
-import { FaApple, FaFacebook, FaGoogle, FaTelegram } from "react-icons/fa";
+import {
+	FaApple,
+	FaFacebook,
+	FaGoogle,
+	FaTelegram,
+	FaWhatsapp,
+} from "react-icons/fa";
 
 export type Icon = LucideIcon;
 
@@ -132,4 +138,5 @@ export const Icons = {
 	downRight: ArrowDownRight,
 	lock: LockIcon,
 	shoppingCart: ShoppingCartIcon,
+	whatsapp: FaWhatsapp,
 } as const;

@@ -3,6 +3,11 @@
 import type { PaymentMethodInfer } from "@dukkani/common/schemas/enums";
 import { createOrderPublicInputSchema } from "@dukkani/common/schemas/order/input";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
+import {
+	Alert,
+	AlertDescription,
+	AlertTitle,
+} from "@dukkani/ui/components/alert";
 import { Button } from "@dukkani/ui/components/button";
 import { Checkbox } from "@dukkani/ui/components/checkbox";
 import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
@@ -10,9 +15,9 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { PhoneInput } from "@dukkani/ui/components/phone-input";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
-import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { Textarea } from "@dukkani/ui/components/textarea";
 import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
+import { cn } from "@dukkani/ui/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
@@ -233,22 +238,44 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 						{/* WhatsApp Checkbox */}
 						<form.Field name="isWhatsApp" defaultValue={false}>
 							{(field) => (
-								<div className="flex items-center gap-2">
-									<Checkbox
-										id={field.name}
-										checked={field.state.value ?? false}
-										onCheckedChange={(checked) =>
-											field.handleChange(checked === true)
-										}
-										disabled={createOrderMutation.isPending}
+								<label
+									htmlFor={field.name}
+									className={cn(
+										"relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-card-foreground text-sm transition-colors",
+										"has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5",
+										"cursor-pointer",
+										field.state.value
+											? "border-primary bg-primary/5 dark:bg-primary/10"
+											: "border-input bg-card",
+									)}
+								>
+									<Icons.whatsapp
+										className={cn(
+											field.state.value
+												? "text-primary"
+												: "text-muted-foreground",
+										)}
 									/>
-									<label
-										htmlFor={field.name}
-										className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-									>
-										{t("delivery.whatsapp")}
-									</label>
-								</div>
+									<div className="flex flex-1 items-start justify-between gap-3">
+										<div className="space-y-0.5">
+											<AlertTitle className="font-medium text-foreground text-sm">
+												{t("delivery.whatsapp")}
+											</AlertTitle>
+											<AlertDescription className="text-muted-foreground text-xs">
+												{t("delivery.whatsappDescription")}
+											</AlertDescription>
+										</div>
+										<Checkbox
+											id={field.name}
+											checked={field.state.value ?? false}
+											onCheckedChange={(checked) =>
+												field.handleChange(checked === true)
+											}
+											disabled={createOrderMutation.isPending}
+											className="shrink-0"
+										/>
+									</div>
+								</label>
 							)}
 						</form.Field>
 
