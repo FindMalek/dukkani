@@ -333,12 +333,26 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 							</form.Field>
 						</div>
 
-						{/* Map Location Selector */}
-						{/* TODO: Install mapcn: npx shadcn@latest add https://mapcn.dev/maps/map.json */}
-						{/* Then add Map component here for address selection */}
-						{addressMap.error && (
-							<div className="text-destructive text-sm">{addressMap.error}</div>
-						)}
+						{/* Use my location – auto-fill address */}
+						<div className="space-y-2">
+							<Button
+								type="button"
+								variant="outline"
+								disabled={createOrderMutation.isPending}
+								isLoading={addressMap.loading}
+								onClick={() => addressMap.useCurrentLocation()}
+							>
+								{t("delivery.useLocation")}
+							</Button>
+							<p className="text-muted-foreground text-sm">
+								{t("delivery.useLocationDescription")}
+							</p>
+							{addressMap.error && (
+								<div className="text-destructive text-sm">
+									{addressMap.error}
+								</div>
+							)}
+						</div>
 					</div>
 				</section>
 

@@ -105,9 +105,67 @@ export function useAddressMap() {
 		});
 	};
 
+	const useCurrentLocation = async () => {
+		setResult((prev) => ({
+			...prev,
+			street: null,
+			city: null,
+			postalCode: null,
+			latitude: null,
+			longitude: null,
+			loading: true,
+			error: null,
+		}));
+
+		if (!navigator.geolocation) {
+			setResult((prev) => ({
+				...prev,
+				loading: false,
+				error: "Geolocation is not supported. Please enter your address manually.",
+			}));
+			return;
+		}
+
+		try {
+			const position = await new Promise<GeolocationPosition>(
+				(resolve, reject) => {
+					navigator.geolocation.getCurrentPosition(resolve, reject, {
+						enableHighAccuracy: true,
+						timeout: 10000,
+						maximumAge: 0,
+					});
+				},
+			);
+
+			const { latitude, longitude } = position.coords;
+			await selectLocation(latitude, longitude);
+		} catch (error) {
+			const err = error as GeolocationPositionError;
+			const errorMessage =
+				err?.code === 1
+					? "Location access denied. Please enter your address manually."
+					: err?.code === 2
+						? "Location unavailable. Please enter your address manually."
+						: err?.code === 3
+							? "Location request timed out. Please enter your address manually."
+							: "Could not get location. Please enter your address manually.";
+			setResult((prev) => ({
+				...prev,
+				street: null,
+				city: null,
+				postalCode: null,
+				latitude: null,
+				longitude: null,
+				loading: false,
+				error: errorMessage,
+			}));
+		}
+	};
+
 	return {
 		...result,
 		selectLocation,
 		clearSelection,
+		useCurrentLocation,
 	};
 }
