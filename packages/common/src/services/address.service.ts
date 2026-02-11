@@ -1,4 +1,5 @@
 import { database } from "@dukkani/db";
+import type { PrismaClient } from "@prisma/client/extension";
 import { AddressEntity } from "../entities/address/entity";
 import { AddressQuery } from "../entities/address/query";
 import type { CreateAddressInput } from "../schemas/address/input";
@@ -9,12 +10,16 @@ export class AddressService {
 	 * Create or find address for customer
 	 * If address exists (same street + city + postalCode), return existing
 	 * Otherwise create new address
+	 * Accepts optional tx for transactional use (e.g. order creation)
 	 */
 	static async createOrFindAddress(
 		input: CreateAddressInput,
+		tx?: PrismaClient,
 	): Promise<AddressSimpleOutput> {
+		const client = tx ?? database;
+
 		// Check if address already exists for this customer
-		const existing = await database.address.findFirst({
+		const existing = await client.address.findFirst({
 			where: {
 				customerId: input.customerId,
 				street: input.street,
@@ -30,13 +35,13 @@ export class AddressService {
 
 		// If setting as default, unset other defaults
 		if (input.isDefault) {
-			await database.address.updateMany({
+			await client.address.updateMany({
 				where: { customerId: input.customerId, isDefault: true },
 				data: { isDefault: false },
 			});
 		}
 
-		const address = await database.address.create({
+		const address = await client.address.create({
 			data: {
 				street: input.street,
 				city: input.city,

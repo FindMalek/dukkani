@@ -7,9 +7,9 @@ import {
 	enhanceLogWithTraceContext,
 	traceStaticClass,
 } from "@dukkani/tracing";
-import { StoreQuery } from "@/entities/store/query";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
+import { StoreQuery } from "../entities/store/query";
 import { OrderStatus } from "../schemas/order/enums";
 import type {
 	CreateOrderInput,
@@ -236,6 +236,7 @@ class OrderServiceBase {
 				input.customerPhone,
 				input.customerName,
 				input.storeId,
+				tx,
 			);
 
 			addSpanEvent("order.customer.created_or_found", {
@@ -268,11 +269,14 @@ class OrderServiceBase {
 				}
 				addressId = existingAddress.id;
 			} else {
-				const address = await AddressService.createOrFindAddress({
-					...input.address,
-					customerId: customer.id,
-					isDefault: false, // Don't set as default on order creation
-				});
+				const address = await AddressService.createOrFindAddress(
+					{
+						...input.address,
+						customerId: customer.id,
+						isDefault: false, // Don't set as default on order creation
+					},
+					tx,
+				);
 				addressId = address.id;
 			}
 

@@ -1,4 +1,5 @@
 import { database, PrismaClientKnownRequestError } from "@dukkani/db";
+import type { PrismaClient } from "@prisma/client/extension";
 import { CustomerEntity } from "../entities/customer/entity";
 import { CustomerQuery } from "../entities/customer/query";
 import type {
@@ -90,17 +91,21 @@ export class CustomerService {
 
 	/**
 	 * Find or create customer by phone number
-	 * If customer exists, update name if changed
+	 * If customer exists, return as-is
 	 * If not, create new customer
 	 * No ownership check - used for public order creation
+	 * Accepts optional tx for transactional use (e.g. order creation)
 	 */
 	static async findOrCreateCustomer(
 		phone: string,
 		name: string,
 		storeId: string,
+		tx?: PrismaClient,
 	): Promise<CustomerSimpleOutput> {
+		const client = tx ?? database;
+
 		// Find existing customer
-		const existing = await database.customer.findUnique({
+		const existing = await client.customer.findUnique({
 			where: {
 				phone_storeId: {
 					phone,
@@ -115,7 +120,7 @@ export class CustomerService {
 		}
 
 		// Create new customer
-		const customer = await database.customer.create({
+		const customer = await client.customer.create({
 			data: {
 				name,
 				phone,
