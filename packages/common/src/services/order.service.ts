@@ -250,7 +250,19 @@ class OrderServiceBase {
 			// If addressId is provided, use it; otherwise create/find from address object
 			let addressId: string | null = null;
 			if (input.addressId) {
-				addressId = input.addressId;
+				const existingAddress = await tx.address.findFirst({
+					where: {
+						id: input.addressId,
+						customerId: customer.id,
+					},
+					select: { id: true },
+				});
+				if (!existingAddress) {
+					throw new Error(
+						"Address not found or does not belong to this customer",
+					);
+				}
+				addressId = existingAddress.id;
 			} else {
 				const address = await AddressService.createOrFindAddress({
 					...input.address,

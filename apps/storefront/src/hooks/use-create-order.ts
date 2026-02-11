@@ -10,16 +10,13 @@ import { useCartStore } from "@/stores/cart.store";
 export function useCreateOrder() {
 	const router = useRouter();
 	const clearCart = useCartStore((state) => state.clearCart);
-	const currentStoreSlug = useCartStore((state) => state.currentStoreSlug);
 
 	return useMutation({
 		mutationFn: (input: CreateOrderPublicInput) =>
 			client.order.createPublic(input),
 		onSuccess: () => {
 			// Clear cart for current store
-			if (currentStoreSlug) {
-				clearCart();
-			}
+			clearCart();
 			// Navigate to success page
 			router.push(RoutePaths.CHECKOUT.SUCCESS.url);
 		},
