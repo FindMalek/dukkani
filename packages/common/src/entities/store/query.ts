@@ -1,4 +1,4 @@
-import  {type Prisma, StoreStatus } from "@dukkani/db/prisma/generated";
+import { type Prisma, StoreStatus } from "@dukkani/db/prisma/generated";
 import { CustomerQuery } from "../customer";
 import { OrderQuery } from "../order";
 import { ProductQuery } from "../product";

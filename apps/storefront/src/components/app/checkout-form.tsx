@@ -1,9 +1,7 @@
 "use client";
 
 import type { PaymentMethodInfer } from "@dukkani/common/schemas/enums";
-import {
-	PaymentMethod,
-} from "@dukkani/common/schemas/enums";
+import { PaymentMethod } from "@dukkani/common/schemas/enums";
 import { createOrderPublicInputSchema } from "@dukkani/common/schemas/order/input";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { AlertDescription, AlertTitle } from "@dukkani/ui/components/alert";
@@ -19,7 +17,7 @@ import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { useAddressMap } from "@/hooks/use-address-map";
 import { useCreateOrder } from "@/hooks/use-create-order";
@@ -36,9 +34,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 	const router = useRouter();
 	const t = useTranslations("storefront.store.checkout");
 
-	const [paymentMethod, setPaymentMethod] = useState<PaymentMethodInfer>(
-		store.supportedPaymentMethods[0] || PaymentMethod.COD,
-	);
 	const addressMap = useAddressMap();
 	const createOrderMutation = useCreateOrder();
 	const carts = useCartStore((state) => state.carts);
@@ -135,7 +130,9 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 				postalCode: "",
 			},
 			notes: "",
-			paymentMethod,
+			paymentMethod:
+				(store.supportedPaymentMethods[0] as PaymentMethodInfer) ||
+				PaymentMethod.COD,
 			storeId: store.id,
 			orderItems: [],
 			isWhatsApp: false,
@@ -161,7 +158,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 				customerPhone: values.customerPhone,
 				address: values.address,
 				notes: combinedNotes,
-				paymentMethod,
+				paymentMethod: values.paymentMethod,
 				isWhatsApp: values.isWhatsApp,
 				storeId: store.id,
 				orderItems,
@@ -419,66 +416,84 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 					{/* Payment Section */}
 					<section>
 						<h2 className="mb-4 font-semibold text-lg">{t("payment.title")}</h2>
-						<RadioGroup
-							value={paymentMethod}
-							onValueChange={(value) =>
-								setPaymentMethod(value as PaymentMethodInfer)
-							}
-							disabled={createOrderMutation.isPending}
-						>
-							<div className="space-y-3">
-								{store.supportedPaymentMethods.includes(PaymentMethod.COD) && (
-									<div
-										className={cn(
-											"flex items-center gap-3 rounded-md border p-4",
-											paymentMethod === PaymentMethod.COD
-												? "border-primary bg-primary/5"
-												: "border-input",
-										)}
+						<form.Field name="paymentMethod">
+							{(field) => {
+								const paymentMethod =
+									(field.state.value as PaymentMethodInfer) ||
+									PaymentMethod.COD;
+								return (
+									<RadioGroup
+										name={field.name}
+										value={paymentMethod}
+										onValueChange={(value) =>
+											field.handleChange(value as PaymentMethodInfer)
+										}
+										disabled={createOrderMutation.isPending}
 									>
-										<RadioGroupItem value={PaymentMethod.COD} id="cod" />
-										<label
-											htmlFor="cod"
-											className="flex-1 cursor-pointer font-medium"
-										>
-											{t("payment.cod")}
-										</label>
-									</div>
-								)}
-								{store.supportedPaymentMethods.includes(PaymentMethod.CARD) ? (
-									<div
-										className={cn(
-											"flex items-center gap-3 rounded-md border p-4",
-											paymentMethod === PaymentMethod.CARD
-												? "border-primary bg-primary/5"
-												: "border-input",
-										)}
-									>
-										<RadioGroupItem value={PaymentMethod.CARD} id="card" />
-										<label
-											htmlFor="card"
-											className="flex-1 cursor-pointer font-medium"
-										>
-											{t("payment.creditCard")}
-										</label>
-									</div>
-								) : (
-									<div className="flex items-center gap-3 rounded-md border border-input p-4 opacity-50">
-										<RadioGroupItem
-											value={PaymentMethod.CARD}
-											id="card"
-											disabled
-										/>
-										<label
-											htmlFor="card"
-											className="flex-1 cursor-not-allowed font-medium"
-										>
-											{t("payment.creditCard")} ({t("payment.comingSoon")})
-										</label>
-									</div>
-								)}
-							</div>
-						</RadioGroup>
+										<div className="space-y-3">
+											{store.supportedPaymentMethods.includes(
+												PaymentMethod.COD,
+											) && (
+												<div
+													className={cn(
+														"flex items-center gap-3 rounded-md border p-4",
+														paymentMethod === PaymentMethod.COD
+															? "border-primary bg-primary/5"
+															: "border-input",
+													)}
+												>
+													<RadioGroupItem value={PaymentMethod.COD} id="cod" />
+													<label
+														htmlFor="cod"
+														className="flex-1 cursor-pointer font-medium"
+													>
+														{t("payment.cod")}
+													</label>
+												</div>
+											)}
+											{store.supportedPaymentMethods.includes(
+												PaymentMethod.CARD,
+											) ? (
+												<div
+													className={cn(
+														"flex items-center gap-3 rounded-md border p-4",
+														paymentMethod === PaymentMethod.CARD
+															? "border-primary bg-primary/5"
+															: "border-input",
+													)}
+												>
+													<RadioGroupItem
+														value={PaymentMethod.CARD}
+														id="card"
+													/>
+													<label
+														htmlFor="card"
+														className="flex-1 cursor-pointer font-medium"
+													>
+														{t("payment.creditCard")}
+													</label>
+												</div>
+											) : (
+												<div className="flex items-center gap-3 rounded-md border border-input p-4 opacity-50">
+													<RadioGroupItem
+														value={PaymentMethod.CARD}
+														id="card"
+														disabled
+													/>
+													<label
+														htmlFor="card"
+														className="flex-1 cursor-not-allowed font-medium"
+													>
+														{t("payment.creditCard")} ({t("payment.comingSoon")}
+														)
+													</label>
+												</div>
+											)}
+										</div>
+									</RadioGroup>
+								);
+							}}
+						</form.Field>
 					</section>
 
 					{/* Delivery Instructions */}
