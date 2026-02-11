@@ -14,7 +14,7 @@ import { Spinner } from "@dukkani/ui/components/spinner";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { getCartKey, getItemKey } from "@/lib/cart-utils";
+import { getItemKey } from "@/lib/cart-utils";
 import { orpc } from "@/lib/orpc";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
@@ -34,8 +34,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 
 	const cartItems = useMemo(() => {
 		if (!currentStoreSlug) return [];
-		const cartKey = getCartKey(currentStoreSlug);
-		return carts[cartKey] || [];
+		return carts[currentStoreSlug] || [];
 	}, [carts, currentStoreSlug]);
 
 	// Create stable query input - only changes when items are added/removed (by item keys), not quantities
@@ -110,7 +109,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 
 	const handleCheckout = () => {
 		onOpenChange(false);
-		router.push(RoutePaths.CHECKOUT.url);
+		router.push(RoutePaths.CHECKOUT.INDEX.url);
 	};
 
 	return (

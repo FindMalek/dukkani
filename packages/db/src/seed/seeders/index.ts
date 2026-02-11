@@ -3,7 +3,11 @@
  * Add new seeders here to register them
  */
 
-export { CustomerSeeder, type SeededCustomer } from "./customer.seeder";
+export {
+	CustomerSeeder,
+	type SeededAddress,
+	type SeededCustomer,
+} from "./customer.seeder";
 export { OrderSeeder, type SeededOrder } from "./order.seeder";
 export { ProductSeeder, type SeededProduct } from "./product.seeder";
 export { type SeededStore, StoreSeeder } from "./store.seeder";

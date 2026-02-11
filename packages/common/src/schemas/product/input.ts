@@ -2,6 +2,18 @@ import { z } from "zod";
 
 import { variantInputSchema, variantOptionInputSchema } from "../variant/input";
 
+/**
+ * Product line item - productId, variantId, quantity.
+ * Shared across cart, orders, stock checks, price lookups.
+ */
+export const productLineItemSchema = z.object({
+	productId: z.string().min(1, "Product ID is required"),
+	variantId: z.string().optional(),
+	quantity: z.number().int().min(1, "Quantity must be at least 1"),
+});
+
+export type ProductLineItem = z.infer<typeof productLineItemSchema>;
+
 export const productInputSchema = z.object({
 	name: z.string().min(1, "Product name is required"),
 	description: z.string().optional(),

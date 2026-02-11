@@ -82,8 +82,8 @@ class NotificationServiceBase {
 			return;
 		}
 
-		const customerName = order.customer?.name || order.customerName;
-		const customerPhone = order.customer?.phone || order.customerPhone;
+		const customerName = order.customer?.name;
+		const customerPhone = order.customer?.phone;
 
 		const total = order.orderItems.reduce((sum, item) => {
 			return sum + item.price * item.quantity;
@@ -96,8 +96,8 @@ class NotificationServiceBase {
 
 		await TelegramService.sendOrderNotification(storeId, {
 			id: order.id,
-			customerName,
-			customerPhone,
+			customerName: customerName || "",
+			customerPhone: customerPhone || "",
 			items,
 			total: total.toFixed(2),
 		});

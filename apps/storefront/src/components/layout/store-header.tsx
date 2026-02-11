@@ -1,21 +1,21 @@
 "use client";
 
+import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
 import { CartDrawer } from "@/components/app/cart-drawer";
 import { useCartHydration } from "@/hooks/use-cart-hydration";
 import { isDetailPage } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
 
 interface StoreHeaderProps {
-	storeName: string;
+	store: StorePublicOutput;
 }
 
-export function StoreHeader({ storeName }: StoreHeaderProps) {
+export function StoreHeader({ store }: StoreHeaderProps) {
 	const router = useRouter();
 	const pathname = usePathname();
 
@@ -42,7 +42,7 @@ export function StoreHeader({ storeName }: StoreHeaderProps) {
 							</Button>
 						) : (
 							<div className="flex items-center gap-2">
-								<h1 className="font-semibold text-base">{storeName}</h1>
+								<h1 className="font-semibold text-base">{store.name}</h1>
 							</div>
 						)}
 						<Button
@@ -53,11 +53,11 @@ export function StoreHeader({ storeName }: StoreHeaderProps) {
 						>
 							<Icons.shoppingCart className="size-4" />
 							{!isHydrated ? (
-								<Skeleton className="-top-0.5 -right-0.5 absolute size-4 rounded-full" />
+								<Skeleton className="absolute -top-0.5 -right-0.5 size-4 rounded-full" />
 							) : cartCount > 0 ? (
 								<Badge
 									variant="default"
-									className="-top-0.5 -right-0.5 absolute size-4 p-0 text-[10px] leading-none"
+									className="absolute -top-0.5 -right-0.5 size-4 p-0 text-[10px] leading-none"
 								>
 									{cartCount}
 								</Badge>

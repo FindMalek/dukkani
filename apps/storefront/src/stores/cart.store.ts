@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { areItemsEqual, getCartKey } from "@/lib/cart-utils";
+import { areItemsEqual } from "@/lib/cart-utils";
 
 export interface CartItem {
 	productId: string;
@@ -59,8 +59,7 @@ export const useCartStore = create<CartStoreState>()(
 						return state;
 					}
 
-					const cartKey = getCartKey(storeSlug);
-					const currentCart = state.carts[cartKey] || [];
+					const currentCart = state.carts[storeSlug] || [];
 					const itemQuantity = quantity ?? 1;
 					const newItem: CartItem = {
 						productId,
@@ -83,7 +82,7 @@ export const useCartStore = create<CartStoreState>()(
 						return {
 							carts: {
 								...state.carts,
-								[cartKey]: updatedCart,
+								[storeSlug]: updatedCart,
 							},
 						};
 					}
@@ -92,7 +91,7 @@ export const useCartStore = create<CartStoreState>()(
 					return {
 						carts: {
 							...state.carts,
-							[cartKey]: [...currentCart, newItem],
+							[storeSlug]: [...currentCart, newItem],
 						},
 					};
 				});
@@ -106,8 +105,7 @@ export const useCartStore = create<CartStoreState>()(
 					const storeSlug = state.currentStoreSlug;
 					if (!storeSlug) return state;
 
-					const cartKey = getCartKey(storeSlug);
-					const currentCart = state.carts[cartKey] || [];
+					const currentCart = state.carts[storeSlug] || [];
 					const itemToRemove: CartItem = { productId, variantId, quantity: 0 };
 
 					// Filter out the item to remove
@@ -118,7 +116,7 @@ export const useCartStore = create<CartStoreState>()(
 					return {
 						carts: {
 							...state.carts,
-							[cartKey]: filteredCart,
+							[storeSlug]: filteredCart,
 						},
 					};
 				});
@@ -138,8 +136,7 @@ export const useCartStore = create<CartStoreState>()(
 					const storeSlug = state.currentStoreSlug;
 					if (!storeSlug) return state;
 
-					const cartKey = getCartKey(storeSlug);
-					const currentCart = state.carts[cartKey] || [];
+					const currentCart = state.carts[storeSlug] || [];
 					const itemToUpdate: CartItem = { productId, variantId, quantity: 0 };
 
 					const updatedCart = currentCart.map((item) =>
@@ -149,7 +146,7 @@ export const useCartStore = create<CartStoreState>()(
 					return {
 						carts: {
 							...state.carts,
-							[cartKey]: updatedCart,
+							[storeSlug]: updatedCart,
 						},
 					};
 				});
@@ -160,11 +157,10 @@ export const useCartStore = create<CartStoreState>()(
 					const storeSlug = state.currentStoreSlug;
 					if (!storeSlug) return state;
 
-					const cartKey = getCartKey(storeSlug);
 					return {
 						carts: {
 							...state.carts,
-							[cartKey]: [],
+							[storeSlug]: [],
 						},
 					};
 				});
@@ -178,8 +174,7 @@ export const useCartStore = create<CartStoreState>()(
 				const storeSlug = state.currentStoreSlug;
 				if (!storeSlug) return 0;
 
-				const cartKey = getCartKey(storeSlug);
-				const cart = state.carts[cartKey] || [];
+				const cart = state.carts[storeSlug] || [];
 				const itemToFind: CartItem = { productId, variantId, quantity: 0 };
 
 				const item = cart.find((item) => areItemsEqual(item, itemToFind));
@@ -191,8 +186,7 @@ export const useCartStore = create<CartStoreState>()(
 				const storeSlug = state.currentStoreSlug;
 				if (!storeSlug) return 0;
 
-				const cartKey = getCartKey(storeSlug);
-				const cart = state.carts[cartKey] || [];
+				const cart = state.carts[storeSlug] || [];
 				return cart.reduce((total, item) => total + item.quantity, 0);
 			},
 		}),

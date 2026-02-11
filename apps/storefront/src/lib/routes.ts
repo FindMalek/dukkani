@@ -22,10 +22,26 @@ export const RoutePaths = {
 		},
 	},
 	CHECKOUT: {
-		url: "/checkout" as Route,
-		label: "Checkout",
+		INDEX: {
+			url: "/checkout" as Route,
+			label: "Checkout",
+		},
+		SUCCESS: {
+			url: "/checkout/success" as Route,
+			label: "Checkout Success",
+		},
 	},
 } as const;
+
+/**
+ * Check if current pathname is the checkout page (not success).
+ * Used to show order summary in the store header.
+ */
+export function isCheckoutPage(pathname: string): boolean {
+	if (!pathname.includes(RoutePaths.CHECKOUT.INDEX.url)) return false;
+	if (pathname.includes(RoutePaths.CHECKOUT.SUCCESS.url)) return false;
+	return true;
+}
 
 /**
  * Check if current pathname is a detail page (has dynamic segments)

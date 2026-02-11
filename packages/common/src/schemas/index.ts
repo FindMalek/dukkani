@@ -1,3 +1,4 @@
+export * as address from "./address";
 export * as category from "./category";
 export * from "./constants";
 export * as customer from "./customer";

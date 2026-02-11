@@ -11,6 +11,7 @@ export class CustomerEntity {
 			id: entity.id,
 			name: entity.name,
 			phone: entity.phone,
+			prefersWhatsApp: entity.prefersWhatsApp,
 			storeId: entity.storeId,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
