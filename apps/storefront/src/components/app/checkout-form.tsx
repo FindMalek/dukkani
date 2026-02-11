@@ -21,6 +21,7 @@ import { cn } from "@dukkani/ui/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 import { useAddressMap } from "@/hooks/use-address-map";
 import { useCreateOrder } from "@/hooks/use-create-order";
 import { orpc } from "@/lib/orpc";
@@ -106,6 +107,14 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 	const total = subtotal + store.shippingCost;
 	const formattedTotal = total.toFixed(3);
 
+	useEffect(() => {
+		if (addressMap.error) {
+			toast.error(t("delivery.locationErrorTitle"), {
+				description: t("delivery.locationErrorDescription"),
+			});
+		}
+	}, [addressMap.error, t]);
+
 	const form = useSchemaForm({
 		schema: createOrderPublicInputSchema,
 		defaultValues: {
@@ -177,7 +186,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 	]);
 
 	return (
-		<div className="container mx-auto max-w-4xl px-4 py-8 pb-24">
+		<div className="container mx-auto max-w-4xl px-4 py-8">
 			<div className="space-y-6">
 				{/* Delivery Section */}
 				<section>
@@ -366,6 +375,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 							<Button
 								type="button"
 								variant="outline"
+								className="w-full"
 								disabled={createOrderMutation.isPending}
 								isLoading={addressMap.loading}
 								onClick={() => addressMap.useCurrentLocation()}
@@ -375,11 +385,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 							<p className="text-muted-foreground text-sm">
 								{t("delivery.useLocationDescription")}
 							</p>
-							{addressMap.error && (
-								<div className="text-destructive text-sm">
-									{addressMap.error}
-								</div>
-							)}
 						</div>
 					</div>
 				</section>

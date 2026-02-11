@@ -68,8 +68,10 @@
 					"city": "City",
 					"postalCode": "Postal code",
 					"instructions": "Delivery instructions",
-					"useLocation": "Use phone location",
-					"useLocationDescription": "Fill city and area automatically."
+					"useLocation": "Autofill address from phone location",
+					"useLocationDescription": "We will fill the city and area automatically.",
+					"locationErrorTitle": "Could not get your location",
+					"locationErrorDescription": "Allow location access in your browser (lock or info icon in the address bar), or enter your address manually."
 				},
 				"payment": {
 					"title": "Payment",

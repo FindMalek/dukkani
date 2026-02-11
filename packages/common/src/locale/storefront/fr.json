@@ -69,7 +69,9 @@
 					"postalCode": "Code postal",
 					"instructions": "Instructions de livraison",
 					"useLocation": "Utiliser la localisation du téléphone",
-					"useLocationDescription": "Remplir automatiquement la ville et la zone."
+					"useLocationDescription": "Remplir automatiquement la ville et la zone.",
+					"locationErrorTitle": "Impossible d'obtenir votre position",
+					"locationErrorDescription": "Autorisez l'accès à la localisation dans votre navigateur (icône cadenas ou info dans la barre d'adresse), ou saisissez votre adresse manuellement."
 				},
 				"payment": {
 					"title": "Paiement",
