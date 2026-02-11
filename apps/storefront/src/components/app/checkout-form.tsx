@@ -212,119 +212,280 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 			}}
 			className="contents"
 		>
-		<div className="container mx-auto max-w-4xl px-4 py-8">
-			<div className="space-y-6">
-				{/* Delivery Section */}
-				<section>
-					<div className="space-y-4">
-						{/* Full Name */}
-						<form.Field name="customerName">
-							{(field) => {
-								const isInvalid =
-									field.state.meta.isBlurred && !field.state.meta.isValid;
-								return (
-									<Field data-invalid={isInvalid}>
-										<FieldLabel htmlFor={field.name}>
-											{t("delivery.fullName")}
-										</FieldLabel>
-										<Input
-											id={field.name}
-											name={field.name}
-											value={field.state.value ?? ""}
-											onBlur={field.handleBlur}
-											onChange={(e) => field.handleChange(e.target.value)}
-											disabled={createOrderMutation.isPending}
-											aria-invalid={isInvalid}
-										/>
-										{isInvalid && (
-											<FieldError errors={field.state.meta.errors} />
-										)}
-									</Field>
-								);
-							}}
-						</form.Field>
+			<div className="container mx-auto max-w-4xl px-4 py-8">
+				<div className="space-y-6">
+					{/* Delivery Section */}
+					<section>
+						<div className="space-y-4">
+							{/* Full Name */}
+							<form.Field name="customerName">
+								{(field) => {
+									const isInvalid =
+										field.state.meta.isBlurred && !field.state.meta.isValid;
+									return (
+										<Field data-invalid={isInvalid}>
+											<FieldLabel htmlFor={field.name}>
+												{t("delivery.fullName")}
+											</FieldLabel>
+											<Input
+												id={field.name}
+												name={field.name}
+												value={field.state.value ?? ""}
+												onBlur={field.handleBlur}
+												onChange={(e) => field.handleChange(e.target.value)}
+												disabled={createOrderMutation.isPending}
+												aria-invalid={isInvalid}
+											/>
+											{isInvalid && (
+												<FieldError errors={field.state.meta.errors} />
+											)}
+										</Field>
+									);
+								}}
+							</form.Field>
 
-						{/* Phone */}
-						<form.Field name="customerPhone">
-							{(field) => {
-								const isInvalid =
-									field.state.meta.isBlurred && !field.state.meta.isValid;
-								return (
-									<Field data-invalid={isInvalid}>
-										<FieldLabel htmlFor={field.name}>
-											{t("delivery.phone")}
-										</FieldLabel>
-										<PhoneInput
-											defaultCountry="TN"
-											value={field.state.value ?? ""}
-											onChange={field.handleChange}
-											onBlur={field.handleBlur}
-											disabled={createOrderMutation.isPending}
-											aria-invalid={isInvalid}
-										/>
-										{isInvalid && (
-											<FieldError errors={field.state.meta.errors} />
-										)}
-									</Field>
-								);
-							}}
-						</form.Field>
+							{/* Phone */}
+							<form.Field name="customerPhone">
+								{(field) => {
+									const isInvalid =
+										field.state.meta.isBlurred && !field.state.meta.isValid;
+									return (
+										<Field data-invalid={isInvalid}>
+											<FieldLabel htmlFor={field.name}>
+												{t("delivery.phone")}
+											</FieldLabel>
+											<PhoneInput
+												defaultCountry="TN"
+												value={field.state.value ?? ""}
+												onChange={field.handleChange}
+												onBlur={field.handleBlur}
+												disabled={createOrderMutation.isPending}
+												aria-invalid={isInvalid}
+											/>
+											{isInvalid && (
+												<FieldError errors={field.state.meta.errors} />
+											)}
+										</Field>
+									);
+								}}
+							</form.Field>
 
-						{/* WhatsApp Checkbox */}
-						<form.Field name="isWhatsApp" defaultValue={false}>
-							{(field) => (
-								<label
-									htmlFor={field.name}
-									className={cn(
-										"relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-card-foreground text-sm transition-colors",
-										"has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5",
-										"cursor-pointer",
-										field.state.value
-											? "border-primary bg-primary/5 dark:bg-primary/10"
-											: "border-input bg-card",
-									)}
-								>
-									<Icons.whatsapp
+							{/* WhatsApp Checkbox */}
+							<form.Field name="isWhatsApp" defaultValue={false}>
+								{(field) => (
+									<label
+										htmlFor={field.name}
 										className={cn(
+											"relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-card-foreground text-sm transition-colors",
+											"has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5",
+											"cursor-pointer",
 											field.state.value
-												? "text-primary"
-												: "text-muted-foreground",
+												? "border-primary bg-primary/5 dark:bg-primary/10"
+												: "border-input bg-card",
 										)}
-									/>
-									<div className="flex flex-1 items-start justify-between gap-3">
-										<div className="space-y-0.5">
-											<AlertTitle className="font-medium text-foreground text-sm">
-												{t("delivery.whatsapp")}
-											</AlertTitle>
-											<AlertDescription className="text-muted-foreground text-xs">
-												{t("delivery.whatsappDescription")}
-											</AlertDescription>
-										</div>
-										<Checkbox
-											id={field.name}
-											checked={field.state.value ?? false}
-											onCheckedChange={(checked) =>
-												field.handleChange(checked === true)
-											}
-											disabled={createOrderMutation.isPending}
-											className="shrink-0"
+									>
+										<Icons.whatsapp
+											className={cn(
+												field.state.value
+													? "text-primary"
+													: "text-muted-foreground",
+											)}
 										/>
-									</div>
-								</label>
-							)}
-						</form.Field>
+										<div className="flex flex-1 items-start justify-between gap-3">
+											<div className="space-y-0.5">
+												<AlertTitle className="font-medium text-foreground text-sm">
+													{t("delivery.whatsapp")}
+												</AlertTitle>
+												<AlertDescription className="text-muted-foreground text-xs">
+													{t("delivery.whatsappDescription")}
+												</AlertDescription>
+											</div>
+											<Checkbox
+												id={field.name}
+												checked={field.state.value ?? false}
+												onCheckedChange={(checked) =>
+													field.handleChange(checked === true)
+												}
+												disabled={createOrderMutation.isPending}
+												className="shrink-0"
+											/>
+										</div>
+									</label>
+								)}
+							</form.Field>
 
-						{/* Street Address */}
-						<form.Field name="address.street">
+							{/* Street Address */}
+							<form.Field name="address.street">
+								{(field) => {
+									const isInvalid =
+										field.state.meta.isBlurred && !field.state.meta.isValid;
+									return (
+										<Field data-invalid={isInvalid}>
+											<FieldLabel htmlFor={field.name}>
+												{t("delivery.streetAddress")}
+											</FieldLabel>
+											<Input
+												id={field.name}
+												name={field.name}
+												value={field.state.value ?? ""}
+												onBlur={field.handleBlur}
+												onChange={(e) => field.handleChange(e.target.value)}
+												disabled={createOrderMutation.isPending}
+												aria-invalid={isInvalid}
+											/>
+											{isInvalid && (
+												<FieldError errors={field.state.meta.errors} />
+											)}
+										</Field>
+									);
+								}}
+							</form.Field>
+
+							{/* City & Postal Code - side by side */}
+							<div className="grid grid-cols-2 gap-4">
+								<form.Field name="address.city">
+									{(field) => {
+										const isInvalid =
+											field.state.meta.isBlurred && !field.state.meta.isValid;
+										return (
+											<Field data-invalid={isInvalid}>
+												<FieldLabel htmlFor={field.name}>
+													{t("delivery.city")}
+												</FieldLabel>
+												<Input
+													id={field.name}
+													name={field.name}
+													value={field.state.value ?? ""}
+													onBlur={field.handleBlur}
+													onChange={(e) => field.handleChange(e.target.value)}
+													disabled={createOrderMutation.isPending}
+													aria-invalid={isInvalid}
+												/>
+												{isInvalid && (
+													<FieldError errors={field.state.meta.errors} />
+												)}
+											</Field>
+										);
+									}}
+								</form.Field>
+
+								<form.Field name="address.postalCode">
+									{(field) => {
+										const isInvalid =
+											field.state.meta.isBlurred && !field.state.meta.isValid;
+										return (
+											<Field data-invalid={isInvalid}>
+												<FieldLabel htmlFor={field.name}>
+													{t("delivery.postalCode")}
+												</FieldLabel>
+												<Input
+													id={field.name}
+													name={field.name}
+													value={field.state.value ?? ""}
+													onBlur={field.handleBlur}
+													onChange={(e) => field.handleChange(e.target.value)}
+													disabled={createOrderMutation.isPending}
+													aria-invalid={isInvalid}
+												/>
+												{isInvalid && (
+													<FieldError errors={field.state.meta.errors} />
+												)}
+											</Field>
+										);
+									}}
+								</form.Field>
+							</div>
+
+							{/* Use my location – auto-fill address */}
+							<div className="space-y-2">
+								<Button
+									type="button"
+									variant="outline"
+									className="w-full"
+									disabled={createOrderMutation.isPending}
+									isLoading={addressMap.loading}
+									onClick={() => addressMap.useCurrentLocation()}
+								>
+									{t("delivery.useLocation")}
+								</Button>
+								<p className="text-muted-foreground text-sm">
+									{t("delivery.useLocationDescription")}
+								</p>
+							</div>
+						</div>
+					</section>
+
+					{/* Payment Section */}
+					<section>
+						<h2 className="mb-4 font-semibold text-lg">{t("payment.title")}</h2>
+						<RadioGroup
+							value={paymentMethod}
+							onValueChange={(value) =>
+								setPaymentMethod(value as PaymentMethodInfer)
+							}
+							disabled={createOrderMutation.isPending}
+						>
+							<div className="space-y-3">
+								{store.supportedPaymentMethods.includes("COD") && (
+									<div
+										className={`flex items-center gap-3 rounded-md border p-4 ${
+											paymentMethod === "COD"
+												? "border-primary bg-primary/5"
+												: "border-input"
+										}`}
+									>
+										<RadioGroupItem value="COD" id="cod" />
+										<label
+											htmlFor="cod"
+											className="flex-1 cursor-pointer font-medium"
+										>
+											{t("payment.cod")}
+										</label>
+									</div>
+								)}
+								{store.supportedPaymentMethods.includes("CARD") ? (
+									<div
+										className={`flex items-center gap-3 rounded-md border p-4 ${
+											paymentMethod === "CARD"
+												? "border-primary bg-primary/5"
+												: "border-input"
+										}`}
+									>
+										<RadioGroupItem value="CARD" id="card" />
+										<label
+											htmlFor="card"
+											className="flex-1 cursor-pointer font-medium"
+										>
+											{t("payment.creditCard")}
+										</label>
+									</div>
+								) : (
+									<div className="flex items-center gap-3 rounded-md border border-input p-4 opacity-50">
+										<RadioGroupItem value="CARD" id="card" disabled />
+										<label
+											htmlFor="card"
+											className="flex-1 cursor-not-allowed font-medium"
+										>
+											{t("payment.creditCard")} ({t("payment.comingSoon")})
+										</label>
+									</div>
+								)}
+							</div>
+						</RadioGroup>
+					</section>
+
+					{/* Delivery Instructions */}
+					<section>
+						<form.Field name="notes">
 							{(field) => {
 								const isInvalid =
 									field.state.meta.isBlurred && !field.state.meta.isValid;
 								return (
 									<Field data-invalid={isInvalid}>
 										<FieldLabel htmlFor={field.name}>
-											{t("delivery.streetAddress")}
+											{t("delivery.instructions")}
 										</FieldLabel>
-										<Input
+										<Textarea
 											id={field.name}
 											name={field.name}
 											value={field.state.value ?? ""}
@@ -332,6 +493,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 											onChange={(e) => field.handleChange(e.target.value)}
 											disabled={createOrderMutation.isPending}
 											aria-invalid={isInvalid}
+											rows={3}
 										/>
 										{isInvalid && (
 											<FieldError errors={field.state.meta.errors} />
@@ -340,208 +502,48 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 								);
 							}}
 						</form.Field>
+					</section>
+				</div>
 
-						{/* City & Postal Code - side by side */}
-						<div className="grid grid-cols-2 gap-4">
-							<form.Field name="address.city">
-								{(field) => {
-									const isInvalid =
-										field.state.meta.isBlurred && !field.state.meta.isValid;
-									return (
-										<Field data-invalid={isInvalid}>
-											<FieldLabel htmlFor={field.name}>
-												{t("delivery.city")}
-											</FieldLabel>
-											<Input
-												id={field.name}
-												name={field.name}
-												value={field.state.value ?? ""}
-												onBlur={field.handleBlur}
-												onChange={(e) => field.handleChange(e.target.value)}
-												disabled={createOrderMutation.isPending}
-												aria-invalid={isInvalid}
-											/>
-											{isInvalid && (
-												<FieldError errors={field.state.meta.errors} />
-											)}
-										</Field>
-									);
-								}}
-							</form.Field>
+				{/* Order summary - below form */}
+				<section className="mt-8 border-t pt-6">
+					<OrderSummary
+						items={enrichedData ?? []}
+						shippingCost={store.shippingCost}
+						loading={enrichedCartItems.isLoading || !enrichedData}
+					/>
+				</section>
 
-							<form.Field name="address.postalCode">
-								{(field) => {
-									const isInvalid =
-										field.state.meta.isBlurred && !field.state.meta.isValid;
-									return (
-										<Field data-invalid={isInvalid}>
-											<FieldLabel htmlFor={field.name}>
-												{t("delivery.postalCode")}
-											</FieldLabel>
-											<Input
-												id={field.name}
-												name={field.name}
-												value={field.state.value ?? ""}
-												onBlur={field.handleBlur}
-												onChange={(e) => field.handleChange(e.target.value)}
-												disabled={createOrderMutation.isPending}
-												aria-invalid={isInvalid}
-											/>
-											{isInvalid && (
-												<FieldError errors={field.state.meta.errors} />
-											)}
-										</Field>
-									);
-								}}
-							</form.Field>
-						</div>
-
-						{/* Use my location – auto-fill address */}
-						<div className="space-y-2">
-							<Button
-								type="button"
-								variant="outline"
-								className="w-full"
-								disabled={createOrderMutation.isPending}
-								isLoading={addressMap.loading}
-								onClick={() => addressMap.useCurrentLocation()}
-							>
-								{t("delivery.useLocation")}
-							</Button>
-							<p className="text-muted-foreground text-sm">
-								{t("delivery.useLocationDescription")}
-							</p>
-						</div>
+				{/* Sticky footer - total + Place order */}
+				<div className="fixed right-0 bottom-0 left-0 z-10 border-t bg-background px-4 py-3">
+					<div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
+						<Button
+							type="submit"
+							className="w-full bg-primary text-primary-foreground"
+							size="lg"
+							disabled={
+								createOrderMutation.isPending ||
+								!enrichedData ||
+								enrichedData.length === 0
+							}
+							isLoading={createOrderMutation.isPending}
+						>
+							<div className="flex w-full items-center justify-between">
+								<div className="flex items-center gap-2">
+									<Icons.shoppingCart className="size-4" />
+									<span>{t("placeOrder")}</span>
+								</div>
+								<div className="flex items-center gap-2">
+									<span className="font-semibold text-sm">
+										{formattedTotal} TND
+									</span>
+									<Icons.arrowRight className="size-4" />
+								</div>
+							</div>
+						</Button>
 					</div>
-				</section>
-
-				{/* Payment Section */}
-				<section>
-					<h2 className="mb-4 font-semibold text-lg">{t("payment.title")}</h2>
-					<RadioGroup
-						value={paymentMethod}
-						onValueChange={(value) =>
-							setPaymentMethod(value as PaymentMethodInfer)
-						}
-						disabled={createOrderMutation.isPending}
-					>
-						<div className="space-y-3">
-							{store.supportedPaymentMethods.includes("COD") && (
-								<div
-									className={`flex items-center gap-3 rounded-md border p-4 ${
-										paymentMethod === "COD"
-											? "border-primary bg-primary/5"
-											: "border-input"
-									}`}
-								>
-									<RadioGroupItem value="COD" id="cod" />
-									<label
-										htmlFor="cod"
-										className="flex-1 cursor-pointer font-medium"
-									>
-										{t("payment.cod")}
-									</label>
-								</div>
-							)}
-							{store.supportedPaymentMethods.includes("CARD") ? (
-								<div
-									className={`flex items-center gap-3 rounded-md border p-4 ${
-										paymentMethod === "CARD"
-											? "border-primary bg-primary/5"
-											: "border-input"
-									}`}
-								>
-									<RadioGroupItem value="CARD" id="card" />
-									<label
-										htmlFor="card"
-										className="flex-1 cursor-pointer font-medium"
-									>
-										{t("payment.creditCard")}
-									</label>
-								</div>
-							) : (
-								<div className="flex items-center gap-3 rounded-md border border-input p-4 opacity-50">
-									<RadioGroupItem value="CARD" id="card" disabled />
-									<label
-										htmlFor="card"
-										className="flex-1 cursor-not-allowed font-medium"
-									>
-										{t("payment.creditCard")} ({t("payment.comingSoon")})
-									</label>
-								</div>
-							)}
-						</div>
-					</RadioGroup>
-				</section>
-
-				{/* Delivery Instructions */}
-				<section>
-					<form.Field name="notes">
-						{(field) => {
-							const isInvalid =
-								field.state.meta.isBlurred && !field.state.meta.isValid;
-							return (
-								<Field data-invalid={isInvalid}>
-									<FieldLabel htmlFor={field.name}>
-										{t("delivery.instructions")}
-									</FieldLabel>
-									<Textarea
-										id={field.name}
-										name={field.name}
-										value={field.state.value ?? ""}
-										onBlur={field.handleBlur}
-										onChange={(e) => field.handleChange(e.target.value)}
-										disabled={createOrderMutation.isPending}
-										aria-invalid={isInvalid}
-										rows={3}
-									/>
-									{isInvalid && <FieldError errors={field.state.meta.errors} />}
-								</Field>
-							);
-						}}
-					</form.Field>
-				</section>
-			</div>
-
-			{/* Order summary - below form */}
-			<section className="mt-8 border-t pt-6">
-				<OrderSummary
-					items={enrichedData ?? []}
-					shippingCost={store.shippingCost}
-					loading={enrichedCartItems.isLoading || !enrichedData}
-				/>
-			</section>
-
-			{/* Sticky footer - total + Place order */}
-			<div className="fixed right-0 bottom-0 left-0 z-10 border-t bg-background px-4 py-3">
-				<div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
-					<Button
-						type="submit"
-						className="w-full bg-primary text-primary-foreground"
-						size="lg"
-						disabled={
-							createOrderMutation.isPending ||
-							!enrichedData ||
-							enrichedData.length === 0
-						}
-						isLoading={createOrderMutation.isPending}
-					>
-						<div className="flex w-full items-center justify-between">
-							<div className="flex items-center gap-2">
-								<Icons.shoppingCart className="size-4" />
-								<span>{t("placeOrder")}</span>
-							</div>
-							<div className="flex items-center gap-2">
-								<span className="font-semibold text-sm">
-									{formattedTotal} TND
-								</span>
-								<Icons.arrowRight className="size-4" />
-							</div>
-						</div>
-					</Button>
 				</div>
 			</div>
-		</div>
 		</form>
 	);
 }

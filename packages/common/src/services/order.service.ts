@@ -76,6 +76,7 @@ class OrderServiceBase {
 			await ProductService.checkStockAvailability(
 				input.orderItems.map((item) => ({
 					productId: item.productId,
+					variantId: item.variantId,
 					quantity: item.quantity,
 				})),
 				input.storeId,
@@ -132,6 +133,7 @@ class OrderServiceBase {
 			await ProductService.updateMultipleProductStocks(
 				input.orderItems.map((item) => ({
 					productId: item.productId,
+					variantId: item.variantId,
 					quantity: item.quantity,
 				})),
 				"decrement",
@@ -209,6 +211,7 @@ class OrderServiceBase {
 			await ProductService.checkStockAvailability(
 				input.orderItems.map((item) => ({
 					productId: item.productId,
+					variantId: item.variantId,
 					quantity: item.quantity,
 				})),
 				input.storeId,
@@ -302,6 +305,7 @@ class OrderServiceBase {
 			await ProductService.updateMultipleProductStocks(
 				input.orderItems.map((item) => ({
 					productId: item.productId,
+					variantId: item.variantId,
 					quantity: item.quantity,
 				})),
 				"decrement",
@@ -398,6 +402,7 @@ class OrderServiceBase {
 				orderItems: {
 					select: {
 						productId: true,
+						productVariantId: true,
 						quantity: true,
 					},
 				},
@@ -434,6 +439,7 @@ class OrderServiceBase {
 				await ProductService.updateMultipleProductStocks(
 					order.orderItems.map((item) => ({
 						productId: item.productId,
+						variantId: item.productVariantId ?? undefined,
 						quantity: item.quantity,
 					})),
 					"increment",
