@@ -14,7 +14,10 @@ import type {
 	CreateOrderInput,
 	CreateOrderPublicInput,
 } from "../schemas/order/input";
-import type { OrderIncludeOutput } from "../schemas/order/output";
+import type {
+	OrderIncludeOutput,
+	OrderPublicOutput,
+} from "../schemas/order/output";
 import { AddressService } from "./address.service";
 import { CustomerService } from "./customer.service";
 import { ProductService } from "./product.service";
@@ -162,7 +165,7 @@ class OrderServiceBase {
 	 */
 	static async createOrderPublic(
 		input: CreateOrderPublicInput,
-	): Promise<OrderIncludeOutput> {
+	): Promise<OrderPublicOutput> {
 		addSpanAttributes({
 			"order.store_id": input.storeId,
 			"order.items_count": input.orderItems.length,
@@ -343,7 +346,7 @@ class OrderServiceBase {
 			"order.has_customer": false,
 		});
 
-		return OrderEntity.getRo(order);
+		return OrderEntity.getPublicRo(order);
 	}
 
 	/**

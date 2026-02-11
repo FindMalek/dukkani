@@ -1,7 +1,6 @@
 import { OrderEntity } from "@dukkani/common/entities/order/entity";
 import { OrderQuery } from "@dukkani/common/entities/order/query";
 import {
-	createOrderInputSchema,
 	createOrderPublicInputSchema,
 	getOrderInputSchema,
 	listOrdersInputSchema,
@@ -14,6 +13,7 @@ import type {
 import {
 	listOrdersOutputSchema,
 	orderIncludeOutputSchema,
+	orderPublicOutputSchema,
 } from "@dukkani/common/schemas/order/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { NotificationService, OrderService } from "@dukkani/common/services";
@@ -117,7 +117,7 @@ export const orderRouter = {
 	createPublic: baseProcedure
 		.use(rateLimitPublicSafe)
 		.input(createOrderPublicInputSchema)
-		.output(orderIncludeOutputSchema)
+		.output(orderPublicOutputSchema)
 		.handler(async ({ input }): Promise<OrderIncludeOutput> => {
 			const store = await database.store.findUnique({
 				where: { id: input.storeId },

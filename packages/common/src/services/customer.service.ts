@@ -111,15 +111,6 @@ export class CustomerService {
 		});
 
 		if (existing) {
-			// Update name if changed
-			if (existing.name !== name) {
-				const updated = await database.customer.update({
-					where: { id: existing.id },
-					data: { name },
-					include: CustomerQuery.getSimpleInclude(),
-				});
-				return CustomerEntity.getSimpleRo(updated);
-			}
 			return CustomerEntity.getSimpleRo(existing);
 		}
 

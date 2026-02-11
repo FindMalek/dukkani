@@ -35,6 +35,13 @@ export const listOrdersOutputSchema = z.object({
 	limit: z.number().int(),
 });
 
+export const orderPublicOutputSchema = orderSimpleOutputSchema.extend({
+	store: storeSimpleOutputSchema.optional(),
+	orderItems: z.array(orderItemWithProductOutputSchema).optional(),
+	whatsappMessages: z.array(whatsappMessageSimpleOutputSchema).optional(),
+});
+
+export type OrderPublicOutput = z.infer<typeof orderPublicOutputSchema>;
 export type OrderSimpleOutput = z.infer<typeof orderSimpleOutputSchema>;
 export type OrderIncludeOutput = z.infer<typeof orderIncludeOutputSchema>;
 export type ListOrdersOutput = z.infer<typeof listOrdersOutputSchema>;

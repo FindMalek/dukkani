@@ -1,5 +1,6 @@
 import type {
 	OrderIncludeOutput,
+	OrderPublicOutput,
 	OrderSimpleOutput,
 } from "../../schemas/order/output";
 import { AddressEntity } from "../address/entity";
@@ -59,6 +60,17 @@ export class OrderEntity {
 				? AddressEntity.getSimpleRo(entity.address)
 				: undefined,
 			orderItems: entity.orderItems.map(OrderItemEntity.getRoWithProduct),
+			whatsappMessages: entity.whatsappMessages.map(
+				WhatsAppMessageEntity.getSimpleRo,
+			),
+		};
+	}
+
+	static getPublicRo(entity: OrderIncludeDbData): OrderPublicOutput {
+		return {
+			...OrderEntity.getSimpleRo(entity),
+			store: StoreEntity.getSimpleRo(entity.store),
+			orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
 			whatsappMessages: entity.whatsappMessages.map(
 				WhatsAppMessageEntity.getSimpleRo,
 			),
