@@ -3,19 +3,11 @@
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
 import { RoutePaths, useRouter } from "@/lib/routes";
-import { useCartStore } from "@/stores/cart.store";
 
 export default function CheckoutSuccessPage() {
-	const t = useTranslations("storefront.store.checkout.success");
 	const router = useRouter();
-	const clearCart = useCartStore((state) => state.clearCart);
-
-	// Clear cart on mount
-	useEffect(() => {
-		clearCart();
-	}, [clearCart]);
+	const t = useTranslations("storefront.store.checkout.success");
 
 	return (
 		<div className="container mx-auto max-w-2xl px-4 py-16">

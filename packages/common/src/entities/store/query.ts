@@ -1,4 +1,4 @@
-import type { Prisma } from "@dukkani/db/prisma/generated";
+import  {type Prisma, StoreStatus } from "@dukkani/db/prisma/generated";
 import { CustomerQuery } from "../customer";
 import { OrderQuery } from "../order";
 import { ProductQuery } from "../product";
@@ -103,5 +103,11 @@ export class StoreQuery {
 				},
 			},
 		} satisfies Prisma.StoreInclude;
+	}
+
+	static getPublishedWhere() {
+		return {
+			status: StoreStatus.PUBLISHED,
+		} satisfies Prisma.StoreWhereInput;
 	}
 }

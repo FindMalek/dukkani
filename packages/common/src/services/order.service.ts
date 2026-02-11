@@ -7,6 +7,7 @@ import {
 	enhanceLogWithTraceContext,
 	traceStaticClass,
 } from "@dukkani/tracing";
+import { StoreQuery } from "@/entities/store/query";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import { OrderStatus } from "../schemas/order/enums";
@@ -174,7 +175,7 @@ class OrderServiceBase {
 
 		// Get store to generate ID and validate payment method (no ownership check)
 		const store = await database.store.findUnique({
-			where: { id: input.storeId },
+			where: { id: input.storeId, ...StoreQuery.getPublishedWhere() },
 			select: {
 				id: true,
 				slug: true,

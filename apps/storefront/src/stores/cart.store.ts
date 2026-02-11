@@ -29,7 +29,6 @@ interface CartStoreState {
 		variantId?: string,
 	) => void;
 	clearCart: () => void;
-	clearCartBySlug: (storeSlug: string) => void;
 	getItemQuantity: (productId: string, variantId?: string) => number;
 	getTotalItems: () => number;
 }
@@ -158,16 +157,6 @@ export const useCartStore = create<CartStoreState>()(
 					const storeSlug = state.currentStoreSlug;
 					if (!storeSlug) return state;
 
-					return {
-						carts: {
-							...state.carts,
-							[storeSlug]: [],
-						},
-					};
-				});
-			},
-			clearCartBySlug: (storeSlug: string) => {
-				set((state) => {
 					return {
 						carts: {
 							...state.carts,

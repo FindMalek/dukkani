@@ -1,6 +1,9 @@
 "use client";
 
 import type { PaymentMethodInfer } from "@dukkani/common/schemas/enums";
+import {
+	PaymentMethod,
+} from "@dukkani/common/schemas/enums";
 import { createOrderPublicInputSchema } from "@dukkani/common/schemas/order/input";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { AlertDescription, AlertTitle } from "@dukkani/ui/components/alert";
@@ -424,15 +427,16 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 							disabled={createOrderMutation.isPending}
 						>
 							<div className="space-y-3">
-								{store.supportedPaymentMethods.includes("COD") && (
+								{store.supportedPaymentMethods.includes(PaymentMethod.COD) && (
 									<div
-										className={`flex items-center gap-3 rounded-md border p-4 ${
-											paymentMethod === "COD"
+										className={cn(
+											"flex items-center gap-3 rounded-md border p-4",
+											paymentMethod === PaymentMethod.COD
 												? "border-primary bg-primary/5"
-												: "border-input"
-										}`}
+												: "border-input",
+										)}
 									>
-										<RadioGroupItem value="COD" id="cod" />
+										<RadioGroupItem value={PaymentMethod.COD} id="cod" />
 										<label
 											htmlFor="cod"
 											className="flex-1 cursor-pointer font-medium"
@@ -441,15 +445,16 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 										</label>
 									</div>
 								)}
-								{store.supportedPaymentMethods.includes("CARD") ? (
+								{store.supportedPaymentMethods.includes(PaymentMethod.CARD) ? (
 									<div
-										className={`flex items-center gap-3 rounded-md border p-4 ${
-											paymentMethod === "CARD"
+										className={cn(
+											"flex items-center gap-3 rounded-md border p-4",
+											paymentMethod === PaymentMethod.CARD
 												? "border-primary bg-primary/5"
-												: "border-input"
-										}`}
+												: "border-input",
+										)}
 									>
-										<RadioGroupItem value="CARD" id="card" />
+										<RadioGroupItem value={PaymentMethod.CARD} id="card" />
 										<label
 											htmlFor="card"
 											className="flex-1 cursor-pointer font-medium"
@@ -459,7 +464,11 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 									</div>
 								) : (
 									<div className="flex items-center gap-3 rounded-md border border-input p-4 opacity-50">
-										<RadioGroupItem value="CARD" id="card" disabled />
+										<RadioGroupItem
+											value={PaymentMethod.CARD}
+											id="card"
+											disabled
+										/>
 										<label
 											htmlFor="card"
 											className="flex-1 cursor-not-allowed font-medium"
