@@ -3,11 +3,7 @@
 import type { PaymentMethodInfer } from "@dukkani/common/schemas/enums";
 import { createOrderPublicInputSchema } from "@dukkani/common/schemas/order/input";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
-import {
-	Alert,
-	AlertDescription,
-	AlertTitle,
-} from "@dukkani/ui/components/alert";
+import { AlertDescription, AlertTitle } from "@dukkani/ui/components/alert";
 import { Button } from "@dukkani/ui/components/button";
 import { Checkbox } from "@dukkani/ui/components/checkbox";
 import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
@@ -195,7 +191,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 						<form.Field name="customerName">
 							{(field) => {
 								const isInvalid =
-									field.state.meta.isTouched && !field.state.meta.isValid;
+									field.state.meta.isBlurred && !field.state.meta.isValid;
 								return (
 									<Field data-invalid={isInvalid}>
 										<FieldLabel htmlFor={field.name}>
@@ -222,7 +218,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 						<form.Field name="customerPhone">
 							{(field) => {
 								const isInvalid =
-									field.state.meta.isTouched && !field.state.meta.isValid;
+									field.state.meta.isBlurred && !field.state.meta.isValid;
 								return (
 									<Field data-invalid={isInvalid}>
 										<FieldLabel htmlFor={field.name}>
@@ -292,7 +288,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 						<form.Field name="address.street">
 							{(field) => {
 								const isInvalid =
-									field.state.meta.isTouched && !field.state.meta.isValid;
+									field.state.meta.isBlurred && !field.state.meta.isValid;
 								return (
 									<Field data-invalid={isInvalid}>
 										<FieldLabel htmlFor={field.name}>
@@ -320,7 +316,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 							<form.Field name="address.city">
 								{(field) => {
 									const isInvalid =
-										field.state.meta.isTouched && !field.state.meta.isValid;
+										field.state.meta.isBlurred && !field.state.meta.isValid;
 									return (
 										<Field data-invalid={isInvalid}>
 											<FieldLabel htmlFor={field.name}>
@@ -346,7 +342,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 							<form.Field name="address.postalCode">
 								{(field) => {
 									const isInvalid =
-										field.state.meta.isTouched && !field.state.meta.isValid;
+										field.state.meta.isBlurred && !field.state.meta.isValid;
 									return (
 										<Field data-invalid={isInvalid}>
 											<FieldLabel htmlFor={field.name}>
@@ -453,7 +449,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 					<form.Field name="notes">
 						{(field) => {
 							const isInvalid =
-								field.state.meta.isTouched && !field.state.meta.isValid;
+								field.state.meta.isBlurred && !field.state.meta.isValid;
 							return (
 								<Field data-invalid={isInvalid}>
 									<FieldLabel htmlFor={field.name}>
