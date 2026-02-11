@@ -6,6 +6,13 @@ export type AddressSimpleDbData = Prisma.AddressGetPayload<{
 
 export class AddressQuery {
 	static getSimpleSelect() {
-		return {} satisfies Prisma.AddressSelect;
-	}
+		return {
+		  id: true,
+		  street: true,
+		  city: true,
+		  postalCode: true,
+		  latitude: true,
+		  longitude: true,
+		} satisfies Prisma.AddressSelect;
+	  }
 }

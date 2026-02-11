@@ -111,6 +111,16 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 		}
 	}, [addressMap.error, t]);
 
+	useEffect(() => {
+		if (createOrderMutation.isError) {
+			toast.error(
+				createOrderMutation.error instanceof Error
+					? createOrderMutation.error.message
+					: t("error"),
+			);
+		}
+	}, [createOrderMutation.isError, createOrderMutation.error, t]);
+
 	const form = useSchemaForm({
 		schema: createOrderPublicInputSchema,
 		defaultValues: {
@@ -181,7 +191,27 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 		form,
 	]);
 
+	// Sync orderItems from cart to form (required for validation)
+	useEffect(() => {
+		if (enrichedData && enrichedData.length > 0) {
+			const orderItems = enrichedData.map((item) => ({
+				productId: item.productId,
+				variantId: item.variantId ?? undefined,
+				quantity: item.quantity,
+				price: item.price,
+			}));
+			form.setFieldValue("orderItems", orderItems);
+		}
+	}, [enrichedData, form]);
+
 	return (
+		<form
+			onSubmit={(e) => {
+				e.preventDefault();
+				form.handleSubmit();
+			}}
+			className="contents"
+		>
 		<div className="container mx-auto max-w-4xl px-4 py-8">
 			<div className="space-y-6">
 				{/* Delivery Section */}
@@ -486,12 +516,9 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 			<div className="fixed right-0 bottom-0 left-0 z-10 border-t bg-background px-4 py-3">
 				<div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
 					<Button
+						type="submit"
 						className="w-full bg-primary text-primary-foreground"
 						size="lg"
-						onClick={(e) => {
-							e.preventDefault();
-							form.handleSubmit();
-						}}
 						disabled={
 							createOrderMutation.isPending ||
 							!enrichedData ||
@@ -513,14 +540,8 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 						</div>
 					</Button>
 				</div>
-				{createOrderMutation.isError && (
-					<div className="mt-2 rounded-md border border-destructive bg-destructive/10 p-2 text-destructive text-sm">
-						{createOrderMutation.error instanceof Error
-							? createOrderMutation.error.message
-							: t("error")}
-					</div>
-				)}
 			</div>
 		</div>
+		</form>
 	);
 }
