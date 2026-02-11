@@ -37,7 +37,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 	const t = useTranslations("storefront.store.checkout");
 
 	const [paymentMethod, setPaymentMethod] = useState<PaymentMethodInfer>(
-		store.supportedPaymentMethods[0],
+		store.supportedPaymentMethods[0] || PaymentMethod.COD,
 	);
 	const addressMap = useAddressMap();
 	const createOrderMutation = useCreateOrder();

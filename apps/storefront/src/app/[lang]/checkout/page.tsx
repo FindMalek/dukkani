@@ -1,3 +1,4 @@
+import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { CheckoutForm } from "@/components/app/checkout-form";
@@ -15,12 +16,16 @@ export default async function CheckoutPage() {
 
 	const queryClient = getQueryClient();
 
-	// Get store
-	const store = await queryClient.fetchQuery(
-		orpc.store.getBySlugPublic.queryOptions({
-			input: { slug: storeSlug },
-		}),
-	);
+	let store: StorePublicOutput;
+	try {
+		store = await queryClient.fetchQuery(
+			orpc.store.getBySlugPublic.queryOptions({
+				input: { slug: storeSlug },
+			}),
+		);
+	} catch {
+		redirect("/");
+	}
 
 	if (!store) {
 		redirect("/");
