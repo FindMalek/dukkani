@@ -104,32 +104,14 @@ export class CustomerService {
 	): Promise<CustomerSimpleOutput> {
 		const client = tx ?? database;
 
-		// Find existing customer
-		const existing = await client.customer.findUnique({
-			where: {
-				phone_storeId: {
-					phone,
-					storeId,
-				},
-			},
+		const customer = await client.customer.upsert({
+			where: { phone_storeId: { phone, storeId } },
+			create: { name, phone, storeId },
+			update: {},
 			include: CustomerQuery.getSimpleInclude(),
-		});
-
-		if (existing) {
-			return CustomerEntity.getSimpleRo(existing);
-		}
-
-		// Create new customer
-		const customer = await client.customer.create({
-			data: {
-				name,
-				phone,
-				storeId,
-			},
-			include: CustomerQuery.getSimpleInclude(),
-		});
-
-		return CustomerEntity.getSimpleRo(customer);
+		  });
+		  
+		  return CustomerEntity.getSimpleRo(customer);
 	}
 
 	/**
