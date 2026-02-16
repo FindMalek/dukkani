@@ -17,8 +17,8 @@
  * **Relationships:**
  * - Belongs to one Store
  * - Belongs to one Customer (all orders are linked to customers)
- * - Belongs to one Address (delivery address)
- * - Optionally belongs to one ProductVariant (can be null for product variants)
+ * - Optionally belongs to one Address (delivery address)
+ * - Optionally belongs to one ProductVariant (variant of a product)
  * - Has many OrderItems (products in the order)
  * - Has many WhatsAppMessages (communication history)
  * **Business Logic:**

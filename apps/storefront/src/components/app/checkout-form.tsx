@@ -20,6 +20,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { useAddressMap } from "@/hooks/use-address-map";
+import { useCartHydration } from "@/hooks/use-cart-hydration";
 import { useCreateOrder } from "@/hooks/use-create-order";
 import { orpc } from "@/lib/orpc";
 import { RoutePaths, useRouter } from "@/lib/routes";
@@ -35,6 +36,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 	const t = useTranslations("storefront.store.checkout");
 
 	const addressMap = useAddressMap();
+	const hydrated = useCartHydration();
 	const createOrderMutation = useCreateOrder();
 	const carts = useCartStore((state) => state.carts);
 	const currentStoreSlug = useCartStore((state) => state.currentStoreSlug);
@@ -44,12 +46,14 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 		return carts[currentStoreSlug] || [];
 	}, [carts, currentStoreSlug]);
 
-	// Redirect if cart is empty
+	// Redirect if cart is empty (but not when we just completed an order)
+	// Wait for cart rehydration so we don't redirect before persisted cart is loaded
 	useEffect(() => {
-		if (cartItems.length === 0) {
+		if (!hydrated) return;
+		if (cartItems.length === 0 && !createOrderMutation.isSuccess) {
 			router.push(RoutePaths.HOME.url);
 		}
-	}, [cartItems.length, router]);
+	}, [hydrated, cartItems.length, createOrderMutation.isSuccess, router]);
 
 	const queryInput = useMemo(() => {
 		return {

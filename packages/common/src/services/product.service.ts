@@ -67,8 +67,14 @@ class ProductServiceBase {
 						(v: { id: string; price: unknown }) => v.id === item.variantId,
 					)
 				: null;
+			if (item.variantId && variant === undefined) {
+				throw new Error(
+					`Product variant ${item.variantId} not found for product ${item.productId}`,
+				);
+			}
 			const price =
 				variant?.price != null ? Number(variant.price) : Number(product.price);
+
 			return {
 				productId: item.productId,
 				variantId: item.variantId,

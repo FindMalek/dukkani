@@ -67,19 +67,32 @@ const addressInputSchema = z.object({
 	longitude: z.number().optional(),
 });
 
-export const createOrderPublicInputSchema = z.object({
-	customerName: z.string().min(1, "Customer name is required"),
-	customerPhone: z.string().min(1, "Customer phone is required"),
-	address: addressInputSchema,
-	addressId: z.string().optional(),
-	notes: z.string().optional(),
-	paymentMethod: paymentMethodSchema,
-	isWhatsApp: z.boolean().default(false),
-	storeId: z.string().min(1, "Store ID is required"),
-	orderItems: z
-		.array(orderItemPublicInputSchema)
-		.min(1, "At least one order item is required"),
-});
+export const createOrderPublicInputSchema = z
+	.object({
+		customerName: z.string().min(1, "Customer name is required"),
+		customerPhone: z
+			.string()
+			.min(1, "Customer phone is required")
+			.refine(
+				(value) =>
+					/^[\d\s+\-()]+$/.test(value) &&
+					(value.match(/\d/g) || []).length >= 8,
+				{ message: "Please enter a valid phone number (at least 8 digits)" },
+			),
+		address: addressInputSchema.optional(),
+		addressId: z.string().optional(),
+		notes: z.string().optional(),
+		paymentMethod: paymentMethodSchema,
+		isWhatsApp: z.boolean().default(false),
+		storeId: z.string().min(1, "Store ID is required"),
+		orderItems: z
+			.array(orderItemPublicInputSchema)
+			.min(1, "At least one order item is required"),
+	})
+	.refine((data) => !!data.addressId || !!data.address, {
+		message: "Either address or addressId must be provided",
+		path: ["address"],
+	});
 
 export type CreateOrderPublicInput = z.infer<
 	typeof createOrderPublicInputSchema
