@@ -105,7 +105,7 @@ export function useAddressMap() {
 		});
 	};
 
-	const useCurrentLocation = async () => {
+	const getCurrentLocation = async () => {
 		setResult((prev) => ({
 			...prev,
 			street: null,
@@ -167,6 +167,6 @@ export function useAddressMap() {
 		...result,
 		selectLocation,
 		clearSelection,
-		useCurrentLocation,
+		getCurrentLocation,
 	};
 }

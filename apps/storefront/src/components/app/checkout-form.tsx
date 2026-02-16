@@ -402,7 +402,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 									className="w-full"
 									disabled={createOrderMutation.isPending}
 									isLoading={addressMap.loading}
-									onClick={() => addressMap.useCurrentLocation()}
+									onClick={() => addressMap.getCurrentLocation()}
 								>
 									{t("delivery.useLocation")}
 								</Button>
