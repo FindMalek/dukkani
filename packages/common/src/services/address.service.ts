@@ -33,26 +33,31 @@ export class AddressService {
 			return AddressEntity.getSimpleRo(existing);
 		}
 
-		// If setting as default, unset other defaults
-		if (input.isDefault) {
-			await client.address.updateMany({
-				where: { customerId: input.customerId, isDefault: true },
-				data: { isDefault: false },
-			});
-		}
+		const runCreate = async (db: typeof client) => {
+			if (input.isDefault) {
+				await db.address.updateMany({
+					where: { customerId: input.customerId, isDefault: true },
+					data: { isDefault: false },
+				});
+			}
 
-		const address = await client.address.create({
-			data: {
-				street: input.street,
-				city: input.city,
-				postalCode: input.postalCode,
-				latitude: input.latitude,
-				longitude: input.longitude,
-				isDefault: input.isDefault,
-				customerId: input.customerId,
-			},
-			select: AddressQuery.getSimpleSelect(),
-		});
+			return db.address.create({
+				data: {
+					street: input.street,
+					city: input.city,
+					postalCode: input.postalCode,
+					latitude: input.latitude,
+					longitude: input.longitude,
+					isDefault: input.isDefault,
+					customerId: input.customerId,
+				},
+				select: AddressQuery.getSimpleSelect(),
+			});
+		};
+
+		const address = tx
+			? await runCreate(client)
+			: await database.$transaction((txInner) => runCreate(txInner));
 
 		return AddressEntity.getSimpleRo(address);
 	}
