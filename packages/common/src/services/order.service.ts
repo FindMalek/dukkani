@@ -348,7 +348,7 @@ class OrderServiceBase {
 			"order.id": order.id,
 			"order.total_items": order.orderItems.length,
 			"order.status": order.status,
-			"order.has_customer": false,
+			"order.has_customer": !!order.customerId,
 		});
 
 		return OrderEntity.getPublicRo(order);

@@ -109,9 +109,9 @@ export class CustomerService {
 			create: { name, phone, storeId },
 			update: {},
 			include: CustomerQuery.getSimpleInclude(),
-		  });
-		  
-		  return CustomerEntity.getSimpleRo(customer);
+		});
+
+		return CustomerEntity.getSimpleRo(customer);
 	}
 
 	/**
