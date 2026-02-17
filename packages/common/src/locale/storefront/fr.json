@@ -1,115 +1,115 @@
 {
-	"storefront": {
-		"title": "Storefront",
-		"description": "Storefront description",
-		"store": {
-			"owner": {
-				"title": "Store Owner"
-			},
-			"products": {
-				"title": "Products",
-				"empty": "No products available yet"
-			},
-			"categoryFilter": {
-				"all": "Tous"
-			},
-			"filter": {
-				"button": "Filtrer"
-			},
-			"footer": {
-				"copyright": "Tous droits réservés",
-				"poweredBy": "Propulsé par Dukkani"
-			},
-			"product": {
-				"imageCarousel": {
-					"goToSlide": "Aller à la diapositive {index}"
-				},
-				"storeInfo": {
-					"openNow": "Ouvrir maintenant",
-					"closed": "Fermé"
-				},
-				"sizeSelector": {
-					"label": "Taille"
-				},
-				"description": {
-					"label": "Description"
-				},
-				"addToCart": {
-					"button": "Ajouter au panier",
-					"outOfStock": "Rupture de stock"
-				},
-				"quickAdd": {
-					"viewDetails": "Voir les détails complets",
-					"quantity": "Quantité"
-				}
-			},
-			"cart": {
-				"title": "Votre panier",
-				"empty": "Votre panier est vide",
-				"checkout": "Passer à la caisse",
-				"item": {
-					"lowStock": "Il ne reste que {count}",
-					"outOfStock": "Rupture de stock"
-				}
-			},
-			"checkout": {
-				"title": "Paiement",
-				"submitting": "Traitement de la commande...",
-				"placeOrder": "Passer la commande",
-				"error": "Une erreur s'est produite. Veuillez réessayer.",
-				"delivery": {
-					"title": "Livraison",
-					"fastDelivery": "Livraison rapide 24-48h",
-					"fullName": "Nom complet",
-					"phone": "Téléphone",
-					"whatsapp": "Ce numéro est sur WhatsApp",
-					"whatsappDescription": "Nous vous enverrons une notification sur WhatsApp lorsque votre commande sera prête à être livrée.",
-					"streetAddress": "Adresse",
-					"city": "Ville",
-					"postalCode": "Code postal",
-					"instructions": "Instructions de livraison",
-					"useLocation": "Utiliser la localisation du téléphone",
-					"useLocationDescription": "Remplir automatiquement la ville et la zone.",
-					"locationErrorTitle": "Impossible d'obtenir votre position",
-					"locationErrorDescription": "Autorisez l'accès à la localisation dans votre navigateur (icône cadenas ou info dans la barre d'adresse), ou saisissez votre adresse manuellement."
-				},
-				"payment": {
-					"title": "Paiement",
-					"cod": "Paiement à la livraison (COD)",
-					"creditCard": "Carte de crédit",
-					"comingSoon": "Bientôt disponible"
-				},
-				"orderSummary": {
-					"title": "Commande",
-					"subtotal": "Sous-total",
-					"shipping": "Livraison",
-					"total": "Total",
-					"free": "Gratuit",
-					"quantity": "Quantité"
-				},
-				"success": {
-					"title": "Commande créée avec succès",
-					"message": "Merci pour votre commande ! Le marchand recevra votre commande et vous contactera bientôt.",
-					"continueShopping": "Continuer les achats"
-				}
-			}
-		},
-		"comingSoon": {
-			"heading": "Nous lançons bientôt",
-			"description": {
-				"line1": "Soyez le premier à savoir quand nous serons en ligne.",
-				"line2": "Mises à jour exclusives pour les premiers visiteurs."
-			},
-			"input": {
-				"placeholder": "Entrez votre email ou numéro de téléphone"
-			},
-			"button": {
-				"label": "Prévenez-moi",
-				"submitting": "Abonnement en cours..."
-			},
-			"success": "Merci ! Nous vous informerons lorsque nous lancerons.",
-			"error": "Une erreur s'est produite. Veuillez réessayer.",
-			"privacy": "Pas de spam. Seulement des mises à jour de lancement."
-		}
-	}
+  "storefront": {
+    "title": "Storefront",
+    "description": "Storefront description",
+    "store": {
+      "owner": {
+        "title": "Store Owner"
+      },
+      "products": {
+        "title": "Products",
+        "empty": "No products available yet"
+      },
+      "categoryFilter": {
+        "all": "Tous"
+      },
+      "filter": {
+        "button": "Filtrer"
+      },
+      "footer": {
+        "copyright": "Tous droits réservés",
+        "poweredBy": "Propulsé par Dukkani"
+      },
+      "product": {
+        "imageCarousel": {
+          "goToSlide": "Aller à la diapositive {index}"
+        },
+        "storeInfo": {
+          "openNow": "Ouvrir maintenant",
+          "closed": "Fermé"
+        },
+        "sizeSelector": {
+          "label": "Taille"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "addToCart": {
+          "button": "Ajouter au panier",
+          "outOfStock": "Rupture de stock"
+        },
+        "quickAdd": {
+          "viewDetails": "Voir les détails complets",
+          "quantity": "Quantité"
+        }
+      },
+      "cart": {
+        "title": "Votre panier",
+        "empty": "Votre panier est vide",
+        "checkout": "Passer à la caisse",
+        "item": {
+          "lowStock": "Il ne reste que {count}",
+          "outOfStock": "Rupture de stock"
+        }
+      },
+      "checkout": {
+        "title": "Caisse",
+        "submitting": "Passation de la commande...",
+        "placeOrder": "Passer la commande",
+        "error": "Quelque chose a mal tourné. Veuillez réessayer.",
+        "delivery": {
+          "title": "Livraison",
+          "fastDelivery": "Livraison rapide en 24-48h",
+          "fullName": "Nom complet",
+          "phone": "Téléphone",
+          "whatsapp": "Ce numéro est sur WhatsApp",
+          "whatsappDescription": "Nous vous enverrons une notification sur WhatsApp lorsque votre commande sera prête à être livrée.",
+          "streetAddress": "Adresse",
+          "city": "Ville",
+          "postalCode": "Code postal",
+          "instructions": "Instructions de livraison",
+          "useLocation": "Remplir automatiquement l'adresse à partir de la localisation du téléphone",
+          "useLocationDescription": "Nous remplirons automatiquement la ville et la zone.",
+          "locationErrorTitle": "Impossible d'obtenir votre localisation",
+          "locationErrorDescription": "Autorisez l'accès à la localisation dans votre navigateur (icône de verrou ou d'information dans la barre d'adresse), ou saisissez votre adresse manuellement."
+        },
+        "payment": {
+          "title": "Paiement",
+          "cod": "Paiement à la livraison (COD)",
+          "creditCard": "Carte de crédit",
+          "comingSoon": "Bientôt disponible"
+        },
+        "orderSummary": {
+          "title": "Commande",
+          "subtotal": "Sous-total",
+          "shipping": "Expédition",
+          "total": "Total",
+          "free": "Gratuit",
+          "quantity": "Quantité"
+        },
+        "success": {
+          "title": "Commande créée avec succès",
+          "message": "Merci pour votre commande ! Le commerçant recevra votre commande et vous contactera bientôt.",
+          "continueShopping": "Continuer vos achats"
+        }
+      }
+    },
+    "comingSoon": {
+      "heading": "Nous lançons bientôt",
+      "description": {
+        "line1": "Soyez le premier à savoir quand nous serons en ligne.",
+        "line2": "Mises à jour exclusives pour les premiers visiteurs."
+      },
+      "input": {
+        "placeholder": "Entrez votre email ou numéro de téléphone"
+      },
+      "button": {
+        "label": "Prévenez-moi",
+        "submitting": "Abonnement en cours..."
+      },
+      "success": "Merci ! Nous vous informerons lorsque nous lancerons.",
+      "error": "Une erreur s'est produite. Veuillez réessayer.",
+      "privacy": "Pas de spam. Seulement des mises à jour de lancement."
+    }
+  }
 }

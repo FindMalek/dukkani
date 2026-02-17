@@ -214,6 +214,37 @@ files:
     storefront.store.cart.checkout: 6ff063fbc860a79759a7369ac32cee22
     storefront.store.cart.item.lowStock: e448f43c5c168eb801170a0cbce1dc13
     storefront.store.cart.item.outOfStock: b55197a49e8c4cd8c314bc2aa39d6feb
+    storefront.store.checkout.title: 6ff063fbc860a79759a7369ac32cee22
+    storefront.store.checkout.submitting: 42d69cfb920d42a61484267f7f660be3
+    storefront.store.checkout.placeOrder: e7965ae5942a09b8778af5a9fd481460
+    storefront.store.checkout.error: e9f36d65b0491f99ef8f0ce2c11bf998
+    storefront.store.checkout.delivery.title: 065ab3a28ca4f16f55f103adc7d0226f
+    storefront.store.checkout.delivery.fastDelivery: 401f9aac204489d0d1076fc036e4789d
+    storefront.store.checkout.delivery.fullName: f11b368cddfe37c47af9b9d91c6ba4f0
+    storefront.store.checkout.delivery.phone: bcc254b55c4a1babdf1dcb82c207506b
+    storefront.store.checkout.delivery.whatsapp: 61074d3dbebc9b0c6593e91182f079fc
+    storefront.store.checkout.delivery.whatsappDescription: 7f9541442a59af56034f187cea186757
+    storefront.store.checkout.delivery.streetAddress: 669a90ec9aac95cd93556470ddaebf44
+    storefront.store.checkout.delivery.city: 57d056ed0984166336b7879c2af3657f
+    storefront.store.checkout.delivery.postalCode: 572ed696f21038e6cc6c86bb272a3222
+    storefront.store.checkout.delivery.instructions: d0f5987ecd37b9d842a0afd9468ba5d0
+    storefront.store.checkout.delivery.useLocation: a019813051b493024557ee538fcd1823
+    storefront.store.checkout.delivery.useLocationDescription: 62b8d91a8435328dd013ab096977913f
+    storefront.store.checkout.delivery.locationErrorTitle: 4700c95b60a6c454600c0188850da105
+    storefront.store.checkout.delivery.locationErrorDescription: f5686a39eb156aa42d9c6f0c19a8c2f9
+    storefront.store.checkout.payment.title: c453a4b8e8d98e82f35b67f433e3b4da
+    storefront.store.checkout.payment.cod: 52be6587817dd45228a813c2508cdb7a
+    storefront.store.checkout.payment.creditCard: 73a61696f100b3858511e212a3feea6b
+    storefront.store.checkout.payment.comingSoon: 81151a1669ebd695e837f304a0d8ec79
+    storefront.store.checkout.orderSummary.title: a240fa27925a635b08dc28c9e4f9216d
+    storefront.store.checkout.orderSummary.subtotal: 2194aaec8cc7086ab0e93f74547e5f53
+    storefront.store.checkout.orderSummary.shipping: ea9cf7e47ff33b2be14e6dd07cbcefc6
+    storefront.store.checkout.orderSummary.total: 96b0141273eabab320119c467cdcaf17
+    storefront.store.checkout.orderSummary.free: b24ce0cd392a5b0b8dedc66c25213594
+    storefront.store.checkout.orderSummary.quantity: 694e8d1f2ee056f98ee488bdc4982d73
+    storefront.store.checkout.success.title: 6fd1e8e08563b1a2395badaed519db86
+    storefront.store.checkout.success.message: 63c505e8a46d82a5b30ef376401f40e7
+    storefront.store.checkout.success.continueShopping: c20905e8fdd34a1bf81984e597436134
     storefront.comingSoon.heading: bc14b01ef9721608391a4d58565a5fdb
     storefront.comingSoon.description.line1: 1d881afbdd3af521120718b3def84876
     storefront.comingSoon.description.line2: 7b213864800e2f12bb32bbf44e65d96f
