@@ -5,37 +5,38 @@
  * **Key Fields:**
  * - `id`: Custom string ID with store prefix (e.g., "AHM-abc12345")
  * - `status`: Current order status (PENDING, CONFIRMED, PROCESSING, SHIPPED, DELIVERED, CANCELLED)
- * - `customerName`: Name of the customer placing the order
- * - `customerPhone`: Contact phone number for the order
- * - `address`: Optional delivery address
+ * - `paymentMethod`: Payment method used for the order (COD, CARD)
+ * - `isWhatsApp`: Whether customer wants to receive order updates via WhatsApp for this order
  * - `notes`: Optional special instructions or notes
  * - `storeId`: Reference to the Store where the order was placed
- * - `customerId`: Optional reference to a registered Customer (null for guest orders)
- * - `variantId`: Optional reference to a ProductVariant (null for product variants)
- * - `createdAt`: Timestamp when the order was created
+ * - `customerId`: Reference to a registered Customer (required - all orders now have customers)
+ * - `addressId`: Reference to the delivery Address for this order
+ * - `variantId`: Optional reference to a ProductVariant (null for products without variants) * - `createdAt`: Timestamp when the order was created
  * - `updatedAt`: Timestamp when the order was last updated
  * **Relationships:**
  * - Belongs to one Store
- * - Optionally belongs to one Customer (can be null for guest orders)
- * - Optionally belongs to one ProductVariant (can be null for product variants)
+ * - Belongs to one Customer (all orders are linked to customers)
+ * - Optionally belongs to one Address (delivery address)
+ * - Optionally belongs to one ProductVariant (variant of a product)
  * - Has many OrderItems (products in the order)
  * - Has many WhatsAppMessages (communication history)
  * **Business Logic:**
- * - Orders can be placed by registered customers or guests
- * - When a customer is deleted, their orders remain but customerId is set to null
+ * - All orders are now linked to Customer records (no more guest orders)
+ * - Customers with orders cannot be deleted (Restrict) to maintain data integrity
  * - Order status tracks the fulfillment lifecycle
  * - Custom ID format makes orders URL-friendly and identifiable by store
+ * - Address is stored separately in Address model for reuse across orders
  */
 model Order {
   id String @id
 
   status OrderStatus
 
-  customerName  String @map("customer_name")
-  customerPhone String @map("customer_phone")
+  paymentMethod PaymentMethod @default(COD) @map("payment_method")
 
-  address String?
-  notes   String?
+  isWhatsApp Boolean @default(false) @map("is_whatsapp")
+
+  notes String?
 
   orderItems       OrderItem[]
   whatsappMessages WhatsAppMessage[]
@@ -46,8 +47,11 @@ model Order {
   storeId String @map("store_id")
   store   Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
 
-  customerId String?   @map("customer_id")
-  customer   Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customerId String   @map("customer_id")
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Restrict)
+
+  addressId String?  @map("address_id")
+  address   Address? @relation(fields: [addressId], references: [id], onDelete: SetNull)
 
   variantId String?         @map("variant_id")
   variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)

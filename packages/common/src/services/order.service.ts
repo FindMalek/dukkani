@@ -9,9 +9,19 @@ import {
 } from "@dukkani/tracing";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
-import type { OrderStatus } from "../schemas/order/enums";
-import type { CreateOrderInput } from "../schemas/order/input";
-import type { OrderIncludeOutput } from "../schemas/order/output";
+import { StoreQuery } from "../entities/store/query";
+import { OrderStatus } from "../schemas/order/enums";
+import type {
+	CreateOrderInput,
+	CreateOrderPublicInput,
+} from "../schemas/order/input";
+import type {
+	OrderIncludeOutput,
+	OrderPublicOutput,
+} from "../schemas/order/output";
+import { AddressService } from "./address.service";
+import { CustomerService } from "./customer.service";
+import { NotificationService } from "./notification.service";
 import { ProductService } from "./product.service";
 
 /**
@@ -71,6 +81,7 @@ class OrderServiceBase {
 			await ProductService.checkStockAvailability(
 				input.orderItems.map((item) => ({
 					productId: item.productId,
+					variantId: item.variantId,
 					quantity: item.quantity,
 				})),
 				input.storeId,
@@ -84,15 +95,16 @@ class OrderServiceBase {
 				data: {
 					id: input.id,
 					storeId: input.storeId,
-					customerName: input.customerName,
-					customerPhone: input.customerPhone,
-					address: input.address,
+					paymentMethod: input.paymentMethod,
+					isWhatsApp: input.isWhatsApp,
 					notes: input.notes,
 					customerId: input.customerId,
+					addressId: input.addressId,
 					status: input.status,
 					orderItems: {
 						create: input.orderItems.map((item) => ({
 							productId: item.productId,
+							productVariantId: item.variantId,
 							quantity: item.quantity,
 							price: item.price,
 						})),
@@ -126,6 +138,7 @@ class OrderServiceBase {
 			await ProductService.updateMultipleProductStocks(
 				input.orderItems.map((item) => ({
 					productId: item.productId,
+					variantId: item.variantId,
 					quantity: item.quantity,
 				})),
 				"decrement",
@@ -145,6 +158,225 @@ class OrderServiceBase {
 		});
 
 		return OrderEntity.getRo(order);
+	}
+
+	/**
+	 * Create order for public storefront
+	 * No userId required, no ownership check — customer is auto-created/found
+	 * Status automatically set to PENDING
+	 */
+	static async createOrderPublic(
+		input: CreateOrderPublicInput,
+	): Promise<OrderPublicOutput> {
+		addSpanAttributes({
+			"order.store_id": input.storeId,
+			"order.items_count": input.orderItems.length,
+			"order.is_public": true,
+		});
+
+		// Get store to generate ID and validate payment method (no ownership check)
+		const store = await database.store.findUnique({
+			where: { id: input.storeId, ...StoreQuery.getPublishedWhere() },
+			select: {
+				id: true,
+				slug: true,
+				status: true,
+				supportedPaymentMethods: true,
+				shippingCost: true,
+			},
+		});
+
+		if (!store) {
+			throw new Error("Store not found");
+		}
+
+		// Validate payment method is supported by store
+		if (!store.supportedPaymentMethods.includes(input.paymentMethod)) {
+			throw new Error(
+				`Payment method ${input.paymentMethod} is not supported by this store. Supported methods: ${store.supportedPaymentMethods.join(", ")}`,
+			);
+		}
+
+		addSpanEvent("order.store.verified", { store_id: store.id });
+		logger.info(
+			enhanceLogWithTraceContext({
+				store_id: input.storeId,
+				items_count: input.orderItems.length,
+				is_guest: true,
+			}),
+			"Public order creation started",
+		);
+
+		// Generate order ID from store slug
+		const orderId = OrderService.generateOrderId(store.slug);
+
+		// Wrap stock check, customer/address creation, order creation, and stock updates in transaction
+		const order = await database.$transaction(async (tx) => {
+			// Validate products exist and check stock (within transaction for isolation)
+			await ProductService.checkStockAvailability(
+				input.orderItems.map((item) => ({
+					productId: item.productId,
+					variantId: item.variantId,
+					quantity: item.quantity,
+				})),
+				input.storeId,
+				tx,
+			);
+
+			addSpanEvent("order.stock.validated", { store_id: store.id });
+
+			// Fetch server-side prices (never trust client-provided values)
+			const orderItemsWithPrices = await ProductService.getOrderItemPrices(
+				input.orderItems,
+				input.storeId,
+				tx,
+			);
+
+			// Find or create customer
+			const customer = await CustomerService.findOrCreateCustomer(
+				input.customerPhone,
+				input.customerName,
+				input.storeId,
+				tx,
+			);
+
+			addSpanEvent("order.customer.created_or_found", {
+				customer_id: customer.id,
+			});
+
+			// Update customer's WhatsApp preference to match this order's choice
+			if (customer.prefersWhatsApp !== input.isWhatsApp) {
+				await tx.customer.update({
+					where: { id: customer.id },
+					data: { prefersWhatsApp: input.isWhatsApp },
+				});
+			}
+
+			// Create or find address
+			// If addressId is provided, use it; otherwise create/find from address object
+			let addressId: string | null = null;
+			if (input.addressId) {
+				const existingAddress = await tx.address.findFirst({
+					where: {
+						id: input.addressId,
+						customerId: customer.id,
+					},
+					select: { id: true },
+				});
+				if (!existingAddress) {
+					throw new Error(
+						"Address not found or does not belong to this customer",
+					);
+				}
+				addressId = existingAddress.id;
+			} else {
+				const addressData = input.address;
+				if (!addressData?.street || !addressData?.city) {
+					throw new Error(
+						"Address with street and city is required when addressId is not provided",
+					);
+				}
+
+				const address = await AddressService.createOrFindAddress(
+					{
+						...addressData,
+						street: addressData.street,
+						city: addressData.city,
+						customerId: customer.id,
+						isDefault: false,
+					},
+					tx,
+				);
+				addressId = address.id;
+			}
+
+			addSpanEvent("order.address.created_or_found", {
+				address_id: addressId,
+			});
+
+			// Create order with order items (within transaction)
+			const createdOrder = await tx.order.create({
+				data: {
+					id: orderId,
+					storeId: input.storeId,
+					paymentMethod: input.paymentMethod,
+					isWhatsApp: input.isWhatsApp,
+					notes: input.notes,
+					customerId: customer.id,
+					addressId,
+					status: OrderStatus.PENDING,
+					orderItems: {
+						create: orderItemsWithPrices.map((item) => ({
+							productId: item.productId,
+							productVariantId: item.variantId,
+							quantity: item.quantity,
+							price: item.price,
+						})),
+					},
+				},
+				include: {
+					...OrderQuery.getInclude(),
+					orderItems: {
+						include: {
+							product: {
+								select: {
+									name: true,
+								},
+							},
+						},
+					},
+				},
+			});
+
+			addSpanEvent("order.created", { order_id: createdOrder.id });
+			logger.info(
+				enhanceLogWithTraceContext({
+					order_id: createdOrder.id,
+					store_id: input.storeId,
+					total_items: createdOrder.orderItems.length,
+					status: createdOrder.status,
+				}),
+				"Public order created successfully",
+			);
+
+			await ProductService.updateMultipleProductStocks(
+				input.orderItems.map((item) => ({
+					productId: item.productId,
+					variantId: item.variantId,
+					quantity: item.quantity,
+				})),
+				"decrement",
+				tx,
+			);
+
+			addSpanEvent("order.stock.updated", { order_id: createdOrder.id });
+
+			return createdOrder;
+		});
+
+		addSpanAttributes({
+			"order.id": order.id,
+			"order.total_items": order.orderItems.length,
+			"order.status": order.status,
+			"order.has_customer": !!order.customerId,
+		});
+
+		const orderForNotification = OrderEntity.getRoWithProduct(order);
+		NotificationService.sendOrderNotification(
+			input.storeId,
+			orderForNotification,
+		).catch((error) => {
+			logger.error(
+				enhanceLogWithTraceContext({
+					order_id: order.id,
+					store_id: input.storeId,
+					error,
+				}),
+				"Order notification failed",
+			);
+		});
+
+		return OrderEntity.getPublicRo(order);
 	}
 
 	/**
@@ -222,6 +454,7 @@ class OrderServiceBase {
 				orderItems: {
 					select: {
 						productId: true,
+						productVariantId: true,
 						quantity: true,
 					},
 				},
@@ -258,6 +491,7 @@ class OrderServiceBase {
 				await ProductService.updateMultipleProductStocks(
 					order.orderItems.map((item) => ({
 						productId: item.productId,
+						variantId: item.productVariantId ?? undefined,
 						quantity: item.quantity,
 					})),
 					"increment",

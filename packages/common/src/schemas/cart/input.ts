@@ -1,14 +1,9 @@
 import { z } from "zod";
+import { productLineItemSchema } from "../product/input";
 
 export const getCartItemsInputSchema = z.object({
 	items: z
-		.array(
-			z.object({
-				productId: z.string(),
-				variantId: z.string().optional(),
-				quantity: z.number().int().min(1),
-			}),
-		)
+		.array(productLineItemSchema)
 		.min(1)
 		.max(50)
 		.refine(

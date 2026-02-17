@@ -1,15 +1,16 @@
 import {
 	HealthStatus,
 	OrderStatus,
+	PaymentMethod,
 	StorageFileVariantType,
 	StoreCategory,
 	StoreNotificationMethod,
 	StorePlanType,
+	StoreStatus,
 	StoreTheme,
 	TeamMemberRole,
 	UserOnboardingStep,
 	WhatsAppMessageStatus,
-	StoreStatus,
 } from "@dukkani/db/prisma/generated/enums";
 import { z } from "zod";
 
@@ -127,3 +128,12 @@ export const storeStatusSchema = z.nativeEnum(StoreStatus);
 export const storeStatusEnum = storeStatusSchema.enum;
 export const LIST_STORE_STATUSES = Object.values(StoreStatus);
 export type StoreStatusInfer = z.infer<typeof storeStatusSchema>;
+
+/**
+ * Payment Method Enum
+ */
+export { PaymentMethod };
+export const paymentMethodSchema = z.nativeEnum(PaymentMethod);
+export const paymentMethodEnum = paymentMethodSchema.enum;
+export const LIST_PAYMENT_METHODS = Object.values(PaymentMethod);
+export type PaymentMethodInfer = z.infer<typeof paymentMethodSchema>;

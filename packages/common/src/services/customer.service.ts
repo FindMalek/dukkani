@@ -1,4 +1,5 @@
 import { database, PrismaClientKnownRequestError } from "@dukkani/db";
+import type { PrismaClient } from "@prisma/client/extension";
 import { CustomerEntity } from "../entities/customer/entity";
 import { CustomerQuery } from "../entities/customer/query";
 import type {
@@ -86,6 +87,31 @@ export class CustomerService {
 			}
 			throw error;
 		}
+	}
+
+	/**
+	 * Find or create customer by phone number
+	 * If customer exists, return as-is
+	 * If not, create new customer
+	 * No ownership check - used for public order creation
+	 * Accepts optional tx for transactional use (e.g. order creation)
+	 */
+	static async findOrCreateCustomer(
+		phone: string,
+		name: string,
+		storeId: string,
+		tx?: PrismaClient,
+	): Promise<CustomerSimpleOutput> {
+		const client = tx ?? database;
+
+		const customer = await client.customer.upsert({
+			where: { phone_storeId: { phone, storeId } },
+			create: { name, phone, storeId },
+			update: {},
+			include: CustomerQuery.getSimpleInclude(),
+		});
+
+		return CustomerEntity.getSimpleRo(customer);
 	}
 
 	/**

@@ -5,6 +5,7 @@ export const customerSimpleOutputSchema = z.object({
 	id: z.string(),
 	name: z.string(),
 	phone: z.string(),
+	prefersWhatsApp: z.boolean(),
 	storeId: z.string(),
 	createdAt: z.date(),
 	updatedAt: z.date(),

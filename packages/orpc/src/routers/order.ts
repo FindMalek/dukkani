@@ -2,6 +2,7 @@ import { OrderEntity } from "@dukkani/common/entities/order/entity";
 import { OrderQuery } from "@dukkani/common/entities/order/query";
 import {
 	createOrderInputSchema,
+	createOrderPublicInputSchema,
 	getOrderInputSchema,
 	listOrdersInputSchema,
 	updateOrderStatusInputSchema,
@@ -9,20 +10,33 @@ import {
 import type {
 	ListOrdersOutput,
 	OrderIncludeOutput,
+	OrderPublicOutput,
 } from "@dukkani/common/schemas/order/output";
 import {
 	listOrdersOutputSchema,
 	orderIncludeOutputSchema,
+	orderPublicOutputSchema,
 } from "@dukkani/common/schemas/order/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
-import { NotificationService, OrderService } from "@dukkani/common/services";
+import { OrderService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
-import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure } from "../index";
+import { baseProcedure, protectedProcedure } from "../index";
+import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
 export const orderRouter = {
+	/**
+	 * Create order (admin - requires store ownership)
+	 */
+	create: protectedProcedure
+		.input(createOrderInputSchema)
+		.output(orderIncludeOutputSchema)
+		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
+			const userId = context.session.user.id;
+			return await OrderService.createOrder(input, userId);
+		}),
+
 	/**
 	 * Get all orders for user's stores (with pagination/filtering)
 	 */
@@ -73,7 +87,7 @@ export const orderRouter = {
 			const hasMore = skip + orders.length < total;
 
 			return {
-				orders: orders.map(OrderEntity.getSimpleRo),
+				orders: orders.map(OrderEntity.getRo),
 				total,
 				hasMore,
 				page,
@@ -108,58 +122,6 @@ export const orderRouter = {
 		}),
 
 	/**
-	 * Create new order (verify store ownership)
-	 */
-	create: protectedProcedure
-		.input(createOrderInputSchema)
-		.output(orderIncludeOutputSchema)
-		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
-			const userId = context.session.user.id;
-
-			// Get store to generate order ID
-			const store = await database.store.findUnique({
-				where: { id: input.storeId },
-				select: { slug: true },
-			});
-
-			if (!store) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Store not found",
-				});
-			}
-
-			// Generate order ID
-			const orderId = OrderService.generateOrderId(store.slug);
-
-			// Create order using service (handles stock validation and updates)
-			const order = await OrderService.createOrder(
-				{
-					...input,
-					id: orderId,
-					status: input.status,
-				},
-				userId,
-			);
-
-			// Fire-and-forget notification (respects store's notificationMethod preference)
-			NotificationService.sendOrderNotification(input.storeId, order).catch(
-				(error) => {
-					// Log but don't throw - notification failure shouldn't affect order creation
-					logger.error(
-						{
-							orderId,
-							storeId: input.storeId,
-							error,
-						},
-						"Order notification failed",
-					);
-				},
-			);
-
-			return order;
-		}),
-
-	/**
 	 * Update order status (verify store ownership)
 	 */
 	updateStatus: protectedProcedure
@@ -184,5 +146,18 @@ export const orderRouter = {
 			const userId = context.session.user.id;
 			await OrderService.deleteOrder(input.id, userId);
 			return { success: true };
+		}),
+
+	/**
+	 * Create new order (public - for storefronts)
+	 * No authentication required, uses public rate limiting
+	 * Status automatically set to PENDING
+	 */
+	createPublic: baseProcedure
+		.use(rateLimitPublicSafe)
+		.input(createOrderPublicInputSchema)
+		.output(orderPublicOutputSchema)
+		.handler(async ({ input }): Promise<OrderPublicOutput> => {
+			return await OrderService.createOrderPublic(input);
 		}),
 };
