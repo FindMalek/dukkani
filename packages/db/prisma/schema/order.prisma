@@ -11,8 +11,7 @@
  * - `storeId`: Reference to the Store where the order was placed
  * - `customerId`: Reference to a registered Customer (required - all orders now have customers)
  * - `addressId`: Reference to the delivery Address for this order
- * - `variantId`: Optional reference to a ProductVariant (null for product variants)
- * - `createdAt`: Timestamp when the order was created
+ * - `variantId`: Optional reference to a ProductVariant (null for products without variants) * - `createdAt`: Timestamp when the order was created
  * - `updatedAt`: Timestamp when the order was last updated
  * **Relationships:**
  * - Belongs to one Store

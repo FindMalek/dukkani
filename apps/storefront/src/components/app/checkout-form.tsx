@@ -113,16 +113,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 		}
 	}, [addressMap.error, t]);
 
-	useEffect(() => {
-		if (createOrderMutation.isError) {
-			toast.error(
-				createOrderMutation.error instanceof Error
-					? createOrderMutation.error.message
-					: t("error"),
-			);
-		}
-	}, [createOrderMutation.isError, createOrderMutation.error, t]);
-
 	const form = useSchemaForm({
 		schema: createOrderPublicInputSchema,
 		defaultValues: {

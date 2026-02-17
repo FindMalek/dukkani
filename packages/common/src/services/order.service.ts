@@ -161,8 +161,8 @@ class OrderServiceBase {
 	}
 
 	/**
-	 * Create order for public storefront (guest orders)
-	 * No userId required, no ownership check
+	 * Create order for public storefront
+	 * No userId required, no ownership check — customer is auto-created/found
 	 * Status automatically set to PENDING
 	 */
 	static async createOrderPublic(
@@ -171,7 +171,7 @@ class OrderServiceBase {
 		addSpanAttributes({
 			"order.store_id": input.storeId,
 			"order.items_count": input.orderItems.length,
-			"order.is_guest": true,
+			"order.is_public": true,
 		});
 
 		// Get store to generate ID and validate payment method (no ownership check)

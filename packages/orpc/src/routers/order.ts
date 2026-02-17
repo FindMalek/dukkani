@@ -110,30 +110,6 @@ export const orderRouter = {
 		}),
 
 	/**
-	 * Create new order (public - for storefronts)
-	 * No authentication required, uses public rate limiting
-	 * Guest orders only, status automatically set to PENDING
-	 */
-	createPublic: baseProcedure
-		.use(rateLimitPublicSafe)
-		.input(createOrderPublicInputSchema)
-		.output(orderPublicOutputSchema)
-		.handler(async ({ input }): Promise<OrderIncludeOutput> => {
-			const store = await database.store.findUnique({
-				where: { id: input.storeId },
-				select: { slug: true },
-			});
-
-			if (!store) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Store not found",
-				});
-			}
-
-			return await OrderService.createOrderPublic(input);
-		}),
-
-	/**
 	 * Update order status (verify store ownership)
 	 */
 	updateStatus: protectedProcedure
