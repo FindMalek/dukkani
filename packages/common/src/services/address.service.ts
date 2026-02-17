@@ -45,7 +45,7 @@ export class AddressService {
 				data: {
 					street: input.street,
 					city: input.city,
-					postalCode: input.postalCode,
+					postalCode: input.postalCode || null,
 					latitude: input.latitude,
 					longitude: input.longitude,
 					isDefault: input.isDefault,
