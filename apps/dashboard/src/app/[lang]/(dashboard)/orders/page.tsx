@@ -103,9 +103,9 @@ export default function OrdersPage() {
 										<TableCell className="font-medium font-mono text-sm">
 											{order.id}
 										</TableCell>
-										<TableCell>{order.customerName}</TableCell>
+										<TableCell>{order.customer?.name || "N/A"}</TableCell>
 										<TableCell className="text-muted-foreground">
-											{order.customerPhone}
+											{order.customer?.phone}
 										</TableCell>
 										<TableCell>
 											<Badge variant={statusColors[order.status] ?? "default"}>

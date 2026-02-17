@@ -28,7 +28,7 @@ export const orderIncludeOutputSchema = orderSimpleOutputSchema.extend({
 });
 
 export const listOrdersOutputSchema = z.object({
-	orders: z.array(orderSimpleOutputSchema),
+	orders: z.array(orderIncludeOutputSchema),
 	total: z.number().int(),
 	hasMore: z.boolean(),
 	page: z.number().int(),

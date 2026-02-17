@@ -1,6 +1,8 @@
 import { OrderEntity } from "@dukkani/common/entities/order/entity";
 import { OrderQuery } from "@dukkani/common/entities/order/query";
 import {
+	createOrderInputSchema,
+	createOrderPublicInputSchema,
 	getOrderInputSchema,
 	listOrdersInputSchema,
 	updateOrderStatusInputSchema,
@@ -12,15 +14,28 @@ import type {
 import {
 	listOrdersOutputSchema,
 	orderIncludeOutputSchema,
+	orderPublicOutputSchema,
 } from "@dukkani/common/schemas/order/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { OrderService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure } from "../index";
+import { baseProcedure, protectedProcedure } from "../index";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
+import { rateLimitPublicSafe } from "../middleware/rate-limit";
 
 export const orderRouter = {
+	/**
+	 * Create order (admin - requires store ownership)
+	 */
+	create: protectedProcedure
+		.input(createOrderInputSchema)
+		.output(orderIncludeOutputSchema)
+		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
+			const userId = context.session.user.id;
+			return await OrderService.createOrder(input, userId);
+		}),
+
 	/**
 	 * Get all orders for user's stores (with pagination/filtering)
 	 */
@@ -71,7 +86,7 @@ export const orderRouter = {
 			const hasMore = skip + orders.length < total;
 
 			return {
-				orders: orders.map(OrderEntity.getSimpleRo),
+				orders: orders.map(OrderEntity.getRo),
 				total,
 				hasMore,
 				page,
@@ -130,5 +145,18 @@ export const orderRouter = {
 			const userId = context.session.user.id;
 			await OrderService.deleteOrder(input.id, userId);
 			return { success: true };
+		}),
+
+	/**
+	 * Create new order (public - for storefronts)
+	 * No authentication required, uses public rate limiting
+	 * Status automatically set to PENDING
+	 */
+	createPublic: baseProcedure
+		.use(rateLimitPublicSafe)
+		.input(createOrderPublicInputSchema)
+		.output(orderPublicOutputSchema)
+		.handler(async ({ input }): Promise<OrderIncludeOutput> => {
+			return await OrderService.createOrderPublic(input);
 		}),
 };
