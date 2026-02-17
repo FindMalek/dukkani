@@ -156,7 +156,7 @@ export const orderRouter = {
 		.use(rateLimitPublicSafe)
 		.input(createOrderPublicInputSchema)
 		.output(orderPublicOutputSchema)
-		.handler(async ({ input }): Promise<OrderIncludeOutput> => {
+		.handler(async ({ input }): Promise<OrderPublicOutput> => {
 			return await OrderService.createOrderPublic(input);
 		}),
 };
