@@ -21,6 +21,7 @@ import type {
 } from "../schemas/order/output";
 import { AddressService } from "./address.service";
 import { CustomerService } from "./customer.service";
+import { NotificationService } from "./notification.service";
 import { ProductService } from "./product.service";
 
 /**
@@ -269,11 +270,20 @@ class OrderServiceBase {
 				}
 				addressId = existingAddress.id;
 			} else {
+				const addressData = input.address;
+				if (!addressData?.street || !addressData?.city) {
+					throw new Error(
+						"Address with street and city is required when addressId is not provided",
+					);
+				}
+
 				const address = await AddressService.createOrFindAddress(
 					{
-						...input.address,
+						...addressData,
+						street: addressData.street,
+						city: addressData.city,
 						customerId: customer.id,
-						isDefault: false, // Don't set as default on order creation
+						isDefault: false,
 					},
 					tx,
 				);
@@ -349,6 +359,21 @@ class OrderServiceBase {
 			"order.total_items": order.orderItems.length,
 			"order.status": order.status,
 			"order.has_customer": !!order.customerId,
+		});
+
+		const orderForNotification = OrderEntity.getRoWithProduct(order);
+		NotificationService.sendOrderNotification(
+			input.storeId,
+			orderForNotification,
+		).catch((error) => {
+			logger.error(
+				enhanceLogWithTraceContext({
+					order_id: order.id,
+					store_id: input.storeId,
+					error,
+				}),
+				"Order notification failed",
+			);
 		});
 
 		return OrderEntity.getPublicRo(order);

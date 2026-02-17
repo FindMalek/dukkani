@@ -130,22 +130,7 @@ export const orderRouter = {
 				});
 			}
 
-			const order = await OrderService.createOrderPublic(input);
-
-			NotificationService.sendOrderNotification(input.storeId, order).catch(
-				(error) => {
-					logger.error(
-						{
-							orderId: order.id,
-							storeId: input.storeId,
-							error,
-						},
-						"Order notification failed",
-					);
-				},
-			);
-
-			return order;
+			return await OrderService.createOrderPublic(input);
 		}),
 
 	/**
