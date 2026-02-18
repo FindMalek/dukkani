@@ -68,7 +68,7 @@ function AlertDialogHeader({
 	return (
 		<div
 			data-slot="alert-dialog-header"
-			className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
+			className={cn("flex flex-col gap-2 text-center sm:text-start", className)}
 			{...props}
 		/>
 	);
@@ -131,7 +131,7 @@ function AlertDialogAction({
 			disabled={disabled || isLoading}
 			{...props}
 		>
-			{isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+			{isLoading && <Icons.spinner className="me-2 h-4 w-4 animate-spin" />}
 			{children}
 		</AlertDialogPrimitive.Action>
 	);

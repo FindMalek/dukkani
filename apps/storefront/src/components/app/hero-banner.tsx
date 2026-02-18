@@ -33,7 +33,7 @@ export function HeroBanner({
 						<Skeleton className="h-full w-full" />
 					)}
 					<div className="absolute inset-0 bg-linear-to-t from-foreground/60 via-foreground/20 to-transparent" />
-					<div className="absolute bottom-3 left-3 text-card">
+					<div className="absolute start-3 bottom-3 text-card">
 						<h2 className="font-bold text-lg">{title}</h2>
 						<Button
 							variant="ghost"

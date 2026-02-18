@@ -37,7 +37,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 					<Button
 						variant="secondary"
 						size="icon"
-						className="absolute right-2 bottom-2 size-10 rounded-full border-border bg-card hover:bg-card/90"
+						className="absolute end-2 bottom-2 size-10 rounded-full border-border bg-card hover:bg-card/90"
 						onClick={(e) => {
 							e.preventDefault();
 							onAddToCart?.(product);
@@ -48,7 +48,9 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 				</div>
 				<div className="mt-2">
 					<h3 className="mb-1 font-bold text-foreground">{product.name}</h3>
-					<p className="text-muted-foreground text-sm">{price} TND</p>
+					<p className="text-muted-foreground text-sm tabular-nums" dir="ltr">
+						{price} TND
+					</p>
 				</div>
 			</Link>
 		</div>

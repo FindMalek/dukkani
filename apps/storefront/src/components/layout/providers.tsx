@@ -1,6 +1,10 @@
 "use client";
 
-import type { Locale } from "@dukkani/common/schemas/constants";
+import {
+	getTextDirection,
+	type Locale,
+} from "@dukkani/common/schemas/constants";
+import { DirectionProvider } from "@dukkani/ui/components/direction";
 import { Toaster } from "@dukkani/ui/components/sonner";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -28,25 +32,29 @@ export function Providers({
 	const [queryClient] = useState(() => getQueryClient());
 
 	return (
-		<NextIntlClientProvider
-			locale={locale}
-			messages={messages}
-			timeZone="Africa/Tunis"
-		>
-			<ThemeProvider
-				attribute="class"
-				defaultTheme="system"
-				enableSystem
-				disableTransitionOnChange
+		<DirectionProvider direction={getTextDirection(locale)}>
+			<NextIntlClientProvider
+				locale={locale}
+				messages={messages}
+				timeZone="Africa/Tunis"
 			>
-				<QueryClientProvider client={queryClient}>
-					<CartStoreProvider storeSlug={storeSlug}>
-						{children}
-					</CartStoreProvider>
-					{env.NEXT_PUBLIC_NODE_ENV === "development" && <ReactQueryDevtools />}
-				</QueryClientProvider>
-				<Toaster richColors />
-			</ThemeProvider>
-		</NextIntlClientProvider>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<QueryClientProvider client={queryClient}>
+						<CartStoreProvider storeSlug={storeSlug}>
+							{children}
+						</CartStoreProvider>
+						{env.NEXT_PUBLIC_NODE_ENV === "development" && (
+							<ReactQueryDevtools />
+						)}
+					</QueryClientProvider>
+					<Toaster richColors />
+				</ThemeProvider>
+			</NextIntlClientProvider>
+		</DirectionProvider>
 	);
 }

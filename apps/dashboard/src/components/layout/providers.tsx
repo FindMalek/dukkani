@@ -1,6 +1,10 @@
 "use client";
 
-import type { Locale } from "@dukkani/common/schemas/constants";
+import {
+	getTextDirection,
+	type Locale,
+} from "@dukkani/common/schemas/constants";
+import { DirectionProvider } from "@dukkani/ui/components/direction";
 import { Toaster } from "@dukkani/ui/components/sonner";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -21,19 +25,23 @@ export default function Providers({
 	messages,
 }: ProvidersProps) {
 	return (
-		<NextIntlClientProvider locale={locale} messages={messages}>
-			<ThemeProvider
-				attribute="class"
-				defaultTheme="system"
-				enableSystem
-				disableTransitionOnChange
-			>
-				<QueryClientProvider client={queryClient}>
-					{children}
-					{env.NEXT_PUBLIC_NODE_ENV === "development" && <ReactQueryDevtools />}
-				</QueryClientProvider>
-				<Toaster richColors />
-			</ThemeProvider>
-		</NextIntlClientProvider>
+		<DirectionProvider direction={getTextDirection(locale)}>
+			<NextIntlClientProvider locale={locale} messages={messages}>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<QueryClientProvider client={queryClient}>
+						{children}
+						{env.NEXT_PUBLIC_NODE_ENV === "development" && (
+							<ReactQueryDevtools />
+						)}
+					</QueryClientProvider>
+					<Toaster richColors />
+				</ThemeProvider>
+			</NextIntlClientProvider>
+		</DirectionProvider>
 	);
 }

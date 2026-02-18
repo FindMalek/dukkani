@@ -28,7 +28,7 @@ export function StoreHeader({ store }: StoreHeaderProps) {
 
 	return (
 		<>
-			<header className="fixed top-0 right-0 left-0 z-50 border-border/30 border-b bg-background/80 backdrop-blur-md">
+			<header className="fixed inset-x-0 top-0 z-50 border-border/30 border-b bg-background/80 backdrop-blur-md">
 				<div className="container mx-auto px-4 py-2">
 					<div className="flex items-center justify-between">
 						{isDetail ? (
@@ -38,7 +38,7 @@ export function StoreHeader({ store }: StoreHeaderProps) {
 								className="size-8"
 								onClick={() => router.back()}
 							>
-								<Icons.arrowLeft className="size-4" />
+								<Icons.arrowLeft className="size-4 rtl:rotate-180" />
 							</Button>
 						) : (
 							<div className="flex items-center gap-2">
@@ -53,11 +53,11 @@ export function StoreHeader({ store }: StoreHeaderProps) {
 						>
 							<Icons.shoppingCart className="size-4" />
 							{!isHydrated ? (
-								<Skeleton className="absolute -top-0.5 -right-0.5 size-4 rounded-full" />
+								<Skeleton className="absolute -end-0.5 -top-0.5 size-4 rounded-full" />
 							) : cartCount > 0 ? (
 								<Badge
 									variant="default"
-									className="absolute -top-0.5 -right-0.5 size-4 p-0 text-[10px] leading-none"
+									className="absolute -end-0.5 -top-0.5 size-4 p-0 text-[10px] leading-none"
 								>
 									{cartCount}
 								</Badge>

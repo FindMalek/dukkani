@@ -129,7 +129,10 @@ export const CartItem = memo(function CartItem({
 					/>
 
 					{/* Price */}
-					<span className="font-semibold text-foreground">
+					<span
+						className="font-semibold text-foreground tabular-nums"
+						dir="ltr"
+					>
 						{formattedPrice} {currency}
 					</span>
 				</div>

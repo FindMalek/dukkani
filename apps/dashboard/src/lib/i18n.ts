@@ -1,3 +1,4 @@
+import arMessages from "@dukkani/common/locale/dashboard/ar.json";
 import enMessages from "@dukkani/common/locale/dashboard/en.json";
 import frMessages from "@dukkani/common/locale/dashboard/fr.json";
 import {
@@ -15,6 +16,7 @@ type MessagesMap = {
 const messages: MessagesMap = {
 	en: enMessages,
 	fr: frMessages,
+	ar: arMessages,
 } as const;
 
 export default getRequestConfig(async ({ locale }) => {

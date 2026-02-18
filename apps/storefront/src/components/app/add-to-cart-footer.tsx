@@ -92,7 +92,7 @@ export function AddToCartFooter({
 								<span>{isOutOfStock ? t("outOfStock") : t("button")}</span>
 							</div>
 							<span className="text-sm">-</span>
-							<span className="font-semibold">
+							<span className="font-semibold tabular-nums" dir="ltr">
 								{formattedPrice} {currency}
 							</span>
 						</div>

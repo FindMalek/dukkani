@@ -54,7 +54,7 @@ export function LanguageSwitcher({
 	return (
 		<Select value={currentLocale} onValueChange={switchLanguage}>
 			<SelectTrigger className={`${className}`}>
-				<Globe className="mr-2 h-4 w-4" />
+				<Globe className="me-2 h-4 w-4" />
 			</SelectTrigger>
 			<SelectContent>
 				{LOCALES.map((locale) => (

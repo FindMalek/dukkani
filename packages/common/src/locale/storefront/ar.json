@@ -1,0 +1,89 @@
+{
+	"storefront": {
+		"title": "Storefront",
+		"description": "Storefront description",
+		"store": {
+			"owner": { "title": "Store Owner" },
+			"products": { "title": "Products", "empty": "No products available yet" },
+			"categoryFilter": { "all": "All" },
+			"filter": { "button": "Filter" },
+			"footer": {
+				"copyright": "All rights reserved",
+				"poweredBy": "Powered by Dukkani"
+			},
+			"product": {
+				"imageCarousel": { "goToSlide": "Go to slide {index}" },
+				"storeInfo": { "openNow": "Open now", "closed": "Closed" },
+				"sizeSelector": { "label": "Size" },
+				"description": { "label": "Description" },
+				"addToCart": { "button": "Add to Cart", "outOfStock": "Out of Stock" },
+				"quickAdd": {
+					"viewDetails": "View Full Details",
+					"quantity": "Quantity"
+				}
+			},
+			"cart": {
+				"title": "Your Cart",
+				"empty": "Your cart is empty",
+				"checkout": "Checkout",
+				"item": {
+					"lowStock": "Only {count} left",
+					"outOfStock": "Out of stock"
+				}
+			},
+			"checkout": {
+				"title": "Checkout",
+				"submitting": "Placing order...",
+				"placeOrder": "Place order",
+				"error": "Something went wrong. Please try again.",
+				"delivery": {
+					"title": "Delivery",
+					"fastDelivery": "Fast 24-48h delivery",
+					"fullName": "Full name",
+					"phone": "Phone",
+					"whatsapp": "This number is on WhatsApp",
+					"whatsappDescription": "We will send you a notification on WhatsApp when your order is ready to be delivered.",
+					"streetAddress": "Street address",
+					"city": "City",
+					"postalCode": "Postal code",
+					"instructions": "Delivery instructions",
+					"useLocation": "Autofill address from phone location",
+					"useLocationDescription": "We will fill the city and area automatically.",
+					"locationErrorTitle": "Could not get your location",
+					"locationErrorDescription": "Allow location access in your browser (lock or info icon in the address bar), or enter your address manually."
+				},
+				"payment": {
+					"title": "Payment",
+					"cod": "Cash on Delivery (COD)",
+					"creditCard": "Credit Card",
+					"comingSoon": "Coming soon"
+				},
+				"orderSummary": {
+					"title": "Order",
+					"subtotal": "Subtotal",
+					"shipping": "Shipping",
+					"total": "Total",
+					"free": "Free",
+					"quantity": "Quantity"
+				},
+				"success": {
+					"title": "Order created successfully",
+					"message": "Thank you for your order! The merchant will receive your order and contact you soon.",
+					"continueShopping": "Continue Shopping"
+				}
+			}
+		},
+		"comingSoon": {
+			"heading": "We're launching soon",
+			"description": {
+				"line1": "Be the first to know when we go live.",
+				"line2": "Exclusive updates for early visitors."
+			},
+			"input": { "placeholder": "Enter your email or phone number" },
+			"button": { "label": "Notify me", "submitting": "Subscribing..." },
+			"success": "Thank you! We'll notify you when we launch.",
+			"error": "Something went wrong. Please try again.",
+			"privacy": "No spam. Only launch updates."
+		}
+	}
+}

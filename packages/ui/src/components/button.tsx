@@ -73,7 +73,7 @@ function Button({
 			disabled={disabled || isLoading}
 			{...props}
 		>
-			{isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+			{isLoading && <Icons.spinner className="me-2 h-4 w-4 animate-spin" />}
 			{children}
 		</Comp>
 	);
