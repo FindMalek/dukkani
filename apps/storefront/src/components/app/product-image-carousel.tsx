@@ -12,6 +12,7 @@ import { cn } from "@dukkani/ui/lib/utils";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { useIsRtl } from "@dukkani/ui/components/direction";
 
 interface ProductImageCarouselProps {
 	images: string[];
@@ -22,9 +23,10 @@ export function ProductImageCarousel({
 	images,
 	productName,
 }: ProductImageCarouselProps) {
-	const t = useTranslations("storefront.store.product.imageCarousel");
-	const [api, setApi] = useState<CarouselApi>();
+	const isRtl = useIsRtl();
 	const [current, setCurrent] = useState(0);
+	const [api, setApi] = useState<CarouselApi>();
+	const t = useTranslations("storefront.store.product.imageCarousel");
 
 	useEffect(() => {
 		if (!api) return;
@@ -54,7 +56,7 @@ export function ProductImageCarousel({
 
 	return (
 		<div className="relative w-full overflow-hidden rounded-2xl">
-			<Carousel setApi={setApi} className="w-full">
+			<Carousel setApi={setApi} className="w-full" opts={{ direction: isRtl ? "rtl" : "ltr" }}>
 				<CarouselContent>
 					{images.map((image, index) => (
 						<CarouselItem key={index}>
@@ -72,7 +74,7 @@ export function ProductImageCarousel({
 				</CarouselContent>
 			</Carousel>
 			{images.length > 1 && (
-				<div className="absolute start-1/2 bottom-2 flex -translate-x-1/2 justify-center gap-1 rounded-full bg-background/10 px-2 py-1.5 backdrop-blur-sm">
+				<div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 justify-center gap-1 rounded-full bg-background/10 px-2 py-1.5 backdrop-blur-sm">
 					{images.map((_, index) => (
 						<button
 							key={index}

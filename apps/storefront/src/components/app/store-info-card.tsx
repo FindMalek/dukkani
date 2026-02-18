@@ -59,7 +59,7 @@ export function StoreInfoCard({
 						</p>
 					)}
 				</div>
-				<Icons.chevronRight className="size-5 text-muted-foreground" />
+				<Icons.chevronRight className="size-5 text-muted-foreground rtl:rotate-180" />
 			</div>
 		</Link>
 	);
