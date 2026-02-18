@@ -156,7 +156,7 @@ export function QuickAddToCart({
 								</span>
 							</div>
 							<div className="flex items-center gap-2">
-								<span className="font-semibold text-sm">
+								<span className="font-semibold text-sm tabular-nums" dir="ltr">
 									{formattedPrice} TND
 								</span>
 								<Icons.arrowRight className="size-4 rtl:rotate-180" />

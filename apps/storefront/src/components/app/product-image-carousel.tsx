@@ -56,7 +56,11 @@ export function ProductImageCarousel({
 
 	return (
 		<div className="relative w-full overflow-hidden rounded-2xl">
-			<Carousel setApi={setApi} className="w-full" opts={{ direction: isRtl ? "rtl" : "ltr" }}>
+			<Carousel
+				setApi={setApi}
+				className="w-full"
+				opts={{ direction: isRtl ? "rtl" : "ltr" }}
+			>
 				<CarouselContent>
 					{images.map((image, index) => (
 						<CarouselItem key={index}>
