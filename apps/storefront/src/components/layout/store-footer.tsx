@@ -15,7 +15,6 @@ export async function StoreFooter() {
 						{t("copyright", { defaultValue: "All rights reserved" })}
 					</p>
 					<div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center">
-						<LanguageSwitcher variant="select" className="w-fit" />
 						<p className="text-muted-foreground text-sm">
 							<Link
 								href={env.NEXT_PUBLIC_WEB_URL}
@@ -28,6 +27,7 @@ export async function StoreFooter() {
 								})}
 							</Link>
 						</p>
+						<LanguageSwitcher variant="select" className="w-fit" />
 					</div>
 				</div>
 			</div>

@@ -38,3 +38,9 @@ export function isRtlLocale(locale: string): boolean {
 export function getTextDirection(locale: string): "ltr" | "rtl" {
 	return isRtlLocale(locale) ? "rtl" : "ltr";
 }
+
+export const LOCALE_FLAGS: Record<Locale, string> = {
+	en: "🇬🇧",
+	fr: "🇫🇷",
+	ar: "🇸🇦",
+};
