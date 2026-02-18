@@ -2,7 +2,6 @@
 
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
 import { Button } from "@dukkani/ui/components/button";
-import { useIsRtl } from "@dukkani/ui/components/direction";
 import {
 	Drawer,
 	DrawerContent,
@@ -31,7 +30,6 @@ export function QuickAddToCart({
 	open,
 	onOpenChange,
 }: QuickAddToCartProps) {
-	const isRtl = useIsRtl();
 	const t = useTranslations("storefront.store.product");
 
 	const hasVariants = (product.variants?.length ?? 0) > 0;
@@ -82,11 +80,7 @@ export function QuickAddToCart({
 	};
 
 	return (
-		<Drawer
-			direction={isRtl ? "left" : "right"}
-			open={open}
-			onOpenChange={onOpenChange}
-		>
+		<Drawer open={open} onOpenChange={onOpenChange}>
 			<DrawerContent className="flex max-h-[90vh] flex-col">
 				<DrawerHeader className="sr-only">
 					<DrawerTitle>{product.name}</DrawerTitle>
