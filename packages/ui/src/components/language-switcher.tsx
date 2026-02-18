@@ -3,6 +3,7 @@
 import {
 	LOCALES,
 	LOCALES_MAP,
+	LOCALE_FLAGS,
 	type Locale,
 } from "@dukkani/common/schemas/constants";
 import { Globe } from "lucide-react";
@@ -54,7 +55,9 @@ export function LanguageSwitcher({
 	return (
 		<Select value={currentLocale} onValueChange={switchLanguage}>
 			<SelectTrigger className={`${className}`}>
-				<Globe className="mr-2 h-4 w-4" />
+				{LOCALE_FLAGS[currentLocale as Locale] && (
+					<span className="me-2">{LOCALE_FLAGS[currentLocale as Locale]}</span>
+				)}
 			</SelectTrigger>
 			<SelectContent>
 				{LOCALES.map((locale) => (

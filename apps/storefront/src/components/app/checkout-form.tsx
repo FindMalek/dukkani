@@ -531,7 +531,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 				</section>
 
 				{/* Sticky footer - total + Place order */}
-				<div className="fixed right-0 bottom-0 left-0 z-10 border-t bg-background px-4 py-3">
+				<div className="fixed inset-x-0 bottom-0 z-10 border-t bg-background px-4 py-3">
 					<div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
 						<Button
 							type="submit"
@@ -550,10 +550,13 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 									<span>{t("placeOrder")}</span>
 								</div>
 								<div className="flex items-center gap-2">
-									<span className="font-semibold text-sm">
+									<span
+										className="font-semibold text-sm tabular-nums"
+										dir="ltr"
+									>
 										{formattedTotal} TND
 									</span>
-									<Icons.arrowRight className="size-4" />
+									<Icons.arrowRight className="size-4 rtl:rotate-180" />
 								</div>
 							</div>
 						</Button>

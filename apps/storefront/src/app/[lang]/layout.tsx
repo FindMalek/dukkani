@@ -1,6 +1,10 @@
 import "@dukkani/ui/styles/globals.css";
 
-import { LOCALES, type Locale } from "@dukkani/common/schemas/constants";
+import {
+	getTextDirection,
+	LOCALES,
+	type Locale,
+} from "@dukkani/common/schemas/constants";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import type { Metadata } from "next";
@@ -78,7 +82,7 @@ export default async function RootLayout({
 	}
 
 	return (
-		<html lang={lang} suppressHydrationWarning>
+		<html lang={lang} dir={getTextDirection(lang)} suppressHydrationWarning>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 				suppressHydrationWarning

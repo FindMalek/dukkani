@@ -1,6 +1,10 @@
 import "@dukkani/ui/styles/globals.css";
 
-import { LOCALES, type Locale } from "@dukkani/common/schemas/constants";
+import {
+	getTextDirection,
+	LOCALES,
+	type Locale,
+} from "@dukkani/common/schemas/constants";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { getMessages } from "next-intl/server";
@@ -53,7 +57,7 @@ export default async function RootLayout({
 	const messages = await getMessages();
 
 	return (
-		<html lang={lang} suppressHydrationWarning>
+		<html lang={lang} dir={getTextDirection(lang)} suppressHydrationWarning>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 				suppressHydrationWarning

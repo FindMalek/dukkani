@@ -51,7 +51,7 @@ export function StoreInfoCard({
 						<p className="text-muted-foreground text-sm">
 							<span
 								className={cn(
-									"mr-1 inline-block size-2 rounded-full",
+									"me-1 inline-block size-2 rounded-full",
 									isOpen ? "bg-primary" : "bg-muted-foreground",
 								)}
 							/>
@@ -59,7 +59,7 @@ export function StoreInfoCard({
 						</p>
 					)}
 				</div>
-				<Icons.chevronRight className="size-5 text-muted-foreground" />
+				<Icons.chevronRight className="size-5 text-muted-foreground rtl:rotate-180" />
 			</div>
 		</Link>
 	);

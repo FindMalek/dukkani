@@ -1,6 +1,10 @@
 "use client";
 
-import type { Locale } from "@dukkani/common/schemas/constants";
+import {
+	getTextDirection,
+	type Locale,
+} from "@dukkani/common/schemas/constants";
+import { DirectionProvider } from "@dukkani/ui/components/direction";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 
 import { NextIntlClientProvider } from "next-intl";
@@ -13,15 +17,17 @@ interface ProvidersProps {
 
 export function Providers({ children, locale, messages }: ProvidersProps) {
 	return (
-		<NextIntlClientProvider locale={locale} messages={messages}>
-			<ThemeProvider
-				attribute="class"
-				defaultTheme="system"
-				enableSystem
-				disableTransitionOnChange
-			>
-				{children}
-			</ThemeProvider>
-		</NextIntlClientProvider>
+		<DirectionProvider direction={getTextDirection(locale)}>
+			<NextIntlClientProvider locale={locale} messages={messages}>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					{children}
+				</ThemeProvider>
+			</NextIntlClientProvider>
+		</DirectionProvider>
 	);
 }

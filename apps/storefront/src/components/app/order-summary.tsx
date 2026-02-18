@@ -70,7 +70,10 @@ export function OrderSummary({
 									<span className="min-w-0 truncate font-medium text-sm">
 										{item.productName}
 									</span>
-									<span className="shrink-0 font-medium text-sm">
+									<span
+										className="shrink-0 font-medium text-sm tabular-nums"
+										dir="ltr"
+									>
 										{(item.price * item.quantity).toFixed(3)} TND
 									</span>
 								</div>
@@ -90,15 +93,21 @@ export function OrderSummary({
 			<div className="mt-3 space-y-1 border-t pt-3 text-sm">
 				<div className="flex items-center justify-between text-muted-foreground">
 					<span>{t("subtotal")}</span>
-					<span>{subtotal.toFixed(3)} TND</span>
+					<span className="tabular-nums" dir="ltr">
+						{subtotal.toFixed(3)} TND
+					</span>
 				</div>
 				<div className="flex items-center justify-between text-muted-foreground">
 					<span>{t("shipping")}</span>
-					<span>{shippingLabel}</span>
+					<span className="tabular-nums" dir="ltr">
+						{shippingLabel}
+					</span>
 				</div>
 				<div className="flex items-center justify-between border-t pt-2 font-semibold">
 					<span>{t("total")}</span>
-					<span>{total.toFixed(3)} TND</span>
+					<span className="tabular-nums" dir="ltr">
+						{total.toFixed(3)} TND
+					</span>
 				</div>
 			</div>
 		</div>

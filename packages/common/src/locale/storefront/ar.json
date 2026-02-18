@@ -1,0 +1,92 @@
+{
+	"storefront": {
+		"title": "واجهة المتجر",
+		"description": "وصف واجهة المتجر",
+		"store": {
+			"owner": { "title": "صاحب المتجر" },
+			"products": { "title": "المنتجات", "empty": "لا توجد منتجات متاحة بعد" },
+			"categoryFilter": { "all": "الكل" },
+			"filter": { "button": "تصفية" },
+			"footer": {
+				"copyright": "جميع الحقوق محفوظة",
+				"poweredBy": "مدعوم من دكاني"
+			},
+			"product": {
+				"imageCarousel": { "goToSlide": "الانتقال إلى الشريحة {index}" },
+				"storeInfo": { "openNow": "مفتوح الآن", "closed": "مغلق" },
+				"sizeSelector": { "label": "الحجم" },
+				"description": { "label": "الوصف" },
+				"addToCart": {
+					"button": "أضف إلى السلة",
+					"outOfStock": "إنتهى من المخزون"
+				},
+				"quickAdd": {
+					"viewDetails": "عرض التفاصيل الكاملة",
+					"quantity": "الكمية"
+				}
+			},
+			"cart": {
+				"title": "سلتك",
+				"empty": "سلتك فارغة",
+				"checkout": "اتمام الشراء",
+				"item": {
+					"lowStock": "تبقى {count} فقط",
+					"outOfStock": "إنتهى من المخزون"
+				}
+			},
+			"checkout": {
+				"title": "اتمام الشراء",
+				"submitting": "جاري تقديم الطلب...",
+				"placeOrder": "تقديم الطلب",
+				"error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+				"delivery": {
+					"title": "التسليم",
+					"fastDelivery": "تسليم سريع خلال 24-48 ساعة",
+					"fullName": "الاسم الكامل",
+					"phone": "الهاتف",
+					"whatsapp": "هذا الرقم على واتساب",
+					"whatsappDescription": "سنرسل لك إشعارًا على واتساب عندما يكون طلبك جاهزًا للتسليم.",
+					"streetAddress": "عنوان الشارع",
+					"city": "المدينة",
+					"postalCode": "الرمز البريدي",
+					"instructions": "تعليمات التسليم",
+					"useLocation": "ملء العنوان تلقائيًا من موقع الهاتف",
+					"useLocationDescription": "سنملأ المدينة والمنطقة تلقائيًا.",
+					"locationErrorTitle": "تعذر الحصول على موقعك",
+					"locationErrorDescription": "سمح بالوصول إلى الموقع في متصفحك (أيقونة القفل أو المعلومات في شريط العنوان)، أو أدخل عنوانك يدويًا."
+				},
+				"payment": {
+					"title": "الدفع",
+					"cod": "الدفع عند الاستلام (COD)",
+					"creditCard": "بطاقة ائتمان",
+					"comingSoon": "قريبًا"
+				},
+				"orderSummary": {
+					"title": "الطلب",
+					"subtotal": "المجموع الفرعي",
+					"shipping": "الشحن",
+					"total": "الإجمالي",
+					"free": "مجاني",
+					"quantity": "الكمية"
+				},
+				"success": {
+					"title": "تم إنشاء الطلب بنجاح",
+					"message": "شكرًا لطلبك! سيتلقى التاجر طلبك وسيتواصل معك قريبًا.",
+					"continueShopping": "متابعة التسوق"
+				}
+			}
+		},
+		"comingSoon": {
+			"heading": "سنطلق قريبًا",
+			"description": {
+				"line1": "كن أول من يعرف عند إطلاقنا.",
+				"line2": "تحديثات حصرية للزوار المبكرين."
+			},
+			"input": { "placeholder": "أدخل بريدك الإلكتروني أو رقم هاتفك" },
+			"button": { "label": "أبلغني", "submitting": "جاري الاشتراك..." },
+			"success": "شكرًا! سنخبرك عند الإطلاق.",
+			"error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+			"privacy": "لا بريد مزعج. فقط تحديثات الإطلاق."
+		}
+	}
+}

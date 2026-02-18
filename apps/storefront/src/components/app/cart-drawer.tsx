@@ -3,7 +3,6 @@
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Drawer,
-	DrawerClose,
 	DrawerContent,
 	DrawerFooter,
 	DrawerHeader,
@@ -159,10 +158,13 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
 									<span>{t("checkout")}</span>
 								</div>
 								<div className="flex items-center gap-2">
-									<span className="font-semibold text-sm">
+									<span
+										className="font-semibold text-sm tabular-nums"
+										dir="ltr"
+									>
 										{formattedTotal} TND
 									</span>
-									<Icons.arrowRight className="size-4" />
+									<Icons.arrowRight className="size-4 rtl:rotate-180" />
 								</div>
 							</div>
 						</Button>

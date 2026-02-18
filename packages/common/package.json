@@ -31,7 +31,10 @@
 		"./locale/dashboard/en.json": "./src/locale/dashboard/en.json",
 		"./locale/dashboard/fr.json": "./src/locale/dashboard/fr.json",
 		"./locale/storefront/en.json": "./src/locale/storefront/en.json",
-		"./locale/storefront/fr.json": "./src/locale/storefront/fr.json"
+		"./locale/storefront/fr.json": "./src/locale/storefront/fr.json",
+		"./locale/storefront/ar.json": "./src/locale/storefront/ar.json",
+		"./locale/dashboard/ar.json": "./src/locale/dashboard/ar.json",
+		"./locale/web/ar.json": "./src/locale/web/ar.json"
 	},
 	"scripts": {
 		"build": "tsdown",
