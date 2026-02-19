@@ -2,5 +2,11 @@
 	"common": {
 		"title": "Dukkani - Solution de gestion d'entreprise",
 		"description": "Votre solution de gestion d'entreprise tout-en-un"
+	},
+	"header": {
+		"brandName": "Dukkani",
+		"features": "Features",
+		"pricing": "Pricing",
+		"startSelling": "Start Selling"
 	}
 }

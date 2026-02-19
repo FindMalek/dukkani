@@ -1,154 +1,48 @@
-"use client";
-
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
-import { LanguageSwitcher } from "@dukkani/ui/components/language-switcher";
-import { ModeToggle } from "@dukkani/ui/components/mode-toggle";
-import { AnimatePresence, motion } from "framer-motion";
-import type { LinkProps } from "next/link";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { getTranslations } from "next-intl/server";
 import { env } from "@/env";
 
-export default function Header() {
-	const [isScrolled, setIsScrolled] = useState(false);
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-	useEffect(() => {
-		const handleScroll = () => {
-			setIsScrolled(window.scrollY > 10);
-		};
-		window.addEventListener("scroll", handleScroll);
-		return () => window.removeEventListener("scroll", handleScroll);
-	}, []);
+export async function Header() {
+	const t = await getTranslations("header");
 
 	return (
-		<header
-			className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-				isScrolled
-					? "border-b bg-background/80 backdrop-blur-md"
-					: "bg-transparent"
-			}`}
-		>
+		<header className="fixed top-0 z-50 w-full border-secondary border-b bg-background/80 backdrop-blur-md">
 			<div className="container mx-auto flex h-16 items-center justify-between px-4">
-				<Link href="/" className="flex items-center gap-2 font-bold text-xl">
+				<Link
+					href="/"
+					className="flex items-center gap-2 font-bold text-foreground text-xl"
+				>
 					<div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
 						<Icons.storefront className="h-5 w-5" />
 					</div>
-					<span>Dukkani</span>
+					<span>{t("brandName")}</span>
 				</Link>
 
-				{/* Desktop Nav */}
-				<nav className="hidden items-center gap-8 md:flex">
+				<div className="flex items-center gap-8">
 					<Link
 						href="#features"
-						className="font-medium text-muted-foreground text-sm hover:text-foreground"
+						className="hidden font-medium text-muted-foreground text-sm transition-colors hover:text-foreground md:block"
 					>
-						Features
+						{t("features")}
 					</Link>
 					<Link
 						href="#pricing"
-						className="font-medium text-muted-foreground text-sm hover:text-foreground"
+						className="hidden font-medium text-muted-foreground text-sm transition-colors hover:text-foreground md:block"
 					>
-						Pricing
+						{t("pricing")}
 					</Link>
-					<Link
-						href="#faq"
-						className="font-medium text-muted-foreground text-sm hover:text-foreground"
+					<Button
+						asChild
+						className="rounded-full bg-primary px-6 py-2 font-bold text-primary-foreground"
 					>
-						FAQ
-					</Link>
-					<div className="flex items-center gap-4">
-						<ModeToggle />
-						<Link
-							href={env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]}
-							className="font-medium text-muted-foreground text-sm hover:text-foreground"
-						>
-							Sign In
+						<Link href={env.NEXT_PUBLIC_DASHBOARD_URL}>
+							{t("startSelling")}
 						</Link>
-						<Button asChild size="sm">
-							<Link
-								href={
-									env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
-								}
-							>
-								Get Started
-							</Link>
-						</Button>
-					</div>
-				</nav>
-
-				{/* Mobile Menu Toggle */}
-				<div className="flex items-center gap-4 md:hidden">
-					<ModeToggle />
-					<button
-						type="button"
-						className="flex h-10 w-10 items-center justify-center rounded-md hover:bg-accent"
-						onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-					>
-						{isMobileMenuOpen ? (
-							<Icons.x className="h-6 w-6" />
-						) : (
-							<Icons.moreHorizontal className="h-6 w-6" />
-						)}
-					</button>
+					</Button>
 				</div>
 			</div>
-
-			{/* Mobile Nav */}
-			<AnimatePresence>
-				{isMobileMenuOpen && (
-					<motion.div
-						initial={{ opacity: 0, height: 0 }}
-						animate={{ opacity: 1, height: "auto" }}
-						exit={{ opacity: 0, height: 0 }}
-						className="border-b bg-background md:hidden"
-					>
-						<div className="container mx-auto flex flex-col gap-4 p-4">
-							<Link
-								href="#features"
-								className="font-medium text-lg"
-								onClick={() => setIsMobileMenuOpen(false)}
-							>
-								Features
-							</Link>
-							<Link
-								href="#pricing"
-								className="font-medium text-lg"
-								onClick={() => setIsMobileMenuOpen(false)}
-							>
-								Pricing
-							</Link>
-							<Link
-								href="#faq"
-								className="font-medium text-lg"
-								onClick={() => setIsMobileMenuOpen(false)}
-							>
-								FAQ
-							</Link>
-							<hr />
-							<Link
-								href={
-									env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
-								}
-								className="font-medium text-lg text-muted-foreground"
-							>
-								Sign In
-							</Link>
-							<Button asChild className="w-full">
-								<Link
-									href={
-										env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
-									}
-								>
-									Get Started
-								</Link>
-							</Button>
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
-			<LanguageSwitcher variant="buttons" />
 		</header>
 	);
 }

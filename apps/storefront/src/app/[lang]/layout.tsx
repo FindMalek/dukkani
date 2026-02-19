@@ -8,7 +8,7 @@ import {
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -20,13 +20,8 @@ import { handleAPIError } from "@/lib/error";
 import { getQueryClient, orpc } from "@/lib/orpc";
 import { getStoreSlugFromHost } from "@/lib/utils";
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
+const inter = Inter({
+	variable: "--font-sans",
 	subsets: ["latin"],
 });
 
@@ -84,7 +79,7 @@ export default async function RootLayout({
 	return (
 		<html lang={lang} dir={getTextDirection(lang)} suppressHydrationWarning>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				className={`${inter.variable} antialiased`}
 				suppressHydrationWarning
 			>
 				<Providers locale={lang} messages={messages} storeSlug={store.slug}>

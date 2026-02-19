@@ -2,5 +2,11 @@
 	"common": {
 		"title": "Dukkani - Business Management Solution",
 		"description": "Your all-in-one business management solution"
+	},
+	"header": {
+		"brandName": "Dukkani",
+		"features": "Features",
+		"pricing": "Pricing",
+		"startSelling": "Start Selling"
 	}
 }
