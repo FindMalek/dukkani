@@ -4,12 +4,15 @@ import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
 import { env } from "@/env";
 import { PhoneMockup } from "../shared/phone-mockup";
 
 export function Hero() {
+	const t = useTranslations("hero");
+
 	return (
 		<section className="relative overflow-hidden bg-linear-to-b from-primary/5 via-transparent to-transparent pt-24 pb-16 md:pt-32 md:pb-32 lg:pt-40">
 			<div className="container mx-auto px-4">
@@ -23,7 +26,7 @@ export function Hero() {
 							variant="secondary"
 							className="mb-6 rounded-full px-4 py-1.5 font-medium text-sm"
 						>
-							Made for Tunisia 🇹🇳
+							{t("badge")}
 						</Badge>
 					</motion.div>
 					<motion.h1
@@ -32,13 +35,15 @@ export function Hero() {
 						transition={{ duration: 0.5, delay: 0.1 }}
 						className="mb-6 max-w-4xl font-extrabold text-6xl text-foreground tracking-tight sm:text-5xl md:text-5xl lg:text-6xl"
 					>
-						Stop calling{" "}
-						<span className="hidden hover:underline sm:inline">customers.</span>
+						{t("titleLine1")}{" "}
+						<span className="hidden hover:underline sm:inline">
+							{t("titleLine2")}
+						</span>
 						<br />
 						<span className="text-primary">
-							Start selling{" "}
+							{t("titleLine3")}{" "}
 							<span className="hidden hover:underline sm:inline">
-								automatically.
+								{t("titleLine4")}
 							</span>
 						</span>
 					</motion.h1>
@@ -48,8 +53,7 @@ export function Hero() {
 						transition={{ duration: 0.5, delay: 0.2 }}
 						className="mb-8 max-w-2xl text-lg text-muted-foreground sm:text-xl"
 					>
-						Dukkani builds your store, confirms your cash-on-delivery orders,
-						and prepares delivery.
+						{t("subtitle")}
 					</motion.p>
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
@@ -67,7 +71,7 @@ export function Hero() {
 									env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 								}
 							>
-								Create Store Free
+								{t("ctaPrimary")}
 							</Link>
 						</Button>
 						<Button
@@ -75,7 +79,7 @@ export function Hero() {
 							variant="outline"
 							className="h-12 w-full px-8 text-lg sm:h-14 sm:w-auto"
 						>
-							<Icons.play className="h-4 w-4" /> See How It Works
+							<Icons.play className="h-4 w-4" /> {t("ctaSecondary")}
 						</Button>
 					</motion.div>
 

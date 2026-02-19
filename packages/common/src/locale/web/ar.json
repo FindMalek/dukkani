@@ -1,12 +1,44 @@
 {
 	"common": {
-		"title": "Dukkani - Business Management Solution",
-		"description": "Your all-in-one business management solution"
+		"title": "Dukkani - حل إدارة الأعمال",
+		"description": "حل شامل لإدارة أعمالك"
 	},
 	"header": {
 		"brandName": "Dukkani",
-		"features": "Features",
-		"pricing": "Pricing",
-		"startSelling": "Start Selling"
+		"features": "المميزات",
+		"pricing": "الأسعار",
+		"startSelling": "ابدأ البيع"
+	},
+	"hero": {
+		"badge": "صُنع لتونس 🇹🇳",
+		"titleLine1": "توقف عن الاتصال",
+		"titleLine2": "بالعملاء.",
+		"titleLine3": "ابدأ البيع",
+		"titleLine4": "تلقائياً.",
+		"subtitle": "Dukkani تبني متجرك، تؤكد طلبات الدفع عند الاستلام وتجهز التوصيل.",
+		"ctaPrimary": "إنشاء متجر مجاناً",
+		"ctaSecondary": "شاهد كيف يعمل"
+	},
+	"painPoints": {
+		"title": "البيع اليدوي مرهق.",
+		"subtitle": "أنت تهدر ساعات في مهام يجب أن تكون تلقائية.",
+		"items": {
+			"wastedTime": {
+				"title": "وقت مهدر",
+				"description": "الاتصال بكل عميل يستغرق ساعات."
+			},
+			"fakeOrders": {
+				"title": "طلبات وهمية",
+				"description": "الطلبات المزيفة تكلفك المال."
+			},
+			"lostDms": {
+				"title": "رسائل ضائعة",
+				"description": "المبيعات تضيع في الطلبات."
+			},
+			"manualForms": {
+				"title": "نماذج يدوية",
+				"description": "كتابة إيصالات التوصيل بطيئة."
+			}
+		}
 	}
 }

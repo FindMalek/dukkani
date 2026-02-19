@@ -8,5 +8,37 @@
 		"features": "Features",
 		"pricing": "Pricing",
 		"startSelling": "Start Selling"
+	},
+	"hero": {
+		"badge": "Made for Tunisia 🇹🇳",
+		"titleLine1": "Stop calling",
+		"titleLine2": "customers.",
+		"titleLine3": "Start selling",
+		"titleLine4": "automatically.",
+		"subtitle": "Dukkani builds your store, confirms your cash-on-delivery orders, and prepares delivery.",
+		"ctaPrimary": "Create Store Free",
+		"ctaSecondary": "See How It Works"
+	},
+	"painPoints": {
+		"title": "Manual selling is exhausting.",
+		"subtitle": "You're wasting hours on tasks that should be automatic.",
+		"items": {
+			"wastedTime": {
+				"title": "Wasted Time",
+				"description": "Calling every customer takes hours."
+			},
+			"fakeOrders": {
+				"title": "Fake Orders",
+				"description": "Prank orders cost you money."
+			},
+			"lostDms": {
+				"title": "Lost DMs",
+				"description": "Sales get buried in requests."
+			},
+			"manualForms": {
+				"title": "Manual Forms",
+				"description": "Writing delivery slips is slow."
+			}
+		}
 	}
 }
