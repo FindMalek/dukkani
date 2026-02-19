@@ -58,7 +58,11 @@ export function PhoneNotifications() {
 	return (
 		<div
 			className="flex h-full flex-col bg-background"
-			style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased" }}
+			style={{
+				transform: "translateZ(0)",
+				WebkitFontSmoothing: "antialiased",
+				textRendering: "geometricPrecision",
+			}}
 		>
 			{/* iOS Status Bar */}
 			<div className="flex shrink-0 items-center justify-between px-5 pt-2.5 pb-1">

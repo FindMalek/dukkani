@@ -4,6 +4,7 @@ import type { SVGProps } from "react";
 export interface Iphone15ProProps extends SVGProps<SVGSVGElement> {
 	width?: number;
 	height?: number;
+	cropHeight?: number;
 	src?: string;
 	children?: React.ReactNode;
 }
@@ -11,17 +12,19 @@ export interface Iphone15ProProps extends SVGProps<SVGSVGElement> {
 export function Iphone15Pro({
 	width = 433,
 	height = 882,
+	cropHeight,
 	src,
 	children,
 	...props
 }: Iphone15ProProps) {
 	const clipId = useId();
+	const viewBoxHeight = cropHeight ?? height;
 
 	return (
 		<svg
 			width={width}
-			height={height}
-			viewBox={`0 0 ${width} ${height}`}
+			height={cropHeight ?? height}
+			viewBox={`0 0 ${width} ${viewBoxHeight}`}
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 			role="img"
