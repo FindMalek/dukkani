@@ -2,5 +2,43 @@
 	"common": {
 		"title": "Dukkani - Solution de gestion d'entreprise",
 		"description": "Votre solution de gestion d'entreprise tout-en-un"
+	},
+	"header": {
+		"brandName": "Dukkani",
+		"features": "Fonctionnalités",
+		"pricing": "Tarifs",
+		"startSelling": "Commencer à vendre"
+	},
+	"hero": {
+		"badge": "Conçu pour la Tunisie 🇹🇳",
+		"titleLine1": "Arrêtez d'appeler",
+		"titleLine2": "les clients.",
+		"titleLine3": "Commencez à vendre",
+		"titleLine4": "automatiquement.",
+		"subtitle": "Dukkani crée votre boutique, confirme vos commandes contre remboursement et prépare les livraisons.",
+		"ctaPrimary": "Créer une boutique gratuitement",
+		"ctaSecondary": "Voir comment ça marche"
+	},
+	"painPoints": {
+		"title": "Vendre manuellement est épuisant.",
+		"subtitle": "Vous perdez des heures sur des tâches qui devraient être automatiques.",
+		"items": {
+			"wastedTime": {
+				"title": "Temps perdu",
+				"description": "Appeler chaque client prend des heures."
+			},
+			"fakeOrders": {
+				"title": "Fausses commandes",
+				"description": "Les commandes farce vous coûtent de l'argent."
+			},
+			"lostDms": {
+				"title": "Messages perdus",
+				"description": "Les ventes se perdent dans les demandes."
+			},
+			"manualForms": {
+				"title": "Formulaires manuels",
+				"description": "Remplir les bons de livraison est lent."
+			}
+		}
 	}
 }

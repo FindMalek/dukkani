@@ -6,19 +6,14 @@ import {
 	type Locale,
 } from "@dukkani/common/schemas/constants";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { Footer } from "@/components/footer";
-import Header from "@/components/header";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 import { Providers } from "@/components/layout/providers";
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
+const inter = Inter({
+	variable: "--font-sans",
 	subsets: ["latin"],
 });
 
@@ -56,9 +51,7 @@ export default async function RootLayout({
 
 	return (
 		<html lang={lang} dir={getTextDirection(lang)} suppressHydrationWarning>
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-			>
+			<body className={`${inter.variable} antialiased`}>
 				<Providers locale={lang} messages={messages}>
 					<div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
 						<Header />
