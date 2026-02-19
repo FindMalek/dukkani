@@ -22,17 +22,24 @@ export function Hero() {
 							variant="secondary"
 							className="mb-6 rounded-full px-4 py-1.5 font-medium text-sm"
 						>
-							WhatsApp Official Partner
+							Made for Tunisia 🇹🇳
 						</Badge>
 					</motion.div>
 					<motion.h1
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.1 }}
-						className="mb-6 max-w-4xl font-extrabold text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
+						className="mb-6 max-w-4xl font-extrabold text-6xl text-foreground tracking-tight sm:text-5xl md:text-5xl lg:text-6xl"
 					>
-						The Future of <br className="hidden sm:block" />
-						<span className="text-primary">WhatsApp Commerce</span>
+						Stop calling{" "}
+						<span className="hidden hover:underline sm:inline">customers.</span>
+						<br />
+						<span className="text-primary">
+							Start selling{" "}
+							<span className="hidden hover:underline sm:inline">
+								automatically.
+							</span>
+						</span>
 					</motion.h1>
 					<motion.p
 						initial={{ opacity: 0, y: 20 }}
@@ -40,8 +47,8 @@ export function Hero() {
 						transition={{ duration: 0.5, delay: 0.2 }}
 						className="mb-8 max-w-2xl text-lg text-muted-foreground sm:text-xl"
 					>
-						Turn your WhatsApp into a powerful sales channel. Automated orders,
-						seamless payments, and instant customer connection.
+						Dukkani builds your store, confirms your cash-on-delivery orders,
+						and prepares delivery.
 					</motion.p>
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
@@ -59,7 +66,7 @@ export function Hero() {
 									env.NEXT_PUBLIC_DASHBOARD_URL as LinkProps<unknown>["href"]
 								}
 							>
-								Start for free
+								Create Store Free
 							</Link>
 						</Button>
 						<Button
@@ -67,7 +74,7 @@ export function Hero() {
 							variant="outline"
 							className="h-12 w-full px-8 text-lg sm:h-14 sm:w-auto"
 						>
-							Watch Demo
+							<Icons.play className="h-4 w-4" /> See How It Works
 						</Button>
 					</motion.div>
 
@@ -148,7 +155,7 @@ export function Hero() {
 							</div>
 						</div>
 						{/* Floating Elements */}
-						<div className="-right-4 -top-12 lg:-right-12 absolute hidden animate-bounce rounded-lg border bg-background p-3 shadow-lg md:block">
+						<div className="absolute -top-12 -right-4 hidden animate-bounce rounded-lg border bg-background p-3 shadow-lg md:block lg:-right-12">
 							<div className="flex items-center gap-2">
 								<div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 text-green-600">
 									<Icons.check className="h-4 w-4" />

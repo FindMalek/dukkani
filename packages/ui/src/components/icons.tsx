@@ -28,6 +28,7 @@ import {
 	ChevronsRight,
 	ChevronUp,
 	Circle,
+	CirclePlay,
 	CompassIcon,
 	Copy,
 	Gamepad2Icon,
@@ -139,4 +140,5 @@ export const Icons = {
 	lock: LockIcon,
 	shoppingCart: ShoppingCartIcon,
 	whatsapp: FaWhatsapp,
+	play: CirclePlay,
 } as const;
