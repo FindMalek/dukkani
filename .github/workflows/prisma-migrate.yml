@@ -14,29 +14,30 @@ jobs:
   migrate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'pnpm'
-      
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      
+
       - name: Generate Prisma Client
         working-directory: packages/db
         run: pnpm db:generate
         env:
           DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-      
+          CI: true
+
       - name: Deploy Prisma Migrations
         working-directory: packages/db
         run: |
@@ -45,13 +46,13 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         continue-on-error: false
-      
+
       - name: Migration Status
         if: success()
         run: |
           echo "✅ Migrations deployed successfully!"
           echo "::notice title=Migration Success::All Prisma migrations have been applied to production"
-      
+
       - name: Migration Failure Alert
         if: failure()
         run: |

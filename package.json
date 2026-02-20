@@ -26,7 +26,7 @@
 		"dev:ad": "turbo -F @dukkani/api -F @dukkani/dashboard dev",
 		"dev:as": "turbo -F @dukkani/api -F @dukkani/storefront dev",
 		"dev:all": "turbo -F @dukkani/api -F @dukkani/dashboard -F @dukkani/storefront dev",
-		"db:setup": "cd docker && docker compose up -d && cd .. && pnpm db:push",
+		"db:setup": "docker compose -f ./docker/docker-compose.yml up -d && pnpm db:push",
 		"db:push": "turbo -F @dukkani/db db:push",
 		"db:studio": "turbo -F @dukkani/db db:studio",
 		"db:generate": "turbo -F @dukkani/db db:generate",
