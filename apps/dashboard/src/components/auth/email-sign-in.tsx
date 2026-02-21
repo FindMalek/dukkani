@@ -1,8 +1,6 @@
 "use client";
 
-import {
-	loginInputSchema,
-} from "@dukkani/common/schemas/user/input";
+import { loginInputSchema } from "@dukkani/common/schemas/user/input";
 import { Button } from "@dukkani/ui/components/button";
 import { FieldGroup } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
@@ -17,7 +15,10 @@ import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
 
 const emailFormSchema = loginInputSchema.pick({ email: true });
 
-export function EmailSignIn({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+export function EmailSignIn({
+	className,
+	...props
+}: React.HTMLAttributes<HTMLDivElement>) {
 	const router = useRouter();
 	const t = useTranslations("auth.emailSignIn");
 	const checkEmailMutation = useCheckEmailExists();
@@ -87,7 +88,10 @@ export function EmailSignIn({ className, ...props }: React.HTMLAttributes<HTMLDi
 							<FieldGroup>
 								<emailForm.AppField name="email">
 									{(field) => (
-										<field.EmailInput placeholder={t("email.placeholder")} />
+										<field.EmailInput
+											label={t("email.label")}
+											placeholder={t("email.placeholder")}
+										/>
 									)}
 								</emailForm.AppField>
 								<Button type="submit" isLoading={emailFormState.isSubmitting}>
@@ -101,6 +105,7 @@ export function EmailSignIn({ className, ...props }: React.HTMLAttributes<HTMLDi
 								<passwordForm.AppField name="email">
 									{(field) => (
 										<field.EmailInput
+											label={t("email.label")}
 											placeholder={t("email.placeholder")}
 											readOnly
 										/>
@@ -109,6 +114,7 @@ export function EmailSignIn({ className, ...props }: React.HTMLAttributes<HTMLDi
 								<passwordForm.AppField name="password">
 									{(field) => (
 										<field.PasswordInput
+											label={t("password.label")}
 											placeholder={t("password.placeholder")}
 										/>
 									)}
