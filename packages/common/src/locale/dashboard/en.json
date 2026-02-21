@@ -31,10 +31,12 @@
 			"back": "Back",
 			"signIn": "Sign in",
 			"email": {
-				"placeholder": "Enter your email"
+				"placeholder": "Enter your email",
+				"label": "Email address"
 			},
 			"password": {
-				"placeholder": "Enter your password"
+				"placeholder": "Enter your password",
+				"label": "Password"
 			}
 		}
 	},
