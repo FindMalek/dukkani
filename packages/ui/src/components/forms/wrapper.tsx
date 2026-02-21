@@ -1,10 +1,10 @@
 import type React from "react";
 
-type FormWraperProps = {
+type FormWrapperProps = {
 	children: React.ReactNode;
 } & React.FormHTMLAttributes<HTMLFormElement>;
 
-function FormWrapper({ children, onSubmit, ...props }: FormWraperProps) {
+function FormWrapper({ children, onSubmit, ...props }: FormWrapperProps) {
 	return (
 		<form
 			noValidate
