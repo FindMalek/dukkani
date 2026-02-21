@@ -247,6 +247,12 @@ function FieldErrors({
 		return null;
 	}
 
+	const uniqueErrors = [
+		...new Map(errors.map((e) => [e.message, e])).values(),
+	].filter(
+		(e): e is typeof e & { message: string } => typeof e.message === "string",
+	);
+
 	return (
 		<div
 			role="alert"
@@ -255,10 +261,10 @@ function FieldErrors({
 			{...props}
 		>
 			{errors.length === 1 && errors[0] ? (
-				<p>{errors[0].message}</p>
+				<p>{errors[0].message ?? ""}</p>
 			) : (
 				<ul className="ms-4 flex list-disc flex-col gap-1">
-					{errors.map((error) => (
+					{uniqueErrors.map((error) => (
 						<li key={error.message}>{error.message}</li>
 					))}
 				</ul>
