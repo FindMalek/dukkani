@@ -243,7 +243,7 @@ function FieldErrors({
 	errors: z.core.$ZodRawIssue[];
 	match: boolean;
 }) {
-	if (errors.length === 0 || !match) {
+	if (!match || errors.length === 0) {
 		return null;
 	}
 
@@ -253,6 +253,10 @@ function FieldErrors({
 		(e): e is typeof e & { message: string } => typeof e.message === "string",
 	);
 
+	if (uniqueErrors.length === 0) {
+		return null;
+	}
+
 	return (
 		<div
 			role="alert"
@@ -260,8 +264,8 @@ function FieldErrors({
 			className={cn("font-normal text-destructive text-sm", className)}
 			{...props}
 		>
-			{errors.length === 1 && errors[0] ? (
-				<p>{errors[0].message ?? ""}</p>
+			{uniqueErrors.length === 1 && uniqueErrors[0] ? (
+				<p>{uniqueErrors[0].message ?? ""}</p>
 			) : (
 				<ul className="ms-4 flex list-disc flex-col gap-1">
 					{uniqueErrors.map((error) => (
