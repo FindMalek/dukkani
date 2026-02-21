@@ -11,7 +11,7 @@ import { BaseField } from "./base-field";
 
 type PasswordFieldProps = {
 	label?: string;
-} & InputHTMLAttributes<HTMLInputElement>;
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "type">;
 
 export function PasswordField({
 	label = "Password",
