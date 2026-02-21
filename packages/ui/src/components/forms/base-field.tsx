@@ -28,7 +28,7 @@ export function BaseField({
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 	return (
 		<Field orientation={orientation}>
-			{orientation === "horizontal" && children}
+			{orientation !== "vertical" && children}
 			<FieldContent>
 				<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
 				{description && <FieldDescription>{description}</FieldDescription>}
