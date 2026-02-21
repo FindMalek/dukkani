@@ -5,12 +5,12 @@ import { BaseField } from "./base-field";
 
 type TextFieldProps = {
 	label: string;
-  type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
+	type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export function TextField({
 	label,
-  type = "text",
+	type = "text",
 	...inputProps
 }: TextFieldProps) {
 	const field = useFieldContext<string>();
