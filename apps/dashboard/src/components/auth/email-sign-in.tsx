@@ -116,6 +116,9 @@ export function EmailSignIn({ className, ...props }: React.HTMLAttributes<HTMLDi
 								<passwordForm.AppField name="rememberMe">
 									{(field) => <field.CheckboxInput label={t("rememberMe")} />}
 								</passwordForm.AppField>
+								<Button variant="outline" onClick={() => emailForm.reset()}>
+									{t("back")}
+								</Button>
 								<passwordForm.Subscribe>
 									{(passwordFormState) => (
 										<Button
