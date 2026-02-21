@@ -6,7 +6,7 @@ import { BaseField } from "./base-field";
 type TextFieldProps = {
 	label: string;
 	type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
-} & React.InputHTMLAttributes<HTMLInputElement>;
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">;
 
 export function TextField({
 	label,
@@ -24,9 +24,9 @@ export function TextField({
 				value={field.state.value}
 				onChange={(e) => field.handleChange(e.target.value)}
 				onBlur={field.handleBlur}
-				type={type}
 				aria-invalid={isInvalid}
 				{...inputProps}
+				type={type}
 			/>
 		</BaseField>
 	);

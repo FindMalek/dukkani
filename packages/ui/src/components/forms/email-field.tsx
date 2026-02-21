@@ -3,11 +3,11 @@ import { TextField } from "./text-field";
 
 type EmailFieldProps = {
 	label: string;
-} & React.InputHTMLAttributes<HTMLInputElement>;
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">;
 
 export function EmailField({
 	label,
 	...inputProps
 }: EmailFieldProps) {
-	return <TextField label={label} type="email" {...inputProps} />;
+	return <TextField label={label} {...inputProps} type="email"/>;
 }

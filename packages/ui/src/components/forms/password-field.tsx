@@ -26,12 +26,12 @@ export function PasswordField({
 				<InputGroupInput
 					id={field.name}
 					name={field.name}
-					type={hidden ? "password" : "text"}
 					value={field.state.value}
 					onChange={(e) => field.handleChange(e.target.value)}
 					onBlur={field.handleBlur}
 					aria-invalid={isInvalid}
 					{...props}
+					type={hidden ? "password" : "text"}
 				/>
 				<InputGroupAddon align="inline-end">
 					<InputGroupButton
