@@ -7,7 +7,7 @@ import { z } from "zod";
 export const loginInputSchema = z.object({
 	email: z.email("Please enter a valid email address"),
 	password: z.string(),
-	rememberMe: z.boolean().optional(),
+	rememberMe: z.boolean().catch(false),
 });
 
 export const userInputSchema = z.object({
