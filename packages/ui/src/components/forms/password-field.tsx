@@ -10,11 +10,11 @@ import {
 import { BaseField } from "./base-field";
 
 type PasswordFieldProps = {
-	label?: string;
+	label: string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "type">;
 
 export function PasswordField({
-	label = "Password",
+	label,
 	...props
 }: PasswordFieldProps) {
 	const field = useFieldContext<string>();
