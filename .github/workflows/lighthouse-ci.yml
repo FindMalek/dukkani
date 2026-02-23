@@ -1,0 +1,63 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  lighthouse:
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build web app
+        run: pnpm turbo build --filter=@dukkani/web
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
+          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
+          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
+          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
+          NEXT_PUBLIC_NODE_ENV: local
+          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
+
+      - name: Start web server
+        working-directory: apps/web
+        run: PORT=3000 pnpm start &
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
+          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
+          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
+          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
+          NEXT_PUBLIC_NODE_ENV: local
+          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000/en --timeout 60000
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          config-path: .lighthouserc.json
+          uploadArtifacts: true
