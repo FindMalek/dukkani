@@ -1,176 +1,176 @@
 {
-  "common": {
-    "title": "Dukkani - Solution de gestion d'entreprise",
-    "description": "Votre solution de gestion d'entreprise tout-en-un"
-  },
-  "header": {
-    "brandName": "Dukkani",
-    "features": "Fonctionnalités",
-    "pricing": "Tarification",
-    "startSelling": "Commencer à vendre"
-  },
-  "hero": {
-    "badge": "Fait pour la Tunisie 🇹🇳",
-    "titleLine1": "Arrêtez d'appeler",
-    "titleLine2": "les clients.",
-    "titleLine3": "Commencez à vendre",
-    "titleLine4": "automatiquement.",
-    "subtitle": "Dukkani construit votre boutique, confirme vos commandes en contre-remboursement et prépare la livraison.",
-    "ctaPrimary": "Créer une boutique gratuite",
-    "ctaSecondary": "Voir comment ça fonctionne"
-  },
-  "painPoints": {
-    "title": "La vente manuelle est épuisante.",
-    "subtitle": "Vous perdez des heures sur des tâches qui devraient être automatiques.",
-    "items": {
-      "wastedTime": {
-        "title": "Temps perdu",
-        "description": "Appeler chaque client prend des heures."
-      },
-      "fakeOrders": {
-        "title": "Commandes fictives",
-        "description": "Les commandes farces vous coûtent de l'argent."
-      },
-      "lostDms": {
-        "title": "DMs perdus",
-        "description": "Les ventes sont enterrées sous les demandes."
-      },
-      "manualForms": {
-        "title": "Formulaires manuels",
-        "description": "Écrire des bons de livraison est lent."
-      }
-    }
-  },
-  "process": {
-    "title": "Processus simple en 4 étapes",
-    "steps": {
-      "createStore": {
-        "title": "1. Créer une boutique",
-        "descriptionMobile": "Configuration en 5 minutes.",
-        "descriptionDesktop": "Configurez votre boutique de marque en seulement 5 minutes."
-      },
-      "shareLink": {
-        "title": "2. Partager le lien",
-        "descriptionMobile": "Lien dans la bio et les annonces.",
-        "descriptionDesktop": "Mettez le lien dans votre bio et vos annonces Instagram."
-      },
-      "weConfirm": {
-        "title": "3. Nous confirmons",
-        "descriptionMobile": "Le système appelle les clients.",
-        "descriptionDesktop": "Notre système appelle et vérifie la commande automatiquement."
-      },
-      "deliveryReady": {
-        "title": "4. Livraison prête",
-        "descriptionMobile": "Préparé pour le ramassage.",
-        "descriptionDesktop": "Le colis est préparé pour le ramassage par Trust Delivery."
-      }
-    }
-  },
-  "automatedConfirmation": {
-    "eyebrow": "CONFIRMATION AUTOMATISÉE",
-    "title": "Nous confirmons les commandes pour vous.",
-    "description": "Notre système automatisé appelle le client pour vérifier son sérieux et l'exactitude de l'adresse. Seules les commandes confirmées sont envoyées à la livraison.",
-    "guarantee": {
-      "title": "Garantie zéro risque",
-      "description": "Ne payez pas de frais de livraison pour les commandes fictives."
-    },
-    "flowchart": {
-      "title": "Flux de confirmation de commande",
-      "steps": [
-        "Le client passe commande",
-        "Commande reçue",
-        "Confirmation commencée",
-        "Le système appelle le client",
-        "Adresse vérifiée",
-        "Prêt pour la livraison"
-      ]
-    },
-    "benefits": [
-      "Économisez des heures d'appels téléphoniques",
-      "Éliminez les commandes fictives",
-      "Vérifiez l'exactitude de l'adresse"
-    ]
-  },
-  "features": {
-    "title": "Tout ce dont vous avez besoin",
-    "subtitle": "Automatisation conçue pour les vendeurs COD tunisiens.",
-    "items": {
-      "telegramAlerts": {
-        "title": "Alertes Telegram",
-        "descriptionMobile": "Notifications instantanées sur Telegram.",
-        "descriptionDesktop": "Recevez une notification instantanée sur Telegram lorsqu'une nouvelle commande arrive."
-      },
-      "recoverOrders": {
-        "title": "Récupérer les commandes",
-        "descriptionMobile": "Suivi automatique des commandes impayées.",
-        "descriptionDesktop": "Suivez automatiquement les commandes impayées et échouées pour récupérer de l'argent."
-      },
-      "massNotify": {
-        "title": "Notifier massivement les clients",
-        "descriptionMobile": "Envoyez des mises à jour aux anciens acheteurs.",
-        "descriptionDesktop": "Envoyez des notifications groupées pour des promotions et des mises à jour aux anciens acheteurs."
-      },
-      "customDomain": {
-        "title": "Domaine personnalisé",
-        "descriptionMobile": "Utilisez votre propre domaine .tn.",
-        "descriptionDesktop": "Connectez votre propre domaine .tn ou .com pour une boutique professionnelle et de marque."
-      },
-      "instagramBioLink": {
-        "title": "Lien bio",
-        "descriptionMobile": "Lien à forte conversion pour la bio.",
-        "descriptionDesktop": "Lien propre et à forte conversion pour votre bio Instagram et Facebook."
-      },
-      "seoReady": {
-        "title": "Pages produits prêtes pour le SEO",
-        "descriptionMobile": "Structurées pour les moteurs de recherche.",
-        "descriptionDesktop": "Pages rapides et structurées qui aident vos produits à être trouvés."
-      },
-      "trustDelivery": {
-        "title": "Trust Delivery",
-        "descriptionMobile": "Planification de ramassage intégrée.",
-        "descriptionDesktop": "Imprimez des bordereaux et planifiez des ramassages COD en un clic."
-      },
-      "cleanDashboard": {
-        "title": "Tableau de bord propre",
-        "descriptionMobile": "Commandes, revenus et livraisons en un seul aperçu.",
-        "descriptionDesktop": "Voir les commandes, les revenus et l'état de livraison en un seul aperçu simple."
-      },
-      "invoicingReady": {
-        "title": "Prêt pour la facturation",
-        "descriptionMobile": "Exportation propre pour la comptabilité.",
-        "descriptionDesktop": "Exportez les commandes et les paiements proprement pour la comptabilité et les rapports."
-      }
-    }
-  },
-  "costCalculator": {
-    "title": "Combien coûte le travail manuel ?",
-    "ordersPerDayLabel": "Commandes par jour",
-    "ordersPerDaySuffix": "commandes",
-    "fakeOrdersLabel": "Commandes fictives (%)",
-    "fakeOrdersSuffix": "%",
-    "minutesPerCallLabel": "Minutes par appel",
-    "minutesPerCallSuffix": "min",
-    "failedCostLabel": "Coût de livraison échouée (TND)",
-    "failedCostSuffix": "TND",
-    "hoursWastedLabel": "HEURES PERDUES / MOIS",
-    "moneyLostLabel": "ARGENT PERDU / MOIS",
-    "savingsLabel": "ÉCONOMIES ESTIMÉES AVEC DUKKANI",
-    "savingsPrefix": "+",
-    "perMonth": "/ mois",
-    "cta": "Commencez à automatiser aujourd'hui"
-  },
-  "cta": {
-    "titleLine1": "Vendez plus.",
-    "titleLine2": "Appelez moins.",
-    "subtitle": "Rejoignez des milliers de vendeurs tunisiens qui automatisent leur entreprise.",
-    "primary": "Créer ma boutique gratuite",
-    "telegramSupport": "Support Telegram"
-  },
-  "footer": {
-    "brandName": "Dukkani",
-    "terms": "Conditions d'utilisation",
-    "privacy": "Politique de confidentialité",
-    "contact": "Contacter le support",
-    "madeForTunisia": "Fait pour la Tunisie"
-  }
+	"common": {
+		"title": "Dukkani - Solution de gestion d'entreprise",
+		"description": "Votre solution de gestion d'entreprise tout-en-un"
+	},
+	"header": {
+		"brandName": "Dukkani",
+		"features": "Fonctionnalités",
+		"pricing": "Tarification",
+		"startSelling": "Commencer à vendre"
+	},
+	"hero": {
+		"badge": "Fait pour la Tunisie 🇹🇳",
+		"titleLine1": "Arrêtez d'appeler",
+		"titleLine2": "les clients.",
+		"titleLine3": "Commencez à vendre",
+		"titleLine4": "automatiquement.",
+		"subtitle": "Dukkani construit votre boutique, confirme vos commandes en contre-remboursement et prépare la livraison.",
+		"ctaPrimary": "Créer une boutique gratuite",
+		"ctaSecondary": "Voir comment ça fonctionne"
+	},
+	"painPoints": {
+		"title": "La vente manuelle est épuisante.",
+		"subtitle": "Vous perdez des heures sur des tâches qui devraient être automatiques.",
+		"items": {
+			"wastedTime": {
+				"title": "Temps perdu",
+				"description": "Appeler chaque client prend des heures."
+			},
+			"fakeOrders": {
+				"title": "Commandes fictives",
+				"description": "Les commandes farces vous coûtent de l'argent."
+			},
+			"lostDms": {
+				"title": "DMs perdus",
+				"description": "Les ventes sont enterrées sous les demandes."
+			},
+			"manualForms": {
+				"title": "Formulaires manuels",
+				"description": "Écrire des bons de livraison est lent."
+			}
+		}
+	},
+	"process": {
+		"title": "Processus simple en 4 étapes",
+		"steps": {
+			"createStore": {
+				"title": "1. Créer une boutique",
+				"descriptionMobile": "Configuration en 5 minutes.",
+				"descriptionDesktop": "Configurez votre boutique de marque en seulement 5 minutes."
+			},
+			"shareLink": {
+				"title": "2. Partager le lien",
+				"descriptionMobile": "Lien dans la bio et les annonces.",
+				"descriptionDesktop": "Mettez le lien dans votre bio et vos annonces Instagram."
+			},
+			"weConfirm": {
+				"title": "3. Nous confirmons",
+				"descriptionMobile": "Le système appelle les clients.",
+				"descriptionDesktop": "Notre système appelle et vérifie la commande automatiquement."
+			},
+			"deliveryReady": {
+				"title": "4. Livraison prête",
+				"descriptionMobile": "Préparé pour le ramassage.",
+				"descriptionDesktop": "Le colis est préparé pour le ramassage par Trust Delivery."
+			}
+		}
+	},
+	"automatedConfirmation": {
+		"eyebrow": "CONFIRMATION AUTOMATISÉE",
+		"title": "Nous confirmons les commandes pour vous.",
+		"description": "Notre système automatisé appelle le client pour vérifier son sérieux et l'exactitude de l'adresse. Seules les commandes confirmées sont envoyées à la livraison.",
+		"guarantee": {
+			"title": "Garantie zéro risque",
+			"description": "Ne payez pas de frais de livraison pour les commandes fictives."
+		},
+		"flowchart": {
+			"title": "Flux de confirmation de commande",
+			"steps": [
+				"Le client passe commande",
+				"Commande reçue",
+				"Confirmation commencée",
+				"Le système appelle le client",
+				"Adresse vérifiée",
+				"Prêt pour la livraison"
+			]
+		},
+		"benefits": [
+			"Économisez des heures d'appels téléphoniques",
+			"Éliminez les commandes fictives",
+			"Vérifiez l'exactitude de l'adresse"
+		]
+	},
+	"features": {
+		"title": "Tout ce dont vous avez besoin",
+		"subtitle": "Automatisation conçue pour les vendeurs COD tunisiens.",
+		"items": {
+			"telegramAlerts": {
+				"title": "Alertes Telegram",
+				"descriptionMobile": "Notifications instantanées sur Telegram.",
+				"descriptionDesktop": "Recevez une notification instantanée sur Telegram lorsqu'une nouvelle commande arrive."
+			},
+			"recoverOrders": {
+				"title": "Récupérer les commandes",
+				"descriptionMobile": "Suivi automatique des commandes impayées.",
+				"descriptionDesktop": "Suivez automatiquement les commandes impayées et échouées pour récupérer de l'argent."
+			},
+			"massNotify": {
+				"title": "Notifier massivement les clients",
+				"descriptionMobile": "Envoyez des mises à jour aux anciens acheteurs.",
+				"descriptionDesktop": "Envoyez des notifications groupées pour des promotions et des mises à jour aux anciens acheteurs."
+			},
+			"customDomain": {
+				"title": "Domaine personnalisé",
+				"descriptionMobile": "Utilisez votre propre domaine .tn.",
+				"descriptionDesktop": "Connectez votre propre domaine .tn ou .com pour une boutique professionnelle et de marque."
+			},
+			"instagramBioLink": {
+				"title": "Lien bio",
+				"descriptionMobile": "Lien à forte conversion pour la bio.",
+				"descriptionDesktop": "Lien propre et à forte conversion pour votre bio Instagram et Facebook."
+			},
+			"seoReady": {
+				"title": "Pages produits prêtes pour le SEO",
+				"descriptionMobile": "Structurées pour les moteurs de recherche.",
+				"descriptionDesktop": "Pages rapides et structurées qui aident vos produits à être trouvés."
+			},
+			"trustDelivery": {
+				"title": "Trust Delivery",
+				"descriptionMobile": "Planification de ramassage intégrée.",
+				"descriptionDesktop": "Imprimez des bordereaux et planifiez des ramassages COD en un clic."
+			},
+			"cleanDashboard": {
+				"title": "Tableau de bord propre",
+				"descriptionMobile": "Commandes, revenus et livraisons en un seul aperçu.",
+				"descriptionDesktop": "Voir les commandes, les revenus et l'état de livraison en un seul aperçu simple."
+			},
+			"invoicingReady": {
+				"title": "Prêt pour la facturation",
+				"descriptionMobile": "Exportation propre pour la comptabilité.",
+				"descriptionDesktop": "Exportez les commandes et les paiements proprement pour la comptabilité et les rapports."
+			}
+		}
+	},
+	"costCalculator": {
+		"title": "Combien coûte le travail manuel ?",
+		"ordersPerDayLabel": "Commandes par jour",
+		"ordersPerDaySuffix": "commandes",
+		"fakeOrdersLabel": "Commandes fictives (%)",
+		"fakeOrdersSuffix": "%",
+		"minutesPerCallLabel": "Minutes par appel",
+		"minutesPerCallSuffix": "min",
+		"failedCostLabel": "Coût de livraison échouée (TND)",
+		"failedCostSuffix": "TND",
+		"hoursWastedLabel": "HEURES PERDUES / MOIS",
+		"moneyLostLabel": "ARGENT PERDU / MOIS",
+		"savingsLabel": "ÉCONOMIES ESTIMÉES AVEC DUKKANI",
+		"savingsPrefix": "+",
+		"perMonth": "/ mois",
+		"cta": "Commencez à automatiser aujourd'hui"
+	},
+	"cta": {
+		"titleLine1": "Vendez plus.",
+		"titleLine2": "Appelez moins.",
+		"subtitle": "Rejoignez des milliers de vendeurs tunisiens qui automatisent leur entreprise.",
+		"primary": "Créer ma boutique gratuite",
+		"telegramSupport": "Support Telegram"
+	},
+	"footer": {
+		"brandName": "Dukkani",
+		"terms": "Conditions d'utilisation",
+		"privacy": "Politique de confidentialité",
+		"contact": "Contacter le support",
+		"madeForTunisia": "Fait pour la Tunisie"
+	}
 }

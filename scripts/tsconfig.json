@@ -1,9 +1,9 @@
 {
-  "extends": "../packages/config/tsconfig.base.json",
-  "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "noEmit": true
-  },
-  "include": ["*.ts"]
+	"extends": "../packages/config/tsconfig.base.json",
+	"compilerOptions": {
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"noEmit": true
+	},
+	"include": ["*.ts"]
 }
