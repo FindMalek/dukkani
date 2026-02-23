@@ -39,15 +39,17 @@ export function Process() {
 								<div className="flex w-fit shrink-0 items-center justify-center self-start rounded-xl bg-primary p-4 text-primary-foreground lg:self-center dark:bg-primary/20 dark:text-primary-foreground">
 									<Icon className="size-8" />
 								</div>
-								<h3 className="font-semibold text-2xl text-foreground">
-									{t(`steps.${key}.title`)}
-								</h3>
-								<p className="mt-1 block text-lg text-muted-foreground lg:hidden">
-									{t(`steps.${key}.descriptionMobile`)}
-								</p>
-								<p className="mt-1 hidden text-lg text-muted-foreground lg:block">
-									{t(`steps.${key}.descriptionDesktop`)}
-								</p>
+								<div className="flex min-w-0 flex-1 flex-col lg:min-w-0 lg:flex-initial">
+									<h3 className="font-semibold text-2xl text-foreground">
+										{t(`steps.${key}.title`)}
+									</h3>
+									<p className="mt-1 block text-lg text-muted-foreground lg:hidden">
+										{t(`steps.${key}.descriptionMobile`)}
+									</p>
+									<p className="mt-1 hidden text-lg text-muted-foreground lg:block">
+										{t(`steps.${key}.descriptionDesktop`)}
+									</p>
+								</div>
 							</div>
 						);
 					})}
