@@ -78,8 +78,11 @@ export function Hero() {
 							size="lg"
 							variant="outline"
 							className="h-12 w-full px-8 text-lg sm:h-14 sm:w-auto"
+							asChild
 						>
-							<Icons.play className="h-4 w-4" /> {t("ctaSecondary")}
+							<Link href={"https://www.youtube.com/watch?v=wkjBCdhxrNc"}>
+								<Icons.play className="h-4 w-4" /> {t("ctaSecondary")}
+							</Link>
 						</Button>
 					</motion.div>
 

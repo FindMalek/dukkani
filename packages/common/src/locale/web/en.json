@@ -40,5 +40,30 @@
 				"description": "Writing delivery slips is slow."
 			}
 		}
+	},
+	"process": {
+		"title": "Simple 4-Step Process",
+		"steps": {
+			"createStore": {
+				"title": "1. Create Store",
+				"descriptionMobile": "Setup in 5 minutes.",
+				"descriptionDesktop": "Setup your branded store in just 5 minutes."
+			},
+			"shareLink": {
+				"title": "2. Share Link",
+				"descriptionMobile": "Link in bio & ads.",
+				"descriptionDesktop": "Put the link in your bio and Instagram ads."
+			},
+			"weConfirm": {
+				"title": "3. We Confirm",
+				"descriptionMobile": "System calls customers.",
+				"descriptionDesktop": "Our system calls & verifies the order automatically."
+			},
+			"deliveryReady": {
+				"title": "4. Delivery Ready",
+				"descriptionMobile": "Prepared for pickup.",
+				"descriptionDesktop": "Package is prepared for pickup by Trust Delivery."
+			}
+		}
 	}
 }
