@@ -90,5 +90,56 @@
 				"Prêt pour livraison"
 			]
 		}
+	},
+	"features": {
+		"title": "Tout ce dont vous avez besoin",
+		"subtitle": "L'automatisation pensée pour les vendeurs COD tunisiens — du premier clic aux commandes récupérées.",
+		"items": {
+			"telegramAlerts": {
+				"title": "Alertes Telegram",
+				"descriptionMobile": "Notifications instantanées sur Telegram.",
+				"descriptionDesktop": "Soyez notifié instantanément sur Telegram à chaque nouvelle commande."
+			},
+			"recoverOrders": {
+				"title": "Récupérer les commandes",
+				"descriptionMobile": "Relance automatique des commandes impayées.",
+				"descriptionDesktop": "Relancez automatiquement les commandes impayées ou échouées pour récupérer l'argent."
+			},
+			"massNotify": {
+				"title": "Notification en masse",
+				"descriptionMobile": "Envoyez des mises à jour aux acheteurs.",
+				"descriptionDesktop": "Envoyez des notifications groupées pour promos et actualités aux anciens acheteurs."
+			},
+			"customDomain": {
+				"title": "Domaine personnalisé",
+				"descriptionMobile": "Utilisez votre domaine .tn.",
+				"descriptionDesktop": "Connectez votre domaine .tn ou .com pour une boutique pro et branded."
+			},
+			"instagramBioLink": {
+				"title": "Lien bio Instagram",
+				"descriptionMobile": "Lien performant pour la bio.",
+				"descriptionDesktop": "Lien propre et performant pour votre bio Instagram et Facebook."
+			},
+			"seoReady": {
+				"title": "Pages produits SEO",
+				"descriptionMobile": "Optimisées pour les moteurs de recherche.",
+				"descriptionDesktop": "Pages rapides et structurées pour que vos produits soient trouvés."
+			},
+			"trustDelivery": {
+				"title": "Trust Delivery",
+				"descriptionMobile": "Planification de collecte intégrée.",
+				"descriptionDesktop": "Imprimez les bons de livraison et planifiez les enlèvements COD en un clic."
+			},
+			"cleanDashboard": {
+				"title": "Tableau de bord clair",
+				"descriptionMobile": "Commandes, revenus et livraison en une vue.",
+				"descriptionDesktop": "Voyez commandes, revenus et statut de livraison dans une vue simple."
+			},
+			"invoicingReady": {
+				"title": "Prêt pour la facturation",
+				"descriptionMobile": "Export propre pour la compta.",
+				"descriptionDesktop": "Exportez commandes et paiements proprement pour la compta et les rapports."
+			}
+		}
 	}
 }

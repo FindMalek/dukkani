@@ -90,5 +90,56 @@
 				"Ready for delivery"
 			]
 		}
+	},
+	"features": {
+		"title": "Everything you need",
+		"subtitle": "Automation built for Tunisian COD sellers.",
+		"items": {
+			"telegramAlerts": {
+				"title": "Telegram Alerts",
+				"descriptionMobile": "Instant notifications on Telegram.",
+				"descriptionDesktop": "Get notified instantly on Telegram when a new order arrives."
+			},
+			"recoverOrders": {
+				"title": "Recover Orders",
+				"descriptionMobile": "Auto follow-up for unpaid orders.",
+				"descriptionDesktop": "Automatically follow up unpaid and failed orders to bring cash back."
+			},
+			"massNotify": {
+				"title": "Mass Notify Customers",
+				"descriptionMobile": "Send updates to past buyers.",
+				"descriptionDesktop": "Send batch notifications for promos and updates to past buyers."
+			},
+			"customDomain": {
+				"title": "Custom Domain",
+				"descriptionMobile": "Use your own .tn domain.",
+				"descriptionDesktop": "Connect your own .tn or .com domain for a pro, branded store."
+			},
+			"instagramBioLink": {
+				"title": "Bio Link",
+				"descriptionMobile": "High-converting link for bio.",
+				"descriptionDesktop": "Clean, high-converting link for your Instagram and Facebook bio."
+			},
+			"seoReady": {
+				"title": "SEO-Ready Product Pages",
+				"descriptionMobile": "Structured for search engines.",
+				"descriptionDesktop": "Fast, structured pages that help your products get found."
+			},
+			"trustDelivery": {
+				"title": "Trust Delivery",
+				"descriptionMobile": "Integrated pickup scheduling.",
+				"descriptionDesktop": "Print waybills and schedule COD pickups in one click."
+			},
+			"cleanDashboard": {
+				"title": "Clean Dashboard",
+				"descriptionMobile": "Orders, revenue & delivery in one view.",
+				"descriptionDesktop": "See orders, revenue, and delivery status in one simple view."
+			},
+			"invoicingReady": {
+				"title": "Invoicing Ready",
+				"descriptionMobile": "Clean export for accounting.",
+				"descriptionDesktop": "Export orders and payments cleanly for accounting and reports."
+			}
+		}
 	}
 }

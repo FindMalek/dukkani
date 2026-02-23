@@ -90,5 +90,56 @@
 				"جاهز للتوصيل"
 			]
 		}
+	},
+	"features": {
+		"title": "كل ما تحتاجه",
+		"subtitle": "أتمتة مصممة لبائعي الدفع عند الاستلام التونسيين — من أول نقرة إلى استرداد الطلبات.",
+		"items": {
+			"telegramAlerts": {
+				"title": "تنبيهات تليجرام",
+				"descriptionMobile": "إشعارات فورية على تليجرام.",
+				"descriptionDesktop": "احصل على إشعار فوري على تليجرام عند وصول طلب جديد."
+			},
+			"recoverOrders": {
+				"title": "استرداد الطلبات",
+				"descriptionMobile": "متابعة تلقائية للطلبات غير المدفوعة.",
+				"descriptionDesktop": "تابع تلقائياً الطلبات غير المدفوعة والفاشلة لاسترداد النقود."
+			},
+			"massNotify": {
+				"title": "إشعار جماعي للعملاء",
+				"descriptionMobile": "أرسل التحديثات للمشترين السابقين.",
+				"descriptionDesktop": "أرسل إشعارات جماعية للعروض والتحديثات للمشترين السابقين."
+			},
+			"customDomain": {
+				"title": "نطاق مخصص",
+				"descriptionMobile": "استخدم نطاقك .tn.",
+				"descriptionDesktop": "اربط نطاقك .tn أو .com لمتجر احترافي وعلامة تجارية."
+			},
+			"instagramBioLink": {
+				"title": "رابط البايو إنستغرام",
+				"descriptionMobile": "رابط عالي التحويل للبايو.",
+				"descriptionDesktop": "رابط نظيف وعالي التحويل للبايو في إنستغرام وفيسبوك."
+			},
+			"seoReady": {
+				"title": "صفحات منتجات جاهزة لمحركات البحث",
+				"descriptionMobile": "منظمة لمحركات البحث.",
+				"descriptionDesktop": "صفحات سريعة ومنظمة تساعد منتجاتك على الظهور."
+			},
+			"trustDelivery": {
+				"title": "Trust Delivery",
+				"descriptionMobile": "جدولة استلام مدمجة.",
+				"descriptionDesktop": "اطبع إرشادات الشحن وحدد مواعيد استلام الدفع عند الاستلام بنقرة."
+			},
+			"cleanDashboard": {
+				"title": "لوحة تحكم واضحة",
+				"descriptionMobile": "الطلبات والإيرادات والتوصيل في عرض واحد.",
+				"descriptionDesktop": "اعرض الطلبات والإيرادات وحالة التوصيل في عرض واحد بسيط."
+			},
+			"invoicingReady": {
+				"title": "جاهز للفوترة",
+				"descriptionMobile": "تصدير نظيف للمحاسبة.",
+				"descriptionDesktop": "صدّر الطلبات والمدفوعات بشكل نظيف للمحاسبة والتقارير."
+			}
+		}
 	}
 }
