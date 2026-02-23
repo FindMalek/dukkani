@@ -33,7 +33,7 @@ export function Hero() {
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.1 }}
-						className="mb-6 max-w-4xl font-extrabold text-4xl text-foreground tracking-tight sm:text-5xl lg:text-6xl"
+						className="mb-6 max-w-4xl font-extrabold text-6xl text-foreground tracking-tight sm:text-5xl lg:text-6xl"
 					>
 						{t("titleLine1")}{" "}
 						<span className="hidden hover:underline sm:inline">

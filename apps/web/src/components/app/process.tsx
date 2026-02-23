@@ -40,13 +40,13 @@ export function Process() {
 									<Icon className="size-8" />
 								</div>
 								<div className="flex min-w-0 flex-1 flex-col lg:min-w-0 lg:flex-initial">
-									<h3 className="font-semibold text-2xl text-foreground">
+									<h3 className="font-semibold text-foreground text-xl">
 										{t(`steps.${key}.title`)}
 									</h3>
-									<p className="mt-1 block text-lg text-muted-foreground lg:hidden">
+									<p className="mt-1 block text-lg text-muted-foreground sm:text-base lg:hidden">
 										{t(`steps.${key}.descriptionMobile`)}
 									</p>
-									<p className="mt-1 hidden text-lg text-muted-foreground lg:block">
+									<p className="mt-1 hidden text-lg text-muted-foreground sm:text-base lg:block">
 										{t(`steps.${key}.descriptionDesktop`)}
 									</p>
 								</div>
