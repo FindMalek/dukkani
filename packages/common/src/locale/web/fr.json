@@ -141,5 +141,22 @@
 				"descriptionDesktop": "Exportez commandes et paiements proprement pour la compta et les rapports."
 			}
 		}
+	},
+	"costCalculator": {
+		"title": "Combien vous coûte le travail manuel ?",
+		"ordersPerDayLabel": "Commandes par jour",
+		"ordersPerDaySuffix": "commandes",
+		"fakeOrdersLabel": "Fausses commandes (%)",
+		"fakeOrdersSuffix": "%",
+		"minutesPerCallLabel": "Minutes par appel",
+		"minutesPerCallSuffix": "min",
+		"failedCostLabel": "Coût livraison ratée (TND)",
+		"failedCostSuffix": "TND",
+		"hoursWastedLabel": "HEURES PERDUES / MOIS",
+		"moneyLostLabel": "ARGENT PERDU / MOIS",
+		"savingsLabel": "ÉCONOMIES ESTIMÉES AVEC DUKKANI",
+		"savingsPrefix": "+",
+		"perMonth": "/ mois",
+		"cta": "Automatisez dès aujourd'hui"
 	}
 }

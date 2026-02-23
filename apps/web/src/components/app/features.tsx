@@ -53,14 +53,10 @@ export function Features() {
 										{t(`items.${key}.title`)}
 									</h3>
 									<p className="mt-1 block text-muted-foreground text-sm lg:hidden">
-										{t(
-											`items.${key}.descriptionMobile`,
-										)}
+										{t(`items.${key}.descriptionMobile`)}
 									</p>
 									<p className="mt-1 hidden text-muted-foreground text-sm lg:block">
-										{t(
-											`items.${key}.descriptionDesktop`,
-										)}
+										{t(`items.${key}.descriptionDesktop`)}
 									</p>
 								</div>
 							</div>

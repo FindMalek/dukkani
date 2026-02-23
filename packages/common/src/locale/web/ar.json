@@ -141,5 +141,22 @@
 				"descriptionDesktop": "صدّر الطلبات والمدفوعات بشكل نظيف للمحاسبة والتقارير."
 			}
 		}
+	},
+	"costCalculator": {
+		"title": "كم يكلفك العمل اليدوي؟",
+		"ordersPerDayLabel": "الطلبات في اليوم",
+		"ordersPerDaySuffix": "طلبات",
+		"fakeOrdersLabel": "الطلبات الوهمية (%)",
+		"fakeOrdersSuffix": "%",
+		"minutesPerCallLabel": "دقائق لكل اتصال",
+		"minutesPerCallSuffix": "د",
+		"failedCostLabel": "تكلفة التوصيل الفاشل (د.ت)",
+		"failedCostSuffix": "د.ت",
+		"hoursWastedLabel": "ساعات مهدرة / الشهر",
+		"moneyLostLabel": "أموال مفقودة / الشهر",
+		"savingsLabel": "التوفير المقدر مع دكاني",
+		"savingsPrefix": "+",
+		"perMonth": "/ شهر",
+		"cta": "ابدأ الأتمتة اليوم"
 	}
 }

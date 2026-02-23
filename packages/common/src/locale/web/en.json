@@ -141,5 +141,22 @@
 				"descriptionDesktop": "Export orders and payments cleanly for accounting and reports."
 			}
 		}
+	},
+	"costCalculator": {
+		"title": "How much is manual work costing you?",
+		"ordersPerDayLabel": "Orders per day",
+		"ordersPerDaySuffix": "orders",
+		"fakeOrdersLabel": "Fake orders (%)",
+		"fakeOrdersSuffix": "%",
+		"minutesPerCallLabel": "Minutes per call",
+		"minutesPerCallSuffix": "min",
+		"failedCostLabel": "Failed delivery cost (TND)",
+		"failedCostSuffix": "TND",
+		"hoursWastedLabel": "HOURS WASTED / MONTH",
+		"moneyLostLabel": "MONEY LOST / MONTH",
+		"savingsLabel": "ESTIMATED SAVINGS WITH DUKKANI",
+		"savingsPrefix": "+",
+		"perMonth": "/ month",
+		"cta": "Start automating today"
 	}
 }
