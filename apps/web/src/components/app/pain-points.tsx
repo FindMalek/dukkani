@@ -1,5 +1,3 @@
-"use client";
-
 import {
 	Card,
 	CardDescription,
@@ -7,7 +5,7 @@ import {
 	CardTitle,
 } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 type PainPointKey = "wastedTime" | "fakeOrders" | "lostDms" | "manualForms";
 
@@ -21,13 +19,13 @@ const PAIN_POINT_KEYS: {
 	{ key: "manualForms", icon: "fileText" },
 ];
 
-export function PainPoints() {
-	const t = useTranslations("painPoints");
+export async function PainPoints() {
+	const t = await getTranslations("painPoints");
 
 	return (
 		<section
 			id="pain-points"
-			className="bg-card-foreground py-12 sm:py-16 md:py-24"
+			className="bg-card-foreground py-12 sm:py-16 md:py-24 dark:bg-card"
 		>
 			<div className="container mx-auto px-4 sm:px-6">
 				<div className="mb-10 text-center sm:mb-12 md:mb-16">
@@ -44,7 +42,7 @@ export function PainPoints() {
 						return (
 							<Card
 								key={key}
-								className="border-secondary/20 bg-muted-foreground/20 shadow-none transition-colors"
+								className="border-white/10 bg-primary-foreground/10 shadow-none transition-colors dark:bg-white/5"
 							>
 								<CardHeader className="p-4 sm:p-6">
 									<div className="mb-3 p-2.5 text-destructive sm:mb-4 sm:p-3">

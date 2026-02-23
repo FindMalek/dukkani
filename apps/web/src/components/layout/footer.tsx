@@ -37,9 +37,7 @@ export function Footer() {
 					</nav>
 
 					<div className="flex items-center justify-center gap-3 md:justify-end">
-						<span className="text-muted-foreground text-sm">
-							{t("madeForTunisia")} 🇹🇳
-						</span>
+					
 						<div className="flex items-center gap-2">
 							<ModeToggle />
 							<LanguageSwitcher className="h-9 w-9 min-w-9" />
