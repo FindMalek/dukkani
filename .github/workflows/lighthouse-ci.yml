@@ -11,7 +11,7 @@ jobs:
   lighthouse:
     if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     runs-on: blacksmith-4vcpu-ubuntu-2404
-    timeout-minutes: 10
+    timeout-minutes: 25
 
     steps:
       - uses: actions/checkout@v4
@@ -56,8 +56,32 @@ jobs:
       - name: Wait for server
         run: npx wait-on http://localhost:3000/en --timeout 60000
 
-      - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v12
+      - name: Install Lighthouse CI
+        run: pnpm add -D -w @lhci/cli
+
+      - name: Collect - Mobile 375x667
+        run: LHCI_PRESET=mobile LHCI_SCREEN_EMULATION='{"mobile":true,"width":375,"height":667,"deviceScaleFactor":2}' pnpm exec lhci collect --config=.lighthouserc.cjs
+
+      - name: Collect - Mobile 390x844
+        run: LHCI_PRESET=mobile LHCI_SCREEN_EMULATION='{"mobile":true,"width":390,"height":844,"deviceScaleFactor":3}' pnpm exec lhci collect --config=.lighthouserc.cjs --additive
+
+      - name: Collect - Desktop 1366x768
+        run: LHCI_PRESET=desktop LHCI_SCREEN_EMULATION='{"mobile":false,"width":1366,"height":768,"deviceScaleFactor":1}' pnpm exec lhci collect --config=.lighthouserc.cjs --additive
+
+      - name: Collect - Desktop 1920x1080
+        run: LHCI_PRESET=desktop LHCI_SCREEN_EMULATION='{"mobile":false,"width":1920,"height":1080,"deviceScaleFactor":1}' pnpm exec lhci collect --config=.lighthouserc.cjs --additive
+
+      - name: Assert
+        run: pnpm exec lhci assert --config=.lighthouserc.cjs
+
+      - name: Upload Lighthouse reports
+        if: always()
+        run: pnpm exec lhci upload --config=.lighthouserc.cjs
+
+      - name: Upload Lighthouse artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
-          configPath: .lighthouserc.json
-          uploadArtifacts: true
+          name: lighthouse-reports
+          path: .lighthouseci
+          retention-days: 5
