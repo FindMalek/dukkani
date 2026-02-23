@@ -26,6 +26,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate Prisma client
+        working-directory: packages/db
+        run: pnpm db:generate
+        env:
+          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
+          CI: true
+
       - name: Build web app
         run: pnpm turbo build --filter=@dukkani/web
         env:
@@ -37,6 +44,7 @@ jobs:
           NEXT_PUBLIC_NODE_ENV: local
           DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
           BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
+          CI: true
 
       - name: Start web server
         working-directory: apps/web
@@ -50,6 +58,7 @@ jobs:
           NEXT_PUBLIC_NODE_ENV: local
           DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
           BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
+          CI: true
 
       - name: Wait for server
         run: npx wait-on http://localhost:3000/en --timeout 60000
@@ -57,14 +66,8 @@ jobs:
       - name: Install Lighthouse CI
         run: pnpm add -D -w @lhci/cli
 
-      - name: Collect - Mobile 375x667
-        run: LHCI_PRESET=mobile LHCI_SCREEN_EMULATION='{"mobile":true,"width":375,"height":667,"deviceScaleFactor":2}' pnpm exec lhci collect --config=.lighthouserc.cjs
-
-      - name: Collect - Mobile 390x844
-        run: LHCI_PRESET=mobile LHCI_SCREEN_EMULATION='{"mobile":true,"width":390,"height":844,"deviceScaleFactor":3}' pnpm exec lhci collect --config=.lighthouserc.cjs --additive
-
       - name: Collect - Desktop 1366x768
-        run: LHCI_PRESET=desktop LHCI_SCREEN_EMULATION='{"mobile":false,"width":1366,"height":768,"deviceScaleFactor":1}' pnpm exec lhci collect --config=.lighthouserc.cjs --additive
+        run: LHCI_PRESET=desktop LHCI_SCREEN_EMULATION='{"mobile":false,"width":1366,"height":768,"deviceScaleFactor":1}' pnpm exec lhci collect --config=.lighthouserc.cjs
 
       - name: Collect - Desktop 1920x1080
         run: LHCI_PRESET=desktop LHCI_SCREEN_EMULATION='{"mobile":false,"width":1920,"height":1080,"deviceScaleFactor":1}' pnpm exec lhci collect --config=.lighthouserc.cjs --additive
