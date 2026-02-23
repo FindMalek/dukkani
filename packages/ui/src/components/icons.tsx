@@ -59,6 +59,7 @@ import {
 	Search,
 	Settings,
 	Share2,
+	ShieldCheck,
 	ShirtIcon,
 	ShoppingCart,
 	ShoppingCartIcon,
@@ -155,4 +156,5 @@ export const Icons = {
 	packageCheck: PackageCheck,
 	phone: Phone,
 	share2: Share2,
+	shieldCheck: ShieldCheck,
 } as const;

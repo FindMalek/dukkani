@@ -1,3 +1,4 @@
+import { AutomatedConfirmation } from "@/components/app/automated-confirmation";
 import { CTA } from "@/components/app/cta";
 import { FAQ } from "@/components/app/faq";
 import { Features } from "@/components/app/features";
@@ -12,6 +13,7 @@ export default function Home() {
 			<Hero />
 			<PainPoints />
 			<Process />
+			<AutomatedConfirmation />
 			<Features />
 			<Pricing />
 			<FAQ />

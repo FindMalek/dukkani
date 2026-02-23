@@ -39,7 +39,56 @@
 				"title": "Formulaires manuels",
 				"description": "Remplir les bons de livraison est lent."
 			}
+		}
+	},
+	"process": {
+		"title": "Processus en 4 étapes",
+		"steps": {
+			"createStore": {
+				"title": "1. Créer la boutique",
+				"descriptionMobile": "Configurer en 5 minutes.",
+				"descriptionDesktop": "Configurez votre boutique en 5 minutes."
+			},
+			"shareLink": {
+				"title": "2. Partager le lien",
+				"descriptionMobile": "Lien en bio et annonces.",
+				"descriptionDesktop": "Mettez le lien dans votre bio et vos annonces Instagram."
+			},
+			"weConfirm": {
+				"title": "3. Nous confirmons",
+				"descriptionMobile": "Le système appelle les clients.",
+				"descriptionDesktop": "Notre système appelle et vérifie la commande automatiquement."
+			},
+			"deliveryReady": {
+				"title": "4. Prêt pour livraison",
+				"descriptionMobile": "Préparé pour enlèvement.",
+				"descriptionDesktop": "Le colis est préparé pour enlèvement."
+			}
+		}
+	},
+	"automatedConfirmation": {
+		"eyebrow": "CONFIRMATION AUTOMATISÉE",
+		"title": "Nous confirmons les commandes pour vous.",
+		"description": "Notre système appelle le client pour vérifier son sérieux et l'exactitude de l'adresse. Seules les commandes confirmées sont envoyées à la livraison.",
+		"benefits": [
+			"Économisez des heures d'appels",
+			"Éliminez les fausses commandes",
+			"Vérifiez l'exactitude de l'adresse"
+		],
+		"guarantee": {
+			"title": "Garantie zéro risque",
+			"description": "Ne payez pas les frais de livraison pour les fausses commandes."
 		},
-		"description": "Votr-un"
+		"flowchart": {
+			"title": "Flux de confirmation",
+			"steps": [
+				"Le client passe commande",
+				"Commande reçue",
+				"Confirmation démarrée",
+				"Le système appelle le client",
+				"Adresse vérifiée",
+				"Prêt pour livraison"
+			]
+		}
 	}
 }
