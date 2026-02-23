@@ -1,5 +1,3 @@
-"use client";
-
 import {
 	Card,
 	CardDescription,
@@ -7,13 +5,13 @@ import {
 	CardTitle,
 } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 const BENEFITS_COUNT = 3;
 const FLOWCHART_STEPS_COUNT = 6;
 
-export function AutomatedConfirmation() {
-	const t = useTranslations("automatedConfirmation");
+export async function AutomatedConfirmation() {
+	const t = await getTranslations("automatedConfirmation");
 
 	return (
 		<section

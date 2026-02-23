@@ -1,5 +1,6 @@
 import { AutomatedConfirmation } from "@/components/app/automated-confirmation";
 import { CostCalculator } from "@/components/app/cost-calculator";
+import { CTA } from "@/components/app/cta";
 import { Features } from "@/components/app/features";
 import { Hero } from "@/components/app/hero";
 import { PainPoints } from "@/components/app/pain-points";
@@ -14,6 +15,7 @@ export default function Home() {
 			<AutomatedConfirmation />
 			<Features />
 			<CostCalculator />
+			<CTA />
 		</>
 	);
 }

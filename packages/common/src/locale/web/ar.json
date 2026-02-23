@@ -158,5 +158,19 @@
 		"savingsPrefix": "+",
 		"perMonth": "/ شهر",
 		"cta": "ابدأ الأتمتة اليوم"
+	},
+	"cta": {
+		"titleLine1": "بع أكثر.",
+		"titleLine2": "اتصل أقل.",
+		"subtitle": "انضم إلى آلاف البائعين التونسيين الذين يؤتمتون أعمالهم.",
+		"primary": "إنشاء متجري مجاناً",
+		"telegramSupport": "دعم تليجرام"
+	},
+	"footer": {
+		"brandName": "دكاني",
+		"terms": "شروط الخدمة",
+		"privacy": "سياسة الخصوصية",
+		"contact": "الدعم",
+		"madeForTunisia": "صُنع لتونس"
 	}
 }

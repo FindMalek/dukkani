@@ -158,5 +158,19 @@
 		"savingsPrefix": "+",
 		"perMonth": "/ mois",
 		"cta": "Automatisez dès aujourd'hui"
+	},
+	"cta": {
+		"titleLine1": "Vendez plus.",
+		"titleLine2": "Appelez moins.",
+		"subtitle": "Rejoignez des milliers de vendeurs tunisiens qui automatisent leur activité.",
+		"primary": "Créer mon magasin gratuitement",
+		"telegramSupport": "Support Telegram"
+	},
+	"footer": {
+		"brandName": "Dukkani",
+		"terms": "Conditions d'utilisation",
+		"privacy": "Politique de confidentialité",
+		"contact": "Support",
+		"madeForTunisia": "Conçu pour la Tunisie"
 	}
 }

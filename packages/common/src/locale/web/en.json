@@ -158,5 +158,19 @@
 		"savingsPrefix": "+",
 		"perMonth": "/ month",
 		"cta": "Start automating today"
+	},
+	"cta": {
+		"titleLine1": "Sell more.",
+		"titleLine2": "Call less.",
+		"subtitle": "Join thousands of Tunisian sellers automating their business.",
+		"primary": "Create My Store Free",
+		"telegramSupport": "Telegram Support"
+	},
+	"footer": {
+		"brandName": "Dukkani",
+		"terms": "Terms of Service",
+		"privacy": "Privacy Policy",
+		"contact": "Contact Support",
+		"madeForTunisia": "Made for Tunisia"
 	}
 }
