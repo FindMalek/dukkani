@@ -124,7 +124,7 @@ catalogs:
       specifier: ^0.16.4
       version: 0.16.8
     tsx:
-      specifier: ^4.20.6
+      specifier: ^4.21.0
       version: 4.21.0
     turbo:
       specifier: ^2.6.1
@@ -162,6 +162,9 @@ importers:
       tsdown:
         specifier: 'catalog:'
         version: 0.16.8(typescript@5.9.3)
+      tsx:
+        specifier: 'catalog:'
+        version: 4.21.0
       turbo:
         specifier: 'catalog:'
         version: 2.7.3

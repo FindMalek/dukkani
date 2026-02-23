@@ -44,6 +44,7 @@
 		"@types/node": "catalog:",
 		"dotenv": "catalog:",
 		"tsdown": "catalog:",
+		"tsx": "catalog:",
 		"turbo": "catalog:",
 		"typescript": "catalog:"
 	},
