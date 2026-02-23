@@ -2,6 +2,10 @@
 const config = {
 	ci: {
 		collect: {
+			startServerCommand:
+				"pnpm run build && cd apps/web && PORT=3000 pnpm start",
+			startServerReadyPattern: "Local:|localhost:3000|ready|Started",
+			startServerReadyTimeout: 180000,
 			url: ["http://localhost:3000/en", "http://localhost:3000/ar"],
 			numberOfRuns: 3,
 			settings: {

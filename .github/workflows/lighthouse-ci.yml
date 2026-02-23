@@ -15,6 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 20
 
       - uses: pnpm/action-setup@v4
 
@@ -26,58 +28,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Generate Prisma client
-        working-directory: packages/db
-        run: pnpm db:generate
-        env:
-          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-          CI: true
-
-      - name: Build web app
-        run: pnpm turbo build --filter=@dukkani/web
-        env:
-          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
-          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
-          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
-          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
-          NEXT_PUBLIC_NODE_ENV: local
-          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
-          CI: true
-
-      - name: Start web server
-        working-directory: apps/web
-        run: PORT=3000 pnpm start &
-        env:
-          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
-          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
-          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
-          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
-          NEXT_PUBLIC_NODE_ENV: local
-          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
-          CI: true
-
-      - name: Wait for server
-        run: npx wait-on http://localhost:3000/en --timeout 60000
-
       - name: Install Lighthouse CI
         run: pnpm add -D -w @lhci/cli
 
-      - name: Collect - Desktop 1366x768
-        run: LHCI_PRESET=desktop LHCI_SCREEN_EMULATION='{"mobile":false,"width":1366,"height":768,"deviceScaleFactor":1}' pnpm exec lhci collect --config=.lighthouserc.cjs
-
-      - name: Collect - Desktop 1920x1080
-        run: LHCI_PRESET=desktop LHCI_SCREEN_EMULATION='{"mobile":false,"width":1920,"height":1080,"deviceScaleFactor":1}' pnpm exec lhci collect --config=.lighthouserc.cjs --additive
-
-      - name: Assert
-        run: pnpm exec lhci assert --config=.lighthouserc.cjs
-
-      - name: Upload Lighthouse reports
-        if: always()
-        run: pnpm exec lhci upload --config=.lighthouserc.cjs
+      - name: Run Lighthouse CI
+        run: pnpm exec lhci autorun
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
+          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
+          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
+          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
+          NEXT_PUBLIC_NODE_ENV: local
+          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
+          CI: true
 
       - name: Upload Lighthouse artifacts
         uses: actions/upload-artifact@v4
