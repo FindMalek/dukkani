@@ -43,6 +43,9 @@ jobs:
           DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
           BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
           CI: true
+          OTEL_SERVICE_NAME: dukkani-web
+          OTEL_SAMPLING_RATE: 0
+          OTEL_ENABLED: false
 
       - name: Upload Lighthouse artifacts
         uses: actions/upload-artifact@v4

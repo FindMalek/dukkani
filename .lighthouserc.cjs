@@ -3,8 +3,8 @@ const config = {
 	ci: {
 		collect: {
 			startServerCommand:
-				"pnpm turbo run db:generate --filter=@dukkani/db && pnpm turbo build --filter=@dukkani/web && cd apps/web && PORT=3000 pnpm start && sleep 5",
-			startServerReadyPattern: "Ready in|http://localhost:3000",
+				"pnpm turbo run db:generate --filter=@dukkani/db && pnpm turbo build --filter=@dukkani/web && cd apps/web && (PORT=3000 pnpm start &) && npx wait-on http://localhost:3000/en -t 60000 && echo LHCI_READY && wait",
+			startServerReadyPattern: "LHCI_READY",
 			startServerReadyTimeout: 180000,
 			url: ["http://localhost:3000/en", "http://localhost:3000/ar"],
 			numberOfRuns: 3,
