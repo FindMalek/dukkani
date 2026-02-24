@@ -1,5 +1,6 @@
 import { generateText } from "ai";
 import { groq } from "@ai-sdk/groq";
+import { ciToolsEnv } from "@dukkani/env/presets/ci-tools";
 
 const DEFAULT_MODEL = "llama-3.3-70b-versatile";
 const MAX_RETRIES = 2;
@@ -14,7 +15,7 @@ export async function generateAnalysis(
 	prompt: string,
 	options: GenerateAnalysisOptions = {},
 ): Promise<string> {
-	const apiKey = options.apiKey ?? process.env.GROQ_API_KEY;
+	const apiKey = options.apiKey ?? ciToolsEnv.GROQ_API_KEY;
 	if (!apiKey) {
 		throw new Error("GROQ_API_KEY (or options.apiKey) is required");
 	}
