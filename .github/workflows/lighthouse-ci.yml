@@ -28,6 +28,24 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Restore Next.js cache
+        uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'apps/web/**/*.ts', 'apps/web/**/*.tsx', 'apps/web/next.config.*') }}
+
+      - name: Build web app
+        run: pnpm turbo run db:generate --filter=@dukkani/db && pnpm turbo build --filter=@dukkani/web
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
+          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
+          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
+          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
+          NEXT_PUBLIC_NODE_ENV: production
+          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
+
       - name: Install Lighthouse CI
         run: pnpm add -D -w @lhci/cli
 
@@ -39,7 +57,7 @@ jobs:
           NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
           NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
           NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
-          NEXT_PUBLIC_NODE_ENV: local
+          NEXT_PUBLIC_NODE_ENV: production
           DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
           BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
           CI: true
