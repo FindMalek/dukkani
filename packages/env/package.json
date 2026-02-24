@@ -20,7 +20,7 @@
 			"types": "./src/base.ts",
 			"default": "./src/base.ts"
 		},
-		"./presets/api": {
+		"./presets/ci-tools":{"types":"./src/presets/ci-tools.ts","default":"./src/presets/ci-tools.ts"},"./presets/api": {
 			"types": "./src/presets/api.ts",
 			"default": "./src/presets/api.ts"
 		},

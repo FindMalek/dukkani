@@ -596,6 +596,9 @@ importers:
       '@ai-sdk/groq':
         specifier: 'catalog:'
         version: 1.2.9(zod@4.1.12)
+      '@dukkani/env':
+        specifier: workspace:*
+        version: link:../env
       '@zenbase/llml':
         specifier: 'catalog:'
         version: 0.4.0(typescript@5.9.3)

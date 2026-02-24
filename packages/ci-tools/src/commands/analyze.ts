@@ -4,6 +4,7 @@
  * Fetches failed workflow logs and PR diff, calls AI for analysis, and posts a comment.
  */
 
+import { ciToolsEnv } from "@dukkani/env/presets/ci-tools";
 import {
 	createComment,
 	fetchJobLogs,
@@ -23,34 +24,17 @@ import {
 import type { LighthouseParseResult } from "../logs/index.js";
 import { buildPrompt } from "../prompts/index.js";
 
-function required(name: string): string {
-	const v = process.env[name];
-	if (!v) {
-		console.error(`Missing required env: ${name}`);
-		process.exit(1);
-	}
-	return v;
-}
-
-function optional(name: string, def: string): string {
-	return process.env[name] ?? def;
-}
-
 async function main(): Promise<void> {
-	const token = required("GITHUB_TOKEN");
-	required("GROQ_API_KEY");
-	const runId = required("RUN_ID");
-	const workflowName = required("WORKFLOW_NAME");
-	const runUrl = required("RUN_URL");
-	const repoParts = required("REPOSITORY").split("/");
-	const owner = repoParts[0];
-	const repo = repoParts[1];
-	if (!owner || !repo) {
-		console.error("REPOSITORY must be in owner/repo format");
-		process.exit(1);
-	}
-	const headBranch = required("HEAD_BRANCH");
-	const botName = optional("BOT_NAME", "CI Failure Analyst");
+	const env = ciToolsEnv;
+	const token = env.GITHUB_TOKEN;
+	const runId = env.RUN_ID;
+	const workflowName = env.WORKFLOW_NAME;
+	const runUrl = env.RUN_URL;
+	const parts = env.REPOSITORY.split("/");
+	const owner = parts[0]!;
+	const repo = parts[1]!;
+	const headBranch = env.HEAD_BRANCH;
+	const botName = env.BOT_NAME;
 
 	const pr = await findOpenPR(token, owner, repo, headBranch);
 	if (!pr) {

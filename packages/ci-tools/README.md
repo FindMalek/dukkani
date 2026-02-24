@@ -6,6 +6,8 @@ CI and developer automation scripts (e.g. run from GitHub Actions or locally).
 
 When a workflow run fails, the bot fetches job logs and the PR diff, sends them to an AI (Groq via OpenAI-compatible API), and posts or updates a comment on the PR with root cause, affected area, suggested fix, and relevant files.
 
+Environment variables are validated with `@dukkani/env` (preset `ci-tools`). Invalid or missing required vars will fail at startup with a clear error.
+
 ### Required env (when running `pnpm run analyze`)
 
 - `GITHUB_TOKEN` – GitHub token with `actions: read`, `contents: read`, `pull-requests: write`, `issues: read`
