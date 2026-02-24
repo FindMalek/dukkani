@@ -47,4 +47,4 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
           BOT_NAME: ${{ vars.CI_FAILURE_BOT_NAME || 'CI Failure Analyst' }}
-        run: pnpm exec tsx scripts/ci-failure-analyze.ts
+        run: pnpm --filter @dukkani/ci-tools run analyze

@@ -34,6 +34,8 @@ catalog:
   negotiator: ^1.0.0
   next: ^16.0.10
   next-intl: ^4.5.6
+  ai: ^4.0.0
+  '@ai-sdk/groq': ^1.0.0
   pino: ^9.9.5
   prisma: ^7.0.0
   react: 19.2.1
@@ -48,6 +50,7 @@ catalog:
   typescript: ^5.9.3
   zod: 4.1.12
   zustand: ^5.0.10
+  '@zenbase/llml': ^0.4.0
 
 onlyBuiltDependencies:
   - '@prisma/client'
