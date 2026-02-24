@@ -3,7 +3,8 @@ const config = {
 	ci: {
 		collect: {
 			startServerCommand:
-			"pnpm turbo run db:generate --filter=@dukkani/db && pnpm turbo build --filter=@dukkani/web && cd apps/web && PORT=3000 pnpm start",			startServerReadyPattern: "Local:|localhost:3000|ready|Started",
+				"pnpm turbo run db:generate --filter=@dukkani/db && pnpm turbo build --filter=@dukkani/web && cd apps/web && PORT=3000 pnpm start && sleep 5",
+			startServerReadyPattern: "Ready in|http://localhost:3000",
 			startServerReadyTimeout: 180000,
 			url: ["http://localhost:3000/en", "http://localhost:3000/ar"],
 			numberOfRuns: 3,
