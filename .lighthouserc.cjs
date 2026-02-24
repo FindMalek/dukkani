@@ -2,9 +2,10 @@
 const config = {
 	ci: {
 		collect: {
-			startServerCommand: "cd apps/web && PORT=3000 pnpm start",
-			startServerReadyPattern: "Local:",
-			startServerReadyTimeout: 30000,
+			startServerCommand:
+				"cd apps/web && (PORT=3000 pnpm start &) && npx wait-on http://localhost:3000/en -t 60000 && echo LHCI_READY && wait",
+			startServerReadyPattern: "LHCI_READY",
+			startServerReadyTimeout: 70000,
 			url: ["http://localhost:3000/en", "http://localhost:3000/ar"],
 			numberOfRuns: 3,
 			settings: {
