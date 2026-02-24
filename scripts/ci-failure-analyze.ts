@@ -106,6 +106,46 @@ function truncateDiff(text: string | undefined | null): string {
 	return s;
 }
 
+/** Parsed Lighthouse CI data from raw job logs (before sanitization). */
+interface LighthouseParseResult {
+	reportUrls: string[];
+	assertionSummary: string;
+}
+
+const LH_REPORT_URL_RE =
+	/https:\/\/storage\.googleapis\.com\/lighthouse-infrastructure\.appspot\.com\/reports\/[^\s)]+\.report\.html/g;
+
+function parseLighthouseFromLogs(rawLogs: string): LighthouseParseResult {
+	const reportUrls = [...(rawLogs.match(LH_REPORT_URL_RE) ?? [])];
+	const seen = new Set<string>();
+	const uniqueUrls = reportUrls.filter((u) => {
+		if (seen.has(u)) return false;
+		seen.add(u);
+		return true;
+	});
+
+	const lines = rawLogs.split(/\r?\n/);
+	const assertionLines: string[] = [];
+	for (const line of lines) {
+		const t = line.trim();
+		if (
+			(t.includes("categories.") &&
+				t.includes("failure") &&
+				t.includes("assertion")) ||
+			t.startsWith("expected:") ||
+			t.startsWith("found:") ||
+			t.startsWith("all values:") ||
+			/^\d+\s+result\(s\)\s+for\s+http/.test(t)
+		) {
+			assertionLines.push(t);
+		}
+	}
+	const assertionSummary =
+		assertionLines.length > 0 ? assertionLines.join("\n") : "";
+
+	return { reportUrls: uniqueUrls, assertionSummary };
+}
+
 async function fetchJSON<T>(
 	url: string,
 	token: string,
@@ -332,13 +372,79 @@ async function updateComment(
 	if (!res.ok) throw new Error(`Update comment failed: ${res.status}`);
 }
 
+function buildLighthousePrompt(
+	runUrl: string,
+	jobNames: string,
+	diff: string,
+	logs: string,
+	lighthouse: LighthouseParseResult,
+): string {
+	const reportUrlsBlock =
+		lighthouse.reportUrls.length > 0
+			? `LIGHTHOUSE REPORT URLS (open these for detailed audit lists and screenshots):\n${lighthouse.reportUrls.map((u) => `- ${u}`).join("\n")}`
+			: "";
+	const assertionBlock =
+		lighthouse.assertionSummary.length > 0
+			? `PARSED ASSERTION FAILURE:\n\`\`\`\n${lighthouse.assertionSummary}\n\`\`\``
+			: "";
+	return `You are an expert CI/CD and web performance analyst. This is a Lighthouse CI assertion failure: the workflow runs Lighthouse (performance, accessibility, best-practices, SEO) and enforces minimum category scores defined in .lighthouserc.cjs. The run failed because one or more categories scored below the required threshold.
+
+CONTEXT:
+- Repo: pnpm Turborepo monorepo (Next.js, Prisma, oRPC)
+- Workflow: Lighthouse CI
+- Failed jobs: ${jobNames}
+- Run URL: ${runUrl}
+${assertionBlock ? `\n${assertionBlock}\n` : ""}
+${reportUrlsBlock ? `\n${reportUrlsBlock}\n` : ""}
+
+PR DIFF (changed files, truncated if large):
+\`\`\`
+${diff || "(no diff - push to main or no PR)"}
+\`\`\`
+
+LOGS (sanitized, last portion):
+\`\`\`
+${logs}
+\`\`\`
+
+TASK:
+1. Root cause: State which category failed (e.g. accessibility) and the score vs threshold (e.g. 0.86 vs 0.9). If the assertion block is present, use it.
+2. Affected area: Which URLs/pages were tested and which config (e.g. .lighthouserc.cjs) or app code is relevant.
+3. Suggested fix: Give concrete, actionable steps—e.g. improve color contrast, increase tap target size, add alt text, fix ARIA, or temporarily lower the threshold in .lighthouserc.cjs. Prefer pointing the user to the report URLs above for the full list of failing audits.
+4. Relevant files: Paths from the diff or logs.
+
+Respond with this exact Markdown structure (no intro):
+## Root cause
+(1-3 sentences; which category, score vs threshold)
+
+## Affected area
+(Pages/URLs tested, config or file paths)
+
+## Suggested fix
+(Numbered steps; concrete a11y/performance fixes or config change; reference report links when helpful)
+
+## Relevant files
+(Bullet list of paths)
+
+Under 500 words. Be direct and actionable.`;
+}
+
 function buildPrompt(
 	workflowName: string,
 	runUrl: string,
 	jobNames: string,
 	diff: string,
 	logs: string,
+	lighthouse?: LighthouseParseResult,
 ): string {
+	if (
+		workflowName === "Lighthouse CI" &&
+		lighthouse &&
+		(lighthouse.reportUrls.length > 0 || lighthouse.assertionSummary.length > 0)
+	) {
+		return buildLighthousePrompt(runUrl, jobNames, diff, logs, lighthouse);
+	}
+
 	const ctx = WORKFLOW_CONTEXT[workflowName] ?? "";
 	return `You are an expert CI/CD analyst. Analyze this GitHub Actions failure and correlate it with the PR changes.
 
@@ -404,6 +510,11 @@ async function main(): Promise<void> {
 	let logs = "";
 	let diff = "";
 
+	let lighthouseData: LighthouseParseResult = {
+		reportUrls: [],
+		assertionSummary: "",
+	};
+
 	try {
 		const jobsRes = await fetchJSON<GitHubJobsResponse>(
 			`${API}/repos/${owner}/${repo}/actions/runs/${runId}/jobs`,
@@ -414,8 +525,11 @@ async function main(): Promise<void> {
 		);
 		jobNames = failedJobs.map((j) => j.name).join(", ") || "unknown";
 
-		logs = await fetchJobLogs(token, owner, repo, runId);
-		logs = sanitizeLogs(logs);
+		const rawLogs = await fetchJobLogs(token, owner, repo, runId);
+		if (workflowName === "Lighthouse CI") {
+			lighthouseData = parseLighthouseFromLogs(rawLogs);
+		}
+		logs = sanitizeLogs(rawLogs);
 	} catch (e) {
 		console.error(
 			"Failed to fetch logs:",
@@ -448,6 +562,7 @@ async function main(): Promise<void> {
 			jobNames,
 			diff,
 			logs || "(no logs captured)",
+			workflowName === "Lighthouse CI" ? lighthouseData : undefined,
 		);
 		analysis = await callGroq(groqKey, prompt);
 	} catch (e) {
@@ -457,17 +572,46 @@ async function main(): Promise<void> {
 		);
 	}
 
+	const headerTableRows = [
+		`| **Workflow** | ${workflowName} |`,
+		`| **Run** | [View logs](${runUrl}) |`,
+		`| **Failed jobs** | ${jobNames} |`,
+	];
+	if (
+		workflowName === "Lighthouse CI" &&
+		lighthouseData.assertionSummary.length > 0
+	) {
+		const oneLiner = lighthouseData.assertionSummary
+			.split("\n")
+			.filter(
+				(l) =>
+					l.includes("categories.") ||
+					l.startsWith("expected:") ||
+					l.startsWith("found:"),
+			)
+			.slice(0, 3)
+			.join(" ");
+		if (oneLiner) {
+			headerTableRows.push(
+				`| **Assertion** | ${oneLiner.replace(/\|/g, "\\|")} |`,
+			);
+		}
+	}
+
+	const reportsSection =
+		workflowName === "Lighthouse CI" && lighthouseData.reportUrls.length > 0
+			? `\n**Lighthouse reports:**\n${lighthouseData.reportUrls.map((url, i) => `- [Report ${i + 1}](${url})`).join("\n")}\n\n---\n\n`
+			: "";
+
 	const body = analysis
 		? `## CI Failure Analysis: ${workflowName}
 
 | | |
 |---|---|
-| **Workflow** | ${workflowName} |
-| **Run** | [View logs](${runUrl}) |
-| **Failed jobs** | ${jobNames} |
+${headerTableRows.join("\n")}
 
 ---
-
+${reportsSection}
 ${analysis}
 
 ---
