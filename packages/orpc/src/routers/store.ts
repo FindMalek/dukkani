@@ -110,10 +110,25 @@ export const storeRouter = {
 				});
 			}
 
-			return await StoreService.getStoreBySlugPublic(input.slug, {
-				productPage: input.productPage,
-				productLimit: input.productLimit,
-			});
+			try {
+				return await StoreService.getStoreBySlugPublic(input.slug, {
+					productPage: input.productPage,
+					productLimit: input.productLimit,
+				});
+			} catch (error) {
+				if (error instanceof Error && error.message === "Store not found") {
+					throw new ORPCError("NOT_FOUND", { message: "Store not found" });
+				}
+				if (
+					error instanceof Error &&
+					error.message === "Store is not available"
+				) {
+					throw new ORPCError("NOT_FOUND", {
+						message: "Store is not available",
+					});
+				}
+				throw error;
+			}
 		}),
 
 	/**
