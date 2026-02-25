@@ -1,12 +1,3 @@
-# Lighthouse CI - Performance, accessibility, and best-practices audits
-#
-# Required GitHub repository configuration (Settings > Secrets and variables > Actions):
-#   Variables: CI_NEXT_PUBLIC_API_URL, CI_NEXT_PUBLIC_WEB_URL, CI_NEXT_PUBLIC_DASHBOARD_URL,
-#              CI_NEXT_PUBLIC_STORE_DOMAIN, CI_NEXT_PUBLIC_ALLOWED_ORIGIN
-#   Secrets:   CI_DATABASE_URL, CI_BETTER_AUTH_SECRET
-#
-# Skips on fork PRs (vars/secrets not available). Falls back to placeholder values when vars are unset.
-
 name: Lighthouse CI
 
 on:
@@ -18,7 +9,7 @@ on:
 
 jobs:
   lighthouse:
-    if: (github.event_name != 'pull_request' || github.event.pull_request.draft == false) && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -37,42 +28,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Restore Next.js cache
-        uses: actions/cache@v4
-        with:
-          path: apps/web/.next/cache
-          key: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'apps/web/**/*.ts', 'apps/web/**/*.tsx', 'apps/web/next.config.*') }}
-
-      - name: Build web app
-        run: pnpm turbo run db:generate --filter=@dukkani/db && pnpm turbo build --filter=@dukkani/web
-        env:
-          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL || 'https://api.example.com' }}
-          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL || 'https://web.example.com' }}
-          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL || 'https://dashboard.example.com' }}
-          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN || 'example.com' }}
-          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN || '*' }}
-          NEXT_PUBLIC_NODE_ENV: production
-          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
-
-      - name: Verify build output
-        run: |
-          if [ ! -f apps/web/.next/BUILD_ID ]; then
-            echo "::error::Build failed or did not produce apps/web/.next - check Build web app step logs"
-            exit 1
-          fi
-
       - name: Install Lighthouse CI
         run: pnpm add -D -w @lhci/cli
 
       - name: Run Lighthouse CI
         run: pnpm exec lhci autorun
         env:
-          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL || 'https://api.example.com' }}
-          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL || 'https://web.example.com' }}
-          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL || 'https://dashboard.example.com' }}
-          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN || 'example.com' }}
-          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN || '*' }}
+          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
+          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
+          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
+          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
           NEXT_PUBLIC_NODE_ENV: production
           DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
           BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
