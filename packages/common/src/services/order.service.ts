@@ -1,4 +1,9 @@
 import { database } from "@dukkani/db";
+import {
+	BadRequestError,
+	ForbiddenError,
+	NotFoundError,
+} from "@dukkani/common/errors";
 import { generateOrderId } from "@dukkani/db/utils/generate-id";
 import logger from "@dukkani/logger";
 import {
@@ -57,11 +62,11 @@ class OrderServiceBase {
 		});
 
 		if (!store) {
-			throw new Error("Store not found");
+			throw new NotFoundError("Store not found");
 		}
 
 		if (store.ownerId !== userId) {
-			throw new Error("You don't have access to this store");
+			throw new ForbiddenError("You don't have access to this store");
 		}
 
 		addSpanEvent("order.store.verified", { store_id: store.id });
@@ -187,12 +192,12 @@ class OrderServiceBase {
 		});
 
 		if (!store) {
-			throw new Error("Store not found");
+			throw new NotFoundError("Store not found");
 		}
 
 		// Validate payment method is supported by store
 		if (!store.supportedPaymentMethods.includes(input.paymentMethod)) {
-			throw new Error(
+			throw new BadRequestError(
 				`Payment method ${input.paymentMethod} is not supported by this store. Supported methods: ${store.supportedPaymentMethods.join(", ")}`,
 			);
 		}
@@ -264,7 +269,7 @@ class OrderServiceBase {
 					select: { id: true },
 				});
 				if (!existingAddress) {
-					throw new Error(
+					throw new NotFoundError(
 						"Address not found or does not belong to this customer",
 					);
 				}
@@ -272,7 +277,7 @@ class OrderServiceBase {
 			} else {
 				const addressData = input.address;
 				if (!addressData?.street || !addressData?.city) {
-					throw new Error(
+					throw new BadRequestError(
 						"Address with street and city is required when addressId is not provided",
 					);
 				}
@@ -400,7 +405,7 @@ class OrderServiceBase {
 		});
 
 		if (!order) {
-			throw new Error("Order not found");
+			throw new NotFoundError("Order not found");
 		}
 
 		const store = await database.store.findUnique({
@@ -409,7 +414,7 @@ class OrderServiceBase {
 		});
 
 		if (!store || store.ownerId !== userId) {
-			throw new Error("You don't have access to this order");
+			throw new ForbiddenError("You don't have access to this order");
 		}
 
 		logger.info(
@@ -462,7 +467,7 @@ class OrderServiceBase {
 		});
 
 		if (!order) {
-			throw new Error("Order not found");
+			throw new NotFoundError("Order not found");
 		}
 
 		const store = await database.store.findUnique({
@@ -471,7 +476,7 @@ class OrderServiceBase {
 		});
 
 		if (!store || store.ownerId !== userId) {
-			throw new Error("You don't have access to this order");
+			throw new ForbiddenError("You don't have access to this order");
 		}
 
 		logger.info(

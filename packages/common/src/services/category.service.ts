@@ -1,4 +1,5 @@
 import { database } from "@dukkani/db";
+import { NotFoundError } from "@dukkani/common/errors";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { CategoryEntity } from "../entities/category/entity";
 import { CategoryQuery } from "../entities/category/query";
@@ -49,7 +50,7 @@ class CategoryServiceBase {
 		});
 
 		if (!category) {
-			throw new Error("Category not found");
+			throw new NotFoundError("Category not found");
 		}
 
 		return CategoryEntity.getSimpleRo(category);

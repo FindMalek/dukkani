@@ -1,5 +1,6 @@
 import type { SubscribeToLaunchInput } from "@dukkani/common/schemas/store/input";
 import { database } from "@dukkani/db";
+import { BadRequestError, NotFoundError } from "@dukkani/common/errors";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 
 class LaunchNotificationServiceBase {
@@ -25,11 +26,11 @@ class LaunchNotificationServiceBase {
 		});
 
 		if (!store) {
-			throw new Error("Store not found");
+			throw new NotFoundError("Store not found");
 		}
 
 		if (store.status !== "DRAFT") {
-			throw new Error("Store is already published");
+			throw new BadRequestError("Store is already published");
 		}
 
 		// Determine which unique constraint to use
@@ -40,7 +41,7 @@ class LaunchNotificationServiceBase {
 				: null;
 
 		if (!whereClause) {
-			throw new Error("Either email or phone must be provided");
+			throw new BadRequestError("Either email or phone must be provided");
 		}
 
 		// Create or update subscription

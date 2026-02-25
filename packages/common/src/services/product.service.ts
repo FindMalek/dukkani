@@ -1,4 +1,5 @@
 import { database } from "@dukkani/db";
+import { BadRequestError, NotFoundError } from "@dukkani/common/errors";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
 import { ProductQuery } from "../entities/product/query";
@@ -58,7 +59,7 @@ class ProductServiceBase {
 		return items.map((item) => {
 			const product = productMap.get(item.productId);
 			if (!product) {
-				throw new Error(
+				throw new NotFoundError(
 					`Product ${item.productId} not found or not available for this store`,
 				);
 			}
@@ -68,7 +69,7 @@ class ProductServiceBase {
 					)
 				: null;
 			if (item.variantId && variant === undefined) {
-				throw new Error(
+				throw new NotFoundError(
 					`Product variant ${item.variantId} not found for product ${item.productId}`,
 				);
 			}
@@ -104,7 +105,7 @@ class ProductServiceBase {
 		});
 
 		if (products.length !== productIds.length) {
-			throw new Error(
+			throw new NotFoundError(
 				"One or more products not found or don't belong to this store",
 			);
 		}
@@ -172,12 +173,12 @@ class ProductServiceBase {
 						v.id === item.variantId && v.productId === item.productId,
 				);
 				if (!variant) {
-					throw new Error(
+					throw new NotFoundError(
 						"Product variant not found or doesn't belong to this store",
 					);
 				}
 				if (variant.stock < item.quantity) {
-					throw new Error(
+					throw new BadRequestError(
 						`Insufficient stock for product ${item.productId} (variant ${item.variantId})`,
 					);
 				}
@@ -198,7 +199,7 @@ class ProductServiceBase {
 			});
 
 			if (products.length !== uniqueProductIds.length) {
-				throw new Error(
+				throw new NotFoundError(
 					"One or more products not found or don't belong to this store",
 				);
 			}
@@ -208,7 +209,9 @@ class ProductServiceBase {
 					(p: { id: string; stock: number }) => p.id === item.productId,
 				);
 				if (!product || product.stock < item.quantity) {
-					throw new Error(`Insufficient stock for product ${item.productId}`);
+					throw new BadRequestError(
+						`Insufficient stock for product ${item.productId}`,
+					);
 				}
 			}
 		}

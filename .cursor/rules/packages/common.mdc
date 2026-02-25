@@ -147,6 +147,8 @@ Services contain business logic and database operations. They use static class m
 ### Example
 
 ```typescript
+import { ForbiddenError, NotFoundError } from "@dukkani/common/errors";
+
 export class StoreService {
   static async getAllStores(userId: string): Promise<StoreSimpleOutput[]> {
     const stores = await database.store.findMany({
@@ -167,11 +169,11 @@ export class StoreService {
     });
 
     if (!store) {
-      throw new Error("Store not found");
+      throw new NotFoundError("Store not found");
     }
 
     if (store.ownerId !== userId) {
-      throw new Error("You don't have access to this store");
+      throw new ForbiddenError("You don't have access to this store");
     }
 
     return StoreEntity.getRo(store);
@@ -185,7 +187,7 @@ export class StoreService {
 - Always verify ownership/access before returning data
 - Use entities to transform database data to output schemas
 - Use queries to build Prisma includes and where clauses
-- Throw descriptive errors that can be caught by routers
+- Throw domain errors (`NotFoundError`, `ForbiddenError`, `BadRequestError`, `ConflictError`) from `@dukkani/common/errors` instead of generic `Error`; routers convert these to ORPCError
 
 ## Utils
 

@@ -22,6 +22,7 @@ import { ORPCError } from "@orpc/server";
 import { z } from "zod";
 import { protectedProcedure, publicProcedure, baseProcedure } from "../index";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
+import { convertServiceError } from "../utils/convert-service-error";
 
 export const storeRouter = {
 	/**
@@ -73,7 +74,11 @@ export const storeRouter = {
 				});
 			}
 
-			return await StoreService.getStoreById(input.id, userId);
+			try {
+				return await StoreService.getStoreById(input.id, userId);
+			} catch (error) {
+				convertServiceError(error);
+			}
 		}),
 
 	/**
@@ -91,7 +96,11 @@ export const storeRouter = {
 				});
 			}
 
-			return await StoreService.getStoreBySlug(input.slug, userId);
+			try {
+				return await StoreService.getStoreBySlug(input.slug, userId);
+			} catch (error) {
+				convertServiceError(error);
+			}
 		}),
 
 	/**
@@ -116,18 +125,7 @@ export const storeRouter = {
 					productLimit: input.productLimit,
 				});
 			} catch (error) {
-				if (error instanceof Error && error.message === "Store not found") {
-					throw new ORPCError("NOT_FOUND", { message: "Store not found" });
-				}
-				if (
-					error instanceof Error &&
-					error.message === "Store is not available"
-				) {
-					throw new ORPCError("NOT_FOUND", {
-						message: "Store is not available",
-					});
-				}
-				throw error;
+				convertServiceError(error);
 			}
 		}),
 
@@ -140,23 +138,26 @@ export const storeRouter = {
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 
-			// Update store configuration
-			const store = await StoreService.updateStoreConfiguration(
-				input.storeId,
-				userId,
-				{
-					theme: input.theme,
-					category: input.category,
-				},
-			);
+			try {
+				const store = await StoreService.updateStoreConfiguration(
+					input.storeId,
+					userId,
+					{
+						theme: input.theme,
+						category: input.category,
+					},
+				);
 
-			// Update user onboarding step to STORE_CONFIGURED
-			await database.user.update({
-				where: { id: userId },
-				data: { onboardingStep: UserOnboardingStep.STORE_CONFIGURED },
-			});
+				// Update user onboarding step to STORE_CONFIGURED
+				await database.user.update({
+					where: { id: userId },
+					data: { onboardingStep: UserOnboardingStep.STORE_CONFIGURED },
+				});
 
-			return store;
+				return store;
+			} catch (error) {
+				convertServiceError(error);
+			}
 		}),
 
 	/**
@@ -167,6 +168,10 @@ export const storeRouter = {
 		.input(subscribeToLaunchInputSchema)
 		.output(launchNotificationOutputSchema)
 		.handler(async ({ input }) => {
-			return await LaunchNotificationService.subscribe(input);
+			try {
+				return await LaunchNotificationService.subscribe(input);
+			} catch (error) {
+				convertServiceError(error);
+			}
 		}),
 };

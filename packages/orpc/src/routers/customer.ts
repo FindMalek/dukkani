@@ -21,6 +21,7 @@ import { CustomerService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../index";
+import { convertServiceError } from "../utils/convert-service-error";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
 export const customerRouter = {
@@ -117,7 +118,11 @@ export const customerRouter = {
 		.output(customerSimpleOutputSchema)
 		.handler(async ({ input, context }): Promise<CustomerSimpleOutput> => {
 			const userId = context.session.user.id;
-			return await CustomerService.createCustomer(input, userId);
+			try {
+				return await CustomerService.createCustomer(input, userId);
+			} catch (error) {
+				convertServiceError(error);
+			}
 		}),
 
 	/**
@@ -128,7 +133,11 @@ export const customerRouter = {
 		.output(customerSimpleOutputSchema)
 		.handler(async ({ input, context }): Promise<CustomerSimpleOutput> => {
 			const userId = context.session.user.id;
-			return await CustomerService.updateCustomer(input, userId);
+			try {
+				return await CustomerService.updateCustomer(input, userId);
+			} catch (error) {
+				convertServiceError(error);
+			}
 		}),
 
 	/**

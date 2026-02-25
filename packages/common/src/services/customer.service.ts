@@ -1,4 +1,9 @@
 import { database, PrismaClientKnownRequestError } from "@dukkani/db";
+import {
+	ConflictError,
+	ForbiddenError,
+	NotFoundError,
+} from "@dukkani/common/errors";
 import type { PrismaClient } from "@prisma/client/extension";
 import { CustomerEntity } from "../entities/customer/entity";
 import { CustomerQuery } from "../entities/customer/query";
@@ -45,11 +50,11 @@ export class CustomerService {
 		});
 
 		if (!store) {
-			throw new Error("Store not found");
+			throw new NotFoundError("Store not found");
 		}
 
 		if (store.ownerId !== userId) {
-			throw new Error("You don't have access to this store");
+			throw new ForbiddenError("You don't have access to this store");
 		}
 
 		// Check for duplicate phone
@@ -59,7 +64,7 @@ export class CustomerService {
 		);
 
 		if (isDuplicate) {
-			throw new Error(
+			throw new ConflictError(
 				"Customer with this phone number already exists in this store",
 			);
 		}
@@ -81,7 +86,7 @@ export class CustomerService {
 				error instanceof PrismaClientKnownRequestError &&
 				error.code === "P2002"
 			) {
-				throw new Error(
+				throw new ConflictError(
 					"Customer with this phone number already exists in this store",
 				);
 			}
@@ -128,7 +133,7 @@ export class CustomerService {
 		});
 
 		if (!existingCustomer) {
-			throw new Error("Customer not found");
+			throw new NotFoundError("Customer not found");
 		}
 
 		// Verify store ownership
@@ -138,7 +143,7 @@ export class CustomerService {
 		});
 
 		if (!store || store.ownerId !== userId) {
-			throw new Error("You don't have access to this customer");
+			throw new ForbiddenError("You don't have access to this customer");
 		}
 
 		// If phone is being updated, check for duplicates
@@ -149,7 +154,7 @@ export class CustomerService {
 			);
 
 			if (isDuplicate) {
-				throw new Error(
+				throw new ConflictError(
 					"Customer with this phone number already exists in this store",
 				);
 			}
@@ -177,7 +182,7 @@ export class CustomerService {
 				error instanceof PrismaClientKnownRequestError &&
 				error.code === "P2002"
 			) {
-				throw new Error(
+				throw new ConflictError(
 					"Customer with this phone number already exists in this store",
 				);
 			}

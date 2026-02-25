@@ -23,6 +23,7 @@ import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { baseProcedure, protectedProcedure } from "../index";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
+import { convertServiceError } from "../utils/convert-service-error";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
 export const orderRouter = {
@@ -34,7 +35,11 @@ export const orderRouter = {
 		.output(orderIncludeOutputSchema)
 		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
 			const userId = context.session.user.id;
-			return await OrderService.createOrder(input, userId);
+			try {
+				return await OrderService.createOrder(input, userId);
+			} catch (error) {
+				convertServiceError(error);
+			}
 		}),
 
 	/**
@@ -129,11 +134,15 @@ export const orderRouter = {
 		.output(orderIncludeOutputSchema)
 		.handler(async ({ input, context }): Promise<OrderIncludeOutput> => {
 			const userId = context.session.user.id;
-			return await OrderService.updateOrderStatus(
-				input.id,
-				input.status,
-				userId,
-			);
+			try {
+				return await OrderService.updateOrderStatus(
+					input.id,
+					input.status,
+					userId,
+				);
+			} catch (error) {
+				convertServiceError(error);
+			}
 		}),
 
 	/**
@@ -144,8 +153,12 @@ export const orderRouter = {
 		.output(successOutputSchema)
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
-			await OrderService.deleteOrder(input.id, userId);
-			return { success: true };
+			try {
+				await OrderService.deleteOrder(input.id, userId);
+				return { success: true };
+			} catch (error) {
+				convertServiceError(error);
+			}
 		}),
 
 	/**
@@ -158,6 +171,10 @@ export const orderRouter = {
 		.input(createOrderPublicInputSchema)
 		.output(orderPublicOutputSchema)
 		.handler(async ({ input }): Promise<OrderPublicOutput> => {
-			return await OrderService.createOrderPublic(input);
+			try {
+				return await OrderService.createOrderPublic(input);
+			} catch (error) {
+				convertServiceError(error);
+			}
 		}),
 };
