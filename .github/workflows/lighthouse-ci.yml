@@ -31,6 +31,27 @@ jobs:
       - name: Install Lighthouse CI
         run: pnpm add -D -w @lhci/cli
 
+      - name: Create .env for LHCI build
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
+          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
+          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
+          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
+        run: |
+          {
+            echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL"
+            echo "NEXT_PUBLIC_WEB_URL=$NEXT_PUBLIC_WEB_URL"
+            echo "NEXT_PUBLIC_DASHBOARD_URL=$NEXT_PUBLIC_DASHBOARD_URL"
+            echo "NEXT_PUBLIC_STORE_DOMAIN=$NEXT_PUBLIC_STORE_DOMAIN"
+            echo "NEXT_PUBLIC_ALLOWED_ORIGIN=$NEXT_PUBLIC_ALLOWED_ORIGIN"
+            echo "NEXT_PUBLIC_NODE_ENV=production"
+            echo "CI=true"
+            echo "OTEL_SERVICE_NAME=dukkani-web"
+            echo "OTEL_SAMPLING_RATE=0"
+            echo "OTEL_ENABLED=false"
+          } > .env
+
       - name: Run Lighthouse CI (desktop)
         run: LHCI_PRESET=desktop pnpm exec lhci autorun
         env:
