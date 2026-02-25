@@ -1,0 +1,68 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  lighthouse:
+    if: (github.event_name != 'pull_request' || github.event.pull_request.draft == false) && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 20
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Lighthouse CI
+        run: pnpm add -D -w @lhci/cli
+
+      - name: Run Lighthouse CI (desktop)
+        run: LHCI_COLLECT_PRESET=desktop pnpm exec lhci autorun
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
+          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
+          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
+          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
+          NEXT_PUBLIC_NODE_ENV: production
+          CI: true
+          OTEL_SERVICE_NAME: dukkani-web
+          OTEL_SAMPLING_RATE: 0
+          OTEL_ENABLED: false
+
+      - name: Run Lighthouse CI (mobile)
+        run: LHCI_COLLECT_PRESET=mobile pnpm exec lhci autorun
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
+          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
+          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
+          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
+          NEXT_PUBLIC_NODE_ENV: production
+          CI: true
+          OTEL_SERVICE_NAME: dukkani-web
+          OTEL_SAMPLING_RATE: 0
+          OTEL_ENABLED: false
+
+      - name: Upload Lighthouse artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci
+          retention-days: 5

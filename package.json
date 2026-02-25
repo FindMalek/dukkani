@@ -34,18 +34,22 @@
 		"db:seed": "turbo -F @dukkani/db db:seed",
 		"db:reset-and-seed": "turbo -F @dukkani/db db:reset-and-seed",
 		"db:reset": "turbo -F @dukkani/db db:reset",
-		"sync-repo": "chmod +x scripts/sync-repo.sh && scripts/sync-repo.sh"
+		"sync-repo": "chmod +x scripts/sync-repo.sh && scripts/sync-repo.sh",
+		"lhci": "lhci autorun"
 	},
 	"dependencies": {
 		"zod": "catalog:"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "catalog:",
+		"@lhci/cli": "^0.15.1",
 		"@types/node": "catalog:",
 		"dotenv": "catalog:",
 		"tsdown": "catalog:",
+		"tsx": "catalog:",
 		"turbo": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"wait-on": "^9.0.4"
 	},
 	"packageManager": "pnpm@10.29.3"
 }
