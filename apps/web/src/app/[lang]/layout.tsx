@@ -6,16 +6,23 @@ import {
 	type Locale,
 } from "@dukkani/common/schemas/constants";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Cairo, Inter } from "next/font/google";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { Providers } from "@/components/layout/providers";
 
 const inter = Inter({
-	variable: "--font-sans",
+	variable: "--font-sans-latin",
 	subsets: ["latin"],
 });
+
+const cairo = Cairo({
+	variable: "--font-sans-arabic",
+	subsets: ["arabic", "latin"],
+	display: "swap",
+});
+
 
 export const metadata: Metadata = {
 	title: "Dukkani - Business Management Solution",
@@ -50,8 +57,13 @@ export default async function RootLayout({
 	const messages = await getMessages();
 
 	return (
-		<html lang={lang} dir={getTextDirection(lang)} suppressHydrationWarning>
-			<body className={`${inter.variable} antialiased`}>
+		<html
+			lang={lang}
+			dir={getTextDirection(lang)}
+			className={`${inter.variable} ${cairo.variable}`}
+			suppressHydrationWarning
+		>
+			<body className="antialiased">
 				<Providers locale={lang} messages={messages}>
 					<div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
 						<Header />

@@ -8,7 +8,7 @@ import {
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Cairo, Inter } from "next/font/google";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -21,9 +21,16 @@ import { getQueryClient, orpc } from "@/lib/orpc";
 import { getStoreSlugFromHost } from "@/lib/utils";
 
 const inter = Inter({
-	variable: "--font-sans",
+	variable: "--font-sans-latin",
 	subsets: ["latin"],
 });
+
+const cairo = Cairo({
+	variable: "--font-sans-arabic",
+	subsets: ["arabic", "latin"],
+	display: "swap",
+});
+
 
 export const metadata: Metadata = {
 	title: "Dukkani Storefront",
@@ -77,11 +84,13 @@ export default async function RootLayout({
 	}
 
 	return (
-		<html lang={lang} dir={getTextDirection(lang)} suppressHydrationWarning>
-			<body
-				className={`${inter.variable} antialiased`}
-				suppressHydrationWarning
-			>
+		<html
+			lang={lang}
+			dir={getTextDirection(lang)}
+			className={`${inter.variable} ${cairo.variable}`}
+			suppressHydrationWarning
+		>
+			<body className="antialiased" suppressHydrationWarning>
 				<Providers locale={lang} messages={messages} storeSlug={store.slug}>
 					<HydrationBoundary state={dehydrate(queryClient)}>
 						<div className="min-h-screen overflow-x-hidden bg-background">
