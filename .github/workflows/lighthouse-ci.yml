@@ -28,6 +28,41 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build web app
+        run: pnpm turbo run db:generate --filter=@dukkani/db && pnpm turbo build --filter=@dukkani/web
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
+          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
+          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
+          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
+          NEXT_PUBLIC_NODE_ENV: production
+          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
+
+      - name: Build storefront app
+        run: pnpm turbo build --filter=@dukkani/storefront
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
+          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
+          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
+          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
+          NEXT_PUBLIC_NODE_ENV: production
+          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
+
+      - name: Verify build output
+        run: |
+          if [ ! -f apps/web/.next/BUILD_ID ]; then
+            echo "::error::Web build failed - check Build web app step logs"
+            exit 1
+          fi
+          if [ ! -f apps/storefront/.next/BUILD_ID ]; then
+            echo "::error::Storefront build failed - check Build storefront app step logs"
+            exit 1
+          fi
+
       - name: Install Lighthouse CI
         run: pnpm add -D -w @lhci/cli
 

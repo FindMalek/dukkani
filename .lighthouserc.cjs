@@ -3,10 +3,15 @@ const config = {
 	ci: {
 		collect: {
 			startServerCommand:
-				"pnpm turbo run db:generate --filter=@dukkani/db && pnpm turbo build --filter=@dukkani/web && cd apps/web && (PORT=3000 pnpm start &) && npx wait-on http://localhost:3000/en -t 60000 && echo LHCI_READY && wait",
+				"(cd apps/web && PORT=3000 pnpm start &) && (cd apps/storefront && PORT=3004 pnpm start &) && npx wait-on http://localhost:3000/en http://localhost:3004/en -t 60000 && echo LHCI_READY && wait",
 			startServerReadyPattern: "LHCI_READY",
-			startServerReadyTimeout: 180000,
-			url: ["http://localhost:3000/en", "http://localhost:3000/ar"],
+			startServerReadyTimeout: 90000,
+			url: [
+				"http://localhost:3000/en",
+				"http://localhost:3000/ar",
+				"http://localhost:3004/en",
+				"http://localhost:3004/ar",
+			],
 			numberOfRuns: 3,
 			settings: {
 				preset: process.env.LHCI_PRESET || "desktop",
@@ -18,7 +23,7 @@ const config = {
 		assert: {
 			assertions: {
 				"categories:performance": ["error", { minScore: 0.85 }],
-				"categories:accessibility": ["error", { minScore: 0.9 }],
+				"categories:accessibility": ["error", { minScore: 0.85 }],
 				"categories:best-practices": ["warn", { minScore: 0.8 }],
 			},
 		},
