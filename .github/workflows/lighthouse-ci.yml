@@ -32,7 +32,8 @@ jobs:
         run: pnpm add -D -w @lhci/cli
 
       - name: Setup database
-        run: pnpm turbo run db:generate db:push db:seed --filter=@dukkani/db
+        run: |
+          cd packages/db && pnpm db:generate && pnpm db:push && pnpm db:seed
         env:
           DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
 
