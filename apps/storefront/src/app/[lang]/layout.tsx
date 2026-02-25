@@ -28,9 +28,9 @@ const inter = Inter({
 const cairo = Cairo({
 	variable: "--font-sans-arabic",
 	subsets: ["arabic", "latin"],
-	weight: ["400", "500", "600", "700"],
 	display: "swap",
 });
+
 
 export const metadata: Metadata = {
 	title: "Dukkani Storefront",
