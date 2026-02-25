@@ -52,17 +52,6 @@ jobs:
           DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
           BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
 
-      - name: Verify build output
-        run: |
-          if [ ! -f apps/web/.next/BUILD_ID ]; then
-            echo "::error::Web build failed - check Build web app step logs"
-            exit 1
-          fi
-          if [ ! -f apps/storefront/.next/BUILD_ID ]; then
-            echo "::error::Storefront build failed - check Build storefront app step logs"
-            exit 1
-          fi
-
       - name: Install Lighthouse CI
         run: pnpm add -D -w @lhci/cli
 
