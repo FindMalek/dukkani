@@ -7,9 +7,18 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+	/* Latin (default): Inter. Arabic/RTL: Cairo with Inter fallback for mixed content */
 	--font-sans:
-		"Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+		var(--font-sans-latin), ui-sans-serif, system-ui, sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Arabic typography: Cairo for RTL locales */
+[dir="rtl"] {
+	--font-sans:
+		var(--font-sans-arabic), var(--font-sans-latin), ui-sans-serif, system-ui,
+		sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
 }
 
 :root {
