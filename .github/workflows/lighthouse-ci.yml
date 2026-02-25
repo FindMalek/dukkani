@@ -31,12 +31,6 @@ jobs:
       - name: Install Lighthouse CI
         run: pnpm add -D -w @lhci/cli
 
-      - name: Setup database
-        run: |
-          cd packages/db && pnpm db:generate && pnpm db:push && pnpm db:seed
-        env:
-          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-
       - name: Run Lighthouse CI (desktop)
         run: LHCI_PRESET=desktop pnpm exec lhci autorun
         env:
@@ -46,8 +40,6 @@ jobs:
           NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
           NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
           NEXT_PUBLIC_NODE_ENV: production
-          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
           CI: true
           OTEL_SERVICE_NAME: dukkani-web
           OTEL_SAMPLING_RATE: 0
@@ -62,8 +54,6 @@ jobs:
           NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
           NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
           NEXT_PUBLIC_NODE_ENV: production
-          DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-          BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
           CI: true
           OTEL_SERVICE_NAME: dukkani-web
           OTEL_SAMPLING_RATE: 0
