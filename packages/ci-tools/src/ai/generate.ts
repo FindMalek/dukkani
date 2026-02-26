@@ -1,6 +1,6 @@
-import { generateText } from "ai";
 import { groq } from "@ai-sdk/groq";
 import { ciToolsEnv } from "@dukkani/env/presets/ci-tools";
+import { generateText } from "ai";
 
 const DEFAULT_MODEL = "llama-3.3-70b-versatile";
 const MAX_RETRIES = 2;

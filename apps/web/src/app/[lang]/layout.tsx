@@ -23,7 +23,6 @@ const cairo = Cairo({
 	display: "swap",
 });
 
-
 export const metadata: Metadata = {
 	title: "Dukkani - Business Management Solution",
 	description: "Your all-in-one business management solution",

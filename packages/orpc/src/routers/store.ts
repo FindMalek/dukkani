@@ -20,7 +20,7 @@ import {
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure, baseProcedure } from "../index";
+import { baseProcedure, protectedProcedure, publicProcedure } from "../index";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 
 export const storeRouter = {
@@ -104,12 +104,6 @@ export const storeRouter = {
 		.input(getStoreBySlugPublicInputSchema)
 		.output(storePublicOutputSchema)
 		.handler(async ({ input }) => {
-			if (!input.slug) {
-				throw new ORPCError("BAD_REQUEST", {
-					message: "Store slug is required",
-				});
-			}
-
 			return await StoreService.getStoreBySlugPublic(input.slug, {
 				productPage: input.productPage,
 				productLimit: input.productLimit,
@@ -125,7 +119,6 @@ export const storeRouter = {
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 
-			// Update store configuration
 			const store = await StoreService.updateStoreConfiguration(
 				input.storeId,
 				userId,

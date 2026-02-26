@@ -21,7 +21,6 @@ const cairo = Cairo({
 	display: "swap",
 });
 
-
 export const metadata: Metadata = {
 	title: "Dukkani Dashboard",
 	description: "Dukkani Business Management Dashboard",

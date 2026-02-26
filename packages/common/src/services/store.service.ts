@@ -1,4 +1,4 @@
-// packages/common/src/services/storeService.ts
+import { ForbiddenError, NotFoundError } from "@dukkani/common/errors";
 import { database } from "@dukkani/db";
 import {
 	type StoreCategory,
@@ -162,11 +162,11 @@ class StoreServiceBase {
 		});
 
 		if (!store) {
-			throw new Error("Store not found");
+			throw new NotFoundError("Store not found");
 		}
 
 		if (store.ownerId !== userId) {
-			throw new Error("You don't have access to this store");
+			throw new ForbiddenError("You don't have access to this store");
 		}
 
 		return StoreEntity.getRo(store);
@@ -190,11 +190,11 @@ class StoreServiceBase {
 		});
 
 		if (!store) {
-			throw new Error("Store not found");
+			throw new NotFoundError("Store not found");
 		}
 
 		if (store.ownerId !== userId) {
-			throw new Error("You don't have access to this store");
+			throw new ForbiddenError("You don't have access to this store");
 		}
 
 		return StoreEntity.getRo(store);
@@ -231,7 +231,7 @@ class StoreServiceBase {
 		});
 
 		if (!store) {
-			throw new Error("Store not found");
+			throw new NotFoundError("Store not found");
 		}
 
 		// Handle DRAFT status - return minimal data for "Coming Soon" display
@@ -254,7 +254,7 @@ class StoreServiceBase {
 			store.status === StoreStatus.SUSPENDED ||
 			store.status === StoreStatus.ARCHIVED
 		) {
-			throw new Error("Store is not available");
+			throw new NotFoundError("Store is not available");
 		}
 
 		// For PUBLISHED stores, get total count of published products
@@ -314,11 +314,11 @@ class StoreServiceBase {
 		});
 
 		if (!store) {
-			throw new Error("Store not found");
+			throw new NotFoundError("Store not found");
 		}
 
 		if (store.ownerId !== userId) {
-			throw new Error("You don't have access to this store");
+			throw new ForbiddenError("You don't have access to this store");
 		}
 
 		// Update store
