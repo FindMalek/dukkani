@@ -86,22 +86,22 @@ export function ProductListCard({
 
 				{/* Status / Meta row */}
 				<div className="mt-auto pt-2 flex items-center gap-3">
-					<Badge
-						variant={product.published ? "statusSuccess" : "statusMuted"}
-						size="sm"
-					>
-						{product.published ? t("status.published") : t("status.draft")}
-					</Badge>
-
 					{/* Stock */}
 					<p
 						className={cn(
-							"truncate text-xs font-medium",
+							"m-0 flex-1 min-w-0 truncate text-xs font-medium leading-none",
 							isOutOfStock ? "text-destructive" : "text-muted-foreground",
 						)}
 					>
 						{stockStatusText}
 					</p>
+					<Badge
+						variant={product.published ? "statusSuccess" : "statusMuted"}
+						size="sm"
+						className="ml-auto shrink-0"
+					>
+						{product.published ? t("status.published") : t("status.draft")}
+					</Badge>
 				</div>
 			</div>
 		</Link>
