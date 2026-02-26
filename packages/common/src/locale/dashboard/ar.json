@@ -27,8 +27,8 @@
 			"rememberMe": "Remember me",
 			"back": "Back",
 			"signIn": "Sign in",
-			"email": { "placeholder": "Enter your email" },
-			"password": { "placeholder": "Enter your password" }
+			"email": { "placeholder": "Enter your email", "label": "Email address" },
+			"password": { "placeholder": "Enter your password", "label": "Password" }
 		}
 	},
 	"settings": {

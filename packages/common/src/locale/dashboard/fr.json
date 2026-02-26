@@ -31,10 +31,12 @@
 			"back": "Retour",
 			"signIn": "Se connecter",
 			"email": {
-				"placeholder": "Entrez votre email"
+				"placeholder": "Entrez votre email",
+				"label": "Adresse e-mail"
 			},
 			"password": {
-				"placeholder": "Entrez votre mot de passe"
+				"placeholder": "Entrez votre mot de passe",
+				"label": "Mot de passe"
 			}
 		}
 	},

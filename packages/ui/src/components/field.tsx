@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { useMemo } from "react";
+import type * as z from "zod/mini";
 import { cn } from "../lib/utils";
 import { Label } from "./label";
 import { Separator } from "./separator";
@@ -179,6 +180,9 @@ function FieldSeparator({
 	);
 }
 
+/**
+ * @deprecated Use FieldErrors instead.
+ */
 function FieldError({
 	className,
 	children,
@@ -230,11 +234,55 @@ function FieldError({
 	);
 }
 
+function FieldErrors({
+	className,
+	errors,
+	match,
+	...props
+}: React.ComponentProps<"div"> & {
+	errors: z.core.$ZodRawIssue[];
+	match: boolean;
+}) {
+	if (!match || errors.length === 0) {
+		return null;
+	}
+
+	const uniqueErrors = [
+		...new Map(errors.map((e) => [e.message, e])).values(),
+	].filter(
+		(e): e is typeof e & { message: string } => typeof e.message === "string",
+	);
+
+	if (uniqueErrors.length === 0) {
+		return null;
+	}
+
+	return (
+		<div
+			role="alert"
+			data-slot="field-errors"
+			className={cn("font-normal text-destructive text-sm", className)}
+			{...props}
+		>
+			{uniqueErrors.length === 1 && uniqueErrors[0] ? (
+				<p>{uniqueErrors[0].message ?? ""}</p>
+			) : (
+				<ul className="ms-4 flex list-disc flex-col gap-1">
+					{uniqueErrors.map((error) => (
+						<li key={error.message}>{error.message}</li>
+					))}
+				</ul>
+			)}
+		</div>
+	);
+}
+
 export {
 	Field,
 	FieldLabel,
 	FieldDescription,
 	FieldError,
+	FieldErrors,
 	FieldGroup,
 	FieldLegend,
 	FieldSeparator,
