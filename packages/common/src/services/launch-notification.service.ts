@@ -1,6 +1,6 @@
+import { BadRequestError, NotFoundError } from "@dukkani/common/errors";
 import type { SubscribeToLaunchInput } from "@dukkani/common/schemas/store/input";
 import { database } from "@dukkani/db";
-import { BadRequestError, NotFoundError } from "@dukkani/common/errors";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 
 class LaunchNotificationServiceBase {

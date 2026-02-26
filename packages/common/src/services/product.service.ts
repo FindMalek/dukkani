@@ -1,5 +1,5 @@
-import { database } from "@dukkani/db";
 import { BadRequestError, NotFoundError } from "@dukkani/common/errors";
+import { database } from "@dukkani/db";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
 import { ProductQuery } from "../entities/product/query";

@@ -1,9 +1,9 @@
-import { database, PrismaClientKnownRequestError } from "@dukkani/db";
 import {
 	ConflictError,
 	ForbiddenError,
 	NotFoundError,
 } from "@dukkani/common/errors";
+import { database, PrismaClientKnownRequestError } from "@dukkani/db";
 import type { PrismaClient } from "@prisma/client/extension";
 import { CustomerEntity } from "../entities/customer/entity";
 import { CustomerQuery } from "../entities/customer/query";

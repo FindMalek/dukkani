@@ -1,5 +1,5 @@
-import { database } from "@dukkani/db";
 import { NotFoundError } from "@dukkani/common/errors";
+import { database } from "@dukkani/db";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { CollectionEntity } from "../entities/collection/entity";
 import { CollectionQuery } from "../entities/collection/query";

@@ -1,6 +1,5 @@
-// packages/common/src/services/storeService.ts
-import { database } from "@dukkani/db";
 import { ForbiddenError, NotFoundError } from "@dukkani/common/errors";
+import { database } from "@dukkani/db";
 import {
 	type StoreCategory,
 	StorePlanType,
