@@ -1,10 +1,10 @@
-// Base - allows instanceof checks
 export class AppError extends Error {
 	readonly code: AppErrorCode;
 
 	constructor(message: string, code: AppErrorCode) {
 		super(message);
 		this.name = "AppError";
+		this.code = code;
 		Object.setPrototypeOf(this, new.target.prototype);
 	}
 }
