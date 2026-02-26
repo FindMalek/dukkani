@@ -20,9 +20,8 @@ import {
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure, baseProcedure } from "../index";
+import { baseProcedure, protectedProcedure, publicProcedure } from "../index";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
-import { convertServiceError } from "../utils/convert-service-error";
 
 export const storeRouter = {
 	/**
@@ -74,11 +73,7 @@ export const storeRouter = {
 				});
 			}
 
-			try {
-				return await StoreService.getStoreById(input.id, userId);
-			} catch (error) {
-				convertServiceError(error);
-			}
+			return await StoreService.getStoreById(input.id, userId);
 		}),
 
 	/**
@@ -96,11 +91,7 @@ export const storeRouter = {
 				});
 			}
 
-			try {
-				return await StoreService.getStoreBySlug(input.slug, userId);
-			} catch (error) {
-				convertServiceError(error);
-			}
+			return await StoreService.getStoreBySlug(input.slug, userId);
 		}),
 
 	/**
@@ -113,20 +104,10 @@ export const storeRouter = {
 		.input(getStoreBySlugPublicInputSchema)
 		.output(storePublicOutputSchema)
 		.handler(async ({ input }) => {
-			if (!input.slug) {
-				throw new ORPCError("BAD_REQUEST", {
-					message: "Store slug is required",
-				});
-			}
-
-			try {
-				return await StoreService.getStoreBySlugPublic(input.slug, {
-					productPage: input.productPage,
-					productLimit: input.productLimit,
-				});
-			} catch (error) {
-				convertServiceError(error);
-			}
+			return await StoreService.getStoreBySlugPublic(input.slug, {
+				productPage: input.productPage,
+				productLimit: input.productLimit,
+			});
 		}),
 
 	/**
@@ -138,26 +119,22 @@ export const storeRouter = {
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 
-			try {
-				const store = await StoreService.updateStoreConfiguration(
-					input.storeId,
-					userId,
-					{
-						theme: input.theme,
-						category: input.category,
-					},
-				);
+			const store = await StoreService.updateStoreConfiguration(
+				input.storeId,
+				userId,
+				{
+					theme: input.theme,
+					category: input.category,
+				},
+			);
 
-				// Update user onboarding step to STORE_CONFIGURED
-				await database.user.update({
-					where: { id: userId },
-					data: { onboardingStep: UserOnboardingStep.STORE_CONFIGURED },
-				});
+			// Update user onboarding step to STORE_CONFIGURED
+			await database.user.update({
+				where: { id: userId },
+				data: { onboardingStep: UserOnboardingStep.STORE_CONFIGURED },
+			});
 
-				return store;
-			} catch (error) {
-				convertServiceError(error);
-			}
+			return store;
 		}),
 
 	/**
@@ -168,10 +145,6 @@ export const storeRouter = {
 		.input(subscribeToLaunchInputSchema)
 		.output(launchNotificationOutputSchema)
 		.handler(async ({ input }) => {
-			try {
-				return await LaunchNotificationService.subscribe(input);
-			} catch (error) {
-				convertServiceError(error);
-			}
+			return await LaunchNotificationService.subscribe(input);
 		}),
 };
