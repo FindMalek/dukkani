@@ -14,7 +14,7 @@ import { Button } from "@dukkani/ui/components/button";
 import { Card, CardContent } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
 import { ProductListCard } from "@/components/app/products/product-list-card";
 import { ProductsEmptyState } from "@/components/app/products/products-empty-state";
@@ -27,7 +27,6 @@ import { RoutePaths } from "@/lib/routes";
 
 export default function ProductsPage() {
 	const t = useTranslations("products.list");
-	const locale = useLocale();
 	const [productToDelete, setProductToDelete] = useState<string | null>(null);
 
 	const {
@@ -57,8 +56,6 @@ export default function ProductsPage() {
 		},
 		[togglePublishMutation],
 	);
-
-	const newProductHref = `/${locale}${RoutePaths.PRODUCTS.NEW.url}`;
 
 	if (error) {
 		return (
@@ -108,7 +105,7 @@ export default function ProductsPage() {
 				className="fixed bottom-24 end-4 z-50 size-14 rounded-full shadow-lg md:bottom-8 md:end-6"
 				aria-label={t("addProduct")}
 			>
-				<Link href={newProductHref}>
+				<Link href={RoutePaths.PRODUCTS.NEW.url}>
 					<Icons.plus className="size-6" />
 				</Link>
 			</Button>

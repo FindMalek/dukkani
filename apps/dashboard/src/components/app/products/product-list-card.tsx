@@ -28,24 +28,26 @@ export function ProductListCard({
 	const isOutOfStock = product.stock === 0;
 	const variantCount = product.variantCount;
 
-	const stockText = isOutOfStock
-		? variantCount > 0
-			? t("outOfStockVariants", { variants: variantCount })
-			: t("outOfStock")
-		: variantCount > 0
-			? t("stockInfo", { count: product.stock, variants: variantCount })
-			: t("stockInfoNoVariants", { count: product.stock });
+	const stockStatusText = isOutOfStock
+		? t("outOfStock")
+		: t("stockCount", { count: product.stock });
+
+	const variantText =
+		variantCount > 0
+			? t("variantCount", { variants: variantCount })
+			: isOutOfStock
+				? null
+				: t("noVariants");
 
 	return (
 		<Link
 			href={RoutePaths.PRODUCTS.DETAIL.url(product.id)}
 			className={cn(
-				"flex items-center gap-4 rounded-lg border bg-card p-4 transition-colors",
-				"hover:bg-accent/50",
+				"group relative flex items-start gap-4 rounded-xl border bg-card p-3 transition-all hover:shadow-sm",
 			)}
 		>
-			{/* Thumbnail */}
-			<div className="size-14 shrink-0 overflow-hidden rounded-md bg-muted">
+			{/* Image */}
+			<div className="size-20 shrink-0 overflow-hidden rounded-lg bg-muted/50 border border-border/50">
 				{firstImageUrl ? (
 					<img
 						src={firstImageUrl}
@@ -54,41 +56,53 @@ export function ProductListCard({
 					/>
 				) : (
 					<div className="flex size-full items-center justify-center">
-						<Icons.package className="size-6 text-muted-foreground" />
+						<Icons.package className="size-6 text-muted-foreground/50" />
 					</div>
 				)}
 			</div>
 
-			{/* Content */}
-			<div className="min-w-0 flex-1">
-				<p className="truncate font-medium">{product.name}</p>
-				<p className="mt-0.5 font-medium text-primary">
+			{/* Content Stack */}
+			<div className="flex flex-1 flex-col py-0.5">
+				{/* Title row */}
+				<div className="flex items-start justify-between gap-2">
+					<h3 className="line-clamp-2 text-sm font-semibold leading-tight text-foreground/90">
+						{product.name}
+					</h3>
+
+					{/* Isolate actions entirely */}
+					<div className="-mt-1 -mr-1 shrink-0">
+						<ProductCardDropdown
+							product={product}
+							onDelete={onDelete}
+							onTogglePublish={onTogglePublish}
+						/>
+					</div>
+				</div>
+
+				{/* Price */}
+				<p className="mt-1.5 text-sm font-medium text-foreground">
 					{formatCurrency(product.price, "TND", locale)}
 				</p>
-				<p
-					className={cn(
-						"mt-0.5 text-muted-foreground text-sm",
-						isOutOfStock && "font-medium text-destructive",
-					)}
-				>
-					{stockText}
-				</p>
-			</div>
 
-			{/* Status & Actions */}
-			<div className="flex shrink-0 items-center gap-2">
-				<Badge
-					variant={product.published ? "default" : "secondary"}
-					className="shrink-0"
-				>
-					{product.published ? t("status.published") : t("status.draft")}
-				</Badge>
-				<Icons.chevronRight className="size-4 text-muted-foreground" />
-				<ProductCardDropdown
-					product={product}
-					onDelete={onDelete}
-					onTogglePublish={onTogglePublish}
-				/>
+				{/* Status / Meta row */}
+				<div className="mt-auto pt-2 flex items-center gap-3">
+					<Badge
+						variant={product.published ? "statusSuccess" : "statusMuted"}
+						size="sm"
+					>
+						{product.published ? t("status.published") : t("status.draft")}
+					</Badge>
+
+					{/* Stock */}
+					<p
+						className={cn(
+							"truncate text-xs font-medium",
+							isOutOfStock ? "text-destructive" : "text-muted-foreground",
+						)}
+					>
+						{stockStatusText}
+					</p>
+				</div>
 			</div>
 		</Link>
 	);
