@@ -1,44 +1,72 @@
 "use client";
 
-import { formatCurrency } from "@dukkani/common/utils";
-import { Badge } from "@dukkani/ui/components/badge";
 import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@dukkani/ui/components/card";
-import { Skeleton } from "@dukkani/ui/components/skeleton";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@dukkani/ui/components/table";
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+} from "@dukkani/ui/components/alert-dialog";
+import { Button } from "@dukkani/ui/components/button";
+import { Card, CardContent } from "@dukkani/ui/components/card";
+import { Icons } from "@dukkani/ui/components/icons";
+import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { useCallback, useState } from "react";
+import { ProductListCard } from "@/components/app/products/product-list-card";
+import { ProductsEmptyState } from "@/components/app/products/products-empty-state";
+import { ProductsListSkeleton } from "@/components/app/products/products-list-skeleton";
+import { ProductsPageHeader } from "@/components/app/products/products-page-header";
+import { ProductsSearchBar } from "@/components/app/products/products-search-bar";
+import { ProductsStatusTabs } from "@/components/app/products/products-status-tabs";
 import { useProductsController } from "@/hooks/controllers/use-products-controller";
+import { RoutePaths } from "@/lib/routes";
 
 export default function ProductsPage() {
+	const t = useTranslations("products.list");
+	const locale = useLocale();
+	const [productToDelete, setProductToDelete] = useState<string | null>(null);
+
 	const {
 		productsQuery: { data, isLoading, error },
+		search,
+		published,
+		setSearch,
+		setPublished,
+		deleteProductMutation,
+		togglePublishMutation,
 	} = useProductsController();
+
+	const handleDeleteRequest = useCallback((id: string) => {
+		setProductToDelete(id);
+	}, []);
+
+	const handleDeleteConfirm = useCallback(() => {
+		if (productToDelete) {
+			deleteProductMutation.mutate(productToDelete);
+			setProductToDelete(null);
+		}
+	}, [productToDelete, deleteProductMutation]);
+
+	const handleTogglePublish = useCallback(
+		(id: string, published: boolean) => {
+			togglePublishMutation.mutate({ id, published });
+		},
+		[togglePublishMutation],
+	);
+
+	const newProductHref = `/${locale}${RoutePaths.PRODUCTS.NEW.url}`;
 
 	if (error) {
 		return (
 			<div className="container mx-auto max-w-7xl p-4 md:p-6">
-				<div className="mb-6">
-					<h1 className="font-bold text-2xl md:text-3xl">Products</h1>
-					<p className="mt-2 text-muted-foreground text-sm md:text-base">
-						Manage your products
-					</p>
-				</div>
+				<ProductsPageHeader />
 				<Card>
 					<CardContent className="pt-6">
-						<p className="text-destructive text-sm">
-							Error loading products. Please try again later.
-						</p>
+						<p className="text-destructive text-sm">{t("error")}</p>
 					</CardContent>
 				</Card>
 			</div>
@@ -46,92 +74,70 @@ export default function ProductsPage() {
 	}
 
 	return (
-		<div className="container mx-auto max-w-7xl p-4 md:p-6">
-			<div className="mb-6">
-				<h1 className="font-bold text-2xl md:text-3xl">Products</h1>
-				<p className="mt-2 text-muted-foreground text-sm md:text-base">
-					Manage your products
-				</p>
+		<div className="container mx-auto max-w-7xl p-4 pb-24 md:p-6 md:pb-8">
+			<ProductsPageHeader />
+
+			{/* Search & Filters */}
+			<div className="mb-6 space-y-4">
+				<ProductsSearchBar value={search} onChange={setSearch} />
+				<ProductsStatusTabs value={published} onChange={setPublished} />
 			</div>
 
-			<Card>
-				<CardHeader>
-					<CardTitle>Products</CardTitle>
-					<CardDescription>
-						{data
-							? `Your product catalog (${data.total} total)`
-							: "Your product catalog"}
-					</CardDescription>
-				</CardHeader>
-				<CardContent>
-					{isLoading ? (
-						<div className="space-y-2">
-							{Array.from({ length: 5 }).map((_, i) => (
-								<div key={i} className="flex items-center gap-4">
-									<Skeleton className="h-12 flex-1" />
-									<Skeleton className="h-12 w-24" />
-									<Skeleton className="h-12 w-24" />
-									<Skeleton className="h-12 w-20" />
-								</div>
-							))}
-						</div>
-					) : data && data.products.length > 0 ? (
-						<Table>
-							<TableHeader>
-								<TableRow>
-									<TableHead>Name</TableHead>
-									<TableHead>Price</TableHead>
-									<TableHead>Stock</TableHead>
-									<TableHead>Status</TableHead>
-									<TableHead>Created</TableHead>
-								</TableRow>
-							</TableHeader>
-							<TableBody>
-								{data.products.map((product) => (
-									<TableRow key={product.id}>
-										<TableCell className="font-medium">
-											{product.name}
-											{product.description && (
-												<p className="mt-1 text-muted-foreground text-xs">
-													{product.description}
-												</p>
-											)}
-										</TableCell>
-										<TableCell>{formatCurrency(product.price)}</TableCell>
-										<TableCell>
-											<span
-												className={
-													product.stock === 0
-														? "font-medium text-destructive"
-														: product.stock <= 10
-															? "font-medium text-warning"
-															: ""
-												}
-											>
-												{product.stock}
-											</span>
-										</TableCell>
-										<TableCell>
-											<Badge
-												variant={product.published ? "default" : "secondary"}
-											>
-												{product.published ? "Published" : "Draft"}
-											</Badge>
-										</TableCell>
-										<TableCell className="text-muted-foreground text-sm">
-											{new Date(product.createdAt).toLocaleDateString()}
-										</TableCell>
-									</TableRow>
-								))}
-							</TableBody>
-						</Table>
-					) : (
-						<p className="text-muted-foreground text-sm">
-							No products found. Create your first product to get started.
-						</p>
-					)}
-				</CardContent>
-			</Card>
+			{/* Product List */}
+			{isLoading ? (
+				<ProductsListSkeleton />
+			) : data && data.products.length > 0 ? (
+				<div className="space-y-3">
+					{data.products.map((product) => (
+						<ProductListCard
+							key={product.id}
+							product={product}
+							onDelete={handleDeleteRequest}
+							onTogglePublish={handleTogglePublish}
+						/>
+					))}
+				</div>
+			) : (
+				<ProductsEmptyState />
+			)}
+
+			{/* FAB - Add Product */}
+			<Button
+				asChild
+				size="icon-lg"
+				className="fixed bottom-24 end-4 z-50 size-14 rounded-full shadow-lg md:bottom-8 md:end-6"
+				aria-label={t("addProduct")}
+			>
+				<Link href={newProductHref}>
+					<Icons.plus className="size-6" />
+				</Link>
+			</Button>
+
+			{/* Delete Confirmation Dialog */}
+			<AlertDialog
+				open={!!productToDelete}
+				onOpenChange={(open) => !open && setProductToDelete(null)}
+			>
+				<AlertDialogContent>
+					<AlertDialogHeader>
+						<AlertDialogTitle>
+							{t("actions.deleteConfirmTitle")}
+						</AlertDialogTitle>
+						<AlertDialogDescription>
+							{t("actions.deleteConfirmDescription")}
+						</AlertDialogDescription>
+					</AlertDialogHeader>
+					<AlertDialogFooter>
+						<AlertDialogCancel>{t("actions.cancel")}</AlertDialogCancel>
+						<AlertDialogAction
+							onClick={handleDeleteConfirm}
+							className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+						>
+							{t("actions.delete")}
+						</AlertDialogAction>
+					</AlertDialogFooter>
+				</AlertDialogContent>
+			</AlertDialog>
 		</div>
 	);
 }

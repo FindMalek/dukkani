@@ -16,6 +16,10 @@ export type ProductClientSafeDbData = Prisma.ProductGetPayload<{
 	include: ReturnType<typeof ProductQuery.getClientSafeInclude>;
 }>;
 
+export type ProductListDbData = Prisma.ProductGetPayload<{
+	include: ReturnType<typeof ProductQuery.getListInclude>;
+}>;
+
 export type ProductPublicDbData = Prisma.ProductGetPayload<{
 	include: ReturnType<typeof ProductQuery.getPublicInclude>;
 }>;
@@ -55,6 +59,15 @@ export class ProductQuery {
 		return {
 			...ProductQuery.getSimpleInclude(),
 			images: ImageQuery.getSimpleInclude(),
+		} satisfies Prisma.ProductInclude;
+	}
+
+	static getListInclude() {
+		return {
+			...ProductQuery.getClientSafeInclude(),
+			_count: {
+				select: { variants: true },
+			},
 		} satisfies Prisma.ProductInclude;
 	}
 

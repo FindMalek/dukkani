@@ -216,6 +216,41 @@
 		}
 	},
 	"products": {
+		"list": {
+			"title": "Products",
+			"description": "Manage your products",
+			"searchPlaceholder": "Search products",
+			"filters": {
+				"all": "All",
+				"published": "Published",
+				"draft": "Draft",
+				"archived": "Archived"
+			},
+			"status": {
+				"published": "Published",
+				"draft": "Draft",
+				"archived": "Archived"
+			},
+			"stockInfo": "Stock: {count} units • {variants} variants",
+			"stockInfoNoVariants": "Stock: {count} units • No variants",
+			"outOfStock": "Out of stock",
+			"outOfStockVariants": "Out of stock • {variants} variants",
+			"empty": "No products found. Create your first product to get started.",
+			"error": "Error loading products. Please try again later.",
+			"catalogCount": "Your product catalog ({count} total)",
+			"catalogDefault": "Your product catalog",
+			"addProduct": "Add product",
+			"actions": {
+				"edit": "Edit",
+				"delete": "Delete",
+				"publish": "Publish",
+				"unpublish": "Unpublish",
+				"archive": "Archive",
+				"deleteConfirmTitle": "Delete product?",
+				"deleteConfirmDescription": "This action cannot be undone.",
+				"cancel": "Cancel"
+			}
+		},
 		"create": {
 			"header": {
 				"title": "New product",

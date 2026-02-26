@@ -93,7 +93,7 @@ export const productRouter = {
 					skip,
 					take: limit,
 					orderBy: ProductQuery.getOrder("desc", "createdAt"),
-					include: ProductQuery.getClientSafeInclude(),
+					include: ProductQuery.getListInclude(),
 				}),
 				database.product.count({ where }),
 			]);
@@ -101,7 +101,7 @@ export const productRouter = {
 			const hasMore = skip + products.length < total;
 
 			return {
-				products: products.map(ProductEntity.getSimpleRo),
+				products: products.map(ProductEntity.getListRo),
 				total,
 				hasMore,
 				page,
@@ -173,13 +173,7 @@ export const productRouter = {
 					skip,
 					take: limit,
 					orderBy: { createdAt: "desc" },
-					include: {
-						images: {
-							select: {
-								url: true,
-							},
-						},
-					},
+					include: ProductQuery.getListInclude(),
 				}),
 				database.product.count({ where }),
 			]);
@@ -187,7 +181,7 @@ export const productRouter = {
 			const hasMore = skip + products.length < total;
 
 			return {
-				products: products.map(ProductEntity.getSimpleRo),
+				products: products.map(ProductEntity.getListRo),
 				total,
 				hasMore,
 				page,
