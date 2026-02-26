@@ -292,6 +292,7 @@ import { convertServiceError } from "../utils/convert-service-error";
 - `FORBIDDEN` - Access denied
 - `TOO_MANY_REQUESTS` - Rate limit exceeded
 - `INTERNAL_SERVER_ERROR` - Server error
+- `CONFLICT` - Resource conflict (e.g., duplicate entry)
 
 ## Exports
 
