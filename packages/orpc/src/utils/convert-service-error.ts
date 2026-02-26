@@ -18,7 +18,7 @@ export function convertServiceError(error: unknown): never {
 		throw new ORPCError("BAD_REQUEST", { message: error.message });
 	}
 	if (error instanceof ConflictError) {
-		throw new ORPCError("BAD_REQUEST", { message: error.message });
+		throw new ORPCError("CONFLICT", { message: error.message });
 	}
 	if (error instanceof AppError) {
 		throw new ORPCError("BAD_REQUEST", { message: error.message });
