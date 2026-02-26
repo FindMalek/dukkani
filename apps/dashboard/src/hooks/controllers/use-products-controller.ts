@@ -26,6 +26,9 @@ export function useProductsController() {
 		categoryId,
 		published,
 		stockFilter,
+		variantsFilter,
+		priceMin,
+		priceMax,
 		page,
 		limit,
 		selectedProductId,
@@ -34,6 +37,9 @@ export function useProductsController() {
 		setCategoryId,
 		setPublished,
 		setStockFilter,
+		setVariantsFilter,
+		setPriceMin,
+		setPriceMax,
 		setPage,
 		setLimit,
 		setSelectedProductId,
@@ -55,6 +61,11 @@ export function useProductsController() {
 		if (stockFilter && stockFilter !== "all") {
 			input.stockFilter = stockFilter;
 		}
+		if (variantsFilter && variantsFilter !== "all") {
+			input.variantsFilter = variantsFilter;
+		}
+		if (priceMin != null) input.priceMin = priceMin;
+		if (priceMax != null) input.priceMax = priceMax;
 
 		return input;
 	}, [
@@ -63,6 +74,9 @@ export function useProductsController() {
 		categoryId,
 		published,
 		stockFilter,
+		variantsFilter,
+		priceMin,
+		priceMax,
 		page,
 		limit,
 	]);
@@ -83,6 +97,9 @@ export function useProductsController() {
 		categoryId,
 		published,
 		stockFilter,
+		variantsFilter,
+		priceMin,
+		priceMax,
 		page,
 		limit,
 		selectedProductId,
@@ -92,6 +109,9 @@ export function useProductsController() {
 		setCategoryId,
 		setPublished,
 		setStockFilter,
+		setVariantsFilter,
+		setPriceMin,
+		setPriceMax,
 		setPage,
 		setLimit,
 		setSelectedProductId,

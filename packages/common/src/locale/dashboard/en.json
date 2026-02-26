@@ -216,6 +216,66 @@
 		}
 	},
 	"products": {
+		"list": {
+			"title": "Products",
+			"description": "Manage your products",
+			"searchPlaceholder": "Search products",
+			"filters": {
+				"all": "All",
+				"published": "Published",
+				"draft": "Draft",
+				"archived": "Archived"
+			},
+			"status": {
+				"published": "Published",
+				"draft": "Draft",
+				"archived": "Archived"
+			},
+			"stockInfo": "Stock: {count} units • {variants} variants",
+			"stockInfoNoVariants": "Stock: {count} units • No variants",
+			"stockCount": "Stock: {count} units",
+			"variantCount": "• {variants} variants",
+			"noVariants": "• No variants",
+			"outOfStock": "Out of stock",
+			"outOfStockVariants": "Out of stock • {variants} variants",
+			"empty": "No products found. Create your first product to get started.",
+			"error": "Error loading products. Please try again later.",
+			"catalogCount": "Your product catalog ({count} total)",
+			"catalogDefault": "Your product catalog",
+			"addProduct": "Add product",
+			"filterDrawer": {
+				"title": "Filters",
+				"clearAll": "Clear all",
+				"apply": "Apply filters",
+				"close": "Close",
+				"status": "Status",
+				"inventory": "Inventory",
+				"variants": "Variants",
+				"priceRange": "Price range (TND)",
+				"allStatuses": "All statuses",
+				"published": "Published",
+				"draft": "Draft",
+				"allInventory": "All",
+				"inStock": "In stock",
+				"lowStock": "Low stock",
+				"outOfStock": "Out of stock",
+				"allProducts": "All products",
+				"withVariants": "With variants",
+				"singleSku": "Single SKU",
+				"min": "Min",
+				"max": "Max"
+			},
+			"actions": {
+				"edit": "Edit",
+				"delete": "Delete",
+				"publish": "Publish",
+				"unpublish": "Unpublish",
+				"archive": "Archive",
+				"deleteConfirmTitle": "Delete product?",
+				"deleteConfirmDescription": "This action cannot be undone.",
+				"cancel": "Cancel"
+			}
+		},
 		"create": {
 			"header": {
 				"title": "New product",

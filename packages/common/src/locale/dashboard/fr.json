@@ -216,6 +216,66 @@
 		}
 	},
 	"products": {
+		"list": {
+			"title": "Produits",
+			"description": "Gérez vos produits",
+			"searchPlaceholder": "Rechercher des produits",
+			"filters": {
+				"all": "Tous",
+				"published": "Publié",
+				"draft": "Brouillon",
+				"archived": "Archivé"
+			},
+			"status": {
+				"published": "Publié",
+				"draft": "Brouillon",
+				"archived": "Archivé"
+			},
+			"stockInfo": "Stock : {count} unités • {variants} variantes",
+			"stockInfoNoVariants": "Stock : {count} unités • Aucune variante",
+			"stockCount": "Stock : {count} unités",
+			"variantCount": "• {variants} variantes",
+			"noVariants": "• Aucune variante",
+			"outOfStock": "Rupture de stock",
+			"outOfStockVariants": "Rupture de stock • {variants} variantes",
+			"empty": "Aucun produit trouvé. Créez votre premier produit pour commencer.",
+			"error": "Erreur lors du chargement des produits. Veuillez réessayer plus tard.",
+			"catalogCount": "Votre catalogue de produits ({count} au total)",
+			"catalogDefault": "Votre catalogue de produits",
+			"addProduct": "Ajouter un produit",
+			"filterDrawer": {
+				"title": "Filtres",
+				"clearAll": "Tout effacer",
+				"apply": "Appliquer les filtres",
+				"close": "Fermer",
+				"status": "Statut",
+				"inventory": "Inventaire",
+				"variants": "Variantes",
+				"priceRange": "Fourchette de prix (TND)",
+				"allStatuses": "Tous les statuts",
+				"published": "Publié",
+				"draft": "Brouillon",
+				"allInventory": "Tous",
+				"inStock": "En stock",
+				"lowStock": "Stock faible",
+				"outOfStock": "Rupture de stock",
+				"allProducts": "Tous les produits",
+				"withVariants": "Avec variantes",
+				"singleSku": "SKU unique",
+				"min": "Min",
+				"max": "Max"
+			},
+			"actions": {
+				"edit": "Modifier",
+				"delete": "Supprimer",
+				"publish": "Publier",
+				"unpublish": "Dépublier",
+				"archive": "Archiver",
+				"deleteConfirmTitle": "Supprimer le produit ?",
+				"deleteConfirmDescription": "Cette action est irréversible.",
+				"cancel": "Annuler"
+			}
+		},
 		"create": {
 			"header": {
 				"title": "Nouveau produit",

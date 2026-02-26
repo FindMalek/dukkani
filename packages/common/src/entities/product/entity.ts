@@ -1,4 +1,5 @@
 import type {
+	ListProductOutput,
 	ProductIncludeOutput,
 	ProductPublicOutput,
 	ProductSimpleOutput,
@@ -9,6 +10,7 @@ import { StoreEntity } from "../store/entity";
 import { VariantEntity } from "../variant/entity";
 import type {
 	ProductIncludeDbData,
+	ProductListDbData,
 	ProductPublicDbData,
 	ProductSimpleDbData,
 } from "./query";
@@ -25,6 +27,14 @@ export class ProductEntity {
 			storeId: entity.storeId,
 			createdAt: entity.createdAt,
 			updatedAt: entity.updatedAt,
+		};
+	}
+
+	static getListRo(entity: ProductListDbData): ListProductOutput {
+		return {
+			...ProductEntity.getSimpleRo(entity),
+			imageUrls: entity.images.map((img) => img.url),
+			variantCount: entity._count.variants,
 		};
 	}
 

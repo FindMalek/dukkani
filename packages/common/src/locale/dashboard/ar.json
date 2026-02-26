@@ -188,6 +188,66 @@
 		}
 	},
 	"products": {
+		"list": {
+			"title": "المنتجات",
+			"description": "إدارة منتجاتك",
+			"searchPlaceholder": "البحث في المنتجات",
+			"filters": {
+				"all": "الكل",
+				"published": "منشور",
+				"draft": "مسودة",
+				"archived": "مؤرشف"
+			},
+			"status": {
+				"published": "منشور",
+				"draft": "مسودة",
+				"archived": "مؤرشف"
+			},
+			"stockInfo": "المخزون: {count} وحدة • {variants} متغير",
+			"stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
+			"stockCount": "المخزون: {count} وحدة",
+			"variantCount": "• {variants} متغير",
+			"noVariants": "• لا توجد متغيرات",
+			"outOfStock": "نفد من المخزون",
+			"outOfStockVariants": "نفد من المخزون • {variants} متغير",
+			"empty": "لم يتم العثور على منتجات. أنشئ منتجك الأول للبدء.",
+			"error": "خطأ في تحميل المنتجات. يرجى المحاولة مرة أخرى لاحقاً.",
+			"catalogCount": "كتالوج المنتجات ({count} إجمالاً)",
+			"catalogDefault": "كتالوج المنتجات",
+			"addProduct": "إضافة منتج",
+			"filterDrawer": {
+				"title": "الفلاتر",
+				"clearAll": "مسح الكل",
+				"apply": "تطبيق الفلاتر",
+				"close": "إغلاق",
+				"status": "الحالة",
+				"inventory": "المخزون",
+				"variants": "المتغيرات",
+				"priceRange": "نطاق السعر (د.ت)",
+				"allStatuses": "جميع الحالات",
+				"published": "منشور",
+				"draft": "مسودة",
+				"allInventory": "الكل",
+				"inStock": "متوفر",
+				"lowStock": "مخزون منخفض",
+				"outOfStock": "نفد من المخزون",
+				"allProducts": "جميع المنتجات",
+				"withVariants": "مع متغيرات",
+				"singleSku": "SKU واحد",
+				"min": "الحد الأدنى",
+				"max": "الحد الأقصى"
+			},
+			"actions": {
+				"edit": "تعديل",
+				"delete": "حذف",
+				"publish": "نشر",
+				"unpublish": "إلغاء النشر",
+				"archive": "أرشفة",
+				"deleteConfirmTitle": "حذف المنتج؟",
+				"deleteConfirmDescription": "لا يمكن التراجع عن هذا الإجراء.",
+				"cancel": "إلغاء"
+			}
+		},
 		"create": {
 			"header": { "title": "New product", "save": "Save" },
 			"sections": {
