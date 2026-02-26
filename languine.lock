@@ -121,6 +121,56 @@ files:
     onboarding.complete.telegram.instructions: 11dbd658fa33381cec6642a66355870e
     onboarding.complete.actions.addProduct: eef8322794ae681e3a56fb490afbb327
     onboarding.complete.actions.goToDashboard: d19e8ab738bcb64f6c960a6ee116b3b5
+    products.list.title: 068f80c7519d0528fb08e82137a72131
+    products.list.description: 1f775e7d1340eecbf87dd76ad028ec89
+    products.list.searchPlaceholder: 437ac95a91364eb49587af5e146b1745
+    products.list.filters.all: b1c94ca2fbc3e78fc30069c8d0f01680
+    products.list.filters.published: 9b9d8a976b42e0bd66381797644943d5
+    products.list.filters.draft: f03ab16cd58372c77ba45a3d9a5a1cb9
+    products.list.filters.archived: 7d69b3cb4cada18ae61811304f8fbcb5
+    products.list.status.published: 9b9d8a976b42e0bd66381797644943d5
+    products.list.status.draft: f03ab16cd58372c77ba45a3d9a5a1cb9
+    products.list.status.archived: 7d69b3cb4cada18ae61811304f8fbcb5
+    products.list.stockInfo: 899f890c87d8722251222154ac5a73fb
+    products.list.stockInfoNoVariants: 70d366e9a8c8119c9bbf785fa86c7387
+    products.list.stockCount: 557ecb607610c52e8d3820924edff636
+    products.list.variantCount: ef8326aac0e6c311ebcf8717cd0764a3
+    products.list.noVariants: 4b2492f2a54a5d602c3c7808db182c6b
+    products.list.outOfStock: b55197a49e8c4cd8c314bc2aa39d6feb
+    products.list.outOfStockVariants: 2bb99c501224b0b01e5dd633e3a0ddc3
+    products.list.empty: 77c9aed4c4eee60df1f1efa2d8c37dcc
+    products.list.error: 33a3a9e772d88f0752ec039c60992b86
+    products.list.catalogCount: f75b37ce01bf1eea5aa667fb0b73043d
+    products.list.catalogDefault: 02285fddf2f11c0c6d9fd84ce381bdc5
+    products.list.addProduct: 11a738dd0c48f1401a059bca54bc119c
+    products.list.filterDrawer.title: f3f43e30c8c7d78c6ac0173515e57a00
+    products.list.filterDrawer.clearAll: 81aa2078d1eceede831b2976dbf32e62
+    products.list.filterDrawer.apply: 79ee641715155ec7d121815215f2b70c
+    products.list.filterDrawer.close: d3d2e617335f08df83599665eef8a418
+    products.list.filterDrawer.status: ec53a8c4f07baed5d8825072c89799be
+    products.list.filterDrawer.inventory: 4d604dd8f008145471dc845683399189
+    products.list.filterDrawer.variants: e9ad310d6d05f80daeaad048b877fdfd
+    products.list.filterDrawer.priceRange: 8980322893adc78bacdbeb81f96f9c52
+    products.list.filterDrawer.allStatuses: 96e3d398260724e0a83da53a2e9f20e7
+    products.list.filterDrawer.published: 9b9d8a976b42e0bd66381797644943d5
+    products.list.filterDrawer.draft: f03ab16cd58372c77ba45a3d9a5a1cb9
+    products.list.filterDrawer.allInventory: b1c94ca2fbc3e78fc30069c8d0f01680
+    products.list.filterDrawer.inStock: fcebe56087b9373f15514831184fa572
+    products.list.filterDrawer.lowStock: 7e2525a11bd12b7925456dae1e15ccc3
+    products.list.filterDrawer.outOfStock: b55197a49e8c4cd8c314bc2aa39d6feb
+    products.list.filterDrawer.allProducts: 40dec546414c1ebdfde8d9858f0938c3
+    products.list.filterDrawer.withVariants: 397a83b21b3104bb4508d74bd249a533
+    products.list.filterDrawer.singleSku: 531a48dd6377f35c64421ee1479e385a
+    products.list.filterDrawer.min: 78d811e98514cd165dda532286610fd2
+    products.list.filterDrawer.max: 6a061313d22e51e0f25b7cd4dc065233
+    products.list.actions.edit: 7dce122004969d56ae2e0245cb754d35
+    products.list.actions.delete: f2a6c498fb90ee345d997f888fce3b18
+    products.list.actions.publish: 110a4b01beabd53b661a47d4b44bd7a8
+    products.list.actions.unpublish: 181e9a13059454fb2212f1bf10f394ac
+    products.list.actions.archive: e727b00944f81e1d0a95c12886ac4641
+    products.list.actions.deleteConfirmTitle: 3fc8a96873ad6ca0aab10982d2d57332
+    products.list.actions.deleteConfirmDescription: 36fbfc01d63e4b57d18991077535c6e0
+    products.list.actions.cancel: ea4788705e6873b424c65e91c2846b19
     products.create.header.title: 656c3be690ee43df4b845bd2a2ebe587
     products.create.header.save: c9cc8cce247e49bae79f15173ce97354
     products.create.sections.photos: c7c8998e1dd7c6ee3bd42f2bcb803d3c

@@ -1,345 +1,382 @@
 {
-	"dashboard": {
-		"title": "Dashboard",
-		"description": "Dashboard description",
-		"overview": {
-			"storeHeader": {
-				"liveStore": "Live store",
-				"yourStoreLink": "Your store link",
-				"tapToCopy": "Tap to copy and share"
-			},
-			"todaysPerformance": {
-				"title": "TODAY'S PERFORMANCE",
-				"orders": "Orders",
-				"revenue": "Revenue"
-			},
-			"thisWeek": { "title": "This Week", "orders": "Orders" },
-			"quickActions": {
-				"title": "QUICK ACTIONS",
-				"addProduct": "Add new product",
-				"viewOrders": "View all orders"
-			}
-		}
-	},
-	"auth": {
-		"emailSignIn": {
-			"continue": "Continue",
-			"rememberMe": "Remember me",
-			"back": "Back",
-			"signIn": "Sign in",
-			"email": { "placeholder": "Enter your email" },
-			"password": { "placeholder": "Enter your password" }
-		}
-	},
-	"settings": {
-		"telegram": {
-			"title": "Telegram Notifications",
-			"description": "Link your Telegram account to receive instant order notifications",
-			"linked": "Telegram account linked on",
-			"recently": "recently",
-			"linkButton": "Link via Telegram",
-			"disconnectButton": "Disconnect Telegram",
-			"disconnectTitle": "Disconnect Telegram Account",
-			"disconnectDescription": "To confirm disconnection, please enter the name of one of your stores:",
-			"disconnectPlaceholder": "Enter store name",
-			"disconnectSuccess": "Telegram account disconnected successfully",
-			"disconnectError": "Store name doesn't match. Please try again.",
-			"disconnectNotLinked": "Telegram account is not linked",
-			"yourStores": "Your stores:",
-			"otpCode": "OTP Code",
-			"storeNameLabel": "Store Name",
-			"cancelButton": "Cancel",
-			"option1": "Option 1: Click the link below",
-			"option2": "Option 2: Scan QR code",
-			"expires": "This link expires in 10 minutes. If Telegram is not installed, you can install it from",
-			"error": "An error occurred. Please try again.",
-			"storeNameRequired": "Store name is required"
-		}
-	},
-	"onboarding": {
-		"storeSetup": {
-			"title": "Create your store",
-			"subtitle": "Just one more step to get started",
-			"storeName": { "label": "Store Name", "placeholder": "My Awesome Store" },
-			"notifications": {
-				"label": "How do you want to receive new order alerts?",
-				"options": {
-					"email": {
-						"label": "Email Notifications",
-						"description": "Sent to your login email address"
-					},
-					"telegram": {
-						"label": "Telegram Alerts",
-						"description": "Fast and instant alerts via our Telegram bot"
-					},
-					"both": {
-						"label": "Both",
-						"description": "Get notified everywhere so you never miss an order"
-					}
-				}
-			},
-			"submit": "Continue",
-			"success": "Store created successfully!"
-		},
-		"storeConfiguration": {
-			"title": "Configure your store",
-			"subtitle": "Customize your store's appearance and category",
-			"category": {
-				"label": "What category best describes your store?",
-				"options": {
-					"fashion": {
-						"label": "Fashion",
-						"description": "Clothing, accessories, and style"
-					},
-					"electronics": {
-						"label": "Electronics",
-						"description": "Gadgets, devices, and tech"
-					},
-					"food": {
-						"label": "Food",
-						"description": "Food items and beverages"
-					},
-					"home": {
-						"label": "Home",
-						"description": "Home decor and essentials"
-					},
-					"beauty": {
-						"label": "Beauty",
-						"description": "Cosmetics and personal care"
-					},
-					"sports": {
-						"label": "Sports",
-						"description": "Sports equipment and gear"
-					},
-					"books": {
-						"label": "Books",
-						"description": "Books and reading materials"
-					},
-					"toys": { "label": "Toys", "description": "Toys and games" },
-					"other": { "label": "Other", "description": "Other categories" }
-				}
-			},
-			"theme": {
-				"label": "Choose your store theme",
-				"options": {
-					"light": { "label": "Light", "description": "Clean and bright" },
-					"dark": { "label": "Dark", "description": "Modern and sleek" },
-					"minimal": {
-						"label": "Minimal",
-						"description": "Simple and elegant"
-					},
-					"modern": { "label": "Modern", "description": "Contemporary design" },
-					"classic": { "label": "Classic", "description": "Timeless style" }
-				}
-			},
-			"submit": "Finish Setup",
-			"success": "Store configured successfully!"
-		},
-		"steps": {
-			"signup": "Account",
-			"storeSetup": "Store",
-			"storeConfiguration": "Configure",
-			"complete": "Ready"
-		},
-		"signup": {
-			"title": "Create your account",
-			"subtitle": "Join Dukkani and start selling today",
-			"name": {
-				"label": "What should we call you?",
-				"placeholder": "Enter your full name"
-			},
-			"email": {
-				"label": "Email address",
-				"placeholder": "your@email.com",
-				"description": "We pre-filled this from the previous step",
-				"missingWarning": "Email address was not provided. Please enter your email address to continue."
-			},
-			"password": {
-				"label": "Choose a password",
-				"placeholder": "Minimum 8 characters"
-			},
-			"submit": "Continue to Store Setup",
-			"success": "Account created! Now let's set up your store.",
-			"alreadyHaveAccount": "Already have an account?",
-			"login": "Log in",
-			"agreeText": "By continuing, you agree to our",
-			"terms": "Terms",
-			"and": "&",
-			"privacy": "Privacy Policy"
-		},
-		"complete": {
-			"title": "You're all set!",
-			"subtitle": "Your store is ready to start receiving orders.",
-			"storeLink": {
-				"label": "Your Store Link",
-				"copied": "Link copied to clipboard!"
-			},
-			"telegram": {
-				"title": "Instant Order Alerts",
-				"description": "Connect your Telegram to get notified the second a customer places an order.",
-				"otpLabel": "Your OTP Code",
-				"connectButton": "Connect",
-				"instructions": "Send /link {code} to the bot if you're not redirected."
-			},
-			"actions": {
-				"addProduct": "Add Your First Product",
-				"goToDashboard": "Go to Dashboard"
-			}
-		}
-	},
-	"products": {
-		"list": {
-			"title": "المنتجات",
-			"description": "إدارة منتجاتك",
-			"searchPlaceholder": "البحث في المنتجات",
-			"filters": {
-				"all": "الكل",
-				"published": "منشور",
-				"draft": "مسودة",
-				"archived": "مؤرشف"
-			},
-			"status": {
-				"published": "منشور",
-				"draft": "مسودة",
-				"archived": "مؤرشف"
-			},
-			"stockInfo": "المخزون: {count} وحدة • {variants} متغير",
-			"stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
-			"stockCount": "المخزون: {count} وحدة",
-			"variantCount": "• {variants} متغير",
-			"noVariants": "• لا توجد متغيرات",
-			"outOfStock": "نفد من المخزون",
-			"outOfStockVariants": "نفد من المخزون • {variants} متغير",
-			"empty": "لم يتم العثور على منتجات. أنشئ منتجك الأول للبدء.",
-			"error": "خطأ في تحميل المنتجات. يرجى المحاولة مرة أخرى لاحقاً.",
-			"catalogCount": "كتالوج المنتجات ({count} إجمالاً)",
-			"catalogDefault": "كتالوج المنتجات",
-			"addProduct": "إضافة منتج",
-			"filterDrawer": {
-				"title": "الفلاتر",
-				"clearAll": "مسح الكل",
-				"apply": "تطبيق الفلاتر",
-				"close": "إغلاق",
-				"status": "الحالة",
-				"inventory": "المخزون",
-				"variants": "المتغيرات",
-				"priceRange": "نطاق السعر (د.ت)",
-				"allStatuses": "جميع الحالات",
-				"published": "منشور",
-				"draft": "مسودة",
-				"allInventory": "الكل",
-				"inStock": "متوفر",
-				"lowStock": "مخزون منخفض",
-				"outOfStock": "نفد من المخزون",
-				"allProducts": "جميع المنتجات",
-				"withVariants": "مع متغيرات",
-				"singleSku": "SKU واحد",
-				"min": "الحد الأدنى",
-				"max": "الحد الأقصى"
-			},
-			"actions": {
-				"edit": "تعديل",
-				"delete": "حذف",
-				"publish": "نشر",
-				"unpublish": "إلغاء النشر",
-				"archive": "أرشفة",
-				"deleteConfirmTitle": "حذف المنتج؟",
-				"deleteConfirmDescription": "لا يمكن التراجع عن هذا الإجراء.",
-				"cancel": "إلغاء"
-			}
-		},
-		"create": {
-			"header": { "title": "New product", "save": "Save" },
-			"sections": {
-				"photos": "Product Photos",
-				"essentials": "Essentials",
-				"organization": "Organization",
-				"options": "Has options"
-			},
-			"form": {
-				"name": {
-					"label": "Product Name",
-					"placeholder": "Enter product name"
-				},
-				"price": { "label": "Price", "placeholder": "Enter product price" },
-				"stock": { "label": "Stock", "placeholder": "Enter product stock" },
-				"description": {
-					"label": "Description",
-					"placeholder": "Enter product description"
-				},
-				"published": {
-					"label": "Published",
-					"placeholder": "Enter product published"
-				},
-				"addPhotos": "Add photos",
-				"priceHelp": "Price customers pay (COD)",
-				"category": {
-					"label": "Category",
-					"placeholder": "Select category...",
-					"searchPlaceholder": "Search categories...",
-					"noResults": "No categories found.",
-					"create": "Create category",
-					"created": "Category created successfully",
-					"nameLabel": "Category Name",
-					"namePlaceholder": "e.g. T-Shirts, Electronics",
-					"createDescription": "Create a new category to organize your products.",
-					"uncategorized": "Uncategorized"
-				},
-				"options": {
-					"label": "Has options",
-					"description": "Add options like Size, Color, Material, etc."
-				},
-				"saveDraft": "Save draft",
-				"savePublish": "Save & publish",
-				"optional": "optional",
-				"cancel": "Cancel",
-				"validation": {
-					"errors": "Please fix the form errors before submitting"
-				},
-				"variants": {
-					"options": {
-						"title": "Variant Options",
-						"add": "Add Option",
-						"empty": "Add options like Size, Color, Material, etc.",
-						"unnamed": "Unnamed Option",
-						"optionName": "Option Name",
-						"optionNamePlaceholder": "e.g. Size, Color",
-						"values": "Values",
-						"addValue": "Add Value",
-						"noValues": "Add at least one value",
-						"remove": "Remove Option",
-						"addAnother": "Add another option"
-					},
-					"list": {
-						"title": "Variants",
-						"empty": "Add variant options above to generate variants",
-						"unnamed": "Unnamed Variant",
-						"price": "Price",
-						"stock": "Stock",
-						"edit": "Edit Variant"
-					},
-					"edit": {
-						"title": "Edit Variant",
-						"sku": "SKU",
-						"skuPlaceholder": "Optional",
-						"price": "Price",
-						"priceHelp": "Leave empty to use base product price",
-						"stock": "Stock"
-					},
-					"validation": {
-						"duplicateOptionName": "Duplicate option name",
-						"duplicateOptionValues": "Duplicate option values",
-						"duplicateValue": "Duplicate value",
-						"duplicateOption": "Duplicate option"
-					}
-				}
-			},
-			"success": "Product created successfully!",
-			"noStore": {
-				"title": "No Store Found",
-				"description": "Please create a store first to add products.",
-				"createStore": "Create Store"
-			}
-		}
-	}
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Dashboard description",
+    "overview": {
+      "storeHeader": {
+        "liveStore": "Live store",
+        "yourStoreLink": "Your store link",
+        "tapToCopy": "Tap to copy and share"
+      },
+      "todaysPerformance": {
+        "title": "TODAY'S PERFORMANCE",
+        "orders": "Orders",
+        "revenue": "Revenue"
+      },
+      "thisWeek": {
+        "title": "This Week",
+        "orders": "Orders"
+      },
+      "quickActions": {
+        "title": "QUICK ACTIONS",
+        "addProduct": "Add new product",
+        "viewOrders": "View all orders"
+      }
+    }
+  },
+  "auth": {
+    "emailSignIn": {
+      "continue": "Continue",
+      "rememberMe": "Remember me",
+      "back": "Back",
+      "signIn": "Sign in",
+      "email": {
+        "placeholder": "Enter your email"
+      },
+      "password": {
+        "placeholder": "Enter your password"
+      }
+    }
+  },
+  "settings": {
+    "telegram": {
+      "title": "Telegram Notifications",
+      "description": "Link your Telegram account to receive instant order notifications",
+      "linked": "Telegram account linked on",
+      "recently": "recently",
+      "linkButton": "Link via Telegram",
+      "disconnectButton": "Disconnect Telegram",
+      "disconnectTitle": "Disconnect Telegram Account",
+      "disconnectDescription": "To confirm disconnection, please enter the name of one of your stores:",
+      "disconnectPlaceholder": "Enter store name",
+      "disconnectSuccess": "Telegram account disconnected successfully",
+      "disconnectError": "Store name doesn't match. Please try again.",
+      "disconnectNotLinked": "Telegram account is not linked",
+      "yourStores": "Your stores:",
+      "otpCode": "OTP Code",
+      "storeNameLabel": "Store Name",
+      "cancelButton": "Cancel",
+      "option1": "Option 1: Click the link below",
+      "option2": "Option 2: Scan QR code",
+      "expires": "This link expires in 10 minutes. If Telegram is not installed, you can install it from",
+      "error": "An error occurred. Please try again.",
+      "storeNameRequired": "Store name is required"
+    }
+  },
+  "onboarding": {
+    "storeSetup": {
+      "title": "Create your store",
+      "subtitle": "Just one more step to get started",
+      "storeName": {
+        "label": "Store Name",
+        "placeholder": "My Awesome Store"
+      },
+      "notifications": {
+        "label": "How do you want to receive new order alerts?",
+        "options": {
+          "email": {
+            "label": "Email Notifications",
+            "description": "Sent to your login email address"
+          },
+          "telegram": {
+            "label": "Telegram Alerts",
+            "description": "Fast and instant alerts via our Telegram bot"
+          },
+          "both": {
+            "label": "Both",
+            "description": "Get notified everywhere so you never miss an order"
+          }
+        }
+      },
+      "submit": "Continue",
+      "success": "Store created successfully!"
+    },
+    "storeConfiguration": {
+      "title": "Configure your store",
+      "subtitle": "Customize your store's appearance and category",
+      "category": {
+        "label": "What category best describes your store?",
+        "options": {
+          "fashion": {
+            "label": "Fashion",
+            "description": "Clothing, accessories, and style"
+          },
+          "electronics": {
+            "label": "Electronics",
+            "description": "Gadgets, devices, and tech"
+          },
+          "food": {
+            "label": "Food",
+            "description": "Food items and beverages"
+          },
+          "home": {
+            "label": "Home",
+            "description": "Home decor and essentials"
+          },
+          "beauty": {
+            "label": "Beauty",
+            "description": "Cosmetics and personal care"
+          },
+          "sports": {
+            "label": "Sports",
+            "description": "Sports equipment and gear"
+          },
+          "books": {
+            "label": "Books",
+            "description": "Books and reading materials"
+          },
+          "toys": {
+            "label": "Toys",
+            "description": "Toys and games"
+          },
+          "other": {
+            "label": "Other",
+            "description": "Other categories"
+          }
+        }
+      },
+      "theme": {
+        "label": "Choose your store theme",
+        "options": {
+          "light": {
+            "label": "Light",
+            "description": "Clean and bright"
+          },
+          "dark": {
+            "label": "Dark",
+            "description": "Modern and sleek"
+          },
+          "minimal": {
+            "label": "Minimal",
+            "description": "Simple and elegant"
+          },
+          "modern": {
+            "label": "Modern",
+            "description": "Contemporary design"
+          },
+          "classic": {
+            "label": "Classic",
+            "description": "Timeless style"
+          }
+        }
+      },
+      "submit": "Finish Setup",
+      "success": "Store configured successfully!"
+    },
+    "steps": {
+      "signup": "Account",
+      "storeSetup": "Store",
+      "storeConfiguration": "Configure",
+      "complete": "Ready"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Join Dukkani and start selling today",
+      "name": {
+        "label": "What should we call you?",
+        "placeholder": "Enter your full name"
+      },
+      "email": {
+        "label": "Email address",
+        "placeholder": "your@email.com",
+        "description": "We pre-filled this from the previous step",
+        "missingWarning": "Email address was not provided. Please enter your email address to continue."
+      },
+      "password": {
+        "label": "Choose a password",
+        "placeholder": "Minimum 8 characters"
+      },
+      "submit": "Continue to Store Setup",
+      "success": "Account created! Now let's set up your store.",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Log in",
+      "agreeText": "By continuing, you agree to our",
+      "terms": "Terms",
+      "and": "&",
+      "privacy": "Privacy Policy"
+    },
+    "complete": {
+      "title": "You're all set!",
+      "subtitle": "Your store is ready to start receiving orders.",
+      "storeLink": {
+        "label": "Your Store Link",
+        "copied": "Link copied to clipboard!"
+      },
+      "telegram": {
+        "title": "Instant Order Alerts",
+        "description": "Connect your Telegram to get notified the second a customer places an order.",
+        "otpLabel": "Your OTP Code",
+        "connectButton": "Connect",
+        "instructions": "Send /link {code} to the bot if you're not redirected."
+      },
+      "actions": {
+        "addProduct": "Add Your First Product",
+        "goToDashboard": "Go to Dashboard"
+      }
+    }
+  },
+  "products": {
+    "list": {
+      "title": "المنتجات",
+      "description": "إدارة منتجاتك",
+      "searchPlaceholder": "بحث عن المنتجات",
+      "filters": {
+        "all": "الكل",
+        "published": "منشور",
+        "draft": "مسودة",
+        "archived": "أرشيف"
+      },
+      "status": {
+        "published": "منشور",
+        "draft": "مسودة",
+        "archived": "أرشيف"
+      },
+      "stockInfo": "المخزون: {count} وحدة • {variants} متغيرات",
+      "stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
+      "stockCount": "المخزون: {count} وحدة",
+      "variantCount": "• {variants} متغيرات",
+      "noVariants": "• لا توجد متغيرات",
+      "outOfStock": "نفاد المخزون",
+      "outOfStockVariants": "نفاد المخزون • {variants} متغيرات",
+      "empty": "لم يتم العثور على منتجات. أنشئ منتجك الأول للبدء.",
+      "error": "خطأ في تحميل المنتجات. يرجى المحاولة مرة أخرى لاحقًا.",
+      "catalogCount": "كتالوج منتجاتك ({count} إجمالي)",
+      "catalogDefault": "كتالوج منتجاتك",
+      "addProduct": "إضافة منتج",
+      "filterDrawer": {
+        "title": "مرشحات",
+        "clearAll": "مسح الكل",
+        "apply": "تطبيق المرشحات",
+        "close": "إغلاق",
+        "status": "الحالة",
+        "inventory": "المخزون",
+        "variants": "المتغيرات",
+        "priceRange": "نطاق السعر (دينار تونسي)",
+        "allStatuses": "جميع الحالات",
+        "published": "منشور",
+        "draft": "مسودة",
+        "allInventory": "الكل",
+        "inStock": "في المخزون",
+        "lowStock": "مخزون منخفض",
+        "outOfStock": "نفاد المخزون",
+        "allProducts": "جميع المنتجات",
+        "withVariants": "مع متغيرات",
+        "singleSku": "SKU فردي",
+        "min": "الحد الأدنى",
+        "max": "الحد الأقصى"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف",
+        "publish": "نشر",
+        "unpublish": "إلغاء النشر",
+        "archive": "أرشفة",
+        "deleteConfirmTitle": "هل تريد حذف المنتج؟",
+        "deleteConfirmDescription": "لا يمكن التراجع عن هذا الإجراء.",
+        "cancel": "إلغاء"
+      }
+    },
+    "create": {
+      "header": {
+        "title": "New product",
+        "save": "Save"
+      },
+      "sections": {
+        "photos": "Product Photos",
+        "essentials": "Essentials",
+        "organization": "Organization",
+        "options": "Has options"
+      },
+      "form": {
+        "name": {
+          "label": "Product Name",
+          "placeholder": "Enter product name"
+        },
+        "price": {
+          "label": "Price",
+          "placeholder": "Enter product price"
+        },
+        "stock": {
+          "label": "Stock",
+          "placeholder": "Enter product stock"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Enter product description"
+        },
+        "published": {
+          "label": "Published",
+          "placeholder": "Enter product published"
+        },
+        "addPhotos": "Add photos",
+        "priceHelp": "Price customers pay (COD)",
+        "category": {
+          "label": "Category",
+          "placeholder": "Select category...",
+          "searchPlaceholder": "Search categories...",
+          "noResults": "No categories found.",
+          "create": "Create category",
+          "created": "Category created successfully",
+          "nameLabel": "Category Name",
+          "namePlaceholder": "e.g. T-Shirts, Electronics",
+          "createDescription": "Create a new category to organize your products.",
+          "uncategorized": "Uncategorized"
+        },
+        "options": {
+          "label": "Has options",
+          "description": "Add options like Size, Color, Material, etc."
+        },
+        "saveDraft": "Save draft",
+        "savePublish": "Save & publish",
+        "optional": "optional",
+        "cancel": "Cancel",
+        "validation": {
+          "errors": "Please fix the form errors before submitting"
+        },
+        "variants": {
+          "options": {
+            "title": "Variant Options",
+            "add": "Add Option",
+            "empty": "Add options like Size, Color, Material, etc.",
+            "unnamed": "Unnamed Option",
+            "optionName": "Option Name",
+            "optionNamePlaceholder": "e.g. Size, Color",
+            "values": "Values",
+            "addValue": "Add Value",
+            "noValues": "Add at least one value",
+            "remove": "Remove Option",
+            "addAnother": "Add another option"
+          },
+          "list": {
+            "title": "Variants",
+            "empty": "Add variant options above to generate variants",
+            "unnamed": "Unnamed Variant",
+            "price": "Price",
+            "stock": "Stock",
+            "edit": "Edit Variant"
+          },
+          "edit": {
+            "title": "Edit Variant",
+            "sku": "SKU",
+            "skuPlaceholder": "Optional",
+            "price": "Price",
+            "priceHelp": "Leave empty to use base product price",
+            "stock": "Stock"
+          },
+          "validation": {
+            "duplicateOptionName": "Duplicate option name",
+            "duplicateOptionValues": "Duplicate option values",
+            "duplicateValue": "Duplicate value",
+            "duplicateOption": "Duplicate option"
+          }
+        }
+      },
+      "success": "Product created successfully!",
+      "noStore": {
+        "title": "No Store Found",
+        "description": "Please create a store first to add products.",
+        "createStore": "Create Store"
+      }
+    }
+  }
 }
