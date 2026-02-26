@@ -18,6 +18,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
 import { ProductListCard } from "@/components/app/products/product-list-card";
 import { ProductsEmptyState } from "@/components/app/products/products-empty-state";
+import { ProductsFilterDrawer } from "@/components/app/products/products-filter-drawer";
 import { ProductsListSkeleton } from "@/components/app/products/products-list-skeleton";
 import { ProductsPageHeader } from "@/components/app/products/products-page-header";
 import { ProductsSearchBar } from "@/components/app/products/products-search-bar";
@@ -28,16 +29,33 @@ import { RoutePaths } from "@/lib/routes";
 export default function ProductsPage() {
 	const t = useTranslations("products.list");
 	const [productToDelete, setProductToDelete] = useState<string | null>(null);
+	const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
 
 	const {
 		productsQuery: { data, isLoading, error },
 		search,
 		published,
+		stockFilter,
+		variantsFilter,
+		priceMin,
+		priceMax,
 		setSearch,
 		setPublished,
+		setStockFilter,
+		setVariantsFilter,
+		setPriceMin,
+		setPriceMax,
+		resetFilters,
 		deleteProductMutation,
 		togglePublishMutation,
 	} = useProductsController();
+
+	const filterActive =
+		published !== null ||
+		stockFilter !== "all" ||
+		variantsFilter !== "all" ||
+		priceMin != null ||
+		priceMax != null;
 
 	const handleDeleteRequest = useCallback((id: string) => {
 		setProductToDelete(id);
@@ -76,9 +94,31 @@ export default function ProductsPage() {
 
 			{/* Search & Filters */}
 			<div className="mb-6 space-y-4">
-				<ProductsSearchBar value={search} onChange={setSearch} />
+				<ProductsSearchBar
+					value={search}
+					onChange={setSearch}
+					onFilterClick={() => setFilterDrawerOpen(true)}
+					filterActive={filterActive}
+				/>
 				<ProductsStatusTabs value={published} onChange={setPublished} />
 			</div>
+
+			{/* Filter Drawer */}
+			<ProductsFilterDrawer
+				open={filterDrawerOpen}
+				onOpenChange={setFilterDrawerOpen}
+				published={published}
+				stockFilter={stockFilter}
+				variantsFilter={variantsFilter}
+				priceMin={priceMin}
+				priceMax={priceMax}
+				setPublished={setPublished}
+				setStockFilter={setStockFilter}
+				setVariantsFilter={setVariantsFilter}
+				setPriceMin={setPriceMin}
+				setPriceMax={setPriceMax}
+				resetFilters={resetFilters}
+			/>
 
 			{/* Product List */}
 			{isLoading ? (

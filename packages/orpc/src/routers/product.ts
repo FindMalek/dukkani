@@ -80,11 +80,19 @@ export const productRouter = {
 				}
 			}
 
+			const hasVariants =
+				input?.variantsFilter && input.variantsFilter !== "all"
+					? input.variantsFilter === "with-variants"
+					: undefined;
+
 			const where = ProductQuery.getWhere(userStoreIds, {
 				storeId: input?.storeId,
 				published: input?.published,
 				search: input?.search,
 				stock: stockFilter,
+				hasVariants,
+				priceMin: input?.priceMin,
+				priceMax: input?.priceMax,
 			});
 
 			const [products, total] = await Promise.all([

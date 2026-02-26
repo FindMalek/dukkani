@@ -1,28 +1,52 @@
 "use client";
 
+import {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupButton,
+	InputGroupInput,
+} from "@dukkani/ui/components/input-group";
 import { Icons } from "@dukkani/ui/components/icons";
-import { Input } from "@dukkani/ui/components/input";
 import { useTranslations } from "next-intl";
 
 interface ProductsSearchBarProps {
 	value: string;
 	onChange: (value: string) => void;
+	onFilterClick?: () => void;
+	filterActive?: boolean;
 }
 
-export function ProductsSearchBar({ value, onChange }: ProductsSearchBarProps) {
+export function ProductsSearchBar({
+	value,
+	onChange,
+	onFilterClick,
+	filterActive = false,
+}: ProductsSearchBarProps) {
 	const t = useTranslations("products.list");
 
 	return (
-		<div className="relative">
-			<Icons.search className="absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-			<Input
+		<InputGroup>
+			<InputGroupInput
 				type="search"
 				placeholder={t("searchPlaceholder")}
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
-				className="ps-9"
 				aria-label={t("searchPlaceholder")}
 			/>
-		</div>
+			<InputGroupAddon align="inline-start">
+				<Icons.search className="text-muted-foreground" />
+			</InputGroupAddon>
+			<InputGroupAddon align="inline-end">
+				<InputGroupButton
+					type="button"
+					variant={filterActive ? "default" : "ghost"}
+					size="icon-sm"
+					onClick={onFilterClick}
+					aria-label={t("filterDrawer.title")}
+				>
+					<Icons.slidersHorizontal className="size-4" />
+				</InputGroupButton>
+			</InputGroupAddon>
+		</InputGroup>
 	);
 }
