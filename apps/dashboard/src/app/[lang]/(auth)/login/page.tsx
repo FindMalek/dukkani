@@ -116,7 +116,7 @@ export default async function LoginPage() {
 						</div>
 
 						{/* Sign In Options */}
-						<div className="flex w-full items-center justify-center space-y-3">
+						<div className="flex w-full justify-center space-y-3">
 							{preferredSignInOption}
 						</div>
 
