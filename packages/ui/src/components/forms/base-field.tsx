@@ -16,6 +16,7 @@ export type CommonFieldProps = {
 type BaseFieldProps = {
 	orientation?: "vertical" | "horizontal" | "responsive";
 	children: React.ReactNode;
+	className?: string;
 };
 
 export function BaseField({
@@ -23,11 +24,12 @@ export function BaseField({
 	label,
 	orientation = "vertical",
 	description,
+	className,
 }: CommonFieldProps & BaseFieldProps) {
 	const field = useFieldContext();
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 	return (
-		<Field orientation={orientation}>
+		<Field orientation={orientation} className={className}>
 			{orientation !== "vertical" && children}
 			<FieldContent>
 				<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
