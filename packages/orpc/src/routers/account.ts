@@ -35,7 +35,7 @@ export const accountRouter = {
 	 * Check if an email address is already registered
 	 * Rate limited to prevent email enumeration attacks
 	 */
-	checkEmailExists: publicProcedure
+	checkEmailExistss: publicProcedure
 		.use(rateLimitSensitive)
 		.input(checkEmailExistsInputSchema)
 		.output(z.boolean())
@@ -45,6 +45,12 @@ export const accountRouter = {
 				select: UserQuery.getMinimalSelect(),
 			});
 
-			return !!user;
+			if (!user) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "User not found",
+				});
+			}
+
+			return true;
 		}),
 };

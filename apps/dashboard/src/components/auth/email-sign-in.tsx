@@ -24,11 +24,11 @@ export function EmailSignIn({
 	const checkEmailMutation = useCheckEmailExists();
 
 	const handleEmailExistenceCheck = async (email: string) => {
-		try {
-			await checkEmailMutation.mutateAsync({ email });
-		} catch (error) {
-			handleAPIError(error);
-		}
+		return checkEmailMutation.mutateAsync({ email }, {
+			onError: (error) => {
+				handleAPIError(error);
+			},
+		});
 	};
 
 	const emailForm = useAppForm({
@@ -122,7 +122,11 @@ export function EmailSignIn({
 								<passwordForm.AppField name="rememberMe">
 									{(field) => <field.CheckboxInput label={t("rememberMe")} />}
 								</passwordForm.AppField>
-								<Button variant="outline" onClick={() => emailForm.reset()}>
+								<Button
+									type="button"
+									variant="outline"
+									onClick={() => emailForm.reset()}
+								>
 									{t("back")}
 								</Button>
 								<passwordForm.Subscribe>
