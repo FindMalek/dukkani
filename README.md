@@ -2,13 +2,16 @@
 
 <div align="center">
 
+![Dukkani - E-commerce for Tunisian businesses](./github.png)
+
 ![GitHub stars](https://img.shields.io/github/stars/FindMalek/dukkani?style=for-the-badge&logo=github)
 ![License](https://img.shields.io/badge/license-BSL-blue?style=for-the-badge)
 ![Contributors](https://img.shields.io/github/contributors/FindMalek/dukkani?style=for-the-badge)
+[![Open Issues](https://img.shields.io/github/issues/FindMalek/dukkani?style=for-the-badge)](https://github.com/FindMalek/dukkani/issues)
 
 **Enable every small and medium Tunisian business to sell online, easily and professionally.**
 
-[Features](#-core-features) • [Getting Started](#-getting-started) • [Contributing](#-contributing) • [Documentation](#-documentation)
+[Features](#-core-features) • [Getting Started](#-getting-started) • [Contributing](#-contributing)
 
 </div>
 
@@ -48,7 +51,6 @@ To become the **Shopify of North Africa** — starting with Tunisia, then scalin
 ## 🚀 Core Features
 
 - 🛍️ **Instant Store Setup Wizard** - Get your store online in minutes
-- 💳 **Local Payment Integration** - D17, Flouci, E-Dinar and more
 - 🗺️ **Delivery Partner Integration** - Connect with local delivery services
 - 🌐 **Multi-language Support** - Arabic, French, and English
 - 📱 **Mobile-First Design** - Beautiful, responsive store templates
@@ -128,9 +130,10 @@ This creates default users and sample data for development. See [Database Packag
 
 6. **Start the development server**
 
-- **Web App**: [http://localhost:3001](http://localhost:3001) - Public-facing storefront
-- **API Server**: [http://localhost:3002](http://localhost:3002) - API endpoints
-- **Dashboard**: [http://localhost:3003](http://localhost:3003) - Merchant dashboard
+- **Web** (3001): [http://localhost:3001](http://localhost:3001) - Marketing/landing site
+- **API** (3002): [http://localhost:3002](http://localhost:3002) - Backend API
+- **Dashboard** (3003): [http://localhost:3003](http://localhost:3003) - Merchant dashboard
+- **Storefront** (3004): [http://localhost:3004](http://localhost:3004) - Customer-facing store (where shoppers browse and buy)
 
 ### Quick Commands
 
@@ -139,7 +142,9 @@ This creates default users and sample data for development. See [Database Packag
 pnpm run dev              # Start all apps
 pnpm run dev:api          # Start API only
 pnpm run dev:dashboard    # Start Dashboard only
-pnpm run dev:web          # Start Web app only
+pnpm run dev:web          # Start marketing site
+pnpm run dev:storefront   # Start storefront (customer store)
+pnpm run dev:all          # Start API + Dashboard + Storefront
 
 # Database
 pnpm run db:studio        # Open Prisma Studio
@@ -158,19 +163,16 @@ pnpm run build            # Build all packages
 
 ## 🤝 Contributing
 
-We welcome contributions! Whether you're fixing bugs, adding features, or improving documentation, your help makes Dukkani better for everyone.
+We welcome contributions from the open-source community! Our [GitHub Issues](https://github.com/FindMalek/dukkani/issues) are organized as **tasks** — pick any issue labeled `good first issue`, `help wanted`, or `bug` and start contributing.
 
 **Please read our [Contributing Guidelines](./CONTRIBUTING.md) before submitting a PR.**
 
-### Quick Contribution Guide
+### How to contribute
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feat/amazing-feature`)
-3. Make your changes
-4. Run `pnpm run check` to ensure code quality
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to your branch (`git push origin feat/amazing-feature`)
-7. Open a Pull Request
+1. **Browse [open issues](https://github.com/FindMalek/dukkani/issues)** — each issue is a task you can pick up
+2. **Comment on an issue** you'd like to work on (so we avoid duplicate work)
+3. **Fork & create a branch** following our [Contributing Guidelines](./CONTRIBUTING.md)
+4. **Submit a PR** — we'll review and merge!
 
 For detailed guidelines on development setup, code style, and PR process, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 

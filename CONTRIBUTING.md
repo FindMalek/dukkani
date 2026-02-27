@@ -2,6 +2,8 @@
 
 Thank you for your interest in contributing to Dukkani! This document provides guidelines and instructions for contributing to the project.
 
+> **Tip:** Browse our [GitHub Issues](https://github.com/FindMalek/dukkani/issues) to find tasks to work on. Comment on an issue before starting to avoid duplicate work.
+
 ## Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
