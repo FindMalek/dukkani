@@ -35,7 +35,7 @@ export const accountRouter = {
 	 * Check if an email address is already registered
 	 * Rate limited to prevent email enumeration attacks
 	 */
-	checkEmailExistss: publicProcedure
+	checkEmailExists: publicProcedure
 		.use(rateLimitSensitive)
 		.input(checkEmailExistsInputSchema)
 		.output(z.boolean())
