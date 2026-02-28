@@ -21,25 +21,17 @@ export function ProductListCard({
 	onDelete,
 	onTogglePublish,
 }: ProductListCardProps) {
-	const t = useTranslations("products.list");
 	const locale = useLocale();
+	const t = useTranslations("products.list");
 
 	const firstImageUrl = product.imageUrls[0];
 	const isOutOfStock = product.stock === 0;
-	const variantCount = product.variantCount;
 
 	const stockStatusText = isOutOfStock
 		? t("outOfStock")
 		: t("stockCount", { count: product.stock });
 
-	const variantText =
-		variantCount > 0
-			? t("variantCount", { variants: variantCount })
-			: isOutOfStock
-				? null
-				: t("noVariants");
-
-	return (
+		return (
 		<Link
 			href={RoutePaths.PRODUCTS.DETAIL.url(product.id)}
 			className={cn(
@@ -47,7 +39,7 @@ export function ProductListCard({
 			)}
 		>
 			{/* Image */}
-			<div className="size-20 shrink-0 overflow-hidden rounded-lg bg-muted/50 border border-border/50">
+			<div className="size-20 shrink-0 overflow-hidden rounded-lg border border-border/50 bg-muted/50">
 				{firstImageUrl ? (
 					<img
 						src={firstImageUrl}
@@ -65,7 +57,7 @@ export function ProductListCard({
 			<div className="flex flex-1 flex-col py-0.5">
 				{/* Title row */}
 				<div className="flex items-start justify-between gap-2">
-					<h3 className="line-clamp-2 text-sm font-semibold leading-tight text-foreground/90">
+					<h3 className="line-clamp-2 font-semibold text-foreground/90 text-sm leading-tight">
 						{product.name}
 					</h3>
 
@@ -80,16 +72,16 @@ export function ProductListCard({
 				</div>
 
 				{/* Price */}
-				<p className="mt-1.5 text-sm font-medium text-foreground">
+				<p className="mt-1.5 font-medium text-foreground text-sm">
 					{formatCurrency(product.price, "TND", locale)}
 				</p>
 
 				{/* Status / Meta row */}
-				<div className="mt-auto pt-2 flex items-center gap-3">
+				<div className="mt-auto flex items-center gap-3 pt-2">
 					{/* Stock */}
 					<p
 						className={cn(
-							"m-0 flex-1 min-w-0 truncate text-xs font-medium leading-none",
+							"m-0 min-w-0 flex-1 truncate font-medium text-xs leading-none",
 							isOutOfStock ? "text-destructive" : "text-muted-foreground",
 						)}
 					>
