@@ -7,13 +7,18 @@ import { ProductImageCarousel } from "@/components/app/product-image-carousel";
 import { ProductVariantManager } from "@/components/app/product-variant-manager";
 import { StoreInfoCard } from "@/components/app/store-info-card";
 import { getQueryClient, orpc } from "@/lib/orpc";
+import { parseProductIdFromParam } from "@/lib/product-id";
 
 export default async function ProductDetailPage({
 	params,
 }: {
 	params: Promise<{ id: string }>;
 }) {
-	const { id } = await params;
+	const { id: rawId } = await params;
+
+	const id = parseProductIdFromParam(rawId);
+	if (!id) return notFound();
+
 	const queryClient = getQueryClient();
 
 	try {
