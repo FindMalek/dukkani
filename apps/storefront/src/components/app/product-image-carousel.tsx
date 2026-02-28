@@ -7,12 +7,12 @@ import {
 	CarouselContent,
 	CarouselItem,
 } from "@dukkani/ui/components/carousel";
+import { useIsRtl } from "@dukkani/ui/components/direction";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { cn } from "@dukkani/ui/lib/utils";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useIsRtl } from "@dukkani/ui/components/direction";
 
 interface ProductImageCarouselProps {
 	images: string[];

@@ -1,6 +1,5 @@
 "use client";
 
-import type { StockFilter } from "@/stores/product.store";
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Drawer,
@@ -14,6 +13,7 @@ import { Field, FieldLabel } from "@dukkani/ui/components/field";
 import { Input } from "@dukkani/ui/components/input";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import type { StockFilter } from "@/stores/product.store";
 
 type PublishedFilter = boolean | null;
 type VariantsFilter = "all" | "with-variants" | "single-sku";
@@ -97,8 +97,12 @@ export function ProductsFilterDrawer({
 		setPublished(draftPublished);
 		setStockFilter(draftStockFilter);
 		setVariantsFilter(draftVariantsFilter);
-		const minVal = draftPriceMin.trim() ? parseFloat(draftPriceMin) : null;
-		const maxVal = draftPriceMax.trim() ? parseFloat(draftPriceMax) : null;
+		const minVal = draftPriceMin.trim()
+			? Number.parseFloat(draftPriceMin)
+			: null;
+		const maxVal = draftPriceMax.trim()
+			? Number.parseFloat(draftPriceMax)
+			: null;
 		setPriceMin(minVal != null && !Number.isNaN(minVal) ? minVal : null);
 		setPriceMax(maxVal != null && !Number.isNaN(maxVal) ? maxVal : null);
 		onOpenChange(false);
@@ -125,7 +129,7 @@ export function ProductsFilterDrawer({
 					<Button
 						variant="ghost"
 						size="sm"
-						className="text-muted-foreground -me-2"
+						className="-me-2 text-muted-foreground"
 						onClick={handleClearAll}
 					>
 						{t("clearAll")}

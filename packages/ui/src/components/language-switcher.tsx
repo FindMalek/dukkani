@@ -1,9 +1,9 @@
 "use client";
 
 import {
+	LOCALE_FLAGS,
 	LOCALES,
 	LOCALES_MAP,
-	LOCALE_FLAGS,
 	type Locale,
 } from "@dukkani/common/schemas/constants";
 import { Globe } from "lucide-react";

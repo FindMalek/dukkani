@@ -15,7 +15,7 @@ export class CollectionQuery {
 
 	static getInclude() {
 		return {
-			...this.getSimpleInclude(),
+			...CollectionQuery.getSimpleInclude(),
 			productCollections: {
 				include: {
 					product: {

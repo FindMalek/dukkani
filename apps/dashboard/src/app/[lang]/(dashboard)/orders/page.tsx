@@ -1,132 +1,99 @@
 "use client";
 
-import { Badge } from "@dukkani/ui/components/badge";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@dukkani/ui/components/card";
-import { Skeleton } from "@dukkani/ui/components/skeleton";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@dukkani/ui/components/table";
+import { Card, CardContent } from "@dukkani/ui/components/card";
+import { useTranslations } from "next-intl";
+import { groupOrdersByDate } from "@/lib/group-orders-by-date";
+import { OrderListCard } from "@/components/app/orders/order-list-card";
+import { OrdersEmptyState } from "@/components/app/orders/orders-empty-state";
+import { OrdersListSkeleton } from "@/components/app/orders/orders-list-skeleton";
+import { OrdersPageHeader } from "@/components/app/orders/orders-page-header";
+import { OrdersSearchBar } from "@/components/app/orders/orders-search-bar";
+import { OrdersStatusTabs } from "@/components/app/orders/orders-status-tabs";
 import { useOrdersController } from "@/hooks/controllers/use-orders-controller";
 
-const statusColors: Record<
-	string,
-	"default" | "secondary" | "destructive" | "outline"
-> = {
-	PENDING: "outline",
-	CONFIRMED: "default",
-	PROCESSING: "default",
-	SHIPPED: "secondary",
-	DELIVERED: "secondary",
-	CANCELLED: "destructive",
-};
-
 export default function OrdersPage() {
+	const t = useTranslations("orders.list");
 	const {
-		ordersQuery: { data, isLoading, error },
+		ordersQuery: { data, isLoading, error, refetch, isRefetching },
+		search,
+		status,
+		setSearch,
+		setStatus,
 	} = useOrdersController();
 
 	if (error) {
 		return (
 			<div className="container mx-auto max-w-7xl p-4 md:p-6">
-				<div className="mb-6">
-					<h1 className="font-bold text-2xl md:text-3xl">Orders</h1>
-					<p className="mt-2 text-muted-foreground text-sm md:text-base">
-						View and manage orders
-					</p>
-				</div>
+				<OrdersPageHeader />
 				<Card>
 					<CardContent className="pt-6">
-						<p className="text-destructive text-sm">
-							Error loading orders. Please try again later.
-						</p>
+						<p className="text-destructive text-sm">{t("error")}</p>
 					</CardContent>
 				</Card>
 			</div>
 		);
 	}
 
+	const grouped = data?.orders ? groupOrdersByDate(data.orders) : null;
+
 	return (
-		<div className="container mx-auto max-w-7xl p-4 md:p-6">
-			<div className="mb-6">
-				<h1 className="font-bold text-2xl md:text-3xl">Orders</h1>
-				<p className="mt-2 text-muted-foreground text-sm md:text-base">
-					View and manage orders
-				</p>
+		<div className="container mx-auto max-w-7xl p-4 pb-24 md:p-6 md:pb-8">
+			<OrdersPageHeader
+				onRefresh={() => refetch()}
+				isRefetching={isRefetching}
+			/>
+
+			{/* Search & Filters */}
+			<div className="mb-6 space-y-4">
+				<OrdersSearchBar value={search} onChange={setSearch} />
+				<OrdersStatusTabs value={status} onChange={setStatus} />
 			</div>
 
-			<Card>
-				<CardHeader>
-					<CardTitle>Orders</CardTitle>
-					<CardDescription>
-						{data
-							? `Order management (${data.total} total)`
-							: "Order management"}
-					</CardDescription>
-				</CardHeader>
-				<CardContent>
-					{isLoading ? (
-						<div className="space-y-2">
-							{Array.from({ length: 5 }).map((_, i) => (
-								<div key={i} className="flex items-center gap-4">
-									<Skeleton className="h-12 flex-1" />
-									<Skeleton className="h-12 w-32" />
-									<Skeleton className="h-12 w-24" />
-									<Skeleton className="h-12 w-20" />
-								</div>
-							))}
-						</div>
-					) : data && data.orders.length > 0 ? (
-						<Table>
-							<TableHeader>
-								<TableRow>
-									<TableHead>Order ID</TableHead>
-									<TableHead>Customer</TableHead>
-									<TableHead>Phone</TableHead>
-									<TableHead>Status</TableHead>
-									<TableHead>Created</TableHead>
-								</TableRow>
-							</TableHeader>
-							<TableBody>
-								{data.orders.map((order) => (
-									<TableRow key={order.id}>
-										<TableCell className="font-medium font-mono text-sm">
-											{order.id}
-										</TableCell>
-										<TableCell>{order.customer?.name || "N/A"}</TableCell>
-										<TableCell className="text-muted-foreground">
-											{order.customer?.phone}
-										</TableCell>
-										<TableCell>
-											<Badge variant={statusColors[order.status] ?? "default"}>
-												{order.status}
-											</Badge>
-										</TableCell>
-										<TableCell className="text-muted-foreground text-sm">
-											{new Date(order.createdAt).toLocaleDateString()}
-										</TableCell>
-									</TableRow>
+			{/* Order List */}
+			{isLoading ? (
+				<OrdersListSkeleton />
+			) : data && data.orders.length > 0 && grouped ? (
+				<div className="space-y-6">
+					{grouped.today.length > 0 && (
+						<section>
+							<h2 className="mb-3 font-medium text-muted-foreground text-sm">
+								{t("today")}
+							</h2>
+							<div className="space-y-3">
+								{grouped.today.map((order) => (
+									<OrderListCard key={order.id} order={order} />
 								))}
-							</TableBody>
-						</Table>
-					) : (
-						<p className="text-muted-foreground text-sm">
-							No orders found. Orders will appear here once customers start
-							placing them.
-						</p>
+							</div>
+						</section>
 					)}
-				</CardContent>
-			</Card>
+					{grouped.yesterday.length > 0 && (
+						<section>
+							<h2 className="mb-3 font-medium text-muted-foreground text-sm">
+								{t("yesterday")}
+							</h2>
+							<div className="space-y-3">
+								{grouped.yesterday.map((order) => (
+									<OrderListCard key={order.id} order={order} />
+								))}
+							</div>
+						</section>
+					)}
+					{grouped.older.map(({ label, orders: ords }) => (
+						<section key={label}>
+							<h2 className="mb-3 font-medium text-muted-foreground text-sm">
+								{label}
+							</h2>
+							<div className="space-y-3">
+								{ords.map((order) => (
+									<OrderListCard key={order.id} order={order} />
+								))}
+							</div>
+						</section>
+					))}
+				</div>
+			) : (
+				<OrdersEmptyState />
+			)}
 		</div>
 	);
 }

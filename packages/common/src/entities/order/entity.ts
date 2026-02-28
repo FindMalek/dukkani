@@ -1,3 +1,4 @@
+import type { OrderStatus } from "../../schemas/order/enums";
 import type {
 	OrderIncludeOutput,
 	OrderPublicOutput,
@@ -13,6 +14,19 @@ import type {
 	OrderIncludeWithProductDbData,
 	OrderSimpleDbData,
 } from "./query";
+
+/** Badge variant strings for UI display - maps OrderStatus to shadcn Badge variant */
+export const ORDER_STATUS_BADGE_VARIANT: Record<
+	OrderStatus,
+	"outline" | "statusSuccess" | "statusMuted" | "destructive"
+> = {
+	PENDING: "outline",
+	CONFIRMED: "statusSuccess",
+	PROCESSING: "statusMuted",
+	SHIPPED: "statusMuted",
+	DELIVERED: "statusSuccess",
+	CANCELLED: "destructive",
+};
 
 export class OrderEntity {
 	static getSimpleRo(entity: OrderSimpleDbData): OrderSimpleOutput {

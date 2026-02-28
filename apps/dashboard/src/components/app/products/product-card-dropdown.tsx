@@ -1,6 +1,7 @@
 "use client";
 
 import type { ListProductOutput } from "@dukkani/common/schemas/product/output";
+import { Button } from "@dukkani/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -8,10 +9,10 @@ import {
 	DropdownMenuTrigger,
 } from "@dukkani/ui/components/dropdown-menu";
 import { Icons } from "@dukkani/ui/components/icons";
-import { Button } from "@dukkani/ui/components/button";
-import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { RoutePaths } from "@/lib/routes";
+
 interface ProductCardDropdownProps {
 	product: ListProductOutput;
 	onDelete: (id: string) => void;

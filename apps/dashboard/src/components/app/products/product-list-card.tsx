@@ -31,7 +31,7 @@ export function ProductListCard({
 		? t("outOfStock")
 		: t("stockCount", { count: product.stock });
 
-		return (
+	return (
 		<Link
 			href={RoutePaths.PRODUCTS.DETAIL.url(product.id)}
 			className={cn(

@@ -215,6 +215,38 @@
 			}
 		}
 	},
+	"orders": {
+		"list": {
+			"title": "Orders",
+			"description": "View and manage orders",
+			"searchPlaceholder": "Search by name, phone or order #",
+			"empty": "No orders found. Orders will appear here once customers start placing them.",
+			"error": "Error loading orders. Please try again later.",
+			"refresh": "Refresh orders",
+			"call": "Call",
+			"itemsCount": "{count} items",
+			"cashOnDelivery": "Cash on delivery",
+			"card": "Card",
+			"today": "Today",
+			"yesterday": "Yesterday",
+			"viewOrder": "View order {id}",
+			"filters": {
+				"all": "All",
+				"pending": "Pending",
+				"confirmed": "Confirmed",
+				"shipped": "Shipped",
+				"delivered": "Delivered"
+			},
+			"status": {
+				"pending": "Pending confirmation",
+				"confirmed": "Confirmed",
+				"processing": "Processing",
+				"shipped": "Shipped",
+				"delivered": "Delivered",
+				"cancelled": "Cancelled"
+			}
+		}
+	},
 	"products": {
 		"list": {
 			"title": "Products",
