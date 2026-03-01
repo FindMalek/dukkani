@@ -121,6 +121,41 @@ files:
     onboarding.complete.telegram.instructions: 11dbd658fa33381cec6642a66355870e
     onboarding.complete.actions.addProduct: eef8322794ae681e3a56fb490afbb327
     onboarding.complete.actions.goToDashboard: d19e8ab738bcb64f6c960a6ee116b3b5
+    orders.list.title: 7442e29d7d53e549b78d93c46b8cdcfc
+    orders.list.description: 127d93de8c58df28fba48af85424e0b1
+    orders.list.searchPlaceholder: 3d2d34530fe2604eec85bb3d28a23ed2
+    orders.list.empty: bde0e3bd032868c3026df6511fc00f52
+    orders.list.error: 91f52eaa925e08dcab82d7f60b817fd6
+    orders.list.refresh: 40b9ee51db0383fc05af244829f38c2a
+    orders.list.call: c3755e61202abd74da5885d2e9c9160e
+    orders.list.advanceStatus: 0a86dddc699c7e6fe7f1e43153a5cbee
+    orders.list.itemsCount: ad3da129e14b05ef4090066697b98487
+    orders.list.cashOnDelivery: 22d2c7f90dc862df71ac7aff95183fb2
+    orders.list.card: 1d565b9e5303987bb1b1938d5d458bca
+    orders.list.today: 1dd1c5fb7f25cd41b291d43a89e3aefd
+    orders.list.yesterday: ebfe9ce86e6e9fb953aa7a25b59c1956
+    orders.list.viewOrder: dc461c561241eede5755542991795af2
+    orders.list.filters.all: b1c94ca2fbc3e78fc30069c8d0f01680
+    orders.list.filters.pending: 2d13df6f8b5e4c5af9f87e0dc39df69d
+    orders.list.filters.confirmed: 205bc73c4ab4286a1fb9d4c18322777c
+    orders.list.filters.processing: 643562a9ae7099c8aabfdc93478db117
+    orders.list.filters.shipped: 747cf5c8587184b9e489ff897d97c20d
+    orders.list.filters.delivered: 67edd3b99247c9eb5884a02802a20fa7
+    orders.list.filters.cancelled: a149e85a44aeec9140e92733d9ed694e
+    orders.list.status.pending: 70c3b6d86024a3f622d87242f108bb92
+    orders.list.status.confirmed: 205bc73c4ab4286a1fb9d4c18322777c
+    orders.list.status.processing: 643562a9ae7099c8aabfdc93478db117
+    orders.list.status.shipped: 747cf5c8587184b9e489ff897d97c20d
+    orders.list.status.delivered: 67edd3b99247c9eb5884a02802a20fa7
+    orders.list.status.cancelled: a149e85a44aeec9140e92733d9ed694e
+    orders.list.filterDrawer.title: 15985753bbddc6f4481f765e62917bcb
+    orders.list.filterDrawer.clearAll: 81aa2078d1eceede831b2976dbf32e62
+    orders.list.filterDrawer.apply: 79ee641715155ec7d121815215f2b70c
+    orders.list.filterDrawer.status: ec53a8c4f07baed5d8825072c89799be
+    orders.list.filterDrawer.dateRange: 08ee10c9fa141c53ae44667dcc1adf1e
+    orders.list.filterDrawer.pickDateRange: b08c8d8ad8b80d4918b295e33cb2b042
+    orders.list.filterDrawer.from: 5da618e8e4b89c66fe86e32cdafde142
+    orders.list.filterDrawer.to: e12167aa0a7698e6ebc92b4ce3909b53
     products.list.title: 068f80c7519d0528fb08e82137a72131
     products.list.description: 1f775e7d1340eecbf87dd76ad028ec89
     products.list.searchPlaceholder: 437ac95a91364eb49587af5e146b1745
@@ -151,6 +186,7 @@ files:
     products.list.filterDrawer.inventory: 4d604dd8f008145471dc845683399189
     products.list.filterDrawer.variants: e9ad310d6d05f80daeaad048b877fdfd
     products.list.filterDrawer.priceRange: 8980322893adc78bacdbeb81f96f9c52
+    products.list.filterDrawer.all: 96e3d398260724e0a83da53a2e9f20e7
     products.list.filterDrawer.allStatuses: 96e3d398260724e0a83da53a2e9f20e7
     products.list.filterDrawer.published: 9b9d8a976b42e0bd66381797644943d5
     products.list.filterDrawer.draft: f03ab16cd58372c77ba45a3d9a5a1cb9
