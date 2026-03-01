@@ -244,6 +244,15 @@
 				"shipped": "تم الشحن",
 				"delivered": "تم التسليم",
 				"cancelled": "ملغى"
+			},
+			"filterDrawer": {
+				"title": "تصفية الطلبات",
+				"clearAll": "مسح الكل",
+				"apply": "تطبيق التصفية",
+				"status": "الحالة",
+				"dateRange": "الفترة الزمنية",
+				"from": "من",
+				"to": "إلى"
 			}
 		}
 	},

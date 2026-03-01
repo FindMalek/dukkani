@@ -244,6 +244,15 @@
 				"shipped": "Expédiée",
 				"delivered": "Livrée",
 				"cancelled": "Annulée"
+			},
+			"filterDrawer": {
+				"title": "Filtrer les commandes",
+				"clearAll": "Tout effacer",
+				"apply": "Appliquer les filtres",
+				"status": "Statut",
+				"dateRange": "Période",
+				"from": "Du",
+				"to": "Au"
 			}
 		}
 	},

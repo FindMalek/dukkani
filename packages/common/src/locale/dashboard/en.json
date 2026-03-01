@@ -244,6 +244,15 @@
 				"shipped": "Shipped",
 				"delivered": "Delivered",
 				"cancelled": "Cancelled"
+			},
+			"filterDrawer": {
+				"title": "Filter orders",
+				"clearAll": "Clear all",
+				"apply": "Apply filters",
+				"status": "Status",
+				"dateRange": "Date range",
+				"from": "From",
+				"to": "To"
 			}
 		}
 	},

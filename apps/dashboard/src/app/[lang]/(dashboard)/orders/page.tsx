@@ -2,24 +2,33 @@
 
 import { Card, CardContent } from "@dukkani/ui/components/card";
 import { useTranslations } from "next-intl";
-import { groupOrdersByDate } from "@/lib/group-orders-by-date";
+import { useState } from "react";
 import { OrderListCard } from "@/components/app/orders/order-list-card";
 import { OrdersEmptyState } from "@/components/app/orders/orders-empty-state";
+import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
 import { OrdersListSkeleton } from "@/components/app/orders/orders-list-skeleton";
 import { OrdersPageHeader } from "@/components/app/orders/orders-page-header";
 import { OrdersSearchBar } from "@/components/app/orders/orders-search-bar";
 import { OrdersStatusTabs } from "@/components/app/orders/orders-status-tabs";
 import { useOrdersController } from "@/hooks/controllers/use-orders-controller";
+import { groupOrdersByDate } from "@/lib/group-orders-by-date";
 
 export default function OrdersPage() {
 	const t = useTranslations("orders.list");
+	const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
 	const {
 		ordersQuery: { data, isLoading, error, refetch, isRefetching },
 		search,
 		status,
+		dateRange,
 		setSearch,
 		setStatus,
+		setDateRange,
+		resetFilters,
 	} = useOrdersController();
+
+	const filterActive =
+		status !== null || dateRange.from !== null || dateRange.to !== null;
 
 	if (error) {
 		return (
@@ -45,9 +54,25 @@ export default function OrdersPage() {
 
 			{/* Search & Filters */}
 			<div className="mb-6 space-y-4">
-				<OrdersSearchBar value={search} onChange={setSearch} />
+				<OrdersSearchBar
+					value={search}
+					onChange={setSearch}
+					onFilterClick={() => setFilterDrawerOpen(true)}
+					filterActive={filterActive}
+				/>
 				<OrdersStatusTabs value={status} onChange={setStatus} />
 			</div>
+
+			{/* Filter Drawer */}
+			<OrdersFilterDrawer
+				open={filterDrawerOpen}
+				onOpenChange={setFilterDrawerOpen}
+				status={status}
+				dateRange={dateRange}
+				setStatus={setStatus}
+				setDateRange={setDateRange}
+				resetFilters={resetFilters}
+			/>
 
 			{/* Order List */}
 			{isLoading ? (
