@@ -1,20 +1,16 @@
 "use client";
 
+import {
+	PUBLISHED_FILTER_OPTIONS,
+	type PublishedFilter,
+} from "@dukkani/common/schemas/product/enums";
 import { Button } from "@dukkani/ui/components/button";
 import { useTranslations } from "next-intl";
-
-type PublishedFilter = boolean | null;
 
 interface ProductsStatusTabsProps {
 	value: PublishedFilter;
 	onChange: (value: PublishedFilter) => void;
 }
-
-const TABS = [
-	{ value: null as PublishedFilter, key: "all" as const },
-	{ value: true as PublishedFilter, key: "published" as const },
-	{ value: false as PublishedFilter, key: "draft" as const },
-] satisfies { value: PublishedFilter; key: "all" | "published" | "draft" }[];
 
 export function ProductsStatusTabs({
 	value,
@@ -24,15 +20,15 @@ export function ProductsStatusTabs({
 
 	return (
 		<div className="flex gap-2 overflow-x-auto">
-			{TABS.map((tab) => {
-				const isActive = value === tab.value;
+			{PUBLISHED_FILTER_OPTIONS.map((opt) => {
+				const isActive = value === opt.value;
 				return (
 					<Button
-						key={tab.key}
+						key={opt.labelKey}
 						variant={isActive ? "default" : "ghost"}
-						onClick={() => onChange(tab.value)}
+						onClick={() => onChange(opt.value)}
 					>
-						{t(tab.key)}
+						{t(opt.labelKey)}
 					</Button>
 				);
 			})}

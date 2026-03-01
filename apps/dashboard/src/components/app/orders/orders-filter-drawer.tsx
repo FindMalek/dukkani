@@ -1,7 +1,11 @@
 "use client";
 
-import type { OrderStatus } from "@dukkani/common/schemas/order/enums";
+import {
+	OrderEntity,
+	type OrderStatusFilter,
+} from "@dukkani/common/entities/order/entity";
 import { Button } from "@dukkani/ui/components/button";
+import { DateRangePicker } from "@dukkani/ui/components/date-range-picker";
 import {
 	Drawer,
 	DrawerContent,
@@ -9,8 +13,6 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 } from "@dukkani/ui/components/drawer";
-import { Field, FieldLabel } from "@dukkani/ui/components/field";
-import { Input } from "@dukkani/ui/components/input";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
@@ -19,37 +21,14 @@ interface DateRange {
 	to: Date | null;
 }
 
-type StatusFilter = OrderStatus | null;
-
 interface OrdersFilterDrawerProps {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
-	status: StatusFilter;
+	status: OrderStatusFilter;
 	dateRange: DateRange;
-	setStatus: (value: StatusFilter) => void;
+	setStatus: (value: OrderStatusFilter) => void;
 	setDateRange: (range: DateRange) => void;
 	resetFilters: () => void;
-}
-
-const STATUS_OPTIONS = [
-	{ value: null as StatusFilter, key: "all" as const },
-	{ value: "PENDING" as OrderStatus, key: "pending" as const },
-	{ value: "CONFIRMED" as OrderStatus, key: "confirmed" as const },
-	{ value: "SHIPPED" as OrderStatus, key: "shipped" as const },
-	{ value: "DELIVERED" as OrderStatus, key: "delivered" as const },
-] satisfies {
-	value: StatusFilter;
-	key: "all" | "pending" | "confirmed" | "shipped" | "delivered";
-}[];
-
-function toDateString(date: Date | null): string {
-	return date ? date.toISOString().slice(0, 10) : "";
-}
-
-function parseDateString(str: string): Date | null {
-	if (!str.trim()) return null;
-	const d = new Date(str);
-	return Number.isNaN(d.getTime()) ? null : d;
 }
 
 export function OrdersFilterDrawer({
@@ -64,31 +43,25 @@ export function OrdersFilterDrawer({
 	const t = useTranslations("orders.list.filterDrawer");
 	const tFilters = useTranslations("orders.list.filters");
 
-	const [draftStatus, setDraftStatus] = useState<StatusFilter>(status);
-	const [draftFrom, setDraftFrom] = useState(toDateString(dateRange.from));
-	const [draftTo, setDraftTo] = useState(toDateString(dateRange.to));
+	const [draftStatus, setDraftStatus] = useState<OrderStatusFilter>(status);
+	const [draftDateRange, setDraftDateRange] = useState<DateRange>(dateRange);
 
 	useEffect(() => {
 		if (open) {
 			setDraftStatus(status);
-			setDraftFrom(toDateString(dateRange.from));
-			setDraftTo(toDateString(dateRange.to));
+			setDraftDateRange(dateRange);
 		}
-	}, [open, status, dateRange.from, dateRange.to]);
+	}, [open, status, dateRange]);
 
 	const handleApply = () => {
 		setStatus(draftStatus);
-		setDateRange({
-			from: parseDateString(draftFrom),
-			to: parseDateString(draftTo),
-		});
+		setDateRange(draftDateRange);
 		onOpenChange(false);
 	};
 
 	const handleClearAll = () => {
 		setDraftStatus(null);
-		setDraftFrom("");
-		setDraftTo("");
+		setDraftDateRange({ from: null, to: null });
 		resetFilters();
 	};
 
@@ -112,16 +85,16 @@ export function OrdersFilterDrawer({
 					<div className="space-y-2">
 						<p className="font-medium text-sm">{t("status")}</p>
 						<div className="flex flex-wrap gap-2">
-							{STATUS_OPTIONS.map((opt) => {
+							{OrderEntity.getStatusFilterOptions().map((opt) => {
 								const isActive = draftStatus === opt.value;
 								return (
 									<Button
-										key={opt.key}
+										key={opt.labelKey}
 										variant={isActive ? "default" : "outline"}
 										size="sm"
 										onClick={() => setDraftStatus(opt.value)}
 									>
-										{tFilters(opt.key)}
+										{tFilters(opt.labelKey)}
 									</Button>
 								);
 							})}
@@ -130,25 +103,13 @@ export function OrdersFilterDrawer({
 
 					{/* Date range */}
 					<div className="space-y-2">
-						<p className="font-medium text-sm">{t("dateRange")}</p>
-						<div className="flex gap-3">
-							<Field className="flex-1">
-								<FieldLabel>{t("from")}</FieldLabel>
-								<Input
-									type="date"
-									value={draftFrom}
-									onChange={(e) => setDraftFrom(e.target.value)}
-								/>
-							</Field>
-							<Field className="flex-1">
-								<FieldLabel>{t("to")}</FieldLabel>
-								<Input
-									type="date"
-									value={draftTo}
-									onChange={(e) => setDraftTo(e.target.value)}
-								/>
-							</Field>
-						</div>
+						<DateRangePicker
+							value={draftDateRange}
+							onChange={setDraftDateRange}
+							label={t("dateRange")}
+							placeholder={t("pickDateRange")}
+							numberOfMonths={1}
+						/>
 					</div>
 				</div>
 

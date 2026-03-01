@@ -234,8 +234,10 @@
 				"all": "Toutes",
 				"pending": "En attente",
 				"confirmed": "Confirmées",
+				"processing": "En cours",
 				"shipped": "Expédiées",
-				"delivered": "Livrées"
+				"delivered": "Livrées",
+				"cancelled": "Annulées"
 			},
 			"status": {
 				"pending": "En attente de confirmation",
@@ -251,6 +253,7 @@
 				"apply": "Appliquer les filtres",
 				"status": "Statut",
 				"dateRange": "Période",
+				"pickDateRange": "Choisir une période",
 				"from": "Du",
 				"to": "Au"
 			}
@@ -293,6 +296,7 @@
 				"inventory": "Inventaire",
 				"variants": "Variantes",
 				"priceRange": "Plage de prix (TND)",
+				"all": "Tous les statuts",
 				"allStatuses": "Tous les statuts",
 				"published": "Publié",
 				"draft": "Brouillon",

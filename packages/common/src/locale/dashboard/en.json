@@ -234,8 +234,10 @@
 				"all": "All",
 				"pending": "Pending",
 				"confirmed": "Confirmed",
+				"processing": "Processing",
 				"shipped": "Shipped",
-				"delivered": "Delivered"
+				"delivered": "Delivered",
+				"cancelled": "Cancelled"
 			},
 			"status": {
 				"pending": "Pending confirmation",
@@ -251,6 +253,7 @@
 				"apply": "Apply filters",
 				"status": "Status",
 				"dateRange": "Date range",
+				"pickDateRange": "Pick a date range",
 				"from": "From",
 				"to": "To"
 			}
@@ -293,6 +296,7 @@
 				"inventory": "Inventory",
 				"variants": "Variants",
 				"priceRange": "Price range (TND)",
+				"all": "All statuses",
 				"allStatuses": "All statuses",
 				"published": "Published",
 				"draft": "Draft",

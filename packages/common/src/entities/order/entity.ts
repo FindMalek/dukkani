@@ -1,3 +1,4 @@
+import { LIST_ORDER_STATUSES } from "../../schemas/enums";
 import type { OrderStatus } from "../../schemas/order/enums";
 import type {
 	OrderIncludeOutput,
@@ -28,7 +29,56 @@ export const ORDER_STATUS_BADGE_VARIANT: Record<
 	CANCELLED: "destructive",
 };
 
+export type OrderStatusFilter = OrderStatus | null;
+
+/** Translation keys for orders.list.filters */
+export type OrderStatusFilterLabelKey =
+	| "all"
+	| "pending"
+	| "confirmed"
+	| "processing"
+	| "shipped"
+	| "delivered"
+	| "cancelled";
+
+const ORDER_STATUS_TO_FILTER_LABEL_KEY: Record<
+	OrderStatus,
+	Exclude<OrderStatusFilterLabelKey, "all">
+> = {
+	PENDING: "pending",
+	CONFIRMED: "confirmed",
+	PROCESSING: "processing",
+	SHIPPED: "shipped",
+	DELIVERED: "delivered",
+	CANCELLED: "cancelled",
+};
+
 export class OrderEntity {
+	/**
+	 * Converts OrderStatus (Prisma enum) to orders.list.filters translation key.
+	 */
+	static getStatusFilterLabelKey(
+		status: OrderStatus,
+	): Exclude<OrderStatusFilterLabelKey, "all"> {
+		return ORDER_STATUS_TO_FILTER_LABEL_KEY[status];
+	}
+
+	/**
+	 * Returns filter options for status tabs/drawer. Uses LIST_ORDER_STATUSES.
+	 */
+	static getStatusFilterOptions(): ReadonlyArray<{
+		value: OrderStatusFilter;
+		labelKey: OrderStatusFilterLabelKey;
+	}> {
+		return [
+			{ value: null, labelKey: "all" },
+			...LIST_ORDER_STATUSES.map((value) => ({
+				value,
+				labelKey: OrderEntity.getStatusFilterLabelKey(value),
+			})),
+		];
+	}
+
 	static getSimpleRo(entity: OrderSimpleDbData): OrderSimpleOutput {
 		return {
 			id: entity.id,

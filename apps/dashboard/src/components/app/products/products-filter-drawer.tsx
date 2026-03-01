@@ -1,9 +1,13 @@
 "use client";
 
+import {
+	PUBLISHED_FILTER_OPTIONS,
+	STOCK_FILTER_OPTIONS,
+	VARIANTS_FILTER_OPTIONS,
+} from "@dukkani/common/schemas/product/enums";
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Drawer,
-	DrawerClose,
 	DrawerContent,
 	DrawerFooter,
 	DrawerHeader,
@@ -13,10 +17,9 @@ import { Field, FieldLabel } from "@dukkani/ui/components/field";
 import { Input } from "@dukkani/ui/components/input";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import type { StockFilter } from "@/stores/product.store";
+import type { StockFilter, VariantsFilter } from "@/stores/product.store";
 
 type PublishedFilter = boolean | null;
-type VariantsFilter = "all" | "with-variants" | "single-sku";
 
 interface ProductsFilterDrawerProps {
 	open: boolean;
@@ -33,25 +36,6 @@ interface ProductsFilterDrawerProps {
 	setPriceMax: (value: number | null) => void;
 	resetFilters: () => void;
 }
-
-const STATUS_OPTIONS = [
-	{ value: null as PublishedFilter, key: "allStatuses" as const },
-	{ value: true as PublishedFilter, key: "published" as const },
-	{ value: false as PublishedFilter, key: "draft" as const },
-];
-
-const INVENTORY_OPTIONS = [
-	{ value: "all" as StockFilter, key: "allInventory" as const },
-	{ value: "in-stock" as StockFilter, key: "inStock" as const },
-	{ value: "low-stock" as StockFilter, key: "lowStock" as const },
-	{ value: "out-of-stock" as StockFilter, key: "outOfStock" as const },
-];
-
-const VARIANTS_OPTIONS = [
-	{ value: "all" as VariantsFilter, key: "allProducts" as const },
-	{ value: "with-variants" as VariantsFilter, key: "withVariants" as const },
-	{ value: "single-sku" as VariantsFilter, key: "singleSku" as const },
-];
 
 export function ProductsFilterDrawer({
 	open,
@@ -117,10 +101,6 @@ export function ProductsFilterDrawer({
 		resetFilters();
 	};
 
-	const handleClose = () => {
-		onOpenChange(false);
-	};
-
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
 			<DrawerContent className="max-h-[85vh]">
@@ -141,16 +121,16 @@ export function ProductsFilterDrawer({
 					<div className="space-y-2">
 						<p className="font-medium text-sm">{t("status")}</p>
 						<div className="flex flex-wrap gap-2">
-							{STATUS_OPTIONS.map((opt) => {
+							{PUBLISHED_FILTER_OPTIONS.map((opt) => {
 								const isActive = draftPublished === opt.value;
 								return (
 									<Button
-										key={opt.key}
+										key={opt.labelKey}
 										variant={isActive ? "default" : "outline"}
 										size="sm"
 										onClick={() => setDraftPublished(opt.value)}
 									>
-										{t(opt.key)}
+										{t(opt.labelKey)}
 									</Button>
 								);
 							})}
@@ -161,16 +141,16 @@ export function ProductsFilterDrawer({
 					<div className="space-y-2">
 						<p className="font-medium text-sm">{t("inventory")}</p>
 						<div className="flex flex-wrap gap-2">
-							{INVENTORY_OPTIONS.map((opt) => {
+							{STOCK_FILTER_OPTIONS.map((opt) => {
 								const isActive = draftStockFilter === opt.value;
 								return (
 									<Button
-										key={opt.key}
+										key={opt.labelKey}
 										variant={isActive ? "default" : "outline"}
 										size="sm"
 										onClick={() => setDraftStockFilter(opt.value)}
 									>
-										{t(opt.key)}
+										{t(opt.labelKey)}
 									</Button>
 								);
 							})}
@@ -181,16 +161,16 @@ export function ProductsFilterDrawer({
 					<div className="space-y-2">
 						<p className="font-medium text-sm">{t("variants")}</p>
 						<div className="flex flex-wrap gap-2">
-							{VARIANTS_OPTIONS.map((opt) => {
+							{VARIANTS_FILTER_OPTIONS.map((opt) => {
 								const isActive = draftVariantsFilter === opt.value;
 								return (
 									<Button
-										key={opt.key}
+										key={opt.labelKey}
 										variant={isActive ? "default" : "outline"}
 										size="sm"
 										onClick={() => setDraftVariantsFilter(opt.value)}
 									>
-										{t(opt.key)}
+										{t(opt.labelKey)}
 									</Button>
 								);
 							})}
