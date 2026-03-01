@@ -21,6 +21,8 @@ const badgeVariants = cva(
 					"border-transparent bg-primary/10 text-primary before:block before:size-1.5 before:shrink-0 before:rounded-full before:bg-primary before:content-[''] dark:bg-primary/20 dark:text-primary [a&]:hover:bg-primary/20",
 				statusMuted:
 					"border-transparent bg-secondary/50 text-muted-foreground before:block before:size-1.5 before:shrink-0 before:rounded-full before:bg-muted-foreground before:content-[''] [a&]:hover:bg-secondary/70",
+				softWarning:
+					"border-transparent bg-orange-500/10 text-orange-700 dark:text-orange-400 [a&]:hover:bg-orange-500/20",
 			},
 			size: {
 				sm: "px-1.5 py-0.5 text-[10px] [&>svg]:size-2.5",

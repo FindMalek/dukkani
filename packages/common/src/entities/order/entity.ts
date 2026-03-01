@@ -20,9 +20,9 @@ import type {
 /** Badge variant strings for UI display - maps OrderStatus to shadcn Badge variant */
 export const ORDER_STATUS_BADGE_VARIANT: Record<
 	OrderStatus,
-	"outline" | "statusSuccess" | "statusMuted" | "destructive"
+	"outline" | "statusSuccess" | "statusMuted" | "destructive" | "softWarning"
 > = {
-	PENDING: "outline",
+	PENDING: "softWarning",
 	CONFIRMED: "statusSuccess",
 	PROCESSING: "statusMuted",
 	SHIPPED: "statusMuted",
@@ -93,6 +93,19 @@ export class OrderEntity {
 		paymentMethod: PaymentMethod,
 	): OrderPaymentMethodLabelKey {
 		return PAYMENT_METHOD_TO_LABEL_KEY[paymentMethod];
+	}
+
+	/**
+	 * Returns the next status in the order lifecycle, or null if at a terminal state.
+	 */
+	static getNextStatus(status: OrderStatus): OrderStatus | null {
+		const NEXT: Partial<Record<OrderStatus, OrderStatus>> = {
+			PENDING: "CONFIRMED",
+			CONFIRMED: "PROCESSING",
+			PROCESSING: "SHIPPED",
+			SHIPPED: "DELIVERED",
+		};
+		return NEXT[status] ?? null;
 	}
 
 	/**

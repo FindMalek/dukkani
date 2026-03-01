@@ -1,6 +1,5 @@
 "use client";
 
-import { AddressEntity } from "@dukkani/common/entities/address/entity";
 import {
 	ORDER_STATUS_BADGE_VARIANT,
 	OrderEntity,
@@ -8,15 +7,13 @@ import {
 import type { OrderIncludeOutput } from "@dukkani/common/schemas/order/output";
 import { formatCurrency } from "@dukkani/common/utils";
 import { Badge } from "@dukkani/ui/components/badge";
-import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
-import Link from "next/link";
+import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
+import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import {
-	formatOrderDateTime,
-	getItemsCount,
-	getOrderTotal,
-} from "@/lib/order-utils";
+import { useMemo } from "react";
+import { useUpdateOrderStatusMutation } from "@/hooks/api/use-orders.hook";
+import { getItemsCount, getOrderTotal } from "@/lib/order-utils";
 import { RoutePaths } from "@/lib/routes";
 
 interface OrderListCardProps {
@@ -26,86 +23,90 @@ interface OrderListCardProps {
 export function OrderListCard({ order }: OrderListCardProps) {
 	const locale = useLocale();
 	const t = useTranslations("orders.list");
+	const router = useRouter();
+	const updateStatusMutation = useUpdateOrderStatusMutation();
 
 	const total = getOrderTotal(order);
 	const itemsCount = getItemsCount(order);
-	const dateTimeStr = formatOrderDateTime(order.createdAt, new Date(), (key) =>
-		t(key as "today" | "yesterday"),
-	);
-	const location = AddressEntity.formatShortLocation(order.address);
 	const paymentLabel = t(
 		OrderEntity.getPaymentMethodLabelKey(order.paymentMethod),
 	);
 	const badgeVariant = ORDER_STATUS_BADGE_VARIANT[order.status] ?? "outline";
 	const statusTranslationKey = OrderEntity.getStatusLabelKey(order.status);
+	const nextStatus = OrderEntity.getNextStatus(order.status);
+	const canCall = !!order.customer?.phone;
+	const canAdvance = nextStatus !== null;
+	const isPending = updateStatusMutation.isPending;
 
-	const handleCallClick = (e: React.MouseEvent) => {
-		e.preventDefault();
-		e.stopPropagation();
-		if (order.customer?.phone) {
-			window.location.href = `tel:${order.customer.phone}`;
-		}
-	};
+	const actions = useMemo(
+		() => [
+			canCall
+				? {
+						side: "right" as const,
+						className: "bg-green-500",
+						icon: <Icons.phone className="size-5" />,
+						label: t("call"),
+						onTrigger: () => {
+							window.location.href = `tel:${order.customer?.phone}`;
+						},
+					}
+				: undefined,
+			canAdvance && nextStatus
+				? {
+						side: "left" as const,
+						className: "bg-primary",
+						icon: <Icons.chevronRight className="size-5" />,
+						label: t("advanceStatus"),
+						onTrigger: () => {
+							updateStatusMutation.mutate({ id: order.id, status: nextStatus });
+						},
+					}
+				: undefined,
+		],
+		[
+			canCall,
+			canAdvance,
+			nextStatus,
+			order.customer?.phone,
+			order.id,
+			t,
+			updateStatusMutation,
+		],
+	);
 
 	return (
-		<Link
-			href={RoutePaths.ORDERS.DETAIL.url(order.id)}
-			className="group flex flex-col gap-3 rounded-xl border bg-card p-3 transition-all hover:shadow-sm"
+		<SwipeableCard
+			actions={actions}
+			onTap={() => router.push(RoutePaths.ORDERS.DETAIL.url(order.id))}
+			disabled={isPending}
 			aria-label={t("viewOrder", { id: order.id })}
 		>
-			{/* Header: name + status */}
-			<div className="flex items-start justify-between gap-2">
-				<h3 className="line-clamp-1 font-semibold text-foreground text-sm">
+			{/* Top row: Name and Status */}
+			<div className="flex items-center justify-between gap-2">
+				<h3 className="font-semibold text-base text-foreground">
 					{order.customer?.name ?? "—"}
 				</h3>
-				<Badge variant={badgeVariant} size="sm" className="shrink-0">
+				<Badge variant={badgeVariant} className="shrink-0 font-normal">
 					{t(statusTranslationKey)}
 				</Badge>
 			</div>
 
-			{/* Order ID + date/time */}
-			<p className="text-muted-foreground text-xs">
-				#{order.id} • {dateTimeStr}
-			</p>
+			{/* Bottom row: ID, Items/Payment, and Total */}
+			<div className="flex items-end justify-between gap-4">
+				<div className="flex flex-col gap-1">
+					<p className="font-bold text-base text-foreground">#{order.id}</p>
+					<p className="text-muted-foreground text-sm">
+						{t("itemsCount", { count: itemsCount })} • {paymentLabel}
+					</p>
+				</div>
 
-			{/* Items + payment */}
-			<p className="text-muted-foreground text-xs">
-				{t("itemsCount", { count: itemsCount })} • {paymentLabel}
-			</p>
-
-			{/* Total */}
-			<p className="font-bold text-base text-foreground">
-				{formatCurrency(total, "TND", locale)}
-			</p>
-
-			{/* Phone + location */}
-			<div className="flex items-center gap-1.5 text-muted-foreground text-xs">
-				{order.customer?.phone && (
-					<>
-						<Icons.phone className="size-3.5 shrink-0" />
-						<span>{order.customer.phone}</span>
-					</>
-				)}
-				{order.customer?.phone && location && <span>•</span>}
-				{location && <span>{location}</span>}
+				<div className="flex items-center gap-2">
+					<p className="font-bold text-foreground text-lg">
+						{formatCurrency(total, "TND", locale)}
+					</p>
+					<Icons.chevronRight className="size-5 shrink-0 text-muted-foreground" />
+				</div>
 			</div>
-
-			{/* Actions row */}
-			<div className="flex items-center justify-end gap-2 pt-1">
-				{order.customer?.phone && (
-					<Button
-						type="button"
-						size="sm"
-						className="shrink-0"
-						onClick={handleCallClick}
-						aria-label={t("call")}
-					>
-						<Icons.phone className="mr-1.5 size-3.5" />
-						{t("call")}
-					</Button>
-				)}
-				<Icons.chevronRight className="size-4 shrink-0 text-muted-foreground" />
-			</div>
-		</Link>
+		</SwipeableCard>
 	);
 }

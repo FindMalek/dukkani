@@ -224,6 +224,7 @@
 			"error": "Erreur de chargement des commandes. Veuillez réessayer plus tard.",
 			"refresh": "Actualiser les commandes",
 			"call": "Appeler",
+			"advanceStatus": "Avancer",
 			"itemsCount": "{count} articles",
 			"cashOnDelivery": "Paiement à la livraison",
 			"card": "Carte",

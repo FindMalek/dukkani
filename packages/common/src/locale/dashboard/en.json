@@ -224,6 +224,7 @@
 			"error": "Error loading orders. Please try again later.",
 			"refresh": "Refresh orders",
 			"call": "Call",
+			"advanceStatus": "Advance",
 			"itemsCount": "{count} items",
 			"cashOnDelivery": "Cash on delivery",
 			"card": "Card",
