@@ -215,6 +215,51 @@
 			}
 		}
 	},
+	"orders": {
+		"list": {
+			"title": "Orders",
+			"description": "View and manage orders",
+			"searchPlaceholder": "Search by name, phone or order #",
+			"empty": "No orders found. Orders will appear here once customers start placing them.",
+			"error": "Error loading orders. Please try again later.",
+			"refresh": "Refresh orders",
+			"call": "Call",
+			"advanceStatus": "Advance",
+			"itemsCount": "{count} items",
+			"cashOnDelivery": "Cash on delivery",
+			"card": "Card",
+			"today": "Today",
+			"yesterday": "Yesterday",
+			"viewOrder": "View order {id}",
+			"filters": {
+				"all": "All",
+				"pending": "Pending",
+				"confirmed": "Confirmed",
+				"processing": "Processing",
+				"shipped": "Shipped",
+				"delivered": "Delivered",
+				"cancelled": "Cancelled"
+			},
+			"status": {
+				"pending": "Pending confirmation",
+				"confirmed": "Confirmed",
+				"processing": "Processing",
+				"shipped": "Shipped",
+				"delivered": "Delivered",
+				"cancelled": "Cancelled"
+			},
+			"filterDrawer": {
+				"title": "Filter orders",
+				"clearAll": "Clear all",
+				"apply": "Apply filters",
+				"status": "Status",
+				"dateRange": "Date range",
+				"pickDateRange": "Pick a date range",
+				"from": "From",
+				"to": "To"
+			}
+		}
+	},
 	"products": {
 		"list": {
 			"title": "Products",
@@ -252,6 +297,7 @@
 				"inventory": "Inventory",
 				"variants": "Variants",
 				"priceRange": "Price range (TND)",
+				"all": "All statuses",
 				"allStatuses": "All statuses",
 				"published": "Published",
 				"draft": "Draft",

@@ -1,5 +1,5 @@
 import { loadFont } from "@remotion/google-fonts/Inter";
-import React from "react";
+import type React from "react";
 import {
 	AbsoluteFill,
 	spring,

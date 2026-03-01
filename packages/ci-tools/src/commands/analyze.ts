@@ -5,6 +5,7 @@
  */
 
 import { ciToolsEnv } from "@dukkani/env/presets/ci-tools";
+import { generateAnalysis } from "../ai/index.js";
 import {
 	createComment,
 	fetchJobLogs,
@@ -15,13 +16,12 @@ import {
 	updateComment,
 } from "../github/index.js";
 import type { PullRequestFile } from "../github/types.js";
-import { generateAnalysis } from "../ai/index.js";
+import type { LighthouseParseResult } from "../logs/index.js";
 import {
 	parseLighthouseFromLogs,
 	sanitizeLogs,
 	truncateDiff,
 } from "../logs/index.js";
-import type { LighthouseParseResult } from "../logs/index.js";
 import { buildPrompt } from "../prompts/index.js";
 
 async function main(): Promise<void> {

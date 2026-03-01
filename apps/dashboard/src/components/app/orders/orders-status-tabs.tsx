@@ -1,26 +1,24 @@
 "use client";
 
 import {
-	PUBLISHED_FILTER_OPTIONS,
-	type PublishedFilter,
-} from "@dukkani/common/schemas/product/enums";
+	OrderEntity,
+	type OrderStatusFilter,
+} from "@dukkani/common/entities/order/entity";
 import { Button } from "@dukkani/ui/components/button";
 import { useTranslations } from "next-intl";
 
-interface ProductsStatusTabsProps {
-	value: PublishedFilter;
-	onChange: (value: PublishedFilter) => void;
+interface OrdersStatusTabsProps {
+	value: OrderStatusFilter;
+	onChange: (value: OrderStatusFilter) => void;
 }
 
-export function ProductsStatusTabs({
-	value,
-	onChange,
-}: ProductsStatusTabsProps) {
-	const t = useTranslations("products.list.filters");
+export function OrdersStatusTabs({ value, onChange }: OrdersStatusTabsProps) {
+	const t = useTranslations("orders.list.filters");
+	const options = OrderEntity.getStatusFilterOptions();
 
 	return (
 		<div className="flex gap-2 overflow-x-auto">
-			{PUBLISHED_FILTER_OPTIONS.map((opt) => {
+			{options.map((opt) => {
 				const isActive = value === opt.value;
 				return (
 					<Button

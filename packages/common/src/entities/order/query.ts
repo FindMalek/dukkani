@@ -106,6 +106,9 @@ export class OrderQuery {
 						phone: { contains: filters.search, mode: "insensitive" },
 					},
 				},
+				{
+					id: { contains: filters.search, mode: "insensitive" },
+				},
 			];
 		}
 

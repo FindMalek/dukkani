@@ -9,20 +9,20 @@ import {
 } from "@dukkani/ui/components/input-group";
 import { useTranslations } from "next-intl";
 
-interface ProductsSearchBarProps {
+interface OrdersSearchBarProps {
 	value: string;
 	onChange: (value: string) => void;
 	onFilterClick?: () => void;
 	filterActive?: boolean;
 }
 
-export function ProductsSearchBar({
+export function OrdersSearchBar({
 	value,
 	onChange,
 	onFilterClick,
 	filterActive = false,
-}: ProductsSearchBarProps) {
-	const t = useTranslations("products.list");
+}: OrdersSearchBarProps) {
+	const t = useTranslations("orders.list");
 
 	return (
 		<InputGroup>

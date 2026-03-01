@@ -12,12 +12,18 @@ import {
 } from "@dukkani/ui/components/alert-dialog";
 import { Button } from "@dukkani/ui/components/button";
 import { Card, CardContent } from "@dukkani/ui/components/card";
+import {
+	Empty,
+	EmptyContent,
+	EmptyDescription,
+	EmptyHeader,
+	EmptyMedia,
+} from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
 import { ProductListCard } from "@/components/app/products/product-list-card";
-import { ProductsEmptyState } from "@/components/app/products/products-empty-state";
 import { ProductsFilterDrawer } from "@/components/app/products/products-filter-drawer";
 import { ProductsListSkeleton } from "@/components/app/products/products-list-skeleton";
 import { ProductsPageHeader } from "@/components/app/products/products-page-header";
@@ -135,14 +141,26 @@ export default function ProductsPage() {
 					))}
 				</div>
 			) : (
-				<ProductsEmptyState />
+				<Empty className="border bg-muted/30">
+					<EmptyHeader>
+						<EmptyMedia variant="icon">
+							<Icons.package />
+						</EmptyMedia>
+						<EmptyDescription>{t("empty")}</EmptyDescription>
+					</EmptyHeader>
+					<EmptyContent>
+						<Button asChild size="lg">
+							<Link href={RoutePaths.PRODUCTS.NEW.url}>{t("addProduct")}</Link>
+						</Button>
+					</EmptyContent>
+				</Empty>
 			)}
 
 			{/* FAB - Add Product */}
 			<Button
 				asChild
 				size="icon-lg"
-				className="fixed bottom-24 end-4 z-50 size-14 rounded-full shadow-lg md:bottom-8 md:end-6"
+				className="fixed end-4 bottom-24 z-50 size-14 rounded-full shadow-lg md:end-6 md:bottom-8"
 				aria-label={t("addProduct")}
 			>
 				<Link href={RoutePaths.PRODUCTS.NEW.url}>

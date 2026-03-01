@@ -1,5 +1,5 @@
-import { useId } from "react";
 import type { SVGProps } from "react";
+import { useId } from "react";
 
 export interface Iphone15ProProps extends SVGProps<SVGSVGElement> {
 	width?: number;

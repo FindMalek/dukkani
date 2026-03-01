@@ -1,6 +1,6 @@
+import arMessages from "@dukkani/common/locale/web/ar.json";
 import enMessages from "@dukkani/common/locale/web/en.json";
 import frMessages from "@dukkani/common/locale/web/fr.json";
-import arMessages from "@dukkani/common/locale/web/ar.json";
 import {
 	DEFAULT_LOCALE,
 	LOCALES,
