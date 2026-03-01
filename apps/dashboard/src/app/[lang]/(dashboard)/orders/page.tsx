@@ -1,10 +1,16 @@
 "use client";
 
 import { Card, CardContent } from "@dukkani/ui/components/card";
+import {
+	Empty,
+	EmptyDescription,
+	EmptyHeader,
+	EmptyMedia,
+} from "@dukkani/ui/components/empty";
+import { Icons } from "@dukkani/ui/components/icons";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { OrderListCard } from "@/components/app/orders/order-list-card";
-import { OrdersEmptyState } from "@/components/app/orders/orders-empty-state";
 import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
 import { OrdersListSkeleton } from "@/components/app/orders/orders-list-skeleton";
 import { OrdersPageHeader } from "@/components/app/orders/orders-page-header";
@@ -117,7 +123,14 @@ export default function OrdersPage() {
 					))}
 				</div>
 			) : (
-				<OrdersEmptyState />
+				<Empty className="border bg-muted/30">
+					<EmptyHeader>
+						<EmptyMedia variant="icon">
+							<Icons.shoppingCart />
+						</EmptyMedia>
+						<EmptyDescription>{t("empty")}</EmptyDescription>
+					</EmptyHeader>
+				</Empty>
 			)}
 		</div>
 	);

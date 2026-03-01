@@ -48,10 +48,10 @@ export function OrdersFilterDrawer({
 
 	useEffect(() => {
 		if (open) {
-			setDraftStatus(status);
-			setDraftDateRange(dateRange);
+		  setDraftStatus(status);
+		  setDraftDateRange(dateRange);
 		}
-	}, [open, status, dateRange]);
+	  }, [open, status, dateRange]);
 
 	const handleApply = () => {
 		setStatus(draftStatus);
@@ -60,10 +60,8 @@ export function OrdersFilterDrawer({
 	};
 
 	const handleClearAll = () => {
-		setDraftStatus(null);
-		setDraftDateRange({ from: null, to: null });
 		resetFilters();
-	};
+	  };
 
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>

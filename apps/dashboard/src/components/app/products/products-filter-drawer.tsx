@@ -2,6 +2,7 @@
 
 import {
 	PUBLISHED_FILTER_OPTIONS,
+	type PublishedFilter,
 	STOCK_FILTER_OPTIONS,
 	VARIANTS_FILTER_OPTIONS,
 } from "@dukkani/common/schemas/product/enums";
@@ -18,8 +19,6 @@ import { Input } from "@dukkani/ui/components/input";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import type { StockFilter, VariantsFilter } from "@/stores/product.store";
-
-type PublishedFilter = boolean | null;
 
 interface ProductsFilterDrawerProps {
 	open: boolean;

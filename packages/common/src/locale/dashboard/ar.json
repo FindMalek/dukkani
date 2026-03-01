@@ -235,8 +235,10 @@
 				"all": "الكل",
 				"pending": "قيد الانتظار",
 				"confirmed": "مؤكد",
+				"processing": "قيد المعالجة",
 				"shipped": "تم الشحن",
-				"delivered": "تم التسليم"
+				"delivered": "تم التسليم",
+				"cancelled": "ملغى"
 			},
 			"status": {
 				"pending": "في انتظار التأكيد",
@@ -322,104 +324,104 @@
 		},
 		"create": {
 			"header": {
-				"title": "New product",
-				"save": "Save"
+				"title": "منتج جديد",
+				"save": "حفظ"
 			},
 			"sections": {
-				"photos": "Product Photos",
-				"essentials": "Essentials",
-				"organization": "Organization",
-				"options": "Has options"
+				"photos": "صور المنتج",
+				"essentials": "المعلومات الأساسية",
+				"organization": "التنظيم",
+				"options": "لديه خيارات"
 			},
 			"form": {
 				"name": {
-					"label": "Product Name",
-					"placeholder": "Enter product name"
+					"label": "اسم المنتج",
+					"placeholder": "أدخل اسم المنتج"
 				},
 				"price": {
-					"label": "Price",
-					"placeholder": "Enter product price"
+					"label": "السعر",
+					"placeholder": "أدخل سعر المنتج"
 				},
 				"stock": {
-					"label": "Stock",
-					"placeholder": "Enter product stock"
+					"label": "المخزون",
+					"placeholder": "أدخل مخزون المنتج"
 				},
 				"description": {
-					"label": "Description",
-					"placeholder": "Enter product description"
+					"label": "الوصف",
+					"placeholder": "أدخل وصف المنتج"
 				},
 				"published": {
-					"label": "Published",
-					"placeholder": "Enter product published"
+					"label": "منشور",
+					"placeholder": "أدخل حالة نشر المنتج"
 				},
-				"addPhotos": "Add photos",
-				"priceHelp": "Price customers pay (COD)",
+				"addPhotos": "إضافة صور",
+				"priceHelp": "السعر الذي يدفعه العملاء (الدفع عند الاستلام)",
 				"category": {
-					"label": "Category",
-					"placeholder": "Select category...",
-					"searchPlaceholder": "Search categories...",
-					"noResults": "No categories found.",
-					"create": "Create category",
-					"created": "Category created successfully",
-					"nameLabel": "Category Name",
-					"namePlaceholder": "e.g. T-Shirts, Electronics",
-					"createDescription": "Create a new category to organize your products.",
-					"uncategorized": "Uncategorized"
+					"label": "الفئة",
+					"placeholder": "اختر فئة...",
+					"searchPlaceholder": "البحث في الفئات...",
+					"noResults": "لم يتم العثور على فئات.",
+					"create": "إنشاء فئة",
+					"created": "تم إنشاء الفئة بنجاح",
+					"nameLabel": "اسم الفئة",
+					"namePlaceholder": "مثال: تي شيرت، إلكترونيات",
+					"createDescription": "أنشئ فئة جديدة لتنظيم منتجاتك.",
+					"uncategorized": "بدون فئة"
 				},
 				"options": {
-					"label": "Has options",
-					"description": "Add options like Size, Color, Material, etc."
+					"label": "لديه خيارات",
+					"description": "أضف خيارات مثل الحجم، اللون، المادة، إلخ."
 				},
-				"saveDraft": "Save draft",
-				"savePublish": "Save & publish",
-				"optional": "optional",
-				"cancel": "Cancel",
+				"saveDraft": "حفظ كمسودة",
+				"savePublish": "حفظ ونشر",
+				"optional": "اختياري",
+				"cancel": "إلغاء",
 				"validation": {
-					"errors": "Please fix the form errors before submitting"
+					"errors": "يرجى إصلاح أخطاء النموذج قبل الإرسال"
 				},
 				"variants": {
 					"options": {
-						"title": "Variant Options",
-						"add": "Add Option",
-						"empty": "Add options like Size, Color, Material, etc.",
-						"unnamed": "Unnamed Option",
-						"optionName": "Option Name",
-						"optionNamePlaceholder": "e.g. Size, Color",
-						"values": "Values",
-						"addValue": "Add Value",
-						"noValues": "Add at least one value",
-						"remove": "Remove Option",
-						"addAnother": "Add another option"
+						"title": "خيارات المتغير",
+						"add": "إضافة خيار",
+						"empty": "أضف خيارات مثل الحجم، اللون، المادة، إلخ.",
+						"unnamed": "خيار بدون اسم",
+						"optionName": "اسم الخيار",
+						"optionNamePlaceholder": "مثال: الحجم، اللون",
+						"values": "القيم",
+						"addValue": "إضافة قيمة",
+						"noValues": "أضف قيمة واحدة على الأقل",
+						"remove": "إزالة الخيار",
+						"addAnother": "إضافة خيار آخر"
 					},
 					"list": {
-						"title": "Variants",
-						"empty": "Add variant options above to generate variants",
-						"unnamed": "Unnamed Variant",
-						"price": "Price",
-						"stock": "Stock",
-						"edit": "Edit Variant"
+						"title": "المتغيرات",
+						"empty": "أضف خيارات المتغير أعلاه لإنشاء المتغيرات",
+						"unnamed": "متغير بدون اسم",
+						"price": "السعر",
+						"stock": "المخزون",
+						"edit": "تعديل المتغير"
 					},
 					"edit": {
-						"title": "Edit Variant",
-						"sku": "SKU",
-						"skuPlaceholder": "Optional",
-						"price": "Price",
-						"priceHelp": "Leave empty to use base product price",
-						"stock": "Stock"
+						"title": "تعديل المتغير",
+						"sku": "رمز المنتج",
+						"skuPlaceholder": "اختياري",
+						"price": "السعر",
+						"priceHelp": "اتركه فارغاً لاستخدام سعر المنتج الأساسي",
+						"stock": "المخزون"
 					},
 					"validation": {
-						"duplicateOptionName": "Duplicate option name",
-						"duplicateOptionValues": "Duplicate option values",
-						"duplicateValue": "Duplicate value",
-						"duplicateOption": "Duplicate option"
+						"duplicateOptionName": "اسم الخيار مكرر",
+						"duplicateOptionValues": "قيم الخيار مكررة",
+						"duplicateValue": "القيمة مكررة",
+						"duplicateOption": "الخيار مكرر"
 					}
 				}
 			},
-			"success": "Product created successfully!",
+			"success": "تم إنشاء المنتج بنجاح!",
 			"noStore": {
-				"title": "No Store Found",
-				"description": "Please create a store first to add products.",
-				"createStore": "Create Store"
+				"title": "لم يتم العثور على متجر",
+				"description": "يرجى إنشاء متجر أولاً لإضافة المنتجات.",
+				"createStore": "إنشاء متجر"
 			}
 		}
 	}
