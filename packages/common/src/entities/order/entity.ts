@@ -1,3 +1,4 @@
+import type { PaymentMethod } from "../../schemas/enums";
 import { LIST_ORDER_STATUSES } from "../../schemas/enums";
 import type { OrderStatus } from "../../schemas/order/enums";
 import type {
@@ -53,6 +54,17 @@ const ORDER_STATUS_TO_FILTER_LABEL_KEY: Record<
 	CANCELLED: "cancelled",
 };
 
+/** Translation keys for orders.list payment method display */
+export type OrderPaymentMethodLabelKey = "cashOnDelivery" | "card";
+
+const PAYMENT_METHOD_TO_LABEL_KEY: Record<
+	PaymentMethod,
+	OrderPaymentMethodLabelKey
+> = {
+	COD: "cashOnDelivery",
+	CARD: "card",
+};
+
 export class OrderEntity {
 	/**
 	 * Converts OrderStatus (Prisma enum) to orders.list.filters translation key.
@@ -61,6 +73,26 @@ export class OrderEntity {
 		status: OrderStatus,
 	): Exclude<OrderStatusFilterLabelKey, "all"> {
 		return ORDER_STATUS_TO_FILTER_LABEL_KEY[status];
+	}
+
+	/**
+	 * Converts OrderStatus (Prisma enum) to orders.list.status translation key.
+	 * Use with useTranslations("orders.list") then t(OrderEntity.getStatusLabelKey(status)).
+	 */
+	static getStatusLabelKey(
+		status: OrderStatus,
+	): `status.${Exclude<OrderStatusFilterLabelKey, "all">}` {
+		return `status.${ORDER_STATUS_TO_FILTER_LABEL_KEY[status]}`;
+	}
+
+	/**
+	 * Converts PaymentMethod (Prisma enum) to orders.list translation key.
+	 * Use with useTranslations("orders.list") then t(OrderEntity.getPaymentMethodLabelKey(paymentMethod)).
+	 */
+	static getPaymentMethodLabelKey(
+		paymentMethod: PaymentMethod,
+	): OrderPaymentMethodLabelKey {
+		return PAYMENT_METHOD_TO_LABEL_KEY[paymentMethod];
 	}
 
 	/**

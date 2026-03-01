@@ -1,7 +1,11 @@
 "use client";
 
+import { AddressEntity } from "@dukkani/common/entities/address/entity";
+import {
+	ORDER_STATUS_BADGE_VARIANT,
+	OrderEntity,
+} from "@dukkani/common/entities/order/entity";
 import type { OrderIncludeOutput } from "@dukkani/common/schemas/order/output";
-import { ORDER_STATUS_BADGE_VARIANT } from "@dukkani/common/entities/order/entity";
 import { formatCurrency } from "@dukkani/common/utils";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
@@ -28,21 +32,12 @@ export function OrderListCard({ order }: OrderListCardProps) {
 	const dateTimeStr = formatOrderDateTime(order.createdAt, new Date(), (key) =>
 		t(key as "today" | "yesterday"),
 	);
-	const location = order.address
-		? `${order.address.city}${order.address.street ? `, ${order.address.street}` : ""}`
-		: null;
-	const paymentLabel =
-		order.paymentMethod === "COD" ? t("cashOnDelivery") : t("card");
+	const location = AddressEntity.formatShortLocation(order.address);
+	const paymentLabel = t(
+		OrderEntity.getPaymentMethodLabelKey(order.paymentMethod),
+	);
 	const badgeVariant = ORDER_STATUS_BADGE_VARIANT[order.status] ?? "outline";
-	const statusTranslationKey = `status.${order.status.toLowerCase()}` as
-		| "status.pending"
-		| "status.confirmed"
-		| "status.processing"
-		| "status.shipped"
-		| "status.delivered"
-		| "status.cancelled";
-
-	const detailHref = `/${locale}${RoutePaths.ORDERS.DETAIL.url(order.id)}`;
+	const statusTranslationKey = OrderEntity.getStatusLabelKey(order.status);
 
 	const handleCallClick = (e: React.MouseEvent) => {
 		e.preventDefault();
@@ -54,7 +49,7 @@ export function OrderListCard({ order }: OrderListCardProps) {
 
 	return (
 		<Link
-			href={detailHref}
+			href={RoutePaths.ORDERS.DETAIL.url(order.id)}
 			className="group flex flex-col gap-3 rounded-xl border bg-card p-3 transition-all hover:shadow-sm"
 			aria-label={t("viewOrder", { id: order.id })}
 		>
