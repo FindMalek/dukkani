@@ -10,15 +10,13 @@ import {
 } from "../input-group";
 import { BaseField } from "./base-field";
 
-// Avoid float precision issues (e.g. 0.2 + 0.1 => 0.30000000004); round to 3 decimals
-const stepResult = (n: number) => String(Number(Number(n).toFixed(3)));
-
 type NumberFieldProps = {
 	label: string;
 	min?: number;
 	max?: number;
 	step?: number;
 	inputMode?: InputHTMLAttributes<HTMLInputElement>["inputMode"];
+	maxPoints?: number;
 } & Omit<
 	InputHTMLAttributes<HTMLInputElement>,
 	"type" | "min" | "max" | "step" | "inputMode"
@@ -30,10 +28,14 @@ export function NumberField({
 	max = Number.POSITIVE_INFINITY,
 	inputMode = "numeric",
 	step = 1,
+	maxPoints = 3,
 	...props
 }: NumberFieldProps) {
 	const field = useFieldContext<string>();
 
+	const stepResult = useCallback((n: number) => {
+		return String(Number(n.toFixed(maxPoints)));
+	}, [maxPoints]);	
 	const isInvalid = useMemo(
 		() => field.state.meta.isTouched && !field.state.meta.isValid,
 		[field.state.meta.isTouched, field.state.meta.isValid],
@@ -41,11 +43,11 @@ export function NumberField({
 
 	const handleDecrement = useCallback(() => {
 		field.handleChange(stepResult(Number(field.state.value) - step));
-	}, [field, step]);
+	}, [field, step, stepResult]);
 
 	const handleIncrement = useCallback(() => {
 		field.handleChange(stepResult(Number(field.state.value) + step));
-	}, [field, step]);
+	}, [field, step, stepResult]);
 
 	const handleChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
