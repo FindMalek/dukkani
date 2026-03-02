@@ -2,6 +2,8 @@
 import type * as React from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useFieldContext } from "../../hooks/use-app-form";
+import { Button } from "../button";
+import { Icons } from "../icons";
 import {
 	Select,
 	SelectContent,
@@ -29,12 +31,17 @@ type SelectOptionGroup = {
 type SelectFieldProps = CommonFieldProps &
 	React.ComponentProps<typeof Select> & {
 		options?: SelectOptionGroup[] | (() => Promise<SelectOptionGroup[]>);
+	} & {
+		// like opening a modal or a dialog
+		onNewOptionClick?: () => void;
 	};
 
 export function SelectField({
 	label,
 	description,
+	labelFirstOnHorizontal = false,
 	options: optionsOrPromise,
+	onNewOptionClick,
 	...props
 }: SelectFieldProps) {
 	const field = useFieldContext<string>();
@@ -74,13 +81,19 @@ export function SelectField({
 				name={field.name}
 				value={field.state.value}
 				onValueChange={(value) => field.handleChange(value)}
-				onOpenChange={field.handleBlur}
 				{...props}
 			>
-				<SelectTrigger aria-invalid={isInvalid}>
-					<SelectValue placeholder="Select an option" />
-				</SelectTrigger>
-				<SelectContent position="popper">
+				<div className="flex items-center justify-between gap-2">
+					<SelectTrigger aria-invalid={isInvalid} className="grow">
+						<SelectValue placeholder="Select an option" />
+					</SelectTrigger>
+					{onNewOptionClick && (
+						<Button variant="secondary" size="icon" onClick={onNewOptionClick}>
+							<Icons.plus className="size-4" />
+						</Button>
+					)}
+				</div>
+				<SelectContent>
 					{resolvedOptions.map((optionGroup) => (
 						<SelectGroup key={optionGroup.id}>
 							{optionGroup.name && (
