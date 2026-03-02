@@ -111,6 +111,7 @@ export function NumberField({
 			<InputGroup>
 				<InputGroupAddon align="inline-start">
 					<InputGroupButton
+						variant={"secondary"}
 						size="icon-xs"
 						onClick={handleDecrement}
 						disabled={isMinDisabled}
@@ -126,7 +127,7 @@ export function NumberField({
 					onBlur={field.handleBlur}
 					aria-invalid={isInvalid}
 					type="text"
-					className="text-center"
+					className="text-end"
 					inputMode={inputMode}
 					min={min}
 					max={max}
@@ -135,6 +136,7 @@ export function NumberField({
 				/>
 				<InputGroupAddon align="inline-end">
 					<InputGroupButton
+						variant={"secondary"}
 						size="icon-xs"
 						onClick={handleIncrement}
 						disabled={isMaxDisabled}
