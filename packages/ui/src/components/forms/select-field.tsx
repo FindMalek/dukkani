@@ -50,8 +50,18 @@ export function SelectField({
 	}, [optionsOrPromise, asyncOptions]);
 
 	useEffect(() => {
+		const cancelled = false;
 		if (typeof optionsOrPromise === "function") {
-			optionsOrPromise().then(setAsyncOptions);
+			optionsOrPromise()
+				.then((options) => {
+					if (!cancelled) setAsyncOptions(options);
+				})
+				.catch((error) => {
+					if (!cancelled) {
+						console.error("Failed to load select options:", error);
+						setAsyncOptions([]);
+					}
+				});
 		} else {
 			setAsyncOptions(null);
 		}
