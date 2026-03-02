@@ -3,8 +3,12 @@
 import {
 	type CreateProductInput,
 	createProductInputSchema,
-	productInputSchema,
 } from "@dukkani/common/schemas/product/input";
+import { Card, CardContent } from "@dukkani/ui/components/card";
+import {
+	Collapsible,
+	CollapsibleContent,
+} from "@dukkani/ui/components/collapsible";
 import {
 	FieldDescription,
 	FieldGroup,
@@ -19,14 +23,12 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
 	forwardRef,
-	Suspense,
 	useEffect,
 	useImperativeHandle,
 	useMemo,
 	useState,
 } from "react";
 import { toast } from "sonner";
-import { z } from "zod";
 import { ProductCategorySection } from "@/components/app/products/product-category-section";
 import { ProductDescriptionSection } from "@/components/app/products/product-description-section";
 import { ProductEssentialsSection } from "@/components/app/products/product-essentials-section";
@@ -46,106 +48,9 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 	({ storeId }, ref) => {
 		const router = useRouter();
 		const t = useTranslations("products.create");
-		const { data: categories, isLoading: isLoadingCategories } =
-			useCategoriesQuery({
-				storeId,
-			});
-
-			const categoriesOptions = useMemo(() => {
-				if (!categories?.length) return [];
-				return [
-				  {
-					id: "categories",
-					options: categories.map((category) => ({
-					  id: category.id,
-					  name: category.name,
-					})),
-				  },
-				];
-			  }, [categories]);
-		// const [isUploading, setIsUploading] = useState(false);
-		// const [previews, setPreviews] = useState<string[]>([]);
-		// const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-		// const [submittingAction, setSubmittingAction] = useState<
-		// 	"draft" | "publish" | null
-		// >(null);
-
-		// useEffect(() => {
-		// 	// Clean up old URLs when previews change
-		// 	return () => {
-		// 		previews.forEach((url) => {
-		// 			URL.revokeObjectURL(url);
-		// 		});
-		// 	};
-		// }, [previews]);
-
-		// const createProductMutation = useMutation({
-		// 	mutationFn: (input: CreateProductInput) => client.product.create(input),
-		// 	onSuccess: () => {
-		// 		toast.success(t("success"));
-		// 		router.push(RoutePaths.PRODUCTS.INDEX.url);
-		// 		form.reset();
-		// 		setSubmittingAction(null);
-		// 	},
-		// 	onError: (error) => {
-		// 		handleAPIError(error);
-		// 		setSubmittingAction(null);
-		// 	},
-		// });
-
-		// const form = useSchemaForm({
-		// 	schema: createProductInputSchema,
-		// 	defaultValues: {
-		// 		name: "",
-		// 		description: "",
-		// 		price: 0,
-		// 		stock: 10,
-		// 		published: false,
-		// 		storeId,
-		// 		imageUrls: [],
-		// 		hasVariants: false,
-		// 		variantOptions: [],
-		// 		variants: [],
-		// 	},
-		// 	validationMode: ["onBlur", "onSubmit"],
-		// 	onSubmit: async (values: CreateProductInput) => {
-		// 		if (createProductMutation.isPending || isUploading) {
-		// 			return;
-		// 		}
-
-		// 		const hasVariants = form.state.values.hasVariants;
-		// 		const submitData: CreateProductInput = {
-		// 			...values,
-		// 			imageUrls: [], // Will be set after upload
-		// 			hasVariants,
-		// 			variantOptions: hasVariants
-		// 				? values.variantOptions?.filter(
-		// 						(opt) => opt.name && opt.values && opt.values.length > 0,
-		// 					)
-		// 				: undefined,
-		// 			variants: hasVariants ? values.variants : undefined,
-		// 		};
-
-		// 		try {
-		// 			setIsUploading(true);
-		// 			let urls: string[] = [];
-		// 			if (selectedFiles.length > 0) {
-		// 				const res = await client.storage.uploadMany({
-		// 					files: selectedFiles,
-		// 				});
-		// 				urls = res.files.map((f) => f.url);
-		// 			}
-
-		// 			submitData.imageUrls = urls;
-		// 			createProductMutation.mutate(submitData);
-		// 		} catch (e) {
-		// 			handleAPIError(e);
-		// 		} finally {
-		// 			setIsUploading(false);
-		// 		}
-		// 	},
-		// });
-
+		const { data: categories } = useCategoriesQuery({
+			storeId,
+		});
 		const formV2 = useAppForm({
 			defaultValues: {
 				name: "",
@@ -155,57 +60,153 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				published: false,
 				storeId,
 				categoryId: "",
-				imageUrls: [],
+				hasVariants: false,
+				variants: [{ name: "Size", options: ["S", "M", "L", "XL", "XXL"] }],
 			},
 			onSubmit: async ({ value }) => {
 				console.log(value);
 			},
 		});
+		const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
+		const categoriesOptions = useMemo(() => {
+			if (!categories?.length) return [];
+			return [
+				{
+					id: "categories",
+					options: categories.map((category) => ({
+						id: category.id,
+						name: category.name,
+					})),
+				},
+			];
+		}, [categories]);
+		const [isUploading, setIsUploading] = useState(false);
+		const [previews, setPreviews] = useState<string[]>([]);
+		const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+		const [submittingAction, setSubmittingAction] = useState<
+			"draft" | "publish" | null
+		>(null);
 
-		// const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		// 	const files = Array.from(e.target.files || []);
-		// 	if (files.length + selectedFiles.length > 10) return;
-		// 	setSelectedFiles([...selectedFiles, ...files]);
-		// 	setPreviews([...previews, ...files.map((f) => URL.createObjectURL(f))]);
-		// };
+		useEffect(() => {
+			// Clean up old URLs when previews change
+			return () => {
+				previews.forEach((url) => {
+					URL.revokeObjectURL(url);
+				});
+			};
+		}, [previews]);
 
-		// const removeImage = (i: number) => {
-		// 	const f = [...selectedFiles];
-		// 	f.splice(i, 1);
-		// 	setSelectedFiles(f);
-		// 	const p = [...previews];
-		// 	URL.revokeObjectURL(p[i]);
-		// 	p.splice(i, 1);
-		// 	setPreviews(p);
-		// };
+		const createProductMutation = useMutation({
+			mutationFn: (input: CreateProductInput) => client.product.create(input),
+			onSuccess: () => {
+				toast.success(t("success"));
+				router.push(RoutePaths.PRODUCTS.INDEX.url);
+				form.reset();
+				setSubmittingAction(null);
+			},
+			onError: (error) => {
+				handleAPIError(error);
+				setSubmittingAction(null);
+			},
+		});
 
-		// const onSubmit = async (published: boolean) => {
-		// 	if (createProductMutation.isPending || isUploading) {
-		// 		return;
-		// 	}
+		const form = useSchemaForm({
+			schema: createProductInputSchema,
+			defaultValues: {
+				name: "",
+				description: "",
+				price: 0,
+				stock: 10,
+				published: false,
+				storeId,
+				imageUrls: [],
+				hasVariants: false,
+				variantOptions: [],
+				variants: [],
+			},
+			validationMode: ["onBlur", "onSubmit"],
+			onSubmit: async (values: CreateProductInput) => {
+				if (createProductMutation.isPending || isUploading) {
+					return;
+				}
 
-		// 	setSubmittingAction(published ? "publish" : "draft");
-		// 	form.setFieldValue("published", published);
+				const hasVariants = form.state.values.hasVariants;
+				const submitData: CreateProductInput = {
+					...values,
+					imageUrls: [], // Will be set after upload
+					hasVariants,
+					variantOptions: hasVariants
+						? values.variantOptions?.filter(
+								(opt) => opt.name && opt.values && opt.values.length > 0,
+							)
+						: undefined,
+					variants: hasVariants ? values.variants : undefined,
+				};
 
-		// 	const hasVariants = form.state.values.hasVariants;
-		// 	if (!hasVariants) {
-		// 		form.setFieldValue("variantOptions", []);
-		// 		form.setFieldValue("variants", []);
-		// 	}
+				try {
+					setIsUploading(true);
+					let urls: string[] = [];
+					if (selectedFiles.length > 0) {
+						const res = await client.storage.uploadMany({
+							files: selectedFiles,
+						});
+						urls = res.files.map((f) => f.url);
+					}
 
-		// 	await form.handleSubmit();
-		// };
+					submitData.imageUrls = urls;
+					createProductMutation.mutate(submitData);
+				} catch (e) {
+					handleAPIError(e);
+				} finally {
+					setIsUploading(false);
+				}
+			},
+		});
 
-		// useImperativeHandle(ref, () => ({
-		// 	submit: onSubmit,
-		// }));
+		const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+			const files = Array.from(e.target.files || []);
+			if (files.length + selectedFiles.length > 10) return;
+			setSelectedFiles([...selectedFiles, ...files]);
+			setPreviews([...previews, ...files.map((f) => URL.createObjectURL(f))]);
+		};
+
+		const removeImage = (i: number) => {
+			const f = [...selectedFiles];
+			f.splice(i, 1);
+			setSelectedFiles(f);
+			const p = [...previews];
+			URL.revokeObjectURL(p[i]);
+			p.splice(i, 1);
+			setPreviews(p);
+		};
+
+		const onSubmit = async (published: boolean) => {
+			if (createProductMutation.isPending || isUploading) {
+				return;
+			}
+
+			setSubmittingAction(published ? "publish" : "draft");
+			form.setFieldValue("published", published);
+
+			const hasVariants = form.state.values.hasVariants;
+			if (!hasVariants) {
+				form.setFieldValue("variantOptions", []);
+				form.setFieldValue("variants", []);
+			}
+
+			await form.handleSubmit();
+		};
+
+		useImperativeHandle(ref, () => ({
+			submit: onSubmit,
+		}));
 
 		return (
 			<>
 				<Form onSubmit={formV2.handleSubmit}>
 					<FieldGroup>
 						<FieldSet>
-							<FieldLegend>Essentials</FieldLegend>
+							<FieldLegend>{t("sections.essentials")}</FieldLegend>
 							<FieldDescription>
 								Enter the essentials of your product
 							</FieldDescription>
@@ -227,10 +228,16 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 									)}
 								</formV2.AppField>
 								<formV2.AppField name="stock">
+									{(field) => <field.NumberInput label="Stock" />}
+								</formV2.AppField>
+								<formV2.AppField name="price">
 									{(field) => (
 										<field.NumberInput
-											label="Stock"
-										/>	
+											label="Price"
+											inputMode="decimal"
+											step={0.1}
+											maxPoints={3}
+										/>
 									)}
 								</formV2.AppField>
 								<formV2.AppField name="categoryId">
@@ -238,14 +245,86 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 										<field.SelectInput
 											label="Category"
 											options={categoriesOptions}
+											onNewOptionClick={() => {
+												console.log("open modal");
+											}}
 										/>
 									)}
 								</formV2.AppField>
+								<formV2.AppField name="hasVariants">
+									{(field) => (
+										<field.SwitchInput
+											label={t("form.options.label")}
+											description={t("form.options.description")}
+										/>
+									)}
+								</formV2.AppField>
+								<formV2.Subscribe
+									selector={(state) => state.values.hasVariants}
+								>
+									{(hasVariants) => (
+										<Collapsible open={hasVariants}>
+											<CollapsibleContent>
+												<FieldSet>
+													<Card className="mb-4">
+														<CardContent>
+															<FieldGroup>
+																<formV2.AppField name="variants" mode="array">
+																	{(field) =>
+																		field.state.value.map(
+																			(variant, variantIndex) => (
+																				<formV2.AppField
+																					name={`variants[${variantIndex}].name`}
+																					key={variant.name}
+																				>
+																					{(field) => (
+																						<FieldGroup>
+																							<field.TextInput
+																								label="Variant Name"
+																								placeholder="Enter the name of your variant"
+																							/>
+																							<formV2.AppField
+																								name={`variants[${variantIndex}].options`}
+																								mode="array"
+																							>
+																								{(field) =>
+																									field.state.value.map(
+																										(option, optionIndex) => (
+																											<formV2.AppField
+																												name={`variants[${variantIndex}].options[${optionIndex}]`}
+																												key={option}
+																											>
+																												{(field) => (
+																													<field.TextInput
+																														label="Variant Value"
+																														placeholder="Enter the value of your variant"
+																													/>
+																												)}
+																											</formV2.AppField>
+																										),
+																									)
+																								}
+																							</formV2.AppField>
+																						</FieldGroup>
+																					)}
+																				</formV2.AppField>
+																			),
+																		)
+																	}
+																</formV2.AppField>
+															</FieldGroup>
+														</CardContent>
+													</Card>
+												</FieldSet>
+											</CollapsibleContent>
+										</Collapsible>
+									)}
+								</formV2.Subscribe>
 							</FieldGroup>
 						</FieldSet>
 					</FieldGroup>
 				</Form>
-				{/* <form
+				<form
 					onSubmit={(e) => {
 						e.preventDefault();
 						form.handleSubmit();
@@ -279,7 +358,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 							(submittingAction === "publish" && isUploading)
 						}
 					/>
-				</form> */}
+				</form>
 			</>
 		);
 	},
