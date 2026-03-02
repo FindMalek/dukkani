@@ -562,9 +562,6 @@ importers:
       '@types/react-dom':
         specifier: 19.2.2
         version: 19.2.2(@types/react@19.2.2)
-      '@vercel/config':
-        specifier: 'catalog:'
-        version: 0.0.36
       baseline-browser-mapping:
         specifier: 'catalog:'
         version: 2.9.14
