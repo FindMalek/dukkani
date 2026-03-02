@@ -16,20 +16,15 @@ Each pull request gets isolated preview deployments for API, Dashboard, Storefro
 - Set Root Directory for each: `apps/api`, `apps/dashboard`, `apps/storefront`, `apps/web`.
 - Ensure your API project name in Vercel is `dukkani-api` (or update `getApiUrl` in `packages/env/src/utils/get-api-url.ts`).
 
-### 2. Vercel Preview Environment Variables
+### 2. Vercel Preview Configuration
+
+**Related projects** – Each app has `vercel.json` with static `relatedProjects` (API project ID). Vercel injects `VERCEL_RELATED_PROJECTS` at build time so `getApiUrl()` resolves to the API preview URL from the same PR. No env vars needed for related projects.
 
 **Dashboard, Storefront, Web** (Preview env):
 
-| Variable                        | Value                      |
-| ------------------------------- | -------------------------- |
-| `VERCEL_RELATED_API_PROJECT_ID` | Your API project ID        |
-| `NEXT_PUBLIC_API_URL`           | Fallback (e.g. production) |
-
-**Web only** (Preview env):
-
-| Variable                              | Value                |
-| ------------------------------------- | -------------------- |
-| `VERCEL_RELATED_DASHBOARD_PROJECT_ID` | Your Dashboard ID    |
+| Variable              | Value                      |
+| --------------------- | -------------------------- |
+| `NEXT_PUBLIC_API_URL` | Fallback (e.g. production) |
 
 **API** (Preview env):
 
@@ -63,7 +58,7 @@ Each pull request gets isolated preview deployments for API, Dashboard, Storefro
 
 ## Adding New Apps (e.g. Business)
 
-1. Add `vercel.ts` with `baseEnv.VERCEL_RELATED_API_PROJECT_ID` in `relatedProjects`.
+1. Add `vercel.json` with `"relatedProjects": ["prj_YOUR_API_PROJECT_ID"]`.
 2. Use `getApiUrl()` from `@dukkani/env` for API calls.
 3. No API changes needed; CORS already allows `*.vercel.app`.
 
