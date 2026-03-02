@@ -33,6 +33,7 @@
 		"dotenv": "catalog:"
 	},
 	"devDependencies": {
+		"@vercel/config": "catalog:",
 		"@dukkani/config": "workspace:*",
 		"@t3-oss/env-nextjs": "catalog:",
 		"@tailwindcss/postcss": "catalog:",

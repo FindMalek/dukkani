@@ -224,7 +224,6 @@
 			"error": "Error loading orders. Please try again later.",
 			"refresh": "Refresh orders",
 			"call": "Call",
-			"advanceStatus": "Advance",
 			"itemsCount": "{count} items",
 			"cashOnDelivery": "Cash on delivery",
 			"card": "Card",
@@ -235,10 +234,8 @@
 				"all": "All",
 				"pending": "Pending",
 				"confirmed": "Confirmed",
-				"processing": "Processing",
 				"shipped": "Shipped",
-				"delivered": "Delivered",
-				"cancelled": "Cancelled"
+				"delivered": "Delivered"
 			},
 			"status": {
 				"pending": "Pending confirmation",

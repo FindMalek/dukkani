@@ -12,6 +12,8 @@ export const baseEnv = createEnv({
 	server: {
 		VERCEL_BRANCH_URL: z.string().optional(),
 		VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
+		VERCEL_RELATED_API_PROJECT_ID: z.string().optional(),
+		VERCEL_RELATED_DASHBOARD_PROJECT_ID: z.string().optional(),
 		VERCEL_REGION: z.string().optional(),
 		VERCEL_DEPLOYMENT_ID: z.string().optional(),
 		VERCEL_PROJECT_ID: z.string().optional(),

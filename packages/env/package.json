@@ -46,6 +46,7 @@
 		}
 	},
 	"dependencies": {
+		"@vercel/related-projects": "catalog:",
 		"@t3-oss/env-core": "catalog:",
 		"@t3-oss/env-nextjs": "catalog:",
 		"dotenv": "catalog:",
