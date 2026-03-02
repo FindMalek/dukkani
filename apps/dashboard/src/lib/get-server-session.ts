@@ -1,3 +1,4 @@
+import { getApiUrl } from "@dukkani/env";
 import { cookies } from "next/headers";
 import { env } from "@/env";
 
@@ -16,17 +17,14 @@ export async function getServerSession() {
 			.map((cookie) => `${cookie.name}=${cookie.value}`)
 			.join("; ");
 
-		const response = await fetch(
-			`${env.NEXT_PUBLIC_API_URL}/api/auth/get-session`,
-			{
-				method: "GET",
-				headers: {
-					...(cookieHeader ? { cookie: cookieHeader } : {}),
-					origin: env.NEXT_PUBLIC_DASHBOARD_URL,
-				},
-				cache: "no-store",
+		const response = await fetch(`${getApiUrl()}/api/auth/get-session`, {
+			method: "GET",
+			headers: {
+				...(cookieHeader ? { cookie: cookieHeader } : {}),
+				origin: env.NEXT_PUBLIC_DASHBOARD_URL,
 			},
-		);
+			cache: "no-store",
+		});
 
 		if (!response.ok) {
 			return null;

@@ -29,6 +29,20 @@ let authInitialized = false;
  */
 export function getDatabase() {
 	if (!databaseInitialized) {
+		// Safety: prevent preview deployments from using production DB
+		if (process.env.VERCEL_ENV === "preview") {
+			const dbUrl = apiEnv.DATABASE_URL;
+			const prodUrl = process.env.DATABASE_URL_PRODUCTION;
+			if (
+				dbUrl?.toLowerCase().includes("production") ||
+				(prodUrl && dbUrl === prodUrl)
+			) {
+				throw new Error(
+					"Preview deployment must not use production DATABASE_URL. Use Neon Vercel integration or a preview branch.",
+				);
+			}
+		}
+
 		initializeDatabase({
 			DATABASE_URL: apiEnv.DATABASE_URL,
 		});
