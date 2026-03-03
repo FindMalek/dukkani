@@ -4,9 +4,10 @@ Each pull request gets isolated preview deployments for API, Dashboard, Storefro
 
 ## How It Works
 
-1. **Neon branch per PR** – A database branch is created when a PR opens. On each new commit, the branch is reset and seeded.
-2. **Related projects** – Dashboard and Storefront use `getApiUrl()` from `@dukkani/env`, which resolves to the API preview URL from the same PR via `@vercel/related-projects`.
+1. **Neon branch per PR** – The Neon Vercel integration creates a database branch when a PR opens, injects `DATABASE_URL`, and cleans up on PR close.
+2. **Related projects** – Dashboard and Storefront use `getApiUrl()` from `@dukkani/env`, which resolves to the API preview URL from the same PR via `@vercel/related-projects`. Dashboard uses `getStorefrontBaseUrl()` for "Visit store" links.
 3. **CORS** – The API allows `*.vercel.app` origins in preview, so all preview apps can call the API.
+4. **Store slug** – The storefront extracts the store slug from the host subdomain (`store.dukkani-storefront-git-xxx.vercel.app`). In preview, it uses `VERCEL_URL` as the base domain.
 
 ## Setup
 
@@ -14,11 +15,17 @@ Each pull request gets isolated preview deployments for API, Dashboard, Storefro
 
 - Create four Vercel projects (api, dashboard, storefront, web) connected to the same repo.
 - Set Root Directory for each: `apps/api`, `apps/dashboard`, `apps/storefront`, `apps/web`.
-- Ensure your API project name in Vercel is `dukkani-api` (or update `getApiUrl` in `packages/env/src/utils/get-api-url.ts`).
+- Ensure project names in Vercel: `dukkani-api` (for `getApiUrl`), `dukkani-storefront` (for `getStorefrontBaseUrl`).
 
 ### 2. Vercel Preview Configuration
 
-**Related projects** – Each app has `vercel.json` with static `relatedProjects` (API project ID). Vercel injects `VERCEL_RELATED_PROJECTS` at build time so `getApiUrl()` resolves to the API preview URL from the same PR. No env vars needed for related projects.
+**Related projects** – Each app has `vercel.json` with `relatedProjects` (project IDs). Vercel injects `VERCEL_RELATED_PROJECTS` at build time.
+
+- **Dashboard** – Include both API and Storefront project IDs so `getApiUrl()` and `getStorefrontBaseUrl()` resolve correctly:
+  ```json
+  { "relatedProjects": ["prj_API_ID", "prj_STOREFRONT_ID"] }
+  ```
+- **Storefront, Web** – Include API project ID for `getApiUrl()`.
 
 **Dashboard, Storefront, Web** (Preview env):
 
@@ -28,26 +35,21 @@ Each pull request gets isolated preview deployments for API, Dashboard, Storefro
 
 **API** (Preview env):
 
-| Variable                     | Value              |
-| ---------------------------- | ------------------ |
-| `NEXT_PUBLIC_ALLOWED_ORIGIN` | `*.vercel.app`     |
-| `DATABASE_URL`               | From Neon (see below) |
+| Variable                     | Value          |
+| ---------------------------- | -------------- |
+| `NEXT_PUBLIC_ALLOWED_ORIGIN` | `*.vercel.app` |
+| `DATABASE_URL`               | From Neon (do not override) |
 
-### 3. Neon Database
-
-**Option A: Neon Vercel Integration (recommended)**
+### 3. Neon Database (Neon Vercel Integration)
 
 1. Install the [Neon Vercel integration](https://neon.tech/docs/guides/vercel-previews-integration).
 2. Connect your Neon project to the API Vercel project.
-3. Neon auto-creates a branch per preview, injects `DATABASE_URL`, and cleans up on PR close.
-4. Add to API build command: `prisma migrate deploy && pnpm db:seed && next build` (or use `prisma migrate reset --force` for full wipe).
+3. Enable **"Resource must be active before deployment"** so Vercel waits for the branch to be ready.
+4. Neon auto-creates a branch per preview, injects `DATABASE_URL`, and cleans up on PR close.
+5. The API build command (in `apps/api/vercel.json`) runs migrations and seed before the Next.js build:
+   - `pnpm --filter @dukkani/db run db:migrate:deploy && pnpm db:seed && pnpm turbo build --filter=@dukkani/api`
 
-**Option B: GitHub Action**
-
-1. Add GitHub secrets: `NEON_API_KEY`, `NEON_PROJECT_ID`.
-2. Add GitHub variable: `NEON_PROJECT_ID`.
-3. The `.github/workflows/preview-deploy.yml` workflow creates a Neon branch per PR, runs `db:reset-and-seed` on each commit, and deletes the branch when the PR is closed.
-4. To use the branch URL in Vercel, either use the Neon Vercel integration or deploy the API from the workflow with `DATABASE_URL` (see plan for details).
+Do **not** set `DATABASE_URL` for Preview in the API project; let the Neon integration inject it.
 
 ## Testing
 
@@ -55,6 +57,8 @@ Each pull request gets isolated preview deployments for API, Dashboard, Storefro
 2. Open the Dashboard preview URL from the PR.
 3. Verify it loads and API calls succeed (no CORS errors).
 4. Check the Network tab: requests should go to the API preview URL (e.g. `api-xxx-git-branch.vercel.app`), not production.
+5. Click "Visit store" – it should open the storefront preview URL (e.g. `store-slug.dukkani-storefront-git-xxx.vercel.app`).
+6. Visit `https://STORE_SLUG.dukkani-storefront-git-XXX.vercel.app/en` directly – the store should load.
 
 ## Adding New Apps (e.g. Business)
 

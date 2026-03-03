@@ -1,19 +1,16 @@
 import type { StoreSimpleOutput } from "@dukkani/common/schemas/store/output";
+import { getStorefrontBaseUrl } from "@dukkani/env";
 import { env } from "@/env";
-
-interface StoreDomains {
-	default: string; // The URL we give them (slug.domain)
-	custom?: string[]; // List of custom domains
-}
 
 /**
  * Extract store URL from store data
  * Returns the latest custom domain if available, otherwise the default URL
+ * In preview: uses storefront deployment URL via @vercel/related-projects
  */
 export function getStoreUrl(store: StoreSimpleOutput): string {
 	// For now, we only have the default URL
 	// In the future, when custom domains are added:
-	// const domains: StoreDomains = {
+	// const domains = {
 	//   default: `https://${store.slug}.${env.NEXT_PUBLIC_STORE_DOMAIN}`,
 	//   custom: store.customDomains || [],
 	// };
@@ -25,5 +22,6 @@ export function getStoreUrl(store: StoreSimpleOutput): string {
 	//
 	// return domains.default;
 
-	return `https://${store.slug}.${env.NEXT_PUBLIC_STORE_DOMAIN}`;
+	const baseHost = getStorefrontBaseUrl(env.NEXT_PUBLIC_STORE_DOMAIN);
+	return `https://${store.slug}.${baseHost}`;
 }
