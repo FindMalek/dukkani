@@ -1,4 +1,4 @@
 {
 	"framework": "nextjs",
-	"buildCommand": "pnpm --filter @dukkani/db run db:migrate:deploy && pnpm db:seed && pnpm turbo build --filter=@dukkani/api"
+	"buildCommand": "pnpm --filter @dukkani/db run db:migrate:deploy && pnpm --filter @dukkani/db run db:seed && pnpm turbo build --filter=@dukkani/api"
 }
