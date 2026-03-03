@@ -76,6 +76,15 @@
 				}
 			}
 		},
+		"storeSelector": {
+			"heading": "اختر متجرًا",
+			"description": "أدخل معرف المتجر لعرض الواجهة.",
+			"placeholder": "مثال: demo, omar-home",
+			"button": "عرض المتجر",
+			"loading": "جاري التحميل...",
+			"errorNotFound": "المتجر غير موجود. يرجى التحقق من المعرف.",
+			"errorReserved": "هذا المعرف محجوز."
+		},
 		"comingSoon": {
 			"heading": "سنطلق قريبًا",
 			"description": {
