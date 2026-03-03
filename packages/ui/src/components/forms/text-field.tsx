@@ -1,15 +1,15 @@
 import type * as React from "react";
 import { useFieldContext } from "../../hooks/use-app-form";
 import { Input } from "../input";
-import { BaseField } from "./base-field";
+import { BaseField, type CommonFieldProps } from "./base-field";
 
-type TextFieldProps = {
-	label: string;
+type TextFieldProps =  CommonFieldProps & {
 	type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">;
 
 export function TextField({
 	label,
+	srOnlyLabel = false,
 	type = "text",
 	...inputProps
 }: TextFieldProps) {
@@ -17,7 +17,7 @@ export function TextField({
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
 	return (
-		<BaseField label={label}>
+		<BaseField label={label} srOnlyLabel={srOnlyLabel}>
 			<Input
 				id={field.name}
 				name={field.name}

@@ -1,6 +1,7 @@
 import type * as React from "react";
 
 import { useFieldContext } from "../../hooks/use-app-form";
+import { cn } from "../../lib/utils";
 import {
 	Field,
 	FieldContent,
@@ -11,6 +12,7 @@ import {
 
 export type CommonFieldProps = {
 	label: string;
+	srOnlyLabel?: boolean;
 	description?: string;
 	labelFirstOnHorizontal?: boolean;
 };
@@ -23,6 +25,7 @@ type BaseFieldWithDescriptionProps = CommonFieldProps & {
 export function BaseFieldWithDescription({
 	children,
 	label,
+	srOnlyLabel = false,
 	description,
 	orientation = "vertical",
 	labelFirstOnHorizontal = false,
@@ -32,7 +35,12 @@ export function BaseFieldWithDescription({
 		return labelFirstOnHorizontal ? (
 			<>
 				<FieldContent>
-					<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+					<FieldLabel
+						htmlFor={field.name}
+						className={cn(srOnlyLabel && "sr-only")}
+					>
+						{label}
+					</FieldLabel>
 					<FieldDescription>{description}</FieldDescription>
 				</FieldContent>
 				{children}
@@ -41,7 +49,12 @@ export function BaseFieldWithDescription({
 			<>
 				{children}
 				<FieldContent>
-					<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+					<FieldLabel
+						htmlFor={field.name}
+						className={cn(srOnlyLabel && "sr-only")}
+					>
+						{label}
+					</FieldLabel>
 					<FieldDescription>{description}</FieldDescription>
 				</FieldContent>
 			</>
@@ -50,7 +63,12 @@ export function BaseFieldWithDescription({
 	return (
 		<>
 			<FieldContent>
-				<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+				<FieldLabel
+					htmlFor={field.name}
+					className={cn(srOnlyLabel && "sr-only")}
+				>
+					{label}
+				</FieldLabel>
 				<FieldDescription>{description}</FieldDescription>
 			</FieldContent>
 			{children}
@@ -66,6 +84,7 @@ type BaseFieldWithoutDescriptionProps = CommonFieldProps & {
 export function BaseFieldWithoutDescription({
 	children,
 	label,
+	srOnlyLabel = false,
 	orientation = "vertical",
 	labelFirstOnHorizontal = false,
 }: BaseFieldWithoutDescriptionProps) {
@@ -73,19 +92,31 @@ export function BaseFieldWithoutDescription({
 	if (orientation === "horizontal") {
 		return labelFirstOnHorizontal ? (
 			<>
-				<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+				<FieldLabel
+					htmlFor={field.name}
+					className={cn(srOnlyLabel && "sr-only")}
+				>
+					{label}
+				</FieldLabel>
 				{children}
 			</>
 		) : (
 			<>
 				{children}
-				<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+				<FieldLabel
+					htmlFor={field.name}
+					className={cn(srOnlyLabel && "sr-only")}
+				>
+					{label}
+				</FieldLabel>
 			</>
 		);
 	}
 	return (
 		<>
-			<FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+			<FieldLabel htmlFor={field.name} className={cn(srOnlyLabel && "sr-only")}>
+				{label}
+			</FieldLabel>
 			{children}
 		</>
 	);
@@ -95,6 +126,7 @@ export function BaseField({
 	children,
 	label,
 	description,
+	srOnlyLabel = false,
 	orientation = "vertical",
 	className,
 	labelFirstOnHorizontal = false,
@@ -109,6 +141,7 @@ export function BaseField({
 					orientation={orientation}
 					label={label}
 					description={description}
+					srOnlyLabel={srOnlyLabel}
 				>
 					{children}
 				</BaseFieldWithDescription>
@@ -117,6 +150,7 @@ export function BaseField({
 					labelFirstOnHorizontal={labelFirstOnHorizontal}
 					orientation={orientation}
 					label={label}
+					srOnlyLabel={srOnlyLabel}
 				>
 					{children}
 				</BaseFieldWithoutDescription>
