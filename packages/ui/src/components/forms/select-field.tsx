@@ -88,7 +88,7 @@ export function SelectField({
 						<SelectValue placeholder="Select an option" />
 					</SelectTrigger>
 					{onNewOptionClick && (
-						<Button variant="secondary" size="icon" onClick={onNewOptionClick}>
+						<Button type="button" variant="secondary" size="icon" onClick={onNewOptionClick}>
 							<Icons.plus className="size-4" />
 						</Button>
 					)}
