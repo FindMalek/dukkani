@@ -69,7 +69,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				storeId,
 				categoryId: "",
 				hasVariants: true,
-				variantOptions: [{ name: "Size", values: [{ value: "S" }, { value: "M" }, { value: "L" }] }] as VariantOptionInput[],
+				variantOptions: [] as VariantOptionInput[],
 			},
 			onSubmit: async ({ value }) => {
 				console.log(value);
@@ -303,35 +303,38 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																				(variantOption, variantOptionIndex) => (
 																					<formV2.AppField
 																						name={`variantOptions[${variantOptionIndex}].name`}
-																						key={variantOption.name}
+																						key={`variantOption-${variantOption.name}-${variantOptionIndex}`}
 																					>
 																						{(field) => (
 																							<FieldGroup>
-																								<div className="flex flex-1 items-center gap-2">
-																									<field.TextInput
-																										label="Variant Name"
-																										srOnlyLabel
-																										placeholder="Enter the name of your variant"
-																									/>
-																									<Button
-																										type="button"
-																										variant="secondary"
-																										size="icon"
-																										onClick={() =>
-																											variantOptionsField.removeValue(
-																												variantOptionIndex,
-																											)
-																										}
-																									>
-																										<Icons.trash className="h-4 w-4" />
-																									</Button>
-																								</div>
+																								<field.TextInput
+																									label="Variant Name"
+																									srOnlyLabel
+																									placeholder="Enter the name of your variant"
+																									rightToField={
+																										<Button
+																											type="button"
+																											variant="secondary"
+																											size="icon"
+																											onClick={() =>
+																												variantOptionsField.removeValue(
+																													variantOptionIndex,
+																												)
+																											}
+																										>
+																											<Icons.trash className="h-4 w-4" />
+																										</Button>
+																									}
+																								/>
 																								<formV2.AppField
 																									name={`variantOptions[${variantOptionIndex}].values`}
 																									mode="array"
 																								>
 																									{(optionsField) => (
-																										<optionsField.ArrayInput as="text-pills" fromKey="value" />
+																										<optionsField.ArrayInput
+																											as="text-pills"
+																											fromKey="value"
+																										/>
 																									)}
 																								</formV2.AppField>
 																								<FieldSeparator />
@@ -358,7 +361,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																						...(prev ?? []),
 																						{
 																							name: "",
-																							values: [{ value: "" }],
+																							values: [],
 																						},
 																					],
 																				);
