@@ -315,7 +315,6 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																								<field.TextInput
 																									label="Variant Name"
 																									srOnlyLabel
-																									placeholder="Enter the name of your variant"
 																									rightToField={
 																										<Button
 																											type="button"
