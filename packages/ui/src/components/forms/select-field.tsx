@@ -74,6 +74,13 @@ export function SelectField({
 		}
 	}, [optionsOrPromise]);
 
+	useEffect(() => {
+		const option = resolvedOptions.find((option) => option.id === field.state.value);
+		if (option) {
+			field.handleChange(option.id);
+		}
+	}, [field.state.value, resolvedOptions, field.handleChange]);
+
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 	return (
 		<BaseField label={label} description={description}>
@@ -85,7 +92,7 @@ export function SelectField({
 			>
 				<div className="flex w-full items-center justify-between gap-2">
 					<SelectTrigger aria-invalid={isInvalid} className="grow">
-						<SelectValue placeholder="Select an option" />
+						<SelectValue id={field.name} placeholder="Select an option" />
 					</SelectTrigger>
 					{onNewOptionClick && (
 						<Button

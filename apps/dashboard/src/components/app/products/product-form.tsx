@@ -30,7 +30,9 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
 	forwardRef,
+	useCallback,
 	useEffect,
+	useEffectEvent,
 	useImperativeHandle,
 	useMemo,
 	useState,
@@ -47,6 +49,7 @@ import { useCategoriesQuery } from "@/hooks/api/use-categories";
 import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
+import { CategoryDrawer } from "./category-drawer";
 
 export interface ProductFormHandle {
 	submit: (published: boolean) => void;
@@ -56,7 +59,11 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 	({ storeId }, ref) => {
 		const router = useRouter();
 		const t = useTranslations("products.create");
-		const { data: categories } = useCategoriesQuery({
+		const {
+			data: categories,
+			isLoading: isLoadingCategories,
+			isFetching: isFetchingCategories,
+		} = useCategoriesQuery({
 			storeId,
 		});
 		const formV2 = useAppForm({
@@ -102,6 +109,17 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				},
 			];
 		}, [categories]);
+		const handleCategoryCreated = useCallback(
+			(categoryId: string) => {
+				const timeoutId = setTimeout(() => {
+					formV2.setFieldValue("categoryId", categoryId);
+				}, 1000);
+
+				return () => clearTimeout(timeoutId);
+			},
+			[formV2],
+		);
+
 		const [isUploading, setIsUploading] = useState(false);
 		const [previews, setPreviews] = useState<string[]>([]);
 		const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -185,22 +203,22 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 			},
 		});
 
-		const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-			const files = Array.from(e.target.files || []);
-			if (files.length + selectedFiles.length > 10) return;
-			setSelectedFiles([...selectedFiles, ...files]);
-			setPreviews([...previews, ...files.map((f) => URL.createObjectURL(f))]);
-		};
+		// const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		// 	const files = Array.from(e.target.files || []);
+		// 	if (files.length + selectedFiles.length > 10) return;
+		// 	setSelectedFiles([...selectedFiles, ...files]);
+		// 	setPreviews([...previews, ...files.map((f) => URL.createObjectURL(f))]);
+		// };
 
-		const removeImage = (i: number) => {
-			const f = [...selectedFiles];
-			f.splice(i, 1);
-			setSelectedFiles(f);
-			const p = [...previews];
-			URL.revokeObjectURL(p[i]);
-			p.splice(i, 1);
-			setPreviews(p);
-		};
+		// const removeImage = (i: number) => {
+		// 	const f = [...selectedFiles];
+		// 	f.splice(i, 1);
+		// 	setSelectedFiles(f);
+		// 	const p = [...previews];
+		// 	URL.revokeObjectURL(p[i]);
+		// 	p.splice(i, 1);
+		// 	setPreviews(p);
+		// };
 
 		const onSubmit = async (published: boolean) => {
 			if (createProductMutation.isPending || isUploading) {
@@ -225,7 +243,10 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 
 		return (
 			<>
-				<Form onSubmit={formV2.handleSubmit}>
+				<Form
+					onSubmit={formV2.handleSubmit}
+					className="flex flex-col gap-4 px-2 pb-24"
+				>
 					<FieldGroup>
 						<FieldSet>
 							<FieldLegend>{t("sections.essentials")}</FieldLegend>
@@ -264,13 +285,24 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 									</div>
 									<formV2.AppField name="categoryId">
 										{(field) => (
-											<field.SelectInput
-												label={t("form.category.label")}
-												options={categoriesOptions}
-												onNewOptionClick={() => {
-													console.log("open modal");
-												}}
-											/>
+											<>
+												<field.SelectInput
+													label={t("form.category.label")}
+													options={categoriesOptions}
+													onNewOptionClick={() => {
+														// field.handleChange("cmmc6kx4w0006019kon6hflwp");
+														setIsCategoryDrawerOpen(true);
+													}}
+												/>
+												<CategoryDrawer
+													onCategoryCreated={(categoryId) => {
+														console.log("categoryId", categoryId);
+														handleCategoryCreated(categoryId);
+													}}
+													open={isCategoryDrawerOpen}
+													onOpenChange={setIsCategoryDrawerOpen}
+												/>
+											</>
 										)}
 									</formV2.AppField>
 									<formV2.AppField
@@ -393,7 +425,8 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 						</FieldSet>
 					</FieldGroup>
 				</Form>
-				<form
+
+				{/* <form
 					onSubmit={(e) => {
 						e.preventDefault();
 						form.handleSubmit();
@@ -427,7 +460,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 							(submittingAction === "publish" && isUploading)
 						}
 					/>
-				</form>
+				</form> */}
 			</>
 		);
 	},
