@@ -7,6 +7,7 @@ import {
 	InputGroupAddon,
 	InputGroupButton,
 	InputGroupInput,
+	InputGroupText,
 } from "../input-group";
 
 type ArrayFieldProps = {
@@ -60,6 +61,7 @@ export function ArrayField({ as: _as, fromKey }: ArrayFieldProps) {
 					{(field) => (
 						<EditablePill
 							value={field.state.value}
+							index={index}
 							onDelete={() => handlePillDelete(index)}
 							// @ts-expect-error - dynamic array path
 							onEdit={(value) => field.handleChange(value)}
@@ -98,10 +100,12 @@ export function ArrayField({ as: _as, fromKey }: ArrayFieldProps) {
 
 function EditablePill({
 	value,
+	index,
 	onDelete,
 	onEdit,
 }: {
 	value: string;
+	index: number;
 	onDelete: () => void;
 	onEdit: (value: string) => void;
 }) {
@@ -113,6 +117,9 @@ function EditablePill({
 	}, [onEdit, editedValue]);
 	return (
 		<InputGroup className="group/pill rounded-full">
+			<InputGroupAddon align="inline-start">
+				<InputGroupText>{index + 1}</InputGroupText>
+			</InputGroupAddon>
 			<InputGroupInput
 				value={editedValue}
 				className={cn(
