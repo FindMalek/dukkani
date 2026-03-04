@@ -129,7 +129,7 @@ export function NumberField({
 					onBlur={field.handleBlur}
 					aria-invalid={isInvalid}
 					type="text"
-					className="text-end"
+					className="text-center"
 					inputMode={inputMode}
 					min={min}
 					max={max}

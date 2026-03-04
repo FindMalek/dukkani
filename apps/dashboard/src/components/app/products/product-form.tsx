@@ -68,7 +68,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				published: false,
 				storeId,
 				categoryId: "",
-				hasVariants: true,
+				hasVariants: false,
 				variantOptions: [] as VariantOptionInput[],
 			},
 			onSubmit: async ({ value }) => {
@@ -257,11 +257,8 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 									</formV2.AppField>
 									<formV2.AppField name="price">
 										{(field) => (
-											<field.NumberInput
+											<field.PriceInput
 												label={t("form.price.label")}
-												inputMode="decimal"
-												step={0.1}
-												maxPoints={3}
 											/>
 										)}
 									</formV2.AppField>
@@ -276,7 +273,15 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 											/>
 										)}
 									</formV2.AppField>
-									<formV2.AppField name="hasVariants">
+									<formV2.AppField name="hasVariants" listeners={{
+										onChange: ({value}) => {
+											if (value) {
+												formV2.setFieldValue("variantOptions", [{ name: "", values: [] }]);
+											} else {
+												formV2.setFieldValue("variantOptions", []);
+											}
+										}
+									}}>
 										{(field) => (
 											<field.SwitchInput
 												label={t("form.options.label")}
