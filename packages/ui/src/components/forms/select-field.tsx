@@ -83,12 +83,17 @@ export function SelectField({
 				onValueChange={(value) => field.handleChange(value)}
 				{...props}
 			>
-				<div className="flex items-center justify-between gap-2">
+				<div className="flex w-full items-center justify-between gap-2">
 					<SelectTrigger aria-invalid={isInvalid} className="grow">
 						<SelectValue placeholder="Select an option" />
 					</SelectTrigger>
 					{onNewOptionClick && (
-						<Button type="button" variant="secondary" size="icon" onClick={onNewOptionClick}>
+						<Button
+							type="button"
+							variant="secondary"
+							size="icon"
+							onClick={onNewOptionClick}
+						>
 							<Icons.plus className="size-4" />
 						</Button>
 					)}

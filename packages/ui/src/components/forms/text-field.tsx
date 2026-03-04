@@ -11,13 +11,14 @@ export function TextField({
 	label,
 	srOnlyLabel = false,
 	type = "text",
+	rightToField,
 	...inputProps
 }: TextFieldProps) {
 	const field = useFieldContext<string>();
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
 	return (
-		<BaseField label={label} srOnlyLabel={srOnlyLabel}>
+		<BaseField label={label} srOnlyLabel={srOnlyLabel} rightToField={rightToField}>
 			<Input
 				id={field.name}
 				name={field.name}

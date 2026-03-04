@@ -15,6 +15,7 @@ export type CommonFieldProps = {
 	srOnlyLabel?: boolean;
 	description?: string;
 	labelFirstOnHorizontal?: boolean;
+	rightToField?: React.ReactNode;
 };
 
 type BaseFieldWithDescriptionProps = CommonFieldProps & {
@@ -29,6 +30,7 @@ export function BaseFieldWithDescription({
 	description,
 	orientation = "vertical",
 	labelFirstOnHorizontal = false,
+	rightToField,
 }: BaseFieldWithDescriptionProps) {
 	const field = useFieldContext();
 	if (orientation === "horizontal") {
@@ -43,11 +45,17 @@ export function BaseFieldWithDescription({
 					</FieldLabel>
 					<FieldDescription>{description}</FieldDescription>
 				</FieldContent>
-				{children}
+				<div className="flex items-center gap-2">
+					{children}
+					{rightToField}
+				</div>
 			</>
 		) : (
 			<>
-				{children}
+				<div className="flex items-center gap-2">
+					{children}
+					{rightToField}
+				</div>
 				<FieldContent>
 					<FieldLabel
 						htmlFor={field.name}
@@ -71,7 +79,10 @@ export function BaseFieldWithDescription({
 				</FieldLabel>
 				<FieldDescription>{description}</FieldDescription>
 			</FieldContent>
-			{children}
+			<div className="flex items-center gap-2">
+				{children}
+				{rightToField}
+			</div>
 		</>
 	);
 }
@@ -87,6 +98,7 @@ export function BaseFieldWithoutDescription({
 	srOnlyLabel = false,
 	orientation = "vertical",
 	labelFirstOnHorizontal = false,
+	rightToField,
 }: BaseFieldWithoutDescriptionProps) {
 	const field = useFieldContext();
 	if (orientation === "horizontal") {
@@ -98,11 +110,17 @@ export function BaseFieldWithoutDescription({
 				>
 					{label}
 				</FieldLabel>
-				{children}
+				<div className="flex items-center gap-2">
+					{children}
+					<div className="ml-auto">{rightToField}</div>
+				</div>
 			</>
 		) : (
 			<>
+			<div className="flex items-center gap-2">
 				{children}
+				{rightToField}
+			</div>
 				<FieldLabel
 					htmlFor={field.name}
 					className={cn(srOnlyLabel && "sr-only")}
@@ -117,7 +135,10 @@ export function BaseFieldWithoutDescription({
 			<FieldLabel htmlFor={field.name} className={cn(srOnlyLabel && "sr-only")}>
 				{label}
 			</FieldLabel>
-			{children}
+			<div className="flex items-center gap-2">
+				{children}
+				{rightToField}
+			</div>
 		</>
 	);
 }
@@ -126,6 +147,7 @@ export function BaseField({
 	children,
 	label,
 	description,
+	rightToField,
 	srOnlyLabel = false,
 	orientation = "vertical",
 	className,
@@ -142,6 +164,7 @@ export function BaseField({
 					label={label}
 					description={description}
 					srOnlyLabel={srOnlyLabel}
+					rightToField={rightToField}
 				>
 					{children}
 				</BaseFieldWithDescription>
@@ -151,6 +174,7 @@ export function BaseField({
 					orientation={orientation}
 					label={label}
 					srOnlyLabel={srOnlyLabel}
+					rightToField={rightToField}
 				>
 					{children}
 				</BaseFieldWithoutDescription>

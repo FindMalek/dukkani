@@ -11,16 +11,23 @@ import {
 
 type ArrayFieldProps = {
 	as: "text-pills";
-    fromKey?: string;
+	fromKey: string;
 };
 export function ArrayField({ as: _as, fromKey }: ArrayFieldProps) {
-	const arrayField = useFieldContext<string[]>();
+	const arrayField = useFieldContext<
+		(string | { [key: typeof fromKey]: string })[]
+	>();
 	const form = useFormContext();
 	const [draftValue, setDraftValue] = useState("");
 
 	const handlePillDelete = useCallback(
 		(index: number) => {
 			arrayField.setValue((prev) => {
+				if (typeof prev === "string") {
+					const newValues = [...prev];
+					newValues.splice(index, 1);
+					return newValues;
+				}
 				const newValues = [...prev];
 				newValues.splice(index, 1);
 				return newValues;
@@ -32,25 +39,29 @@ export function ArrayField({ as: _as, fromKey }: ArrayFieldProps) {
 	const handlePushDraft = useCallback(() => {
 		const trimmed = draftValue.trim();
 		if (!trimmed) return;
-		if (arrayField.state.value.some((value) => value.trim() === trimmed))
+		if (arrayField.state.value.some((value) => typeof value === "string" ? value.trim() === trimmed : value[fromKey]?.trim() === trimmed))
 			return;
-		arrayField.pushValue(trimmed);
+		arrayField.pushValue(typeof arrayField.state.value === "string" ? trimmed : { [fromKey]: trimmed });
 		setDraftValue("");
-	}, [arrayField, draftValue]);
+	}, [arrayField, draftValue, fromKey]);
 
 	return (
 		<div className="grid grid-cols-2 gap-2">
 			{arrayField.state.value.map((_value, index) => (
 				<form.Field
 					key={`${arrayField.name}[${index}]`}
-                    // @ts-expect-error - dynamic array path
-					name={fromKey ? `${arrayField.name}[${index}].${fromKey}` : `${arrayField.name}[${index}]`}
+					// @ts-expect-error - dynamic array path
+					name={
+						typeof arrayField.state.value[index] === "object"
+							? `${arrayField.name}[${index}][${fromKey}]`
+							: `${arrayField.name}[${index}]`
+					}
 				>
 					{(field) => (
 						<EditablePill
 							value={field.state.value}
 							onDelete={() => handlePillDelete(index)}
-                            // @ts-expect-error - dynamic array path
+							// @ts-expect-error - dynamic array path
 							onEdit={(value) => field.handleChange(value)}
 						/>
 					)}
