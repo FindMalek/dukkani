@@ -250,18 +250,18 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 											/>
 										)}
 									</formV2.AppField>
-									<formV2.AppField name="stock">
-										{(field) => (
-											<field.NumberInput label={t("form.stock.label")} />
-										)}
-									</formV2.AppField>
-									<formV2.AppField name="price">
-										{(field) => (
-											<field.PriceInput
-												label={t("form.price.label")}
-											/>
-										)}
-									</formV2.AppField>
+									<div className="flex items-start justify-between gap-4">
+										<formV2.AppField name="price">
+											{(field) => (
+												<field.PriceInput label={t("form.price.label")} />
+											)}
+										</formV2.AppField>
+										<formV2.AppField name="stock">
+											{(field) => (
+												<field.NumberInput label={t("form.stock.label")} />
+											)}
+										</formV2.AppField>
+									</div>
 									<formV2.AppField name="categoryId">
 										{(field) => (
 											<field.SelectInput
@@ -273,15 +273,20 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 											/>
 										)}
 									</formV2.AppField>
-									<formV2.AppField name="hasVariants" listeners={{
-										onChange: ({value}) => {
-											if (value) {
-												formV2.setFieldValue("variantOptions", [{ name: "", values: [] }]);
-											} else {
-												formV2.setFieldValue("variantOptions", []);
-											}
-										}
-									}}>
+									<formV2.AppField
+										name="hasVariants"
+										listeners={{
+											onChange: ({ value }) => {
+												if (value) {
+													formV2.setFieldValue("variantOptions", [
+														{ name: "", values: [] },
+													]);
+												} else {
+													formV2.setFieldValue("variantOptions", []);
+												}
+											},
+										}}
+									>
 										{(field) => (
 											<field.SwitchInput
 												label={t("form.options.label")}
