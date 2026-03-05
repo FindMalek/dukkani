@@ -57,18 +57,21 @@ export function ImagesField({
 				}}
 			>
 				<div className="flex items-center gap-3">
-					<ScrollArea className="max-w-sm">
-						<div className="flex gap-3" ref={thumbsRef}>
-							{files.map((file) => (
-								<DropzoneThumb
-									key={file.name}
-									file={file}
-									className="size-24 shrink-0 rounded-xl"
-								/>
-							))}
-						</div>
-						<ScrollBar orientation="horizontal" />
-					</ScrollArea>
+					{files.length > 0 && (
+						<ScrollArea className="max-w-sm">
+							<div className="flex gap-3" ref={thumbsRef}>
+								{files.map((file) => (
+									<DropzoneThumb
+										key={file.name}
+										file={file}
+										className="size-24 shrink-0 rounded-xl"
+									/>
+								))}
+							</div>
+							<ScrollBar orientation="horizontal" />
+						</ScrollArea>
+					)}
+
 					<DropzoneZone
 						className="size-24 shrink-0 rounded-xl border-muted-foreground/20 p-2"
 						label={t("label")}
