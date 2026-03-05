@@ -32,7 +32,6 @@ import {
 	forwardRef,
 	useCallback,
 	useEffect,
-	useEffectEvent,
 	useImperativeHandle,
 	useMemo,
 	useState,
@@ -61,8 +60,6 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 		const t = useTranslations("products.create");
 		const {
 			data: categories,
-			isLoading: isLoadingCategories,
-			isFetching: isFetchingCategories,
 		} = useCategoriesQuery({
 			storeId,
 		});
@@ -77,6 +74,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				categoryId: "",
 				hasVariants: false,
 				variantOptions: [] as VariantOptionInput[],
+				imageUrls: [] as string[],
 			},
 			onSubmit: async ({ value }) => {
 				console.log(value);
@@ -92,6 +90,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 					categoryId: z.string(),
 					hasVariants: z.boolean(),
 					variantOptions: z.array(variantOptionInputSchema),
+					imageUrls: z.array(z.url()),
 				}),
 			},
 		});
@@ -203,22 +202,22 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 			},
 		});
 
-		// const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		// 	const files = Array.from(e.target.files || []);
-		// 	if (files.length + selectedFiles.length > 10) return;
-		// 	setSelectedFiles([...selectedFiles, ...files]);
-		// 	setPreviews([...previews, ...files.map((f) => URL.createObjectURL(f))]);
-		// };
+		const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+			const files = Array.from(e.target.files || []);
+			if (files.length + selectedFiles.length > 10) return;
+			setSelectedFiles([...selectedFiles, ...files]);
+			setPreviews([...previews, ...files.map((f) => URL.createObjectURL(f))]);
+		};
 
-		// const removeImage = (i: number) => {
-		// 	const f = [...selectedFiles];
-		// 	f.splice(i, 1);
-		// 	setSelectedFiles(f);
-		// 	const p = [...previews];
-		// 	URL.revokeObjectURL(p[i]);
-		// 	p.splice(i, 1);
-		// 	setPreviews(p);
-		// };
+		const removeImage = (i: number) => {
+			const f = [...selectedFiles];
+			f.splice(i, 1);
+			setSelectedFiles(f);
+			const p = [...previews];
+			URL.revokeObjectURL(p[i]);
+			p.splice(i, 1);
+			setPreviews(p);
+		};
 
 		const onSubmit = async (published: boolean) => {
 			if (createProductMutation.isPending || isUploading) {
@@ -303,6 +302,16 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 													onOpenChange={setIsCategoryDrawerOpen}
 												/>
 											</>
+										)}
+									</formV2.AppField>
+									<ProductPhotosSection
+										previews={previews}
+										onFileChange={handleFileChange}
+										onRemoveImage={removeImage}
+									/>
+									<formV2.AppField name="imageUrls" mode="array">
+										{(imageUrlsField) => (
+											<imageUrlsField.ImagesInput label="Images" />
 										)}
 									</formV2.AppField>
 									<formV2.AppField
