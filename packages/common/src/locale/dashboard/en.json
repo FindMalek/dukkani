@@ -320,5 +320,12 @@
 				"createStore": "Create Store"
 			}
 		}
+	},
+	"fields": {
+		"images": {
+			"label": "Add photos",
+			"dragActiveLabel": "Drop here",
+			"hint": "or click to browse"
+		}
 	}
 }

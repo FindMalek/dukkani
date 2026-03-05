@@ -2,6 +2,7 @@ import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
 import { ArrayField } from "../components/forms/array-field";
 import { CheckboxField } from "../components/forms/checkbox-field";
 import { EmailField } from "../components/forms/email-field";
+import { ImagesField } from "../components/forms/images-field";
 import { NumberField } from "../components/forms/number-field";
 import { PasswordField } from "../components/forms/password-field";
 import { PriceField } from "../components/forms/price-field";
@@ -25,6 +26,7 @@ const { useAppForm } = createFormHook({
 		CheckboxInput: CheckboxField,
 		SwitchInput: SwitchField,
 		ArrayInput: ArrayField,
+		ImagesInput: ImagesField,
 	},
 	formComponents: {},
 	fieldContext,
