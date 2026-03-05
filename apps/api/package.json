@@ -12,9 +12,9 @@
 		"@dukkani/auth": "workspace:*",
 		"@dukkani/common": "workspace:*",
 		"@dukkani/core": "workspace:*",
-		"@dukkani/logger": "workspace:*",
 		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*",
+		"@dukkani/logger": "workspace:*",
 		"@dukkani/orpc": "workspace:*",
 		"@dukkani/tracing": "workspace:*",
 		"@orpc/openapi": "catalog:",
@@ -22,16 +22,17 @@
 		"@orpc/zod": "catalog:",
 		"@prisma/client": "catalog:",
 		"better-auth": "catalog:",
+		"dotenv": "catalog:",
 		"next": "catalog:",
 		"pg": "^8.16.3",
 		"sharp": "catalog:",
-		"dotenv": "catalog:",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
 		"@t3-oss/env-nextjs": "catalog:",
 		"@types/node": "catalog:",
-		"baseline-browser-mapping": "catalog:"
+		"baseline-browser-mapping": "catalog:",
+		"typescript": "catalog:"
 	}
 }
