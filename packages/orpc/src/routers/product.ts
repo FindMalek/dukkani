@@ -25,7 +25,7 @@ import { ProductService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ORPCError } from "@orpc/server";
-import { baseProcedure, protectedProcedure } from "../index";
+import { baseProcedure, protectedProcedure } from "../procedures";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 

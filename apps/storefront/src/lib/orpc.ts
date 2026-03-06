@@ -1,5 +1,8 @@
-import type { AppRouterClient } from "@dukkani/orpc";
+import { getApiUrl } from "@dukkani/env/get-api-url";
+import type { AppRouterClient, StorefrontRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
+import { createORPCClient } from "@orpc/client";
+import { RPCLink } from "@orpc/client/fetch";
 import { QueryClient } from "@tanstack/react-query";
 import { env } from "@/env";
 
@@ -25,7 +28,7 @@ let orpcClient: ReturnType<typeof createORPCClientUtils> | null = null;
 
 function getORPCClient() {
 	if (!orpcClient) {
-		orpcClient = createORPCClientUtils(env.NEXT_PUBLIC_API_URL);
+		orpcClient = createORPCClientUtils(getApiUrl(env.NEXT_PUBLIC_API_URL));
 	}
 	return orpcClient;
 }
@@ -33,6 +36,23 @@ function getORPCClient() {
 export const client: AppRouterClient = getORPCClient().client;
 export const queryClient = getORPCClient().queryClient;
 export const orpc = getORPCClient().orpc;
+
+// Storefront oRPC client - same-origin, for selectStore procedure
+export const storefrontClient: StorefrontRouterClient = (() => {
+	const link = new RPCLink({
+		url: () =>
+			typeof window !== "undefined"
+				? `${window.location.origin}/api/storefront`
+				: "",
+		fetch(url, options) {
+			return fetch(url, {
+				...options,
+				credentials: "include",
+			});
+		},
+	});
+	return createORPCClient(link) as StorefrontRouterClient;
+})();
 
 // For SSR - create a new query client per request
 let browserQueryClient: QueryClient | undefined;

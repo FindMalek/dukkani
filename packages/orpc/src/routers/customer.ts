@@ -20,7 +20,7 @@ import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { CustomerService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure } from "../index";
+import { protectedProcedure } from "../procedures";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
 export const customerRouter = {

@@ -6,19 +6,22 @@ import {
 	type Locale,
 } from "@dukkani/common/schemas/constants";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
+import { isStoreSelectorEnabled } from "@dukkani/env";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { Cairo, Inter } from "next/font/google";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
+import { StoreSelector } from "@/components/layout/store-selector";
+import { StoreSelectorBubble } from "@/components/layout/store-selector-bubble";
 import { Providers } from "@/components/layout/providers";
 import { StoreFooter } from "@/components/layout/store-footer";
 import { StoreHeader } from "@/components/layout/store-header";
 import { STORE_HEADER_HEIGHT_PX } from "@/lib/constants";
 import { handleAPIError } from "@/lib/error";
+import { getStoreSlug } from "@/lib/get-store-slug";
 import { getQueryClient, orpc } from "@/lib/orpc";
-import { getStoreSlugFromHost } from "@/lib/utils";
 
 const inter = Inter({
 	variable: "--font-sans-latin",
@@ -53,7 +56,8 @@ export default async function RootLayout({
 
 	const headersList = await headers();
 	const host = headersList.get("host");
-	const storeSlug = getStoreSlugFromHost(host);
+	const cookieStore = await cookies();
+	const storeSlug = getStoreSlug(host, cookieStore);
 
 	const queryClient = getQueryClient();
 	let store: StorePublicOutput | null = null;
@@ -79,6 +83,20 @@ export default async function RootLayout({
 	}
 
 	if (!store) {
+		if (isStoreSelectorEnabled()) {
+			return (
+				<html
+					lang={lang}
+					dir={getTextDirection(lang)}
+					className={`${inter.variable} ${cairo.variable}`}
+					suppressHydrationWarning
+				>
+					<body className="antialiased" suppressHydrationWarning>
+						<StoreSelector locale={lang} messages={messages} />
+					</body>
+				</html>
+			);
+		}
 		return notFound();
 	}
 
@@ -99,6 +117,7 @@ export default async function RootLayout({
 							<StoreFooter />
 						</div>
 					</HydrationBoundary>
+					{isStoreSelectorEnabled() && <StoreSelectorBubble locale={lang} />}
 				</Providers>
 			</body>
 		</html>
