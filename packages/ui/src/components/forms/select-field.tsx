@@ -31,6 +31,7 @@ type SelectOptionGroup = {
 type SelectFieldProps = CommonFieldProps &
 	React.ComponentProps<typeof Select> & {
 		options?: SelectOptionGroup[] | (() => Promise<SelectOptionGroup[]>);
+		placeholder?: string;
 	} & {
 		// like opening a modal or a dialog
 		onNewOptionClick?: () => void;
@@ -40,6 +41,7 @@ export function SelectField({
 	label,
 	description,
 	labelFirstOnHorizontal = false,
+	placeholder = "",
 	options: optionsOrPromise,
 	onNewOptionClick,
 	...props
@@ -92,7 +94,7 @@ export function SelectField({
 			>
 				<div className="flex w-full items-center justify-between gap-2">
 					<SelectTrigger aria-invalid={isInvalid} className="grow">
-						<SelectValue id={field.name} placeholder="Select an option" />
+						<SelectValue id={field.name} placeholder={placeholder} />
 					</SelectTrigger>
 					{onNewOptionClick && (
 						<Button
