@@ -250,7 +250,7 @@
 					"label": "Published",
 					"placeholder": "Enter product published"
 				},
-				"addPhotos": "Add photos",
+				"photos": "Photos",
 				"priceHelp": "Price customers pay (COD)",
 				"category": {
 					"label": "Category",
