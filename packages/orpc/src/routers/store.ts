@@ -20,7 +20,11 @@ import {
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import { baseProcedure, protectedProcedure, publicProcedure } from "../procedures";
+import {
+	baseProcedure,
+	protectedProcedure,
+	publicProcedure,
+} from "../procedures";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 
 export const storeRouter = {

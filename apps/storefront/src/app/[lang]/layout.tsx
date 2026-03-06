@@ -14,6 +14,7 @@ import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { StoreSelector } from "@/components/layout/store-selector";
+import { StoreSelectorBubble } from "@/components/layout/store-selector-bubble";
 import { Providers } from "@/components/layout/providers";
 import { StoreFooter } from "@/components/layout/store-footer";
 import { StoreHeader } from "@/components/layout/store-header";
@@ -116,6 +117,7 @@ export default async function RootLayout({
 							<StoreFooter />
 						</div>
 					</HydrationBoundary>
+					{isStoreSelectorEnabled() && <StoreSelectorBubble locale={lang} />}
 				</Providers>
 			</body>
 		</html>
