@@ -43,6 +43,14 @@
 		"./presets/storefront": {
 			"types": "./src/presets/storefront.ts",
 			"default": "./src/presets/storefront.ts"
+		},
+		"./get-api-url": {
+			"types": "./src/utils/get-api-url.ts",
+			"default": "./src/utils/get-api-url.ts"
+		},
+		"./get-storefront-base-url": {
+			"types": "./src/utils/get-storefront-base-url.ts",
+			"default": "./src/utils/get-storefront-base-url.ts"
 		}
 	},
 	"dependencies": {

@@ -1,17 +1,17 @@
 import { withRelatedProject } from "@vercel/related-projects";
-import { baseEnv } from "../base";
 
 /**
  * Resolve the API URL for the current deployment context.
  * Uses @vercel/related-projects to get the API preview URL when building
  * Dashboard/Storefront/Web in a Vercel preview deployment.
- * Falls back to NEXT_PUBLIC_API_URL for local dev or when related project data is unavailable.
+ * Falls back to defaultUrl for local dev or when related project data is unavailable.
+ *
+ * @param defaultUrl - The fallback API URL (e.g. env.NEXT_PUBLIC_API_URL from your app's env)
  */
-export function getApiUrl(): string {
+export function getApiUrl(defaultUrl: string): string {
 	const projectName = "dukkani-api";
-	const defaultUrl = baseEnv.NEXT_PUBLIC_API_URL;
 	const defaultHost =
-		defaultUrl?.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? "";
+		defaultUrl.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? "";
 
 	const host = withRelatedProject({
 		projectName,

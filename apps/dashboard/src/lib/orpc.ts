@@ -1,13 +1,14 @@
-import { getApiUrl } from "@dukkani/env";
+import { getApiUrl } from "@dukkani/env/get-api-url";
 import type { AppRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
+import { env } from "@/env";
 
 // Lazy ORPC client creation - only create when accessed
 let orpcClient: ReturnType<typeof createORPCClientUtils> | null = null;
 
 function getORPCClient() {
 	if (!orpcClient) {
-		orpcClient = createORPCClientUtils(getApiUrl());
+		orpcClient = createORPCClientUtils(getApiUrl(env.NEXT_PUBLIC_API_URL));
 	}
 	return orpcClient;
 }
