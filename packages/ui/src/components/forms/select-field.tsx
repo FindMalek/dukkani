@@ -1,6 +1,6 @@
 "use client";
 import type * as React from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useFieldContext } from "../../hooks/use-app-form";
 import { Button } from "../button";
 import { Icons } from "../icons";
@@ -46,7 +46,7 @@ export function SelectField({
 	onNewOptionClick,
 	...props
 }: SelectFieldProps) {
-	const field = useFieldContext<string>();
+	const field = useFieldContext<string | undefined>();
 	const [asyncOptions, setAsyncOptions] = useState<SelectOptionGroup[] | null>(
 		null,
 	);
@@ -77,13 +77,20 @@ export function SelectField({
 	}, [optionsOrPromise]);
 
 	useEffect(() => {
-		const option = resolvedOptions.find((option) => option.id === field.state.value);
+		const option = resolvedOptions.find(
+			(option) => option.id === field.state.value,
+		);
 		if (option) {
 			field.handleChange(option.id);
 		}
 	}, [field.state.value, resolvedOptions, field.handleChange]);
 
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+
+	const handleReset = useCallback(() => {
+		field.handleChange(undefined);
+	}, [field]);
+
 	return (
 		<BaseField label={label} description={description}>
 			<Select
@@ -99,13 +106,21 @@ export function SelectField({
 					{onNewOptionClick && (
 						<Button
 							type="button"
-							variant="secondary"
+							variant="outline"
 							size="icon"
 							onClick={onNewOptionClick}
 						>
 							<Icons.plus className="size-4" />
 						</Button>
 					)}
+					<Button
+						type="button"
+						variant="secondary"
+						size="icon"
+						onClick={handleReset}
+					>
+						<Icons.trash className="size-4" />
+					</Button>
 				</div>
 				<SelectContent>
 					{resolvedOptions.map((optionGroup) => (
