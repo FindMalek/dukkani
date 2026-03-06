@@ -7,7 +7,6 @@ import {
 	Dropzone,
 	DropzoneThumb,
 	DropzoneZone,
-	type FileWithPreview,
 } from "../dropzone";
 import { ScrollArea, ScrollBar } from "../scroll-area";
 import { BaseField, type CommonFieldProps } from "./base-field";
@@ -22,7 +21,7 @@ export function ImagesField({
 	srOnlyLabel,
 	multiple = true,
 }: ImagesFieldProps) {
-	const field = useFieldContext<FileWithPreview[]>();
+	const field = useFieldContext<File[]>();
 	const files = field.state.value ?? [];
 	const t = useTranslations("fields.images");
 	const thumbsRef = React.useRef<HTMLDivElement>(null);
@@ -50,9 +49,12 @@ export function ImagesField({
 				className="w-full"
 				accept={{ "image/*": [] }}
 				multiple={multiple}
-				files={files}
+				files={files.map((file) => ({
+					file,
+					preview: URL.createObjectURL(file),
+				}))}
 				onFilesChange={(next) => {
-					field.handleChange(next);
+					field.handleChange(next.map((fileWithPreview) => fileWithPreview.file));
 					field.handleBlur();
 				}}
 			>
@@ -63,7 +65,10 @@ export function ImagesField({
 								{files.map((file) => (
 									<DropzoneThumb
 										key={file.name}
-										file={file}
+										fileWithPreview={{
+											file,
+											preview: URL.createObjectURL(file),
+										}}
 										className="size-24 shrink-0 rounded-xl"
 									/>
 								))}

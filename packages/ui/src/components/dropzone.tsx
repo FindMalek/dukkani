@@ -6,7 +6,7 @@ import { type DropzoneOptions, useDropzone } from "react-dropzone";
 import { cn } from "../lib/utils";
 import { Icons } from "./icons";
 
-export type FileWithPreview = File & { preview: string };
+export type FileWithPreview = { file: File; preview: string };
 
 type DropzoneContextValue = {
 	files: FileWithPreview[];
@@ -51,18 +51,20 @@ function Dropzone({
 	const isControlled = controlledFiles !== undefined;
 	const files = isControlled ? controlledFiles : internalFiles;
 
-  const revokePreviews = React.useEffectEvent(() => {
-    return () => {
-      files.map((file) => URL.revokeObjectURL(file.preview));
-    };
-  })
+	const revokePreviews = React.useEffectEvent(() => {
+		return () => {
+			files.map((fileWithPreview) =>
+				URL.revokeObjectURL(fileWithPreview.preview),
+			);
+		};
+	});
 
 	const setFiles = React.useCallback(
 		(next: FileWithPreview[]) => {
 			if (!isControlled) setInternalFiles(next);
 			onFilesChange?.(next);
 
-      return revokePreviews();
+			return revokePreviews();
 		},
 		[isControlled, onFilesChange],
 	);
@@ -76,21 +78,24 @@ function Dropzone({
 	} = useDropzone({
 		...dropzoneOptions,
 		onDrop(acceptedFiles) {
-			const existingNames = new Set(files.map((f) => f.name));
+			const existingNames = new Set(
+				files.map((fileWithPreview) => fileWithPreview.file.name),
+			);
 			const newFiles = acceptedFiles
 				.filter((file) => !existingNames.has(file.name))
-				.map((file) =>
-					Object.assign(file, { preview: URL.createObjectURL(file) }),
-				);
+				.map((file) => ({
+					file,
+					preview: URL.createObjectURL(file),
+				}));
 			setFiles([...files, ...newFiles]);
 		},
 	});
 
 	const removeFile = React.useCallback(
 		(name: string) => {
-			const next = files.filter((file) => {
-				if (file.name === name) {
-					URL.revokeObjectURL(file.preview);
+			const next = files.filter((fileWithPreview) => {
+				if (fileWithPreview.file.name === name) {
+					URL.revokeObjectURL(fileWithPreview.preview);
 					return false;
 				}
 				return true;
@@ -112,10 +117,7 @@ function Dropzone({
 				isDragReject,
 			}}
 		>
-			<div
-				data-slot="dropzone"
-				className={cn("flex gap-4", className)}
-			>
+			<div data-slot="dropzone" className={cn("flex gap-4", className)}>
 				{children}
 			</div>
 		</DropzoneContext.Provider>
@@ -189,17 +191,17 @@ function DropzoneThumbs({
 			{...props}
 		>
 			{children ??
-				files.map((file) => <DropzoneThumb key={file.name} file={file} />)}
+				files.map((fileWithPreview) => <DropzoneThumb key={fileWithPreview.file.name} fileWithPreview={fileWithPreview} />)}
 		</div>
 	);
 }
 
 type DropzoneThumbProps = {
-	file: FileWithPreview;
+	fileWithPreview: FileWithPreview;
 	className?: string;
 };
 
-function DropzoneThumb({ file, className }: DropzoneThumbProps) {
+function DropzoneThumb({ fileWithPreview, className }: DropzoneThumbProps) {
 	const { removeFile } = useDropzoneContext();
 
 	return (
@@ -211,16 +213,16 @@ function DropzoneThumb({ file, className }: DropzoneThumbProps) {
 			)}
 		>
 			<img
-				src={file.preview}
-				alt={file.name}
+				src={fileWithPreview.preview}
+				alt={fileWithPreview.file.name}
 				className="h-full w-full object-cover"
-				onLoad={() => URL.revokeObjectURL(file.preview)}
+				onLoad={() => URL.revokeObjectURL(fileWithPreview.preview)}
 			/>
 			<button
 				type="button"
-				onClick={() => removeFile(file.name)}
+				onClick={() => removeFile(fileWithPreview.file.name)}
 				className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity focus-visible:opacity-100 focus-visible:outline-none group-hover:opacity-100"
-				aria-label={`Remove ${file.name}`}
+				aria-label={`Remove ${fileWithPreview.file.name}`}
 			>
 				<Icons.x className="size-4 text-white" />
 			</button>
