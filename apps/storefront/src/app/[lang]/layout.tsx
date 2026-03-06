@@ -13,7 +13,7 @@ import { Cairo, Inter } from "next/font/google";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { StoreSelector } from "@/components/app/store-selector";
+import { StoreSelector } from "@/components/layout/store-selector";
 import { Providers } from "@/components/layout/providers";
 import { StoreFooter } from "@/components/layout/store-footer";
 import { StoreHeader } from "@/components/layout/store-header";

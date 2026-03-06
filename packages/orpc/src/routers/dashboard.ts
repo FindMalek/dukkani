@@ -2,7 +2,7 @@ import type { DashboardStatsOutput } from "@dukkani/common/schemas/dashboard/out
 import { dashboardStatsOutputSchema } from "@dukkani/common/schemas/dashboard/output";
 import { DashboardService } from "@dukkani/common/services";
 import { z } from "zod";
-import { protectedProcedure } from "../index";
+import { protectedProcedure } from "../procedures";
 
 export const dashboardRouter = {
 	/**
