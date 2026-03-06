@@ -3,11 +3,7 @@
 import { useTranslations } from "next-intl";
 import * as React from "react";
 import { useFieldContext } from "../../hooks/use-app-form";
-import {
-	Dropzone,
-	DropzoneThumb,
-	DropzoneZone,
-} from "../dropzone";
+import { Dropzone, DropzoneThumb, DropzoneZone } from "../dropzone";
 import { ScrollArea, ScrollBar } from "../scroll-area";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
@@ -54,7 +50,9 @@ export function ImagesField({
 					preview: URL.createObjectURL(file),
 				}))}
 				onFilesChange={(next) => {
-					field.handleChange(next.map((fileWithPreview) => fileWithPreview.file));
+					field.handleChange(
+						next.map((fileWithPreview) => fileWithPreview.file),
+					);
 					field.handleBlur();
 				}}
 			>
