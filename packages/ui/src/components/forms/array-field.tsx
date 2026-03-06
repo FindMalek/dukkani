@@ -15,9 +15,8 @@ type ArrayFieldProps = {
 	fromKey: string;
 };
 export function ArrayField({ as: _as, fromKey }: ArrayFieldProps) {
-	const arrayField = useFieldContext<
-		(string | { [key: typeof fromKey]: string })[]
-	>();
+	const arrayField =
+		useFieldContext<(string | { [key: typeof fromKey]: string })[]>();
 	const form = useFormContext();
 	const [draftValue, setDraftValue] = useState("");
 
@@ -40,9 +39,19 @@ export function ArrayField({ as: _as, fromKey }: ArrayFieldProps) {
 	const handlePushDraft = useCallback(() => {
 		const trimmed = draftValue.trim();
 		if (!trimmed) return;
-		if (arrayField.state.value.some((value) => typeof value === "string" ? value.trim() === trimmed : value[fromKey]?.trim() === trimmed))
+		if (
+			arrayField.state.value.some((value) =>
+				typeof value === "string"
+					? value.trim() === trimmed
+					: value[fromKey]?.trim() === trimmed,
+			)
+		)
 			return;
-		arrayField.pushValue(typeof arrayField.state.value === "string" ? trimmed : { [fromKey]: trimmed });
+		arrayField.pushValue(
+			typeof arrayField.state.value === "string"
+				? trimmed
+				: { [fromKey]: trimmed },
+		);
 		setDraftValue("");
 	}, [arrayField, draftValue, fromKey]);
 
@@ -65,12 +74,18 @@ export function ArrayField({ as: _as, fromKey }: ArrayFieldProps) {
 							onDelete={() => handlePillDelete(index)}
 							// @ts-expect-error - dynamic array path
 							onEdit={(value) => field.handleChange(value)}
+							onBlur={field.handleBlur}
+							isInvalid={field.state.meta.isTouched && !field.state.meta.isValid}
+							name={field.name}
 						/>
 					)}
 				</form.Field>
 			))}
 			<InputGroup className="rounded-full">
 				<InputGroupInput
+					aria-invalid={
+						arrayField.state.meta.isTouched && !arrayField.state.meta.isValid
+					}
 					value={draftValue}
 					className="text-center text-xs"
 					onChange={(e) => setDraftValue(e.target.value)}
@@ -103,11 +118,17 @@ function EditablePill({
 	index,
 	onDelete,
 	onEdit,
+	onBlur,
+	isInvalid,
+	name,
 }: {
 	value: string;
 	index: number;
 	onDelete: () => void;
 	onEdit: (value: string) => void;
+	onBlur: () => void;
+	isInvalid: boolean;
+	name: string;
 }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedValue, setEditedValue] = useState(value);
@@ -137,6 +158,9 @@ function EditablePill({
 						onEditFinish();
 					}
 				}}
+				onBlur={onBlur}
+				aria-invalid={isInvalid}
+				name={name}
 			/>
 
 			<InputGroupAddon align="inline-end">
