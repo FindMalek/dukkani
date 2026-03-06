@@ -46,8 +46,8 @@ Each pull request gets isolated preview deployments for API, Dashboard, Storefro
 2. Connect your Neon project to the API Vercel project.
 3. Enable **"Resource must be active before deployment"** so Vercel waits for the branch to be ready.
 4. Neon auto-creates a branch per preview, injects `DATABASE_URL`, and cleans up on PR close.
-5. The API build command (in `apps/api/vercel.json`) runs migrations and seed before the Next.js build:
-   - `pnpm --filter @dukkani/db run db:migrate:deploy && pnpm db:seed && pnpm turbo build --filter=@dukkani/api`
+5. The API build script (in `apps/api/package.json`) runs migrations and seed before the Next.js build:
+   - `pnpm --filter @dukkani/db run db:migrate:deploy && (test "$VERCEL_ENV" = "preview" && pnpm --filter @dukkani/db run db:seed || true) && pnpm exec turbo run build --filter=@dukkani/api`
 
 Do **not** set `DATABASE_URL` for Preview in the API project; let the Neon integration inject it.
 

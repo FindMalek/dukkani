@@ -1,4 +1,0 @@
-{
-	"framework": "nextjs",
-	"buildCommand": "pnpm --filter @dukkani/db run db:migrate:deploy && (test \"$VERCEL_ENV\" = \"preview\" && pnpm --filter @dukkani/db run db:seed || true) && pnpm turbo build --filter=@dukkani/api"
-}
