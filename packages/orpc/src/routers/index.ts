@@ -11,6 +11,7 @@ import { orderRouter } from "./order";
 import { productRouter } from "./product";
 import { storageRouter } from "./storage";
 import { storeRouter } from "./store";
+import { storefrontRouter } from "./storefront";
 import { telegramRouter } from "./telegram";
 
 export const appRouter = {
@@ -30,3 +31,7 @@ export const appRouter = {
 };
 export type AppRouter = typeof appRouter;
 export type AppRouterClient = RouterClient<typeof appRouter>;
+
+export { storefrontRouter };
+export type StorefrontRouter = typeof storefrontRouter;
+export type StorefrontRouterClient = RouterClient<typeof storefrontRouter>;

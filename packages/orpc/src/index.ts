@@ -27,5 +27,10 @@ export const protectedProcedure = o
 	.use(requireAuth);
 
 export { createORPCClientUtils } from "./client";
-export type { AppRouter, AppRouterClient } from "./routers/index";
-export { appRouter } from "./routers/index";
+export type {
+	AppRouter,
+	AppRouterClient,
+	StorefrontRouter,
+	StorefrontRouterClient,
+} from "./routers/index";
+export { appRouter, storefrontRouter } from "./routers/index";

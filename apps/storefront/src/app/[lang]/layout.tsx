@@ -6,6 +6,7 @@ import {
 	type Locale,
 } from "@dukkani/common/schemas/constants";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
+import { isStoreSelectorEnabled } from "@dukkani/env";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { Cairo, Inter } from "next/font/google";
@@ -81,7 +82,7 @@ export default async function RootLayout({
 	}
 
 	if (!store) {
-		if (process.env.VERCEL_ENV === "preview") {
+		if (isStoreSelectorEnabled()) {
 			return (
 				<html
 					lang={lang}

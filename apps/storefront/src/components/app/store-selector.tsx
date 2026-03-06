@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import { getQueryClient } from "@/lib/orpc";
+import { getQueryClient, storefrontClient } from "@/lib/orpc";
 
 interface StoreSelectorProps {
 	locale: Locale;
@@ -23,6 +23,7 @@ function StoreSelectorForm({ locale }: { locale: Locale }) {
 	const t = useTranslations("storefront.storeSelector");
 	const router = useRouter();
 	const [slug, setSlug] = useState("");
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -34,9 +35,15 @@ function StoreSelectorForm({ locale }: { locale: Locale }) {
 			return;
 		}
 
-		router.push(
-			`/api/storefront/select-store?slug=${encodeURIComponent(trimmed)}&redirect=/${locale}`,
-		);
+		setIsSubmitting(true);
+		try {
+			await storefrontClient.selectStore({ slug: trimmed });
+			router.push(`/${locale}`);
+		} catch {
+			toast.error(t("errorNotFound"));
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	return (
@@ -53,7 +60,7 @@ function StoreSelectorForm({ locale }: { locale: Locale }) {
 						className="w-full"
 						autoFocus
 					/>
-					<Button type="submit" className="w-full">
+					<Button type="submit" className="w-full" disabled={isSubmitting}>
 						{t("button")}
 					</Button>
 				</form>

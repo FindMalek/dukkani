@@ -1,16 +1,17 @@
 import { isReservedStoreSlug } from "@dukkani/common/schemas/store/constants";
+import { isStoreSelectorEnabled } from "@dukkani/env";
 import { getStoreSlugFromHost } from "./utils";
 
 /**
  * Resolve the store slug for the current request.
  * Production: uses subdomain only (getStoreSlugFromHost).
- * Preview: uses cookie only (never host) - cookies are checked strictly when isPreviewDeployment.
+ * Preview/dev: uses cookie only (no subdomains available).
  */
 export function getStoreSlug(
 	host: string | null,
 	cookies: { get: (name: string) => { value?: string } | undefined },
 ): string | null {
-	if (!process.env.VERCEL_ENV || process.env.VERCEL_ENV !== "preview") {
+	if (!isStoreSelectorEnabled()) {
 		return getStoreSlugFromHost(host);
 	}
 

@@ -1,6 +1,7 @@
 import { LOCALES } from "@dukkani/common/schemas/constants";
 import { isReservedStoreSlug } from "@dukkani/common/schemas/store/constants";
 import { getLocale, setLocaleCookie } from "@dukkani/common/utils/locale-proxy";
+import { isStoreSelectorEnabled } from "@dukkani/env";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
@@ -28,17 +29,18 @@ export function proxy(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	// Preview only: when URL has ?store=slug, set cookie and redirect to same path without param
-	if (process.env.VERCEL_ENV === "preview") {
+	// Store selector env: when URL has ?store=slug, set cookie and redirect to same path without param
+	if (isStoreSelectorEnabled()) {
 		const storeParam = searchParams.get("store")?.trim().toLowerCase();
 		if (storeParam && !isReservedStoreSlug(storeParam)) {
 			const redirectUrl = new URL(pathname + request.nextUrl.hash, request.url);
 			const response = NextResponse.redirect(redirectUrl);
+			const isSecure = request.url.startsWith("https:");
 			response.cookies.set(STORE_SLUG_COOKIE, storeParam, {
 				path: "/",
 				maxAge: COOKIE_MAX_AGE,
 				sameSite: "lax",
-				secure: true,
+				secure: isSecure,
 			});
 			return response;
 		}
