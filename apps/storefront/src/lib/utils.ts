@@ -33,8 +33,14 @@ export function getStoreSlugFromHost(host: string | null): string | null {
 		return null;
 	}
 
-	// Get the base domain from environment (e.g., "dukkani.malek.engineering" or "dukkani.com")
-	const baseDomain = env.NEXT_PUBLIC_STORE_DOMAIN;
+	// Get the base domain: use VERCEL_URL in preview, else NEXT_PUBLIC_STORE_DOMAIN
+	const isPreview = process.env.VERCEL_ENV === "preview";
+	const rawBaseDomain =
+		isPreview && process.env.VERCEL_URL
+			? process.env.VERCEL_URL
+			: env.NEXT_PUBLIC_STORE_DOMAIN;
+
+	const baseDomain = rawBaseDomain.replace(/^https?:\/\//, "").split("/")[0];
 	const baseDomainParts = baseDomain.split(".");
 	const baseDomainLength = baseDomainParts.length;
 

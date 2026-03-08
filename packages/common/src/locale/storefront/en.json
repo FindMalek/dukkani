@@ -94,6 +94,15 @@
 				}
 			}
 		},
+		"storeSelector": {
+			"heading": "Select a store",
+			"description": "Enter the store slug to view the storefront.",
+			"placeholder": "e.g. demo, omar-home",
+			"button": "View Store",
+			"loading": "Loading...",
+			"errorNotFound": "Store not found. Please check the slug.",
+			"errorReserved": "This slug is reserved."
+		},
 		"comingSoon": {
 			"heading": "We're launching soon",
 			"description": {

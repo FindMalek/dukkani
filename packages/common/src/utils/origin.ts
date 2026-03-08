@@ -25,12 +25,15 @@ export function isOriginAllowed(
 		return true;
 	}
 
-	// Wildcard pattern matching (e.g., *.vercel.app)
+	// Wildcard pattern matching (e.g., *.vercel.app or *-findmalek-team.vercel.app)
 	if (allowedOriginPattern.includes("*")) {
 		// Validate pattern safety: only allow simple wildcard patterns
-		// Pattern must be: optional wildcard, followed by domain segments
-		const safePatternRegex =
-			/^\*?\.?[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+		// Supports: *.domain.tld (subdomain) or *-suffix.domain.tld (e.g. *-findmalek-team.vercel.app)
+		const domainLabel = "[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?";
+		const domainSuffix = "(\\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*";
+		const safePatternRegex = new RegExp(
+			`^(\\*?\\.?${domainLabel}${domainSuffix}|\\*-${domainLabel}${domainSuffix})$`,
+		);
 		if (!safePatternRegex.test(allowedOriginPattern)) {
 			return false;
 		}
@@ -70,4 +73,22 @@ export function isOriginAllowedForRequest(
 	}
 
 	return false;
+}
+
+/**
+ * Check if origin matches any of the allowed patterns (comma-separated or array)
+ */
+export function isOriginAllowedByPatterns(
+	origin: string | null,
+	patterns: string | string[] | undefined,
+): boolean {
+	if (!origin || !patterns) return false;
+	const list =
+		typeof patterns === "string"
+			? patterns
+					.split(",")
+					.map((p) => p.trim())
+					.filter(Boolean)
+			: patterns;
+	return list.some((pattern) => isOriginAllowed(origin, pattern));
 }

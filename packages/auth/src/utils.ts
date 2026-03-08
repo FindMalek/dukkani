@@ -1,5 +1,9 @@
 import { scrypt } from "node:crypto";
-import { isOriginAllowedForRequest } from "@dukkani/common/utils/origin";
+import {
+	isOriginAllowed,
+	isOriginAllowedByPatterns,
+	isOriginAllowedForRequest,
+} from "@dukkani/common/utils/origin";
 
 /**
  * Custom password verifier to match seeder format
@@ -47,8 +51,11 @@ export function buildTrustedOrigins(
 	baseOrigins: string[],
 	isVercel: boolean,
 	allowedOriginPattern?: string,
+	previewOriginPattern?: string,
 ): string[] | ((request?: Request) => string[] | Promise<string[]>) {
-	if (isVercel && allowedOriginPattern) {
+	// Enable dynamic origin check when on Vercel (even without allowedOriginPattern)
+	// so preview deployments can trust *.vercel.app origins
+	if (isVercel) {
 		return (request?: Request) => {
 			if (!request) {
 				return baseOrigins;
@@ -56,7 +63,9 @@ export function buildTrustedOrigins(
 			const origin = request.headers.get("origin");
 			if (
 				origin &&
-				isOriginAllowedForRequest(origin, baseOrigins, allowedOriginPattern)
+				(isOriginAllowedForRequest(origin, baseOrigins, allowedOriginPattern) ||
+					(process.env.VERCEL_ENV === "preview" &&
+						isOriginAllowedByPatterns(origin, previewOriginPattern)))
 			) {
 				return [...baseOrigins, origin];
 			}

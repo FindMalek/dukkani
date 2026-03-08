@@ -21,7 +21,7 @@ import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { OrderService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
-import { baseProcedure, protectedProcedure } from "../index";
+import { baseProcedure, protectedProcedure } from "../procedures";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 

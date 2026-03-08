@@ -94,6 +94,15 @@
 				}
 			}
 		},
+		"storeSelector": {
+			"heading": "Sélectionnez un magasin",
+			"description": "Entrez l'identifiant du magasin pour afficher la vitrine.",
+			"placeholder": "ex. demo, omar-home",
+			"button": "Voir le magasin",
+			"loading": "Chargement...",
+			"errorNotFound": "Magasin introuvable. Vérifiez l'identifiant.",
+			"errorReserved": "Cet identifiant est réservé."
+		},
 		"comingSoon": {
 			"heading": "Nous lançons bientôt",
 			"description": {

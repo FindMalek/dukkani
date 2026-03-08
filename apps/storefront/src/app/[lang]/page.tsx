@@ -2,7 +2,7 @@ import { StoreStatus } from "@dukkani/common/schemas/enums";
 import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { CategoryFilter } from "@/components/app/category-filter";
@@ -11,12 +11,13 @@ import { HeroBanner } from "@/components/app/hero-banner";
 import { ProductGrid } from "@/components/app/product-grid";
 import { ProductSectionHeader } from "@/components/app/product-section-header";
 import { client, getQueryClient, orpc } from "@/lib/orpc";
-import { getStoreSlugFromHost } from "@/lib/utils";
+import { getStoreSlug } from "@/lib/get-store-slug";
 
 export default async function StorePage() {
 	const headersList = await headers();
 	const host = headersList.get("host");
-	const storeSlug = getStoreSlugFromHost(host);
+	const cookieStore = await cookies();
+	const storeSlug = getStoreSlug(host, cookieStore);
 	const t = await getTranslations("storefront.store");
 
 	if (!storeSlug) {

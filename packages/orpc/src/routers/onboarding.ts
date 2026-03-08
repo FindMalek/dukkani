@@ -9,7 +9,7 @@ import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
 import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure } from "../index";
+import { protectedProcedure } from "../procedures";
 
 export const onboardingRouter = {
 	/**

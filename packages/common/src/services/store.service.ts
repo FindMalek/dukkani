@@ -15,6 +15,7 @@ import {
 import { ProductQuery } from "../entities/product/query";
 import { StoreEntity } from "../entities/store/entity";
 import { StoreQuery } from "../entities/store/query";
+import { isReservedStoreSlug } from "../schemas/store/constants";
 import type { CreateStoreOnboardingInput } from "../schemas/store/input";
 import type {
 	StoreIncludeOutput,
@@ -49,14 +50,15 @@ class StoreServiceBase {
 		let slug = baseSlug;
 		let counter = 1;
 
-		// Check if slug exists, if so append number
+		// Check if slug is reserved or exists in DB; if so append number
 		while (true) {
+			const isReserved = isReservedStoreSlug(slug);
 			const existing = await database.store.findUnique({
 				where: { slug },
 				select: { id: true },
 			});
 
-			if (!existing) {
+			if (!isReserved && !existing) {
 				addSpanAttributes({
 					"store.slug_final": slug,
 					"store.slug_attempts": counter,

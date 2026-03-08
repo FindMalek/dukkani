@@ -1,4 +1,5 @@
 import type { auth } from "@dukkani/auth";
+import { getApiUrl } from "@dukkani/env/get-api-url";
 import {
 	inferAdditionalFields,
 	lastLoginMethodClient,
@@ -7,7 +8,7 @@ import { createAuthClient } from "better-auth/react";
 import { env } from "@/env";
 
 export const authClient = createAuthClient({
-	baseURL: env.NEXT_PUBLIC_API_URL,
+	baseURL: getApiUrl(env.NEXT_PUBLIC_API_URL),
 	plugins: [inferAdditionalFields<typeof auth>(), lastLoginMethodClient()],
 });
 
