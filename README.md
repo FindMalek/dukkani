@@ -135,10 +135,6 @@ This creates default users and sample data for development. See [Database Packag
 - **Dashboard** (3003): [http://localhost:3003](http://localhost:3003) - Merchant dashboard
 - **Storefront** (3004): [http://localhost:3004](http://localhost:3004) - Customer-facing store (where shoppers browse and buy)
 
-### Preview Environments
-
-Each PR gets isolated preview deployments. See [docs/preview-environments.md](./docs/preview-environments.md) for setup and testing.
-
 ### Quick Commands
 
 ```bash
