@@ -19,6 +19,7 @@ export const RESERVED_STORE_SLUGS = [
 	"stores",
 	"en",
 	"ar",
+	"fr",
 	"_next",
 	"_vercel",
 	"static",

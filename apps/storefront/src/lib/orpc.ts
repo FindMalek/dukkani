@@ -42,7 +42,9 @@ let storefrontClientInstance: StorefrontRouterClient | null = null;
 
 export function getStorefrontClient(): StorefrontRouterClient {
 	if (typeof window === "undefined") {
-		throw new Error("getStorefrontClient() should only be called in the browser");
+		throw new Error(
+			"getStorefrontClient() should only be called in the browser",
+		);
 	}
 
 	if (!storefrontClientInstance) {
