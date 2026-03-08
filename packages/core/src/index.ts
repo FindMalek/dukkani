@@ -29,8 +29,6 @@ let authInitialized = false;
  */
 export function getDatabase() {
 	if (!databaseInitialized) {
-		// Safety: prevent preview deployments from using production DB
-		// packages/core/src/index.ts - replace the guard block with:
 		if (process.env.VERCEL_ENV === "preview") {
 			const dbUrl = apiEnv.DATABASE_URL;
 			if (dbUrl?.toLowerCase().includes("production")) {
