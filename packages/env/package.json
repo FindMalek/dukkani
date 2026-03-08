@@ -51,6 +51,10 @@
 		"./get-storefront-base-url": {
 			"types": "./src/utils/get-storefront-base-url.ts",
 			"default": "./src/utils/get-storefront-base-url.ts"
+		},
+		"./modules": {
+			"types": "./src/modules/index.ts",
+			"default": "./src/modules/index.ts"
 		}
 	},
 	"dependencies": {

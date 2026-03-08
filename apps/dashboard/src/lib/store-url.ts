@@ -1,5 +1,5 @@
 import type { StoreSimpleOutput } from "@dukkani/common/schemas/store/output";
-import { getStorefrontBaseUrl } from "@dukkani/env";
+import { getStorefrontBaseUrl } from "@dukkani/env/get-storefront-base-url";
 import { env } from "@/env";
 
 /**
