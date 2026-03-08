@@ -1,6 +1,7 @@
 import { scrypt } from "node:crypto";
 import {
 	isOriginAllowed,
+	isOriginAllowedByPatterns,
 	isOriginAllowedForRequest,
 } from "@dukkani/common/utils/origin";
 
@@ -50,6 +51,7 @@ export function buildTrustedOrigins(
 	baseOrigins: string[],
 	isVercel: boolean,
 	allowedOriginPattern?: string,
+	previewOriginPattern?: string,
 ): string[] | ((request?: Request) => string[] | Promise<string[]>) {
 	// Enable dynamic origin check when on Vercel (even without allowedOriginPattern)
 	// so preview deployments can trust *.vercel.app origins
@@ -63,7 +65,7 @@ export function buildTrustedOrigins(
 				origin &&
 				(isOriginAllowedForRequest(origin, baseOrigins, allowedOriginPattern) ||
 					(process.env.VERCEL_ENV === "preview" &&
-						isOriginAllowed(origin, "*.vercel.app")))
+						isOriginAllowedByPatterns(origin, previewOriginPattern)))
 			) {
 				return [...baseOrigins, origin];
 			}

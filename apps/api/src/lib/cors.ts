@@ -1,6 +1,6 @@
 import {
-	isOriginAllowed,
 	isOriginAllowedForRequest,
+	isOriginAllowedByPatterns,
 } from "@dukkani/common/utils/origin";
 import { apiEnv } from "@dukkani/env/presets/api";
 
@@ -38,7 +38,7 @@ export function getCorsHeaders(origin: string | null): HeadersInit {
 		) ||
 			// Allow Vercel preview deployments when API is in preview env
 			(process.env.VERCEL_ENV === "preview" &&
-				isOriginAllowed(origin, "*.vercel.app")))
+				isOriginAllowedByPatterns(origin, apiEnv.CORS_PREVIEW_ORIGIN_PATTERN)))
 	) {
 		allowedOrigin = origin;
 	} else {

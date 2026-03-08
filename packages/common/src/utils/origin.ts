@@ -71,3 +71,21 @@ export function isOriginAllowedForRequest(
 
 	return false;
 }
+
+/**
+ * Check if origin matches any of the allowed patterns (comma-separated or array)
+ */
+export function isOriginAllowedByPatterns(
+	origin: string | null,
+	patterns: string | string[] | undefined,
+): boolean {
+	if (!origin || !patterns) return false;
+	const list =
+		typeof patterns === "string"
+			? patterns
+					.split(",")
+					.map((p) => p.trim())
+					.filter(Boolean)
+			: patterns;
+	return list.some((pattern) => isOriginAllowed(origin, pattern));
+}

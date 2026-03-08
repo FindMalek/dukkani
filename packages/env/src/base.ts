@@ -19,6 +19,7 @@ export const baseEnv = createEnv({
 			.string()
 			.optional()
 			.transform((val) => val === "1"),
+		CORS_PREVIEW_ORIGIN_PATTERN: z.string().optional(),
 	},
 	client: {
 		NEXT_PUBLIC_NODE_ENV: z
