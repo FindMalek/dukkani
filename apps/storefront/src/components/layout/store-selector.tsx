@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import { getQueryClient, storefrontClient } from "@/lib/orpc";
+import { getQueryClient, getStorefrontClient } from "@/lib/orpc";
 
 interface StoreSelectorProps {
 	locale: Locale;
@@ -42,7 +42,7 @@ export function StoreSelectorForm({ locale, compact }: StoreSelectorFormProps) {
 
 		setIsSubmitting(true);
 		try {
-			await storefrontClient.selectStore({ slug: trimmed });
+			await getStorefrontClient().selectStore({ slug: trimmed });
 			router.push(`/${locale}`);
 			router.refresh();
 		} catch {

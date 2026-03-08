@@ -38,21 +38,28 @@ export const queryClient = getORPCClient().queryClient;
 export const orpc = getORPCClient().orpc;
 
 // Storefront oRPC client - same-origin, for selectStore procedure
-export const storefrontClient: StorefrontRouterClient = (() => {
-	const link = new RPCLink({
-		url: () =>
-			typeof window !== "undefined"
-				? `${window.location.origin}/api/storefront`
-				: "",
-		fetch(url, options) {
-			return fetch(url, {
-				...options,
-				credentials: "include",
-			});
-		},
-	});
-	return createORPCClient(link) as StorefrontRouterClient;
-})();
+let storefrontClientInstance: StorefrontRouterClient | null = null;
+
+export function getStorefrontClient(): StorefrontRouterClient {
+	if (typeof window === "undefined") {
+		throw new Error("getStorefrontClient() should only be called in the browser");
+	}
+
+	if (!storefrontClientInstance) {
+		const link = new RPCLink({
+			url: `${window.location.origin}/api/storefront`,
+			fetch(url, options) {
+				return fetch(url, {
+					...options,
+					credentials: "include",
+				});
+			},
+		});
+		storefrontClientInstance = createORPCClient(link) as StorefrontRouterClient;
+	}
+
+	return storefrontClientInstance;
+}
 
 // For SSR - create a new query client per request
 let browserQueryClient: QueryClient | undefined;
