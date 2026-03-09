@@ -18,7 +18,7 @@ export type CommonFieldProps = {
 	rightToField?: React.ReactNode;
 };
 
-type BaseFieldWithDescriptionProps = CommonFieldProps & {
+interface BaseFieldWithDescriptionProps extends CommonFieldProps {
 	description: string;
 	orientation: React.ComponentProps<typeof Field>["orientation"];
 	children: React.ReactNode;

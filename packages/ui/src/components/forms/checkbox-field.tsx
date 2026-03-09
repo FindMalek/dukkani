@@ -3,8 +3,7 @@ import { useFieldContext } from "../../hooks/use-app-form";
 import { Checkbox } from "../checkbox";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
-type CheckboxFieldProps = CommonFieldProps &
-	React.ComponentProps<typeof Checkbox>;
+interface CheckboxFieldProps extends CommonFieldProps,	React.ComponentProps<typeof Checkbox> {}
 
 export function CheckboxField({
 	label,

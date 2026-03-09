@@ -1,13 +1,12 @@
 import type * as React from "react";
+import type { CommonFieldProps } from "./base-field";
 import { TextField } from "./text-field";
 
-type EmailFieldProps = {
-	label: string;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">;
+interface EmailFieldProps
+	extends CommonFieldProps,
+		Omit<React.ComponentProps<typeof TextField>, "type"> {
+}
 
-export function EmailField({
-	label,
-	...inputProps
-}: EmailFieldProps) {
-	return <TextField label={label} {...inputProps} type="email"/>;
+export function EmailField(props: EmailFieldProps) {
+	return <TextField {...props} type="email" />;
 }

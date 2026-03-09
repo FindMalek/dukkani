@@ -7,7 +7,7 @@ import { Dropzone, DropzoneThumb, DropzoneZone } from "../dropzone";
 import { ScrollArea, ScrollBar } from "../scroll-area";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
-type ImagesFieldProps = CommonFieldProps & {
+interface ImagesFieldProps extends CommonFieldProps {
 	multiple?: boolean;
 };
 
