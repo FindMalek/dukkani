@@ -1,6 +1,6 @@
+import type { StandardSchemaV1Issue } from "@tanstack/react-form";
 import { cva, type VariantProps } from "class-variance-authority";
 import { useMemo } from "react";
-import type * as z from "zod/mini";
 import { cn } from "../lib/utils";
 import { Label } from "./label";
 import { Separator } from "./separator";
@@ -240,7 +240,7 @@ function FieldErrors({
 	match,
 	...props
 }: React.ComponentProps<"div"> & {
-	errors: z.core.$ZodRawIssue[];
+	errors: (StandardSchemaV1Issue | undefined)[];
 	match: boolean;
 }) {
 	if (!match || errors.length === 0) {
@@ -248,9 +248,10 @@ function FieldErrors({
 	}
 
 	const uniqueErrors = [
-		...new Map(errors.map((e) => [e.message, e])).values(),
+		...new Map(errors.map((e) => [e?.message, e])).values(),
 	].filter(
-		(e): e is typeof e & { message: string } => typeof e.message === "string",
+		(e): e is StandardSchemaV1Issue =>
+			!!e?.message && e.message.length > 0,
 	);
 
 	if (uniqueErrors.length === 0) {
@@ -279,14 +280,14 @@ function FieldErrors({
 
 export {
 	Field,
-	FieldLabel,
+	FieldContent,
 	FieldDescription,
 	FieldError,
 	FieldErrors,
 	FieldGroup,
+	FieldLabel,
 	FieldLegend,
 	FieldSeparator,
 	FieldSet,
-	FieldContent,
 	FieldTitle,
 };

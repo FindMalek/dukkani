@@ -9,6 +9,9 @@ import {
 	InputGroupInput,
 	InputGroupText,
 } from "../input-group";
+import { Field, FieldErrors } from "../field";
+import type { FieldMeta, StandardSchemaV1Issue } from "@tanstack/react-form";
+import type z from "zod";
 
 type ArrayFieldProps = {
 	as: "text-pills";
@@ -75,8 +78,11 @@ export function ArrayField({ as: _as, fromKey }: ArrayFieldProps) {
 							// @ts-expect-error - dynamic array path
 							onEdit={(value) => field.handleChange(value)}
 							onBlur={field.handleBlur}
-							isInvalid={field.state.meta.isTouched && !field.state.meta.isValid}
+							isInvalid={
+								field.state.meta.isTouched && !field.state.meta.isValid
+							}
 							name={field.name}
+							errors={field.state.meta.errors}
 						/>
 					)}
 				</form.Field>
@@ -121,6 +127,7 @@ function EditablePill({
 	onBlur,
 	isInvalid,
 	name,
+	errors,
 }: {
 	value: string;
 	index: number;
@@ -129,6 +136,7 @@ function EditablePill({
 	onBlur: () => void;
 	isInvalid: boolean;
 	name: string;
+	errors: (StandardSchemaV1Issue | undefined)[];
 }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedValue, setEditedValue] = useState(value);
@@ -137,66 +145,69 @@ function EditablePill({
 		onEdit?.(editedValue.trim());
 	}, [onEdit, editedValue]);
 	return (
-		<InputGroup className="group/pill rounded-full">
-			<InputGroupAddon align="inline-start">
-				<InputGroupText>{index + 1}</InputGroupText>
-			</InputGroupAddon>
-			<InputGroupInput
-				value={editedValue}
-				className={cn(
-					"text-center text-xs",
-					isEditing ? "cursor-text" : "cursor-default",
-				)}
-				readOnly={!isEditing}
-				onChange={(e) => setEditedValue(e.target.value)}
-				onKeyDown={(e) => {
-					if (e.key === "escape") {
-						setIsEditing(false);
-					}
-					if (e.key === "Enter") {
-						e.preventDefault();
-						onEditFinish();
-					}
-				}}
-				onBlur={onBlur}
-				aria-invalid={isInvalid}
-				name={name}
-			/>
+		<Field>
+			<InputGroup className="group/pill rounded-full">
+				<InputGroupAddon align="inline-start">
+					<InputGroupText>{index + 1}</InputGroupText>
+				</InputGroupAddon>
+				<InputGroupInput
+					value={editedValue}
+					className={cn(
+						"text-center text-xs",
+						isEditing ? "cursor-text" : "cursor-default",
+					)}
+					readOnly={!isEditing}
+					onChange={(e) => setEditedValue(e.target.value)}
+					onKeyDown={(e) => {
+						if (e.key === "escape") {
+							setIsEditing(false);
+						}
+						if (e.key === "Enter") {
+							e.preventDefault();
+							onEditFinish();
+						}
+					}}
+					onBlur={onBlur}
+					aria-invalid={isInvalid}
+					name={name}
+				/>
 
-			<InputGroupAddon align="inline-end">
-				{isEditing ? (
-					<InputGroupButton
-						type="button"
-						variant="ghost"
-						className="rounded-full"
-						size="icon-xs"
-						onClick={onEditFinish}
-					>
-						<Icons.check className="size-3" />
-					</InputGroupButton>
-				) : (
-					<InputGroupButton
-						type="button"
-						variant="ghost"
-						className="rounded-full"
-						size="icon-xs"
-						onClick={() => setIsEditing(true)}
-					>
-						<Icons.edit className="size-3" />
-					</InputGroupButton>
-				)}
-				{!isEditing && (
-					<InputGroupButton
-						type="button"
-						variant="ghost"
-						className="rounded-full"
-						size="icon-xs"
-						onClick={onDelete}
-					>
-						<Icons.trash className="size-3" />
-					</InputGroupButton>
-				)}
-			</InputGroupAddon>
-		</InputGroup>
+				<InputGroupAddon align="inline-end">
+					{isEditing ? (
+						<InputGroupButton
+							type="button"
+							variant="ghost"
+							className="rounded-full"
+							size="icon-xs"
+							onClick={onEditFinish}
+						>
+							<Icons.check className="size-3" />
+						</InputGroupButton>
+					) : (
+						<InputGroupButton
+							type="button"
+							variant="ghost"
+							className="rounded-full"
+							size="icon-xs"
+							onClick={() => setIsEditing(true)}
+						>
+							<Icons.edit className="size-3" />
+						</InputGroupButton>
+					)}
+					{!isEditing && (
+						<InputGroupButton
+							type="button"
+							variant="ghost"
+							className="rounded-full"
+							size="icon-xs"
+							onClick={onDelete}
+						>
+							<Icons.trash className="size-3" />
+						</InputGroupButton>
+					)}
+				</InputGroupAddon>
+			</InputGroup>
+			<FieldErrors errors={errors} match={isInvalid} />
+		</Field>
 	);
 }
