@@ -211,7 +211,7 @@
 					"label": "Published",
 					"placeholder": "Enter product published"
 				},
-				"addPhotos": "Add photos",
+				"photos": "Photos",
 				"priceHelp": "Price customers pay (COD)",
 				"category": {
 					"label": "Category",
@@ -280,6 +280,13 @@
 				"description": "Please create a store first to add products.",
 				"createStore": "Create Store"
 			}
+		}
+	},
+	"fields": {
+		"images": {
+			"label": "Add photos",
+			"dragActiveLabel": "Drop here",
+			"hint": "or click to browse"
 		}
 	}
 }

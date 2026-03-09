@@ -250,7 +250,7 @@
 					"label": "Publié",
 					"placeholder": "Entrez le produit publié"
 				},
-				"addPhotos": "Ajouter des photos",
+				"photos": "Photos",
 				"priceHelp": "Prix que les clients paient (COD)",
 				"category": {
 					"label": "Catégorie",
@@ -319,6 +319,13 @@
 				"description": "Veuillez d'abord créer un magasin pour ajouter des produits.",
 				"createStore": "Créer un magasin"
 			}
+		}
+	},
+	"fields": {
+		"images": {
+			"label": "Ajouter des photos",
+			"dragActiveLabel": "Déposer ici",
+			"hint": "ou cliquez pour parcourir"
 		}
 	}
 }
