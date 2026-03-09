@@ -19,7 +19,13 @@ const nextConfig: NextConfig = {
 				pathname: "/**",
 			},
 			{
-				hostname: "drdxxpmmapvtjswkcwyw.supabase.co",
+				protocol: "http",
+				hostname: "localhost",
+				port: "9000",
+				pathname: "/**",
+			},
+			{
+				hostname: "*.r2.dev",
 				pathname: "/**",
 			},
 		],

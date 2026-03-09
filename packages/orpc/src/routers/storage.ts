@@ -59,7 +59,7 @@ export const storageRouter = {
 
 				if (!file) {
 					// Cleanup uploaded file if DB insert failed
-					await StorageService.deleteFile(input.bucket, result.path);
+					await StorageService.deleteFile(result.bucket, result.path);
 					throw new ORPCError("INTERNAL_SERVER_ERROR", {
 						message: "Failed to retrieve uploaded file",
 					});
@@ -198,20 +198,13 @@ export const storageRouter = {
 					});
 				}
 
-				// Extract paths from URLs (Supabase public URLs format: /storage/v1/object/public/{bucket}/{path})
-				const paths = [file.path];
+				// Extract paths from URLs (R2/MinIO format: baseUrl/key)
+				const paths = new Set<string>([file.path]);
 				for (const variant of file.variants) {
-					try {
-						const url = new URL(variant.url);
-						// Extract path after /object/public/{bucket}/
-						const pathMatch = url.pathname.match(
-							/\/object\/public\/[^/]+\/(.+)$/,
-						);
-						if (pathMatch?.[1]) {
-							paths.push(pathMatch[1]);
-						}
-					} catch {
-						// If URL parsing fails, skip this variant
+					const key = StorageService.getKeyFromPublicUrl(variant.url);
+					if (key) {
+						paths.add(key);
+					} else {
 						logger.warn({ url: variant.url }, "Failed to parse variant URL");
 					}
 				}
@@ -219,7 +212,7 @@ export const storageRouter = {
 				// Delete from storage and database in transaction
 				await database.$transaction(async (tx) => {
 					// Delete from storage
-					await StorageService.deleteFiles(file.bucket, paths);
+					await StorageService.deleteFiles(file.bucket, [...paths]);
 
 					// Delete from database (variants cascade delete)
 					await StorageDbService.deleteStorageFile(file.id, tx);
@@ -272,25 +265,18 @@ export const storageRouter = {
 					Array<{ paths: string[]; fileId: string }>
 				>();
 				for (const file of files) {
-					const paths = [file.path];
+					const paths = new Set<string>([file.path]);
 					for (const variant of file.variants) {
-						try {
-							const url = new URL(variant.url);
-							// Extract path after /object/public/{bucket}/
-							const pathMatch = url.pathname.match(
-								/\/object\/public\/[^/]+\/(.+)$/,
-							);
-							if (pathMatch?.[1]) {
-								paths.push(pathMatch[1]);
-							}
-						} catch {
-							// If URL parsing fails, skip this variant
+						const key = StorageService.getKeyFromPublicUrl(variant.url);
+						if (key) {
+							paths.add(key);
+						} else {
 							logger.warn({ url: variant.url }, "Failed to parse variant URL");
 						}
 					}
 
 					const bucketFiles = filesByBucket.get(file.bucket) ?? [];
-					bucketFiles.push({ paths, fileId: file.id });
+					bucketFiles.push({ paths: [...paths], fileId: file.id });
 					filesByBucket.set(file.bucket, bucketFiles);
 				}
 

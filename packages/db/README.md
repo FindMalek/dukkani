@@ -38,7 +38,7 @@ type StoreData = Prisma.StoreGetPayload<{
 All commands should be run from the root of the monorepo:
 
 ```bash
-# Setup database (start Docker + push schema)
+# Setup database and storage (start Docker: Postgres + MinIO, push schema)
 pnpm run db:setup
 
 # Push schema changes to database
@@ -62,6 +62,8 @@ pnpm run db:reset-and-seed
 # Reset database (WARNING: deletes all data)
 pnpm run db:reset
 ```
+
+See [docs/storage.md](../../docs/storage.md) for MinIO and R2 storage setup.
 
 ## Seeders
 
