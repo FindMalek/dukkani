@@ -168,9 +168,6 @@ importers:
       '@lhci/cli':
         specifier: ^0.15.1
         version: 0.15.1
-      '@supabase/supabase-js':
-        specifier: ^2.47.10
-        version: 2.99.0
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.5
@@ -602,9 +599,18 @@ importers:
       '@ai-sdk/groq':
         specifier: 'catalog:'
         version: 1.2.9(zod@4.1.12)
+      '@aws-sdk/client-s3':
+        specifier: ^3.700.0
+        version: 3.1004.0
+      '@dukkani/db':
+        specifier: workspace:*
+        version: link:../db
       '@dukkani/env':
         specifier: workspace:*
         version: link:../env
+      '@supabase/supabase-js':
+        specifier: ^2.47.10
+        version: 2.99.0
       '@zenbase/llml':
         specifier: 'catalog:'
         version: 0.4.0(typescript@5.9.3)
