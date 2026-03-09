@@ -1,13 +1,11 @@
 "use client";
 
 import {
-	type CreateProductInput,
-	createProductInputSchema,
-} from "@dukkani/common/schemas/product/input";
-import {
-	type VariantOptionInput,
-	variantOptionInputSchema,
-} from "@dukkani/common/schemas/variant/input";
+	type ProductFormInput,
+	type ProductFormOutput,
+	productFormSchema,
+} from "@dukkani/common/schemas/product/form";
+import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
 import { Button } from "@dukkani/ui/components/button";
 import { Card, CardContent, CardFooter } from "@dukkani/ui/components/card";
 import {
@@ -33,9 +31,8 @@ import {
 	useMemo,
 	useState,
 } from "react";
-import { toast } from "sonner";
-import * as z from "zod";
 import { useCategoriesQuery } from "@/hooks/api/use-categories";
+import { useProductsController } from "@/hooks/controllers/use-products-controller";
 import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
@@ -45,41 +42,24 @@ export interface ProductFormHandle {
 	submit: (published: boolean) => void;
 }
 
-const ProductFormSchema = z.object({
-	name: z.string().min(1),
-	description: z
-		.string()
-		.optional()
-		.transform((val) => (val === "" ? undefined : val?.trim())),
-	price: z.coerce.number<string>().positive(),
-	stock: z.coerce.number<string>().int().min(1),
-	published: z.boolean(),
-	categoryId: z.string().optional(),
-	hasVariants: z.boolean(),
-	variantOptions: z.array(variantOptionInputSchema),
-	imageFiles: z.array(z.file()).max(10, "Maximum 10 images allowed"),
-});
-
-type ProductFormSchemaInput = z.input<typeof ProductFormSchema>;
-
 export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 	({ storeId }, ref) => {
 		const router = useRouter();
-		const t = useTranslations("products.create");
-		const { data: categories } = useCategoriesQuery({
-			storeId,
-		});
+		const { createProductMutationOptions } = useProductsController();
+		const createProductMutation = useMutation(createProductMutationOptions);
 		const formV2 = useAppForm({
 			defaultValues: {
 				name: "",
+				description: "",
 				price: "",
 				stock: "1",
 				published: false,
+				categoryId: "",
 				hasVariants: false,
 				imageFiles: [],
 				variantOptions: [],
 				// here we need to explicitly type the value so that arrays and undefined values are allowed
-			} as ProductFormSchemaInput,
+			} as ProductFormInput,
 			onSubmit: async ({ value }) => {
 				let imageUrls: string[] = [];
 				if (value.imageFiles.length > 0) {
@@ -92,18 +72,40 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 						handleAPIError(error);
 					}
 				}
-				const cleanedFormData = ProductFormSchema.parse(value);
+				const cleanedFormData = productFormSchema.parse(value);
 				const cleanedData = {
 					...cleanedFormData,
 					imageUrls,
 					storeId,
 				};
-				await createProductMutation.mutateAsync(cleanedData);
+				console.log(cleanedData);
+				
+				// await handleCreateProduct(cleanedData);
 			},
 			validators: {
-				onChange: ProductFormSchema,
+				onChange: productFormSchema,
 			},
 		});
+		const handleCreateProduct = useCallback(
+			async (input: CreateProductInput) => {
+				await createProductMutation.mutateAsync(input, {
+					onSuccess: () => {
+						router.push(RoutePaths.PRODUCTS.INDEX.url);
+						formV2.reset();
+					},
+					onError: (error) => {
+						handleAPIError(error);
+					},
+				});
+			},
+			[createProductMutation, formV2, router],
+		);
+
+		const t = useTranslations("products.create");
+		const { data: categories } = useCategoriesQuery({
+			storeId,
+		});
+
 		const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
 
 		const handleOpenCategoryDrawer = useCallback(() => {
@@ -141,17 +143,16 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 			]);
 		}, [formV2]);
 
-		const createProductMutation = useMutation({
-			mutationFn: (input: CreateProductInput) => client.product.create(input),
-			onSuccess: () => {
-				toast.success(t("success"));
-				router.push(RoutePaths.PRODUCTS.INDEX.url);
-				formV2.reset();
-			},
-			onError: (error) => {
-				handleAPIError(error);
-			},
-		});
+		// const createProductMutation = useMutation({
+		// 	mutationFn: (input) => client.product.create(input),
+		// 	onSuccess: () => {
+		// 		router.push(RoutePaths.PRODUCTS.INDEX.url);
+		// 		formV2.reset();
+		// 	},
+		// 	onError: (error) => {
+		// 		handleAPIError(error);
+		// 	},
+		// });
 
 		useImperativeHandle(ref, () => ({
 			submit: (published: boolean) => {
