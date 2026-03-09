@@ -2,7 +2,6 @@
 
 import {
 	type ProductFormInput,
-	type ProductFormOutput,
 	productFormSchema,
 } from "@dukkani/common/schemas/product/form";
 import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
@@ -78,9 +77,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 					imageUrls,
 					storeId,
 				};
-				console.log(cleanedData);
-				
-				// await handleCreateProduct(cleanedData);
+				await handleCreateProduct(cleanedData);
 			},
 			validators: {
 				onChange: productFormSchema,
