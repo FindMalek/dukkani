@@ -45,11 +45,3 @@ export const productSchema = z.strictObject({
 		},
 	),
 });
-
-// export const productApiSchema = productSchema.extend({
-//     imageUrls: z.array(z.url()).max(10, "Maximum 10 images allowed"),
-// });
-
-// export const productUiSchema = productSchema.extend({
-// price: z.number().transform((val) => formatCurrency(val)),
-// });
