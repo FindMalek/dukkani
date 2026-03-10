@@ -5,8 +5,8 @@ import { userSimpleOutputSchema } from "@dukkani/common/schemas/user/output";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure } from "../procedures";
 import { rateLimitSensitive } from "../middleware/rate-limit";
+import { protectedProcedure, publicProcedure } from "../procedures";
 
 export const accountRouter = {
 	/**
