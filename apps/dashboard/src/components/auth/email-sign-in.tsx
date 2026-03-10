@@ -24,11 +24,22 @@ export function EmailSignIn({
 	const checkEmailMutation = useCheckEmailExists();
 
 	const handleEmailExistenceCheck = async (email: string) => {
-		return checkEmailMutation.mutateAsync({ email }, {
-			onError: (error) => {
-				handleAPIError(error);
+		return await checkEmailMutation.mutateAsync(
+			{ email },
+			{
+				onError: (error) => {
+					if (error.code === "NOT_FOUND") {
+						const onboardingUrl = getRouteWithQuery(
+							RoutePaths.AUTH.ONBOARDING.INDEX.url,
+							{
+								email,
+							},
+						);
+						router.push(onboardingUrl);
+					}
+				},
 			},
-		});
+		);
 	};
 
 	const emailForm = useAppForm({
@@ -37,17 +48,8 @@ export function EmailSignIn({
 			onChangeAsync: emailFormSchema,
 			onChangeAsyncDebounceMs: 500,
 		},
-		onSubmit({ value }) {
-			return handleEmailExistenceCheck(value.email);
-		},
-		onSubmitInvalid({ value }) {
-			const onboardingUrl = getRouteWithQuery(
-				RoutePaths.AUTH.ONBOARDING.INDEX.url,
-				{
-					email: value.email,
-				},
-			);
-			router.push(onboardingUrl);
+		async onSubmit({ value }) {
+			return await handleEmailExistenceCheck(value.email);
 		},
 	});
 
