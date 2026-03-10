@@ -81,6 +81,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 			},
 			validators: {
 				onChange: productFormSchema,
+				onBlur: productFormSchema,
 			},
 		});
 		const handleCreateProduct = useCallback(
@@ -139,17 +140,6 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				{ name: "", values: [] },
 			]);
 		}, [formV2]);
-
-		// const createProductMutation = useMutation({
-		// 	mutationFn: (input) => client.product.create(input),
-		// 	onSuccess: () => {
-		// 		router.push(RoutePaths.PRODUCTS.INDEX.url);
-		// 		formV2.reset();
-		// 	},
-		// 	onError: (error) => {
-		// 		handleAPIError(error);
-		// 	},
-		// });
 
 		useImperativeHandle(ref, () => ({
 			submit: (published: boolean) => {
@@ -284,11 +274,63 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																								name={`variantOptions[${variantOptionIndex}].values`}
 																								mode="array"
 																							>
-																								{(optionsField) => (
-																									<optionsField.ArrayInput
-																										as="text-pills"
-																										fromKey="value"
-																									/>
+																								{(
+																									variantOptionsValuesField,
+																								) => (
+																									<variantOptionsValuesField.ArrayInput
+																										label="Variant Values"
+																										srOnlyLabel
+																									>
+																										<div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+																											{(
+																												variantOptionsValuesField
+																													.state.value ?? []
+																											).map(
+																												(
+																													_value,
+																													valueIndex,
+																												) => (
+																													<formV2.AppField
+																														name={`variantOptions[${variantOptionIndex}].values[${valueIndex}].value`}
+																														key={`variantOption-${variantOption.name}-${valueIndex}`}
+																													>
+																														{(field) => (
+																															<field.PillInput
+																																label="Variant Value"
+																																onDelete={() =>
+																																	variantOptionsValuesField.removeValue(
+																																		valueIndex,
+																																	)
+																																}
+																															/>
+																														)}
+																													</formV2.AppField>
+																												),
+																											)}
+																											<Button
+																												type="button"
+																												className="rounded-full"
+																												variant={"outline"}
+																												aria-label="Add Variant Value"
+																												onClick={() => {
+																													if (
+																														variantOptionsValuesField.state.value?.some(
+																															(value) =>
+																																value.value ===
+																																"",
+																														)
+																													) {
+																														return;
+																													}
+																													variantOptionsValuesField.pushValue(
+																														{ value: "" },
+																													);
+																												}}
+																											>
+																												<Icons.plus />
+																											</Button>
+																										</div>
+																									</variantOptionsValuesField.ArrayInput>
 																								)}
 																							</formV2.AppField>
 																							<FieldSeparator />
