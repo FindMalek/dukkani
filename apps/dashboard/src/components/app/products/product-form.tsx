@@ -243,103 +243,105 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																	name="variantOptions"
 																	mode="array"
 																>
-																	{(variantOptionsField) =>
-																		variantOptionsField.state.value?.map(
-																			(variantOption, variantOptionIndex) => (
-																				<formV2.AppField
-																					name={`variantOptions[${variantOptionIndex}].name`}
-																					key={`variantOption-${variantOption.name}-${variantOptionIndex}`}
-																				>
-																					{(field) => (
-																						<FieldGroup>
-																							<field.TextInput
-																								label="Variant Name"
-																								srOnlyLabel
-																								rightToField={
-																									<Button
-																										type="button"
-																										variant="secondary"
-																										size="icon"
-																										onClick={() =>
-																											variantOptionsField.removeValue(
-																												variantOptionIndex,
-																											)
-																										}
-																									>
-																										<Icons.trash className="h-4 w-4" />
-																									</Button>
-																								}
-																							/>
-																							<formV2.AppField
-																								name={`variantOptions[${variantOptionIndex}].values`}
-																								mode="array"
-																							>
-																								{(
-																									variantOptionsValuesField,
-																								) => (
-																									<variantOptionsValuesField.ArrayInput
-																										label="Variant Values"
-																										srOnlyLabel
-																									>
-																										<div className="grid grid-cols-2 gap-2 md:grid-cols-3">
-																											{(
-																												variantOptionsValuesField
-																													.state.value ?? []
-																											).map(
-																												(
-																													_value,
-																													valueIndex,
-																												) => (
-																													<formV2.AppField
-																														name={`variantOptions[${variantOptionIndex}].values[${valueIndex}].value`}
-																														key={`variantOption-${variantOption.name}-${valueIndex}`}
-																													>
-																														{(field) => (
-																															<field.PillInput
-																																label="Variant Value"
-																																onDelete={() =>
-																																	variantOptionsValuesField.removeValue(
-																																		valueIndex,
-																																	)
-																																}
-																															/>
-																														)}
-																													</formV2.AppField>
-																												),
-																											)}
-																											<Button
-																												type="button"
-																												className="rounded-full"
-																												variant={"outline"}
-																												aria-label="Add Variant Value"
-																												onClick={() => {
-																													if (
-																														variantOptionsValuesField.state.value?.some(
-																															(value) =>
-																																value.value ===
-																																"",
-																														)
-																													) {
-																														return;
-																													}
-																													variantOptionsValuesField.pushValue(
-																														{ value: "" },
-																													);
-																												}}
-																											>
-																												<Icons.plus />
-																											</Button>
-																										</div>
-																									</variantOptionsValuesField.ArrayInput>
-																								)}
-																							</formV2.AppField>
-																							<FieldSeparator />
-																						</FieldGroup>
-																					)}
-																				</formV2.AppField>
-																			),
-																		)
-																	}
+																	{(variantOptionsField) => (
+																		<variantOptionsField.ArrayInput label="Variant Options" srOnlyLabel>
+																			{variantOptionsField.state.value?.map(
+																				(variantOption, variantOptionIndex) => (
+																					<formV2.AppField
+																						name={`variantOptions[${variantOptionIndex}].name`}
+																						key={`variantOption-${variantOption.name}-${variantOptionIndex}`}
+																					>
+																						{(field) => (
+																							<FieldGroup>
+																								<field.TextInput
+																									label="Variant Name"
+																									srOnlyLabel
+																									rightToField={
+																										<Button
+																											type="button"
+																											variant="secondary"
+																											size="icon"
+																											onClick={() =>
+																												variantOptionsField.removeValue(
+																													variantOptionIndex,
+																												)
+																											}
+																										>
+																											<Icons.trash className="h-4 w-4" />
+																										</Button>
+																									}
+																								/>
+																								<formV2.AppField
+																									name={`variantOptions[${variantOptionIndex}].values`}
+																									mode="array"
+																								>
+																									{(
+																										variantOptionsValuesField,
+																									) => (
+																										<variantOptionsValuesField.ArrayInput
+																											label="Variant Values"
+																											srOnlyLabel
+																										>
+																											<div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+																												{(
+																													variantOptionsValuesField
+																														.state.value ?? []
+																												).map(
+																													(
+																														_value,
+																														valueIndex,
+																													) => (
+																														<formV2.AppField
+																															name={`variantOptions[${variantOptionIndex}].values[${valueIndex}].value`}
+																															key={`variantOption-${variantOption.name}-${valueIndex}`}
+																														>
+																															{(field) => (
+																																<field.PillInput
+																																	label="Variant Value"
+																																	onDelete={() =>
+																																		variantOptionsValuesField.removeValue(
+																																			valueIndex,
+																																		)
+																																	}
+																																/>
+																															)}
+																														</formV2.AppField>
+																													),
+																												)}
+																												<Button
+																													type="button"
+																													className="rounded-full"
+																													variant={"outline"}
+																													aria-label="Add Variant Value"
+																													onClick={() => {
+																														if (
+																															variantOptionsValuesField.state.value?.some(
+																																(value) =>
+																																	value.value ===
+																																	"",
+																															)
+																														) {
+																															return;
+																														}
+																														variantOptionsValuesField.pushValue(
+																															{ value: "" },
+																														);
+																													}}
+																												>
+																													<Icons.plus />
+																												</Button>
+																											</div>
+																										</variantOptionsValuesField.ArrayInput>
+																									)}
+																								</formV2.AppField>
+																								<FieldSeparator />
+																							</FieldGroup>
+																						)}
+																					</formV2.AppField>
+																				),
+																			)}
+																		</variantOptionsField.ArrayInput>
+																	)}
 																</formV2.AppField>
 															</FieldGroup>
 														</CardContent>
