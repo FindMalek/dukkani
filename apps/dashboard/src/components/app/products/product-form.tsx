@@ -57,7 +57,6 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				hasVariants: false,
 				imageFiles: [],
 				variantOptions: [],
-				// here we need to explicitly type the value so that arrays and undefined values are allowed
 			} as ProductFormInput,
 			onSubmit: async ({ value }) => {
 				let imageUrls: string[] = [];
