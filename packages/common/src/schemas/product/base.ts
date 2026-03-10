@@ -25,7 +25,6 @@ export const productSchema = z.strictObject({
 						value: z.string().trim().nonempty("Variant value is required"),
 					}),
 				)
-				//unique values
 				.refine(
 					(values) => {
 						return new Set(values.map((v) => v.value.toLowerCase())).size === values.length;

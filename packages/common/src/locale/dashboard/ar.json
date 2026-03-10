@@ -248,7 +248,8 @@
 						"addValue": "Add Value",
 						"noValues": "Add at least one value",
 						"remove": "Remove Option",
-						"addAnother": "Add another option"
+						"addAnother": "Add another option",
+						"value": "Value"
 					},
 					"list": {
 						"title": "Variants",

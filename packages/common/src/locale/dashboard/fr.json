@@ -287,7 +287,8 @@
 						"addValue": "Ajouter une valeur",
 						"noValues": "Ajoutez au moins une valeur",
 						"remove": "Supprimer l'option",
-						"addAnother": "Ajouter une autre option"
+						"addAnother": "Ajouter une autre option",
+						"value": "Valeur"
 					},
 					"list": {
 						"title": "Variantes",

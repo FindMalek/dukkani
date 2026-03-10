@@ -243,7 +243,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																	mode="array"
 																>
 																	{(variantOptionsField) => (
-																		<variantOptionsField.ArrayInput label="Variant Options" srOnlyLabel>
+																		<variantOptionsField.ArrayInput label={t("form.variants.options.title")} srOnlyLabel>
 																			{variantOptionsField.state.value?.map(
 																				(variantOption, variantOptionIndex) => (
 																					<form.AppField
@@ -253,7 +253,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																						{(field) => (
 																							<FieldGroup>
 																								<field.TextInput
-																									label="Variant Name"
+																									label={t("form.variants.options.optionName")}
 																									srOnlyLabel
 																									rightToField={
 																										<Button
@@ -265,6 +265,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																													variantOptionIndex,
 																												)
 																											}
+																											aria-label={t("form.variants.options.remove")}
 																										>
 																											<Icons.trash className="h-4 w-4" />
 																										</Button>
@@ -278,7 +279,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																										variantOptionsValuesField,
 																									) => (
 																										<variantOptionsValuesField.ArrayInput
-																											label="Variant Values"
+																											label={t("form.variants.options.values")}
 																											srOnlyLabel
 																										>
 																											<div className="grid grid-cols-2 gap-2 md:grid-cols-3">
@@ -296,7 +297,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																														>
 																															{(field) => (
 																																<field.PillInput
-																																	label="Variant Value"
+																																	label={t("form.variants.options.value")}
 																																	onDelete={() =>
 																																		variantOptionsValuesField.removeValue(
 																																			valueIndex,
@@ -311,7 +312,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																													type="button"
 																													className="rounded-full"
 																													variant={"outline"}
-																													aria-label="Add Variant Value"
+																													aria-label={t("form.variants.options.addValue")}
 																													onClick={() => {
 																														if (
 																															variantOptionsValuesField.state.value?.some(
@@ -351,9 +352,9 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																size="sm"
 																className="w-full"
 																onClick={handleAddNewVariantOption}
+																aria-label={t("form.variants.options.addAnother")}
 															>
 																<Icons.plus className="mr-2 h-4 w-4" />
-																{t("form.variants.options.addAnother")}
 															</Button>
 														</CardFooter>
 													</Card>
