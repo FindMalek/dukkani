@@ -46,7 +46,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 		const router = useRouter();
 		const { createProductMutationOptions } = useProductsController();
 		const createProductMutation = useMutation(createProductMutationOptions);
-		const formV2 = useAppForm({
+		const form = useAppForm({
 			defaultValues: {
 				name: "",
 				description: "",
@@ -89,14 +89,14 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				await createProductMutation.mutateAsync(input, {
 					onSuccess: () => {
 						router.push(RoutePaths.PRODUCTS.INDEX.url);
-						formV2.reset();
+						form.reset();
 					},
 					onError: (error) => {
 						handleAPIError(error);
 					},
 				});
 			},
-			[createProductMutation, formV2, router],
+			[createProductMutation, form, router],
 		);
 
 		const t = useTranslations("products.create");
@@ -126,67 +126,67 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 		const handleCategoryCreated = useCallback(
 			(categoryId: string) => {
 				const timeoutId = setTimeout(() => {
-					formV2.setFieldValue("categoryId", categoryId);
+					form.setFieldValue("categoryId", categoryId);
 				}, 1000);
 
 				return () => clearTimeout(timeoutId);
 			},
-			[formV2],
+			[form],
 		);
 
 		const handleAddNewVariantOption = useCallback(() => {
-			formV2.setFieldValue("variantOptions", (prev) => [
+			form.setFieldValue("variantOptions", (prev) => [
 				...(prev ?? []),
 				{ name: "", values: [] },
 			]);
-		}, [formV2]);
+		}, [form]);
 
 		useImperativeHandle(ref, () => ({
 			submit: (published: boolean) => {
-				formV2.setFieldValue("published", published);
-				formV2.handleSubmit();
+				form.setFieldValue("published", published);
+				form.handleSubmit();
 			},
 		}));
 
 		return (
 			<Form
-				onSubmit={formV2.handleSubmit}
+				onSubmit={form.handleSubmit}
 				className="flex flex-col gap-4 px-2 pb-24"
 			>
 				<FieldGroup>
 					<FieldSet>
 						<FieldLegend>{t("sections.essentials")}</FieldLegend>
 						<FieldGroup>
-							<formV2.AppForm>
-								<formV2.AppField name="name">
+							<form.AppForm>
+								<form.AppField name="name">
 									{(field) => (
 										<field.TextInput
 											label={t("form.name.label")}
 											placeholder={t("form.name.placeholder")}
 										/>
 									)}
-								</formV2.AppField>
-								<formV2.AppField name="description">
+								</form.AppField>
+								<form.AppField name="description">
 									{(field) => (
 										<field.TextAreaInput
 											label={t("form.description.label")}
 											placeholder={t("form.description.placeholder")}
 										/>
 									)}
-								</formV2.AppField>
+								</form.AppField>
 								<div className="flex items-start justify-between gap-4">
-									<formV2.AppField name="price">
+									<form.AppField name="price">
 										{(field) => (
 											<field.PriceInput label={t("form.price.label")} />
 										)}
-									</formV2.AppField>
-									<formV2.AppField name="stock">
+									</form.AppField>
+									<form.AppField name="stock">
 										{(field) => (
 											<field.NumberInput label={t("form.stock.label")} />
 										)}
-									</formV2.AppField>
+									</form.AppField>
 								</div>
-								<formV2.AppField name="categoryId">
+								<form.AppField name="categoryId">
 									{(field) => (
 										<>
 											<field.SelectInput
@@ -202,22 +202,22 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 											/>
 										</>
 									)}
-								</formV2.AppField>
-								<formV2.AppField name="imageFiles" mode="array">
+								</form.AppField>
+								<form.AppField name="imageFiles" mode="array">
 									{(imageUrlsField) => (
 										<imageUrlsField.ImagesInput label={t("form.photos")} />
 									)}
-								</formV2.AppField>
-								<formV2.AppField
+								</form.AppField>
+								<form.AppField
 									name="hasVariants"
 									listeners={{
 										onChange: ({ value }) => {
 											if (value) {
-												formV2.setFieldValue("variantOptions", [
+												form.setFieldValue("variantOptions", [
 													{ name: "", values: [] },
 												]);
 											} else {
-												formV2.setFieldValue("variantOptions", []);
+												form.setFieldValue("variantOptions", []);
 											}
 										},
 									}}
@@ -228,8 +228,8 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 											description={t("form.options.description")}
 										/>
 									)}
-								</formV2.AppField>
-								<formV2.Subscribe
+								</form.AppField>
+								<form.Subscribe
 									selector={(state) => state.values.hasVariants}
 								>
 									{(hasVariants) => (
@@ -239,7 +239,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 													<Card className="mb-4">
 														<CardContent>
 															<FieldGroup>
-																<formV2.AppField
+																<form.AppField
 																	name="variantOptions"
 																	mode="array"
 																>
@@ -247,7 +247,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																		<variantOptionsField.ArrayInput label="Variant Options" srOnlyLabel>
 																			{variantOptionsField.state.value?.map(
 																				(variantOption, variantOptionIndex) => (
-																					<formV2.AppField
+																					<form.AppField
 																						name={`variantOptions[${variantOptionIndex}].name`}
 																						key={`variantOption-${variantOption.name}-${variantOptionIndex}`}
 																					>
@@ -271,7 +271,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																										</Button>
 																									}
 																								/>
-																								<formV2.AppField
+																								<form.AppField
 																									name={`variantOptions[${variantOptionIndex}].values`}
 																									mode="array"
 																								>
@@ -291,7 +291,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																														_value,
 																														valueIndex,
 																													) => (
-																														<formV2.AppField
+																														<form.AppField
 																															name={`variantOptions[${variantOptionIndex}].values[${valueIndex}].value`}
 																															key={`variantOption-${variantOption.name}-${valueIndex}`}
 																														>
@@ -305,7 +305,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																																	}
 																																/>
 																															)}
-																														</formV2.AppField>
+																														</form.AppField>
 																													),
 																												)}
 																												<Button
@@ -333,16 +333,16 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 																											</div>
 																										</variantOptionsValuesField.ArrayInput>
 																									)}
-																								</formV2.AppField>
+																								</form.AppField>
 																								<FieldSeparator />
 																							</FieldGroup>
 																						)}
-																					</formV2.AppField>
+																					</form.AppField>
 																				),
 																			)}
 																		</variantOptionsField.ArrayInput>
 																	)}
-																</formV2.AppField>
+																</form.AppField>
 															</FieldGroup>
 														</CardContent>
 														<CardFooter>
@@ -362,10 +362,10 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 											</CollapsibleContent>
 										</Collapsible>
 									)}
-								</formV2.Subscribe>
-								<formV2.Subscribe>
+								</form.Subscribe>
+								<form.Subscribe>
 									{(formState) => (
-										<formV2.AppField name="published">
+										<form.AppField name="published">
 											{(field) => (
 												<div className="flex w-full items-center gap-2">
 													<Button
@@ -377,7 +377,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 														}
 														onClick={() => {
 															field.handleChange(false);
-															formV2.handleSubmit();
+															form.handleSubmit();
 														}}
 													>
 														{t("form.saveDraft")}
@@ -394,10 +394,10 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 													</Button>
 												</div>
 											)}
-										</formV2.AppField>
+										</form.AppField>
 									)}
-								</formV2.Subscribe>
-							</formV2.AppForm>
+								</form.Subscribe>
+							</form.AppForm>
 						</FieldGroup>
 					</FieldSet>
 				</FieldGroup>
