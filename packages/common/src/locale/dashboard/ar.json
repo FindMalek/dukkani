@@ -31,10 +31,12 @@
 			"back": "Back",
 			"signIn": "Sign in",
 			"email": {
-				"placeholder": "Enter your email"
+				"placeholder": "أدخل بريدك الإلكتروني",
+				"label": "البريد الإلكتروني"
 			},
 			"password": {
-				"placeholder": "Enter your password"
+				"placeholder": "أدخل كلمة المرور",
+				"label": "كلمة المرور"
 			}
 		}
 	},
@@ -354,7 +356,7 @@
 					"label": "منشور",
 					"placeholder": "أدخل حالة نشر المنتج"
 				},
-				"addPhotos": "إضافة صور",
+				"photos": "الصور",
 				"priceHelp": "السعر الذي يدفعه العملاء (الدفع عند الاستلام)",
 				"category": {
 					"label": "الفئة",
@@ -391,7 +393,8 @@
 						"addValue": "إضافة قيمة",
 						"noValues": "أضف قيمة واحدة على الأقل",
 						"remove": "إزالة الخيار",
-						"addAnother": "إضافة خيار آخر"
+						"addAnother": "إضافة خيار آخر",
+						"value": "القيمة"
 					},
 					"list": {
 						"title": "المتغيرات",
@@ -423,6 +426,13 @@
 				"description": "يرجى إنشاء متجر أولاً لإضافة المنتجات.",
 				"createStore": "إنشاء متجر"
 			}
+		}
+	},
+	"fields": {
+		"images": {
+			"label": "Add photos",
+			"dragActiveLabel": "Drop here",
+			"hint": "or click to browse"
 		}
 	}
 }

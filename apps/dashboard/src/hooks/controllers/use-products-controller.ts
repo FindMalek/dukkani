@@ -1,7 +1,7 @@
 import type { ListProductsInput } from "@dukkani/common/schemas/product/input";
 import { useMemo } from "react";
 import {
-	useCreateProductMutation,
+	createProductMutationOptions,
 	useDeleteProductMutation,
 	useProductsQuery,
 	useTogglePublishProductMutation,
@@ -85,7 +85,6 @@ export function useProductsController() {
 	const productsQuery = useProductsQuery(queryInput);
 
 	// Mutations
-	const createProductMutation = useCreateProductMutation();
 	const updateProductMutation = useUpdateProductMutation();
 	const deleteProductMutation = useDeleteProductMutation();
 	const togglePublishMutation = useTogglePublishProductMutation();
@@ -120,7 +119,7 @@ export function useProductsController() {
 		// Query
 		productsQuery,
 		// Mutations
-		createProductMutation,
+		createProductMutationOptions,
 		updateProductMutation,
 		deleteProductMutation,
 		togglePublishMutation,

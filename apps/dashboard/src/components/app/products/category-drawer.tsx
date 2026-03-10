@@ -24,10 +24,11 @@ import { useActiveStoreStore } from "@/stores/active-store.store";
 
 interface CategoryDrawerProps {
 	onCategoryCreated?: (categoryId: string) => void;
+	open: boolean;
+	onOpenChange: (open: boolean) => void;
 }
 
-export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
-	const [open, setOpen] = useState(false);
+export function CategoryDrawer({ onCategoryCreated, open, onOpenChange }: CategoryDrawerProps) {
 
 	const t = useTranslations("products.create");
 	const { selectedStoreId } = useActiveStoreStore();
@@ -48,7 +49,7 @@ export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
 			createCategoryMutation.mutate(values, {
 				onSuccess: (data) => {
 					categoryForm.reset();
-					setOpen(false);
+					onOpenChange(false);
 					onCategoryCreated?.(data.id);
 				},
 			});
@@ -64,17 +65,7 @@ export function CategoryDrawer({ onCategoryCreated }: CategoryDrawerProps) {
 	}, [selectedStoreId, setFieldValue]);
 
 	return (
-		<Drawer open={open} onOpenChange={setOpen}>
-			<DrawerTrigger asChild>
-				<Button
-					variant="link"
-					type="button"
-					className="p-0 font-medium text-primary text-xs"
-				>
-					<Icons.plus className="mr-1 h-3 w-3" />
-					{t("form.category.create")}
-				</Button>
-			</DrawerTrigger>
+		<Drawer open={open} onOpenChange={onOpenChange}>
 			<DrawerContent>
 				<DrawerHeader>
 					<DrawerTitle>{t("form.category.create")}</DrawerTitle>

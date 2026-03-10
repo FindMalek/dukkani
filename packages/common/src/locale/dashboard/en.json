@@ -31,10 +31,12 @@
 			"back": "Back",
 			"signIn": "Sign in",
 			"email": {
-				"placeholder": "Enter your email"
+				"placeholder": "Enter your email",
+				"label": "Email address"
 			},
 			"password": {
-				"placeholder": "Enter your password"
+				"placeholder": "Enter your password",
+				"label": "Password"
 			}
 		}
 	},
@@ -354,7 +356,7 @@
 					"label": "Published",
 					"placeholder": "Enter product published"
 				},
-				"addPhotos": "Add photos",
+				"photos": "Photos",
 				"priceHelp": "Price customers pay (COD)",
 				"category": {
 					"label": "Category",
@@ -391,7 +393,8 @@
 						"addValue": "Add Value",
 						"noValues": "Add at least one value",
 						"remove": "Remove Option",
-						"addAnother": "Add another option"
+						"addAnother": "Add Option",
+						"value": "Value"
 					},
 					"list": {
 						"title": "Variants",
@@ -423,6 +426,13 @@
 				"description": "Please create a store first to add products.",
 				"createStore": "Create Store"
 			}
+		}
+	},
+	"fields": {
+		"images": {
+			"label": "Add photos",
+			"dragActiveLabel": "Drop here",
+			"hint": "or click to browse"
 		}
 	}
 }

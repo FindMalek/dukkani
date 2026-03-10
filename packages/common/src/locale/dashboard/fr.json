@@ -31,10 +31,12 @@
 			"back": "Retour",
 			"signIn": "Se connecter",
 			"email": {
-				"placeholder": "Entrez votre email"
+				"placeholder": "Entrez votre email",
+				"label": "Adresse e-mail"
 			},
 			"password": {
-				"placeholder": "Entrez votre mot de passe"
+				"placeholder": "Entrez votre mot de passe",
+				"label": "Mot de passe"
 			}
 		}
 	},
@@ -354,7 +356,7 @@
 					"label": "Publié",
 					"placeholder": "Entrez le produit publié"
 				},
-				"addPhotos": "Ajouter des photos",
+				"photos": "Photos",
 				"priceHelp": "Prix que les clients paient (COD)",
 				"category": {
 					"label": "Catégorie",
@@ -391,7 +393,8 @@
 						"addValue": "Ajouter une valeur",
 						"noValues": "Ajoutez au moins une valeur",
 						"remove": "Supprimer l'option",
-						"addAnother": "Ajouter une autre option"
+						"addAnother": "Ajouter une autre option",
+						"value": "Valeur"
 					},
 					"list": {
 						"title": "Variantes",
@@ -423,6 +426,13 @@
 				"description": "Veuillez d'abord créer un magasin pour ajouter des produits.",
 				"createStore": "Créer un magasin"
 			}
+		}
+	},
+	"fields": {
+		"images": {
+			"label": "Ajouter des photos",
+			"dragActiveLabel": "Déposer ici",
+			"hint": "ou cliquez pour parcourir"
 		}
 	}
 }

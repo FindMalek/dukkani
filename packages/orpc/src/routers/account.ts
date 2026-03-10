@@ -45,6 +45,12 @@ export const accountRouter = {
 				select: UserQuery.getMinimalSelect(),
 			});
 
-			return !!user;
+			if (!user) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "User not found",
+				});
+			}
+
+			return true;
 		}),
 };

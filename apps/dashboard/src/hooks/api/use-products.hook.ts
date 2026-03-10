@@ -4,7 +4,12 @@ import type {
 	TogglePublishProductInput,
 	UpdateProductInput,
 } from "@dukkani/common/schemas/product/input";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+	mutationOptions,
+	useMutation,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import { client, orpc } from "@/lib/orpc";
 import { queryKeys } from "@/lib/query-keys";
 
@@ -29,22 +34,17 @@ export function useProductQuery(id: string) {
 /**
  * Mutation hook for creating a product
  */
-export function useCreateProductMutation() {
-	const queryClient = useQueryClient();
-
-	return useMutation({
-		mutationFn: (input: CreateProductInput) => client.product.create(input),
-		onSuccess: () => {
-			queryClient.invalidateQueries({
-				queryKey: queryKeys.products.all(),
-			});
-			// Also invalidate dashboard stats
-			queryClient.invalidateQueries({
-				queryKey: queryKeys.dashboard.stats(),
-			});
-		},
-	});
-}
+export const createProductMutationOptions = mutationOptions({
+	mutationFn: (input: CreateProductInput) => client.product.create(input),
+	onSuccess(_data, _variables, _onMutateResult, context) {
+		context.client.invalidateQueries({
+			queryKey: queryKeys.products.all(),
+		});
+		context.client.invalidateQueries({
+			queryKey: queryKeys.dashboard.stats(),
+		});
+	},
+});
 
 /**
  * Mutation hook for updating a product

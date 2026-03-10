@@ -6,7 +6,6 @@ import {
 	LOCALES_MAP,
 	type Locale,
 } from "@dukkani/common/schemas/constants";
-import { Globe } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Button } from "./button";
