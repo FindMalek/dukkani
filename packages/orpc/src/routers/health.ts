@@ -6,7 +6,7 @@ import {
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
 import { enhanceLogWithTraceContext } from "@dukkani/tracing";
-import { publicProcedure } from "../index";
+import { publicProcedure } from "../procedures";
 
 const HEALTH_CHECK_CONFIG = {
 	DEGRADED_THRESHOLD_MS: 1000,

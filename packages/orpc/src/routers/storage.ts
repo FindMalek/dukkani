@@ -22,7 +22,7 @@ import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
 import { StorageService } from "@dukkani/storage";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure } from "../index";
+import { protectedProcedure } from "../procedures";
 
 export const storageRouter = {
 	/**

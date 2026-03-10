@@ -1,3 +1,4 @@
+import { getApiUrl } from "@dukkani/env/get-api-url";
 import { cookies } from "next/headers";
 import { env } from "@/env";
 
@@ -17,7 +18,7 @@ export async function getServerSession() {
 			.join("; ");
 
 		const response = await fetch(
-			`${env.NEXT_PUBLIC_API_URL}/api/auth/get-session`,
+			`${getApiUrl(env.NEXT_PUBLIC_API_URL)}/api/auth/get-session`,
 			{
 				method: "GET",
 				headers: {

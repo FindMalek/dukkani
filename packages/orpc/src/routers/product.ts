@@ -25,7 +25,7 @@ import { ProductService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ORPCError } from "@orpc/server";
-import { baseProcedure, protectedProcedure } from "../index";
+import { baseProcedure, protectedProcedure } from "../procedures";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
@@ -80,11 +80,19 @@ export const productRouter = {
 				}
 			}
 
+			const hasVariants =
+				input?.variantsFilter && input.variantsFilter !== "all"
+					? input.variantsFilter === "with-variants"
+					: undefined;
+
 			const where = ProductQuery.getWhere(userStoreIds, {
 				storeId: input?.storeId,
 				published: input?.published,
 				search: input?.search,
 				stock: stockFilter,
+				hasVariants,
+				priceMin: input?.priceMin,
+				priceMax: input?.priceMax,
 			});
 
 			const [products, total] = await Promise.all([
@@ -93,7 +101,7 @@ export const productRouter = {
 					skip,
 					take: limit,
 					orderBy: ProductQuery.getOrder("desc", "createdAt"),
-					include: ProductQuery.getClientSafeInclude(),
+					include: ProductQuery.getListInclude(),
 				}),
 				database.product.count({ where }),
 			]);
@@ -101,7 +109,7 @@ export const productRouter = {
 			const hasMore = skip + products.length < total;
 
 			return {
-				products: products.map(ProductEntity.getSimpleRo),
+				products: products.map(ProductEntity.getListRo),
 				total,
 				hasMore,
 				page,
@@ -173,13 +181,7 @@ export const productRouter = {
 					skip,
 					take: limit,
 					orderBy: { createdAt: "desc" },
-					include: {
-						images: {
-							select: {
-								url: true,
-							},
-						},
-					},
+					include: ProductQuery.getListInclude(),
 				}),
 				database.product.count({ where }),
 			]);
@@ -187,7 +189,7 @@ export const productRouter = {
 			const hasMore = skip + products.length < total;
 
 			return {
-				products: products.map(ProductEntity.getSimpleRo),
+				products: products.map(ProductEntity.getListRo),
 				total,
 				hasMore,
 				page,

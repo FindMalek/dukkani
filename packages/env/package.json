@@ -20,6 +20,10 @@
 			"types": "./src/base.ts",
 			"default": "./src/base.ts"
 		},
+		"./presets/ci-tools": {
+			"types": "./src/presets/ci-tools.ts",
+			"default": "./src/presets/ci-tools.ts"
+		},
 		"./presets/api": {
 			"types": "./src/presets/api.ts",
 			"default": "./src/presets/api.ts"
@@ -39,9 +43,22 @@
 		"./presets/storefront": {
 			"types": "./src/presets/storefront.ts",
 			"default": "./src/presets/storefront.ts"
+		},
+		"./get-api-url": {
+			"types": "./src/utils/get-api-url.ts",
+			"default": "./src/utils/get-api-url.ts"
+		},
+		"./get-storefront-base-url": {
+			"types": "./src/utils/get-storefront-base-url.ts",
+			"default": "./src/utils/get-storefront-base-url.ts"
+		},
+		"./modules": {
+			"types": "./src/modules/index.ts",
+			"default": "./src/modules/index.ts"
 		}
 	},
 	"dependencies": {
+		"@vercel/related-projects": "catalog:",
 		"@t3-oss/env-core": "catalog:",
 		"@t3-oss/env-nextjs": "catalog:",
 		"dotenv": "catalog:",

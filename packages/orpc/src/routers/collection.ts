@@ -17,7 +17,7 @@ import { CollectionService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import { protectedProcedure } from "../index";
+import { protectedProcedure } from "../procedures";
 import { verifyStoreOwnership } from "../utils/store-access";
 
 export const collectionRouter = {

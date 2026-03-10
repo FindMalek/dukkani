@@ -268,13 +268,31 @@ if (!store) {
 }
 ```
 
+### Service Error Conversion
+
+When calling services that throw domain errors (`AppError` subclasses from `@dukkani/common/errors`), wrap the call in try/catch and use `convertServiceError` to map them to ORPCError:
+
+```typescript
+import { convertServiceError } from "../utils/convert-service-error";
+
+.handler(async ({ input, context }) => {
+  try {
+    return await StoreService.getStoreById(input.id, context.session.user.id);
+  } catch (error) {
+    convertServiceError(error);
+  }
+}),
+```
+
 ### Error Codes
 
 - `BAD_REQUEST` - Invalid input
 - `UNAUTHORIZED` - Not authenticated
 - `NOT_FOUND` - Resource not found
+- `FORBIDDEN` - Access denied
 - `TOO_MANY_REQUESTS` - Rate limit exceeded
 - `INTERNAL_SERVER_ERROR` - Server error
+- `CONFLICT` - Resource conflict (e.g., duplicate entry)
 
 ## Exports
 

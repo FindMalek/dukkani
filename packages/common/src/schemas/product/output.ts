@@ -20,13 +20,18 @@ export const productSimpleOutputSchema = z.object({
 	updatedAt: z.date(),
 });
 
+export const listProductOutputSchema = productSimpleOutputSchema.extend({
+	imageUrls: z.array(z.string()),
+	variantCount: z.number().int(),
+});
+
 export const productIncludeOutputSchema = productSimpleOutputSchema.extend({
 	images: z.array(imageSimpleOutputSchema).optional(),
 	orderItems: z.array(orderItemSimpleOutputSchema).optional(),
 });
 
 export const listProductsOutputSchema = z.object({
-	products: z.array(productSimpleOutputSchema),
+	products: z.array(listProductOutputSchema),
 	total: z.number().int(),
 	hasMore: z.boolean(),
 	page: z.number().int(),
@@ -73,6 +78,7 @@ export const productOutputSchema = z.object({
 
 export type ProductPublicOutput = z.infer<typeof productPublicOutputSchema>;
 export type ProductSimpleOutput = z.infer<typeof productSimpleOutputSchema>;
+export type ListProductOutput = z.infer<typeof listProductOutputSchema>;
 export type ProductIncludeOutput = z.infer<typeof productIncludeOutputSchema>;
 export type ListProductsOutput = z.infer<typeof listProductsOutputSchema>;
 export type ProductOutput = z.infer<typeof productOutputSchema>;

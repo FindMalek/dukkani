@@ -6,20 +6,21 @@ import {
 	type Locale,
 } from "@dukkani/common/schemas/constants";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cairo, Inter } from "next/font/google";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { Footer } from "@/components/footer";
-import Header from "@/components/header";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 import { Providers } from "@/components/layout/providers";
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
+const inter = Inter({
+	variable: "--font-sans-latin",
 	subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"],
+const cairo = Cairo({
+	variable: "--font-sans-arabic",
+	subsets: ["arabic", "latin"],
+	display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -55,10 +56,13 @@ export default async function RootLayout({
 	const messages = await getMessages();
 
 	return (
-		<html lang={lang} dir={getTextDirection(lang)} suppressHydrationWarning>
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-			>
+		<html
+			lang={lang}
+			dir={getTextDirection(lang)}
+			className={`${inter.variable} ${cairo.variable}`}
+			suppressHydrationWarning
+		>
+			<body className="antialiased">
 				<Providers locale={lang} messages={messages}>
 					<div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
 						<Header />

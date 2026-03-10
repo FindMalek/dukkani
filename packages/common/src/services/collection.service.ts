@@ -1,3 +1,4 @@
+import { NotFoundError } from "@dukkani/common/errors";
 import { database } from "@dukkani/db";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { CollectionEntity } from "../entities/collection/entity";
@@ -163,7 +164,7 @@ class CollectionServiceBase {
 		});
 
 		if (!collection) {
-			throw new Error("Collection not found");
+			throw new NotFoundError("Collection not found");
 		}
 
 		return CollectionEntity.getRo(collection);

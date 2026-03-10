@@ -16,6 +16,10 @@ export type ProductClientSafeDbData = Prisma.ProductGetPayload<{
 	include: ReturnType<typeof ProductQuery.getClientSafeInclude>;
 }>;
 
+export type ProductListDbData = Prisma.ProductGetPayload<{
+	include: ReturnType<typeof ProductQuery.getListInclude>;
+}>;
+
 export type ProductPublicDbData = Prisma.ProductGetPayload<{
 	include: ReturnType<typeof ProductQuery.getPublicInclude>;
 }>;
@@ -58,6 +62,15 @@ export class ProductQuery {
 		} satisfies Prisma.ProductInclude;
 	}
 
+	static getListInclude() {
+		return {
+			...ProductQuery.getClientSafeInclude(),
+			_count: {
+				select: { variants: true },
+			},
+		} satisfies Prisma.ProductInclude;
+	}
+
 	/**
 	 * Generate where clause for filtering products by store IDs and optional filters
 	 */
@@ -68,6 +81,9 @@ export class ProductQuery {
 			published?: boolean;
 			search?: string;
 			stock?: { lte?: number; gte?: number };
+			hasVariants?: boolean;
+			priceMin?: number;
+			priceMax?: number;
 		},
 	): Prisma.ProductWhereInput {
 		const where: Prisma.ProductWhereInput = {
@@ -99,6 +115,20 @@ export class ProductQuery {
 			}
 			if (Object.keys(stockFilter).length > 0) {
 				where.stock = stockFilter;
+			}
+		}
+
+		if (filters?.hasVariants !== undefined) {
+			where.hasVariants = filters.hasVariants;
+		}
+
+		if (filters?.priceMin !== undefined || filters?.priceMax !== undefined) {
+			where.price = {};
+			if (filters.priceMin !== undefined) {
+				where.price.gte = filters.priceMin;
+			}
+			if (filters.priceMax !== undefined) {
+				where.price.lte = filters.priceMax;
 			}
 		}
 

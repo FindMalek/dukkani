@@ -13,7 +13,10 @@
 				"orders": "Orders",
 				"revenue": "Revenue"
 			},
-			"thisWeek": { "title": "This Week", "orders": "Orders" },
+			"thisWeek": {
+				"title": "This Week",
+				"orders": "Orders"
+			},
 			"quickActions": {
 				"title": "QUICK ACTIONS",
 				"addProduct": "Add new product",
@@ -27,8 +30,14 @@
 			"rememberMe": "Remember me",
 			"back": "Back",
 			"signIn": "Sign in",
-			"email": { "placeholder": "Enter your email", "label": "Email address" },
-			"password": { "placeholder": "Enter your password", "label": "Password" }
+			"email": {
+				"placeholder": "أدخل بريدك الإلكتروني",
+				"label": "البريد الإلكتروني"
+			},
+			"password": {
+				"placeholder": "أدخل كلمة المرور",
+				"label": "كلمة المرور"
+			}
 		}
 	},
 	"settings": {
@@ -60,7 +69,10 @@
 		"storeSetup": {
 			"title": "Create your store",
 			"subtitle": "Just one more step to get started",
-			"storeName": { "label": "Store Name", "placeholder": "My Awesome Store" },
+			"storeName": {
+				"label": "Store Name",
+				"placeholder": "My Awesome Store"
+			},
 			"notifications": {
 				"label": "How do you want to receive new order alerts?",
 				"options": {
@@ -115,21 +127,39 @@
 						"label": "Books",
 						"description": "Books and reading materials"
 					},
-					"toys": { "label": "Toys", "description": "Toys and games" },
-					"other": { "label": "Other", "description": "Other categories" }
+					"toys": {
+						"label": "Toys",
+						"description": "Toys and games"
+					},
+					"other": {
+						"label": "Other",
+						"description": "Other categories"
+					}
 				}
 			},
 			"theme": {
 				"label": "Choose your store theme",
 				"options": {
-					"light": { "label": "Light", "description": "Clean and bright" },
-					"dark": { "label": "Dark", "description": "Modern and sleek" },
+					"light": {
+						"label": "Light",
+						"description": "Clean and bright"
+					},
+					"dark": {
+						"label": "Dark",
+						"description": "Modern and sleek"
+					},
 					"minimal": {
 						"label": "Minimal",
 						"description": "Simple and elegant"
 					},
-					"modern": { "label": "Modern", "description": "Contemporary design" },
-					"classic": { "label": "Classic", "description": "Timeless style" }
+					"modern": {
+						"label": "Modern",
+						"description": "Contemporary design"
+					},
+					"classic": {
+						"label": "Classic",
+						"description": "Timeless style"
+					}
 				}
 			},
 			"submit": "Finish Setup",
@@ -187,99 +217,214 @@
 			}
 		}
 	},
+	"orders": {
+		"list": {
+			"title": "الطلبات",
+			"description": "عرض وإدارة الطلبات",
+			"searchPlaceholder": "البحث بالاسم أو الهاتف أو رقم الطلب",
+			"empty": "لم يتم العثور على طلبات. ستظهر الطلبات هنا بمجرد أن يبدأ العملاء في تقديمها.",
+			"error": "خطأ في تحميل الطلبات. يرجى المحاولة مرة أخرى لاحقًا.",
+			"refresh": "تحديث الطلبات",
+			"call": "اتصل",
+			"advanceStatus": "تقدم",
+			"itemsCount": "{count} عنصر",
+			"cashOnDelivery": "الدفع عند الاستلام",
+			"card": "بطاقة",
+			"today": "اليوم",
+			"yesterday": "أمس",
+			"viewOrder": "عرض الطلب {id}",
+			"filters": {
+				"all": "الكل",
+				"pending": "معلق",
+				"confirmed": "مؤكد",
+				"processing": "قيد المعالجة",
+				"shipped": "تم الشحن",
+				"delivered": "تم التسليم",
+				"cancelled": "ملغى"
+			},
+			"status": {
+				"pending": "معلق للتأكيد",
+				"confirmed": "مؤكد",
+				"processing": "قيد المعالجة",
+				"shipped": "تم الشحن",
+				"delivered": "تم التسليم",
+				"cancelled": "ملغى"
+			},
+			"filterDrawer": {
+				"title": "تصفية الطلبات",
+				"clearAll": "مسح الكل",
+				"apply": "تطبيق الفلاتر",
+				"status": "الحالة",
+				"dateRange": "نطاق التاريخ",
+				"pickDateRange": "اختر نطاق تاريخ",
+				"from": "من",
+				"to": "إلى"
+			}
+		}
+	},
 	"products": {
+		"list": {
+			"title": "المنتجات",
+			"description": "إدارة منتجاتك",
+			"searchPlaceholder": "بحث عن المنتجات",
+			"filters": {
+				"all": "الكل",
+				"published": "منشور",
+				"draft": "مسودة",
+				"archived": "أرشيف"
+			},
+			"status": {
+				"published": "منشور",
+				"draft": "مسودة",
+				"archived": "أرشيف"
+			},
+			"stockInfo": "المخزون: {count} وحدة • {variants} متغيرات",
+			"stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
+			"stockCount": "المخزون: {count} وحدة",
+			"variantCount": "• {variants} متغيرات",
+			"noVariants": "• لا توجد متغيرات",
+			"outOfStock": "نفاد المخزون",
+			"outOfStockVariants": "نفاد المخزون • {variants} متغيرات",
+			"empty": "لم يتم العثور على منتجات. أنشئ منتجك الأول للبدء.",
+			"error": "خطأ في تحميل المنتجات. يرجى المحاولة مرة أخرى لاحقًا.",
+			"catalogCount": "كتالوج منتجاتك ({count} إجمالي)",
+			"catalogDefault": "كتالوج منتجاتك",
+			"addProduct": "إضافة منتج",
+			"filterDrawer": {
+				"title": "مرشحات",
+				"clearAll": "مسح الكل",
+				"apply": "تطبيق المرشحات",
+				"close": "إغلاق",
+				"status": "الحالة",
+				"inventory": "المخزون",
+				"variants": "المتغيرات",
+				"priceRange": "نطاق السعر (دينار تونسي)",
+				"all": "جميع الحالات",
+				"allStatuses": "جميع الحالات",
+				"published": "منشور",
+				"draft": "مسودة",
+				"allInventory": "الكل",
+				"inStock": "في المخزون",
+				"lowStock": "مخزون منخفض",
+				"outOfStock": "نفاد المخزون",
+				"allProducts": "جميع المنتجات",
+				"withVariants": "مع متغيرات",
+				"singleSku": "SKU فردي",
+				"min": "الحد الأدنى",
+				"max": "الحد الأقصى"
+			},
+			"actions": {
+				"edit": "تعديل",
+				"delete": "حذف",
+				"publish": "نشر",
+				"unpublish": "إلغاء النشر",
+				"archive": "أرشفة",
+				"deleteConfirmTitle": "هل تريد حذف المنتج؟",
+				"deleteConfirmDescription": "لا يمكن التراجع عن هذا الإجراء.",
+				"cancel": "إلغاء"
+			}
+		},
 		"create": {
-			"header": { "title": "New product", "save": "Save" },
+			"header": {
+				"title": "منتج جديد",
+				"save": "حفظ"
+			},
 			"sections": {
-				"photos": "Product Photos",
-				"essentials": "Essentials",
-				"organization": "Organization",
-				"options": "Has options"
+				"photos": "صور المنتج",
+				"essentials": "المعلومات الأساسية",
+				"organization": "التنظيم",
+				"options": "لديه خيارات"
 			},
 			"form": {
 				"name": {
-					"label": "Product Name",
-					"placeholder": "Enter product name"
+					"label": "اسم المنتج",
+					"placeholder": "أدخل اسم المنتج"
 				},
-				"price": { "label": "Price", "placeholder": "Enter product price" },
-				"stock": { "label": "Stock", "placeholder": "Enter product stock" },
+				"price": {
+					"label": "السعر",
+					"placeholder": "أدخل سعر المنتج"
+				},
+				"stock": {
+					"label": "المخزون",
+					"placeholder": "أدخل مخزون المنتج"
+				},
 				"description": {
-					"label": "Description",
-					"placeholder": "Enter product description"
+					"label": "الوصف",
+					"placeholder": "أدخل وصف المنتج"
 				},
 				"published": {
-					"label": "Published",
-					"placeholder": "Enter product published"
+					"label": "منشور",
+					"placeholder": "أدخل حالة نشر المنتج"
 				},
-				"photos": "Photos",
-				"priceHelp": "Price customers pay (COD)",
+				"photos": "الصور",
+				"priceHelp": "السعر الذي يدفعه العملاء (الدفع عند الاستلام)",
 				"category": {
-					"label": "Category",
-					"placeholder": "Select category...",
-					"searchPlaceholder": "Search categories...",
-					"noResults": "No categories found.",
-					"create": "Create category",
-					"created": "Category created successfully",
-					"nameLabel": "Category Name",
-					"namePlaceholder": "e.g. T-Shirts, Electronics",
-					"createDescription": "Create a new category to organize your products.",
-					"uncategorized": "Uncategorized"
+					"label": "الفئة",
+					"placeholder": "اختر فئة...",
+					"searchPlaceholder": "البحث في الفئات...",
+					"noResults": "لم يتم العثور على فئات.",
+					"create": "إنشاء فئة",
+					"created": "تم إنشاء الفئة بنجاح",
+					"nameLabel": "اسم الفئة",
+					"namePlaceholder": "مثال: تي شيرت، إلكترونيات",
+					"createDescription": "أنشئ فئة جديدة لتنظيم منتجاتك.",
+					"uncategorized": "بدون فئة"
 				},
 				"options": {
-					"label": "Has options",
-					"description": "Add options like Size, Color, Material, etc."
+					"label": "لديه خيارات",
+					"description": "أضف خيارات مثل الحجم، اللون، المادة، إلخ."
 				},
-				"saveDraft": "Save draft",
-				"savePublish": "Save & publish",
-				"optional": "optional",
-				"cancel": "Cancel",
+				"saveDraft": "حفظ كمسودة",
+				"savePublish": "حفظ ونشر",
+				"optional": "اختياري",
+				"cancel": "إلغاء",
 				"validation": {
-					"errors": "Please fix the form errors before submitting"
+					"errors": "يرجى إصلاح أخطاء النموذج قبل الإرسال"
 				},
 				"variants": {
 					"options": {
-						"title": "Variant Options",
-						"add": "Add Option",
-						"empty": "Add options like Size, Color, Material, etc.",
-						"unnamed": "Unnamed Option",
-						"optionName": "Option Name",
-						"optionNamePlaceholder": "e.g. Size, Color",
-						"values": "Values",
-						"addValue": "Add Value",
-						"noValues": "Add at least one value",
-						"remove": "Remove Option",
-						"addAnother": "Add another option",
-						"value": "Value"
+						"title": "خيارات المتغير",
+						"add": "إضافة خيار",
+						"empty": "أضف خيارات مثل الحجم، اللون، المادة، إلخ.",
+						"unnamed": "خيار بدون اسم",
+						"optionName": "اسم الخيار",
+						"optionNamePlaceholder": "مثال: الحجم، اللون",
+						"values": "القيم",
+						"addValue": "إضافة قيمة",
+						"noValues": "أضف قيمة واحدة على الأقل",
+						"remove": "إزالة الخيار",
+						"addAnother": "إضافة خيار آخر",
+						"value": "القيمة"
 					},
 					"list": {
-						"title": "Variants",
-						"empty": "Add variant options above to generate variants",
-						"unnamed": "Unnamed Variant",
-						"price": "Price",
-						"stock": "Stock",
-						"edit": "Edit Variant"
+						"title": "المتغيرات",
+						"empty": "أضف خيارات المتغير أعلاه لإنشاء المتغيرات",
+						"unnamed": "متغير بدون اسم",
+						"price": "السعر",
+						"stock": "المخزون",
+						"edit": "تعديل المتغير"
 					},
 					"edit": {
-						"title": "Edit Variant",
-						"sku": "SKU",
-						"skuPlaceholder": "Optional",
-						"price": "Price",
-						"priceHelp": "Leave empty to use base product price",
-						"stock": "Stock"
+						"title": "تعديل المتغير",
+						"sku": "رمز المنتج",
+						"skuPlaceholder": "اختياري",
+						"price": "السعر",
+						"priceHelp": "اتركه فارغاً لاستخدام سعر المنتج الأساسي",
+						"stock": "المخزون"
 					},
 					"validation": {
-						"duplicateOptionName": "Duplicate option name",
-						"duplicateOptionValues": "Duplicate option values",
-						"duplicateValue": "Duplicate value",
-						"duplicateOption": "Duplicate option"
+						"duplicateOptionName": "اسم الخيار مكرر",
+						"duplicateOptionValues": "قيم الخيار مكررة",
+						"duplicateValue": "القيمة مكررة",
+						"duplicateOption": "الخيار مكرر"
 					}
 				}
 			},
-			"success": "Product created successfully!",
+			"success": "تم إنشاء المنتج بنجاح!",
 			"noStore": {
-				"title": "No Store Found",
-				"description": "Please create a store first to add products.",
-				"createStore": "Create Store"
+				"title": "لم يتم العثور على متجر",
+				"description": "يرجى إنشاء متجر أولاً لإضافة المنتجات.",
+				"createStore": "إنشاء متجر"
 			}
 		}
 	},

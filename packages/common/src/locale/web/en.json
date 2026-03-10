@@ -2,5 +2,175 @@
 	"common": {
 		"title": "Dukkani - Business Management Solution",
 		"description": "Your all-in-one business management solution"
+	},
+	"header": {
+		"brandName": "Dukkani",
+		"features": "Features",
+		"pricing": "Pricing",
+		"startSelling": "Start Selling"
+	},
+	"hero": {
+		"badge": "Made for Tunisia 🇹🇳",
+		"titleLine1": "Stop calling",
+		"titleLine2": "customers.",
+		"titleLine3": "Start selling",
+		"titleLine4": "automatically.",
+		"subtitle": "Dukkani builds your store, confirms your cash-on-delivery orders, and prepares delivery.",
+		"ctaPrimary": "Create Store Free",
+		"ctaSecondary": "See How It Works"
+	},
+	"painPoints": {
+		"title": "Manual selling is exhausting.",
+		"subtitle": "You're wasting hours on tasks that should be automatic.",
+		"items": {
+			"wastedTime": {
+				"title": "Wasted Time",
+				"description": "Calling every customer takes hours."
+			},
+			"fakeOrders": {
+				"title": "Fake Orders",
+				"description": "Prank orders cost you money."
+			},
+			"lostDms": {
+				"title": "Lost DMs",
+				"description": "Sales get buried in requests."
+			},
+			"manualForms": {
+				"title": "Manual Forms",
+				"description": "Writing delivery slips is slow."
+			}
+		}
+	},
+	"process": {
+		"title": "Simple 4-Step Process",
+		"steps": {
+			"createStore": {
+				"title": "1. Create Store",
+				"descriptionMobile": "Setup in 5 minutes.",
+				"descriptionDesktop": "Setup your branded store in just 5 minutes."
+			},
+			"shareLink": {
+				"title": "2. Share Link",
+				"descriptionMobile": "Link in bio & ads.",
+				"descriptionDesktop": "Put the link in your bio and Instagram ads."
+			},
+			"weConfirm": {
+				"title": "3. We Confirm",
+				"descriptionMobile": "System calls customers.",
+				"descriptionDesktop": "Our system calls & verifies the order automatically."
+			},
+			"deliveryReady": {
+				"title": "4. Delivery Ready",
+				"descriptionMobile": "Prepared for pickup.",
+				"descriptionDesktop": "Package is prepared for pickup by Trust Delivery."
+			}
+		}
+	},
+	"automatedConfirmation": {
+		"eyebrow": "AUTOMATED CONFIRMATION",
+		"title": "We confirm orders for you.",
+		"description": "Our automated system calls the customer to verify their seriousness and address accuracy. Only confirmed orders are sent to delivery.",
+		"benefits": [
+			"Save hours of phone calls",
+			"Eliminate fake orders",
+			"Verify address accuracy"
+		],
+		"guarantee": {
+			"title": "Zero Risk Guarantee",
+			"description": "Don't pay delivery fees for fake orders."
+		},
+		"flowchart": {
+			"title": "Order Confirmation Flow",
+			"steps": [
+				"Customer places order",
+				"Order received",
+				"Confirmation started",
+				"System calls customer",
+				"Address verified",
+				"Ready for delivery"
+			]
+		}
+	},
+	"features": {
+		"title": "Everything you need",
+		"subtitle": "Automation built for Tunisian COD sellers.",
+		"items": {
+			"telegramAlerts": {
+				"title": "Telegram Alerts",
+				"descriptionMobile": "Instant notifications on Telegram.",
+				"descriptionDesktop": "Get notified instantly on Telegram when a new order arrives."
+			},
+			"recoverOrders": {
+				"title": "Recover Orders",
+				"descriptionMobile": "Auto follow-up for unpaid orders.",
+				"descriptionDesktop": "Automatically follow up unpaid and failed orders to bring cash back."
+			},
+			"massNotify": {
+				"title": "Mass Notify Customers",
+				"descriptionMobile": "Send updates to past buyers.",
+				"descriptionDesktop": "Send batch notifications for promos and updates to past buyers."
+			},
+			"customDomain": {
+				"title": "Custom Domain",
+				"descriptionMobile": "Use your own .tn domain.",
+				"descriptionDesktop": "Connect your own .tn or .com domain for a pro, branded store."
+			},
+			"instagramBioLink": {
+				"title": "Bio Link",
+				"descriptionMobile": "High-converting link for bio.",
+				"descriptionDesktop": "Clean, high-converting link for your Instagram and Facebook bio."
+			},
+			"seoReady": {
+				"title": "SEO-Ready Product Pages",
+				"descriptionMobile": "Structured for search engines.",
+				"descriptionDesktop": "Fast, structured pages that help your products get found."
+			},
+			"trustDelivery": {
+				"title": "Trust Delivery",
+				"descriptionMobile": "Integrated pickup scheduling.",
+				"descriptionDesktop": "Print waybills and schedule COD pickups in one click."
+			},
+			"cleanDashboard": {
+				"title": "Clean Dashboard",
+				"descriptionMobile": "Orders, revenue & delivery in one view.",
+				"descriptionDesktop": "See orders, revenue, and delivery status in one simple view."
+			},
+			"invoicingReady": {
+				"title": "Invoicing Ready",
+				"descriptionMobile": "Clean export for accounting.",
+				"descriptionDesktop": "Export orders and payments cleanly for accounting and reports."
+			}
+		}
+	},
+	"costCalculator": {
+		"title": "How much is manual work costing you?",
+		"ordersPerDayLabel": "Orders per day",
+		"ordersPerDaySuffix": "orders",
+		"fakeOrdersLabel": "Fake orders (%)",
+		"fakeOrdersSuffix": "%",
+		"minutesPerCallLabel": "Minutes per call",
+		"minutesPerCallSuffix": "min",
+		"failedCostLabel": "Failed delivery cost (TND)",
+		"failedCostSuffix": "TND",
+		"hoursWastedLabel": "HOURS WASTED / MONTH",
+		"moneyLostLabel": "MONEY LOST / MONTH",
+		"savingsLabel": "ESTIMATED SAVINGS WITH DUKKANI",
+		"savingsPrefix": "+",
+		"perMonth": "/ month",
+		"cta": "Start automating today"
+	},
+	"cta": {
+		"titleLine1": "Sell more.",
+		"titleLine2": "Call less.",
+		"subtitle": "Join thousands of Tunisian sellers automating their business.",
+		"primary": "Create My Store Free",
+		"telegramSupport": "Telegram Support"
+	},
+	"footer": {
+		"brandName": "Dukkani",
+		"terms": "Terms of Service",
+		"privacy": "Privacy Policy",
+		"contact": "Contact Support",
+		"madeForTunisia": "Made for Tunisia"
 	}
 }

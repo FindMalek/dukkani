@@ -1,29 +1,14 @@
-import { ORPCError, os } from "@orpc/server";
-import type { Context } from "./context";
-import { rateLimitProtected, rateLimitPublic } from "./middleware/rate-limit";
-
-export const o = os.$context<Context>();
-
-export const baseProcedure = o;
-export const publicProcedure = o.use(rateLimitPublic);
-
-const requireAuth = o.middleware(async ({ context, next }) => {
-	if (!context.session?.user) {
-		throw new ORPCError("UNAUTHORIZED");
-	}
-	return next({
-		context: {
-			session: context.session,
-		},
-	});
-});
-
-// Protected procedure with standard rate limiting and authentication
-// Rate limiting happens first, then authentication
-export const protectedProcedure = o.use(rateLimitProtected).use(requireAuth);
-
-// Re-export client utilities
+export {
+	baseProcedure,
+	o,
+	protectedProcedure,
+	publicProcedure,
+} from "./procedures";
 export { createORPCClientUtils } from "./client";
-// Re-export router types for easier importing
-export type { AppRouter, AppRouterClient } from "./routers/index";
-export { appRouter } from "./routers/index";
+export type {
+	AppRouter,
+	AppRouterClient,
+	StorefrontRouter,
+	StorefrontRouterClient,
+} from "./routers/index";
+export { appRouter, storefrontRouter } from "./routers/index";

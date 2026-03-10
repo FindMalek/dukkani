@@ -13,7 +13,7 @@ export const loginInputSchema = z.object({
 export const userInputSchema = z.object({
 	name: z.string().min(2, "Name must be at least 2 characters"),
 	email: z.email("Please enter a valid email address"),
-	image: z.string().url("Please enter a valid image URL").optional(),
+	image: z.url("Please enter a valid image URL").optional(),
 });
 
 export const createUserInputSchema = userInputSchema.extend({

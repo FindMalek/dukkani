@@ -30,6 +30,7 @@ export function createAuth(
 		originConfig,
 		!!envConfig.VERCEL,
 		envConfig.NEXT_PUBLIC_ALLOWED_ORIGIN,
+		envConfig.CORS_PREVIEW_ORIGIN_PATTERN,
 	);
 
 	// Determine if we need cross-origin cookie settings

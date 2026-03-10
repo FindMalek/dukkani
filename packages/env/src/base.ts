@@ -19,6 +19,7 @@ export const baseEnv = createEnv({
 			.string()
 			.optional()
 			.transform((val) => val === "1"),
+		CORS_PREVIEW_ORIGIN_PATTERN: z.string().optional(),
 	},
 	client: {
 		NEXT_PUBLIC_NODE_ENV: z
@@ -91,3 +92,14 @@ export const baseEnv = createEnv({
 		process.env.SKIP_ENV_VALIDATION === "true" ||
 		process.env.NODE_ENV === "test",
 });
+
+/**
+ * True when the storefront should use cookie-based store selection.
+ * Subdomains are NOT available in Vercel preview or local development.
+ */
+export function isStoreSelectorEnabled(): boolean {
+	return (
+		process.env.VERCEL_ENV === "preview" ||
+		process.env.NODE_ENV === "development"
+	);
+}

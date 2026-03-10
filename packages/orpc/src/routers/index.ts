@@ -1,5 +1,6 @@
 import type { RouterClient } from "@orpc/server";
 import { accountRouter } from "./account";
+import { cartRouter } from "./cart";
 import { categoryRouter } from "./category";
 import { collectionRouter } from "./collection";
 import { customerRouter } from "./customer";
@@ -10,8 +11,8 @@ import { orderRouter } from "./order";
 import { productRouter } from "./product";
 import { storageRouter } from "./storage";
 import { storeRouter } from "./store";
+import { storefrontRouter } from "./storefront";
 import { telegramRouter } from "./telegram";
-import { cartRouter } from "./cart";
 
 export const appRouter = {
 	health: healthRouter,
@@ -30,3 +31,7 @@ export const appRouter = {
 };
 export type AppRouter = typeof appRouter;
 export type AppRouterClient = RouterClient<typeof appRouter>;
+
+export { storefrontRouter };
+export type StorefrontRouter = typeof storefrontRouter;
+export type StorefrontRouterClient = RouterClient<typeof storefrontRouter>;

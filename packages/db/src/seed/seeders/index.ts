@@ -8,6 +8,7 @@ export {
 	type SeededAddress,
 	type SeededCustomer,
 } from "./customer.seeder";
+export { DemoSeeder } from "./demo.seeder";
 export { OrderSeeder, type SeededOrder } from "./order.seeder";
 export { ProductSeeder, type SeededProduct } from "./product.seeder";
 export { type SeededStore, StoreSeeder } from "./store.seeder";
@@ -15,6 +16,7 @@ export { type SeededUser, UserSeeder } from "./user.seeder";
 
 import type { Seeder } from "../base";
 import { CustomerSeeder } from "./customer.seeder";
+import { DemoSeeder } from "./demo.seeder";
 import { OrderSeeder } from "./order.seeder";
 import { ProductSeeder } from "./product.seeder";
 import { StoreSeeder } from "./store.seeder";
@@ -31,6 +33,7 @@ export const seeders: Seeder[] = [
 	new ProductSeeder(),
 	new CustomerSeeder(),
 	new OrderSeeder(),
+	new DemoSeeder(),
 ];
 
 /**
@@ -51,6 +54,7 @@ export function setupSeederDependencies(): void {
 	const orderSeeder = seeders.find(
 		(s) => s.name === "OrderSeeder",
 	) as OrderSeeder;
+	const demoSeeder = seeders.find((s) => s.name === "DemoSeeder") as DemoSeeder;
 
 	// Set up dependencies
 	if (storeSeeder && userSeeder) {
@@ -67,6 +71,11 @@ export function setupSeederDependencies(): void {
 
 	if (orderSeeder && storeSeeder && productSeeder && customerSeeder) {
 		orderSeeder.setSeeders(storeSeeder, productSeeder, customerSeeder);
+	}
+
+	if (demoSeeder && userSeeder && storeSeeder) {
+		demoSeeder.setUserSeeder(userSeeder);
+		demoSeeder.setStoreSeeder(storeSeeder);
 	}
 }
 
