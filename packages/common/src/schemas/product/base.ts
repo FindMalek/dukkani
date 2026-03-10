@@ -18,14 +18,14 @@ export const productSchema = z.strictObject({
 	hasVariants: z.boolean(),
 	variantOptions: z.array(
 		z.object({
-			name: z.string().trim().nonempty(),
+			name: z.string().trim().nonempty("Variant option name is required"),
 			values: z
 				.array(
 					z.object({
-						value: z.string().trim().nonempty(),
+						value: z.string().trim().nonempty("Variant value is required"),
 					}),
 				)
-				.nonempty(),
+				.nonempty("At least one variant value is required"),
 		}),
 	),
 });
