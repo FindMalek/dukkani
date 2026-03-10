@@ -1,17 +1,17 @@
 import { useFieldContext } from "../../hooks/use-app-form";
 import { Icons } from "../icons";
 import {
-    InputGroup,
-    InputGroupAddon,
-    InputGroupButton,
-    InputGroupInput,
+	InputGroup,
+	InputGroupAddon,
+	InputGroupButton,
+	InputGroupInput,
 } from "../input-group";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
 interface PillFieldProps
 	extends CommonFieldProps,
 		Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
-	onDelete: () => void;
+	onDelete?: () => void;
 }
 
 export function PillField({ label, onDelete, ...props }: PillFieldProps) {
@@ -29,17 +29,19 @@ export function PillField({ label, onDelete, ...props }: PillFieldProps) {
 					className="w-fit rounded-full"
 					{...props}
 				/>
-				<InputGroupAddon align="inline-end">
-					<InputGroupButton
-						type="button"
-						variant="ghost"
-						className="rounded-full"
-						size="icon-xs"
-						onClick={onDelete}
-					>
-						<Icons.trash className="size-3" />
-					</InputGroupButton>
-				</InputGroupAddon>
+				{onDelete && (
+					<InputGroupAddon align="inline-end">
+						<InputGroupButton
+							type="button"
+							variant="ghost"
+							className="rounded-full"
+							size="icon-xs"
+							onClick={onDelete}
+						>
+							<Icons.trash className="size-3" />
+						</InputGroupButton>
+					</InputGroupAddon>
+				)}
 			</InputGroup>
 		</BaseField>
 	);
