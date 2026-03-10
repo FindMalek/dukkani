@@ -238,6 +238,9 @@ importers:
       baseline-browser-mapping:
         specifier: 'catalog:'
         version: 2.9.14
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
 
   apps/dashboard:
     dependencies:
