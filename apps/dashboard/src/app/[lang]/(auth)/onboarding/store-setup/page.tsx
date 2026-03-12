@@ -17,7 +17,6 @@ import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { AuthBackground } from "@/components/layout/auth-background";
 import { handleAPIError } from "@/lib/error";

@@ -16,7 +16,6 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
-import { toast } from "sonner";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { AuthBackground } from "@/components/layout/auth-background";
 import { authClient } from "@/lib/auth-client";
