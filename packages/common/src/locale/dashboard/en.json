@@ -90,8 +90,7 @@
 					}
 				}
 			},
-			"submit": "Continue",
-			"success": "Store created successfully!"
+			"submit": "Continue"
 		},
 		"storeConfiguration": {
 			"title": "Configure your store",
@@ -162,8 +161,7 @@
 					}
 				}
 			},
-			"submit": "Finish Setup",
-			"success": "Store configured successfully!"
+			"submit": "Finish Setup"
 		},
 		"steps": {
 			"signup": "Account",
@@ -189,7 +187,6 @@
 				"placeholder": "Minimum 8 characters"
 			},
 			"submit": "Continue to Store Setup",
-			"success": "Account created! Now let's set up your store.",
 			"alreadyHaveAccount": "Already have an account?",
 			"login": "Log in",
 			"agreeText": "By continuing, you agree to our",

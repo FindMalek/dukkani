@@ -47,7 +47,6 @@ export default function SignupPage() {
 					name: values.name,
 				});
 
-				toast.success(t("success"));
 				router.push(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
 			} catch (error) {
 				handleAPIError(error);

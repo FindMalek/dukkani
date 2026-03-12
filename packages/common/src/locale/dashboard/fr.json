@@ -90,8 +90,7 @@
           }
         }
       },
-      "submit": "Continuer",
-      "success": "Magasin créé avec succès !"
+      "submit": "Continuer"
     },
     "storeConfiguration": {
       "title": "Configurez votre magasin",
@@ -162,8 +161,7 @@
           }
         }
       },
-      "submit": "Terminer la configuration",
-      "success": "Magasin configuré avec succès !"
+      "submit": "Terminer la configuration"
     },
     "steps": {
       "signup": "Compte",
@@ -189,7 +187,6 @@
         "placeholder": "Minimum 8 caractères"
       },
       "submit": "Continuer vers la configuration du magasin",
-      "success": "Compte créé ! Maintenant, configurons votre magasin.",
       "alreadyHaveAccount": "Vous avez déjà un compte ?",
       "login": "Se connecter",
       "agreeText": "En continuant, vous acceptez nos",

@@ -60,7 +60,6 @@ export default function StoreConfigurationPage() {
 		mutationFn: (input: ConfigureStoreOnboardingInput) =>
 			client.store.configure(input),
 		onSuccess: () => {
-			toast.success(t("success"));
 			router.push(
 				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.COMPLETE.url, {
 					storeId,
