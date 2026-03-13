@@ -20,7 +20,7 @@ import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { StorageService as StorageDbService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
-import { StorageService } from "@dukkani/storage";
+import { env, StorageService } from "@dukkani/storage";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../procedures";
 
@@ -201,7 +201,10 @@ export const storageRouter = {
 				// Extract paths from URLs (R2/MinIO format: baseUrl/key)
 				const paths = new Set<string>([file.path]);
 				for (const variant of file.variants) {
-					const key = StorageService.getKeyFromPublicUrl(variant.url);
+					const key = await StorageService.getKeyFromPublicUrl(
+						variant.url,
+						env.S3_PUBLIC_BASE_URL,
+					);
 					if (key) {
 						paths.add(key);
 					} else {
@@ -267,7 +270,10 @@ export const storageRouter = {
 				for (const file of files) {
 					const paths = new Set<string>([file.path]);
 					for (const variant of file.variants) {
-						const key = StorageService.getKeyFromPublicUrl(variant.url);
+						const key = await StorageService.getKeyFromPublicUrl(
+							variant.url,
+							env.S3_PUBLIC_BASE_URL,
+						);
 						if (key) {
 							paths.add(key);
 						} else {

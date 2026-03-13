@@ -10,34 +10,13 @@ import type {
 import { logger } from "@dukkani/logger";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { nanoid } from "nanoid";
+import { getS3Client } from "./client";
 import { env } from "./env";
 import { ImageProcessor } from "./image-processor";
-import { getS3Client } from "./s3-client";
 
 export type UploadOptions = {
 	alt?: string;
 };
-
-/**
- * Get public URL for an object
- */
-function getPublicUrl(path: string): string {
-	const base = env.S3_PUBLIC_BASE_URL.endsWith("/")
-		? env.S3_PUBLIC_BASE_URL.slice(0, -1)
-		: env.S3_PUBLIC_BASE_URL;
-	return `${base}/${path}`;
-}
-
-/**
- * Extract object key from a public storage URL (R2/MinIO format)
- */
-function getKeyFromPublicUrl(url: string, baseUrl: string): string | null {
-	const base = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
-	if (url.startsWith(base + "/")) {
-		return url.slice(base.length + 1);
-	}
-	return null;
-}
 
 /**
  * Storage service for file uploads and management
@@ -80,20 +59,6 @@ class StorageServiceBase {
 		const id = nanoid();
 		const sanitizedName = fileName.replace(/[^a-zA-Z0-9.-]/g, "_").slice(0, 50);
 		return `${id}/${sanitizedName}`;
-	}
-
-	/**
-	 * Get public URL for a file
-	 */
-	static getPublicUrl(_bucket: string, path: string): string {
-		return getPublicUrl(path);
-	}
-
-	/**
-	 * Extract object key from a public storage URL (R2/MinIO format)
-	 */
-	static getKeyFromPublicUrl(url: string): string | null {
-		return getKeyFromPublicUrl(url, env.S3_PUBLIC_BASE_URL);
 	}
 
 	/**
@@ -169,7 +134,7 @@ class StorageServiceBase {
 				}),
 			);
 
-			const originalUrl = getPublicUrl(filePath);
+			const originalUrl = await StorageService.getPublicUrl(filePath);
 
 			return {
 				bucket: env.S3_BUCKET,
@@ -204,7 +169,7 @@ class StorageServiceBase {
 
 					return {
 						variant: variant.variant,
-						url: getPublicUrl(variantPath),
+						url: await StorageService.getPublicUrl(variantPath),
 						width: variant.width,
 						height: variant.height,
 						fileSize: variant.fileSize,
@@ -353,6 +318,30 @@ class StorageServiceBase {
 				},
 			}),
 		);
+	}
+
+	/**
+	 * Extract object key from a public storage URL (R2/MinIO format)
+	 */
+	static async getKeyFromPublicUrl(
+		url: string,
+		baseUrl: string,
+	): Promise<string | null> {
+		const base = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+		if (url.startsWith(base + "/")) {
+			return url.slice(base.length + 1);
+		}
+		return null;
+	}
+
+	/**
+	 * Get public URL for an object
+	 */
+	static async getPublicUrl(path: string): Promise<string> {
+		const base = env.S3_PUBLIC_BASE_URL.endsWith("/")
+			? env.S3_PUBLIC_BASE_URL.slice(0, -1)
+			: env.S3_PUBLIC_BASE_URL;
+		return `${base}/${path}`;
 	}
 }
 
