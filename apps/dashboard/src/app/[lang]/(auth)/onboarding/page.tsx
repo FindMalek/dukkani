@@ -1,47 +1,65 @@
 "use client";
 
 import {
+	storeCategoryEnum,
 	storeNotificationMethodEnum,
+	storeThemeEnum,
 	UserOnboardingStep,
 } from "@dukkani/common/schemas/enums";
 import {
+	type ConfigureStoreOnboardingInput,
 	type CreateStoreOnboardingInput,
+	configureStoreOnboardingInputSchema,
 	createStoreOnboardingInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import { signupInputSchema } from "@dukkani/common/schemas/user/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
-import { SignUpOnboardingForm } from "@/components/auth/onboarding/sign-up-form";
-import { StoreSetupOnboardingForm } from "@/components/auth/onboarding/store-setup-form";
+import {
+	type OnboardingStep,
+	OnboardingStepper,
+} from "@/components/app/onboarding/onboarding-stepper";
+import { OnboardingCompletion } from "@/components/auth/onboarding/completion";
+import {
+	SignUpOnboardingForm,
+	signUpOnboardingFormDefaultValues as signUpOnboardingFormDefaultOptions,
+} from "@/components/auth/onboarding/sign-up-form";
+import {
+	StoreConfigurationOnboardingForm,
+	storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOptions,
+} from "@/components/auth/onboarding/store-configuration-form";
+import {
+	StoreSetupOnboardingForm,
+	storeSetupFormDefaultOptions,
+} from "@/components/auth/onboarding/store-setup-form";
 
 export default function OnboardingPage() {
 	const searchParams = useSearchParams();
-	const emailFromQuery = searchParams.get("email");
-	const [step, setStep] = useState<UserOnboardingStep | "SIGNUP">("SIGNUP");
+	const emailFromQuery = searchParams.get("email") ?? "";
+	const [step, setStep] = useState<OnboardingStep>("SIGNUP");
+
 	const signUpForm = useAppForm({
-		defaultValues: {
-			name: "",
-			email: emailFromQuery || "",
-			password: "",
-		},
-		validators: {
-			onChangeAsync: signupInputSchema,
-		},
+		...signUpOnboardingFormDefaultOptions(emailFromQuery ?? ""),
 		onSubmit: async ({ value }) => {
 			console.log(value);
-			setStep(UserOnboardingStep.STORE_SETUP);
+			setStep("STORE_CREATION");
 		},
 	});
+
 	const storeSetupForm = useAppForm({
-		defaultValues: {
-			name: "",
-			description: "",
-			notificationMethod: storeNotificationMethodEnum.EMAIL,
-		} as CreateStoreOnboardingInput,
-		validators: {
-			onChangeAsync: createStoreOnboardingInputSchema,
+		...storeSetupFormDefaultOptions,
+		onSubmit: async ({ value }) => {
+			console.log(value);
+			setStep("STORE_CONFIGURATION");
+		},
+	});
+
+	const storeConfigurationForm = useAppForm({
+		...storeConfigurationFormDefaultOptions,
+		onSubmit: async ({ value }) => {
+			console.log(value);
+			setStep("COMPLETION");
 		},
 	});
 	// const headersList = await headers();
@@ -92,10 +110,19 @@ export default function OnboardingPage() {
 	return (
 		<div className="flex w-full max-w-md flex-col gap-10">
 			<OnboardingStepper currentStep={step} />
-			{step === "SIGNUP" && <SignUpOnboardingForm form={signUpForm} />}
-			{step === UserOnboardingStep.STORE_SETUP && (
+			{step === "SIGNUP" && (
+				<SignUpOnboardingForm
+					form={signUpForm}
+					emailFromQuery={emailFromQuery}
+				/>
+			)}
+			{step === "STORE_CREATION" && (
 				<StoreSetupOnboardingForm form={storeSetupForm} />
 			)}
+			{step === "STORE_CONFIGURATION" && (
+				<StoreConfigurationOnboardingForm form={storeConfigurationForm} />
+			)}
+			{step === "COMPLETION" && <OnboardingCompletion />}
 		</div>
 	);
 }

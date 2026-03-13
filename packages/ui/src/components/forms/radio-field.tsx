@@ -1,16 +1,27 @@
 import { useFieldContext } from "../../hooks/use-app-form";
 import { RadioGroup } from "../radio-group";
-import { BaseField } from "./base-field";
+import { BaseField, type CommonFieldProps } from "./base-field";
 
-interface RadioFieldProps {
-	label: string;
-	children: React.ReactNode;
-}
+interface RadioFieldProps extends React.PropsWithChildren<CommonFieldProps> {}
 
-export function RadioField({ label, children }: RadioFieldProps) {
-    const field = useFieldContext();
+export function RadioField({
+	label,
+	description,
+	labelFirst,
+	rightToField,
+	orientation,
+	children,
+}: RadioFieldProps) {
+	const field = useFieldContext<unknown>();
+
 	return (
-		<BaseField label={label}>
+		<BaseField
+			label={label}
+			description={description}
+			labelFirst={labelFirst}
+			rightToField={rightToField}
+			orientation={orientation}
+		>
 			<RadioGroup>{children}</RadioGroup>
 		</BaseField>
 	);

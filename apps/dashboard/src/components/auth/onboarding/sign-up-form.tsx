@@ -6,20 +6,29 @@ import { FieldGroup } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
+import { formOptions } from "@tanstack/react-form";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { RoutePaths } from "@/lib/routes";
 
+export const signUpOnboardingFormDefaultValues = (email = "") =>
+	formOptions({
+		defaultValues: {
+			name: "",
+			email: email,
+			password: "",
+		},
+		validators: {
+			onChange: signupInputSchema,
+		},
+	});
+
 export const SignUpOnboardingForm = withForm({
-	defaultValues: {
-		name: "",
-		email: "",
-		password: "",
+	...signUpOnboardingFormDefaultValues(),
+	props: {
+		emailFromQuery: "",
 	},
-	validators: {
-		onChangeAsync: signupInputSchema,
-	},
-	render: function RenderForm({ form }) {
+	render: function RenderForm({ form, emailFromQuery }) {
 		const t = useTranslations("onboarding.signup");
 		return (
 			<>
@@ -34,14 +43,20 @@ export const SignUpOnboardingForm = withForm({
 					<form.AppForm>
 						<FieldGroup>
 							<form.AppField name="name">
-								{(field) => <field.TextInput label="Name" placeholder="Name" />}
+								{(field) => (
+									<field.TextInput
+										label={t("name.label")}
+										placeholder={t("name.placeholder")}
+										autoComplete="name"
+									/>
+								)}
 							</form.AppField>
 							<form.AppField name="email">
 								{(field) => (
 									<field.EmailInput
-										label="Email"
-										placeholder="Email"
-										disabled={!!form.state.values.email}
+										label={t("email.label")}
+										placeholder={t("email.placeholder")}
+										disabled={!!emailFromQuery}
 										autoComplete="email"
 									/>
 								)}
@@ -49,13 +64,13 @@ export const SignUpOnboardingForm = withForm({
 							<form.AppField name="password">
 								{(field) => (
 									<field.PasswordInput
-										label="Password"
-										placeholder="Password"
+										label={t("password.label")}
+										placeholder={t("password.placeholder")}
 										autoComplete="new-password"
 									/>
 								)}
 							</form.AppField>
-							<Button type="submit">Sign Up</Button>
+							<Button type="submit">{t("submit")}</Button>
 						</FieldGroup>
 					</form.AppForm>
 				</Form>
@@ -72,7 +87,7 @@ export const SignUpOnboardingForm = withForm({
 						</Link>
 					</p>
 
-					<p className="mx-auto max-w-[280px] text-[11px] text-muted-foreground leading-relaxed">
+					<p className="mx-auto max-w-70 text-muted-foreground text-xs leading-relaxed">
 						{t("agreeText")}{" "}
 						<Link href="/terms" className="underline hover:text-foreground">
 							{t("terms")}
