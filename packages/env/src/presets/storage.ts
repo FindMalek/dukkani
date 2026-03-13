@@ -4,7 +4,7 @@ import { storageModule } from "../modules";
 
 /**
  * Storage package environment preset
- * Includes Supabase Storage configuration and file upload limits
+ * Includes S3-compatible storage (R2/MinIO) configuration and file upload limits
  */
 export const storageEnv = createEnv({
 	extends: [baseEnv],

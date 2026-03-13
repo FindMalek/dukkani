@@ -35,6 +35,7 @@
 		"db:reset-and-seed": "turbo -F @dukkani/db db:reset-and-seed",
 		"db:reset": "turbo -F @dukkani/db db:reset",
 		"sync-repo": "chmod +x scripts/sync-repo.sh && scripts/sync-repo.sh",
+		"migrate:storage-to-r2": "pnpm -F @dukkani/ci-tools run migrate:storage-to-r2",
 		"lhci": "lhci autorun"
 	},
 	"dependencies": {

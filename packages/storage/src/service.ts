@@ -1,21 +1,47 @@
+import {
+	DeleteObjectCommand,
+	DeleteObjectsCommand,
+	PutObjectCommand,
+} from "@aws-sdk/client-s3";
 import type {
 	ProcessedImage,
 	StorageFileResult,
 } from "@dukkani/common/schemas/storage/output";
 import { logger } from "@dukkani/logger";
-import { addSpanAttributes, Trace, traceStaticClass } from "@dukkani/tracing";
+import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { nanoid } from "nanoid";
-import { storageClient } from "./client";
 import { env } from "./env";
 import { ImageProcessor } from "./image-processor";
+import { getS3Client } from "./s3-client";
 
 export type UploadOptions = {
 	alt?: string;
 };
 
 /**
+ * Get public URL for an object
+ */
+function getPublicUrl(path: string): string {
+	const base = env.S3_PUBLIC_BASE_URL.endsWith("/")
+		? env.S3_PUBLIC_BASE_URL.slice(0, -1)
+		: env.S3_PUBLIC_BASE_URL;
+	return `${base}/${path}`;
+}
+
+/**
+ * Extract object key from a public storage URL (R2/MinIO format)
+ */
+function getKeyFromPublicUrl(url: string, baseUrl: string): string | null {
+	const base = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+	if (url.startsWith(base + "/")) {
+		return url.slice(base.length + 1);
+	}
+	return null;
+}
+
+/**
  * Storage service for file uploads and management
- * Handles Supabase Storage operations with image optimization
+ * Handles S3-compatible storage (R2/MinIO) with image optimization
  */
 class StorageServiceBase {
 	/**
@@ -59,9 +85,43 @@ class StorageServiceBase {
 	/**
 	 * Get public URL for a file
 	 */
-	static getPublicUrl(bucket: string, path: string): string {
-		const { data } = storageClient.storage.from(bucket).getPublicUrl(path);
-		return data.publicUrl;
+	static getPublicUrl(_bucket: string, path: string): string {
+		return getPublicUrl(path);
+	}
+
+	/**
+	 * Extract object key from a public storage URL (R2/MinIO format)
+	 */
+	static getKeyFromPublicUrl(url: string): string | null {
+		return getKeyFromPublicUrl(url, env.S3_PUBLIC_BASE_URL);
+	}
+
+	/**
+	 * Health check: upload and delete a test object to verify storage connectivity
+	 */
+	static async checkHealth(): Promise<{ ok: true; latencyMs: number }> {
+		const key = `_health/check-${Date.now()}`;
+		const client = getS3Client();
+		const start = Date.now();
+
+		await client.send(
+			new PutObjectCommand({
+				Bucket: env.S3_BUCKET,
+				Key: key,
+				Body: "",
+				ContentType: "application/octet-stream",
+			}),
+		);
+
+		await client.send(
+			new DeleteObjectCommand({
+				Bucket: env.S3_BUCKET,
+				Key: key,
+			}),
+		);
+
+		const latencyMs = Date.now() - start;
+		return { ok: true, latencyMs };
 	}
 
 	/**
@@ -72,7 +132,7 @@ class StorageServiceBase {
 		options?: UploadOptions,
 	): Promise<StorageFileResult> {
 		addSpanAttributes({
-			"storage.bucket": env.STORAGE_BUCKET_NAME,
+			"storage.bucket": env.S3_BUCKET,
 			"storage.file_size": file.size,
 			"storage.file_type": file.type,
 		});
@@ -81,6 +141,7 @@ class StorageServiceBase {
 
 		const isImage = ImageProcessor.isImage(file.type);
 		const filePath = StorageService.generateFilePath(file.name);
+		const client = getS3Client();
 
 		// Process image if applicable
 		let processedImage: ProcessedImage | null = null;
@@ -99,64 +160,20 @@ class StorageServiceBase {
 			// Non-image file: upload original
 			const originalBuffer = Buffer.from(await file.arrayBuffer());
 
-			const { data: uploadData, error: uploadError } =
-				await storageClient.storage
-					.from(env.STORAGE_BUCKET_NAME)
-					.upload(filePath, originalBuffer, {
-						contentType: file.type,
-						upsert: false,
-					});
-
-			if (uploadError) {
-				// Safely extract error message without triggering JSON parsing
-				let errorMessage = "Unknown upload error";
-				try {
-					if (typeof uploadError === "string") {
-						errorMessage = uploadError;
-					} else if (uploadError && typeof uploadError === "object") {
-						// Try to get message property safely
-						if (
-							"message" in uploadError &&
-							typeof uploadError.message === "string"
-						) {
-							errorMessage = uploadError.message;
-						} else if (
-							"error" in uploadError &&
-							typeof uploadError.error === "string"
-						) {
-							errorMessage = uploadError.error;
-						} else if (
-							"name" in uploadError &&
-							typeof uploadError.name === "string"
-						) {
-							errorMessage = uploadError.name;
-						}
-					}
-				} catch {
-					// If any error occurs during extraction, use fallback
-					errorMessage = "Failed to upload file";
-				}
-
-				logger.error(
-					{
-						uploadError: errorMessage,
-						fileName: file.name,
-						filePath,
-					},
-					"File upload failed",
-				);
-
-				throw new Error(`Failed to upload file: ${errorMessage}`);
-			}
-
-			const originalUrl = StorageService.getPublicUrl(
-				env.STORAGE_BUCKET_NAME,
-				uploadData.path,
+			await client.send(
+				new PutObjectCommand({
+					Bucket: env.S3_BUCKET,
+					Key: filePath,
+					Body: originalBuffer,
+					ContentType: file.type,
+				}),
 			);
 
+			const originalUrl = getPublicUrl(filePath);
+
 			return {
-				bucket: env.STORAGE_BUCKET_NAME,
-				path: uploadData.path,
+				bucket: env.S3_BUCKET,
+				path: filePath,
 				originalUrl,
 				url: originalUrl,
 				mimeType: file.type,
@@ -175,72 +192,34 @@ class StorageServiceBase {
 			.map(async (variant) => {
 				const variantPath = `${filePath.replace(/\.[^/.]+$/, "")}_${variant.variant.toLowerCase()}.${variant.mimeType.split("/")[1]}`;
 
-				const { data: variantData, error: variantError } =
-					await storageClient.storage
-						.from(env.STORAGE_BUCKET_NAME)
-						.upload(variantPath, variant.buffer, {
-							contentType: variant.mimeType,
-							upsert: false,
-						});
+				try {
+					await client.send(
+						new PutObjectCommand({
+							Bucket: env.S3_BUCKET,
+							Key: variantPath,
+							Body: variant.buffer,
+							ContentType: variant.mimeType,
+						}),
+					);
 
-				if (variantError) {
-					// Safely extract error message without triggering JSON parsing
-					let errorMessage = "Unknown upload error";
-					try {
-						if (typeof variantError === "string") {
-							errorMessage = variantError;
-						} else if (variantError && typeof variantError === "object") {
-							// Check for Supabase StorageUnknownError structure
-							if (
-								"originalError" in variantError &&
-								variantError.originalError instanceof Error
-							) {
-								errorMessage =
-									variantError.originalError.message ||
-									"Storage error occurred";
-							} else if (
-								"message" in variantError &&
-								typeof variantError.message === "string"
-							) {
-								errorMessage = variantError.message;
-							} else if (
-								"error" in variantError &&
-								typeof variantError.error === "string"
-							) {
-								errorMessage = variantError.error;
-							} else if (
-								"name" in variantError &&
-								typeof variantError.name === "string"
-							) {
-								errorMessage = variantError.name;
-							}
-						}
-					} catch {
-						// If any error occurs during extraction, use fallback
-						errorMessage = "Failed to upload variant";
-					}
-
+					return {
+						variant: variant.variant,
+						url: getPublicUrl(variantPath),
+						width: variant.width,
+						height: variant.height,
+						fileSize: variant.fileSize,
+					};
+				} catch (error) {
 					logger.error(
 						{
 							variant: variant.variant,
-							error: errorMessage,
+							error: error instanceof Error ? error.message : String(error),
 							fileName: file.name,
 						},
 						"Failed to upload variant",
 					);
 					return null;
 				}
-
-				return {
-					variant: variant.variant,
-					url: StorageService.getPublicUrl(
-						env.STORAGE_BUCKET_NAME,
-						variantData.path,
-					),
-					width: variant.width,
-					height: variant.height,
-					fileSize: variant.fileSize,
-				};
 			});
 
 		const uploadedVariants = await Promise.all(variantUploadPromises);
@@ -255,7 +234,6 @@ class StorageServiceBase {
 
 		// Use MEDIUM variant as the "original" (primary file)
 		const mediumVariant = variants.find((v) => v.variant === "MEDIUM");
-		// TypeScript now knows variants[0] exists because we checked length > 0
 		const primaryVariant = mediumVariant || variants[0];
 		if (!primaryVariant) {
 			throw new Error("Failed to upload any image variants");
@@ -266,7 +244,7 @@ class StorageServiceBase {
 		const primaryPath = `${basePath}_${primaryVariant.variant.toLowerCase()}.${primaryVariant.url.split(".").pop()?.split("?")[0] || "webp"}`;
 
 		return {
-			bucket: env.STORAGE_BUCKET_NAME,
+			bucket: env.S3_BUCKET,
 			path: primaryPath,
 			originalUrl: primaryVariant.url,
 			url: primaryVariant.url,
@@ -297,7 +275,6 @@ class StorageServiceBase {
 		// Upload files in parallel
 		const uploadPromises = files.map((file) =>
 			StorageService.uploadFile(file, options).catch((error) => {
-				// Safely extract error message
 				const errorMessage =
 					error instanceof Error
 						? error.message
@@ -306,14 +283,10 @@ class StorageServiceBase {
 							: JSON.stringify(error);
 
 				logger.error(
-					{
-						error,
-						fileName: file.name,
-					},
+					{ error, fileName: file.name },
 					"File upload failed in batch",
 				);
 
-				// Return error result instead of throwing
 				return {
 					error: errorMessage,
 					fileName: file.name,
@@ -335,7 +308,6 @@ class StorageServiceBase {
 			}
 		}
 
-		// If there are errors, log them but still return successful uploads
 		if (errors.length > 0) {
 			logger.warn(
 				{
@@ -354,11 +326,13 @@ class StorageServiceBase {
 	 * Delete a single file
 	 */
 	static async deleteFile(bucket: string, path: string): Promise<void> {
-		const { error } = await storageClient.storage.from(bucket).remove([path]);
-
-		if (error) {
-			throw new Error(`Failed to delete file: ${error.message}`);
-		}
+		const client = getS3Client();
+		await client.send(
+			new DeleteObjectCommand({
+				Bucket: bucket,
+				Key: path,
+			}),
+		);
 	}
 
 	/**
@@ -369,11 +343,16 @@ class StorageServiceBase {
 			return;
 		}
 
-		const { error } = await storageClient.storage.from(bucket).remove(paths);
-
-		if (error) {
-			throw new Error(`Failed to delete files: ${error.message}`);
-		}
+		const client = getS3Client();
+		await client.send(
+			new DeleteObjectsCommand({
+				Bucket: bucket,
+				Delete: {
+					Objects: paths.map((Key) => ({ Key })),
+					Quiet: true,
+				},
+			}),
+		);
 	}
 }
 
