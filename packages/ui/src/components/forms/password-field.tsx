@@ -9,7 +9,9 @@ import {
 } from "../input-group";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
-type PasswordFieldProps =  CommonFieldProps & Omit<InputHTMLAttributes<HTMLInputElement>, "type">;
+interface PasswordFieldProps
+	extends CommonFieldProps,
+		Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {}
 
 export function PasswordField({
 	label,
@@ -21,7 +23,11 @@ export function PasswordField({
 	const [hidden, setHidden] = useState(true);
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 	return (
-		<BaseField label={label} description={description} orientation={orientation}>
+		<BaseField
+			label={label}
+			description={description}
+			orientation={orientation}
+		>
 			<InputGroup>
 				<InputGroupInput
 					id={field.name}

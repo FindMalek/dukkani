@@ -3,7 +3,9 @@ import { useFieldContext } from "../../hooks/use-app-form";
 import { Checkbox } from "../checkbox";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
-interface CheckboxFieldProps extends CommonFieldProps,	React.ComponentProps<typeof Checkbox> {}
+interface CheckboxFieldProps
+	extends CommonFieldProps,
+		React.ComponentProps<typeof Checkbox> {}
 
 export function CheckboxField({
 	label,
@@ -22,7 +24,9 @@ export function CheckboxField({
 				id={field.name}
 				name={field.name}
 				checked={field.state.value}
-				onCheckedChange={(checked) => checked !== "indeterminate" && field.handleChange(checked)}
+				onCheckedChange={(checked) =>
+					checked !== "indeterminate" && field.handleChange(checked)
+				}
 				onBlur={field.handleBlur}
 				aria-invalid={isInvalid}
 				{...props}

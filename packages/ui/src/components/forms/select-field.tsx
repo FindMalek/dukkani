@@ -28,19 +28,18 @@ type SelectOptionGroup = {
 	options: SelectOption[];
 };
 
-type SelectFieldProps = CommonFieldProps &
-	React.ComponentProps<typeof Select> & {
-		options?: SelectOptionGroup[] | (() => Promise<SelectOptionGroup[]>);
-		placeholder?: string;
-	} & {
-		// like opening a modal or a dialog
-		onNewOptionClick?: () => void;
-	};
+interface SelectFieldProps
+	extends CommonFieldProps,
+		React.ComponentProps<typeof Select> {
+	options?: SelectOptionGroup[] | (() => Promise<SelectOptionGroup[]>);
+	placeholder?: string;
+	onNewOptionClick?: () => void;
+}
 
 export function SelectField({
 	label,
 	description,
-	labelFirstOnHorizontal = false,
+	labelFirst = false,
 	placeholder = "",
 	options: optionsOrPromise,
 	onNewOptionClick,
@@ -92,7 +91,7 @@ export function SelectField({
 	}, [field]);
 
 	return (
-		<BaseField label={label} description={description}>
+		<BaseField label={label} description={description} labelFirst={labelFirst}>
 			<Select
 				name={field.name}
 				value={field.state.value}

@@ -9,23 +9,19 @@ import {
 } from "../input-group";
 import { BaseField } from "./base-field";
 
-type PriceFieldProps = {
+interface PriceFieldProps
+	extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "inputMode"> {
 	label: string;
 	min?: number;
 	max?: number;
 	step?: number;
-	inputMode?: InputHTMLAttributes<HTMLInputElement>["inputMode"];
 	maxPoints?: number;
-} & Omit<
-	InputHTMLAttributes<HTMLInputElement>,
-	"type" | "min" | "max" | "step" | "inputMode"
->;
+}
 
 export function PriceField({
 	label,
 	min = Number.NEGATIVE_INFINITY,
 	max = Number.POSITIVE_INFINITY,
-	inputMode = "decimal",
 	step = 1,
 	maxPoints = 3,
 	...props
@@ -96,7 +92,7 @@ export function PriceField({
 					aria-invalid={isInvalid}
 					type="text"
 					className="text-center"
-					inputMode={inputMode}
+					inputMode={"decimal"}
 					min={min}
 					max={max}
 					step={step}
