@@ -4,11 +4,12 @@ import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { cn } from "@dukkani/ui/lib/utils";
 
 interface OnboardingStepperProps {
-	currentStep: UserOnboardingStep;
+	currentStep?: UserOnboardingStep | "SIGNUP";
 }
 
-export function OnboardingStepper({ currentStep }: OnboardingStepperProps) {
+export function OnboardingStepper({ currentStep = "SIGNUP" }: OnboardingStepperProps) {
 	const steps = [
+		"SIGNUP",
 		UserOnboardingStep.STORE_SETUP,
 		UserOnboardingStep.STORE_CREATED,
 		UserOnboardingStep.STORE_CONFIGURED,

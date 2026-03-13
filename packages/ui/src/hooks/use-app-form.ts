@@ -15,7 +15,7 @@ import { TextField } from "../components/forms/text-field";
 const { fieldContext, formContext, useFieldContext, useFormContext } =
 	createFormHookContexts();
 
-const { useAppForm } = createFormHook({
+const { useAppForm, withForm } = createFormHook({
 	fieldComponents: {
 		TextInput: TextField,
 		EmailInput: EmailField,
@@ -35,4 +35,4 @@ const { useAppForm } = createFormHook({
 	formContext,
 });
 
-export { useAppForm, useFieldContext, useFormContext };
+export { useAppForm, useFieldContext, useFormContext, withForm };

@@ -47,6 +47,7 @@ export default function StoreSetupPage() {
 		schema: createStoreOnboardingInputSchema,
 		defaultValues: {
 			name: "",
+			description: "",
 			notificationMethod: storeNotificationMethodEnum.EMAIL,
 		},
 		validationMode: ["onBlur", "onSubmit"],

@@ -152,11 +152,12 @@ export function BaseField({
 	orientation = "vertical",
 	className,
 	labelFirstOnHorizontal = false,
+	...props
 }: CommonFieldProps & React.ComponentProps<typeof Field>) {
 	const field = useFieldContext();
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 	return (
-		<Field orientation={orientation} className={className}>
+		<Field orientation={orientation} className={className}  {...props}>
 			{description ? (
 				<BaseFieldWithDescription
 					labelFirstOnHorizontal={labelFirstOnHorizontal}
