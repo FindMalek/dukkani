@@ -98,6 +98,11 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 					if (selectedFiles.length > 0) {
 						const res = await client.storage.uploadMany({
 							files: selectedFiles,
+							target: {
+								resource: "products",
+								entityId: `draft-${storeId}`,
+								assetRole: "gallery",
+							},
 						});
 						urls = res.files.map((f) => f.url);
 					}

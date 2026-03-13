@@ -3,6 +3,8 @@ import {
 	DeleteObjectsCommand,
 	PutObjectCommand,
 } from "@aws-sdk/client-s3";
+import type { StorageFileVariantTypeInfer } from "@dukkani/common/schemas/enums";
+import type { StorageUploadTarget } from "@dukkani/common/schemas/storage/input";
 import type {
 	ProcessedImage,
 	StorageFileResult,
@@ -16,6 +18,7 @@ import { ImageProcessor } from "./image-processor";
 
 export type UploadOptions = {
 	alt?: string;
+	target: StorageUploadTarget;
 };
 
 /**
@@ -52,13 +55,82 @@ class StorageServiceBase {
 		}
 	}
 
-	/**
-	 * Generate a unique file path
-	 */
-	private static generateFilePath(fileName: string): string {
-		const id = nanoid();
-		const sanitizedName = fileName.replace(/[^a-zA-Z0-9.-]/g, "_").slice(0, 50);
-		return `${id}/${sanitizedName}`;
+	private static sanitizePathSegment(value: string): string {
+		const sanitized = value
+			.trim()
+			.toLowerCase()
+			.replace(/[^a-z0-9-]+/g, "-")
+			.replace(/^-+|-+$/g, "")
+			.slice(0, 64);
+		return sanitized || "unknown";
+	}
+
+	private static resolveStorageEnvironment():
+		| "local"
+		| "preview"
+		| "production" {
+		if (process.env.VERCEL_ENV === "preview") {
+			return "preview";
+		}
+		if (
+			process.env.VERCEL_ENV === "production" ||
+			process.env.NODE_ENV === "production"
+		) {
+			return "production";
+		}
+		return "local";
+	}
+
+	private static resolvePreviewScope(): string | null {
+		if (StorageService.resolveStorageEnvironment() !== "preview") {
+			return null;
+		}
+		if (env.STORAGE_PREVIEW_PREFIX) {
+			return StorageService.sanitizePathSegment(env.STORAGE_PREVIEW_PREFIX);
+		}
+		if (process.env.VERCEL_GIT_PULL_REQUEST_ID) {
+			return `pr-${StorageService.sanitizePathSegment(process.env.VERCEL_GIT_PULL_REQUEST_ID)}`;
+		}
+		if (process.env.VERCEL_GIT_COMMIT_REF) {
+			return `branch-${StorageService.sanitizePathSegment(process.env.VERCEL_GIT_COMMIT_REF)}`;
+		}
+		if (process.env.VERCEL_DEPLOYMENT_ID) {
+			return `deploy-${StorageService.sanitizePathSegment(process.env.VERCEL_DEPLOYMENT_ID)}`;
+		}
+		return "preview";
+	}
+
+	private static buildAssetRoot(target: StorageUploadTarget): string {
+		const previewScope = StorageService.resolvePreviewScope();
+		const assetId = target.assetId
+			? StorageService.sanitizePathSegment(target.assetId)
+			: `asset-${nanoid()}`;
+		return [
+			previewScope,
+			StorageService.sanitizePathSegment(target.resource),
+			StorageService.sanitizePathSegment(target.entityId),
+			StorageService.sanitizePathSegment(target.assetRole),
+			assetId,
+		]
+			.filter(Boolean)
+			.join("/");
+	}
+
+	private static buildVariantObjectKey(
+		assetRoot: string,
+		variant: StorageFileVariantTypeInfer,
+		mimeType: string,
+	): string {
+		const extension = mimeType.split("/")[1] || "bin";
+		return `${assetRoot}/${variant.toLowerCase()}.${extension}`;
+	}
+
+	private static buildOriginalObjectKey(
+		assetRoot: string,
+		fileName: string,
+	): string {
+		const extension = fileName.split(".").pop()?.toLowerCase() || "bin";
+		return `${assetRoot}/original.${extension}`;
 	}
 
 	/**
@@ -103,9 +175,12 @@ class StorageServiceBase {
 		});
 
 		StorageService.validateFile(file);
+		if (!options?.target) {
+			throw new Error("Storage upload target is required");
+		}
 
 		const isImage = ImageProcessor.isImage(file.type);
-		const filePath = StorageService.generateFilePath(file.name);
+		const assetRoot = StorageService.buildAssetRoot(options.target);
 		const client = getS3Client();
 
 		// Process image if applicable
@@ -122,7 +197,10 @@ class StorageServiceBase {
 		// For images: only upload compressed variants, skip original
 		// For non-images: upload original file
 		if (!isImage || !processedImage) {
-			// Non-image file: upload original
+			const filePath = StorageService.buildOriginalObjectKey(
+				assetRoot,
+				file.name,
+			);
 			const originalBuffer = Buffer.from(await file.arrayBuffer());
 
 			await client.send(
@@ -155,7 +233,11 @@ class StorageServiceBase {
 					variant.buffer !== undefined,
 			)
 			.map(async (variant) => {
-				const variantPath = `${filePath.replace(/\.[^/.]+$/, "")}_${variant.variant.toLowerCase()}.${variant.mimeType.split("/")[1]}`;
+				const variantPath = StorageService.buildVariantObjectKey(
+					assetRoot,
+					variant.variant,
+					variant.mimeType,
+				);
 
 				try {
 					await client.send(
@@ -204,9 +286,11 @@ class StorageServiceBase {
 			throw new Error("Failed to upload any image variants");
 		}
 
-		// Use the primary variant's path (without the variant suffix) as the base path
-		const basePath = filePath.replace(/\.[^/.]+$/, "");
-		const primaryPath = `${basePath}_${primaryVariant.variant.toLowerCase()}.${primaryVariant.url.split(".").pop()?.split("?")[0] || "webp"}`;
+		const primaryPath = StorageService.buildVariantObjectKey(
+			assetRoot,
+			primaryVariant.variant,
+			primaryVariant.url.includes("webp") ? "image/webp" : "image/jpeg",
+		);
 
 		return {
 			bucket: env.S3_BUCKET,

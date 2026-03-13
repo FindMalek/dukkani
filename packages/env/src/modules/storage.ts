@@ -12,6 +12,7 @@ export const storageModule = {
 		S3_BUCKET: z.string().min(1),
 		S3_PUBLIC_BASE_URL: z.url(),
 		S3_REGION: z.string().default("auto"),
+		STORAGE_PREVIEW_PREFIX: z.string().optional(),
 		STORAGE_MAX_FILE_SIZE: z.coerce.number().int().positive().default(4587520),
 		STORAGE_ALLOWED_MIME_TYPES: z.string().default("image/*"),
 		SUPABASE_URL: z.url().optional(),

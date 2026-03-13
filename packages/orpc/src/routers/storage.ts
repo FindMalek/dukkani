@@ -36,6 +36,7 @@ export const storageRouter = {
 				// Upload file to storage
 				const result = await StorageService.uploadFile(input.file, {
 					alt: input.alt,
+					target: input.target,
 				});
 
 				// Create database record with variants
@@ -90,6 +91,7 @@ export const storageRouter = {
 				// Upload all files to storage
 				const results = await StorageService.uploadFiles(input.files, {
 					alt: input.alt,
+					target: input.target,
 				});
 
 				// Check if we have any successful uploads

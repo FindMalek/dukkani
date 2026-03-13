@@ -11,6 +11,8 @@ import { z } from "zod";
 export const baseEnv = createEnv({
 	server: {
 		VERCEL_BRANCH_URL: z.string().optional(),
+		VERCEL_GIT_COMMIT_REF: z.string().optional(),
+		VERCEL_GIT_PULL_REQUEST_ID: z.string().optional(),
 		VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
 		VERCEL_REGION: z.string().optional(),
 		VERCEL_DEPLOYMENT_ID: z.string().optional(),
