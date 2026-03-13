@@ -70,7 +70,8 @@ async function listBucketRecursive(
 	const { data, error } = await supabase.storage.from(bucket).list(folder, {
 		limit: 1000,
 	});
-	if (error) throw new Error(`List failed for ${folder || "/"}: ${error.message}`);
+	if (error)
+		throw new Error(`List failed for ${folder || "/"}: ${error.message}`);
 	const paths: string[] = [];
 	for (const item of data ?? []) {
 		const fullPath = folder ? `${folder}/${item.name}` : item.name;
@@ -87,7 +88,9 @@ async function listBucketRecursive(
 async function main() {
 	// DB only needed when migrating (copy/update) or when using DB-referenced paths
 	const needsDb = !LIST_BUCKET || !DRY_RUN;
-	let database: Awaited<ReturnType<typeof import("@dukkani/db")["database"]>> | null = null;
+	let database: Awaited<
+		ReturnType<typeof import("@dukkani/db")["database"]>
+	> | null = null;
 	if (needsDb) {
 		const { env: dbEnv } = await import("@dukkani/db/env");
 		const dbModule = await import("@dukkani/db");
@@ -99,11 +102,16 @@ async function main() {
 		console.log("DRY RUN - no changes will be made\n");
 	}
 	if (LIST_BUCKET) {
-		console.log("LIST_BUCKET - migrating all objects in bucket (not just DB-referenced)\n");
+		console.log(
+			"LIST_BUCKET - migrating all objects in bucket (not just DB-referenced)\n",
+		);
 	}
 
 	// Validate source env (required for actual migration or when listing bucket)
-	if ((!DRY_RUN || LIST_BUCKET) && (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY)) {
+	if (
+		(!DRY_RUN || LIST_BUCKET) &&
+		(!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY)
+	) {
 		console.error("Source: Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY");
 		process.exit(1);
 	}
@@ -127,8 +135,14 @@ async function main() {
 			: S3_PUBLIC_BASE_URL + "/"
 		: "";
 
-	console.log("Source:", supabaseBase || "(dry run - source URL not configured)");
-	console.log("Destination:", r2Base || "(dry run - destination URL not configured)");
+	console.log(
+		"Source:",
+		supabaseBase || "(dry run - source URL not configured)",
+	);
+	console.log(
+		"Destination:",
+		r2Base || "(dry run - destination URL not configured)",
+	);
 	console.log("");
 
 	let pathList: string[];
@@ -178,10 +192,7 @@ async function main() {
 	}
 
 	if (!DRY_RUN) {
-		const supabase = createClient(
-			SUPABASE_URL,
-			SUPABASE_SERVICE_ROLE_KEY,
-		);
+		const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 		const s3 = new S3Client({
 			region: "auto",
 			endpoint: S3_ENDPOINT,

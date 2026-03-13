@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
 				pathname: "/**",
 			},
 			{
-				hostname: "*.r2.dev",
+				hostname: "assets.dukkani.co",
 				pathname: "/**",
 			},
 		],
