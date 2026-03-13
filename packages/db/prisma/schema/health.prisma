@@ -7,6 +7,8 @@
  * - `duration`: Health check duration in milliseconds
  * - `startTime`: Timestamp when the health check started
  * - `endTime`: Timestamp when the health check completed
+ * - `storageStatus`: Current storage status (HEALTHY, DEGRADED, UNHEALTHY, UNKNOWN)
+ * - `storageLatencyMs`: Storage check duration in milliseconds
  * **Business Logic:**
  * - Used for system monitoring and alerting
  * - Tracks database performance and availability
@@ -19,6 +21,9 @@ model Health {
 
   startTime DateTime @map("start_time")
   endTime   DateTime @map("end_time")
+
+  storageStatus    HealthStatus? @map("storage_status")
+  storageLatencyMs Int?          @map("storage_latency_ms")
 
   @@map("health")
 }

@@ -34,6 +34,8 @@ export const healthRouter = {
 					duration: 0,
 					startTime,
 					endTime: startTime,
+					storageStatus: null,
+					storageLatencyMs: null,
 				},
 			});
 			const dbEndTime = Date.now();
@@ -74,6 +76,13 @@ export const healthRouter = {
 
 		const endTime = new Date();
 
+		const storageStatus = !storageOk
+			? HealthStatus.UNHEALTHY
+			: storageLatencyMs &&
+					storageLatencyMs > HEALTH_CHECK_CONFIG.DEGRADED_THRESHOLD_MS
+				? HealthStatus.DEGRADED
+				: HealthStatus.HEALTHY;
+
 		// Update health record with final status and metrics
 		if (health) {
 			health = await database.health.update({
@@ -82,6 +91,8 @@ export const healthRouter = {
 					status,
 					duration: dbLatency ?? 0,
 					endTime,
+					storageStatus,
+					storageLatencyMs,
 				},
 			});
 		} else {
@@ -91,16 +102,12 @@ export const healthRouter = {
 					duration: 0,
 					startTime,
 					endTime,
+					storageStatus,
+					storageLatencyMs,
 				},
 			});
 		}
 
-		return {
-			...health,
-			storage: {
-				status: storageOk ? ("ok" as const) : ("error" as const),
-				latencyMs: storageLatencyMs,
-			},
-		};
+		return health;
 	}),
 };
