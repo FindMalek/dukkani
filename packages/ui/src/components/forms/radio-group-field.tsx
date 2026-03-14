@@ -1,0 +1,81 @@
+import { useFieldContext } from "../../hooks/use-app-form";
+import {
+	Field,
+	FieldContent,
+	FieldDescription,
+	FieldLabel,
+	FieldTitle,
+} from "../field";
+import { RadioGroup, RadioGroupItem } from "../radio-group";
+import { BaseField, type CommonFieldProps } from "./base-field";
+
+type BaseItemOption = {
+	label: React.ReactNode;
+	value: string;
+};
+
+type CardItemOption = BaseItemOption & {
+	description?: string;
+	icon?: React.ReactNode;
+};
+
+type RadioGroupFieldProps = CommonFieldProps &
+	(
+		| {
+				as?: "cards";
+				options: CardItemOption[];
+		  }
+		| {
+				as: "pills";
+				options: BaseItemOption[];
+		  }
+	);
+export function RadioGroupField({
+	label,
+	description,
+	labelFirst,
+	rightToField,
+	orientation,
+	srOnlyLabel,
+	...props
+}: RadioGroupFieldProps) {
+	const field = useFieldContext<string>();
+	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+
+	return (
+		<BaseField
+			label={label}
+			description={description}
+			labelFirst={labelFirst}
+			rightToField={rightToField}
+			orientation={orientation}
+		>
+			<RadioGroup
+				id={field.name}
+				name={field.name}
+				value={field.state.value}
+				onBlur={field.handleBlur}
+				onValueChange={field.handleChange}
+			>
+				{props.as === "cards"
+					? props.options.map((option) => (
+							<FieldLabel key={option.value} htmlFor={option.value}>
+								<Field orientation="horizontal" data-invalid={isInvalid}>
+									<FieldContent>
+										<FieldTitle>{option.label}</FieldTitle>
+										<FieldDescription>{option.description}</FieldDescription>
+									</FieldContent>
+									<RadioGroupItem
+										value={option.value}
+										id={option.value}
+										aria-invalid={isInvalid}
+									/>
+								</Field>
+							</FieldLabel>
+						))
+					: null}
+				{props.as === "pills" ? "" : null}
+			</RadioGroup>
+		</BaseField>
+	);
+}
