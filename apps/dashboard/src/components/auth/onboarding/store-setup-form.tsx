@@ -18,6 +18,7 @@ import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 
 export const storeSetupFormDefaultOptions = formOptions({
 	defaultValues: {
@@ -35,6 +36,26 @@ export const StoreSetupOnboardingForm = withForm({
 	...storeSetupFormDefaultOptions,
 	render: function RenderForm({ form }) {
 		const t = useTranslations("onboarding.storeSetup");
+		const options = useMemo(
+			() => [
+				{
+					label: t("notifications.options.email.label"),
+					description: t("notifications.options.email.description"),
+					value: storeNotificationMethodEnum.EMAIL,
+				},
+				{
+					label: t("notifications.options.telegram.label"),
+					description: t("notifications.options.telegram.description"),
+					value: storeNotificationMethodEnum.TELEGRAM,
+				},
+				{
+					label: t("notifications.options.both.label"),
+					description: t("notifications.options.both.description"),
+					value: storeNotificationMethodEnum.BOTH,
+				},
+			],
+			[t],
+		);
 		return (
 			<>
 				<div className="space-y-2 text-center">
@@ -60,29 +81,7 @@ export const StoreSetupOnboardingForm = withForm({
 									<field.RadioGroupInput
 										label={t("notifications.label")}
 										as="cards"
-										options={[
-											{
-												label: t("notifications.options.email.label"),
-												description: t(
-													"notifications.options.email.description",
-												),
-												value: storeNotificationMethodEnum.EMAIL,
-											},
-											{
-												label: t("notifications.options.telegram.label"),
-												description: t(
-													"notifications.options.telegram.description",
-												),
-												value: storeNotificationMethodEnum.TELEGRAM,
-											},
-											{
-												label: t("notifications.options.both.label"),
-												description: t(
-													"notifications.options.both.description",
-												),
-												value: storeNotificationMethodEnum.BOTH,
-											},
-										]}
+										options={options}
 									/>
 								)}
 							</form.AppField>
