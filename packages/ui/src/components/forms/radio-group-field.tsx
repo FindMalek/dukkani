@@ -20,16 +20,10 @@ type CardItemOption = BaseItemOption & {
 };
 
 type RadioGroupFieldProps = CommonFieldProps &
-	(
-		| {
-				as?: "cards";
-				options: CardItemOption[];
-		  }
-		| {
-				as: "pills";
-				options: BaseItemOption[];
-		  }
-	);
+	{
+		as?: "cards";
+		options: CardItemOption[];
+	};
 export function RadioGroupField({
 	label,
 	description,
@@ -77,7 +71,6 @@ export function RadioGroupField({
 							</FieldLabel>
 						))
 					: null}
-				{props.as === "pills" ? "" : null}
 			</RadioGroup>
 		</BaseField>
 	);
