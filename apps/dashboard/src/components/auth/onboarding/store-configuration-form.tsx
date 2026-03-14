@@ -1,13 +1,13 @@
 import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import {
-	type ConfigureStoreOnboardingInput,
-	configureStoreOnboardingInputSchema,
-} from "@dukkani/common/schemas/store/input";
-import {
 	type StoreTheme,
 	storeCategoryEnum,
 	storeThemeEnum,
-} from "@dukkani/common/schemas/whatsapp-message/index";
+} from "@dukkani/common/schemas";
+import {
+	type ConfigureStoreOnboardingInput,
+	configureStoreOnboardingInputSchema,
+} from "@dukkani/common/schemas/store/input";
 import { Button } from "@dukkani/ui/components/button";
 import {
 	Field,

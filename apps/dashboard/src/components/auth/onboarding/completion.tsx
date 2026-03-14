@@ -5,7 +5,6 @@ import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useOnboardingCompleteQuery } from "@/hooks/api/use-onboarding.hook";
 import {
@@ -15,14 +14,12 @@ import {
 import { useCopyClipboard } from "@/hooks/use-copy-clipboard";
 import { RoutePaths } from "@/lib/routes";
 
-export function OnboardingCompletion() {
+export function OnboardingCompletion({ storeId }: { storeId: string }) {
 	const t = useTranslations("onboarding.complete");
 	const copy = useCopyClipboard();
-	const searchParams = useSearchParams();
-	const storeId = searchParams.get("storeId");
 
 	const { data: completionData, isLoading: isLoadingComplete } =
-		useOnboardingCompleteQuery(storeId ? { storeId } : undefined);
+		useOnboardingCompleteQuery({ storeId });
 
 	const { data: telegramStatus } = useTelegramStatusQuery();
 
@@ -110,13 +107,13 @@ export function OnboardingCompletion() {
 			)}
 
 			<div className="flex flex-col items-center gap-4">
-				<Button asChild>
+				<Button asChild className="w-full"	>
 					<Link href={RoutePaths.PRODUCTS.NEW.url}>
 						<Icons.plus className="h-5 w-5" />
 						{t("actions.addProduct")}
 					</Link>
 				</Button>
-				<Button variant="outline" asChild>
+				<Button variant="outline" asChild className="w-full">
 					<Link href={RoutePaths.DASHBOARD.url}>
 						{t("actions.goToDashboard")}
 					</Link>

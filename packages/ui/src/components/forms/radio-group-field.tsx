@@ -49,6 +49,7 @@ export function RadioGroupField({
 			labelFirst={labelFirst}
 			rightToField={rightToField}
 			orientation={orientation}
+			srOnlyLabel={srOnlyLabel}
 		>
 			<RadioGroup
 				id={field.name}

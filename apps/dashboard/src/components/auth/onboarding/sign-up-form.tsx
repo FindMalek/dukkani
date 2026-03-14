@@ -90,7 +90,7 @@ export const SignUpOnboardingForm = withForm({
 						</Button>
 					</p>
 
-					<p className="mx-auto max-w-70 text-muted-foreground text-xs leading-relaxed">
+					<p className="mx-auto max-w-xs text-muted-foreground text-xs leading-relaxed">
 						{t("agreeText")}{" "}
 						<Link href="/terms" className="underline hover:text-foreground">
 							{t("terms")}
