@@ -34,7 +34,8 @@ import { client } from "@/lib/orpc";
 export default function OnboardingPage() {
 	const searchParams = useSearchParams();
 	const emailFromQuery = searchParams.get("email") ?? "";
-	const [step, setStep] = useState<OnboardingStep>("SIGNUP");
+	const stepFromQuery = searchParams.get("step") as OnboardingStep | null;
+	const [step, setStep] = useState<OnboardingStep>(stepFromQuery || "SIGNUP");
 	const t = useTranslations();
 
 	const signUpForm = useAppForm({
