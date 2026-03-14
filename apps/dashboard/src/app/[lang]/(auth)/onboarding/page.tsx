@@ -1,20 +1,9 @@
 "use client";
 
-import {
-	storeCategoryEnum,
-	storeNotificationMethodEnum,
-	storeThemeEnum,
-	UserOnboardingStep,
-} from "@dukkani/common/schemas/enums";
-import {
-	type ConfigureStoreOnboardingInput,
-	type CreateStoreOnboardingInput,
-	configureStoreOnboardingInputSchema,
-	createStoreOnboardingInputSchema,
-} from "@dukkani/common/schemas/store/input";
-import { signupInputSchema } from "@dukkani/common/schemas/user/input";
+import { Button } from "@dukkani/ui/components/button";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
 	type OnboardingStep,
@@ -33,17 +22,43 @@ import {
 	StoreSetupOnboardingForm,
 	storeSetupFormDefaultOptions,
 } from "@/components/auth/onboarding/store-setup-form";
+import { authClient } from "@/lib/auth-client";
 
 export default function OnboardingPage() {
 	const searchParams = useSearchParams();
 	const emailFromQuery = searchParams.get("email") ?? "";
 	const [step, setStep] = useState<OnboardingStep>("SIGNUP");
+	const t = useTranslations();
 
 	const signUpForm = useAppForm({
 		...signUpOnboardingFormDefaultOptions(emailFromQuery ?? ""),
-		onSubmit: async ({ value }) => {
-			console.log(value);
-			setStep("STORE_CREATION");
+		onSubmit: async ({ value, formApi }) => {
+			await authClient.signUp.email(
+				{
+					email: value.email,
+					password: value.password,
+					name: value.name,
+				},
+				{
+					onSuccess: async () => {
+						setStep("STORE_CREATION");
+					},
+					onError: async (error) => {
+						if (error.error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
+							formApi.setFieldMeta("email", (fieldMeta) => ({
+								...fieldMeta,
+								errorMap: {
+									onSubmit: {
+										message: "Email already in use. Please use another email.",
+									},
+								},
+							}));
+						} else {
+							throw error;
+						}
+					},
+				},
+			);
 		},
 	});
 
@@ -62,6 +77,18 @@ export default function OnboardingPage() {
 			setStep("COMPLETION");
 		},
 	});
+
+	const handleBack = () => {
+		if (step === "STORE_CREATION") {
+			setStep("SIGNUP");
+			return;
+		}
+		if (step === "STORE_CONFIGURATION") {
+			setStep("STORE_CREATION");
+			return;
+		}
+	};
+
 	// const headersList = await headers();
 	// const params = await searchParams;
 	// const email = params.email;
@@ -110,12 +137,7 @@ export default function OnboardingPage() {
 	return (
 		<div className="flex w-full max-w-md flex-col gap-10">
 			<OnboardingStepper currentStep={step} />
-			{step === "SIGNUP" && (
-				<SignUpOnboardingForm
-					form={signUpForm}
-					emailFromQuery={emailFromQuery}
-				/>
-			)}
+			{step === "SIGNUP" && <SignUpOnboardingForm form={signUpForm} />}
 			{step === "STORE_CREATION" && (
 				<StoreSetupOnboardingForm form={storeSetupForm} />
 			)}
@@ -123,6 +145,11 @@ export default function OnboardingPage() {
 				<StoreConfigurationOnboardingForm form={storeConfigurationForm} />
 			)}
 			{step === "COMPLETION" && <OnboardingCompletion />}
+			{step !== "SIGNUP" && step !== "COMPLETION" && (
+				<Button variant="outline" onClick={handleBack}>
+					{t("auth.emailSignIn.back")}
+				</Button>
+			)}
 		</div>
 	);
 }

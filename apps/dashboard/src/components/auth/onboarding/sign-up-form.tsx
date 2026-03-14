@@ -19,16 +19,14 @@ export const signUpOnboardingFormDefaultValues = (email = "") =>
 			password: "",
 		},
 		validators: {
-			onChange: signupInputSchema,
+			onBlur: signupInputSchema,
+			onSubmit: signupInputSchema,
 		},
 	});
 
 export const SignUpOnboardingForm = withForm({
 	...signUpOnboardingFormDefaultValues(),
-	props: {
-		emailFromQuery: "",
-	},
-	render: function RenderForm({ form, emailFromQuery }) {
+	render: function RenderForm({ form }) {
 		const t = useTranslations("onboarding.signup");
 		return (
 			<>
@@ -56,7 +54,6 @@ export const SignUpOnboardingForm = withForm({
 									<field.EmailInput
 										label={t("email.label")}
 										placeholder={t("email.placeholder")}
-										disabled={!!emailFromQuery}
 										autoComplete="email"
 									/>
 								)}
@@ -70,7 +67,16 @@ export const SignUpOnboardingForm = withForm({
 									/>
 								)}
 							</form.AppField>
-							<Button type="submit">{t("submit")}</Button>
+							<form.Subscribe>
+								{(formState) => (
+									<Button
+										type="submit"
+										disabled={formState.isSubmitting || !formState.canSubmit}
+									>
+										{t("submit")}
+									</Button>
+								)}
+							</form.Subscribe>
 						</FieldGroup>
 					</form.AppForm>
 				</Form>
@@ -79,12 +85,9 @@ export const SignUpOnboardingForm = withForm({
 						<span className="text-muted-foreground">
 							{t("alreadyHaveAccount")}{" "}
 						</span>
-						<Link
-							href={RoutePaths.AUTH.LOGIN.url}
-							className="font-semibold text-primary underline-offset-4 hover:underline"
-						>
-							{t("login")}
-						</Link>
+						<Button asChild variant={"link"}>
+							<Link href={RoutePaths.AUTH.LOGIN.url}>{t("login")}</Link>
+						</Button>
 					</p>
 
 					<p className="mx-auto max-w-70 text-muted-foreground text-xs leading-relaxed">
