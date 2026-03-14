@@ -14,27 +14,29 @@ export type CommonFieldProps = {
 	label: string;
 	srOnlyLabel?: boolean;
 	description?: string;
-	labelFirstOnHorizontal?: boolean;
+	labelFirst?: boolean;
 	rightToField?: React.ReactNode;
+	orientation?: React.ComponentProps<typeof Field>["orientation"];
 };
 
-interface BaseFieldWithDescriptionProps extends CommonFieldProps {
+interface BaseFieldWithDescriptionProps
+	extends Omit<CommonFieldProps, "description">,
+		React.PropsWithChildren {
 	description: string;
-	orientation: React.ComponentProps<typeof Field>["orientation"];
-	children: React.ReactNode;
-};
+}
+
 export function BaseFieldWithDescription({
 	children,
 	label,
 	srOnlyLabel = false,
 	description,
 	orientation = "vertical",
-	labelFirstOnHorizontal = false,
+	labelFirst = false,
 	rightToField,
 }: BaseFieldWithDescriptionProps) {
 	const field = useFieldContext();
 	if (orientation === "horizontal") {
-		return labelFirstOnHorizontal ? (
+		return labelFirst ? (
 			<>
 				<FieldContent>
 					<FieldLabel
@@ -87,22 +89,21 @@ export function BaseFieldWithDescription({
 	);
 }
 
-type BaseFieldWithoutDescriptionProps = CommonFieldProps & {
-	orientation: React.ComponentProps<typeof Field>["orientation"];
-	children: React.ReactNode;
-};
+interface BaseFieldWithoutDescriptionProps
+	extends Omit<CommonFieldProps, "description">,
+		React.PropsWithChildren {}
 
 export function BaseFieldWithoutDescription({
 	children,
 	label,
 	srOnlyLabel = false,
 	orientation = "vertical",
-	labelFirstOnHorizontal = false,
+	labelFirst = false,
 	rightToField,
 }: BaseFieldWithoutDescriptionProps) {
 	const field = useFieldContext();
 	if (orientation === "horizontal") {
-		return labelFirstOnHorizontal ? (
+		return labelFirst ? (
 			<>
 				<FieldLabel
 					htmlFor={field.name}
@@ -110,17 +111,25 @@ export function BaseFieldWithoutDescription({
 				>
 					{label}
 				</FieldLabel>
-				<div className="flex items-center gap-2">
-					{children}
-					<div className="ml-auto">{rightToField}</div>
-				</div>
+				{rightToField ? (
+					<div className="flex items-center gap-2">
+						{children}
+						<div className="ml-auto">{rightToField}</div>
+					</div>
+				) : (
+					children
+				)}
 			</>
 		) : (
 			<>
-			<div className="flex items-center gap-2">
-				{children}
-				{rightToField}
-			</div>
+				{rightToField ? (
+					<div className="flex items-center gap-2">
+						{children}
+						{rightToField}
+					</div>
+				) : (
+					children
+				)}
 				<FieldLabel
 					htmlFor={field.name}
 					className={cn(srOnlyLabel && "sr-only")}
@@ -135,10 +144,14 @@ export function BaseFieldWithoutDescription({
 			<FieldLabel htmlFor={field.name} className={cn(srOnlyLabel && "sr-only")}>
 				{label}
 			</FieldLabel>
-			<div className="flex items-center gap-2">
-				{children}
-				{rightToField}
-			</div>
+			{rightToField ? (
+				<div className="flex items-center gap-2">
+					{children}
+					{rightToField}
+				</div>
+			) : (
+				children
+			)}
 		</>
 	);
 }
@@ -151,15 +164,16 @@ export function BaseField({
 	srOnlyLabel = false,
 	orientation = "vertical",
 	className,
-	labelFirstOnHorizontal = false,
+	labelFirst = false,
+	...props
 }: CommonFieldProps & React.ComponentProps<typeof Field>) {
 	const field = useFieldContext();
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 	return (
-		<Field orientation={orientation} className={className}>
+		<Field orientation={orientation} className={className} {...props}>
 			{description ? (
 				<BaseFieldWithDescription
-					labelFirstOnHorizontal={labelFirstOnHorizontal}
+					labelFirst={labelFirst}
 					orientation={orientation}
 					label={label}
 					description={description}
@@ -170,7 +184,7 @@ export function BaseField({
 				</BaseFieldWithDescription>
 			) : (
 				<BaseFieldWithoutDescription
-					labelFirstOnHorizontal={labelFirstOnHorizontal}
+					labelFirst={labelFirst}
 					orientation={orientation}
 					label={label}
 					srOnlyLabel={srOnlyLabel}

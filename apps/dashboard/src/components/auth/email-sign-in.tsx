@@ -93,6 +93,7 @@ export function EmailSignIn({
 										<field.EmailInput
 											label={t("email.label")}
 											placeholder={t("email.placeholder")}
+											autoFocus
 										/>
 									)}
 								</emailForm.AppField>
@@ -118,6 +119,7 @@ export function EmailSignIn({
 										<field.PasswordInput
 											label={t("password.label")}
 											placeholder={t("password.placeholder")}
+											autoComplete="current-password"
 										/>
 									)}
 								</passwordForm.AppField>

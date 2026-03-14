@@ -7,21 +7,27 @@ import {
 	InputGroupButton,
 	InputGroupInput,
 } from "../input-group";
-import { BaseField } from "./base-field";
+import { BaseField, type CommonFieldProps } from "./base-field";
 
-type PasswordFieldProps = {
-	label: string;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, "type">;
+interface PasswordFieldProps
+	extends CommonFieldProps,
+		Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {}
 
 export function PasswordField({
 	label,
+	description,
+	orientation = "vertical",
 	...props
 }: PasswordFieldProps) {
 	const field = useFieldContext<string>();
 	const [hidden, setHidden] = useState(true);
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 	return (
-		<BaseField label={label}>
+		<BaseField
+			label={label}
+			description={description}
+			orientation={orientation}
+		>
 			<InputGroup>
 				<InputGroupInput
 					id={field.name}

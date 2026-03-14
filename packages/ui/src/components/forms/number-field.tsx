@@ -8,19 +8,17 @@ import {
 	InputGroupButton,
 	InputGroupInput,
 } from "../input-group";
-import { BaseField } from "./base-field";
+import { BaseField, type CommonFieldProps } from "./base-field";
 
-type NumberFieldProps = {
-	label: string;
+interface NumberFieldProps
+	extends CommonFieldProps,
+		Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
 	min?: number;
 	max?: number;
 	step?: number;
 	inputMode?: InputHTMLAttributes<HTMLInputElement>["inputMode"];
 	maxPoints?: number;
-} & Omit<
-	InputHTMLAttributes<HTMLInputElement>,
-	"type" | "min" | "max" | "step" | "inputMode"
->;
+}
 
 export function NumberField({
 	label,
@@ -33,9 +31,12 @@ export function NumberField({
 }: NumberFieldProps) {
 	const field = useFieldContext<string>();
 
-	const stepResult = useCallback((n: number) => {
-		return String(Number(n.toFixed(maxPoints)));
-	}, [maxPoints]);	
+	const stepResult = useCallback(
+		(n: number) => {
+			return String(Number(n.toFixed(maxPoints)));
+		},
+		[maxPoints],
+	);
 	const isInvalid = useMemo(
 		() => field.state.meta.isTouched && !field.state.meta.isValid,
 		[field.state.meta.isTouched, field.state.meta.isValid],

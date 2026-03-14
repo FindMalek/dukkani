@@ -1,15 +1,16 @@
 import type * as React from "react";
 import { useFieldContext } from "../../hooks/use-app-form";
-import { Checkbox } from "../checkbox";
 import { Switch } from "../switch";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
-type SwitchFieldProps = CommonFieldProps &
-	React.ComponentProps<typeof Switch>;
+interface SwitchFieldProps
+	extends CommonFieldProps,
+		React.ComponentProps<typeof Switch> {}
 
 export function SwitchField({
 	label,
 	description,
+	labelFirst = true,
 	...props
 }: SwitchFieldProps) {
 	const field = useFieldContext<boolean>();
@@ -19,7 +20,7 @@ export function SwitchField({
 			label={label}
 			description={description}
 			orientation={"horizontal"}
-			labelFirstOnHorizontal
+			labelFirst={labelFirst}
 		>
 			<Switch
 				id={field.name}

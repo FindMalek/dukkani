@@ -19,7 +19,7 @@ export const storeInputSchema = z.object({
 export const createStoreOnboardingInputSchema = z.object({
 	name: z.string().min(3, "Store name must be at least 3 characters"),
 	description: z.string().optional(),
-	notificationMethod: storeNotificationMethodSchema.optional(),
+	notificationMethod: storeNotificationMethodSchema,
 });
 
 export const createStoreInputSchema = storeInputSchema;

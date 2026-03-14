@@ -9,7 +9,7 @@ import { BaseField, type CommonFieldProps } from "./base-field";
 
 interface ImagesFieldProps extends CommonFieldProps {
 	multiple?: boolean;
-};
+}
 
 export function ImagesField({
 	label,

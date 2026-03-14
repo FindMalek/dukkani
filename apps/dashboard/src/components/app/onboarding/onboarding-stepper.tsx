@@ -1,19 +1,23 @@
 "use client";
 
-import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { cn } from "@dukkani/ui/lib/utils";
 
+const steps = [
+	"SIGNUP",
+	"STORE_CREATION",
+	"STORE_CONFIGURATION",
+	"COMPLETION"
+] as const;
+
+export type OnboardingStep = (typeof steps)[number];
+
 interface OnboardingStepperProps {
-	currentStep: UserOnboardingStep;
+	currentStep: OnboardingStep;
 }
 
-export function OnboardingStepper({ currentStep }: OnboardingStepperProps) {
-	const steps = [
-		UserOnboardingStep.STORE_SETUP,
-		UserOnboardingStep.STORE_CREATED,
-		UserOnboardingStep.STORE_CONFIGURED,
-		UserOnboardingStep.STORE_LAUNCHED,
-	] as const;
+export function OnboardingStepper({
+	currentStep = "SIGNUP",
+}: OnboardingStepperProps) {
 
 	const currentIndex = steps.indexOf(currentStep);
 
