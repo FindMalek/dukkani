@@ -26,7 +26,8 @@ export const storeSetupFormDefaultOptions = formOptions({
 		notificationMethod: storeNotificationMethodEnum.EMAIL,
 	} as CreateStoreOnboardingInput,
 	validators: {
-		onChange: createStoreOnboardingInputSchema,
+		onBlur: createStoreOnboardingInputSchema,
+		onSubmit: createStoreOnboardingInputSchema,
 	},
 });
 
@@ -136,9 +137,7 @@ export const StoreSetupOnboardingForm = withForm({
 									);
 								}}
 							</form.AppField>
-							<Button type="submit" className="h-12 w-full text-lg">
-								{t("submit")}
-							</Button>
+							<Button type="submit">{t("submit")}</Button>
 						</FieldGroup>
 					</form.AppForm>
 				</Form>

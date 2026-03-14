@@ -22,17 +22,11 @@ import { Spinner } from "@dukkani/ui/components/spinner";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { cn } from "@dukkani/ui/lib/utils";
 import { formOptions } from "@tanstack/react-form";
-import { useMutation } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
 import { CategorySelector } from "@/components/app/onboarding/category-selector";
 import { THEME_PREVIEWS } from "@/components/app/onboarding/theme-previews";
 import { useStoresQuery } from "@/hooks/api/use-stores.hook";
-import { handleAPIError } from "@/lib/error";
-import { client } from "@/lib/orpc";
-import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
 
 export const storeConfigurationFormDefaultValues = formOptions({
 	defaultValues: {
@@ -40,7 +34,8 @@ export const storeConfigurationFormDefaultValues = formOptions({
 		category: storeCategoryEnum.FASHION,
 	} as Omit<ConfigureStoreOnboardingInput, "storeId">,
 	validators: {
-		onChange: configureStoreOnboardingInputSchema.omit({ storeId: true }),
+		onBlur: configureStoreOnboardingInputSchema.omit({ storeId: true }),
+		onSubmit: configureStoreOnboardingInputSchema.omit({ storeId: true }),
 	},
 });
 
