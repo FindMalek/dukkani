@@ -111,17 +111,25 @@ export function BaseFieldWithoutDescription({
 				>
 					{label}
 				</FieldLabel>
-				<div className="flex items-center gap-2">
-					{children}
-					<div className="ml-auto">{rightToField}</div>
-				</div>
+				{rightToField ? (
+					<div className="flex items-center gap-2">
+						{children}
+						<div className="ml-auto">{rightToField}</div>
+					</div>
+				) : (
+					children
+				)}
 			</>
 		) : (
 			<>
-				<div className="flex items-center gap-2">
-					{children}
-					{rightToField}
-				</div>
+				{rightToField ? (
+					<div className="flex items-center gap-2">
+						{children}
+						{rightToField}
+					</div>
+				) : (
+					children
+				)}
 				<FieldLabel
 					htmlFor={field.name}
 					className={cn(srOnlyLabel && "sr-only")}
@@ -136,10 +144,14 @@ export function BaseFieldWithoutDescription({
 			<FieldLabel htmlFor={field.name} className={cn(srOnlyLabel && "sr-only")}>
 				{label}
 			</FieldLabel>
-			<div className="flex items-center gap-2">
-				{children}
-				{rightToField}
-			</div>
+			{rightToField ? (
+				<div className="flex items-center gap-2">
+					{children}
+					{rightToField}
+				</div>
+			) : (
+				children
+			)}
 		</>
 	);
 }
