@@ -1,8 +1,13 @@
 "use client";
 
+import type {
+	ConfigureStoreOnboardingInput,
+	CreateStoreOnboardingInput,
+} from "@dukkani/common/schemas/store/input";
 import { Button } from "@dukkani/ui/components/button";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { useSearchParams } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
@@ -23,12 +28,15 @@ import {
 	storeSetupFormDefaultOptions,
 } from "@/components/auth/onboarding/store-setup-form";
 import { authClient } from "@/lib/auth-client";
+import { handleAPIError } from "@/lib/error";
+import { client } from "@/lib/orpc";
 
 export default function OnboardingPage() {
 	const searchParams = useSearchParams();
 	const emailFromQuery = searchParams.get("email") ?? "";
 	const [step, setStep] = useState<OnboardingStep>("SIGNUP");
 	const t = useTranslations();
+	const router = useRouter();
 
 	const signUpForm = useAppForm({
 		...signUpOnboardingFormDefaultOptions(emailFromQuery ?? ""),
@@ -62,19 +70,47 @@ export default function OnboardingPage() {
 		},
 	});
 
+	const [storeId, setStoreId] = useState<string | null>(null);
+
+	const createStoreMutation = useMutation({
+		mutationFn: (input: CreateStoreOnboardingInput) =>
+			client.store.create(input),
+		onSuccess: (data) => {
+			setStoreId(data.id);
+			setStep("STORE_CONFIGURATION");
+		},
+		onError: (error) => {
+			handleAPIError(error);
+		},
+	});
+
 	const storeSetupForm = useAppForm({
 		...storeSetupFormDefaultOptions,
 		onSubmit: async ({ value }) => {
-			console.log(value);
-			setStep("STORE_CONFIGURATION");
+			await createStoreMutation.mutateAsync(value);
+		},
+	});
+
+	const configureStoreMutation = useMutation({
+		mutationFn: (input: ConfigureStoreOnboardingInput) =>
+			client.store.configure(input),
+		onSuccess: () => {
+			setStep("COMPLETION");
+		},
+		onError: (error) => {
+			handleAPIError(error);
 		},
 	});
 
 	const storeConfigurationForm = useAppForm({
 		...storeConfigurationFormDefaultOptions,
 		onSubmit: async ({ value }) => {
-			console.log(value);
-			setStep("COMPLETION");
+			if (!storeId) {
+				throw new Error(
+					"Store ID is missing. Cannot configure store without it.",
+				);
+			}
+			await configureStoreMutation.mutateAsync({ ...value, storeId });
 		},
 	});
 

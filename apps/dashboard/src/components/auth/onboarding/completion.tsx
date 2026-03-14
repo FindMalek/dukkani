@@ -1,6 +1,5 @@
 "use client";
 
-import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { Button } from "@dukkani/ui/components/button";
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
@@ -8,7 +7,6 @@ import { Spinner } from "@dukkani/ui/components/spinner";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { useOnboardingCompleteQuery } from "@/hooks/api/use-onboarding.hook";
 import {
 	useTelegramBotLinkQuery,
@@ -111,18 +109,18 @@ export function OnboardingCompletion() {
 				</div>
 			)}
 
-			<div className="space-y-3 pt-4">
-				<Link href={RoutePaths.PRODUCTS.NEW.url} className="w-full">
-					<Button className="h-12 w-full gap-2 text-lg shadow-lg shadow-primary/20">
+			<div className="flex flex-col items-center gap-4">
+				<Button asChild>
+					<Link href={RoutePaths.PRODUCTS.NEW.url}>
 						<Icons.plus className="h-5 w-5" />
 						{t("actions.addProduct")}
-					</Button>
-				</Link>
-				<Link href={RoutePaths.DASHBOARD.url} className="w-full">
-					<Button variant="ghost" className="h-12 w-full">
+					</Link>
+				</Button>
+				<Button variant="outline" asChild>
+					<Link href={RoutePaths.DASHBOARD.url}>
 						{t("actions.goToDashboard")}
-					</Button>
-				</Link>
+					</Link>
+				</Button>
 			</div>
 		</>
 	);

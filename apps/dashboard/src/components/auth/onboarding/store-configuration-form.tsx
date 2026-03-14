@@ -42,28 +42,8 @@ export const storeConfigurationFormDefaultValues = formOptions({
 export const StoreConfigurationOnboardingForm = withForm({
 	...storeConfigurationFormDefaultValues,
 	render: function RenderForm({ form }) {
-		const searchParams = useSearchParams();
-		const urlStoreId = searchParams.get("storeId");
 		const t = useTranslations("onboarding.storeConfiguration");
 
-		// Fetch stores if storeId is missing
-		const { data: stores, isLoading: isLoadingStores } = useStoresQuery(
-			!urlStoreId,
-		);
-		const storeId = urlStoreId || stores?.[0]?.id;
-
-		// 		useEffect(() => {
-		// 	if (storeId) {
-		// 		setFieldValue("storeId", storeId);
-		// 	}
-		// }, [storeId, setFieldValue]);
-		if (!storeId && isLoadingStores) {
-			return (
-				<div className="flex min-h-screen items-center justify-center">
-					<Spinner className="h-8 w-8" />
-				</div>
-			);
-		}
 		return (
 			<>
 				<div className="space-y-1">
@@ -153,7 +133,16 @@ export const StoreConfigurationOnboardingForm = withForm({
 									);
 								}}
 							</form.AppField>
-							<Button type="submit">{t("submit")}</Button>
+							<form.Subscribe>
+								{(formState) => (
+									<Button
+										type="submit"
+										disabled={formState.isSubmitting || !formState.canSubmit}
+									>
+										{t("submit")}
+									</Button>
+								)}
+							</form.Subscribe>
 						</FieldGroup>
 					</form.AppForm>
 				</Form>
