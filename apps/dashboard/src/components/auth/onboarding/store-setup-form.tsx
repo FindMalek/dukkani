@@ -85,7 +85,16 @@ export const StoreSetupOnboardingForm = withForm({
 									/>
 								)}
 							</form.AppField>
-							<Button type="submit">{t("submit")}</Button>
+							<form.Subscribe>
+								{(formState) => (
+									<Button
+										type="submit"
+										disabled={formState.isSubmitting || !formState.canSubmit}
+									>
+										{t("submit")}
+									</Button>
+								)}
+							</form.Subscribe>
 						</FieldGroup>
 					</form.AppForm>
 				</Form>
