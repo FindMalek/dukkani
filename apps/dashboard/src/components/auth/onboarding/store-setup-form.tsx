@@ -1,20 +1,13 @@
 "use client";
 
-import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import { storeNotificationMethodEnum } from "@dukkani/common/schemas/enums";
 import {
 	type CreateStoreOnboardingInput,
 	createStoreOnboardingInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import { Button } from "@dukkani/ui/components/button";
-import {
-	Field,
-	FieldErrors,
-	FieldGroup,
-	FieldLabel,
-} from "@dukkani/ui/components/field";
+import { FieldGroup } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
-import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
 import { useTranslations } from "next-intl";
