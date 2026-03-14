@@ -18,15 +18,12 @@ import {
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
-import { Spinner } from "@dukkani/ui/components/spinner";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { cn } from "@dukkani/ui/lib/utils";
 import { formOptions } from "@tanstack/react-form";
-import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { CategorySelector } from "@/components/app/onboarding/category-selector";
 import { THEME_PREVIEWS } from "@/components/app/onboarding/theme-previews";
-import { useStoresQuery } from "@/hooks/api/use-stores.hook";
 
 export const storeConfigurationFormDefaultValues = formOptions({
 	defaultValues: {
