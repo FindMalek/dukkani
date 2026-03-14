@@ -56,86 +56,35 @@ export const StoreSetupOnboardingForm = withForm({
 								)}
 							</form.AppField>
 							<form.AppField name="notificationMethod">
-								{(field) => {
-									const isInvalid =
-										field.state.meta.isTouched && !field.state.meta.isValid;
-									return (
-										<Field data-invalid={isInvalid} className="space-y-4">
-											<FieldLabel>{t("notifications.label")}</FieldLabel>
-											<RadioGroup
-												name={field.name}
-												value={field.state.value}
-												onValueChange={(value) =>
-													field.handleChange(
-														StoreEntity.valueToNotificationMethod(value),
-													)
-												}
-												className="grid grid-cols-1 gap-4"
-											>
-												<div className="flex cursor-pointer items-center space-x-3 rounded-lg border p-4 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-													<RadioGroupItem
-														value={storeNotificationMethodEnum.EMAIL}
-														id="email"
-														aria-invalid={isInvalid}
-													/>
-													<label
-														htmlFor="email"
-														className="flex flex-1 cursor-pointer flex-col"
-													>
-														<span className="font-medium">
-															{t("notifications.options.email.label")}
-														</span>
-														<span className="font-normal text-muted-foreground text-xs">
-															{t("notifications.options.email.description")}
-														</span>
-													</label>
-												</div>
-
-												<div className="flex cursor-pointer items-center space-x-3 rounded-lg border p-4 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-													<RadioGroupItem
-														value={storeNotificationMethodEnum.TELEGRAM}
-														id="telegram"
-														aria-invalid={isInvalid}
-													/>
-													<label
-														htmlFor="telegram"
-														className="flex flex-1 cursor-pointer flex-col"
-													>
-														<span className="font-medium">
-															{t("notifications.options.telegram.label")}
-														</span>
-														<span className="font-normal text-muted-foreground text-xs">
-															{t("notifications.options.telegram.description")}
-														</span>
-													</label>
-												</div>
-
-												<div className="flex cursor-pointer items-center space-x-3 rounded-lg border p-4 transition-colors hover:bg-muted/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-													<RadioGroupItem
-														value={storeNotificationMethodEnum.BOTH}
-														id="both"
-														aria-invalid={isInvalid}
-													/>
-													<label
-														htmlFor="both"
-														className="flex flex-1 cursor-pointer flex-col"
-													>
-														<span className="font-medium">
-															{t("notifications.options.both.label")}
-														</span>
-														<span className="font-normal text-muted-foreground text-xs">
-															{t("notifications.options.both.description")}
-														</span>
-													</label>
-												</div>
-											</RadioGroup>
-											<FieldErrors
-												errors={field.state.meta.errors}
-												match={isInvalid}
-											/>
-										</Field>
-									);
-								}}
+								{(field) => (
+									<field.RadioGroupInput
+										label={t("notifications.label")}
+										as="cards"
+										options={[
+											{
+												label: t("notifications.options.email.label"),
+												description: t(
+													"notifications.options.email.description",
+												),
+												value: storeNotificationMethodEnum.EMAIL,
+											},
+											{
+												label: t("notifications.options.telegram.label"),
+												description: t(
+													"notifications.options.telegram.description",
+												),
+												value: storeNotificationMethodEnum.TELEGRAM,
+											},
+											{
+												label: t("notifications.options.both.label"),
+												description: t(
+													"notifications.options.both.description",
+												),
+												value: storeNotificationMethodEnum.BOTH,
+											},
+										]}
+									/>
+								)}
 							</form.AppField>
 							<Button type="submit">{t("submit")}</Button>
 						</FieldGroup>
