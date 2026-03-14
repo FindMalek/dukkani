@@ -33,9 +33,20 @@ import { client } from "@/lib/orpc";
 
 export default function OnboardingPage() {
 	const searchParams = useSearchParams();
-	const emailFromQuery = searchParams.get("email") ?? "";
-	const stepFromQuery = searchParams.get("step") as OnboardingStep | null;
-	const [step, setStep] = useState<OnboardingStep>(stepFromQuery || "SIGNUP");
+	const emailFromQuery = searchParams.get("email");
+	const stepFromQuery = searchParams.get("step");
+	const allowedSteps: ReadonlyArray<OnboardingStep> = [
+		"SIGNUP",
+		"STORE_CREATION",
+		"STORE_CONFIGURATION",
+		"COMPLETION",
+	];
+	const initialStep: OnboardingStep = allowedSteps.includes(
+		stepFromQuery as OnboardingStep,
+	)
+		? (stepFromQuery as OnboardingStep)
+		: "SIGNUP";
+	const [step, setStep] = useState<OnboardingStep>(initialStep);
 	const t = useTranslations();
 
 	const signUpForm = useAppForm({
@@ -61,8 +72,6 @@ export default function OnboardingPage() {
 									},
 								},
 							}));
-						} else {
-							throw error;
 						}
 					},
 				},
