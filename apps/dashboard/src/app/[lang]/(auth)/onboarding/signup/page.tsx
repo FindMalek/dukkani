@@ -16,7 +16,6 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
-import { toast } from "sonner";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { authClient } from "@/lib/auth-client";
 import { handleAPIError } from "@/lib/error";
@@ -46,7 +45,6 @@ export default function SignupPage() {
 					name: values.name,
 				});
 
-				toast.success(t("success"));
 				router.push(RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url);
 			} catch (error) {
 				handleAPIError(error);
