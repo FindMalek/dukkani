@@ -49,5 +49,7 @@ export type UploadFilesInput = z.infer<typeof uploadFilesInputSchema>;
 export type DeleteFileInput = z.infer<typeof deleteFileInputSchema>;
 export type DeleteFilesInput = z.infer<typeof deleteFilesInputSchema>;
 export type StorageUploadResource = z.infer<typeof storageUploadResourceSchema>;
-export type StorageUploadAssetRole = z.infer<typeof storageUploadAssetRoleSchema>;
+export type StorageUploadAssetRole = z.infer<
+	typeof storageUploadAssetRoleSchema
+>;
 export type StorageUploadTarget = z.infer<typeof storageUploadTargetSchema>;

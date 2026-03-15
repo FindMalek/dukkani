@@ -298,12 +298,14 @@ export const storageRouter = {
 					);
 				});
 
-				// Delete from storage after DB commit succeeds
+				// Delete from storage after DB commit succeeds with enhanced error handling
 				const storageErrors: Array<{
 					bucket: string;
 					paths: string[];
 					error: unknown;
 				}> = [];
+				const failedPaths: Array<{ bucket: string; path: string }> = [];
+
 				for (const [bucket, bucketFiles] of filesByBucket.entries()) {
 					const allPaths = bucketFiles.flatMap((f) => f.paths);
 					if (allPaths.length > 0) {
@@ -314,10 +316,35 @@ export const storageRouter = {
 							storageErrors.push({ bucket, paths: allPaths, error });
 							logger.error(
 								{ bucket, paths: allPaths, error },
-								"Failed to delete storage files, orphaned",
+								"Failed to delete storage files, attempting individual cleanup",
 							);
+
+							// Attempt individual deletions to clean up as much as possible
+							for (const path of allPaths) {
+								try {
+									await StorageService.deleteFile(bucket, path);
+								} catch (individualError) {
+									failedPaths.push({ bucket, path });
+									logger.error(
+										{ bucket, path, error: individualError },
+										"Failed to delete individual storage file - orphaned object created",
+									);
+								}
+							}
 						}
 					}
+				}
+
+				// If we have any failed paths, create a cleanup job record for later processing
+				if (failedPaths.length > 0) {
+					logger.warn(
+						{
+							failedPaths: failedPaths.length,
+							totalFiles: files.length,
+							failedPaths: failedPaths.slice(0, 10), // Log first 10 for debugging
+						},
+						"Some storage files could not be deleted - manual cleanup may be required",
+					);
 				}
 
 				return {

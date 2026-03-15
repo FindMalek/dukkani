@@ -65,6 +65,47 @@ class StorageServiceBase {
 		return sanitized || "unknown";
 	}
 
+	/**
+	 * Validate and truncate S3 object key to stay within limits
+	 * S3 key limit: 1024 bytes, but we use 800 chars for safety with UTF-8
+	 */
+	private static validateAndTruncateKey(key: string): string {
+		const MAX_KEY_LENGTH = 800; // Conservative limit for UTF-8 safety
+
+		if (key.length <= MAX_KEY_LENGTH) {
+			return key;
+		}
+
+		// If key is too long, truncate the middle part while preserving extension
+		const parts = key.split(".");
+		const extension = parts.length > 1 ? parts.pop() : "";
+		const baseKey = parts.join(".");
+
+		if (baseKey.length <= MAX_KEY_LENGTH - extension.length - 1) {
+			return `${baseKey}.${extension}`;
+		}
+
+		// Truncate the middle of the base key
+		const keepStart = Math.floor((MAX_KEY_LENGTH - extension.length - 3) / 2);
+		const keepEnd = MAX_KEY_LENGTH - extension.length - 3 - keepStart;
+
+		const truncated =
+			baseKey.substring(0, keepStart) +
+			"..." +
+			baseKey.substring(baseKey.length - keepEnd);
+
+		logger.warn(
+			{
+				originalLength: key.length,
+				truncatedLength: truncated.length + extension.length + 1,
+				key: key.substring(0, 100) + "...",
+			},
+			"S3 key was truncated to stay within limits",
+		);
+
+		return extension ? `${truncated}.${extension}` : truncated;
+	}
+
 	private static resolveStorageEnvironment():
 		| "local"
 		| "preview"
@@ -121,16 +162,87 @@ class StorageServiceBase {
 		variant: StorageFileVariantTypeInfer,
 		mimeType: string,
 	): string {
-		const extension = mimeType.split("/")[1] || "bin";
-		return `${assetRoot}/${variant.toLowerCase()}.${extension}`;
+		// Properly parse MIME type instead of simple string splitting
+		const extension = StorageServiceBase.extractFileExtension(mimeType);
+		const key = `${assetRoot}/${variant.toLowerCase()}.${extension}`;
+		return StorageServiceBase.validateAndTruncateKey(key);
 	}
 
 	private static buildOriginalObjectKey(
 		assetRoot: string,
 		fileName: string,
 	): string {
-		const extension = fileName.split(".").pop()?.toLowerCase() || "bin";
-		return `${assetRoot}/original.${extension}`;
+		// Use the original file's extension, fallback to proper MIME parsing
+		const originalExtension = fileName.split(".").pop()?.toLowerCase();
+		if (originalExtension && originalExtension.length > 1) {
+			const key = `${assetRoot}/original.${originalExtension}`;
+			return StorageServiceBase.validateAndTruncateKey(key);
+		}
+
+		// Fallback: try to determine from file type if available
+		// This will be handled by the calling function with proper MIME type
+		const key = `${assetRoot}/original.bin`;
+		return StorageServiceBase.validateAndTruncateKey(key);
+	}
+
+	/**
+	 * Extract file extension from MIME type with proper validation
+	 */
+	private static extractFileExtension(mimeType: string): string {
+		// Handle common MIME types with proper mapping
+		const mimeToExt: Record<string, string> = {
+			"image/jpeg": "jpg",
+			"image/jpg": "jpg",
+			"image/png": "png",
+			"image/webp": "webp",
+			"image/gif": "gif",
+			"image/svg+xml": "svg",
+			"image/avif": "avif",
+			"image/heic": "heic",
+			"image/heif": "heif",
+			"application/pdf": "pdf",
+			"text/plain": "txt",
+			"text/csv": "csv",
+			"application/json": "json",
+			"application/xml": "xml",
+			"application/zip": "zip",
+		};
+
+		// Check for exact MIME type match first
+		if (mimeToExt[mimeType]) {
+			return mimeToExt[mimeType];
+		}
+
+		// Handle MIME type patterns (e.g., image/*)
+		if (mimeType.includes("/")) {
+			const [type, subtype] = mimeType.split("/");
+
+			// For image types, default to appropriate format
+			if (type === "image") {
+				// Default to webp for modern image formats
+				if (
+					subtype.includes("webp") ||
+					subtype.includes("avif") ||
+					subtype.includes("heic")
+				) {
+					return subtype.toLowerCase();
+				}
+				// Default to jpg for JPEG-like formats
+				if (subtype.includes("jpeg") || subtype.includes("jpg")) {
+					return "jpg";
+				}
+				// Default to png for other image types
+				return "png";
+			}
+
+			// For other types, use the subtype directly if it's reasonable
+			if (subtype && subtype.length > 0 && subtype.length <= 10) {
+				return subtype.toLowerCase();
+			}
+		}
+
+		// Fallback to 'bin' for unknown types
+		return "bin";
 	}
 
 	/**
@@ -141,24 +253,47 @@ class StorageServiceBase {
 		const client = getS3Client();
 		const start = Date.now();
 
-		await client.send(
-			new PutObjectCommand({
-				Bucket: env.S3_BUCKET,
-				Key: key,
-				Body: "",
-				ContentType: "application/octet-stream",
-			}),
-		);
+		try {
+			// Upload test object
+			await client.send(
+				new PutObjectCommand({
+					Bucket: env.S3_BUCKET,
+					Key: key,
+					Body: "",
+					ContentType: "application/octet-stream",
+				}),
+			);
 
-		await client.send(
-			new DeleteObjectCommand({
-				Bucket: env.S3_BUCKET,
-				Key: key,
-			}),
-		);
+			// Delete test object with error handling to prevent orphaned objects
+			try {
+				await client.send(
+					new DeleteObjectCommand({
+						Bucket: env.S3_BUCKET,
+						Key: key,
+					}),
+				);
+			} catch (deleteError) {
+				// Log warning but don't fail the health check - cleanup can be handled later
+				logger.warn(
+					{
+						key,
+						error:
+							deleteError instanceof Error
+								? deleteError.message
+								: String(deleteError),
+					},
+					"Failed to delete health check test object - will require manual cleanup",
+				);
+			}
 
-		const latencyMs = Date.now() - start;
-		return { ok: true, latencyMs };
+			const latencyMs = Date.now() - start;
+			return { ok: true, latencyMs };
+		} catch (error) {
+			// If upload failed, no cleanup needed
+			throw new Error(
+				`Storage health check failed: ${error instanceof Error ? error.message : String(error)}`,
+			);
+		}
 	}
 
 	/**
@@ -375,13 +510,27 @@ class StorageServiceBase {
 	 * Delete a single file
 	 */
 	static async deleteFile(bucket: string, path: string): Promise<void> {
-		const client = getS3Client();
-		await client.send(
-			new DeleteObjectCommand({
-				Bucket: bucket,
-				Key: path,
-			}),
-		);
+		try {
+			const client = getS3Client();
+			await client.send(
+				new DeleteObjectCommand({
+					Bucket: bucket,
+					Key: path,
+				}),
+			);
+		} catch (error) {
+			const errorMessage =
+				error instanceof Error ? error.message : String(error);
+			logger.error(
+				{
+					bucket,
+					path,
+					error: errorMessage,
+				},
+				"Failed to delete storage file",
+			);
+			throw new Error(`Failed to delete file ${path}: ${errorMessage}`);
+		}
 	}
 
 	/**
@@ -392,16 +541,32 @@ class StorageServiceBase {
 			return;
 		}
 
-		const client = getS3Client();
-		await client.send(
-			new DeleteObjectsCommand({
-				Bucket: bucket,
-				Delete: {
-					Objects: paths.map((Key) => ({ Key })),
-					Quiet: true,
+		try {
+			const client = getS3Client();
+			await client.send(
+				new DeleteObjectsCommand({
+					Bucket: bucket,
+					Delete: {
+						Objects: paths.map((Key) => ({ Key })),
+						Quiet: true,
+					},
+				}),
+			);
+		} catch (error) {
+			const errorMessage =
+				error instanceof Error ? error.message : String(error);
+			logger.error(
+				{
+					bucket,
+					paths,
+					error: errorMessage,
 				},
-			}),
-		);
+				"Failed to delete storage files",
+			);
+			throw new Error(
+				`Failed to delete ${paths.length} files: ${errorMessage}`,
+			);
+		}
 	}
 
 	/**
@@ -411,11 +576,41 @@ class StorageServiceBase {
 		url: string,
 		baseUrl: string,
 	): Promise<string | null> {
-		const base = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
-		if (url.startsWith(base + "/")) {
-			return url.slice(base.length + 1);
+		try {
+			// Parse both URLs properly
+			const urlObj = new URL(url);
+			const baseUrlObj = new URL(baseUrl);
+
+			// Remove trailing slash from base URL for comparison
+			const baseUrlPath = baseUrlObj.pathname.endsWith("/")
+				? baseUrlObj.pathname.slice(0, -1)
+				: baseUrlObj.pathname;
+
+			// Check if the URL starts with the base URL (same origin and path prefix)
+			if (urlObj.origin !== baseUrlObj.origin) {
+				return null;
+			}
+
+			if (!urlObj.pathname.startsWith(baseUrlPath + "/")) {
+				return null;
+			}
+
+			// Extract the key by removing the base path prefix
+			const key = urlObj.pathname.slice(baseUrlPath.length + 1);
+
+			// Remove any query parameters (shouldn't exist for storage URLs but handle defensively)
+			return key.split("?")[0];
+		} catch (error) {
+			logger.warn(
+				{
+					url,
+					baseUrl,
+					error: error instanceof Error ? error.message : String(error),
+				},
+				"Failed to parse storage URL",
+			);
+			return null;
 		}
-		return null;
 	}
 
 	/**

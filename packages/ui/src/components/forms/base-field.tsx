@@ -22,7 +22,7 @@ interface BaseFieldWithDescriptionProps extends CommonFieldProps {
 	description: string;
 	orientation: React.ComponentProps<typeof Field>["orientation"];
 	children: React.ReactNode;
-};
+}
 export function BaseFieldWithDescription({
 	children,
 	label,
@@ -117,10 +117,10 @@ export function BaseFieldWithoutDescription({
 			</>
 		) : (
 			<>
-			<div className="flex items-center gap-2">
-				{children}
-				{rightToField}
-			</div>
+				<div className="flex items-center gap-2">
+					{children}
+					{rightToField}
+				</div>
 				<FieldLabel
 					htmlFor={field.name}
 					className={cn(srOnlyLabel && "sr-only")}

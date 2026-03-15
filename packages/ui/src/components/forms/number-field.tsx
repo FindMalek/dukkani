@@ -33,9 +33,12 @@ export function NumberField({
 }: NumberFieldProps) {
 	const field = useFieldContext<string>();
 
-	const stepResult = useCallback((n: number) => {
-		return String(Number(n.toFixed(maxPoints)));
-	}, [maxPoints]);	
+	const stepResult = useCallback(
+		(n: number) => {
+			return String(Number(n.toFixed(maxPoints)));
+		},
+		[maxPoints],
+	);
 	const isInvalid = useMemo(
 		() => field.state.meta.isTouched && !field.state.meta.isValid,
 		[field.state.meta.isTouched, field.state.meta.isValid],

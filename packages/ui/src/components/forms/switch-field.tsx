@@ -4,8 +4,7 @@ import { Checkbox } from "../checkbox";
 import { Switch } from "../switch";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
-type SwitchFieldProps = CommonFieldProps &
-	React.ComponentProps<typeof Switch>;
+type SwitchFieldProps = CommonFieldProps & React.ComponentProps<typeof Switch>;
 
 export function SwitchField({
 	label,

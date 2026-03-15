@@ -43,10 +43,58 @@ const S3_PUBLIC_BASE_URL = process.env.S3_PUBLIC_BASE_URL;
 
 function requireEnv(name: string): string {
 	const val = process.env[name];
-	if (!val) {
-		throw new Error(`Missing required env: ${name}`);
+	if (!val || val.trim() === "") {
+		throw new Error(`Missing required environment variable: ${name}`);
 	}
-	return val;
+	return val.trim();
+}
+
+function validateUrl(url: string, name: string): string {
+	try {
+		const urlObj = new URL(url);
+		if (!urlObj.protocol || !urlObj.hostname) {
+			throw new Error(`Invalid URL format for ${name}`);
+		}
+		return url;
+	} catch (error) {
+		throw new Error(
+			`Invalid URL for ${name}: ${error instanceof Error ? error.message : String(error)}`,
+		);
+	}
+}
+
+function validateEnvironmentVariables(): void {
+	// Always validate basic environment structure
+	const errors: string[] = [];
+
+	// Check for conflicting or invalid configurations
+	if (DRY_RUN && LIST_BUCKET) {
+		// In dry-run with list-bucket, we still need source for listing
+		if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+			errors.push(
+				"Source environment variables (SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY) are required for bucket listing",
+			);
+		}
+	}
+
+	if (!DRY_RUN) {
+		// For actual migration, validate all required variables
+		try {
+			validateUrl(requireEnv("S3_ENDPOINT"), "S3_ENDPOINT");
+			requireEnv("S3_ACCESS_KEY_ID");
+			requireEnv("S3_SECRET_ACCESS_KEY");
+			requireEnv("S3_BUCKET");
+			validateUrl(requireEnv("S3_PUBLIC_BASE_URL"), "S3_PUBLIC_BASE_URL");
+		} catch (error) {
+			errors.push(error instanceof Error ? error.message : String(error));
+		}
+	}
+
+	if (errors.length > 0) {
+		console.error("Environment validation failed:");
+		errors.forEach((error) => console.error(`  - ${error}`));
+		process.exit(1);
+	}
 }
 
 /** Extract path from Supabase public URL: .../object/public/{bucket}/{path} */
@@ -86,6 +134,9 @@ async function listBucketRecursive(
 }
 
 async function main() {
+	// Validate environment variables upfront
+	validateEnvironmentVariables();
+
 	// DB only needed when migrating (copy/update) or when using DB-referenced paths
 	const needsDb = !LIST_BUCKET || !DRY_RUN;
 	let database: Awaited<
@@ -105,24 +156,6 @@ async function main() {
 		console.log(
 			"LIST_BUCKET - migrating all objects in bucket (not just DB-referenced)\n",
 		);
-	}
-
-	// Validate source env (required for actual migration or when listing bucket)
-	if (
-		(!DRY_RUN || LIST_BUCKET) &&
-		(!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY)
-	) {
-		console.error("Source: Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY");
-		process.exit(1);
-	}
-
-	// Validate destination env (only required for actual migration)
-	if (!DRY_RUN) {
-		requireEnv("S3_ENDPOINT");
-		requireEnv("S3_ACCESS_KEY_ID");
-		requireEnv("S3_SECRET_ACCESS_KEY");
-		requireEnv("S3_BUCKET");
-		requireEnv("S3_PUBLIC_BASE_URL");
 	}
 
 	const supabaseBase =
@@ -241,21 +274,27 @@ async function main() {
 	if (!DRY_RUN && database) {
 		console.log("\nUpdating database URLs...");
 
-		const tables = [
+		// Define allowed tables and columns for security
+		const allowedUpdates = [
 			{ table: "storage_files", columns: ["original_url", "url"] },
 			{ table: "storage_file_variants", columns: ["url"] },
 			{ table: "images", columns: ["url"] },
 		] as const;
 
-		for (const { table, columns } of tables) {
+		for (const { table, columns } of allowedUpdates) {
 			for (const col of columns) {
-				const result = await database.$executeRawUnsafe(
-					`UPDATE ${table} SET ${col} = REPLACE(${col}, $1, $2) WHERE ${col} LIKE $3`,
-					supabaseBase,
-					r2Base,
-					`${supabaseBase}%`,
-				);
-				console.log(`  ${table}.${col}: ${result} rows updated`);
+				try {
+					// Use parameterized query to prevent SQL injection
+					const result = await database.$executeRaw`
+						UPDATE ${table} 
+						SET ${col} = REPLACE(${col}, ${supabaseBase}, ${r2Base}) 
+						WHERE ${col} LIKE ${`${supabaseBase}%`}
+					`;
+					console.log(`  ${table}.${col}: ${result} rows updated`);
+				} catch (error) {
+					console.error(`  Failed to update ${table}.${col}:`, error);
+					throw error;
+				}
 			}
 		}
 	}

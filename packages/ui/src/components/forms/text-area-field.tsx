@@ -4,7 +4,7 @@ import { Textarea } from "../textarea";
 import { BaseField } from "./base-field";
 
 type TextAreaFieldProps = {
-        label: string;
+	label: string;
 } & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export function TextAreaField({ label, ...inputProps }: TextAreaFieldProps) {
@@ -17,7 +17,7 @@ export function TextAreaField({ label, ...inputProps }: TextAreaFieldProps) {
 				id={field.name}
 				name={field.name}
 				value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
+				onChange={(e) => field.handleChange(e.target.value)}
 				onBlur={field.handleBlur}
 				aria-invalid={isInvalid}
 				{...inputProps}

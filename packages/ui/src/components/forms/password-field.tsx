@@ -13,10 +13,7 @@ type PasswordFieldProps = {
 	label: string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, "type">;
 
-export function PasswordField({
-	label,
-	...props
-}: PasswordFieldProps) {
+export function PasswordField({ label, ...props }: PasswordFieldProps) {
 	const field = useFieldContext<string>();
 	const [hidden, setHidden] = useState(true);
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
