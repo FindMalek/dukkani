@@ -19,7 +19,9 @@ files:
     auth.emailSignIn.back: 0557fa923dcee4d0f86b1409f5c2167f
     auth.emailSignIn.signIn: b6d4223e60986fa4c9af77ee5f7149c5
     auth.emailSignIn.email.placeholder: 95d3fa6b9e69c588a333f4e78139a7cd
+    auth.emailSignIn.email.label: b357b524e740bc85b9790a0712d84a30
     auth.emailSignIn.password.placeholder: e8d28194f9b3498d21fbda21321d0226
+    auth.emailSignIn.password.label: dc647eb65e6711e155375218212b3964
     settings.telegram.title: 1ddbd0a49932f6c1784e13e31f285376
     settings.telegram.description: ad8f3be53a7eed24d89fb41b20b685b1
     settings.telegram.linked: 7330094b095d2229d0774a58fa8000ff
@@ -223,7 +225,7 @@ files:
     products.create.form.description.placeholder: 12392215e6fc7d7af2ee56061ccf5f24
     products.create.form.published.label: 9b9d8a976b42e0bd66381797644943d5
     products.create.form.published.placeholder: 756a9d43c7bcefdea831d7980b344341
-    products.create.form.addPhotos: 937d4703e4b4b07953a8ec425230b3af
+    products.create.form.photos: 5daaf223b01f8f3e1bd9287170826fbc
     products.create.form.priceHelp: bc3cf15ac61e2b1f9ba6040723bd354f
     products.create.form.category.label: 3adbdb3ac060038aa0e6e6c138ef9873
     products.create.form.category.placeholder: b210532aab8d2d0eb5dedb0b6958802d
@@ -252,7 +254,8 @@ files:
     products.create.form.variants.options.addValue: d9ec74f5aa29ceef6bf7b45f7fec5d0f
     products.create.form.variants.options.noValues: b2559ddd60b40896fe3f7fb35e09a241
     products.create.form.variants.options.remove: c13b301c5b8b91198f15ff137c18e1d0
-    products.create.form.variants.options.addAnother: a04a2b58943543054445c1a1a8fa86a6
+    products.create.form.variants.options.addAnother: 704468d3ab12246ce00c4529d723eb60
+    products.create.form.variants.options.value: 689202409e48743b914713f96d93947c
     products.create.form.variants.list.title: e9ad310d6d05f80daeaad048b877fdfd
     products.create.form.variants.list.empty: 02606f5ce66ea3b29f1f16947d1dfa40
     products.create.form.variants.list.unnamed: b3c26ee9cac44cdc4fc82d861080bd56
@@ -273,6 +276,9 @@ files:
     products.create.noStore.title: 4b75c480bcac57bbee5c041bcedfe688
     products.create.noStore.description: 7af36a206b40613d844617bfbac45595
     products.create.noStore.createStore: 9c6e59d56dc4e8a12c07627b51ab3c27
+    fields.images.label: 937d4703e4b4b07953a8ec425230b3af
+    fields.images.dragActiveLabel: 2a83723db914aecd9197953b58dd99ba
+    fields.images.hint: a868638b00a3df297bc69a70716c9960
   packages/common/src/locale/web/en.json:
     common.title: 320d58a491caec758288fbdf545c9a89
     common.description: 315dfc45ae153c215808d037f1e93d3f

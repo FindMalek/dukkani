@@ -1,3 +1,4 @@
+import type { StandardSchemaV1Issue } from "@tanstack/react-form";
 import { cva, type VariantProps } from "class-variance-authority";
 import { useMemo } from "react";
 import { cn } from "../lib/utils";
@@ -179,6 +180,9 @@ function FieldSeparator({
 	);
 }
 
+/**
+ * @deprecated Use FieldErrors instead.
+ */
 function FieldError({
 	className,
 	children,
@@ -230,15 +234,60 @@ function FieldError({
 	);
 }
 
+function FieldErrors({
+	className,
+	errors,
+	match,
+	...props
+}: React.ComponentProps<"div"> & {
+	errors: (StandardSchemaV1Issue | undefined)[];
+	match: boolean;
+}) {
+	if (!match || errors.length === 0) {
+		return null;
+	}
+
+	const uniqueErrors = [
+		...new Map(errors.map((e) => [e?.message, e])).values(),
+	].filter(
+		(e): e is StandardSchemaV1Issue =>
+			!!e?.message && e.message.length > 0,
+	);
+
+	if (uniqueErrors.length === 0) {
+		return null;
+	}
+
+	return (
+		<div
+			role="alert"
+			data-slot="field-errors"
+			className={cn("font-normal text-destructive text-sm", className)}
+			{...props}
+		>
+			{uniqueErrors.length === 1 && uniqueErrors[0] ? (
+				<p>{uniqueErrors[0].message ?? ""}</p>
+			) : (
+				<ul className="ms-4 flex list-disc flex-col gap-1">
+					{uniqueErrors.map((error) => (
+						<li key={error.message}>{error.message}</li>
+					))}
+				</ul>
+			)}
+		</div>
+	);
+}
+
 export {
 	Field,
-	FieldLabel,
+	FieldContent,
 	FieldDescription,
 	FieldError,
+	FieldErrors,
 	FieldGroup,
+	FieldLabel,
 	FieldLegend,
 	FieldSeparator,
 	FieldSet,
-	FieldContent,
 	FieldTitle,
 };

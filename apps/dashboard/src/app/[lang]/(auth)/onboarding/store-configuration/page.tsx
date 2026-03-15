@@ -22,7 +22,6 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
-import { toast } from "sonner";
 import { CategorySelector } from "@/components/app/onboarding/category-selector";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { THEME_PREVIEWS } from "@/components/app/onboarding/theme-previews";
@@ -60,7 +59,6 @@ export default function StoreConfigurationPage() {
 		mutationFn: (input: ConfigureStoreOnboardingInput) =>
 			client.store.configure(input),
 		onSuccess: () => {
-			toast.success(t("success"));
 			router.push(
 				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.COMPLETE.url, {
 					storeId,

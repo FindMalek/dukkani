@@ -31,10 +31,12 @@
 			"back": "Back",
 			"signIn": "Sign in",
 			"email": {
-				"placeholder": "Enter your email"
+				"placeholder": "Enter your email",
+				"label": "Email address"
 			},
 			"password": {
-				"placeholder": "Enter your password"
+				"placeholder": "Enter your password",
+				"label": "Password"
 			}
 		}
 	},
@@ -88,8 +90,7 @@
 					}
 				}
 			},
-			"submit": "Continue",
-			"success": "Store created successfully!"
+			"submit": "Continue"
 		},
 		"storeConfiguration": {
 			"title": "Configure your store",
@@ -160,8 +161,7 @@
 					}
 				}
 			},
-			"submit": "Finish Setup",
-			"success": "Store configured successfully!"
+			"submit": "Finish Setup"
 		},
 		"steps": {
 			"signup": "Account",
@@ -187,7 +187,6 @@
 				"placeholder": "Minimum 8 characters"
 			},
 			"submit": "Continue to Store Setup",
-			"success": "Account created! Now let's set up your store.",
 			"alreadyHaveAccount": "Already have an account?",
 			"login": "Log in",
 			"agreeText": "By continuing, you agree to our",
@@ -354,7 +353,7 @@
 					"label": "Published",
 					"placeholder": "Enter product published"
 				},
-				"addPhotos": "Add photos",
+				"photos": "Photos",
 				"priceHelp": "Price customers pay (COD)",
 				"category": {
 					"label": "Category",
@@ -391,7 +390,8 @@
 						"addValue": "Add Value",
 						"noValues": "Add at least one value",
 						"remove": "Remove Option",
-						"addAnother": "Add another option"
+						"addAnother": "Add Option",
+						"value": "Value"
 					},
 					"list": {
 						"title": "Variants",
@@ -423,6 +423,13 @@
 				"description": "Please create a store first to add products.",
 				"createStore": "Create Store"
 			}
+		}
+	},
+	"fields": {
+		"images": {
+			"label": "Add photos",
+			"dragActiveLabel": "Drop here",
+			"hint": "or click to browse"
 		}
 	}
 }

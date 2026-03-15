@@ -17,7 +17,6 @@ import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { AuthBackground } from "@/components/layout/auth-background";
 import { handleAPIError } from "@/lib/error";
@@ -32,7 +31,6 @@ export default function StoreSetupPage() {
 		mutationFn: (input: CreateStoreOnboardingInput) =>
 			client.store.create(input),
 		onSuccess: (data) => {
-			toast.success(t("success"));
 			router.push(
 				getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.STORE_CONFIGURATION.url, {
 					storeId: data.id,

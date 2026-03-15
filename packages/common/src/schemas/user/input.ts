@@ -6,8 +6,8 @@ import { z } from "zod";
 
 export const loginInputSchema = z.object({
 	email: z.email("Please enter a valid email address"),
-	password: z.string().min(8, "Password must be at least 8 characters"),
-	rememberMe: z.boolean().optional(),
+	password: z.string(),
+	rememberMe: z.boolean().catch(false),
 });
 
 export const userInputSchema = z.object({

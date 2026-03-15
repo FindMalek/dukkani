@@ -5,7 +5,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import {
 	ProductForm,
 	type ProductFormHandle,
@@ -18,10 +18,9 @@ export default function NewProductPage() {
 	const formRef = useRef<ProductFormHandle>(null);
 	const { selectedStoreId, isLoading } = useActiveStoreStore();
 
-	const handleSave = () => {
+	const handleSaveAsDraft = useCallback(() => {
 		formRef.current?.submit(false);
-	};
-
+	}, []);
 	if (isLoading) {
 		return (
 			<div className="flex min-h-screen items-center justify-center">
@@ -59,9 +58,9 @@ export default function NewProductPage() {
 				</h1>
 
 				<Button
-					onClick={handleSave}
+					onClick={handleSaveAsDraft}
 					variant="ghost"
-					className="z-10 p-0 font-bold text-primary text-sm hover:bg-transparent"
+					className="font-bold text-primary text-sm"
 				>
 					{t("header.save")}
 				</Button>
