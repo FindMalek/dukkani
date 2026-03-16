@@ -214,7 +214,7 @@ export class SupabaseToR2Migration extends StorageMigration {
 			} catch (error) {
 				logger.error(
 					`Failed to update ${table} URL for ${mapping.sourcePath}:`,
-					error,
+					error instanceof Error ? error.message : String(error),
 				);
 				throw error;
 			}
@@ -253,7 +253,7 @@ export class SupabaseToR2Migration extends StorageMigration {
 			} catch (error) {
 				logger.warn(
 					`Failed to cleanup destination file ${mapping.sourcePath}:`,
-					error,
+					error instanceof Error ? error.message : String(error),
 				);
 			}
 		}
