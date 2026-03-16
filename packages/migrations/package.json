@@ -1,0 +1,55 @@
+{
+	"name": "@dukkani/migrations",
+	"version": "0.1.0",
+	"description": "Database and storage migration utilities for Dukkani",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./src/index.ts"
+		},
+		"./env": {
+			"types": "./dist/env.d.ts",
+			"default": "./src/env/index.ts"
+		},
+		"./cli": {
+			"types": "./dist/cli/index.d.ts",
+			"default": "./src/cli/index.ts"
+		},
+		"./*": {
+			"types": "./dist/*.d.ts",
+			"default": "./src/*.ts"
+		}
+	},
+	"bin": {
+		"dukkani-migrate": "./dist/cli/index.js"
+	},
+	"type": "module",
+	"scripts": {
+		"build": "tsdown",
+		"clean": "rm -rf dist node_modules",
+		"migrate": "tsx src/cli/index.ts",
+		"migrate:storage": "tsx src/cli/index.ts storage migrate",
+		"migrate:storage:rollback": "tsx src/cli/index.ts storage rollback",
+		"migrate:storage:validate": "tsx src/cli/index.ts storage validate"
+	},
+	"devDependencies": {
+		"@dukkani/config": "workspace:*",
+		"tsdown": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "^5.9.3"
+	},
+	"dependencies": {
+		"@dukkani/env": "workspace:*",
+		"@dukkani/storage": "workspace:*",
+		"@dukkani/db": "workspace:*",
+		"@dukkani/common": "workspace:*",
+		"@dukkani/logger": "workspace:*",
+		"@dukkani/tracing": "workspace:*",
+		"@supabase/supabase-js": "^2.47.10",
+		"commander": "^12.0.0",
+		"cli-progress": "^3.12.0",
+		"inquirer": "^9.0.0",
+		"nanoid": "^5.0.6"
+	}
+}
