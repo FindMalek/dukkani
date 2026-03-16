@@ -2,24 +2,21 @@ import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
 import { StorageService } from "@dukkani/storage";
 import { StorageMigration } from "../templates/storage-migration";
-import type {
-	StorageFileMapping,
-	StorageMigrationConfig,
-	UploadBatchResult,
-} from "../types";
-import { FileMapper } from "../utils/file-mapper";
+import type { StorageFileMapping, UploadBatchResult } from "../types";
+
+/**
+ * Grouped mappings by table type
+ */
+interface GroupedMappings {
+	storage_files: StorageFileMapping[];
+	storage_file_variants: StorageFileMapping[];
+	images: StorageFileMapping[];
+}
 
 /**
  * Specific migration from Supabase Storage to R2
  */
 export class SupabaseToR2Migration extends StorageMigration {
-	private fileMapper: FileMapper;
-
-	constructor(config: StorageMigrationConfig) {
-		super(config);
-		this.fileMapper = new FileMapper();
-	}
-
 	/**
 	 * Get migration name
 	 */
@@ -151,8 +148,8 @@ export class SupabaseToR2Migration extends StorageMigration {
 	 */
 	private groupMappingsByTable(
 		mappings: StorageFileMapping[],
-	): Record<string, StorageFileMapping[]> {
-		const grouped: Record<string, StorageFileMapping[]> = {
+	): GroupedMappings {
+		const grouped: GroupedMappings = {
 			storage_files: [],
 			storage_file_variants: [],
 			images: [],
