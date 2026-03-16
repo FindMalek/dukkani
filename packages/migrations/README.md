@@ -38,6 +38,50 @@ MIGRATION_ROLLBACK_ENABLED=true
 
 ## CLI Usage
 
+### Migration Creation
+
+#### Create New Migrations
+```bash
+# Interactive mode (recommended)
+pnpm migration:create
+
+# Direct mode with name and type
+pnpm migration:create --name "migrate-user-avatars" --type storage
+
+# Quick storage migration
+pnpm migration:create:storage "migrate-user-avatars"
+
+# Quick database migration
+pnpm migration:create:database "add-user-preferences"
+
+# Dry run to preview generated file
+pnpm migration:create --name "test-migration" --type storage --dry-run
+```
+
+#### Migration Types
+- **Storage Migration**: For file/storage migrations between providers
+- **Database Migration**: For schema changes and data transformations
+- **Base Migration**: For custom migration logic
+
+#### Generated File Structure
+```
+src/migrations/YYYY-MM-DD-description.ts
+```
+
+Example generated file:
+```typescript
+export class MigrateUserAvatarsMigration extends StorageMigration {
+  getName(): string {
+    return "migrate-user-avatars";
+  }
+  
+  getVersion(): string {
+    return "2024-03-16";
+  }
+  // ... implementation methods with TODO comments
+}
+```
+
 ### Storage Migration
 
 #### Migrate from Supabase to R2
@@ -143,11 +187,62 @@ avatars/{userId}/profile/{file}  → { resource: "avatars", entityId: userId, as
 # Build
 pnpm build
 
+# Create new migration
+pnpm migration:create
+
 # Run CLI
 pnpm migrate
 
 # Test migration
 pnpm migrate:storage -- --dry-run
+```
+
+## CLI Commands Reference
+
+### Migration Creation Commands
+```bash
+# Interactive migration creation
+dukkani-migrate create
+
+# Direct creation with options
+dukkani-migrate create --name "migration-name" --type storage
+
+# Quick storage migration
+dukkani-migrate create:storage "migration-name"
+
+# Quick database migration
+dukkani-migrate create:database "migration-name"
+
+# Dry run preview
+dukkani-migrate create --name "test" --type storage --dry-run
+```
+
+### Storage Migration Commands
+```bash
+# Run storage migration
+dukkani-migrate storage migrate
+
+# Dry run migration
+dukkani-migrate storage migrate -- --dry-run
+
+# Rollback migration
+dukkani-migrate storage rollback
+
+# Validate migration
+dukkani-migrate storage validate
+```
+
+### Package Scripts
+```bash
+# Migration creation (package scripts)
+pnpm migration:create                    # Interactive mode
+pnpm migration:create:storage "name"    # Storage migration
+pnpm migration:create:database "name"   # Database migration
+
+# Migration execution (package scripts)
+pnpm migrate:storage                    # Run migration
+pnpm migrate:storage:rollback           # Rollback migration
+pnpm migrate:storage:validate           # Validate migration
 ```
 
 ## Architecture

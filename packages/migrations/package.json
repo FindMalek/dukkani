@@ -30,7 +30,10 @@
 		"migrate": "tsx src/cli/index.ts",
 		"migrate:storage": "tsx src/cli/index.ts storage migrate",
 		"migrate:storage:rollback": "tsx src/cli/index.ts storage rollback",
-		"migrate:storage:validate": "tsx src/cli/index.ts storage validate"
+		"migrate:storage:validate": "tsx src/cli/index.ts storage validate",
+		"migration:create": "tsx src/scripts/create-migration.ts",
+		"migration:create:storage": "tsx src/scripts/create-migration.ts --type storage",
+		"migration:create:database": "tsx src/scripts/create-migration.ts --type database"
 	},
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",

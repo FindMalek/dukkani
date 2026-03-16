@@ -341,7 +341,6 @@ export const storageRouter = {
 						{
 							failedPaths: failedPaths.length,
 							totalFiles: files.length,
-							failedPaths: failedPaths.slice(0, 10), // Log first 10 for debugging
 						},
 						"Some storage files could not be deleted - manual cleanup may be required",
 					);

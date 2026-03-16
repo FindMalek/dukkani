@@ -2,6 +2,7 @@
 
 import { logger } from "@dukkani/logger";
 import { Command } from "commander";
+import { CreateCommands } from "./commands/create";
 import { StorageCommands } from "./commands/storage";
 
 /**
@@ -25,14 +26,19 @@ storageCommand.addCommand(StorageCommands.createValidateCommand());
 
 program.addCommand(storageCommand);
 
+// Add creation commands
+program.addCommand(CreateCommands.createCreateCommand());
+program.addCommand(CreateCommands.createStorageCommand());
+program.addCommand(CreateCommands.createDatabaseCommand());
+
 // Global error handling
 process.on("uncaughtException", (error) => {
-	logger.error("Uncaught exception:", error);
+	logger.error(error, "Uncaught exception");
 	process.exit(1);
 });
 
 process.on("unhandledRejection", (reason, promise) => {
-	logger.error("Unhandled rejection at:", promise, "reason:", reason);
+	logger.error({ promise, reason }, "Unhandled rejection");
 	process.exit(1);
 });
 
