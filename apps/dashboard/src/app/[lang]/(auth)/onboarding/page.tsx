@@ -4,11 +4,9 @@ import type {
 	ConfigureStoreOnboardingInput,
 	CreateStoreOnboardingInput,
 } from "@dukkani/common/schemas/store/input";
-import { Button } from "@dukkani/ui/components/button";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
 	type OnboardingStep,
@@ -47,7 +45,6 @@ export default function OnboardingPage() {
 		? (stepFromQuery as OnboardingStep)
 		: "SIGNUP";
 	const [step, setStep] = useState<OnboardingStep>(initialStep);
-	const t = useTranslations();
 
 	const signUpForm = useAppForm({
 		...signUpOnboardingFormDefaultOptions(emailFromQuery ?? ""),
@@ -123,17 +120,6 @@ export default function OnboardingPage() {
 		},
 	});
 
-	const handleBack = () => {
-		if (step === "STORE_CREATION") {
-			setStep("SIGNUP");
-			return;
-		}
-		if (step === "STORE_CONFIGURATION") {
-			setStep("STORE_CREATION");
-			return;
-		}
-	};
-
 	return (
 		<div className="flex w-full max-w-md flex-col gap-10">
 			<OnboardingStepper currentStep={step} />
@@ -146,11 +132,6 @@ export default function OnboardingPage() {
 			)}
 			{step === "COMPLETION" && storeId && (
 				<OnboardingCompletion storeId={storeId} />
-			)}
-			{step !== "SIGNUP" && step !== "COMPLETION" && (
-				<Button variant="outline" onClick={handleBack}>
-					{t("auth.emailSignIn.back")}
-				</Button>
 			)}
 		</div>
 	);
