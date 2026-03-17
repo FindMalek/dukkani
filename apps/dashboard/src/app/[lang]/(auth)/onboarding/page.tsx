@@ -7,7 +7,7 @@ import type {
 } from "@dukkani/common/schemas/store/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
+import { RedirectType, redirect, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import * as z from "zod";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
@@ -30,7 +30,14 @@ import { client } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
 
 export default function OnboardingPage() {
-	const router = useRouter();
+	const { data: sessionData, isPending } = authClient.useSession();
+	if (isPending) {
+		return;
+	}
+
+	if (sessionData?.user) {
+		return redirect(RoutePaths.DASHBOARD.url, RedirectType.replace);
+	}
 	const searchParams = useSearchParams();
 	const emailFromQuery = searchParams.get("email");
 	const stepFromQuery = searchParams.get("step");
@@ -39,8 +46,6 @@ export default function OnboardingPage() {
 		.nullable()
 		.catch(null)
 		.parse(stepFromQuery);
-
-	const { data: sessionData, isPending } = authClient.useSession();
 
 	const [step, setStep] = useState(initialStep);
 
@@ -117,15 +122,6 @@ export default function OnboardingPage() {
 			await configureStoreMutation.mutateAsync({ ...value, storeId });
 		},
 	});
-
-	if (isPending) {
-		return;
-	}
-
-	if (sessionData?.user) {
-		router.replace(RoutePaths.DASHBOARD.url);
-		return;
-	}
 
 	return (
 		<div className="flex w-full max-w-md flex-col gap-10">
