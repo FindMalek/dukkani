@@ -1,5 +1,6 @@
 "use client";
 
+import type { CreateCategoryInput } from "@dukkani/common/schemas/category/input";
 import { createCategoryInputSchema } from "@dukkani/common/schemas/category/input";
 import { Button } from "@dukkani/ui/components/button";
 import {
@@ -10,11 +11,14 @@ import {
 	DrawerFooter,
 	DrawerHeader,
 	DrawerTitle,
+	DrawerTrigger,
 } from "@dukkani/ui/components/drawer";
-import { FieldGroup } from "@dukkani/ui/components/field";
-import { Form } from "@dukkani/ui/components/forms/wrapper";
-import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
+import { Field, FieldError, FieldLabel } from "@dukkani/ui/components/field";
+import { Icons } from "@dukkani/ui/components/icons";
+import { Input } from "@dukkani/ui/components/input";
+import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import { useCreateCategoryMutation } from "@/hooks/api/use-categories";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 
@@ -24,13 +28,8 @@ interface CategoryDrawerProps {
 	onOpenChange: (open: boolean) => void;
 }
 
-const categoryFormSchema = createCategoryInputSchema.omit({ storeId: true });
+export function CategoryDrawer({ onCategoryCreated, open, onOpenChange }: CategoryDrawerProps) {
 
-export function CategoryDrawer({
-	onCategoryCreated,
-	open,
-	onOpenChange,
-}: CategoryDrawerProps) {
 	const t = useTranslations("products.create");
 	const { selectedStoreId } = useActiveStoreStore();
 	const createCategoryMutation = useCreateCategoryMutation();
@@ -39,29 +38,31 @@ export function CategoryDrawer({
 		return null;
 	}
 
-	const form = useAppForm({
+	const categoryForm = useSchemaForm({
+		schema: createCategoryInputSchema,
 		defaultValues: {
 			name: "",
+			storeId: selectedStoreId,
 		},
-		validators: {
-			onBlur: categoryFormSchema,
-			onSubmit: categoryFormSchema,
-		},
-		onSubmit: async ({ value, formApi }) => {
-			const parsed = categoryFormSchema.parse(value);
-			const result = await createCategoryMutation.mutateAsync(
-				{ ...parsed, storeId: selectedStoreId },
-				{
-					onSuccess: (data) => {
-						formApi.reset();
-						onOpenChange(false);
-						onCategoryCreated?.(data.id);
-					},
+		validationMode: ["onBlur", "onSubmit"],
+		onSubmit: async (values: CreateCategoryInput) => {
+			createCategoryMutation.mutate(values, {
+				onSuccess: (data) => {
+					categoryForm.reset();
+					onOpenChange(false);
+					onCategoryCreated?.(data.id);
 				},
-			);
-			return result;
+			});
 		},
 	});
+
+	const { setFieldValue } = categoryForm;
+
+	useEffect(() => {
+		if (selectedStoreId) {
+			setFieldValue("storeId", selectedStoreId);
+		}
+	}, [selectedStoreId, setFieldValue]);
 
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
@@ -72,44 +73,56 @@ export function CategoryDrawer({
 						{t("form.category.createDescription")}
 					</DrawerDescription>
 				</DrawerHeader>
-				<div className="px-6">
-					<Form onSubmit={form.handleSubmit}>
-						<form.AppForm>
-							<FieldGroup>
-								<form.AppField name="name">
-									{(field) => (
-										<field.TextInput
-											label={t("form.category.nameLabel")}
+
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+						categoryForm.handleSubmit();
+					}}
+				>
+					<div className="px-4">
+						<categoryForm.Field name="name">
+							{(field) => {
+								const isInvalid =
+									field.state.meta.isTouched && !field.state.meta.isValid;
+								return (
+									<Field data-invalid={isInvalid}>
+										<FieldLabel htmlFor={field.name}>
+											{t("form.category.nameLabel")}
+										</FieldLabel>
+										<Input
+											id={field.name}
+											name={field.name}
 											placeholder={t("form.category.namePlaceholder")}
+											value={field.state.value ?? ""}
+											onBlur={field.handleBlur}
+											onChange={(e) => field.handleChange(e.target.value)}
+											aria-invalid={isInvalid}
 										/>
-									)}
-								</form.AppField>
-							</FieldGroup>
-							<DrawerFooter>
-								<form.Subscribe>
-									{(formState) => (
-										<>
-											<Button
-												type="submit"
-												disabled={
-													!formState.canSubmit || formState.isSubmitting
-												}
-												isLoading={formState.isSubmitting}
-											>
-												{t("form.category.create")}
-											</Button>
-											<DrawerClose asChild>
-												<Button variant="outline" type="button">
-													{t("form.cancel")}
-												</Button>
-											</DrawerClose>
-										</>
-									)}
-								</form.Subscribe>
-							</DrawerFooter>
-						</form.AppForm>
-					</Form>
-				</div>
+										{isInvalid && (
+											<FieldError errors={field.state.meta.errors} />
+										)}
+									</Field>
+								);
+							}}
+						</categoryForm.Field>
+					</div>
+					<DrawerFooter>
+						<Button
+							className="w-full"
+							type="submit"
+							isLoading={createCategoryMutation.isPending}
+						>
+							{t("form.category.create")}
+						</Button>
+						<DrawerClose asChild>
+							<Button variant="outline" type="button" className="w-full">
+								{t("form.cancel")}
+							</Button>
+						</DrawerClose>
+					</DrawerFooter>
+				</form>
 			</DrawerContent>
 		</Drawer>
 	);
