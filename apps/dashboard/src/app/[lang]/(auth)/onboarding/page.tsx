@@ -1,17 +1,16 @@
 "use client";
 
+import { UserOnboardingStep } from "@dukkani/common/schemas";
 import type {
 	ConfigureStoreOnboardingInput,
 	CreateStoreOnboardingInput,
 } from "@dukkani/common/schemas/store/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import {
-	type OnboardingStep,
-	OnboardingStepper,
-} from "@/components/app/onboarding/onboarding-stepper";
+import * as z from "zod";
+import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { OnboardingCompletion } from "@/components/auth/onboarding/completion";
 import {
 	SignUpOnboardingForm,
@@ -28,23 +27,22 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
+import { RoutePaths } from "@/lib/routes";
 
 export default function OnboardingPage() {
+	const router = useRouter();
 	const searchParams = useSearchParams();
 	const emailFromQuery = searchParams.get("email");
 	const stepFromQuery = searchParams.get("step");
-	const allowedSteps: ReadonlyArray<OnboardingStep> = [
-		"SIGNUP",
-		"STORE_CREATION",
-		"STORE_CONFIGURATION",
-		"COMPLETION",
-	];
-	const initialStep: OnboardingStep = allowedSteps.includes(
-		stepFromQuery as OnboardingStep,
-	)
-		? (stepFromQuery as OnboardingStep)
-		: "SIGNUP";
-	const [step, setStep] = useState<OnboardingStep>(initialStep);
+	const initialStep = z
+		.enum(Object.values(UserOnboardingStep))
+		.nullable()
+		.catch(null)
+		.parse(stepFromQuery);
+
+	const { data: sessionData, isPending } = authClient.useSession();
+
+	const [step, setStep] = useState(initialStep);
 
 	const signUpForm = useAppForm({
 		...signUpOnboardingFormDefaultOptions(emailFromQuery ?? ""),
@@ -57,7 +55,7 @@ export default function OnboardingPage() {
 				},
 				{
 					onSuccess: async () => {
-						setStep("STORE_CREATION");
+						setStep(UserOnboardingStep.STORE_SETUP);
 					},
 					onError: async (error) => {
 						if (error.error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
@@ -83,7 +81,7 @@ export default function OnboardingPage() {
 			client.store.create(input),
 		onSuccess: (data) => {
 			setStoreId(data.id);
-			setStep("STORE_CONFIGURATION");
+			setStep(UserOnboardingStep.STORE_CREATED);
 		},
 		onError: (error) => {
 			handleAPIError(error);
@@ -101,7 +99,7 @@ export default function OnboardingPage() {
 		mutationFn: (input: ConfigureStoreOnboardingInput) =>
 			client.store.configure(input),
 		onSuccess: () => {
-			setStep("COMPLETION");
+			setStep(UserOnboardingStep.STORE_LAUNCHED);
 		},
 		onError: (error) => {
 			handleAPIError(error);
@@ -120,17 +118,26 @@ export default function OnboardingPage() {
 		},
 	});
 
+	if (isPending) {
+		return;
+	}
+
+	if (sessionData?.user) {
+		router.replace(RoutePaths.DASHBOARD.url);
+		return;
+	}
+
 	return (
 		<div className="flex w-full max-w-md flex-col gap-10">
 			<OnboardingStepper currentStep={step} />
-			{step === "SIGNUP" && <SignUpOnboardingForm form={signUpForm} />}
-			{step === "STORE_CREATION" && (
+			{step === null && <SignUpOnboardingForm form={signUpForm} />}
+			{step === UserOnboardingStep.STORE_SETUP && (
 				<StoreSetupOnboardingForm form={storeSetupForm} />
 			)}
-			{step === "STORE_CONFIGURATION" && (
+			{step === UserOnboardingStep.STORE_CREATED && (
 				<StoreConfigurationOnboardingForm form={storeConfigurationForm} />
 			)}
-			{step === "COMPLETION" && storeId && (
+			{step === UserOnboardingStep.STORE_LAUNCHED && storeId && (
 				<OnboardingCompletion storeId={storeId} />
 			)}
 		</div>
