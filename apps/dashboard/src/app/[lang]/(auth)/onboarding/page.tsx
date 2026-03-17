@@ -1,6 +1,9 @@
 "use client";
 
-import { UserOnboardingStep } from "@dukkani/common/schemas";
+import {
+	UserOnboardingStep,
+	userOnboardingStepSchema,
+} from "@dukkani/common/schemas";
 import type {
 	ConfigureStoreOnboardingInput,
 	CreateStoreOnboardingInput,
@@ -9,7 +12,6 @@ import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
 import { RedirectType, redirect, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import * as z from "zod";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { OnboardingCompletion } from "@/components/auth/onboarding-completion";
 import {
@@ -41,8 +43,7 @@ export default function OnboardingPage() {
 	const searchParams = useSearchParams();
 	const emailFromQuery = searchParams.get("email");
 	const stepFromQuery = searchParams.get("step");
-	const initialStep = z
-		.enum(Object.values(UserOnboardingStep))
+	const initialStep = userOnboardingStepSchema
 		.nullable()
 		.catch(null)
 		.parse(stepFromQuery);
