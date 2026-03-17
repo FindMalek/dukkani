@@ -43,7 +43,7 @@ export function ComingSoon({ store }: ComingSoonProps) {
 		},
 		onSubmit: async ({ value }) => {
 			const parsed = formSchema.parse(value);
-			const result = await subscribeMutation.mutate({
+			const result = await subscribeMutation.mutateAsync({
 				storeId: store.id,
 				emailOrPhone: parsed.emailOrPhone,
 			});
