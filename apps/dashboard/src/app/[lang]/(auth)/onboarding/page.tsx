@@ -11,19 +11,19 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import * as z from "zod";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
-import { OnboardingCompletion } from "@/components/auth/onboarding/completion";
+import { OnboardingCompletion } from "@/components/auth/onboarding-completion";
 import {
 	SignUpOnboardingForm,
 	signUpOnboardingFormDefaultValues as signUpOnboardingFormDefaultOptions,
-} from "@/components/auth/onboarding/sign-up-form";
+} from "@/components/auth/onboarding-sign-up-form";
 import {
 	StoreConfigurationOnboardingForm,
 	storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOptions,
-} from "@/components/auth/onboarding/store-configuration-form";
+} from "@/components/auth/onboarding-store-configuration-form";
 import {
 	StoreSetupOnboardingForm,
 	storeSetupFormDefaultOptions,
-} from "@/components/auth/onboarding/store-setup-form";
+} from "@/components/auth/onboarding-store-setup-form";
 import { authClient } from "@/lib/auth-client";
 import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
