@@ -59,7 +59,6 @@ export class SampleDatabaseMigrationMigration extends BaseMigration {
 			logger.info("Database connection validated");
 
 			// TODO: Add more validation logic here
-
 		} catch (error) {
 			throw new Error(`Database validation failed: ${error}`);
 		}
@@ -100,7 +99,6 @@ export class SampleDatabaseMigrationMigration extends BaseMigration {
 				duration,
 				timestamp: new Date(),
 			};
-
 		} catch (error) {
 			const duration = Date.now() - startTime;
 			this.progress.errors.push({
@@ -255,7 +253,9 @@ export class SampleDatabaseMigrationMigration extends BaseMigration {
 		`;
 		*/
 
-		logger.info("Creating database indexes (template - implement actual logic)");
+		logger.info(
+			"Creating database indexes (template - implement actual logic)",
+		);
 	}
 
 	/**
@@ -329,7 +329,6 @@ export class SampleDatabaseMigrationMigration extends BaseMigration {
 				duration,
 				timestamp: new Date(),
 			};
-
 		} catch (error) {
 			const duration = Date.now() - startTime;
 			logger.error("Database rollback failed:", error);
@@ -376,7 +375,9 @@ export class SampleDatabaseMigrationMigration extends BaseMigration {
 		`;
 		*/
 
-		logger.info("Performing database rollback (template - implement actual logic)");
+		logger.info(
+			"Performing database rollback (template - implement actual logic)",
+		);
 	}
 
 	/**

@@ -42,8 +42,12 @@ export class TestStorageMigrationMigration extends StorageMigration {
 	/**
 	 * Discover database-referenced files for migration
 	 */
-	protected async discoverDatabaseReferencedFiles(): Promise<StorageFileMapping[]> {
-		logger.info("Discovering database-referenced files for test-storage-migration");
+	protected async discoverDatabaseReferencedFiles(): Promise<
+		StorageFileMapping[]
+	> {
+		logger.info(
+			"Discovering database-referenced files for test-storage-migration",
+		);
 
 		// TODO: Implement your database discovery logic
 		// Examples:
@@ -95,12 +99,16 @@ export class TestStorageMigrationMigration extends StorageMigration {
 	/**
 	 * Upload a batch of files to destination storage
 	 */
-	protected async uploadBatch(batch: StorageFileMapping[]): Promise<UploadBatchResult> {
+	protected async uploadBatch(
+		batch: StorageFileMapping[],
+	): Promise<UploadBatchResult> {
 		const uploaded: StorageFileMapping[] = [];
 		const failed: Array<{ mapping: StorageFileMapping; error: Error }> = [];
 		const skipped: StorageFileMapping[] = [];
 
-		logger.info(`Processing batch of ${batch.length} files for test-storage-migration`);
+		logger.info(
+			`Processing batch of ${batch.length} files for test-storage-migration`,
+		);
 
 		for (const mapping of batch) {
 			try {
@@ -122,7 +130,6 @@ export class TestStorageMigrationMigration extends StorageMigration {
 				// Placeholder implementation
 				logger.info(`Uploading: ${mapping.sourcePath}`);
 				uploaded.push(mapping);
-
 			} catch (error) {
 				logger.error(`Failed to upload ${mapping.sourcePath}:`, error);
 				failed.push({ mapping, error: error as Error });
@@ -141,7 +148,9 @@ export class TestStorageMigrationMigration extends StorageMigration {
 	 */
 	protected async updateDatabaseUrls(): Promise<void> {
 		if (this.isDryRun()) {
-			logger.info("[DRY RUN] Would update database URLs for test-storage-migration");
+			logger.info(
+				"[DRY RUN] Would update database URLs for test-storage-migration",
+			);
 			return;
 		}
 
@@ -165,12 +174,14 @@ export class TestStorageMigrationMigration extends StorageMigration {
 	/**
 	 * Group mappings by database table
 	 */
-	private groupMappingsByTable(mappings: StorageFileMapping[]): Record<string, StorageFileMapping[]> {
+	private groupMappingsByTable(
+		mappings: StorageFileMapping[],
+	): Record<string, StorageFileMapping[]> {
 		// TODO: Implement your table grouping logic
 		// Group file mappings by the database tables they need to update
 		return {
-			storage_files: mappings.filter(m => m.target.resource === "storage"),
-			images: mappings.filter(m => m.target.resource === "images"),
+			storage_files: mappings.filter((m) => m.target.resource === "storage"),
+			images: mappings.filter((m) => m.target.resource === "images"),
 			// Add more tables as needed
 		};
 	}
@@ -178,7 +189,10 @@ export class TestStorageMigrationMigration extends StorageMigration {
 	/**
 	 * Update URLs for a specific table
 	 */
-	private async updateTableUrls(table: string, mappings: StorageFileMapping[]): Promise<void> {
+	private async updateTableUrls(
+		table: string,
+		mappings: StorageFileMapping[],
+	): Promise<void> {
 		if (mappings.length === 0) return;
 
 		logger.info(`Updating ${table} table with ${mappings.length} URL updates`);
@@ -204,9 +218,11 @@ export class TestStorageMigrationMigration extends StorageMigration {
 				}
 
 				// Add more table-specific logic as needed
-
 			} catch (error) {
-				logger.error(`Failed to update ${table} for ${mapping.sourcePath}:`, error);
+				logger.error(
+					`Failed to update ${table} for ${mapping.sourcePath}:`,
+					error,
+				);
 				throw error;
 			}
 		}
@@ -217,7 +233,9 @@ export class TestStorageMigrationMigration extends StorageMigration {
 	 */
 	protected async cleanupSourceFiles(): Promise<void> {
 		if (this.isDryRun()) {
-			logger.info("[DRY RUN] Would clean up source files for test-storage-migration");
+			logger.info(
+				"[DRY RUN] Would clean up source files for test-storage-migration",
+			);
 			return;
 		}
 
@@ -264,7 +282,9 @@ export class TestStorageMigrationMigration extends StorageMigration {
 		const successCount = this.progress.processed;
 		const failureCount = this.progress.failed;
 
-		logger.info(`Migration validation: ${successCount} succeeded, ${failureCount} failed`);
+		logger.info(
+			`Migration validation: ${successCount} succeeded, ${failureCount} failed`,
+		);
 
 		if (failureCount > 0) {
 			logger.warn(`${failureCount} files failed to migrate`);
