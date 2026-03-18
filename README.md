@@ -113,7 +113,7 @@ NEXT_PUBLIC_API_URL="http://localhost:3002"
 4. **Set up the database**
 
 ```bash
-pnpm run db:setup
+pnpm run setup
 ```
 
 This will:

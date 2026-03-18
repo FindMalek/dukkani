@@ -44,7 +44,14 @@ export interface ProductFormHandle {
 export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 	({ storeId }, ref) => {
 		const router = useRouter();
+		const t = useTranslations("products.create");
+		const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
+
 		const { createProductMutationOptions } = useProductsController();
+		const { data: categories } = useCategoriesQuery({
+			storeId,
+		});
+
 		const createProductMutation = useMutation(createProductMutationOptions);
 		const form = useAppForm({
 			defaultValues: {
@@ -66,7 +73,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 							files: value.imageFiles,
 							target: {
 								resource: "products",
-								entityId: `draft-${storeId}`,
+								entityId: storeId,
 								assetRole: "gallery",
 							},
 						});
@@ -102,13 +109,6 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 			},
 			[createProductMutation, form, router],
 		);
-
-		const t = useTranslations("products.create");
-		const { data: categories } = useCategoriesQuery({
-			storeId,
-		});
-
-		const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
 
 		const handleOpenCategoryDrawer = useCallback(() => {
 			setIsCategoryDrawerOpen(true);

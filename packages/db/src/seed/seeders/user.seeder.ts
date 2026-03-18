@@ -69,7 +69,7 @@ export class UserSeeder extends BaseSeeder {
 			{
 				id: "user_admin_001",
 				name: "Ahmed Al-Mansoori",
-				email: "ahmed@dukkani.com",
+				email: "ahmed@dukkani.co",
 				password: "Admin123!", // Private: only used for hashing during seeding
 				emailVerified: true,
 				image: null,
@@ -79,7 +79,7 @@ export class UserSeeder extends BaseSeeder {
 			{
 				id: "user_merchant_001",
 				name: "Fatima Hassan",
-				email: "fatima@dukkani.com",
+				email: "fatima@dukkani.co",
 				password: "Merchant123!", // Private: only used for hashing during seeding
 				emailVerified: true,
 				image: null,
@@ -88,7 +88,7 @@ export class UserSeeder extends BaseSeeder {
 			{
 				id: "user_store_owner_001",
 				name: "Omar Abdullah",
-				email: "omar@dukkani.com",
+				email: "omar@dukkani.co",
 				password: "Store123!", // Private: only used for hashing during seeding
 				emailVerified: true,
 				image: null,

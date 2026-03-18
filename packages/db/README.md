@@ -39,7 +39,7 @@ All commands should be run from the root of the monorepo:
 
 ```bash
 # Setup database and storage (start Docker: Postgres + MinIO, push schema)
-pnpm run db:setup
+pnpm run setup
 
 # Push schema changes to database
 pnpm run db:push
@@ -88,15 +88,15 @@ pnpm run db:reset-and-seed
 Three users are created with the following credentials:
 
 1. **Ahmed Al-Mansoori** (Admin)
-   - Email: `ahmed@dukkani.com`
+   - Email: `ahmed@dukkani.co`
    - Password: `Admin123!`
 
 2. **Fatima Hassan** (Merchant)
-   - Email: `fatima@dukkani.com`
+   - Email: `fatima@dukkani.co`
    - Password: `Merchant123!`
 
 3. **Omar Abdullah** (Store Owner)
-   - Email: `omar@dukkani.com`
+   - Email: `omar@dukkani.co`
    - Password: `Store123!`
 
 ### Seeded Data

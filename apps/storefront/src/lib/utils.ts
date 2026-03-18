@@ -27,8 +27,8 @@ export function getStoreSlugFromHost(host: string | null): string | null {
 
 	const parts = hostname.split(".");
 
-	// Need at least 3 parts for a subdomain (e.g., "slug.dukkani.com")
-	// 2 parts = base domain (e.g., "dukkani.com") - no subdomain
+	// Need at least 3 parts for a subdomain (e.g., "slug.dukkani.co")
+	// 2 parts = base domain (e.g., "dukkani.co") - no subdomain
 	if (parts.length < 3) {
 		return null;
 	}

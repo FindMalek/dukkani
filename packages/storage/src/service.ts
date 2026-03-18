@@ -78,10 +78,10 @@ class StorageServiceBase {
 
 		// If key is too long, truncate the middle part while preserving extension
 		const parts = key.split(".");
-		const extension = parts.length > 1 ? parts.pop() : "";
+		const extension = parts.length > 1 ? (parts.pop() ?? "") : "";
 		const baseKey = parts.join(".");
 
-		if (baseKey.length <= MAX_KEY_LENGTH - extension.length - 1) {
+		if (extension && baseKey.length <= MAX_KEY_LENGTH - extension.length - 1) {
 			return `${baseKey}.${extension}`;
 		}
 
@@ -218,7 +218,7 @@ class StorageServiceBase {
 			const [type, subtype] = mimeType.split("/");
 
 			// For image types, default to appropriate format
-			if (type === "image") {
+			if (type === "image" && subtype) {
 				// Default to webp for modern image formats
 				if (
 					subtype.includes("webp") ||
@@ -599,7 +599,7 @@ class StorageServiceBase {
 			const key = urlObj.pathname.slice(baseUrlPath.length + 1);
 
 			// Remove any query parameters (shouldn't exist for storage URLs but handle defensively)
-			return key.split("?")[0];
+			return key.split("?")[0] ?? null;
 		} catch (error) {
 			logger.warn(
 				{
