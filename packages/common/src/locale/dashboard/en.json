@@ -180,7 +180,10 @@
 				"label": "Email address",
 				"placeholder": "your@email.com",
 				"description": "We pre-filled this from the previous step",
-				"missingWarning": "Email address was not provided. Please enter your email address to continue."
+				"missingWarning": "Email address was not provided. Please enter your email address to continue.",
+				"existsError": "Email already exists. Please use a different email.",
+				"readonlyHint": "Email provided in URL cannot be changed",
+				"validating": "Checking email availability..."
 			},
 			"password": {
 				"label": "Choose a password",

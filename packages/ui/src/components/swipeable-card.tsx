@@ -115,6 +115,17 @@ export function SwipeableCard({
 		}
 	}, [snapBack]);
 
+	const handleKeyDown = useCallback(
+		(e: React.KeyboardEvent) => {
+			if (disabled) return;
+			if (e.key === "Enter" || e.key === " ") {
+				e.preventDefault();
+				onTap?.();
+			}
+		},
+		[disabled, onTap],
+	);
+
 	const showRightPanel = offsetX > DRAG_THRESHOLD;
 	const showLeftPanel = offsetX < -DRAG_THRESHOLD;
 	const rightOpacity = Math.min(1, (offsetX / SWIPE_THRESHOLD) * 1.2);
@@ -157,8 +168,10 @@ export function SwipeableCard({
 			</div>
 
 			{/* Card — slides over the action panels */}
-			<button
-				type="button"
+			{/** biome-ignore lint/a11y/useSemanticElements: <explanation> */}
+			<div
+				role="button"
+				tabIndex={disabled ? -1 : 0}
 				aria-label={ariaLabel}
 				className="relative flex w-full cursor-pointer select-none flex-col gap-3 rounded-xl border bg-card p-4 text-start"
 				style={{
@@ -171,9 +184,10 @@ export function SwipeableCard({
 				onPointerMove={handlePointerMove}
 				onPointerUp={handlePointerUp}
 				onPointerLeave={handlePointerLeave}
+				onKeyDown={handleKeyDown}
 			>
 				{children}
-			</button>
+			</div>
 		</div>
 	);
 }

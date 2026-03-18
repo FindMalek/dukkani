@@ -28,6 +28,9 @@ export const SignUpOnboardingForm = withForm({
 	...signUpOnboardingFormDefaultValues(),
 	render: function RenderForm({ form }) {
 		const t = useTranslations("onboarding.signup");
+		const emailValue = form.getFieldValue("email");
+		const hasEmailFromParams = !!emailValue;
+
 		return (
 			<>
 				<div className="space-y-3 text-center">
@@ -51,11 +54,15 @@ export const SignUpOnboardingForm = withForm({
 							</form.AppField>
 							<form.AppField name="email">
 								{(field) => (
-									<field.EmailInput
-										label={t("email.label")}
-										placeholder={t("email.placeholder")}
-										autoComplete="email"
-									/>
+									<>
+										<field.EmailInput
+											label={t("email.label")}
+											placeholder={t("email.placeholder")}
+											autoComplete="email"
+											readOnly={hasEmailFromParams}
+											disabled={hasEmailFromParams}
+										/>
+									</>
 								)}
 							</form.AppField>
 							<form.AppField name="password">
