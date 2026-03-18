@@ -1,5 +1,6 @@
 "use client";
 
+import { UserOnboardingStep } from "@dukkani/common/schemas";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
@@ -10,7 +11,7 @@ import {
 	ProductForm,
 	type ProductFormHandle,
 } from "@/components/app/products/product-form";
-import { RoutePaths } from "@/lib/routes";
+import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 
 export default function NewProductPage() {
@@ -37,8 +38,12 @@ export default function NewProductPage() {
 				</div>
 				<h2 className="font-bold text-xl">{t("noStore.title")}</h2>
 				<p className="mt-2 text-muted-foreground">{t("noStore.description")}</p>
-				<Button asChild size="lg" className="mt-6">
-					<Link href={RoutePaths.AUTH.ONBOARDING.STORE_SETUP.url}>
+				<Button variant={"link"} asChild size="lg" className="mt-6">
+					<Link
+						href={getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.INDEX.url, {
+							step: UserOnboardingStep.STORE_SETUP,
+						})}
+					>
 						{t("noStore.createStore")}
 					</Link>
 				</Button>

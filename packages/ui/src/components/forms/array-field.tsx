@@ -9,9 +9,9 @@ import {
 } from "../field";
 import type { CommonFieldProps } from "./base-field";
 
-interface CommonArrayFieldProps extends CommonFieldProps {
-	children: React.ReactNode;
-}
+interface CommonArrayFieldProps
+	extends CommonFieldProps,
+		Required<React.PropsWithChildren> {}
 
 export function ArrayField({
 	label,

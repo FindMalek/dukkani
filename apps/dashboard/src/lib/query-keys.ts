@@ -5,6 +5,9 @@ import { orpc } from "@/lib/orpc";
  * Provides type-safe query keys for consistent invalidation
  */
 export const queryKeys = {
+	account: {
+		current: () => orpc.account.getCurrentUser.queryKey(),
+	},
 	stores: {
 		all: () => orpc.store.getAll.queryKey(),
 	},

@@ -3,15 +3,19 @@ import { useFieldContext } from "../../hooks/use-app-form";
 import { Input } from "../input";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
-type TextFieldProps = CommonFieldProps & {
-	type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">;
+type InputProps = React.ComponentProps<typeof Input>;
+
+type InputType = Extract<InputProps["type"], "text" | "email">;
+interface TextFieldProps extends CommonFieldProps, Omit<InputProps, "type"> {
+	type?: InputType;
+}
 
 export function TextField({
 	label,
 	srOnlyLabel = false,
 	type = "text",
 	rightToField,
+	orientation,
 	...inputProps
 }: TextFieldProps) {
 	const field = useFieldContext<string>();
@@ -22,6 +26,7 @@ export function TextField({
 			label={label}
 			srOnlyLabel={srOnlyLabel}
 			rightToField={rightToField}
+			orientation={orientation}
 		>
 			<Input
 				id={field.name}

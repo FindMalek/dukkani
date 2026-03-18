@@ -1,18 +1,27 @@
 import type * as React from "react";
 import { useFieldContext } from "../../hooks/use-app-form";
 import { Textarea } from "../textarea";
-import { BaseField } from "./base-field";
+import { BaseField, type CommonFieldProps } from "./base-field";
 
-type TextAreaFieldProps = {
-	label: string;
-} & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+interface TextAreaFieldProps
+	extends CommonFieldProps,
+		React.ComponentProps<typeof Textarea> {}
 
-export function TextAreaField({ label, ...inputProps }: TextAreaFieldProps) {
+export function TextAreaField({
+	label,
+	description,
+	orientation,
+	...inputProps
+}: TextAreaFieldProps) {
 	const field = useFieldContext<string>();
 	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
 	return (
-		<BaseField label={label}>
+		<BaseField
+			label={label}
+			description={description}
+			orientation={orientation}
+		>
 			<Textarea
 				id={field.name}
 				name={field.name}

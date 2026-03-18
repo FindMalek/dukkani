@@ -6,6 +6,7 @@ import { Separator } from "./separator";
 
 function ItemGroup({ className, ...props }: React.ComponentProps<"div">) {
 	return (
+		// biome-ignore lint/a11y/useSemanticElements: <explanation>
 		<div
 			role="list"
 			data-slot="item-group"

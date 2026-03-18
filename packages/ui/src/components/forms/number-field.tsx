@@ -8,19 +8,17 @@ import {
 	InputGroupButton,
 	InputGroupInput,
 } from "../input-group";
-import { BaseField } from "./base-field";
+import { BaseField, type CommonFieldProps } from "./base-field";
 
-type NumberFieldProps = {
-	label: string;
+interface NumberFieldProps
+	extends CommonFieldProps,
+		Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
 	min?: number;
 	max?: number;
 	step?: number;
 	inputMode?: InputHTMLAttributes<HTMLInputElement>["inputMode"];
 	maxPoints?: number;
-} & Omit<
-	InputHTMLAttributes<HTMLInputElement>,
-	"type" | "min" | "max" | "step" | "inputMode"
->;
+}
 
 export function NumberField({
 	label,
