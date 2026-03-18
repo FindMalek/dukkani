@@ -44,4 +44,15 @@ process.on("unhandledRejection", (reason, promise) => {
 });
 
 // Parse and execute
-program.parse();
+// Commander treats `--` as end-of-options; pnpm sometimes forwards an extra `--`
+// token which would prevent flags like `--dry-run` from being parsed.
+const argv = process.argv.slice();
+const firstDoubleDashIdx = argv.indexOf("--");
+if (
+	firstDoubleDashIdx !== -1 &&
+	argv[firstDoubleDashIdx + 1]?.startsWith("--")
+) {
+	argv.splice(firstDoubleDashIdx, 1);
+}
+
+program.parse(argv);

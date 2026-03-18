@@ -1,8 +1,10 @@
 import { logger } from "@dukkani/logger";
 import { Command } from "commander";
 import inquirer from "inquirer";
+import { dbEnv } from "@dukkani/env";
+import { initializeDatabase } from "@dukkani/db";
 import { migrationEnv } from "../../env";
-import { SupabaseToR2Migration } from "../../migrations/2024-03-16-supabase-to-r2";
+import { FromSupabaseToR2Migration } from "../../migrations/20260318234552-from-supabase-to-r2";
 import type {
 	MigrationError,
 	MigrationResult,
@@ -12,7 +14,7 @@ import type {
 interface MigrateCommandOptions {
 	dryRun: boolean;
 	batchSize: string;
-	scope: string;
+	scope: StorageMigrationConfig["scope"];
 	validate: boolean;
 	cleanup: boolean;
 	rollback: boolean;
@@ -30,6 +32,18 @@ interface ValidateCommandOptions {
  * Storage migration commands
  */
 export class StorageCommands {
+	private static databaseInitialized = false;
+
+	private static ensureDatabaseInitialized(): void {
+		if (StorageCommands.databaseInitialized) return;
+
+		initializeDatabase({
+			DATABASE_URL: dbEnv.DATABASE_URL,
+		});
+
+		StorageCommands.databaseInitialized = true;
+	}
+
 	/**
 	 * Create storage migrate command
 	 */
@@ -93,6 +107,9 @@ export class StorageCommands {
 			// Validate environment
 			await StorageCommands.validateEnvironment();
 
+			// Ensure Prisma is initialized before any DB health checks or updates.
+			StorageCommands.ensureDatabaseInitialized();
+
 			// Create migration config
 			const config: StorageMigrationConfig = {
 				source: {
@@ -113,7 +130,7 @@ export class StorageCommands {
 			await StorageCommands.showMigrationSummary(config);
 
 			// Create and run migration
-			const migration = new SupabaseToR2Migration(config);
+			const migration = new FromSupabaseToR2Migration(config);
 
 			// Validate prerequisites
 			await migration.validatePrerequisites();
@@ -135,7 +152,7 @@ export class StorageCommands {
 				process.exit(1);
 			}
 		} catch (error) {
-			logger.error("Migration error:", error);
+			logger.error(error, "Migration error");
 			process.exit(1);
 		}
 	}
@@ -168,6 +185,9 @@ export class StorageCommands {
 			// Validate environment
 			await StorageCommands.validateEnvironment();
 
+			// Ensure Prisma is initialized for rollback discovery and DB updates.
+			StorageCommands.ensureDatabaseInitialized();
+
 			// Create migration config
 			const config: StorageMigrationConfig = {
 				source: {
@@ -181,7 +201,7 @@ export class StorageCommands {
 			};
 
 			// Create and run rollback
-			const migration = new SupabaseToR2Migration(config);
+			const migration = new FromSupabaseToR2Migration(config);
 
 			const result = await migration.rollback();
 			await migration.cleanup();
@@ -196,7 +216,7 @@ export class StorageCommands {
 				process.exit(1);
 			}
 		} catch (error) {
-			logger.error("Rollback error:", error);
+			logger.error(error, "Rollback error");
 			process.exit(1);
 		}
 	}
@@ -214,7 +234,7 @@ export class StorageCommands {
 			// For now, just show a placeholder
 			logger.info("Validation completed successfully!");
 		} catch (error) {
-			logger.error("Validation error:", error);
+			logger.error(error, "Validation error");
 			process.exit(1);
 		}
 	}

@@ -1,5 +1,6 @@
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
+import { StorageService, env as storageEnv } from "@dukkani/storage";
 import { StorageMigration } from "../templates/storage-migration";
 import type { StorageFileMapping, UploadBatchResult } from "../types";
 
@@ -26,23 +27,58 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 	 */
 	async validatePrerequisites(): Promise<void> {
 		this.addTracing({ phase: "validation" });
-		logger.info("Validating prerequisites for from-supabase-to-r2");
+		this.logProgress("Validating migration prerequisites");
 
-		// TODO: Add validation logic here
-		// Examples:
-		// - Check source storage connectivity
-		// - Verify destination storage is ready
-		// - Validate required environment variables
-		// - Check database connectivity
+		// Validate source connectivity
+		await this.sourceClient.validateConnection();
 
-		logger.info("Prerequisites validation completed");
+		// Validate destination connectivity
+		try {
+			await StorageService.checkHealth();
+		} catch (error) {
+			throw new Error(
+				`Destination storage not accessible: ${
+					error instanceof Error ? error.message : String(error)
+				}`,
+			);
+		}
+
+		// In dry-run we avoid creating a DB health record or failing on DB writes.
+		if (this.isDryRun()) {
+			this.logProgress("Dry run enabled: skipping database health check");
+			return;
+		}
+
+		// Validate database connectivity by writing a lightweight health record.
+		try {
+			await database.health.create({
+				data: {
+					status: "UNKNOWN",
+					duration: 0,
+					startTime: new Date(),
+					endTime: new Date(),
+				},
+			});
+		} catch (error) {
+			throw new Error(
+				`Database not accessible: ${
+					error instanceof Error ? error.message : String(error)
+				}`,
+			);
+		}
+
+		this.logProgress("Prerequisites validation completed");
 	}
 
 	/**
 	 * Discover database-referenced files for migration
 	 */
-	protected async discoverDatabaseReferencedFiles(): Promise<StorageFileMapping[]> {
-		logger.info("Discovering database-referenced files for from-supabase-to-r2");
+	protected async discoverDatabaseReferencedFiles(): Promise<
+		StorageFileMapping[]
+	> {
+		logger.info(
+			"Discovering database-referenced files for from-supabase-to-r2",
+		);
 
 		// TODO: Implement your database discovery logic
 		// Examples:
@@ -94,12 +130,21 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 	/**
 	 * Upload a batch of files to destination storage
 	 */
-	protected async uploadBatch(batch: StorageFileMapping[]): Promise<UploadBatchResult> {
+	protected async uploadBatch(
+		batch: StorageFileMapping[],
+	): Promise<UploadBatchResult> {
 		const uploaded: StorageFileMapping[] = [];
 		const failed: Array<{ mapping: StorageFileMapping; error: Error }> = [];
 		const skipped: StorageFileMapping[] = [];
 
-		logger.info(`Processing batch of ${batch.length} files for from-supabase-to-r2`);
+		type MappingWithOldSourceUrl = StorageFileMapping & {
+			// Runtime-only helper to preserve the original Supabase URL for later DB updates.
+			oldSourceUrl?: string;
+		};
+
+		logger.info(
+			`Processing batch of ${batch.length} files for from-supabase-to-r2`,
+		);
 
 		for (const mapping of batch) {
 			try {
@@ -111,17 +156,37 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 					continue;
 				}
 
-				// TODO: Implement your upload logic
-				// Examples:
-				// - Download file from source
-				// - Upload to destination storage
-				// - Handle different file types
-				// - Track upload progress
+				const m = mapping as MappingWithOldSourceUrl;
 
-				// Placeholder implementation
-				logger.info(`Uploading: ${mapping.sourcePath}`);
+				// Preserve the original Supabase URL so we can update rows by matching the old value later.
+				m.oldSourceUrl ??= m.sourceUrl;
+
+				// Download file from Supabase
+				const bucket = this.config.source.supabaseBucket || "production";
+				const blob = await this.sourceClient.downloadFile(
+					bucket,
+					mapping.sourcePath,
+				);
+
+				// Convert Blob to File for StorageService
+				const file = new File(
+					[blob],
+					mapping.sourcePath.split("/").pop() || "file",
+					{
+						type: blob.type || "application/octet-stream",
+					},
+				);
+
+				// Upload to R2 using StorageService
+				const result = await StorageService.uploadFile(file, {
+					target: mapping.target,
+				});
+
+				// Store the new R2 URL for database updates
+				m.sourceUrl = result.url;
 				uploaded.push(mapping);
 
+				logger.debug(`Uploaded: ${mapping.sourcePath} -> ${result.url}`);
 			} catch (error) {
 				const err = error instanceof Error ? error : new Error(String(error));
 				failed.push({ mapping, error: err });
@@ -141,75 +206,56 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 	 */
 	protected async updateDatabaseUrls(): Promise<void> {
 		if (this.isDryRun()) {
-			logger.info("[DRY RUN] Would update database URLs for from-supabase-to-r2");
+			logger.info(
+				"[DRY RUN] Would update database URLs for from-supabase-to-r2",
+			);
 			return;
 		}
 
 		logger.info("Updating database URLs for from-supabase-to-r2");
 
-		// TODO: Implement your database update logic
-		// Examples:
-		// - Update file URLs in database tables
-		// - Handle different table structures
-		// - Update references and relationships
-		// - Use transactions for consistency
+		const bucketName = this.config.source.supabaseBucket || "production";
 
-		// Group mappings by table for efficient updates
-		const mappingsByTable = this.groupMappingsByTable(this.discoveredFiles);
-
-		for (const [table, mappings] of Object.entries(mappingsByTable)) {
-			await this.updateTableUrls(table, mappings);
-		}
-	}
-
-	/**
-	 * Group mappings by database table
-	 */
-	private groupMappingsByTable(mappings: StorageFileMapping[]): Record<string, StorageFileMapping[]> {
-		// TODO: Implement your table grouping logic
-		// Group file mappings by the database tables they need to update
-		return {
-			storage_files: mappings.filter(m => m.fileId),
-			avatars: mappings.filter(m => m.target.resource === "avatars"),
-			stores: mappings.filter(m => m.target.resource === "stores"),
-			products: mappings.filter(m => m.target.resource === "products"),
+		type MappingWithOldSourceUrl = StorageFileMapping & {
+			oldSourceUrl?: string;
 		};
-	}
 
-	/**
-	 * Update URLs for a specific table
-	 */
-	private async updateTableUrls(table: string, mappings: StorageFileMapping[]): Promise<void> {
-		if (mappings.length === 0) return;
+		for (const mapping of this.discoveredFiles) {
+			const m = mapping as MappingWithOldSourceUrl;
 
-		logger.info(`Updating ${table} table with ${mappings.length} URL updates`);
+			// New URL is written during uploadBatch().
+			const newUrl = m.sourceUrl;
+			if (!newUrl) continue;
 
-		for (const mapping of mappings) {
-			if (!mapping.sourceUrl) continue;
+			// Old URL is either preserved from uploadBatch (fast path), or recomputed from the Supabase URL structure.
+			const oldUrl =
+				m.oldSourceUrl ??
+				this.sourceClient.getPublicUrl(bucketName, m.sourcePath);
+			if (!oldUrl) continue;
 
-			try {
-				// TODO: Implement your table-specific update logic
-				// Examples:
-				// - Update storage_files table
-				// - Update images table
-				// - Handle different column structures
-				// - Use proper database transactions
+			// storage_files: the primary record is tracked by fileId.
+			if (m.fileId) {
+				await database.storageFile.update({
+					where: { id: m.fileId },
+					data: {
+						url: newUrl,
+						originalUrl: newUrl,
+					},
+				});
+				continue;
+			}
 
-				if (table === "storage_files" && mapping.fileId) {
-					await database.storageFile.update({
-						where: { id: mapping.fileId },
-						data: {
-							url: mapping.sourceUrl, // This would be the new R2 URL
-						},
-					});
-				}
-
-				// Add more table-specific logic as needed
-
-			} catch (error) {
-				const err = error instanceof Error ? error : new Error(String(error));
-				logger.error(`Failed to update ${table} for ${mapping.sourcePath}:`, err.message);
-				throw err;
+			// storage_file_variants vs images: distinguish by Supabase object path.
+			if (m.sourcePath.includes("/variants/")) {
+				await database.storageFileVariant.updateMany({
+					where: { url: oldUrl },
+					data: { url: newUrl },
+				});
+			} else {
+				await database.image.updateMany({
+					where: { url: oldUrl },
+					data: { url: newUrl },
+				});
 			}
 		}
 	}
@@ -217,36 +263,63 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 	/**
 	 * Cleanup source files after successful migration
 	 */
-	protected async cleanupSourceFiles(): Promise<void> {
-		if (this.isDryRun()) {
-			logger.info("[DRY RUN] Would clean up source files for from-supabase-to-r2");
+	protected async cleanupSource(): Promise<void> {
+		// Note: `StorageMigration.execute()` already checks `cleanupSource` and `isDryRun()`,
+		// so this is a safety guard only.
+		if (!this.config.cleanupSource || this.isDryRun()) return;
+
+		const bucket = this.config.source.supabaseBucket || "production";
+		const paths = this.discoveredFiles.map((m) => m.sourcePath);
+
+		if (paths.length === 0) {
+			logger.info("No source files discovered for cleanup");
 			return;
 		}
 
-		if (!this.config.cleanupSource) {
-			logger.info("Source cleanup disabled, skipping cleanup");
-			return;
+		logger.info(
+			`Cleaning up Supabase source files for from-supabase-to-r2 (${paths.length} objects)`,
+		);
+		await this.sourceClient.deleteFiles(bucket, paths);
+	}
+
+	/**
+	 * Cleanup destination files (rollback)
+	 */
+	protected async cleanupDestination(): Promise<void> {
+		// Note: `StorageMigration.rollback()` does not call `discoverFiles()`,
+		// so we ensure `discoveredFiles` is populated here.
+		if (this.discoveredFiles.length === 0) {
+			const discoveryResult = await this.discoverFiles();
+			this.discoveredFiles = discoveryResult.files;
 		}
 
-		logger.info("Cleaning up source files for from-supabase-to-r2");
+		const bucket = storageEnv.S3_BUCKET;
+		const baseUrl = storageEnv.S3_PUBLIC_BASE_URL;
 
-		// TODO: Implement your cleanup logic
-		// Examples:
-		// - Delete files from source storage
-		// - Handle cleanup failures gracefully
-		// - Log cleanup operations
-		// - Verify cleanup completion
+		logger.info(
+			`Cleaning up R2 destination files for from-supabase-to-r2 (${this.discoveredFiles.length} objects)`,
+		);
 
 		for (const mapping of this.discoveredFiles) {
+			if (!mapping.sourceUrl) continue;
+
 			try {
-				if (mapping.sourcePath) {
-					// await this.sourceClient.deleteFile(mapping.sourcePath);
-					logger.info(`Would clean up: ${mapping.sourcePath}`);
-				}
+				const key = await StorageService.getKeyFromPublicUrl(
+					mapping.sourceUrl,
+					baseUrl,
+				);
+
+				if (!key) continue;
+
+				await StorageService.deleteFile(bucket, key);
 			} catch (error) {
-				const err = error instanceof Error ? error : new Error(String(error));
-				logger.error(`Failed to cleanup ${mapping.sourcePath}:`, err.message);
-				// Continue with other files even if cleanup fails
+				logger.warn(
+					{
+						sourcePath: mapping.sourcePath,
+						error: error instanceof Error ? error.message : String(error),
+					},
+					"Failed to delete destination file during rollback",
+				);
 			}
 		}
 	}
@@ -257,22 +330,25 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 	protected async validateResults(): Promise<void> {
 		logger.info("Validating migration results for from-supabase-to-r2");
 
-		// TODO: Implement your validation logic
-		// Examples:
-		// - Verify all files were uploaded
-		// - Check database URL updates
-		// - Validate file accessibility
-		// - Compare source and destination
+		logger.info(
+			`Migration summary: processed=${this.progress.processed}/${this.progress.total}, failed=${this.progress.failed}, skipped=${this.progress.skipped}`,
+		);
 
-		const successCount = this.progress.processed;
-		const failureCount = this.progress.failed;
-
-		logger.info(`Migration validation: ${successCount} succeeded, ${failureCount} failed`);
-
-		if (failureCount > 0) {
-			logger.warn(`${failureCount} files failed to migrate`);
+		if (this.progress.errors.length > 0) {
+			logger.warn(
+				`Migration had ${this.progress.errors.length} logged errors (showing up to 5)`,
+			);
+			for (const err of this.progress.errors.slice(0, 5)) {
+				logger.warn(err.message);
+			}
 		}
+	}
 
-		// Add more validation as needed
+	/**
+	 * Run additional validation after the base storage migration validation.
+	 */
+	async validate(): Promise<void> {
+		await super.validate();
+		await this.validateResults();
 	}
 }

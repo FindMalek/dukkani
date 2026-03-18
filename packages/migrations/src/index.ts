@@ -2,7 +2,6 @@
 
 // Environment
 export { migrationEnv } from "./env";
-export { SupabaseToR2Migration } from "./migrations/2024-03-16-supabase-to-r2";
 export { BaseMigration } from "./templates/base-migration";
 export { StorageMigration } from "./templates/storage-migration";
 // Types
