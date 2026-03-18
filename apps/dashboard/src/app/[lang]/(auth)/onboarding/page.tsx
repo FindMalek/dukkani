@@ -33,13 +33,7 @@ import { RoutePaths } from "@/lib/routes";
 
 export default function OnboardingPage() {
 	const { data: sessionData, isPending } = authClient.useSession();
-	if (isPending) {
-		return;
-	}
 
-	if (sessionData?.user) {
-		return redirect(RoutePaths.DASHBOARD.url, RedirectType.replace);
-	}
 	const searchParams = useSearchParams();
 	const emailFromQuery = searchParams.get("email");
 	const stepFromQuery = searchParams.get("step");
@@ -123,6 +117,14 @@ export default function OnboardingPage() {
 			await configureStoreMutation.mutateAsync({ ...value, storeId });
 		},
 	});
+
+	if (isPending) {
+		return;
+	}
+
+	if (sessionData?.user) {
+		return redirect(RoutePaths.DASHBOARD.url, RedirectType.replace);
+	}
 
 	return (
 		<div className="flex w-full max-w-md flex-col gap-10">
