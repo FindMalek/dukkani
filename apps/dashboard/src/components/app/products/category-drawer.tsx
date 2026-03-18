@@ -24,11 +24,8 @@ interface CategoryDrawerProps {
 	onOpenChange: (open: boolean) => void;
 }
 
-<<<<<<< 299-migrate-the-onboarding-form-to-using-the-new-forms-api
-=======
 const categoryFormSchema = createCategoryInputSchema.omit({ storeId: true });
 
->>>>>>> main
 export function CategoryDrawer({
 	onCategoryCreated,
 	open,
