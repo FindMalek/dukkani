@@ -1,12 +1,17 @@
 import { UserEntity } from "@dukkani/common/entities/user/entity";
 import { UserQuery } from "@dukkani/common/entities/user/query";
-import { checkEmailExistsInputSchema } from "@dukkani/common/schemas/user/input";
+import { uploadFileOutputSchema } from "@dukkani/common/schemas/storage/output";
+import {
+	accountUploadAvatarInputSchema,
+	checkEmailExistsInputSchema,
+} from "@dukkani/common/schemas/user/input";
 import { userSimpleOutputSchema } from "@dukkani/common/schemas/user/output";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
 import { rateLimitSensitive } from "../middleware/rate-limit";
 import { protectedProcedure, publicProcedure } from "../procedures";
+import { executeUploadFile } from "../utils/storage-upload";
 
 export const accountRouter = {
 	/**
@@ -52,5 +57,31 @@ export const accountRouter = {
 			}
 
 			return true;
+		}),
+
+	/**
+	 * Upload user avatar
+	 * Uses userId from session; no storeId needed
+	 */
+	uploadAvatar: protectedProcedure
+		.input(accountUploadAvatarInputSchema)
+		.output(uploadFileOutputSchema)
+		.handler(async ({ input, context }) => {
+			const userId = context.session.user.id;
+
+			const target = {
+				resource: "avatars" as const,
+				entityId: userId,
+				assetRole: "profile" as const,
+			};
+
+			try {
+				return await executeUploadFile(input.file, target);
+			} catch (error) {
+				throw new ORPCError("INTERNAL_SERVER_ERROR", {
+					message:
+						error instanceof Error ? error.message : "Failed to upload avatar",
+				});
+			}
 		}),
 };

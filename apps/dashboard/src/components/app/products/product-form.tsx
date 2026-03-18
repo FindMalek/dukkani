@@ -69,13 +69,10 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 				let imageUrls: string[] = [];
 				if (value.imageFiles.length > 0) {
 					try {
-						const res = await client.storage.uploadMany({
+						const res = await client.product.uploadImages({
+							storeId,
 							files: value.imageFiles,
-							target: {
-								resource: "products",
-								entityId: storeId,
-								assetRole: "gallery",
-							},
+							assetRole: "gallery",
 						});
 						imageUrls = res.files.map((file) => file.url);
 					} catch (error) {

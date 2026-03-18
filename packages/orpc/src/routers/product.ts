@@ -6,6 +6,7 @@ import {
 	getProductInputSchema,
 	getProductsByIdsInputSchema,
 	listProductsInputSchema,
+	productUploadImagesInputSchema,
 	togglePublishProductInputSchema,
 	updateProductInputSchema,
 } from "@dukkani/common/schemas/product/input";
@@ -20,13 +21,16 @@ import {
 	productPublicOutputSchema,
 	productsPublicOutputSchema,
 } from "@dukkani/common/schemas/product/output";
+import type { UploadFilesOutput } from "@dukkani/common/schemas/storage/output";
+import { uploadFilesOutputSchema } from "@dukkani/common/schemas/storage/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { ProductService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ORPCError } from "@orpc/server";
-import { baseProcedure, protectedProcedure } from "../procedures";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
+import { baseProcedure, protectedProcedure } from "../procedures";
+import { executeUploadFiles } from "../utils/storage-upload";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
 export const productRouter = {
@@ -603,5 +607,32 @@ export const productRouter = {
 			}
 
 			return products.map((product) => ProductEntity.getPublicRo(product));
+		}),
+
+	/**
+	 * Upload product images (gallery or main)
+	 * Validates store ownership and builds storage target internally
+	 */
+	uploadImages: protectedProcedure
+		.input(productUploadImagesInputSchema)
+		.output(uploadFilesOutputSchema)
+		.handler(async ({ input, context }): Promise<UploadFilesOutput> => {
+			const userId = context.session.user.id;
+			await verifyStoreOwnership(userId, input.storeId);
+
+			const target = {
+				resource: "products" as const,
+				entityId: input.storeId,
+				assetRole: input.assetRole,
+			};
+
+			try {
+				return await executeUploadFiles(input.files, target);
+			} catch (error) {
+				throw new ORPCError("INTERNAL_SERVER_ERROR", {
+					message:
+						error instanceof Error ? error.message : "Failed to upload images",
+				});
+			}
 		}),
 };

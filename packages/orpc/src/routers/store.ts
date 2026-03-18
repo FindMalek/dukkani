@@ -1,10 +1,12 @@
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
+import { uploadFileOutputSchema } from "@dukkani/common/schemas/storage/output";
 import {
 	configureStoreOnboardingInputSchema,
 	createStoreOnboardingInputSchema,
 	getStoreBySlugPublicInputSchema,
 	getStoreInputSchema,
 	listStoresInputSchema,
+	storeUploadImageInputSchema,
 	subscribeToLaunchInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import {
@@ -20,12 +22,14 @@ import {
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
+import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import {
 	baseProcedure,
 	protectedProcedure,
 	publicProcedure,
 } from "../procedures";
-import { rateLimitPublicSafe } from "../middleware/rate-limit";
+import { executeUploadFile } from "../utils/storage-upload";
+import { verifyStoreOwnership } from "../utils/store-access";
 
 export const storeRouter = {
 	/**
@@ -150,5 +154,32 @@ export const storeRouter = {
 		.output(launchNotificationOutputSchema)
 		.handler(async ({ input }) => {
 			return await LaunchNotificationService.subscribe(input);
+		}),
+
+	/**
+	 * Upload store logo or banner image
+	 * Validates store ownership and builds storage target internally
+	 */
+	uploadImage: protectedProcedure
+		.input(storeUploadImageInputSchema)
+		.output(uploadFileOutputSchema)
+		.handler(async ({ input, context }) => {
+			const userId = context.session.user.id;
+			await verifyStoreOwnership(userId, input.storeId);
+
+			const target = {
+				resource: "stores" as const,
+				entityId: input.storeId,
+				assetRole: input.assetRole,
+			};
+
+			try {
+				return await executeUploadFile(input.file, target);
+			} catch (error) {
+				throw new ORPCError("INTERNAL_SERVER_ERROR", {
+					message:
+						error instanceof Error ? error.message : "Failed to upload image",
+				});
+			}
 		}),
 };

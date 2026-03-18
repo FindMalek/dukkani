@@ -1,19 +1,12 @@
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
-import { BaseMigration } from "../base-migration";
 import type { MigrationResult } from "../../types";
+import { BaseMigration } from "../base-migration";
 
 /**
  * Database migration configuration for example-migration
  */
-interface ExampleMigrationMigrationConfig {
-	// TODO: Add your database migration configuration options
-	// Examples:
-	// - Table definitions
-	// - Data transformation rules
-	// - Validation constraints
-	// - Rollback strategies
-}
+type ExampleMigrationMigrationConfig = {};
 
 /**
  * example-migration migration

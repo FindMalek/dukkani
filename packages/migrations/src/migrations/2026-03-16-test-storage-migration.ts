@@ -1,8 +1,8 @@
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
 import { StorageService } from "@dukkani/storage";
-import { StorageMigration } from "../storage-migration";
 import type { StorageFileMapping, UploadBatchResult } from "../../types";
+import { StorageMigration } from "../storage-migration";
 
 /**
  * test-storage-migration migration
