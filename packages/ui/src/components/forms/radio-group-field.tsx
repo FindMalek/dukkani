@@ -19,11 +19,10 @@ type CardItemOption = BaseItemOption & {
 	icon?: React.ReactNode;
 };
 
-type RadioGroupFieldProps = CommonFieldProps &
-	{
-		as?: "cards";
-		options: CardItemOption[];
-	};
+type RadioGroupFieldProps = CommonFieldProps & {
+	as?: "cards";
+	options: CardItemOption[];
+};
 export function RadioGroupField({
 	label,
 	description,

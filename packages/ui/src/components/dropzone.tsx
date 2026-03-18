@@ -191,7 +191,12 @@ function DropzoneThumbs({
 			{...props}
 		>
 			{children ??
-				files.map((fileWithPreview) => <DropzoneThumb key={fileWithPreview.file.name} fileWithPreview={fileWithPreview} />)}
+				files.map((fileWithPreview) => (
+					<DropzoneThumb
+						key={fileWithPreview.file.name}
+						fileWithPreview={fileWithPreview}
+					/>
+				))}
 		</div>
 	);
 }

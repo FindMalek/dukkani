@@ -250,8 +250,7 @@ function FieldErrors({
 	const uniqueErrors = [
 		...new Map(errors.map((e) => [e?.message, e])).values(),
 	].filter(
-		(e): e is StandardSchemaV1Issue =>
-			!!e?.message && e.message.length > 0,
+		(e): e is StandardSchemaV1Issue => !!e?.message && e.message.length > 0,
 	);
 
 	if (uniqueErrors.length === 0) {

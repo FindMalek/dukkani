@@ -107,7 +107,7 @@ export function OnboardingCompletion({ storeId }: { storeId: string }) {
 			)}
 
 			<div className="flex flex-col items-center gap-4">
-				<Button asChild className="w-full"	>
+				<Button asChild className="w-full">
 					<Link href={RoutePaths.PRODUCTS.NEW.url}>
 						<Icons.plus className="h-5 w-5" />
 						{t("actions.addProduct")}

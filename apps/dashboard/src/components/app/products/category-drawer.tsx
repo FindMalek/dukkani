@@ -28,8 +28,11 @@ interface CategoryDrawerProps {
 	onOpenChange: (open: boolean) => void;
 }
 
-export function CategoryDrawer({ onCategoryCreated, open, onOpenChange }: CategoryDrawerProps) {
-
+export function CategoryDrawer({
+	onCategoryCreated,
+	open,
+	onOpenChange,
+}: CategoryDrawerProps) {
 	const t = useTranslations("products.create");
 	const { selectedStoreId } = useActiveStoreStore();
 	const createCategoryMutation = useCreateCategoryMutation();

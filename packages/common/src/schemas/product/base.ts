@@ -16,32 +16,39 @@ export const productSchema = z.strictObject({
 		.trim()
 		.transform((val) => (val === "" ? undefined : val)),
 	hasVariants: z.boolean(),
-	variantOptions: z.array(
-		z.object({
-			name: z.string().trim().nonempty("Variant option name is required"),
-			values: z
-				.array(
-					z.object({
-						value: z.string().trim().nonempty("Variant value is required"),
-					}),
-				)
-				.refine(
-					(values) => {
-						return new Set(values.map((v) => v.value.toLowerCase())).size === values.length;
-					},
-					{
-						message: "Duplicate variant values are not allowed",
-					},
-				)
-				.nonempty("At least one variant value is required"),
-		}),
-	)
-	.refine(
-		(options) => {
-			return new Set(options.map((o) => o.name.toLowerCase())).size === options.length;
-		},
-		{
-			message: "Duplicate variant options are not allowed",
-		},
-	),
+	variantOptions: z
+		.array(
+			z.object({
+				name: z.string().trim().nonempty("Variant option name is required"),
+				values: z
+					.array(
+						z.object({
+							value: z.string().trim().nonempty("Variant value is required"),
+						}),
+					)
+					.refine(
+						(values) => {
+							return (
+								new Set(values.map((v) => v.value.toLowerCase())).size ===
+								values.length
+							);
+						},
+						{
+							message: "Duplicate variant values are not allowed",
+						},
+					)
+					.nonempty("At least one variant value is required"),
+			}),
+		)
+		.refine(
+			(options) => {
+				return (
+					new Set(options.map((o) => o.name.toLowerCase())).size ===
+					options.length
+				);
+			},
+			{
+				message: "Duplicate variant options are not allowed",
+			},
+		),
 });
