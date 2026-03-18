@@ -1,8 +1,7 @@
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
-import { StorageService } from "@dukkani/storage";
-import { StorageMigration } from "../storage-migration";
-import type { StorageFileMapping, UploadBatchResult } from "../../types";
+import { StorageMigration } from "../templates/storage-migration";
+import type { StorageFileMapping, UploadBatchResult } from "../types";
 
 /**
  * ${DESCRIPTION}
@@ -124,8 +123,9 @@ export class ${CLASS_NAME} extends StorageMigration {
 				uploaded.push(mapping);
 
 			} catch (error) {
-				logger.error(`Failed to upload ${mapping.sourcePath}:`, error);
-				failed.push({ mapping, error: error as Error });
+				const err = error instanceof Error ? error : new Error(String(error));
+				failed.push({ mapping, error: err });
+				logger.error(`Failed to upload ${mapping.sourcePath}:`, err.message);
 			}
 		}
 
@@ -169,9 +169,10 @@ export class ${CLASS_NAME} extends StorageMigration {
 		// TODO: Implement your table grouping logic
 		// Group file mappings by the database tables they need to update
 		return {
-			storage_files: mappings.filter(m => m.target.resource === "storage"),
-			images: mappings.filter(m => m.target.resource === "images"),
-			// Add more tables as needed
+			storage_files: mappings.filter(m => m.fileId),
+			avatars: mappings.filter(m => m.target.resource === "avatars"),
+			stores: mappings.filter(m => m.target.resource === "stores"),
+			products: mappings.filter(m => m.target.resource === "products"),
 		};
 	}
 
@@ -206,8 +207,9 @@ export class ${CLASS_NAME} extends StorageMigration {
 				// Add more table-specific logic as needed
 
 			} catch (error) {
-				logger.error(`Failed to update ${table} for ${mapping.sourcePath}:`, error);
-				throw error;
+				const err = error instanceof Error ? error : new Error(String(error));
+				logger.error(`Failed to update ${table} for ${mapping.sourcePath}:`, err.message);
+				throw err;
 			}
 		}
 	}
@@ -242,7 +244,8 @@ export class ${CLASS_NAME} extends StorageMigration {
 					logger.info(`Would clean up: ${mapping.sourcePath}`);
 				}
 			} catch (error) {
-				logger.error(`Failed to cleanup ${mapping.sourcePath}:`, error);
+				const err = error instanceof Error ? error : new Error(String(error));
+				logger.error(`Failed to cleanup ${mapping.sourcePath}:`, err.message);
 				// Continue with other files even if cleanup fails
 			}
 		}

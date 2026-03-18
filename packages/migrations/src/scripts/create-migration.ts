@@ -62,10 +62,25 @@ class MigrationTemplateGenerator {
 	}
 
 	/**
+	 * Get current timestamp (YYYYMMDDHHmmss) for migration naming
+	 */
+	getTimestamp(): string {
+		const now = new Date();
+		return [
+			now.getFullYear(),
+			String(now.getMonth() + 1).padStart(2, "0"),
+			String(now.getDate()).padStart(2, "0"),
+			String(now.getHours()).padStart(2, "0"),
+			String(now.getMinutes()).padStart(2, "0"),
+			String(now.getSeconds()).padStart(2, "0"),
+		].join("");
+	}
+
+	/**
 	 * Format file name with timestamp
 	 */
 	formatFileName(name: string): string {
-		const timestamp = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+		const timestamp = this.getTimestamp();
 		const formattedName = name.toLowerCase().replace(/[^a-z0-9-]/g, "-");
 		return `${timestamp}-${formattedName}.ts`;
 	}
@@ -217,11 +232,12 @@ class MigrationTemplateGenerator {
 		}
 
 		// Prepare template data
+		const timestamp = this.getTimestamp();
 		const templateData: MigrationTemplateData = {
 			name: migrationName,
 			className: this.formatClassName(migrationName),
 			description: description,
-			timestamp: new Date().toISOString().split("T")[0],
+			timestamp,
 			author: author,
 		};
 
@@ -274,7 +290,7 @@ async function main(): Promise<void> {
 				const generator = new MigrationTemplateGenerator();
 				await generator.generateMigration(options);
 			} catch (error) {
-				logger.error("Failed to create migration:", error);
+				logger.error({ error }, "Failed to create migration");
 				process.exit(1);
 			}
 		});

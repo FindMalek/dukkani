@@ -850,12 +850,18 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.47.10
         version: 2.99.0
+      '@t3-oss/env-core':
+        specifier: 'catalog:'
+        version: 0.13.10(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))(zod@4.1.12)
       cli-progress:
         specifier: ^3.12.0
         version: 3.12.0
       commander:
         specifier: ^12.0.0
         version: 12.1.0
+      dotenv:
+        specifier: 'catalog:'
+        version: 17.2.3
       inquirer:
         specifier: ^9.0.0
         version: 9.3.8(@types/node@25.0.6)

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import "./env-loader";
 import { logger } from "@dukkani/logger";
 import { Command } from "commander";
 import { CreateCommands } from "./commands/create";

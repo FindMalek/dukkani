@@ -50,6 +50,8 @@
 		"@dukkani/common": "workspace:*",
 		"@dukkani/logger": "workspace:*",
 		"@dukkani/tracing": "workspace:*",
+		"@t3-oss/env-core": "catalog:",
+		"dotenv": "catalog:",
 		"@supabase/supabase-js": "^2.47.10",
 		"commander": "^12.0.0",
 		"cli-progress": "^3.12.0",
