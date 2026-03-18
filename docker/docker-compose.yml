@@ -5,6 +5,8 @@ services:
     image: postgres:15-alpine
     container_name: dukkani-postgres
     restart: unless-stopped
+    networks:
+      - dukkani-net
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -24,6 +26,8 @@ services:
     image: minio/minio:latest
     container_name: dukkani-minio
     restart: unless-stopped
+    networks:
+      - dukkani-net
     command: server /data --console-address ":9001"
     environment:
       MINIO_ROOT_USER: minioadmin
@@ -45,13 +49,21 @@ services:
     depends_on:
       minio:
         condition: service_healthy
+    networks:
+      - dukkani-net
     entrypoint: >
       /bin/sh -c "
+      sleep 2;
       /usr/bin/mc alias set local http://minio:9000 minioadmin minioadmin;
       /usr/bin/mc mb local/dukkani --ignore-existing;
       /usr/bin/mc anonymous set download local/dukkani;
+      /usr/bin/mc anonymous get local/dukkani;
       exit 0;
       "
+
+networks:
+  dukkani-net:
+    driver: bridge
 
 volumes:
   postgres_data:
