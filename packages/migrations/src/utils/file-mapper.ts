@@ -1,10 +1,11 @@
 import type {
 	StorageUploadAssetRole,
 	StorageUploadResource,
+	StorageUploadTarget,
 } from "@dukkani/common/schemas/storage/input";
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
-import type { StorageFileMapping, StorageUploadTarget } from "../types";
+import type { StorageFileMapping } from "../types";
 
 /**
  * Utility for mapping source files to target storage structure
@@ -121,7 +122,7 @@ export class FileMapper {
 				) {
 					return {
 						resource,
-						entityId,
+						entityId: entityId || "",
 						assetRole,
 						assetId: parts[3] || undefined,
 					};
