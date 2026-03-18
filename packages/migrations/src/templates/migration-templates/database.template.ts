@@ -1,20 +1,11 @@
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
-import { BaseMigration } from "../base-migration";
-import type { MigrationResult } from "../../types";
+import { BaseMigration } from "../templates/base-migration";
+import type { MigrationResult } from "../types";
 
 /**
  * Database migration configuration for ${MIGRATION_NAME}
  */
-interface ${CLASS_NAME}Config {
-	// TODO: Add your database migration configuration options
-	// Examples:
-	// - Table definitions
-	// - Data transformation rules
-	// - Validation constraints
-	// - Rollback strategies
-}
-
 /**
  * ${DESCRIPTION}
  */
@@ -59,9 +50,9 @@ export class ${CLASS_NAME} extends BaseMigration {
 			logger.info("Database connection validated");
 
 			// TODO: Add more validation logic here
-
 		} catch (error) {
-			throw new Error(`Database validation failed: ${error}`);
+			const err = error instanceof Error ? error : new Error(String(error));
+			throw err;
 		}
 
 		logger.info("Prerequisites validation completed");
@@ -100,22 +91,22 @@ export class ${CLASS_NAME} extends BaseMigration {
 				duration,
 				timestamp: new Date(),
 			};
-
 		} catch (error) {
 			const duration = Date.now() - startTime;
+			const err = error instanceof Error ? error : new Error(String(error));
 			this.progress.errors.push({
 				timestamp: new Date(),
-				message: `Migration failed: ${error}`,
-				stack: error instanceof Error ? error.stack : undefined,
+				message: `Migration failed: ${err.message}`,
+				stack: err.stack,
 			});
 
-			logger.error("Database migration failed:", error);
+			logger.error("Database migration failed:", err.message);
 
 			return {
 				name: this.getName(),
 				version: this.getVersion(),
 				success: false,
-				message: `Migration failed: ${error}`,
+				message: `Migration failed: ${err.message}`,
 				progress: this.progress,
 				duration,
 				timestamp: new Date(),
@@ -255,13 +246,15 @@ export class ${CLASS_NAME} extends BaseMigration {
 		`;
 		*/
 
-		logger.info("Creating database indexes (template - implement actual logic)");
+		logger.info(
+			"Creating database indexes (template - implement actual logic)",
+		);
 	}
 
 	/**
 	 * Transform data during migration
 	 */
-	private transformData(oldData: any): any {
+	protected transformData(oldData: unknown): unknown {
 		// TODO: Implement your data transformation logic
 		// Examples:
 		// - Format dates
@@ -275,7 +268,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Validate migration results
 	 */
-	private async validateMigration(): Promise<void> {
+	protected async validateMigration(): Promise<void> {
 		// TODO: Implement your validation logic
 		// Examples:
 		// - Check row counts
@@ -298,6 +291,20 @@ export class ${CLASS_NAME} extends BaseMigration {
 
 		logger.info(`Validation passed: ${newTableCount} records migrated`);
 		*/
+	}
+
+	/**
+	 * Validate migration results (required by BaseMigration)
+	 */
+	async validate(): Promise<void> {
+		await this.validateMigration();
+	}
+
+	/**
+	 * Cleanup temporary resources (required by BaseMigration)
+	 */
+	async cleanup(): Promise<void> {
+		logger.info("Cleaning up database migration resources");
 	}
 
 	/**
@@ -329,16 +336,16 @@ export class ${CLASS_NAME} extends BaseMigration {
 				duration,
 				timestamp: new Date(),
 			};
-
 		} catch (error) {
 			const duration = Date.now() - startTime;
-			logger.error("Database rollback failed:", error);
+			const err = error instanceof Error ? error : new Error(String(error));
+			logger.error("Database rollback failed:", err.message);
 
 			return {
 				name: this.getName(),
 				version: this.getVersion(),
 				success: false,
-				message: `Rollback failed: ${error}`,
+				message: `Rollback failed: ${err.message}`,
 				progress: this.progress,
 				duration,
 				timestamp: new Date(),
@@ -376,13 +383,15 @@ export class ${CLASS_NAME} extends BaseMigration {
 		`;
 		*/
 
-		logger.info("Performing database rollback (template - implement actual logic)");
+		logger.info(
+			"Performing database rollback (template - implement actual logic)",
+		);
 	}
 
 	/**
 	 * Get expected record count for validation
 	 */
-	private async getExpectedRecordCount(): Promise<number> {
+	protected async getExpectedRecordCount(): Promise<number> {
 		// TODO: Implement your count logic
 		return 0; // Placeholder
 	}

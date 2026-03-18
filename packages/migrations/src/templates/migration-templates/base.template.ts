@@ -1,19 +1,10 @@
 import { logger } from "@dukkani/logger";
-import { BaseMigration } from "../base-migration";
-import type { MigrationResult } from "../../types";
+import { BaseMigration } from "../templates/base-migration";
+import type { MigrationResult } from "../types";
 
 /**
  * Custom migration configuration for ${MIGRATION_NAME}
  */
-interface ${CLASS_NAME}Config {
-	// TODO: Add your custom migration configuration options
-	// Examples:
-	// - External service settings
-	// - File processing options
-	// - Validation rules
-	// - Retry policies
-}
-
 /**
  * ${DESCRIPTION}
  */
@@ -60,9 +51,9 @@ export class ${CLASS_NAME} extends BaseMigration {
 			// TODO: Add your specific validation logic here
 
 			logger.info("Custom validation completed successfully");
-
 		} catch (error) {
-			throw new Error(`Custom validation failed: ${error}`);
+			const err = error instanceof Error ? error : new Error(String(error));
+			throw err;
 		}
 	}
 
@@ -99,22 +90,22 @@ export class ${CLASS_NAME} extends BaseMigration {
 				duration,
 				timestamp: new Date(),
 			};
-
 		} catch (error) {
 			const duration = Date.now() - startTime;
+			const err = error instanceof Error ? error : new Error(String(error));
 			this.progress.errors.push({
 				timestamp: new Date(),
-				message: `Custom migration failed: ${error}`,
-				stack: error instanceof Error ? error.stack : undefined,
+				message: `Custom migration failed: ${err.message}`,
+				stack: err.stack,
 			});
 
-			logger.error("Custom migration failed:", error);
+			logger.error("Custom migration failed:", err.message);
 
 			return {
 				name: this.getName(),
 				version: this.getVersion(),
 				success: false,
-				message: `Migration failed: ${error}`,
+				message: `Migration failed: ${err.message}`,
 				progress: this.progress,
 				duration,
 				timestamp: new Date(),
@@ -192,7 +183,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 				const response = await fetch(service.endpoint, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ /* your data */ }),
+					body: JSON.stringify({ data: "your-data" }),
 				});
 
 				if (!response.ok) {
@@ -207,7 +198,9 @@ export class ${CLASS_NAME} extends BaseMigration {
 		}
 		*/
 
-		logger.info("Calling external services (template - implement actual logic)");
+		logger.info(
+			"Calling external services (template - implement actual logic)",
+		);
 	}
 
 	/**
@@ -264,7 +257,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Get files to process
 	 */
-	private async getFilesToProcess(): Promise<string[]> {
+	protected async getFilesToProcess(): Promise<string[]> {
 		// TODO: Implement your file discovery logic
 		return []; // Placeholder
 	}
@@ -272,7 +265,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Process a single file
 	 */
-	private async processSingleFile(filePath: string): Promise<void> {
+	protected async processSingleFile(filePath: string): Promise<void> {
 		// TODO: Implement your file processing logic
 		logger.info(`Processing file: ${filePath}`);
 	}
@@ -280,7 +273,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Get source data for transformation
 	 */
-	private async getSourceData(): Promise<any[]> {
+	protected async getSourceData(): Promise<unknown[]> {
 		// TODO: Implement your data retrieval logic
 		return []; // Placeholder
 	}
@@ -288,7 +281,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Transform a single data item
 	 */
-	private transformItem(item: any): any {
+	protected transformItem(item: unknown): unknown {
 		// TODO: Implement your data transformation logic
 		return item; // Placeholder
 	}
@@ -296,7 +289,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Save transformed data
 	 */
-	private async saveTransformedData(data: any): Promise<void> {
+	protected async saveTransformedData(_data: unknown): Promise<void> {
 		// TODO: Implement your data saving logic
 		logger.info("Saving transformed data");
 	}
@@ -304,7 +297,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Update cache
 	 */
-	private async updateCache(): Promise<void> {
+	protected async updateCache(): Promise<void> {
 		// TODO: Implement your cache update logic
 		logger.info("Updating cache");
 	}
@@ -312,7 +305,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Invalidate CDN
 	 */
-	private async invalidateCDN(): Promise<void> {
+	protected async invalidateCDN(): Promise<void> {
 		// TODO: Implement your CDN invalidation logic
 		logger.info("Invalidating CDN");
 	}
@@ -320,7 +313,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Send notifications
 	 */
-	private async sendNotifications(): Promise<void> {
+	protected async sendNotifications(): Promise<void> {
 		// TODO: Implement your notification logic
 		logger.info("Sending notifications");
 	}
@@ -328,7 +321,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Update monitoring
 	 */
-	private async updateMonitoring(): Promise<void> {
+	protected async updateMonitoring(): Promise<void> {
 		// TODO: Implement your monitoring update logic
 		logger.info("Updating monitoring");
 	}
@@ -336,7 +329,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Validate migration results
 	 */
-	private async validateMigration(): Promise<void> {
+	protected async validateMigration(): Promise<void> {
 		// TODO: Implement your validation logic
 		// Examples:
 		// - Check file processing results
@@ -357,6 +350,20 @@ export class ${CLASS_NAME} extends BaseMigration {
 
 		logger.info(`Validation passed: ${this.progress.processed}/${this.progress.total} items processed`);
 		*/
+	}
+
+	/**
+	 * Validate migration results (required by BaseMigration)
+	 */
+	async validate(): Promise<void> {
+		await this.validateMigration();
+	}
+
+	/**
+	 * Cleanup temporary resources (required by BaseMigration)
+	 */
+	async cleanup(): Promise<void> {
+		logger.info("Cleaning up custom migration resources");
 	}
 
 	/**
@@ -388,16 +395,16 @@ export class ${CLASS_NAME} extends BaseMigration {
 				duration,
 				timestamp: new Date(),
 			};
-
 		} catch (error) {
 			const duration = Date.now() - startTime;
-			logger.error("Custom rollback failed:", error);
+			const err = error instanceof Error ? error : new Error(String(error));
+			logger.error("Custom rollback failed:", err.message);
 
 			return {
 				name: this.getName(),
 				version: this.getVersion(),
 				success: false,
-				message: `Rollback failed: ${error}`,
+				message: `Rollback failed: ${err.message}`,
 				progress: this.progress,
 				duration,
 				timestamp: new Date(),
@@ -425,13 +432,15 @@ export class ${CLASS_NAME} extends BaseMigration {
 		await this.resetSystemState();
 		*/
 
-		logger.info("Performing custom rollback (template - implement actual logic)");
+		logger.info(
+			"Performing custom rollback (template - implement actual logic)",
+		);
 	}
 
 	/**
 	 * Reverse file operations
 	 */
-	private async reverseFileOperations(): Promise<void> {
+	protected async reverseFileOperations(): Promise<void> {
 		// TODO: Implement your file reversal logic
 		logger.info("Reversing file operations");
 	}
@@ -439,7 +448,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Call rollback endpoints
 	 */
-	private async callRollbackEndpoints(): Promise<void> {
+	protected async callRollbackEndpoints(): Promise<void> {
 		// TODO: Implement your endpoint rollback logic
 		logger.info("Calling rollback endpoints");
 	}
@@ -447,7 +456,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Restore original data
 	 */
-	private async restoreOriginalData(): Promise<void> {
+	protected async restoreOriginalData(): Promise<void> {
 		// TODO: Implement your data restoration logic
 		logger.info("Restoring original data");
 	}
@@ -455,7 +464,7 @@ export class ${CLASS_NAME} extends BaseMigration {
 	/**
 	 * Reset system state
 	 */
-	private async resetSystemState(): Promise<void> {
+	protected async resetSystemState(): Promise<void> {
 		// TODO: Implement your state reset logic
 		logger.info("Resetting system state");
 	}
