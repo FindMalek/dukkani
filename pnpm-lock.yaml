@@ -608,18 +608,12 @@ importers:
       '@ai-sdk/groq':
         specifier: 'catalog:'
         version: 1.2.9(zod@4.1.12)
-      '@aws-sdk/client-s3':
-        specifier: 'catalog:'
-        version: 3.1009.0
       '@dukkani/db':
         specifier: workspace:*
         version: link:../db
       '@dukkani/env':
         specifier: workspace:*
         version: link:../env
-      '@supabase/supabase-js':
-        specifier: ^2.47.10
-        version: 2.99.0
       '@zenbase/llml':
         specifier: 'catalog:'
         version: 0.4.0(typescript@5.9.3)

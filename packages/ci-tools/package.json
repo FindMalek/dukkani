@@ -4,14 +4,11 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"analyze": "tsx src/commands/analyze.ts",
-		"migrate:storage-to-r2": "tsx src/commands/migrate-storage-to-r2.ts"
+		"analyze": "tsx src/commands/analyze.ts"
 	},
 	"dependencies": {
-		"@aws-sdk/client-s3": "catalog:",
 		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*",
-		"@supabase/supabase-js": "^2.47.10",
 		"ai": "catalog:",
 		"@ai-sdk/groq": "catalog:",
 		"@zenbase/llml": "catalog:"
