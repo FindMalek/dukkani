@@ -1,6 +1,7 @@
 import {
 	DeleteObjectCommand,
 	DeleteObjectsCommand,
+	ListObjectsCommand,
 	PutObjectCommand,
 } from "@aws-sdk/client-s3";
 import type { StorageFileVariantTypeInfer } from "@dukkani/common/schemas/enums";
@@ -610,6 +611,75 @@ class StorageServiceBase {
 				"Failed to parse storage URL",
 			);
 			return null;
+		}
+	}
+
+	/**
+	 * Delete all objects in a folder by prefix
+	 */
+	static async deleteFolderByPrefix(
+		bucket: string,
+		prefix: string,
+	): Promise<void> {
+		const folderPrefix = prefix.endsWith("/") ? prefix : `${prefix}/`;
+
+		try {
+			const client = getS3Client();
+			let marker: string | undefined;
+			let totalDeleted = 0;
+			let isTruncated = true;
+
+			do {
+				const listResponse = await client.send(
+					new ListObjectsCommand({
+						Bucket: bucket,
+						Prefix: folderPrefix,
+						Marker: marker,
+					}),
+				);
+
+				const objects =
+					listResponse.Contents?.map((obj) => ({ Key: obj.Key || "" })).filter(
+						(obj) => obj.Key,
+					) || [];
+
+				if (objects.length > 0) {
+					await client.send(
+						new DeleteObjectsCommand({
+							Bucket: bucket,
+							Delete: {
+								Objects: objects,
+								Quiet: true,
+							},
+						}),
+					);
+					totalDeleted += objects.length;
+				}
+
+				isTruncated = listResponse.IsTruncated || false;
+				marker = listResponse.NextMarker;
+			} while (isTruncated && marker);
+
+			if (totalDeleted > 0) {
+				logger.info(
+					{ bucket, prefix: folderPrefix, totalDeleted },
+					"Successfully deleted folder contents",
+				);
+			}
+		} catch (error) {
+			const errorMessage =
+				error instanceof Error ? error.message : String(error);
+			logger.error(
+				{
+					bucket,
+					prefix: folderPrefix,
+					error: errorMessage,
+				},
+				"Failed to delete storage folder",
+			);
+			throw new Error(
+				`Failed to delete folder ${folderPrefix}: ${errorMessage}`,
+			);
 		}
 	}
 

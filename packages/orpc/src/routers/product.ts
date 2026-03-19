@@ -27,6 +27,9 @@ import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { ProductService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
+import { logger } from "@dukkani/logger";
+import { StorageService } from "@dukkani/storage";
+import { env } from "@dukkani/storage/env";
 import { ORPCError } from "@orpc/server";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { baseProcedure, protectedProcedure } from "../procedures";
@@ -422,10 +425,15 @@ export const productRouter = {
 		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
 			const userId = context.session.user.id;
 
-			// Get product to verify ownership
+			// Get product to verify ownership and collect existing images for cleanup
 			const existingProduct = await database.product.findUnique({
 				where: { id: input.id },
-				select: { storeId: true },
+				select: {
+					storeId: true,
+					images: {
+						select: { url: true },
+					},
+				},
 			});
 
 			if (!existingProduct) {
@@ -455,7 +463,45 @@ export const productRouter = {
 
 			// Handle image updates
 			if (input.imageUrls !== undefined) {
-				// Delete existing images
+				// Delete existing image folders from storage if any exist
+				if (existingProduct.images.length > 0) {
+					try {
+						// Extract unique folder prefixes from all images
+						const folderPrefixes = new Set<string>();
+						for (const image of existingProduct.images) {
+							if (image?.url) {
+								const imageKey = await StorageService.getKeyFromPublicUrl(
+									image.url,
+									env.S3_PUBLIC_BASE_URL,
+								);
+
+								if (imageKey) {
+									// Extract folder prefix by removing filename (last segment after last '/')
+									const lastSlashIndex = imageKey.lastIndexOf("/");
+									if (lastSlashIndex > 0) {
+										const folderPrefix = imageKey.substring(0, lastSlashIndex);
+										folderPrefixes.add(folderPrefix);
+									}
+								}
+							}
+						}
+
+						// Delete each unique folder
+						for (const folderPrefix of folderPrefixes) {
+							await StorageService.deleteFolderByPrefix(
+								env.S3_BUCKET,
+								folderPrefix,
+							);
+						}
+					} catch (storageError) {
+						logger.error(
+							{ error: storageError, productId: input.id },
+							"Failed to delete old product image folders from storage",
+						);
+					}
+				}
+
+				// Delete existing images from database
 				await database.image.deleteMany({
 					where: { productId: input.id },
 				});
@@ -489,10 +535,15 @@ export const productRouter = {
 		.handler(async ({ input, context }) => {
 			const userId = context.session.user.id;
 
-			// Get product to verify ownership
+			// Get product with images to verify ownership and collect file URLs
 			const product = await database.product.findUnique({
 				where: { id: input.id },
-				select: { storeId: true },
+				select: {
+					storeId: true,
+					images: {
+						select: { url: true },
+					},
+				},
 			});
 
 			if (!product) {
@@ -504,7 +555,45 @@ export const productRouter = {
 			// Verify ownership
 			await verifyStoreOwnership(userId, product.storeId);
 
-			// Delete product (images will be cascade deleted)
+			// Delete images from storage if any exist (both legacy and new systems)
+			if (product.images.length > 0) {
+				try {
+					// Extract unique folder prefixes from all images
+					const folderPrefixes = new Set<string>();
+					for (const image of product.images) {
+						if (image?.url) {
+							const imageKey = await StorageService.getKeyFromPublicUrl(
+								image.url,
+								env.S3_PUBLIC_BASE_URL,
+							);
+
+							if (imageKey) {
+								// Extract folder prefix by removing filename (last segment after last '/')
+								const lastSlashIndex = imageKey.lastIndexOf("/");
+								if (lastSlashIndex > 0) {
+									const folderPrefix = imageKey.substring(0, lastSlashIndex);
+									folderPrefixes.add(folderPrefix);
+								}
+							}
+						}
+					}
+
+					// Delete each unique folder
+					for (const folderPrefix of folderPrefixes) {
+						await StorageService.deleteFolderByPrefix(
+							env.S3_BUCKET,
+							folderPrefix,
+						);
+					}
+				} catch (storageError) {
+					logger.error(
+						{ error: storageError, productId: input.id },
+						"Failed to delete product image folders from storage",
+					);
+				}
+			}
+
+			// Delete product (images will be cascade deleted from database)
 			await database.product.delete({
 				where: { id: input.id },
 			});
