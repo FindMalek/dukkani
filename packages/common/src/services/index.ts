@@ -5,6 +5,7 @@ export { CustomerService } from "./customer.service";
 export { DashboardService } from "./dashboard.service";
 export { LaunchNotificationService } from "./launch-notification.service";
 export { NotificationService } from "./notification.service";
+export { OnboardingService } from "./onboarding.service";
 export { OrderService } from "./order.service";
 export { ProductService } from "./product.service";
 export { StorageService } from "./storage.service";

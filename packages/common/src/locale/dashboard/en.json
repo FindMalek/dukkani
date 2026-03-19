@@ -164,8 +164,17 @@
 			"submit": "Finish Setup"
 		},
 		"steps": {
+			"welcome": "Welcome",
+			"storeSetup": "Store Setup",
+			"storeSetupDescription": "Create your store",
+			"storeCreated": "Store Created",
+			"storeCreatedDescription": "Configure your store",
+			"storeConfigured": "Store Configured",
+			"storeConfiguredDescription": "Launch your store",
+			"storeLaunched": "Store Launched",
+			"storeLaunchedDescription": "Onboarding complete",
 			"signup": "Account",
-			"storeSetup": "Store",
+			"storeSetupShort": "Store",
 			"storeConfiguration": "Configure",
 			"complete": "Ready"
 		},
@@ -215,6 +224,9 @@
 				"addProduct": "Add Your First Product",
 				"goToDashboard": "Go to Dashboard"
 			}
+		},
+		"errors": {
+			"storeLoadFailed": "We couldn't load your store. Refresh the page or contact support."
 		}
 	},
 	"orders": {

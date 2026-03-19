@@ -164,8 +164,17 @@
 			"submit": "Terminer la configuration"
 		},
 		"steps": {
+			"welcome": "Bienvenue",
+			"storeSetup": "Configuration du Magasin",
+			"storeSetupDescription": "Créez votre magasin",
+			"storeCreated": "Magasin Créé",
+			"storeCreatedDescription": "Configurez votre magasin",
+			"storeConfigured": "Magasin Configuré",
+			"storeConfiguredDescription": "Lancez votre magasin",
+			"storeLaunched": "Magasin Lancé",
+			"storeLaunchedDescription": "Intégration terminée",
 			"signup": "Compte",
-			"storeSetup": "Magasin",
+			"storeSetupShort": "Magasin",
 			"storeConfiguration": "Configurer",
 			"complete": "Prêt"
 		},
@@ -195,8 +204,8 @@
 			"privacy": "Politique de confidentialité"
 		},
 		"complete": {
-			"title": "Tout est prêt !",
-			"subtitle": "Votre magasin est prêt à commencer à recevoir des commandes.",
+			"title": "Vous êtes prêt !",
+			"subtitle": "Votre magasin est prêt à recevoir des commandes.",
 			"storeLink": {
 				"label": "Lien de votre magasin",
 				"copied": "Lien copié dans le presse-papiers !"
@@ -211,6 +220,9 @@
 			"actions": {
 				"addProduct": "Ajouter votre premier produit",
 				"goToDashboard": "Aller au tableau de bord"
+			},
+			"errors": {
+				"storeLoadFailed": "Nous n'avons pas pu charger votre magasin. Actualisez la page ou contactez le support."
 			}
 		}
 	},

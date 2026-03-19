@@ -164,10 +164,19 @@
 			"submit": "Finish Setup"
 		},
 		"steps": {
-			"signup": "Account",
-			"storeSetup": "Store",
-			"storeConfiguration": "Configure",
-			"complete": "Ready"
+			"welcome": "مرحباً",
+			"storeSetup": "إعداد المتجر",
+			"storeSetupDescription": "إنشاء متجرك",
+			"storeCreated": "تم إنشاء المتجر",
+			"storeCreatedDescription": "تكوين متجرك",
+			"storeConfigured": "تم تكوين المتجر",
+			"storeConfiguredDescription": "إطلاق متجرك",
+			"storeLaunched": "تم إطلاق المتجر",
+			"storeLaunchedDescription": "اكتمل الإعداد",
+			"signup": "حساب",
+			"storeSetupShort": "المتجر",
+			"storeConfiguration": "تكوين",
+			"complete": "جاهز"
 		},
 		"signup": {
 			"title": "Create your account",
@@ -212,6 +221,9 @@
 				"addProduct": "Add Your First Product",
 				"goToDashboard": "Go to Dashboard"
 			}
+		},
+		"errors": {
+			"storeLoadFailed": "لم نتمكن من تحميل متجرك. قم بتحديث الصفحة أو تواصل مع الدعم."
 		}
 	},
 	"orders": {
