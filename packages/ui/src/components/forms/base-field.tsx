@@ -123,12 +123,6 @@ export function BaseFieldWithoutDescription({
 			</>
 		) : (
 			<>
-<<<<<<< HEAD
-				<div className="flex items-center gap-2">
-					{children}
-					{rightToField}
-				</div>
-=======
 				{rightToField ? (
 					<div className="flex items-center gap-2">
 						{children}
@@ -137,7 +131,6 @@ export function BaseFieldWithoutDescription({
 				) : (
 					children
 				)}
->>>>>>> a6a5260d864f83acd7b190221bc78f27e53576ac
 				<FieldLabel
 					htmlFor={field.name}
 					className={cn(srOnlyLabel && "sr-only")}
