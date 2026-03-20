@@ -1,3 +1,4 @@
+import { StorageFileVariantType } from "../../schemas/enums";
 import type {
 	CreateStorageFileData,
 	CreateVariantData,
@@ -11,6 +12,25 @@ import type {
 } from "./query";
 
 export class StorageFileEntity {
+	/**
+	 * Convert string to valid image variant type
+	 * Uses proper schema type and switch case without type assertion
+	 */
+	static convertToImageVariant(variant: string): StorageFileVariantType {
+		switch (variant) {
+			case "THUMBNAIL":
+				return StorageFileVariantType.THUMBNAIL;
+			case "SMALL":
+				return StorageFileVariantType.SMALL;
+			case "MEDIUM":
+				return StorageFileVariantType.MEDIUM;
+			case "LARGE":
+				return StorageFileVariantType.LARGE;
+			default:
+				throw new Error(`Invalid image variant: ${variant}`);
+		}
+	}
+
 	static getSimpleRo(entity: StorageFileSimpleDbData): StorageFileSimpleOutput {
 		return {
 			id: entity.id,

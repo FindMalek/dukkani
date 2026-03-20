@@ -1,5 +1,14 @@
 import { z } from "zod";
+import { SUPPORTED_MIME_TYPES, type SupportedMimeType } from "../constants";
 import { storageFileVariantTypeSchema } from "../enums";
+
+// MIME type schema for validation
+const supportedMimeTypeSchema = z.enum(
+	Object.keys(SUPPORTED_MIME_TYPES) as [
+		SupportedMimeType,
+		...SupportedMimeType[],
+	],
+);
 
 export const imageVariantSchema = z.object({
 	variant: storageFileVariantTypeSchema,
@@ -7,7 +16,7 @@ export const imageVariantSchema = z.object({
 	width: z.number().int(),
 	height: z.number().int(),
 	fileSize: z.number().int(),
-	mimeType: z.string(),
+	mimeType: supportedMimeTypeSchema,
 });
 
 export const processedImageOriginalSchema = z.object({
@@ -15,7 +24,7 @@ export const processedImageOriginalSchema = z.object({
 	width: z.number().int(),
 	height: z.number().int(),
 	fileSize: z.number().int(),
-	mimeType: z.string(),
+	mimeType: supportedMimeTypeSchema,
 });
 
 export const processedImageSchema = z.object({

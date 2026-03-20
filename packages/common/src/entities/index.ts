@@ -6,6 +6,7 @@ export * as order from "./order";
 export * as orderItem from "./order-item";
 export * as product from "./product";
 export * as salesMetric from "./sales-metric";
+export * as storage from "./storage";
 export * as store from "./store";
 export * as storePlan from "./store-plan";
 export * as teamMember from "./team-member";

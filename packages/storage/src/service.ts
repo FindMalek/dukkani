@@ -4,12 +4,20 @@ import {
 	ListObjectsCommand,
 	PutObjectCommand,
 } from "@aws-sdk/client-s3";
+import {
+	getFileExtensionFromMimeType,
+	isImageMimeType,
+} from "@dukkani/common/schemas/constants";
 import type { StorageFileVariantTypeInfer } from "@dukkani/common/schemas/enums";
 import type { StorageUploadTarget } from "@dukkani/common/schemas/storage/input";
 import type {
 	ProcessedImage,
 	StorageFileResult,
 } from "@dukkani/common/schemas/storage/output";
+import {
+	extractFallbackExtension,
+	validateMimeType,
+} from "@dukkani/common/utils/mime-types";
 import { logger } from "@dukkani/logger";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { nanoid } from "nanoid";
@@ -184,63 +192,23 @@ class StorageServiceBase {
 	}
 
 	/**
-	 * Extract file extension from MIME type with proper validation
+	 * Extract file extension from MIME type with type-safe validation
+	 * Replaces the brittle string-based approach
 	 */
 	private static extractFileExtension(mimeType: string): string {
-		// Handle common MIME types with proper mapping
-		const mimeToExt: Record<string, string> = {
-			"image/jpeg": "jpg",
-			"image/jpg": "jpg",
-			"image/png": "png",
-			"image/webp": "webp",
-			"image/gif": "gif",
-			"image/svg+xml": "svg",
-			"image/avif": "avif",
-			"image/heic": "heic",
-			"image/heif": "heif",
-			"application/pdf": "pdf",
-			"text/plain": "txt",
-			"text/csv": "csv",
-			"application/json": "json",
-			"application/xml": "xml",
-			"application/zip": "zip",
-		};
-
-		// Check for exact MIME type match first
-		if (mimeToExt[mimeType]) {
-			return mimeToExt[mimeType];
-		}
-
-		// Handle MIME type patterns (e.g., image/*)
-		if (mimeType.includes("/")) {
-			const [type, subtype] = mimeType.split("/");
-
-			// For image types, default to appropriate format
-			if (type === "image" && subtype) {
-				// Default to webp for modern image formats
-				if (
-					subtype.includes("webp") ||
-					subtype.includes("avif") ||
-					subtype.includes("heic")
-				) {
-					return subtype.toLowerCase();
-				}
-				// Default to jpg for JPEG-like formats
-				if (subtype.includes("jpeg") || subtype.includes("jpg")) {
-					return "jpg";
-				}
-				// Default to png for other image types
-				return "png";
+		try {
+			// Validate MIME type first
+			const validatedMimeType = validateMimeType(mimeType);
+			return getFileExtensionFromMimeType(validatedMimeType);
+		} catch (error) {
+			// Fallback for development/unknown types
+			if (process.env.NODE_ENV === "development") {
+				console.warn(`MIME type validation failed: ${mimeType}`, error);
 			}
 
-			// For other types, use the subtype directly if it's reasonable
-			if (subtype && subtype.length > 0 && subtype.length <= 10) {
-				return subtype.toLowerCase();
-			}
+			// Try to extract reasonable extension for unknown types
+			return extractFallbackExtension(mimeType);
 		}
-
-		// Fallback to 'bin' for unknown types
-		return "bin";
 	}
 
 	/**
@@ -312,7 +280,7 @@ class StorageServiceBase {
 			throw new Error("Storage upload target is required");
 		}
 
-		const isImage = ImageProcessor.isImage(file.type);
+		const isImage = isImageMimeType(file.type);
 		const assetRoot = StorageService.buildAssetRoot(options.target);
 		const client = getS3Client();
 
