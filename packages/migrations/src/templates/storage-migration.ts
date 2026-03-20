@@ -231,6 +231,8 @@ export abstract class StorageMigration extends BaseMigration<StorageMigrationCon
 
 		for (let i = 0; i < batches.length; i++) {
 			const batch = batches[i];
+			if (!batch) continue;
+
 			this.logProgress(
 				`Processing batch ${i + 1}/${batches.length} (${batch.length} files)`,
 			);
@@ -283,7 +285,7 @@ export abstract class StorageMigration extends BaseMigration<StorageMigrationCon
 	protected async simulateUpload(batch: StorageFileMapping[]): Promise<void> {
 		for (const file of batch) {
 			logger.info(
-				`[DRY RUN] Would upload: ${file.sourcePath} -> ${file.target.resource}/${file.target.entityId}/${file.target.assetRole}`,
+				`[DRY RUN] Would upload: ${file.sourcePath} -> ${file.target.resource}/${file.target.entityId}/${file.target.assetId || 'unknown'}`,
 			);
 		}
 	}
