@@ -184,29 +184,32 @@
 			"storeLoadFailed": "لم نتمكن من تحميل متجرك. يرجى تحديث الصفحة أو الاتصال بالدعم."
 		},
 		"signup": {
-			"title": "Create your account",
-			"subtitle": "Join Dukkani and start selling today",
+			"title": "أنشئ حسابك",
+			"subtitle": "انضم إلى دكاني وابدأ البيع اليوم",
 			"name": {
-				"label": "What should we call you?",
-				"placeholder": "Enter your full name"
+				"label": "كيف نناديك؟",
+				"placeholder": "أدخل اسمك الكامل"
 			},
 			"email": {
-				"label": "Email address",
-				"placeholder": "your@email.com",
-				"description": "We pre-filled this from the previous step",
-				"missingWarning": "Email address was not provided. Please enter your email address to continue."
+				"label": "عنوان البريد الإلكتروني",
+				"placeholder": "بريدك@الإلكتروني.com",
+				"description": "لقد قمنا بملء هذا الحقل مسبقًا من الخطوة السابقة",
+				"missingWarning": "لم يتم توفير عنوان البريد الإلكتروني. يرجى إدخال عنوان بريدك الإلكتروني للمتابعة.",
+				"existsError": "هذا البريد الإلكتروني موجود بالفعل. يرجى استخدام بريد إلكتروني مختلف.",
+				"readonlyHint": "البريد الإلكتروني المقدم في الرابط لا يمكن تغييره",
+				"validating": "التحقق من توفر البريد الإلكتروني..."
 			},
 			"password": {
-				"label": "Choose a password",
-				"placeholder": "Minimum 8 characters"
+				"label": "اختر كلمة مرور",
+				"placeholder": "8 أحرف على الأقل"
 			},
-			"submit": "Continue to Store Setup",
-			"alreadyHaveAccount": "Already have an account?",
-			"login": "Log in",
-			"agreeText": "By continuing, you agree to our",
-			"terms": "Terms",
+			"submit": "متابعة إلى إعداد المتجر",
+			"alreadyHaveAccount": "لديك حساب بالفعل؟",
+			"login": "تسجيل الدخول",
+			"agreeText": "بالمتابعة، فإنك توافق على",
+			"terms": "الشروط",
 			"and": "&",
-			"privacy": "Privacy Policy"
+			"privacy": "سياسة الخصوصية"
 		},
 		"complete": {
 			"title": "You're all set!",

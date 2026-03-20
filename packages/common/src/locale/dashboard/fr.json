@@ -194,7 +194,10 @@
 				"label": "Adresse e-mail",
 				"placeholder": "votre@email.com",
 				"description": "Nous avons prérempli ce champ à partir de l'étape précédente",
-				"missingWarning": "L'adresse e-mail n'a pas été fournie. Veuillez entrer votre adresse e-mail pour continuer."
+				"missingWarning": "L'adresse e-mail n'a pas été fournie. Veuillez entrer votre adresse e-mail pour continuer.",
+				"existsError": "Cet e-mail existe déjà. Veuillez utiliser un e-mail différent.",
+				"readonlyHint": "L'e-mail fourni dans l'URL ne peut pas être modifié",
+				"validating": "Vérification de la disponibilité de l'e-mail..."
 			},
 			"password": {
 				"label": "Choisissez un mot de passe",
