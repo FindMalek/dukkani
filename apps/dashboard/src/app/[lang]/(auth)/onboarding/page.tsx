@@ -37,10 +37,7 @@ export default function OnboardingPage() {
 		initialStep,
 	);
 
-	// Use new onboarding controller - orchestrates everything
 	const onboarding = useOnboardingController(t, guestStep);
-
-	// Handle sign up form submission with auth client
 	const signUpForm = useAppForm({
 		...signUpOnboardingFormDefaultOptions(emailFromQuery ?? ""),
 		onSubmit: async ({ value, formApi }) => {

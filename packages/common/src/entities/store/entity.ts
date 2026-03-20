@@ -2,6 +2,7 @@ import {
 	type StoreCategory,
 	StoreNotificationMethod,
 	type StoreTheme,
+	type UserOnboardingStep,
 } from "@dukkani/db/prisma/generated/enums";
 import {
 	LIST_STORE_THEMES,
@@ -29,6 +30,27 @@ import type {
 } from "./query";
 
 export class StoreEntity {
+	/**
+	 * Type-safe mapping of UserOnboardingStep enum values to translation keys
+	 * Ensures all possible steps are covered and provides compile-time type checking
+	 */
+	static readonly ONBOARDING_STEP_KEY_MAP = {
+		STORE_SETUP: "storeSetup",
+		STORE_CREATED: "storeCreated",
+		STORE_CONFIGURED: "storeConfigured",
+		STORE_LAUNCHED: "storeLaunched",
+		null: "welcome",
+	} as const;
+
+	/**
+	 * Get translation key for onboarding step
+	 */
+	static getOnboardingStepKey(
+		step: UserOnboardingStep | null,
+	): keyof typeof StoreEntity.ONBOARDING_STEP_KEY_MAP {
+		return step as keyof typeof StoreEntity.ONBOARDING_STEP_KEY_MAP;
+	}
+
 	/**
 	 * Get safe read-only output (for public endpoints)
 	 * Excludes sensitive fields like ownerId

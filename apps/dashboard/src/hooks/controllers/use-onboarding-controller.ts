@@ -1,3 +1,4 @@
+import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import type { UserOnboardingStep } from "@dukkani/common/schemas";
 import type {
 	ConfigureStoreOnboardingInput,
@@ -169,15 +170,15 @@ export function useOnboardingController(
 				enhancedState.effectiveStep,
 			);
 
-			// Add i18n translations
+			// Use type-safe mapping from StoreEntity to get the correct translation key
 			const stepKey = enhancedState.effectiveStep
-				? enhancedState.effectiveStep.toLowerCase().replace("_", "")
-				: "welcome";
+				? StoreEntity.ONBOARDING_STEP_KEY_MAP[enhancedState.effectiveStep]
+				: StoreEntity.ONBOARDING_STEP_KEY_MAP.null;
 
 			return {
 				...baseConfig,
-				title: t(`onboarding.steps.${stepKey}`),
-				description: t(`onboarding.steps.${stepKey}Description`),
+				title: t(`steps.${stepKey}`),
+				description: t(`steps.${stepKey}Description`),
 			};
 		},
 
