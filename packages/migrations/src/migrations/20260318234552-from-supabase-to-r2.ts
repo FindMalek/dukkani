@@ -261,6 +261,66 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 	}
 
 	/**
+	 * Restore database URLs and references (rollback)
+	 */
+	protected async restoreDatabaseUrls(): Promise<void> {
+		if (this.isDryRun()) {
+			logger.info(
+				"[DRY RUN] Would restore database URLs for from-supabase-to-r2 rollback",
+			);
+			return;
+		}
+
+		logger.info("Restoring database URLs for from-supabase-to-r2 rollback");
+
+		const bucketName = this.config.source.supabaseBucket || "production";
+
+		type MappingWithOldSourceUrl = StorageFileMapping & {
+			oldSourceUrl?: string;
+		};
+
+		for (const mapping of this.discoveredFiles) {
+			const m = mapping as MappingWithOldSourceUrl;
+
+			// Current R2 URL is stored in sourceUrl after uploadBatch()
+			const currentUrl = m.sourceUrl;
+			if (!currentUrl) continue;
+
+			// Old Supabase URL is either preserved from uploadBatch (fast path), or recomputed from the Supabase URL structure.
+			const oldUrl =
+				m.oldSourceUrl ??
+				this.sourceClient.getPublicUrl(bucketName, m.sourcePath);
+			if (!oldUrl) continue;
+
+			// storage_files: the primary record is tracked by fileId.
+			if (m.fileId) {
+				await database.storageFile.update({
+					where: { id: m.fileId },
+					data: {
+						url: oldUrl,
+						originalUrl: oldUrl,
+					},
+				});
+				continue;
+			}
+
+			// storage_file_variants vs images: distinguish by Supabase object path.
+			// Match current R2 URL and revert to old Supabase URL
+			if (m.sourcePath.includes("/variants/")) {
+				await database.storageFileVariant.updateMany({
+					where: { url: currentUrl },
+					data: { url: oldUrl },
+				});
+			} else {
+				await database.image.updateMany({
+					where: { url: currentUrl },
+					data: { url: oldUrl },
+				});
+			}
+		}
+	}
+
+	/**
 	 * Cleanup source files after successful migration
 	 */
 	protected async cleanupSource(): Promise<void> {

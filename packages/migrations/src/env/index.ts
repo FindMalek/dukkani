@@ -1,6 +1,3 @@
-export type { InferType } from "zod";
+import type { z } from "zod";
+export type InferType<T> = z.infer<T>;
 export { type MigrationEnv, migrationEnv } from "./migration-env";
-
-// Generate the type from the schema
-type MigrationEnv = InferType<typeof import("./migration-env").migrationEnv>;
-export type { MigrationEnv };

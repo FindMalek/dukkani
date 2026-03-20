@@ -40,4 +40,4 @@ export const migrationEnv = createEnv({
 });
 
 // Export the inferred type
-export type MigrationEnv = ReturnType<typeof migrationEnv.parse>;
+export type MigrationEnv = typeof migrationEnv;
