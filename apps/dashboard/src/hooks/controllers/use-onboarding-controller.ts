@@ -108,7 +108,7 @@ export function useOnboardingController(
 			await queryClient.refetchQueries({
 				queryKey: queryKeys.account.current(),
 			});
-			
+
 			if (onStepChange) {
 				onStepChange(UserOnboardingStep.STORE_CREATED);
 			}
@@ -128,6 +128,10 @@ export function useOnboardingController(
 			await queryClient.refetchQueries({
 				queryKey: queryKeys.account.current(),
 			});
+
+			if (onStepChange) {
+				onStepChange(UserOnboardingStep.STORE_LAUNCHED);
+			}
 		},
 		onError: (error) => {
 			handleAPIError(error);

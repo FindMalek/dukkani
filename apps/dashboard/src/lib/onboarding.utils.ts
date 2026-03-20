@@ -103,7 +103,8 @@ export function shouldAutoSelectStore(
 	storeId: string | null,
 ): boolean {
 	const shouldAuto =
-		(onboardingStep === UserOnboardingStep.STORE_CONFIGURED ||
+		(onboardingStep === UserOnboardingStep.STORE_CREATED ||
+			onboardingStep === UserOnboardingStep.STORE_CONFIGURED ||
 			onboardingStep === UserOnboardingStep.STORE_LAUNCHED) &&
 		!storeId;
 
