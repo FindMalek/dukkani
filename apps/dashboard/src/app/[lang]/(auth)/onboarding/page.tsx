@@ -25,7 +25,7 @@ export default function OnboardingPage() {
 	const [email] = useQueryState("email", parseEmail);
 	const [step, setStep] = useQueryState("step", parseOnboardingStep);
 
-	const onboarding = useOnboardingController(t, step);
+	const onboarding = useOnboardingController(t, step, setStep);
 	const signUpForm = useAppForm({
 		...signUpOnboardingFormDefaultOptions(email ?? ""),
 		onSubmit: async ({ value, formApi }) => {

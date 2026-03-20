@@ -1,5 +1,5 @@
 import { StoreEntity } from "@dukkani/common/entities/store/entity";
-import type { UserOnboardingStep } from "@dukkani/common/schemas/enums";
+import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import type {
 	ConfigureStoreOnboardingInput,
 	CreateStoreOnboardingInput,
@@ -48,6 +48,7 @@ export type TranslationFunction = ReturnType<
 export function useOnboardingController(
 	t: TranslationFunction,
 	guestStep?: UserOnboardingStep | null,
+	onStepChange?: (step: UserOnboardingStep) => void,
 ) {
 	const queryClient = useQueryClient();
 	const { setSelectedStoreId } = useActiveStoreStore();
@@ -107,6 +108,10 @@ export function useOnboardingController(
 			await queryClient.refetchQueries({
 				queryKey: queryKeys.account.current(),
 			});
+			
+			if (onStepChange) {
+				onStepChange(UserOnboardingStep.STORE_CREATED);
+			}
 		},
 		onError: (error) => {
 			handleAPIError(error);

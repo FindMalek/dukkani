@@ -36,6 +36,8 @@ export function EmailSignIn({
 							},
 						);
 						router.push(onboardingUrl);
+					} else {
+						handleAPIError(error);
 					}
 				},
 			},
@@ -49,7 +51,12 @@ export function EmailSignIn({
 			onChangeAsyncDebounceMs: 500,
 		},
 		async onSubmit({ value }) {
-			return await handleEmailExistenceCheck(value.email);
+			try {
+				await handleEmailExistenceCheck(value.email);
+			} catch (_error) {
+				// Errors are already handled in handleEmailExistenceCheck
+				// This prevents the error from bubbling up to the form
+			}
 		},
 	});
 
