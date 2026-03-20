@@ -12,6 +12,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NextIntlClientProvider } from "next-intl";
 import { env } from "@/env";
 import { queryClient } from "@/lib/orpc";
+import NuqsProvider from "./nuqs-provider";
 
 interface ProvidersProps {
 	children: React.ReactNode;
@@ -25,27 +26,29 @@ export default function Providers({
 	messages,
 }: ProvidersProps) {
 	return (
-		<DirectionProvider direction={getTextDirection(locale)}>
-			<NextIntlClientProvider
-				locale={locale}
-				messages={messages}
-				timeZone="Africa/Tunis"
-			>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
+		<NuqsProvider>
+			<DirectionProvider direction={getTextDirection(locale)}>
+				<NextIntlClientProvider
+					locale={locale}
+					messages={messages}
+					timeZone="Africa/Tunis"
 				>
-					<QueryClientProvider client={queryClient}>
-						{children}
-						{env.NEXT_PUBLIC_NODE_ENV === "development" && (
-							<ReactQueryDevtools />
-						)}
-					</QueryClientProvider>
-					<Toaster richColors />
-				</ThemeProvider>
-			</NextIntlClientProvider>
-		</DirectionProvider>
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						<QueryClientProvider client={queryClient}>
+							{children}
+							{env.NEXT_PUBLIC_NODE_ENV === "development" && (
+								<ReactQueryDevtools />
+							)}
+						</QueryClientProvider>
+						<Toaster richColors />
+					</ThemeProvider>
+				</NextIntlClientProvider>
+			</DirectionProvider>
+		</NuqsProvider>
 	);
 }
