@@ -23,9 +23,8 @@ interface BaseFieldWithDescriptionProps
 	extends Omit<CommonFieldProps, "description">,
 		React.PropsWithChildren {
 	description: string;
-	orientation: React.ComponentProps<typeof Field>["orientation"];
-	children: React.ReactNode;
 }
+
 export function BaseFieldWithDescription({
 	children,
 	label,

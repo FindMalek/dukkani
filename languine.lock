@@ -55,7 +55,6 @@ files:
     onboarding.storeSetup.notifications.options.both.label: 130c5b3473c57faa76e2a1c54e26f88e
     onboarding.storeSetup.notifications.options.both.description: a168a30f111bc99a4d19d73f8a43bf02
     onboarding.storeSetup.submit: a0bfb8e59e6c13fc8d990781f77694fe
-    onboarding.storeSetup.success: 881e8e2b145a0db16d3266973bbe0615
     onboarding.storeConfiguration.title: 453d90f549ba2b0fb3705acd5e005728
     onboarding.storeConfiguration.subtitle: 43a998374abbd308ffc241a811fa0706
     onboarding.storeConfiguration.category.label: cfb37d623974c20c0ecb035912c1d9d1
@@ -89,7 +88,6 @@ files:
     onboarding.storeConfiguration.theme.options.classic.label: d35b51b639528d580362ca7042de6a0e
     onboarding.storeConfiguration.theme.options.classic.description: 4eac152faa912f3146080e0e88d9656a
     onboarding.storeConfiguration.submit: 223d7226693427e0983c422e4b359502
-    onboarding.storeConfiguration.success: b351e532fe963aba69516fdf8bb28205
     onboarding.steps.signup: 08bd40c7543007ad06e4fce31618f6ec
     onboarding.steps.storeSetup: fdb0c388de01d545017cdf9ccf00eb72
     onboarding.steps.storeConfiguration: f1206f9fadc5ce41694f69129aecac26
@@ -102,10 +100,12 @@ files:
     onboarding.signup.email.placeholder: 67135a14d3ac4f1369633dd006d6efec
     onboarding.signup.email.description: f9d130311c8a588156cbcb378221328f
     onboarding.signup.email.missingWarning: d521c6e229beb964e6f1f953d9382c3f
+    onboarding.signup.email.existsError: d76ace78ee529eee4c1a861c008d8012
+    onboarding.signup.email.readonlyHint: f1ee9b218e7a67105a59d0f1015fe8fe
+    onboarding.signup.email.validating: 062174ff97a5c7a7521b2a4b7eea74a2
     onboarding.signup.password.label: f1c825f275f3380b633e09ea14f06544
     onboarding.signup.password.placeholder: 26e1b111a955bc60dd79b0b6332f2432
     onboarding.signup.submit: e2ddee0e1d9e8ac7a109d8b33e062330
-    onboarding.signup.success: fc219cac122a57d6faadc38725a77ee7
     onboarding.signup.alreadyHaveAccount: 21bdc5689c12595ae14298354d5550d5
     onboarding.signup.login: bffe9a3c9a7e00ba00a11749e022d911
     onboarding.signup.agreeText: 88529250514e59f82efe79524aeee107
