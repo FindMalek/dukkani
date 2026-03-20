@@ -214,6 +214,10 @@
       "actions": {
         "addProduct": "Add Your First Product",
         "goToDashboard": "Go to Dashboard"
+      },
+      "errors": {
+        "emailAlreadyInUse": "حساب بهذا البريد الإلكتروني موجود بالفعل. يرجى استخدام بريد إلكتروني مختلف أو تسجيل الدخول.",
+        "storeLoadFailed": "لم نتمكن من تحميل متجرك. يرجى تحديث الصفحة أو الاتصال بالدعم."
       }
     }
   },

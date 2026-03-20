@@ -214,6 +214,10 @@
       "actions": {
         "addProduct": "Ajouter votre premier produit",
         "goToDashboard": "Aller au tableau de bord"
+      },
+      "errors": {
+        "emailAlreadyInUse": "Un compte avec cet e-mail existe déjà. Veuillez utiliser un autre e-mail ou vous connecter.",
+        "storeLoadFailed": "Nous n'avons pas pu charger votre magasin. Actualisez la page ou contactez le support."
       }
     }
   },
