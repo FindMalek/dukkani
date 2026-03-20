@@ -55,4 +55,8 @@ if (
 	argv.splice(firstDoubleDashIdx, 1);
 }
 
-program.parse(argv);
+// Use parseAsync to properly await async command handlers
+program.parseAsync(argv).catch((error) => {
+	logger.error(error, "CLI command failed");
+	process.exit(1);
+});
