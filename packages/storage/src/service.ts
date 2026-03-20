@@ -7,8 +7,13 @@ import {
 import {
 	getFileExtensionFromMimeType,
 	isImageMimeType,
+	isSupportedMimeType,
+	type SupportedMimeType,
 } from "@dukkani/common/schemas/constants";
-import type { StorageFileVariantTypeInfer } from "@dukkani/common/schemas/enums";
+import {
+	StorageFileVariantType,
+	type StorageFileVariantTypeInfer,
+} from "@dukkani/common/schemas/enums";
 import type { StorageUploadTarget } from "@dukkani/common/schemas/storage/input";
 import type {
 	ProcessedImage,
@@ -161,6 +166,21 @@ class StorageServiceBase {
 		]
 			.filter(Boolean)
 			.join("/");
+	}
+
+	/**
+	 * Type-safe MIME type detection from URL
+	 */
+	private static detectMimeTypeFromUrl(url: string): SupportedMimeType {
+		if (url.includes("webp")) return "image/webp";
+		if (url.includes("jpeg") || url.includes("jpg")) return "image/jpeg";
+		if (url.includes("png")) return "image/png";
+		if (url.includes("avif")) return "image/avif";
+		if (url.includes("gif")) return "image/gif";
+		if (url.includes("svg")) return "image/svg+xml";
+
+		// Default fallback to supported image type
+		return "image/jpeg";
 	}
 
 	private static buildVariantObjectKey(
@@ -381,7 +401,9 @@ class StorageServiceBase {
 		}
 
 		// Use MEDIUM variant as the "original" (primary file)
-		const mediumVariant = variants.find((v) => v.variant === "MEDIUM");
+		const mediumVariant = variants.find(
+			(v) => v.variant === StorageFileVariantType.MEDIUM,
+		);
 		const primaryVariant = mediumVariant || variants[0];
 		if (!primaryVariant) {
 			throw new Error("Failed to upload any image variants");
@@ -390,7 +412,7 @@ class StorageServiceBase {
 		const primaryPath = StorageService.buildVariantObjectKey(
 			assetRoot,
 			primaryVariant.variant,
-			primaryVariant.url.includes("webp") ? "image/webp" : "image/jpeg",
+			StorageService.detectMimeTypeFromUrl(primaryVariant.url),
 		);
 
 		return {
@@ -398,9 +420,7 @@ class StorageServiceBase {
 			path: primaryPath,
 			originalUrl: primaryVariant.url,
 			url: primaryVariant.url,
-			mimeType: primaryVariant.url.includes("webp")
-				? "image/webp"
-				: "image/jpeg",
+			mimeType: StorageService.detectMimeTypeFromUrl(primaryVariant.url),
 			fileSize: primaryVariant.fileSize,
 			optimizedSize: processedImage.optimizedSize,
 			width: primaryVariant.width,
