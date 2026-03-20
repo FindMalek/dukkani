@@ -1,4 +1,4 @@
-import type { UserOnboardingStep } from "../schemas";
+import type { UserOnboardingStep } from "../schemas/enums";
 import {
 	parseEmail,
 	parseOnboardingStep,

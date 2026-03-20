@@ -10,7 +10,7 @@ import { cookies } from "next/headers";
 import { getRequestConfig } from "next-intl/server";
 
 type MessagesMap = {
-	[K in Locale]: Record<string, any>;
+	[K in Locale]: Record<string, unknown>;
 };
 
 const messages: MessagesMap = {
@@ -29,7 +29,7 @@ export default getRequestConfig(async ({ locale }) => {
 
 	return {
 		locale: finalLocale,
-		messages: messages[finalLocale],
+		messages: messages[finalLocale as keyof MessagesMap],
 		timeZone: "Africa/Tunis",
 	};
 });

@@ -31,7 +31,7 @@ export function proxy(request: NextRequest) {
 	}
 
 	// Store selector env: when URL has ?store=slug, set cookie and redirect to same path without param
-	if (isStoreSelectorEnabled()) {
+	if (isStoreSelectorEnabled(process.env)) {
 		const { store: storeParam } = loadStoreParams(request.nextUrl.searchParams);
 		if (storeParam && !isReservedStoreSlug(storeParam)) {
 			const redirectUrl = new URL(pathname + request.nextUrl.hash, request.url);

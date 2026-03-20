@@ -5,7 +5,7 @@ import {
 	type StoreTheme,
 	storeCategoryEnum,
 	storeThemeEnum,
-} from "@dukkani/common/schemas";
+} from "@dukkani/common/schemas/enums";
 import {
 	type ConfigureStoreOnboardingInput,
 	configureStoreOnboardingInputSchema,

@@ -5,8 +5,7 @@ import {
 	parseAsString,
 	parseAsStringEnum,
 } from "nuqs";
-import { UserOnboardingStep } from "../schemas";
-import { OrderStatus } from "../schemas/enums";
+import { OrderStatus, UserOnboardingStep } from "../schemas/enums";
 
 /**
  * Parser for onboarding step with Zod validation

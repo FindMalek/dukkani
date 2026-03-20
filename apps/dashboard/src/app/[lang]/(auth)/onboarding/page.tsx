@@ -1,6 +1,6 @@
 "use client";
 
-import { UserOnboardingStep } from "@dukkani/common/schemas";
+import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { parseEmail, parseOnboardingStep } from "@dukkani/common/utils";
 import { Button } from "@dukkani/ui/components/button";
 import { Skeleton } from "@dukkani/ui/components/skeleton";

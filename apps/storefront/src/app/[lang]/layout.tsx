@@ -83,7 +83,7 @@ export default async function RootLayout({
 	}
 
 	if (!store) {
-		if (isStoreSelectorEnabled()) {
+		if (isStoreSelectorEnabled(process.env)) {
 			return (
 				<html
 					lang={lang}
@@ -117,7 +117,9 @@ export default async function RootLayout({
 							<StoreFooter />
 						</div>
 					</HydrationBoundary>
-					{isStoreSelectorEnabled() && <StoreSelectorBubble locale={lang} />}
+					{isStoreSelectorEnabled(process.env) && (
+						<StoreSelectorBubble locale={lang} />
+					)}
 				</Providers>
 			</body>
 		</html>

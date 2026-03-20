@@ -1,6 +1,6 @@
 "use client";
 
-import { UserOnboardingStep } from "@dukkani/common/schemas";
+import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { cn } from "@dukkani/ui/lib/utils";
 
 interface OnboardingStepperProps {
