@@ -4,7 +4,6 @@ import type {
 } from "@dukkani/common/schemas/store/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { signUpOnboardingFormDefaultValues as signUpOnboardingFormDefaultOptions } from "@/components/auth/onboarding-sign-up-form";
 import { storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOptions } from "@/components/auth/onboarding-store-configuration-form";
 import { storeSetupFormDefaultOptions } from "@/components/auth/onboarding-store-setup-form";
 import { handleAPIError } from "@/lib/error";
@@ -73,14 +72,6 @@ export function useOnboardingForms(storeId: string | null) {
 		},
 	});
 
-	const signUpForm = useAppForm({
-		...signUpOnboardingFormDefaultOptions(""),
-		onSubmit: async ({ value, formApi }) => {
-			// This will be handled by the component that uses this hook
-			// as it needs access to authClient and setGuestStep
-		},
-	});
-
 	return {
 		mutations: {
 			createStoreMutation,
@@ -89,7 +80,6 @@ export function useOnboardingForms(storeId: string | null) {
 		forms: {
 			storeSetupForm,
 			storeConfigurationForm,
-			signUpForm,
 		},
 		isLoading: {
 			createStore: createStoreMutation.isPending,

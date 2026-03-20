@@ -15,14 +15,8 @@ import {
 	SignUpOnboardingForm,
 	signUpOnboardingFormDefaultValues as signUpOnboardingFormDefaultOptions,
 } from "@/components/auth/onboarding-sign-up-form";
-import {
-	StoreConfigurationOnboardingForm,
-	storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOptions,
-} from "@/components/auth/onboarding-store-configuration-form";
-import {
-	StoreSetupOnboardingForm,
-	storeSetupFormDefaultOptions,
-} from "@/components/auth/onboarding-store-setup-form";
+import { StoreConfigurationOnboardingForm } from "@/components/auth/onboarding-store-configuration-form";
+import { StoreSetupOnboardingForm } from "@/components/auth/onboarding-store-setup-form";
 import { useOnboardingController } from "@/hooks/controllers/use-onboarding-controller";
 import { authClient } from "@/lib/auth-client";
 import { RoutePaths } from "@/lib/routes";

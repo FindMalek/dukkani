@@ -1,12 +1,11 @@
-import { ForbiddenError, NotFoundError } from "@dukkani/common/errors";
 import logger from "@dukkani/logger";
 import {
 	addSpanAttributes,
 	enhanceLogWithTraceContext,
 	traceStaticClass,
 } from "@dukkani/tracing";
-import type { UserSimpleOutput } from "../schemas/user/output";
 import { UserOnboardingStep } from "../schemas/enums";
+import type { UserSimpleOutput } from "../schemas/user/output";
 
 export interface OnboardingState {
 	isAuthenticated: boolean;
@@ -19,7 +18,9 @@ export interface OnboardingState {
 }
 
 export interface OnboardingStepConfig {
+	/** i18n key for step title (e.g., "onboarding.steps.storeSetup") */
 	title: string;
+	/** i18n key for step description (e.g., "onboarding.steps.storeSetupDescription") */
 	description?: string;
 	canProceed: boolean;
 	requiresAuth: boolean;
@@ -32,7 +33,14 @@ export interface OnboardingStepConfig {
  * This service can be used across all apps (dashboard, storefront, web, mobile)
  */
 @traceStaticClass
-class OnboardingServiceBase {
+export class OnboardingService {
+	private static readonly ONBOARDING_STEPS: UserOnboardingStep[] = [
+		UserOnboardingStep.STORE_SETUP,
+		UserOnboardingStep.STORE_CREATED,
+		UserOnboardingStep.STORE_CONFIGURED,
+		UserOnboardingStep.STORE_LAUNCHED,
+	];
+
 	/**
 	 * Calculate the effective onboarding step based on user state and guest step
 	 * This replaces the complex useMemo logic from components
@@ -50,14 +58,17 @@ class OnboardingServiceBase {
 		if (!isAuthenticated) return guestStep;
 		if (!currentUser) return null;
 
-		const effectiveStep = this.mapUserStepToEffectiveStep(
+		const effectiveStep = OnboardingService.mapUserStepToEffectiveStep(
 			currentUser.onboardingStep,
 		);
 
-		enhanceLogWithTraceContext("info", "Calculated effective onboarding step", {
-			user_step: currentUser.onboardingStep,
-			effective_step: effectiveStep,
-		});
+		logger.info(
+			enhanceLogWithTraceContext({
+				user_step: currentUser.onboardingStep,
+				effective_step: effectiveStep,
+			}),
+			"Calculated effective onboarding step",
+		);
 
 		return effectiveStep;
 	}
@@ -97,7 +108,7 @@ class OnboardingServiceBase {
 
 		addSpanAttributes({
 			"onboarding.should_show_stores": shouldShow,
-			"onboarding.user_step": currentUser?.onboardingStep,
+			"onboarding.user_step": currentUser?.onboardingStep ?? "null",
 		});
 
 		return shouldShow;
@@ -112,7 +123,7 @@ class OnboardingServiceBase {
 
 		addSpanAttributes({
 			"onboarding.is_complete": isComplete,
-			"onboarding.user_step": currentUser?.onboardingStep,
+			"onboarding.user_step": currentUser?.onboardingStep ?? "null",
 		});
 
 		return isComplete;
@@ -132,17 +143,15 @@ class OnboardingServiceBase {
 	static getNextStep(
 		currentStep: UserOnboardingStep | null,
 	): UserOnboardingStep | null {
-		const steps = [
-			UserOnboardingStep.STORE_SETUP,
-			UserOnboardingStep.STORE_CREATED,
-			UserOnboardingStep.STORE_CONFIGURED,
-			UserOnboardingStep.STORE_LAUNCHED,
-		];
+		const steps = OnboardingService.ONBOARDING_STEPS;
 
-		if (!currentStep) return steps[0];
+		if (!currentStep) return steps[0] ?? null;
 
 		const currentIndex = steps.indexOf(currentStep);
-		return currentIndex < steps.length - 1 ? steps[currentIndex + 1] : null;
+		if (currentIndex === -1) return null;
+
+		const nextStep = steps[currentIndex + 1];
+		return nextStep ?? null;
 	}
 
 	/**
@@ -151,17 +160,16 @@ class OnboardingServiceBase {
 	static getPreviousStep(
 		currentStep: UserOnboardingStep | null,
 	): UserOnboardingStep | null {
-		const steps = [
-			UserOnboardingStep.STORE_SETUP,
-			UserOnboardingStep.STORE_CREATED,
-			UserOnboardingStep.STORE_CONFIGURED,
-			UserOnboardingStep.STORE_LAUNCHED,
-		];
+		const steps = OnboardingService.ONBOARDING_STEPS;
 
 		if (!currentStep) return null;
 
 		const currentIndex = steps.indexOf(currentStep);
-		return currentIndex > 0 ? steps[currentIndex - 1] : null;
+		if (currentIndex === -1) return null;
+
+		const prevIndex = currentIndex - 1;
+		const prevStep = prevIndex >= 0 ? steps[prevIndex] : undefined;
+		return prevStep ?? null;
 	}
 
 	/**
@@ -179,7 +187,7 @@ class OnboardingServiceBase {
 
 		addSpanAttributes({
 			"onboarding.should_auto_select_store": shouldAuto,
-			"onboarding.step": onboardingStep,
+			"onboarding.step": onboardingStep ?? "null",
 			"onboarding.has_store_id": !!storeId,
 		});
 
@@ -196,23 +204,21 @@ class OnboardingServiceBase {
 	): boolean {
 		if (!fromStep || !toStep) return true;
 
-		const steps = [
-			UserOnboardingStep.STORE_SETUP,
-			UserOnboardingStep.STORE_CREATED,
-			UserOnboardingStep.STORE_CONFIGURED,
-			UserOnboardingStep.STORE_LAUNCHED,
-		];
+		const steps = OnboardingService.ONBOARDING_STEPS;
 
 		const fromIndex = steps.indexOf(fromStep);
 		const toIndex = steps.indexOf(toStep);
+
+		// If either step is not found, allow the transition
+		if (fromIndex === -1 || toIndex === -1) return true;
 
 		// Allow forward movement and staying on the same step
 		// Don't allow backward movement in onboarding
 		const isValid = toIndex >= fromIndex;
 
 		addSpanAttributes({
-			"onboarding.from_step": fromStep,
-			"onboarding.to_step": toStep,
+			"onboarding.from_step": fromStep ?? "null",
+			"onboarding.to_step": toStep ?? "null",
 			"onboarding.transition_valid": isValid,
 		});
 
@@ -226,29 +232,29 @@ class OnboardingServiceBase {
 	static getStepConfig(step: UserOnboardingStep | null): OnboardingStepConfig {
 		const configs: Record<UserOnboardingStep, OnboardingStepConfig> = {
 			[UserOnboardingStep.STORE_SETUP]: {
-				title: "Store Setup",
-				description: "Create your store",
+				title: "onboarding.steps.storeSetup",
+				description: "onboarding.steps.storeSetupDescription",
 				canProceed: true,
 				requiresAuth: true,
 				requiresStores: false,
 			},
 			[UserOnboardingStep.STORE_CREATED]: {
-				title: "Store Created",
-				description: "Configure your store",
+				title: "onboarding.steps.storeCreated",
+				description: "onboarding.steps.storeCreatedDescription",
 				canProceed: true,
 				requiresAuth: true,
 				requiresStores: true,
 			},
 			[UserOnboardingStep.STORE_CONFIGURED]: {
-				title: "Store Configured",
-				description: "Launch your store",
+				title: "onboarding.steps.storeConfigured",
+				description: "onboarding.steps.storeConfiguredDescription",
 				canProceed: true,
 				requiresAuth: true,
 				requiresStores: true,
 			},
 			[UserOnboardingStep.STORE_LAUNCHED]: {
-				title: "Store Launched",
-				description: "Onboarding complete",
+				title: "onboarding.steps.storeLaunched",
+				description: "onboarding.steps.storeLaunchedDescription",
 				canProceed: false,
 				requiresAuth: true,
 				requiresStores: false,
@@ -258,7 +264,8 @@ class OnboardingServiceBase {
 		return step
 			? configs[step]
 			: {
-					title: "Welcome",
+					title: "onboarding.steps.welcome",
+					description: "onboarding.steps.welcomeDescription",
 					canProceed: true,
 					requiresAuth: false,
 					requiresStores: false,
@@ -274,14 +281,17 @@ class OnboardingServiceBase {
 		isAuthenticated: boolean,
 	): OnboardingState {
 		const onboardingStep = currentUser?.onboardingStep ?? null;
-		const effectiveStep = this.getEffectiveStep(
+		const effectiveStep = OnboardingService.getEffectiveStep(
 			currentUser,
 			guestStep,
 			isAuthenticated,
 		);
-		const needsStores = this.shouldShowStores(currentUser, isAuthenticated);
-		const isComplete = this.isOnboardingComplete(currentUser);
-		const canProceed = this.canProceedToNextStep(effectiveStep);
+		const needsStores = OnboardingService.shouldShowStores(
+			currentUser,
+			isAuthenticated,
+		);
+		const isComplete = OnboardingService.isOnboardingComplete(currentUser);
+		const canProceed = OnboardingService.canProceedToNextStep(effectiveStep);
 
 		const state: OnboardingState = {
 			isAuthenticated,
@@ -330,19 +340,15 @@ class OnboardingServiceBase {
 		const isValid = errors.length === 0;
 
 		if (!isValid) {
-			enhanceLogWithTraceContext(
-				"error",
-				"Onboarding state validation failed",
-				{
+			logger.error(
+				enhanceLogWithTraceContext({
 					errors,
 					state,
-				},
+				}),
+				"Onboarding state validation failed",
 			);
 		}
 
 		return { isValid, errors };
 	}
 }
-
-// Export the service instance
-export const OnboardingService = OnboardingServiceBase;

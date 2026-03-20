@@ -5,12 +5,11 @@ import type {
 } from "@dukkani/common/schemas/store/input";
 import {
 	OnboardingService,
-	type OnboardingState,
 	type OnboardingStepConfig,
 } from "@dukkani/common/services/onboarding.service";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { signUpOnboardingFormDefaultValues as signUpOnboardingFormDefaultOptions } from "@/components/auth/onboarding-sign-up-form";
+import type { Translator } from "next-intl";
 import { storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOptions } from "@/components/auth/onboarding-store-configuration-form";
 import { storeSetupFormDefaultOptions } from "@/components/auth/onboarding-store-setup-form";
 import { useCurrentUserQuery } from "@/hooks/api/use-current-user.hook";
@@ -23,8 +22,13 @@ import { useActiveStoreStore } from "@/stores/active-store.store";
 
 /**
  * Translation function type for i18n support
+ * Compatible with next-intl's Translator type
+ * Accepts next-intl's useTranslations() return value
  */
-export type TranslationFunction = (key: string) => string;
+export type TranslationFunction = (
+	key: string,
+	values?: Record<string, string | number>,
+) => string;
 
 /**
  * Controller hook that orchestrates:
@@ -118,37 +122,6 @@ export function useOnboardingController(
 		},
 	});
 
-	const signUpForm = useAppForm({
-		...signUpOnboardingFormDefaultOptions(""),
-		onSubmit: async ({ value, formApi }) => {
-			await authClient.signUp.email(
-				{
-					email: value.email,
-					password: value.password,
-					name: value.name,
-				},
-				{
-					onSuccess: async () => {
-						// This would be handled by the component that uses this hook
-						// as it needs access to setGuestStep
-					},
-					onError: async (error) => {
-						if (error.error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
-							formApi.setFieldMeta("email", (fieldMeta) => ({
-								...fieldMeta,
-								errorMap: {
-									onSubmit: {
-										message: t("onboarding.errors.emailAlreadyInUse"),
-									},
-								},
-							}));
-						}
-					},
-				},
-			);
-		},
-	});
-
 	// Store selection logic
 	const selectedStoreId = OnboardingService.shouldAutoSelectStore(
 		onboardingState.onboardingStep,
@@ -218,7 +191,6 @@ export function useOnboardingController(
 	const forms = {
 		storeSetupForm,
 		storeConfigurationForm,
-		signUpForm,
 	};
 
 	// Mutations

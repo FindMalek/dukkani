@@ -165,6 +165,7 @@
 		},
 		"steps": {
 			"welcome": "مرحباً",
+			"welcomeDescription": "ابدأ إعداد متجرك",
 			"storeSetup": "إعداد المتجر",
 			"storeSetupDescription": "إنشاء متجرك",
 			"storeCreated": "تم إنشاء المتجر",
@@ -177,6 +178,10 @@
 			"storeSetupShort": "المتجر",
 			"storeConfiguration": "تكوين",
 			"complete": "جاهز"
+		},
+		"errors": {
+			"emailAlreadyInUse": "حساب بهذا البريد الإلكتروني موجود بالفعل. يرجى استخدام بريد إلكتروني مختلف أو تسجيل الدخول.",
+			"storeLoadFailed": "لم نتمكن من تحميل متجرك. يرجى تحديث الصفحة أو الاتصال بالدعم."
 		},
 		"signup": {
 			"title": "Create your account",
@@ -221,9 +226,6 @@
 				"addProduct": "Add Your First Product",
 				"goToDashboard": "Go to Dashboard"
 			}
-		},
-		"errors": {
-			"storeLoadFailed": "لم نتمكن من تحميل متجرك. قم بتحديث الصفحة أو تواصل مع الدعم."
 		}
 	},
 	"orders": {

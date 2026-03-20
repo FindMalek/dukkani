@@ -1,8 +1,11 @@
 import type { UserOnboardingStep } from "@dukkani/common/schemas";
+import {
+	OnboardingService,
+	type OnboardingState,
+} from "@dukkani/common/services";
 import { useMemo } from "react";
 import { useCurrentUserQuery } from "@/hooks/api/use-current-user.hook";
 import { authClient } from "@/lib/auth-client";
-import { type OnboardingState, onboardingService } from "@/lib/onboarding";
 
 /**
  * Main hook for onboarding state management
@@ -17,7 +20,7 @@ export function useOnboarding(guestStep?: UserOnboardingStep | null) {
 	const isAuthenticated = !!sessionData?.user;
 
 	const onboardingState = useMemo((): OnboardingState => {
-		return onboardingService.getState(
+		return OnboardingService.getState(
 			currentUser ?? null,
 			guestStep ?? null,
 			isAuthenticated,
@@ -36,17 +39,17 @@ export function useOnboarding(guestStep?: UserOnboardingStep | null) {
 		canProceed: onboardingState.canProceed,
 		// Actions
 		getNextStep: () =>
-			onboardingService.getNextStep(onboardingState.effectiveStep),
+			OnboardingService.getNextStep(onboardingState.effectiveStep),
 		getPreviousStep: () =>
-			onboardingService.getPreviousStep(onboardingState.effectiveStep),
+			OnboardingService.getPreviousStep(onboardingState.effectiveStep),
 		canProceedToNext: () =>
-			onboardingService.canProceedToNextStep(onboardingState.effectiveStep),
+			OnboardingService.canProceedToNextStep(onboardingState.effectiveStep),
 		isValidTransition: (toStep: UserOnboardingStep | null) =>
-			onboardingService.isValidStepTransition(
+			OnboardingService.isValidStepTransition(
 				onboardingState.effectiveStep,
 				toStep,
 			),
 		getStepConfig: () =>
-			onboardingService.getStepConfig(onboardingState.effectiveStep),
+			OnboardingService.getStepConfig(onboardingState.effectiveStep),
 	};
 }

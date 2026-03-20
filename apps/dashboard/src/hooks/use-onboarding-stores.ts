@@ -1,8 +1,10 @@
 import type { UserOnboardingStep } from "@dukkani/common/schemas";
+import {
+	OnboardingService,
+	type OnboardingState,
+} from "@dukkani/common/services";
 import { useEffect, useState } from "react";
 import { useStoresQuery } from "@/hooks/api/use-stores.hook";
-import type { OnboardingState } from "@/lib/onboarding";
-import { onboardingService } from "@/lib/onboarding";
 
 /**
  * Hook for managing store-related onboarding logic
@@ -18,7 +20,7 @@ export function useOnboardingStores(onboardingState: OnboardingState) {
 		if (!stores?.length) return;
 
 		if (
-			onboardingService.shouldAutoSelectStore(
+			OnboardingService.shouldAutoSelectStore(
 				onboardingState.onboardingStep,
 				storeId,
 			)

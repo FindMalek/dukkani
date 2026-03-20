@@ -165,6 +165,7 @@
 		},
 		"steps": {
 			"welcome": "Bienvenue",
+			"welcomeDescription": "Commencez la configuration de votre magasin",
 			"storeSetup": "Configuration du Magasin",
 			"storeSetupDescription": "Créez votre magasin",
 			"storeCreated": "Magasin Créé",
@@ -177,6 +178,10 @@
 			"storeSetupShort": "Magasin",
 			"storeConfiguration": "Configurer",
 			"complete": "Prêt"
+		},
+		"errors": {
+			"emailAlreadyInUse": "Un compte avec cet e-mail existe déjà. Veuillez utiliser un autre e-mail ou vous connecter.",
+			"storeLoadFailed": "Nous n'avons pas pu charger votre magasin. Actualisez la page ou contactez le support."
 		},
 		"signup": {
 			"title": "Créez votre compte",
