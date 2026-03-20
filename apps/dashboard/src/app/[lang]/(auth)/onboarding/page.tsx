@@ -4,6 +4,7 @@ import {
 	UserOnboardingStep,
 	userOnboardingStepSchema,
 } from "@dukkani/common/schemas";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { RedirectType, redirect, useSearchParams } from "next/navigation";
@@ -75,7 +76,16 @@ export default function OnboardingPage() {
 	if (onboarding.isAuthenticated && onboarding.isCurrentUserLoading) {
 		return (
 			<div className="flex min-h-[40vh] items-center justify-center">
-				<Spinner className="h-8 w-8 text-primary" />
+				<div className="w-full max-w-md space-y-6">
+					<div className="space-y-2 text-center">
+						<Skeleton className="mx-auto h-8 w-48" />
+						<Skeleton className="mx-auto h-4 w-64" />
+					</div>
+					<div className="space-y-4">
+						<Skeleton className="h-10 w-full" />
+						<Skeleton className="h-10 w-full" />
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -92,7 +102,11 @@ export default function OnboardingPage() {
 	if (waitingForStoreHydration) {
 		return (
 			<div className="flex min-h-[40vh] items-center justify-center">
-				<Spinner className="h-8 w-8 text-primary" />
+				<div className="w-full max-w-md space-y-4">
+					<Skeleton className="h-6 w-32" />
+					<Skeleton className="h-4 w-full" />
+					<Skeleton className="h-4 w-3/4" />
+				</div>
 			</div>
 		);
 	}
