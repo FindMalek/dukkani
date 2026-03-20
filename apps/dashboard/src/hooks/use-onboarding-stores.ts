@@ -1,4 +1,3 @@
-import type { UserOnboardingStep } from "@dukkani/common/schemas";
 import {
 	OnboardingService,
 	type OnboardingState,

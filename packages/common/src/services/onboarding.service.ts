@@ -18,9 +18,7 @@ export interface OnboardingState {
 }
 
 export interface OnboardingStepConfig {
-	/** i18n key for step title (e.g., "onboarding.steps.storeSetup") */
 	title: string;
-	/** i18n key for step description (e.g., "onboarding.steps.storeSetupDescription") */
 	description?: string;
 	canProceed: boolean;
 	requiresAuth: boolean;
@@ -32,8 +30,7 @@ export interface OnboardingStepConfig {
  * All methods are automatically traced via traceStaticClass
  * This service can be used across all apps (dashboard, storefront, web, mobile)
  */
-@traceStaticClass
-export class OnboardingService {
+class OnboardingServiceBase {
 	private static readonly ONBOARDING_STEPS: UserOnboardingStep[] = [
 		UserOnboardingStep.STORE_SETUP,
 		UserOnboardingStep.STORE_CREATED,
@@ -58,7 +55,7 @@ export class OnboardingService {
 		if (!isAuthenticated) return guestStep;
 		if (!currentUser) return null;
 
-		const effectiveStep = OnboardingService.mapUserStepToEffectiveStep(
+		const effectiveStep = OnboardingServiceBase.mapUserStepToEffectiveStep(
 			currentUser.onboardingStep,
 		);
 
@@ -143,15 +140,17 @@ export class OnboardingService {
 	static getNextStep(
 		currentStep: UserOnboardingStep | null,
 	): UserOnboardingStep | null {
-		const steps = OnboardingService.ONBOARDING_STEPS;
+		if (!currentStep) return OnboardingServiceBase.ONBOARDING_STEPS[0] ?? null;
 
-		if (!currentStep) return steps[0] ?? null;
+		const currentIndex =
+			OnboardingServiceBase.ONBOARDING_STEPS.indexOf(currentStep);
+		const nextIndex = currentIndex + 1;
 
-		const currentIndex = steps.indexOf(currentStep);
-		if (currentIndex === -1) return null;
-
-		const nextStep = steps[currentIndex + 1];
-		return nextStep ?? null;
+		return (
+			(nextIndex < OnboardingServiceBase.ONBOARDING_STEPS.length
+				? OnboardingServiceBase.ONBOARDING_STEPS[nextIndex]
+				: null) ?? null
+		);
 	}
 
 	/**
@@ -160,16 +159,13 @@ export class OnboardingService {
 	static getPreviousStep(
 		currentStep: UserOnboardingStep | null,
 	): UserOnboardingStep | null {
-		const steps = OnboardingService.ONBOARDING_STEPS;
+		const steps = OnboardingServiceBase.ONBOARDING_STEPS;
 
 		if (!currentStep) return null;
-
 		const currentIndex = steps.indexOf(currentStep);
-		if (currentIndex === -1) return null;
+		const previousIndex = currentIndex - 1;
 
-		const prevIndex = currentIndex - 1;
-		const prevStep = prevIndex >= 0 ? steps[prevIndex] : undefined;
-		return prevStep ?? null;
+		return (previousIndex >= 0 ? steps[previousIndex] : null) ?? null;
 	}
 
 	/**
@@ -204,7 +200,7 @@ export class OnboardingService {
 	): boolean {
 		if (!fromStep || !toStep) return true;
 
-		const steps = OnboardingService.ONBOARDING_STEPS;
+		const steps = OnboardingServiceBase.ONBOARDING_STEPS;
 
 		const fromIndex = steps.indexOf(fromStep);
 		const toIndex = steps.indexOf(toStep);
@@ -281,17 +277,18 @@ export class OnboardingService {
 		isAuthenticated: boolean,
 	): OnboardingState {
 		const onboardingStep = currentUser?.onboardingStep ?? null;
-		const effectiveStep = OnboardingService.getEffectiveStep(
+		const effectiveStep = OnboardingServiceBase.getEffectiveStep(
 			currentUser,
 			guestStep,
 			isAuthenticated,
 		);
-		const needsStores = OnboardingService.shouldShowStores(
+		const needsStores = OnboardingServiceBase.shouldShowStores(
 			currentUser,
 			isAuthenticated,
 		);
-		const isComplete = OnboardingService.isOnboardingComplete(currentUser);
-		const canProceed = OnboardingService.canProceedToNextStep(effectiveStep);
+		const isComplete = OnboardingServiceBase.isOnboardingComplete(currentUser);
+		const canProceed =
+			OnboardingServiceBase.canProceedToNextStep(effectiveStep);
 
 		const state: OnboardingState = {
 			isAuthenticated,
@@ -352,3 +349,5 @@ export class OnboardingService {
 		return { isValid, errors };
 	}
 }
+
+export const OnboardingService = traceStaticClass(OnboardingServiceBase);

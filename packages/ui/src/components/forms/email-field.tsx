@@ -1,4 +1,5 @@
 import type * as React from "react";
+import type { CommonFieldProps } from "./base-field";
 import { TextField } from "./text-field";
 
 interface EmailFieldProps
