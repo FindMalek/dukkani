@@ -105,7 +105,7 @@ class MigrationTemplateGenerator {
 	 * Load migration template
 	 */
 	loadTemplate(type: string): string {
-		const templatePath = join(this.templatesDir, `${type}.template.ts`);
+		const templatePath = join(this.templatesDir, `${type}.template`);
 		try {
 			return readFileSync(templatePath, "utf-8");
 		} catch (error) {

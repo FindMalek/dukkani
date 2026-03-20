@@ -285,7 +285,7 @@ export abstract class StorageMigration extends BaseMigration<StorageMigrationCon
 	protected async simulateUpload(batch: StorageFileMapping[]): Promise<void> {
 		for (const file of batch) {
 			logger.info(
-				`[DRY RUN] Would upload: ${file.sourcePath} -> ${file.target.resource}/${file.target.entityId}/${file.target.assetId || 'unknown'}`,
+				`[DRY RUN] Would upload: ${file.sourcePath} -> ${file.target.resource}/${file.target.entityId}/${file.target.assetId || "unknown"}`,
 			);
 		}
 	}
