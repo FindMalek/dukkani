@@ -2,11 +2,13 @@
 
 import { UserOnboardingStep } from "@dukkani/common/schemas";
 import { parseEmail, parseOnboardingStep } from "@dukkani/common/utils";
+import { Button } from "@dukkani/ui/components/button";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { RedirectType, redirect } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useQueryState } from "nuqs";
+import { useEffect, useState } from "react";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { OnboardingCompletion } from "@/components/auth/onboarding-completion";
 import {
@@ -24,8 +26,31 @@ export default function OnboardingPage() {
 
 	const [email] = useQueryState("email", parseEmail);
 	const [step, setStep] = useQueryState("step", parseOnboardingStep);
+	const [skeletonTimedOut, setSkeletonTimedOut] = useState(false);
 
 	const onboarding = useOnboardingController(t, step, setStep);
+
+	// Add timeout to prevent indefinite skeleton state
+	useEffect(() => {
+		const waitingForStoreHydration =
+			onboarding.isAuthenticated &&
+			onboarding.effectiveStep === UserOnboardingStep.STORE_CREATED &&
+			(onboarding.isStoresLoading || !onboarding.storeId);
+
+		if (waitingForStoreHydration && !skeletonTimedOut) {
+			const timeout = setTimeout(() => {
+				setSkeletonTimedOut(true);
+			}, 5000); // 5 second timeout
+
+			return () => clearTimeout(timeout);
+		}
+	}, [
+		onboarding.isAuthenticated,
+		onboarding.effectiveStep,
+		onboarding.isStoresLoading,
+		onboarding.storeId,
+		skeletonTimedOut,
+	]);
 	const signUpForm = useAppForm({
 		...signUpOnboardingFormDefaultOptions(email ?? ""),
 		onSubmit: async ({ value, formApi }) => {
@@ -84,7 +109,8 @@ export default function OnboardingPage() {
 	const waitingForStoreHydration =
 		onboarding.isAuthenticated &&
 		onboarding.effectiveStep === UserOnboardingStep.STORE_CREATED &&
-		(onboarding.isStoresLoading || !onboarding.storeId);
+		(onboarding.isStoresLoading || !onboarding.storeId) &&
+		!skeletonTimedOut;
 
 	if (waitingForStoreHydration) {
 		return (
@@ -101,13 +127,22 @@ export default function OnboardingPage() {
 	if (
 		onboarding.isAuthenticated &&
 		onboarding.effectiveStep === UserOnboardingStep.STORE_CREATED &&
-		onboarding.stores?.length === 0
+		onboarding.stores?.length === 0 &&
+		!onboarding.isStoresLoading &&
+		skeletonTimedOut
 	) {
 		return (
 			<div className="flex w-full max-w-md flex-col gap-4 text-center">
 				<p className="text-muted-foreground text-sm">
 					{t("errors.storeLoadFailed")}
 				</p>
+				<Button
+					type="button"
+					onClick={() => window.location.reload()}
+					size="lg"
+				>
+					{t("actions.retry")}
+				</Button>
 			</div>
 		);
 	}

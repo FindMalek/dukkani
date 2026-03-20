@@ -50,13 +50,7 @@ export const accountRouter = {
 				select: UserQuery.getMinimalSelect(),
 			});
 
-			if (!user) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "User not found",
-				});
-			}
-
-			return true;
+			return !!user;
 		}),
 
 	/**
@@ -72,7 +66,6 @@ export const accountRouter = {
 			const target = {
 				resource: "avatars" as const,
 				entityId: userId,
-				assetRole: "profile" as const,
 			};
 
 			try {

@@ -5,10 +5,11 @@ import type {
 	CreateStoreOnboardingInput,
 } from "@dukkani/common/schemas/store/input";
 import type { OnboardingStepConfig } from "@dukkani/common/services/onboarding.service";
+import { logger } from "@dukkani/logger";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { createTranslator, Messages } from "next-intl";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOptions } from "@/components/auth/onboarding-store-configuration-form";
 import { storeSetupFormDefaultOptions } from "@/components/auth/onboarding-store-setup-form";
 import { useStoresQuery } from "@/hooks/api/use-stores.hook";
@@ -51,7 +52,8 @@ export function useOnboardingController(
 	onStepChange?: (step: UserOnboardingStep) => void,
 ) {
 	const queryClient = useQueryClient();
-	const { setSelectedStoreId } = useActiveStoreStore();
+	const { setSelectedStoreId, selectedStoreId: globalSelectedStoreId } =
+		useActiveStoreStore();
 
 	// API hooks
 	const { data: sessionData, isPending: isSessionPending } =
@@ -102,9 +104,25 @@ export function useOnboardingController(
 		mutationFn: (input: CreateStoreOnboardingInput) =>
 			client.store.create(input),
 		onSuccess: async (data) => {
+			// Set global state immediately
 			setSelectedStoreId(data.id);
+
+			// Optimistically update stores cache to prevent race condition
+			queryClient.setQueryData(queryKeys.stores.all(), (old: any) => {
+				const existing = Array.isArray(old) ? old : [];
+				// Avoid duplicates if store already exists in cache
+				if (!existing.find((store: any) => store.id === data.id)) {
+					return [...existing, data];
+				}
+				return existing;
+			});
+
+			// Then invalidate for fresh data
 			queryClient.invalidateQueries({ queryKey: queryKeys.stores.all() });
 			queryClient.invalidateQueries({ queryKey: queryKeys.account.current() });
+
+			// Wait for stores to be available before changing step
+			await queryClient.refetchQueries({ queryKey: queryKeys.stores.all() });
 			await queryClient.refetchQueries({
 				queryKey: queryKeys.account.current(),
 			});
@@ -163,7 +181,7 @@ export function useOnboardingController(
 
 	// Store selection logic using client utility
 	const selectedStoreId = shouldAutoSelectStore(state.onboardingStep, null)
-		? (stores?.[0]?.id ?? null)
+		? (globalSelectedStoreId ?? stores?.[0]?.id ?? null)
 		: null;
 
 	// Enhanced state with store information
@@ -174,6 +192,30 @@ export function useOnboardingController(
 		hasStores: !!stores?.length,
 		firstStoreId: stores?.[0]?.id ?? null,
 	};
+
+	// Debug logging for onboarding state
+	useEffect(() => {
+		logger.info(
+			{
+				onboardingStep: state.onboardingStep,
+				effectiveStep: state.effectiveStep,
+				globalStoreId: globalSelectedStoreId,
+				storesCount: stores?.length,
+				selectedStoreId,
+				isStoresLoading,
+				isAuthenticated: state.isAuthenticated,
+			},
+			"Onboarding store selection state",
+		);
+	}, [
+		state.onboardingStep,
+		state.effectiveStep,
+		globalSelectedStoreId,
+		stores,
+		selectedStoreId,
+		isStoresLoading,
+		state.isAuthenticated,
+	]);
 
 	// Loading states
 	const loadingStates = {

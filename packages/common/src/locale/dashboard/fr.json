@@ -169,6 +169,9 @@
 			"storeConfiguration": "Configurer",
 			"complete": "Prêt"
 		},
+		"actions": {
+			"retry": "Réessayer"
+		},
 		"signup": {
 			"title": "Créez votre compte",
 			"subtitle": "Rejoignez Dukkani et commencez à vendre dès aujourd'hui",

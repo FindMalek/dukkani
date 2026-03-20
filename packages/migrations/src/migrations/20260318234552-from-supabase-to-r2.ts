@@ -150,7 +150,7 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 			try {
 				if (this.isDryRun()) {
 					logger.info(
-						`[DRY RUN] Would upload: ${mapping.sourcePath} -> ${mapping.target.resource}/${mapping.target.entityId}/${mapping.target.assetRole}`,
+						`[DRY RUN] Would upload: ${mapping.sourcePath} -> ${mapping.target.resource}/${mapping.target.entityId}`,
 					);
 					uploaded.push(mapping);
 					continue;

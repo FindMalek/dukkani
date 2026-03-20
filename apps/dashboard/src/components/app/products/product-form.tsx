@@ -72,7 +72,6 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 						const res = await client.product.uploadImages({
 							storeId,
 							files: value.imageFiles,
-							assetRole: "gallery",
 						});
 						imageUrls = res.files.map((file) => file.url);
 					} catch (error) {

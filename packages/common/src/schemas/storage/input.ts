@@ -6,18 +6,9 @@ export const storageUploadResourceSchema = z.enum([
 	"products",
 ]);
 
-export const storageUploadAssetRoleSchema = z.enum([
-	"profile",
-	"logo",
-	"banner",
-	"main",
-	"gallery",
-]);
-
 export const storageUploadTargetSchema = z.object({
 	resource: storageUploadResourceSchema,
 	entityId: z.string().min(1, "Entity ID is required"),
-	assetRole: storageUploadAssetRoleSchema,
 	assetId: z.string().min(1).optional(),
 });
 
@@ -49,7 +40,4 @@ export type UploadFilesInput = z.infer<typeof uploadFilesInputSchema>;
 export type DeleteFileInput = z.infer<typeof deleteFileInputSchema>;
 export type DeleteFilesInput = z.infer<typeof deleteFilesInputSchema>;
 export type StorageUploadResource = z.infer<typeof storageUploadResourceSchema>;
-export type StorageUploadAssetRole = z.infer<
-	typeof storageUploadAssetRoleSchema
->;
 export type StorageUploadTarget = z.infer<typeof storageUploadTargetSchema>;

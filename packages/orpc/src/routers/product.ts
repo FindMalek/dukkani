@@ -712,7 +712,6 @@ export const productRouter = {
 			const target = {
 				resource: "products" as const,
 				entityId: input.storeId,
-				assetRole: input.assetRole,
 			};
 
 			try {

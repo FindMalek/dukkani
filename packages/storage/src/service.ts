@@ -151,7 +151,6 @@ class StorageServiceBase {
 			previewScope,
 			StorageService.sanitizePathSegment(target.resource),
 			StorageService.sanitizePathSegment(target.entityId),
-			StorageService.sanitizePathSegment(target.assetRole),
 			assetId,
 		]
 			.filter(Boolean)

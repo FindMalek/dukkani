@@ -179,6 +179,9 @@
 			"storeConfiguration": "Configure",
 			"complete": "Ready"
 		},
+		"actions": {
+			"retry": "Retry"
+		},
 		"errors": {
 			"emailAlreadyInUse": "An account with this email already exists. Please use a different email or sign in.",
 			"storeLoadFailed": "We couldn't load your store. Refresh the page or contact support."

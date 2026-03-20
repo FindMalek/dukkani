@@ -160,7 +160,7 @@ export const storeRouter = {
 	 * Upload store logo or banner image
 	 * Validates store ownership and builds storage target internally
 	 */
-	uploadImage: protectedProcedure
+	uploadAvatar: protectedProcedure
 		.input(storeUploadImageInputSchema)
 		.output(uploadFileOutputSchema)
 		.handler(async ({ input, context }) => {
@@ -170,7 +170,6 @@ export const storeRouter = {
 			const target = {
 				resource: "stores" as const,
 				entityId: input.storeId,
-				assetRole: input.assetRole,
 			};
 
 			try {

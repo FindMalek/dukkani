@@ -169,6 +169,9 @@
 			"storeConfiguration": "Configure",
 			"complete": "Ready"
 		},
+		"actions": {
+			"retry": "إعادة المحاولة"
+		},
 		"signup": {
 			"title": "Create your account",
 			"subtitle": "Join Dukkani and start selling today",
