@@ -1,13 +1,13 @@
 import { createEnv } from "@t3-oss/env-core";
-import { baseEnv } from "../base";
 import { storageModule } from "../modules";
+import { vercelEnv } from "./vercel";
 
 /**
  * Storage package environment preset
- * Includes S3-compatible storage (R2/MinIO) configuration and file upload limits
+ * Includes S3-compatible storage configuration and Vercel deployment variables
  */
 export const storageEnv = createEnv({
-	extends: [baseEnv],
+	extends: [vercelEnv],
 	server: {
 		...storageModule.server,
 	},

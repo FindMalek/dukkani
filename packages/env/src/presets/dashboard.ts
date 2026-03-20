@@ -1,15 +1,16 @@
 import { createEnv } from "@t3-oss/env-nextjs";
+import { baseEnv } from "../base";
 import { clientModule, observabilityModule, urlsModule } from "../modules";
 import { createNextjsRuntimeEnv } from "../utils/runtime-env";
 import { dbEnv } from "./db";
 
 /**
  * Dashboard app environment preset
- * Uses @t3-oss/env-nextjs for proper Next.js client-side inlining
- * All NEXT_PUBLIC_* vars must be explicitly mapped in runtimeEnv for Next.js bundling
+ * Uses base environment for platform-agnostic deployment
+ * Can be extended with Vercel variables if needed for Vercel deployments
  */
 export const dashboardEnv = createEnv({
-	extends: [dbEnv],
+	extends: [dbEnv, baseEnv],
 	server: observabilityModule.server,
 	client: {
 		...clientModule.client,

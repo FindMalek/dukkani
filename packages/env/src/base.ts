@@ -10,17 +10,15 @@ import { z } from "zod";
  */
 export const baseEnv = createEnv({
 	server: {
-		VERCEL_BRANCH_URL: z.string().optional(),
-		VERCEL_GIT_COMMIT_REF: z.string().optional(),
-		VERCEL_GIT_PULL_REQUEST_ID: z.string().optional(),
-		VERCEL_PROJECT_PRODUCTION_URL: z.string().optional(),
-		VERCEL_REGION: z.string().optional(),
-		VERCEL_DEPLOYMENT_ID: z.string().optional(),
-		VERCEL_PROJECT_ID: z.string().optional(),
-		VERCEL: z
-			.string()
-			.optional()
-			.transform((val) => val === "1"),
+		/**
+		 * Node.js environment
+		 * Values: production, development, test
+		 */
+		NODE_ENV: z.enum(["production", "development", "test"]).optional(),
+
+		/**
+		 * Pattern for CORS preview origins
+		 */
 		CORS_PREVIEW_ORIGIN_PATTERN: z.string().optional(),
 	},
 	client: {
@@ -96,12 +94,8 @@ export const baseEnv = createEnv({
 });
 
 /**
- * True when the storefront should use cookie-based store selection.
- * Subdomains are NOT available in Vercel preview or local development.
+ * Get the base Node.js environment
  */
-export function isStoreSelectorEnabled(): boolean {
-	return (
-		process.env.VERCEL_ENV === "preview" ||
-		process.env.NODE_ENV === "development"
-	);
+export function getBaseEnvironment(): string {
+	return process.env.NODE_ENV || "development";
 }

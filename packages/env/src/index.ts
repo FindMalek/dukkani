@@ -1,4 +1,4 @@
-export { baseEnv, isStoreSelectorEnabled } from "./base";
+export { baseEnv, getBaseEnvironment } from "./base";
 export { getApiUrl } from "./utils/get-api-url";
 export { getStorefrontBaseUrl } from "./utils/get-storefront-base-url";
 

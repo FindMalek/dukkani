@@ -111,13 +111,11 @@ class StorageServiceBase {
 		| "local"
 		| "preview"
 		| "production" {
-		if (process.env.VERCEL_ENV === "preview") {
+		// Use env package for type-safe access to Vercel environment variables
+		if (env.VERCEL_ENV === "preview") {
 			return "preview";
 		}
-		if (
-			process.env.VERCEL_ENV === "production" ||
-			process.env.NODE_ENV === "production"
-		) {
+		if (env.VERCEL_ENV === "production" || env.NODE_ENV === "production") {
 			return "production";
 		}
 		return "local";
@@ -130,14 +128,14 @@ class StorageServiceBase {
 		if (env.STORAGE_PREVIEW_PREFIX) {
 			return StorageService.sanitizePathSegment(env.STORAGE_PREVIEW_PREFIX);
 		}
-		if (process.env.VERCEL_GIT_PULL_REQUEST_ID) {
-			return `pr-${StorageService.sanitizePathSegment(process.env.VERCEL_GIT_PULL_REQUEST_ID)}`;
+		if (env.VERCEL_GIT_PULL_REQUEST_ID) {
+			return `pr-${StorageService.sanitizePathSegment(env.VERCEL_GIT_PULL_REQUEST_ID)}`;
 		}
-		if (process.env.VERCEL_GIT_COMMIT_REF) {
-			return `branch-${StorageService.sanitizePathSegment(process.env.VERCEL_GIT_COMMIT_REF)}`;
+		if (env.VERCEL_GIT_COMMIT_REF) {
+			return `branch-${StorageService.sanitizePathSegment(env.VERCEL_GIT_COMMIT_REF)}`;
 		}
-		if (process.env.VERCEL_DEPLOYMENT_ID) {
-			return `deploy-${StorageService.sanitizePathSegment(process.env.VERCEL_DEPLOYMENT_ID)}`;
+		if (env.VERCEL_DEPLOYMENT_ID) {
+			return `deploy-${StorageService.sanitizePathSegment(env.VERCEL_DEPLOYMENT_ID)}`;
 		}
 		return "preview";
 	}
