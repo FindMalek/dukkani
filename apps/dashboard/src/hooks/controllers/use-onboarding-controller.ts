@@ -9,7 +9,7 @@ import {
 } from "@dukkani/common/services/onboarding.service";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Translator } from "next-intl";
+import type { createTranslator, Messages } from "next-intl";
 import { storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOptions } from "@/components/auth/onboarding-store-configuration-form";
 import { storeSetupFormDefaultOptions } from "@/components/auth/onboarding-store-setup-form";
 import { useCurrentUserQuery } from "@/hooks/api/use-current-user.hook";
@@ -23,12 +23,11 @@ import { useActiveStoreStore } from "@/stores/active-store.store";
 /**
  * Translation function type for i18n support
  * Compatible with next-intl's Translator type
- * Accepts next-intl's useTranslations() return value
+ * Based on the solution from next-intl GitHub discussions
  */
-export type TranslationFunction = (
-	key: string,
-	values?: Record<string, string | number>,
-) => string;
+export type TranslationFunction = ReturnType<
+	typeof createTranslator<Messages, "onboarding">
+>;
 
 /**
  * Controller hook that orchestrates:
