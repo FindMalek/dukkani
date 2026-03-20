@@ -1,5 +1,6 @@
 import { LOCALES } from "@dukkani/common/schemas/constants";
 import { isReservedStoreSlug } from "@dukkani/common/schemas/store/constants";
+import { loadStoreParams } from "@dukkani/common/utils";
 import { getLocale, setLocaleCookie } from "@dukkani/common/utils/locale-proxy";
 import { isStoreSelectorEnabled } from "@dukkani/env";
 import type { NextRequest } from "next/server";
@@ -16,7 +17,7 @@ export function proxy(request: NextRequest) {
 		return NextResponse.next();
 	}
 
-	const { pathname, searchParams } = request.nextUrl;
+	const { pathname } = request.nextUrl;
 
 	// Skip API routes, static files, and Next.js internals
 	if (
@@ -31,7 +32,7 @@ export function proxy(request: NextRequest) {
 
 	// Store selector env: when URL has ?store=slug, set cookie and redirect to same path without param
 	if (isStoreSelectorEnabled()) {
-		const storeParam = searchParams.get("store")?.trim().toLowerCase();
+		const { store: storeParam } = loadStoreParams(request.nextUrl.searchParams);
 		if (storeParam && !isReservedStoreSlug(storeParam)) {
 			const redirectUrl = new URL(pathname + request.nextUrl.hash, request.url);
 			const response = NextResponse.redirect(redirectUrl);

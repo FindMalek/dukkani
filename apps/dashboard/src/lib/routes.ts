@@ -157,12 +157,7 @@ export function getRouteHref<T extends RouteGroup>(
 }
 
 /**
- * Get route with query parameters
- * Type-safe helper for building URLs with query strings
- *
- * @param baseRoute - The base route path (Route type or string)
- * @param params - Query parameters as an object
- * @returns URL string with query parameters appended
+ * Build a route with query parameters using type-safe URL utilities
  *
  * @example
  *

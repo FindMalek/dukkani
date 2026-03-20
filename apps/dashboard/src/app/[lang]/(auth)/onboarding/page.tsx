@@ -1,15 +1,12 @@
 "use client";
 
-import {
-	UserOnboardingStep,
-	userOnboardingStepSchema,
-} from "@dukkani/common/schemas";
+import { UserOnboardingStep } from "@dukkani/common/schemas";
+import { parseEmail, parseOnboardingStep } from "@dukkani/common/utils";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
-import { Spinner } from "@dukkani/ui/components/spinner";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { RedirectType, redirect, useSearchParams } from "next/navigation";
+import { RedirectType, redirect } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useQueryState } from "nuqs";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
 import { OnboardingCompletion } from "@/components/auth/onboarding-completion";
 import {
@@ -23,24 +20,14 @@ import { authClient } from "@/lib/auth-client";
 import { RoutePaths } from "@/lib/routes";
 
 export default function OnboardingPage() {
-	const searchParams = useSearchParams();
 	const t = useTranslations("onboarding");
 
-	const stepFromQuery = searchParams.get("step");
-	const emailFromQuery = searchParams.get("email");
+	const [email] = useQueryState("email", parseEmail);
+	const [step, setStep] = useQueryState("step", parseOnboardingStep);
 
-	const initialStep = userOnboardingStepSchema
-		.nullable()
-		.catch(null)
-		.parse(stepFromQuery);
-
-	const [guestStep, setGuestStep] = useState<UserOnboardingStep | null>(
-		initialStep,
-	);
-
-	const onboarding = useOnboardingController(t, guestStep);
+	const onboarding = useOnboardingController(t, step);
 	const signUpForm = useAppForm({
-		...signUpOnboardingFormDefaultOptions(emailFromQuery ?? ""),
+		...signUpOnboardingFormDefaultOptions(email ?? ""),
 		onSubmit: async ({ value, formApi }) => {
 			await authClient.signUp.email(
 				{
@@ -50,7 +37,7 @@ export default function OnboardingPage() {
 				},
 				{
 					onSuccess: async () => {
-						setGuestStep(UserOnboardingStep.STORE_SETUP);
+						setStep(UserOnboardingStep.STORE_SETUP);
 					},
 					onError: async (error) => {
 						if (error.error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
