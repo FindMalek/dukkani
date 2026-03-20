@@ -1,5 +1,7 @@
 import type { StoreMinimalDbData } from "@dukkani/common/entities/store/query";
 import { StoreQuery } from "@dukkani/common/entities/store/query";
+import { UserEntity } from "@dukkani/common/entities/user/entity";
+import { UserQuery } from "@dukkani/common/entities/user/query";
 import { StoreStatus, UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import {
 	onboardingCompleteInputSchema,
@@ -133,19 +135,18 @@ export const onboardingRouter = {
 				});
 			}
 
-			const currentUser = await database.user.findUnique({
+			const user = await database.user.findUnique({
 				where: { id: userId },
-				select: {
-					id: true,
-					name: true,
-					email: true,
-					emailVerified: true,
-					image: true,
-					onboardingStep: true,
-					createdAt: true,
-					updatedAt: true,
-				},
+				include: UserQuery.getSimpleInclude(),
 			});
+
+			if (!user) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "User not found",
+				});
+			}
+
+			const currentUser = UserEntity.getSimpleRo(user);
 
 			return OnboardingService.getState(
 				currentUser,
@@ -169,19 +170,18 @@ export const onboardingRouter = {
 				});
 			}
 
-			const currentUser = await database.user.findUnique({
+			const user = await database.user.findUnique({
 				where: { id: userId },
-				select: {
-					id: true,
-					name: true,
-					email: true,
-					emailVerified: true,
-					image: true,
-					onboardingStep: true,
-					createdAt: true,
-					updatedAt: true,
-				},
+				include: UserQuery.getSimpleInclude(),
 			});
+
+			if (!user) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "User not found",
+				});
+			}
+
+			const currentUser = UserEntity.getSimpleRo(user);
 
 			return OnboardingService.shouldShowStores(
 				currentUser,
@@ -204,19 +204,18 @@ export const onboardingRouter = {
 				});
 			}
 
-			const currentUser = await database.user.findUnique({
+			const user = await database.user.findUnique({
 				where: { id: userId },
-				select: {
-					id: true,
-					name: true,
-					email: true,
-					emailVerified: true,
-					image: true,
-					onboardingStep: true,
-					createdAt: true,
-					updatedAt: true,
-				},
+				include: UserQuery.getSimpleInclude(),
 			});
+
+			if (!user) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "User not found",
+				});
+			}
+
+			const currentUser = UserEntity.getSimpleRo(user);
 
 			return OnboardingService.isOnboardingComplete(currentUser);
 		}),

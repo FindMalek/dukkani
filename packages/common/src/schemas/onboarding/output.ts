@@ -3,7 +3,8 @@ import type {
 	OnboardingState,
 	OnboardingStepConfig,
 } from "../../services/onboarding.service";
-import { UserOnboardingStep, userOnboardingStepSchema } from "../enums";
+import { UserOnboardingStep } from "../enums";
+import { userSimpleOutputSchema } from "../user/output";
 
 export const onboardingCompleteOutputSchema = z.object({
 	storeId: z.string(),
@@ -13,18 +14,7 @@ export const onboardingCompleteOutputSchema = z.object({
 
 export const onboardingGetStateOutputSchema = z.object({
 	isAuthenticated: z.boolean(),
-	currentUser: z
-		.object({
-			id: z.string(),
-			name: z.string(),
-			email: z.string(),
-			emailVerified: z.boolean(),
-			image: z.string().nullable(),
-			onboardingStep: userOnboardingStepSchema,
-			createdAt: z.date(),
-			updatedAt: z.date(),
-		})
-		.nullable(),
+	currentUser: userSimpleOutputSchema.nullable(),
 	onboardingStep: z.enum(UserOnboardingStep).nullable(),
 	effectiveStep: z.enum(UserOnboardingStep).nullable(),
 	needsStores: z.boolean(),

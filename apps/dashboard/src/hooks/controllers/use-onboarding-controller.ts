@@ -60,19 +60,13 @@ export function useOnboardingController(
 	);
 	const isAuthenticated = !!sessionData?.user;
 
-	// Get onboarding state from ORPC
-	const {
-		data: onboardingState,
-		isLoading: isStateLoading,
-		error: stateError,
-	} = useQuery({
+	const { data: onboardingState } = useQuery({
 		queryKey: ["onboarding", "state", guestStep],
 		queryFn: () => client.onboarding.getState({ guestStep }),
 		enabled: isAuthenticated,
 		staleTime: 1000 * 60 * 5, // 5 minutes
 	});
 
-	// Get shouldShowStores from ORPC
 	const { data: shouldShowStores } = useQuery({
 		queryKey: ["onboarding", "shouldShowStores"],
 		queryFn: () => client.onboarding.shouldShowStores(),
@@ -80,7 +74,6 @@ export function useOnboardingController(
 		staleTime: 1000 * 60 * 5, // 5 minutes
 	});
 
-	// Fallback for unauthenticated users
 	const fallbackState = useMemo(
 		() => ({
 			isAuthenticated: false,
@@ -209,16 +202,6 @@ export function useOnboardingController(
 				description: t(`steps.${stepKey}Description`),
 			};
 		},
-
-		// Validation - note: this might need to stay server-side or be moved to client
-		validateState: () => {
-			// For now, return a simple validation
-			// TODO: Consider if validation should be moved to ORPC or simplified client-side
-			return {
-				isValid: true,
-				errors: [],
-			};
-		},
 	};
 
 	// Forms
@@ -249,6 +232,7 @@ export function useOnboardingController(
 
 		// Raw data for advanced usage
 		sessionData,
+		currentUser: enhancedState.currentUser,
 	};
 }
 
