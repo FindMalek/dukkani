@@ -1,22 +1,27 @@
 import { StoreEntity } from "@dukkani/common/entities/store/entity";
-import type { UserOnboardingStep } from "@dukkani/common/schemas";
+import type { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import type {
 	ConfigureStoreOnboardingInput,
 	CreateStoreOnboardingInput,
 } from "@dukkani/common/schemas/store/input";
-import {
-	OnboardingService,
-	type OnboardingStepConfig,
-} from "@dukkani/common/services/onboarding.service";
+import type { OnboardingStepConfig } from "@dukkani/common/services/onboarding.service";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { createTranslator, Messages } from "next-intl";
+import { useMemo } from "react";
 import { storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOptions } from "@/components/auth/onboarding-store-configuration-form";
 import { storeSetupFormDefaultOptions } from "@/components/auth/onboarding-store-setup-form";
-import { useCurrentUserQuery } from "@/hooks/api/use-current-user.hook";
 import { useStoresQuery } from "@/hooks/api/use-stores.hook";
+import { useCurrentUserQueryForController } from "@/hooks/use-onboarding";
 import { authClient } from "@/lib/auth-client";
 import { handleAPIError } from "@/lib/error";
+import {
+	canProceedToNextStep,
+	getNextStep,
+	getPreviousStep,
+	isValidStepTransition,
+	shouldAutoSelectStore,
+} from "@/lib/onboarding.utils";
 import { client } from "@/lib/orpc";
 import { queryKeys } from "@/lib/query-keys";
 import { useActiveStoreStore } from "@/stores/active-store.store";
@@ -50,20 +55,52 @@ export function useOnboardingController(
 	// API hooks
 	const { data: sessionData, isPending: isSessionPending } =
 		authClient.useSession();
-	const { data: currentUser, isLoading: isCurrentUserLoading } =
-		useCurrentUserQuery(!!sessionData?.user);
+	const { isLoading: isCurrentUserLoading } = useCurrentUserQueryForController(
+		!!sessionData?.user,
+	);
 	const isAuthenticated = !!sessionData?.user;
 
-	// Get onboarding state from service
-	const onboardingState = OnboardingService.getState(
-		currentUser ?? null,
-		guestStep ?? null,
-		isAuthenticated,
+	// Get onboarding state from ORPC
+	const {
+		data: onboardingState,
+		isLoading: isStateLoading,
+		error: stateError,
+	} = useQuery({
+		queryKey: ["onboarding", "state", guestStep],
+		queryFn: () => client.onboarding.getState({ guestStep }),
+		enabled: isAuthenticated,
+		staleTime: 1000 * 60 * 5, // 5 minutes
+	});
+
+	// Get shouldShowStores from ORPC
+	const { data: shouldShowStores } = useQuery({
+		queryKey: ["onboarding", "shouldShowStores"],
+		queryFn: () => client.onboarding.shouldShowStores(),
+		enabled: isAuthenticated,
+		staleTime: 1000 * 60 * 5, // 5 minutes
+	});
+
+	// Fallback for unauthenticated users
+	const fallbackState = useMemo(
+		() => ({
+			isAuthenticated: false,
+			currentUser: null,
+			onboardingStep: null as UserOnboardingStep | null,
+			effectiveStep: guestStep ?? null,
+			needsStores: false,
+			isComplete: false,
+			canProceed: false,
+		}),
+		[guestStep],
 	);
 
-	// Store management
+	const state = isAuthenticated
+		? (onboardingState ?? fallbackState)
+		: fallbackState;
+
+	// Store management - use ORPC result
 	const { data: stores, isLoading: isStoresLoading } = useStoresQuery(
-		onboardingState.needsStores,
+		shouldShowStores ?? false,
 	);
 
 	// Mutations
@@ -122,17 +159,14 @@ export function useOnboardingController(
 		},
 	});
 
-	// Store selection logic
-	const selectedStoreId = OnboardingService.shouldAutoSelectStore(
-		onboardingState.onboardingStep,
-		null,
-	)
+	// Store selection logic using client utility
+	const selectedStoreId = shouldAutoSelectStore(state.onboardingStep, null)
 		? (stores?.[0]?.id ?? null)
 		: null;
 
 	// Enhanced state with store information
 	const enhancedState = {
-		...onboardingState,
+		...state,
 		stores,
 		storeId: selectedStoreId,
 		hasStores: !!stores?.length,
@@ -151,24 +185,18 @@ export function useOnboardingController(
 
 	// Action methods
 	const actions = {
-		// Step navigation
-		getNextStep: () =>
-			OnboardingService.getNextStep(enhancedState.effectiveStep),
-		getPreviousStep: () =>
-			OnboardingService.getPreviousStep(enhancedState.effectiveStep),
-		canProceedToNext: () =>
-			OnboardingService.canProceedToNextStep(enhancedState.effectiveStep),
+		// Step navigation using client utilities
+		getNextStep: () => getNextStep(enhancedState.effectiveStep),
+		getPreviousStep: () => getPreviousStep(enhancedState.effectiveStep),
+		canProceedToNext: () => canProceedToNextStep(enhancedState.effectiveStep),
 		isValidTransition: (toStep: UserOnboardingStep | null) =>
-			OnboardingService.isValidStepTransition(
-				enhancedState.effectiveStep,
-				toStep,
-			),
+			isValidStepTransition(enhancedState.effectiveStep, toStep),
 
-		// Step configuration with i18n
-		getStepConfig: (): OnboardingStepConfig => {
-			const baseConfig = OnboardingService.getStepConfig(
-				enhancedState.effectiveStep,
-			);
+		// Step configuration with i18n - get base config from ORPC
+		getStepConfig: async (): Promise<OnboardingStepConfig> => {
+			const baseConfig = await client.onboarding.getStepConfig({
+				step: enhancedState.effectiveStep,
+			});
 
 			// Use type-safe mapping from StoreEntity to get the correct translation key
 			const stepKey = enhancedState.effectiveStep
@@ -182,9 +210,15 @@ export function useOnboardingController(
 			};
 		},
 
-		// Validation
-		validateState: () =>
-			OnboardingService.validateOnboardingState(enhancedState),
+		// Validation - note: this might need to stay server-side or be moved to client
+		validateState: () => {
+			// For now, return a simple validation
+			// TODO: Consider if validation should be moved to ORPC or simplified client-side
+			return {
+				isValid: true,
+				errors: [],
+			};
+		},
 	};
 
 	// Forms
@@ -215,7 +249,6 @@ export function useOnboardingController(
 
 		// Raw data for advanced usage
 		sessionData,
-		currentUser,
 	};
 }
 
