@@ -1,6 +1,7 @@
-import { createEnv } from "@t3-oss/env-core";
+import { createEnv } from "@t3-oss/env-nextjs";
 import { baseEnv } from "../base";
-import { vercelModule } from "../modules";
+import { clientModule, vercelModule } from "../modules";
+import { createNextjsRuntimeEnv } from "../utils/runtime-env";
 
 /**
  * Vercel platform environment preset
@@ -12,9 +13,11 @@ export const vercelEnv = createEnv({
 	server: {
 		...vercelModule.server,
 	},
-	client: vercelModule.client,
-	clientPrefix: "NEXT_PUBLIC_",
-	runtimeEnv: process.env,
+	client: {
+		...clientModule.client,
+		...vercelModule.client,
+	},
+	runtimeEnv: createNextjsRuntimeEnv(),
 	emptyStringAsUndefined: true,
 	skipValidation:
 		process.env.SKIP_ENV_VALIDATION === "true" ||

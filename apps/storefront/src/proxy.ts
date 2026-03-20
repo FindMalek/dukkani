@@ -1,7 +1,7 @@
 import { LOCALES } from "@dukkani/common/schemas/constants";
 import { isReservedStoreSlug } from "@dukkani/common/schemas/store/constants";
-import { loadStoreParams } from "@dukkani/common/utils";
 import { getLocale, setLocaleCookie } from "@dukkani/common/utils/locale-proxy";
+import { loadStoreParams } from "@dukkani/common/utils/server-query-parsers";
 import { isStoreSelectorEnabled } from "@dukkani/env";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";

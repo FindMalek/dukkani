@@ -1,5 +1,6 @@
-import { createEnv } from "@t3-oss/env-core";
+import { createEnv } from "@t3-oss/env-nextjs";
 import { storageModule } from "../modules";
+import { createNextjsRuntimeEnv } from "../utils/runtime-env";
 import { vercelEnv } from "./vercel";
 
 /**
@@ -11,9 +12,7 @@ export const storageEnv = createEnv({
 	server: {
 		...storageModule.server,
 	},
-	client: {},
-	clientPrefix: "NEXT_PUBLIC_",
-	runtimeEnv: process.env,
+	runtimeEnv: createNextjsRuntimeEnv(),
 	emptyStringAsUndefined: true,
 	skipValidation:
 		process.env.SKIP_ENV_VALIDATION === "true" ||
