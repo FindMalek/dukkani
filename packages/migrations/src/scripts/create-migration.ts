@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { logger } from "@dukkani/logger";
@@ -53,12 +53,10 @@ class MigrationTemplateGenerator {
 	 * Format migration name to class name
 	 */
 	formatClassName(name: string): string {
-		return (
-			name
-				.split("-")
-				.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-				.join("") + "Migration"
-		);
+		return `${name
+			.split(/[-_]/)
+			.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+			.join("")}Migration`;
 	}
 
 	/**
@@ -79,26 +77,10 @@ class MigrationTemplateGenerator {
 	/**
 	 * Format file name with timestamp
 	 */
-	formatFileName(name: string): string {
-		const timestamp = this.getTimestamp();
+	formatFileName(name: string, timestamp?: string): string {
+		const ts = timestamp || this.getTimestamp();
 		const formattedName = name.toLowerCase().replace(/[^a-z0-9-]/g, "-");
-		return `${timestamp}-${formattedName}.ts`;
-	}
-
-	/**
-	 * Check if migration file already exists
-	 */
-	checkDuplicate(fileName: string): boolean {
-		const filePath = join(this.migrationsDir, fileName);
-		return existsSync(filePath);
-	}
-
-	/**
-	 * Generate migration file path
-	 */
-	generatePath(name: string): string {
-		const fileName = this.formatFileName(name);
-		return join(this.migrationsDir, fileName);
+		return `${ts}-${formattedName}.ts`;
 	}
 
 	/**
@@ -193,7 +175,7 @@ class MigrationTemplateGenerator {
 					type: "input",
 					name: "description",
 					message: "Migration description:",
-					default: (answers: any) =>
+					default: (answers: { name?: string }) =>
 						`${answers.name || migrationName} migration`,
 				},
 				{
@@ -222,17 +204,14 @@ class MigrationTemplateGenerator {
 			);
 		}
 
-		// Generate file data
-		const fileName = this.formatFileName(migrationName);
-		const filePath = this.generatePath(migrationName);
-
-		// Check for duplicates
-		if (this.checkDuplicate(fileName)) {
-			throw new Error(`Migration file already exists: ${fileName}`);
-		}
-
-		// Prepare template data
+		// Generate timestamp once
 		const timestamp = this.getTimestamp();
+
+		// Compute file paths once using the same timestamp
+		const fileName = this.formatFileName(migrationName, timestamp);
+		const filePath = join(this.migrationsDir, fileName);
+
+		// Prepare template data using the same timestamp
 		const templateData: MigrationTemplateData = {
 			name: migrationName,
 			className: this.formatClassName(migrationName),
@@ -254,9 +233,9 @@ class MigrationTemplateGenerator {
 			return;
 		}
 
-		// Create the file
+		// Atomic write - fails if file exists
 		try {
-			writeFileSync(filePath, content, "utf-8");
+			writeFileSync(filePath, content, { flag: "wx", encoding: "utf-8" });
 			logger.info(`Migration created successfully: ${fileName}`);
 			logger.info(`Path: ${filePath}`);
 			logger.info("Next steps:");
@@ -264,6 +243,9 @@ class MigrationTemplateGenerator {
 			logger.info("2. Run: pnpm migrate:storage -- --dry-run");
 			logger.info("3. When ready: pnpm migrate:storage");
 		} catch (error) {
+			if (error instanceof Error && error.message.includes("EEXIST")) {
+				throw new Error(`Migration file already exists: ${fileName}`);
+			}
 			throw new Error(`Failed to create migration file: ${error}`);
 		}
 	}
@@ -296,7 +278,7 @@ async function main(): Promise<void> {
 		});
 
 	// Parse command line arguments
-	program.parse();
+	await program.parseAsync();
 
 	// If no arguments provided, show help
 	if (process.argv.length <= 2) {

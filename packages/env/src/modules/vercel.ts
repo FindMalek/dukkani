@@ -201,12 +201,12 @@ export function getDeploymentUrl(env: {
 }): string | null {
 	const host = env.VERCEL_URL || env.VERCEL_BRANCH_URL;
 	if (!host) return null;
-	
+
 	// Return unchanged if already has a scheme
 	if (host.startsWith("http://") || host.startsWith("https://")) {
 		return host;
 	}
-	
+
 	// Add https:// scheme for Vercel URLs
 	return `https://${host}`;
 }
