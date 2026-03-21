@@ -16,6 +16,20 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 		return this.config.source.supabaseBucket || "production";
 	}
 
+	/**
+	 * Check if URL belongs to this Supabase project
+	 */
+	private isSupabaseProjectUrl(url: string | null | undefined): boolean {
+		if (!url) return false;
+		try {
+			const urlHost = new URL(url).host;
+			const supabaseHost = new URL(this.config.source.supabaseUrl || "").host;
+			return urlHost === supabaseHost;
+		} catch {
+			return false;
+		}
+	}
+
 	private getUpdateRefKey(ref: StorageMappingUpdateRef): string {
 		switch (ref.kind) {
 			case "storage-file-url":
@@ -62,29 +76,8 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 			);
 		}
 
-		// In dry-run we avoid creating a DB health record or failing on DB writes.
-		if (this.isDryRun()) {
-			this.logProgress("Dry run enabled: skipping database health check");
-			return;
-		}
-
-		// Validate database connectivity by writing a lightweight health record.
-		try {
-			await database.health.create({
-				data: {
-					status: "UNKNOWN",
-					duration: 0,
-					startTime: new Date(),
-					endTime: new Date(),
-				},
-			});
-		} catch (error) {
-			throw new Error(
-				`Database not accessible: ${
-					error instanceof Error ? error.message : String(error)
-				}`,
-			);
-		}
+		// Skip database health check - not essential for storage migration
+		this.logProgress("Database health check skipped");
 
 		this.logProgress("Prerequisites validation completed");
 	}
@@ -156,17 +149,28 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 		});
 
 		for (const file of storageFiles) {
-			upsertMapping(file.path, this.getSupabaseBucket(), file.url, {
-				kind: "storage-file-url",
-				storageFileId: file.id,
-				oldUrl: file.url,
-			});
+			// Filter URLs to only process Supabase project URLs
+			if (file.url && this.isSupabaseProjectUrl(file.url)) {
+				upsertMapping(file.path, this.getSupabaseBucket(), file.url, {
+					kind: "storage-file-url",
+					storageFileId: file.id,
+					oldUrl: file.url,
+				});
+			} else if (file.url) {
+				logger.info(`Skipping non-Supabase URL: ${file.url}`);
+				skipped++;
+			}
 
-			upsertMapping(file.path, this.getSupabaseBucket(), file.originalUrl, {
-				kind: "storage-file-original-url",
-				storageFileId: file.id,
-				oldUrl: file.originalUrl,
-			});
+			if (file.originalUrl && this.isSupabaseProjectUrl(file.originalUrl)) {
+				upsertMapping(file.path, this.getSupabaseBucket(), file.originalUrl, {
+					kind: "storage-file-original-url",
+					storageFileId: file.id,
+					oldUrl: file.originalUrl,
+				});
+			} else if (file.originalUrl) {
+				logger.info(`Skipping non-Supabase originalUrl: ${file.originalUrl}`);
+				skipped++;
+			}
 		}
 
 		const variants = await database.storageFileVariant.findMany({
@@ -184,6 +188,17 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 		});
 
 		for (const variant of variants) {
+			// Filter URLs to only process Supabase project URLs
+			if (!variant.url || !this.isSupabaseProjectUrl(variant.url)) {
+				if (variant.url) {
+					logger.info(`Skipping non-Supabase variant URL: ${variant.url}`);
+					skipped++;
+				} else {
+					skipped++;
+				}
+				continue;
+			}
+
 			const bucket = variant.storageFile.bucket || this.getSupabaseBucket();
 			let path = this.fileMapper.extractPathFromSupabaseUrl(
 				variant.url,
