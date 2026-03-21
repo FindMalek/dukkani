@@ -43,17 +43,9 @@ export function createNextjsRuntimeEnv() {
 		// Database vars
 		DATABASE_URL: process.env.DATABASE_URL,
 		// Telegram vars
-		TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
 		TELEGRAM_BOT_NAME: process.env.TELEGRAM_BOT_NAME,
 		TELEGRAM_API_TOKEN: process.env.TELEGRAM_API_TOKEN,
 		TELEGRAM_WEBHOOK_SECRET: process.env.TELEGRAM_WEBHOOK_SECRET,
-		// Storage vars
-		STORAGE_ENDPOINT: process.env.STORAGE_ENDPOINT,
-		STORAGE_REGION: process.env.STORAGE_REGION,
-		STORAGE_BUCKET: process.env.STORAGE_BUCKET,
-		STORAGE_ACCESS_KEY_ID: process.env.STORAGE_ACCESS_KEY_ID,
-		STORAGE_SECRET_ACCESS_KEY: process.env.STORAGE_SECRET_ACCESS_KEY,
-		STORAGE_PUBLIC_URL: process.env.STORAGE_PUBLIC_URL,
 		// S3 storage module vars
 		S3_ENDPOINT: process.env.S3_ENDPOINT,
 		S3_ACCESS_KEY_ID: process.env.S3_ACCESS_KEY_ID,

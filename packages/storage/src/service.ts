@@ -642,8 +642,8 @@ class StorageServiceBase {
 				}
 
 				isTruncated = listResponse.IsTruncated || false;
-				marker = listResponse.NextMarker;
-			} while (isTruncated && marker);
+				marker = listResponse.NextMarker || listResponse.Contents?.at(-1)?.Key;
+			} while (isTruncated);
 
 			if (totalDeleted > 0) {
 				logger.info(
