@@ -68,7 +68,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
    3. **Start the database**:
 
 ```bash
-   pnpm run setup
+   pnpm run bootstrap
 ```
 
    4. **Seed the database** (optional, for development):
