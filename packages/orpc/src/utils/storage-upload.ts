@@ -250,6 +250,16 @@ export async function executeUploadFiles(
 		include: StorageFileQuery.getInclude(),
 	});
 
+	// Validate that all requested files were found
+	if (filesWithVariants.length !== fileIds.length) {
+		const returnedIds = filesWithVariants.map(f => f.id);
+		const missingIds = fileIds.filter(id => !returnedIds.includes(id));
+		
+		throw new Error(
+			`Database inconsistency: Expected ${fileIds.length} files but only found ${filesWithVariants.length}. Missing file IDs: ${missingIds.join(', ')}`
+		);
+	}
+
 	return {
 		files: filesWithVariants.map(StorageFileEntity.getRo),
 	};
