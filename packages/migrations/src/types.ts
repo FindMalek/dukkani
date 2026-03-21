@@ -59,6 +59,23 @@ export interface StorageMigrationConfig extends MigrationConfig {
 	targetMapping?: StorageFileMapping[];
 }
 
+export type StorageMappingUpdateRef =
+	| {
+			kind: "storage-file-url";
+			storageFileId: string;
+			oldUrl?: string;
+	  }
+	| {
+			kind: "storage-file-original-url";
+			storageFileId: string;
+			oldUrl?: string;
+	  }
+	| {
+			kind: "storage-file-variant-url";
+			storageFileVariantId: string;
+			oldUrl?: string;
+	  };
+
 /**
  * File mapping for migration
  */
@@ -66,7 +83,10 @@ export interface StorageFileMapping {
 	sourcePath: string;
 	target: StorageUploadTarget;
 	sourceUrl?: string;
+	sourceBucket?: string;
 	fileId?: string;
+	destinationUrl?: string;
+	updateRefs?: StorageMappingUpdateRef[];
 }
 
 /**

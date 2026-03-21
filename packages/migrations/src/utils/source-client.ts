@@ -1,12 +1,12 @@
 import { logger } from "@dukkani/logger";
-import { createClient, type StorageClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { StorageMigrationConfig } from "../types";
 
 /**
  * Source storage client wrapper for Supabase
  */
 export class SourceStorageClient {
-	private client: StorageClient | null = null;
+	private client: SupabaseClient | null = null;
 	private config: StorageMigrationConfig["source"];
 
 	constructor(config: StorageMigrationConfig["source"]) {
@@ -16,7 +16,7 @@ export class SourceStorageClient {
 	/**
 	 * Get Supabase client
 	 */
-	private getClient(): StorageClient {
+	private getClient(): SupabaseClient {
 		if (!this.client) {
 			if (!this.config.supabaseUrl || !this.config.supabaseServiceKey) {
 				throw new Error("Supabase URL and service key are required");
@@ -42,15 +42,16 @@ export class SourceStorageClient {
 	async validateConnection(): Promise<void> {
 		try {
 			const client = this.getClient();
-			const bucket = this.config.supababaseBucket || "production";
+			const bucket = this.config.supabaseBucket || "production";
 
 			// Test connection by listing bucket contents
 			await client.storage.from(bucket).list("", { limit: 1 });
 
 			logger.info("Source storage connection validated");
 		} catch (error) {
+			const bucket = this.config.supabaseBucket || "production";
 			throw new Error(
-				`Source storage connection failed: ${error instanceof Error ? error.message : String(error)}`,
+				`Source storage connection failed for bucket '${bucket}': ${error instanceof Error ? error.message : String(error)}`,
 			);
 		}
 	}
@@ -60,7 +61,7 @@ export class SourceStorageClient {
 	 */
 	async listAllFiles(bucket?: string, folder = ""): Promise<string[]> {
 		const client = this.getClient();
-		const bucketName = bucket || this.config.supababaseBucket || "production";
+		const bucketName = bucket || this.config.supabaseBucket || "production";
 
 		const { data, error } = await client.storage.from(bucketName).list(folder, {
 			limit: 1000,

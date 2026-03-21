@@ -228,6 +228,7 @@ export abstract class StorageMigration extends BaseMigration<StorageMigrationCon
 
 		const batchSize = this.config.batchSize || 5;
 		const batches = this.createBatches(this.discoveredFiles, batchSize);
+		let failedUploads = 0;
 
 		for (let i = 0; i < batches.length; i++) {
 			const batch = batches[i];
@@ -240,11 +241,27 @@ export abstract class StorageMigration extends BaseMigration<StorageMigrationCon
 			if (this.isDryRun()) {
 				// Simulate upload in dry run mode
 				await this.simulateUpload(batch);
+				this.updateProgress(batch.length);
 			} else {
-				await this.uploadBatch(batch);
-			}
+				const result = await this.uploadBatch(batch);
+				failedUploads += result.failed.length;
 
-			this.updateProgress(batch.length);
+				this.progress.processed += batch.length;
+				this.progress.skipped += result.skipped.length;
+				this.progress.failed += result.failed.length;
+
+				for (const failed of result.failed) {
+					this.progress.errors.push({
+						timestamp: new Date(),
+						message: `Upload failed for ${failed.mapping.sourcePath}: ${failed.error.message}`,
+						stack: failed.error.stack,
+					});
+				}
+			}
+		}
+
+		if (!this.isDryRun() && failedUploads > 0) {
+			throw new Error(`Upload failed for ${failedUploads} file(s)`);
 		}
 
 		this.logProgress("File upload completed");

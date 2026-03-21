@@ -2,12 +2,31 @@ import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
 import { StorageService, env as storageEnv } from "@dukkani/storage";
 import { StorageMigration } from "../templates/storage-migration";
-import type { StorageFileMapping, UploadBatchResult } from "../types";
+import type {
+	StorageFileMapping,
+	StorageMappingUpdateRef,
+	UploadBatchResult,
+} from "../types";
 
 /**
  * Get content from Supabase to Cloudflare R2 Storage
  */
 export class FromSupabaseToR2Migration extends StorageMigration {
+	private getSupabaseBucket(): string {
+		return this.config.source.supabaseBucket || "production";
+	}
+
+	private getUpdateRefKey(ref: StorageMappingUpdateRef): string {
+		switch (ref.kind) {
+			case "storage-file-url":
+				return `${ref.kind}:${ref.storageFileId}`;
+			case "storage-file-original-url":
+				return `${ref.kind}:${ref.storageFileId}`;
+			case "storage-file-variant-url":
+				return `${ref.kind}:${ref.storageFileVariantId}`;
+		}
+	}
+
 	/**
 	 * Get migration name
 	 */
@@ -80,14 +99,127 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 			"Discovering database-referenced files for from-supabase-to-r2",
 		);
 
-		// TODO: Implement your database discovery logic
-		// Examples:
-		// - Query specific tables for file references
-		// - Filter by specific criteria
-		// - Map database records to file mappings
+		const mappingsByPath = new Map<string, StorageFileMapping>();
+		let skipped = 0;
+		let refs = 0;
 
-		const mappings = await this.fileMapper.inferTargetFromDatabase();
-		logger.info(`Found ${mappings.length} database-referenced files`);
+		const upsertMapping = (
+			sourcePath: string,
+			sourceBucket: string,
+			sourceUrl: string | undefined,
+			updateRef: StorageMappingUpdateRef,
+		): void => {
+			const target = this.fileMapper.inferTargetFromPath(sourcePath);
+			if (!target) {
+				skipped += 1;
+				return;
+			}
+
+			const existing = mappingsByPath.get(sourcePath);
+			if (!existing) {
+				mappingsByPath.set(sourcePath, {
+					sourcePath,
+					target,
+					sourceBucket,
+					sourceUrl,
+					updateRefs: [updateRef],
+					fileId:
+						"storageFileId" in updateRef ? updateRef.storageFileId : undefined,
+				});
+				refs += 1;
+				return;
+			}
+
+			existing.sourceBucket ||= sourceBucket;
+			existing.sourceUrl ||= sourceUrl;
+			existing.updateRefs ||= [];
+
+			const refKey = this.getUpdateRefKey(updateRef);
+			const hasRef = existing.updateRefs.some(
+				(ref) => this.getUpdateRefKey(ref) === refKey,
+			);
+
+			if (!hasRef) {
+				existing.updateRefs.push(updateRef);
+				refs += 1;
+			}
+		};
+
+		const storageFiles = await database.storageFile.findMany({
+			select: {
+				id: true,
+				bucket: true,
+				path: true,
+				url: true,
+				originalUrl: true,
+			},
+		});
+
+		for (const file of storageFiles) {
+			upsertMapping(file.path, this.getSupabaseBucket(), file.url, {
+				kind: "storage-file-url",
+				storageFileId: file.id,
+				oldUrl: file.url,
+			});
+
+			upsertMapping(file.path, this.getSupabaseBucket(), file.originalUrl, {
+				kind: "storage-file-original-url",
+				storageFileId: file.id,
+				oldUrl: file.originalUrl,
+			});
+		}
+
+		const variants = await database.storageFileVariant.findMany({
+			select: {
+				id: true,
+				variant: true,
+				url: true,
+				storageFile: {
+					select: {
+						bucket: true,
+						path: true,
+					},
+				},
+			},
+		});
+
+		for (const variant of variants) {
+			const bucket = variant.storageFile.bucket || this.getSupabaseBucket();
+			let path = this.fileMapper.extractPathFromSupabaseUrl(
+				variant.url,
+				bucket,
+			);
+
+			if (!path) {
+				const basePath = variant.storageFile.path;
+				const slashIdx = basePath.lastIndexOf("/");
+				const dotIdx = basePath.lastIndexOf(".");
+				const parent = slashIdx >= 0 ? basePath.slice(0, slashIdx) : "";
+				const ext = dotIdx > slashIdx ? basePath.slice(dotIdx + 1) : "webp";
+				const variantFileName = `${variant.variant.toLowerCase()}.${ext}`;
+				path = parent ? `${parent}/${variantFileName}` : variantFileName;
+			}
+
+			if (!path) {
+				skipped += 1;
+				logger.warn(
+					{ variantId: variant.id, url: variant.url },
+					"Skipping variant URL that is not a valid Supabase public URL",
+				);
+				continue;
+			}
+
+			upsertMapping(path, bucket, variant.url, {
+				kind: "storage-file-variant-url",
+				storageFileVariantId: variant.id,
+				oldUrl: variant.url,
+			});
+		}
+
+		const mappings = [...mappingsByPath.values()];
+		logger.info(
+			`Found ${mappings.length} database-referenced unique files (refs=${refs}, skipped=${skipped})`,
+		);
 
 		return mappings;
 	}
@@ -137,11 +269,6 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 		const failed: Array<{ mapping: StorageFileMapping; error: Error }> = [];
 		const skipped: StorageFileMapping[] = [];
 
-		type MappingWithOldSourceUrl = StorageFileMapping & {
-			// Runtime-only helper to preserve the original Supabase URL for later DB updates.
-			oldSourceUrl?: string;
-		};
-
 		logger.info(
 			`Processing batch of ${batch.length} files for from-supabase-to-r2`,
 		);
@@ -156,13 +283,8 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 					continue;
 				}
 
-				const m = mapping as MappingWithOldSourceUrl;
-
-				// Preserve the original Supabase URL so we can update rows by matching the old value later.
-				m.oldSourceUrl ??= m.sourceUrl;
-
 				// Download file from Supabase
-				const bucket = this.config.source.supabaseBucket || "production";
+				const bucket = this.getSupabaseBucket();
 				const blob = await this.sourceClient.downloadFile(
 					bucket,
 					mapping.sourcePath,
@@ -183,7 +305,8 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 				});
 
 				// Store the new R2 URL for database updates
-				m.sourceUrl = result.url;
+				mapping.destinationUrl = result.url;
+				mapping.sourceUrl = result.url;
 				uploaded.push(mapping);
 
 				logger.debug(`Uploaded: ${mapping.sourcePath} -> ${result.url}`);
@@ -207,57 +330,67 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 	protected async updateDatabaseUrls(): Promise<void> {
 		if (this.isDryRun()) {
 			logger.info(
-				"[DRY RUN] Would update database URLs for from-supabase-to-r2",
+				`[DRY RUN] Would update database URLs for from-supabase-to-r2 (mappings=${this.discoveredFiles.length})`,
 			);
 			return;
 		}
 
 		logger.info("Updating database URLs for from-supabase-to-r2");
 
-		const bucketName = this.config.source.supabaseBucket || "production";
-
-		type MappingWithOldSourceUrl = StorageFileMapping & {
-			oldSourceUrl?: string;
-		};
+		let updatedStorageFiles = 0;
+		let updatedStorageVariants = 0;
 
 		for (const mapping of this.discoveredFiles) {
-			const m = mapping as MappingWithOldSourceUrl;
-
-			// New URL is written during uploadBatch().
-			const newUrl = m.sourceUrl;
+			const newUrl = mapping.destinationUrl;
 			if (!newUrl) continue;
 
-			// Old URL is either preserved from uploadBatch (fast path), or recomputed from the Supabase URL structure.
-			const oldUrl =
-				m.oldSourceUrl ??
-				this.sourceClient.getPublicUrl(bucketName, m.sourcePath);
-			if (!oldUrl) continue;
+			const refs = mapping.updateRefs || [];
+			const storageFileUpdates = new Map<
+				string,
+				{ url?: string; originalUrl?: string }
+			>();
+			const variantIds = new Set<string>();
 
-			// storage_files: the primary record is tracked by fileId.
-			if (m.fileId) {
-				await database.storageFile.update({
-					where: { id: m.fileId },
-					data: {
-						url: newUrl,
-						originalUrl: newUrl,
-					},
-				});
-				continue;
+			for (const ref of refs) {
+				switch (ref.kind) {
+					case "storage-file-url": {
+						const existing = storageFileUpdates.get(ref.storageFileId) || {};
+						existing.url = newUrl;
+						storageFileUpdates.set(ref.storageFileId, existing);
+						break;
+					}
+					case "storage-file-original-url": {
+						const existing = storageFileUpdates.get(ref.storageFileId) || {};
+						existing.originalUrl = newUrl;
+						storageFileUpdates.set(ref.storageFileId, existing);
+						break;
+					}
+					case "storage-file-variant-url":
+						variantIds.add(ref.storageFileVariantId);
+						break;
+				}
 			}
 
-			// storage_file_variants vs images: distinguish by Supabase object path.
-			if (m.sourcePath.includes("/variants/")) {
-				await database.storageFileVariant.updateMany({
-					where: { url: oldUrl },
+			for (const [storageFileId, data] of storageFileUpdates) {
+				await database.storageFile.update({
+					where: { id: storageFileId },
+					data,
+				});
+				updatedStorageFiles += 1;
+			}
+
+			for (const storageFileVariantId of variantIds) {
+				await database.storageFileVariant.update({
+					where: { id: storageFileVariantId },
 					data: { url: newUrl },
 				});
-			} else {
-				await database.image.updateMany({
-					where: { url: oldUrl },
-					data: { url: newUrl },
-				});
+				updatedStorageVariants += 1;
 			}
 		}
+
+		logger.info(
+			`Updated database URLs (storageFiles=${updatedStorageFiles}, storageFileVariants=${updatedStorageVariants})`,
+		);
 	}
 
 	/**
@@ -273,51 +406,66 @@ export class FromSupabaseToR2Migration extends StorageMigration {
 
 		logger.info("Restoring database URLs for from-supabase-to-r2 rollback");
 
-		const bucketName = this.config.source.supabaseBucket || "production";
+		if (this.discoveredFiles.length === 0) {
+			const discoveryResult = await this.discoverFiles();
+			this.discoveredFiles = discoveryResult.files;
+		}
 
-		type MappingWithOldSourceUrl = StorageFileMapping & {
-			oldSourceUrl?: string;
-		};
+		let restoredStorageFiles = 0;
+		let restoredStorageVariants = 0;
 
 		for (const mapping of this.discoveredFiles) {
-			const m = mapping as MappingWithOldSourceUrl;
+			const refs = mapping.updateRefs || [];
+			const storageFileUpdates = new Map<
+				string,
+				{ url?: string; originalUrl?: string }
+			>();
+			const variantUpdates = new Map<string, string>();
 
-			// Current R2 URL is stored in sourceUrl after uploadBatch()
-			const currentUrl = m.sourceUrl;
-			if (!currentUrl) continue;
+			for (const ref of refs) {
+				if (!ref.oldUrl) {
+					continue;
+				}
 
-			// Old Supabase URL is either preserved from uploadBatch (fast path), or recomputed from the Supabase URL structure.
-			const oldUrl =
-				m.oldSourceUrl ??
-				this.sourceClient.getPublicUrl(bucketName, m.sourcePath);
-			if (!oldUrl) continue;
-
-			// storage_files: the primary record is tracked by fileId.
-			if (m.fileId) {
-				await database.storageFile.update({
-					where: { id: m.fileId },
-					data: {
-						url: oldUrl,
-						originalUrl: oldUrl,
-					},
-				});
-				continue;
+				switch (ref.kind) {
+					case "storage-file-url": {
+						const existing = storageFileUpdates.get(ref.storageFileId) || {};
+						existing.url = ref.oldUrl;
+						storageFileUpdates.set(ref.storageFileId, existing);
+						break;
+					}
+					case "storage-file-original-url": {
+						const existing = storageFileUpdates.get(ref.storageFileId) || {};
+						existing.originalUrl = ref.oldUrl;
+						storageFileUpdates.set(ref.storageFileId, existing);
+						break;
+					}
+					case "storage-file-variant-url":
+						variantUpdates.set(ref.storageFileVariantId, ref.oldUrl);
+						break;
+				}
 			}
 
-			// storage_file_variants vs images: distinguish by Supabase object path.
-			// Match current R2 URL and revert to old Supabase URL
-			if (m.sourcePath.includes("/variants/")) {
-				await database.storageFileVariant.updateMany({
-					where: { url: currentUrl },
-					data: { url: oldUrl },
+			for (const [storageFileId, data] of storageFileUpdates) {
+				await database.storageFile.update({
+					where: { id: storageFileId },
+					data,
 				});
-			} else {
-				await database.image.updateMany({
-					where: { url: currentUrl },
-					data: { url: oldUrl },
+				restoredStorageFiles += 1;
+			}
+
+			for (const [storageFileVariantId, url] of variantUpdates) {
+				await database.storageFileVariant.update({
+					where: { id: storageFileVariantId },
+					data: { url },
 				});
+				restoredStorageVariants += 1;
 			}
 		}
+
+		logger.info(
+			`Restored database URLs (storageFiles=${restoredStorageFiles}, storageFileVariants=${restoredStorageVariants})`,
+		);
 	}
 
 	/**

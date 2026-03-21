@@ -198,22 +198,22 @@ pnpm --filter @dukkani/migrations migrate:storage
 
 **Dry run (preview without making changes):**
 ```bash
-pnpm --filter @dukkani/migrations exec dukkani-migrate storage migrate --dry-run
+pnpm --filter @dukkani/migrations migrate:storage -- --dry-run
 ```
 
 **With custom batch size:**
 ```bash
-pnpm --filter @dukkani/migrations exec dukkani-migrate storage migrate --batch-size 10
+pnpm --filter @dukkani/migrations migrate:storage -- --batch-size 10
 ```
 
 **Migrate all files (not just DB-referenced):**
 ```bash
-pnpm --filter @dukkani/migrations exec dukkani-migrate storage migrate --scope all-bucket
+pnpm --filter @dukkani/migrations migrate:storage -- --scope all-bucket
 ```
 
 **Rollback migration:**
 ```bash
-pnpm --filter @dukkani/migrations exec dukkani-migrate storage rollback
+pnpm --filter @dukkani/migrations migrate:storage:rollback
 ```
 
 ### Create Migration Commands

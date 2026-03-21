@@ -1,8 +1,8 @@
+import { initializeDatabase } from "@dukkani/db";
+import { dbEnv } from "@dukkani/env/presets/db";
 import { logger } from "@dukkani/logger";
 import { Command } from "commander";
 import inquirer from "inquirer";
-import { dbEnv } from "@dukkani/env";
-import { initializeDatabase } from "@dukkani/db";
 import { migrationEnv } from "../../env";
 import { FromSupabaseToR2Migration } from "../../migrations/20260318234552-from-supabase-to-r2";
 import type {
