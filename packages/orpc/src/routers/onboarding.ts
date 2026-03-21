@@ -1,15 +1,36 @@
 import type { StoreMinimalDbData } from "@dukkani/common/entities/store/query";
 import { StoreQuery } from "@dukkani/common/entities/store/query";
+import { UserEntity } from "@dukkani/common/entities/user/entity";
+import { UserQuery } from "@dukkani/common/entities/user/query";
 import { StoreStatus, UserOnboardingStep } from "@dukkani/common/schemas/enums";
-import { onboardingCompleteInputSchema } from "@dukkani/common/schemas/onboarding/input";
-import type { OnboardingCompleteOutput } from "@dukkani/common/schemas/onboarding/output";
-import { onboardingCompleteOutputSchema } from "@dukkani/common/schemas/onboarding/output";
-import { LaunchNotificationService } from "@dukkani/common/services";
+import {
+	onboardingCompleteInputSchema,
+	onboardingGetStateInputSchema,
+	onboardingGetStepConfigInputSchema,
+} from "@dukkani/common/schemas/onboarding/input";
+import type {
+	OnboardingCompleteOutput,
+	OnboardingGetStateOutput,
+	OnboardingGetStepConfigOutput,
+	OnboardingIsCompleteOutput,
+	OnboardingShouldShowStoresOutput,
+} from "@dukkani/common/schemas/onboarding/output";
+import {
+	onboardingCompleteOutputSchema,
+	onboardingGetStateOutputSchema,
+	onboardingGetStepConfigOutputSchema,
+	onboardingIsCompleteOutputSchema,
+	onboardingShouldShowStoresOutputSchema,
+} from "@dukkani/common/schemas/onboarding/output";
+import {
+	LaunchNotificationService,
+	OnboardingService,
+} from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
 import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure } from "../procedures";
+import { protectedProcedure, publicProcedure } from "../procedures";
 
 export const onboardingRouter = {
 	/**
@@ -96,5 +117,117 @@ export const onboardingRouter = {
 				storeSlug: store.slug,
 				storeUrl,
 			};
+		}),
+
+	/**
+	 * Get complete onboarding state for the current user
+	 * Returns all onboarding-related information including state, steps, and permissions
+	 */
+	getState: protectedProcedure
+		.input(onboardingGetStateInputSchema.optional())
+		.output(onboardingGetStateOutputSchema)
+		.handler(async ({ input, context }): Promise<OnboardingGetStateOutput> => {
+			// Get current user from session
+			const userId = context.session?.user?.id;
+			if (!userId) {
+				throw new ORPCError("UNAUTHORIZED", {
+					message: "User not authenticated",
+				});
+			}
+
+			const user = await database.user.findUnique({
+				where: { id: userId },
+				include: UserQuery.getSimpleInclude(),
+			});
+
+			if (!user) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "User not found",
+				});
+			}
+
+			const currentUser = UserEntity.getSimpleRo(user);
+
+			return OnboardingService.getState(
+				currentUser,
+				input?.guestStep ?? null,
+				true, // authenticated
+			);
+		}),
+
+	/**
+	 * Check if stores should be shown for the current user
+	 * Used to determine if store-related UI should be displayed
+	 */
+	shouldShowStores: protectedProcedure
+		.output(onboardingShouldShowStoresOutputSchema)
+		.handler(async ({ context }): Promise<OnboardingShouldShowStoresOutput> => {
+			// Get current user from session
+			const userId = context.session?.user?.id;
+			if (!userId) {
+				throw new ORPCError("UNAUTHORIZED", {
+					message: "User not authenticated",
+				});
+			}
+
+			const user = await database.user.findUnique({
+				where: { id: userId },
+				include: UserQuery.getSimpleInclude(),
+			});
+
+			if (!user) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "User not found",
+				});
+			}
+
+			const currentUser = UserEntity.getSimpleRo(user);
+
+			return OnboardingService.shouldShowStores(
+				currentUser,
+				true, // authenticated
+			);
+		}),
+
+	/**
+	 * Check if onboarding is complete for the current user
+	 * Returns true if user has completed all onboarding steps
+	 */
+	isComplete: protectedProcedure
+		.output(onboardingIsCompleteOutputSchema)
+		.handler(async ({ context }): Promise<OnboardingIsCompleteOutput> => {
+			// Get current user from session
+			const userId = context.session?.user?.id;
+			if (!userId) {
+				throw new ORPCError("UNAUTHORIZED", {
+					message: "User not authenticated",
+				});
+			}
+
+			const user = await database.user.findUnique({
+				where: { id: userId },
+				include: UserQuery.getSimpleInclude(),
+			});
+
+			if (!user) {
+				throw new ORPCError("NOT_FOUND", {
+					message: "User not found",
+				});
+			}
+
+			const currentUser = UserEntity.getSimpleRo(user);
+
+			return OnboardingService.isOnboardingComplete(currentUser);
+		}),
+
+	/**
+	 * Get step configuration for a specific onboarding step
+	 * Returns base configuration without i18n translations
+	 */
+	getStepConfig: publicProcedure
+		.input(onboardingGetStepConfigInputSchema)
+		.output(onboardingGetStepConfigOutputSchema)
+		.handler(async ({ input }): Promise<OnboardingGetStepConfigOutput> => {
+			return OnboardingService.getStepConfig(input.step);
 		}),
 };

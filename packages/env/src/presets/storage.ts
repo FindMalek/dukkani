@@ -1,19 +1,18 @@
-import { createEnv } from "@t3-oss/env-core";
-import { baseEnv } from "../base";
+import { createEnv } from "@t3-oss/env-nextjs";
 import { storageModule } from "../modules";
+import { createNextjsRuntimeEnv } from "../utils/runtime-env";
+import { vercelEnv } from "./vercel";
 
 /**
  * Storage package environment preset
- * Includes Supabase Storage configuration and file upload limits
+ * Includes S3-compatible storage configuration and Vercel deployment variables
  */
 export const storageEnv = createEnv({
-	extends: [baseEnv],
+	extends: [vercelEnv],
 	server: {
 		...storageModule.server,
 	},
-	client: {},
-	clientPrefix: "NEXT_PUBLIC_",
-	runtimeEnv: process.env,
+	runtimeEnv: createNextjsRuntimeEnv(),
 	emptyStringAsUndefined: true,
 	skipValidation:
 		process.env.SKIP_ENV_VALIDATION === "true" ||

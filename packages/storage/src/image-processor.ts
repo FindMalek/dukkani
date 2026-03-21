@@ -1,8 +1,13 @@
-import { VARIANT_SIZES } from "@dukkani/common/schemas/storage/constants";
+import { StorageFileEntity } from "@dukkani/common/entities/storage/entity";
+import {
+	isImageMimeType,
+	VARIANT_SIZES,
+} from "@dukkani/common/schemas/constants";
 import type {
 	ImageVariant,
 	ProcessedImage,
 } from "@dukkani/common/schemas/storage/output";
+import { isWebOptimizedMimeType } from "@dukkani/common/utils/mime-types";
 import sharp from "sharp";
 
 /**
@@ -14,6 +19,11 @@ export class ImageProcessor {
 	 * Process an image file and generate size variants
 	 */
 	static async processImage(file: File): Promise<ProcessedImage> {
+		// Validate that this is a supported image type
+		if (!isImageMimeType(file.type)) {
+			throw new Error(`Unsupported image format: ${file.type}`);
+		}
+
 		const arrayBuffer = await file.arrayBuffer();
 		const buffer = Buffer.from(arrayBuffer);
 
@@ -46,7 +56,7 @@ export class ImageProcessor {
 
 				const variantMetadata = await sharp(resized).metadata();
 				return {
-					variant: variant as ImageVariant["variant"],
+					variant: StorageFileEntity.convertToImageVariant(variant),
 					buffer: resized,
 					width: variantMetadata.width ?? size.width,
 					height: variantMetadata.height ?? size.height,
@@ -88,13 +98,18 @@ export class ImageProcessor {
 		buffer: Buffer,
 		mimeType: string,
 	): Promise<ImageVariant[]> {
+		// Validate MIME type
+		if (!isImageMimeType(mimeType)) {
+			throw new Error(`Unsupported image format: ${mimeType}`);
+		}
+
 		const metadata = await sharp(buffer).metadata();
 		if (!metadata.width || !metadata.height) {
 			throw new Error("Invalid image: unable to read dimensions");
 		}
 
-		// Determine output format
-		const outputFormat = mimeType.includes("webp") ? "webp" : "jpeg";
+		// Determine output format using type-safe logic
+		const outputFormat = isWebOptimizedMimeType(mimeType) ? "webp" : "jpeg";
 		const outputMimeType =
 			outputFormat === "webp" ? "image/webp" : "image/jpeg";
 
@@ -112,7 +127,7 @@ export class ImageProcessor {
 
 				const variantMetadata = await sharp(resized).metadata();
 				return {
-					variant: variant as ImageVariant["variant"],
+					variant: StorageFileEntity.convertToImageVariant(variant),
 					buffer: resized,
 					width: variantMetadata.width ?? size.width,
 					height: variantMetadata.height ?? size.height,
@@ -123,12 +138,5 @@ export class ImageProcessor {
 		);
 
 		return Promise.all(variantPromises);
-	}
-
-	/**
-	 * Check if a file is an image
-	 */
-	static isImage(mimeType: string): boolean {
-		return mimeType.startsWith("image/");
 	}
 }

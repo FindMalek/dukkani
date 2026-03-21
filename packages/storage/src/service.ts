@@ -1,21 +1,43 @@
+import {
+	DeleteObjectCommand,
+	DeleteObjectsCommand,
+	ListObjectsCommand,
+	PutObjectCommand,
+} from "@aws-sdk/client-s3";
+import {
+	getFileExtensionFromMimeType,
+	isImageMimeType,
+	isSupportedMimeType,
+	type SupportedMimeType,
+} from "@dukkani/common/schemas/constants";
+import {
+	StorageFileVariantType,
+	type StorageFileVariantTypeInfer,
+} from "@dukkani/common/schemas/enums";
+import type { StorageUploadTarget } from "@dukkani/common/schemas/storage/input";
 import type {
 	ProcessedImage,
 	StorageFileResult,
 } from "@dukkani/common/schemas/storage/output";
+import {
+	extractFallbackExtension,
+	validateMimeType,
+} from "@dukkani/common/utils/mime-types";
 import { logger } from "@dukkani/logger";
-import { addSpanAttributes, Trace, traceStaticClass } from "@dukkani/tracing";
+import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { nanoid } from "nanoid";
-import { storageClient } from "./client";
+import { getS3Client } from "./client";
 import { env } from "./env";
 import { ImageProcessor } from "./image-processor";
 
 export type UploadOptions = {
 	alt?: string;
+	target: StorageUploadTarget;
 };
 
 /**
  * Storage service for file uploads and management
- * Handles Supabase Storage operations with image optimization
+ * Handles S3-compatible storage (R2/MinIO) with image optimization
  */
 class StorageServiceBase {
 	/**
@@ -47,21 +69,217 @@ class StorageServiceBase {
 		}
 	}
 
-	/**
-	 * Generate a unique file path
-	 */
-	private static generateFilePath(fileName: string): string {
-		const id = nanoid();
-		const sanitizedName = fileName.replace(/[^a-zA-Z0-9.-]/g, "_").slice(0, 50);
-		return `${id}/${sanitizedName}`;
+	private static sanitizePathSegment(value: string): string {
+		const sanitized = value
+			.trim()
+			.toLowerCase()
+			.replace(/[^a-z0-9-]+/g, "-")
+			.replace(/^-+|-+$/g, "")
+			.slice(0, 64);
+		return sanitized || "unknown";
 	}
 
 	/**
-	 * Get public URL for a file
+	 * Validate and truncate S3 object key to stay within limits
+	 * S3 key limit: 1024 bytes, but we use 800 chars for safety with UTF-8
 	 */
-	static getPublicUrl(bucket: string, path: string): string {
-		const { data } = storageClient.storage.from(bucket).getPublicUrl(path);
-		return data.publicUrl;
+	private static validateAndTruncateKey(key: string): string {
+		const MAX_KEY_LENGTH = 800; // Conservative limit for UTF-8 safety
+
+		if (key.length <= MAX_KEY_LENGTH) {
+			return key;
+		}
+
+		// If key is too long, truncate the middle part while preserving extension
+		const parts = key.split(".");
+		const extension = parts.length > 1 ? (parts.pop() ?? "") : "";
+		const baseKey = parts.join(".");
+
+		if (extension && baseKey.length <= MAX_KEY_LENGTH - extension.length - 1) {
+			return `${baseKey}.${extension}`;
+		}
+
+		// Truncate the middle of the base key
+		const keepStart = Math.floor((MAX_KEY_LENGTH - extension.length - 3) / 2);
+		const keepEnd = MAX_KEY_LENGTH - extension.length - 3 - keepStart;
+
+		const truncated =
+			baseKey.substring(0, keepStart) +
+			"..." +
+			baseKey.substring(baseKey.length - keepEnd);
+
+		logger.warn(
+			{
+				originalLength: key.length,
+				truncatedLength: truncated.length + extension.length + 1,
+				key: key.substring(0, 100) + "...",
+			},
+			"S3 key was truncated to stay within limits",
+		);
+
+		return extension ? `${truncated}.${extension}` : truncated;
+	}
+
+	private static resolveStorageEnvironment():
+		| "local"
+		| "preview"
+		| "production" {
+		// Use env package for type-safe access to Vercel environment variables
+		if (env.VERCEL_ENV === "preview") {
+			return "preview";
+		}
+		if (env.VERCEL_ENV === "production" || env.NODE_ENV === "production") {
+			return "production";
+		}
+		return "local";
+	}
+
+	private static resolvePreviewScope(): string | null {
+		if (StorageService.resolveStorageEnvironment() !== "preview") {
+			return null;
+		}
+		if (env.STORAGE_PREVIEW_PREFIX) {
+			return StorageService.sanitizePathSegment(env.STORAGE_PREVIEW_PREFIX);
+		}
+		if (env.VERCEL_GIT_PULL_REQUEST_ID) {
+			return `pr-${StorageService.sanitizePathSegment(env.VERCEL_GIT_PULL_REQUEST_ID)}`;
+		}
+		if (env.VERCEL_GIT_COMMIT_REF) {
+			return `branch-${StorageService.sanitizePathSegment(env.VERCEL_GIT_COMMIT_REF)}`;
+		}
+		if (env.VERCEL_DEPLOYMENT_ID) {
+			return `deploy-${StorageService.sanitizePathSegment(env.VERCEL_DEPLOYMENT_ID)}`;
+		}
+		return "preview";
+	}
+
+	private static buildAssetRoot(target: StorageUploadTarget): string {
+		const previewScope = StorageService.resolvePreviewScope();
+		const assetId = target.assetId
+			? StorageService.sanitizePathSegment(target.assetId)
+			: `asset-${nanoid()}`;
+		return [
+			previewScope,
+			StorageService.sanitizePathSegment(target.resource),
+			StorageService.sanitizePathSegment(target.entityId),
+			assetId,
+		]
+			.filter(Boolean)
+			.join("/");
+	}
+
+	/**
+	 * Type-safe MIME type detection from URL
+	 */
+	private static detectMimeTypeFromUrl(url: string): SupportedMimeType {
+		if (url.includes("webp")) return "image/webp";
+		if (url.includes("jpeg") || url.includes("jpg")) return "image/jpeg";
+		if (url.includes("png")) return "image/png";
+		if (url.includes("avif")) return "image/avif";
+		if (url.includes("gif")) return "image/gif";
+		if (url.includes("svg")) return "image/svg+xml";
+
+		// Default fallback to supported image type
+		return "image/jpeg";
+	}
+
+	private static buildVariantObjectKey(
+		assetRoot: string,
+		variant: StorageFileVariantTypeInfer,
+		mimeType: string,
+	): string {
+		// Properly parse MIME type instead of simple string splitting
+		const extension = StorageServiceBase.extractFileExtension(mimeType);
+		const key = `${assetRoot}/${variant.toLowerCase()}.${extension}`;
+		return StorageServiceBase.validateAndTruncateKey(key);
+	}
+
+	private static buildOriginalObjectKey(
+		assetRoot: string,
+		fileName: string,
+	): string {
+		// Use the original file's extension, fallback to proper MIME parsing
+		const originalExtension = fileName.split(".").pop()?.toLowerCase();
+		if (originalExtension && originalExtension.length > 1) {
+			const key = `${assetRoot}/original.${originalExtension}`;
+			return StorageServiceBase.validateAndTruncateKey(key);
+		}
+
+		// Fallback: try to determine from file type if available
+		// This will be handled by the calling function with proper MIME type
+		const key = `${assetRoot}/original.bin`;
+		return StorageServiceBase.validateAndTruncateKey(key);
+	}
+
+	/**
+	 * Extract file extension from MIME type with type-safe validation
+	 * Replaces the brittle string-based approach
+	 */
+	private static extractFileExtension(mimeType: string): string {
+		try {
+			// Validate MIME type first
+			const validatedMimeType = validateMimeType(mimeType);
+			return getFileExtensionFromMimeType(validatedMimeType);
+		} catch (error) {
+			// Fallback for development/unknown types
+			if (process.env.NODE_ENV === "development") {
+				console.warn(`MIME type validation failed: ${mimeType}`, error);
+			}
+
+			// Try to extract reasonable extension for unknown types
+			return extractFallbackExtension(mimeType);
+		}
+	}
+
+	/**
+	 * Health check: upload and delete a test object to verify storage connectivity
+	 */
+	static async checkHealth(): Promise<{ ok: true; latencyMs: number }> {
+		const key = `_health/check-${Date.now()}`;
+		const client = getS3Client();
+		const start = Date.now();
+
+		try {
+			// Upload test object
+			await client.send(
+				new PutObjectCommand({
+					Bucket: env.S3_BUCKET,
+					Key: key,
+					Body: "",
+					ContentType: "application/octet-stream",
+				}),
+			);
+
+			// Delete test object with error handling to prevent orphaned objects
+			try {
+				await client.send(
+					new DeleteObjectCommand({
+						Bucket: env.S3_BUCKET,
+						Key: key,
+					}),
+				);
+			} catch (deleteError) {
+				// Log warning but don't fail the health check - cleanup can be handled later
+				logger.warn(
+					{
+						key,
+						error:
+							deleteError instanceof Error
+								? deleteError.message
+								: String(deleteError),
+					},
+					"Failed to delete health check test object - will require manual cleanup",
+				);
+			}
+
+			const latencyMs = Date.now() - start;
+			return { ok: true, latencyMs };
+		} catch (error) {
+			// If upload failed, no cleanup needed
+			throw new Error(
+				`Storage health check failed: ${error instanceof Error ? error.message : String(error)}`,
+			);
+		}
 	}
 
 	/**
@@ -72,15 +290,19 @@ class StorageServiceBase {
 		options?: UploadOptions,
 	): Promise<StorageFileResult> {
 		addSpanAttributes({
-			"storage.bucket": env.STORAGE_BUCKET_NAME,
+			"storage.bucket": env.S3_BUCKET,
 			"storage.file_size": file.size,
 			"storage.file_type": file.type,
 		});
 
 		StorageService.validateFile(file);
+		if (!options?.target) {
+			throw new Error("Storage upload target is required");
+		}
 
-		const isImage = ImageProcessor.isImage(file.type);
-		const filePath = StorageService.generateFilePath(file.name);
+		const isImage = isImageMimeType(file.type);
+		const assetRoot = StorageService.buildAssetRoot(options.target);
+		const client = getS3Client();
 
 		// Process image if applicable
 		let processedImage: ProcessedImage | null = null;
@@ -96,67 +318,26 @@ class StorageServiceBase {
 		// For images: only upload compressed variants, skip original
 		// For non-images: upload original file
 		if (!isImage || !processedImage) {
-			// Non-image file: upload original
+			const filePath = StorageService.buildOriginalObjectKey(
+				assetRoot,
+				file.name,
+			);
 			const originalBuffer = Buffer.from(await file.arrayBuffer());
 
-			const { data: uploadData, error: uploadError } =
-				await storageClient.storage
-					.from(env.STORAGE_BUCKET_NAME)
-					.upload(filePath, originalBuffer, {
-						contentType: file.type,
-						upsert: false,
-					});
-
-			if (uploadError) {
-				// Safely extract error message without triggering JSON parsing
-				let errorMessage = "Unknown upload error";
-				try {
-					if (typeof uploadError === "string") {
-						errorMessage = uploadError;
-					} else if (uploadError && typeof uploadError === "object") {
-						// Try to get message property safely
-						if (
-							"message" in uploadError &&
-							typeof uploadError.message === "string"
-						) {
-							errorMessage = uploadError.message;
-						} else if (
-							"error" in uploadError &&
-							typeof uploadError.error === "string"
-						) {
-							errorMessage = uploadError.error;
-						} else if (
-							"name" in uploadError &&
-							typeof uploadError.name === "string"
-						) {
-							errorMessage = uploadError.name;
-						}
-					}
-				} catch {
-					// If any error occurs during extraction, use fallback
-					errorMessage = "Failed to upload file";
-				}
-
-				logger.error(
-					{
-						uploadError: errorMessage,
-						fileName: file.name,
-						filePath,
-					},
-					"File upload failed",
-				);
-
-				throw new Error(`Failed to upload file: ${errorMessage}`);
-			}
-
-			const originalUrl = StorageService.getPublicUrl(
-				env.STORAGE_BUCKET_NAME,
-				uploadData.path,
+			await client.send(
+				new PutObjectCommand({
+					Bucket: env.S3_BUCKET,
+					Key: filePath,
+					Body: originalBuffer,
+					ContentType: file.type,
+				}),
 			);
 
+			const originalUrl = await StorageService.getPublicUrl(filePath);
+
 			return {
-				bucket: env.STORAGE_BUCKET_NAME,
-				path: uploadData.path,
+				bucket: env.S3_BUCKET,
+				path: filePath,
 				originalUrl,
 				url: originalUrl,
 				mimeType: file.type,
@@ -173,74 +354,40 @@ class StorageServiceBase {
 					variant.buffer !== undefined,
 			)
 			.map(async (variant) => {
-				const variantPath = `${filePath.replace(/\.[^/.]+$/, "")}_${variant.variant.toLowerCase()}.${variant.mimeType.split("/")[1]}`;
+				const variantPath = StorageService.buildVariantObjectKey(
+					assetRoot,
+					variant.variant,
+					variant.mimeType,
+				);
 
-				const { data: variantData, error: variantError } =
-					await storageClient.storage
-						.from(env.STORAGE_BUCKET_NAME)
-						.upload(variantPath, variant.buffer, {
-							contentType: variant.mimeType,
-							upsert: false,
-						});
+				try {
+					await client.send(
+						new PutObjectCommand({
+							Bucket: env.S3_BUCKET,
+							Key: variantPath,
+							Body: variant.buffer,
+							ContentType: variant.mimeType,
+						}),
+					);
 
-				if (variantError) {
-					// Safely extract error message without triggering JSON parsing
-					let errorMessage = "Unknown upload error";
-					try {
-						if (typeof variantError === "string") {
-							errorMessage = variantError;
-						} else if (variantError && typeof variantError === "object") {
-							// Check for Supabase StorageUnknownError structure
-							if (
-								"originalError" in variantError &&
-								variantError.originalError instanceof Error
-							) {
-								errorMessage =
-									variantError.originalError.message ||
-									"Storage error occurred";
-							} else if (
-								"message" in variantError &&
-								typeof variantError.message === "string"
-							) {
-								errorMessage = variantError.message;
-							} else if (
-								"error" in variantError &&
-								typeof variantError.error === "string"
-							) {
-								errorMessage = variantError.error;
-							} else if (
-								"name" in variantError &&
-								typeof variantError.name === "string"
-							) {
-								errorMessage = variantError.name;
-							}
-						}
-					} catch {
-						// If any error occurs during extraction, use fallback
-						errorMessage = "Failed to upload variant";
-					}
-
+					return {
+						variant: variant.variant,
+						url: await StorageService.getPublicUrl(variantPath),
+						width: variant.width,
+						height: variant.height,
+						fileSize: variant.fileSize,
+					};
+				} catch (error) {
 					logger.error(
 						{
 							variant: variant.variant,
-							error: errorMessage,
+							error: error instanceof Error ? error.message : String(error),
 							fileName: file.name,
 						},
 						"Failed to upload variant",
 					);
 					return null;
 				}
-
-				return {
-					variant: variant.variant,
-					url: StorageService.getPublicUrl(
-						env.STORAGE_BUCKET_NAME,
-						variantData.path,
-					),
-					width: variant.width,
-					height: variant.height,
-					fileSize: variant.fileSize,
-				};
 			});
 
 		const uploadedVariants = await Promise.all(variantUploadPromises);
@@ -254,25 +401,26 @@ class StorageServiceBase {
 		}
 
 		// Use MEDIUM variant as the "original" (primary file)
-		const mediumVariant = variants.find((v) => v.variant === "MEDIUM");
-		// TypeScript now knows variants[0] exists because we checked length > 0
+		const mediumVariant = variants.find(
+			(v) => v.variant === StorageFileVariantType.MEDIUM,
+		);
 		const primaryVariant = mediumVariant || variants[0];
 		if (!primaryVariant) {
 			throw new Error("Failed to upload any image variants");
 		}
 
-		// Use the primary variant's path (without the variant suffix) as the base path
-		const basePath = filePath.replace(/\.[^/.]+$/, "");
-		const primaryPath = `${basePath}_${primaryVariant.variant.toLowerCase()}.${primaryVariant.url.split(".").pop()?.split("?")[0] || "webp"}`;
+		const primaryPath = StorageService.buildVariantObjectKey(
+			assetRoot,
+			primaryVariant.variant,
+			StorageService.detectMimeTypeFromUrl(primaryVariant.url),
+		);
 
 		return {
-			bucket: env.STORAGE_BUCKET_NAME,
+			bucket: env.S3_BUCKET,
 			path: primaryPath,
 			originalUrl: primaryVariant.url,
 			url: primaryVariant.url,
-			mimeType: primaryVariant.url.includes("webp")
-				? "image/webp"
-				: "image/jpeg",
+			mimeType: StorageService.detectMimeTypeFromUrl(primaryVariant.url),
 			fileSize: primaryVariant.fileSize,
 			optimizedSize: processedImage.optimizedSize,
 			width: primaryVariant.width,
@@ -297,7 +445,6 @@ class StorageServiceBase {
 		// Upload files in parallel
 		const uploadPromises = files.map((file) =>
 			StorageService.uploadFile(file, options).catch((error) => {
-				// Safely extract error message
 				const errorMessage =
 					error instanceof Error
 						? error.message
@@ -306,14 +453,10 @@ class StorageServiceBase {
 							: JSON.stringify(error);
 
 				logger.error(
-					{
-						error,
-						fileName: file.name,
-					},
+					{ error, fileName: file.name },
 					"File upload failed in batch",
 				);
 
-				// Return error result instead of throwing
 				return {
 					error: errorMessage,
 					fileName: file.name,
@@ -335,7 +478,6 @@ class StorageServiceBase {
 			}
 		}
 
-		// If there are errors, log them but still return successful uploads
 		if (errors.length > 0) {
 			logger.warn(
 				{
@@ -354,10 +496,26 @@ class StorageServiceBase {
 	 * Delete a single file
 	 */
 	static async deleteFile(bucket: string, path: string): Promise<void> {
-		const { error } = await storageClient.storage.from(bucket).remove([path]);
-
-		if (error) {
-			throw new Error(`Failed to delete file: ${error.message}`);
+		try {
+			const client = getS3Client();
+			await client.send(
+				new DeleteObjectCommand({
+					Bucket: bucket,
+					Key: path,
+				}),
+			);
+		} catch (error) {
+			const errorMessage =
+				error instanceof Error ? error.message : String(error);
+			logger.error(
+				{
+					bucket,
+					path,
+					error: errorMessage,
+				},
+				"Failed to delete storage file",
+			);
+			throw new Error(`Failed to delete file ${path}: ${errorMessage}`);
 		}
 	}
 
@@ -369,11 +527,155 @@ class StorageServiceBase {
 			return;
 		}
 
-		const { error } = await storageClient.storage.from(bucket).remove(paths);
-
-		if (error) {
-			throw new Error(`Failed to delete files: ${error.message}`);
+		try {
+			const client = getS3Client();
+			await client.send(
+				new DeleteObjectsCommand({
+					Bucket: bucket,
+					Delete: {
+						Objects: paths.map((Key) => ({ Key })),
+						Quiet: true,
+					},
+				}),
+			);
+		} catch (error) {
+			const errorMessage =
+				error instanceof Error ? error.message : String(error);
+			logger.error(
+				{
+					bucket,
+					paths,
+					error: errorMessage,
+				},
+				"Failed to delete storage files",
+			);
+			throw new Error(
+				`Failed to delete ${paths.length} files: ${errorMessage}`,
+			);
 		}
+	}
+
+	/**
+	 * Extract object key from a public storage URL (R2/MinIO format)
+	 */
+	static async getKeyFromPublicUrl(
+		url: string,
+		baseUrl: string,
+	): Promise<string | null> {
+		try {
+			// Parse both URLs properly
+			const urlObj = new URL(url);
+			const baseUrlObj = new URL(baseUrl);
+
+			// Remove trailing slash from base URL for comparison
+			const baseUrlPath = baseUrlObj.pathname.endsWith("/")
+				? baseUrlObj.pathname.slice(0, -1)
+				: baseUrlObj.pathname;
+
+			// Check if the URL starts with the base URL (same origin and path prefix)
+			if (urlObj.origin !== baseUrlObj.origin) {
+				return null;
+			}
+
+			if (!urlObj.pathname.startsWith(baseUrlPath + "/")) {
+				return null;
+			}
+
+			// Extract the key by removing the base path prefix
+			const key = urlObj.pathname.slice(baseUrlPath.length + 1);
+
+			// Remove any query parameters (shouldn't exist for storage URLs but handle defensively)
+			return key.split("?")[0] ?? null;
+		} catch (error) {
+			logger.warn(
+				{
+					url,
+					baseUrl,
+					error: error instanceof Error ? error.message : String(error),
+				},
+				"Failed to parse storage URL",
+			);
+			return null;
+		}
+	}
+
+	/**
+	 * Delete all objects in a folder by prefix
+	 */
+	static async deleteFolderByPrefix(
+		bucket: string,
+		prefix: string,
+	): Promise<void> {
+		const folderPrefix = prefix.endsWith("/") ? prefix : `${prefix}/`;
+
+		try {
+			const client = getS3Client();
+			let marker: string | undefined;
+			let totalDeleted = 0;
+			let isTruncated = true;
+
+			do {
+				const listResponse = await client.send(
+					new ListObjectsCommand({
+						Bucket: bucket,
+						Prefix: folderPrefix,
+						Marker: marker,
+					}),
+				);
+
+				const objects =
+					listResponse.Contents?.map((obj) => ({ Key: obj.Key || "" })).filter(
+						(obj) => obj.Key,
+					) || [];
+
+				if (objects.length > 0) {
+					await client.send(
+						new DeleteObjectsCommand({
+							Bucket: bucket,
+							Delete: {
+								Objects: objects,
+								Quiet: true,
+							},
+						}),
+					);
+					totalDeleted += objects.length;
+				}
+
+				isTruncated = listResponse.IsTruncated || false;
+				marker = listResponse.NextMarker || listResponse.Contents?.at(-1)?.Key;
+			} while (isTruncated);
+
+			if (totalDeleted > 0) {
+				logger.info(
+					{ bucket, prefix: folderPrefix, totalDeleted },
+					"Successfully deleted folder contents",
+				);
+			}
+		} catch (error) {
+			const errorMessage =
+				error instanceof Error ? error.message : String(error);
+			logger.error(
+				{
+					bucket,
+					prefix: folderPrefix,
+					error: errorMessage,
+				},
+				"Failed to delete storage folder",
+			);
+			throw new Error(
+				`Failed to delete folder ${folderPrefix}: ${errorMessage}`,
+			);
+		}
+	}
+
+	/**
+	 * Get public URL for an object
+	 */
+	static async getPublicUrl(path: string): Promise<string> {
+		const base = env.S3_PUBLIC_BASE_URL.endsWith("/")
+			? env.S3_PUBLIC_BASE_URL.slice(0, -1)
+			: env.S3_PUBLIC_BASE_URL;
+		return `${base}/${path}`;
 	}
 }
 

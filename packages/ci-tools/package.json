@@ -7,6 +7,7 @@
 		"analyze": "tsx src/commands/analyze.ts"
 	},
 	"dependencies": {
+		"@dukkani/db": "workspace:*",
 		"@dukkani/env": "workspace:*",
 		"ai": "catalog:",
 		"@ai-sdk/groq": "catalog:",

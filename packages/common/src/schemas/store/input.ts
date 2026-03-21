@@ -96,3 +96,10 @@ export const subscribeToLaunchInputSchema = z.object({
 export type SubscribeToLaunchInput = z.infer<
 	typeof subscribeToLaunchInputSchema
 >;
+
+export const storeUploadImageInputSchema = z.object({
+	storeId: z.string().min(1, "Store ID is required"),
+	file: z.file(),
+});
+
+export type StoreUploadImageInput = z.infer<typeof storeUploadImageInputSchema>;

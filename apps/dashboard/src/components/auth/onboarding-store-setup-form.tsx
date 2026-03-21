@@ -83,6 +83,7 @@ export const StoreSetupOnboardingForm = withForm({
 									<Button
 										type="submit"
 										disabled={formState.isSubmitting || !formState.canSubmit}
+										isLoading={formState.isSubmitting}
 									>
 										{t("submit")}
 									</Button>

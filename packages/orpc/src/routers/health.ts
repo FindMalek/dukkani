@@ -5,6 +5,7 @@ import {
 } from "@dukkani/common/schemas/health/output";
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
+import { StorageService } from "@dukkani/storage";
 import { enhanceLogWithTraceContext } from "@dukkani/tracing";
 import { publicProcedure } from "../procedures";
 
@@ -14,12 +15,14 @@ const HEALTH_CHECK_CONFIG = {
 
 export const healthRouter = {
 	/**
-	 * Health check endpoint with database connectivity test
+	 * Health check endpoint with database and storage connectivity tests
 	 */
 	check: publicProcedure.output(healthSimpleOutputSchema).handler(async () => {
 		const startTime = new Date();
 		let dbConnected = false;
 		let dbLatency: number | undefined;
+		let storageOk = false;
+		let storageLatencyMs: number | undefined;
 		let health: HealthSimpleOutput | null = null;
 
 		// Test database connectivity
@@ -31,6 +34,8 @@ export const healthRouter = {
 					duration: 0,
 					startTime,
 					endTime: startTime,
+					storageStatus: null,
+					storageLatencyMs: null,
 				},
 			});
 			const dbEndTime = Date.now();
@@ -46,14 +51,37 @@ export const healthRouter = {
 			);
 		}
 
-		// Determine overall health status
-		const status: HealthStatus = !dbConnected
-			? HealthStatus.UNHEALTHY
-			: dbLatency && dbLatency > HEALTH_CHECK_CONFIG.DEGRADED_THRESHOLD_MS
-				? HealthStatus.DEGRADED
-				: HealthStatus.HEALTHY;
+		// Test storage connectivity (upload + delete test object)
+		try {
+			const result = await StorageService.checkHealth();
+			storageOk = result.ok;
+			storageLatencyMs = result.latencyMs;
+		} catch (error) {
+			storageOk = false;
+			logger.error(
+				enhanceLogWithTraceContext({
+					error: error instanceof Error ? error.message : String(error),
+				}),
+				"Storage health check failed",
+			);
+		}
+
+		// Determine overall health status (storage failure => UNHEALTHY)
+		const status: HealthStatus =
+			!dbConnected || !storageOk
+				? HealthStatus.UNHEALTHY
+				: dbLatency && dbLatency > HEALTH_CHECK_CONFIG.DEGRADED_THRESHOLD_MS
+					? HealthStatus.DEGRADED
+					: HealthStatus.HEALTHY;
 
 		const endTime = new Date();
+
+		const storageStatus = !storageOk
+			? HealthStatus.UNHEALTHY
+			: storageLatencyMs &&
+					storageLatencyMs > HEALTH_CHECK_CONFIG.DEGRADED_THRESHOLD_MS
+				? HealthStatus.DEGRADED
+				: HealthStatus.HEALTHY;
 
 		// Update health record with final status and metrics
 		if (health) {
@@ -63,16 +91,19 @@ export const healthRouter = {
 					status,
 					duration: dbLatency ?? 0,
 					endTime,
+					storageStatus,
+					storageLatencyMs,
 				},
 			});
 		} else {
-			// If creation failed, create a new record with unhealthy status
 			health = await database.health.create({
 				data: {
 					status,
 					duration: 0,
 					startTime,
 					endTime,
+					storageStatus,
+					storageLatencyMs,
 				},
 			});
 		}

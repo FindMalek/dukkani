@@ -1,14 +1,14 @@
 import { authModule, urlsModule } from "@dukkani/env";
-import { baseEnv } from "@dukkani/env/base";
+import { vercelEnv } from "@dukkani/env/presets";
 import { createEnv } from "@t3-oss/env-core";
 
 /**
  * Auth package environment
- * Extends base env with auth-specific server variables
+ * Extends Vercel env with auth-specific server variables
  * Also includes NEXT_PUBLIC_DASHBOARD_URL for trustedOrigins
  */
 export const env = createEnv({
-	extends: [baseEnv],
+	extends: [vercelEnv],
 	server: {
 		...authModule.server,
 	},

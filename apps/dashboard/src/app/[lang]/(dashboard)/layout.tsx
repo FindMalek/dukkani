@@ -6,6 +6,7 @@ import { BottomNavigation } from "@/components/layout/bottom-navigation";
 import { StoreInitializer } from "@/components/layout/store-initializer";
 import { getServerSession } from "@/lib/get-server-session";
 import { client } from "@/lib/orpc";
+import { RoutePaths } from "@/lib/routes";
 
 const DashboardLayoutContent = ({
 	children,
@@ -22,17 +23,15 @@ const DashboardLayoutContent = ({
 
 export default async function DashboardLayout({
 	children,
-	params,
 }: Readonly<{
 	children: React.ReactNode;
 	params: Promise<{ lang: string }>;
 }>) {
 	const session = await getServerSession();
-	const { lang } = await params;
 
 	if (!session?.user) {
 		return (
-			<AuthGuard redirectTo="/login" requireAuth>
+			<AuthGuard redirectTo={RoutePaths.AUTH.LOGIN.url} requireAuth>
 				<DashboardLayoutContent>{children}</DashboardLayoutContent>
 			</AuthGuard>
 		);
@@ -44,7 +43,7 @@ export default async function DashboardLayout({
 			headers: headersList,
 		});
 		if (user.onboardingStep === UserOnboardingStep.STORE_SETUP) {
-			redirect(`/${lang}/onboarding`);
+			redirect(RoutePaths.AUTH.ONBOARDING.INDEX.url);
 		}
 	} catch {
 		// Allow dashboard if user fetch fails

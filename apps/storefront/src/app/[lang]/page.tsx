@@ -10,8 +10,8 @@ import { ComingSoon } from "@/components/app/coming-soon";
 import { HeroBanner } from "@/components/app/hero-banner";
 import { ProductGrid } from "@/components/app/product-grid";
 import { ProductSectionHeader } from "@/components/app/product-section-header";
-import { client, getQueryClient, orpc } from "@/lib/orpc";
 import { getStoreSlug } from "@/lib/get-store-slug";
+import { client, getQueryClient, orpc } from "@/lib/orpc";
 
 export default async function StorePage() {
 	const headersList = await headers();

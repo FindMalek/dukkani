@@ -11,8 +11,8 @@ import {
 import { buildVariantDescription } from "@dukkani/common/utils/build-variant-description";
 import { database } from "@dukkani/db";
 import { z } from "zod";
-import { baseProcedure } from "../procedures";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
+import { baseProcedure } from "../procedures";
 
 /**
  * Transform cart item input and product data to cart item output

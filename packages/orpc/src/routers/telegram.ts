@@ -14,8 +14,8 @@ import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { TelegramService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure } from "../procedures";
 import { createRateLimitMiddleware } from "../middleware/rate-limit";
+import { protectedProcedure } from "../procedures";
 
 // Rate limiter for link/disconnect operations: 3 per hour
 const telegramLinkRateLimit = createRateLimitMiddleware({

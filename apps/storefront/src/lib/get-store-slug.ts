@@ -11,7 +11,7 @@ export function getStoreSlug(
 	host: string | null,
 	cookies: { get: (name: string) => { value?: string } | undefined },
 ): string | null {
-	if (!isStoreSelectorEnabled()) {
+	if (!isStoreSelectorEnabled(process.env)) {
 		return getStoreSlugFromHost(host);
 	}
 

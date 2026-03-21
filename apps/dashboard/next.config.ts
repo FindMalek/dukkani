@@ -26,6 +26,24 @@ const nextConfig: NextConfig = {
 	env: {
 		NEXT_PUBLIC_API_URL: apiUrl,
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "http",
+				hostname: "localhost",
+				port: "9000",
+				pathname: "/**",
+			},
+			{
+				hostname: "assets.dukkani.co",
+				pathname: "/**",
+			},
+			{
+				hostname: "assets.preview.dukkani.co",
+				pathname: "/**",
+			},
+		],
+	},
 };
 
 export default withNextIntl(nextConfig);

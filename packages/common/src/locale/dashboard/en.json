@@ -164,10 +164,27 @@
 			"submit": "Finish Setup"
 		},
 		"steps": {
+			"welcome": "Welcome",
+			"welcomeDescription": "Get started with your store setup",
+			"storeSetup": "Store Setup",
+			"storeSetupDescription": "Create your store",
+			"storeCreated": "Store Created",
+			"storeCreatedDescription": "Configure your store",
+			"storeConfigured": "Store Configured",
+			"storeConfiguredDescription": "Launch your store",
+			"storeLaunched": "Store Launched",
+			"storeLaunchedDescription": "Onboarding complete",
 			"signup": "Account",
-			"storeSetup": "Store",
+			"storeSetupShort": "Store",
 			"storeConfiguration": "Configure",
 			"complete": "Ready"
+		},
+		"actions": {
+			"retry": "Retry"
+		},
+		"errors": {
+			"emailAlreadyInUse": "An account with this email already exists. Please use a different email or sign in.",
+			"storeLoadFailed": "We couldn't load your store. Refresh the page or contact support."
 		},
 		"signup": {
 			"title": "Create your account",

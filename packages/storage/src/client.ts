@@ -1,31 +1,23 @@
-import { createClient } from "@supabase/supabase-js";
+import { S3Client } from "@aws-sdk/client-s3";
 import { env } from "./env";
 
-let _storageClient: ReturnType<typeof createClient> | null = null;
+let _s3Client: S3Client | null = null;
 
 /**
- * Supabase Storage client singleton
+ * S3-compatible storage client singleton (R2/MinIO)
  * Initialized lazily to avoid requiring env vars at build time
  */
-export function getStorageClient() {
-	if (!_storageClient) {
-		_storageClient = createClient(
-			env.SUPABASE_URL,
-			env.SUPABASE_SERVICE_ROLE_KEY,
-			{
-				auth: {
-					autoRefreshToken: false,
-					persistSession: false,
-				},
+export function getS3Client(): S3Client {
+	if (!_s3Client) {
+		_s3Client = new S3Client({
+			region: env.S3_REGION,
+			endpoint: env.S3_ENDPOINT,
+			credentials: {
+				accessKeyId: env.S3_ACCESS_KEY_ID,
+				secretAccessKey: env.S3_SECRET_ACCESS_KEY,
 			},
-		);
+			forcePathStyle: true,
+		});
 	}
-	return _storageClient;
+	return _s3Client;
 }
-
-// Export getter function instead of direct client
-export const storageClient = new Proxy({} as ReturnType<typeof createClient>, {
-	get(_target, prop) {
-		return getStorageClient()[prop as keyof ReturnType<typeof createClient>];
-	},
-});

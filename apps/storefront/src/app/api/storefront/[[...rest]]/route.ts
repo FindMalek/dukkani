@@ -17,7 +17,7 @@ async function createStorefrontContext() {
 }
 
 export async function POST(req: NextRequest) {
-	if (!isStoreSelectorEnabled()) {
+	if (!isStoreSelectorEnabled(process.env)) {
 		return new Response("Not found", { status: 404 });
 	}
 

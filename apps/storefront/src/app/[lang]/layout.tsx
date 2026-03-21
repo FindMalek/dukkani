@@ -13,11 +13,11 @@ import { Cairo, Inter } from "next/font/google";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { StoreSelector } from "@/components/layout/store-selector";
-import { StoreSelectorBubble } from "@/components/layout/store-selector-bubble";
 import { Providers } from "@/components/layout/providers";
 import { StoreFooter } from "@/components/layout/store-footer";
 import { StoreHeader } from "@/components/layout/store-header";
+import { StoreSelector } from "@/components/layout/store-selector";
+import { StoreSelectorBubble } from "@/components/layout/store-selector-bubble";
 import { STORE_HEADER_HEIGHT_PX } from "@/lib/constants";
 import { handleAPIError } from "@/lib/error";
 import { getStoreSlug } from "@/lib/get-store-slug";
@@ -83,7 +83,7 @@ export default async function RootLayout({
 	}
 
 	if (!store) {
-		if (isStoreSelectorEnabled()) {
+		if (isStoreSelectorEnabled(process.env)) {
 			return (
 				<html
 					lang={lang}
@@ -117,7 +117,9 @@ export default async function RootLayout({
 							<StoreFooter />
 						</div>
 					</HydrationBoundary>
-					{isStoreSelectorEnabled() && <StoreSelectorBubble locale={lang} />}
+					{isStoreSelectorEnabled(process.env) && (
+						<StoreSelectorBubble locale={lang} />
+					)}
 				</Providers>
 			</body>
 		</html>

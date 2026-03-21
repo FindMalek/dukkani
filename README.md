@@ -113,7 +113,7 @@ NEXT_PUBLIC_API_URL="http://localhost:3002"
 4. **Set up the database**
 
 ```bash
-pnpm run db:setup
+pnpm run bootstrap
 ```
 
 This will:
@@ -160,6 +160,88 @@ pnpm run build            # Build all packages
 
 ---
 
+## 🔄 Migration CLI
+
+The `@dukkani/migrations` package provides a CLI for database and storage migrations.
+
+### Prerequisites
+
+Ensure these environment variables are set in your `.env`:
+
+```bash
+# Supabase (source)
+SUPABASE_URL="https://your-project.supabase.co"
+SUPABASE_SERVICE_ROLE_KEY="your-service-key"
+SUPABASE_STORAGE_BUCKET="your-bucket"
+
+# R2 (destination) - already configured via storage service
+CLOUDFLARE_R2_ACCOUNT_ID="..."
+CLOUDFLARE_R2_ACCESS_KEY_ID="..."
+CLOUDFLARE_R2_SECRET_ACCESS_KEY="..."
+CLOUDFLARE_R2_BUCKET_NAME="..."
+```
+
+### Storage Migration Commands
+
+| Command | Description |
+|---------|-------------|
+| `storage migrate` | Migrate files from Supabase to R2 |
+| `storage rollback` | Rollback storage migration |
+| `storage validate` | Validate migration results |
+
+#### Examples
+
+**Migrate storage (Supabase → R2):**
+```bash
+pnpm --filter @dukkani/migrations migrate:storage
+```
+
+**Dry run (preview without making changes):**
+```bash
+pnpm --filter @dukkani/migrations migrate:storage -- --dry-run
+```
+
+**With custom batch size:**
+```bash
+pnpm --filter @dukkani/migrations migrate:storage -- --batch-size 10
+```
+
+**Migrate all files (not just DB-referenced):**
+```bash
+pnpm --filter @dukkani/migrations migrate:storage -- --scope all-bucket
+```
+
+**Rollback migration:**
+```bash
+pnpm --filter @dukkani/migrations migrate:storage:rollback
+```
+
+### Create Migration Commands
+
+| Command | Description |
+|---------|-------------|
+| `create` | Interactive migration creation |
+| `create:storage <name>` | Create a storage migration |
+| `create:database <name>` | Create a database migration |
+
+#### Examples
+
+**Interactive creation:**
+```bash
+pnpm --filter @dukkani/migrations migration:create
+```
+
+**Create storage migration:**
+```bash
+pnpm --filter @dukkani/migrations migration:create:storage migrate-user-avatars
+```
+
+**Create database migration:**
+```bash
+pnpm --filter @dukkani/migrations migration:create:database add-order-index
+```
+
+---
 
 ## 🤝 Contributing
 

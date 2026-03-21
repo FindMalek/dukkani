@@ -12,6 +12,47 @@ export const VARIANT_SIZES = {
 export type VariantSize = (typeof VARIANT_SIZES)[keyof typeof VARIANT_SIZES];
 
 /**
+ * MIME type constants for type-safe file handling
+ * Used for validating and converting MIME types to file extensions
+ */
+export const SUPPORTED_MIME_TYPES = {
+	// Web-optimized formats (primary)
+	"image/webp": "webp",
+	"image/avif": "avif",
+
+	// Traditional formats (fallback)
+	"image/jpeg": "jpg",
+	"image/jpg": "jpg",
+	"image/png": "png",
+
+	// Specialized formats
+	"image/gif": "gif",
+	"image/svg+xml": "svg",
+	"image/heic": "heic",
+	"image/heif": "heif",
+
+	// Document formats
+	"application/pdf": "pdf",
+	"text/plain": "txt",
+	"text/csv": "csv",
+	"application/json": "json",
+	"application/xml": "xml",
+	"application/zip": "zip",
+} as const;
+
+export type SupportedMimeType = keyof typeof SUPPORTED_MIME_TYPES;
+export type SupportedExtension =
+	(typeof SUPPORTED_MIME_TYPES)[SupportedMimeType];
+
+// Helper constants for easy iteration
+export const SUPPORTED_MIME_TYPE_LIST = Object.keys(
+	SUPPORTED_MIME_TYPES,
+) as SupportedMimeType[];
+export const SUPPORTED_EXTENSION_LIST = Object.values(
+	SUPPORTED_MIME_TYPES,
+) as SupportedExtension[];
+
+/**
  * RTL locales - future-proof for Arabic, Hebrew, Persian, etc.
  */
 export const RTL_LOCALES = ["ar"] as const;
@@ -37,6 +78,27 @@ export function isRtlLocale(locale: string): boolean {
 
 export function getTextDirection(locale: string): "ltr" | "rtl" {
 	return isRtlLocale(locale) ? "rtl" : "ltr";
+}
+
+/**
+ * MIME type helper functions
+ */
+export function isSupportedMimeType(
+	mimeType: string,
+): mimeType is SupportedMimeType {
+	return mimeType in SUPPORTED_MIME_TYPES;
+}
+
+export function isImageMimeType(
+	mimeType: string,
+): mimeType is SupportedMimeType {
+	return mimeType.startsWith("image/") && isSupportedMimeType(mimeType);
+}
+
+export function getFileExtensionFromMimeType(
+	mimeType: SupportedMimeType,
+): SupportedExtension {
+	return SUPPORTED_MIME_TYPES[mimeType];
 }
 
 export const LOCALE_FLAGS: Record<Locale, string> = {

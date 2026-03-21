@@ -1,6 +1,6 @@
 "use client";
 
-import { UserOnboardingStep } from "@dukkani/common/schemas";
+import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";

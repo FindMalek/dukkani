@@ -1,4 +1,4 @@
-import type { LOCALES } from "@dukkani/common/schemas";
+import type { LOCALES } from "@dukkani/common/schemas/constants";
 
 declare module "next-intl" {
 	interface AppConfig {

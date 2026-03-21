@@ -1,8 +1,8 @@
 export * as address from "./address";
 export * as category from "./category";
-export * from "./constants";
+export * as constants from "./constants";
 export * as customer from "./customer";
-export * from "./enums";
+export * as enums from "./enums";
 export * as health from "./health";
 export * as image from "./image";
 export * as order from "./order";

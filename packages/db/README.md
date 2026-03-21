@@ -38,8 +38,8 @@ type StoreData = Prisma.StoreGetPayload<{
 All commands should be run from the root of the monorepo:
 
 ```bash
-# Setup database (start Docker + push schema)
-pnpm run db:setup
+# Setup database and storage (start Docker: Postgres + MinIO, push schema)
+pnpm run setup
 
 # Push schema changes to database
 pnpm run db:push
@@ -62,6 +62,8 @@ pnpm run db:reset-and-seed
 # Reset database (WARNING: deletes all data)
 pnpm run db:reset
 ```
+
+See [docs/storage.md](../../docs/storage.md) for MinIO and R2 storage setup.
 
 ## Seeders
 
@@ -86,15 +88,15 @@ pnpm run db:reset-and-seed
 Three users are created with the following credentials:
 
 1. **Ahmed Al-Mansoori** (Admin)
-   - Email: `ahmed@dukkani.com`
+   - Email: `ahmed@dukkani.co`
    - Password: `Admin123!`
 
 2. **Fatima Hassan** (Merchant)
-   - Email: `fatima@dukkani.com`
+   - Email: `fatima@dukkani.co`
    - Password: `Merchant123!`
 
 3. **Omar Abdullah** (Store Owner)
-   - Email: `omar@dukkani.com`
+   - Email: `omar@dukkani.co`
    - Password: `Store123!`
 
 ### Seeded Data

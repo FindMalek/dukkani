@@ -53,3 +53,11 @@ export const checkEmailExistsInputSchema = z.object({
 });
 
 export type CheckEmailExistsInput = z.infer<typeof checkEmailExistsInputSchema>;
+
+export const accountUploadAvatarInputSchema = z.object({
+	file: z.file(),
+});
+
+export type AccountUploadAvatarInput = z.infer<
+	typeof accountUploadAvatarInputSchema
+>;

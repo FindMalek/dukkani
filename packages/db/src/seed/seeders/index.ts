@@ -155,7 +155,7 @@ export function getSeeders() {
  *
  * // Find by stable keys
  * const ahmedStore = seeders.stores.findBySlug('ahmed-fashion');
- * const ahmedUser = seeders.users.findByEmail('ahmed@dukkani.com');
+ * const ahmedUser = seeders.users.findByEmail('ahmed@dukkani.co');
  *
  * // Get grouped data
  * const productsByStore = seeders.products.getProductsByStoreSlug();

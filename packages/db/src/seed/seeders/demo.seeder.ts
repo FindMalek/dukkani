@@ -13,7 +13,7 @@ import { BaseSeeder } from "../base";
 import type { StoreSeeder } from "./store.seeder";
 import type { UserSeeder } from "./user.seeder";
 
-const DEMO_USER_EMAIL = "demo@dukkani.com";
+const DEMO_USER_EMAIL = "demo@dukkani.co";
 const DEMO_USER_ID = "user_demo_001";
 const DEMO_STORE_SLUG = "demo";
 

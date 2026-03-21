@@ -157,3 +157,15 @@ export const getProductsByIdsInputSchema = z.object({
 });
 
 export type GetProductsByIdsInput = z.infer<typeof getProductsByIdsInputSchema>;
+
+export const productUploadImagesInputSchema = z.object({
+	storeId: z.string().min(1, "Store ID is required"),
+	files: z
+		.array(z.file())
+		.min(1, "At least one file is required")
+		.max(10, "Maximum 10 files allowed"),
+});
+
+export type ProductUploadImagesInput = z.infer<
+	typeof productUploadImagesInputSchema
+>;

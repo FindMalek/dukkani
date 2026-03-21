@@ -7,6 +7,8 @@ export const healthSimpleOutputSchema = z.object({
 	duration: z.number().int(),
 	startTime: z.date(),
 	endTime: z.date(),
+	storageStatus: healthStatusSchema.nullable(),
+	storageLatencyMs: z.number().int().nullable(),
 });
 
 export type HealthSimpleOutput = z.infer<typeof healthSimpleOutputSchema>;

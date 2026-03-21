@@ -13,13 +13,24 @@ const nextConfig: NextConfig = {
 		"thread-stream",
 	],
 	images: {
+		dangerouslyAllowLocalIP: true,
 		remotePatterns: [
 			{
 				hostname: "images.unsplash.com",
 				pathname: "/**",
 			},
 			{
-				hostname: "drdxxpmmapvtjswkcwyw.supabase.co",
+				protocol: "http",
+				hostname: "localhost",
+				port: "9000",
+				pathname: "/**",
+			},
+			{
+				hostname: "assets.dukkani.co",
+				pathname: "/**",
+			},
+			{
+				hostname: "assets.preview.dukkani.co",
 				pathname: "/**",
 			},
 		],

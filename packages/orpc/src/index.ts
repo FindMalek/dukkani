@@ -1,10 +1,10 @@
+export { createORPCClientUtils } from "./client";
 export {
 	baseProcedure,
 	o,
 	protectedProcedure,
 	publicProcedure,
 } from "./procedures";
-export { createORPCClientUtils } from "./client";
 export type {
 	AppRouter,
 	AppRouterClient,

@@ -1,174 +1,18 @@
-import { StorageFileEntity } from "@dukkani/common/entities/storage/entity";
-import { StorageFileQuery } from "@dukkani/common/entities/storage/query";
 import {
 	deleteFileInputSchema,
 	deleteFilesInputSchema,
-	uploadFileInputSchema,
-	uploadFilesInputSchema,
 } from "@dukkani/common/schemas/storage/input";
-import type {
-	DeleteManyOutput,
-	UploadFileOutput,
-	UploadFilesOutput,
-} from "@dukkani/common/schemas/storage/output";
-import {
-	deleteManyOutputSchema,
-	uploadFileOutputSchema,
-	uploadFilesOutputSchema,
-} from "@dukkani/common/schemas/storage/output";
+import type { DeleteManyOutput } from "@dukkani/common/schemas/storage/output";
+import { deleteManyOutputSchema } from "@dukkani/common/schemas/storage/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { StorageService as StorageDbService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
-import { StorageService } from "@dukkani/storage";
+import { env, StorageService } from "@dukkani/storage";
 import { ORPCError } from "@orpc/server";
 import { protectedProcedure } from "../procedures";
 
 export const storageRouter = {
-	/**
-	 * Upload a single file
-	 */
-	upload: protectedProcedure
-		.input(uploadFileInputSchema)
-		.output(uploadFileOutputSchema)
-		.handler(async ({ input }): Promise<UploadFileOutput> => {
-			try {
-				// Upload file to storage
-				const result = await StorageService.uploadFile(input.file, {
-					alt: input.alt,
-				});
-
-				// Create database record with variants
-				const fileData = StorageFileEntity.createFileData(result);
-				const variants = StorageFileEntity.createVariantData(result);
-
-				// Use transaction to ensure atomicity
-				const storageFile = await database.$transaction(async (tx) => {
-					return await StorageDbService.createStorageFileWithVariants(
-						fileData,
-						variants,
-						tx,
-					);
-				});
-
-				// Fetch complete file with variants
-				const file = await database.storageFile.findUnique({
-					where: { id: storageFile.id },
-					include: StorageFileQuery.getInclude(),
-				});
-
-				if (!file) {
-					// Cleanup uploaded file if DB insert failed
-					await StorageService.deleteFile(input.bucket, result.path);
-					throw new ORPCError("INTERNAL_SERVER_ERROR", {
-						message: "Failed to retrieve uploaded file",
-					});
-				}
-
-				return {
-					file: StorageFileEntity.getRo(file),
-				};
-			} catch (error) {
-				if (error instanceof ORPCError) {
-					throw error;
-				}
-				throw new ORPCError("INTERNAL_SERVER_ERROR", {
-					message:
-						error instanceof Error ? error.message : "Failed to upload file",
-				});
-			}
-		}),
-
-	/**
-	 * Upload multiple files
-	 */
-	uploadMany: protectedProcedure
-		.input(uploadFilesInputSchema)
-		.output(uploadFilesOutputSchema)
-		.handler(async ({ input }): Promise<UploadFilesOutput> => {
-			try {
-				// Upload all files to storage
-				const results = await StorageService.uploadFiles(input.files, {
-					alt: input.alt,
-				});
-
-				// Check if we have any successful uploads
-				if (results.length === 0) {
-					throw new ORPCError("BAD_REQUEST", {
-						message: "All file uploads failed",
-					});
-				}
-
-				// Create database records in transaction
-				const fileIds = await database.$transaction(async (tx) => {
-					const createdFileIds: string[] = [];
-
-					for (const result of results) {
-						try {
-							const fileData = StorageFileEntity.createFileData(result);
-							const variants = StorageFileEntity.createVariantData(result);
-
-							const storageFile =
-								await StorageDbService.createStorageFileWithVariants(
-									fileData,
-									variants,
-									tx,
-								);
-
-							createdFileIds.push(storageFile.id);
-						} catch (error) {
-							logger.error(
-								{
-									error,
-									result,
-								},
-								"Failed to create database record for uploaded file",
-							);
-							// Continue with other files even if one fails
-						}
-					}
-
-					return createdFileIds;
-				});
-
-				// Fetch all files with variants
-				const filesWithVariants = await database.storageFile.findMany({
-					where: {
-						id: { in: fileIds },
-					},
-					include: StorageFileQuery.getInclude(),
-				});
-
-				return {
-					files: filesWithVariants.map(StorageFileEntity.getRo),
-				};
-			} catch (error) {
-				if (error instanceof ORPCError) {
-					throw error;
-				}
-
-				// Safely extract error message
-				const errorMessage =
-					error instanceof Error
-						? error.message
-						: typeof error === "string"
-							? error
-							: "Failed to upload files";
-
-				logger.error(
-					{
-						error,
-						fileCount: input.files.length,
-					},
-					"Storage uploadMany error",
-				);
-
-				throw new ORPCError("INTERNAL_SERVER_ERROR", {
-					message: errorMessage,
-				});
-			}
-		}),
-
 	/**
 	 * Delete a single file
 	 */
@@ -198,20 +42,16 @@ export const storageRouter = {
 					});
 				}
 
-				// Extract paths from URLs (Supabase public URLs format: /storage/v1/object/public/{bucket}/{path})
-				const paths = [file.path];
+				// Extract paths from URLs (R2/MinIO format: baseUrl/key)
+				const paths = new Set<string>([file.path]);
 				for (const variant of file.variants) {
-					try {
-						const url = new URL(variant.url);
-						// Extract path after /object/public/{bucket}/
-						const pathMatch = url.pathname.match(
-							/\/object\/public\/[^/]+\/(.+)$/,
-						);
-						if (pathMatch?.[1]) {
-							paths.push(pathMatch[1]);
-						}
-					} catch {
-						// If URL parsing fails, skip this variant
+					const key = await StorageService.getKeyFromPublicUrl(
+						variant.url,
+						env.S3_PUBLIC_BASE_URL,
+					);
+					if (key) {
+						paths.add(key);
+					} else {
 						logger.warn({ url: variant.url }, "Failed to parse variant URL");
 					}
 				}
@@ -219,7 +59,7 @@ export const storageRouter = {
 				// Delete from storage and database in transaction
 				await database.$transaction(async (tx) => {
 					// Delete from storage
-					await StorageService.deleteFiles(file.bucket, paths);
+					await StorageService.deleteFiles(file.bucket, [...paths]);
 
 					// Delete from database (variants cascade delete)
 					await StorageDbService.deleteStorageFile(file.id, tx);
@@ -272,25 +112,21 @@ export const storageRouter = {
 					Array<{ paths: string[]; fileId: string }>
 				>();
 				for (const file of files) {
-					const paths = [file.path];
+					const paths = new Set<string>([file.path]);
 					for (const variant of file.variants) {
-						try {
-							const url = new URL(variant.url);
-							// Extract path after /object/public/{bucket}/
-							const pathMatch = url.pathname.match(
-								/\/object\/public\/[^/]+\/(.+)$/,
-							);
-							if (pathMatch?.[1]) {
-								paths.push(pathMatch[1]);
-							}
-						} catch {
-							// If URL parsing fails, skip this variant
+						const key = await StorageService.getKeyFromPublicUrl(
+							variant.url,
+							env.S3_PUBLIC_BASE_URL,
+						);
+						if (key) {
+							paths.add(key);
+						} else {
 							logger.warn({ url: variant.url }, "Failed to parse variant URL");
 						}
 					}
 
 					const bucketFiles = filesByBucket.get(file.bucket) ?? [];
-					bucketFiles.push({ paths, fileId: file.id });
+					bucketFiles.push({ paths: [...paths], fileId: file.id });
 					filesByBucket.set(file.bucket, bucketFiles);
 				}
 
@@ -304,12 +140,14 @@ export const storageRouter = {
 					);
 				});
 
-				// Delete from storage after DB commit succeeds
+				// Delete from storage after DB commit succeeds with enhanced error handling
 				const storageErrors: Array<{
 					bucket: string;
 					paths: string[];
 					error: unknown;
 				}> = [];
+				const failedPaths: Array<{ bucket: string; path: string }> = [];
+
 				for (const [bucket, bucketFiles] of filesByBucket.entries()) {
 					const allPaths = bucketFiles.flatMap((f) => f.paths);
 					if (allPaths.length > 0) {
@@ -320,10 +158,34 @@ export const storageRouter = {
 							storageErrors.push({ bucket, paths: allPaths, error });
 							logger.error(
 								{ bucket, paths: allPaths, error },
-								"Failed to delete storage files, orphaned",
+								"Failed to delete storage files, attempting individual cleanup",
 							);
+
+							// Attempt individual deletions to clean up as much as possible
+							for (const path of allPaths) {
+								try {
+									await StorageService.deleteFile(bucket, path);
+								} catch (individualError) {
+									failedPaths.push({ bucket, path });
+									logger.error(
+										{ bucket, path, error: individualError },
+										"Failed to delete individual storage file - orphaned object created",
+									);
+								}
+							}
 						}
 					}
+				}
+
+				// If we have any failed paths, create a cleanup job record for later processing
+				if (failedPaths.length > 0) {
+					logger.warn(
+						{
+							failedPaths: failedPaths.length,
+							totalFiles: files.length,
+						},
+						"Some storage files could not be deleted - manual cleanup may be required",
+					);
 				}
 
 				return {

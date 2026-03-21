@@ -8,6 +8,7 @@ import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { useCheckEmailExists } from "@/hooks/api/use-check-email.hook";
 import { authClient } from "@/lib/auth-client";
 import { handleAPIError } from "@/lib/error";
@@ -22,24 +23,26 @@ export function EmailSignIn({
 	const router = useRouter();
 	const t = useTranslations("auth.emailSignIn");
 	const checkEmailMutation = useCheckEmailExists();
+	const [emailExists, setEmailExists] = useState<boolean | null>(null);
 
 	const handleEmailExistenceCheck = async (email: string) => {
-		return await checkEmailMutation.mutateAsync(
-			{ email },
-			{
-				onError: (error) => {
-					if (error.code === "NOT_FOUND") {
-						const onboardingUrl = getRouteWithQuery(
-							RoutePaths.AUTH.ONBOARDING.INDEX.url,
-							{
-								email,
-							},
-						);
-						router.push(onboardingUrl);
-					}
-				},
-			},
-		);
+		try {
+			const exists = await checkEmailMutation.mutateAsync({ email });
+
+			if (!exists) {
+				const onboardingUrl = getRouteWithQuery(
+					RoutePaths.AUTH.ONBOARDING.INDEX.url,
+					{
+						email,
+					},
+				);
+				router.push(onboardingUrl);
+			} else {
+				setEmailExists(true);
+			}
+		} catch (error) {
+			handleAPIError(error);
+		}
 	};
 
 	const emailForm = useAppForm({
@@ -49,7 +52,7 @@ export function EmailSignIn({
 			onChangeAsyncDebounceMs: 500,
 		},
 		async onSubmit({ value }) {
-			return await handleEmailExistenceCheck(value.email);
+			await handleEmailExistenceCheck(value.email);
 		},
 	});
 
@@ -83,71 +86,74 @@ export function EmailSignIn({
 
 	return (
 		<div className={cn("space-y-4", className)} {...props}>
-			<emailForm.Subscribe>
-				{(emailFormState) =>
-					!emailFormState.isSubmitSuccessful ? (
-						<Form className="space-y-4" onSubmit={emailForm.handleSubmit}>
-							<FieldGroup>
-								<emailForm.AppField name="email">
-									{(field) => (
-										<field.EmailInput
-											label={t("email.label")}
-											placeholder={t("email.placeholder")}
-											autoFocus
-										/>
-									)}
-								</emailForm.AppField>
+			{emailExists === null ? (
+				<Form className="space-y-4" onSubmit={emailForm.handleSubmit}>
+					<FieldGroup>
+						<emailForm.AppField name="email">
+							{(field) => (
+								<field.EmailInput
+									label={t("email.label")}
+									placeholder={t("email.placeholder")}
+									autoFocus
+								/>
+							)}
+						</emailForm.AppField>
+						<emailForm.Subscribe>
+							{(emailFormState) => (
 								<Button type="submit" isLoading={emailFormState.isSubmitting}>
 									{t("continue")}
 								</Button>
-							</FieldGroup>
-						</Form>
-					) : (
-						<Form className="space-y-4" onSubmit={passwordForm.handleSubmit}>
-							<FieldGroup>
-								<passwordForm.AppField name="email">
-									{(field) => (
-										<field.EmailInput
-											label={t("email.label")}
-											placeholder={t("email.placeholder")}
-											readOnly
-										/>
-									)}
-								</passwordForm.AppField>
-								<passwordForm.AppField name="password">
-									{(field) => (
-										<field.PasswordInput
-											label={t("password.label")}
-											placeholder={t("password.placeholder")}
-											autoComplete="current-password"
-										/>
-									)}
-								</passwordForm.AppField>
-								<passwordForm.AppField name="rememberMe">
-									{(field) => <field.CheckboxInput label={t("rememberMe")} />}
-								</passwordForm.AppField>
+							)}
+						</emailForm.Subscribe>
+					</FieldGroup>
+				</Form>
+			) : (
+				<Form className="space-y-4" onSubmit={passwordForm.handleSubmit}>
+					<FieldGroup>
+						<passwordForm.AppField name="email">
+							{(field) => (
+								<field.EmailInput
+									label={t("email.label")}
+									placeholder={t("email.placeholder")}
+									readOnly
+								/>
+							)}
+						</passwordForm.AppField>
+						<passwordForm.AppField name="password">
+							{(field) => (
+								<field.PasswordInput
+									label={t("password.label")}
+									placeholder={t("password.placeholder")}
+									autoComplete="current-password"
+								/>
+							)}
+						</passwordForm.AppField>
+						<passwordForm.AppField name="rememberMe">
+							{(field) => <field.CheckboxInput label={t("rememberMe")} />}
+						</passwordForm.AppField>
+						<Button
+							type="button"
+							variant="outline"
+							onClick={() => {
+								setEmailExists(null);
+								emailForm.reset();
+							}}
+						>
+							{t("back")}
+						</Button>
+						<passwordForm.Subscribe>
+							{(passwordFormState) => (
 								<Button
-									type="button"
-									variant="outline"
-									onClick={() => emailForm.reset()}
+									type="submit"
+									isLoading={passwordFormState.isSubmitting}
 								>
-									{t("back")}
+									{t("signIn")}
 								</Button>
-								<passwordForm.Subscribe>
-									{(passwordFormState) => (
-										<Button
-											type="submit"
-											isLoading={passwordFormState.isSubmitting}
-										>
-											{t("signIn")}
-										</Button>
-									)}
-								</passwordForm.Subscribe>
-							</FieldGroup>
-						</Form>
-					)
-				}
-			</emailForm.Subscribe>
+							)}
+						</passwordForm.Subscribe>
+					</FieldGroup>
+				</Form>
+			)}
 		</div>
 	);
 }

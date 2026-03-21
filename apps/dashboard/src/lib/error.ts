@@ -53,6 +53,12 @@ export function handleAPIError(
 		return;
 	}
 
+	// Not found errors
+	if (error?.code === "NOT_FOUND" || error?.status === 404) {
+		toast.error("Resource not found. Please check your request and try again.");
+		return;
+	}
+
 	// Server errors
 	if (error?.code === "INTERNAL_SERVER_ERROR" || error?.status >= 500) {
 		toast.error("Server error. Please try again later.");
