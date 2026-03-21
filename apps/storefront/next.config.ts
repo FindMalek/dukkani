@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
 		"thread-stream",
 	],
 	images: {
+		dangerouslyAllowLocalIP: true,
 		remotePatterns: [
 			{
 				hostname: "images.unsplash.com",
