@@ -56,7 +56,10 @@ export function RadioGroupField({
 							<FieldLabel key={option.value} htmlFor={option.value}>
 								<Field orientation="horizontal" data-invalid={isInvalid}>
 									<FieldContent>
-										<FieldTitle>{option.label}</FieldTitle>
+										<FieldTitle>
+											{option.icon && <>{option.icon}</>}
+											{option.label}
+										</FieldTitle>
 										{option.description && (
 											<FieldDescription>{option.description}</FieldDescription>
 										)}
