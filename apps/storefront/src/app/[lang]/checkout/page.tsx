@@ -10,9 +10,10 @@ export default async function CheckoutPage() {
 	const host = headersList.get("host");
 	const storeSlug = getStoreSlugFromHost(host);
 
-	if (!storeSlug) {
-		redirect("/");
-	}
+	// TODO: Fix this
+	// if (!storeSlug) {
+	// 	redirect("/");
+	// }
 
 	const queryClient = getQueryClient();
 
@@ -20,7 +21,7 @@ export default async function CheckoutPage() {
 	try {
 		store = await queryClient.fetchQuery(
 			orpc.store.getBySlugPublic.queryOptions({
-				input: { slug: storeSlug },
+				input: { slug: storeSlug ?? "omar-home" },
 			}),
 		);
 	} catch {
