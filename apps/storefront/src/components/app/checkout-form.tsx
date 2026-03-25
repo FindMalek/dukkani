@@ -21,7 +21,6 @@ import {
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
-import { PhoneInput } from "@dukkani/ui/components/phone-input";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
 import { Textarea } from "@dukkani/ui/components/textarea";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
@@ -219,6 +218,10 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 			},
 			paymentMethod: store.supportedPaymentMethods[0] || PaymentMethod.COD,
 		},
+		validators: {
+			// @ts-expect-error - wip
+			onBlur: createOrderPublicInputSchema
+		}
 	});
 
 	return (
@@ -229,9 +232,13 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 						<form.AppField name="customerName">
 							{(field) => <field.TextInput label={t("delivery.fullName")} />}
 						</form.AppField>
-						{/* should be phone input */}
 						<form.AppField name="customerPhone">
-							{(field) => <field.TextInput label={t("delivery.phone")} />}
+							{(field) => (
+								<field.PhoneNumberInput
+									label={t("delivery.phone")}
+									defaultCountry="TN"
+								/>
+							)}
 						</form.AppField>
 						<form.AppField name="isWhatsApp">
 							{(field) => (
@@ -296,33 +303,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 															onChange={(e) =>
 																field.handleChange(e.target.value)
 															}
-															disabled={createOrderMutation.isPending}
-															aria-invalid={isInvalid}
-														/>
-														{isInvalid && (
-															<FieldError errors={field.state.meta.errors} />
-														)}
-													</Field>
-												);
-											}}
-										</formOld.Field>
-
-										{/* Phone */}
-										<formOld.Field name="customerPhone">
-											{(field) => {
-												const isInvalid =
-													field.state.meta.isBlurred &&
-													!field.state.meta.isValid;
-												return (
-													<Field data-invalid={isInvalid}>
-														<FieldLabel htmlFor={field.name}>
-															{t("delivery.phone")}
-														</FieldLabel>
-														<PhoneInput
-															defaultCountry="TN"
-															value={field.state.value ?? ""}
-															onChange={field.handleChange}
-															onBlur={field.handleBlur}
 															disabled={createOrderMutation.isPending}
 															aria-invalid={isInvalid}
 														/>

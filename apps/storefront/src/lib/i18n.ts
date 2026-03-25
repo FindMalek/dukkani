@@ -1,6 +1,9 @@
 import arMessages from "@dukkani/common/locale/storefront/ar.json";
 import enMessages from "@dukkani/common/locale/storefront/en.json";
 import frMessages from "@dukkani/common/locale/storefront/fr.json";
+import uiArMessages from "@dukkani/common/locale/ui/ar.json";
+import uiEnMessages from "@dukkani/common/locale/ui/en.json";
+import uiFrMessages from "@dukkani/common/locale/ui/fr.json";
 import {
 	DEFAULT_LOCALE,
 	LOCALES,
@@ -14,9 +17,9 @@ type MessagesMap = {
 };
 
 const messages: MessagesMap = {
-	en: enMessages,
-	fr: frMessages,
-	ar: arMessages,
+	en: { ...uiEnMessages, ...enMessages },
+	fr: { ...uiFrMessages, ...frMessages },
+	ar: { ...uiArMessages, ...arMessages },
 } as const;
 
 export default getRequestConfig(async ({ locale }) => {

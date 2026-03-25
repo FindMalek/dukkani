@@ -1,0 +1,8 @@
+{
+	"ui": {
+		"phoneNumberField": {
+			"searchCountry": "Rechercher un pays...",
+			"noCountryFound": "Aucun pays trouve."
+		}
+	}
+}
