@@ -12,17 +12,18 @@ import { BaseField, type CommonFieldProps } from "./base-field";
 type BaseItemOption = {
 	label: React.ReactNode;
 	value: string;
+	disabled?: boolean;
 };
 
-type CardItemOption = BaseItemOption & {
+interface CardItemOption extends BaseItemOption {
 	description?: string;
 	icon?: React.ReactNode;
-};
+}
 
-type RadioGroupFieldProps = CommonFieldProps & {
+interface RadioGroupFieldProps extends CommonFieldProps {
 	as?: "cards";
 	options: CardItemOption[];
-};
+}
 export function RadioGroupField({
 	label,
 	description,
@@ -68,6 +69,7 @@ export function RadioGroupField({
 										value={option.value}
 										id={option.value}
 										aria-invalid={isInvalid}
+										disabled={option.disabled}
 									/>
 								</Field>
 							</FieldLabel>
