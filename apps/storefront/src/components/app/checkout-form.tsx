@@ -217,11 +217,12 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 				postalCode: "",
 			},
 			paymentMethod: store.supportedPaymentMethods[0] || PaymentMethod.COD,
+			notes: "",
 		},
 		validators: {
 			// @ts-expect-error - wip
-			onBlur: createOrderPublicInputSchema
-		}
+			onBlur: createOrderPublicInputSchema,
+		},
 	});
 
 	return (
@@ -263,6 +264,14 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 											value: PaymentMethod.CARD,
 										},
 									]}
+								/>
+							)}
+						</form.AppField>
+						<form.AppField name="notes">
+							{(field) => (
+								<field.TextAreaInput
+									label={t("delivery.instructions")}
+									rows={3}
 								/>
 							)}
 						</form.AppField>
