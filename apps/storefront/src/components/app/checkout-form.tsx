@@ -225,10 +225,9 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
             )}
           </form.AppField>
           <FieldSet className="rounded-md border p-4">
-            <FieldLegend>Delivery Address</FieldLegend>
+            <FieldLegend>{t("delivery.addressFieldset.title")}</FieldLegend>
             <FieldDescription>
-              You can enter your address manually or use your current location
-              to auto-fill the address fields.
+              {t("delivery.addressFieldset.description")}
             </FieldDescription>
             <FieldGroup>
               <form.AppField name="address.street">
