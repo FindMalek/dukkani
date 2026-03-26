@@ -111,7 +111,8 @@ jobs:
         env:
           LIGHTHOUSE_URL: ${{ steps.preview.outputs.url }}
           LIGHTHOUSE_PATHS: ${{ matrix.lighthouse_paths }}
-          LHCI_PRESET: mobile
+          LHCI_PRESET: desktop
+          LHCI_SCREEN_EMULATION: '{"mobile":true,"width":375,"height":667,"deviceScaleFactor":2,"disabled":false}'
 
       - name: Assert Lighthouse results
         run: npx -y @lhci/cli@0.15.1 assert
