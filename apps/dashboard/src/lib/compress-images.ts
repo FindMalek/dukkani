@@ -57,7 +57,10 @@ async function sleep(ms: number): Promise<void> {
 }
 
 async function compressImageForUpload(file: File): Promise<File> {
-  if (!file.type.startsWith("image/") || file.size <= COMPRESS_SKIP_BELOW_BYTES) {
+  if (
+    !file.type.startsWith("image/") ||
+    file.size <= COMPRESS_SKIP_BELOW_BYTES
+  ) {
     return file;
   }
 

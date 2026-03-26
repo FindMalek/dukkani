@@ -35,6 +35,7 @@
     "tw-animate-css": "catalog:",
     "zod": "catalog:",
     "@orpc/server": "catalog:",
+    "browser-image-compression": "^2.0.2",
     "qrcode.react": "4.2.0",
     "zustand": "catalog:",
     "dotenv": "catalog:"
