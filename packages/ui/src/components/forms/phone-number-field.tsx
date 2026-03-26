@@ -1,5 +1,4 @@
 import { CheckIcon, ChevronsUpDown } from "lucide-react";
-import { useTranslations } from "next-intl";
 import * as React from "react";
 import * as RPNInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
@@ -8,7 +7,6 @@ import { cn } from "../../lib/utils";
 import { Button } from "../button";
 import {
 	Command,
-	CommandEmpty,
 	CommandGroup,
 	CommandInput,
 	CommandItem,
@@ -110,7 +108,6 @@ const CountrySelect = ({
 	options: countryList,
 	onChange,
 }: CountrySelectProps) => {
-	const t = useTranslations("ui.phoneNumberField");
 	const scrollAreaRef = React.useRef<HTMLDivElement>(null);
 	const [searchValue, setSearchValue] = React.useState("");
 	const [isOpen, setIsOpen] = React.useState(false);
@@ -162,11 +159,9 @@ const CountrySelect = ({
 								}
 							}, 0);
 						}}
-						placeholder={t("searchCountry")}
 					/>
 					<CommandList>
 						<ScrollArea ref={scrollAreaRef} className="h-72">
-							<CommandEmpty>{t("noCountryFound")}</CommandEmpty>
 							<CommandGroup>
 								{countryList.map(({ value: countryValue, label }) =>
 									countryValue ? (
