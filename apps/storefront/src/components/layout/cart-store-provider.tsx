@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { useCartStore } from "@/stores/cart.store";
 
 interface CartStoreProviderProps {
-	children: React.ReactNode;
-	storeSlug: string;
+  children: React.ReactNode;
+  storeSlug: string;
 }
 
 /**
@@ -13,14 +13,14 @@ interface CartStoreProviderProps {
  * This ensures cart items are scoped to the current store
  */
 export function CartStoreProvider({
-	children,
-	storeSlug,
+  children,
+  storeSlug,
 }: CartStoreProviderProps) {
-	const setCurrentStore = useCartStore((state) => state.setCurrentStore);
+  const setCurrentStore = useCartStore((state) => state.setCurrentStore);
 
-	useEffect(() => {
-		setCurrentStore(storeSlug);
-	}, [storeSlug, setCurrentStore]);
+  useEffect(() => {
+    setCurrentStore(storeSlug);
+  }, [storeSlug, setCurrentStore]);
 
-	return <>{children}</>;
+  return <>{children}</>;
 }

@@ -15,19 +15,19 @@ import { storefrontRouter } from "./storefront";
 import { telegramRouter } from "./telegram";
 
 export const appRouter = {
-	health: healthRouter,
-	store: storeRouter,
-	product: productRouter,
-	order: orderRouter,
-	customer: customerRouter,
-	dashboard: dashboardRouter,
-	storage: storageRouter,
-	account: accountRouter,
-	telegram: telegramRouter,
-	onboarding: onboardingRouter,
-	category: categoryRouter,
-	collection: collectionRouter,
-	cart: cartRouter,
+  health: healthRouter,
+  store: storeRouter,
+  product: productRouter,
+  order: orderRouter,
+  customer: customerRouter,
+  dashboard: dashboardRouter,
+  storage: storageRouter,
+  account: accountRouter,
+  telegram: telegramRouter,
+  onboarding: onboardingRouter,
+  category: categoryRouter,
+  collection: collectionRouter,
+  cart: cartRouter,
 };
 export type AppRouter = typeof appRouter;
 export type AppRouterClient = RouterClient<typeof appRouter>;

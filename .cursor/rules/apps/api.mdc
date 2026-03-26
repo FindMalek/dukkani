@@ -6,12 +6,12 @@ The `api` app is a Next.js API server that handles oRPC requests. It provides th
 
 ## Structure
 
-```
+```text
 apps/api/src/
-└── app/
-    └── api/
-        └── [[...rest]]/
-            └── route.ts    # Catch-all API route handler
+├── app/api/[[...rest]]/route.ts      # Catch-all oRPC + OpenAPI handler
+├── app/api/auth/[...all]/route.ts    # Better Auth endpoints
+├── app/api/webhooks/[provider]/route.ts
+└── lib/cors.ts
 ```
 
 ## API Route Handler
@@ -162,6 +162,7 @@ interceptors: [
 - `@orpc/server` - oRPC server
 - `@orpc/openapi` - OpenAPI integration
 - `@dukkani/env` - Environment variables
+- `better-auth` - auth endpoint integration in `app/api/auth/[...all]/route.ts`
 
 ## Best Practices
 
@@ -171,3 +172,4 @@ interceptors: [
 - Create context from request headers
 - Log errors via interceptors
 - Support both RPC and OpenAPI handlers
+- Keep webhook logic in `app/api/webhooks/[provider]/route.ts`

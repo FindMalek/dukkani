@@ -5,37 +5,37 @@ import { Label } from "./label";
 import { Separator } from "./separator";
 
 function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
-	return (
-		<fieldset
-			data-slot="field-set"
-			className={cn(
-				"flex flex-col gap-6",
-				"has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
-				className,
-			)}
-			{...props}
-		/>
-	);
+  return (
+    <fieldset
+      data-slot="field-set"
+      className={cn(
+        "flex flex-col gap-6",
+        "has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 function FieldLegend({
-	className,
-	variant = "legend",
-	...props
+  className,
+  variant = "legend",
+  ...props
 }: React.ComponentProps<"legend"> & { variant?: "legend" | "label" }) {
-	return (
-		<legend
-			data-slot="field-legend"
-			data-variant={variant}
-			className={cn(
-				"mb-3 font-medium",
-				"data-[variant=legend]:text-base",
-				"data-[variant=label]:text-sm",
-				className,
-			)}
-			{...props}
-		/>
-	);
+  return (
+    <legend
+      data-slot="field-legend"
+      data-variant={variant}
+      className={cn(
+        "mb-3 font-medium",
+        "data-[variant=legend]:text-base",
+        "data-[variant=label]:text-sm",
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
@@ -70,12 +70,11 @@ const fieldVariants = cva(
 );
 
 function Field({
-	className,
-	orientation = "vertical",
-	...props
+  className,
+  orientation = "vertical",
+  ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof fieldVariants>) {
 	return (
-		// biome-ignore lint/a11y/useSemanticElements: Using divs with role="group" for better flexibility in composition and layout
 		<div
 			role="group"
 			data-slot="field"
@@ -87,21 +86,21 @@ function Field({
 }
 
 function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
-	return (
-		<div
-			data-slot="field-content"
-			className={cn(
-				"group/field-content flex flex-1 flex-col gap-1.5 leading-snug",
-				className,
-			)}
-			{...props}
-		/>
-	);
+  return (
+    <div
+      data-slot="field-content"
+      className={cn(
+        "group/field-content flex flex-1 flex-col gap-1.5 leading-snug",
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 function FieldLabel({
-	className,
-	...props
+  className,
+  ...props
 }: React.ComponentProps<typeof Label>) {
 	return (
 		<Label
@@ -117,16 +116,16 @@ function FieldLabel({
 }
 
 function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
-	return (
-		<div
-			data-slot="field-label"
-			className={cn(
-				"flex w-fit items-center gap-2 font-medium text-sm leading-snug group-data-[disabled=true]/field:opacity-50",
-				className,
-			)}
-			{...props}
-		/>
-	);
+  return (
+    <div
+      data-slot="field-label"
+      className={cn(
+        "flex w-fit items-center gap-2 font-medium text-sm leading-snug group-data-[disabled=true]/field:opacity-50",
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
@@ -145,76 +144,76 @@ function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
 }
 
 function FieldSeparator({
-	children,
-	className,
-	...props
+  children,
+  className,
+  ...props
 }: React.ComponentProps<"div"> & {
-	children?: React.ReactNode;
+  children?: React.ReactNode;
 }) {
-	return (
-		<div
-			data-slot="field-separator"
-			data-content={!!children}
-			className={cn(
-				"relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
-				className,
-			)}
-			{...props}
-		>
-			<Separator className="absolute inset-0 top-1/2" />
-			{children && (
-				<span
-					className="relative mx-auto block w-fit bg-background px-2 text-muted-foreground"
-					data-slot="field-separator-content"
-				>
-					{children}
-				</span>
-			)}
-		</div>
-	);
+  return (
+    <div
+      data-slot="field-separator"
+      data-content={!!children}
+      className={cn(
+        "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
+        className,
+      )}
+      {...props}
+    >
+      <Separator className="absolute inset-0 top-1/2" />
+      {children && (
+        <span
+          className="relative mx-auto block w-fit bg-background px-2 text-muted-foreground"
+          data-slot="field-separator-content"
+        >
+          {children}
+        </span>
+      )}
+    </div>
+  );
 }
 
 function FieldErrors({
-	className,
-	errors,
-	match,
-	...props
+  className,
+  errors,
+  match,
+  ...props
 }: React.ComponentProps<"div"> & {
-	errors: (StandardSchemaV1Issue | undefined)[];
-	match: boolean;
+  errors: (StandardSchemaV1Issue | undefined)[];
+  match: boolean;
 }) {
-	if (!match || errors.length === 0) {
-		return null;
-	}
+  if (!match || errors.length === 0) {
+    return null;
+  }
 
-	const uniqueErrors = [
-		...new Map(errors.map((e) => [e?.message, e])).values(),
-	].filter(
-		(e): e is StandardSchemaV1Issue => !!e?.message && e.message.length > 0,
-	);
+  const uniqueErrors = [
+    ...new Map(errors.map((e) => [e?.message, e])).values(),
+  ].filter(
+    (e): e is StandardSchemaV1Issue => !!e?.message && e.message.length > 0,
+  );
 
-	if (uniqueErrors.length === 0) {
-		return null;
-	}
+  if (uniqueErrors.length === 0) {
+    return null;
+  }
 
-	return (
-		<div
-			role="alert"
-			data-slot="field-errors"
-			className={cn("font-normal text-destructive text-sm", className)}
-			{...props}
-		>
-			{uniqueErrors.length === 1 && uniqueErrors[0] ? (
-				<p>{uniqueErrors[0].message ?? ""}</p>
-			) : (
-				<ul className="ms-4 flex list-disc flex-col gap-1">
-					{uniqueErrors.map((error) => (
-						<li key={error.message}>{error.message}</li>
-					))}
-				</ul>
-			)}
-		</div>
-	);
+  return (
+    <div
+      role="alert"
+      data-slot="field-errors"
+      className={cn("font-normal text-destructive text-sm", className)}
+      {...props}
+    >
+      {uniqueErrors.length === 1 && uniqueErrors[0] ? (
+        <p>{uniqueErrors[0].message ?? ""}</p>
+      ) : (
+        <ul className="ms-4 flex list-disc flex-col gap-1">
+          {uniqueErrors.map((error) => (
+            <li key={error.message}>{error.message}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }
 
 export {

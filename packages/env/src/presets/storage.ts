@@ -8,13 +8,13 @@ import { vercelEnv } from "./vercel";
  * Includes S3-compatible storage configuration and Vercel deployment variables
  */
 export const storageEnv = createEnv({
-	extends: [vercelEnv],
-	server: {
-		...storageModule.server,
-	},
-	runtimeEnv: createNextjsRuntimeEnv(),
-	emptyStringAsUndefined: true,
-	skipValidation:
-		process.env.SKIP_ENV_VALIDATION === "true" ||
-		process.env.NODE_ENV === "test",
+  extends: [vercelEnv],
+  server: {
+    ...storageModule.server,
+  },
+  runtimeEnv: createNextjsRuntimeEnv(),
+  emptyStringAsUndefined: true,
+  skipValidation:
+    process.env.SKIP_ENV_VALIDATION === "true" ||
+    process.env.NODE_ENV === "test",
 });

@@ -9,9 +9,9 @@ const o = os.$context<Context>();
  * to ORPCError. Apply to base procedure so all handlers get consistent error handling.
  */
 export const serviceErrorHandling = o.middleware(async ({ next }) => {
-	try {
-		return await next();
-	} catch (error) {
-		convertServiceError(error);
-	}
+  try {
+    return await next();
+  } catch (error) {
+    convertServiceError(error);
+  }
 });

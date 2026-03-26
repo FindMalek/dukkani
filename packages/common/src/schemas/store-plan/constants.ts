@@ -5,15 +5,15 @@ import { StorePlanType } from "@dukkani/db/prisma/generated/enums";
  * Defines the maximum number of orders allowed per plan type
  */
 export const STORE_PLAN_ORDER_LIMITS: Record<StorePlanType, number> = {
-	[StorePlanType.FREE]: 100,
-	[StorePlanType.BASIC]: 500,
-	[StorePlanType.PREMIUM]: 1000,
-	[StorePlanType.ENTERPRISE]: 9999999, // Unlimited for enterprise
+  [StorePlanType.FREE]: 100,
+  [StorePlanType.BASIC]: 500,
+  [StorePlanType.PREMIUM]: 1000,
+  [StorePlanType.ENTERPRISE]: 9999999, // Unlimited for enterprise
 } as const;
 
 /**
  * Get order limit for a plan type
  */
 export function getOrderLimitForPlan(planType: StorePlanType): number {
-	return STORE_PLAN_ORDER_LIMITS[planType];
+  return STORE_PLAN_ORDER_LIMITS[planType];
 }

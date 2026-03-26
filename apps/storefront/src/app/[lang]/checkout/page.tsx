@@ -6,16 +6,16 @@ import { getQueryClient, orpc } from "@/lib/orpc";
 import { getStoreSlugFromHost } from "@/lib/utils";
 
 export default async function CheckoutPage() {
-	const headersList = await headers();
-	const host = headersList.get("host");
-	const storeSlug = getStoreSlugFromHost(host);
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const storeSlug = getStoreSlugFromHost(host);
 
 	// TODO: Fix this
 	// if (!storeSlug) {
 	// 	redirect("/");
 	// }
 
-	const queryClient = getQueryClient();
+  const queryClient = getQueryClient();
 
 	let store: StorePublicOutput;
 	try {
@@ -28,9 +28,9 @@ export default async function CheckoutPage() {
 		redirect("/");
 	}
 
-	if (!store) {
-		redirect("/");
-	}
+  if (!store) {
+    redirect("/");
+  }
 
-	return <CheckoutForm store={store} />;
+  return <CheckoutForm store={store} />;
 }

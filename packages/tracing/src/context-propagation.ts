@@ -13,28 +13,28 @@ import { context, propagation } from "@opentelemetry/api";
  * (see packages/tracing/src/sdk.ts) to avoid sending baggage to external services.
  */
 export function propagateTraceContext(headers: HeadersInit = {}): Headers {
-	// Normalize input to Headers instance (handles all HeadersInit variants)
-	const normalized = new Headers(headers);
+  // Normalize input to Headers instance (handles all HeadersInit variants)
+  const normalized = new Headers(headers);
 
-	// Create a plain carrier object from normalized headers
-	const carrier: Record<string, string> = {};
-	normalized.forEach((value, key) => {
-		carrier[key] = value;
-	});
+  // Create a plain carrier object from normalized headers
+  const carrier: Record<string, string> = {};
+  normalized.forEach((value, key) => {
+    carrier[key] = value;
+  });
 
-	// Inject current trace context (and potentially W3C Baggage) into carrier
-	// By default, NodeSDK uses both W3C Trace Context (traceparent, tracestate)
-	// and W3C Baggage propagators. This injects headers based on active context
-	// and SDK propagator configuration.
-	propagation.inject(context.active(), carrier);
+  // Inject current trace context (and potentially W3C Baggage) into carrier
+  // By default, NodeSDK uses both W3C Trace Context (traceparent, tracestate)
+  // and W3C Baggage propagators. This injects headers based on active context
+  // and SDK propagator configuration.
+  propagation.inject(context.active(), carrier);
 
-	// Apply carrier entries back onto normalized Headers
-	// This preserves original headers and adds trace context headers
-	for (const [key, value] of Object.entries(carrier)) {
-		normalized.set(key, value);
-	}
+  // Apply carrier entries back onto normalized Headers
+  // This preserves original headers and adds trace context headers
+  for (const [key, value] of Object.entries(carrier)) {
+    normalized.set(key, value);
+  }
 
-	return normalized;
+  return normalized;
 }
 
 /**
@@ -53,13 +53,13 @@ export function propagateTraceContext(headers: HeadersInit = {}): Headers {
  * });
  */
 export async function fetchWithTrace(
-	url: string | URL,
-	options?: RequestInit,
+  url: string | URL,
+  options?: RequestInit,
 ): Promise<Response> {
-	// Propagate trace context to headers
-	const headers = propagateTraceContext(options?.headers);
+  // Propagate trace context to headers
+  const headers = propagateTraceContext(options?.headers);
 
-	// HTTP instrumentation will automatically create a child span
-	// and the trace context in headers ensures continuity
-	return fetch(url, { ...options, headers });
+  // HTTP instrumentation will automatically create a child span
+  // and the trace context in headers ensures continuity
+  return fetch(url, { ...options, headers });
 }

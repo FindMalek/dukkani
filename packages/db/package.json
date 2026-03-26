@@ -1,68 +1,69 @@
 {
-	"name": "@dukkani/db",
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"default": "./src/index.ts"
-		},
-		"./env": {
-			"types": "./dist/env.d.ts",
-			"default": "./src/env.ts"
-		},
-		"./*": {
-			"types": "./dist/*.d.ts",
-			"default": "./src/*.ts"
-		},
-		"./prisma/generated": {
-			"types": "./prisma/generated/client.d.ts",
-			"default": "./prisma/generated/client.ts"
-		},
-		"./prisma/generated/enums": {
-			"types": "./prisma/generated/enums.ts",
-			"default": "./prisma/generated/enums.ts"
-		}
-	},
-	"scripts": {
-		"postinstall": "prisma generate",
-		"build": "tsdown",
-		"db:push": "prisma db push",
-		"db:studio": "prisma studio",
-		"db:generate": "prisma generate",
-		"db:migrate": "prisma migrate dev",
-		"db:migrate:deploy": "prisma migrate deploy",
-		"db:seed": "tsx src/seed/index.ts",
-		"db:reset-and-seed": "pnpm db:reset && pnpm db:seed",
-		"db:reset": "prisma migrate reset --force",
-		"db:format": "prisma format",
-		"clean": "rm -rf dist node_modules prisma/generated"
-	},
-	"peerDependencies": {
-		"typescript": "catalog:"
-	},
-	"dependencies": {
-		"@dukkani/env": "workspace:*",
-		"@dukkani/tracing": "workspace:*",
-		"@dukkani/logger": "workspace:*",
-		"@prisma/client": "catalog:",
-		"@t3-oss/env-core": "catalog:",
-		"@prisma/client-runtime-utils": "^7.0.0",
-		"bcryptjs": "^2.4.3",
-		"nanoid": "catalog:",
-		"zod": "catalog:",
-		"@neondatabase/serverless": "^0.10.4",
-		"@prisma/adapter-neon": "^7.0.0",
-		"@prisma/adapter-pg": "^7.0.0",
-		"ws": "^8.18.2"
-	},
-	"devDependencies": {
-		"@dukkani/config": "workspace:*",
-		"@next/env": "catalog:",
-		"@types/bcryptjs": "^2.4.6",
-		"prisma": "catalog:",
-		"tsdown": "catalog:",
-		"tsx": "catalog:",
-		"@types/ws": "^8.18.1",
-		"dotenv": "catalog:"
-	}
+  "name": "@dukkani/db",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./env": {
+      "types": "./dist/env.d.ts",
+      "default": "./src/env.ts"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./src/*.ts"
+    },
+    "./prisma/generated": {
+      "types": "./prisma/generated/client.d.ts",
+      "default": "./prisma/generated/client.ts"
+    },
+    "./prisma/generated/enums": {
+      "types": "./prisma/generated/enums.ts",
+      "default": "./prisma/generated/enums.ts"
+    }
+  },
+  "scripts": {
+    "postinstall": "prisma generate",
+    "build": "tsdown",
+    "check-types": "tsc --noEmit -p tsconfig.json",
+    "check-types:fast": "tsgo --noEmit -p tsconfig.json",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:seed": "tsx src/seed/index.ts",
+    "db:reset-and-seed": "pnpm db:reset && pnpm db:seed",
+    "db:reset": "prisma migrate reset --force",
+    "db:format": "prisma format",
+    "clean": "rm -rf dist node_modules prisma/generated"
+  },
+  "peerDependencies": {
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@dukkani/env": "workspace:*",
+    "@dukkani/tracing": "workspace:*",
+    "@dukkani/logger": "workspace:*",
+    "@prisma/client": "catalog:",
+    "@t3-oss/env-core": "catalog:",
+    "@prisma/client-runtime-utils": "^7.0.0",
+    "bcryptjs": "^2.4.3",
+    "nanoid": "catalog:",
+    "zod": "catalog:",
+    "@neondatabase/serverless": "^0.10.4",
+    "@prisma/adapter-neon": "^7.0.0",
+    "@prisma/adapter-pg": "^7.0.0",
+    "ws": "^8.18.2"
+  },
+  "devDependencies": {
+    "@dukkani/config": "workspace:*",
+    "@next/env": "catalog:",
+    "prisma": "catalog:",
+    "tsdown": "catalog:",
+    "tsx": "catalog:",
+    "@types/ws": "^8.18.1",
+    "dotenv": "catalog:"
+  }
 }

@@ -1,0 +1,33 @@
+# Migrations Package
+
+## Purpose
+
+`@dukkani/migrations` contains migration tooling and the `dukkani-migrate` CLI for storage/database migration workflows.
+
+## CLI Entry Points
+
+- Binary: `dukkani-migrate`
+- Commands include storage migration actions and migration template generation.
+
+## Responsibilities
+
+- Provide repeatable migration execution and validation.
+- Separate migration orchestration from app runtime logic.
+- Keep migration progress and failure reporting explicit.
+
+## Operational Rules
+
+- Use typed env configuration for all migration runs.
+- Keep migration templates under package control and versioned with code.
+- Ensure commands support safe dry-run or validation paths where possible.
+
+## Error Handling
+
+- Use centralized logger integration for uncaught exceptions and rejected promises.
+- Exit with non-zero status on migration failures.
+
+## Best Practices
+
+- Keep migration files deterministic and reviewable.
+- Avoid embedding app-specific UI assumptions in migration code.
+- Prefer shared utilities for file mapping, progress tracking, and source storage access.

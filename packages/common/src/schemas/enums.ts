@@ -1,16 +1,16 @@
 import {
-	HealthStatus,
-	OrderStatus,
-	PaymentMethod,
-	StorageFileVariantType,
-	StoreCategory,
-	StoreNotificationMethod,
-	StorePlanType,
-	StoreStatus,
-	StoreTheme,
-	TeamMemberRole,
-	UserOnboardingStep,
-	WhatsAppMessageStatus,
+  HealthStatus,
+  OrderStatus,
+  PaymentMethod,
+  StorageFileVariantType,
+  StoreCategory,
+  StoreNotificationMethod,
+  StorePlanType,
+  StoreStatus,
+  StoreTheme,
+  TeamMemberRole,
+  UserOnboardingStep,
+  WhatsAppMessageStatus,
 } from "@dukkani/db/prisma/generated/enums";
 import { z } from "zod";
 
@@ -30,10 +30,10 @@ export { WhatsAppMessageStatus };
 export const whatsappMessageStatusSchema = z.nativeEnum(WhatsAppMessageStatus);
 export const whatsappMessageStatusEnum = whatsappMessageStatusSchema.enum;
 export const LIST_WHATSAPP_MESSAGE_STATUSES = Object.values(
-	WhatsAppMessageStatus,
+  WhatsAppMessageStatus,
 );
 export type WhatsAppMessageStatusInfer = z.infer<
-	typeof whatsappMessageStatusSchema
+  typeof whatsappMessageStatusSchema
 >;
 
 /**
@@ -86,14 +86,14 @@ export type HealthStatusInfer = z.infer<typeof healthStatusSchema>;
  */
 export { StorageFileVariantType };
 export const storageFileVariantTypeSchema = z.nativeEnum(
-	StorageFileVariantType,
+  StorageFileVariantType,
 );
 export const storageFileVariantTypeEnum = storageFileVariantTypeSchema.enum;
 export const LIST_STORAGE_FILE_VARIANT_TYPES = Object.values(
-	StorageFileVariantType,
+  StorageFileVariantType,
 );
 export type StorageFileVariantTypeInfer = z.infer<
-	typeof storageFileVariantTypeSchema
+  typeof storageFileVariantTypeSchema
 >;
 
 /**
@@ -101,14 +101,14 @@ export type StorageFileVariantTypeInfer = z.infer<
  */
 export type { StoreNotificationMethod };
 export const storeNotificationMethodSchema = z.nativeEnum(
-	StoreNotificationMethod,
+  StoreNotificationMethod,
 );
 export const storeNotificationMethodEnum = storeNotificationMethodSchema.enum;
 export const LIST_STORE_NOTIFICATION_METHODS = Object.values(
-	StoreNotificationMethod,
+  StoreNotificationMethod,
 );
 export type StoreNotificationMethodInfer = z.infer<
-	typeof storeNotificationMethodSchema
+  typeof storeNotificationMethodSchema
 >;
 
 /**

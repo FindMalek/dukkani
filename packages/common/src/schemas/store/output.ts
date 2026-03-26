@@ -1,98 +1,98 @@
 import { z } from "zod";
 import {
-	productPublicOutputSchema,
-	productSimpleOutputSchema,
+  productPublicOutputSchema,
+  productSimpleOutputSchema,
 } from "../product/output";
 import { salesMetricSimpleOutputSchema } from "../sales-metric/output";
 import { storePlanSimpleOutputSchema } from "../store-plan/output";
 import { teamMemberSimpleOutputSchema } from "../team-member/output";
 import {
-	userSimpleOutputSchema,
-	userSimpleSelectOutputSchema,
+  userSimpleOutputSchema,
+  userSimpleSelectOutputSchema,
 } from "../user/output";
 import {
-	paymentMethodSchema,
-	storeCategorySchema,
-	storeNotificationMethodSchema,
-	storeStatusSchema,
-	storeThemeSchema,
+  paymentMethodSchema,
+  storeCategorySchema,
+  storeNotificationMethodSchema,
+  storeStatusSchema,
+  storeThemeSchema,
 } from "./enums";
 
 export const storeSafeOutputSchema = z.object({
-	id: z.string(),
-	slug: z.string(),
-	name: z.string(),
-	description: z.string().nullable(),
-	whatsappNumber: z.string().nullable(),
-	category: storeCategorySchema.nullable(),
-	status: storeStatusSchema,
-	theme: storeThemeSchema.nullable(),
-	notificationMethod: storeNotificationMethodSchema.nullable(),
-	supportedPaymentMethods: z.array(paymentMethodSchema),
-	shippingCost: z.number(),
-	createdAt: z.date(),
-	updatedAt: z.date(),
-	storePlan: storePlanSimpleOutputSchema.optional(),
+  id: z.string(),
+  slug: z.string(),
+  name: z.string(),
+  description: z.string().nullable(),
+  whatsappNumber: z.string().nullable(),
+  category: storeCategorySchema.nullable(),
+  status: storeStatusSchema,
+  theme: storeThemeSchema.nullable(),
+  notificationMethod: storeNotificationMethodSchema.nullable(),
+  supportedPaymentMethods: z.array(paymentMethodSchema),
+  shippingCost: z.number(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  storePlan: storePlanSimpleOutputSchema.optional(),
 });
 
 export const storeSimpleOutputSchema = storeSafeOutputSchema.extend({
-	ownerId: z.string(),
+  ownerId: z.string(),
 });
 
 export const storeIncludeOutputSchema = storeSimpleOutputSchema.extend({
-	owner: userSimpleOutputSchema.optional(),
-	storePlan: storePlanSimpleOutputSchema.optional(),
-	products: z.array(productSimpleOutputSchema).optional(),
-	teamMembers: z.array(teamMemberSimpleOutputSchema).optional(),
-	salesMetrics: z.array(salesMetricSimpleOutputSchema).optional(),
+  owner: userSimpleOutputSchema.optional(),
+  storePlan: storePlanSimpleOutputSchema.optional(),
+  products: z.array(productSimpleOutputSchema).optional(),
+  teamMembers: z.array(teamMemberSimpleOutputSchema).optional(),
+  salesMetrics: z.array(salesMetricSimpleOutputSchema).optional(),
 });
 
 export const storeMinimalOutputSchema = z.object({
-	id: z.string(),
-	name: z.string(),
-	slug: z.string(),
+  id: z.string(),
+  name: z.string(),
+  slug: z.string(),
 });
 
 export const listStoresOutputSchema = z.object({
-	stores: z.array(storeSimpleOutputSchema),
-	total: z.number().int(),
-	hasMore: z.boolean(),
-	page: z.number().int(),
-	limit: z.number().int(),
+  stores: z.array(storeSimpleOutputSchema),
+  total: z.number().int(),
+  hasMore: z.boolean(),
+  page: z.number().int(),
+  limit: z.number().int(),
 });
 
 export const storePublicOutputSchema = storeSafeOutputSchema
-	.extend({
-		status: storeStatusSchema,
-		owner: z
-			.object({
-				name: z.string().nullable(),
-				image: z.string().nullable(),
-			})
-			.optional(),
-		products: z.array(productPublicOutputSchema).optional(),
-		productsPagination: z
-			.object({
-				total: z.number().int(),
-				hasMore: z.boolean(),
-				page: z.number().int(),
-				limit: z.number().int(),
-			})
-			.optional(),
-	})
-	.omit({
-		notificationMethod: true,
-	});
+  .extend({
+    status: storeStatusSchema,
+    owner: z
+      .object({
+        name: z.string().nullable(),
+        image: z.string().nullable(),
+      })
+      .optional(),
+    products: z.array(productPublicOutputSchema).optional(),
+    productsPagination: z
+      .object({
+        total: z.number().int(),
+        hasMore: z.boolean(),
+        page: z.number().int(),
+        limit: z.number().int(),
+      })
+      .optional(),
+  })
+  .omit({
+    notificationMethod: true,
+  });
 
 export const storePublicSimpleOutputSchema = z.object({
-	id: z.string(),
-	name: z.string(),
-	slug: z.string(),
-	owner: userSimpleSelectOutputSchema.optional(),
+  id: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  owner: userSimpleSelectOutputSchema.optional(),
 });
 
 export type StorePublicSimpleOutput = z.infer<
-	typeof storePublicSimpleOutputSchema
+  typeof storePublicSimpleOutputSchema
 >;
 export type StorePublicOutput = z.infer<typeof storePublicOutputSchema>;
 export type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
@@ -102,11 +102,11 @@ export type StoreIncludeOutput = z.infer<typeof storeIncludeOutputSchema>;
 export type ListStoresOutput = z.infer<typeof listStoresOutputSchema>;
 
 export const launchNotificationOutputSchema = z.object({
-	id: z.string(),
-	email: z.string().nullable(),
-	phone: z.string().nullable(),
+  id: z.string(),
+  email: z.string().nullable(),
+  phone: z.string().nullable(),
 });
 
 export type LaunchNotificationOutput = z.infer<
-	typeof launchNotificationOutputSchema
+  typeof launchNotificationOutputSchema
 >;

@@ -1,0 +1,29 @@
+# Tracing Package
+
+## Purpose
+
+`@dukkani/tracing` centralizes OpenTelemetry setup, context propagation, and tracing utilities.
+
+## Core API
+
+- `registerTracing(config)` for app-level initialization.
+- `shutdownSDK`, `flushTelemetry`, and `isTracingInitialized`.
+- Utility exports (`withSpan`, `getTraceId`, logger integration, decorators).
+
+## Integration Guidance
+
+- Initialize tracing from app instrumentation entrypoints on the server side only.
+- Set `serviceName` per app (`api`, `dashboard`, `storefront`, `web`, or package CLI process).
+- Keep OTLP exporter config in environment-driven configuration.
+
+## Constraints
+
+- Avoid direct app imports; this package must remain reusable and framework-agnostic.
+- Do not initialize tracing multiple times in a single process.
+- Keep production defaults performance-safe (batch exports unless explicitly configured otherwise).
+
+## Best Practices
+
+- Propagate trace context in internal HTTP requests.
+- Enrich logs with trace metadata through logger integration helpers.
+- Use helper wrappers (`withSpan`, decorators) to avoid duplicate span boilerplate.

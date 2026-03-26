@@ -6,14 +6,14 @@ import { z } from "zod";
  * Only includes DATABASE_URL - the only env var the DB package needs
  */
 export const dbEnv = createEnv({
-	server: {
-		DATABASE_URL: z.url(),
-	},
-	client: {},
-	clientPrefix: "NEXT_PUBLIC_",
-	runtimeEnv: process.env,
-	emptyStringAsUndefined: true,
-	skipValidation:
-		process.env.SKIP_ENV_VALIDATION === "true" ||
-		process.env.NODE_ENV === "test",
+  server: {
+    DATABASE_URL: z.url(),
+  },
+  client: {},
+  clientPrefix: "NEXT_PUBLIC_",
+  runtimeEnv: process.env,
+  emptyStringAsUndefined: true,
+  skipValidation:
+    process.env.SKIP_ENV_VALIDATION === "true" ||
+    process.env.NODE_ENV === "test",
 });

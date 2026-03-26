@@ -10,22 +10,22 @@ import { withRelatedProject } from "@vercel/related-projects";
  * the dashboard's vercel.json includes the storefront project ID in relatedProjects.
  */
 export function getStorefrontBaseUrl(defaultHost: string): string {
-	const projectName = "dukkani-storefront";
-	const host = withRelatedProject({
-		projectName,
-		defaultHost,
-	});
+  const projectName = "dukkani-storefront";
+  const host = withRelatedProject({
+    projectName,
+    defaultHost,
+  });
 
-	if (!host) return defaultHost;
+  if (!host) return defaultHost;
 
-	// withRelatedProject returns full URL (https://...) for preview/production
-	if (host.startsWith("http")) {
-		try {
-			return new URL(host).host;
-		} catch {
-			return defaultHost;
-		}
-	}
+  // withRelatedProject returns full URL (https://...) for preview/production
+  if (host.startsWith("http")) {
+    try {
+      return new URL(host).host;
+    } catch {
+      return defaultHost;
+    }
+  }
 
-	return host;
+  return host;
 }

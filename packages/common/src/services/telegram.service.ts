@@ -3,10 +3,10 @@ import { database } from "@dukkani/db";
 import { apiEnv } from "@dukkani/env";
 import { logger } from "@dukkani/logger";
 import {
-	addSpanAttributes,
-	enhanceLogWithTraceContext,
-	fetchWithTrace,
-	traceStaticClass,
+  addSpanAttributes,
+  enhanceLogWithTraceContext,
+  fetchWithTrace,
+  traceStaticClass,
 } from "@dukkani/tracing";
 import { StoreQuery } from "../entities/store/query";
 import type { StoreMinimalOutput } from "../schemas/store/output";
@@ -22,306 +22,306 @@ import { OrderService } from "./order.service";
  * All methods are automatically traced via traceStaticClass
  */
 class TelegramServiceBase {
-	private static readonly BOT_API_URL =
-		`https://api.telegram.org/bot${apiEnv.TELEGRAM_API_TOKEN}`;
+  private static readonly BOT_API_URL =
+    `https://api.telegram.org/bot${apiEnv.TELEGRAM_API_TOKEN}`;
 
-	// MVP: Simple delay-based rate limiting
-	// Production: Should use BullMQ/Redis queue for proper rate limiting
-	private static readonly RATE_LIMIT_DELAY = 50; // 20 messages/second (50ms between messages)
-	private static lastMessageTime = 0;
+  // MVP: Simple delay-based rate limiting
+  // Production: Should use BullMQ/Redis queue for proper rate limiting
+  private static readonly RATE_LIMIT_DELAY = 50; // 20 messages/second (50ms between messages)
+  private static lastMessageTime = 0;
 
-	/**
-	 * Get Telegram bot deep link URL
-	 */
-	static getBotLink(): string {
-		return `https://t.me/${apiEnv.TELEGRAM_BOT_NAME}`;
-	}
+  /**
+   * Get Telegram bot deep link URL
+   */
+  static getBotLink(): string {
+    return `https://t.me/${apiEnv.TELEGRAM_BOT_NAME}`;
+  }
 
-	/**
-	 * Generate 6-digit OTP code for account linking
-	 * Format: 123456
-	 * Handles collisions by retrying (very rare but possible)
-	 */
-	static async generateLinkOTP(
-		userId: string,
-		expiresInMinutes = 10,
-	): Promise<string> {
-		const maxRetries = 5;
-		let attempts = 0;
+  /**
+   * Generate 6-digit OTP code for account linking
+   * Format: 123456
+   * Handles collisions by retrying (very rare but possible)
+   */
+  static async generateLinkOTP(
+    userId: string,
+    expiresInMinutes = 10,
+  ): Promise<string> {
+    const maxRetries = 5;
+    let attempts = 0;
 
-		while (attempts < maxRetries) {
-			// Generate 6-digit OTP
-			const code = randomInt(100000, 999999).toString();
-			const expiresAt = new Date(Date.now() + expiresInMinutes * 60 * 1000);
+    while (attempts < maxRetries) {
+      // Generate 6-digit OTP
+      const code = randomInt(100000, 999999).toString();
+      const expiresAt = new Date(Date.now() + expiresInMinutes * 60 * 1000);
 
-			try {
-				// Try to store OTP in database
-				await database.telegramOTP.create({
-					data: {
-						userId,
-						code,
-						expiresAt,
-					},
-				});
+      try {
+        // Try to store OTP in database
+        await database.telegramOTP.create({
+          data: {
+            userId,
+            code,
+            expiresAt,
+          },
+        });
 
-				return code;
-			} catch (error) {
-				// If unique constraint violation, retry with new code
-				// Prisma error code P2002 = unique constraint violation
-				if (
-					error &&
-					typeof error === "object" &&
-					"code" in error &&
-					error.code === "P2002"
-				) {
-					attempts++;
-					if (attempts >= maxRetries) {
-						throw new Error(
-							"Failed to generate unique OTP code after multiple attempts",
-						);
-					}
-					// Retry with new code
-					continue;
-				}
-				// Re-throw other errors
-				throw error;
-			}
-		}
+        return code;
+      } catch (error) {
+        // If unique constraint violation, retry with new code
+        // Prisma error code P2002 = unique constraint violation
+        if (
+          error &&
+          typeof error === "object" &&
+          "code" in error &&
+          error.code === "P2002"
+        ) {
+          attempts++;
+          if (attempts >= maxRetries) {
+            throw new Error(
+              "Failed to generate unique OTP code after multiple attempts",
+            );
+          }
+          // Retry with new code
+          continue;
+        }
+        // Re-throw other errors
+        throw error;
+      }
+    }
 
-		throw new Error("Failed to generate OTP code");
-	}
+    throw new Error("Failed to generate OTP code");
+  }
 
-	/**
-	 * Validate OTP code and link Telegram account
-	 */
-	static async validateLinkOTP(
-		otpCode: string,
-		telegramChatId: string,
-		telegramUserInfo?: {
-			username?: string;
-			firstName?: string;
-			lastName?: string;
-		},
-	): Promise<{
-		userId: string;
-		stores: StoreMinimalOutput[];
-		user: { name: string; email: string };
-	}> {
-		const otp = await database.telegramOTP.findUnique({
-			where: { code: otpCode },
-			include: { user: true },
-		});
+  /**
+   * Validate OTP code and link Telegram account
+   */
+  static async validateLinkOTP(
+    otpCode: string,
+    telegramChatId: string,
+    telegramUserInfo?: {
+      username?: string;
+      firstName?: string;
+      lastName?: string;
+    },
+  ): Promise<{
+    userId: string;
+    stores: StoreMinimalOutput[];
+    user: { name: string; email: string };
+  }> {
+    const otp = await database.telegramOTP.findUnique({
+      where: { code: otpCode },
+      include: { user: true },
+    });
 
-		if (!otp) {
-			throw new Error("Invalid OTP code");
-		}
+    if (!otp) {
+      throw new Error("Invalid OTP code");
+    }
 
-		if (otp.used) {
-			throw new Error("OTP code already used");
-		}
+    if (otp.used) {
+      throw new Error("OTP code already used");
+    }
 
-		if (otp.expiresAt < new Date()) {
-			throw new Error("OTP code expired");
-		}
+    if (otp.expiresAt < new Date()) {
+      throw new Error("OTP code expired");
+    }
 
-		const existingUser = await database.user.findUnique({
-			where: { telegramChatId },
-			select: { id: true },
-		});
+    const existingUser = await database.user.findUnique({
+      where: { telegramChatId },
+      select: { id: true },
+    });
 
-		if (existingUser && existingUser.id !== otp.userId) {
-			throw new Error(
-				"This Telegram account is already linked to another Dukkani account",
-			);
-		}
+    if (existingUser && existingUser.id !== otp.userId) {
+      throw new Error(
+        "This Telegram account is already linked to another Dukkani account",
+      );
+    }
 
-		// Get user's stores for display
-		const userStores = await database.store.findMany({
-			where: { ownerId: otp.userId },
-			select: StoreQuery.getMinimalSelect(),
-		});
+    // Get user's stores for display
+    const userStores = await database.store.findMany({
+      where: { ownerId: otp.userId },
+      select: StoreQuery.getMinimalSelect(),
+    });
 
-		// Link account and mark OTP as used in transaction
-		await database.$transaction(async (tx) => {
-			await tx.user.update({
-				where: { id: otp.userId },
-				data: {
-					telegramChatId,
-					telegramUserName: telegramUserInfo?.username || null,
-					telegramLinkedAt: new Date(),
-				},
-			});
+    // Link account and mark OTP as used in transaction
+    await database.$transaction(async (tx) => {
+      await tx.user.update({
+        where: { id: otp.userId },
+        data: {
+          telegramChatId,
+          telegramUserName: telegramUserInfo?.username || null,
+          telegramLinkedAt: new Date(),
+        },
+      });
 
-			await tx.telegramOTP.update({
-				where: { id: otp.id },
-				data: { used: true },
-			});
-		});
+      await tx.telegramOTP.update({
+        where: { id: otp.id },
+        data: { used: true },
+      });
+    });
 
-		return {
-			userId: otp.userId,
-			stores: userStores,
-			user: {
-				name: otp.user.name,
-				email: otp.user.email,
-			},
-		};
-	}
+    return {
+      userId: otp.userId,
+      stores: userStores,
+      user: {
+        name: otp.user.name,
+        email: otp.user.email,
+      },
+    };
+  }
 
-	/**
-	 * Rate-limited message sending
-	 * MVP: Uses simple delay
-	 * TODO: Replace with proper queue system
-	 */
-	private static async rateLimit(): Promise<void> {
-		const now = Date.now();
-		const timeSinceLastMessage = now - TelegramServiceBase.lastMessageTime;
+  /**
+   * Rate-limited message sending
+   * MVP: Uses simple delay
+   * TODO: Replace with proper queue system
+   */
+  private static async rateLimit(): Promise<void> {
+    const now = Date.now();
+    const timeSinceLastMessage = now - TelegramServiceBase.lastMessageTime;
 
-		if (timeSinceLastMessage < TelegramServiceBase.RATE_LIMIT_DELAY) {
-			await new Promise((resolve) =>
-				setTimeout(
-					resolve,
-					TelegramServiceBase.RATE_LIMIT_DELAY - timeSinceLastMessage,
-				),
-			);
-		}
+    if (timeSinceLastMessage < TelegramServiceBase.RATE_LIMIT_DELAY) {
+      await new Promise((resolve) =>
+        setTimeout(
+          resolve,
+          TelegramServiceBase.RATE_LIMIT_DELAY - timeSinceLastMessage,
+        ),
+      );
+    }
 
-		TelegramServiceBase.lastMessageTime = Date.now();
-	}
+    TelegramServiceBase.lastMessageTime = Date.now();
+  }
 
-	/**
-	 * Format store list for display in Telegram messages
-	 */
-	private static formatStoreList(stores: { name: string }[]): string {
-		return stores.length > 0
-			? stores.map((store) => `  • ${store.name}`).join("\n")
-			: "  • No stores yet";
-	}
+  /**
+   * Format store list for display in Telegram messages
+   */
+  private static formatStoreList(stores: { name: string }[]): string {
+    return stores.length > 0
+      ? stores.map((store) => `  • ${store.name}`).join("\n")
+      : "  • No stores yet";
+  }
 
-	/**
-	 * Send message to Telegram chat
-	 * Implements rate limiting (20 messages/second)
-	 */
-	static async sendMessage(
-		chatId: string,
-		text: string,
-		options?: {
-			parseMode?: "HTML" | "Markdown";
-			replyMarkup?: {
-				inline_keyboard: Array<
-					Array<{ text: string; callback_data?: string; url?: string }>
-				>;
-			};
-		},
-	): Promise<void> {
-		addSpanAttributes({
-			"telegram.chat_id": chatId,
-			"telegram.message_length": text.length,
-		});
-		logger.debug(
-			enhanceLogWithTraceContext({
-				chat_id: chatId,
-				text_length: text.length,
-			}),
-			"Sending Telegram message",
-		);
+  /**
+   * Send message to Telegram chat
+   * Implements rate limiting (20 messages/second)
+   */
+  static async sendMessage(
+    chatId: string,
+    text: string,
+    options?: {
+      parseMode?: "HTML" | "Markdown";
+      replyMarkup?: {
+        inline_keyboard: Array<
+          Array<{ text: string; callback_data?: string; url?: string }>
+        >;
+      };
+    },
+  ): Promise<void> {
+    addSpanAttributes({
+      "telegram.chat_id": chatId,
+      "telegram.message_length": text.length,
+    });
+    logger.debug(
+      enhanceLogWithTraceContext({
+        chat_id: chatId,
+        text_length: text.length,
+      }),
+      "Sending Telegram message",
+    );
 
-		await TelegramServiceBase.rateLimit();
+    await TelegramServiceBase.rateLimit();
 
-		// Use fetchWithTrace for context propagation
-		const response = await fetchWithTrace(
-			`${TelegramServiceBase.BOT_API_URL}/sendMessage`,
-			{
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					chat_id: chatId,
-					text,
-					parse_mode: options?.parseMode,
-					reply_markup: options?.replyMarkup,
-				}),
-			},
-		);
+    // Use fetchWithTrace for context propagation
+    const response = await fetchWithTrace(
+      `${TelegramServiceBase.BOT_API_URL}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text,
+          parse_mode: options?.parseMode,
+          reply_markup: options?.replyMarkup,
+        }),
+      },
+    );
 
-		const responseData = await response.json().catch(() => null);
+    const responseData = await response.json().catch(() => null);
 
-		if (!response.ok) {
-			const errorMessage = responseData?.description || response.statusText;
-			throw new Error(
-				`Telegram API error: ${errorMessage || response.statusText}`,
-			);
-		}
+    if (!response.ok) {
+      const errorMessage = responseData?.description || response.statusText;
+      throw new Error(
+        `Telegram API error: ${errorMessage || response.statusText}`,
+      );
+    }
 
-		addSpanAttributes({
-			"telegram.message_sent": true,
-			"telegram.response_ok": response.ok,
-		});
-		logger.debug(
-			enhanceLogWithTraceContext({
-				chat_id: chatId,
-				success: response.ok,
-				response_ok: response.ok,
-				response_status: response.status,
-				response_status_text: response.statusText,
-				response_data: responseData,
-			}),
-			"Telegram message sent",
-		);
-	}
+    addSpanAttributes({
+      "telegram.message_sent": true,
+      "telegram.response_ok": response.ok,
+    });
+    logger.debug(
+      enhanceLogWithTraceContext({
+        chat_id: chatId,
+        success: response.ok,
+        response_ok: response.ok,
+        response_status: response.status,
+        response_status_text: response.statusText,
+        response_data: responseData,
+      }),
+      "Telegram message sent",
+    );
+  }
 
-	/**
-	 * Send OTP to user's Telegram
-	 */
-	static async sendOTP(userId: string, otp: string): Promise<void> {
-		const user = await database.user.findUnique({
-			where: { id: userId },
-			select: { telegramChatId: true },
-		});
+  /**
+   * Send OTP to user's Telegram
+   */
+  static async sendOTP(userId: string, otp: string): Promise<void> {
+    const user = await database.user.findUnique({
+      where: { id: userId },
+      select: { telegramChatId: true },
+    });
 
-		if (!user?.telegramChatId) {
-			throw new Error("Telegram account not linked");
-		}
+    if (!user?.telegramChatId) {
+      throw new Error("Telegram account not linked");
+    }
 
-		await TelegramServiceBase.sendMessage(
-			user.telegramChatId,
-			`🔐 <b>Your Dukkani OTP</b>\n\nYour verification code is: <b>${otp}</b>\n\nThis code expires in 5 minutes.`,
-			{ parseMode: "HTML" },
-		);
-	}
+    await TelegramServiceBase.sendMessage(
+      user.telegramChatId,
+      `🔐 <b>Your Dukkani OTP</b>\n\nYour verification code is: <b>${otp}</b>\n\nThis code expires in 5 minutes.`,
+      { parseMode: "HTML" },
+    );
+  }
 
-	/**
-	 * Send order notification to shop owner
-	 * Includes shop context for multi-shop support
-	 */
-	static async sendOrderNotification(
-		shopId: string,
-		order: {
-			id: string;
-			customerName: string;
-			customerPhone: string;
-			items: Array<{ name: string; quantity: number }>;
-			total: string;
-		},
-	): Promise<void> {
-		const shop = await database.store.findUnique({
-			where: { id: shopId },
-			include: {
-				owner: {
-					select: { telegramChatId: true },
-				},
-			},
-		});
+  /**
+   * Send order notification to shop owner
+   * Includes shop context for multi-shop support
+   */
+  static async sendOrderNotification(
+    shopId: string,
+    order: {
+      id: string;
+      customerName: string;
+      customerPhone: string;
+      items: Array<{ name: string; quantity: number }>;
+      total: string;
+    },
+  ): Promise<void> {
+    const shop = await database.store.findUnique({
+      where: { id: shopId },
+      include: {
+        owner: {
+          select: { telegramChatId: true },
+        },
+      },
+    });
 
-		if (!shop?.owner?.telegramChatId) {
-			// Silently fail if not linked (fire-and-forget pattern)
-			return;
-		}
+    if (!shop?.owner?.telegramChatId) {
+      // Silently fail if not linked (fire-and-forget pattern)
+      return;
+    }
 
-		const itemsText = order.items
-			.map((item) => `  • ${item.name} (x${item.quantity})`)
-			.join("\n");
+    const itemsText = order.items
+      .map((item) => `  • ${item.name} (x${item.quantity})`)
+      .join("\n");
 
-		const message = `🛒 <b>New Order #${order.id}</b>
+    const message = `🛒 <b>New Order #${order.id}</b>
 
 <b>Store:</b> ${shop.name}
 <b>Customer:</b> ${order.customerName}
@@ -334,691 +334,691 @@ ${itemsText}
 
 <a href="${apiEnv.NEXT_PUBLIC_DASHBOARD_URL}/orders/${order.id}">View Order →</a>`;
 
-		await TelegramServiceBase.sendMessage(shop.owner.telegramChatId, message, {
-			parseMode: "HTML",
-			replyMarkup: {
-				inline_keyboard: [
-					[
-						{
-							text: "✅ Mark as Shipped",
-							callback_data: `ship_${order.id}_${shopId}`,
-						},
-						{
-							text: "📞 Contact Customer",
-							url: `https://wa.me/${order.customerPhone}`,
-						},
-					],
-				],
-			},
-		});
-	}
+    await TelegramServiceBase.sendMessage(shop.owner.telegramChatId, message, {
+      parseMode: "HTML",
+      replyMarkup: {
+        inline_keyboard: [
+          [
+            {
+              text: "✅ Mark as Shipped",
+              callback_data: `ship_${order.id}_${shopId}`,
+            },
+            {
+              text: "📞 Contact Customer",
+              url: `https://wa.me/${order.customerPhone}`,
+            },
+          ],
+        ],
+      },
+    });
+  }
 
-	/**
-	 * Answer callback query (for button interactions)
-	 */
-	static async answerCallbackQuery(
-		callbackQueryId: string,
-		text?: string,
-		showAlert = false,
-	): Promise<void> {
-		await TelegramServiceBase.rateLimit();
+  /**
+   * Answer callback query (for button interactions)
+   */
+  static async answerCallbackQuery(
+    callbackQueryId: string,
+    text?: string,
+    showAlert = false,
+  ): Promise<void> {
+    await TelegramServiceBase.rateLimit();
 
-		const response = await fetchWithTrace(
-			`${TelegramServiceBase.BOT_API_URL}/answerCallbackQuery`,
-			{
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					callback_query_id: callbackQueryId,
-					text,
-					show_alert: showAlert,
-				}),
-			},
-		);
+    const response = await fetchWithTrace(
+      `${TelegramServiceBase.BOT_API_URL}/answerCallbackQuery`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          callback_query_id: callbackQueryId,
+          text,
+          show_alert: showAlert,
+        }),
+      },
+    );
 
-		const responseData = await response.json().catch(() => null);
+    const responseData = await response.json().catch(() => null);
 
-		if (!response.ok) {
-			const errorMessage = responseData?.description || response.statusText;
-			logger.error(
-				enhanceLogWithTraceContext({
-					callbackQueryId,
-					status: response.status,
-					statusText: response.statusText,
-					error: errorMessage,
-				}),
-				"Failed to answer callback query",
-			);
-			throw new Error(
-				`Telegram API error: ${errorMessage || response.statusText}`,
-			);
-		}
-	}
+    if (!response.ok) {
+      const errorMessage = responseData?.description || response.statusText;
+      logger.error(
+        enhanceLogWithTraceContext({
+          callbackQueryId,
+          status: response.status,
+          statusText: response.statusText,
+          error: errorMessage,
+        }),
+        "Failed to answer callback query",
+      );
+      throw new Error(
+        `Telegram API error: ${errorMessage || response.statusText}`,
+      );
+    }
+  }
 
-	/**
-	 * Clean up expired OTP codes (run via cron)
-	 */
-	static async cleanupExpiredOTPs(): Promise<number> {
-		const result = await database.telegramOTP.deleteMany({
-			where: {
-				OR: [{ expiresAt: { lt: new Date() } }, { used: true }],
-			},
-		});
-		return result.count;
-	}
+  /**
+   * Clean up expired OTP codes (run via cron)
+   */
+  static async cleanupExpiredOTPs(): Promise<number> {
+    const result = await database.telegramOTP.deleteMany({
+      where: {
+        OR: [{ expiresAt: { lt: new Date() } }, { used: true }],
+      },
+    });
+    return result.count;
+  }
 
-	/**
-	 * Handle Telegram command
-	 */
-	static async handleCommand(
-		command: string,
-		args: string[],
-		chatId: string,
-		telegramUserInfo?: {
-			username?: string;
-			firstName?: string;
-			lastName?: string;
-		},
-	): Promise<void> {
-		if (!command) {
-			return;
-		}
+  /**
+   * Handle Telegram command
+   */
+  static async handleCommand(
+    command: string,
+    args: string[],
+    chatId: string,
+    telegramUserInfo?: {
+      username?: string;
+      firstName?: string;
+      lastName?: string;
+    },
+  ): Promise<void> {
+    if (!command) {
+      return;
+    }
 
-		const commandMap: Record<
-			string,
-			(
-				args: string[],
-				chatId: string,
-				telegramUserInfo?: {
-					username?: string;
-					firstName?: string;
-					lastName?: string;
-				},
-			) => Promise<void>
-		> = {
-			link: TelegramServiceBase.handleLinkCommand,
-			start: TelegramServiceBase.handleStartCommand,
-			help: TelegramServiceBase.handleHelpCommand,
-			disconnect: TelegramServiceBase.handleDisconnectCommand,
-		};
+    const commandMap: Record<
+      string,
+      (
+        args: string[],
+        chatId: string,
+        telegramUserInfo?: {
+          username?: string;
+          firstName?: string;
+          lastName?: string;
+        },
+      ) => Promise<void>
+    > = {
+      link: TelegramServiceBase.handleLinkCommand,
+      start: TelegramServiceBase.handleStartCommand,
+      help: TelegramServiceBase.handleHelpCommand,
+      disconnect: TelegramServiceBase.handleDisconnectCommand,
+    };
 
-		const handler = commandMap[command.toLowerCase()];
+    const handler = commandMap[command.toLowerCase()];
 
-		if (handler) {
-			await handler(args, chatId, telegramUserInfo);
-		}
-	}
+    if (handler) {
+      await handler(args, chatId, telegramUserInfo);
+    }
+  }
 
-	/**
-	 * Handle /link command - Link account using OTP code
-	 */
-	private static async handleLinkCommand(
-		args: string[],
-		chatId: string,
-		telegramUserInfo?: {
-			username?: string;
-			firstName?: string;
-			lastName?: string;
-		},
-	): Promise<void> {
-		const otpCode = args[0]?.trim();
+  /**
+   * Handle /link command - Link account using OTP code
+   */
+  private static async handleLinkCommand(
+    args: string[],
+    chatId: string,
+    telegramUserInfo?: {
+      username?: string;
+      firstName?: string;
+      lastName?: string;
+    },
+  ): Promise<void> {
+    const otpCode = args[0]?.trim();
 
-		if (!otpCode) {
-			await TelegramServiceBase.sendMessage(
-				chatId,
-				"❌ <b>Invalid Command</b>\n\nUsage: /link OTP_CODE\n\nExample: /link 123456",
-				{ parseMode: "HTML" },
-			);
-			return;
-		}
+    if (!otpCode) {
+      await TelegramServiceBase.sendMessage(
+        chatId,
+        "❌ <b>Invalid Command</b>\n\nUsage: /link OTP_CODE\n\nExample: /link 123456",
+        { parseMode: "HTML" },
+      );
+      return;
+    }
 
-		// Check if chatId is already linked
-		const existingUser = await database.user.findUnique({
-			where: { telegramChatId: chatId },
-			include: {
-				stores: {
-					select: { id: true, name: true, slug: true },
-					take: 5, // Limit to first 5 stores
-				},
-			},
-		});
+    // Check if chatId is already linked
+    const existingUser = await database.user.findUnique({
+      where: { telegramChatId: chatId },
+      include: {
+        stores: {
+          select: { id: true, name: true, slug: true },
+          take: 5, // Limit to first 5 stores
+        },
+      },
+    });
 
-		if (existingUser) {
-			const storeList = TelegramServiceBase.formatStoreList(
-				existingUser.stores,
-			);
+    if (existingUser) {
+      const storeList = TelegramServiceBase.formatStoreList(
+        existingUser.stores,
+      );
 
-			await TelegramServiceBase.sendMessage(
-				chatId,
-				"✅ <b>Already Linked!</b>\n\n" +
-					`<b>Account:</b> ${existingUser.name} (${existingUser.email})\n\n` +
-					`<b>Connected Stores:</b>\n${storeList}`,
-				{ parseMode: "HTML" },
-			);
-			return;
-		}
+      await TelegramServiceBase.sendMessage(
+        chatId,
+        "✅ <b>Already Linked!</b>\n\n" +
+          `<b>Account:</b> ${existingUser.name} (${existingUser.email})\n\n` +
+          `<b>Connected Stores:</b>\n${storeList}`,
+        { parseMode: "HTML" },
+      );
+      return;
+    }
 
-		try {
-			const result = await TelegramServiceBase.validateLinkOTP(
-				otpCode,
-				chatId,
-				telegramUserInfo,
-			);
+    try {
+      const result = await TelegramServiceBase.validateLinkOTP(
+        otpCode,
+        chatId,
+        telegramUserInfo,
+      );
 
-			const storeList = TelegramServiceBase.formatStoreList(result.stores);
+      const storeList = TelegramServiceBase.formatStoreList(result.stores);
 
-			await TelegramServiceBase.sendMessage(
-				chatId,
-				"✅ <b>Account Linked Successfully!</b>\n\n" +
-					`<b>Account:</b> ${result.user.name || "User"} (${result.user.email || "N/A"})\n\n` +
-					`<b>Your Stores:</b>\n${storeList}\n\n` +
-					"You will now receive order notifications from Dukkani.",
-				{ parseMode: "HTML" },
-			);
-		} catch (error) {
-			await TelegramServiceBase.sendMessage(
-				chatId,
-				"❌ <b>Linking Failed</b>\n\n" +
-					(error instanceof Error
-						? error.message
-						: "Invalid or expired OTP code."),
-				{ parseMode: "HTML" },
-			);
-		}
-	}
+      await TelegramServiceBase.sendMessage(
+        chatId,
+        "✅ <b>Account Linked Successfully!</b>\n\n" +
+          `<b>Account:</b> ${result.user.name || "User"} (${result.user.email || "N/A"})\n\n` +
+          `<b>Your Stores:</b>\n${storeList}\n\n` +
+          "You will now receive order notifications from Dukkani.",
+        { parseMode: "HTML" },
+      );
+    } catch (error) {
+      await TelegramServiceBase.sendMessage(
+        chatId,
+        "❌ <b>Linking Failed</b>\n\n" +
+          (error instanceof Error
+            ? error.message
+            : "Invalid or expired OTP code."),
+        { parseMode: "HTML" },
+      );
+    }
+  }
 
-	/**
-	 * Handle /start command - Welcome message
-	 */
-	private static async handleStartCommand(
-		_args: string[],
-		chatId: string,
-		_telegramUserInfo?: {
-			username?: string;
-			firstName?: string;
-			lastName?: string;
-		},
-	): Promise<void> {
-		await TelegramServiceBase.sendMessage(
-			chatId,
-			"👋 <b>Welcome to Dukkani Notifications Bot!</b>\n\nThis bot sends you real-time order notifications from your Dukkani stores.\n\n<b>Commands:</b>\n/link CODE - Link your account using OTP code\n/help - Show this help message\n\nTo link your account:\n1. Go to your Dukkani dashboard settings\n2. Generate an OTP code\n3. Send /link CODE to this bot",
-			{ parseMode: "HTML" },
-		);
-	}
+  /**
+   * Handle /start command - Welcome message
+   */
+  private static async handleStartCommand(
+    _args: string[],
+    chatId: string,
+    _telegramUserInfo?: {
+      username?: string;
+      firstName?: string;
+      lastName?: string;
+    },
+  ): Promise<void> {
+    await TelegramServiceBase.sendMessage(
+      chatId,
+      "👋 <b>Welcome to Dukkani Notifications Bot!</b>\n\nThis bot sends you real-time order notifications from your Dukkani stores.\n\n<b>Commands:</b>\n/link CODE - Link your account using OTP code\n/help - Show this help message\n\nTo link your account:\n1. Go to your Dukkani dashboard settings\n2. Generate an OTP code\n3. Send /link CODE to this bot",
+      { parseMode: "HTML" },
+    );
+  }
 
-	/**
-	 * Handle /help command - Show help message
-	 */
-	private static async handleHelpCommand(
-		_args: string[],
-		chatId: string,
-		_telegramUserInfo?: {
-			username?: string;
-			firstName?: string;
-			lastName?: string;
-		},
-	): Promise<void> {
-		await TelegramServiceBase.sendMessage(
-			chatId,
-			"📖 <b>Dukkani Bot Commands</b>\n\n/link CODE - Link your Telegram account\n/help - Show this help message\n/start - Welcome message\n\n<b>Need help?</b>\nContact support through your Dukkani dashboard.",
-			{ parseMode: "HTML" },
-		);
-	}
+  /**
+   * Handle /help command - Show help message
+   */
+  private static async handleHelpCommand(
+    _args: string[],
+    chatId: string,
+    _telegramUserInfo?: {
+      username?: string;
+      firstName?: string;
+      lastName?: string;
+    },
+  ): Promise<void> {
+    await TelegramServiceBase.sendMessage(
+      chatId,
+      "📖 <b>Dukkani Bot Commands</b>\n\n/link CODE - Link your Telegram account\n/help - Show this help message\n/start - Welcome message\n\n<b>Need help?</b>\nContact support through your Dukkani dashboard.",
+      { parseMode: "HTML" },
+    );
+  }
 
-	/**
-	 * Handle Telegram callback query (button clicks)
-	 * Routes callbacks to appropriate handlers
-	 */
-	static async handleCallbackQuery(
-		callbackData: string,
-		callbackQueryId: string,
-		chatId: string,
-	): Promise<void> {
-		const parts = callbackData.split("_");
-		const action = parts[0]?.toLowerCase();
+  /**
+   * Handle Telegram callback query (button clicks)
+   * Routes callbacks to appropriate handlers
+   */
+  static async handleCallbackQuery(
+    callbackData: string,
+    callbackQueryId: string,
+    chatId: string,
+  ): Promise<void> {
+    const parts = callbackData.split("_");
+    const action = parts[0]?.toLowerCase();
 
-		if (!action) {
-			// Invalid callback data - silently ignore
-			return;
-		}
+    if (!action) {
+      // Invalid callback data - silently ignore
+      return;
+    }
 
-		const callbackMap: Record<
-			string,
-			(data: string, callbackQueryId: string, chatId: string) => Promise<void>
-		> = {
-			ship: TelegramServiceBase.handleShipCallback,
-		};
+    const callbackMap: Record<
+      string,
+      (data: string, callbackQueryId: string, chatId: string) => Promise<void>
+    > = {
+      ship: TelegramServiceBase.handleShipCallback,
+    };
 
-		const handler = callbackMap[action];
-		if (handler) {
-			await handler(callbackData, callbackQueryId, chatId);
-		}
-		// Unknown callbacks are silently ignored
-	}
+    const handler = callbackMap[action];
+    if (handler) {
+      await handler(callbackData, callbackQueryId, chatId);
+    }
+    // Unknown callbacks are silently ignored
+  }
 
-	/**
-	 * Handle ship callback - Mark order as shipped
-	 * Called when user clicks "Mark as Shipped" button
-	 */
-	private static async handleShipCallback(
-		callbackData: string,
-		callbackQueryId: string,
-		chatId: string,
-	): Promise<void> {
-		const parts = callbackData.split("_");
-		const orderId = parts[1];
-		const shopId = parts[2];
+  /**
+   * Handle ship callback - Mark order as shipped
+   * Called when user clicks "Mark as Shipped" button
+   */
+  private static async handleShipCallback(
+    callbackData: string,
+    callbackQueryId: string,
+    chatId: string,
+  ): Promise<void> {
+    const parts = callbackData.split("_");
+    const orderId = parts[1];
+    const shopId = parts[2];
 
-		if (!orderId || !shopId) {
-			await TelegramServiceBase.answerCallbackQuery(
-				callbackQueryId,
-				"❌ Invalid callback data",
-				true,
-			);
-			return;
-		}
+    if (!orderId || !shopId) {
+      await TelegramServiceBase.answerCallbackQuery(
+        callbackQueryId,
+        "❌ Invalid callback data",
+        true,
+      );
+      return;
+    }
 
-		// Find user by telegramChatId
-		const user = await database.user.findFirst({
-			where: { telegramChatId: chatId },
-		});
+    // Find user by telegramChatId
+    const user = await database.user.findFirst({
+      where: { telegramChatId: chatId },
+    });
 
-		if (!user) {
-			await TelegramServiceBase.answerCallbackQuery(
-				callbackQueryId,
-				"❌ User not found",
-				true,
-			);
-			return;
-		}
+    if (!user) {
+      await TelegramServiceBase.answerCallbackQuery(
+        callbackQueryId,
+        "❌ User not found",
+        true,
+      );
+      return;
+    }
 
-		// Verify user owns the shop before proceeding
-		const store = await database.store.findFirst({
-			where: {
-				id: shopId,
-				ownerId: user.id,
-			},
-			select: { id: true },
-		});
+    // Verify user owns the shop before proceeding
+    const store = await database.store.findFirst({
+      where: {
+        id: shopId,
+        ownerId: user.id,
+      },
+      select: { id: true },
+    });
 
-		if (!store) {
-			await TelegramServiceBase.answerCallbackQuery(
-				callbackQueryId,
-				"❌ You don't have access to this order",
-				true,
-			);
-			return;
-		}
+    if (!store) {
+      await TelegramServiceBase.answerCallbackQuery(
+        callbackQueryId,
+        "❌ You don't have access to this order",
+        true,
+      );
+      return;
+    }
 
-		try {
-			await OrderService.updateOrderStatus(orderId, "SHIPPED", user.id);
-			await TelegramServiceBase.answerCallbackQuery(
-				callbackQueryId,
-				`✅ Order #${orderId} marked as shipped!`,
-			);
-			await TelegramServiceBase.sendMessage(
-				chatId,
-				`✅ Order #${orderId} has been marked as shipped.`,
-				{ parseMode: "HTML" },
-			);
-		} catch (error) {
-			await TelegramServiceBase.answerCallbackQuery(
-				callbackQueryId,
-				error instanceof Error ? error.message : "❌ Failed to update order",
-				true,
-			);
-		}
-	}
+    try {
+      await OrderService.updateOrderStatus(orderId, "SHIPPED", user.id);
+      await TelegramServiceBase.answerCallbackQuery(
+        callbackQueryId,
+        `✅ Order #${orderId} marked as shipped!`,
+      );
+      await TelegramServiceBase.sendMessage(
+        chatId,
+        `✅ Order #${orderId} has been marked as shipped.`,
+        { parseMode: "HTML" },
+      );
+    } catch (error) {
+      await TelegramServiceBase.answerCallbackQuery(
+        callbackQueryId,
+        error instanceof Error ? error.message : "❌ Failed to update order",
+        true,
+      );
+    }
+  }
 
-	/**
-	 * Process Telegram webhook update
-	 * Main entry point for handling Telegram updates
-	 */
-	static async processWebhookUpdate(update: {
-		message?: {
-			text?: string;
-			chat: { id: number };
-			from?: {
-				username?: string;
-				first_name?: string;
-				last_name?: string;
-			};
-		};
-		callback_query?: {
-			data?: string;
-			id: string;
-			message?: { chat: { id: number } };
-		};
-	}): Promise<void> {
-		addSpanAttributes({
-			"telegram.update.type": update.callback_query
-				? "callback_query"
-				: "message",
-		});
-		logger.info(
-			enhanceLogWithTraceContext({
-				update_type: update.callback_query ? "callback_query" : "message",
-				chat_id:
-					update.message?.chat?.id || update.callback_query?.message?.chat?.id,
-			}),
-			"Telegram webhook received",
-		);
+  /**
+   * Process Telegram webhook update
+   * Main entry point for handling Telegram updates
+   */
+  static async processWebhookUpdate(update: {
+    message?: {
+      text?: string;
+      chat: { id: number };
+      from?: {
+        username?: string;
+        first_name?: string;
+        last_name?: string;
+      };
+    };
+    callback_query?: {
+      data?: string;
+      id: string;
+      message?: { chat: { id: number } };
+    };
+  }): Promise<void> {
+    addSpanAttributes({
+      "telegram.update.type": update.callback_query
+        ? "callback_query"
+        : "message",
+    });
+    logger.info(
+      enhanceLogWithTraceContext({
+        update_type: update.callback_query ? "callback_query" : "message",
+        chat_id:
+          update.message?.chat?.id || update.callback_query?.message?.chat?.id,
+      }),
+      "Telegram webhook received",
+    );
 
-		try {
-			if (update.callback_query) {
-				const { data, id: callbackQueryId, message } = update.callback_query;
-				if (data && callbackQueryId && message) {
-					const chatId = message.chat.id.toString();
-					await TelegramServiceBase.handleCallbackQuery(
-						data,
-						callbackQueryId,
-						chatId,
-					);
-				}
-				return;
-			}
+    try {
+      if (update.callback_query) {
+        const { data, id: callbackQueryId, message } = update.callback_query;
+        if (data && callbackQueryId && message) {
+          const chatId = message.chat.id.toString();
+          await TelegramServiceBase.handleCallbackQuery(
+            data,
+            callbackQueryId,
+            chatId,
+          );
+        }
+        return;
+      }
 
-			if (update.message?.text?.startsWith("/")) {
-				const text = update.message.text;
-				const parts = text.slice(1).split(/\s+/);
-				const command = parts[0];
-				const args = parts.slice(1);
-				const chatId = update.message.chat.id.toString();
-				const telegramUserInfo = update.message.from
-					? {
-							username: update.message.from.username,
-							firstName: update.message.from.first_name,
-							lastName: update.message.from.last_name,
-						}
-					: undefined;
+      if (update.message?.text?.startsWith("/")) {
+        const text = update.message.text;
+        const parts = text.slice(1).split(/\s+/);
+        const command = parts[0];
+        const args = parts.slice(1);
+        const chatId = update.message.chat.id.toString();
+        const telegramUserInfo = update.message.from
+          ? {
+              username: update.message.from.username,
+              firstName: update.message.from.first_name,
+              lastName: update.message.from.last_name,
+            }
+          : undefined;
 
-				if (command) {
-					addSpanAttributes({
-						"telegram.command": command,
-						"telegram.chat_id": chatId,
-					});
+        if (command) {
+          addSpanAttributes({
+            "telegram.command": command,
+            "telegram.chat_id": chatId,
+          });
 
-					await TelegramServiceBase.handleCommand(
-						command,
-						args,
-						chatId,
-						telegramUserInfo,
-					);
-				}
-				return;
-			}
+          await TelegramServiceBase.handleCommand(
+            command,
+            args,
+            chatId,
+            telegramUserInfo,
+          );
+        }
+        return;
+      }
 
-			// Handle text messages (for disconnect confirmation)
-			if (update.message?.text) {
-				const chatId = update.message.chat.id.toString();
-				const text = update.message.text.trim();
+      // Handle text messages (for disconnect confirmation)
+      if (update.message?.text) {
+        const chatId = update.message.chat.id.toString();
+        const text = update.message.text.trim();
 
-				const confirmation =
-					await TelegramServiceBase.getDisconnectConfirmation(chatId);
-				if (confirmation) {
-					await TelegramServiceBase.handleDisconnectConfirmation(
-						text,
-						chatId,
-						confirmation.userId,
-					);
+        const confirmation =
+          await TelegramServiceBase.getDisconnectConfirmation(chatId);
+        if (confirmation) {
+          await TelegramServiceBase.handleDisconnectConfirmation(
+            text,
+            chatId,
+            confirmation.userId,
+          );
 
-					logger.info(
-						enhanceLogWithTraceContext({
-							chat_id: chatId,
-							text,
-							confirmation: !!confirmation,
-						}),
-						"Disconnect confirmation processed",
-					);
-					return;
-				}
-			}
-		} catch (error) {
-			if (update.message?.chat?.id) {
-				try {
-					await TelegramServiceBase.sendMessage(
-						update.message.chat.id.toString(),
-						"❌ An error occurred processing your request. Please try again later.",
-						{ parseMode: "HTML" },
-					);
-				} catch (sendError) {
-					// If we can't send error message, log it but don't throw
-					// This prevents infinite error loops
-					logger.error(
-						enhanceLogWithTraceContext({ error: sendError }),
-						"Failed to send error message to user",
-					);
-				}
-			} else {
-				// Log error when we can't send message to user
-				logger.error(
-					enhanceLogWithTraceContext({ error }),
-					"Failed to send error message to user",
-				);
-			}
-		}
-	}
+          logger.info(
+            enhanceLogWithTraceContext({
+              chat_id: chatId,
+              text,
+              confirmation: !!confirmation,
+            }),
+            "Disconnect confirmation processed",
+          );
+          return;
+        }
+      }
+    } catch (error) {
+      if (update.message?.chat?.id) {
+        try {
+          await TelegramServiceBase.sendMessage(
+            update.message.chat.id.toString(),
+            "❌ An error occurred processing your request. Please try again later.",
+            { parseMode: "HTML" },
+          );
+        } catch (sendError) {
+          // If we can't send error message, log it but don't throw
+          // This prevents infinite error loops
+          logger.error(
+            enhanceLogWithTraceContext({ error: sendError }),
+            "Failed to send error message to user",
+          );
+        }
+      } else {
+        // Log error when we can't send message to user
+        logger.error(
+          enhanceLogWithTraceContext({ error }),
+          "Failed to send error message to user",
+        );
+      }
+    }
+  }
 
-	/**
-	 * Handle /disconnect command - Start disconnect flow
-	 */
-	private static async handleDisconnectCommand(
-		_args: string[],
-		chatId: string,
-	): Promise<void> {
-		// Find user by telegramChatId
-		const user = await database.user.findFirst({
-			where: { telegramChatId: chatId },
-			include: {
-				stores: {
-					select: { name: true },
-					orderBy: { createdAt: "desc" },
-				},
-			},
-		});
+  /**
+   * Handle /disconnect command - Start disconnect flow
+   */
+  private static async handleDisconnectCommand(
+    _args: string[],
+    chatId: string,
+  ): Promise<void> {
+    // Find user by telegramChatId
+    const user = await database.user.findFirst({
+      where: { telegramChatId: chatId },
+      include: {
+        stores: {
+          select: { name: true },
+          orderBy: { createdAt: "desc" },
+        },
+      },
+    });
 
-		if (!user) {
-			await TelegramServiceBase.sendMessage(
-				chatId,
-				"❌ <b>Not Linked</b>\n\nYour Telegram account is not linked to any Dukkani account.",
-				{ parseMode: "HTML" },
-			);
-			return;
-		}
+    if (!user) {
+      await TelegramServiceBase.sendMessage(
+        chatId,
+        "❌ <b>Not Linked</b>\n\nYour Telegram account is not linked to any Dukkani account.",
+        { parseMode: "HTML" },
+      );
+      return;
+    }
 
-		if (user.stores.length === 0) {
-			await TelegramServiceBase.sendMessage(
-				chatId,
-				"❌ <b>No Stores Found</b>\n\nYou don't have any stores to disconnect from.",
-				{ parseMode: "HTML" },
-			);
-			return;
-		}
+    if (user.stores.length === 0) {
+      await TelegramServiceBase.sendMessage(
+        chatId,
+        "❌ <b>No Stores Found</b>\n\nYou don't have any stores to disconnect from.",
+        { parseMode: "HTML" },
+      );
+      return;
+    }
 
-		// Show stores and ask for confirmation
-		const storeNames = user.stores.map((s) => s.name).join(", ");
+    // Show stores and ask for confirmation
+    const storeNames = user.stores.map((s) => s.name).join(", ");
 
-		// Store confirmation state in database (expires in 5 minutes)
-		await TelegramServiceBase.storeDisconnectConfirmation(
-			chatId,
-			user.id,
-			new Date(Date.now() + 5 * 60 * 1000),
-		);
+    // Store confirmation state in database (expires in 5 minutes)
+    await TelegramServiceBase.storeDisconnectConfirmation(
+      chatId,
+      user.id,
+      new Date(Date.now() + 5 * 60 * 1000),
+    );
 
-		await TelegramServiceBase.sendMessage(
-			chatId,
-			"⚠️ <b>Disconnect Telegram Account</b>\n\n" +
-				"To confirm disconnection, please type the name of one of your stores:\n\n" +
-				`<b>Your stores:</b> ${storeNames}\n\n` +
-				"Type the store name exactly as shown above to disconnect.\n" +
-				"This confirmation expires in 5 minutes.",
-			{ parseMode: "HTML" },
-		);
-	}
+    await TelegramServiceBase.sendMessage(
+      chatId,
+      "⚠️ <b>Disconnect Telegram Account</b>\n\n" +
+        "To confirm disconnection, please type the name of one of your stores:\n\n" +
+        `<b>Your stores:</b> ${storeNames}\n\n` +
+        "Type the store name exactly as shown above to disconnect.\n" +
+        "This confirmation expires in 5 minutes.",
+      { parseMode: "HTML" },
+    );
+  }
 
-	/**
-	 * Handle disconnect confirmation - Validate store name and disconnect
-	 */
-	private static async handleDisconnectConfirmation(
-		storeName: string,
-		chatId: string,
-		userId: string,
-	): Promise<void> {
-		// Clean up confirmation state
-		await TelegramServiceBase.deleteDisconnectConfirmation(chatId);
+  /**
+   * Handle disconnect confirmation - Validate store name and disconnect
+   */
+  private static async handleDisconnectConfirmation(
+    storeName: string,
+    chatId: string,
+    userId: string,
+  ): Promise<void> {
+    // Clean up confirmation state
+    await TelegramServiceBase.deleteDisconnectConfirmation(chatId);
 
-		try {
-			// Use the shared disconnect logic
-			await TelegramServiceBase.disconnectTelegramAccount(userId, storeName);
+    try {
+      // Use the shared disconnect logic
+      await TelegramServiceBase.disconnectTelegramAccount(userId, storeName);
 
-			await TelegramServiceBase.sendMessage(
-				chatId,
-				"✅ <b>Account Disconnected</b>\n\n" +
-					"Your Telegram account has been successfully disconnected from Dukkani. " +
-					"You will no longer receive order notifications.\n\n" +
-					"To link again, use /link CODE from your dashboard.",
-				{ parseMode: "HTML" },
-			);
-		} catch (error) {
-			const errorMessage =
-				error instanceof Error ? error.message : "An error occurred";
+      await TelegramServiceBase.sendMessage(
+        chatId,
+        "✅ <b>Account Disconnected</b>\n\n" +
+          "Your Telegram account has been successfully disconnected from Dukkani. " +
+          "You will no longer receive order notifications.\n\n" +
+          "To link again, use /link CODE from your dashboard.",
+        { parseMode: "HTML" },
+      );
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "An error occurred";
 
-			// Handle specific error cases
-			if (errorMessage.includes("Store name doesn't match")) {
-				await TelegramServiceBase.sendMessage(
-					chatId,
-					"❌ <b>Invalid Store Name</b>\n\n" +
-						"The store name you entered doesn't match any of your stores. " +
-						"Please try again with /disconnect",
-					{ parseMode: "HTML" },
-				);
-			} else if (errorMessage.includes("not linked")) {
-				await TelegramServiceBase.sendMessage(
-					chatId,
-					"❌ <b>Not Linked</b>\n\n" +
-						"Your Telegram account is not linked to any Dukkani account.",
-					{ parseMode: "HTML" },
-				);
-			} else {
-				await TelegramServiceBase.sendMessage(
-					chatId,
-					"❌ <b>Disconnect Failed</b>\n\n" +
-						"An error occurred while disconnecting your account. Please try again later.",
-					{ parseMode: "HTML" },
-				);
-			}
-		}
-	}
+      // Handle specific error cases
+      if (errorMessage.includes("Store name doesn't match")) {
+        await TelegramServiceBase.sendMessage(
+          chatId,
+          "❌ <b>Invalid Store Name</b>\n\n" +
+            "The store name you entered doesn't match any of your stores. " +
+            "Please try again with /disconnect",
+          { parseMode: "HTML" },
+        );
+      } else if (errorMessage.includes("not linked")) {
+        await TelegramServiceBase.sendMessage(
+          chatId,
+          "❌ <b>Not Linked</b>\n\n" +
+            "Your Telegram account is not linked to any Dukkani account.",
+          { parseMode: "HTML" },
+        );
+      } else {
+        await TelegramServiceBase.sendMessage(
+          chatId,
+          "❌ <b>Disconnect Failed</b>\n\n" +
+            "An error occurred while disconnecting your account. Please try again later.",
+          { parseMode: "HTML" },
+        );
+      }
+    }
+  }
 
-	/**
-	 * Store disconnect confirmation in database (replaces in-memory Map)
-	 * This ensures state is shared across serverless/multi-instance deployments
-	 */
-	private static async storeDisconnectConfirmation(
-		telegramChatId: string,
-		userId: string,
-		expiresAt: Date,
-	): Promise<void> {
-		// Delete any existing confirmation for this chat
-		await database.telegramDisconnectConfirmation.deleteMany({
-			where: { telegramChatId },
-		});
+  /**
+   * Store disconnect confirmation in database (replaces in-memory Map)
+   * This ensures state is shared across serverless/multi-instance deployments
+   */
+  private static async storeDisconnectConfirmation(
+    telegramChatId: string,
+    userId: string,
+    expiresAt: Date,
+  ): Promise<void> {
+    // Delete any existing confirmation for this chat
+    await database.telegramDisconnectConfirmation.deleteMany({
+      where: { telegramChatId },
+    });
 
-		// Create new confirmation
-		await database.telegramDisconnectConfirmation.create({
-			data: {
-				telegramChatId,
-				userId,
-				expiresAt,
-			},
-		});
-	}
+    // Create new confirmation
+    await database.telegramDisconnectConfirmation.create({
+      data: {
+        telegramChatId,
+        userId,
+        expiresAt,
+      },
+    });
+  }
 
-	/**
-	 * Get disconnect confirmation from database
-	 */
-	private static async getDisconnectConfirmation(
-		telegramChatId: string,
-	): Promise<{ userId: string; expiresAt: Date } | null> {
-		const confirmation =
-			await database.telegramDisconnectConfirmation.findUnique({
-				where: { telegramChatId },
-			});
+  /**
+   * Get disconnect confirmation from database
+   */
+  private static async getDisconnectConfirmation(
+    telegramChatId: string,
+  ): Promise<{ userId: string; expiresAt: Date } | null> {
+    const confirmation =
+      await database.telegramDisconnectConfirmation.findUnique({
+        where: { telegramChatId },
+      });
 
-		if (!confirmation) {
-			return null;
-		}
+    if (!confirmation) {
+      return null;
+    }
 
-		// Check if expired
-		if (confirmation.expiresAt < new Date()) {
-			// Clean up expired confirmation
-			await database.telegramDisconnectConfirmation.delete({
-				where: { id: confirmation.id },
-			});
-			return null;
-		}
+    // Check if expired
+    if (confirmation.expiresAt < new Date()) {
+      // Clean up expired confirmation
+      await database.telegramDisconnectConfirmation.delete({
+        where: { id: confirmation.id },
+      });
+      return null;
+    }
 
-		return {
-			userId: confirmation.userId,
-			expiresAt: confirmation.expiresAt,
-		};
-	}
+    return {
+      userId: confirmation.userId,
+      expiresAt: confirmation.expiresAt,
+    };
+  }
 
-	/**
-	 * Delete disconnect confirmation from database
-	 */
-	private static async deleteDisconnectConfirmation(
-		telegramChatId: string,
-	): Promise<void> {
-		await database.telegramDisconnectConfirmation.deleteMany({
-			where: { telegramChatId },
-		});
-	}
+  /**
+   * Delete disconnect confirmation from database
+   */
+  private static async deleteDisconnectConfirmation(
+    telegramChatId: string,
+  ): Promise<void> {
+    await database.telegramDisconnectConfirmation.deleteMany({
+      where: { telegramChatId },
+    });
+  }
 
-	/**
-	 * Disconnect Telegram account for a user
-	 * Validates store ownership and Telegram link status before disconnecting
-	 *
-	 * @param userId - The user ID to disconnect
-	 * @param storeName - The name of one of the user's stores (for confirmation)
-	 * @throws Error if store name doesn't match or Telegram is not linked
-	 */
-	static async disconnectTelegramAccount(
-		userId: string,
-		storeName: string,
-	): Promise<void> {
-		// Verify user owns a store with this name
-		const store = await database.store.findFirst({
-			where: {
-				ownerId: userId,
-				name: storeName.trim(),
-			},
-			select: { id: true },
-		});
+  /**
+   * Disconnect Telegram account for a user
+   * Validates store ownership and Telegram link status before disconnecting
+   *
+   * @param userId - The user ID to disconnect
+   * @param storeName - The name of one of the user's stores (for confirmation)
+   * @throws Error if store name doesn't match or Telegram is not linked
+   */
+  static async disconnectTelegramAccount(
+    userId: string,
+    storeName: string,
+  ): Promise<void> {
+    // Verify user owns a store with this name
+    const store = await database.store.findFirst({
+      where: {
+        ownerId: userId,
+        name: storeName.trim(),
+      },
+      select: { id: true },
+    });
 
-		if (!store) {
-			throw new Error("Store name doesn't match any of your stores");
-		}
+    if (!store) {
+      throw new Error("Store name doesn't match any of your stores");
+    }
 
-		// Verify user has Telegram linked
-		const user = await database.user.findUnique({
-			where: { id: userId },
-			select: { telegramChatId: true },
-		});
+    // Verify user has Telegram linked
+    const user = await database.user.findUnique({
+      where: { id: userId },
+      select: { telegramChatId: true },
+    });
 
-		if (!user?.telegramChatId) {
-			throw new Error("Telegram account is not linked");
-		}
+    if (!user?.telegramChatId) {
+      throw new Error("Telegram account is not linked");
+    }
 
-		// Disconnect Telegram account
-		await database.user.update({
-			where: { id: userId },
-			data: {
-				telegramChatId: null,
-				telegramLinkedAt: null,
-			},
-		});
-	}
+    // Disconnect Telegram account
+    await database.user.update({
+      where: { id: userId },
+      data: {
+        telegramChatId: null,
+        telegramLinkedAt: null,
+      },
+    });
+  }
 }
 
 export const TelegramService = traceStaticClass(TelegramServiceBase);

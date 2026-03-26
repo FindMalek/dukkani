@@ -1,8 +1,8 @@
 import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import type {
-	ConfigureStoreOnboardingInput,
-	CreateStoreOnboardingInput,
+  ConfigureStoreOnboardingInput,
+  CreateStoreOnboardingInput,
 } from "@dukkani/common/schemas/store/input";
 import type { OnboardingStepConfig } from "@dukkani/common/services/onboarding.service";
 import { logger } from "@dukkani/logger";
@@ -17,11 +17,11 @@ import { useCurrentUserQueryForController } from "@/hooks/use-onboarding";
 import { authClient } from "@/lib/auth-client";
 import { handleAPIError } from "@/lib/error";
 import {
-	canProceedToNextStep,
-	getNextStep,
-	getPreviousStep,
-	isValidStepTransition,
-	shouldAutoSelectStore,
+  canProceedToNextStep,
+  getNextStep,
+  getPreviousStep,
+  isValidStepTransition,
+  shouldAutoSelectStore,
 } from "@/lib/onboarding.utils";
 import { client } from "@/lib/orpc";
 import { queryKeys } from "@/lib/query-keys";
@@ -33,7 +33,7 @@ import { useActiveStoreStore } from "@/stores/active-store.store";
  * Based on the solution from next-intl GitHub discussions
  */
 export type TranslationFunction = ReturnType<
-	typeof createTranslator<Messages, "onboarding">
+  typeof createTranslator<Messages, "onboarding">
 >;
 
 /**
@@ -47,249 +47,249 @@ export type TranslationFunction = ReturnType<
  * Provides a single interface for onboarding functionality
  */
 export function useOnboardingController(
-	t: TranslationFunction,
-	guestStep?: UserOnboardingStep | null,
-	onStepChange?: (step: UserOnboardingStep) => void,
+  t: TranslationFunction,
+  guestStep?: UserOnboardingStep | null,
+  onStepChange?: (step: UserOnboardingStep) => void,
 ) {
-	const queryClient = useQueryClient();
-	const { setSelectedStoreId, selectedStoreId: globalSelectedStoreId } =
-		useActiveStoreStore();
+  const queryClient = useQueryClient();
+  const { setSelectedStoreId, selectedStoreId: globalSelectedStoreId } =
+    useActiveStoreStore();
 
-	// API hooks
-	const { data: sessionData, isPending: isSessionPending } =
-		authClient.useSession();
-	const { isLoading: isCurrentUserLoading } = useCurrentUserQueryForController(
-		!!sessionData?.user,
-	);
-	const isAuthenticated = !!sessionData?.user;
+  // API hooks
+  const { data: sessionData, isPending: isSessionPending } =
+    authClient.useSession();
+  const { isLoading: isCurrentUserLoading } = useCurrentUserQueryForController(
+    !!sessionData?.user,
+  );
+  const isAuthenticated = !!sessionData?.user;
 
-	const { data: onboardingState } = useQuery({
-		queryKey: ["onboarding", "state", guestStep],
-		queryFn: () => client.onboarding.getState({ guestStep }),
-		enabled: isAuthenticated,
-		staleTime: 1000 * 60 * 5, // 5 minutes
-	});
+  const { data: onboardingState } = useQuery({
+    queryKey: ["onboarding", "state", guestStep],
+    queryFn: () => client.onboarding.getState({ guestStep }),
+    enabled: isAuthenticated,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
 
-	const { data: shouldShowStores } = useQuery({
-		queryKey: ["onboarding", "shouldShowStores"],
-		queryFn: () => client.onboarding.shouldShowStores(),
-		enabled: isAuthenticated,
-		staleTime: 1000 * 60 * 5, // 5 minutes
-	});
+  const { data: shouldShowStores } = useQuery({
+    queryKey: ["onboarding", "shouldShowStores"],
+    queryFn: () => client.onboarding.shouldShowStores(),
+    enabled: isAuthenticated,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
 
-	const fallbackState = useMemo(
-		() => ({
-			isAuthenticated: false,
-			currentUser: null,
-			onboardingStep: null as UserOnboardingStep | null,
-			effectiveStep: guestStep ?? null,
-			needsStores: false,
-			isComplete: false,
-			canProceed: false,
-		}),
-		[guestStep],
-	);
+  const fallbackState = useMemo(
+    () => ({
+      isAuthenticated: false,
+      currentUser: null,
+      onboardingStep: null as UserOnboardingStep | null,
+      effectiveStep: guestStep ?? null,
+      needsStores: false,
+      isComplete: false,
+      canProceed: false,
+    }),
+    [guestStep],
+  );
 
-	const state = isAuthenticated
-		? (onboardingState ?? fallbackState)
-		: fallbackState;
+  const state = isAuthenticated
+    ? (onboardingState ?? fallbackState)
+    : fallbackState;
 
-	// Store management - use ORPC result
-	const { data: stores, isLoading: isStoresLoading } = useStoresQuery(
-		shouldShowStores ?? false,
-	);
+  // Store management - use ORPC result
+  const { data: stores, isLoading: isStoresLoading } = useStoresQuery(
+    shouldShowStores ?? false,
+  );
 
-	// Mutations
-	const createStoreMutation = useMutation({
-		mutationFn: (input: CreateStoreOnboardingInput) =>
-			client.store.create(input),
-		onSuccess: async (data) => {
-			// Set global state immediately
-			setSelectedStoreId(data.id);
+  // Mutations
+  const createStoreMutation = useMutation({
+    mutationFn: (input: CreateStoreOnboardingInput) =>
+      client.store.create(input),
+    onSuccess: async (data) => {
+      // Set global state immediately
+      setSelectedStoreId(data.id);
 
-			// Optimistically update stores cache to prevent race condition
-			queryClient.setQueryData(queryKeys.stores.all(), (old: any) => {
-				const existing = Array.isArray(old) ? old : [];
-				// Avoid duplicates if store already exists in cache
-				if (!existing.find((store: any) => store.id === data.id)) {
-					return [...existing, data];
-				}
-				return existing;
-			});
+      // Optimistically update stores cache to prevent race condition
+      queryClient.setQueryData(queryKeys.stores.all(), (old: any) => {
+        const existing = Array.isArray(old) ? old : [];
+        // Avoid duplicates if store already exists in cache
+        if (!existing.find((store: any) => store.id === data.id)) {
+          return [...existing, data];
+        }
+        return existing;
+      });
 
-			// Then invalidate for fresh data
-			queryClient.invalidateQueries({ queryKey: queryKeys.stores.all() });
-			queryClient.invalidateQueries({ queryKey: queryKeys.account.current() });
+      // Then invalidate for fresh data
+      queryClient.invalidateQueries({ queryKey: queryKeys.stores.all() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.account.current() });
 
-			// Wait for stores to be available before changing step
-			await queryClient.refetchQueries({ queryKey: queryKeys.stores.all() });
-			await queryClient.refetchQueries({
-				queryKey: queryKeys.account.current(),
-			});
+      // Wait for stores to be available before changing step
+      await queryClient.refetchQueries({ queryKey: queryKeys.stores.all() });
+      await queryClient.refetchQueries({
+        queryKey: queryKeys.account.current(),
+      });
 
-			if (onStepChange) {
-				onStepChange(UserOnboardingStep.STORE_CREATED);
-			}
-		},
-		onError: (error) => {
-			handleAPIError(error);
-		},
-	});
+      if (onStepChange) {
+        onStepChange(UserOnboardingStep.STORE_CREATED);
+      }
+    },
+    onError: (error) => {
+      handleAPIError(error);
+    },
+  });
 
-	const configureStoreMutation = useMutation({
-		mutationFn: (input: ConfigureStoreOnboardingInput) =>
-			client.store.configure(input),
-		onSuccess: async (_data, variables) => {
-			setSelectedStoreId(variables.storeId);
-			queryClient.invalidateQueries({ queryKey: queryKeys.stores.all() });
-			queryClient.invalidateQueries({ queryKey: queryKeys.account.current() });
-			await queryClient.refetchQueries({
-				queryKey: queryKeys.account.current(),
-			});
+  const configureStoreMutation = useMutation({
+    mutationFn: (input: ConfigureStoreOnboardingInput) =>
+      client.store.configure(input),
+    onSuccess: async (_data, variables) => {
+      setSelectedStoreId(variables.storeId);
+      queryClient.invalidateQueries({ queryKey: queryKeys.stores.all() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.account.current() });
+      await queryClient.refetchQueries({
+        queryKey: queryKeys.account.current(),
+      });
 
-			if (onStepChange) {
-				onStepChange(UserOnboardingStep.STORE_LAUNCHED);
-			}
-		},
-		onError: (error) => {
-			handleAPIError(error);
-		},
-	});
+      if (onStepChange) {
+        onStepChange(UserOnboardingStep.STORE_LAUNCHED);
+      }
+    },
+    onError: (error) => {
+      handleAPIError(error);
+    },
+  });
 
-	// Forms
-	const storeSetupForm = useAppForm({
-		...storeSetupFormDefaultOptions,
-		onSubmit: async ({ value }) => {
-			await createStoreMutation.mutateAsync(value);
-		},
-	});
+  // Forms
+  const storeSetupForm = useAppForm({
+    ...storeSetupFormDefaultOptions,
+    onSubmit: async ({ value }) => {
+      await createStoreMutation.mutateAsync(value);
+    },
+  });
 
-	const storeConfigurationForm = useAppForm({
-		...storeConfigurationFormDefaultOptions,
-		onSubmit: async ({ value }) => {
-			if (!selectedStoreId) {
-				throw new Error(
-					"Store ID is missing. Cannot configure store without it.",
-				);
-			}
-			await configureStoreMutation.mutateAsync({
-				...value,
-				storeId: selectedStoreId,
-			});
-		},
-	});
+  const storeConfigurationForm = useAppForm({
+    ...storeConfigurationFormDefaultOptions,
+    onSubmit: async ({ value }) => {
+      if (!selectedStoreId) {
+        throw new Error(
+          "Store ID is missing. Cannot configure store without it.",
+        );
+      }
+      await configureStoreMutation.mutateAsync({
+        ...value,
+        storeId: selectedStoreId,
+      });
+    },
+  });
 
-	// Store selection logic using client utility
-	const selectedStoreId = shouldAutoSelectStore(state.onboardingStep, null)
-		? (globalSelectedStoreId ?? stores?.[0]?.id ?? null)
-		: null;
+  // Store selection logic using client utility
+  const selectedStoreId = shouldAutoSelectStore(state.onboardingStep, null)
+    ? (globalSelectedStoreId ?? stores?.[0]?.id ?? null)
+    : null;
 
-	// Enhanced state with store information
-	const enhancedState = {
-		...state,
-		stores,
-		storeId: selectedStoreId,
-		hasStores: !!stores?.length,
-		firstStoreId: stores?.[0]?.id ?? null,
-	};
+  // Enhanced state with store information
+  const enhancedState = {
+    ...state,
+    stores,
+    storeId: selectedStoreId,
+    hasStores: !!stores?.length,
+    firstStoreId: stores?.[0]?.id ?? null,
+  };
 
-	// Debug logging for onboarding state
-	useEffect(() => {
-		logger.info(
-			{
-				onboardingStep: state.onboardingStep,
-				effectiveStep: state.effectiveStep,
-				globalStoreId: globalSelectedStoreId,
-				storesCount: stores?.length,
-				selectedStoreId,
-				isStoresLoading,
-				isAuthenticated: state.isAuthenticated,
-			},
-			"Onboarding store selection state",
-		);
-	}, [
-		state.onboardingStep,
-		state.effectiveStep,
-		globalSelectedStoreId,
-		stores,
-		selectedStoreId,
-		isStoresLoading,
-		state.isAuthenticated,
-	]);
+  // Debug logging for onboarding state
+  useEffect(() => {
+    logger.info(
+      {
+        onboardingStep: state.onboardingStep,
+        effectiveStep: state.effectiveStep,
+        globalStoreId: globalSelectedStoreId,
+        storesCount: stores?.length,
+        selectedStoreId,
+        isStoresLoading,
+        isAuthenticated: state.isAuthenticated,
+      },
+      "Onboarding store selection state",
+    );
+  }, [
+    state.onboardingStep,
+    state.effectiveStep,
+    globalSelectedStoreId,
+    stores,
+    selectedStoreId,
+    isStoresLoading,
+    state.isAuthenticated,
+  ]);
 
-	// Loading states
-	const loadingStates = {
-		isSessionPending,
-		isCurrentUserLoading,
-		isStoresLoading,
-		isCreatingStore: createStoreMutation.isPending,
-		isConfiguringStore: configureStoreMutation.isPending,
-		isLoading: isSessionPending || isCurrentUserLoading || isStoresLoading,
-	};
+  // Loading states
+  const loadingStates = {
+    isSessionPending,
+    isCurrentUserLoading,
+    isStoresLoading,
+    isCreatingStore: createStoreMutation.isPending,
+    isConfiguringStore: configureStoreMutation.isPending,
+    isLoading: isSessionPending || isCurrentUserLoading || isStoresLoading,
+  };
 
-	// Action methods
-	const actions = {
-		// Step navigation using client utilities
-		getNextStep: () => getNextStep(enhancedState.effectiveStep),
-		getPreviousStep: () => getPreviousStep(enhancedState.effectiveStep),
-		canProceedToNext: () => canProceedToNextStep(enhancedState.effectiveStep),
-		isValidTransition: (toStep: UserOnboardingStep | null) =>
-			isValidStepTransition(enhancedState.effectiveStep, toStep),
+  // Action methods
+  const actions = {
+    // Step navigation using client utilities
+    getNextStep: () => getNextStep(enhancedState.effectiveStep),
+    getPreviousStep: () => getPreviousStep(enhancedState.effectiveStep),
+    canProceedToNext: () => canProceedToNextStep(enhancedState.effectiveStep),
+    isValidTransition: (toStep: UserOnboardingStep | null) =>
+      isValidStepTransition(enhancedState.effectiveStep, toStep),
 
-		// Step configuration with i18n - get base config from ORPC
-		getStepConfig: async (): Promise<OnboardingStepConfig> => {
-			const baseConfig = await client.onboarding.getStepConfig({
-				step: enhancedState.effectiveStep,
-			});
+    // Step configuration with i18n - get base config from ORPC
+    getStepConfig: async (): Promise<OnboardingStepConfig> => {
+      const baseConfig = await client.onboarding.getStepConfig({
+        step: enhancedState.effectiveStep,
+      });
 
-			// Use type-safe mapping from StoreEntity to get the correct translation key
-			const stepKey = enhancedState.effectiveStep
-				? StoreEntity.ONBOARDING_STEP_KEY_MAP[enhancedState.effectiveStep]
-				: StoreEntity.ONBOARDING_STEP_KEY_MAP.null;
+      // Use type-safe mapping from StoreEntity to get the correct translation key
+      const stepKey = enhancedState.effectiveStep
+        ? StoreEntity.ONBOARDING_STEP_KEY_MAP[enhancedState.effectiveStep]
+        : StoreEntity.ONBOARDING_STEP_KEY_MAP.null;
 
-			return {
-				...baseConfig,
-				title: t(`steps.${stepKey}`),
-				description: t(`steps.${stepKey}Description`),
-			};
-		},
-	};
+      return {
+        ...baseConfig,
+        title: t(`steps.${stepKey}`),
+        description: t(`steps.${stepKey}Description`),
+      };
+    },
+  };
 
-	// Forms
-	const forms = {
-		storeSetupForm,
-		storeConfigurationForm,
-	};
+  // Forms
+  const forms = {
+    storeSetupForm,
+    storeConfigurationForm,
+  };
 
-	// Mutations
-	const mutations = {
-		createStoreMutation,
-		configureStoreMutation,
-	};
+  // Mutations
+  const mutations = {
+    createStoreMutation,
+    configureStoreMutation,
+  };
 
-	return {
-		// State
-		...enhancedState,
-		...loadingStates,
+  return {
+    // State
+    ...enhancedState,
+    ...loadingStates,
 
-		// Actions
-		...actions,
+    // Actions
+    ...actions,
 
-		// Forms
-		forms,
+    // Forms
+    forms,
 
-		// Mutations
-		mutations,
+    // Mutations
+    mutations,
 
-		// Raw data for advanced usage
-		sessionData,
-		currentUser: enhancedState.currentUser,
-	};
+    // Raw data for advanced usage
+    sessionData,
+    currentUser: enhancedState.currentUser,
+  };
 }
 
 /**
  * Hook type for TypeScript support
  */
 export type UseOnboardingControllerReturn = ReturnType<
-	typeof useOnboardingController
+  typeof useOnboardingController
 >;

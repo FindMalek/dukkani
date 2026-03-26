@@ -8,16 +8,16 @@ import { getStoreSlugFromHost } from "./utils";
  * Preview/dev: uses cookie only (no subdomains available).
  */
 export function getStoreSlug(
-	host: string | null,
-	cookies: { get: (name: string) => { value?: string } | undefined },
+  host: string | null,
+  cookies: { get: (name: string) => { value?: string } | undefined },
 ): string | null {
-	if (!isStoreSelectorEnabled(process.env)) {
-		return getStoreSlugFromHost(host);
-	}
+  if (!isStoreSelectorEnabled(process.env)) {
+    return getStoreSlugFromHost(host);
+  }
 
-	const slug = cookies.get("storefront_store_slug")?.value ?? null;
-	if (!slug || isReservedStoreSlug(slug)) {
-		return null;
-	}
-	return slug;
+  const slug = cookies.get("storefront_store_slug")?.value ?? null;
+  if (!slug || isReservedStoreSlug(slug)) {
+    return null;
+  }
+  return slug;
 }

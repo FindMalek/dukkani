@@ -1,9 +1,9 @@
 import "@dukkani/ui/styles/globals.css";
 
 import {
-	getTextDirection,
-	LOCALES,
-	type Locale,
+  getTextDirection,
+  LOCALES,
+  type Locale,
 } from "@dukkani/common/schemas/constants";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { isStoreSelectorEnabled } from "@dukkani/env";
@@ -24,104 +24,104 @@ import { getStoreSlug } from "@/lib/get-store-slug";
 import { getQueryClient, orpc } from "@/lib/orpc";
 
 const inter = Inter({
-	variable: "--font-sans-latin",
-	subsets: ["latin"],
+  variable: "--font-sans-latin",
+  subsets: ["latin"],
 });
 
 const cairo = Cairo({
-	variable: "--font-sans-arabic",
-	subsets: ["arabic", "latin"],
-	display: "swap",
+  variable: "--font-sans-arabic",
+  subsets: ["arabic", "latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-	title: "Dukkani Storefront",
-	description: "Storefront powered by Dukkani",
+  title: "Dukkani Storefront",
+  description: "Storefront powered by Dukkani",
 };
 
 export async function generateStaticParams() {
-	return LOCALES.map((lang) => ({ lang }));
+  return LOCALES.map((lang) => ({ lang }));
 }
 
 export default async function RootLayout({
-	children,
-	params,
+  children,
+  params,
 }: {
-	children: React.ReactNode;
-	params: Promise<{ lang: string }>;
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }) {
-	const { lang } = (await params) as { lang: Locale };
-	setRequestLocale(lang);
-	const messages = await getMessages();
+  const { lang } = (await params) as { lang: Locale };
+  setRequestLocale(lang);
+  const messages = await getMessages();
 
-	const headersList = await headers();
-	const host = headersList.get("host");
-	const cookieStore = await cookies();
-	const storeSlug = getStoreSlug(host, cookieStore);
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const cookieStore = await cookies();
+  const storeSlug = getStoreSlug(host, cookieStore);
 
-	const queryClient = getQueryClient();
-	let store: StorePublicOutput | null = null;
+  const queryClient = getQueryClient();
+  let store: StorePublicOutput | null = null;
 
-	if (storeSlug) {
-		try {
-			await queryClient.prefetchQuery(
-				orpc.store.getBySlugPublic.queryOptions({
-					input: { slug: storeSlug },
-				}),
-			);
+  if (storeSlug) {
+    try {
+      await queryClient.prefetchQuery(
+        orpc.store.getBySlugPublic.queryOptions({
+          input: { slug: storeSlug },
+        }),
+      );
 
-			const storeData = queryClient.getQueryData(
-				orpc.store.getBySlugPublic.queryKey({ input: { slug: storeSlug } }),
-			);
+      const storeData = queryClient.getQueryData(
+        orpc.store.getBySlugPublic.queryKey({ input: { slug: storeSlug } }),
+      );
 
-			if (storeData) {
-				store = storeData;
-			}
-		} catch (error) {
-			handleAPIError(error);
-		}
-	}
+      if (storeData) {
+        store = storeData;
+      }
+    } catch (error) {
+      handleAPIError(error);
+    }
+  }
 
-	if (!store) {
-		if (isStoreSelectorEnabled(process.env)) {
-			return (
-				<html
-					lang={lang}
-					dir={getTextDirection(lang)}
-					className={`${inter.variable} ${cairo.variable}`}
-					suppressHydrationWarning
-				>
-					<body className="antialiased" suppressHydrationWarning>
-						<StoreSelector locale={lang} messages={messages} />
-					</body>
-				</html>
-			);
-		}
-		return notFound();
-	}
+  if (!store) {
+    if (isStoreSelectorEnabled(process.env)) {
+      return (
+        <html
+          lang={lang}
+          dir={getTextDirection(lang)}
+          className={`${inter.variable} ${cairo.variable}`}
+          suppressHydrationWarning
+        >
+          <body className="antialiased" suppressHydrationWarning>
+            <StoreSelector locale={lang} messages={messages} />
+          </body>
+        </html>
+      );
+    }
+    return notFound();
+  }
 
-	return (
-		<html
-			lang={lang}
-			dir={getTextDirection(lang)}
-			className={`${inter.variable} ${cairo.variable}`}
-			suppressHydrationWarning
-		>
-			<body className="antialiased" suppressHydrationWarning>
-				<Providers locale={lang} messages={messages} storeSlug={store.slug}>
-					<HydrationBoundary state={dehydrate(queryClient)}>
-						<div className="min-h-screen overflow-x-hidden bg-background">
-							<StoreHeader store={store} />
-							<div style={{ height: `${STORE_HEADER_HEIGHT_PX}px` }} />
-							<main>{children}</main>
-							<StoreFooter />
-						</div>
-					</HydrationBoundary>
-					{isStoreSelectorEnabled(process.env) && (
-						<StoreSelectorBubble locale={lang} />
-					)}
-				</Providers>
-			</body>
-		</html>
-	);
+  return (
+    <html
+      lang={lang}
+      dir={getTextDirection(lang)}
+      className={`${inter.variable} ${cairo.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="antialiased" suppressHydrationWarning>
+        <Providers locale={lang} messages={messages} storeSlug={store.slug}>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <div className="min-h-screen overflow-x-hidden bg-background">
+              <StoreHeader store={store} />
+              <div style={{ height: `${STORE_HEADER_HEIGHT_PX}px` }} />
+              <main>{children}</main>
+              <StoreFooter />
+            </div>
+          </HydrationBoundary>
+          {isStoreSelectorEnabled(process.env) && (
+            <StoreSelectorBubble locale={lang} />
+          )}
+        </Providers>
+      </body>
+    </html>
+  );
 }

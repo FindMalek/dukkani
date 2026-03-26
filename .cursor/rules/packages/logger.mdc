@@ -1,0 +1,28 @@
+# Logger Package
+
+## Purpose
+
+`@dukkani/logger` provides consistent, structured logging for apps and packages.
+
+## Design
+
+- Exports a logger API aligned with pino-style methods (`trace`, `debug`, `info`, `warn`, `error`, `fatal`).
+- Supports formatted developer output while keeping structured payloads for production pipelines.
+- Works with tracing context enrichment through `@dukkani/tracing` integration points.
+
+## Usage Rules
+
+- Prefer `@dukkani/logger` over ad-hoc logging in server and package code.
+- Include structured objects for context and keep messages concise.
+- Never log secrets, tokens, or full sensitive payloads.
+
+## Constraints
+
+- Keep this package free from app-layer dependencies.
+- Keep logger initialization safe in Node and non-Node environments.
+
+## Best Practices
+
+- Use consistent event naming for searchable logs.
+- Log errors with stack/context objects when available.
+- In UI code, use user-facing error handling patterns and avoid replacing UX messaging with logger-only output.

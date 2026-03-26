@@ -1,10 +1,10 @@
 import { useFieldContext } from "../../hooks/use-app-form";
 import {
-	Field,
-	FieldContent,
-	FieldDescription,
-	FieldLabel,
-	FieldTitle,
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+  FieldTitle,
 } from "../field";
 import { RadioGroup, RadioGroupItem } from "../radio-group";
 import { BaseField, type CommonFieldProps } from "./base-field";
@@ -25,16 +25,16 @@ interface RadioGroupFieldProps extends CommonFieldProps {
 	options: CardItemOption[];
 }
 export function RadioGroupField({
-	label,
-	description,
-	labelFirst,
-	rightToField,
-	orientation,
-	srOnlyLabel,
-	...props
+  label,
+  description,
+  labelFirst,
+  rightToField,
+  orientation,
+  srOnlyLabel,
+  ...props
 }: RadioGroupFieldProps) {
-	const field = useFieldContext<string>();
-	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+  const field = useFieldContext<string>();
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
 	return (
 		<BaseField

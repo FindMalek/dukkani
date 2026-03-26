@@ -2,32 +2,32 @@
 
 import type { DashboardStatsOutput } from "@dukkani/common/schemas/dashboard/output";
 import {
-	Card,
-	CardContent,
-	CardHeader,
-	CardTitle,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
 } from "@dukkani/ui/components/card";
 import { useTranslations } from "next-intl";
 
 interface ThisWeekCardProps {
-	stats: DashboardStatsOutput;
+  stats: DashboardStatsOutput;
 }
 
 export function ThisWeekCard({ stats }: ThisWeekCardProps) {
-	const t = useTranslations("dashboard.overview.thisWeek");
+  const t = useTranslations("dashboard.overview.thisWeek");
 
-	return (
-		<Card className="border-border/50">
-			<CardHeader className="-mb-3 pb-3">
-				<CardTitle className="font-medium text-muted-foreground text-sm">
-					{t("title")}
-				</CardTitle>
-			</CardHeader>
-			<CardContent>
-				<div className="font-bold text-2xl text-foreground">
-					{stats.weekOrders} {t("orders")}
-				</div>
-			</CardContent>
-		</Card>
-	);
+  return (
+    <Card className="border-border/50">
+      <CardHeader className="-mb-3 pb-3">
+        <CardTitle className="font-medium text-muted-foreground text-sm">
+          {t("title")}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="font-bold text-2xl text-foreground">
+          {stats.weekOrders} {t("orders")}
+        </div>
+      </CardContent>
+    </Card>
+  );
 }

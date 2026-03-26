@@ -8,25 +8,25 @@ import { shouldAutoSelectStore } from "@/lib/onboarding.utils";
  * Handles store loading, auto-selection, and state management
  */
 export function useOnboardingStores(onboardingState: OnboardingState) {
-	const [storeId, setStoreId] = useState<string | null>(null);
-	const { data: stores, isLoading: isStoresLoading } = useStoresQuery(
-		onboardingState.needsStores,
-	);
+  const [storeId, setStoreId] = useState<string | null>(null);
+  const { data: stores, isLoading: isStoresLoading } = useStoresQuery(
+    onboardingState.needsStores,
+  );
 
-	useEffect(() => {
-		if (!stores?.length) return;
+  useEffect(() => {
+    if (!stores?.length) return;
 
-		if (shouldAutoSelectStore(onboardingState.onboardingStep, storeId)) {
-			setStoreId(stores[0].id);
-		}
-	}, [stores, onboardingState.onboardingStep, storeId]);
+    if (shouldAutoSelectStore(onboardingState.onboardingStep, storeId)) {
+      setStoreId(stores[0].id);
+    }
+  }, [stores, onboardingState.onboardingStep, storeId]);
 
-	return {
-		stores,
-		isLoading: isStoresLoading,
-		storeId,
-		setStoreId,
-		hasStores: !!stores?.length,
-		firstStoreId: stores?.[0]?.id ?? null,
-	};
+  return {
+    stores,
+    isLoading: isStoresLoading,
+    storeId,
+    setStoreId,
+    hasStores: !!stores?.length,
+    firstStoreId: stores?.[0]?.id ?? null,
+  };
 }

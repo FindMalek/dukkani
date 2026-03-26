@@ -16,70 +16,70 @@ import { buildTrustedOrigins, verifyPassword } from "./utils";
  * @returns Better Auth instance
  */
 export function createAuth(
-	database: PrismaClient,
-	envConfig: typeof env,
+  database: PrismaClient,
+  envConfig: typeof env,
 ): ReturnType<typeof betterAuth<BetterAuthOptions>> {
-	const originConfig = [
-		envConfig.NEXT_PUBLIC_API_URL,
-		envConfig.NEXT_PUBLIC_DASHBOARD_URL,
-		envConfig.VERCEL_BRANCH_URL,
-		envConfig.VERCEL_PROJECT_PRODUCTION_URL,
-	].filter((origin) => origin !== undefined);
+  const originConfig = [
+    envConfig.NEXT_PUBLIC_API_URL,
+    envConfig.NEXT_PUBLIC_DASHBOARD_URL,
+    envConfig.VERCEL_BRANCH_URL,
+    envConfig.VERCEL_PROJECT_PRODUCTION_URL,
+  ].filter((origin) => origin !== undefined);
 
-	const trustedOrigins = buildTrustedOrigins(
-		originConfig,
-		!!envConfig.VERCEL,
-		envConfig.NEXT_PUBLIC_ALLOWED_ORIGIN,
-		envConfig.CORS_PREVIEW_ORIGIN_PATTERN,
-	);
+  const trustedOrigins = buildTrustedOrigins(
+    originConfig,
+    !!envConfig.VERCEL,
+    envConfig.NEXT_PUBLIC_ALLOWED_ORIGIN,
+    envConfig.CORS_PREVIEW_ORIGIN_PATTERN,
+  );
 
-	// Determine if we need cross-origin cookie settings
-	// In Vercel environments or when using HTTPS, we need SameSite=None and Secure
-	const isVercel = !!envConfig.VERCEL;
-	const isProduction =
-		isVercel || envConfig.NEXT_PUBLIC_API_URL.startsWith("https://");
+  // Determine if we need cross-origin cookie settings
+  // In Vercel environments or when using HTTPS, we need SameSite=None and Secure
+  const isVercel = !!envConfig.VERCEL;
+  const isProduction =
+    isVercel || envConfig.NEXT_PUBLIC_API_URL.startsWith("https://");
 
-	return betterAuth<BetterAuthOptions>({
-		database: prismaAdapter(database, {
-			provider: "postgresql",
-		}),
-		secret: envConfig.BETTER_AUTH_SECRET,
-		baseURL: envConfig.NEXT_PUBLIC_API_URL,
-		trustedOrigins,
-		advanced: {
-			useSecureCookies: isProduction,
-			cookies: {
-				session_token: {
-					attributes: {
-						sameSite: isProduction ? "none" : "lax",
-						httpOnly: true,
-					},
-				},
-			},
-		},
-		emailAndPassword: {
-			enabled: true,
-			password: {
-				hash: hashPassword,
-				verify: verifyPassword,
-			},
-		},
-		socialProviders: {
-			facebook: {
-				clientId: envConfig.FACEBOOK_CLIENT_ID,
-				clientSecret: envConfig.FACEBOOK_CLIENT_SECRET,
-			},
-			google: {
-				clientId: envConfig.GOOGLE_CLIENT_ID,
-				clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
-			},
-			apple: {
-				clientId: envConfig.APPLE_CLIENT_ID,
-				clientSecret: envConfig.APPLE_CLIENT_SECRET,
-			},
-		},
-		plugins: [nextCookies(), openAPI(), lastLoginMethod()],
-	});
+  return betterAuth<BetterAuthOptions>({
+    database: prismaAdapter(database, {
+      provider: "postgresql",
+    }),
+    secret: envConfig.BETTER_AUTH_SECRET,
+    baseURL: envConfig.NEXT_PUBLIC_API_URL,
+    trustedOrigins,
+    advanced: {
+      useSecureCookies: isProduction,
+      cookies: {
+        session_token: {
+          attributes: {
+            sameSite: isProduction ? "none" : "lax",
+            httpOnly: true,
+          },
+        },
+      },
+    },
+    emailAndPassword: {
+      enabled: true,
+      password: {
+        hash: hashPassword,
+        verify: verifyPassword,
+      },
+    },
+    socialProviders: {
+      facebook: {
+        clientId: envConfig.FACEBOOK_CLIENT_ID,
+        clientSecret: envConfig.FACEBOOK_CLIENT_SECRET,
+      },
+      google: {
+        clientId: envConfig.GOOGLE_CLIENT_ID,
+        clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
+      },
+      apple: {
+        clientId: envConfig.APPLE_CLIENT_ID,
+        clientSecret: envConfig.APPLE_CLIENT_SECRET,
+      },
+    },
+    plugins: [nextCookies(), openAPI(), lastLoginMethod()],
+  });
 }
 
 /**
@@ -95,8 +95,8 @@ export let auth: ReturnType<typeof betterAuth<BetterAuthOptions>>;
  * @internal
  */
 export function initializeAuth(
-	database: PrismaClient,
-	envConfig: Parameters<typeof createAuth>[1],
+  database: PrismaClient,
+  envConfig: Parameters<typeof createAuth>[1],
 ): void {
-	auth = createAuth(database, envConfig);
+  auth = createAuth(database, envConfig);
 }

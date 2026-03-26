@@ -8,14 +8,14 @@ import { createNextjsRuntimeEnv } from "../utils/runtime-env";
  * All NEXT_PUBLIC_* vars must be explicitly mapped in runtimeEnv for Next.js bundling
  */
 export const webEnv = createEnv({
-	server: observabilityModule.server,
-	client: {
-		...clientModule.client,
-		...urlsModule.client,
-	},
-	runtimeEnv: createNextjsRuntimeEnv(),
-	emptyStringAsUndefined: true,
-	skipValidation:
-		process.env.SKIP_ENV_VALIDATION === "true" ||
-		process.env.NODE_ENV === "test",
+  server: observabilityModule.server,
+  client: {
+    ...clientModule.client,
+    ...urlsModule.client,
+  },
+  runtimeEnv: createNextjsRuntimeEnv(),
+  emptyStringAsUndefined: true,
+  skipValidation:
+    process.env.SKIP_ENV_VALIDATION === "true" ||
+    process.env.NODE_ENV === "test",
 });
