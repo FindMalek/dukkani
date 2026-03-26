@@ -237,8 +237,8 @@ function DropzoneThumb({ fileWithPreview, className }: DropzoneThumbProps) {
 
 export {
 	Dropzone,
-	DropzoneZone,
-	DropzoneThumbs,
 	DropzoneThumb,
+	DropzoneThumbs,
+	DropzoneZone,
 	useDropzoneContext,
 };

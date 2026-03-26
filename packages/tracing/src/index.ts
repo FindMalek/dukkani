@@ -19,18 +19,6 @@ export function registerTracing(config: TracingConfig): void {
 	initializeSDK(config);
 }
 
-/**
- * Shutdown tracing gracefully
- * Useful for cleanup in tests or graceful shutdowns
- */
-export { shutdownSDK };
-
-/**
- * Check if tracing is properly initialized
- * Returns true if tracer provider is registered (not NoOp)
- */
-export { isTracingInitialized };
-
 export {
 	fetchWithTrace,
 	propagateTraceContext,
@@ -49,4 +37,12 @@ export {
 	withSpan,
 } from "./utils";
 export type { TracingConfig };
-export { flushTelemetry };
+/**
+ * Shutdown tracing gracefully
+ * Useful for cleanup in tests or graceful shutdowns
+ */
+/**
+ * Check if tracing is properly initialized
+ * Returns true if tracer provider is registered (not NoOp)
+ */
+export { flushTelemetry, isTracingInitialized, shutdownSDK };

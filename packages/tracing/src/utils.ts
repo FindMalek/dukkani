@@ -114,7 +114,7 @@ export function traceStaticClass<
 	// Create a function constructor (for static-only classes, this is never instantiated)
 	const TracedClass = function TracedClassConstructor(
 		this: unknown,
-		...args: never[]
+		..._args: never[]
 	): unknown {
 		// This should never be called for static-only classes
 		// But if it is, throw an error

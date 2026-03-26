@@ -7,7 +7,6 @@ import {
 import {
 	getFileExtensionFromMimeType,
 	isImageMimeType,
-	isSupportedMimeType,
 	type SupportedMimeType,
 } from "@dukkani/common/schemas/constants";
 import {

@@ -26,6 +26,8 @@
 	"scripts": {
 		"postinstall": "prisma generate",
 		"build": "tsdown",
+		"check-types": "tsc --noEmit -p tsconfig.json",
+		"check-types:fast": "tsgo --noEmit -p tsconfig.json",
 		"db:push": "prisma db push",
 		"db:studio": "prisma studio",
 		"db:generate": "prisma generate",
@@ -58,7 +60,6 @@
 	"devDependencies": {
 		"@dukkani/config": "workspace:*",
 		"@next/env": "catalog:",
-		"@types/bcryptjs": "^2.4.6",
 		"prisma": "catalog:",
 		"tsdown": "catalog:",
 		"tsx": "catalog:",

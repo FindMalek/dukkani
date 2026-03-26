@@ -6,6 +6,8 @@
 		"dev": "node ../../scripts/with-root-env.mjs next dev --port=3004",
 		"build": "node ../../scripts/with-root-env.mjs next build",
 		"start": "node ../../scripts/with-root-env.mjs next start",
+		"check-types": "tsc --noEmit -p tsconfig.json",
+		"check-types:fast": "tsgo --noEmit -p tsconfig.json",
 		"clean": "rm -rf .next node_modules"
 	},
 	"dependencies": {

@@ -4,7 +4,9 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"analyze": "tsx src/commands/analyze.ts"
+		"analyze": "tsx src/commands/analyze.ts",
+		"check-types": "tsc --noEmit -p tsconfig.json",
+		"check-types:fast": "tsgo --noEmit -p tsconfig.json"
 	},
 	"dependencies": {
 		"@dukkani/db": "workspace:*",

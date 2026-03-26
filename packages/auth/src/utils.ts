@@ -1,6 +1,5 @@
 import { scrypt } from "node:crypto";
 import {
-	isOriginAllowed,
 	isOriginAllowedByPatterns,
 	isOriginAllowedForRequest,
 } from "@dukkani/common/utils/origin";

@@ -18,6 +18,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsdown",
+		"check-types": "tsc --noEmit -p tsconfig.json",
+		"check-types:fast": "tsgo --noEmit -p tsconfig.json",
 		"clean": "rm -rf dist node_modules"
 	},
 	"devDependencies": {
@@ -25,7 +27,7 @@
 		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
-		"typescript": "^5.9.3"
+		"typescript": "^6.0.2"
 	},
 	"dependencies": {
 		"@dukkani/db": "workspace:*",
@@ -35,6 +37,6 @@
 		"@dukkani/tracing": "workspace:*",
 		"@aws-sdk/client-s3": "catalog:",
 		"sharp": "catalog:",
-		"nanoid": "^5.0.6"
+		"nanoid": "catalog:"
 	}
 }

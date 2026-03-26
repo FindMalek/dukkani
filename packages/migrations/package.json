@@ -26,6 +26,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsdown",
+		"check-types": "tsc --noEmit -p tsconfig.json",
+		"check-types:fast": "tsgo --noEmit -p tsconfig.json",
 		"clean": "rm -rf dist node_modules",
 		"migrate": "tsx src/cli/index.ts",
 		"migrate:storage": "tsx src/cli/index.ts storage migrate",
@@ -41,7 +43,7 @@
 		"@types/inquirer": "^9.0.0"
 	},
 	"peerDependencies": {
-		"typescript": "^5.9.3"
+		"typescript": "^6.0.2"
 	},
 	"dependencies": {
 		"@dukkani/env": "workspace:*",
@@ -56,6 +58,6 @@
 		"commander": "^12.0.0",
 		"cli-progress": "^3.12.0",
 		"inquirer": "^9.0.0",
-		"nanoid": "^5.0.6"
+		"nanoid": "catalog:"
 	}
 }

@@ -68,5 +68,5 @@ export function initializeDatabase(env: DatabaseEnv): void {
 	database = createDatabase(env);
 }
 
-export { PrismaClientKnownRequestError };
 export type { PrismaClient } from "../prisma/generated/client";
+export { PrismaClientKnownRequestError };

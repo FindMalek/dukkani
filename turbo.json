@@ -37,6 +37,9 @@
 		"check-types": {
 			"dependsOn": ["^check-types"]
 		},
+		"check-types:fast": {
+			"dependsOn": ["^check-types:fast"]
+		},
 		"dev": {
 			"cache": false,
 			"persistent": true,

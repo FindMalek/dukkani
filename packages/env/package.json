@@ -5,6 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsdown",
+		"check-types": "tsc --noEmit -p tsconfig.json",
+		"check-types:fast": "tsgo --noEmit -p tsconfig.json",
 		"clean": "rm -rf dist node_modules"
 	},
 	"exports": {
@@ -68,6 +70,6 @@
 		"@dukkani/config": "workspace:*"
 	},
 	"peerDependencies": {
-		"typescript": "^5.9.3"
+		"typescript": "^6.0.2"
 	}
 }

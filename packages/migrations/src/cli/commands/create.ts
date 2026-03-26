@@ -69,10 +69,11 @@ export class CreateCommands {
 	/**
 	 * Handle create command
 	 */
-	private static async handleCreate(options: any): Promise<void> {
+	private static async handleCreate(options: unknown): Promise<void> {
 		try {
+			const createOptions = options as Record<string, unknown>;
 			// If no name provided and interactive mode is enabled, prompt for it
-			if (!options.name && options.interactive !== false) {
+			if (!createOptions.name && createOptions.interactive !== false) {
 				const answers = await inquirer.prompt([
 					{
 						type: "input",
@@ -90,11 +91,11 @@ export class CreateCommands {
 						},
 					},
 				]);
-				options.name = answers.name;
+				createOptions.name = answers.name;
 			}
 
 			// If no type provided and interactive mode is enabled, prompt for it
-			if (!options.type && options.interactive !== false) {
+			if (!createOptions.type && createOptions.interactive !== false) {
 				const answers = await inquirer.prompt([
 					{
 						type: "list",
@@ -116,25 +117,27 @@ export class CreateCommands {
 						],
 					},
 				]);
-				options.type = answers.type;
+				createOptions.type = answers.type;
 			}
 
 			// Validate required options
-			if (!options.name) {
+			if (!createOptions.name) {
 				logger.error("Migration name is required");
 				process.exit(1);
 			}
 
-			if (!options.type) {
+			if (!createOptions.type) {
 				logger.error("Migration type is required");
 				process.exit(1);
 			}
 
 			// Create the migration
 			const generator = new MigrationTemplateGenerator();
-			await generator.generateMigration(options);
+			await generator.generateMigration(createOptions);
 		} catch (error) {
-			logger.error("Failed to create migration:", error);
+			logger.error(
+				`Failed to create migration: ${error instanceof Error ? error.message : String(error)}`,
+			);
 			process.exit(1);
 		}
 	}

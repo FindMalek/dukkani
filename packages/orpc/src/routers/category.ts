@@ -11,11 +11,7 @@ import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
-import {
-	baseProcedure,
-	protectedProcedure,
-	publicProcedure,
-} from "../procedures";
+import { baseProcedure, protectedProcedure } from "../procedures";
 import { verifyStoreOwnership } from "../utils/store-access";
 
 export const categoryRouter = {

@@ -1,0 +1,10 @@
+{
+	"dependencyTypes": ["prod", "dev", "peer"],
+	"versionGroups": [
+		{
+			"dependencies": ["react", "react-dom", "next", "prisma", "@prisma/client", "typescript"],
+			"packages": ["**"],
+			"isIgnored": false
+		}
+	]
+}

@@ -1,5 +1,4 @@
 import type {
-	StorageUploadAssetRole,
 	StorageUploadResource,
 	StorageUploadTarget,
 } from "@dukkani/common/schemas/storage/input";
@@ -109,24 +108,17 @@ export class FileMapper {
 		// products/{productId}/main/{fileId}
 		// avatars/{userId}/profile/{fileId}
 
-		if (parts.length >= 3) {
+		if (parts.length >= 2) {
 			const resource = parts[0] as StorageUploadResource;
 			const entityId = parts[1];
-			const assetRole = parts[2] as StorageUploadAssetRole;
 
 			// Validate resource type
 			if (["avatars", "stores", "products"].includes(resource)) {
-				// Validate asset role
-				if (
-					["profile", "logo", "banner", "main", "gallery"].includes(assetRole)
-				) {
-					return {
-						resource,
-						entityId: entityId || "",
-						assetRole,
-						assetId: parts[3] || undefined,
-					};
-				}
+				return {
+					resource,
+					entityId: entityId || "",
+					assetId: parts.slice(2).join("-") || undefined,
+				};
 			}
 		}
 
@@ -134,7 +126,6 @@ export class FileMapper {
 		return {
 			resource: "products" as StorageUploadResource,
 			entityId: "unknown",
-			assetRole: "gallery" as StorageUploadAssetRole,
 			assetId: path.replace(/[^a-zA-Z0-9-]/g, "-"),
 		};
 	}
@@ -148,7 +139,6 @@ export class FileMapper {
 			target: this.inferTargetFromPath(path) || {
 				resource: "products" as StorageUploadResource,
 				entityId: "migrated",
-				assetRole: "gallery" as StorageUploadAssetRole,
 				assetId: path.replace(/[^a-zA-Z0-9-]/g, "-"),
 			},
 		}));
@@ -181,16 +171,6 @@ export class FileMapper {
 			) {
 				errors.push(
 					`Invalid resource '${mapping.target.resource}' for: ${mapping.sourcePath}`,
-				);
-			}
-
-			if (
-				!["profile", "logo", "banner", "main", "gallery"].includes(
-					mapping.target.assetRole,
-				)
-			) {
-				errors.push(
-					`Invalid asset role '${mapping.target.assetRole}' for: ${mapping.sourcePath}`,
 				);
 			}
 		}
