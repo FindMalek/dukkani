@@ -1,0 +1,40 @@
+# Package Directory
+
+## Purpose
+
+This file is the high-level package index for `packages/*`.
+Use it to decide where new logic belongs and to keep dependency boundaries clean.
+
+## Package Index
+
+| Package | Role |
+| --- | --- |
+| `@dukkani/auth` | Shared auth server setup and auth utilities |
+| `@dukkani/common` | Domain models, schemas, and reusable business utilities |
+| `@dukkani/config` | Shared TS config and package build config |
+| `@dukkani/core` | Core composition across auth/db/env concerns |
+| `@dukkani/db` | Prisma schema, generated client, and DB scripts |
+| `@dukkani/env` | Typed environment parsing and validation |
+| `@dukkani/logger` | Logging abstractions and pino configuration |
+| `@dukkani/migrations` | CLI for data/storage migrations |
+| `@dukkani/orpc` | oRPC routers, clients, and context primitives |
+| `@dukkani/storage` | File/media storage and processing |
+| `@dukkani/tracing` | OpenTelemetry initialization and instrumentation |
+| `@dukkani/ui` | Shared design system and UI primitives |
+| `@dukkani/ci-tools` | Internal CI analysis and automation commands |
+
+## Dependency Direction
+
+- Packages must never import from `apps/*`.
+- Prefer `common` as shared domain source instead of duplicating types in app code.
+- Keep `ui` presentation-only (no direct DB or server side-effects).
+- Keep infra packages (`db`, `storage`, `logger`, `tracing`) independent from app-level UI concerns.
+- Avoid circular dependencies between packages.
+
+## Adding a New Package
+
+1. Create `packages/<name>/package.json` with `name: "@dukkani/<name>"`.
+2. Add explicit `exports` entries and typed entrypoints.
+3. Add build script (`tsdown` unless package has a clear alternative).
+4. Use workspace dependencies (`workspace:*`) for internal packages.
+5. Add or update a package rule file under `.cursor/rules/packages/` when the package has domain-specific patterns.
