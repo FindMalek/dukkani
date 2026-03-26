@@ -6,33 +6,33 @@ import { userOnboardingStepSchema } from "../enums";
  */
 
 export const userSimpleOutputSchema = z.object({
-	id: z.string(),
-	name: z.string(),
-	email: z.string(),
-	emailVerified: z.boolean(),
-	image: z.string().nullable(),
-	onboardingStep: userOnboardingStepSchema,
-	createdAt: z.date(),
-	updatedAt: z.date(),
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  emailVerified: z.boolean(),
+  image: z.string().nullable(),
+  onboardingStep: userOnboardingStepSchema,
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
 
 export const listUsersOutputSchema = z.object({
-	users: z.array(userSimpleOutputSchema),
-	total: z.number().int(),
-	hasMore: z.boolean(),
-	page: z.number().int(),
-	limit: z.number().int(),
+  users: z.array(userSimpleOutputSchema),
+  total: z.number().int(),
+  hasMore: z.boolean(),
+  page: z.number().int(),
+  limit: z.number().int(),
 });
 
 export type UserSimpleOutput = z.infer<typeof userSimpleOutputSchema>;
 export type ListUsersOutput = z.infer<typeof listUsersOutputSchema>;
 
 export const userSimpleSelectOutputSchema = z.object({
-	id: z.string(),
-	name: z.string(),
-	image: z.string().nullable(),
+  id: z.string(),
+  name: z.string(),
+  image: z.string().nullable(),
 });
 
 export type UserSimpleSelectOutput = z.infer<
-	typeof userSimpleSelectOutputSchema
+  typeof userSimpleSelectOutputSchema
 >;

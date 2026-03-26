@@ -1,29 +1,29 @@
 import { z } from "zod";
 
 export const orderItemInputSchema = z.object({
-	orderId: z.string().min(1, "Order ID is required"),
-	productId: z.string().min(1, "Product ID is required"),
-	quantity: z.number().int().min(1, "Quantity must be at least 1"),
-	price: z.number().positive("Price must be positive"),
+  orderId: z.string().min(1, "Order ID is required"),
+  productId: z.string().min(1, "Product ID is required"),
+  quantity: z.number().int().min(1, "Quantity must be at least 1"),
+  price: z.number().positive("Price must be positive"),
 });
 
 export const createOrderItemInputSchema = orderItemInputSchema;
 
 export const updateOrderItemInputSchema = orderItemInputSchema
-	.partial()
-	.extend({
-		id: z.string().min(1, "Order Item ID is required"),
-	});
+  .partial()
+  .extend({
+    id: z.string().min(1, "Order Item ID is required"),
+  });
 
 export const getOrderItemInputSchema = z.object({
-	id: z.string().min(1, "Order Item ID is required"),
+  id: z.string().min(1, "Order Item ID is required"),
 });
 
 export const listOrderItemsInputSchema = z.object({
-	page: z.number().int().min(1).default(1),
-	limit: z.number().int().min(1).max(100).default(10),
-	orderId: z.string().optional(),
-	productId: z.string().optional(),
+  page: z.number().int().min(1).default(1),
+  limit: z.number().int().min(1).max(100).default(10),
+  orderId: z.string().optional(),
+  productId: z.string().optional(),
 });
 
 export type OrderItemInput = z.infer<typeof orderItemInputSchema>;

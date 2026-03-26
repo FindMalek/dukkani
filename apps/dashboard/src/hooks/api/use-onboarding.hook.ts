@@ -6,9 +6,9 @@ import { orpc } from "@/lib/orpc";
  * Query hook for fetching onboarding completion data
  */
 export function useOnboardingCompleteQuery(input?: OnboardingCompleteInput) {
-	return useQuery(
-		orpc.onboarding.complete.queryOptions({
-			input,
-		}),
-	);
+  return useQuery(
+    orpc.onboarding.complete.queryOptions({
+      input,
+    }),
+  );
 }

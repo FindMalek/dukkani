@@ -7,15 +7,15 @@ import { env } from "@/env";
 let orpcClient: ReturnType<typeof createORPCClientUtils> | null = null;
 
 function getORPCClient() {
-	if (!orpcClient) {
-		orpcClient = createORPCClientUtils(getApiUrl(env.NEXT_PUBLIC_API_URL));
-	}
-	return orpcClient;
+  if (!orpcClient) {
+    orpcClient = createORPCClientUtils(getApiUrl(env.NEXT_PUBLIC_API_URL));
+  }
+  return orpcClient;
 }
 
 // Use server-side client during SSR, fallback to client-side client
 export const client: AppRouterClient =
-	globalThis.$orpcClient ?? getORPCClient().client;
+  globalThis.$orpcClient ?? getORPCClient().client;
 
 export const queryClient = getORPCClient().queryClient;
 export const orpc = getORPCClient().orpc;

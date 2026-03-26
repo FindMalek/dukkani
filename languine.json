@@ -1,15 +1,15 @@
 {
-	"locale": {
-		"source": "en",
-		"targets": ["fr", "ar"]
-	},
-	"files": {
-		"json": {
-			"include": [
-				"packages/common/src/locale/dashboard/[locale].json",
-				"packages/common/src/locale/web/[locale].json",
-				"packages/common/src/locale/storefront/[locale].json"
-			]
-		}
-	}
+  "locale": {
+    "source": "en",
+    "targets": ["fr", "ar"]
+  },
+  "files": {
+    "json": {
+      "include": [
+        "packages/common/src/locale/dashboard/[locale].json",
+        "packages/common/src/locale/web/[locale].json",
+        "packages/common/src/locale/storefront/[locale].json"
+      ]
+    }
+  }
 }

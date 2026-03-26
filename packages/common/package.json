@@ -1,71 +1,71 @@
 {
-	"name": "@dukkani/common",
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"default": "./src/index.ts"
-		},
-		"./schemas": {
-			"types": "./dist/schemas/index.d.ts",
-			"default": "./src/schemas/index.ts"
-		},
-		"./entities": {
-			"types": "./dist/entities/index.d.ts",
-			"default": "./src/entities/index.ts"
-		},
-		"./services": {
-			"types": "./dist/services/index.d.ts",
-			"default": "./src/services/index.ts"
-		},
-		"./utils": {
-			"types": "./dist/utils/index.d.ts",
-			"default": "./src/utils/index.ts"
-		},
-		"./errors": {
-			"types": "./dist/errors/index.d.ts",
-			"default": "./src/errors/index.ts"
-		},
-		"./*": {
-			"types": "./dist/*.d.ts",
-			"default": "./src/*.ts"
-		},
-		"./locale/web/en.json": "./src/locale/web/en.json",
-		"./locale/web/fr.json": "./src/locale/web/fr.json",
-		"./locale/dashboard/en.json": "./src/locale/dashboard/en.json",
-		"./locale/dashboard/fr.json": "./src/locale/dashboard/fr.json",
-		"./locale/storefront/en.json": "./src/locale/storefront/en.json",
-		"./locale/storefront/fr.json": "./src/locale/storefront/fr.json",
-		"./locale/storefront/ar.json": "./src/locale/storefront/ar.json",
-		"./locale/dashboard/ar.json": "./src/locale/dashboard/ar.json",
-		"./locale/web/ar.json": "./src/locale/web/ar.json"
-	},
-	"scripts": {
-		"build": "tsdown",
-		"check-types": "tsc --noEmit -p tsconfig.json",
-		"check-types:fast": "tsgo --noEmit -p tsconfig.json",
-		"clean": "rm -rf dist node_modules"
-	},
-	"peerDependencies": {
-		"typescript": "catalog:",
-		"next": "catalog:"
-	},
-	"dependencies": {
-		"@dukkani/db": "workspace:*",
-		"@dukkani/env": "workspace:*",
-		"@dukkani/logger": "workspace:*",
-		"@dukkani/tracing": "workspace:*",
-		"@prisma/client": "catalog:",
-		"@formatjs/intl-localematcher": "catalog:",
-		"negotiator": "catalog:",
-		"nanoid": "catalog:",
-		"nuqs": "catalog:",
-		"zod": "catalog:",
-		"date-fns": "catalog:"
-	},
-	"devDependencies": {
-		"@dukkani/config": "workspace:*",
-		"@types/negotiator": "catalog:",
-		"tsdown": "catalog:"
-	}
+  "name": "@dukkani/common",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./schemas": {
+      "types": "./dist/schemas/index.d.ts",
+      "default": "./src/schemas/index.ts"
+    },
+    "./entities": {
+      "types": "./dist/entities/index.d.ts",
+      "default": "./src/entities/index.ts"
+    },
+    "./services": {
+      "types": "./dist/services/index.d.ts",
+      "default": "./src/services/index.ts"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "default": "./src/utils/index.ts"
+    },
+    "./errors": {
+      "types": "./dist/errors/index.d.ts",
+      "default": "./src/errors/index.ts"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./src/*.ts"
+    },
+    "./locale/web/en.json": "./src/locale/web/en.json",
+    "./locale/web/fr.json": "./src/locale/web/fr.json",
+    "./locale/dashboard/en.json": "./src/locale/dashboard/en.json",
+    "./locale/dashboard/fr.json": "./src/locale/dashboard/fr.json",
+    "./locale/storefront/en.json": "./src/locale/storefront/en.json",
+    "./locale/storefront/fr.json": "./src/locale/storefront/fr.json",
+    "./locale/storefront/ar.json": "./src/locale/storefront/ar.json",
+    "./locale/dashboard/ar.json": "./src/locale/dashboard/ar.json",
+    "./locale/web/ar.json": "./src/locale/web/ar.json"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "check-types": "tsc --noEmit -p tsconfig.json",
+    "check-types:fast": "tsgo --noEmit -p tsconfig.json",
+    "clean": "rm -rf dist node_modules"
+  },
+  "peerDependencies": {
+    "typescript": "catalog:",
+    "next": "catalog:"
+  },
+  "dependencies": {
+    "@dukkani/db": "workspace:*",
+    "@dukkani/env": "workspace:*",
+    "@dukkani/logger": "workspace:*",
+    "@dukkani/tracing": "workspace:*",
+    "@prisma/client": "catalog:",
+    "@formatjs/intl-localematcher": "catalog:",
+    "negotiator": "catalog:",
+    "nanoid": "catalog:",
+    "nuqs": "catalog:",
+    "zod": "catalog:",
+    "date-fns": "catalog:"
+  },
+  "devDependencies": {
+    "@dukkani/config": "workspace:*",
+    "@types/negotiator": "catalog:",
+    "tsdown": "catalog:"
+  }
 }

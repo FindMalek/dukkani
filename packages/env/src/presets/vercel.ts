@@ -9,17 +9,17 @@ import { createNextjsRuntimeEnv } from "../utils/runtime-env";
  * For applications deployed on Vercel platform
  */
 export const vercelEnv = createEnv({
-	extends: [baseEnv],
-	server: {
-		...vercelModule.server,
-	},
-	client: {
-		...clientModule.client,
-		...vercelModule.client,
-	},
-	runtimeEnv: createNextjsRuntimeEnv(),
-	emptyStringAsUndefined: true,
-	skipValidation:
-		process.env.SKIP_ENV_VALIDATION === "true" ||
-		process.env.NODE_ENV === "test",
+  extends: [baseEnv],
+  server: {
+    ...vercelModule.server,
+  },
+  client: {
+    ...clientModule.client,
+    ...vercelModule.client,
+  },
+  runtimeEnv: createNextjsRuntimeEnv(),
+  emptyStringAsUndefined: true,
+  skipValidation:
+    process.env.SKIP_ENV_VALIDATION === "true" ||
+    process.env.NODE_ENV === "test",
 });

@@ -28,56 +28,56 @@ let authInitialized = false;
  * Get the database instance, initializing it if needed
  */
 export function getDatabase() {
-	if (!databaseInitialized) {
-		if (process.env.VERCEL_ENV === "preview") {
-			const dbUrl = apiEnv.DATABASE_URL;
-			if (dbUrl?.toLowerCase().includes("production")) {
-				throw new Error(
-					"Preview deployment must not use production DATABASE_URL. Use Neon Vercel integration or a preview branch.",
-				);
-			}
-		}
+  if (!databaseInitialized) {
+    if (process.env.VERCEL_ENV === "preview") {
+      const dbUrl = apiEnv.DATABASE_URL;
+      if (dbUrl?.toLowerCase().includes("production")) {
+        throw new Error(
+          "Preview deployment must not use production DATABASE_URL. Use Neon Vercel integration or a preview branch.",
+        );
+      }
+    }
 
-		initializeDatabase({
-			DATABASE_URL: apiEnv.DATABASE_URL,
-		});
-		databaseInitialized = true;
-	}
-	return dbSingleton;
+    initializeDatabase({
+      DATABASE_URL: apiEnv.DATABASE_URL,
+    });
+    databaseInitialized = true;
+  }
+  return dbSingleton;
 }
 
 /**
  * Get the auth instance, initializing it if needed
  */
 export function getAuth() {
-	if (!authInitialized) {
-		getDatabase();
+  if (!authInitialized) {
+    getDatabase();
 
-		initializeAuth(dbSingleton, {
-			BETTER_AUTH_SECRET: authEnv.BETTER_AUTH_SECRET,
-			NEXT_PUBLIC_API_URL: apiEnv.NEXT_PUBLIC_API_URL,
-			NEXT_PUBLIC_DASHBOARD_URL: authEnv.NEXT_PUBLIC_DASHBOARD_URL,
-			GOOGLE_CLIENT_ID: authEnv.GOOGLE_CLIENT_ID,
-			GOOGLE_CLIENT_SECRET: authEnv.GOOGLE_CLIENT_SECRET,
-			FACEBOOK_CLIENT_ID: authEnv.FACEBOOK_CLIENT_ID,
-			FACEBOOK_CLIENT_SECRET: authEnv.FACEBOOK_CLIENT_SECRET,
-			VERCEL_BRANCH_URL: apiEnv.VERCEL_BRANCH_URL,
-			VERCEL_PROJECT_PRODUCTION_URL: apiEnv.VERCEL_PROJECT_PRODUCTION_URL,
-			VERCEL_REGION: apiEnv.VERCEL_REGION,
-			VERCEL_DEPLOYMENT_ID: apiEnv.VERCEL_DEPLOYMENT_ID,
-			VERCEL_PROJECT_ID: apiEnv.VERCEL_PROJECT_ID,
-			VERCEL: apiEnv.VERCEL,
-			NEXT_PUBLIC_ALLOWED_ORIGIN: apiEnv.NEXT_PUBLIC_ALLOWED_ORIGIN,
-			NEXT_PUBLIC_NODE_ENV: apiEnv.NEXT_PUBLIC_NODE_ENV,
-			APPLE_CLIENT_ID: authEnv.APPLE_CLIENT_ID,
-			APPLE_CLIENT_SECRET: authEnv.APPLE_CLIENT_SECRET,
-			NEXT_PUBLIC_WEB_URL: apiEnv.NEXT_PUBLIC_WEB_URL,
-			NEXT_PUBLIC_STORE_DOMAIN: apiEnv.NEXT_PUBLIC_STORE_DOMAIN,
-			CORS_PREVIEW_ORIGIN_PATTERN: apiEnv.CORS_PREVIEW_ORIGIN_PATTERN,
-		});
-		authInitialized = true;
-	}
-	return authSingleton;
+    initializeAuth(dbSingleton, {
+      BETTER_AUTH_SECRET: authEnv.BETTER_AUTH_SECRET,
+      NEXT_PUBLIC_API_URL: apiEnv.NEXT_PUBLIC_API_URL,
+      NEXT_PUBLIC_DASHBOARD_URL: authEnv.NEXT_PUBLIC_DASHBOARD_URL,
+      GOOGLE_CLIENT_ID: authEnv.GOOGLE_CLIENT_ID,
+      GOOGLE_CLIENT_SECRET: authEnv.GOOGLE_CLIENT_SECRET,
+      FACEBOOK_CLIENT_ID: authEnv.FACEBOOK_CLIENT_ID,
+      FACEBOOK_CLIENT_SECRET: authEnv.FACEBOOK_CLIENT_SECRET,
+      VERCEL_BRANCH_URL: apiEnv.VERCEL_BRANCH_URL,
+      VERCEL_PROJECT_PRODUCTION_URL: apiEnv.VERCEL_PROJECT_PRODUCTION_URL,
+      VERCEL_REGION: apiEnv.VERCEL_REGION,
+      VERCEL_DEPLOYMENT_ID: apiEnv.VERCEL_DEPLOYMENT_ID,
+      VERCEL_PROJECT_ID: apiEnv.VERCEL_PROJECT_ID,
+      VERCEL: apiEnv.VERCEL,
+      NEXT_PUBLIC_ALLOWED_ORIGIN: apiEnv.NEXT_PUBLIC_ALLOWED_ORIGIN,
+      NEXT_PUBLIC_NODE_ENV: apiEnv.NEXT_PUBLIC_NODE_ENV,
+      APPLE_CLIENT_ID: authEnv.APPLE_CLIENT_ID,
+      APPLE_CLIENT_SECRET: authEnv.APPLE_CLIENT_SECRET,
+      NEXT_PUBLIC_WEB_URL: apiEnv.NEXT_PUBLIC_WEB_URL,
+      NEXT_PUBLIC_STORE_DOMAIN: apiEnv.NEXT_PUBLIC_STORE_DOMAIN,
+      CORS_PREVIEW_ORIGIN_PATTERN: apiEnv.CORS_PREVIEW_ORIGIN_PATTERN,
+    });
+    authInitialized = true;
+  }
+  return authSingleton;
 }
 
 export const database = getDatabase();

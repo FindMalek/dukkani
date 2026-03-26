@@ -1,8 +1,8 @@
 "use client";
 
 import {
-	getTextDirection,
-	type Locale,
+  getTextDirection,
+  type Locale,
 } from "@dukkani/common/schemas/constants";
 import { DirectionProvider } from "@dukkani/ui/components/direction";
 import { Toaster } from "@dukkani/ui/components/sonner";
@@ -16,45 +16,45 @@ import { env } from "@/env";
 import { getQueryClient } from "@/lib/orpc";
 
 interface ProvidersProps {
-	children: React.ReactNode;
-	locale: Locale;
-	storeSlug: string;
-	// biome-ignore lint/suspicious/noExplicitAny: messages is a Record<string, any>
-	messages: Record<string, any>;
+  children: React.ReactNode;
+  locale: Locale;
+  storeSlug: string;
+  // biome-ignore lint/suspicious/noExplicitAny: messages is a Record<string, any>
+  messages: Record<string, any>;
 }
 
 export function Providers({
-	children,
-	locale,
-	messages,
-	storeSlug,
+  children,
+  locale,
+  messages,
+  storeSlug,
 }: ProvidersProps) {
-	const [queryClient] = useState(() => getQueryClient());
+  const [queryClient] = useState(() => getQueryClient());
 
-	return (
-		<DirectionProvider direction={getTextDirection(locale)}>
-			<NextIntlClientProvider
-				locale={locale}
-				messages={messages}
-				timeZone="Africa/Tunis"
-			>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<QueryClientProvider client={queryClient}>
-						<CartStoreProvider storeSlug={storeSlug}>
-							{children}
-						</CartStoreProvider>
-						{env.NEXT_PUBLIC_NODE_ENV === "development" && (
-							<ReactQueryDevtools />
-						)}
-					</QueryClientProvider>
-					<Toaster richColors />
-				</ThemeProvider>
-			</NextIntlClientProvider>
-		</DirectionProvider>
-	);
+  return (
+    <DirectionProvider direction={getTextDirection(locale)}>
+      <NextIntlClientProvider
+        locale={locale}
+        messages={messages}
+        timeZone="Africa/Tunis"
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <QueryClientProvider client={queryClient}>
+            <CartStoreProvider storeSlug={storeSlug}>
+              {children}
+            </CartStoreProvider>
+            {env.NEXT_PUBLIC_NODE_ENV === "development" && (
+              <ReactQueryDevtools />
+            )}
+          </QueryClientProvider>
+          <Toaster richColors />
+        </ThemeProvider>
+      </NextIntlClientProvider>
+    </DirectionProvider>
+  );
 }

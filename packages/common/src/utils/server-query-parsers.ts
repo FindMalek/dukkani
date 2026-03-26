@@ -1,8 +1,8 @@
 import {
-	createLoader,
-	parseAsBoolean,
-	parseAsInteger,
-	parseAsString,
+  createLoader,
+  parseAsBoolean,
+  parseAsInteger,
+  parseAsString,
 } from "nuqs/server";
 
 /**
@@ -14,35 +14,35 @@ import {
  * Onboarding page search params schema
  */
 export const onboardingSearchParams = {
-	step: parseAsString, // Basic string parsing for server-side
-	email: parseAsString,
+  step: parseAsString, // Basic string parsing for server-side
+  email: parseAsString,
 };
 
 /**
  * Store selection search params schema
  */
 export const storeSearchParams = {
-	store: parseAsString,
+  store: parseAsString,
 };
 
 /**
  * Order filtering search params schema
  */
 export const orderSearchParams = {
-	search: parseAsString,
-	status: parseAsString, // Basic string parsing for server-side
-	page: parseAsInteger.withDefault(1),
-	limit: parseAsInteger.withDefault(50),
+  search: parseAsString,
+  status: parseAsString, // Basic string parsing for server-side
+  page: parseAsInteger.withDefault(1),
+  limit: parseAsInteger.withDefault(50),
 };
 
 /**
  * Product filtering search params schema
  */
 export const productSearchParams = {
-	search: parseAsString,
-	published: parseAsBoolean,
-	page: parseAsInteger.withDefault(1),
-	limit: parseAsInteger.withDefault(50),
+  search: parseAsString,
+  published: parseAsBoolean,
+  page: parseAsInteger.withDefault(1),
+  limit: parseAsInteger.withDefault(50),
 };
 
 /**

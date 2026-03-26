@@ -5,7 +5,7 @@ import { z } from "zod";
  * Used by all apps/packages that need database access
  */
 export const dbModule = {
-	server: {
-		DATABASE_URL: z.url(),
-	},
+  server: {
+    DATABASE_URL: z.url(),
+  },
 } as const;

@@ -3,10 +3,10 @@
  * Used for generating multiple size variants of uploaded images
  */
 export const VARIANT_SIZES = {
-	THUMBNAIL: { width: 150, height: 150 },
-	SMALL: { width: 400, height: 400 },
-	MEDIUM: { width: 800, height: 800 },
-	LARGE: { width: 1200, height: 1200 },
+  THUMBNAIL: { width: 150, height: 150 },
+  SMALL: { width: 400, height: 400 },
+  MEDIUM: { width: 800, height: 800 },
+  LARGE: { width: 1200, height: 1200 },
 } as const;
 
 export type VariantSize = (typeof VARIANT_SIZES)[keyof typeof VARIANT_SIZES];
@@ -16,40 +16,40 @@ export type VariantSize = (typeof VARIANT_SIZES)[keyof typeof VARIANT_SIZES];
  * Used for validating and converting MIME types to file extensions
  */
 export const SUPPORTED_MIME_TYPES = {
-	// Web-optimized formats (primary)
-	"image/webp": "webp",
-	"image/avif": "avif",
+  // Web-optimized formats (primary)
+  "image/webp": "webp",
+  "image/avif": "avif",
 
-	// Traditional formats (fallback)
-	"image/jpeg": "jpg",
-	"image/jpg": "jpg",
-	"image/png": "png",
+  // Traditional formats (fallback)
+  "image/jpeg": "jpg",
+  "image/jpg": "jpg",
+  "image/png": "png",
 
-	// Specialized formats
-	"image/gif": "gif",
-	"image/svg+xml": "svg",
-	"image/heic": "heic",
-	"image/heif": "heif",
+  // Specialized formats
+  "image/gif": "gif",
+  "image/svg+xml": "svg",
+  "image/heic": "heic",
+  "image/heif": "heif",
 
-	// Document formats
-	"application/pdf": "pdf",
-	"text/plain": "txt",
-	"text/csv": "csv",
-	"application/json": "json",
-	"application/xml": "xml",
-	"application/zip": "zip",
+  // Document formats
+  "application/pdf": "pdf",
+  "text/plain": "txt",
+  "text/csv": "csv",
+  "application/json": "json",
+  "application/xml": "xml",
+  "application/zip": "zip",
 } as const;
 
 export type SupportedMimeType = keyof typeof SUPPORTED_MIME_TYPES;
 export type SupportedExtension =
-	(typeof SUPPORTED_MIME_TYPES)[SupportedMimeType];
+  (typeof SUPPORTED_MIME_TYPES)[SupportedMimeType];
 
 // Helper constants for easy iteration
 export const SUPPORTED_MIME_TYPE_LIST = Object.keys(
-	SUPPORTED_MIME_TYPES,
+  SUPPORTED_MIME_TYPES,
 ) as SupportedMimeType[];
 export const SUPPORTED_EXTENSION_LIST = Object.values(
-	SUPPORTED_MIME_TYPES,
+  SUPPORTED_MIME_TYPES,
 ) as SupportedExtension[];
 
 /**
@@ -66,43 +66,43 @@ export const LOCALES = ["en", "fr", "ar"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "en";
 export const LOCALES_MAP = {
-	en: "English",
-	fr: "French",
-	ar: "العربية",
+  en: "English",
+  fr: "French",
+  ar: "العربية",
 } as const;
 export type LocaleMap = (typeof LOCALES_MAP)[keyof typeof LOCALES_MAP];
 
 export function isRtlLocale(locale: string): boolean {
-	return RTL_LOCALES.includes(locale as RtlLocale);
+  return RTL_LOCALES.includes(locale as RtlLocale);
 }
 
 export function getTextDirection(locale: string): "ltr" | "rtl" {
-	return isRtlLocale(locale) ? "rtl" : "ltr";
+  return isRtlLocale(locale) ? "rtl" : "ltr";
 }
 
 /**
  * MIME type helper functions
  */
 export function isSupportedMimeType(
-	mimeType: string,
+  mimeType: string,
 ): mimeType is SupportedMimeType {
-	return mimeType in SUPPORTED_MIME_TYPES;
+  return mimeType in SUPPORTED_MIME_TYPES;
 }
 
 export function isImageMimeType(
-	mimeType: string,
+  mimeType: string,
 ): mimeType is SupportedMimeType {
-	return mimeType.startsWith("image/") && isSupportedMimeType(mimeType);
+  return mimeType.startsWith("image/") && isSupportedMimeType(mimeType);
 }
 
 export function getFileExtensionFromMimeType(
-	mimeType: SupportedMimeType,
+  mimeType: SupportedMimeType,
 ): SupportedExtension {
-	return SUPPORTED_MIME_TYPES[mimeType];
+  return SUPPORTED_MIME_TYPES[mimeType];
 }
 
 export const LOCALE_FLAGS: Record<Locale, string> = {
-	en: "🇬🇧",
-	fr: "🇫🇷",
-	ar: "🇸🇦",
+  en: "🇬🇧",
+  fr: "🇫🇷",
+  ar: "🇸🇦",
 };

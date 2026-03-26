@@ -10,15 +10,15 @@ import { dbEnv } from "./db";
  * Can be extended with Vercel variables if needed for Vercel deployments
  */
 export const dashboardEnv = createEnv({
-	extends: [dbEnv, baseEnv],
-	server: observabilityModule.server,
-	client: {
-		...clientModule.client,
-		...urlsModule.client,
-	},
-	runtimeEnv: createNextjsRuntimeEnv(),
-	emptyStringAsUndefined: true,
-	skipValidation:
-		process.env.SKIP_ENV_VALIDATION === "true" ||
-		process.env.NODE_ENV === "test",
+  extends: [dbEnv, baseEnv],
+  server: observabilityModule.server,
+  client: {
+    ...clientModule.client,
+    ...urlsModule.client,
+  },
+  runtimeEnv: createNextjsRuntimeEnv(),
+  emptyStringAsUndefined: true,
+  skipValidation:
+    process.env.SKIP_ENV_VALIDATION === "true" ||
+    process.env.NODE_ENV === "test",
 });

@@ -8,13 +8,13 @@
  * @returns Formatted currency string
  */
 export function formatCurrency(
-	amount: number,
-	currency = "USD",
-	locale = "en-US",
+  amount: number,
+  currency = "USD",
+  locale = "en-US",
 ): string {
-	// Placeholder implementation
-	return new Intl.NumberFormat(locale, {
-		style: "currency",
-		currency,
-	}).format(amount);
+  // Placeholder implementation
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency,
+  }).format(amount);
 }

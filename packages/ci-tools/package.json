@@ -1,23 +1,23 @@
 {
-	"name": "@dukkani/ci-tools",
-	"version": "0.0.0",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"analyze": "tsx src/commands/analyze.ts",
-		"check-types": "tsc --noEmit -p tsconfig.json",
-		"check-types:fast": "tsgo --noEmit -p tsconfig.json"
-	},
-	"dependencies": {
-		"@dukkani/db": "workspace:*",
-		"@dukkani/env": "workspace:*",
-		"ai": "catalog:",
-		"@ai-sdk/groq": "catalog:",
-		"@zenbase/llml": "catalog:"
-	},
-	"devDependencies": {
-		"@dukkani/config": "workspace:*",
-		"tsx": "catalog:",
-		"typescript": "catalog:"
-	}
+  "name": "@dukkani/ci-tools",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "analyze": "tsx src/commands/analyze.ts",
+    "check-types": "tsc --noEmit -p tsconfig.json",
+    "check-types:fast": "tsgo --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@dukkani/db": "workspace:*",
+    "@dukkani/env": "workspace:*",
+    "ai": "catalog:",
+    "@ai-sdk/groq": "catalog:",
+    "@zenbase/llml": "catalog:"
+  },
+  "devDependencies": {
+    "@dukkani/config": "workspace:*",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
+  }
 }

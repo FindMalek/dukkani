@@ -6,22 +6,22 @@ import type { PrismaClient } from "../../prisma/generated/client";
  * Each seeder should implement this interface to ensure consistency
  */
 export interface Seeder {
-	/**
-	 * The name of the seeder (used for logging)
-	 */
-	name: string;
+  /**
+   * The name of the seeder (used for logging)
+   */
+  name: string;
 
-	/**
-	 * The order in which this seeder should run (lower numbers run first)
-	 * Use this to handle dependencies between seeders
-	 */
-	order?: number;
+  /**
+   * The order in which this seeder should run (lower numbers run first)
+   * Use this to handle dependencies between seeders
+   */
+  order?: number;
 
-	/**
-	 * Execute the seeding logic
-	 * @param prisma - The Prisma client instance
-	 */
-	seed(prisma: PrismaClient): Promise<void>;
+  /**
+   * Execute the seeding logic
+   * @param prisma - The Prisma client instance
+   */
+  seed(prisma: PrismaClient): Promise<void>;
 }
 
 /**
@@ -29,22 +29,22 @@ export interface Seeder {
  * Extend this class to create new seeders
  */
 export abstract class BaseSeeder implements Seeder {
-	abstract name: string;
-	order = 0;
+  abstract name: string;
+  order = 0;
 
-	abstract seed(prisma: PrismaClient): Promise<void>;
+  abstract seed(prisma: PrismaClient): Promise<void>;
 
-	/**
-	 * Log a message with the seeder name prefix
-	 */
-	protected log(message: string): void {
-		logger.info({ seeder: this.name }, message);
-	}
+  /**
+   * Log a message with the seeder name prefix
+   */
+  protected log(message: string): void {
+    logger.info({ seeder: this.name }, message);
+  }
 
-	/**
-	 * Log an error with the seeder name prefix
-	 */
-	protected error(message: string, error?: unknown): void {
-		logger.error({ seeder: this.name, error }, message);
-	}
+  /**
+   * Log an error with the seeder name prefix
+   */
+  protected error(message: string, error?: unknown): void {
+    logger.error({ seeder: this.name, error }, message);
+  }
 }

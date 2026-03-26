@@ -10,25 +10,25 @@ import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
  * Pure enum manipulation - no server data required
  */
 export function getNextStep(
-	currentStep: UserOnboardingStep | null,
+  currentStep: UserOnboardingStep | null,
 ): UserOnboardingStep | null {
-	const ONBOARDING_STEPS: UserOnboardingStep[] = [
-		UserOnboardingStep.STORE_SETUP,
-		UserOnboardingStep.STORE_CREATED,
-		UserOnboardingStep.STORE_CONFIGURED,
-		UserOnboardingStep.STORE_LAUNCHED,
-	];
+  const ONBOARDING_STEPS: UserOnboardingStep[] = [
+    UserOnboardingStep.STORE_SETUP,
+    UserOnboardingStep.STORE_CREATED,
+    UserOnboardingStep.STORE_CONFIGURED,
+    UserOnboardingStep.STORE_LAUNCHED,
+  ];
 
-	if (!currentStep) return ONBOARDING_STEPS[0] ?? null;
+  if (!currentStep) return ONBOARDING_STEPS[0] ?? null;
 
-	const currentIndex = ONBOARDING_STEPS.indexOf(currentStep);
-	const nextIndex = currentIndex + 1;
+  const currentIndex = ONBOARDING_STEPS.indexOf(currentStep);
+  const nextIndex = currentIndex + 1;
 
-	return (
-		(nextIndex < ONBOARDING_STEPS.length
-			? ONBOARDING_STEPS[nextIndex]
-			: null) ?? null
-	);
+  return (
+    (nextIndex < ONBOARDING_STEPS.length
+      ? ONBOARDING_STEPS[nextIndex]
+      : null) ?? null
+  );
 }
 
 /**
@@ -36,20 +36,20 @@ export function getNextStep(
  * Pure enum manipulation - no server data required
  */
 export function getPreviousStep(
-	currentStep: UserOnboardingStep | null,
+  currentStep: UserOnboardingStep | null,
 ): UserOnboardingStep | null {
-	const ONBOARDING_STEPS: UserOnboardingStep[] = [
-		UserOnboardingStep.STORE_SETUP,
-		UserOnboardingStep.STORE_CREATED,
-		UserOnboardingStep.STORE_CONFIGURED,
-		UserOnboardingStep.STORE_LAUNCHED,
-	];
+  const ONBOARDING_STEPS: UserOnboardingStep[] = [
+    UserOnboardingStep.STORE_SETUP,
+    UserOnboardingStep.STORE_CREATED,
+    UserOnboardingStep.STORE_CONFIGURED,
+    UserOnboardingStep.STORE_LAUNCHED,
+  ];
 
-	if (!currentStep) return null;
-	const currentIndex = ONBOARDING_STEPS.indexOf(currentStep);
-	const previousIndex = currentIndex - 1;
+  if (!currentStep) return null;
+  const currentIndex = ONBOARDING_STEPS.indexOf(currentStep);
+  const previousIndex = currentIndex - 1;
 
-	return (previousIndex >= 0 ? ONBOARDING_STEPS[previousIndex] : null) ?? null;
+  return (previousIndex >= 0 ? ONBOARDING_STEPS[previousIndex] : null) ?? null;
 }
 
 /**
@@ -57,10 +57,10 @@ export function getPreviousStep(
  * Simple comparison - no server data required
  */
 export function canProceedToNextStep(
-	currentStep: UserOnboardingStep | null,
+  currentStep: UserOnboardingStep | null,
 ): boolean {
-	if (!currentStep) return false;
-	return currentStep !== UserOnboardingStep.STORE_LAUNCHED;
+  if (!currentStep) return false;
+  return currentStep !== UserOnboardingStep.STORE_LAUNCHED;
 }
 
 /**
@@ -69,29 +69,29 @@ export function canProceedToNextStep(
  * Pure array index comparison - no server data required
  */
 export function isValidStepTransition(
-	fromStep: UserOnboardingStep | null,
-	toStep: UserOnboardingStep | null,
+  fromStep: UserOnboardingStep | null,
+  toStep: UserOnboardingStep | null,
 ): boolean {
-	if (!fromStep || !toStep) return true;
+  if (!fromStep || !toStep) return true;
 
-	const ONBOARDING_STEPS: UserOnboardingStep[] = [
-		UserOnboardingStep.STORE_SETUP,
-		UserOnboardingStep.STORE_CREATED,
-		UserOnboardingStep.STORE_CONFIGURED,
-		UserOnboardingStep.STORE_LAUNCHED,
-	];
+  const ONBOARDING_STEPS: UserOnboardingStep[] = [
+    UserOnboardingStep.STORE_SETUP,
+    UserOnboardingStep.STORE_CREATED,
+    UserOnboardingStep.STORE_CONFIGURED,
+    UserOnboardingStep.STORE_LAUNCHED,
+  ];
 
-	const fromIndex = ONBOARDING_STEPS.indexOf(fromStep);
-	const toIndex = ONBOARDING_STEPS.indexOf(toStep);
+  const fromIndex = ONBOARDING_STEPS.indexOf(fromStep);
+  const toIndex = ONBOARDING_STEPS.indexOf(toStep);
 
-	// If either step is not found, allow the transition
-	if (fromIndex === -1 || toIndex === -1) return true;
+  // If either step is not found, allow the transition
+  if (fromIndex === -1 || toIndex === -1) return true;
 
-	// Allow forward movement and staying on the same step
-	// Don't allow backward movement in onboarding
-	const isValid = toIndex >= fromIndex;
+  // Allow forward movement and staying on the same step
+  // Don't allow backward movement in onboarding
+  const isValid = toIndex >= fromIndex;
 
-	return isValid;
+  return isValid;
 }
 
 /**
@@ -99,14 +99,14 @@ export function isValidStepTransition(
  * Pure logic - no server data required
  */
 export function shouldAutoSelectStore(
-	onboardingStep: UserOnboardingStep | null,
-	storeId: string | null,
+  onboardingStep: UserOnboardingStep | null,
+  storeId: string | null,
 ): boolean {
-	const shouldAuto =
-		(onboardingStep === UserOnboardingStep.STORE_CREATED ||
-			onboardingStep === UserOnboardingStep.STORE_CONFIGURED ||
-			onboardingStep === UserOnboardingStep.STORE_LAUNCHED) &&
-		!storeId;
+  const shouldAuto =
+    (onboardingStep === UserOnboardingStep.STORE_CREATED ||
+      onboardingStep === UserOnboardingStep.STORE_CONFIGURED ||
+      onboardingStep === UserOnboardingStep.STORE_LAUNCHED) &&
+    !storeId;
 
-	return shouldAuto;
+  return shouldAuto;
 }

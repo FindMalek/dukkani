@@ -12,11 +12,11 @@
  * formatPrice(undefined, 5) // "5.00"
  */
 export function formatPrice(
-	price: number | null | undefined,
-	fallback = 0,
+  price: number | null | undefined,
+  fallback = 0,
 ): string {
-	const safePrice = price ?? fallback;
-	return Number.isFinite(safePrice)
-		? safePrice.toFixed(2)
-		: fallback.toFixed(2);
+  const safePrice = price ?? fallback;
+  return Number.isFinite(safePrice)
+    ? safePrice.toFixed(2)
+    : fallback.toFixed(2);
 }

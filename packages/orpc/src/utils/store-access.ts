@@ -5,11 +5,11 @@ import { ORPCError } from "@orpc/server";
  * Get all store IDs owned by a user
  */
 export async function getUserStoreIds(userId: string): Promise<string[]> {
-	const stores = await database.store.findMany({
-		where: { ownerId: userId },
-		select: { id: true },
-	});
-	return stores.map((store) => store.id);
+  const stores = await database.store.findMany({
+    where: { ownerId: userId },
+    select: { id: true },
+  });
+  return stores.map((store) => store.id);
 }
 
 /**
@@ -17,21 +17,21 @@ export async function getUserStoreIds(userId: string): Promise<string[]> {
  * Throws ORPCError if user doesn't own the store
  */
 export async function verifyStoreOwnership(
-	userId: string,
-	storeId: string,
+  userId: string,
+  storeId: string,
 ): Promise<void> {
-	const store = await database.store.findFirst({
-		where: {
-			id: storeId,
-			ownerId: userId,
-		},
-	});
+  const store = await database.store.findFirst({
+    where: {
+      id: storeId,
+      ownerId: userId,
+    },
+  });
 
-	if (!store) {
-		throw new ORPCError("FORBIDDEN", {
-			message: "You don't have access to this store",
-		});
-	}
+  if (!store) {
+    throw new ORPCError("FORBIDDEN", {
+      message: "You don't have access to this store",
+    });
+  }
 }
 
 /**
@@ -39,19 +39,19 @@ export async function verifyStoreOwnership(
  * Throws ORPCError if the user doesn't own one or more stores.
  */
 export async function verifyStoreOwnershipMultiple(
-	userId: string,
-	storeIds: string[],
+  userId: string,
+  storeIds: string[],
 ): Promise<void> {
-	if (storeIds.length === 0) {
-		return;
-	}
+  if (storeIds.length === 0) {
+    return;
+  }
 
-	const userStoreIds = await getUserStoreIds(userId);
-	const hasAccess = storeIds.every((storeId) => userStoreIds.includes(storeId));
+  const userStoreIds = await getUserStoreIds(userId);
+  const hasAccess = storeIds.every((storeId) => userStoreIds.includes(storeId));
 
-	if (!hasAccess) {
-		throw new ORPCError("FORBIDDEN", {
-			message: "You don't have access to one or more stores",
-		});
-	}
+  if (!hasAccess) {
+    throw new ORPCError("FORBIDDEN", {
+      message: "You don't have access to one or more stores",
+    });
+  }
 }

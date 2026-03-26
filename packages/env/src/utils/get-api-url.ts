@@ -9,23 +9,23 @@ import { withRelatedProject } from "@vercel/related-projects";
  * @param defaultUrl - The fallback API URL (e.g. env.NEXT_PUBLIC_API_URL from your app's env)
  */
 export function getApiUrl(defaultUrl: string): string {
-	const projectName = "dukkani-api";
-	const defaultHost =
-		defaultUrl.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? "";
+  const projectName = "dukkani-api";
+  const defaultHost =
+    defaultUrl.replace(/^https?:\/\//, "").replace(/\/$/, "") ?? "";
 
-	const host = withRelatedProject({
-		projectName,
-		defaultHost,
-	});
+  const host = withRelatedProject({
+    projectName,
+    defaultHost,
+  });
 
-	if (!host) return defaultUrl;
+  if (!host) return defaultUrl;
 
-	// withRelatedProject returns full URL (https://...) for preview/production
-	if (host.startsWith("http")) return host;
+  // withRelatedProject returns full URL (https://...) for preview/production
+  if (host.startsWith("http")) return host;
 
-	// defaultHost was returned (local dev) - add protocol
-	if (defaultHost.includes("localhost") || defaultHost.includes("127.0.0.1")) {
-		return `http://${host}`;
-	}
-	return `https://${host}`;
+  // defaultHost was returned (local dev) - add protocol
+  if (defaultHost.includes("localhost") || defaultHost.includes("127.0.0.1")) {
+    return `http://${host}`;
+  }
+  return `https://${host}`;
 }

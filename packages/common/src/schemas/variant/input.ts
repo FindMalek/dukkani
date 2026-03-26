@@ -1,23 +1,23 @@
 import { z } from "zod";
 
 export const variantOptionValueInputSchema = z.object({
-	value: z.string().min(1, "Option value is required"),
+  value: z.string().min(1, "Option value is required"),
 });
 
 export const variantOptionInputSchema = z.object({
-	name: z.string().trim().min(1, "Option name is required"),
-	values: z
-		.array(variantOptionValueInputSchema)
-		.min(1, "At least one value is required")
-		.refine(
-			(values) => {
-				const valueStrings = values.map((v) => v.value.toLowerCase().trim());
-				return new Set(valueStrings).size === valueStrings.length;
-			},
-			{
-				message: "Duplicate values are not allowed in the same option",
-			},
-		),
+  name: z.string().trim().min(1, "Option name is required"),
+  values: z
+    .array(variantOptionValueInputSchema)
+    .min(1, "At least one value is required")
+    .refine(
+      (values) => {
+        const valueStrings = values.map((v) => v.value.toLowerCase().trim());
+        return new Set(valueStrings).size === valueStrings.length;
+      },
+      {
+        message: "Duplicate values are not allowed in the same option",
+      },
+    ),
 });
 
 /**
@@ -31,10 +31,10 @@ export const variantOptionInputSchema = z.object({
  * { "Size": "M", "Color": "Red" }
  */
 export const variantInputSchema = z.object({
-	sku: z.string().optional(),
-	price: z.number().positive().optional(),
-	stock: z.number().int().min(0),
-	selections: z.record(z.string(), z.string()),
+  sku: z.string().optional(),
+  price: z.number().positive().optional(),
+  stock: z.number().int().min(0),
+  selections: z.record(z.string(), z.string()),
 });
 
 export type VariantOptionInput = z.infer<typeof variantOptionInputSchema>;

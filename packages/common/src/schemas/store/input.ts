@@ -1,105 +1,105 @@
 import { z } from "zod";
 import {
-	storeCategorySchema,
-	storeNotificationMethodSchema,
-	storeThemeSchema,
+  storeCategorySchema,
+  storeNotificationMethodSchema,
+  storeThemeSchema,
 } from "./enums";
 
 export const storeInputSchema = z.object({
-	name: z.string().min(1, "Store name is required"),
-	slug: z.string().min(1, "Store slug is required"),
-	description: z.string().optional(),
-	whatsappNumber: z.string().optional(),
-	category: storeCategorySchema.optional(),
-	theme: storeThemeSchema.optional(),
-	notificationMethod: storeNotificationMethodSchema.optional(),
-	ownerId: z.string().min(1, "Owner ID is required"),
+  name: z.string().min(1, "Store name is required"),
+  slug: z.string().min(1, "Store slug is required"),
+  description: z.string().optional(),
+  whatsappNumber: z.string().optional(),
+  category: storeCategorySchema.optional(),
+  theme: storeThemeSchema.optional(),
+  notificationMethod: storeNotificationMethodSchema.optional(),
+  ownerId: z.string().min(1, "Owner ID is required"),
 });
 
 export const createStoreOnboardingInputSchema = z.object({
-	name: z.string().min(3, "Store name must be at least 3 characters"),
-	description: z.string().optional(),
-	notificationMethod: storeNotificationMethodSchema,
+  name: z.string().min(3, "Store name must be at least 3 characters"),
+  description: z.string().optional(),
+  notificationMethod: storeNotificationMethodSchema,
 });
 
 export const createStoreInputSchema = storeInputSchema;
 
 export const updateStoreInputSchema = storeInputSchema.partial().extend({
-	id: z.string().min(1, "Store ID is required"),
+  id: z.string().min(1, "Store ID is required"),
 });
 
 export const getStoreInputSchema = z
-	.object({
-		id: z.string().min(1, "Store ID is required").optional(),
-		slug: z.string().min(1, "Store slug is required").optional(),
-	})
-	.refine((data) => data.id || data.slug, {
-		message: "Either id or slug must be provided",
-	});
+  .object({
+    id: z.string().min(1, "Store ID is required").optional(),
+    slug: z.string().min(1, "Store slug is required").optional(),
+  })
+  .refine((data) => data.id || data.slug, {
+    message: "Either id or slug must be provided",
+  });
 
 export const listStoresInputSchema = z.object({
-	page: z.number().int().min(1).default(1),
-	limit: z.number().int().min(1).max(100).default(10),
-	search: z.string().optional(),
-	ownerId: z.string().optional(),
-	category: storeCategorySchema.optional(),
+  page: z.number().int().min(1).default(1),
+  limit: z.number().int().min(1).max(100).default(10),
+  search: z.string().optional(),
+  ownerId: z.string().optional(),
+  category: storeCategorySchema.optional(),
 });
 
 export type StoreInput = z.infer<typeof storeInputSchema>;
 export type CreateStoreInput = z.infer<typeof createStoreInputSchema>;
 export type CreateStoreOnboardingInput = z.output<
-	typeof createStoreOnboardingInputSchema
+  typeof createStoreOnboardingInputSchema
 >;
 export type UpdateStoreInput = z.infer<typeof updateStoreInputSchema>;
 export type GetStoreInput = z.infer<typeof getStoreInputSchema>;
 export type ListStoresInput = z.infer<typeof listStoresInputSchema>;
 
 export const getStoreBySlugPublicInputSchema = z.object({
-	slug: z.string().min(1, "Store slug is required"),
-	productPage: z.number().int().min(1).default(1).optional(),
-	productLimit: z.number().int().min(1).max(100).default(20).optional(),
+  slug: z.string().min(1, "Store slug is required"),
+  productPage: z.number().int().min(1).default(1).optional(),
+  productLimit: z.number().int().min(1).max(100).default(20).optional(),
 });
 
 export type GetStoreBySlugPublicInput = z.infer<
-	typeof getStoreBySlugPublicInputSchema
+  typeof getStoreBySlugPublicInputSchema
 >;
 
 export const configureStoreOnboardingInputSchema = z.object({
-	storeId: z.string().min(1, "Store ID is required"),
-	theme: storeThemeSchema,
-	category: storeCategorySchema,
+  storeId: z.string().min(1, "Store ID is required"),
+  theme: storeThemeSchema,
+  category: storeCategorySchema,
 });
 
 export type ConfigureStoreOnboardingInput = z.infer<
-	typeof configureStoreOnboardingInputSchema
+  typeof configureStoreOnboardingInputSchema
 >;
 
 export const subscribeToLaunchInputSchema = z.object({
-	storeId: z.string().min(1, "Store ID is required"),
-	emailOrPhone: z
-		.string()
-		.min(1, "Email or phone number is required")
-		.refine(
-			(value) => {
-				// Check if it's an email
-				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-				// Check if it's a phone (basic validation - digits, spaces, +, -, parentheses)
-				const phoneRegex = /^[\d\s+\-()]+$/;
-				return emailRegex.test(value) || phoneRegex.test(value);
-			},
-			{
-				message: "Please enter a valid email address or phone number",
-			},
-		),
+  storeId: z.string().min(1, "Store ID is required"),
+  emailOrPhone: z
+    .string()
+    .min(1, "Email or phone number is required")
+    .refine(
+      (value) => {
+        // Check if it's an email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // Check if it's a phone (basic validation - digits, spaces, +, -, parentheses)
+        const phoneRegex = /^[\d\s+\-()]+$/;
+        return emailRegex.test(value) || phoneRegex.test(value);
+      },
+      {
+        message: "Please enter a valid email address or phone number",
+      },
+    ),
 });
 
 export type SubscribeToLaunchInput = z.infer<
-	typeof subscribeToLaunchInputSchema
+  typeof subscribeToLaunchInputSchema
 >;
 
 export const storeUploadImageInputSchema = z.object({
-	storeId: z.string().min(1, "Store ID is required"),
-	file: z.file(),
+  storeId: z.string().min(1, "Store ID is required"),
+  file: z.file(),
 });
 
 export type StoreUploadImageInput = z.infer<typeof storeUploadImageInputSchema>;
