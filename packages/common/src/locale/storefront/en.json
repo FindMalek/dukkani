@@ -58,6 +58,10 @@
 				"placeOrder": "Place order",
 				"error": "Something went wrong. Please try again.",
 				"delivery": {
+					"addressFieldset": {
+						"title": "Delivery Address",
+						"description": "You can enter your address manually or use your current location to auto-fill your address details."
+					},
 					"title": "Delivery",
 					"fastDelivery": "Fast 24-48h delivery",
 					"fullName": "Full name",

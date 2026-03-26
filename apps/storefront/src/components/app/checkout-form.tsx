@@ -1,38 +1,30 @@
 "use client";
 
-import type { PaymentMethodInfer } from "@dukkani/common/schemas/enums";
 import { PaymentMethod } from "@dukkani/common/schemas/enums";
-import { createOrderPublicInputSchema } from "@dukkani/common/schemas/order/input";
+import {
+	addressInputSchema,
+	createOrderPublicInputSchema,
+} from "@dukkani/common/schemas/order/input";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
-import { AlertDescription, AlertTitle } from "@dukkani/ui/components/alert";
 import { Button } from "@dukkani/ui/components/button";
-import { Checkbox } from "@dukkani/ui/components/checkbox";
 import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-} from "@dukkani/ui/components/collapsible";
-import {
-	Field,
-	FieldError,
+	FieldDescription,
 	FieldGroup,
-	FieldLabel,
+	FieldLegend,
+	FieldSeparator,
+	FieldSet,
 } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
-import { Input } from "@dukkani/ui/components/input";
-import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
-import { Textarea } from "@dukkani/ui/components/textarea";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { useSchemaForm } from "@dukkani/ui/hooks/use-schema-form";
-import { cn } from "@dukkani/ui/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useEffectEvent, useMemo } from "react";
 import { toast } from "sonner";
-import { useAddressMap } from "@/hooks/use-address-map";
+import * as z from "zod";
 import { useCartHydration } from "@/hooks/use-cart-hydration";
 import { useCreateOrder } from "@/hooks/use-create-order";
+import { useDetectedAddress } from "@/hooks/use-detected-address";
 import { orpc } from "@/lib/orpc";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
@@ -42,11 +34,26 @@ interface CheckoutFormProps {
 	store: StorePublicOutput;
 }
 
+const formSchema = createOrderPublicInputSchema
+	.omit({
+		orderItems: true,
+		storeId: true,
+	})
+	.extend({
+		isWhatsApp: z.boolean(),
+		address: addressInputSchema
+			.omit({ latitude: true, longitude: true })
+			.extend({
+				postalCode: z.string().transform((val) => val || undefined),
+			}),
+		notes: z.string().transform((val) => val || undefined),
+	});
+
 export function CheckoutForm({ store }: CheckoutFormProps) {
 	const router = useRouter();
 	const t = useTranslations("storefront.store.checkout");
 
-	const addressMap = useAddressMap();
+	const autoLocation = useDetectedAddress();
 	const hydrated = useCartHydration();
 	const createOrderMutation = useCreateOrder();
 	const carts = useCartStore((state) => state.carts);
@@ -117,95 +124,13 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 	const formattedTotal = total.toFixed(3);
 
 	useEffect(() => {
-		if (addressMap.error) {
+		if (autoLocation.error) {
 			toast.error(t("delivery.locationErrorTitle"), {
 				description: t("delivery.locationErrorDescription"),
 			});
 		}
-	}, [addressMap.error, t]);
+	}, [autoLocation.error, t]);
 
-	const formOld = useSchemaForm({
-		schema: createOrderPublicInputSchema,
-		defaultValues: {
-			customerName: "",
-			customerPhone: "",
-			address: {
-				street: "",
-				city: "",
-				postalCode: "",
-			},
-			notes: "",
-			paymentMethod:
-				(store.supportedPaymentMethods[0] as PaymentMethodInfer) ||
-				PaymentMethod.COD,
-			storeId: store.id,
-			orderItems: [],
-			isWhatsApp: false,
-		},
-		validationMode: ["onBlur", "onSubmit"],
-		onSubmit: async (values) => {
-			// Notes field - WhatsApp preference is now stored separately in isWhatsApp
-			const combinedNotes = values.notes || undefined;
-
-			// Build order items from cart
-			if (!enrichedData || enrichedData.length === 0) {
-				return;
-			}
-
-			const orderItems = enrichedData.map((item) => ({
-				productId: item.productId,
-				variantId: item.variantId,
-				quantity: item.quantity,
-			}));
-
-			await createOrderMutation.mutateAsync({
-				customerName: values.customerName,
-				customerPhone: values.customerPhone,
-				address: values.address,
-				notes: combinedNotes,
-				paymentMethod: values.paymentMethod,
-				isWhatsApp: values.isWhatsApp,
-				storeId: store.id,
-				orderItems,
-			});
-		},
-	});
-
-	// Update form when address is selected from map
-	useEffect(() => {
-		if (addressMap.city) {
-			formOld.setFieldValue("address.city", addressMap.city);
-		}
-		if (addressMap.street) {
-			formOld.setFieldValue("address.street", addressMap.street);
-		}
-		if (addressMap.postalCode) {
-			formOld.setFieldValue("address.postalCode", addressMap.postalCode);
-		}
-		if (addressMap.latitude && addressMap.longitude) {
-			formOld.setFieldValue("address.latitude", addressMap.latitude);
-			formOld.setFieldValue("address.longitude", addressMap.longitude);
-		}
-	}, [
-		addressMap.city,
-		addressMap.street,
-		addressMap.postalCode,
-		addressMap.latitude,
-		addressMap.longitude,
-		formOld,
-	]);
-
-	// Sync orderItems from cart to form (required for validation)
-	useEffect(() => {
-		if (enrichedData && enrichedData.length > 0) {
-			const orderItems = enrichedData.map((item) => ({
-				productId: item.productId,
-				variantId: item.variantId ?? undefined,
-				quantity: item.quantity,
-			}));
-			formOld.setFieldValue("orderItems", orderItems);
-		}
-	}, [enrichedData, formOld]);
 	const form = useAppForm({
 		defaultValues: {
 			customerName: "",
@@ -220,440 +145,196 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 			notes: "",
 		},
 		validators: {
-			// @ts-expect-error - wip
-			onBlur: createOrderPublicInputSchema,
+			onBlur: formSchema,
+			onSubmit: formSchema,
+		},
+		onSubmit: async ({ value }) => {
+			const { data, success } = formSchema.safeParse(value);
+			if (!success || !data) {
+				return;
+			}
+			if (!enrichedData || enrichedData.length === 0) {
+				toast.error(t("orderSubmissionError"));
+				return;
+			}
+			const orderItems = enrichedData.map((item) => ({
+				productId: item.productId,
+				variantId: item.variantId,
+				quantity: item.quantity,
+			}));
+
+			await createOrderMutation.mutateAsync({
+				...data,
+				storeId: store.id,
+				orderItems,
+			});
 		},
 	});
 
+	const updateDetectedPostalCode = useEffectEvent((postalCode: string) => {
+		form.setFieldValue("address.postalCode", postalCode);
+	});
+	const updateDetectedCity = useEffectEvent((city: string) => {
+		form.setFieldValue("address.city", city);
+	});
+	const updateDetectedStreet = useEffectEvent((street: string) => {
+		form.setFieldValue("address.street", street);
+	});
+
+	useEffect(() => {
+		if (autoLocation.data) {
+			updateDetectedPostalCode(autoLocation.data.postCode);
+			updateDetectedCity(autoLocation.data.city);
+			updateDetectedStreet(autoLocation.data.street);
+		}
+	}, [autoLocation.data]);
+
+	const handleDetectLocation = useCallback(async () => {
+		await autoLocation.detect();
+	}, [autoLocation, autoLocation.detect]);
+
 	return (
-		<>
-			<Form onSubmit={form.handleSubmit} className="mx-auto max-w-md">
-				<form.AppForm>
-					<FieldGroup>
-						<form.AppField name="customerName">
-							{(field) => <field.TextInput label={t("delivery.fullName")} />}
-						</form.AppField>
-						<form.AppField name="customerPhone">
-							{(field) => (
-								<field.PhoneNumberInput
-									label={t("delivery.phone")}
-									defaultCountry="TN"
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="isWhatsApp">
-							{(field) => (
-								<field.CheckboxInput
-									label={
-										<>
-											<Icons.whatsapp />
-											<span>{t("delivery.whatsapp")}</span>
-										</>
+		<Form
+			onSubmit={form.handleSubmit}
+			className="mx-auto max-w-md md:max-w-2xl"
+		>
+			<form.AppForm>
+				<FieldGroup>
+					<form.AppField name="customerName">
+						{(field) => <field.TextInput label={t("delivery.fullName")} />}
+					</form.AppField>
+					<form.AppField name="customerPhone">
+						{(field) => (
+							<field.PhoneNumberInput
+								label={t("delivery.phone")}
+								defaultCountry="TN"
+							/>
+						)}
+					</form.AppField>
+					<form.AppField name="isWhatsApp">
+						{(field) => (
+							<field.CheckboxInput
+								label={
+									<>
+										<Icons.whatsapp />
+										<span>{t("delivery.whatsapp")}</span>
+									</>
+								}
+								description={t("delivery.whatsappDescription")}
+							/>
+						)}
+					</form.AppField>
+					<FieldSet className="rounded-md border p-4">
+						<FieldLegend>Delivery Address</FieldLegend>
+						<FieldDescription>
+							You can enter your address manually or use your current location
+							to auto-fill the address fields.
+						</FieldDescription>
+						<FieldGroup>
+							<form.AppField name="address.street">
+								{(field) => (
+									<field.TextInput label={t("delivery.streetAddress")} />
+								)}
+							</form.AppField>
+							<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+								<form.AppField name="address.city">
+									{(field) => <field.TextInput label={t("delivery.city")} />}
+								</form.AppField>
+								<form.AppField name="address.postalCode">
+									{(field) => (
+										<field.TextInput label={t("delivery.postalCode")} />
+									)}
+								</form.AppField>
+							</div>
+							<Button
+								type="button"
+								variant="secondary"
+								className="w-full"
+								disabled={createOrderMutation.isPending}
+								isLoading={autoLocation.isLoading}
+								onClick={handleDetectLocation}
+							>
+								{t("delivery.useLocation")}
+							</Button>
+						</FieldGroup>
+					</FieldSet>
+					<form.AppField name="paymentMethod">
+						{(field) => (
+							<field.RadioGroupInput
+								label={t("payment.title")}
+								as="cards"
+								options={[
+									{
+										label: t("payment.cod"),
+										value: PaymentMethod.COD,
+									},
+									{
+										label: t("payment.creditCard"),
+										value: PaymentMethod.CARD,
+										disabled: !store.supportedPaymentMethods.includes(
+											PaymentMethod.CARD,
+										),
+										description: !store.supportedPaymentMethods.includes(
+											PaymentMethod.CARD,
+										)
+											? t("payment.comingSoon")
+											: undefined,
+									},
+								]}
+							/>
+						)}
+					</form.AppField>
+					<form.AppField name="notes">
+						{(field) => (
+							<field.TextAreaInput
+								label={t("delivery.instructions")}
+								rows={3}
+							/>
+						)}
+					</form.AppField>
+					<FieldSeparator />
+					<OrderSummary
+						items={enrichedData ?? []}
+						shippingCost={store.shippingCost}
+						loading={enrichedCartItems.isLoading || !enrichedData}
+					/>
+				</FieldGroup>
+				<div className="fixed inset-x-0 bottom-0 z-10 border-t bg-background px-4 py-3">
+					<div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
+						<form.Subscribe>
+							{(formState) => (
+								<Button
+									type="submit"
+									className="w-full bg-primary text-primary-foreground"
+									size="lg"
+									disabled={
+										formState.isSubmitting ||
+										enrichedData?.length === 0 ||
+										!formState.canSubmit
 									}
-									description={t("delivery.whatsappDescription")}
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="paymentMethod">
-							{(field) => (
-								<field.RadioGroupInput
-									label={t("payment.title")}
-									as="cards"
-									options={[
-										{
-											label: t("payment.cod"),
-											value: PaymentMethod.COD,
-										},
-										{
-											label: t("payment.creditCard"),
-											value: PaymentMethod.CARD,
-											disabled: !store.supportedPaymentMethods.includes(
-												PaymentMethod.CARD,
-											),
-											description: !store.supportedPaymentMethods.includes(
-												PaymentMethod.CARD,
-											)
-												? t("payment.comingSoon")
-												: undefined,
-										},
-									]}
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="notes">
-							{(field) => (
-								<field.TextAreaInput
-									label={t("delivery.instructions")}
-									rows={3}
-								/>
-							)}
-						</form.AppField>
-					</FieldGroup>
-				</form.AppForm>
-			</Form>
-			<Collapsible>
-				<CollapsibleTrigger>Show old form</CollapsibleTrigger>
-				<CollapsibleContent>
-					<form
-						onSubmit={(e) => {
-							e.preventDefault();
-							formOld.handleSubmit();
-						}}
-						className="contents"
-					>
-						<div className="container mx-auto max-w-4xl px-4 py-8">
-							<div className="space-y-6">
-								{/* Delivery Section */}
-								<section>
-									<div className="space-y-4">
-										{/* Full Name */}
-										<formOld.Field name="customerName">
-											{(field) => {
-												const isInvalid =
-													field.state.meta.isBlurred &&
-													!field.state.meta.isValid;
-												return (
-													<Field data-invalid={isInvalid}>
-														<FieldLabel htmlFor={field.name}>
-															{t("delivery.fullName")}
-														</FieldLabel>
-														<Input
-															id={field.name}
-															name={field.name}
-															value={field.state.value ?? ""}
-															onBlur={field.handleBlur}
-															onChange={(e) =>
-																field.handleChange(e.target.value)
-															}
-															disabled={createOrderMutation.isPending}
-															aria-invalid={isInvalid}
-														/>
-														{isInvalid && (
-															<FieldError errors={field.state.meta.errors} />
-														)}
-													</Field>
-												);
-											}}
-										</formOld.Field>
-
-										{/* WhatsApp Checkbox */}
-										<formOld.Field name="isWhatsApp" defaultValue={false}>
-											{(field) => (
-												<label
-													htmlFor={field.name}
-													className={cn(
-														"relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-card-foreground text-sm transition-colors",
-														"has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5",
-														"cursor-pointer",
-														field.state.value
-															? "border-primary bg-primary/5 dark:bg-primary/10"
-															: "border-input bg-card",
-													)}
-												>
-													<Icons.whatsapp
-														className={cn(
-															field.state.value
-																? "text-primary"
-																: "text-muted-foreground",
-														)}
-													/>
-													<div className="flex flex-1 items-start justify-between gap-3">
-														<div className="space-y-0.5">
-															<AlertTitle className="font-medium text-foreground text-sm">
-																{t("delivery.whatsapp")}
-															</AlertTitle>
-															<AlertDescription className="text-muted-foreground text-xs">
-																{t("delivery.whatsappDescription")}
-															</AlertDescription>
-														</div>
-														<Checkbox
-															id={field.name}
-															checked={field.state.value ?? false}
-															onCheckedChange={(checked) =>
-																field.handleChange(checked === true)
-															}
-															disabled={createOrderMutation.isPending}
-															className="shrink-0"
-														/>
-													</div>
-												</label>
-											)}
-										</formOld.Field>
-
-										{/* Street Address */}
-										<formOld.Field name="address.street">
-											{(field) => {
-												const isInvalid =
-													field.state.meta.isBlurred &&
-													!field.state.meta.isValid;
-												return (
-													<Field data-invalid={isInvalid}>
-														<FieldLabel htmlFor={field.name}>
-															{t("delivery.streetAddress")}
-														</FieldLabel>
-														<Input
-															id={field.name}
-															name={field.name}
-															value={field.state.value ?? ""}
-															onBlur={field.handleBlur}
-															onChange={(e) =>
-																field.handleChange(e.target.value)
-															}
-															disabled={createOrderMutation.isPending}
-															aria-invalid={isInvalid}
-														/>
-														{isInvalid && (
-															<FieldError errors={field.state.meta.errors} />
-														)}
-													</Field>
-												);
-											}}
-										</formOld.Field>
-
-										{/* City & Postal Code - side by side */}
-										<div className="grid grid-cols-2 gap-4">
-											<formOld.Field name="address.city">
-												{(field) => {
-													const isInvalid =
-														field.state.meta.isBlurred &&
-														!field.state.meta.isValid;
-													return (
-														<Field data-invalid={isInvalid}>
-															<FieldLabel htmlFor={field.name}>
-																{t("delivery.city")}
-															</FieldLabel>
-															<Input
-																id={field.name}
-																name={field.name}
-																value={field.state.value ?? ""}
-																onBlur={field.handleBlur}
-																onChange={(e) =>
-																	field.handleChange(e.target.value)
-																}
-																disabled={createOrderMutation.isPending}
-																aria-invalid={isInvalid}
-															/>
-															{isInvalid && (
-																<FieldError errors={field.state.meta.errors} />
-															)}
-														</Field>
-													);
-												}}
-											</formOld.Field>
-
-											<formOld.Field name="address.postalCode">
-												{(field) => {
-													const isInvalid =
-														field.state.meta.isBlurred &&
-														!field.state.meta.isValid;
-													return (
-														<Field data-invalid={isInvalid}>
-															<FieldLabel htmlFor={field.name}>
-																{t("delivery.postalCode")}
-															</FieldLabel>
-															<Input
-																id={field.name}
-																name={field.name}
-																value={field.state.value ?? ""}
-																onBlur={field.handleBlur}
-																onChange={(e) =>
-																	field.handleChange(e.target.value)
-																}
-																disabled={createOrderMutation.isPending}
-																aria-invalid={isInvalid}
-															/>
-															{isInvalid && (
-																<FieldError errors={field.state.meta.errors} />
-															)}
-														</Field>
-													);
-												}}
-											</formOld.Field>
+									isLoading={formState.isSubmitting}
+								>
+									<div className="flex w-full items-center justify-between">
+										<div className="flex items-center gap-2">
+											<Icons.shoppingCart className="size-4" />
+											<span>{t("placeOrder")}</span>
 										</div>
-
-										{/* Use my location – auto-fill address */}
-										<div className="space-y-2">
-											<Button
-												type="button"
-												variant="outline"
-												className="w-full"
-												disabled={createOrderMutation.isPending}
-												isLoading={addressMap.loading}
-												onClick={() => addressMap.getCurrentLocation()}
+										<div className="flex items-center gap-2">
+											<span
+												className="font-semibold text-sm tabular-nums"
+												dir="ltr"
 											>
-												{t("delivery.useLocation")}
-											</Button>
-											<p className="text-muted-foreground text-sm">
-												{t("delivery.useLocationDescription")}
-											</p>
+												{formattedTotal} TND
+											</span>
+											<Icons.arrowRight className="size-4 rtl:rotate-180" />
 										</div>
 									</div>
-								</section>
-
-								{/* Payment Section */}
-								<section>
-									<h2 className="mb-4 font-semibold text-lg">
-										{t("payment.title")}
-									</h2>
-									<formOld.Field name="paymentMethod">
-										{(field) => {
-											const paymentMethod =
-												(field.state.value as PaymentMethodInfer) ||
-												PaymentMethod.COD;
-											return (
-												<RadioGroup
-													name={field.name}
-													value={paymentMethod}
-													onValueChange={(value) =>
-														field.handleChange(value as PaymentMethodInfer)
-													}
-													disabled={createOrderMutation.isPending}
-												>
-													<div className="space-y-3">
-														{store.supportedPaymentMethods.includes(
-															PaymentMethod.COD,
-														) && (
-															<div
-																className={cn(
-																	"flex items-center gap-3 rounded-md border p-4",
-																	paymentMethod === PaymentMethod.COD
-																		? "border-primary bg-primary/5"
-																		: "border-input",
-																)}
-															>
-																<RadioGroupItem
-																	value={PaymentMethod.COD}
-																	id="cod"
-																/>
-																<label
-																	htmlFor="cod"
-																	className="flex-1 cursor-pointer font-medium"
-																>
-																	{t("payment.cod")}
-																</label>
-															</div>
-														)}
-														{store.supportedPaymentMethods.includes(
-															PaymentMethod.CARD,
-														) ? (
-															<div
-																className={cn(
-																	"flex items-center gap-3 rounded-md border p-4",
-																	paymentMethod === PaymentMethod.CARD
-																		? "border-primary bg-primary/5"
-																		: "border-input",
-																)}
-															>
-																<RadioGroupItem
-																	value={PaymentMethod.CARD}
-																	id="card"
-																/>
-																<label
-																	htmlFor="card"
-																	className="flex-1 cursor-pointer font-medium"
-																>
-																	{t("payment.creditCard")}
-																</label>
-															</div>
-														) : (
-															<div className="flex items-center gap-3 rounded-md border border-input p-4 opacity-50">
-																<RadioGroupItem
-																	value={PaymentMethod.CARD}
-																	id="card"
-																	disabled
-																/>
-																<label
-																	htmlFor="card"
-																	className="flex-1 cursor-not-allowed font-medium"
-																>
-																	{t("payment.creditCard")} (
-																	{t("payment.comingSoon")})
-																</label>
-															</div>
-														)}
-													</div>
-												</RadioGroup>
-											);
-										}}
-									</formOld.Field>
-								</section>
-
-								{/* Delivery Instructions */}
-								<section>
-									<formOld.Field name="notes">
-										{(field) => {
-											const isInvalid =
-												field.state.meta.isBlurred && !field.state.meta.isValid;
-											return (
-												<Field data-invalid={isInvalid}>
-													<FieldLabel htmlFor={field.name}>
-														{t("delivery.instructions")}
-													</FieldLabel>
-													<Textarea
-														id={field.name}
-														name={field.name}
-														value={field.state.value ?? ""}
-														onBlur={field.handleBlur}
-														onChange={(e) => field.handleChange(e.target.value)}
-														disabled={createOrderMutation.isPending}
-														aria-invalid={isInvalid}
-														rows={3}
-													/>
-													{isInvalid && (
-														<FieldError errors={field.state.meta.errors} />
-													)}
-												</Field>
-											);
-										}}
-									</formOld.Field>
-								</section>
-							</div>
-
-							{/* Order summary - below form */}
-							<section className="mt-8 border-t pt-6">
-								<OrderSummary
-									items={enrichedData ?? []}
-									shippingCost={store.shippingCost}
-									loading={enrichedCartItems.isLoading || !enrichedData}
-								/>
-							</section>
-
-							{/* Sticky footer - total + Place order */}
-							<div className="fixed inset-x-0 bottom-0 z-10 border-t bg-background px-4 py-3">
-								<div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
-									<Button
-										type="submit"
-										className="w-full bg-primary text-primary-foreground"
-										size="lg"
-										disabled={
-											createOrderMutation.isPending ||
-											!enrichedData ||
-											enrichedData.length === 0
-										}
-										isLoading={createOrderMutation.isPending}
-									>
-										<div className="flex w-full items-center justify-between">
-											<div className="flex items-center gap-2">
-												<Icons.shoppingCart className="size-4" />
-												<span>{t("placeOrder")}</span>
-											</div>
-											<div className="flex items-center gap-2">
-												<span
-													className="font-semibold text-sm tabular-nums"
-													dir="ltr"
-												>
-													{formattedTotal} TND
-												</span>
-												<Icons.arrowRight className="size-4 rtl:rotate-180" />
-											</div>
-										</div>
-									</Button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</CollapsibleContent>
-			</Collapsible>
-		</>
+								</Button>
+							)}
+						</form.Subscribe>
+					</div>
+				</div>
+			</form.AppForm>
+		</Form>
 	);
 }

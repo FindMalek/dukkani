@@ -58,6 +58,10 @@
 				"placeOrder": "Passer la commande",
 				"error": "Quelque chose a mal tourné. Veuillez réessayer.",
 				"delivery": {
+					"addressFieldset": {
+						"title": "Adresse de livraison",
+						"description": "Vous pouvez saisir votre adresse manuellement ou utiliser votre position actuelle pour remplir automatiquement les détails de votre adresse."
+					},
 					"title": "Livraison",
 					"fastDelivery": "Livraison rapide en 24-48h",
 					"fullName": "Nom complet",
