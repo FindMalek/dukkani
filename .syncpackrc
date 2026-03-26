@@ -2,9 +2,14 @@
 	"dependencyTypes": ["prod", "dev", "peer"],
 	"versionGroups": [
 		{
-			"dependencies": ["react", "react-dom", "next", "prisma", "@prisma/client", "typescript"],
+			"dependencies": ["date-fns", "sonner", "tw-animate-css"],
 			"packages": ["**"],
 			"isIgnored": false
+		},
+		{
+			"dependencies": ["next", "react", "react-dom", "typescript", "@prisma/client", "prisma"],
+			"packages": ["**"],
+			"isIgnored": true
 		}
 	]
 }
