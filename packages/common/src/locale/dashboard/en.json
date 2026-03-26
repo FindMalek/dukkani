@@ -449,7 +449,8 @@
     "images": {
       "label": "Add photos",
       "dragActiveLabel": "Drop here",
-      "hint": "or click to browse"
+      "hint": "or click to browse",
+      "optimizing": "Optimizing images..."
     }
   }
 }

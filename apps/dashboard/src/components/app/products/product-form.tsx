@@ -67,20 +67,27 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
         variantOptions: [],
       } as ProductFormInput,
       onSubmit: async ({ value }) => {
-        let imageUrls: string[] = [];
-        if (value.imageFiles.length > 0) {
+        const imageUrls = await (async () => {
+          if (value.imageFiles.length === 0) {
+            return [];
+          }
+
           try {
-            const prepared = await compressImagesForUpload(value.imageFiles);
             const res = await client.product.uploadImages({
               storeId,
-              files: prepared,
+              files: value.imageFiles,
             });
-            imageUrls = res.files.map((file) => file.url);
+            return res.files.map((file) => file.url);
           } catch (error) {
             handleAPIError(error);
-            return;
+            return null;
           }
+        })();
+
+        if (imageUrls === null) {
+          return;
         }
+
         const cleanedFormData = productFormSchema.parse(value);
         const cleanedData = {
           ...cleanedFormData,
@@ -128,11 +135,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 
     const handleCategoryCreated = useCallback(
       (categoryId: string) => {
-        const timeoutId = setTimeout(() => {
-          form.setFieldValue("categoryId", categoryId);
-        }, 1000);
-
-        return () => clearTimeout(timeoutId);
+        form.setFieldValue("categoryId", categoryId);
       },
       [form],
     );
@@ -207,7 +210,10 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
                   </form.AppField>
                   <form.AppField name="imageFiles" mode="array">
                     {(imageUrlsField) => (
-                      <imageUrlsField.ImagesInput label={t("form.photos")} />
+                      <imageUrlsField.ImagesInput
+                        label={t("form.photos")}
+                        optimizeFiles={compressImagesForUpload}
+                      />
                     )}
                   </form.AppField>
                   <form.AppField

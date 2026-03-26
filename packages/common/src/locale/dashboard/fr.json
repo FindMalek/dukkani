@@ -439,7 +439,8 @@
     "images": {
       "label": "Ajouter des photos",
       "dragActiveLabel": "Déposez ici",
-      "hint": "ou cliquez pour naviguer"
+      "hint": "ou cliquez pour naviguer",
+      "optimizing": "Optimisation des images..."
     }
   }
 }
