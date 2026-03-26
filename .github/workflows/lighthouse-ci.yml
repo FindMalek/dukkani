@@ -77,21 +77,26 @@ jobs:
       - name: Wait for preview reachability (${{ matrix.app }})
         env:
           LIGHTHOUSE_URL: ${{ steps.preview.outputs.url }}
+          LIGHTHOUSE_PATHS: ${{ matrix.lighthouse_paths }}
         run: |
           set -euo pipefail
 
+          # Extract the first path from LIGHTHOUSE_PATHS (comma-separated)
+          FIRST_PATH="$(echo "${LIGHTHOUSE_PATHS}" | cut -d',' -f1)"
+          TARGET_URL="${LIGHTHOUSE_URL}${FIRST_PATH}"
+
           for attempt in {1..20}; do
-            STATUS_CODE="$(curl -s -o /dev/null -w "%{http_code}" "${LIGHTHOUSE_URL}")"
+            STATUS_CODE="$(curl -s -o /dev/null -w "%{http_code}" "${TARGET_URL}")"
             if [[ "${STATUS_CODE}" =~ ^(200|301|302|307|308)$ ]]; then
-              echo "Preview is reachable for ${{ matrix.app }} (HTTP ${STATUS_CODE})"
+              echo "Preview is reachable for ${{ matrix.app }} at ${TARGET_URL} (HTTP ${STATUS_CODE})"
               exit 0
             fi
 
-            echo "Preview not reachable for ${{ matrix.app }} (HTTP ${STATUS_CODE}) attempt ${attempt}/20. Waiting 10s..."
+            echo "Preview not reachable for ${{ matrix.app }} at ${TARGET_URL} (HTTP ${STATUS_CODE}) attempt ${attempt}/20. Waiting 10s..."
             sleep 10
           done
 
-          echo "Preview never became reachable for ${{ matrix.app }}: ${LIGHTHOUSE_URL}"
+          echo "Preview never became reachable for ${{ matrix.app }}: ${TARGET_URL}"
           exit 1
 
       - name: Run Lighthouse CI (desktop)
