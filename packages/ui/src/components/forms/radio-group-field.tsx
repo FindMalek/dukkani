@@ -55,7 +55,11 @@ export function RadioGroupField({
 				{props.as === "cards"
 					? props.options.map((option) => (
 							<FieldLabel key={option.value} htmlFor={option.value}>
-								<Field orientation="horizontal" data-invalid={isInvalid}>
+								<Field
+									orientation="horizontal"
+									data-invalid={isInvalid}
+									data-disabled={option.disabled}
+								>
 									<FieldContent>
 										<FieldTitle>
 											{option.icon && <>{option.icon}</>}
