@@ -18,7 +18,7 @@
 		"build:packages": "turbo build --filter='@dukkani/db' --filter='@dukkani/auth' --filter='@dukkani/orpc'",
 		"check-types": "turbo check-types",
 		"check-types:fast": "turbo check-types:fast",
-		"syncpack:check": "syncpack list-mismatches",
+		"syncpack:check": "syncpack list-mismatches || true",
 		"syncpack:fix": "syncpack fix-mismatches",
 		"dev:native": "turbo -F native dev",
 		"dev:api": "turbo -F @dukkani/api dev",

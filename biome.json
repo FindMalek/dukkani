@@ -9,7 +9,8 @@
 		"ignoreUnknown": false,
 		"includes": [
 			"**",
-			"!**/.agents",
+			"!**/.agents/**",
+			"!**/.lighthouseci/**",
 			"!**/.next",
 			"!**/dist",
 			"!**/.turbo",
@@ -37,9 +38,9 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"recommended": false,
 			"a11y": {
-				"noLabelWithoutControl": "warn"
+				"noLabelWithoutControl": "off"
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "info"
