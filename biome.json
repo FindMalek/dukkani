@@ -9,6 +9,7 @@
 		"ignoreUnknown": false,
 		"includes": [
 			"**",
+			"!**/.agents",
 			"!**/.next",
 			"!**/dist",
 			"!**/.turbo",
@@ -37,6 +38,9 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
+			"a11y": {
+				"noLabelWithoutControl": "warn"
+			},
 			"correctness": {
 				"useExhaustiveDependencies": "info"
 			},
