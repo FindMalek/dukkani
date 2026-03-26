@@ -19,10 +19,8 @@ jobs:
       matrix:
         include:
           - app: web
-            project_id: ${{ secrets.VERCEL_PROJECT_ID_WEB }}
             lighthouse_paths: /en,/ar
           - app: storefront
-            project_id: ${{ secrets.VERCEL_PROJECT_ID_STOREFRONT }}
             lighthouse_paths: /en?store=omar-home,/ar?store=omar-home
 
     steps:
@@ -34,7 +32,7 @@ jobs:
         id: preview
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ matrix.project_id }}
+          VERCEL_PROJECT_ID: ${{ matrix.app == 'web' && secrets.VERCEL_PROJECT_ID_WEB || secrets.VERCEL_PROJECT_ID_STOREFRONT }}
           GITHUB_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail

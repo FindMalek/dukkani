@@ -1,5 +1,12 @@
 /** @type {import('@lhci/cli').Config} */
 const previewBaseUrl = process.env.LIGHTHOUSE_URL;
+
+if (!previewBaseUrl) {
+  throw new Error(
+    "LIGHTHOUSE_URL environment variable must be set for Lighthouse CI.",
+  );
+}
+
 const previewPaths = process.env.LIGHTHOUSE_PATHS
   ? process.env.LIGHTHOUSE_PATHS.split(",")
       .map((path) => path.trim())
@@ -7,11 +14,9 @@ const previewPaths = process.env.LIGHTHOUSE_PATHS
   : [];
 
 const collectUrls =
-  previewBaseUrl && previewPaths.length > 0
+  previewPaths.length > 0
     ? previewPaths.map((path) => `${previewBaseUrl}${path}`)
-    : previewBaseUrl
-      ? [previewBaseUrl]
-      : ["http://localhost:3000/en"];
+    : [previewBaseUrl];
 
 const config = {
   ci: {
