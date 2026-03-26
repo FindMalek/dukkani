@@ -34,6 +34,8 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ matrix.app == 'web' && secrets.VERCEL_PROJECT_ID_WEB || secrets.VERCEL_PROJECT_ID_STOREFRONT }}
           GITHUB_SHA: ${{ github.sha }}
+          GITHUB_PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
         run: |
           set -euo pipefail
 
@@ -42,23 +44,30 @@ jobs:
             exit 1
           fi
 
-          API_URL="https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&target=preview&meta-githubCommitSha=${GITHUB_SHA}&limit=20"
+          COMMIT_SHA="${GITHUB_PR_HEAD_SHA:-$GITHUB_SHA}"
+          API_URL_BY_SHA="https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&target=preview&meta-githubCommitSha=${COMMIT_SHA}&limit=20"
+          API_URL_BY_REF="https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&target=preview&meta-githubCommitRef=${GITHUB_HEAD_REF}&limit=20"
           PREVIEW_URL=""
 
           for attempt in {1..20}; do
-            RESPONSE="$(curl -fsS -H "Authorization: Bearer ${VERCEL_TOKEN}" "${API_URL}")"
+            RESPONSE="$(curl -fsS -H "Authorization: Bearer ${VERCEL_TOKEN}" "${API_URL_BY_SHA}")"
             PREVIEW_URL="$(echo "${RESPONSE}" | jq -r '[.deployments[]? | select(.readyState == "READY")] | sort_by(.createdAt) | last | .url // empty')"
+
+            if [ -z "${PREVIEW_URL}" ] || [ "${PREVIEW_URL}" = "null" ]; then
+              RESPONSE_BY_REF="$(curl -fsS -H "Authorization: Bearer ${VERCEL_TOKEN}" "${API_URL_BY_REF}")"
+              PREVIEW_URL="$(echo "${RESPONSE_BY_REF}" | jq -r '[.deployments[]? | select(.readyState == "READY")] | sort_by(.createdAt) | last | .url // empty')"
+            fi
 
             if [ -n "${PREVIEW_URL}" ] && [ "${PREVIEW_URL}" != "null" ]; then
               break
             fi
 
-            echo "No READY preview for ${{ matrix.app }} yet (attempt ${attempt}/20). Waiting 15s..."
+            echo "No READY preview for ${{ matrix.app }} yet (attempt ${attempt}/20). Waiting 15s... (sha=${COMMIT_SHA}, ref=${GITHUB_HEAD_REF})"
             sleep 15
           done
 
           if [ -z "${PREVIEW_URL}" ] || [ "${PREVIEW_URL}" = "null" ]; then
-            echo "Could not find READY Vercel preview for ${{ matrix.app }} at commit ${GITHUB_SHA}"
+            echo "Could not find READY Vercel preview for ${{ matrix.app }} (sha=${COMMIT_SHA}, ref=${GITHUB_HEAD_REF})"
             exit 1
           fi
 
