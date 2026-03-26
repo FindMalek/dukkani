@@ -99,20 +99,23 @@ jobs:
           echo "Preview never became reachable for ${{ matrix.app }}: ${TARGET_URL}"
           exit 1
 
-      - name: Run Lighthouse CI (desktop)
-        run: npx -y @lhci/cli@0.15.1 autorun
+      - name: Collect Lighthouse data (desktop)
+        run: npx -y @lhci/cli@0.15.1 collect
         env:
           LIGHTHOUSE_URL: ${{ steps.preview.outputs.url }}
           LIGHTHOUSE_PATHS: ${{ matrix.lighthouse_paths }}
           LHCI_PRESET: desktop
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
-      - name: Run Lighthouse CI (mobile)
-        run: npx -y @lhci/cli@0.15.1 autorun
+      - name: Collect Lighthouse data (mobile)
+        run: npx -y @lhci/cli@0.15.1 collect
         env:
           LIGHTHOUSE_URL: ${{ steps.preview.outputs.url }}
           LIGHTHOUSE_PATHS: ${{ matrix.lighthouse_paths }}
           LHCI_PRESET: mobile
+
+      - name: Assert Lighthouse results
+        run: npx -y @lhci/cli@0.15.1 assert
+        env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       - name: Upload Lighthouse artifacts
