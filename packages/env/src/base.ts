@@ -12,28 +12,28 @@ import { z } from "zod";
  * import baseEnv and index.ts exports all presets
  */
 export const baseEnv = createEnv({
-	server: {
-		/**
-		 * Node.js environment
-		 * Values: production, development, test
-		 */
-		NODE_ENV: z.enum(["production", "development", "test"]).optional(),
+  server: {
+    /**
+     * Node.js environment
+     * Values: production, development, test
+     */
+    NODE_ENV: z.enum(["production", "development", "test"]).optional(),
 
-		/**
-		 * Pattern for CORS preview origins
-		 */
-		CORS_PREVIEW_ORIGIN_PATTERN: z.string().optional(),
-	},
-	runtimeEnv: process.env,
-	emptyStringAsUndefined: true,
-	skipValidation:
-		process.env.SKIP_ENV_VALIDATION === "true" ||
-		process.env.NODE_ENV === "test",
+    /**
+     * Pattern for CORS preview origins
+     */
+    CORS_PREVIEW_ORIGIN_PATTERN: z.string().optional(),
+  },
+  runtimeEnv: process.env,
+  emptyStringAsUndefined: true,
+  skipValidation:
+    process.env.SKIP_ENV_VALIDATION === "true" ||
+    process.env.NODE_ENV === "test",
 });
 
 /**
  * Get the base Node.js environment
  */
 export function getBaseEnvironment(): string {
-	return process.env.NODE_ENV || "development";
+  return process.env.NODE_ENV || "development";
 }

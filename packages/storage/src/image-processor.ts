@@ -1,11 +1,11 @@
 import { StorageFileEntity } from "@dukkani/common/entities/storage/entity";
 import {
-	isImageMimeType,
-	VARIANT_SIZES,
+  isImageMimeType,
+  VARIANT_SIZES,
 } from "@dukkani/common/schemas/constants";
 import type {
-	ImageVariant,
-	ProcessedImage,
+  ImageVariant,
+  ProcessedImage,
 } from "@dukkani/common/schemas/storage/output";
 import { isWebOptimizedMimeType } from "@dukkani/common/utils/mime-types";
 import sharp from "sharp";
@@ -15,128 +15,128 @@ import sharp from "sharp";
  * Uses Sharp for fast image processing with WebP/JPEG support
  */
 export class ImageProcessor {
-	/**
-	 * Process an image file and generate size variants
-	 */
-	static async processImage(file: File): Promise<ProcessedImage> {
-		// Validate that this is a supported image type
-		if (!isImageMimeType(file.type)) {
-			throw new Error(`Unsupported image format: ${file.type}`);
-		}
+  /**
+   * Process an image file and generate size variants
+   */
+  static async processImage(file: File): Promise<ProcessedImage> {
+    // Validate that this is a supported image type
+    if (!isImageMimeType(file.type)) {
+      throw new Error(`Unsupported image format: ${file.type}`);
+    }
 
-		const arrayBuffer = await file.arrayBuffer();
-		const buffer = Buffer.from(arrayBuffer);
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-		// Get image metadata
-		const metadata = await sharp(buffer).metadata();
-		if (!metadata.width || !metadata.height) {
-			throw new Error("Invalid image: unable to read dimensions");
-		}
+    // Get image metadata
+    const metadata = await sharp(buffer).metadata();
+    if (!metadata.width || !metadata.height) {
+      throw new Error("Invalid image: unable to read dimensions");
+    }
 
-		// Determine output format (WebP preferred, fallback to JPEG)
-		const isWebPSupported =
-			metadata.format === "webp" ||
-			metadata.format === "jpeg" ||
-			metadata.format === "png";
-		const outputFormat = isWebPSupported ? "webp" : "jpeg";
-		const mimeType = outputFormat === "webp" ? "image/webp" : "image/jpeg";
+    // Determine output format (WebP preferred, fallback to JPEG)
+    const isWebPSupported =
+      metadata.format === "webp" ||
+      metadata.format === "jpeg" ||
+      metadata.format === "png";
+    const outputFormat = isWebPSupported ? "webp" : "jpeg";
+    const mimeType = outputFormat === "webp" ? "image/webp" : "image/jpeg";
 
-		// Generate variants in parallel
-		const variantPromises = Object.entries(VARIANT_SIZES).map(
-			async ([variant, size]) => {
-				const resized = await sharp(buffer)
-					.resize(size.width, size.height, {
-						fit: "inside",
-						withoutEnlargement: true,
-					})
-					.toFormat(outputFormat, {
-						quality: outputFormat === "webp" ? 85 : 90,
-					})
-					.toBuffer();
+    // Generate variants in parallel
+    const variantPromises = Object.entries(VARIANT_SIZES).map(
+      async ([variant, size]) => {
+        const resized = await sharp(buffer)
+          .resize(size.width, size.height, {
+            fit: "inside",
+            withoutEnlargement: true,
+          })
+          .toFormat(outputFormat, {
+            quality: outputFormat === "webp" ? 85 : 90,
+          })
+          .toBuffer();
 
-				const variantMetadata = await sharp(resized).metadata();
-				return {
-					variant: StorageFileEntity.convertToImageVariant(variant),
-					buffer: resized,
-					width: variantMetadata.width ?? size.width,
-					height: variantMetadata.height ?? size.height,
-					fileSize: resized.length,
-					mimeType,
-				} satisfies Omit<ImageVariant, "buffer"> & { buffer: Buffer };
-			},
-		);
+        const variantMetadata = await sharp(resized).metadata();
+        return {
+          variant: StorageFileEntity.convertToImageVariant(variant),
+          buffer: resized,
+          width: variantMetadata.width ?? size.width,
+          height: variantMetadata.height ?? size.height,
+          fileSize: resized.length,
+          mimeType,
+        } satisfies Omit<ImageVariant, "buffer"> & { buffer: Buffer };
+      },
+    );
 
-		const variants = await Promise.all(variantPromises);
+    const variants = await Promise.all(variantPromises);
 
-		// Optimize original (use medium size as optimized original)
-		const mediumVariant = variants.find((v) => v.variant === "MEDIUM");
-		const optimizedBuffer = mediumVariant
-			? mediumVariant.buffer
-			: await sharp(buffer)
-					.toFormat(outputFormat, {
-						quality: outputFormat === "webp" ? 85 : 90,
-					})
-					.toBuffer();
+    // Optimize original (use medium size as optimized original)
+    const mediumVariant = variants.find((v) => v.variant === "MEDIUM");
+    const optimizedBuffer = mediumVariant
+      ? mediumVariant.buffer
+      : await sharp(buffer)
+          .toFormat(outputFormat, {
+            quality: outputFormat === "webp" ? 85 : 90,
+          })
+          .toBuffer();
 
-		return {
-			original: {
-				buffer,
-				width: metadata.width,
-				height: metadata.height,
-				fileSize: buffer.length,
-				mimeType: file.type || `image/${metadata.format || "jpeg"}`,
-			},
-			variants,
-			optimizedSize: optimizedBuffer.length,
-		};
-	}
+    return {
+      original: {
+        buffer,
+        width: metadata.width,
+        height: metadata.height,
+        fileSize: buffer.length,
+        mimeType: file.type || `image/${metadata.format || "jpeg"}`,
+      },
+      variants,
+      optimizedSize: optimizedBuffer.length,
+    };
+  }
 
-	/**
-	 * Generate variants from a buffer
-	 */
-	static async generateVariants(
-		buffer: Buffer,
-		mimeType: string,
-	): Promise<ImageVariant[]> {
-		// Validate MIME type
-		if (!isImageMimeType(mimeType)) {
-			throw new Error(`Unsupported image format: ${mimeType}`);
-		}
+  /**
+   * Generate variants from a buffer
+   */
+  static async generateVariants(
+    buffer: Buffer,
+    mimeType: string,
+  ): Promise<ImageVariant[]> {
+    // Validate MIME type
+    if (!isImageMimeType(mimeType)) {
+      throw new Error(`Unsupported image format: ${mimeType}`);
+    }
 
-		const metadata = await sharp(buffer).metadata();
-		if (!metadata.width || !metadata.height) {
-			throw new Error("Invalid image: unable to read dimensions");
-		}
+    const metadata = await sharp(buffer).metadata();
+    if (!metadata.width || !metadata.height) {
+      throw new Error("Invalid image: unable to read dimensions");
+    }
 
-		// Determine output format using type-safe logic
-		const outputFormat = isWebOptimizedMimeType(mimeType) ? "webp" : "jpeg";
-		const outputMimeType =
-			outputFormat === "webp" ? "image/webp" : "image/jpeg";
+    // Determine output format using type-safe logic
+    const outputFormat = isWebOptimizedMimeType(mimeType) ? "webp" : "jpeg";
+    const outputMimeType =
+      outputFormat === "webp" ? "image/webp" : "image/jpeg";
 
-		const variantPromises = Object.entries(VARIANT_SIZES).map(
-			async ([variant, size]) => {
-				const resized = await sharp(buffer)
-					.resize(size.width, size.height, {
-						fit: "inside",
-						withoutEnlargement: true,
-					})
-					.toFormat(outputFormat, {
-						quality: outputFormat === "webp" ? 85 : 90,
-					})
-					.toBuffer();
+    const variantPromises = Object.entries(VARIANT_SIZES).map(
+      async ([variant, size]) => {
+        const resized = await sharp(buffer)
+          .resize(size.width, size.height, {
+            fit: "inside",
+            withoutEnlargement: true,
+          })
+          .toFormat(outputFormat, {
+            quality: outputFormat === "webp" ? 85 : 90,
+          })
+          .toBuffer();
 
-				const variantMetadata = await sharp(resized).metadata();
-				return {
-					variant: StorageFileEntity.convertToImageVariant(variant),
-					buffer: resized,
-					width: variantMetadata.width ?? size.width,
-					height: variantMetadata.height ?? size.height,
-					fileSize: resized.length,
-					mimeType: outputMimeType,
-				} satisfies Omit<ImageVariant, "buffer"> & { buffer: Buffer };
-			},
-		);
+        const variantMetadata = await sharp(resized).metadata();
+        return {
+          variant: StorageFileEntity.convertToImageVariant(variant),
+          buffer: resized,
+          width: variantMetadata.width ?? size.width,
+          height: variantMetadata.height ?? size.height,
+          fileSize: resized.length,
+          mimeType: outputMimeType,
+        } satisfies Omit<ImageVariant, "buffer"> & { buffer: Buffer };
+      },
+    );
 
-		return Promise.all(variantPromises);
-	}
+    return Promise.all(variantPromises);
+  }
 }

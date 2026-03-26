@@ -1,9 +1,9 @@
 import {
-	parseAsArrayOf,
-	parseAsBoolean,
-	parseAsInteger,
-	parseAsString,
-	parseAsStringEnum,
+  parseAsArrayOf,
+  parseAsBoolean,
+  parseAsInteger,
+  parseAsString,
+  parseAsStringEnum,
 } from "nuqs";
 import { OrderStatus, UserOnboardingStep } from "../schemas/enums";
 
@@ -11,7 +11,7 @@ import { OrderStatus, UserOnboardingStep } from "../schemas/enums";
  * Parser for onboarding step with Zod validation
  */
 export const parseOnboardingStep = parseAsStringEnum(
-	Object.values(UserOnboardingStep),
+  Object.values(UserOnboardingStep),
 );
 
 /**
@@ -68,6 +68,6 @@ export const parseBooleanFlag = parseAsBoolean.withDefault(false);
  * Combined date range parser
  */
 export const parseDateRange = {
-	from: parseDate,
-	to: parseDate,
+  from: parseDate,
+  to: parseDate,
 } as const;

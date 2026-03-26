@@ -11,24 +11,24 @@ import type { VariantOutput } from "../schemas/variant/output";
  * @returns Formatted description string or undefined if no selections
  */
 export function buildVariantDescription(
-	variant: VariantOutput | null | undefined,
+  variant: VariantOutput | null | undefined,
 ): string | undefined {
-	if (!variant?.selections || variant.selections.length === 0) {
-		return undefined;
-	}
+  if (!variant?.selections || variant.selections.length === 0) {
+    return undefined;
+  }
 
-	const descriptions = variant.selections
-		.map((selection) => {
-			const optionName = selection.option?.name;
-			const valueLabel = selection.value?.value;
+  const descriptions = variant.selections
+    .map((selection) => {
+      const optionName = selection.option?.name;
+      const valueLabel = selection.value?.value;
 
-			if (optionName && valueLabel) {
-				return `${optionName}: ${valueLabel}`;
-			}
+      if (optionName && valueLabel) {
+        return `${optionName}: ${valueLabel}`;
+      }
 
-			return null;
-		})
-		.filter((desc): desc is string => desc !== null);
+      return null;
+    })
+    .filter((desc): desc is string => desc !== null);
 
-	return descriptions.length > 0 ? descriptions.join(", ") : undefined;
+  return descriptions.length > 0 ? descriptions.join(", ") : undefined;
 }

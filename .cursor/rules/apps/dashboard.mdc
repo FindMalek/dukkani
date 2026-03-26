@@ -6,39 +6,26 @@ The `dashboard` app is a Next.js application for managing stores, products, orde
 
 ## Structure
 
-```
+```text
 apps/dashboard/src/
-├── app/                    # Next.js App Router
-│   ├── (auth)/            # Auth route group (login, signup)
-│   │   ├── layout.tsx
-│   │   └── login/
-│   │       └── page.tsx
-│   ├── (dashboard)/       # Dashboard route group
-│   │   └── dashboard/
-│   │       ├── layout.tsx # Dashboard layout with auth check
-│   │       ├── page.tsx   # Dashboard overview
-│   │       ├── products/  # Products routes
-│   │       ├── orders/    # Orders routes
-│   │       ├── customers/ # Customers routes
-│   │       └── settings/  # Settings routes
-│   ├── api/               # API routes
-│   │   └── auth/
-│   │       └── [...all]/
-│   │           └── route.ts
-│   ├── layout.tsx         # Root layout
-│   └── manifest.ts        # PWA manifest
+├── app/
+│   ├── [lang]/
+│   │   ├── (auth)/            # Login + onboarding flows
+│   │   ├── (dashboard)/       # Protected merchant routes
+│   │   └── layout.tsx
+│   └── manifest.ts
 ├── components/            # React components
-│   ├── auth/             # Auth components
-│   ├── dashboard/        # Dashboard feature components
-│   └── layout/           # Layout components
+│   ├── auth/
+│   ├── app/
+│   ├── layout/
+│   └── shared/
 ├── hooks/                # React hooks
-│   ├── api/              # API hooks (React Query)
-│   └── auth/             # Auth hooks
-├── lib/                  # Library utilities
-│   ├── auth-client.ts    # Better Auth client
-│   └── routes.ts         # Type-safe routing
-└── utils/                # Utilities
-    └── orpc.ts           # oRPC client setup
+│   ├── api/
+│   └── controllers/
+├── lib/
+├── stores/
+├── env.ts
+└── proxy.ts
 ```
 
 ## Route Groups
@@ -47,7 +34,7 @@ apps/dashboard/src/
 
 Public authentication routes. Layout handles unauthenticated state.
 
-**Location**: `apps/dashboard/src/app/(auth)/`
+**Location**: `apps/dashboard/src/app/[lang]/(auth)/`
 
 **Routes**:
 - `/login` - Login page
@@ -58,9 +45,9 @@ Public authentication routes. Layout handles unauthenticated state.
 
 Protected dashboard routes. Layout handles authentication and redirects.
 
-**Location**: `apps/dashboard/src/app/(dashboard)/dashboard/`
+**Location**: `apps/dashboard/src/app/[lang]/(dashboard)/`
 
-**Layout**: `apps/dashboard/src/app/(dashboard)/dashboard/layout.tsx`
+**Layout**: `apps/dashboard/src/app/[lang]/(dashboard)/layout.tsx`
 
 **Pattern**:
 ```typescript

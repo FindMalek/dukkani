@@ -2,31 +2,39 @@
 
 ## Purpose
 
-The `web` app is a Next.js public-facing application. It's the customer-facing storefront for the Dukkani platform.
+The `web` app is the public marketing and product website.
+It is not the merchant storefront runtime (`apps/storefront`).
 
 ## Structure
 
-```
+```text
 apps/web/src/
-├── app/                # Next.js App Router
-│   ├── layout.tsx      # Root layout
-│   ├── page.tsx       # Home page
-│   └── manifest.ts     # PWA manifest
-└── components/         # React components
-    └── header.tsx
+├── app/
+│   ├── [lang]/
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   └── manifest.ts
+├── components/
+│   ├── app/
+│   ├── layout/
+│   └── shared/
+├── lib/
+│   └── i18n.ts
+├── env.ts
+└── proxy.ts
 ```
 
 ## Routes
 
-### Home Page
+### Localized Home Page
 
-**Location**: `apps/web/src/app/page.tsx`
+**Location**: `apps/web/src/app/[lang]/page.tsx`
 
 Public home page with welcome content and features.
 
 ### Layout
 
-**Location**: `apps/web/src/app/layout.tsx`
+**Location**: `apps/web/src/app/[lang]/layout.tsx`
 
 Root layout with providers and metadata.
 
@@ -34,11 +42,13 @@ Root layout with providers and metadata.
 
 ### Organization
 
-Components are organized by feature:
+Components are organized by feature and shared layout concerns:
 
-```
+```text
 components/
-  └── header.tsx
+  ├── app/
+  ├── layout/
+  └── shared/
 ```
 
 ### File Naming
@@ -49,7 +59,7 @@ components/
 ### Component Pattern
 
 ```typescript
-// apps/web/src/components/header.tsx
+// apps/web/src/components/layout/header.tsx
 "use client";
 
 import Link from "next/link";
@@ -76,7 +86,7 @@ export function Header() {
 
 ```typescript
 // Local imports (use @/)
-import { Header } from "@/components/header";
+import { Header } from "@/components/layout/header";
 
 // Package imports
 import { Button } from "@dukkani/ui/components/button";
@@ -89,11 +99,13 @@ import { env } from "@dukkani/env";
 - `react` - React library
 - `@dukkani/ui` - UI components
 - `@dukkani/env` - Environment variables
+- `next-intl` - i18n routing and locale handling
 
 ## Best Practices
 
 - Use server components by default
 - Add `"use client"` only when needed for interactivity
+- Keep marketing and acquisition concerns in `web`, not storefront commerce logic
 - Use UI components from `@dukkani/ui`
 - Keep components simple and focused
 - Use path aliases for cleaner imports

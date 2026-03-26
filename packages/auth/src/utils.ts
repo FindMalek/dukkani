@@ -1,8 +1,7 @@
 import { scrypt } from "node:crypto";
 import {
-	isOriginAllowed,
-	isOriginAllowedByPatterns,
-	isOriginAllowedForRequest,
+  isOriginAllowedByPatterns,
+  isOriginAllowedForRequest,
 } from "@dukkani/common/utils/origin";
 
 /**
@@ -11,36 +10,36 @@ import {
  * BetterAuth expects: verify({ hash, password })
  */
 export async function verifyPassword({
-	hash: hashedPassword,
-	password,
+  hash: hashedPassword,
+  password,
 }: {
-	hash: string;
-	password: string;
+  hash: string;
+  password: string;
 }): Promise<boolean> {
-	const [saltBase64, hashBase64] = hashedPassword.split(":");
-	if (!saltBase64 || !hashBase64) {
-		return false;
-	}
+  const [saltBase64, hashBase64] = hashedPassword.split(":");
+  if (!saltBase64 || !hashBase64) {
+    return false;
+  }
 
-	const salt = Buffer.from(saltBase64, "base64");
-	const hash = await new Promise<Buffer>((resolve, reject) => {
-		scrypt(
-			password,
-			salt,
-			64,
-			{
-				N: 16384,
-				r: 8,
-				p: 1,
-			},
-			(err, derivedKey) => {
-				if (err) reject(err);
-				else resolve(derivedKey);
-			},
-		);
-	});
+  const salt = Buffer.from(saltBase64, "base64");
+  const hash = await new Promise<Buffer>((resolve, reject) => {
+    scrypt(
+      password,
+      salt,
+      64,
+      {
+        N: 16384,
+        r: 8,
+        p: 1,
+      },
+      (err, derivedKey) => {
+        if (err) reject(err);
+        else resolve(derivedKey);
+      },
+    );
+  });
 
-	return hash.toString("base64") === hashBase64;
+  return hash.toString("base64") === hashBase64;
 }
 
 /**
@@ -48,30 +47,30 @@ export async function verifyPassword({
  * Returns either a static array or a dynamic function that validates origins
  */
 export function buildTrustedOrigins(
-	baseOrigins: string[],
-	isVercel: boolean,
-	allowedOriginPattern?: string,
-	previewOriginPattern?: string,
+  baseOrigins: string[],
+  isVercel: boolean,
+  allowedOriginPattern?: string,
+  previewOriginPattern?: string,
 ): string[] | ((request?: Request) => string[] | Promise<string[]>) {
-	// Enable dynamic origin check when on Vercel (even without allowedOriginPattern)
-	// so preview deployments can trust *.vercel.app origins
-	if (isVercel) {
-		return (request?: Request) => {
-			if (!request) {
-				return baseOrigins;
-			}
-			const origin = request.headers.get("origin");
-			if (
-				origin &&
-				(isOriginAllowedForRequest(origin, baseOrigins, allowedOriginPattern) ||
-					(process.env.VERCEL_ENV === "preview" &&
-						isOriginAllowedByPatterns(origin, previewOriginPattern)))
-			) {
-				return [...baseOrigins, origin];
-			}
-			return baseOrigins;
-		};
-	}
+  // Enable dynamic origin check when on Vercel (even without allowedOriginPattern)
+  // so preview deployments can trust *.vercel.app origins
+  if (isVercel) {
+    return (request?: Request) => {
+      if (!request) {
+        return baseOrigins;
+      }
+      const origin = request.headers.get("origin");
+      if (
+        origin &&
+        (isOriginAllowedForRequest(origin, baseOrigins, allowedOriginPattern) ||
+          (process.env.VERCEL_ENV === "preview" &&
+            isOriginAllowedByPatterns(origin, previewOriginPattern)))
+      ) {
+        return [...baseOrigins, origin];
+      }
+      return baseOrigins;
+    };
+  }
 
-	return baseOrigins;
+  return baseOrigins;
 }

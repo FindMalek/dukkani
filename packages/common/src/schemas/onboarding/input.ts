@@ -2,25 +2,25 @@ import { z } from "zod";
 import { userOnboardingStepSchema } from "../enums";
 
 export const onboardingCompleteInputSchema = z.object({
-	storeId: z.string().min(1, "Store ID is required").optional(),
+  storeId: z.string().min(1, "Store ID is required").optional(),
 });
 
 export const onboardingGetStateInputSchema = z.object({
-	guestStep: userOnboardingStepSchema.nullable().optional(),
+  guestStep: userOnboardingStepSchema.nullable().optional(),
 });
 
 export const onboardingGetStepConfigInputSchema = z.object({
-	step: userOnboardingStepSchema.nullable(),
+  step: userOnboardingStepSchema.nullable(),
 });
 
 export type OnboardingCompleteInput = z.infer<
-	typeof onboardingCompleteInputSchema
+  typeof onboardingCompleteInputSchema
 >;
 
 export type OnboardingGetStateInput = z.infer<
-	typeof onboardingGetStateInputSchema
+  typeof onboardingGetStateInputSchema
 >;
 
 export type OnboardingGetStepConfigInput = z.infer<
-	typeof onboardingGetStepConfigInputSchema
+  typeof onboardingGetStepConfigInputSchema
 >;

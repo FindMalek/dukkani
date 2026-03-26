@@ -17,13 +17,13 @@ const generateRandom = customAlphabet(alphabet, 8);
  * @returns 3 uppercase letters (e.g., "AHM")
  */
 function extractStorePrefix(slug: string): string {
-	// Remove any non-alphabetic characters and get first 3 letters
-	const letters = slug.replace(/[^a-zA-Z]/g, "").slice(0, 3);
+  // Remove any non-alphabetic characters and get first 3 letters
+  const letters = slug.replace(/[^a-zA-Z]/g, "").slice(0, 3);
 
-	// Convert to uppercase and pad if necessary
-	const prefix = letters.toUpperCase().padEnd(3, "X");
+  // Convert to uppercase and pad if necessary
+  const prefix = letters.toUpperCase().padEnd(3, "X");
 
-	return prefix;
+  return prefix;
 }
 
 /**
@@ -34,9 +34,9 @@ function extractStorePrefix(slug: string): string {
  * @returns A custom order ID string
  */
 export function generateOrderId(storeSlug: string): string {
-	const prefix = extractStorePrefix(storeSlug);
-	const random = generateRandom();
-	return `${prefix}-${random}`;
+  const prefix = extractStorePrefix(storeSlug);
+  const random = generateRandom();
+  return `${prefix}-${random}`;
 }
 
 /**
@@ -47,7 +47,7 @@ export function generateOrderId(storeSlug: string): string {
  * @returns A custom product ID string
  */
 export function generateProductId(storeSlug: string): string {
-	const prefix = extractStorePrefix(storeSlug);
-	const random = generateRandom();
-	return `${prefix}-${random}`;
+  const prefix = extractStorePrefix(storeSlug);
+  const random = generateRandom();
+  return `${prefix}-${random}`;
 }

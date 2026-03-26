@@ -4,14 +4,14 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./src/lib/i18n.ts");
 
 const nextConfig: NextConfig = {
-	reactCompiler: true,
-	transpilePackages: ["@dukkani/ui"],
-	serverExternalPackages: [
-		"@prisma/client",
-		"pino",
-		"pino-pretty",
-		"thread-stream",
-	],
+  reactCompiler: true,
+  transpilePackages: ["@dukkani/ui"],
+  serverExternalPackages: [
+    "@prisma/client",
+    "pino",
+    "pino-pretty",
+    "thread-stream",
+  ],
 };
 
 export default withNextIntl(nextConfig);

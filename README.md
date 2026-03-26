@@ -76,187 +76,62 @@ This project is built with modern, type-safe technologies:
 
 ---
 
+## 🧭 Repository Layout
+
+### Apps
+
+- `@dukkani/api` (`apps/api`) - API gateway for oRPC, OpenAPI, auth endpoints, and webhooks.
+- `@dukkani/dashboard` (`apps/dashboard`) - Merchant dashboard for products, orders, customers, and settings.
+- `@dukkani/storefront` (`apps/storefront`) - Customer storefront and checkout runtime.
+- `@dukkani/web` (`apps/web`) - Public marketing and product website.
+
+### Shared packages
+
+- `@dukkani/auth`, `@dukkani/common`, `@dukkani/config`
+- `@dukkani/core`, `@dukkani/db`, `@dukkani/env`
+- `@dukkani/logger`, `@dukkani/migrations`, `@dukkani/orpc`
+- `@dukkani/storage`, `@dukkani/tracing`, `@dukkani/ui`, `@dukkani/ci-tools`
+
+For package-level boundaries and dependency guidance, see `.cursor/rules/packages/00-package-index.mdc`.
+
+### AI assistant rules and skills
+
+- Canonical project rules live in `.cursor/rules/*.mdc`.
+- Windsurf reads `.windsurfrules`, which points to the same canonical `.cursor/rules` content.
+- Workspace skills are maintained in `.windsurf/skills` and mirrored to `.agents/skills` via symlink.
+- Naming conventions source of truth: `.cursor/rules/01-naming-conventions.mdc`.
+
+---
+
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) 20+ and [pnpm](https://pnpm.io/) 10+
-- [Docker](https://www.docker.com/) (for local database)
-- Git
-
-### Installation
-
-1. **Clone the repository**
+Quickstart (full setup guide is in [CONTRIBUTING.md](./CONTRIBUTING.md)):
 
 ```bash
 git clone https://github.com/FindMalek/dukkani.git
 cd dukkani
-```
-
-2. **Install dependencies**
-
-```bash
 pnpm install
-```
-
-3. **Set up environment variables**
-
-Create a `.env` file at the root of the project:
-```bash
-# Database (required)
-DATABASE_URL="postgresql://postgres:password@localhost:5432/dukkani"
-
-# CORS Origin (required for auth)
-NEXT_PUBLIC_API_URL="http://localhost:3002"
-```
-
-4. **Set up the database**
-
-```bash
 pnpm run bootstrap
+pnpm run dev
 ```
 
-This will:
-- Start the PostgreSQL database container
-- Push the Prisma schema to create all tables
+Local app ports:
 
-5. **Seed the database (optional)**
+- **Web**: `http://localhost:3001`
+- **API**: `http://localhost:3002`
+- **Dashboard**: `http://localhost:3003`
+- **Storefront**: `http://localhost:3004`
 
-```bash
-pnpm run db:seed
-```
-
-This creates default users and sample data for development. See [Database Package README](./packages/db/README.md) for details.
-
-6. **Start the development server**
-
-- **Web** (3001): [http://localhost:3001](http://localhost:3001) - Marketing/landing site
-- **API** (3002): [http://localhost:3002](http://localhost:3002) - Backend API
-- **Dashboard** (3003): [http://localhost:3003](http://localhost:3003) - Merchant dashboard
-- **Storefront** (3004): [http://localhost:3004](http://localhost:3004) - Customer-facing store (where shoppers browse and buy)
-
-### Quick Commands
-
-```bash
-# Development
-pnpm run dev              # Start all apps
-pnpm run dev:api          # Start API only
-pnpm run dev:dashboard    # Start Dashboard only
-pnpm run dev:web          # Start marketing site
-pnpm run dev:storefront   # Start storefront (customer store)
-pnpm run dev:all          # Start API + Dashboard + Storefront
-
-# Database
-pnpm run db:studio        # Open Prisma Studio
-pnpm run db:push          # Push schema changes
-pnpm run db:seed          # Seed database
-pnpm run db:reset-and-seed # Reset and seed
-
-# Code Quality
-pnpm run check            # Lint and format
-pnpm run check-types      # Type check all packages
-pnpm run build            # Build all packages
-```
-
----
-
-## 🔄 Migration CLI
-
-The `@dukkani/migrations` package provides a CLI for database and storage migrations.
-
-### Prerequisites
-
-Ensure these environment variables are set in your `.env`:
-
-```bash
-# Supabase (source)
-SUPABASE_URL="https://your-project.supabase.co"
-SUPABASE_SERVICE_ROLE_KEY="your-service-key"
-SUPABASE_STORAGE_BUCKET="your-bucket"
-
-# R2 (destination) - already configured via storage service
-CLOUDFLARE_R2_ACCOUNT_ID="..."
-CLOUDFLARE_R2_ACCESS_KEY_ID="..."
-CLOUDFLARE_R2_SECRET_ACCESS_KEY="..."
-CLOUDFLARE_R2_BUCKET_NAME="..."
-```
-
-### Storage Migration Commands
-
-| Command | Description |
-|---------|-------------|
-| `storage migrate` | Migrate files from Supabase to R2 |
-| `storage rollback` | Rollback storage migration |
-| `storage validate` | Validate migration results |
-
-#### Examples
-
-**Migrate storage (Supabase → R2):**
-```bash
-pnpm --filter @dukkani/migrations migrate:storage
-```
-
-**Dry run (preview without making changes):**
-```bash
-pnpm --filter @dukkani/migrations migrate:storage -- --dry-run
-```
-
-**With custom batch size:**
-```bash
-pnpm --filter @dukkani/migrations migrate:storage -- --batch-size 10
-```
-
-**Migrate all files (not just DB-referenced):**
-```bash
-pnpm --filter @dukkani/migrations migrate:storage -- --scope all-bucket
-```
-
-**Rollback migration:**
-```bash
-pnpm --filter @dukkani/migrations migrate:storage:rollback
-```
-
-### Create Migration Commands
-
-| Command | Description |
-|---------|-------------|
-| `create` | Interactive migration creation |
-| `create:storage <name>` | Create a storage migration |
-| `create:database <name>` | Create a database migration |
-
-#### Examples
-
-**Interactive creation:**
-```bash
-pnpm --filter @dukkani/migrations migration:create
-```
-
-**Create storage migration:**
-```bash
-pnpm --filter @dukkani/migrations migration:create:storage migrate-user-avatars
-```
-
-**Create database migration:**
-```bash
-pnpm --filter @dukkani/migrations migration:create:database add-order-index
-```
+For environment setup, Docker, seeded data, issue workflow, and PR checklist, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions from the open-source community! Our [GitHub Issues](https://github.com/FindMalek/dukkani/issues) are organized as **tasks** — pick any issue labeled `good first issue`, `help wanted`, or `bug` and start contributing.
+We welcome contributions from the open-source community.
+Start from [GitHub Issues](https://github.com/FindMalek/dukkani/issues), pick a scoped task, and follow our contribution workflow.
 
 **Please read our [Contributing Guidelines](./CONTRIBUTING.md) before submitting a PR.**
-
-### How to contribute
-
-1. **Browse [open issues](https://github.com/FindMalek/dukkani/issues)** — each issue is a task you can pick up
-2. **Comment on an issue** you'd like to work on (so we avoid duplicate work)
-3. **Fork & create a branch** following our [Contributing Guidelines](./CONTRIBUTING.md)
-4. **Submit a PR** — we'll review and merge!
-
-For detailed guidelines on development setup, code style, and PR process, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 

@@ -14,27 +14,27 @@ import { TextAreaField } from "../components/forms/text-area-field";
 import { TextField } from "../components/forms/text-field";
 
 const { fieldContext, formContext, useFieldContext, useFormContext } =
-	createFormHookContexts();
+  createFormHookContexts();
 
 const { useAppForm, withForm } = createFormHook({
-	fieldComponents: {
-		TextInput: TextField,
-		EmailInput: EmailField,
-		TextAreaInput: TextAreaField,
-		PasswordInput: PasswordField,
-		NumberInput: NumberField,
-		PriceInput: PriceField,
-		SelectInput: SelectField,
-		CheckboxInput: CheckboxField,
-		SwitchInput: SwitchField,
-		ArrayInput: ArrayField,
-		ImagesInput: ImagesField,
-		PillInput: PillField,
-		RadioGroupInput: RadioGroupField,
-	},
-	formComponents: {},
-	fieldContext,
-	formContext,
+  fieldComponents: {
+    TextInput: TextField,
+    EmailInput: EmailField,
+    TextAreaInput: TextAreaField,
+    PasswordInput: PasswordField,
+    NumberInput: NumberField,
+    PriceInput: PriceField,
+    SelectInput: SelectField,
+    CheckboxInput: CheckboxField,
+    SwitchInput: SwitchField,
+    ArrayInput: ArrayField,
+    ImagesInput: ImagesField,
+    PillInput: PillField,
+    RadioGroupInput: RadioGroupField,
+  },
+  formComponents: {},
+  fieldContext,
+  formContext,
 });
 
 export { useAppForm, useFieldContext, useFormContext, withForm };

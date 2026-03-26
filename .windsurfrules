@@ -1,0 +1,40 @@
+# Dukkani Windsurf Rules
+
+Follow these rules for all code generation, edits, and reviews in this repository.
+
+## Source of truth
+
+- Domain and package rules are maintained in `.cursor/rules/**/*.mdc`.
+- Treat `.mdc` files as Markdown rule files and apply the rule matching the area you are editing.
+- If a file-level rule conflicts with this file, prefer the more specific rule.
+
+## Stack and workflow constraints
+
+- Monorepo: Turborepo + pnpm workspaces.
+- Apps live in `apps/*`; shared code lives in `packages/*`.
+- Use internal imports via `@dukkani/*` package names.
+- Use typed env values from `@dukkani/env`; avoid direct `process.env` in app code.
+- Run commands from repository root unless a package script requires otherwise.
+
+## Domain routing
+
+- `apps/api/**` -> `.cursor/rules/apps/api.mdc`
+- `apps/dashboard/**` -> `.cursor/rules/apps/dashboard.mdc`
+- `apps/storefront/**` -> `.cursor/rules/apps/storefront.mdc`
+- `apps/web/**` -> `.cursor/rules/apps/web.mdc`
+- `packages/**` -> `.cursor/rules/packages/00-package-index.mdc` plus specific package rule
+
+## Coding expectations
+
+- Preserve package boundaries and avoid circular dependencies.
+- Prefer shared package utilities instead of app-local duplication.
+- Keep changes scoped to the requested task.
+- Keep code and docs aligned with current monorepo architecture.
+
+## Windsurf + Cursor parity
+
+This project uses an include-based parity approach:
+
+- Cursor reads `.cursor/rules/*.mdc` directly.
+- Windsurf reads this `.windsurfrules` file, which points to the same canonical `.cursor/rules` content.
+- Update `.cursor/rules` first, then keep this file aligned when domains change.

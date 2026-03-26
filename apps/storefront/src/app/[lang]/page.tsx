@@ -14,66 +14,66 @@ import { getStoreSlug } from "@/lib/get-store-slug";
 import { client, getQueryClient, orpc } from "@/lib/orpc";
 
 export default async function StorePage() {
-	const headersList = await headers();
-	const host = headersList.get("host");
-	const cookieStore = await cookies();
-	const storeSlug = getStoreSlug(host, cookieStore);
-	const t = await getTranslations("storefront.store");
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const cookieStore = await cookies();
+  const storeSlug = getStoreSlug(host, cookieStore);
+  const t = await getTranslations("storefront.store");
 
-	if (!storeSlug) {
-		return notFound();
-	}
+  if (!storeSlug) {
+    return notFound();
+  }
 
-	const queryClient = getQueryClient();
+  const queryClient = getQueryClient();
 
-	try {
-		const store = await queryClient.fetchQuery(
-			orpc.store.getBySlugPublic.queryOptions({
-				input: { slug: storeSlug },
-			}),
-		);
+  try {
+    const store = await queryClient.fetchQuery(
+      orpc.store.getBySlugPublic.queryOptions({
+        input: { slug: storeSlug },
+      }),
+    );
 
-		if (!store || !store.name) {
-			logger.error({ store }, "Invalid store data");
-			return notFound();
-		}
+    if (!store || !store.name) {
+      logger.error({ store }, "Invalid store data");
+      return notFound();
+    }
 
-		if (store.status === StoreStatus.DRAFT) {
-			return <ComingSoon store={store} />;
-		}
+    if (store.status === StoreStatus.DRAFT) {
+      return <ComingSoon store={store} />;
+    }
 
-		const categories = await client.category.getAllPublic({
-			storeId: store.id,
-		});
+    const categories = await client.category.getAllPublic({
+      storeId: store.id,
+    });
 
-		const categoryOptions = categories.map((cat) => ({
-			id: cat.id,
-			name: cat.name,
-		}));
+    const categoryOptions = categories.map((cat) => ({
+      id: cat.id,
+      name: cat.name,
+    }));
 
-		const products = store.products || [];
+    const products = store.products || [];
 
-		return (
-			<HydrationBoundary state={dehydrate(queryClient)}>
-				<div className="min-h-screen overflow-x-hidden bg-background">
-					<HeroBanner
-						title="New Spring Collection"
-						subtitle="Shop the look →"
-						linkHref="#"
-					/>
-					{categoryOptions.length > 0 && (
-						<CategoryFilter categories={categoryOptions} />
-					)}
-					<ProductSectionHeader title={t("products.title")} />
-					<ProductGrid products={products} />
-				</div>
-			</HydrationBoundary>
-		);
-	} catch (error) {
-		if (error instanceof ORPCError && error.status === 404) {
-			return notFound();
-		}
+    return (
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <div className="min-h-screen overflow-x-hidden bg-background">
+          <HeroBanner
+            title="New Spring Collection"
+            subtitle="Shop the look →"
+            linkHref="#"
+          />
+          {categoryOptions.length > 0 && (
+            <CategoryFilter categories={categoryOptions} />
+          )}
+          <ProductSectionHeader title={t("products.title")} />
+          <ProductGrid products={products} />
+        </div>
+      </HydrationBoundary>
+    );
+  } catch (error) {
+    if (error instanceof ORPCError && error.status === 404) {
+      return notFound();
+    }
 
-		throw error;
-	}
+    throw error;
+  }
 }

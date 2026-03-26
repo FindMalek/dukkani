@@ -1,3 +1,3 @@
 export default function OnboardingLoading() {
-	return <div>Loading...</div>;
+  return <div>Loading...</div>;
 }

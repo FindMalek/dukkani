@@ -2,24 +2,24 @@ import { ProductEntity } from "@dukkani/common/entities/product/entity";
 import { ProductQuery } from "@dukkani/common/entities/product/query";
 import { StoreStatus } from "@dukkani/common/schemas/enums";
 import {
-	createProductInputSchema,
-	getProductInputSchema,
-	getProductsByIdsInputSchema,
-	listProductsInputSchema,
-	productUploadImagesInputSchema,
-	togglePublishProductInputSchema,
-	updateProductInputSchema,
+  createProductInputSchema,
+  getProductInputSchema,
+  getProductsByIdsInputSchema,
+  listProductsInputSchema,
+  productUploadImagesInputSchema,
+  togglePublishProductInputSchema,
+  updateProductInputSchema,
 } from "@dukkani/common/schemas/product/input";
 import type {
-	ListProductsOutput,
-	ProductIncludeOutput,
-	ProductPublicOutput,
+  ListProductsOutput,
+  ProductIncludeOutput,
+  ProductPublicOutput,
 } from "@dukkani/common/schemas/product/output";
 import {
-	listProductsOutputSchema,
-	productIncludeOutputSchema,
-	productPublicOutputSchema,
-	productsPublicOutputSchema,
+  listProductsOutputSchema,
+  productIncludeOutputSchema,
+  productPublicOutputSchema,
+  productsPublicOutputSchema,
 } from "@dukkani/common/schemas/product/output";
 import type { UploadFilesOutput } from "@dukkani/common/schemas/storage/output";
 import { uploadFilesOutputSchema } from "@dukkani/common/schemas/storage/output";
@@ -37,690 +37,690 @@ import { executeUploadFiles } from "../utils/storage-upload";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
 export const productRouter = {
-	/**
-	 * Get all products for user's stores (with pagination/filtering)
-	 */
-	getAll: protectedProcedure
-		.input(listProductsInputSchema.optional())
-		.output(listProductsOutputSchema)
-		.handler(async ({ input, context }): Promise<ListProductsOutput> => {
-			const userId = context.session.user.id;
-			const userStoreIds = await getUserStoreIds(userId);
-
-			if (userStoreIds.length === 0) {
-				return {
-					products: [],
-					total: 0,
-					hasMore: false,
-					page: input?.page ?? 1,
-					limit: input?.limit ?? 20,
-				};
-			}
-
-			const page = input?.page ?? 1;
-			const limit = input?.limit ?? 20;
-			const skip = (page - 1) * limit;
-
-			// Verify store ownership if filtering by specific store
-			if (input?.storeId && !userStoreIds.includes(input.storeId)) {
-				throw new ORPCError("FORBIDDEN", {
-					message: "You don't have access to this store",
-				});
-			}
-
-			// Convert stockFilter to stock range format
-			let stockFilter: { lte?: number; gte?: number } | undefined;
-			if (input?.stockFilter) {
-				switch (input.stockFilter) {
-					case "in-stock":
-						stockFilter = { gte: 1 };
-						break;
-					case "low-stock":
-						stockFilter = { gte: 1, lte: 10 };
-						break;
-					case "out-of-stock":
-						stockFilter = { lte: 0 };
-						break;
-					default:
-						// No filter
-						break;
-				}
-			}
-
-			const hasVariants =
-				input?.variantsFilter && input.variantsFilter !== "all"
-					? input.variantsFilter === "with-variants"
-					: undefined;
-
-			const where = ProductQuery.getWhere(userStoreIds, {
-				storeId: input?.storeId,
-				published: input?.published,
-				search: input?.search,
-				stock: stockFilter,
-				hasVariants,
-				priceMin: input?.priceMin,
-				priceMax: input?.priceMax,
-			});
-
-			const [products, total] = await Promise.all([
-				database.product.findMany({
-					where,
-					skip,
-					take: limit,
-					orderBy: ProductQuery.getOrder("desc", "createdAt"),
-					include: ProductQuery.getListInclude(),
-				}),
-				database.product.count({ where }),
-			]);
-
-			const hasMore = skip + products.length < total;
-
-			return {
-				products: products.map(ProductEntity.getListRo),
-				total,
-				hasMore,
-				page,
-				limit,
-			};
-		}),
-
-	/**
-	 * Get all public products for a store (for storefronts)
-	 * No authentication required, uses storefront rate limiting
-	 * Only returns published products
-	 */
-	getAllPublic: baseProcedure
-		.use(rateLimitPublicSafe)
-		.input(listProductsInputSchema.optional())
-		.output(listProductsOutputSchema)
-		.handler(async ({ input }): Promise<ListProductsOutput> => {
-			// Validate storeId is required
-			if (!input?.storeId) {
-				throw new ORPCError("BAD_REQUEST", {
-					message: "storeId is required",
-				});
-			}
-
-			const page = input?.page ?? 1;
-			const limit = input?.limit ?? 20;
-			const skip = (page - 1) * limit;
-
-			// Verify store exists and is published
-			const store = await database.store.findUnique({
-				where: { id: input.storeId },
-				select: { id: true, status: true },
-			});
-
-			if (!store) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Store not found",
-				});
-			}
-
-			if (store.status !== StoreStatus.PUBLISHED) {
-				throw new ORPCError("FORBIDDEN", {
-					message: "Store is not available",
-				});
-			}
-
-			// Build where clause for published products
-			const where: Prisma.ProductWhereInput = {
-				storeId: input.storeId,
-				...ProductQuery.getPublishableWhere(),
-			};
-
-			// Add category filter if provided
-			if (input?.categoryId) {
-				where.categoryId = input?.categoryId;
-			}
-
-			// Add search filter if provided
-			if (input?.search) {
-				where.OR = [
-					{ name: { contains: input?.search, mode: "insensitive" } },
-					{ description: { contains: input?.search, mode: "insensitive" } },
-				];
-			}
-
-			const [products, total] = await Promise.all([
-				database.product.findMany({
-					where,
-					skip,
-					take: limit,
-					orderBy: { createdAt: "desc" },
-					include: ProductQuery.getListInclude(),
-				}),
-				database.product.count({ where }),
-			]);
-
-			const hasMore = skip + products.length < total;
-
-			return {
-				products: products.map(ProductEntity.getListRo),
-				total,
-				hasMore,
-				page,
-				limit,
-			};
-		}),
-
-	/**
-	 * Get product by ID (verify store ownership)
-	 */
-	getById: protectedProcedure
-		.input(getProductInputSchema)
-		.output(productIncludeOutputSchema)
-		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
-			const userId = context.session.user.id;
-
-			const product = await database.product.findUnique({
-				where: { id: input.id },
-				include: ProductQuery.getInclude(),
-			});
-
-			if (!product) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Product not found",
-				});
-			}
-
-			// Verify ownership
-			await verifyStoreOwnership(userId, product.storeId);
-
-			return ProductEntity.getRo(product);
-		}),
-
-	/**
-	 * Create new product (verify store ownership)
-	 */
-	create: protectedProcedure
-		.input(createProductInputSchema)
-		.output(productIncludeOutputSchema)
-		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
-			const userId = context.session.user.id;
-
-			await verifyStoreOwnership(userId, input.storeId);
-
-			const store = await database.store.findUnique({
-				where: { id: input.storeId },
-				select: { slug: true },
-			});
-
-			if (!store) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Store not found",
-				});
-			}
-
-			const productId = ProductService.generateProductId(store.slug);
-
-			// Create product with variants in a transaction
-			const product = await database.$transaction(async (tx) => {
-				// 1. Create product base
-				const createdProduct = await tx.product.create({
-					data: {
-						id: productId,
-						name: input.name,
-						description: input.description,
-						price: input.price,
-						stock: input.stock,
-						published: input.published ?? false,
-						storeId: input.storeId,
-						categoryId: input.categoryId,
-						hasVariants: input.hasVariants ?? false,
-						images: input.imageUrls
-							? {
-									create: input.imageUrls.map((url) => ({ url })),
-								}
-							: undefined,
-					},
-				});
-
-				// 2. Create variant options if hasVariants is true
-				if (input.hasVariants && input.variantOptions) {
-					// First, create all options and store them in a map
-					const optionMap = new Map<
-						string,
-						{ optionId: string; values: Map<string, string> }
-					>();
-
-					for (const option of input.variantOptions) {
-						const createdOption = await tx.productVariantOption.create({
-							data: {
-								name: option.name,
-								productId: createdProduct.id,
-								values: {
-									create: option.values.map((v) => ({
-										value: v.value,
-									})),
-								},
-							},
-							include: {
-								values: true,
-							},
-						});
-
-						// Store option ID and create a map of value strings to value IDs
-						const valueMap = new Map<string, string>();
-						for (const value of createdOption.values) {
-							valueMap.set(value.value, value.id);
-						}
-
-						optionMap.set(option.name, {
-							optionId: createdOption.id,
-							values: valueMap,
-						});
-					}
-
-					if (input.variants) {
-						// Track SKUs we're about to create to detect duplicates within this batch
-						const skusInBatch = new Set<string>();
-
-						// Check for duplicate SKUs in the incoming payload
-						for (const variant of input.variants) {
-							if (variant.sku?.trim()) {
-								const normalizedSku = variant.sku.trim();
-								if (skusInBatch.has(normalizedSku)) {
-									throw new ORPCError("BAD_REQUEST", {
-										message: `Duplicate SKU "${normalizedSku}" found in variants`,
-									});
-								}
-								skusInBatch.add(normalizedSku);
-							}
-						}
-
-						// Check for existing SKUs in database for this product
-						// Note: Since we're creating a new product, this check is technically not needed
-						// but we'll keep it for safety and future-proofing (e.g., if update logic reuses this)
-						const existingVariants = await tx.productVariant.findMany({
-							where: {
-								productId: createdProduct.id,
-								sku: {
-									in: Array.from(skusInBatch),
-								},
-							},
-							select: { sku: true },
-						});
-
-						if (existingVariants.length > 0) {
-							const existingSkus = existingVariants
-								.map((v) => v.sku)
-								.join(", ");
-							throw new ORPCError("BAD_REQUEST", {
-								message: `SKU(s) already exist for this product: ${existingSkus}`,
-							});
-						}
-
-						for (const variant of input.variants) {
-							const variantSelections: Array<{
-								optionId: string;
-								valueId: string;
-							}> = [];
-
-							for (const [optionName, valueString] of Object.entries(
-								variant.selections,
-							)) {
-								const optionData = optionMap.get(optionName);
-
-								if (!optionData) {
-									throw new ORPCError("BAD_REQUEST", {
-										message: `Option "${optionName}" not found`,
-									});
-								}
-
-								const valueId = optionData.values.get(valueString);
-								if (!valueId) {
-									throw new ORPCError("BAD_REQUEST", {
-										message: `Value "${valueString}" not found for option "${optionName}"`,
-									});
-								}
-
-								variantSelections.push({
-									optionId: optionData.optionId,
-									valueId,
-								});
-							}
-
-							// Create variant with selections
-							await tx.productVariant.create({
-								data: {
-									sku: variant.sku,
-									price: variant.price,
-									stock: variant.stock,
-									productId: createdProduct.id,
-									selections: {
-										create: variantSelections.map((s) => ({
-											optionId: s.optionId,
-											valueId: s.valueId,
-										})),
-									},
-								},
-							});
-						}
-					}
-				}
-
-				// Fetch complete product with all relations
-				return await tx.product.findUnique({
-					where: { id: createdProduct.id },
-					include: ProductQuery.getInclude(),
-				});
-			});
-
-			if (!product) {
-				throw new ORPCError("INTERNAL_SERVER_ERROR", {
-					message: "Failed to create product",
-				});
-			}
-
-			return ProductEntity.getRo(product);
-		}),
-
-	/**
-	 * Update product (verify store ownership)
-	 */
-	update: protectedProcedure
-		.input(updateProductInputSchema)
-		.output(productIncludeOutputSchema)
-		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
-			const userId = context.session.user.id;
-
-			// Get product to verify ownership and collect existing images for cleanup
-			const existingProduct = await database.product.findUnique({
-				where: { id: input.id },
-				select: {
-					storeId: true,
-					images: {
-						select: { url: true },
-					},
-				},
-			});
-
-			if (!existingProduct) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Product not found",
-				});
-			}
-
-			// Verify ownership
-			await verifyStoreOwnership(userId, existingProduct.storeId);
-
-			// Update product
-			const updateData: {
-				name?: string;
-				description?: string | null;
-				price?: number;
-				stock?: number;
-				published?: boolean;
-			} = {};
-
-			if (input.name !== undefined) updateData.name = input.name;
-			if (input.description !== undefined)
-				updateData.description = input.description || null;
-			if (input.price !== undefined) updateData.price = input.price;
-			if (input.stock !== undefined) updateData.stock = input.stock;
-			if (input.published !== undefined) updateData.published = input.published;
-
-			// Handle image updates
-			if (input.imageUrls !== undefined) {
-				// Delete existing image folders from storage if any exist
-				if (existingProduct.images.length > 0) {
-					try {
-						// Extract unique folder prefixes from all images
-						const folderPrefixes = new Set<string>();
-						for (const image of existingProduct.images) {
-							if (image?.url) {
-								const imageKey = await StorageService.getKeyFromPublicUrl(
-									image.url,
-									env.S3_PUBLIC_BASE_URL,
-								);
-
-								if (imageKey) {
-									// Extract folder prefix by removing filename (last segment after last '/')
-									const lastSlashIndex = imageKey.lastIndexOf("/");
-									if (lastSlashIndex > 0) {
-										const folderPrefix = imageKey.substring(0, lastSlashIndex);
-										folderPrefixes.add(folderPrefix);
-									}
-								}
-							}
-						}
-
-						// Delete each unique folder
-						for (const folderPrefix of folderPrefixes) {
-							await StorageService.deleteFolderByPrefix(
-								env.S3_BUCKET,
-								folderPrefix,
-							);
-						}
-					} catch (storageError) {
-						logger.error(
-							{ error: storageError, productId: input.id },
-							"Failed to delete old product image folders from storage",
-						);
-					}
-				}
-
-				// Delete existing images from database
-				await database.image.deleteMany({
-					where: { productId: input.id },
-				});
-
-				// Create new images
-				if (input.imageUrls.length > 0) {
-					await database.image.createMany({
-						data: input.imageUrls.map((url) => ({
-							url,
-							productId: input.id,
-						})),
-					});
-				}
-			}
-
-			const product = await database.product.update({
-				where: { id: input.id },
-				data: updateData,
-				include: ProductQuery.getInclude(),
-			});
-
-			return ProductEntity.getRo(product);
-		}),
-
-	/**
-	 * Delete product (verify store ownership)
-	 */
-	delete: protectedProcedure
-		.input(getProductInputSchema)
-		.output(successOutputSchema)
-		.handler(async ({ input, context }) => {
-			const userId = context.session.user.id;
-
-			// Get product with images to verify ownership and collect file URLs
-			const product = await database.product.findUnique({
-				where: { id: input.id },
-				select: {
-					storeId: true,
-					images: {
-						select: { url: true },
-					},
-				},
-			});
-
-			if (!product) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Product not found",
-				});
-			}
-
-			// Verify ownership
-			await verifyStoreOwnership(userId, product.storeId);
-
-			// Delete images from storage if any exist (both legacy and new systems)
-			if (product.images.length > 0) {
-				try {
-					// Extract unique folder prefixes from all images
-					const folderPrefixes = new Set<string>();
-					for (const image of product.images) {
-						if (image?.url) {
-							const imageKey = await StorageService.getKeyFromPublicUrl(
-								image.url,
-								env.S3_PUBLIC_BASE_URL,
-							);
-
-							if (imageKey) {
-								// Extract folder prefix by removing filename (last segment after last '/')
-								const lastSlashIndex = imageKey.lastIndexOf("/");
-								if (lastSlashIndex > 0) {
-									const folderPrefix = imageKey.substring(0, lastSlashIndex);
-									folderPrefixes.add(folderPrefix);
-								}
-							}
-						}
-					}
-
-					// Delete each unique folder
-					for (const folderPrefix of folderPrefixes) {
-						await StorageService.deleteFolderByPrefix(
-							env.S3_BUCKET,
-							folderPrefix,
-						);
-					}
-				} catch (storageError) {
-					logger.error(
-						{ error: storageError, productId: input.id },
-						"Failed to delete product image folders from storage",
-					);
-				}
-			}
-
-			// Delete product (images will be cascade deleted from database)
-			await database.product.delete({
-				where: { id: input.id },
-			});
-
-			return { success: true };
-		}),
-
-	/**
-	 * Toggle product published status
-	 */
-	togglePublish: protectedProcedure
-		.input(togglePublishProductInputSchema)
-		.output(productIncludeOutputSchema)
-		.handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
-			const userId = context.session.user.id;
-
-			// Get product to verify ownership
-			const product = await database.product.findUnique({
-				where: { id: input.id },
-				select: { storeId: true },
-			});
-
-			if (!product) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Product not found",
-				});
-			}
-
-			// Verify ownership
-			await verifyStoreOwnership(userId, product.storeId);
-
-			// Update published status
-			const updated = await database.product.update({
-				where: { id: input.id },
-				data: { published: input.published },
-				include: ProductQuery.getInclude(),
-			});
-
-			return ProductEntity.getRo(updated);
-		}),
-
-	/**
-	 * Get product by ID (public - for storefronts)
-	 * No authentication required, uses storefront rate limiting (100/min)
-	 * Returns product with store info, variants, and images
-	 */
-	getByIdPublic: baseProcedure
-		.use(rateLimitPublicSafe)
-		.input(getProductInputSchema)
-		.output(productPublicOutputSchema)
-		.handler(async ({ input }): Promise<ProductPublicOutput> => {
-			const product = await database.product.findUnique({
-				where: { id: input.id },
-				include: ProductQuery.getPublicInclude(),
-			});
-
-			if (!product) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Product not found",
-				});
-			}
-
-			// Only return published products
-			if (!product.published) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Product not found",
-				});
-			}
-
-			// Verify store is published
-			if (product.store.status !== StoreStatus.PUBLISHED) {
-				throw new ORPCError("NOT_FOUND", {
-					message: "Product not found",
-				});
-			}
-
-			return ProductEntity.getPublicRo(product);
-		}),
-
-	/**
-	 * Get products by IDs (public - for storefronts)
-	 * No authentication required, uses storefront rate limiting (100/min)
-	 * Returns products with store info, variants, and images
-	 */
-	getByIdsPublic: baseProcedure
-		.use(rateLimitPublicSafe)
-		.input(getProductsByIdsInputSchema)
-		.output(productsPublicOutputSchema)
-		.handler(async ({ input }): Promise<ProductPublicOutput[]> => {
-			const products = await database.product.findMany({
-				where: {
-					id: { in: input.ids },
-					published: true,
-				},
-				include: ProductQuery.getPublicInclude(),
-			});
-
-			if (products.length === 0) {
-				return [];
-			}
-
-			return products.map((product) => ProductEntity.getPublicRo(product));
-		}),
-
-	/**
-	 * Upload product images (gallery or main)
-	 * Validates store ownership and builds storage target internally
-	 */
-	uploadImages: protectedProcedure
-		.input(productUploadImagesInputSchema)
-		.output(uploadFilesOutputSchema)
-		.handler(async ({ input, context }): Promise<UploadFilesOutput> => {
-			const userId = context.session.user.id;
-			await verifyStoreOwnership(userId, input.storeId);
-
-			const target = {
-				resource: "products" as const,
-				entityId: input.storeId,
-			};
-
-			try {
-				return await executeUploadFiles(input.files, target);
-			} catch (error) {
-				throw new ORPCError("INTERNAL_SERVER_ERROR", {
-					message:
-						error instanceof Error ? error.message : "Failed to upload images",
-				});
-			}
-		}),
+  /**
+   * Get all products for user's stores (with pagination/filtering)
+   */
+  getAll: protectedProcedure
+    .input(listProductsInputSchema.optional())
+    .output(listProductsOutputSchema)
+    .handler(async ({ input, context }): Promise<ListProductsOutput> => {
+      const userId = context.session.user.id;
+      const userStoreIds = await getUserStoreIds(userId);
+
+      if (userStoreIds.length === 0) {
+        return {
+          products: [],
+          total: 0,
+          hasMore: false,
+          page: input?.page ?? 1,
+          limit: input?.limit ?? 20,
+        };
+      }
+
+      const page = input?.page ?? 1;
+      const limit = input?.limit ?? 20;
+      const skip = (page - 1) * limit;
+
+      // Verify store ownership if filtering by specific store
+      if (input?.storeId && !userStoreIds.includes(input.storeId)) {
+        throw new ORPCError("FORBIDDEN", {
+          message: "You don't have access to this store",
+        });
+      }
+
+      // Convert stockFilter to stock range format
+      let stockFilter: { lte?: number; gte?: number } | undefined;
+      if (input?.stockFilter) {
+        switch (input.stockFilter) {
+          case "in-stock":
+            stockFilter = { gte: 1 };
+            break;
+          case "low-stock":
+            stockFilter = { gte: 1, lte: 10 };
+            break;
+          case "out-of-stock":
+            stockFilter = { lte: 0 };
+            break;
+          default:
+            // No filter
+            break;
+        }
+      }
+
+      const hasVariants =
+        input?.variantsFilter && input.variantsFilter !== "all"
+          ? input.variantsFilter === "with-variants"
+          : undefined;
+
+      const where = ProductQuery.getWhere(userStoreIds, {
+        storeId: input?.storeId,
+        published: input?.published,
+        search: input?.search,
+        stock: stockFilter,
+        hasVariants,
+        priceMin: input?.priceMin,
+        priceMax: input?.priceMax,
+      });
+
+      const [products, total] = await Promise.all([
+        database.product.findMany({
+          where,
+          skip,
+          take: limit,
+          orderBy: ProductQuery.getOrder("desc", "createdAt"),
+          include: ProductQuery.getListInclude(),
+        }),
+        database.product.count({ where }),
+      ]);
+
+      const hasMore = skip + products.length < total;
+
+      return {
+        products: products.map(ProductEntity.getListRo),
+        total,
+        hasMore,
+        page,
+        limit,
+      };
+    }),
+
+  /**
+   * Get all public products for a store (for storefronts)
+   * No authentication required, uses storefront rate limiting
+   * Only returns published products
+   */
+  getAllPublic: baseProcedure
+    .use(rateLimitPublicSafe)
+    .input(listProductsInputSchema.optional())
+    .output(listProductsOutputSchema)
+    .handler(async ({ input }): Promise<ListProductsOutput> => {
+      // Validate storeId is required
+      if (!input?.storeId) {
+        throw new ORPCError("BAD_REQUEST", {
+          message: "storeId is required",
+        });
+      }
+
+      const page = input?.page ?? 1;
+      const limit = input?.limit ?? 20;
+      const skip = (page - 1) * limit;
+
+      // Verify store exists and is published
+      const store = await database.store.findUnique({
+        where: { id: input.storeId },
+        select: { id: true, status: true },
+      });
+
+      if (!store) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Store not found",
+        });
+      }
+
+      if (store.status !== StoreStatus.PUBLISHED) {
+        throw new ORPCError("FORBIDDEN", {
+          message: "Store is not available",
+        });
+      }
+
+      // Build where clause for published products
+      const where: Prisma.ProductWhereInput = {
+        storeId: input.storeId,
+        ...ProductQuery.getPublishableWhere(),
+      };
+
+      // Add category filter if provided
+      if (input?.categoryId) {
+        where.categoryId = input?.categoryId;
+      }
+
+      // Add search filter if provided
+      if (input?.search) {
+        where.OR = [
+          { name: { contains: input?.search, mode: "insensitive" } },
+          { description: { contains: input?.search, mode: "insensitive" } },
+        ];
+      }
+
+      const [products, total] = await Promise.all([
+        database.product.findMany({
+          where,
+          skip,
+          take: limit,
+          orderBy: { createdAt: "desc" },
+          include: ProductQuery.getListInclude(),
+        }),
+        database.product.count({ where }),
+      ]);
+
+      const hasMore = skip + products.length < total;
+
+      return {
+        products: products.map(ProductEntity.getListRo),
+        total,
+        hasMore,
+        page,
+        limit,
+      };
+    }),
+
+  /**
+   * Get product by ID (verify store ownership)
+   */
+  getById: protectedProcedure
+    .input(getProductInputSchema)
+    .output(productIncludeOutputSchema)
+    .handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
+      const userId = context.session.user.id;
+
+      const product = await database.product.findUnique({
+        where: { id: input.id },
+        include: ProductQuery.getInclude(),
+      });
+
+      if (!product) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
+      // Verify ownership
+      await verifyStoreOwnership(userId, product.storeId);
+
+      return ProductEntity.getRo(product);
+    }),
+
+  /**
+   * Create new product (verify store ownership)
+   */
+  create: protectedProcedure
+    .input(createProductInputSchema)
+    .output(productIncludeOutputSchema)
+    .handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
+      const userId = context.session.user.id;
+
+      await verifyStoreOwnership(userId, input.storeId);
+
+      const store = await database.store.findUnique({
+        where: { id: input.storeId },
+        select: { slug: true },
+      });
+
+      if (!store) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Store not found",
+        });
+      }
+
+      const productId = ProductService.generateProductId(store.slug);
+
+      // Create product with variants in a transaction
+      const product = await database.$transaction(async (tx) => {
+        // 1. Create product base
+        const createdProduct = await tx.product.create({
+          data: {
+            id: productId,
+            name: input.name,
+            description: input.description,
+            price: input.price,
+            stock: input.stock,
+            published: input.published ?? false,
+            storeId: input.storeId,
+            categoryId: input.categoryId,
+            hasVariants: input.hasVariants ?? false,
+            images: input.imageUrls
+              ? {
+                  create: input.imageUrls.map((url) => ({ url })),
+                }
+              : undefined,
+          },
+        });
+
+        // 2. Create variant options if hasVariants is true
+        if (input.hasVariants && input.variantOptions) {
+          // First, create all options and store them in a map
+          const optionMap = new Map<
+            string,
+            { optionId: string; values: Map<string, string> }
+          >();
+
+          for (const option of input.variantOptions) {
+            const createdOption = await tx.productVariantOption.create({
+              data: {
+                name: option.name,
+                productId: createdProduct.id,
+                values: {
+                  create: option.values.map((v) => ({
+                    value: v.value,
+                  })),
+                },
+              },
+              include: {
+                values: true,
+              },
+            });
+
+            // Store option ID and create a map of value strings to value IDs
+            const valueMap = new Map<string, string>();
+            for (const value of createdOption.values) {
+              valueMap.set(value.value, value.id);
+            }
+
+            optionMap.set(option.name, {
+              optionId: createdOption.id,
+              values: valueMap,
+            });
+          }
+
+          if (input.variants) {
+            // Track SKUs we're about to create to detect duplicates within this batch
+            const skusInBatch = new Set<string>();
+
+            // Check for duplicate SKUs in the incoming payload
+            for (const variant of input.variants) {
+              if (variant.sku?.trim()) {
+                const normalizedSku = variant.sku.trim();
+                if (skusInBatch.has(normalizedSku)) {
+                  throw new ORPCError("BAD_REQUEST", {
+                    message: `Duplicate SKU "${normalizedSku}" found in variants`,
+                  });
+                }
+                skusInBatch.add(normalizedSku);
+              }
+            }
+
+            // Check for existing SKUs in database for this product
+            // Note: Since we're creating a new product, this check is technically not needed
+            // but we'll keep it for safety and future-proofing (e.g., if update logic reuses this)
+            const existingVariants = await tx.productVariant.findMany({
+              where: {
+                productId: createdProduct.id,
+                sku: {
+                  in: Array.from(skusInBatch),
+                },
+              },
+              select: { sku: true },
+            });
+
+            if (existingVariants.length > 0) {
+              const existingSkus = existingVariants
+                .map((v) => v.sku)
+                .join(", ");
+              throw new ORPCError("BAD_REQUEST", {
+                message: `SKU(s) already exist for this product: ${existingSkus}`,
+              });
+            }
+
+            for (const variant of input.variants) {
+              const variantSelections: Array<{
+                optionId: string;
+                valueId: string;
+              }> = [];
+
+              for (const [optionName, valueString] of Object.entries(
+                variant.selections,
+              )) {
+                const optionData = optionMap.get(optionName);
+
+                if (!optionData) {
+                  throw new ORPCError("BAD_REQUEST", {
+                    message: `Option "${optionName}" not found`,
+                  });
+                }
+
+                const valueId = optionData.values.get(valueString);
+                if (!valueId) {
+                  throw new ORPCError("BAD_REQUEST", {
+                    message: `Value "${valueString}" not found for option "${optionName}"`,
+                  });
+                }
+
+                variantSelections.push({
+                  optionId: optionData.optionId,
+                  valueId,
+                });
+              }
+
+              // Create variant with selections
+              await tx.productVariant.create({
+                data: {
+                  sku: variant.sku,
+                  price: variant.price,
+                  stock: variant.stock,
+                  productId: createdProduct.id,
+                  selections: {
+                    create: variantSelections.map((s) => ({
+                      optionId: s.optionId,
+                      valueId: s.valueId,
+                    })),
+                  },
+                },
+              });
+            }
+          }
+        }
+
+        // Fetch complete product with all relations
+        return await tx.product.findUnique({
+          where: { id: createdProduct.id },
+          include: ProductQuery.getInclude(),
+        });
+      });
+
+      if (!product) {
+        throw new ORPCError("INTERNAL_SERVER_ERROR", {
+          message: "Failed to create product",
+        });
+      }
+
+      return ProductEntity.getRo(product);
+    }),
+
+  /**
+   * Update product (verify store ownership)
+   */
+  update: protectedProcedure
+    .input(updateProductInputSchema)
+    .output(productIncludeOutputSchema)
+    .handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
+      const userId = context.session.user.id;
+
+      // Get product to verify ownership and collect existing images for cleanup
+      const existingProduct = await database.product.findUnique({
+        where: { id: input.id },
+        select: {
+          storeId: true,
+          images: {
+            select: { url: true },
+          },
+        },
+      });
+
+      if (!existingProduct) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
+      // Verify ownership
+      await verifyStoreOwnership(userId, existingProduct.storeId);
+
+      // Update product
+      const updateData: {
+        name?: string;
+        description?: string | null;
+        price?: number;
+        stock?: number;
+        published?: boolean;
+      } = {};
+
+      if (input.name !== undefined) updateData.name = input.name;
+      if (input.description !== undefined)
+        updateData.description = input.description || null;
+      if (input.price !== undefined) updateData.price = input.price;
+      if (input.stock !== undefined) updateData.stock = input.stock;
+      if (input.published !== undefined) updateData.published = input.published;
+
+      // Handle image updates
+      if (input.imageUrls !== undefined) {
+        // Delete existing image folders from storage if any exist
+        if (existingProduct.images.length > 0) {
+          try {
+            // Extract unique folder prefixes from all images
+            const folderPrefixes = new Set<string>();
+            for (const image of existingProduct.images) {
+              if (image?.url) {
+                const imageKey = await StorageService.getKeyFromPublicUrl(
+                  image.url,
+                  env.S3_PUBLIC_BASE_URL,
+                );
+
+                if (imageKey) {
+                  // Extract folder prefix by removing filename (last segment after last '/')
+                  const lastSlashIndex = imageKey.lastIndexOf("/");
+                  if (lastSlashIndex > 0) {
+                    const folderPrefix = imageKey.substring(0, lastSlashIndex);
+                    folderPrefixes.add(folderPrefix);
+                  }
+                }
+              }
+            }
+
+            // Delete each unique folder
+            for (const folderPrefix of folderPrefixes) {
+              await StorageService.deleteFolderByPrefix(
+                env.S3_BUCKET,
+                folderPrefix,
+              );
+            }
+          } catch (storageError) {
+            logger.error(
+              { error: storageError, productId: input.id },
+              "Failed to delete old product image folders from storage",
+            );
+          }
+        }
+
+        // Delete existing images from database
+        await database.image.deleteMany({
+          where: { productId: input.id },
+        });
+
+        // Create new images
+        if (input.imageUrls.length > 0) {
+          await database.image.createMany({
+            data: input.imageUrls.map((url) => ({
+              url,
+              productId: input.id,
+            })),
+          });
+        }
+      }
+
+      const product = await database.product.update({
+        where: { id: input.id },
+        data: updateData,
+        include: ProductQuery.getInclude(),
+      });
+
+      return ProductEntity.getRo(product);
+    }),
+
+  /**
+   * Delete product (verify store ownership)
+   */
+  delete: protectedProcedure
+    .input(getProductInputSchema)
+    .output(successOutputSchema)
+    .handler(async ({ input, context }) => {
+      const userId = context.session.user.id;
+
+      // Get product with images to verify ownership and collect file URLs
+      const product = await database.product.findUnique({
+        where: { id: input.id },
+        select: {
+          storeId: true,
+          images: {
+            select: { url: true },
+          },
+        },
+      });
+
+      if (!product) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
+      // Verify ownership
+      await verifyStoreOwnership(userId, product.storeId);
+
+      // Delete images from storage if any exist (both legacy and new systems)
+      if (product.images.length > 0) {
+        try {
+          // Extract unique folder prefixes from all images
+          const folderPrefixes = new Set<string>();
+          for (const image of product.images) {
+            if (image?.url) {
+              const imageKey = await StorageService.getKeyFromPublicUrl(
+                image.url,
+                env.S3_PUBLIC_BASE_URL,
+              );
+
+              if (imageKey) {
+                // Extract folder prefix by removing filename (last segment after last '/')
+                const lastSlashIndex = imageKey.lastIndexOf("/");
+                if (lastSlashIndex > 0) {
+                  const folderPrefix = imageKey.substring(0, lastSlashIndex);
+                  folderPrefixes.add(folderPrefix);
+                }
+              }
+            }
+          }
+
+          // Delete each unique folder
+          for (const folderPrefix of folderPrefixes) {
+            await StorageService.deleteFolderByPrefix(
+              env.S3_BUCKET,
+              folderPrefix,
+            );
+          }
+        } catch (storageError) {
+          logger.error(
+            { error: storageError, productId: input.id },
+            "Failed to delete product image folders from storage",
+          );
+        }
+      }
+
+      // Delete product (images will be cascade deleted from database)
+      await database.product.delete({
+        where: { id: input.id },
+      });
+
+      return { success: true };
+    }),
+
+  /**
+   * Toggle product published status
+   */
+  togglePublish: protectedProcedure
+    .input(togglePublishProductInputSchema)
+    .output(productIncludeOutputSchema)
+    .handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
+      const userId = context.session.user.id;
+
+      // Get product to verify ownership
+      const product = await database.product.findUnique({
+        where: { id: input.id },
+        select: { storeId: true },
+      });
+
+      if (!product) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
+      // Verify ownership
+      await verifyStoreOwnership(userId, product.storeId);
+
+      // Update published status
+      const updated = await database.product.update({
+        where: { id: input.id },
+        data: { published: input.published },
+        include: ProductQuery.getInclude(),
+      });
+
+      return ProductEntity.getRo(updated);
+    }),
+
+  /**
+   * Get product by ID (public - for storefronts)
+   * No authentication required, uses storefront rate limiting (100/min)
+   * Returns product with store info, variants, and images
+   */
+  getByIdPublic: baseProcedure
+    .use(rateLimitPublicSafe)
+    .input(getProductInputSchema)
+    .output(productPublicOutputSchema)
+    .handler(async ({ input }): Promise<ProductPublicOutput> => {
+      const product = await database.product.findUnique({
+        where: { id: input.id },
+        include: ProductQuery.getPublicInclude(),
+      });
+
+      if (!product) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
+      // Only return published products
+      if (!product.published) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
+      // Verify store is published
+      if (product.store.status !== StoreStatus.PUBLISHED) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
+      return ProductEntity.getPublicRo(product);
+    }),
+
+  /**
+   * Get products by IDs (public - for storefronts)
+   * No authentication required, uses storefront rate limiting (100/min)
+   * Returns products with store info, variants, and images
+   */
+  getByIdsPublic: baseProcedure
+    .use(rateLimitPublicSafe)
+    .input(getProductsByIdsInputSchema)
+    .output(productsPublicOutputSchema)
+    .handler(async ({ input }): Promise<ProductPublicOutput[]> => {
+      const products = await database.product.findMany({
+        where: {
+          id: { in: input.ids },
+          published: true,
+        },
+        include: ProductQuery.getPublicInclude(),
+      });
+
+      if (products.length === 0) {
+        return [];
+      }
+
+      return products.map((product) => ProductEntity.getPublicRo(product));
+    }),
+
+  /**
+   * Upload product images (gallery or main)
+   * Validates store ownership and builds storage target internally
+   */
+  uploadImages: protectedProcedure
+    .input(productUploadImagesInputSchema)
+    .output(uploadFilesOutputSchema)
+    .handler(async ({ input, context }): Promise<UploadFilesOutput> => {
+      const userId = context.session.user.id;
+      await verifyStoreOwnership(userId, input.storeId);
+
+      const target = {
+        resource: "products" as const,
+        entityId: input.storeId,
+      };
+
+      try {
+        return await executeUploadFiles(input.files, target);
+      } catch (error) {
+        throw new ORPCError("INTERNAL_SERVER_ERROR", {
+          message:
+            error instanceof Error ? error.message : "Failed to upload images",
+        });
+      }
+    }),
 };

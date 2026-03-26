@@ -7,15 +7,15 @@ import { PainPoints } from "@/components/app/pain-points";
 import { Process } from "@/components/app/process";
 
 export default function Home() {
-	return (
-		<>
-			<Hero />
-			<PainPoints />
-			<Process />
-			<AutomatedConfirmation />
-			<Features />
-			<CostCalculator />
-			<CTA />
-		</>
-	);
+  return (
+    <>
+      <Hero />
+      <PainPoints />
+      <Process />
+      <AutomatedConfirmation />
+      <Features />
+      <CostCalculator />
+      <CTA />
+    </>
+  );
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import {
-	getTextDirection,
-	type Locale,
+  getTextDirection,
+  type Locale,
 } from "@dukkani/common/schemas/constants";
 import { DirectionProvider } from "@dukkani/ui/components/direction";
 import { Toaster } from "@dukkani/ui/components/sonner";
@@ -15,40 +15,40 @@ import { queryClient } from "@/lib/orpc";
 import NuqsProvider from "./nuqs-provider";
 
 interface ProvidersProps {
-	children: React.ReactNode;
-	locale: Locale;
-	messages: Record<string, any>;
+  children: React.ReactNode;
+  locale: Locale;
+  messages: Record<string, any>;
 }
 
 export default function Providers({
-	children,
-	locale,
-	messages,
+  children,
+  locale,
+  messages,
 }: ProvidersProps) {
-	return (
-		<NuqsProvider>
-			<DirectionProvider direction={getTextDirection(locale)}>
-				<NextIntlClientProvider
-					locale={locale}
-					messages={messages}
-					timeZone="Africa/Tunis"
-				>
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="system"
-						enableSystem
-						disableTransitionOnChange
-					>
-						<QueryClientProvider client={queryClient}>
-							{children}
-							{env.NEXT_PUBLIC_NODE_ENV === "development" && (
-								<ReactQueryDevtools />
-							)}
-						</QueryClientProvider>
-						<Toaster richColors />
-					</ThemeProvider>
-				</NextIntlClientProvider>
-			</DirectionProvider>
-		</NuqsProvider>
-	);
+  return (
+    <NuqsProvider>
+      <DirectionProvider direction={getTextDirection(locale)}>
+        <NextIntlClientProvider
+          locale={locale}
+          messages={messages}
+          timeZone="Africa/Tunis"
+        >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <QueryClientProvider client={queryClient}>
+              {children}
+              {env.NEXT_PUBLIC_NODE_ENV === "development" && (
+                <ReactQueryDevtools />
+              )}
+            </QueryClientProvider>
+            <Toaster richColors />
+          </ThemeProvider>
+        </NextIntlClientProvider>
+      </DirectionProvider>
+    </NuqsProvider>
+  );
 }

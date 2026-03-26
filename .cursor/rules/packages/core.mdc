@@ -1,0 +1,29 @@
+# Core Package
+
+## Purpose
+
+`@dukkani/core` is the central initialization layer for server-side auth and database access.
+It composes `@dukkani/auth`, `@dukkani/db`, and `@dukkani/env` into safe singleton entrypoints.
+
+## Public API
+
+- `getDatabase()` and `database`
+- `getAuth()` and `auth`
+
+## Responsibilities
+
+- Initialize database and auth lazily and only once.
+- Enforce preview-environment safeguards before DB initialization.
+- Keep dependency order explicit (`database` before `auth`).
+
+## Constraints
+
+- Do not import from any `apps/*` code.
+- Keep this package environment-aware through `@dukkani/env` presets.
+- Avoid business-domain logic here; this package is composition and bootstrapping only.
+
+## Best Practices
+
+- Prefer importing `database`/`auth` from `@dukkani/core` in server-side code that needs fully wired instances.
+- Keep initialization side effects deterministic and idempotent.
+- Any new singleton must follow the same lazy initialization pattern.

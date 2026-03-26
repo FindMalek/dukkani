@@ -7,50 +7,50 @@ import type { AppRouterClient } from "./index";
 import { headersToObject } from "./utils/headers";
 
 export function createORPCClientUtils(apiUrl: string) {
-	const queryClient = new QueryClient({
-		queryCache: new QueryCache({
-			onError: (error) => {
-				toast.error(`Error: ${error.message}`, {
-					action: {
-						label: "retry",
-						onClick: () => {
-							queryClient.invalidateQueries();
-						},
-					},
-				});
-			},
-		}),
-	});
+  const queryClient = new QueryClient({
+    queryCache: new QueryCache({
+      onError: (error) => {
+        toast.error(`Error: ${error.message}`, {
+          action: {
+            label: "retry",
+            onClick: () => {
+              queryClient.invalidateQueries();
+            },
+          },
+        });
+      },
+    }),
+  });
 
-	const link = new RPCLink({
-		url: `${apiUrl}/api`,
-		fetch(url, options) {
-			return fetch(url, {
-				...options,
-				credentials: "include",
-			});
-		},
-		headers: async () => {
-			// Client-side: return empty headers
-			if (typeof window !== "undefined") {
-				return {};
-			}
+  const link = new RPCLink({
+    url: `${apiUrl}/api`,
+    fetch(url, options) {
+      return fetch(url, {
+        ...options,
+        credentials: "include",
+      });
+    },
+    headers: async () => {
+      // Client-side: return empty headers
+      if (typeof window !== "undefined") {
+        return {};
+      }
 
-			// Server-side: try to get Next.js headers if available
-			try {
-				const { headers } = await import("next/headers");
-				const headersObj = await headers();
-				// Convert Next.js Headers to plain object
-				return headersToObject(headersObj);
-			} catch {
-				// Not in Next.js environment or import failed
-				return {};
-			}
-		},
-	});
+      // Server-side: try to get Next.js headers if available
+      try {
+        const { headers } = await import("next/headers");
+        const headersObj = await headers();
+        // Convert Next.js Headers to plain object
+        return headersToObject(headersObj);
+      } catch {
+        // Not in Next.js environment or import failed
+        return {};
+      }
+    },
+  });
 
-	const client: AppRouterClient = createORPCClient(link);
-	const orpc = createTanstackQueryUtils(client);
+  const client: AppRouterClient = createORPCClient(link);
+  const orpc = createTanstackQueryUtils(client);
 
-	return { queryClient, client, orpc };
+  return { queryClient, client, orpc };
 }
