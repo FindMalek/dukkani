@@ -262,6 +262,14 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 										{
 											label: t("payment.creditCard"),
 											value: PaymentMethod.CARD,
+											disabled: !store.supportedPaymentMethods.includes(
+												PaymentMethod.CARD,
+											),
+											description: !store.supportedPaymentMethods.includes(
+												PaymentMethod.CARD,
+											)
+												? t("payment.comingSoon")
+												: undefined,
 										},
 									]}
 								/>
