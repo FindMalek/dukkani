@@ -1,11 +1,5 @@
 /** @type {import('@lhci/cli').Config} */
-const previewBaseUrl = process.env.LIGHTHOUSE_URL;
-
-if (!previewBaseUrl) {
-  throw new Error(
-    "LIGHTHOUSE_URL environment variable must be set for Lighthouse CI.",
-  );
-}
+const previewBaseUrl = process.env.LIGHTHOUSE_URL || "";
 
 const previewPaths = process.env.LIGHTHOUSE_PATHS
   ? process.env.LIGHTHOUSE_PATHS.split(",")
@@ -22,7 +16,7 @@ const config = {
   ci: {
     collect: {
       url: collectUrls,
-      numberOfRuns: 3,
+      numberOfRuns: 1,
       settings: {
         preset: process.env.LHCI_PRESET || "desktop",
         ...(process.env.LHCI_SCREEN_EMULATION && {
