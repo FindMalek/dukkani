@@ -1,7 +1,7 @@
 export {
-	DIFF_MAX_CHARS,
-	LOG_CONTEXT_LINES,
-	LOG_MAX_CHARS,
+  DIFF_MAX_CHARS,
+  LOG_CONTEXT_LINES,
+  LOG_MAX_CHARS,
 } from "./constants.js";
 export type { LighthouseParseResult } from "./lighthouse.js";
 export { parseLighthouseFromLogs } from "./lighthouse.js";

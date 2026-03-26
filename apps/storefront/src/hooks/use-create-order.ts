@@ -8,18 +8,18 @@ import { RoutePaths, useRouter } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
 
 export function useCreateOrder() {
-	const router = useRouter();
-	const clearCart = useCartStore((state) => state.clearCart);
+  const router = useRouter();
+  const clearCart = useCartStore((state) => state.clearCart);
 
-	return useMutation({
-		mutationFn: (input: CreateOrderPublicInput) =>
-			client.order.createPublic(input),
-		onSuccess: () => {
-			// Clear cart for current store
-			clearCart();
-			// Navigate to success page
-			router.push(RoutePaths.CHECKOUT.SUCCESS.url);
-		},
-		onError: handleAPIError,
-	});
+  return useMutation({
+    mutationFn: (input: CreateOrderPublicInput) =>
+      client.order.createPublic(input),
+    onSuccess: () => {
+      // Clear cart for current store
+      clearCart();
+      // Navigate to success page
+      router.push(RoutePaths.CHECKOUT.SUCCESS.url);
+    },
+    onError: handleAPIError,
+  });
 }

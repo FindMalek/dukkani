@@ -7,37 +7,37 @@ type InputProps = React.ComponentProps<typeof Input>;
 
 type InputType = Extract<InputProps["type"], "text" | "email">;
 interface TextFieldProps extends CommonFieldProps, Omit<InputProps, "type"> {
-	type?: InputType;
+  type?: InputType;
 }
 
 export function TextField({
-	label,
-	srOnlyLabel = false,
-	type = "text",
-	rightToField,
-	orientation,
-	...inputProps
+  label,
+  srOnlyLabel = false,
+  type = "text",
+  rightToField,
+  orientation,
+  ...inputProps
 }: TextFieldProps) {
-	const field = useFieldContext<string>();
-	const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+  const field = useFieldContext<string>();
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
-	return (
-		<BaseField
-			label={label}
-			srOnlyLabel={srOnlyLabel}
-			rightToField={rightToField}
-			orientation={orientation}
-		>
-			<Input
-				id={field.name}
-				name={field.name}
-				value={field.state.value}
-				onChange={(e) => field.handleChange(e.target.value)}
-				onBlur={field.handleBlur}
-				aria-invalid={isInvalid}
-				{...inputProps}
-				type={type}
-			/>
-		</BaseField>
-	);
+  return (
+    <BaseField
+      label={label}
+      srOnlyLabel={srOnlyLabel}
+      rightToField={rightToField}
+      orientation={orientation}
+    >
+      <Input
+        id={field.name}
+        name={field.name}
+        value={field.state.value}
+        onChange={(e) => field.handleChange(e.target.value)}
+        onBlur={field.handleBlur}
+        aria-invalid={isInvalid}
+        {...inputProps}
+        type={type}
+      />
+    </BaseField>
+  );
 }

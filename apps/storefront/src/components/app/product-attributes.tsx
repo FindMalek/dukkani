@@ -1,11 +1,11 @@
 interface ProductAttributesProps {
-	tags?: string[];
+  tags?: string[];
 }
 
 export function ProductAttributes({ tags }: ProductAttributesProps) {
-	if (!tags || tags.length === 0) {
-		return null;
-	}
+  if (!tags || tags.length === 0) {
+    return null;
+  }
 
-	return <p className="text-muted-foreground text-sm">{tags.join(" • ")}</p>;
+  return <p className="text-muted-foreground text-sm">{tags.join(" • ")}</p>;
 }

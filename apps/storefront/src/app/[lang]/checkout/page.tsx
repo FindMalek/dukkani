@@ -6,30 +6,30 @@ import { getQueryClient, orpc } from "@/lib/orpc";
 import { getStoreSlugFromHost } from "@/lib/utils";
 
 export default async function CheckoutPage() {
-	const headersList = await headers();
-	const host = headersList.get("host");
-	const storeSlug = getStoreSlugFromHost(host);
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const storeSlug = getStoreSlugFromHost(host);
 
-	if (!storeSlug) {
-		redirect("/");
-	}
+  if (!storeSlug) {
+    redirect("/");
+  }
 
-	const queryClient = getQueryClient();
+  const queryClient = getQueryClient();
 
-	let store: StorePublicOutput;
-	try {
-		store = await queryClient.fetchQuery(
-			orpc.store.getBySlugPublic.queryOptions({
-				input: { slug: storeSlug },
-			}),
-		);
-	} catch {
-		redirect("/");
-	}
+  let store: StorePublicOutput;
+  try {
+    store = await queryClient.fetchQuery(
+      orpc.store.getBySlugPublic.queryOptions({
+        input: { slug: storeSlug },
+      }),
+    );
+  } catch {
+    redirect("/");
+  }
 
-	if (!store) {
-		redirect("/");
-	}
+  if (!store) {
+    redirect("/");
+  }
 
-	return <CheckoutForm store={store} />;
+  return <CheckoutForm store={store} />;
 }

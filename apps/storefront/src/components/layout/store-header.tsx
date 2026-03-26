@@ -12,61 +12,61 @@ import { isDetailPage } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
 
 interface StoreHeaderProps {
-	store: StorePublicOutput;
+  store: StorePublicOutput;
 }
 
 export function StoreHeader({ store }: StoreHeaderProps) {
-	const router = useRouter();
-	const pathname = usePathname();
+  const router = useRouter();
+  const pathname = usePathname();
 
-	const isCartDrawerOpen = useCartStore((state) => state.isCartDrawerOpen);
-	const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
+  const isCartDrawerOpen = useCartStore((state) => state.isCartDrawerOpen);
+  const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
 
-	const isHydrated = useCartHydration();
-	const isDetail = isDetailPage(pathname);
-	const cartCount = useCartStore((state) => state.getTotalItems());
+  const isHydrated = useCartHydration();
+  const isDetail = isDetailPage(pathname);
+  const cartCount = useCartStore((state) => state.getTotalItems());
 
-	return (
-		<>
-			<header className="fixed inset-x-0 top-0 z-50 border-border/30 border-b bg-background/80 backdrop-blur-md">
-				<div className="container mx-auto px-4 py-2">
-					<div className="flex items-center justify-between">
-						{isDetail ? (
-							<Button
-								variant="ghost"
-								size="icon"
-								className="size-8"
-								onClick={() => router.back()}
-							>
-								<Icons.arrowLeft className="size-4 rtl:rotate-180" />
-							</Button>
-						) : (
-							<div className="flex items-center gap-2">
-								<h1 className="font-semibold text-base">{store.name}</h1>
-							</div>
-						)}
-						<Button
-							variant="ghost"
-							size="icon"
-							className="relative size-8"
-							onClick={() => setCartDrawerOpen(true)}
-						>
-							<Icons.shoppingCart className="size-4" />
-							{!isHydrated ? (
-								<Skeleton className="absolute -end-0.5 -top-0.5 size-4 rounded-full" />
-							) : cartCount > 0 ? (
-								<Badge
-									variant="default"
-									className="absolute -end-0.5 -top-0.5 size-4 p-0 text-[10px] leading-none"
-								>
-									{cartCount}
-								</Badge>
-							) : null}
-						</Button>
-					</div>
-				</div>
-			</header>
-			<CartDrawer open={isCartDrawerOpen} onOpenChange={setCartDrawerOpen} />
-		</>
-	);
+  return (
+    <>
+      <header className="fixed inset-x-0 top-0 z-50 border-border/30 border-b bg-background/80 backdrop-blur-md">
+        <div className="container mx-auto px-4 py-2">
+          <div className="flex items-center justify-between">
+            {isDetail ? (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="size-8"
+                onClick={() => router.back()}
+              >
+                <Icons.arrowLeft className="size-4 rtl:rotate-180" />
+              </Button>
+            ) : (
+              <div className="flex items-center gap-2">
+                <h1 className="font-semibold text-base">{store.name}</h1>
+              </div>
+            )}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative size-8"
+              onClick={() => setCartDrawerOpen(true)}
+            >
+              <Icons.shoppingCart className="size-4" />
+              {!isHydrated ? (
+                <Skeleton className="absolute -end-0.5 -top-0.5 size-4 rounded-full" />
+              ) : cartCount > 0 ? (
+                <Badge
+                  variant="default"
+                  className="absolute -end-0.5 -top-0.5 size-4 p-0 text-[10px] leading-none"
+                >
+                  {cartCount}
+                </Badge>
+              ) : null}
+            </Button>
+          </div>
+        </div>
+      </header>
+      <CartDrawer open={isCartDrawerOpen} onOpenChange={setCartDrawerOpen} />
+    </>
+  );
 }

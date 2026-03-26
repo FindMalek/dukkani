@@ -5,8 +5,8 @@ import { defineConfig } from "prisma/config";
 // Load root .env file for local development
 // In Vercel/production, DATABASE_URL is injected directly via environment variables
 if (!process.env.VERCEL) {
-	const rootEnvPath = path.resolve(__dirname, "../../");
-	config({ path: path.resolve(rootEnvPath, ".env") });
+  const rootEnvPath = path.resolve(__dirname, "../../");
+  config({ path: path.resolve(rootEnvPath, ".env") });
 }
 
 /**
@@ -21,11 +21,11 @@ if (!process.env.VERCEL) {
  * This file only needs the raw value for Prisma CLI operations.
  */
 export default defineConfig({
-	schema: path.join("prisma", "schema"),
-	migrations: {
-		path: path.join("prisma", "migrations"),
-	},
-	datasource: {
-		url: process.env.DATABASE_URL || "",
-	},
+  schema: path.join("prisma", "schema"),
+  migrations: {
+    path: path.join("prisma", "migrations"),
+  },
+  datasource: {
+    url: process.env.DATABASE_URL || "",
+  },
 });

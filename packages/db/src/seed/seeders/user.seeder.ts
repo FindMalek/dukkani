@@ -12,162 +12,162 @@ import { BaseSeeder } from "../base";
  * seeding and are never exposed in the public API.
  */
 export interface SeededUser {
-	id: string;
-	email: string;
-	name: string;
+  id: string;
+  email: string;
+  name: string;
 }
 
 export class UserSeeder extends BaseSeeder {
-	name = "UserSeeder";
-	order = 1; // Run first as other seeders depend on users
+  name = "UserSeeder";
+  order = 1; // Run first as other seeders depend on users
 
-	// Export seeded users for use in other seeders
-	public seededUsers: SeededUser[] = [];
+  // Export seeded users for use in other seeders
+  public seededUsers: SeededUser[] = [];
 
-	/**
-	 * Find a user by email (stable key)
-	 */
-	findByEmail(email: string): SeededUser | undefined {
-		return this.seededUsers.find((u) => u.email === email);
-	}
+  /**
+   * Find a user by email (stable key)
+   */
+  findByEmail(email: string): SeededUser | undefined {
+    return this.seededUsers.find((u) => u.email === email);
+  }
 
-	/**
-	 * Find a user by ID
-	 */
-	findById(id: string): SeededUser | undefined {
-		return this.seededUsers.find((u) => u.id === id);
-	}
+  /**
+   * Find a user by ID
+   */
+  findById(id: string): SeededUser | undefined {
+    return this.seededUsers.find((u) => u.id === id);
+  }
 
-	/**
-	 * Get all users as a map keyed by email for easy lookup
-	 */
-	getUsersByEmail(): Map<string, SeededUser> {
-		return new Map(this.seededUsers.map((u) => [u.email, u]));
-	}
+  /**
+   * Get all users as a map keyed by email for easy lookup
+   */
+  getUsersByEmail(): Map<string, SeededUser> {
+    return new Map(this.seededUsers.map((u) => [u.email, u]));
+  }
 
-	async seed(database: PrismaClient): Promise<void> {
-		this.log("Starting User seeding...");
+  async seed(database: PrismaClient): Promise<void> {
+    this.log("Starting User seeding...");
 
-		// Check if users already exist
-		const existingUsers = await database.user.findMany();
-		if (existingUsers.length > 0) {
-			this.log(`Skipping: ${existingUsers.length} users already exist`);
-			// Load existing users for export (passwords intentionally excluded for security)
-			for (const user of existingUsers) {
-				this.seededUsers.push({
-					id: user.id,
-					email: user.email,
-					name: user.name,
-				});
-			}
-			return;
-		}
+    // Check if users already exist
+    const existingUsers = await database.user.findMany();
+    if (existingUsers.length > 0) {
+      this.log(`Skipping: ${existingUsers.length} users already exist`);
+      // Load existing users for export (passwords intentionally excluded for security)
+      for (const user of existingUsers) {
+        this.seededUsers.push({
+          id: user.id,
+          email: user.email,
+          name: user.name,
+        });
+      }
+      return;
+    }
 
-		// Define 3 Tunisian users with passwords (private, only used during seeding)
-		// Passwords are hashed and stored in the database, but never exported
-		const userData = [
-			{
-				id: "user_admin_001",
-				name: "Ahmed Al-Mansoori",
-				email: "ahmed@dukkani.co",
-				password: "Admin123!", // Private: only used for hashing during seeding
-				emailVerified: true,
-				image: null,
-				telegramChatId: "123456789", // Test Telegram chat ID for development
-				telegramLinkedAt: new Date(),
-			},
-			{
-				id: "user_merchant_001",
-				name: "Fatima Hassan",
-				email: "fatima@dukkani.co",
-				password: "Merchant123!", // Private: only used for hashing during seeding
-				emailVerified: true,
-				image: null,
-				telegramChatId: null, // Not linked - can test linking flow
-			},
-			{
-				id: "user_store_owner_001",
-				name: "Omar Abdullah",
-				email: "omar@dukkani.co",
-				password: "Store123!", // Private: only used for hashing during seeding
-				emailVerified: true,
-				image: null,
-				telegramChatId: null, // Not linked - can test linking flow
-			},
-		];
+    // Define 3 Tunisian users with passwords (private, only used during seeding)
+    // Passwords are hashed and stored in the database, but never exported
+    const userData = [
+      {
+        id: "user_admin_001",
+        name: "Ahmed Al-Mansoori",
+        email: "ahmed@dukkani.co",
+        password: "Admin123!", // Private: only used for hashing during seeding
+        emailVerified: true,
+        image: null,
+        telegramChatId: "123456789", // Test Telegram chat ID for development
+        telegramLinkedAt: new Date(),
+      },
+      {
+        id: "user_merchant_001",
+        name: "Fatima Hassan",
+        email: "fatima@dukkani.co",
+        password: "Merchant123!", // Private: only used for hashing during seeding
+        emailVerified: true,
+        image: null,
+        telegramChatId: null, // Not linked - can test linking flow
+      },
+      {
+        id: "user_store_owner_001",
+        name: "Omar Abdullah",
+        email: "omar@dukkani.co",
+        password: "Store123!", // Private: only used for hashing during seeding
+        emailVerified: true,
+        image: null,
+        telegramChatId: null, // Not linked - can test linking flow
+      },
+    ];
 
-		const now = new Date();
+    const now = new Date();
 
-		// Hash all passwords in parallel (passwords remain private, never exported)
-		const hashedPasswords: string[] = await Promise.all(
-			userData.map((user) => hashPassword(user.password)),
-		);
+    // Hash all passwords in parallel (passwords remain private, never exported)
+    const hashedPasswords: string[] = await Promise.all(
+      userData.map((user) => hashPassword(user.password)),
+    );
 
-		// Validate that all passwords were hashed successfully
-		if (hashedPasswords.length !== userData.length) {
-			throw new Error(
-				`Password hashing failed: expected ${userData.length} hashed passwords, got ${hashedPasswords.length}`,
-			);
-		}
+    // Validate that all passwords were hashed successfully
+    if (hashedPasswords.length !== userData.length) {
+      throw new Error(
+        `Password hashing failed: expected ${userData.length} hashed passwords, got ${hashedPasswords.length}`,
+      );
+    }
 
-		// Create all users at once
-		// Note: createMany doesn't support different fields per record, so we create base users first
-		const users = await database.user.createMany({
-			data: userData.map((user) => ({
-				id: user.id,
-				name: user.name,
-				email: user.email,
-				emailVerified: user.emailVerified,
-				image: user.image,
-				createdAt: now,
-				updatedAt: now,
-			})),
-		});
+    // Create all users at once
+    // Note: createMany doesn't support different fields per record, so we create base users first
+    const users = await database.user.createMany({
+      data: userData.map((user) => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        image: user.image,
+        createdAt: now,
+        updatedAt: now,
+      })),
+    });
 
-		// Update Amine's user with Telegram chat ID for testing
-		await database.user.update({
-			where: { id: "user_admin_001" },
-			data: {
-				telegramChatId: "123456789",
-				telegramLinkedAt: now,
-			},
-		});
+    // Update Amine's user with Telegram chat ID for testing
+    await database.user.update({
+      where: { id: "user_admin_001" },
+      data: {
+        telegramChatId: "123456789",
+        telegramLinkedAt: now,
+      },
+    });
 
-		// Create all accounts at once (with hashed passwords)
-		await database.account.createMany({
-			data: userData.map((user, index) => {
-				const hashedPassword = hashedPasswords[index];
-				if (!hashedPassword) {
-					throw new Error(
-						`Missing hashed password for user ${user.email} at index ${index}`,
-					);
-				}
-				return {
-					id: `account_${user.id}`,
-					accountId: user.email,
-					providerId: "credential",
-					userId: user.id,
-					password: hashedPassword,
-					createdAt: now,
-					updatedAt: now,
-				};
-			}),
-		});
+    // Create all accounts at once (with hashed passwords)
+    await database.account.createMany({
+      data: userData.map((user, index) => {
+        const hashedPassword = hashedPasswords[index];
+        if (!hashedPassword) {
+          throw new Error(
+            `Missing hashed password for user ${user.email} at index ${index}`,
+          );
+        }
+        return {
+          id: `account_${user.id}`,
+          accountId: user.email,
+          providerId: "credential",
+          userId: user.id,
+          password: hashedPassword,
+          createdAt: now,
+          updatedAt: now,
+        };
+      }),
+    });
 
-		// Store for export (passwords intentionally excluded for security)
-		for (const userInfo of userData) {
-			this.seededUsers.push({
-				id: userInfo.id,
-				email: userInfo.email,
-				name: userInfo.name,
-				// Password excluded: never expose plaintext passwords in exports
-			});
-		}
+    // Store for export (passwords intentionally excluded for security)
+    for (const userInfo of userData) {
+      this.seededUsers.push({
+        id: userInfo.id,
+        email: userInfo.email,
+        name: userInfo.name,
+        // Password excluded: never expose plaintext passwords in exports
+      });
+    }
 
-		this.log(`✅ Created ${users.count} users with accounts`);
-		this.log("📝 User data exported (passwords excluded for security)");
-		this.log(
-			"📱 Ahmed's account has Telegram linked (chat ID: 123456789) for testing",
-		);
-	}
+    this.log(`✅ Created ${users.count} users with accounts`);
+    this.log("📝 User data exported (passwords excluded for security)");
+    this.log(
+      "📱 Ahmed's account has Telegram linked (chat ID: 123456789) for testing",
+    );
+  }
 }

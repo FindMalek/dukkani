@@ -9,16 +9,16 @@ import { env } from "@/env";
  * In production: returns the standard subdomain URL.
  */
 export function getStoreUrl(store: StoreSimpleOutput): string {
-	const baseHost = getStorefrontBaseUrl(env.NEXT_PUBLIC_STORE_DOMAIN);
+  const baseHost = getStorefrontBaseUrl(env.NEXT_PUBLIC_STORE_DOMAIN);
 
-	// Selector mode: preview or local dev - no subdomain routing; use ?store= param
-	// env.NEXT_PUBLIC_NODE_ENV is "development" in both preview and local dev
-	if (env.NEXT_PUBLIC_NODE_ENV === "development") {
-		const origin = baseHost.startsWith("http")
-			? baseHost
-			: `https://${baseHost}`;
-		return `${origin}/?store=${store.slug}`;
-	}
+  // Selector mode: preview or local dev - no subdomain routing; use ?store= param
+  // env.NEXT_PUBLIC_NODE_ENV is "development" in both preview and local dev
+  if (env.NEXT_PUBLIC_NODE_ENV === "development") {
+    const origin = baseHost.startsWith("http")
+      ? baseHost
+      : `https://${baseHost}`;
+    return `${origin}/?store=${store.slug}`;
+  }
 
-	return `https://${store.slug}.${baseHost}`;
+  return `https://${store.slug}.${baseHost}`;
 }

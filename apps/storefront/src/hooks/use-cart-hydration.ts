@@ -8,20 +8,20 @@ import { useCartStore } from "@/stores/cart.store";
  * Should be called once at the app level (in a layout or provider)
  */
 export function useCartHydration() {
-	const [isHydrated, setIsHydrated] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
-	useEffect(() => {
-		const hydrate = async () => {
-			try {
-				await useCartStore.persist.rehydrate();
-				setIsHydrated(true);
-			} catch {
-				setIsHydrated(true);
-			}
-		};
+  useEffect(() => {
+    const hydrate = async () => {
+      try {
+        await useCartStore.persist.rehydrate();
+        setIsHydrated(true);
+      } catch {
+        setIsHydrated(true);
+      }
+    };
 
-		hydrate();
-	}, []);
+    hydrate();
+  }, []);
 
-	return isHydrated;
+  return isHydrated;
 }

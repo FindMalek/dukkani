@@ -1,9 +1,9 @@
 import "@dukkani/ui/styles/globals.css";
 
 import {
-	getTextDirection,
-	LOCALES,
-	type Locale,
+  getTextDirection,
+  LOCALES,
+  type Locale,
 } from "@dukkani/common/schemas/constants";
 import type { Metadata } from "next";
 import { Cairo, Inter } from "next/font/google";
@@ -13,64 +13,64 @@ import { Header } from "@/components/layout/header";
 import { Providers } from "@/components/layout/providers";
 
 const inter = Inter({
-	variable: "--font-sans-latin",
-	subsets: ["latin"],
+  variable: "--font-sans-latin",
+  subsets: ["latin"],
 });
 
 const cairo = Cairo({
-	variable: "--font-sans-arabic",
-	subsets: ["arabic", "latin"],
-	display: "swap",
+  variable: "--font-sans-arabic",
+  subsets: ["arabic", "latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-	title: "Dukkani - Business Management Solution",
-	description: "Your all-in-one business management solution",
-	manifest: "/favicon/site.webmanifest",
-	icons: {
-		icon: [
-			{ url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-			{ url: "/favicon/favicon.svg", type: "image/svg+xml" },
-		],
-		shortcut: "/favicon/favicon.ico",
-		apple: "/favicon/apple-touch-icon.png",
-	},
-	appleWebApp: {
-		title: "Dukkani",
-	},
+  title: "Dukkani - Business Management Solution",
+  description: "Your all-in-one business management solution",
+  manifest: "/favicon/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon/favicon.ico",
+    apple: "/favicon/apple-touch-icon.png",
+  },
+  appleWebApp: {
+    title: "Dukkani",
+  },
 };
 
 export async function generateStaticParams() {
-	return LOCALES.map((lang) => ({ lang }));
+  return LOCALES.map((lang) => ({ lang }));
 }
 
 export default async function RootLayout({
-	children,
-	params,
+  children,
+  params,
 }: {
-	children: React.ReactNode;
-	params: Promise<{ lang: string }>;
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }) {
-	const { lang } = (await params) as { lang: Locale };
-	setRequestLocale(lang);
-	const messages = await getMessages();
+  const { lang } = (await params) as { lang: Locale };
+  setRequestLocale(lang);
+  const messages = await getMessages();
 
-	return (
-		<html
-			lang={lang}
-			dir={getTextDirection(lang)}
-			className={`${inter.variable} ${cairo.variable}`}
-			suppressHydrationWarning
-		>
-			<body className="antialiased">
-				<Providers locale={lang} messages={messages}>
-					<div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
-						<Header />
-						<main>{children}</main>
-						<Footer />
-					</div>
-				</Providers>
-			</body>
-		</html>
-	);
+  return (
+    <html
+      lang={lang}
+      dir={getTextDirection(lang)}
+      className={`${inter.variable} ${cairo.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="antialiased">
+        <Providers locale={lang} messages={messages}>
+          <div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </Providers>
+      </body>
+    </html>
+  );
 }

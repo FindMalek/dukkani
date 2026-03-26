@@ -10,17 +10,17 @@ import { vercelEnv } from "./vercel";
  * Note: vercelEnv already includes NEXT_PUBLIC_API_URL and NEXT_PUBLIC_ALLOWED_ORIGIN
  */
 export const apiEnv = createEnv({
-	extends: [dbEnv, vercelEnv],
-	server: {
-		...telegramModule.server,
-		...observabilityModule.server,
-	},
-	client: {
-		...urlsModule.client,
-	},
-	runtimeEnv: createNextjsRuntimeEnv(),
-	emptyStringAsUndefined: true,
-	skipValidation:
-		process.env.SKIP_ENV_VALIDATION === "true" ||
-		process.env.NODE_ENV === "test",
+  extends: [dbEnv, vercelEnv],
+  server: {
+    ...telegramModule.server,
+    ...observabilityModule.server,
+  },
+  client: {
+    ...urlsModule.client,
+  },
+  runtimeEnv: createNextjsRuntimeEnv(),
+  emptyStringAsUndefined: true,
+  skipValidation:
+    process.env.SKIP_ENV_VALIDATION === "true" ||
+    process.env.NODE_ENV === "test",
 });

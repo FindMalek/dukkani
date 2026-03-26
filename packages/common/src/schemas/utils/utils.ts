@@ -5,12 +5,12 @@ import { z } from "zod";
  */
 
 export const environmentServerSchema = z.object({
-	DATABASE_URL: z.string().min(1).url(),
-	NODE_ENV: z.enum(["development", "production", "local"]),
+  DATABASE_URL: z.string().min(1).url(),
+  NODE_ENV: z.enum(["development", "production", "local"]),
 });
 
 export const environmentClientSchema = z.object({
-	NEXT_PUBLIC_APP_URL: z.url().optional(),
+  NEXT_PUBLIC_APP_URL: z.url().optional(),
 });
 
 export type EnvironmentServer = z.infer<typeof environmentServerSchema>;

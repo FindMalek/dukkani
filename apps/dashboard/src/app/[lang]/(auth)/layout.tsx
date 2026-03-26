@@ -7,45 +7,45 @@ import { client } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
 
 export default async function AuthLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	const session = await getServerSession();
+  const session = await getServerSession();
 
-	if (session?.user) {
-		try {
-			const headersList = await headers();
-			const user = await client.account.getCurrentUser({
-				headers: headersList,
-			});
+  if (session?.user) {
+    try {
+      const headersList = await headers();
+      const user = await client.account.getCurrentUser({
+        headers: headersList,
+      });
 
-			// If user has completed onboarding, redirect to dashboard
-			if (
-				user.onboardingStep === UserOnboardingStep.STORE_LAUNCHED ||
-				user.onboardingStep === UserOnboardingStep.STORE_CONFIGURED
-			) {
-				redirect(RoutePaths.DASHBOARD.url);
-			}
+      // If user has completed onboarding, redirect to dashboard
+      if (
+        user.onboardingStep === UserOnboardingStep.STORE_LAUNCHED ||
+        user.onboardingStep === UserOnboardingStep.STORE_CONFIGURED
+      ) {
+        redirect(RoutePaths.DASHBOARD.url);
+      }
 
-			// If user is still in onboarding, allow access to onboarding pages
-			// But redirect them away from login page
-			return (
-				<AuthGuard redirectTo={RoutePaths.DASHBOARD.url} requireAuth={false}>
-					{children}
-				</AuthGuard>
-			);
-		} catch {
-			// If we can't get user data, fall back to allowing access
-			// (onboarding pages will handle their own auth checks)
-			return (
-				<AuthGuard redirectTo={RoutePaths.DASHBOARD.url} requireAuth={false}>
-					{children}
-				</AuthGuard>
-			);
-		}
-	}
+      // If user is still in onboarding, allow access to onboarding pages
+      // But redirect them away from login page
+      return (
+        <AuthGuard redirectTo={RoutePaths.DASHBOARD.url} requireAuth={false}>
+          {children}
+        </AuthGuard>
+      );
+    } catch {
+      // If we can't get user data, fall back to allowing access
+      // (onboarding pages will handle their own auth checks)
+      return (
+        <AuthGuard redirectTo={RoutePaths.DASHBOARD.url} requireAuth={false}>
+          {children}
+        </AuthGuard>
+      );
+    }
+  }
 
-	// Unauthenticated users can access all auth pages
-	return <>{children}</>;
+  // Unauthenticated users can access all auth pages
+  return <>{children}</>;
 }

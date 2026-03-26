@@ -4,9 +4,9 @@
  */
 
 export {
-	CustomerSeeder,
-	type SeededAddress,
-	type SeededCustomer,
+  CustomerSeeder,
+  type SeededAddress,
+  type SeededCustomer,
 } from "./customer.seeder";
 export { DemoSeeder } from "./demo.seeder";
 export { OrderSeeder, type SeededOrder } from "./order.seeder";
@@ -28,12 +28,12 @@ import { StoreSeeder } from "./store.seeder";
 import { UserSeeder } from "./user.seeder";
 
 export const seeders: Seeder[] = [
-	new UserSeeder(),
-	new StoreSeeder(),
-	new ProductSeeder(),
-	new CustomerSeeder(),
-	new OrderSeeder(),
-	new DemoSeeder(),
+  new UserSeeder(),
+  new StoreSeeder(),
+  new ProductSeeder(),
+  new CustomerSeeder(),
+  new OrderSeeder(),
+  new DemoSeeder(),
 ];
 
 /**
@@ -41,80 +41,80 @@ export const seeders: Seeder[] = [
  * This allows seeders to access data from other seeders
  */
 export function setupSeederDependencies(): void {
-	const userSeeder = seeders.find((s) => s.name === "UserSeeder") as UserSeeder;
-	const storeSeeder = seeders.find(
-		(s) => s.name === "StoreSeeder",
-	) as StoreSeeder;
-	const productSeeder = seeders.find(
-		(s) => s.name === "ProductSeeder",
-	) as ProductSeeder;
-	const customerSeeder = seeders.find(
-		(s) => s.name === "CustomerSeeder",
-	) as CustomerSeeder;
-	const orderSeeder = seeders.find(
-		(s) => s.name === "OrderSeeder",
-	) as OrderSeeder;
-	const demoSeeder = seeders.find((s) => s.name === "DemoSeeder") as DemoSeeder;
+  const userSeeder = seeders.find((s) => s.name === "UserSeeder") as UserSeeder;
+  const storeSeeder = seeders.find(
+    (s) => s.name === "StoreSeeder",
+  ) as StoreSeeder;
+  const productSeeder = seeders.find(
+    (s) => s.name === "ProductSeeder",
+  ) as ProductSeeder;
+  const customerSeeder = seeders.find(
+    (s) => s.name === "CustomerSeeder",
+  ) as CustomerSeeder;
+  const orderSeeder = seeders.find(
+    (s) => s.name === "OrderSeeder",
+  ) as OrderSeeder;
+  const demoSeeder = seeders.find((s) => s.name === "DemoSeeder") as DemoSeeder;
 
-	// Set up dependencies
-	if (storeSeeder && userSeeder) {
-		storeSeeder.setUserSeeder(userSeeder);
-	}
+  // Set up dependencies
+  if (storeSeeder && userSeeder) {
+    storeSeeder.setUserSeeder(userSeeder);
+  }
 
-	if (productSeeder && storeSeeder) {
-		productSeeder.setStoreSeeder(storeSeeder);
-	}
+  if (productSeeder && storeSeeder) {
+    productSeeder.setStoreSeeder(storeSeeder);
+  }
 
-	if (customerSeeder && storeSeeder) {
-		customerSeeder.setStoreSeeder(storeSeeder);
-	}
+  if (customerSeeder && storeSeeder) {
+    customerSeeder.setStoreSeeder(storeSeeder);
+  }
 
-	if (orderSeeder && storeSeeder && productSeeder && customerSeeder) {
-		orderSeeder.setSeeders(storeSeeder, productSeeder, customerSeeder);
-	}
+  if (orderSeeder && storeSeeder && productSeeder && customerSeeder) {
+    orderSeeder.setSeeders(storeSeeder, productSeeder, customerSeeder);
+  }
 
-	if (demoSeeder && userSeeder && storeSeeder) {
-		demoSeeder.setUserSeeder(userSeeder);
-		demoSeeder.setStoreSeeder(storeSeeder);
-	}
+  if (demoSeeder && userSeeder && storeSeeder) {
+    demoSeeder.setUserSeeder(userSeeder);
+    demoSeeder.setStoreSeeder(storeSeeder);
+  }
 }
 
 /**
  * Export seeded data for use in tests or other contexts
  */
 export interface SeededData {
-	users: UserSeeder["seededUsers"];
-	stores: StoreSeeder["seededStores"];
-	products: ProductSeeder["seededProducts"];
-	customers: CustomerSeeder["seededCustomers"];
-	orders: OrderSeeder["seededOrders"];
+  users: UserSeeder["seededUsers"];
+  stores: StoreSeeder["seededStores"];
+  products: ProductSeeder["seededProducts"];
+  customers: CustomerSeeder["seededCustomers"];
+  orders: OrderSeeder["seededOrders"];
 }
 
 /**
  * Get all seeded data with helper methods for easy access
  */
 export function getSeededData(): SeededData {
-	const userSeeder = seeders.find((s) => s.name === "UserSeeder") as UserSeeder;
-	const storeSeeder = seeders.find(
-		(s) => s.name === "StoreSeeder",
-	) as StoreSeeder;
-	const productSeeder = seeders.find(
-		(s) => s.name === "ProductSeeder",
-	) as ProductSeeder;
-	const customerSeeder = seeders.find(
-		(s) => s.name === "CustomerSeeder",
-	) as CustomerSeeder;
-	const orderSeeder = seeders.find(
-		(s) => s.name === "OrderSeeder",
-	) as OrderSeeder;
+  const userSeeder = seeders.find((s) => s.name === "UserSeeder") as UserSeeder;
+  const storeSeeder = seeders.find(
+    (s) => s.name === "StoreSeeder",
+  ) as StoreSeeder;
+  const productSeeder = seeders.find(
+    (s) => s.name === "ProductSeeder",
+  ) as ProductSeeder;
+  const customerSeeder = seeders.find(
+    (s) => s.name === "CustomerSeeder",
+  ) as CustomerSeeder;
+  const orderSeeder = seeders.find(
+    (s) => s.name === "OrderSeeder",
+  ) as OrderSeeder;
 
-	return {
-		users: userSeeder?.seededUsers || [],
-		stores: storeSeeder?.seededStores || [],
-		products: productSeeder?.seededProducts || [],
-		customers: customerSeeder?.seededCustomers || [],
-		orders: orderSeeder?.seededOrders || [],
-	};
+  return {
+    users: userSeeder?.seededUsers || [],
+    stores: storeSeeder?.seededStores || [],
+    products: productSeeder?.seededProducts || [],
+    customers: customerSeeder?.seededCustomers || [],
+    orders: orderSeeder?.seededOrders || [],
+  };
 }
 
 /**
@@ -122,27 +122,27 @@ export function getSeededData(): SeededData {
  * This provides the best DX for accessing seeded data
  */
 export function getSeeders() {
-	const userSeeder = seeders.find((s) => s.name === "UserSeeder") as UserSeeder;
-	const storeSeeder = seeders.find(
-		(s) => s.name === "StoreSeeder",
-	) as StoreSeeder;
-	const productSeeder = seeders.find(
-		(s) => s.name === "ProductSeeder",
-	) as ProductSeeder;
-	const customerSeeder = seeders.find(
-		(s) => s.name === "CustomerSeeder",
-	) as CustomerSeeder;
-	const orderSeeder = seeders.find(
-		(s) => s.name === "OrderSeeder",
-	) as OrderSeeder;
+  const userSeeder = seeders.find((s) => s.name === "UserSeeder") as UserSeeder;
+  const storeSeeder = seeders.find(
+    (s) => s.name === "StoreSeeder",
+  ) as StoreSeeder;
+  const productSeeder = seeders.find(
+    (s) => s.name === "ProductSeeder",
+  ) as ProductSeeder;
+  const customerSeeder = seeders.find(
+    (s) => s.name === "CustomerSeeder",
+  ) as CustomerSeeder;
+  const orderSeeder = seeders.find(
+    (s) => s.name === "OrderSeeder",
+  ) as OrderSeeder;
 
-	return {
-		users: userSeeder,
-		stores: storeSeeder,
-		products: productSeeder,
-		customers: customerSeeder,
-		orders: orderSeeder,
-	};
+  return {
+    users: userSeeder,
+    stores: storeSeeder,
+    products: productSeeder,
+    customers: customerSeeder,
+    orders: orderSeeder,
+  };
 }
 
 /**

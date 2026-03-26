@@ -1,22 +1,22 @@
 import { z } from "zod";
 
 export const createCategoryInputSchema = z.object({
-	name: z.string().min(1, "Category name is required"),
-	storeId: z.string().min(1, "Store ID is required"),
+  name: z.string().min(1, "Category name is required"),
+  storeId: z.string().min(1, "Store ID is required"),
 });
 
 export const updateCategoryInputSchema = createCategoryInputSchema
-	.partial()
-	.extend({
-		id: z.string().min(1, "Category ID is required"),
-	});
+  .partial()
+  .extend({
+    id: z.string().min(1, "Category ID is required"),
+  });
 
 export const getCategoryInputSchema = z.object({
-	id: z.string().min(1, "Category ID is required"),
+  id: z.string().min(1, "Category ID is required"),
 });
 
 export const listCategoriesInputSchema = z.object({
-	storeId: z.string().min(1, "Store ID is required"),
+  storeId: z.string().min(1, "Store ID is required"),
 });
 
 export type CreateCategoryInput = z.infer<typeof createCategoryInputSchema>;

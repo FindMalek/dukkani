@@ -1,9 +1,9 @@
 import {
-	flushTelemetry,
-	initializeSDK,
-	isTracingInitialized,
-	shutdownSDK,
-	type TracingConfig,
+  flushTelemetry,
+  initializeSDK,
+  isTracingInitialized,
+  shutdownSDK,
+  type TracingConfig,
 } from "./sdk";
 
 /**
@@ -11,30 +11,30 @@ import {
  * Call this from instrumentation.ts in Next.js apps
  */
 export function registerTracing(config: TracingConfig): void {
-	// Only initialize in server-side environment
-	if (typeof window !== "undefined") {
-		return;
-	}
+  // Only initialize in server-side environment
+  if (typeof window !== "undefined") {
+    return;
+  }
 
-	initializeSDK(config);
+  initializeSDK(config);
 }
 
 export {
-	fetchWithTrace,
-	propagateTraceContext,
+  fetchWithTrace,
+  propagateTraceContext,
 } from "./context-propagation";
 export { Trace } from "./decorators";
 export {
-	enhanceLogWithTraceContext,
-	getTraceContext,
+  enhanceLogWithTraceContext,
+  getTraceContext,
 } from "./logger-integration";
 export {
-	addSpanAttributes,
-	addSpanEvent,
-	getSpanId,
-	getTraceId,
-	traceStaticClass,
-	withSpan,
+  addSpanAttributes,
+  addSpanEvent,
+  getSpanId,
+  getTraceId,
+  traceStaticClass,
+  withSpan,
 } from "./utils";
 export type { TracingConfig };
 /**

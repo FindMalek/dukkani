@@ -1,33 +1,33 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
 
 export type TeamMemberSimpleDbData = Prisma.TeamMemberGetPayload<{
-	include: ReturnType<typeof TeamMemberQuery.getSimpleInclude>;
+  include: ReturnType<typeof TeamMemberQuery.getSimpleInclude>;
 }>;
 
 export type TeamMemberIncludeDbData = Prisma.TeamMemberGetPayload<{
-	include: ReturnType<typeof TeamMemberQuery.getInclude>;
+  include: ReturnType<typeof TeamMemberQuery.getInclude>;
 }>;
 
 export type TeamMemberClientSafeDbData = Prisma.TeamMemberGetPayload<{
-	include: ReturnType<typeof TeamMemberQuery.getClientSafeInclude>;
+  include: ReturnType<typeof TeamMemberQuery.getClientSafeInclude>;
 }>;
 
 export class TeamMemberQuery {
-	static getSimpleInclude() {
-		return {} satisfies Prisma.TeamMemberInclude;
-	}
+  static getSimpleInclude() {
+    return {} satisfies Prisma.TeamMemberInclude;
+  }
 
-	static getInclude() {
-		return {
-			...TeamMemberQuery.getSimpleInclude(),
-			user: true,
-			store: true,
-		} satisfies Prisma.TeamMemberInclude;
-	}
+  static getInclude() {
+    return {
+      ...TeamMemberQuery.getSimpleInclude(),
+      user: true,
+      store: true,
+    } satisfies Prisma.TeamMemberInclude;
+  }
 
-	static getClientSafeInclude() {
-		return {
-			...TeamMemberQuery.getSimpleInclude(),
-		} satisfies Prisma.TeamMemberInclude;
-	}
+  static getClientSafeInclude() {
+    return {
+      ...TeamMemberQuery.getSimpleInclude(),
+    } satisfies Prisma.TeamMemberInclude;
+  }
 }

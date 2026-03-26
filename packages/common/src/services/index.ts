@@ -6,9 +6,9 @@ export { DashboardService } from "./dashboard.service";
 export { LaunchNotificationService } from "./launch-notification.service";
 export { NotificationService } from "./notification.service";
 export {
-	OnboardingService,
-	type OnboardingState,
-	type OnboardingStepConfig,
+  OnboardingService,
+  type OnboardingState,
+  type OnboardingStepConfig,
 } from "./onboarding.service";
 export { OrderService } from "./order.service";
 export { ProductService } from "./product.service";

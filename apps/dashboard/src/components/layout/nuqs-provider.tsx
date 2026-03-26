@@ -3,9 +3,9 @@
 import { NuqsAdapter } from "nuqs/adapters/next";
 
 interface NuqsProviderProps {
-	children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export default function NuqsProvider({ children }: NuqsProviderProps) {
-	return <NuqsAdapter>{children}</NuqsAdapter>;
+  return <NuqsAdapter>{children}</NuqsAdapter>;
 }
