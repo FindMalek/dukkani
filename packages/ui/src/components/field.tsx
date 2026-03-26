@@ -174,15 +174,6 @@ function FieldSeparator({
 	);
 }
 
-/**
- * @deprecated Use FieldErrors instead.
- */
-function FieldError(props: React.ComponentProps<"div"> & {
-	errors?: Array<{ message?: string } | undefined>;
-}) {
-	return null;
-}
-
 function FieldErrors({
 	className,
 	errors,
@@ -230,7 +221,6 @@ export {
 	Field,
 	FieldContent,
 	FieldDescription,
-	FieldError,
 	FieldErrors,
 	FieldGroup,
 	FieldLabel,
