@@ -1,0 +1,29 @@
+# CI Tools Package
+
+## Purpose
+
+`@dukkani/ci-tools` hosts internal CI automation and analysis commands (for example, workflow-failure analysis).
+
+## Scope
+
+- GitHub workflow/job log fetching and diff collection.
+- Prompt construction and AI-powered incident analysis.
+- Posting/updating PR comments with actionable summaries.
+
+## Constraints
+
+- This package is for CI/runtime automation, not application runtime imports.
+- Keep external API interactions isolated and typed.
+- Keep environment dependencies explicit through CI env presets.
+
+## Security and Reliability
+
+- Never log or expose secret tokens.
+- Sanitize and truncate logs/diffs before sending to AI providers.
+- Fail safely when data sources are unavailable; preserve useful diagnostics.
+
+## Best Practices
+
+- Keep command entrypoints small and orchestrate through focused modules.
+- Keep GitHub API wrappers reusable and testable.
+- Keep generated comments deterministic and easy for reviewers to scan.

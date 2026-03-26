@@ -1,0 +1,30 @@
+# Storage Package
+
+## Purpose
+
+`@dukkani/storage` provides file upload, image processing, and object-storage operations (S3-compatible).
+
+## Core Modules
+
+- `StorageService` (`src/service.ts`) for upload/delete/list workflows.
+- `ImageProcessor` for image transformations.
+- `env` and `client` modules for typed storage configuration and client creation.
+
+## Dependencies and Boundaries
+
+- Uses shared types and MIME helpers from `@dukkani/common`.
+- Uses `@dukkani/logger` and `@dukkani/tracing` for observability.
+- Must not depend on app-layer UI or route code.
+
+## Operational Rules
+
+- Validate MIME types and file size before upload.
+- Generate deterministic, sanitized object keys.
+- Keep environment-aware behavior explicit (`local`, `preview`, `production`).
+- Prefer returning typed results aligned with shared storage schemas.
+
+## Best Practices
+
+- Keep upload logic in this package; apps should call package APIs rather than reimplementing storage handling.
+- Use centralized env values from `@dukkani/storage/env` or `@dukkani/env`.
+- Log structured metadata (not raw secrets or large payloads).

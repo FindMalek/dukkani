@@ -76,6 +76,33 @@ This project is built with modern, type-safe technologies:
 
 ---
 
+## 🧭 Repository Layout
+
+### Apps
+
+- `@dukkani/api` (`apps/api`) - API gateway for oRPC, OpenAPI, auth endpoints, and webhooks.
+- `@dukkani/dashboard` (`apps/dashboard`) - Merchant dashboard for products, orders, customers, and settings.
+- `@dukkani/storefront` (`apps/storefront`) - Customer storefront and checkout runtime.
+- `@dukkani/web` (`apps/web`) - Public marketing and product website.
+
+### Shared packages
+
+- `@dukkani/auth`, `@dukkani/common`, `@dukkani/config`
+- `@dukkani/core`, `@dukkani/db`, `@dukkani/env`
+- `@dukkani/logger`, `@dukkani/migrations`, `@dukkani/orpc`
+- `@dukkani/storage`, `@dukkani/tracing`, `@dukkani/ui`, `@dukkani/ci-tools`
+
+For package-level boundaries and dependency guidance, see `.cursor/rules/packages/00-package-index.mdc`.
+
+### AI assistant rules and skills
+
+- Canonical project rules live in `.cursor/rules/*.mdc`.
+- Windsurf reads `.windsurfrules`, which points to the same canonical `.cursor/rules` content.
+- Workspace skills are maintained in `.windsurf/skills` and mirrored to `.agents/skills` via symlink.
+- Naming conventions source of truth: `.cursor/rules/01-naming-conventions.mdc`.
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites

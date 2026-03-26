@@ -1,0 +1,56 @@
+# Storefront App
+
+## Purpose
+
+The `storefront` app is the customer-facing commerce experience for storefront browsing and checkout.
+It is distinct from the marketing site in `apps/web`.
+
+## Structure
+
+```text
+apps/storefront/src/
+├── app/
+│   ├── [lang]/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── products/[id]/page.tsx
+│   │   └── checkout/
+│   └── api/storefront/[[...rest]]/route.ts
+├── components/
+│   ├── app/
+│   ├── layout/
+│   └── shared/
+├── hooks/
+├── lib/
+├── stores/
+├── env.ts
+└── proxy.ts
+```
+
+## Data and API
+
+- Use `@dukkani/orpc` utilities via local `lib/orpc.ts`.
+- Keep request and response typing aligned with shared schemas from `@dukkani/common`.
+- Route API calls through `app/api/storefront/[[...rest]]/route.ts` when app-local API entry is needed.
+
+## State Management
+
+- Keep cart and filter state in zustand stores under `stores/`.
+- Derive computed cart values in selectors or utility functions, not duplicated in UI components.
+
+## i18n and Routing
+
+- Keep user-visible routes under `app/[lang]/...`.
+- Use locale helpers from `lib/i18n.ts` and keep locale-aware links consistent.
+
+## Error Handling
+
+- Reuse shared error patterns and helper functions (`lib/error.ts`).
+- Do not inline generic error toasts; keep error mapping centralized.
+
+## Best Practices
+
+- Use server components by default and opt into `"use client"` only when needed.
+- Keep checkout, cart, and product-card logic modular in `components/app/`.
+- Reuse UI primitives from `@dukkani/ui`.
+- Keep storefront-specific logic in this app and shared cross-app logic in packages.
