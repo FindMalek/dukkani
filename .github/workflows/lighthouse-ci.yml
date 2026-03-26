@@ -23,7 +23,7 @@ jobs:
             lighthouse_paths: /en,/ar
           - app: storefront
             project_id: ${{ secrets.VERCEL_PROJECT_ID_STOREFRONT }}
-            lighthouse_paths: /en,/ar
+            lighthouse_paths: /en?store=omar-home,/ar?store=omar-home
 
     steps:
       - uses: actions/checkout@v4
