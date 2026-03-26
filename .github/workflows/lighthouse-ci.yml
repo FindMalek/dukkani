@@ -1,68 +1,128 @@
 name: Lighthouse CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened, ready_for_review]
 
+concurrency:
+  group: lighthouse-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lighthouse:
-    if: (github.event_name != 'pull_request' || github.event.pull_request.draft == false) && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: web
+            lighthouse_paths: /en,/ar
+          - app: storefront
+            lighthouse_paths: /en?store=omar-home,/ar?store=omar-home
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 20
 
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Install Lighthouse CI
-        run: pnpm add -D -w @lhci/cli
-
-      - name: Run Lighthouse CI (desktop)
-        run: LHCI_COLLECT_PRESET=desktop pnpm exec lhci autorun
+      - name: Resolve Vercel preview URL (${{ matrix.app }})
+        id: preview
         env:
-          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
-          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
-          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
-          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
-          NEXT_PUBLIC_NODE_ENV: production
-          CI: true
-          OTEL_SERVICE_NAME: dukkani-web
-          OTEL_SAMPLING_RATE: 0
-          OTEL_ENABLED: false
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ matrix.app == 'web' && secrets.VERCEL_PROJECT_ID_WEB || secrets.VERCEL_PROJECT_ID_STOREFRONT }}
+          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
 
-      - name: Run Lighthouse CI (mobile)
-        run: LHCI_COLLECT_PRESET=mobile pnpm exec lhci autorun
+          if [ -z "${VERCEL_TOKEN:-}" ] || [ -z "${VERCEL_PROJECT_ID:-}" ]; then
+            echo "Missing VERCEL_TOKEN or project ID for ${{ matrix.app }}"
+            exit 1
+          fi
+
+          COMMIT_SHA="${GITHUB_PR_HEAD_SHA:-$GITHUB_SHA}"
+          API_URL_BY_SHA="https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&target=preview&meta-githubCommitSha=${COMMIT_SHA}&limit=20"
+          API_URL_BY_REF="https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&target=preview&meta-githubCommitRef=${GITHUB_HEAD_REF}&limit=20"
+          PREVIEW_URL=""
+
+          for attempt in {1..20}; do
+            RESPONSE="$(curl -fsS -H "Authorization: Bearer ${VERCEL_TOKEN}" "${API_URL_BY_SHA}")"
+            PREVIEW_URL="$(echo "${RESPONSE}" | jq -r '[.deployments[]? | select(.readyState == "READY")] | sort_by(.createdAt) | last | .url // empty')"
+
+            if [ -z "${PREVIEW_URL}" ] || [ "${PREVIEW_URL}" = "null" ]; then
+              RESPONSE_BY_REF="$(curl -fsS -H "Authorization: Bearer ${VERCEL_TOKEN}" "${API_URL_BY_REF}")"
+              PREVIEW_URL="$(echo "${RESPONSE_BY_REF}" | jq -r '[.deployments[]? | select(.readyState == "READY")] | sort_by(.createdAt) | last | .url // empty')"
+            fi
+
+            if [ -n "${PREVIEW_URL}" ] && [ "${PREVIEW_URL}" != "null" ]; then
+              break
+            fi
+
+            echo "No READY preview for ${{ matrix.app }} yet (attempt ${attempt}/20). Waiting 15s... (sha=${COMMIT_SHA}, ref=${GITHUB_HEAD_REF})"
+            sleep 15
+          done
+
+          if [ -z "${PREVIEW_URL}" ] || [ "${PREVIEW_URL}" = "null" ]; then
+            echo "Could not find READY Vercel preview for ${{ matrix.app }} (sha=${COMMIT_SHA}, ref=${GITHUB_HEAD_REF})"
+            exit 1
+          fi
+
+          echo "url=https://${PREVIEW_URL}" >> "$GITHUB_OUTPUT"
+          echo "Resolved ${{ matrix.app }} preview: https://${PREVIEW_URL}"
+
+      - name: Wait for preview reachability (${{ matrix.app }})
         env:
-          NEXT_PUBLIC_API_URL: ${{ vars.CI_NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_WEB_URL: ${{ vars.CI_NEXT_PUBLIC_WEB_URL }}
-          NEXT_PUBLIC_DASHBOARD_URL: ${{ vars.CI_NEXT_PUBLIC_DASHBOARD_URL }}
-          NEXT_PUBLIC_STORE_DOMAIN: ${{ vars.CI_NEXT_PUBLIC_STORE_DOMAIN }}
-          NEXT_PUBLIC_ALLOWED_ORIGIN: ${{ vars.CI_NEXT_PUBLIC_ALLOWED_ORIGIN }}
-          NEXT_PUBLIC_NODE_ENV: production
-          CI: true
-          OTEL_SERVICE_NAME: dukkani-web
-          OTEL_SAMPLING_RATE: 0
-          OTEL_ENABLED: false
+          LIGHTHOUSE_URL: ${{ steps.preview.outputs.url }}
+          LIGHTHOUSE_PATHS: ${{ matrix.lighthouse_paths }}
+        run: |
+          set -euo pipefail
+
+          # Extract the first path from LIGHTHOUSE_PATHS (comma-separated)
+          FIRST_PATH="$(echo "${LIGHTHOUSE_PATHS}" | cut -d',' -f1)"
+          TARGET_URL="${LIGHTHOUSE_URL}${FIRST_PATH}"
+
+          for attempt in {1..20}; do
+            STATUS_CODE="$(curl -s -o /dev/null -w "%{http_code}" "${TARGET_URL}")"
+            if [[ "${STATUS_CODE}" =~ ^(200|301|302|307|308)$ ]]; then
+              echo "Preview is reachable for ${{ matrix.app }} at ${TARGET_URL} (HTTP ${STATUS_CODE})"
+              exit 0
+            fi
+
+            echo "Preview not reachable for ${{ matrix.app }} at ${TARGET_URL} (HTTP ${STATUS_CODE}) attempt ${attempt}/20. Waiting 10s..."
+            sleep 10
+          done
+
+          echo "Preview never became reachable for ${{ matrix.app }}: ${TARGET_URL}"
+          exit 1
+
+      - name: Collect Lighthouse data (desktop)
+        run: npx -y @lhci/cli@0.15.1 collect
+        env:
+          LIGHTHOUSE_URL: ${{ steps.preview.outputs.url }}
+          LIGHTHOUSE_PATHS: ${{ matrix.lighthouse_paths }}
+          LHCI_PRESET: desktop
+
+      - name: Collect Lighthouse data (mobile)
+        run: npx -y @lhci/cli@0.15.1 collect
+        env:
+          LIGHTHOUSE_URL: ${{ steps.preview.outputs.url }}
+          LIGHTHOUSE_PATHS: ${{ matrix.lighthouse_paths }}
+          LHCI_PRESET: desktop
+          LHCI_SCREEN_EMULATION: '{"mobile":true,"width":375,"height":667,"deviceScaleFactor":2,"disabled":false,"formFactor":"mobile"}'
+
+      - name: Assert Lighthouse results
+        run: npx -y @lhci/cli@0.15.1 assert
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       - name: Upload Lighthouse artifacts
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: lighthouse-reports
+          name: lighthouse-reports-${{ matrix.app }}
           path: .lighthouseci
           retention-days: 5
