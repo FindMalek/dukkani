@@ -1,7 +1,10 @@
 import { logger } from "@dukkani/logger";
 import { Command } from "commander";
 import inquirer from "inquirer";
-import { MigrationTemplateGenerator } from "../../scripts/create-migration";
+import {
+	type CreateMigrationOptions,
+	MigrationTemplateGenerator,
+} from "../../scripts/create-migration";
 
 /**
  * Migration creation commands
@@ -69,9 +72,11 @@ export class CreateCommands {
 	/**
 	 * Handle create command
 	 */
-	private static async handleCreate(options: unknown): Promise<void> {
+	private static async handleCreate(
+		options: CreateMigrationOptions,
+	): Promise<void> {
 		try {
-			const createOptions = options as Record<string, unknown>;
+			const createOptions: CreateMigrationOptions = options;
 			// If no name provided and interactive mode is enabled, prompt for it
 			if (!createOptions.name && createOptions.interactive !== false) {
 				const answers = await inquirer.prompt([

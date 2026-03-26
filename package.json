@@ -46,7 +46,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "catalog:",
 		"@lhci/cli": "^0.15.1",
-		"@typescript/native-preview": "7.0.0-dev.20260326.1",
+		"@typescript/native-preview": "catalog:",
 		"@types/node": "catalog:",
 		"dotenv": "catalog:",
 		"syncpack": "^13.0.4",

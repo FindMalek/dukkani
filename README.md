@@ -153,10 +153,12 @@ pnpm run db:seed          # Seed database
 pnpm run db:reset-and-seed # Reset and seed
 
 # Code Quality
-pnpm run check            # Lint and format
-pnpm run check-types      # Type check all packages
+pnpm run check            # Lint and format (Biome)
+pnpm run check-types      # Type check all packages  
+pnpm run check-types:fast # Fast type check (tsgo)
 pnpm run build            # Build all packages
-```
+
+> **Code Quality**: We use Biome with focused linting rules. See [BIOME_CONFIGURATION_ANALYSIS.md](./BIOME_CONFIGURATION_ANALYSIS.md) for our linting philosophy.
 
 ---
 

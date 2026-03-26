@@ -9,8 +9,8 @@
 		"ignoreUnknown": false,
 		"includes": [
 			"**",
-			"!**/.agents/**",
-			"!**/.lighthouseci/**",
+			"!**/.agents",
+			"!**/.lighthouseci",
 			"!**/.next",
 			"!**/dist",
 			"!**/.turbo",
