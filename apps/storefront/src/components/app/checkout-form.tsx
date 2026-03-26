@@ -244,7 +244,12 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
 						<form.AppField name="isWhatsApp">
 							{(field) => (
 								<field.CheckboxInput
-									label={t("delivery.whatsapp")}
+									label={
+										<>
+											<Icons.whatsapp />
+											<span>{t("delivery.whatsapp")}</span>
+										</>
+									}
 									description={t("delivery.whatsappDescription")}
 								/>
 							)}
