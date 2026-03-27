@@ -155,7 +155,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
         return;
       }
       if (!enrichedData || enrichedData.length === 0) {
-        toast.error(t("orderSubmissionError"));
         return;
       }
       const orderItems = enrichedData.map((item) => ({
