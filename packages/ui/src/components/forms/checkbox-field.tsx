@@ -10,6 +10,9 @@ interface CheckboxFieldProps
 export function CheckboxField({
   label,
   description,
+  srOnlyLabel,
+  labelFirst,
+  rightToField,
   ...props
 }: CheckboxFieldProps) {
   const field = useFieldContext<boolean>();
@@ -18,6 +21,9 @@ export function CheckboxField({
     <BaseField
       label={label}
       description={description}
+      srOnlyLabel={srOnlyLabel}
+      labelFirst={labelFirst}
+      rightToField={rightToField}
       orientation={"horizontal"}
     >
       <Checkbox
