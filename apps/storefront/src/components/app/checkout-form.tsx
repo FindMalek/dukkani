@@ -6,6 +6,7 @@ import {
   createOrderPublicInputSchema,
 } from "@dukkani/common/schemas/order/input";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
+import { formatCurrency } from "@dukkani/common/utils/formatCurrency";
 import { Button } from "@dukkani/ui/components/button";
 import {
   FieldDescription,
@@ -323,7 +324,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                         className="font-semibold text-sm tabular-nums"
                         dir="ltr"
                       >
-                        {formattedTotal} TND
+                        {formatCurrency(total)}
                       </span>
                       <Icons.arrowRight className="size-4 rtl:rotate-180" />
                     </div>
