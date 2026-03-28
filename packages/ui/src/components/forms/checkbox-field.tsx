@@ -4,8 +4,8 @@ import { Checkbox } from "../checkbox";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
 interface CheckboxFieldProps
-	extends Omit<CommonFieldProps, "orientation">,
-		React.ComponentProps<typeof Checkbox> {}
+  extends Omit<CommonFieldProps, "orientation">,
+    React.ComponentProps<typeof Checkbox> {}
 
 export function CheckboxField({
   label,

@@ -11,12 +11,12 @@ import {
 } from "../field";
 
 export type CommonFieldProps = {
-	label: React.ReactNode;
-	srOnlyLabel?: boolean;
-	description?: string;
-	labelFirst?: boolean;
-	rightToField?: React.ReactNode;
-	orientation?: React.ComponentProps<typeof Field>["orientation"];
+  label: React.ReactNode;
+  srOnlyLabel?: boolean;
+  description?: string;
+  labelFirst?: boolean;
+  rightToField?: React.ReactNode;
+  orientation?: React.ComponentProps<typeof Field>["orientation"];
 };
 
 interface BaseFieldWithDescriptionProps

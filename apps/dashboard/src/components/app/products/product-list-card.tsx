@@ -24,8 +24,8 @@ export function ProductListCard({
   onTogglePublish,
 }: ProductListCardProps) {
   const locale = useLocale();
-  const t = useTranslations("products.list");
   const router = useRouter();
+  const t = useTranslations("products.list");
 
   const firstImageUrl = product.imageUrls[0];
   const isOutOfStock = product.stock === 0;

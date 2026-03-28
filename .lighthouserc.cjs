@@ -22,10 +22,11 @@ const config = {
         ...(process.env.LHCI_SCREEN_EMULATION && {
           screenEmulation: JSON.parse(process.env.LHCI_SCREEN_EMULATION),
         }),
-        ...(process.env.LHCI_SCREEN_EMULATION && 
+        ...(process.env.LHCI_SCREEN_EMULATION &&
           JSON.parse(process.env.LHCI_SCREEN_EMULATION).formFactor && {
-          formFactor: JSON.parse(process.env.LHCI_SCREEN_EMULATION).formFactor,
-        }),
+            formFactor: JSON.parse(process.env.LHCI_SCREEN_EMULATION)
+              .formFactor,
+          }),
       },
     },
     assert: {

@@ -18,17 +18,15 @@ import {
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useEffectEvent, useMemo } from "react";
+import { useCallback, useEffect, useEffectEvent } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { useCartHydration } from "@/hooks/use-cart-hydration";
 import { useCreateOrder } from "@/hooks/use-create-order";
 import { useDetectedAddress } from "@/hooks/use-detected-address";
-import { orpc } from "@/lib/orpc";
+import { useEnrichedCart } from "@/hooks/use-enriched-cart";
 import { RoutePaths, useRouter } from "@/lib/routes";
-import { useCartStore } from "@/stores/cart.store";
 import { OrderSummary } from "./order-summary";
 
 interface CheckoutFormProps {
@@ -54,16 +52,15 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
   const router = useRouter();
   const t = useTranslations("storefront.store.checkout");
 
-  const autoLocation = useDetectedAddress();
   const hydrated = useCartHydration();
+  const autoLocation = useDetectedAddress();
   const createOrderMutation = useCreateOrder();
-  const carts = useCartStore((state) => state.carts);
-  const currentStoreSlug = useCartStore((state) => state.currentStoreSlug);
-
-  const cartItems = useMemo(() => {
-    if (!currentStoreSlug) return [];
-    return carts[currentStoreSlug] || [];
-  }, [carts, currentStoreSlug]);
+  const {
+    cartItems,
+    enrichedData,
+    subtotal,
+    isLoading: cartQueryLoading,
+  } = useEnrichedCart();
 
   // Redirect if cart is empty (but not when we just completed an order)
   // Wait for cart rehydration so we don't redirect before persisted cart is loaded
@@ -74,55 +71,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
     }
   }, [hydrated, cartItems.length, createOrderMutation.isSuccess, router]);
 
-  const queryInput = useMemo(() => {
-    return {
-      items: cartItems.map((item) => ({
-        productId: item.productId,
-        variantId: item.variantId,
-        quantity: item.quantity,
-      })),
-    };
-  }, [cartItems]);
-
-  const enrichedCartItems = useQuery({
-    ...orpc.cart.getCartItems.queryOptions({
-      input: queryInput,
-    }),
-    enabled: cartItems.length > 0,
-    staleTime: 30 * 1000,
-  });
-
-  const enrichedData = useMemo(() => {
-    if (!enrichedCartItems.data) return undefined;
-    if (cartItems.length === 0) return [];
-
-    const filteredData = enrichedCartItems.data.filter((enrichedItem) => {
-      return cartItems.some(
-        (item) =>
-          item.productId === enrichedItem.productId &&
-          item.variantId === enrichedItem.variantId,
-      );
-    });
-
-    return filteredData.map((enrichedItem) => {
-      const currentItem = cartItems.find(
-        (item) =>
-          item.productId === enrichedItem.productId &&
-          item.variantId === enrichedItem.variantId,
-      );
-      return {
-        ...enrichedItem,
-        quantity: currentItem?.quantity ?? enrichedItem.quantity,
-      };
-    });
-  }, [enrichedCartItems.data, cartItems]);
-
-  const subtotal =
-    enrichedData?.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0) ?? 0;
   const total = subtotal + store.shippingCost;
-  const formattedTotal = total.toFixed(3);
 
   useEffect(() => {
     if (autoLocation.error) {
@@ -295,7 +244,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
           <OrderSummary
             items={enrichedData ?? []}
             shippingCost={store.shippingCost}
-            loading={enrichedCartItems.isLoading || !enrichedData}
+            loading={cartQueryLoading || !enrichedData}
           />
         </FieldGroup>
         <div className="fixed inset-x-0 bottom-0 z-10 border-t bg-background px-4 py-3">
