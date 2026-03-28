@@ -26,6 +26,10 @@
       "types": "./src/presets/ci-tools.ts",
       "default": "./src/presets/ci-tools.ts"
     },
+    "./presets/preview-cleanup": {
+      "types": "./src/presets/preview-cleanup.ts",
+      "default": "./src/presets/preview-cleanup.ts"
+    },
     "./presets/api": {
       "types": "./src/presets/api.ts",
       "default": "./src/presets/api.ts"

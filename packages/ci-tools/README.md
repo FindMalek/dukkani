@@ -48,3 +48,42 @@ pnpm --filter @dukkani/ci-tools run analyze
 ```
 
 Set the env vars above (e.g. from a failed run’s URL and branch).
+
+## Preview cleanup (R2 on PR close)
+
+When a pull request is closed, [`.github/workflows/cleanup-preview.yml`](../../.github/workflows/cleanup-preview.yml) runs `pnpm --filter @dukkani/ci-tools run cleanup-preview` to delete all objects under **`pr-{PR_NUMBER}/`** in your S3-compatible bucket (e.g. Cloudflare R2), matching preview uploads from [`StorageService`](../../packages/storage/src/service.ts) when `VERCEL_GIT_PULL_REQUEST_ID` is set.
+
+**Neon** preview branches are deleted in the same workflow with [`neondatabase/delete-branch-action`](https://github.com/neondatabase/delete-branch-action), using branch name **`preview/{head.ref}`** (full Git branch name from the PR, not the PR number). R2 and Neon use different identifiers on purpose (e.g. PR #313 from branch `312-feature-…`).
+
+### Required env (when running `pnpm run cleanup-preview`)
+
+Validated by `@dukkani/env` preset `preview-cleanup`:
+
+| Variable | Description |
+|----------|-------------|
+| `S3_ENDPOINT` | R2 / MinIO S3 API URL |
+| `S3_ACCESS_KEY_ID` | Access key |
+| `S3_SECRET_ACCESS_KEY` | Secret key |
+| `S3_BUCKET` | Bucket name |
+| `PREVIEW_CLEANUP_PR_NUMBER` | GitHub PR number (positive integer) |
+
+Optional: `S3_REGION` (defaults to `auto` for R2).
+
+### GitHub Actions secrets / variables
+
+Configure in the repo:
+
+- **Secrets:** `S3_ENDPOINT`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `S3_BUCKET`, `NEON_API_KEY`
+- **Variables:** `NEON_PROJECT_ID` (Neon recommends a variable; see [Neon branch cleanup](https://neon.com/docs/guides/vercel-branch-cleanup))
+
+The workflow skips **fork** PRs (`head.repo` must equal the base repo) so secrets are not exposed to untrusted code.
+
+### Limitations
+
+- If preview deployments set `STORAGE_PREVIEW_PREFIX`, objects may not live under `pr-{number}/`; this job only removes that standard prefix.
+- Deletes are prefix-scoped; using a dedicated preview bucket is still safer than sharing a production bucket long term.
+- Renaming the Git branch or Neon branch after creation can break name matching for Neon cleanup.
+
+### Implementation note
+
+The script imports `@dukkani/storage/s3-client-factory` and `@dukkani/storage/delete-by-prefix` so it does not load full app `storageEnv` (Next/Vercel client variables). The same delete logic backs [`StorageService.deleteFolderByPrefix`](../../packages/storage/src/service.ts).
