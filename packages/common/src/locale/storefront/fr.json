@@ -72,8 +72,9 @@
           "city": "Ville",
           "postalCode": "Code postal",
           "instructions": "Instructions de livraison",
-          "useLocation": "Remplir automatiquement l'adresse à partir de la localisation du téléphone",
-          "useLocationDescription": "Nous remplirons automatiquement la ville et la zone.",
+          "useLocation": "Utiliser la position du téléphone",
+          "useLocationDescription": "Appuyez une fois pour remplir automatiquement la ville et le quartier.",
+          "useLocationPrivacy": "Nous utilisons uniquement votre position GPS approximative. Pas de carte, pas d'adresse exacte.",
           "locationErrorTitle": "Impossible d'obtenir votre localisation",
           "locationErrorDescription": "Autorisez l'accès à la localisation dans votre navigateur (icône de verrou ou d'information dans la barre d'adresse), ou saisissez votre adresse manuellement."
         },

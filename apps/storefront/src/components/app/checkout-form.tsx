@@ -18,6 +18,7 @@ import {
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
+import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useEffectEvent } from "react";
 import { toast } from "sonner";
@@ -170,12 +171,8 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
               />
             )}
           </form.AppField>
-          <FieldSet className="rounded-md border p-4">
-            <FieldLegend>{t("delivery.addressFieldset.title")}</FieldLegend>
-            <FieldDescription>
-              {t("delivery.addressFieldset.description")}
-            </FieldDescription>
-            <FieldGroup>
+          <FieldSet>
+            <FieldGroup className="gap-6">
               <form.AppField name="address.street">
                 {(field) => (
                   <field.TextInput label={t("delivery.streetAddress")} />
@@ -191,16 +188,31 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                   )}
                 </form.AppField>
               </div>
-              <Button
-                type="button"
-                variant="secondary"
-                className="w-full"
-                disabled={createOrderMutation.isPending}
-                isLoading={autoLocation.isLoading}
-                onClick={handleDetectLocation}
-              >
-                {t("delivery.useLocation")}
-              </Button>
+              <div className="flex flex-col gap-2">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className={cn(
+                    "h-auto min-h-0 w-full items-start justify-start gap-3 rounded-xl py-4 ps-4 pe-4 text-start whitespace-normal",
+                  )}
+                  disabled={createOrderMutation.isPending}
+                  isLoading={autoLocation.isLoading}
+                  onClick={handleDetectLocation}
+                >
+                  <Icons.mapPin
+                    className="size-5 shrink-0 text-foreground"
+                    aria-hidden
+                  />
+                  <div className="flex min-w-0 flex-1 flex-col gap-0.5 text-start">
+                    <span className="font-semibold text-foreground text-sm">
+                      {t("delivery.useLocation")}
+                    </span>
+                    <span className="text-muted-foreground text-sm">
+                      {t("delivery.useLocationDescription")}
+                    </span>
+                  </div>
+                </Button>
+              </div>
             </FieldGroup>
           </FieldSet>
           <form.AppField name="paymentMethod">
