@@ -1,9 +1,9 @@
 import { S3Client } from "@aws-sdk/client-s3";
-import { createS3Client } from "./s3-client-factory";
+import { createS3Client } from "./core/s3-client";
 import { env } from "./env";
 
-export type { S3ConnectionConfig } from "./s3-client-factory";
-export { createS3Client } from "./s3-client-factory";
+export type { S3ConnectionConfig } from "./core/s3-client";
+export { createS3Client } from "./core/s3-client";
 
 let _s3Client: S3Client | null = null;
 

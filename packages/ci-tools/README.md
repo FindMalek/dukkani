@@ -86,4 +86,4 @@ The workflow skips **fork** PRs (`head.repo` must equal the base repo) so secret
 
 ### Implementation note
 
-The script imports `@dukkani/storage/s3-client-factory` and `@dukkani/storage/delete-by-prefix` so it does not load full app `storageEnv` (Next/Vercel client variables). The same delete logic backs [`StorageService.deleteFolderByPrefix`](../../packages/storage/src/service.ts).
+The script imports `@dukkani/storage/core` (env-free S3 helpers) so it does not load full app `storageEnv` (Next/Vercel client variables). The same delete logic backs [`StorageService.deleteFolderByPrefix`](../../packages/storage/src/service.ts).

@@ -10,13 +10,9 @@
       "types": "./dist/env.d.ts",
       "default": "./src/env.ts"
     },
-    "./s3-client-factory": {
-      "types": "./dist/s3-client-factory.d.ts",
-      "default": "./src/s3-client-factory.ts"
-    },
-    "./delete-by-prefix": {
-      "types": "./dist/delete-by-prefix.d.ts",
-      "default": "./src/delete-by-prefix.ts"
+    "./core": {
+      "types": "./dist/core/index.d.mts",
+      "default": "./src/core/index.ts"
     },
     "./*": {
       "types": "./dist/*.d.ts",

@@ -5,8 +5,10 @@
  */
 
 import { previewCleanupEnv } from "@dukkani/env/presets/preview-cleanup";
-import { createS3Client } from "@dukkani/storage/s3-client-factory";
-import { deleteFolderByPrefixWithClient } from "@dukkani/storage/delete-by-prefix";
+import {
+  createS3Client,
+  deleteFolderByPrefixWithClient,
+} from "@dukkani/storage/core";
 
 async function main(): Promise<void> {
   const env = previewCleanupEnv;

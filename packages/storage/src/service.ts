@@ -25,7 +25,7 @@ import { logger } from "@dukkani/logger";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { nanoid } from "nanoid";
 import { getS3Client } from "./client";
-import { deleteFolderByPrefixWithClient } from "./delete-by-prefix";
+import { deleteFolderByPrefixWithClient } from "./core/delete-by-prefix";
 import { env } from "./env";
 import { ImageProcessor } from "./image-processor";
 
