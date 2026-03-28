@@ -145,7 +145,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
   return (
     <Form
       onSubmit={form.handleSubmit}
-      className="mx-auto max-w-md md:max-w-2xl"
+      className="mx-auto max-w-md md:max-w-2xl px-4"
     >
       <form.AppForm>
         <FieldGroup>
@@ -163,12 +163,9 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
           <form.AppField name="isWhatsApp">
             {(field) => (
               <field.CheckboxInput
-                label={
-                  <>
-                    <Icons.whatsapp />
-                    <span>{t("delivery.whatsapp")}</span>
-                  </>
-                }
+                variant="card"
+                leadingVisual={<Icons.whatsapp />}
+                label={t("delivery.whatsapp")}
                 description={t("delivery.whatsappDescription")}
               />
             )}
