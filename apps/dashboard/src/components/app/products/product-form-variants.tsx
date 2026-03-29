@@ -75,7 +75,7 @@ export const ProductFormVariants = withForm({
                               (variantOption, variantOptionIndex) => (
                                 <form.AppField
                                   name={`variantOptions[${variantOptionIndex}].name`}
-                                  key={`variantOption-${variantOption.name}-${variantOptionIndex}`}
+                                  key={"variantOption-" + variantOptionIndex}
                                 >
                                   {(field) => (
                                     <FieldGroup>
