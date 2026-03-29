@@ -75,7 +75,7 @@ export const ProductFormVariants = withForm({
                               (variantOption, variantOptionIndex) => (
                                 <form.AppField
                                   name={`variantOptions[${variantOptionIndex}].name`}
-                                  key={`variantOption-${variantOption.name}-${variantOptionIndex}`}
+                                  key={"variantOption-" + variantOptionIndex}
                                 >
                                   {(field) => (
                                     <FieldGroup>
@@ -120,7 +120,7 @@ export const ProductFormVariants = withForm({
                                               ).map((_value, valueIndex) => (
                                                 <form.AppField
                                                   name={`variantOptions[${variantOptionIndex}].values[${valueIndex}].value`}
-                                                  key={`variantOption-${variantOption.name}-${valueIndex}`}
+                                                  key={"variantOption-" + variantOptionIndex + "-value-" + valueIndex}
                                                 >
                                                   {(pillField) => (
                                                     <pillField.PillInput
