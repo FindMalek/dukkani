@@ -36,7 +36,7 @@ export async function deleteFolderByPrefixWithClient(
         ) || [];
 
       if (objects.length > 0) {
-        await client.send(
+        const deleteResponse = await client.send(
           new DeleteObjectsCommand({
             Bucket: bucket,
             Delete: {
@@ -45,7 +45,22 @@ export async function deleteFolderByPrefixWithClient(
             },
           }),
         );
-        totalDeleted += objects.length;
+        const deleteErrors = deleteResponse.Errors ?? [];
+        if (deleteErrors.length > 0) {
+          logger.warn(
+            {
+              bucket,
+              prefix: folderPrefix,
+              failedKeys: deleteErrors.map((e) => ({
+                key: e.Key,
+                code: e.Code,
+                message: e.Message,
+              })),
+            },
+            "Some objects failed to delete in batch",
+          );
+        }
+        totalDeleted += objects.length - deleteErrors.length;
       }
 
       isTruncated = listResponse.IsTruncated || false;
