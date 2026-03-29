@@ -39,6 +39,7 @@ jobs:
         run: pnpm --filter @dukkani/ci-tools run cleanup-preview
 
       - name: Delete Neon preview branch
+        if: ${{ always() }}
         continue-on-error: true
         uses: neondatabase/delete-branch-action@v3.2.0
         with:
