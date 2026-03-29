@@ -1,7 +1,6 @@
 import {
   DeleteObjectCommand,
   DeleteObjectsCommand,
-  ListObjectsCommand,
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
 import {
@@ -26,6 +25,7 @@ import { logger } from "@dukkani/logger";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { nanoid } from "nanoid";
 import { getS3Client } from "./client";
+import { deleteFolderByPrefixWithClient } from "./core/delete-by-prefix";
 import { env } from "./env";
 import { ImageProcessor } from "./image-processor";
 
@@ -605,66 +605,7 @@ class StorageServiceBase {
     bucket: string,
     prefix: string,
   ): Promise<void> {
-    const folderPrefix = prefix.endsWith("/") ? prefix : `${prefix}/`;
-
-    try {
-      const client = getS3Client();
-      let marker: string | undefined;
-      let totalDeleted = 0;
-      let isTruncated = true;
-
-      do {
-        const listResponse = await client.send(
-          new ListObjectsCommand({
-            Bucket: bucket,
-            Prefix: folderPrefix,
-            Marker: marker,
-          }),
-        );
-
-        const objects =
-          listResponse.Contents?.map((obj) => ({ Key: obj.Key || "" })).filter(
-            (obj) => obj.Key,
-          ) || [];
-
-        if (objects.length > 0) {
-          await client.send(
-            new DeleteObjectsCommand({
-              Bucket: bucket,
-              Delete: {
-                Objects: objects,
-                Quiet: true,
-              },
-            }),
-          );
-          totalDeleted += objects.length;
-        }
-
-        isTruncated = listResponse.IsTruncated || false;
-        marker = listResponse.NextMarker || listResponse.Contents?.at(-1)?.Key;
-      } while (isTruncated);
-
-      if (totalDeleted > 0) {
-        logger.info(
-          { bucket, prefix: folderPrefix, totalDeleted },
-          "Successfully deleted folder contents",
-        );
-      }
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      logger.error(
-        {
-          bucket,
-          prefix: folderPrefix,
-          error: errorMessage,
-        },
-        "Failed to delete storage folder",
-      );
-      throw new Error(
-        `Failed to delete folder ${folderPrefix}: ${errorMessage}`,
-      );
-    }
+    await deleteFolderByPrefixWithClient(getS3Client(), bucket, prefix);
   }
 
   /**

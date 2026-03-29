@@ -10,6 +10,10 @@
       "types": "./dist/env.d.ts",
       "default": "./src/env.ts"
     },
+    "./core": {
+      "types": "./dist/core/index.d.mts",
+      "default": "./src/core/index.ts"
+    },
     "./*": {
       "types": "./dist/*.d.ts",
       "default": "./src/*.ts"
