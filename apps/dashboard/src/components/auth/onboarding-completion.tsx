@@ -11,12 +11,12 @@ import {
   useTelegramBotLinkQuery,
   useTelegramStatusQuery,
 } from "@/hooks/api/use-telegram.hook";
-import { useCopyClipboard } from "@/hooks/use-copy-clipboard";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { RoutePaths } from "@/lib/routes";
 
 export function OnboardingCompletion({ storeId }: { storeId: string }) {
+  const { copy } = useCopyToClipboard();
   const t = useTranslations("onboarding.complete");
-  const copy = useCopyClipboard();
 
   const { data: completionData, isLoading: isLoadingComplete } =
     useOnboardingCompleteQuery({ storeId });

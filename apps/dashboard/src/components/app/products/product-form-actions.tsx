@@ -3,16 +3,13 @@
 import { Button } from "@dukkani/ui/components/button";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
-import { productFormOptions } from "@/lib/product-form-options";
-import type { ProductFormTranslationNamespace } from "@/types/product-form";
+import { productFormOptions } from "@/stores/product-form-options";
 
 export const ProductFormActions = withForm({
   ...productFormOptions,
-  props: {
-    translationNamespace: "products.create" as ProductFormTranslationNamespace,
-  },
-  render: function Render({ form, translationNamespace }) {
-    const t = useTranslations(translationNamespace);
+  props: {},
+  render: function Render({ form }) {
+    const t = useTranslations("products.create");
     return (
       <form.Subscribe>
         {(formState) => (

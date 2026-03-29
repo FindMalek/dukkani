@@ -1,6 +1,8 @@
-# Better-T-Stack Project Rules
+# Better-T-Stack Project Rules (legacy template)
 
-This is a dukkani project created with Better-T-Stack CLI.
+> **Dukkani monorepo:** This file describes a generic Better-T-Stack layout and is **not** the source of truth for this repository. For real app boundaries, packages, and **dashboard** conventions, use **`.cursor/rules/`** (especially `00-project-overview.mdc` and `apps/dashboard.mdc`).
+
+This file was generated for a default Better-T-Stack CLI project.
 
 ## Project Structure
 

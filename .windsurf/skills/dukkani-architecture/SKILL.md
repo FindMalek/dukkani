@@ -42,3 +42,7 @@ Prioritize these packages when placing logic:
 - Use `@dukkani/env` for typed env access.
 - Keep changes scoped; avoid cross-domain refactors unless required.
 - Follow `.cursor/rules/00-project-overview.mdc` and per-domain `.mdc` files as canonical project rules.
+
+## Dashboard app
+
+For `apps/dashboard` folder structure, hooks (`api` vs `controllers`), stores, and product form patterns, use **`.cursor/rules/apps/dashboard.mdc`** or the **dukkani-dashboard** Windsurf skill.

@@ -15,16 +15,13 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
-import { productFormOptions } from "@/lib/product-form-options";
-import type { ProductFormTranslationNamespace } from "@/types/product-form";
+import { productFormOptions } from "@/stores/product-form-options";
 
 export const ProductFormVariants = withForm({
   ...productFormOptions,
-  props: {
-    translationNamespace: "products.create" as ProductFormTranslationNamespace,
-  },
-  render: function Render({ form, translationNamespace }) {
-    const t = useTranslations(translationNamespace);
+  props: {},
+  render: function Render({ form }) {
+    const t = useTranslations("products.create");
 
     const handleAddNewVariantOption = useCallback(() => {
       if (

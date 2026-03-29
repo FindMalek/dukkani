@@ -3,25 +3,22 @@
 import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-field";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
-import { productFormOptions } from "@/lib/product-form-options";
-import type { ProductFormTranslationNamespace } from "@/types/product-form";
+import { productFormOptions } from "@/stores/product-form-options";
 
 export const ProductFormEssentials = withForm({
   ...productFormOptions,
   props: {
-    translationNamespace: "products.create" as ProductFormTranslationNamespace,
     categoriesOptions: [] as SelectOptionGroup[],
     onOpenCategoryDrawer: () => {},
     optimizeFiles: async (files: File[]) => files,
   },
   render: function Render({
     form,
-    translationNamespace,
     categoriesOptions,
     onOpenCategoryDrawer,
     optimizeFiles,
   }) {
-    const t = useTranslations(translationNamespace);
+    const t = useTranslations("products.create");
     return (
       <>
         <form.AppField name="name">
