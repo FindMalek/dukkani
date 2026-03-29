@@ -169,10 +169,7 @@ export function streetFromNominatimAddress(
   address: NominatimAddressFields,
 ): string {
   const highway = firstNonEmptyField(address, STREET_KEYS);
-  const prefix = [
-    address.house_number,
-    address.house_name ?? address.house,
-  ]
+  const prefix = [address.house_number, address.house_name ?? address.house]
     .map((v) => (typeof v === "string" ? v.trim() : ""))
     .filter(Boolean)
     .join(" ");
@@ -213,11 +210,7 @@ function streetFromDisplayName(
   cityChosen: string,
 ): string {
   const exclude = new Set<string>();
-  for (const s of [
-    cityChosen,
-    address.postcode,
-    address.country,
-  ]) {
+  for (const s of [cityChosen, address.postcode, address.country]) {
     if (typeof s === "string" && s.trim() !== "") {
       exclude.add(normLower(s));
     }
@@ -243,8 +236,7 @@ export function resolvedStreetLine(
 
   const cc = address.country_code?.toLowerCase();
   const useAreaLine =
-    cc === "tn" ||
-    (Boolean(address.county) && Boolean(address.state_district));
+    cc === "tn" || (Boolean(address.county) && Boolean(address.state_district));
 
   if (useAreaLine) {
     const area = areaLineFromAddress(address, cityChosen);
@@ -297,6 +289,9 @@ export function useDetectedAddress() {
     data: _data,
     refetch: detect,
     isLoading,
+    isFetching,
+    isSuccess,
+    dataUpdatedAt,
     error,
   } = useQuery(detectedAddressQueryOptions());
 
@@ -327,6 +322,9 @@ export function useDetectedAddress() {
     data,
     detect,
     isLoading,
+    isFetching,
+    isSuccess,
+    dataUpdatedAt,
     error,
   };
 }

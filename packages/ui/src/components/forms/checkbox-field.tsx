@@ -33,7 +33,7 @@ export function CheckboxField({
       <Field orientation="vertical" data-invalid={isInvalid}>
         <Card
           className={cn(
-            "flex flex-row items-start gap-3 p-4 py-4 shadow-sm transition-colors",
+            "flex flex-row items-start gap-2.5 p-3 shadow-sm transition-colors",
             field.state.value &&
               "border-primary bg-primary/5 dark:bg-primary/10",
           )}
@@ -54,7 +54,9 @@ export function CheckboxField({
                 {label}
               </div>
               {description ? (
-                <FieldDescription>{description}</FieldDescription>
+                <FieldDescription className="text-xs">
+                  {description}
+                </FieldDescription>
               ) : null}
             </div>
             <Checkbox

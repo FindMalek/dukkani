@@ -9,18 +9,15 @@ import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { formatCurrency } from "@dukkani/common/utils/formatCurrency";
 import { Button } from "@dukkani/ui/components/button";
 import {
-  FieldDescription,
   FieldGroup,
-  FieldLegend,
   FieldSeparator,
   FieldSet,
 } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useEffectEvent } from "react";
+import { useCallback, useEffect, useEffectEvent, useRef } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { useCartHydration } from "@/hooks/use-cart-hydration";
@@ -29,6 +26,7 @@ import { useDetectedAddress } from "@/hooks/use-detected-address";
 import { useEnrichedCart } from "@/hooks/use-enriched-cart";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { OrderSummary } from "./order-summary";
+import { useLocale } from "next-intl";
 
 interface CheckoutFormProps {
   store: StorePublicOutput;
@@ -51,6 +49,7 @@ const formSchema = createOrderPublicInputSchema
 
 export function CheckoutForm({ store }: CheckoutFormProps) {
   const router = useRouter();
+  const locale = useLocale();
   const t = useTranslations("storefront.store.checkout");
 
   const hydrated = useCartHydration();
@@ -62,6 +61,11 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
     subtotal,
     isLoading: cartQueryLoading,
   } = useEnrichedCart();
+
+  const detectedCoordsRef = useRef<{
+    latitude?: number;
+    longitude?: number;
+  }>({});
 
   // Redirect if cart is empty (but not when we just completed an order)
   // Wait for cart rehydration so we don't redirect before persisted cart is loaded
@@ -113,8 +117,18 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
         quantity: item.quantity,
       }));
 
+      const c = detectedCoordsRef.current;
+      const coords =
+        typeof c.latitude === "number" &&
+        typeof c.longitude === "number" &&
+        Number.isFinite(c.latitude) &&
+        Number.isFinite(c.longitude)
+          ? { latitude: c.latitude, longitude: c.longitude }
+          : {};
+
       await createOrderMutation.mutateAsync({
         ...data,
+        address: { ...data.address, ...coords },
         storeId: store.id,
         orderItems,
       });
@@ -132,12 +146,19 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
   });
 
   useEffect(() => {
-    if (autoLocation.data) {
-      updateDetectedPostalCode(autoLocation.data.postCode);
-      updateDetectedCity(autoLocation.data.city);
-      updateDetectedStreet(autoLocation.data.street);
+    if (!autoLocation.isSuccess || autoLocation.dataUpdatedAt === 0) return;
+    const d = autoLocation.data;
+    updateDetectedPostalCode(d.postCode);
+    updateDetectedCity(d.city);
+    updateDetectedStreet(d.street);
+    const lat = Number.parseFloat(d.latitude);
+    const lon = Number.parseFloat(d.longitude);
+    if (Number.isFinite(lat) && Number.isFinite(lon)) {
+      detectedCoordsRef.current = { latitude: lat, longitude: lon };
+    } else {
+      detectedCoordsRef.current = {};
     }
-  }, [autoLocation.data]);
+  }, [autoLocation.isSuccess, autoLocation.dataUpdatedAt, autoLocation.data]);
 
   const handleDetectLocation = useCallback(async () => {
     await autoLocation.detect();
@@ -178,7 +199,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                   <field.TextInput label={t("delivery.streetAddress")} />
                 )}
               </form.AppField>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-2 gap-4">
                 <form.AppField name="address.city">
                   {(field) => <field.TextInput label={t("delivery.city")} />}
                 </form.AppField>
@@ -193,14 +214,14 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                   type="button"
                   variant="secondary"
                   disabled={createOrderMutation.isPending}
-                  isLoading={autoLocation.isLoading}
+                  isLoading={autoLocation.isFetching}
                   onClick={handleDetectLocation}
                 >
                   <Icons.mapPin
                     className="size-5 shrink-0 text-foreground"
                     aria-hidden
                   />
-                      {t("delivery.useLocation")}
+                  {t("delivery.useLocation")}
                 </Button>
               </div>
             </FieldGroup>
@@ -271,7 +292,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                         className="font-semibold text-sm tabular-nums"
                         dir="ltr"
                       >
-                        {formatCurrency(total)}
+                        {formatCurrency(total, "TND", locale)}
                       </span>
                       <Icons.arrowRight className="size-4 rtl:rotate-180" />
                     </div>
