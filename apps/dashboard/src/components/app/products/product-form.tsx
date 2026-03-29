@@ -28,8 +28,8 @@ import { RoutePaths } from "@/lib/routes";
 import { CategoryDrawer } from "./category-drawer";
 import { ProductFormActions } from "./product-form-actions";
 import { ProductFormEssentials } from "./product-form-essentials";
-import { productFormOptions } from "./product-form-options";
-import type { ProductFormTranslationNamespace } from "./product-form-types";
+import { productFormOptions } from "@/lib/product-form-options";
+import type { ProductFormTranslationNamespace } from "@/types/product-form";
 import { ProductFormVariants } from "./product-form-variants";
 
 export interface ProductFormHandle {

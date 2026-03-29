@@ -15,8 +15,8 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
-import { productFormOptions } from "./product-form-options";
-import type { ProductFormTranslationNamespace } from "./product-form-types";
+import { productFormOptions } from "@/lib/product-form-options";
+import type { ProductFormTranslationNamespace } from "@/types/product-form";
 
 export const ProductFormVariants = withForm({
   ...productFormOptions,
