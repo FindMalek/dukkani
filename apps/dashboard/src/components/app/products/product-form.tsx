@@ -14,29 +14,6 @@ import { CategoryDrawer } from "./category-drawer";
 import { ProductFormActions } from "./product-form-actions";
 import { ProductFormEssentials } from "./product-form-essentials";
 import { ProductFormVariants } from "./product-form-variants";
-import {
-  type ProductFormInput,
-  productFormSchema,
-} from "@dukkani/common/schemas/product/form";
-import { formOptions } from "@tanstack/react-form";
-
-export const productFormOptions = formOptions({
-  defaultValues: {
-    name: "",
-    description: "",
-    price: "",
-    stock: "1",
-    published: false,
-    categoryId: "",
-    hasVariants: false,
-    imageFiles: [],
-    variantOptions: [],
-  } as ProductFormInput,
-  validators: {
-    onChange: productFormSchema,
-    onBlur: productFormSchema,
-  },
-});
 
 export interface ProductFormHandle {
   submit: (published: boolean) => void;
@@ -96,5 +73,3 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
 );
 
 ProductForm.displayName = "ProductForm";
-
-export { productFormOptions } from "./product-form-options";

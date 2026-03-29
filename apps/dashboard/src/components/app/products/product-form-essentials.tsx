@@ -3,7 +3,7 @@
 import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-field";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
-import { productFormOptions } from "./product-form-options";
+import { productFormOptions } from "@/lib/product-form-options";
 
 export const ProductFormEssentials = withForm({
   ...productFormOptions,
