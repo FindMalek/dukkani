@@ -192,9 +192,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                 <Button
                   type="button"
                   variant="secondary"
-                  className={cn(
-                    "h-auto min-h-0 w-full items-start justify-start gap-3 rounded-xl py-4 ps-4 pe-4 text-start whitespace-normal",
-                  )}
                   disabled={createOrderMutation.isPending}
                   isLoading={autoLocation.isLoading}
                   onClick={handleDetectLocation}
@@ -203,14 +200,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                     className="size-5 shrink-0 text-foreground"
                     aria-hidden
                   />
-                  <div className="flex min-w-0 flex-1 flex-col gap-0.5 text-start">
-                    <span className="font-semibold text-foreground text-sm">
                       {t("delivery.useLocation")}
-                    </span>
-                    <span className="text-muted-foreground text-sm">
-                      {t("delivery.useLocationDescription")}
-                    </span>
-                  </div>
                 </Button>
               </div>
             </FieldGroup>
