@@ -5,6 +5,7 @@ import { EmailField } from "../components/forms/email-field";
 import { ImagesField } from "../components/forms/images-field";
 import { NumberField } from "../components/forms/number-field";
 import { PasswordField } from "../components/forms/password-field";
+import { PhoneNumberField } from "../components/forms/phone-number-field";
 import { PillField } from "../components/forms/pill-text-field";
 import { PriceField } from "../components/forms/price-field";
 import { RadioGroupField } from "../components/forms/radio-group-field";
@@ -20,6 +21,7 @@ const { useAppForm, withForm } = createFormHook({
   fieldComponents: {
     TextInput: TextField,
     EmailInput: EmailField,
+    PhoneNumberInput: PhoneNumberField,
     TextAreaInput: TextAreaField,
     PasswordInput: PasswordField,
     NumberInput: NumberField,

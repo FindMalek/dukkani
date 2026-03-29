@@ -10,14 +10,12 @@ import {
 } from "@dukkani/ui/components/drawer";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
-import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
-import { getItemKey } from "@/lib/cart-utils";
-import { orpc } from "@/lib/orpc";
+import { useEnrichedCart } from "@/hooks/use-enriched-cart";
 import { RoutePaths, useRouter } from "@/lib/routes";
-import { useCartStore } from "@/stores/cart.store";
 import { CartItem as CartItemComponent } from "./cart-item";
+import { formatCurrency } from "@dukkani/common/utils";
+import { useLocale } from "next-intl";
 
 interface CartDrawerProps {
   open: boolean;
@@ -26,84 +24,13 @@ interface CartDrawerProps {
 
 export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
   const router = useRouter();
+  const locale = useLocale();
   const t = useTranslations("storefront.store.cart");
 
-  const carts = useCartStore((state) => state.carts);
-  const currentStoreSlug = useCartStore((state) => state.currentStoreSlug);
-
-  const cartItems = useMemo(() => {
-    if (!currentStoreSlug) return [];
-    return carts[currentStoreSlug] || [];
-  }, [carts, currentStoreSlug]);
-
-  // Create stable query input - only changes when items are added/removed (by item keys), not quantities
-  // This prevents refetching when only quantities change
-  const itemKeysString = useMemo(() => {
-    return cartItems.map(getItemKey).sort().join(",");
-  }, [cartItems]);
-
-  const queryInput = useMemo(() => {
-    return {
-      items: cartItems.map((item) => ({
-        productId: item.productId,
-        variantId: item.variantId,
-        quantity: item.quantity,
-      })),
-    };
-  }, [itemKeysString]);
-
-  const enrichedCartItems = useQuery({
-    ...orpc.cart.getCartItems.queryOptions({
-      input: queryInput,
-    }),
-    enabled: open && cartItems.length > 0,
-    staleTime: 30 * 1000,
-    placeholderData: (previousData) => previousData,
+  const { enrichedData, subtotal, isLoading } = useEnrichedCart({
+    enabled: open,
   });
 
-  /**
-   * Merge server data with current cart state (optimistic updates)
-   * Strategy:
-   * 1. Filter: Only include items that exist in cartItems (removes deleted items immediately)
-   * 2. Merge: Update quantities from store (optimistic update for quantity changes)
-   */
-  const enrichedData = useMemo(() => {
-    if (!enrichedCartItems.data) return undefined;
-    if (cartItems.length === 0) return [];
-
-    // Step 1: Filter - only include items that exist in cartItems
-    // This ensures deleted items disappear immediately
-    const filteredData = enrichedCartItems.data.filter((enrichedItem) => {
-      return cartItems.some(
-        (item) =>
-          item.productId === enrichedItem.productId &&
-          item.variantId === enrichedItem.variantId,
-      );
-    });
-
-    // Step 2: Merge - update quantities from store (optimistic update)
-    return filteredData.map((enrichedItem) => {
-      const currentItem = cartItems.find(
-        (item) =>
-          item.productId === enrichedItem.productId &&
-          item.variantId === enrichedItem.variantId,
-      );
-
-      // Use current quantity from store (optimistic)
-      // currentItem should always exist due to filter above, but check for safety
-      return {
-        ...enrichedItem,
-        quantity: currentItem?.quantity ?? enrichedItem.quantity,
-      };
-    });
-  }, [enrichedCartItems.data, cartItems]);
-
-  const totalPrice =
-    enrichedData?.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0) ?? 0;
-
-  const formattedTotal = totalPrice.toFixed(3);
   const hasItems = enrichedData && enrichedData.length > 0;
 
   const handleCheckout = () => {
@@ -118,7 +45,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
           <DrawerTitle>{t("title")}</DrawerTitle>
         </DrawerHeader>
         <div className="flex-1 overflow-y-auto px-4">
-          {enrichedCartItems.isLoading && !enrichedData ? (
+          {isLoading && !enrichedData ? (
             <div className="flex items-center justify-center py-8">
               <Spinner className="size-6 animate-spin text-muted-foreground" />
             </div>
@@ -150,7 +77,8 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
               className="w-full bg-primary text-primary-foreground"
               size="lg"
               onClick={handleCheckout}
-              disabled={enrichedCartItems.isLoading}
+              disabled={isLoading}
+              isLoading={isLoading}
             >
               <div className="flex w-full items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -162,7 +90,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                     className="font-semibold text-sm tabular-nums"
                     dir="ltr"
                   >
-                    {formattedTotal} TND
+                    {formatCurrency(subtotal, "TND", locale)}
                   </span>
                   <Icons.arrowRight className="size-4 rtl:rotate-180" />
                 </div>

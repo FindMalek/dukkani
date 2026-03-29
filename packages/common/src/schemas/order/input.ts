@@ -59,8 +59,8 @@ export type UpdateOrderStatusInput = z.infer<
  * No id or status required - auto-generated
  * Customer and address are created/found automatically
  */
-const addressInputSchema = z.object({
-  street: z.string().min(1, "Street address is required"),
+export const addressInputSchema = z.object({
+  street: z.string().min(1, "Address line is required"),
   city: z.string().min(1, "City is required"),
   postalCode: z.string().optional(),
   latitude: z.number().optional(),
