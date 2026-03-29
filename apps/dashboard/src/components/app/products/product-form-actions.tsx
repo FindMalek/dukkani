@@ -3,7 +3,7 @@
 import { Button } from "@dukkani/ui/components/button";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
-import { productFormOptions } from "@/stores/product-form-options";
+import { productFormOptions } from "@/components/app/products/product-form";
 
 export const ProductFormActions = withForm({
   ...productFormOptions,

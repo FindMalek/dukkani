@@ -24,7 +24,7 @@ apps/dashboard/src/
 │   ├── controllers/           # Compose Zustand + api hooks + list query inputs
 │   └── use-*.ts               # Cross-cutting client hooks (e.g. use-product-form, clipboard)
 ├── lib/                       # App infra: orpc client, routes, query-keys, errors, i18n, …
-├── stores/                    # Zustand (list filters, active store, …) + product form TanStack options/types
+├── stores/                    # Zustand only (list filters, active store, …)
 ├── types/                     # App-level TS (e.g. i18n helpers, module augmentation)
 ├── env.ts
 └── proxy.ts

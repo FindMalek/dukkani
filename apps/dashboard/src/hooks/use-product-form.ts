@@ -11,7 +11,7 @@ import { createProductMutationOptions } from "@/hooks/api/use-products.hook";
 import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
 import { RoutePaths } from "@/lib/routes";
-import { productFormOptions } from "@/stores/product-form-options";
+import { productFormOptions } from "@/components/app/products/product-form-options";
 
 /**
  * Create-product flow: TanStack Form + categories + create mutation.

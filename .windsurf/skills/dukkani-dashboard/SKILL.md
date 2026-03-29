@@ -11,4 +11,7 @@ triggers:
 
 **Canonical rules:** `.cursor/rules/apps/dashboard.mdc`
 
-Mirror of `.windsurf/skills/dukkani-dashboard/SKILL.md` — see that file or the Cursor rule for the full table and conventions.
+## Product form
+
+- **`productFormOptions`:** `components/app/products/product-form-options.ts` (TanStack `formOptions`, colocated with form UI). Re-exported from `product-form.tsx` for convenience; **`use-product-form`** imports the options file directly to avoid circular imports with the shell component.
+- **`useProductStore`:** Zustand list/catalog state only — not form field values.
