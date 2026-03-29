@@ -21,8 +21,8 @@ export function useProductForm({ storeId }: { storeId: string }) {
   const router = useRouter();
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
 
-  const createProductMutation = useMutation(createProductMutationOptions);
   const { data: categories } = useCategoriesQuery({ storeId });
+  const createProductMutation = useMutation(createProductMutationOptions);
 
   const form = useAppForm({
     ...productFormOptions,
