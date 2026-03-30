@@ -141,3 +141,13 @@ enum PaymentMethod {
   COD
   CARD
 }
+
+
+enum SupportedCurrency {
+  TND
+  USD
+  EUR
+  GBP
+  DZD
+  LYD
+}
