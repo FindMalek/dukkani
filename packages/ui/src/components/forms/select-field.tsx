@@ -16,12 +16,12 @@ import {
 } from "../select";
 import { BaseField, type CommonFieldProps } from "./base-field";
 
-type SelectOption = {
+export type SelectOption = {
   id: string;
   name: string;
 };
 
-type SelectOptionGroup = {
+export type SelectOptionGroup = {
   id: string;
   name?: string;
   separator?: boolean;

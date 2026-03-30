@@ -58,20 +58,26 @@
         "placeOrder": "Place order",
         "error": "Something went wrong. Please try again.",
         "delivery": {
+          "addressFieldset": {
+            "title": "Delivery Address",
+            "description": "You can enter your address manually or use your current location to auto-fill your address details."
+          },
           "title": "Delivery",
           "fastDelivery": "Fast 24-48h delivery",
           "fullName": "Full name",
           "phone": "Phone",
           "whatsapp": "This number is on WhatsApp",
-          "whatsappDescription": "We will send you a notification on WhatsApp when your order is ready to be delivered.",
-          "streetAddress": "Street address",
+          "whatsappDescription": "We can reach you faster on WhatsApp.",
+          "streetAddress": "Address line",
           "city": "City",
           "postalCode": "Postal code",
           "instructions": "Delivery instructions",
-          "useLocation": "Autofill address from phone location",
-          "useLocationDescription": "We will fill the city and area automatically.",
+          "useLocation": "Use phone location",
+          "useLocationDescription": "Tap to fill postal code, city, and the first address line when possible.",
+          "useLocationPrivacy": "We use your approximate GPS location only. No map, no exact address.",
           "locationErrorTitle": "Could not get your location",
-          "locationErrorDescription": "Allow location access in your browser (lock or info icon in the address bar), or enter your address manually."
+          "locationErrorDescription": "Allow location access in your browser (lock or info icon in the address bar), or enter your address manually.",
+          "addressLineDescription": "Street name, neighborhood, or landmark — whatever helps the driver find you."
         },
         "payment": {
           "title": "Payment",

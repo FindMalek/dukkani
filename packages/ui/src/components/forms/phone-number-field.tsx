@@ -2,22 +2,22 @@ import { CheckIcon, ChevronsUpDown } from "lucide-react";
 import * as React from "react";
 import * as RPNInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
-
-import { Button } from "../components/button";
+import { useFieldContext } from "../../hooks/use-app-form";
+import { cn } from "../../lib/utils";
+import { Button } from "../button";
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from "../components/command";
-import { Input } from "../components/input";
-import { Popover, PopoverContent, PopoverTrigger } from "../components/popover";
-import { ScrollArea } from "../components/scroll-area";
-import { cn } from "../lib/utils";
+} from "../command";
+import { Input } from "../input";
+import { Popover, PopoverContent, PopoverTrigger } from "../popover";
+import { ScrollArea } from "../scroll-area";
+import { BaseField, type CommonFieldProps } from "./base-field";
 
-type PhoneInputProps = Omit<
+type PhoneNumberInputControlProps = Omit<
   React.ComponentProps<"input">,
   "onChange" | "value" | "ref"
 > &
@@ -25,46 +25,73 @@ type PhoneInputProps = Omit<
     onChange?: (value: RPNInput.Value) => void;
   };
 
-const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
-  React.forwardRef<React.ElementRef<typeof RPNInput.default>, PhoneInputProps>(
-    ({ className, onChange, value, ...props }, ref) => {
-      return (
-        <RPNInput.default
-          ref={ref}
-          className={cn("flex", className)}
-          flagComponent={FlagComponent}
-          countrySelectComponent={CountrySelect}
-          inputComponent={InputComponent}
-          smartCaret={false}
-          value={value || undefined}
-          /**
-           * Handles the onChange event.
-           *
-           * react-phone-number-input might trigger the onChange event as undefined
-           * when a valid phone number is not entered. To prevent this,
-           * the value is coerced to an empty string.
-           *
-           * @param {E164Number | undefined} value - The entered value
-           */
-          onChange={(value) => onChange?.(value || ("" as RPNInput.Value))}
-          {...props}
-        />
-      );
-    },
-  );
-PhoneInput.displayName = "PhoneInput";
+interface PhoneNumberFieldProps
+  extends CommonFieldProps,
+    Omit<PhoneNumberInputControlProps, "value" | "onChange" | "name" | "id"> {}
 
-const InputComponent = React.forwardRef<
-  HTMLInputElement,
-  React.ComponentProps<"input">
->(({ className, ...props }, ref) => (
-  <Input
-    className={cn("rounded-s-none rounded-e-lg", className)}
-    {...props}
-    ref={ref}
-  />
-));
-InputComponent.displayName = "InputComponent";
+export function PhoneNumberField({
+  label,
+  srOnlyLabel = false,
+  description,
+  rightToField,
+  orientation,
+  ...inputProps
+}: PhoneNumberFieldProps) {
+  const field = useFieldContext<string>();
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+
+  return (
+    <BaseField
+      label={label}
+      description={description}
+      srOnlyLabel={srOnlyLabel}
+      rightToField={rightToField}
+      orientation={orientation}
+    >
+      <PhoneNumberInputControl
+        id={field.name}
+        name={field.name}
+        value={field.state.value}
+        onChange={(value) => field.handleChange(value ?? "")}
+        onBlur={field.handleBlur}
+        aria-invalid={isInvalid}
+        {...inputProps}
+      />
+    </BaseField>
+  );
+}
+
+function PhoneNumberInputControl({
+  className,
+  onChange,
+  value,
+  ...props
+}: PhoneNumberInputControlProps) {
+  return (
+    <RPNInput.default
+      className={cn("flex", className)}
+      flagComponent={FlagComponent}
+      countrySelectComponent={CountrySelect}
+      inputComponent={PhoneInputComponent}
+      smartCaret={false}
+      value={value || undefined}
+      onChange={(nextValue) => onChange?.(nextValue || ("" as RPNInput.Value))}
+      {...props}
+    />
+  );
+}
+
+function PhoneInputComponent({
+  className,
+  ...props
+}: React.ComponentProps<"input">) {
+  return (
+    <Input
+      className={cn("rounded-s-none rounded-e-lg", className)}
+      {...props}
+    />
+  );
+}
 
 type CountryEntry = { label: string; value: RPNInput.Country | undefined };
 
@@ -91,7 +118,9 @@ const CountrySelect = ({
       modal
       onOpenChange={(open) => {
         setIsOpen(open);
-        open && setSearchValue("");
+        if (open) {
+          setSearchValue("");
+        }
       }}
     >
       <PopoverTrigger asChild>
@@ -113,12 +142,12 @@ const CountrySelect = ({
           />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[300px] p-0">
+      <PopoverContent className="w-75 p-0">
         <Command>
           <CommandInput
             value={searchValue}
-            onValueChange={(value) => {
-              setSearchValue(value);
+            onValueChange={(nextSearchValue) => {
+              setSearchValue(nextSearchValue);
               setTimeout(() => {
                 if (scrollAreaRef.current) {
                   const viewportElement = scrollAreaRef.current.querySelector(
@@ -130,17 +159,15 @@ const CountrySelect = ({
                 }
               }, 0);
             }}
-            placeholder="Search country..."
           />
           <CommandList>
             <ScrollArea ref={scrollAreaRef} className="h-72">
-              <CommandEmpty>No country found.</CommandEmpty>
               <CommandGroup>
-                {countryList.map(({ value, label }) =>
-                  value ? (
+                {countryList.map(({ value: countryValue, label }) =>
+                  countryValue ? (
                     <CountrySelectOption
-                      key={value}
-                      country={value}
+                      key={countryValue}
+                      country={countryValue}
                       countryName={label}
                       selectedCountry={selectedCountry}
                       onChange={onChange}
@@ -196,5 +223,3 @@ const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
     </span>
   );
 };
-
-export { PhoneInput };

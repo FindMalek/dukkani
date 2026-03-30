@@ -34,7 +34,6 @@ export function useCreateCategoryMutation() {
   return useMutation({
     mutationFn: (input: CreateCategoryInput) => client.category.create(input),
     onSuccess: (data) => {
-      // Invalidate categories list queries for the store
       queryClient.invalidateQueries({
         queryKey: queryKeys.categories.all({
           input: { storeId: data.storeId },
@@ -53,13 +52,11 @@ export function useUpdateCategoryMutation() {
   return useMutation({
     mutationFn: (input: UpdateCategoryInput) => client.category.update(input),
     onSuccess: (data) => {
-      // Invalidate categories list queries
       queryClient.invalidateQueries({
         queryKey: queryKeys.categories.all({
           input: { storeId: data.storeId },
         }),
       });
-      // Invalidate specific category
       queryClient.invalidateQueries({
         queryKey: queryKeys.categories.byId(data.id),
       });
@@ -76,7 +73,6 @@ export function useDeleteCategoryMutation() {
   return useMutation({
     mutationFn: (id: string) => client.category.delete({ id }),
     onSuccess: (data) => {
-      // Invalidate all categories list queries (with any input)
       queryClient.invalidateQueries({
         queryKey: queryKeys.categories.all({
           input: { storeId: data.storeId },

@@ -14,16 +14,18 @@ apps/dashboard/src/
 │   │   ├── (dashboard)/       # Protected merchant routes
 │   │   └── layout.tsx
 │   └── manifest.ts
-├── components/            # React components
+├── components/
 │   ├── auth/
-│   ├── app/
+│   ├── app/                   # Feature UI (products, orders, onboarding, settings, …)
 │   ├── layout/
 │   └── shared/
-├── hooks/                # React hooks
-│   ├── api/
-│   └── controllers/
-├── lib/
-├── stores/
+├── hooks/
+│   ├── api/                   # TanStack Query + ORPC (*.hook.ts)
+│   ├── controllers/           # Compose Zustand + api hooks + list query inputs
+│   └── use-*.ts               # Cross-cutting client hooks (e.g. use-product-form, clipboard)
+├── lib/                       # App infra: orpc client, routes, query-keys, errors, i18n, …
+├── stores/                    # Zustand only (list filters, active store, …)
+├── types/                     # App-level TS (e.g. i18n helpers, module augmentation)
 ├── env.ts
 └── proxy.ts
 ```
@@ -77,24 +79,19 @@ export default async function DashboardLayout({
 
 ### Organization
 
-Components are organized by feature/domain:
+Components are organized by feature/domain under `components/app/`:
 
 ```
 components/
-  ├── auth/              # Authentication components
-  │   ├── sign-in-form.tsx
-  │   └── sign-up-form.tsx
-  ├── dashboard/          # Dashboard feature components
-  │   ├── orders/
-  │   │   └── orders-list.tsx
+  ├── auth/
+  ├── app/
   │   ├── products/
-  │   │   └── products-list.tsx
-  │   └── settings/
-  │       └── settings-form.tsx
-  └── layout/             # Layout components
-      ├── bottom-navigation.tsx
-      ├── providers.tsx
-      └── user-menu.tsx
+  │   ├── orders/
+  │   ├── onboarding/
+  │   ├── settings/
+  │   └── …
+  ├── layout/
+  └── shared/
 ```
 
 ### File Naming
@@ -105,14 +102,14 @@ components/
 ### Component Pattern
 
 ```typescript
-// apps/dashboard/src/components/dashboard/orders/orders-list.tsx
+// apps/dashboard/src/components/app/orders/orders-list.tsx
 "use client";
 
-import { useOrders } from "@/hooks/api/use-orders";
+import { useOrdersQuery } from "@/hooks/api/use-orders.hook";
 import { Card, CardContent, CardHeader, CardTitle } from "@dukkani/ui/components/card";
 
 export default function OrdersList() {
-  const { data: orders, isLoading } = useOrders({ page: 1, limit: 10 });
+  const { data: orders, isLoading } = useOrdersQuery({ page: 1, limit: 10 });
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -123,9 +120,7 @@ export default function OrdersList() {
       <CardHeader>
         <CardTitle>Orders</CardTitle>
       </CardHeader>
-      <CardContent>
-        {/* Render orders */}
-      </CardContent>
+      <CardContent>{/* Render orders */}</CardContent>
     </Card>
   );
 }
@@ -143,42 +138,46 @@ export default function OrdersList() {
 
 ### Organization
 
-Hooks are organized by category:
-
 ```
 hooks/
-  ├── api/                # API hooks (React Query)
-  │   ├── use-orders.ts
-  │   ├── use-products.ts
-  │   └── use-dashboard-stats.ts
-  └── auth/               # Auth hooks
-      └── use-auth.ts
+  ├── api/                    # TanStack Query + ORPC only
+  │   ├── use-orders.hook.ts
+  │   ├── use-products.hook.ts
+  │   ├── use-categories.hook.ts
+  │   └── …
+  ├── controllers/            # Screen orchestration: Zustand + api + derived inputs
+  │   ├── use-products-controller.ts
+  │   └── …
+  ├── use-product-form.ts     # Feature form wiring (create; edit later)
+  ├── use-copy-to-clipboard.ts
+  └── …
 ```
 
-### File Naming
+### File naming
 
-- **kebab-case** with `use-` prefix
-- **camelCase** for hook function names
+- **`hooks/api`:** `use-<domain>.hook.ts` (e.g. `use-products.hook.ts`).
+- **Root `hooks`:** `use-<thing>.ts` for small shared behavior.
+- **camelCase** exported hook function names (`useOrdersQuery`, `useProductForm`).
 
-### Hook Pattern
+### API hook pattern
 
 ```typescript
-// apps/dashboard/src/hooks/api/use-orders.ts
+// apps/dashboard/src/hooks/api/use-orders.hook.ts
 import { useQuery } from "@tanstack/react-query";
-import { orpc } from "@/utils/orpc";
+import { orpc } from "@/lib/orpc";
 import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
 
-export function useOrders(input: ListOrdersInput) {
+export function useOrdersQuery(input: ListOrdersInput) {
   return useQuery(orpc.order.getAll.queryOptions({ input }));
 }
 ```
 
-### Best Practices
+### Best practices
 
-- Use `orpc` client from `@/utils/orpc`
-- Use input types from `@dukkani/common/schemas`
-- Return React Query hooks directly
-- Handle errors in components or via QueryClient error handling
+- Import **`orpc` / `client` / `queryClient`** from **`@/lib/orpc`** (not `utils/orpc`).
+- Use input types from `@dukkani/common/schemas`.
+- Export **`mutationOptions`** factories where shared invalidation is needed (see `createProductMutationOptions`).
+- For list pages, prefer **`use*Controller`**; for isolated create/update forms, import **`mutationOptions` / queries** from `hooks/api` directly to avoid coupling to list store state.
 
 ## Routing
 
@@ -187,11 +186,10 @@ export function useOrders(input: ListOrdersInput) {
 Routes are defined in `apps/dashboard/src/lib/routes.ts`:
 
 ```typescript
-import { getRouteHref } from "@/lib/routes";
+import { RoutePaths } from "@/lib/routes";
 
-// Use in components
-<Link href={getRouteHref("PRODUCTS", "INDEX")}>Products</Link>
-<Link href={getRouteHref("PRODUCTS", "DETAIL", productId)}>View Product</Link>
+// Use in components (see lib/routes.ts for RoutePaths shape)
+<Link href={RoutePaths.PRODUCTS.INDEX.url}>Products</Link>
 ```
 
 ### Route Groups
@@ -217,24 +215,15 @@ dashboard/
 Use React Query hooks with oRPC client:
 
 ```typescript
-// In component
-const { data, isLoading, error } = useOrders({ page: 1, limit: 10 });
+// In client component
+const { data, isLoading, error } = useOrdersQuery({ page: 1, limit: 10 });
 
-// In server components (if needed)
-const orders = await orpc.order.getAll({ input: { page: 1, limit: 10 } });
+// Prefer server data fetching patterns from Next + oRPC when applicable
 ```
 
-### oRPC Client Setup
+### oRPC client
 
-```typescript
-// apps/dashboard/src/utils/orpc.ts
-import { createORPCClientUtils } from "@dukkani/orpc/client";
-import { env } from "@dukkani/env";
-
-export const { queryClient, client, orpc } = createORPCClientUtils(
-  env.NEXT_PUBLIC_API_URL,
-);
-```
+Defined in `apps/dashboard/src/lib/orpc.ts` — export `client`, `orpc`, `queryClient` for React Query and mutations.
 
 ## Authentication
 
@@ -275,14 +264,12 @@ if (!session?.user) {
 
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
-import { queryClient } from "@/utils/orpc";
+import { queryClient } from "@/lib/orpc";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </ThemeProvider>
   );
 }
@@ -299,12 +286,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
 ```typescript
 // Local imports (use @/)
-import { useOrders } from "@/hooks/api/use-orders";
-import { Button } from "@/components/ui/button";
+import { useOrdersQuery } from "@/hooks/api/use-orders.hook";
+import { Button } from "@dukkani/ui/components/button";
 
 // Package imports
-import { StoreService } from "@dukkani/common/services";
-import { Button } from "@dukkani/ui/components/button";
 import { env } from "@dukkani/env";
 ```
 
@@ -394,7 +379,6 @@ try {
   handleAPIError(error);
 }
 ```
-Add these sections to the appropriate files. The issue document tracks the refactoring task, and the cursor rules ensure future code uses `handleAPIError` consistently.
 
 ## Best Practices
 

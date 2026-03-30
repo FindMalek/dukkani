@@ -1,5 +1,9 @@
 import { S3Client } from "@aws-sdk/client-s3";
+import { createS3Client } from "./core/s3-client";
 import { env } from "./env";
+
+export type { S3ConnectionConfig } from "./core/s3-client";
+export { createS3Client } from "./core/s3-client";
 
 let _s3Client: S3Client | null = null;
 
@@ -9,14 +13,11 @@ let _s3Client: S3Client | null = null;
  */
 export function getS3Client(): S3Client {
   if (!_s3Client) {
-    _s3Client = new S3Client({
+    _s3Client = createS3Client({
       region: env.S3_REGION,
       endpoint: env.S3_ENDPOINT,
-      credentials: {
-        accessKeyId: env.S3_ACCESS_KEY_ID,
-        secretAccessKey: env.S3_SECRET_ACCESS_KEY,
-      },
-      forcePathStyle: true,
+      accessKeyId: env.S3_ACCESS_KEY_ID,
+      secretAccessKey: env.S3_SECRET_ACCESS_KEY,
     });
   }
   return _s3Client;

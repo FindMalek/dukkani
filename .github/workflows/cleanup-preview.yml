@@ -1,0 +1,48 @@
+name: Preview cleanup (R2 + Neon)
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup-preview:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # S3_REGION omitted → previewCleanupEnv defaults to "auto" (R2). Set secrets.S3_REGION if needed.
+      - name: Delete R2 preview objects (pr-{PR_NUMBER}/)
+        env:
+          S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+          S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+          S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          PREVIEW_CLEANUP_PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: pnpm --filter @dukkani/ci-tools run cleanup-preview
+
+      - name: Delete Neon preview branch
+        if: ${{ always() }}
+        continue-on-error: true
+        uses: neondatabase/delete-branch-action@v3.2.0
+        with:
+          project_id: ${{ vars.NEON_PROJECT_ID }}
+          branch: preview/${{ github.event.pull_request.head.ref }}
+          api_key: ${{ secrets.NEON_API_KEY }}

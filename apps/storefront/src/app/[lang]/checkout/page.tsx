@@ -1,35 +1,41 @@
-import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import { logger } from "@dukkani/logger";
+import { ORPCError } from "@orpc/server";
+import { cookies, headers } from "next/headers";
+import { notFound } from "next/navigation";
 import { CheckoutForm } from "@/components/app/checkout-form";
+import { getStoreSlug } from "@/lib/get-store-slug";
 import { getQueryClient, orpc } from "@/lib/orpc";
-import { getStoreSlugFromHost } from "@/lib/utils";
 
 export default async function CheckoutPage() {
   const headersList = await headers();
   const host = headersList.get("host");
-  const storeSlug = getStoreSlugFromHost(host);
+  const cookieStore = await cookies();
+  const storeSlug = getStoreSlug(host, cookieStore);
 
   if (!storeSlug) {
-    redirect("/");
+    return notFound();
   }
 
   const queryClient = getQueryClient();
 
-  let store: StorePublicOutput;
   try {
-    store = await queryClient.fetchQuery(
+    const store = await queryClient.fetchQuery(
       orpc.store.getBySlugPublic.queryOptions({
         input: { slug: storeSlug },
       }),
     );
-  } catch {
-    redirect("/");
-  }
 
-  if (!store) {
-    redirect("/");
-  }
+    if (!store || !store.name) {
+      logger.error({ store }, "Invalid store data");
+      return notFound();
+    }
 
-  return <CheckoutForm store={store} />;
+    return <CheckoutForm store={store} />;
+  } catch (error) {
+    if (error instanceof ORPCError && error.status === 404) {
+      return notFound();
+    }
+
+    throw error;
+  }
 }

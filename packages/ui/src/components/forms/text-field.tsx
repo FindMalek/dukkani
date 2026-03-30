@@ -12,6 +12,7 @@ interface TextFieldProps extends CommonFieldProps, Omit<InputProps, "type"> {
 
 export function TextField({
   label,
+  description,
   srOnlyLabel = false,
   type = "text",
   rightToField,
@@ -24,6 +25,7 @@ export function TextField({
   return (
     <BaseField
       label={label}
+      description={description}
       srOnlyLabel={srOnlyLabel}
       rightToField={rightToField}
       orientation={orientation}

@@ -42,9 +42,9 @@
   },
   "scripts": {
     "build": "tsdown",
+    "clean": "rm -rf dist node_modules",
     "check-types": "tsc --noEmit -p tsconfig.json",
-    "check-types:fast": "tsgo --noEmit -p tsconfig.json",
-    "clean": "rm -rf dist node_modules"
+    "check-types:fast": "tsgo --noEmit -p tsconfig.json"
   },
   "peerDependencies": {
     "typescript": "catalog:",

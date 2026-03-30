@@ -52,6 +52,8 @@ export function useOrders(input: ListOrdersInput) { ... }
 export function useDashboardStats() { ... }
 ```
 
+**Dashboard `apps/dashboard` — API hooks:** use **`use-<domain>.hook.ts`** (e.g. `use-products.hook.ts`) and export **`useProductsQuery`**, **`createProductMutationOptions`**, etc. See `.cursor/rules/apps/dashboard.mdc`.
+
 ### Utilities
 
 - **kebab-case** for file names

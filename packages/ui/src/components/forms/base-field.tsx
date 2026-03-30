@@ -11,7 +11,7 @@ import {
 } from "../field";
 
 export type CommonFieldProps = {
-  label: string;
+  label: React.ReactNode;
   srOnlyLabel?: boolean;
   description?: string;
   labelFirst?: boolean;
