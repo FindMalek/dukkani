@@ -193,29 +193,7 @@ export function useOnboardingController(
     firstStoreId: stores?.[0]?.id ?? null,
   };
 
-  // Debug logging for onboarding state
-  useEffect(() => {
-    logger.info(
-      {
-        onboardingStep: state.onboardingStep,
-        effectiveStep: state.effectiveStep,
-        globalStoreId: globalSelectedStoreId,
-        storesCount: stores?.length,
-        selectedStoreId,
-        isStoresLoading,
-        isAuthenticated: state.isAuthenticated,
-      },
-      "Onboarding store selection state",
-    );
-  }, [
-    state.onboardingStep,
-    state.effectiveStep,
-    globalSelectedStoreId,
-    stores,
-    selectedStoreId,
-    isStoresLoading,
-    state.isAuthenticated,
-  ]);
+ 
 
   // Loading states
   const loadingStates = {
