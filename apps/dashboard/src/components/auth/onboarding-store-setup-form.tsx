@@ -1,6 +1,10 @@
 "use client";
 
-import { storeNotificationMethodEnum } from "@dukkani/common/schemas/enums";
+import {
+  LIST_SUPPORTED_CURRENCIES,
+  SupportedCurrency,
+  storeNotificationMethodEnum,
+} from "@dukkani/common/schemas/enums";
 import {
   type CreateStoreOnboardingInput,
   createStoreOnboardingInputSchema,
@@ -17,6 +21,7 @@ export const storeSetupFormDefaultOptions = formOptions({
   defaultValues: {
     name: "",
     description: "",
+    currency: SupportedCurrency.TND,
     notificationMethod: storeNotificationMethodEnum.EMAIL,
   } as CreateStoreOnboardingInput,
   validators: {
@@ -49,6 +54,19 @@ export const StoreSetupOnboardingForm = withForm({
       ],
       [t],
     );
+    const currenciesOptions = useMemo(
+      () => [
+        {
+          id: "currency",
+          options: LIST_SUPPORTED_CURRENCIES.map((currency) => ({
+            id: currency,
+            name: currency,
+            value: currency,
+          })),
+        },
+      ],
+      [],
+    );
     return (
       <>
         <div className="space-y-2 text-center">
@@ -66,6 +84,15 @@ export const StoreSetupOnboardingForm = withForm({
                     label={t("storeName.label")}
                     placeholder={t("storeName.placeholder")}
                     autoFocus
+                  />
+                )}
+              </form.AppField>
+              <form.AppField name="currency">
+                {(field) => (
+                  <field.SelectInput
+                    label={"Hello World"}
+                    options={currenciesOptions}
+                    noReset
                   />
                 )}
               </form.AppField>
