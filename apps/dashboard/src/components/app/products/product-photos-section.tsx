@@ -11,13 +11,8 @@ import { ImageCropperDialog } from "@dukkani/ui/components/image-cropper";
 interface ProductPhotosSectionProps {
   value: File[];
   onChange: (files: File[]) => void;
-
   optimizeFiles?: (files: File[]) => Promise<File[]>;
   label?: string;
-}
-
-function createObjectURL(file: File) {
-  return URL.createObjectURL(file);
 }
 
 
@@ -34,6 +29,19 @@ export function ProductPhotosSection({
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
+
+  React.useEffect(() => {
+    const urlMap = previewUrlsRef.current;
+    const currentFiles = new Set(value);
+
+    for (const [file, url] of urlMap.entries()) {
+      if (!currentFiles.has(file)) {
+        URL.revokeObjectURL(url);
+        urlMap.delete(file);
+      }
+    }
+  }, [value]);
+
   React.useEffect(() => {
     const urlMap = previewUrlsRef.current;
     return () => {
@@ -43,7 +51,7 @@ export function ProductPhotosSection({
 
   function getPreviewUrl(file: File): string {
     if (!previewUrlsRef.current.has(file)) {
-      previewUrlsRef.current.set(file, createObjectURL(file));
+      previewUrlsRef.current.set(file, URL.createObjectURL(file));
     }
     return previewUrlsRef.current.get(file)!;
   }
@@ -158,7 +166,6 @@ function PhotoThumbnail({ src, alt, onRemove }: PhotoThumbnailProps) {
         alt={alt}
         className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
       />
-    
       <Button
         type="button"
         variant="destructive"

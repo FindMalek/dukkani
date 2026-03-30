@@ -214,7 +214,7 @@ export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
                     {(field) => (
                       <ProductPhotosSection
                         label={t("form.photos")}
-                        value={field.state.value as File[]}
+                        value={(field.state.value as File[] | undefined) ?? []}
                         onChange={(files) => field.handleChange(files)}
                         optimizeFiles={compressImagesForUpload}
                       />

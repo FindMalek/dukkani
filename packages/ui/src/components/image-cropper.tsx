@@ -135,7 +135,7 @@ export function ImageCropperDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && handleCancel()}>
+    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && !isProcessing && handleCancel()}>
       <DialogContent
         className="w-full max-w-lg overflow-hidden p-0 sm:max-w-xl"
         onInteractOutside={(e) => e.preventDefault()}
