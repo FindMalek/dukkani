@@ -113,7 +113,7 @@ export function ImageCropperDialog({
   );
 
   const handleConfirm = async () => {
-    if (!imageSrc || !croppedAreaPixels) return;
+    if (isProcessing || !imageSrc || !croppedAreaPixels) return;
     setIsProcessing(true);
     try {
       const file = await getCroppedImg(imageSrc, croppedAreaPixels);
@@ -208,7 +208,7 @@ export function ImageCropperDialog({
           <Button
             type="button"
             onClick={handleConfirm}
-            disabled={!croppedAreaPixels}
+            disabled={!croppedAreaPixels || isProcessing}
             isLoading={isProcessing}
             className="flex-1 sm:flex-none"
           >
