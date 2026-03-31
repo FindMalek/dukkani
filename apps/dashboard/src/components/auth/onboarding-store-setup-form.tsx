@@ -10,6 +10,7 @@ import {
   createStoreOnboardingInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import { Button } from "@dukkani/ui/components/button";
+import { FlagComponent } from "@dukkani/ui/components/country";
 import { FieldGroup } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
@@ -60,7 +61,7 @@ export const StoreSetupOnboardingForm = withForm({
           id: "currency",
           options: LIST_SUPPORTED_CURRENCIES.map((currency) => ({
             id: currency,
-            name: currency,
+            name: <CurrencySelectOption currency={currency} />,
             value: currency,
           })),
         },
@@ -125,3 +126,83 @@ export const StoreSetupOnboardingForm = withForm({
     );
   },
 });
+
+function useCurrencyInformation(currency: SupportedCurrency) {
+  const t = useTranslations("currencies");
+  return useMemo(() => {
+    switch (currency) {
+      case SupportedCurrency.TND:
+        return {
+          countryCode: "tn",
+          countryName: "Tunisia",
+          countryNameTranslated: t("tnd.country.name"),
+          name: "Tunisian Dinar",
+          nameTranslated: t("tnd.name"),
+        };
+      case SupportedCurrency.USD:
+        return {
+          countryCode: "us",
+          countryName: "United States",
+          countryNameTranslated: t("usd.country.name"),
+          name: "US Dollar",
+          nameTranslated: t("usd.name"),
+        };
+      case SupportedCurrency.EUR:
+        return {
+          countryCode: "eu",
+          countryName: "European Union",
+          countryNameTranslated: t("eur.country.name"),
+          name: "Euro",
+          nameTranslated: t("eur.name"),
+        };
+      case SupportedCurrency.GBP:
+        return {
+          countryCode: "gb",
+          countryName: "United Kingdom",
+          countryNameTranslated: t("gbp.country.name"),
+          name: "British Pound",
+          nameTranslated: t("gbp.name"),
+        };
+      case SupportedCurrency.LYD:
+        return {
+          countryCode: "ly",
+          countryName: "Libya",
+          countryNameTranslated: t("lyd.country.name"),
+          name: "Libyan Dinar",
+          nameTranslated: t("lyd.name"),
+        };
+      case SupportedCurrency.DZD:
+        return {
+          countryCode: "dz",
+          countryName: "Algeria",
+          countryNameTranslated: t("dzd.country.name"),
+          name: "Algerian Dinar",
+          nameTranslated: t("dzd.name"),
+        };
+      default:
+        return {
+          countryCode: "tn",
+          countryName: "Tunisia",
+          countryNameTranslated: t("tnd.country.name"),
+          name: "Tunisian Dinar",
+          nameTranslated: t("tnd.name"),
+        };
+    }
+  }, [currency, t]);
+}
+
+function CurrencySelectOption({ currency }: { currency: SupportedCurrency }) {
+  const currencyInformation = useCurrencyInformation(currency);
+  return (
+    <span className="flex flex-row items-center justify-between gap-3">
+      <FlagComponent
+        country={currencyInformation.countryCode}
+        countryName={currencyInformation.countryName}
+      />
+      <span className="flex items-center gap-2">
+        <span>{currencyInformation.name}</span>
+        <span className="text-muted-foreground text-sm">{currency}</span>
+      </span>
+    </span>
+  );
+}

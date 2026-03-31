@@ -456,5 +456,43 @@
       "hint": "or click to browse",
       "optimizing": "Optimizing images..."
     }
+  },
+  "currencies": {
+    "tnd": {
+      "country": {
+        "name": "Tunisian Dinar"
+      },
+      "name": "Tunisian Dinar"
+    },
+    "usd": {
+      "country": {
+        "name": "United States"
+      },
+      "name": "US Dollar"
+    },
+    "eur": {
+      "country": {
+        "name": "European Union"
+      },
+      "name": "Euro"
+    },
+    "gbp": {
+      "country": {
+        "name": "United Kingdom"
+      },
+      "name": "British Pound"
+    },
+    "lyd": {
+      "country": {
+        "name": "Libya"
+      },
+      "name": "Libyan Dinar"
+    },
+    "dzd": {
+      "country": {
+        "name": "Algeria"
+      },
+      "name": "Algerian Dinar"
+    }
   }
 }
