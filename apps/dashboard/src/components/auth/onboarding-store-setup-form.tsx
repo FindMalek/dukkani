@@ -134,58 +134,44 @@ function useCurrencyInformation(currency: SupportedCurrency) {
       case SupportedCurrency.TND:
         return {
           countryCode: "tn",
-          countryName: "Tunisia",
-          countryNameTranslated: t("tnd.country.name"),
-          name: "Tunisian Dinar",
-          nameTranslated: t("tnd.name"),
+          countryName: t("tnd.country.name"),
+          name: t("tnd.name"),
         };
       case SupportedCurrency.USD:
         return {
           countryCode: "us",
-          countryName: "United States",
-          countryNameTranslated: t("usd.country.name"),
-          name: "US Dollar",
-          nameTranslated: t("usd.name"),
+          countryName: t("usd.country.name"),
+          name: t("usd.name"),
         };
       case SupportedCurrency.EUR:
         return {
           countryCode: "eu",
-          countryName: "European Union",
-          countryNameTranslated: t("eur.country.name"),
-          name: "Euro",
-          nameTranslated: t("eur.name"),
+          countryName: t("eur.country.name"),
+          name: t("eur.name"),
         };
       case SupportedCurrency.GBP:
         return {
           countryCode: "gb",
-          countryName: "United Kingdom",
-          countryNameTranslated: t("gbp.country.name"),
-          name: "British Pound",
-          nameTranslated: t("gbp.name"),
+          countryName: t("gbp.country.name"),
+          name: t("gbp.name"),
         };
       case SupportedCurrency.LYD:
         return {
           countryCode: "ly",
-          countryName: "Libya",
-          countryNameTranslated: t("lyd.country.name"),
-          name: "Libyan Dinar",
-          nameTranslated: t("lyd.name"),
+          countryName: t("lyd.country.name"),
+          name: t("lyd.name"),
         };
       case SupportedCurrency.DZD:
         return {
           countryCode: "dz",
-          countryName: "Algeria",
-          countryNameTranslated: t("dzd.country.name"),
-          name: "Algerian Dinar",
-          nameTranslated: t("dzd.name"),
+          countryName: t("dzd.country.name"),
+          name: t("dzd.name"),
         };
       default:
         return {
           countryCode: "tn",
-          countryName: "Tunisia",
-          countryNameTranslated: t("tnd.country.name"),
-          name: "Tunisian Dinar",
-          nameTranslated: t("tnd.name"),
+          countryName: t("tnd.country.name"),
+          name: t("tnd.name"),
         };
     }
   }, [currency, t]);
