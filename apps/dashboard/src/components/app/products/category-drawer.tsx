@@ -85,7 +85,7 @@ export function CategoryDrawer({
                   )}
                 </form.AppField>
               </FieldGroup>
-              <DrawerFooter>
+              <DrawerFooter className="px-0">
                 <form.Subscribe>
                   {(formState) => (
                     <>
