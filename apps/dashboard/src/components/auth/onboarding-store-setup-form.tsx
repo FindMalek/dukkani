@@ -84,15 +84,17 @@ export const StoreSetupOnboardingForm = withForm({
                     label={t("storeName.label")}
                     placeholder={t("storeName.placeholder")}
                     autoFocus
+                    autoComplete="off"
                   />
                 )}
               </form.AppField>
               <form.AppField name="currency">
                 {(field) => (
                   <field.SelectInput
-                    label={"Hello World"}
+                    label={t("currency.label")}
                     options={currenciesOptions}
                     noReset
+                    placeholder={t("currency.placeholder")}
                   />
                 )}
               </form.AppField>

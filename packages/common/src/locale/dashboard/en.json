@@ -90,6 +90,10 @@
           }
         }
       },
+      "currency": {
+        "label": "Store Currency",
+        "placeholder": "Select your store currency"
+      },
       "submit": "Continue"
     },
     "storeConfiguration": {
