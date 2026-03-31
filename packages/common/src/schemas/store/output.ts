@@ -16,6 +16,7 @@ import {
   storeNotificationMethodSchema,
   storeStatusSchema,
   storeThemeSchema,
+  supportedCurrencyEnum,
 } from "./enums";
 
 export const storeSafeOutputSchema = z.object({
@@ -28,6 +29,7 @@ export const storeSafeOutputSchema = z.object({
   status: storeStatusSchema,
   theme: storeThemeSchema.nullable(),
   notificationMethod: storeNotificationMethodSchema.nullable(),
+  currency: supportedCurrencyEnum,
   supportedPaymentMethods: z.array(paymentMethodSchema),
   shippingCost: z.number(),
   createdAt: z.date(),
