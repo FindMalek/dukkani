@@ -18,7 +18,7 @@ import { BaseField, type CommonFieldProps } from "./base-field";
 
 export type SelectOption = {
   id: string;
-  name: string;
+  name: React.ReactNode;
 };
 
 export type SelectOptionGroup = {
@@ -115,12 +115,12 @@ export function SelectField({
             </Button>
           )}
           {!noReset && (
-          <Button
-            type="button"
-            variant="secondary"
-            size="icon"
-            onClick={handleReset}
-          >
+            <Button
+              type="button"
+              variant="secondary"
+              size="icon"
+              onClick={handleReset}
+            >
               <Icons.trash className="size-4" />
             </Button>
           )}
