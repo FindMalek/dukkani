@@ -1,9 +1,12 @@
 "use client";
 
+import { store } from "@dukkani/common/schemas";
 import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-field";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
+import { useGetStoreByIdQuery } from "@/hooks/api/use-stores.hook";
 import { productFormOptions } from "@/lib/product-form-options";
+import { useActiveStoreStore } from "@/stores";
 
 export const ProductFormEssentials = withForm({
   ...productFormOptions,
@@ -19,6 +22,13 @@ export const ProductFormEssentials = withForm({
     optimizeFiles,
   }) {
     const t = useTranslations("products.create");
+    const currentStoreId = useActiveStoreStore(
+      (state) => state.selectedStoreId,
+    );
+
+    const storeQuery = useGetStoreByIdQuery(currentStoreId === null ? undefined : currentStoreId);
+    const currency = storeQuery.data?.currency || store.supportedCurrencyEnum.TND;
+
     return (
       <>
         <form.AppField name="name">
@@ -39,7 +49,12 @@ export const ProductFormEssentials = withForm({
         </form.AppField>
         <div className="flex items-start justify-between gap-4">
           <form.AppField name="price">
-            {(field) => <field.PriceInput label={t("form.price.label")} />}
+            {(field) => (
+              <field.PriceInput
+                label={t("form.price.label")}
+                currency={currency}
+              />
+            )}
           </form.AppField>
           <form.AppField name="stock">
             {(field) => <field.NumberInput label={t("form.stock.label")} />}

@@ -12,6 +12,7 @@ import { BaseField } from "./base-field";
 interface PriceFieldProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "inputMode"> {
   label: string;
+  currency: string;
   min?: number;
   max?: number;
   step?: number;
@@ -20,6 +21,7 @@ interface PriceFieldProps
 
 export function PriceField({
   label,
+  currency,
   min = Number.NEGATIVE_INFINITY,
   max = Number.POSITIVE_INFINITY,
   step = 1,
@@ -99,7 +101,7 @@ export function PriceField({
           {...props}
         />
         <InputGroupAddon align="inline-end">
-          <InputGroupText>TND</InputGroupText>
+          <InputGroupText>{currency}</InputGroupText>
         </InputGroupAddon>
       </InputGroup>
     </BaseField>
