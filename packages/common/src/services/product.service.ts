@@ -299,8 +299,9 @@ class ProductServiceBase {
     }
 
     // Process variant stock updates atomically
-    if (variantItems.length > 0) {
-      const uniqueVariantIds = [
+      if (variantItems.length > 0) {
+        variantItems.sort((a, b) => a.variantId.localeCompare(b.variantId));
+        const uniqueVariantIds = [
         ...new Set(variantItems.map((i) => i.variantId)),
       ];
       
@@ -347,8 +348,9 @@ class ProductServiceBase {
     }
 
     // Process product stock updates atomically
-    if (productItems.length > 0) {
-      const uniqueProductIds = [
+      if (productItems.length > 0) {
+        productItems.sort((a, b) => a.productId.localeCompare(b.productId));
+        const uniqueProductIds = [
         ...new Set(productItems.map((i) => i.productId)),
       ];
       
