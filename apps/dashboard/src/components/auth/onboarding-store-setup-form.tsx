@@ -34,7 +34,7 @@ export const StoreSetupOnboardingForm = withForm({
   ...storeSetupFormDefaultOptions,
   render: function RenderForm({ form }) {
     const t = useTranslations("onboarding.storeSetup");
-    const options = useMemo(
+    const notificationMethodOptions = useMemo(
       () => [
         {
           label: t("notifications.options.email.label"),
@@ -101,7 +101,7 @@ export const StoreSetupOnboardingForm = withForm({
                   <field.RadioGroupInput
                     label={t("notifications.label")}
                     as="cards"
-                    options={options}
+                    options={notificationMethodOptions}
                   />
                 )}
               </form.AppField>
