@@ -1,15 +1,13 @@
 "use client";
 
 import type { ListProductOutput } from "@dukkani/common/schemas/product/output";
-import { formatCurrency } from "@dukkani/common/utils";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
-import { useFormatter, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { useCurrentStoreCurrency } from "@/hooks/use-current-store-currency";
 import { useFormatPriceCurrentStore } from "@/hooks/use-format-price-current-store";
 import { RoutePaths } from "@/lib/routes";
 import { ProductCardDropdown } from "./product-card-dropdown";

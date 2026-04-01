@@ -1,13 +1,10 @@
 "use client";
 
-import { store } from "@dukkani/common/schemas";
 import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-field";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
-import { useFormatter, useTranslations } from "next-intl";
-import { useGetStoreByIdQuery } from "@/hooks/api/use-stores.hook";
+import { useTranslations } from "next-intl";
 import { useCurrentStoreCurrency } from "@/hooks/use-current-store-currency";
 import { productFormOptions } from "@/lib/product-form-options";
-import { useActiveStoreStore } from "@/stores";
 
 export const ProductFormEssentials = withForm({
   ...productFormOptions,

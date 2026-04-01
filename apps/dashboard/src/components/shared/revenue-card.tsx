@@ -1,11 +1,6 @@
 "use client";
 
-import { store } from "@dukkani/common/schemas";
-import { useFormatter } from "next-intl";
-import { useGetStoreByIdQuery } from "@/hooks/api/use-stores.hook";
-import { useCurrentStoreCurrency } from "@/hooks/use-current-store-currency";
 import { useFormatPriceCurrentStore } from "@/hooks/use-format-price-current-store";
-import { useActiveStoreStore } from "@/stores";
 import { MetricCard } from "./metric-card";
 
 interface RevenueCardProps {
