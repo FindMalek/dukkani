@@ -24,9 +24,6 @@ export function RevenueCard({ title, value, className }: RevenueCardProps) {
       value={
         <div className="font-bold text-3xl text-foreground">
           {number(value, { style: "currency", currency: currentStoreCurrency })}
-          <span className="ml-1.5 font-normal text-foreground/80 text-sm">
-            {currentStoreCurrency}
-          </span>
         </div>
       }
     />
