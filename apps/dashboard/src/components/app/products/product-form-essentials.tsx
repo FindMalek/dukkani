@@ -3,8 +3,9 @@
 import { store } from "@dukkani/common/schemas";
 import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-field";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useGetStoreByIdQuery } from "@/hooks/api/use-stores.hook";
+import { useCurrentStoreCurrency } from "@/hooks/use-current-store-currency";
 import { productFormOptions } from "@/lib/product-form-options";
 import { useActiveStoreStore } from "@/stores";
 
@@ -22,13 +23,7 @@ export const ProductFormEssentials = withForm({
     optimizeFiles,
   }) {
     const t = useTranslations("products.create");
-    const currentStoreId = useActiveStoreStore(
-      (state) => state.selectedStoreId,
-    );
-
-    const storeQuery = useGetStoreByIdQuery(currentStoreId === null ? undefined : currentStoreId);
-    const currency = storeQuery.data?.currency || store.supportedCurrencyEnum.TND;
-
+    const currency = useCurrentStoreCurrency();
     return (
       <>
         <form.AppField name="name">

@@ -7,8 +7,9 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useMemo } from "react";
+import { useCurrentStoreCurrency } from "@/hooks/use-current-store-currency";
 import { RoutePaths } from "@/lib/routes";
 import { ProductCardDropdown } from "./product-card-dropdown";
 
@@ -23,9 +24,10 @@ export function ProductListCard({
   onDelete,
   onTogglePublish,
 }: ProductListCardProps) {
-  const locale = useLocale();
   const router = useRouter();
   const t = useTranslations("products.list");
+  const { number } = useFormatter();
+  const currentStoreCurrency = useCurrentStoreCurrency();
 
   const firstImageUrl = product.imageUrls[0];
   const isOutOfStock = product.stock === 0;
@@ -105,7 +107,10 @@ export function ProductListCard({
 
           {/* Price */}
           <p className="mt-1.5 font-medium text-foreground text-sm">
-            {formatCurrency(product.price, "TND", locale)}
+            {number(product.price, {
+              style: "currency",
+              currency: currentStoreCurrency,
+            })}
           </p>
 
           {/* Status / Meta row */}

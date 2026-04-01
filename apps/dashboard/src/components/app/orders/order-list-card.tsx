@@ -10,9 +10,10 @@ import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { useUpdateOrderStatusMutation } from "@/hooks/api/use-orders.hook";
+import { useCurrentStoreCurrency } from "@/hooks/use-current-store-currency";
 import { getItemsCount, getOrderTotal } from "@/lib/order-utils";
 import { RoutePaths } from "@/lib/routes";
 
@@ -21,8 +22,8 @@ interface OrderListCardProps {
 }
 
 export function OrderListCard({ order }: OrderListCardProps) {
-  const locale = useLocale();
   const t = useTranslations("orders.list");
+  const { number } = useFormatter();
   const router = useRouter();
   const updateStatusMutation = useUpdateOrderStatusMutation();
 
@@ -37,6 +38,7 @@ export function OrderListCard({ order }: OrderListCardProps) {
   const canCall = !!order.customer?.phone;
   const canAdvance = nextStatus !== null;
   const isPending = updateStatusMutation.isPending;
+  const currentStoreCurrency = useCurrentStoreCurrency();
 
   const actions = useMemo(
     () => [
@@ -102,7 +104,10 @@ export function OrderListCard({ order }: OrderListCardProps) {
 
         <div className="flex items-center gap-2">
           <p className="font-bold text-foreground text-lg">
-            {formatCurrency(total, "TND", locale)}
+            {number(total, {
+              style: "currency",
+              currency: currentStoreCurrency,
+            })}
           </p>
           <Icons.chevronRight className="size-5 shrink-0 text-muted-foreground" />
         </div>

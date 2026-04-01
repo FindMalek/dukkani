@@ -26,7 +26,6 @@ export function TodaysPerformance({ stats }: TodaysPerformanceProps) {
         <RevenueCard
           title={t("revenue")}
           value={stats.todayRevenue}
-          currency="TND"
         />
       </div>
     </div>

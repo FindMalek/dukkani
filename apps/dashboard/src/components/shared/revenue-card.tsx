@@ -1,24 +1,21 @@
 "use client";
 
+import { store } from "@dukkani/common/schemas";
+import { useFormatter } from "next-intl";
+import { useGetStoreByIdQuery } from "@/hooks/api/use-stores.hook";
+import { useCurrentStoreCurrency } from "@/hooks/use-current-store-currency";
+import { useActiveStoreStore } from "@/stores";
 import { MetricCard } from "./metric-card";
 
 interface RevenueCardProps {
   title: string;
   value: number;
-  currency: string;
   className?: string;
 }
 
-export function RevenueCard({
-  title,
-  value,
-  currency,
-  className,
-}: RevenueCardProps) {
-  const formattedNumber = new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
+export function RevenueCard({ title, value, className }: RevenueCardProps) {
+  const { number } = useFormatter();
+  const currentStoreCurrency = useCurrentStoreCurrency();
 
   return (
     <MetricCard
@@ -26,9 +23,9 @@ export function RevenueCard({
       className={className}
       value={
         <div className="font-bold text-3xl text-foreground">
-          {formattedNumber}
+          {number(value, { style: "currency", currency: currentStoreCurrency })}
           <span className="ml-1.5 font-normal text-foreground/80 text-sm">
-            {currency}
+            {currentStoreCurrency}
           </span>
         </div>
       }
