@@ -5,7 +5,7 @@ import { useGetStoreByIdQuery } from "./api/use-stores.hook";
 
 export function useCurrentStoreCurrency() {
   const selectedStoreId = useActiveStoreStore((state) => state.selectedStoreId);
-  const currentStoreQuery = useGetStoreByIdQuery(selectedStoreId!);
+  const currentStoreQuery = useGetStoreByIdQuery(selectedStoreId ?? undefined);
 
   return useMemo(() => {
     if (currentStoreQuery.isSuccess && currentStoreQuery.data) {
