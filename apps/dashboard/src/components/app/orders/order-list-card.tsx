@@ -5,12 +5,11 @@ import {
   OrderEntity,
 } from "@dukkani/common/entities/order/entity";
 import type { OrderIncludeOutput } from "@dukkani/common/schemas/order/output";
-import { formatCurrency } from "@dukkani/common/utils";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { useRouter } from "next/navigation";
-import { useFormatter, useLocale, useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { useUpdateOrderStatusMutation } from "@/hooks/api/use-orders.hook";
 import { useCurrentStoreCurrency } from "@/hooks/use-current-store-currency";
