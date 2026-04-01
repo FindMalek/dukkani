@@ -1,11 +1,13 @@
 import { ORPCError } from "@orpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { ProductDescription } from "@/components/app/product-description";
 import { ProductImageCarousel } from "@/components/app/product-image-carousel";
 import { ProductVariantManager } from "@/components/app/product-variant-manager";
 import { StoreInfoCard } from "@/components/app/store-info-card";
+import { getStoreSlug } from "@/lib/get-store-slug";
 import { getQueryClient, orpc } from "@/lib/orpc";
 
 export default async function ProductDetailPage({
@@ -15,6 +17,20 @@ export default async function ProductDetailPage({
 }) {
   const { id } = await params;
   const queryClient = getQueryClient();
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const cookieStore = await cookies();
+  const storeSlug = getStoreSlug(host, cookieStore);
+
+  if (!storeSlug) {
+    return notFound();
+  }
+
+  const store = await queryClient.ensureQueryData(
+    orpc.store.getBySlugPublic.queryOptions({
+      input: { slug: storeSlug },
+    }),
+  );
 
   try {
     await queryClient.prefetchQuery(
@@ -66,6 +82,7 @@ export default async function ProductDetailPage({
                 hasVariants={hasVariants}
                 variantOptions={product.variantOptions}
                 variants={product.variants}
+                storeCurrency={store.currency}
               />
               <ProductDescription description={product.description} />
             </div>

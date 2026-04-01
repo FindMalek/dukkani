@@ -1,5 +1,6 @@
 "use client";
 
+import type { store } from "@dukkani/common/schemas";
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
 import { Button } from "@dukkani/ui/components/button";
 import {
@@ -10,17 +11,20 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@dukkani/ui/components/drawer";
+
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { VariantSelector } from "@/components/shared/variant-selector";
+import { useFormatPriceCurrentStore } from "@/hooks/use-format-price";
 import { useProductVariantSelection } from "@/hooks/use-product-variant-selection";
 import { useCartStore } from "@/stores/cart.store";
 
 interface QuickAddToCartProps {
   product: ProductPublicOutput;
+  storeCurrency: store.SupportedCurrencyInfer;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
@@ -29,6 +33,7 @@ export function QuickAddToCart({
   product,
   open,
   onOpenChange,
+  storeCurrency,
 }: QuickAddToCartProps) {
   const t = useTranslations("storefront.store.product");
 
@@ -47,6 +52,8 @@ export function QuickAddToCart({
     productPrice: product.price,
   });
 
+  const formatPrice = useFormatPriceCurrentStore(storeCurrency);
+
   const [quantity, setQuantity] = useState(1);
   const addItem = useCartStore((state) => state.addItem);
   const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
@@ -57,7 +64,7 @@ export function QuickAddToCart({
   }, [selectedVariantId]);
 
   const maxQuantity = Math.min(stock, 99);
-  const formattedPrice = (price * quantity).toFixed(3);
+  const formattedPrice = formatPrice(price * quantity);
 
   const handleDecrease = () => {
     if (quantity > 1) {
@@ -157,7 +164,7 @@ export function QuickAddToCart({
               </div>
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-sm tabular-nums" dir="ltr">
-                  {formattedPrice} TND
+                  {formattedPrice}
                 </span>
                 <Icons.arrowRight className="size-4 rtl:rotate-180" />
               </div>

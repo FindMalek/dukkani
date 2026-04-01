@@ -1,5 +1,6 @@
 "use client";
 
+import type { store } from "@dukkani/common/schemas";
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
 import { AspectRatio } from "@dukkani/ui/components/aspect-ratio";
 import { Button } from "@dukkani/ui/components/button";
@@ -7,16 +8,23 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Image from "next/image";
 import Link from "next/link";
+import { useFormatPriceCurrentStore } from "@/hooks/use-format-price";
 import { RoutePaths } from "@/lib/routes";
 
 interface ProductCardProps {
   product: ProductPublicOutput;
+  storeCurrency: store.SupportedCurrencyInfer;
   onAddToCart?: (product: ProductPublicOutput) => void;
 }
 
-export function ProductCard({ product, onAddToCart }: ProductCardProps) {
+export function ProductCard({
+  product,
+  onAddToCart,
+  storeCurrency,
+}: ProductCardProps) {
   const imageUrl = product.imagesUrls?.[0];
-  const price = product.price.toFixed(2);
+
+  const formatPrice = useFormatPriceCurrentStore(storeCurrency);
 
   return (
     <div className="group">
@@ -49,7 +57,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
         <div className="mt-2">
           <h3 className="mb-1 font-bold text-foreground">{product.name}</h3>
           <p className="text-muted-foreground text-sm tabular-nums" dir="ltr">
-            {price} TND
+            {formatPrice(product.price)}
           </p>
         </div>
       </Link>

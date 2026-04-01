@@ -1,6 +1,7 @@
 "use client";
 
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
+import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useCartStore } from "@/stores/cart.store";
@@ -9,9 +10,10 @@ import { QuickAddToCart } from "./quick-add-to-cart";
 
 interface ProductGridProps {
   products: ProductPublicOutput[];
+  store: StorePublicOutput;
 }
 
-export function ProductGrid({ products }: ProductGridProps) {
+export function ProductGrid({ products, store }: ProductGridProps) {
   const t = useTranslations("storefront.store.products");
   const addItem = useCartStore((state) => state.addItem);
   const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
@@ -48,6 +50,7 @@ export function ProductGrid({ products }: ProductGridProps) {
               key={product.id}
               product={product}
               onAddToCart={handleAddToCart}
+              storeCurrency={store.currency}
             />
           ))}
         </div>
@@ -57,6 +60,7 @@ export function ProductGrid({ products }: ProductGridProps) {
           product={selectedProduct}
           open={isCartDrawerOpen}
           onOpenChange={setIsCartDrawerOpen}
+          storeCurrency={store.currency}
         />
       )}
     </>

@@ -1,22 +1,27 @@
 "use client";
 
+import type { store } from "@dukkani/common/schemas";
 import type { CartItemOutput } from "@dukkani/common/schemas/cart/output";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useFormatPriceCurrentStore } from "@/hooks/use-format-price";
 
 interface OrderSummaryProps {
   items: CartItemOutput[];
+  storeCurrency: store.SupportedCurrencyInfer;
   shippingCost: number;
   loading: boolean;
 }
 
 export function OrderSummary({
   items,
+  storeCurrency,
   shippingCost,
   loading,
 }: OrderSummaryProps) {
   const t = useTranslations("storefront.store.checkout.orderSummary");
+  const formatPrice = useFormatPriceCurrentStore(storeCurrency);
 
   const subtotal = items.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -24,7 +29,7 @@ export function OrderSummary({
   );
   const total = subtotal + shippingCost;
   const shippingLabel =
-    shippingCost === 0 ? t("free") : `${shippingCost.toFixed(3)} TND`;
+    shippingCost === 0 ? t("free") : `${formatPrice(shippingCost)}`;
 
   return (
     <div className="py-2">
@@ -74,7 +79,7 @@ export function OrderSummary({
                     className="shrink-0 font-medium text-sm tabular-nums"
                     dir="ltr"
                   >
-                    {(item.price * item.quantity).toFixed(3)} TND
+                    {formatPrice(item.price * item.quantity)}
                   </span>
                 </div>
                 {item.productDescription && (
@@ -94,7 +99,7 @@ export function OrderSummary({
         <div className="flex items-center justify-between text-muted-foreground">
           <span>{t("subtotal")}</span>
           <span className="tabular-nums" dir="ltr">
-            {subtotal.toFixed(3)} TND
+            {formatPrice(subtotal)}
           </span>
         </div>
         <div className="flex items-center justify-between text-muted-foreground">
@@ -106,7 +111,7 @@ export function OrderSummary({
         <div className="flex items-center justify-between border-t pt-2 font-semibold">
           <span>{t("total")}</span>
           <span className="tabular-nums" dir="ltr">
-            {total.toFixed(3)} TND
+            {formatPrice(total)}
           </span>
         </div>
       </div>
