@@ -4,6 +4,7 @@ import { store } from "@dukkani/common/schemas";
 import { useFormatter } from "next-intl";
 import { useGetStoreByIdQuery } from "@/hooks/api/use-stores.hook";
 import { useCurrentStoreCurrency } from "@/hooks/use-current-store-currency";
+import { useFormatPriceCurrentStore } from "@/hooks/use-format-price-current-store";
 import { useActiveStoreStore } from "@/stores";
 import { MetricCard } from "./metric-card";
 
@@ -14,8 +15,7 @@ interface RevenueCardProps {
 }
 
 export function RevenueCard({ title, value, className }: RevenueCardProps) {
-  const { number } = useFormatter();
-  const currentStoreCurrency = useCurrentStoreCurrency();
+  const formatPrice = useFormatPriceCurrentStore();
 
   return (
     <MetricCard
@@ -23,7 +23,7 @@ export function RevenueCard({ title, value, className }: RevenueCardProps) {
       className={className}
       value={
         <div className="font-bold text-3xl text-foreground">
-          {number(value, { style: "currency", currency: currentStoreCurrency })}
+          {formatPrice(value)}
         </div>
       }
     />

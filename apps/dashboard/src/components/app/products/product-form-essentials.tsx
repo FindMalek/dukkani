@@ -24,6 +24,7 @@ export const ProductFormEssentials = withForm({
   }) {
     const t = useTranslations("products.create");
     const currency = useCurrentStoreCurrency();
+
     return (
       <>
         <form.AppField name="name">

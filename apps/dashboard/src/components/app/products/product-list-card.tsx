@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useFormatter, useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { useCurrentStoreCurrency } from "@/hooks/use-current-store-currency";
+import { useFormatPriceCurrentStore } from "@/hooks/use-format-price-current-store";
 import { RoutePaths } from "@/lib/routes";
 import { ProductCardDropdown } from "./product-card-dropdown";
 
@@ -26,8 +27,7 @@ export function ProductListCard({
 }: ProductListCardProps) {
   const router = useRouter();
   const t = useTranslations("products.list");
-  const { number } = useFormatter();
-  const currentStoreCurrency = useCurrentStoreCurrency();
+  const formatPrice = useFormatPriceCurrentStore();
 
   const firstImageUrl = product.imageUrls[0];
   const isOutOfStock = product.stock === 0;
@@ -107,10 +107,7 @@ export function ProductListCard({
 
           {/* Price */}
           <p className="mt-1.5 font-medium text-foreground text-sm">
-            {number(product.price, {
-              style: "currency",
-              currency: currentStoreCurrency,
-            })}
+            {formatPrice(product.price)}
           </p>
 
           {/* Status / Meta row */}
