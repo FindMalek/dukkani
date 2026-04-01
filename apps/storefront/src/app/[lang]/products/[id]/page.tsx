@@ -26,7 +26,7 @@ export default async function ProductDetailPage({
     return notFound();
   }
 
-  const store = await queryClient.ensureQueryData(
+  const store = await queryClient.fetchQuery(
     orpc.store.getBySlugPublic.queryOptions({
       input: { slug: storeSlug },
     }),
