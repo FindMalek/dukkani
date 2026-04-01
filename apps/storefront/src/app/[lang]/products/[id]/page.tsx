@@ -26,12 +26,6 @@ export default async function ProductDetailPage({
     return notFound();
   }
 
-  const store = await queryClient.fetchQuery(
-    orpc.store.getBySlugPublic.queryOptions({
-      input: { slug: storeSlug },
-    }),
-  );
-
   try {
     await queryClient.prefetchQuery(
       orpc.product.getByIdPublic.queryOptions({
@@ -43,7 +37,13 @@ export default async function ProductDetailPage({
       orpc.product.getByIdPublic.queryKey({ input: { id } }),
     );
 
-    if (!product) {
+    const store = await queryClient.ensureQueryData(
+      orpc.store.getBySlugPublic.queryOptions({
+        input: { slug: storeSlug },
+      }),
+    );
+
+    if (!product || !store) {
       return notFound();
     }
 
