@@ -9,7 +9,9 @@ const runCommand = new Command("run")
     const { name, pattern } = options;
 
     if (!name && !pattern) {
-      throw new Error("Please provide at least one selector: --name or --pattern");
+      throw new Error(
+        "Please provide at least one selector: --name or --pattern",
+      );
     }
 
     const selected = new Map<string, (typeof migrations)[number]>();
@@ -32,7 +34,9 @@ const runCommand = new Command("run")
         );
       }
 
-      const patternMatches = migrations.filter((entry) => regex.test(entry.name));
+      const patternMatches = migrations.filter((entry) =>
+        regex.test(entry.name),
+      );
       if (patternMatches.length === 0) {
         throw new Error(`No migrations found with pattern ${pattern}`);
       }

@@ -1,5 +1,6 @@
 "use client";
 
+import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import {
   LIST_SUPPORTED_CURRENCIES,
   SupportedCurrency,
@@ -129,52 +130,14 @@ export const StoreSetupOnboardingForm = withForm({
 
 function useCurrencyInformation(currency: SupportedCurrency) {
   const t = useTranslations("currencies");
-  return useMemo(() => {
-    switch (currency) {
-      case SupportedCurrency.TND:
-        return {
-          countryCode: "tn",
-          countryName: t("tnd.country.name"),
-          name: t("tnd.name"),
-        };
-      case SupportedCurrency.USD:
-        return {
-          countryCode: "us",
-          countryName: t("usd.country.name"),
-          name: t("usd.name"),
-        };
-      case SupportedCurrency.EUR:
-        return {
-          countryCode: "eu",
-          countryName: t("eur.country.name"),
-          name: t("eur.name"),
-        };
-      case SupportedCurrency.GBP:
-        return {
-          countryCode: "gb",
-          countryName: t("gbp.country.name"),
-          name: t("gbp.name"),
-        };
-      case SupportedCurrency.LYD:
-        return {
-          countryCode: "ly",
-          countryName: t("lyd.country.name"),
-          name: t("lyd.name"),
-        };
-      case SupportedCurrency.DZD:
-        return {
-          countryCode: "dz",
-          countryName: t("dzd.country.name"),
-          name: t("dzd.name"),
-        };
-      default:
-        return {
-          countryCode: "tn",
-          countryName: t("tnd.country.name"),
-          name: t("tnd.name"),
-        };
-    }
-  }, [currency, t]);
+  return useMemo(
+    () => ({
+      countryCode: StoreEntity.getCurrencyCountryCode(currency),
+      countryName: t(StoreEntity.getCurrencyCountryNameKey(currency)),
+      name: t(StoreEntity.getCurrencyNameKey(currency)),
+    }),
+    [currency, t],
+  );
 }
 
 function CurrencySelectOption({ currency }: { currency: SupportedCurrency }) {

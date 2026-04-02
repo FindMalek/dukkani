@@ -6,6 +6,7 @@ import {
 } from "@dukkani/db/prisma/generated/enums";
 import {
   LIST_STORE_THEMES,
+  SupportedCurrency,
   type StoreThemeInfer,
   storeThemeEnum,
 } from "../../schemas/enums";
@@ -229,6 +230,37 @@ export class StoreEntity {
       "category",
       "description",
     );
+  }
+
+  /**
+   * ISO 3166-1 alpha-2 (or EU) country codes for currency display (flags)
+   */
+  static readonly CURRENCY_COUNTRY_CODE = {
+    [SupportedCurrency.TND]: "tn",
+    [SupportedCurrency.USD]: "us",
+    [SupportedCurrency.EUR]: "eu",
+    [SupportedCurrency.GBP]: "gb",
+    [SupportedCurrency.DZD]: "dz",
+    [SupportedCurrency.LYD]: "ly",
+  } as const satisfies Record<SupportedCurrency, string>;
+
+  static getCurrencyCountryCode(currency: SupportedCurrency): string {
+    return StoreEntity.CURRENCY_COUNTRY_CODE[currency];
+  }
+
+  /**
+   * Translation keys for useTranslations("currencies")
+   */
+  static getCurrencyNameKey(
+    currency: SupportedCurrency,
+  ): `${Lowercase<SupportedCurrency>}.name` {
+    return `${currency.toLowerCase() as Lowercase<SupportedCurrency>}.name`;
+  }
+
+  static getCurrencyCountryNameKey(
+    currency: SupportedCurrency,
+  ): `${Lowercase<SupportedCurrency>}.country.name` {
+    return `${currency.toLowerCase() as Lowercase<SupportedCurrency>}.country.name`;
   }
 
   /**

@@ -139,7 +139,6 @@ export const paymentMethodEnum = paymentMethodSchema.enum;
 export const LIST_PAYMENT_METHODS = Object.values(PaymentMethod);
 export type PaymentMethodInfer = z.infer<typeof paymentMethodSchema>;
 
-
 /**
  * Supported Currency Enum
  */

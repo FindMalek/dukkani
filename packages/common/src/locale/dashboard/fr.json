@@ -93,7 +93,7 @@
       "currency": {
         "label": "Devise du magasin",
         "placeholder": "Sélectionnez la devise de votre magasin"
-       },
+      },
       "submit": "Continuer"
     },
     "storeConfiguration": {

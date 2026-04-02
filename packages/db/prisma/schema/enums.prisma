@@ -142,7 +142,6 @@ enum PaymentMethod {
   CARD
 }
 
-
 enum SupportedCurrency {
   TND
   USD

@@ -27,7 +27,7 @@ export const signUpOnboardingFormDefaultValues = (email = "") =>
 export const SignUpOnboardingForm = withForm({
   ...signUpOnboardingFormDefaultValues(),
   props: {
-    emailFromQuery: "" as string | null,
+    emailFromQuery: null as string | null,
   },
   render: function RenderForm({ form, emailFromQuery }) {
     const t = useTranslations("onboarding.signup");

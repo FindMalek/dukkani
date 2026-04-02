@@ -193,8 +193,6 @@ export function useOnboardingController(
     firstStoreId: stores?.[0]?.id ?? null,
   };
 
- 
-
   // Loading states
   const loadingStates = {
     isSessionPending,
