@@ -41,8 +41,13 @@ export class ProductEntity {
   static getRo(entity: ProductIncludeDbData): ProductIncludeOutput {
     return {
       ...ProductEntity.getSimpleRo(entity),
+      categoryId: entity.categoryId,
+      hasVariants: entity.hasVariants,
+      variantStructureLocked: entity.variants.length > 0,
       images: entity.images.map(ImageEntity.getSimpleRo),
       orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
+      variantOptions: entity.variantOptions.map(VariantEntity.getVariantOptionRo),
+      variants: entity.variants.map(VariantEntity.getVariantRo),
     };
   }
 

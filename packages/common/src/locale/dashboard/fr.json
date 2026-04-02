@@ -364,6 +364,8 @@
           "placeholder": "Entrez le produit publié"
         },
         "photos": "Photos",
+        "existingPhotos": "Photos actuelles",
+        "removePhoto": "Retirer la photo",
         "priceHelp": "Prix que les clients paient (COD)",
         "category": {
           "label": "Catégorie",
@@ -379,7 +381,8 @@
         },
         "options": {
           "label": "A des options",
-          "description": "Ajoutez des options comme Taille, Couleur, Matériau, etc."
+          "description": "Ajoutez des options comme Taille, Couleur, Matériau, etc.",
+          "structureLocked": "Les options de variante sont verrouillées car ce produit a des variantes SKU. Vous pouvez toujours modifier les autres détails du produit."
         },
         "saveDraft": "Enregistrer le brouillon",
         "savePublish": "Enregistrer et publier",
@@ -432,6 +435,12 @@
         "title": "Aucun magasin trouvé",
         "description": "Veuillez d'abord créer un magasin pour ajouter des produits.",
         "createStore": "Créer un magasin"
+      }
+    },
+    "edit": {
+      "header": {
+        "title": "Modifier le produit",
+        "save": "Enregistrer"
       }
     }
   },

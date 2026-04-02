@@ -52,6 +52,12 @@ export class ProductQuery {
       ...ProductQuery.getSimpleInclude(),
       images: ImageQuery.getSimpleInclude(),
       orderItems: OrderItemQuery.getSimpleInclude(),
+      variantOptions: {
+        include: VariantQuery.getVariantOptionInclude(),
+      },
+      variants: {
+        include: VariantQuery.getVariantInclude(),
+      },
     } satisfies Prisma.ProductInclude;
   }
 

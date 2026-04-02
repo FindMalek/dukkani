@@ -36,6 +36,19 @@ import { baseProcedure, protectedProcedure } from "../procedures";
 import { executeUploadFiles } from "../utils/storage-upload";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
+/** Stable JSON key for comparing variant option trees (names + value sets). */
+function normalizeVariantOptionsStructure(
+  options: Array<{ name: string; values: Array<{ value: string }> }>,
+): string {
+  const sorted = [...options]
+    .map((o) => ({
+      name: o.name.trim().toLowerCase(),
+      values: [...o.values.map((v) => v.value.trim().toLowerCase())].sort(),
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+  return JSON.stringify(sorted);
+}
+
 export const productRouter = {
   /**
    * Get all products for user's stores (with pagination/filtering)
@@ -430,8 +443,17 @@ export const productRouter = {
         where: { id: input.id },
         select: {
           storeId: true,
+          hasVariants: true,
           images: {
             select: { url: true },
+          },
+          variantOptions: {
+            include: {
+              values: true,
+            },
+          },
+          variants: {
+            select: { id: true },
           },
         },
       });
@@ -445,6 +467,75 @@ export const productRouter = {
       // Verify ownership
       await verifyStoreOwnership(userId, existingProduct.storeId);
 
+      const variantStructureLocked = existingProduct.variants.length > 0;
+      const dbKey = normalizeVariantOptionsStructure(
+        existingProduct.variantOptions.map((o) => ({
+          name: o.name,
+          values: o.values.map((v) => ({ value: v.value })),
+        })),
+      );
+
+      if (input.variantOptions !== undefined) {
+        if (variantStructureLocked) {
+          const incomingKey = normalizeVariantOptionsStructure(
+            input.variantOptions,
+          );
+          if (incomingKey !== dbKey) {
+            throw new ORPCError("BAD_REQUEST", {
+              message:
+                "Variant options cannot be changed while this product has SKU variants. Edit prices and stock elsewhere or remove variants from orders first.",
+            });
+          }
+        }
+      }
+
+      const effectiveHasVariants =
+        input.hasVariants !== undefined
+          ? input.hasVariants
+          : existingProduct.hasVariants;
+
+      if (effectiveHasVariants && input.variantOptions !== undefined) {
+        const optionNames = input.variantOptions
+          .map((opt) => opt.name.toLowerCase().trim())
+          .filter((name) => name.length > 0);
+        if (new Set(optionNames).size !== optionNames.length) {
+          throw new ORPCError("BAD_REQUEST", {
+            message: "Duplicate option names are not allowed",
+          });
+        }
+      }
+
+      if (effectiveHasVariants === false && existingProduct.hasVariants) {
+        const variantIds = existingProduct.variants.map((v) => v.id);
+        if (variantIds.length > 0) {
+          const [orderItemCount, orderCount] = await Promise.all([
+            database.orderItem.count({
+              where: { productVariantId: { in: variantIds } },
+            }),
+            database.order.count({
+              where: { variantId: { in: variantIds } },
+            }),
+          ]);
+          if (orderItemCount > 0 || orderCount > 0) {
+            throw new ORPCError("BAD_REQUEST", {
+              message:
+                "Cannot turn off variants: existing orders reference this product's variants.",
+            });
+          }
+        }
+      }
+
+      if (
+        effectiveHasVariants &&
+        input.variantOptions !== undefined &&
+        input.variantOptions.length === 0
+      ) {
+        throw new ORPCError("BAD_REQUEST", {
+          message:
+            "At least one variant option is required when variants are enabled",
+        });
+      }
+
       // Update product
       const updateData: {
         name?: string;
@@ -452,6 +543,8 @@ export const productRouter = {
         price?: number;
         stock?: number;
         published?: boolean;
+        categoryId?: string | null;
+        hasVariants?: boolean;
       } = {};
 
       if (input.name !== undefined) updateData.name = input.name;
@@ -460,6 +553,10 @@ export const productRouter = {
       if (input.price !== undefined) updateData.price = input.price;
       if (input.stock !== undefined) updateData.stock = input.stock;
       if (input.published !== undefined) updateData.published = input.published;
+      if (input.categoryId !== undefined)
+        updateData.categoryId = input.categoryId || null;
+      if (input.hasVariants !== undefined)
+        updateData.hasVariants = input.hasVariants;
 
       // Handle image updates
       if (input.imageUrls !== undefined) {
@@ -517,10 +614,59 @@ export const productRouter = {
         }
       }
 
-      const product = await database.product.update({
-        where: { id: input.id },
-        data: updateData,
-        include: ProductQuery.getInclude(),
+      const product = await database.$transaction(async (tx) => {
+        if (
+          input.hasVariants === false &&
+          existingProduct.hasVariants === true
+        ) {
+          const variantIds = existingProduct.variants.map((v) => v.id);
+          if (variantIds.length > 0) {
+            await tx.orderItem.updateMany({
+              where: { productVariantId: { in: variantIds } },
+              data: { productVariantId: null },
+            });
+            await tx.order.updateMany({
+              where: { variantId: { in: variantIds } },
+              data: { variantId: null },
+            });
+            await tx.productVariant.deleteMany({
+              where: { productId: input.id },
+            });
+          }
+          await tx.productVariantOption.deleteMany({
+            where: { productId: input.id },
+          });
+        }
+
+        // Replace variant options only when no SKU rows exist (same as dashboard create flow)
+        if (
+          input.variantOptions !== undefined &&
+          effectiveHasVariants &&
+          !variantStructureLocked
+        ) {
+          await tx.productVariantOption.deleteMany({
+            where: { productId: input.id },
+          });
+          for (const option of input.variantOptions) {
+            await tx.productVariantOption.create({
+              data: {
+                name: option.name,
+                productId: input.id,
+                values: {
+                  create: option.values.map((v) => ({
+                    value: v.value,
+                  })),
+                },
+              },
+            });
+          }
+        }
+
+        return await tx.product.update({
+          where: { id: input.id },
+          data: updateData,
+          include: ProductQuery.getInclude(),
+        });
       });
 
       return ProductEntity.getRo(product);

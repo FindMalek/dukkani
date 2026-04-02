@@ -23,12 +23,17 @@ export function useProductsQuery(input: ListProductsInput) {
 /**
  * Query hook for fetching a single product by ID
  */
-export function useProductQuery(id: string) {
-  return useQuery(
-    orpc.product.getById.queryOptions({
+export function useProductQuery(
+  id: string,
+  options?: { enabled?: boolean },
+) {
+  return useQuery({
+    ...orpc.product.getById.queryOptions({
       input: { id },
     }),
-  );
+    enabled:
+      options?.enabled ?? (Boolean(id) && id.length > 0),
+  });
 }
 
 /**

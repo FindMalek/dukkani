@@ -26,8 +26,13 @@ export const listProductOutputSchema = productSimpleOutputSchema.extend({
 });
 
 export const productIncludeOutputSchema = productSimpleOutputSchema.extend({
+  categoryId: z.string().nullable(),
+  hasVariants: z.boolean(),
+  variantStructureLocked: z.boolean(),
   images: z.array(imageSimpleOutputSchema).optional(),
   orderItems: z.array(orderItemSimpleOutputSchema).optional(),
+  variantOptions: z.array(variantOptionOutputSchema).optional(),
+  variants: z.array(variantOutputSchema).optional(),
 });
 
 export const listProductsOutputSchema = z.object({

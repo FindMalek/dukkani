@@ -374,6 +374,8 @@
           "placeholder": "Enter product published"
         },
         "photos": "Photos",
+        "existingPhotos": "Current photos",
+        "removePhoto": "Remove photo",
         "priceHelp": "Price customers pay (COD)",
         "category": {
           "label": "Category",
@@ -389,7 +391,8 @@
         },
         "options": {
           "label": "Has options",
-          "description": "Add options like Size, Color, Material, etc."
+          "description": "Add options like Size, Color, Material, etc.",
+          "structureLocked": "Variant options are locked because this product has SKU variants. You can still edit other product details."
         },
         "saveDraft": "Save draft",
         "savePublish": "Save & publish",
@@ -442,6 +445,15 @@
         "title": "No Store Found",
         "description": "Please create a store first to add products.",
         "createStore": "Create Store"
+      }
+    },
+    "edit": {
+      "header": {
+        "title": "Edit product",
+        "save": "Save"
+      },
+      "sections": {
+        "essentials": "Essentials"
       }
     }
   },

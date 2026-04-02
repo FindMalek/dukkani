@@ -2,27 +2,45 @@
 
 import { productFormSchema } from "@dukkani/common/schemas/product/form";
 import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
+import type { UpdateProductInput } from "@dukkani/common/schemas/product/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useCategoriesQuery } from "@/hooks/api/use-categories.hook";
-import { createProductMutationOptions } from "@/hooks/api/use-products.hook";
+import {
+  createProductMutationOptions,
+  useProductQuery,
+  useUpdateProductMutation,
+} from "@/hooks/api/use-products.hook";
 import { handleAPIError } from "@/lib/error";
+import { mapProductToFormValues } from "@/lib/map-product-to-form";
 import { client } from "@/lib/orpc";
-import { RoutePaths } from "@/lib/routes";
 import { productFormOptions } from "@/lib/product-form-options";
+import { RoutePaths } from "@/lib/routes";
 
 /**
- * Create-product flow: TanStack Form + categories + create mutation.
- * Edit flow can extend this hook later with different defaultValues/onSubmit.
+ * Create or edit product: TanStack Form + categories + create/update mutation.
  */
-export function useProductForm({ storeId }: { storeId: string }) {
+export function useProductForm({
+  storeId,
+  productId,
+}: {
+  storeId: string;
+  productId?: string;
+}) {
   const router = useRouter();
+  const isEdit = Boolean(productId);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
 
-  const { data: categories } = useCategoriesQuery({ storeId });
+  const productQuery = useProductQuery(productId ?? "", {
+    enabled: Boolean(isEdit && productId),
+  });
   const createProductMutation = useMutation(createProductMutationOptions);
+  const updateProductMutation = useUpdateProductMutation();
+
+  const initialLoadDone = useRef(false);
+  const initialImageUrlsRef = useRef<string[]>([]);
 
   const form = useAppForm({
     ...productFormOptions,
@@ -49,9 +67,42 @@ export function useProductForm({ storeId }: { storeId: string }) {
       }
 
       const cleanedFormData = productFormSchema.parse(value);
+      const { existingImageUrls = [], ...rest } = cleanedFormData;
+
+      if (isEdit) {
+        const merged = [...existingImageUrls, ...imageUrls];
+        const sameAsInitial =
+          value.imageFiles.length === 0 &&
+          JSON.stringify([...existingImageUrls].sort()) ===
+            JSON.stringify([...initialImageUrlsRef.current].sort());
+
+        const payload: UpdateProductInput = {
+          id: productId ?? "",
+          name: rest.name,
+          description: rest.description,
+          price: rest.price,
+          stock: rest.stock,
+          published: rest.published,
+          categoryId: rest.categoryId,
+          hasVariants: rest.hasVariants,
+          variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
+          ...(sameAsInitial ? {} : { imageUrls: merged }),
+        };
+
+        await updateProductMutation.mutateAsync(payload, {
+          onSuccess: () => {
+            router.push(RoutePaths.PRODUCTS.INDEX.url);
+          },
+          onError: (error) => {
+            handleAPIError(error);
+          },
+        });
+        return;
+      }
+
       const cleanedData: CreateProductInput = {
-        ...cleanedFormData,
-        imageUrls,
+        ...rest,
+        imageUrls: [...existingImageUrls, ...imageUrls],
         storeId,
       };
 
@@ -66,6 +117,31 @@ export function useProductForm({ storeId }: { storeId: string }) {
       });
     },
   });
+
+  useEffect(() => {
+    initialLoadDone.current = false;
+  }, [productId]);
+
+  useEffect(() => {
+    if (!isEdit || !productId) return;
+    if (!productQuery.data || productQuery.isLoading) return;
+    if (productQuery.data.storeId !== storeId) return;
+    if (initialLoadDone.current) return;
+
+    const mapped = mapProductToFormValues(productQuery.data);
+    initialImageUrlsRef.current = [...mapped.existingImageUrls];
+    form.reset(mapped);
+    initialLoadDone.current = true;
+  }, [
+    isEdit,
+    productId,
+    productQuery.data,
+    productQuery.isLoading,
+    storeId,
+    form,
+  ]);
+
+  const { data: categories } = useCategoriesQuery({ storeId });
 
   const handleOpenCategoryDrawer = useCallback(() => {
     setIsCategoryDrawerOpen(true);
@@ -91,6 +167,11 @@ export function useProductForm({ storeId }: { storeId: string }) {
     [form],
   );
 
+  const variantStructureLocked =
+    isEdit && productQuery.data
+      ? productQuery.data.variantStructureLocked
+      : false;
+
   return {
     form,
     categoriesOptions,
@@ -98,5 +179,12 @@ export function useProductForm({ storeId }: { storeId: string }) {
     setIsCategoryDrawerOpen,
     handleOpenCategoryDrawer,
     handleCategoryCreated,
+    isEdit,
+    productQuery,
+    variantStructureLocked,
+    storeMismatch:
+      isEdit &&
+      Boolean(productQuery.data) &&
+      productQuery.data!.storeId !== storeId,
   };
 }

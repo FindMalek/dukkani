@@ -19,11 +19,14 @@ import { productFormOptions } from "@/lib/product-form-options";
 
 export const ProductFormVariants = withForm({
   ...productFormOptions,
-  props: {},
-  render: function Render({ form }) {
+  props: {
+    variantStructureLocked: false,
+  },
+  render: function Render({ form, variantStructureLocked }) {
     const t = useTranslations("products.create");
 
     const handleAddNewVariantOption = useCallback(() => {
+      if (variantStructureLocked) return;
       if (
         form.state.values.variantOptions?.some((option) => option.name === "")
       ) {
@@ -33,14 +36,20 @@ export const ProductFormVariants = withForm({
         ...(prev ?? []),
         { name: "", values: [] },
       ]);
-    }, [form]);
+    }, [form, variantStructureLocked]);
 
     return (
       <>
+        {variantStructureLocked ? (
+          <p className="text-muted-foreground text-sm">
+            {t("form.options.structureLocked")}
+          </p>
+        ) : null}
         <form.AppField
           name="hasVariants"
           listeners={{
             onChange: ({ value }) => {
+              if (variantStructureLocked) return;
               if (value) {
                 form.setFieldValue("variantOptions", [
                   { name: "", values: [] },
@@ -55,6 +64,7 @@ export const ProductFormVariants = withForm({
             <field.SwitchInput
               label={t("form.options.label")}
               description={t("form.options.description")}
+              disabled={variantStructureLocked}
             />
           )}
         </form.AppField>
