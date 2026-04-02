@@ -82,19 +82,27 @@ class MigrationTemplateGenerator {
 
     const registryContent = readFileSync(this.databaseRegistryPath, "utf-8");
 
-    if (registryContent.includes(importLine) || registryContent.includes(entryLine)) {
-      return;
+    // Check for duplicate migration class name in registry
+    if (registryContent.includes(`import { ${className} }`)) {
+      throw new Error(
+        `Migration name already exists: ${className}. Migration names must be unique. Choose a different name.`,
+      );
     }
 
     const importAnchor = "import { DatabaseMigration }";
-    const exportAnchor = "export const migrations: DatabaseMigrationRegistryEntry[] = [";
+    const exportAnchor =
+      "export const migrations: DatabaseMigrationRegistryEntry[] = [";
     const arrayCloseAnchor = "];";
 
     const importAnchorIdx = registryContent.indexOf(importAnchor);
     const exportAnchorIdx = registryContent.indexOf(exportAnchor);
     const arrayCloseIdx = registryContent.lastIndexOf(arrayCloseAnchor);
 
-    if (importAnchorIdx === -1 || exportAnchorIdx === -1 || arrayCloseIdx === -1) {
+    if (
+      importAnchorIdx === -1 ||
+      exportAnchorIdx === -1 ||
+      arrayCloseIdx === -1
+    ) {
       throw new Error(
         `Unable to update database registry at ${this.databaseRegistryPath}. Unexpected file structure.`,
       );
