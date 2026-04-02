@@ -64,7 +64,10 @@ export default async function StorePage() {
           {categoryOptions.length > 0 && (
             <CategoryFilter categories={categoryOptions} />
           )}
-          <ProductSectionHeader title={t("products.title")} />
+          <ProductSectionHeader
+            title={t("products.title")}
+            showFilter={products.length > 0}
+          />
           <ProductGrid products={products} />
         </div>
       </HydrationBoundary>
