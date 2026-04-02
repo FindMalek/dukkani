@@ -35,7 +35,7 @@ catalog:
   negotiator: ^1.0.0
   next: ^16.2.1
   next-intl: ^4.8.3
-  ai: ^4.0.0
+  ai: ^5.0.52
   '@ai-sdk/groq': ^1.0.0
   pino: ^9.9.5
   prisma: ^7.5.0
