@@ -17,6 +17,7 @@ export default async function ProductDetailPage({
 }) {
   const { id } = await params;
   const queryClient = getQueryClient();
+
   const headersList = await headers();
   const host = headersList.get("host");
   const cookieStore = await cookies();
