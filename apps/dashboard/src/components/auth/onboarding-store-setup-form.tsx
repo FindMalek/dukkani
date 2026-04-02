@@ -1,11 +1,17 @@
 "use client";
 
-import { storeNotificationMethodEnum } from "@dukkani/common/schemas/enums";
+import { StoreEntity } from "@dukkani/common/entities/store/entity";
+import {
+  LIST_SUPPORTED_CURRENCIES,
+  SupportedCurrency,
+  storeNotificationMethodEnum,
+} from "@dukkani/common/schemas/enums";
 import {
   type CreateStoreOnboardingInput,
   createStoreOnboardingInputSchema,
 } from "@dukkani/common/schemas/store/input";
 import { Button } from "@dukkani/ui/components/button";
+import { FlagComponent } from "@dukkani/ui/components/country";
 import { FieldGroup } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
@@ -17,6 +23,7 @@ export const storeSetupFormDefaultOptions = formOptions({
   defaultValues: {
     name: "",
     description: "",
+    currency: SupportedCurrency.TND,
     notificationMethod: storeNotificationMethodEnum.EMAIL,
   } as CreateStoreOnboardingInput,
   validators: {
@@ -29,7 +36,7 @@ export const StoreSetupOnboardingForm = withForm({
   ...storeSetupFormDefaultOptions,
   render: function RenderForm({ form }) {
     const t = useTranslations("onboarding.storeSetup");
-    const options = useMemo(
+    const notificationMethodOptions = useMemo(
       () => [
         {
           label: t("notifications.options.email.label"),
@@ -49,6 +56,19 @@ export const StoreSetupOnboardingForm = withForm({
       ],
       [t],
     );
+    const currenciesOptions = useMemo(
+      () => [
+        {
+          id: "currency",
+          options: LIST_SUPPORTED_CURRENCIES.map((currency) => ({
+            id: currency,
+            name: <CurrencySelectOption currency={currency} />,
+            value: currency,
+          })),
+        },
+      ],
+      [],
+    );
     return (
       <>
         <div className="space-y-2 text-center">
@@ -66,6 +86,17 @@ export const StoreSetupOnboardingForm = withForm({
                     label={t("storeName.label")}
                     placeholder={t("storeName.placeholder")}
                     autoFocus
+                    autoComplete="off"
+                  />
+                )}
+              </form.AppField>
+              <form.AppField name="currency">
+                {(field) => (
+                  <field.SelectInput
+                    label={t("currency.label")}
+                    options={currenciesOptions}
+                    noReset
+                    placeholder={t("currency.placeholder")}
                   />
                 )}
               </form.AppField>
@@ -74,7 +105,7 @@ export const StoreSetupOnboardingForm = withForm({
                   <field.RadioGroupInput
                     label={t("notifications.label")}
                     as="cards"
-                    options={options}
+                    options={notificationMethodOptions}
                   />
                 )}
               </form.AppField>
@@ -96,3 +127,31 @@ export const StoreSetupOnboardingForm = withForm({
     );
   },
 });
+
+function useCurrencyInformation(currency: SupportedCurrency) {
+  const t = useTranslations("currencies");
+  return useMemo(
+    () => ({
+      countryCode: StoreEntity.getCurrencyCountryCode(currency),
+      countryName: t(StoreEntity.getCurrencyCountryNameKey(currency)),
+      name: t(StoreEntity.getCurrencyNameKey(currency)),
+    }),
+    [currency, t],
+  );
+}
+
+function CurrencySelectOption({ currency }: { currency: SupportedCurrency }) {
+  const currencyInformation = useCurrencyInformation(currency);
+  return (
+    <span className="flex flex-row items-center justify-between gap-3">
+      <FlagComponent
+        country={currencyInformation.countryCode}
+        countryName={currencyInformation.countryName}
+      />
+      <span className="flex items-center gap-2">
+        <span>{currencyInformation.name}</span>
+        <span className="text-muted-foreground text-sm">{currency}</span>
+      </span>
+    </span>
+  );
+}

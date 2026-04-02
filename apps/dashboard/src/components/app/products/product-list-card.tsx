@@ -1,14 +1,14 @@
 "use client";
 
 import type { ListProductOutput } from "@dukkani/common/schemas/product/output";
-import { formatCurrency } from "@dukkani/common/utils";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
+import { useFormatPriceForActiveStore } from "@/stores";
 import { RoutePaths } from "@/lib/routes";
 import { ProductCardDropdown } from "./product-card-dropdown";
 
@@ -23,9 +23,9 @@ export function ProductListCard({
   onDelete,
   onTogglePublish,
 }: ProductListCardProps) {
-  const locale = useLocale();
   const router = useRouter();
   const t = useTranslations("products.list");
+  const formatPrice = useFormatPriceForActiveStore();
 
   const firstImageUrl = product.imageUrls[0];
   const isOutOfStock = product.stock === 0;
@@ -105,7 +105,7 @@ export function ProductListCard({
 
           {/* Price */}
           <p className="mt-1.5 font-medium text-foreground text-sm">
-            {formatCurrency(product.price, "TND", locale)}
+            {formatPrice(product.price)}
           </p>
 
           {/* Status / Meta row */}

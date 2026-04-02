@@ -8,6 +8,7 @@ import {
   StorePlanType,
   StoreStatus,
   StoreTheme,
+  SupportedCurrency,
   TeamMemberRole,
   UserOnboardingStep,
   WhatsAppMessageStatus,
@@ -137,3 +138,12 @@ export const paymentMethodSchema = z.nativeEnum(PaymentMethod);
 export const paymentMethodEnum = paymentMethodSchema.enum;
 export const LIST_PAYMENT_METHODS = Object.values(PaymentMethod);
 export type PaymentMethodInfer = z.infer<typeof paymentMethodSchema>;
+
+/**
+ * Supported Currency Enum
+ */
+export { SupportedCurrency };
+export const supportedCurrencySchema = z.enum(SupportedCurrency);
+export const supportedCurrencyEnum = supportedCurrencySchema.enum;
+export const LIST_SUPPORTED_CURRENCIES = Object.values(SupportedCurrency);
+export type SupportedCurrencyInfer = z.infer<typeof supportedCurrencySchema>;

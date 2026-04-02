@@ -120,7 +120,12 @@ export const ProductFormVariants = withForm({
                                               ).map((_value, valueIndex) => (
                                                 <form.AppField
                                                   name={`variantOptions[${variantOptionIndex}].values[${valueIndex}].value`}
-                                                  key={"variantOption-" + variantOptionIndex + "-value-" + valueIndex}
+                                                  key={
+                                                    "variantOption-" +
+                                                    variantOptionIndex +
+                                                    "-value-" +
+                                                    valueIndex
+                                                  }
                                                 >
                                                   {(pillField) => (
                                                     <pillField.PillInput

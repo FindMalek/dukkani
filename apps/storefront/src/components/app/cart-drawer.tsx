@@ -1,5 +1,6 @@
 "use client";
 
+import type { store } from "@dukkani/common/schemas";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,
@@ -12,20 +13,24 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { useTranslations } from "next-intl";
 import { useEnrichedCart } from "@/hooks/use-enriched-cart";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { CartItem as CartItemComponent } from "./cart-item";
-import { formatCurrency } from "@dukkani/common/utils";
-import { useLocale } from "next-intl";
 
 interface CartDrawerProps {
   open: boolean;
+  storeCurrency: store.SupportedCurrencyInfer;
   onOpenChange: (open: boolean) => void;
 }
 
-export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
+export function CartDrawer({
+  open,
+  onOpenChange,
+  storeCurrency,
+}: CartDrawerProps) {
   const router = useRouter();
-  const locale = useLocale();
   const t = useTranslations("storefront.store.cart");
+  const formatPrice = useFormatPriceCurrentStore(storeCurrency);
 
   const { enrichedData, subtotal, isLoading } = useEnrichedCart({
     enabled: open,
@@ -65,6 +70,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                   productDescription={item.productDescription}
                   price={item.price}
                   stock={item.stock}
+                  currency={storeCurrency}
                 />
               ))}
             </div>
@@ -90,7 +96,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                     className="font-semibold text-sm tabular-nums"
                     dir="ltr"
                   >
-                    {formatCurrency(subtotal, "TND", locale)}
+                    {formatPrice(subtotal)}
                   </span>
                   <Icons.arrowRight className="size-4 rtl:rotate-180" />
                 </div>

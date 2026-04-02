@@ -1,7 +1,9 @@
 import { CheckIcon, ChevronsUpDown } from "lucide-react";
 import * as React from "react";
-import * as RPNInput from "react-phone-number-input";
-import flags from "react-phone-number-input/flags";
+import type * as RPNInput from "react-phone-number-input";
+import RPNInputWrapper, {
+  getCountryCallingCode,
+} from "react-phone-number-input";
 import { useFieldContext } from "../../hooks/use-app-form";
 import { cn } from "../../lib/utils";
 import { Button } from "../button";
@@ -12,6 +14,7 @@ import {
   CommandItem,
   CommandList,
 } from "../command";
+import { FlagComponent } from "../country";
 import { Input } from "../input";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 import { ScrollArea } from "../scroll-area";
@@ -21,7 +24,7 @@ type PhoneNumberInputControlProps = Omit<
   React.ComponentProps<"input">,
   "onChange" | "value" | "ref"
 > &
-  Omit<RPNInput.Props<typeof RPNInput.default>, "onChange"> & {
+  Omit<RPNInput.Props<typeof RPNInputWrapper>, "onChange"> & {
     onChange?: (value: RPNInput.Value) => void;
   };
 
@@ -68,9 +71,9 @@ function PhoneNumberInputControl({
   ...props
 }: PhoneNumberInputControlProps) {
   return (
-    <RPNInput.default
+    <RPNInputWrapper
       className={cn("flex", className)}
-      flagComponent={FlagComponent}
+      flagComponent={CountrySelectFlagComponent}
       countrySelectComponent={CountrySelect}
       inputComponent={PhoneInputComponent}
       smartCaret={false}
@@ -130,7 +133,7 @@ const CountrySelect = ({
           className="flex gap-1 rounded-s-lg rounded-e-none border-r-0 px-3 focus:z-10"
           disabled={disabled}
         >
-          <FlagComponent
+          <CountrySelectFlagComponent
             country={selectedCountry}
             countryName={selectedCountry}
           />
@@ -204,9 +207,9 @@ const CountrySelectOption = ({
 
   return (
     <CommandItem className="gap-2" onSelect={handleSelect}>
-      <FlagComponent country={country} countryName={countryName} />
+      <CountrySelectFlagComponent country={country} countryName={countryName} />
       <span className="flex-1 text-sm">{countryName}</span>
-      <span className="text-foreground/50 text-sm">{`+${RPNInput.getCountryCallingCode(country)}`}</span>
+      <span className="text-foreground/50 text-sm">{`+${getCountryCallingCode(country)}`}</span>
       <CheckIcon
         className={`ml-auto size-4 ${country === selectedCountry ? "opacity-100" : "opacity-0"}`}
       />
@@ -214,12 +217,9 @@ const CountrySelectOption = ({
   );
 };
 
-const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
-  const Flag = flags[country];
-
-  return (
-    <span className="flex h-4 w-6 overflow-hidden rounded-sm bg-foreground/20 [&_svg:not([class*='size-'])]:size-full">
-      {Flag && <Flag title={countryName} />}
-    </span>
-  );
+const CountrySelectFlagComponent = ({
+  country,
+  countryName,
+}: RPNInput.FlagProps) => {
+  return <FlagComponent country={country} countryName={countryName} />;
 };

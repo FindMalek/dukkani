@@ -47,6 +47,10 @@ const nextConfig: NextConfig = {
         hostname: "assets.preview.dukkani.co",
         pathname: "/**",
       },
+      {
+        hostname: "flagcdn.com",
+        pathname: "/**",
+      },
     ],
   },
 };

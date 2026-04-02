@@ -5,14 +5,14 @@ import {
   OrderEntity,
 } from "@dukkani/common/entities/order/entity";
 import type { OrderIncludeOutput } from "@dukkani/common/schemas/order/output";
-import { formatCurrency } from "@dukkani/common/utils";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { useUpdateOrderStatusMutation } from "@/hooks/api/use-orders.hook";
+import { useFormatPriceForActiveStore } from "@/stores";
 import { getItemsCount, getOrderTotal } from "@/lib/order-utils";
 import { RoutePaths } from "@/lib/routes";
 
@@ -21,7 +21,6 @@ interface OrderListCardProps {
 }
 
 export function OrderListCard({ order }: OrderListCardProps) {
-  const locale = useLocale();
   const t = useTranslations("orders.list");
   const router = useRouter();
   const updateStatusMutation = useUpdateOrderStatusMutation();
@@ -37,6 +36,7 @@ export function OrderListCard({ order }: OrderListCardProps) {
   const canCall = !!order.customer?.phone;
   const canAdvance = nextStatus !== null;
   const isPending = updateStatusMutation.isPending;
+  const formatPrice = useFormatPriceForActiveStore();
 
   const actions = useMemo(
     () => [
@@ -102,7 +102,7 @@ export function OrderListCard({ order }: OrderListCardProps) {
 
         <div className="flex items-center gap-2">
           <p className="font-bold text-foreground text-lg">
-            {formatCurrency(total, "TND", locale)}
+            {formatPrice(total)}
           </p>
           <Icons.chevronRight className="size-5 shrink-0 text-muted-foreground" />
         </div>
