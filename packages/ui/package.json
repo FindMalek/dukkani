@@ -61,7 +61,7 @@
     "react-dom": "catalog:",
     "react-dropzone": "catalog:",
     "react-icons": "^5.2.1",
-    "react-phone-number-input": "^3.4.14",
+    "react-phone-number-input": "^3.4.16",
     "react-resizable-panels": "^3.0.6",
     "recharts": "2.15.4",
     "sonner": "catalog:",
