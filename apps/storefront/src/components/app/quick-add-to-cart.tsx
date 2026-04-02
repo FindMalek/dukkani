@@ -18,7 +18,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { VariantSelector } from "@/components/shared/variant-selector";
-import { useFormatPriceCurrentStore } from "@/hooks/use-format-price";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useProductVariantSelection } from "@/hooks/use-product-variant-selection";
 import { useCartStore } from "@/stores/cart.store";
 

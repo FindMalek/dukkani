@@ -23,7 +23,7 @@ import { useCartHydration } from "@/hooks/use-cart-hydration";
 import { useCreateOrder } from "@/hooks/use-create-order";
 import { useDetectedAddress } from "@/hooks/use-detected-address";
 import { useEnrichedCart } from "@/hooks/use-enriched-cart";
-import { useFormatPriceCurrentStore } from "@/hooks/use-format-price";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { OrderSummary } from "./order-summary";
 

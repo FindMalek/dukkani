@@ -13,7 +13,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { useTranslations } from "next-intl";
 import { useEnrichedCart } from "@/hooks/use-enriched-cart";
-import { useFormatPriceCurrentStore } from "@/hooks/use-format-price";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { CartItem as CartItemComponent } from "./cart-item";
 

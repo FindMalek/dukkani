@@ -8,7 +8,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Image from "next/image";
 import Link from "next/link";
-import { useFormatPriceCurrentStore } from "@/hooks/use-format-price";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { RoutePaths } from "@/lib/routes";
 
 interface ProductCardProps {

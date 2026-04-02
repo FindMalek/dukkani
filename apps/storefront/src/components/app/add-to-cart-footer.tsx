@@ -6,7 +6,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useFormatPriceCurrentStore } from "@/hooks/use-format-price";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useCartStore } from "@/stores/cart.store";
 
 interface AddToCartFooterProps {

@@ -8,7 +8,7 @@ import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { memo, useCallback, useMemo } from "react";
-import { useFormatPriceCurrentStore } from "@/hooks/use-format-price";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import {
   type CartItem as CartItemType,
   useCartStore,
