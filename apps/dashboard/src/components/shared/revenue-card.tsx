@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormatPriceCurrentStore } from "@/hooks/use-format-price-current-store";
+import { useFormatPriceForActiveStore } from "@/stores";
 import { MetricCard } from "./metric-card";
 
 interface RevenueCardProps {
@@ -10,7 +10,7 @@ interface RevenueCardProps {
 }
 
 export function RevenueCard({ title, value, className }: RevenueCardProps) {
-  const formatPrice = useFormatPriceCurrentStore();
+  const formatPrice = useFormatPriceForActiveStore();
 
   return (
     <MetricCard

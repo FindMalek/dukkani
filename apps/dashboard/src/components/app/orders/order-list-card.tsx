@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { useUpdateOrderStatusMutation } from "@/hooks/api/use-orders.hook";
-import { useFormatPriceCurrentStore } from "@/hooks/use-format-price-current-store";
+import { useFormatPriceForActiveStore } from "@/stores";
 import { getItemsCount, getOrderTotal } from "@/lib/order-utils";
 import { RoutePaths } from "@/lib/routes";
 
@@ -36,7 +36,7 @@ export function OrderListCard({ order }: OrderListCardProps) {
   const canCall = !!order.customer?.phone;
   const canAdvance = nextStatus !== null;
   const isPending = updateStatusMutation.isPending;
-  const formatPrice = useFormatPriceCurrentStore();
+  const formatPrice = useFormatPriceForActiveStore();
 
   const actions = useMemo(
     () => [

@@ -8,7 +8,7 @@ import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { useFormatPriceCurrentStore } from "@/hooks/use-format-price-current-store";
+import { useFormatPriceForActiveStore } from "@/stores";
 import { RoutePaths } from "@/lib/routes";
 import { ProductCardDropdown } from "./product-card-dropdown";
 
@@ -25,7 +25,7 @@ export function ProductListCard({
 }: ProductListCardProps) {
   const router = useRouter();
   const t = useTranslations("products.list");
-  const formatPrice = useFormatPriceCurrentStore();
+  const formatPrice = useFormatPriceForActiveStore();
 
   const firstImageUrl = product.imageUrls[0];
   const isOutOfStock = product.stock === 0;
