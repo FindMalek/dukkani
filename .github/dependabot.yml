@@ -6,25 +6,7 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directories:
-      - "/"
-      - "/apps/api"
-      - "/apps/dashboard"
-      - "/apps/storefront"
-      - "/apps/web"
-      - "/packages/auth"
-      - "/packages/ci-tools"
-      - "/packages/common"
-      - "/packages/config"
-      - "/packages/core"
-      - "/packages/db"
-      - "/packages/env"
-      - "/packages/logger"
-      - "/packages/migrations"
-      - "/packages/orpc"
-      - "/packages/storage"
-      - "/packages/tracing"
-      - "/packages/ui"
+    directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
@@ -37,5 +19,7 @@ updates:
       patch-updates:
         patterns:
           - "*"
+        exclude-patterns:
+          - "@typescript/native-preview"
         update-types:
           - "patch"
