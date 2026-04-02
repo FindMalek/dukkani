@@ -11,8 +11,8 @@ export abstract class DatabaseMigration {
   abstract rollback: () => Promise<void>;
   abstract cleanup: () => Promise<void>;
   execute = async () => {
-    await this.database.$connect();
     try {
+      await this.database.$connect();
       if (await this.runWhen()) {
         await this.run();
       }
