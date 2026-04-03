@@ -66,6 +66,7 @@ export default async function StorePage() {
           )}
           <ProductSectionHeader
             title={t("products.title")}
+            storeCurrency={store.currency}
             showFilter={products.length > 0}
           />
           <ProductGrid products={products} store={store} />
