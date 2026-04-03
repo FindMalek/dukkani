@@ -38,6 +38,7 @@ interface MigrationTemplateData {
 class MigrationTemplateGenerator {
   private readonly migrationsDir: string;
   private readonly templatesDir: string;
+  private readonly databaseRegistryPath: string;
 
   constructor() {
     this.migrationsDir = join(__dirname, "..", "migrations");
@@ -46,6 +47,14 @@ class MigrationTemplateGenerator {
       "..",
       "templates",
       "migration-templates",
+    );
+    this.databaseRegistryPath = join(
+      __dirname,
+      "..",
+      "cli",
+      "commands",
+      "database",
+      "migrations.ts",
     );
   }
 
@@ -57,6 +66,58 @@ class MigrationTemplateGenerator {
       .split(/[-_]/)
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join("")}Migration`;
+  }
+
+  /**
+   * Register a database migration in the CLI migration registry.
+   */
+  private registerDatabaseMigration(fileName: string, className: string): void {
+    const importPath = `../../../migrations/${fileName.replace(/\.ts$/i, "")}`;
+    const importLine = `import { ${className} } from "${importPath}";`;
+    const entryLine = `  {
+    name: ${className}.migrationName,
+    version: ${className}.migrationVersion,
+    create: () => new ${className}(),
+  },`;
+
+    const registryContent = readFileSync(this.databaseRegistryPath, "utf-8");
+
+    // Check for duplicate migration class name in registry
+    if (registryContent.includes(`import { ${className} }`)) {
+      throw new Error(
+        `Migration name already exists: ${className}. Migration names must be unique. Choose a different name.`,
+      );
+    }
+
+    const importAnchor = "import { DatabaseMigration }";
+    const exportAnchor =
+      "export const migrations: DatabaseMigrationRegistryEntry[] = [";
+    const arrayCloseAnchor = "];";
+
+    const importAnchorIdx = registryContent.indexOf(importAnchor);
+    const exportAnchorIdx = registryContent.indexOf(exportAnchor);
+    const arrayCloseIdx = registryContent.lastIndexOf(arrayCloseAnchor);
+
+    if (
+      importAnchorIdx === -1 ||
+      exportAnchorIdx === -1 ||
+      arrayCloseIdx === -1
+    ) {
+      throw new Error(
+        `Unable to update database registry at ${this.databaseRegistryPath}. Unexpected file structure.`,
+      );
+    }
+
+    const beforeImports = registryContent.slice(0, importAnchorIdx);
+    const afterImports = registryContent.slice(importAnchorIdx);
+    const withImport = `${beforeImports}${importLine}\n${afterImports}`;
+
+    const withEntry =
+      withImport.slice(0, withImport.lastIndexOf(arrayCloseAnchor)) +
+      `${entryLine}\n` +
+      withImport.slice(withImport.lastIndexOf(arrayCloseAnchor));
+
+    writeFileSync(this.databaseRegistryPath, withEntry, "utf-8");
   }
 
   /**
@@ -238,10 +299,25 @@ class MigrationTemplateGenerator {
       writeFileSync(filePath, content, { flag: "wx", encoding: "utf-8" });
       logger.info(`Migration created successfully: ${fileName}`);
       logger.info(`Path: ${filePath}`);
+
+      if (migrationType === "database") {
+        this.registerDatabaseMigration(fileName, templateData.className);
+        logger.info(
+          `Registered ${templateData.className} in database migration registry`,
+        );
+      }
+
       logger.info("Next steps:");
       logger.info(`1. Open ${fileName} and implement the migration logic`);
-      logger.info("2. Run: pnpm migrate:storage -- --dry-run");
-      logger.info("3. When ready: pnpm migrate:storage");
+      if (migrationType === "database") {
+        logger.info("2. Run: pnpm migrate -- db run --name <migration-name>");
+        logger.info(
+          "3. Run (pattern): pnpm migrate -- db run --pattern <name-pattern>",
+        );
+      } else {
+        logger.info("2. Run: pnpm migrate:storage -- --dry-run");
+        logger.info("3. When ready: pnpm migrate:storage");
+      }
     } catch (error) {
       if (error instanceof Error && error.message.includes("EEXIST")) {
         throw new Error(`Migration file already exists: ${fileName}`);

@@ -68,7 +68,7 @@ export default async function StorePage() {
             title={t("products.title")}
             showFilter={products.length > 0}
           />
-          <ProductGrid products={products} />
+          <ProductGrid products={products} store={store} />
         </div>
       </HydrationBoundary>
     );

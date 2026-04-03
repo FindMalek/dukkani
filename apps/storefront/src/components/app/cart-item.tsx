@@ -1,5 +1,6 @@
 "use client";
 
+import type { store } from "@dukkani/common/schemas";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
@@ -7,6 +8,7 @@ import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { memo, useCallback, useMemo } from "react";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import {
   type CartItem as CartItemType,
   useCartStore,
@@ -14,12 +16,12 @@ import {
 
 interface CartItemProps {
   item: CartItemType;
+  currency: store.SupportedCurrencyInfer;
   productName: string;
   productImage?: string;
   productDescription?: string;
   price: number;
   stock: number;
-  currency?: string;
 }
 
 export const CartItem = memo(function CartItem({
@@ -29,18 +31,19 @@ export const CartItem = memo(function CartItem({
   productDescription,
   price,
   stock,
-  currency = "TND",
+  currency,
 }: CartItemProps) {
   const t = useTranslations("storefront.store.cart.item");
   const removeItem = useCartStore((state) => state.removeItem);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const formatPrice = useFormatPriceCurrentStore(currency);
 
   const isLowStock = stock <= 5 && stock > 0;
   const isOutOfStock = stock === 0;
   const maxQuantity = Math.min(stock, 99);
   const formattedPrice = useMemo(
-    () => (price * item.quantity).toFixed(3),
-    [price, item.quantity],
+    () => formatPrice(price * item.quantity),
+    [formatPrice, price, item.quantity],
   );
 
   const handleDecrease = useCallback(() => {
@@ -133,7 +136,7 @@ export const CartItem = memo(function CartItem({
             className="font-semibold text-foreground tabular-nums"
             dir="ltr"
           >
-            {formattedPrice} {currency}
+            {formattedPrice}
           </span>
         </div>
       </div>

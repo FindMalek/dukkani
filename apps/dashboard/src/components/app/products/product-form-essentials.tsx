@@ -3,6 +3,7 @@
 import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-field";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
+import { useCurrentStoreCurrency } from "@/stores";
 import { productFormOptions } from "@/lib/product-form-options";
 
 export const ProductFormEssentials = withForm({
@@ -19,6 +20,8 @@ export const ProductFormEssentials = withForm({
     optimizeFiles,
   }) {
     const t = useTranslations("products.create");
+    const currency = useCurrentStoreCurrency();
+
     return (
       <>
         <form.AppField name="name">
@@ -39,7 +42,12 @@ export const ProductFormEssentials = withForm({
         </form.AppField>
         <div className="flex items-start justify-between gap-4">
           <form.AppField name="price">
-            {(field) => <field.PriceInput label={t("form.price.label")} />}
+            {(field) => (
+              <field.PriceInput
+                label={t("form.price.label")}
+                currency={currency}
+              />
+            )}
           </form.AppField>
           <form.AppField name="stock">
             {(field) => <field.NumberInput label={t("form.stock.label")} />}

@@ -23,11 +23,7 @@ export function TodaysPerformance({ stats }: TodaysPerformanceProps) {
           value={stats.todayOrders}
           change={stats.todayOrdersChange}
         />
-        <RevenueCard
-          title={t("revenue")}
-          value={stats.todayRevenue}
-          currency="TND"
-        />
+        <RevenueCard title={t("revenue")} value={stats.todayRevenue} />
       </div>
     </div>
   );

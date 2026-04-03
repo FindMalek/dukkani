@@ -1,5 +1,6 @@
 // Main exports
 
+export { DatabaseMigration } from "./database/database-migration";
 // Environment
 export { migrationEnv } from "./env";
 export { BaseMigration } from "./templates/base-migration";

@@ -26,10 +26,12 @@ export const signUpOnboardingFormDefaultValues = (email = "") =>
 
 export const SignUpOnboardingForm = withForm({
   ...signUpOnboardingFormDefaultValues(),
-  render: function RenderForm({ form }) {
+  props: {
+    emailFromQuery: null as string | null,
+  },
+  render: function RenderForm({ form, emailFromQuery }) {
     const t = useTranslations("onboarding.signup");
-    const emailValue = form.getFieldValue("email");
-    const hasEmailFromParams = !!emailValue;
+    const hasEmailInQuery = !!emailFromQuery;
 
     return (
       <>
@@ -59,8 +61,8 @@ export const SignUpOnboardingForm = withForm({
                       label={t("email.label")}
                       placeholder={t("email.placeholder")}
                       autoComplete="email"
-                      readOnly={hasEmailFromParams}
-                      disabled={hasEmailFromParams}
+                      readOnly={hasEmailInQuery}
+                      disabled={hasEmailInQuery}
                     />
                   </>
                 )}

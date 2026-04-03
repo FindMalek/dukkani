@@ -6,7 +6,6 @@ import {
   createOrderPublicInputSchema,
 } from "@dukkani/common/schemas/order/input";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
-import { formatCurrency } from "@dukkani/common/utils/formatCurrency";
 import { Button } from "@dukkani/ui/components/button";
 import {
   FieldGroup,
@@ -16,7 +15,7 @@ import {
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useEffectEvent, useRef } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -24,9 +23,9 @@ import { useCartHydration } from "@/hooks/use-cart-hydration";
 import { useCreateOrder } from "@/hooks/use-create-order";
 import { useDetectedAddress } from "@/hooks/use-detected-address";
 import { useEnrichedCart } from "@/hooks/use-enriched-cart";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { OrderSummary } from "./order-summary";
-import { useLocale } from "next-intl";
 
 interface CheckoutFormProps {
   store: StorePublicOutput;
@@ -51,6 +50,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("storefront.store.checkout");
+  const formatPrice = useFormatPriceCurrentStore(store.currency);
 
   const hydrated = useCartHydration();
   const autoLocation = useDetectedAddress();
@@ -167,7 +167,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
   return (
     <Form
       onSubmit={form.handleSubmit}
-      className="mx-auto max-w-md md:max-w-2xl px-4"
+      className="mx-auto max-w-md px-4 md:max-w-2xl"
     >
       <form.AppForm>
         <FieldGroup>
@@ -264,6 +264,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
           <OrderSummary
             items={enrichedData ?? []}
             shippingCost={store.shippingCost}
+            storeCurrency={store.currency}
             loading={cartQueryLoading || !enrichedData}
           />
         </FieldGroup>
@@ -292,7 +293,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                         className="font-semibold text-sm tabular-nums"
                         dir="ltr"
                       >
-                        {formatCurrency(total, "TND", locale)}
+                        {formatPrice(total)}
                       </span>
                       <Icons.arrowRight className="size-4 rtl:rotate-180" />
                     </div>

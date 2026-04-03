@@ -18,7 +18,7 @@ import { BaseField, type CommonFieldProps } from "./base-field";
 
 export type SelectOption = {
   id: string;
-  name: string;
+  name: React.ReactNode;
 };
 
 export type SelectOptionGroup = {
@@ -34,6 +34,7 @@ interface SelectFieldProps
   options?: SelectOptionGroup[] | (() => Promise<SelectOptionGroup[]>);
   placeholder?: string;
   onNewOptionClick?: () => void;
+  noReset?: boolean;
 }
 
 export function SelectField({
@@ -44,6 +45,7 @@ export function SelectField({
   placeholder = "",
   options: optionsOrPromise,
   onNewOptionClick,
+  noReset = false,
   ...props
 }: SelectFieldProps) {
   const field = useFieldContext<string | undefined>();
@@ -118,14 +120,16 @@ export function SelectField({
               <Icons.plus className="size-4" />
             </Button>
           )}
-          <Button
-            type="button"
-            variant="secondary"
-            size="icon"
-            onClick={handleReset}
-          >
-            <Icons.trash className="size-4" />
-          </Button>
+          {!noReset && (
+            <Button
+              type="button"
+              variant="secondary"
+              size="icon"
+              onClick={handleReset}
+            >
+              <Icons.trash className="size-4" />
+            </Button>
+          )}
         </div>
         <SelectContent>
           {resolvedOptions.map((optionGroup) => (

@@ -156,7 +156,7 @@ export default function OnboardingPage() {
     <div className="flex w-full max-w-md flex-col gap-10">
       <OnboardingStepper currentStep={stepperStep} />
       {!onboarding.isAuthenticated && onboarding.effectiveStep === null && (
-        <SignUpOnboardingForm form={signUpForm} />
+        <SignUpOnboardingForm form={signUpForm} emailFromQuery={email} />
       )}
       {onboarding.effectiveStep === UserOnboardingStep.STORE_SETUP && (
         <StoreSetupOnboardingForm form={onboarding.forms.storeSetupForm} />

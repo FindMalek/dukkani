@@ -51,3 +51,10 @@ export function useConfigureStoreMutation() {
     },
   });
 }
+
+export function useGetStoreByIdQuery(storeId: string | undefined) {
+  return useQuery({
+    ...orpc.store.getById.queryOptions({ input: { id: storeId } }),
+    enabled: !!storeId,
+  });
+}

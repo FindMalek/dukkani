@@ -5,6 +5,7 @@ import {
   StorePlanType,
   StoreStatus,
   StoreTheme,
+  SupportedCurrency,
 } from "../../../prisma/generated/client";
 import { BaseSeeder } from "../base";
 import type { UserSeeder } from "./user.seeder";
@@ -99,6 +100,7 @@ export class StoreSeeder extends BaseSeeder {
         theme: StoreTheme.MODERN,
         whatsappNumber: "+971501234567",
         ownerEmail: "ahmed@dukkani.co",
+        currency: SupportedCurrency.USD,
         planType: StorePlanType.PREMIUM,
         orderLimit: 1000,
         status: StoreStatus.PUBLISHED,
@@ -110,6 +112,7 @@ export class StoreSeeder extends BaseSeeder {
         category: StoreCategory.ELECTRONICS,
         theme: StoreTheme.MINIMAL,
         whatsappNumber: "+971502345678",
+        currency: SupportedCurrency.EUR,
         ownerEmail: "fatima@dukkani.co",
         planType: StorePlanType.BASIC,
         orderLimit: 500,
@@ -122,6 +125,7 @@ export class StoreSeeder extends BaseSeeder {
         category: StoreCategory.HOME,
         theme: StoreTheme.CLASSIC,
         whatsappNumber: "+971503456789",
+        currency: SupportedCurrency.TND,
         ownerEmail: "omar@dukkani.co",
         planType: StorePlanType.FREE,
         orderLimit: 100,
@@ -146,6 +150,7 @@ export class StoreSeeder extends BaseSeeder {
           category: def.category,
           theme: def.theme,
           whatsappNumber: def.whatsappNumber,
+          currency: def.currency,
           ownerId: owner.id,
           planType: def.planType,
           orderLimit: def.orderLimit,
@@ -172,6 +177,7 @@ export class StoreSeeder extends BaseSeeder {
             category: storeInfo.category,
             theme: storeInfo.theme,
             whatsappNumber: storeInfo.whatsappNumber,
+            currency: storeInfo.currency,
             ownerId: storeInfo.ownerId,
             supportedPaymentMethods: [PaymentMethod.COD],
             shippingCost: 12.0,

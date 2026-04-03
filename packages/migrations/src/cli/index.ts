@@ -4,6 +4,7 @@ import "./env-loader";
 import { logger } from "@dukkani/logger";
 import { Command } from "commander";
 import { CreateCommands } from "./commands/create";
+import { dbCommand } from "./commands/database/command";
 import { StorageCommands } from "./commands/storage";
 
 /**
@@ -26,6 +27,8 @@ storageCommand.addCommand(StorageCommands.createRollbackCommand());
 storageCommand.addCommand(StorageCommands.createValidateCommand());
 
 program.addCommand(storageCommand);
+
+program.addCommand(dbCommand);
 
 // Add creation commands
 program.addCommand(CreateCommands.createCreateCommand());
