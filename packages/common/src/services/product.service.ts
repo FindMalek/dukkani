@@ -129,10 +129,10 @@ class ProductServiceBase {
 
     const client = tx ?? database;
 
-    // Aggregate by (productId, variantId) - use empty string for non-variant items
+    // Aggregate by (productId, variantId) - use null for non-variant items
     const requiredByKey = new Map<string, number>();
     for (const { productId, variantId, quantity } of items) {
-      const key = variantId ? `${productId}:${variantId}` : `${productId}:`;
+      const key = variantId != null ? `${productId}:${variantId}` : `${productId}:null`;
       requiredByKey.set(key, (requiredByKey.get(key) ?? 0) + quantity);
     }
 
@@ -273,10 +273,10 @@ class ProductServiceBase {
 
     const client = tx ?? database;
 
-    // Aggregate by (productId, variantId) - use empty string for non-variant items
+    // Aggregate by (productId, variantId) - use null for non-variant items
     const requiredByKey = new Map<string, number>();
     for (const { productId, variantId, quantity } of items) {
-      const key = variantId ? `${productId}:${variantId}` : `${productId}:`;
+      const key = variantId != null ? `${productId}:${variantId}` : `${productId}:null`;
       requiredByKey.set(key, (requiredByKey.get(key) ?? 0) + quantity);
     }
 
@@ -291,7 +291,7 @@ class ProductServiceBase {
       const colonIdx = key.indexOf(":");
       const productId = colonIdx >= 0 ? key.slice(0, colonIdx) : key;
       const variantId = colonIdx >= 0 ? key.slice(colonIdx + 1) : "";
-      if (variantId) {
+      if (variantId !== "null") {
         variantItems.push({ productId, variantId, quantity });
       } else {
         productItems.push({ productId, quantity });
@@ -299,7 +299,7 @@ class ProductServiceBase {
     }
 
     // Process variant stock updates atomically
-      if (variantItems.length > 0) {
+    if (variantItems.length > 0) {
         variantItems.sort((a, b) => a.variantId.localeCompare(b.variantId));
         const uniqueVariantIds = [
         ...new Set(variantItems.map((i) => i.variantId)),
