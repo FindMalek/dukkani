@@ -21,7 +21,7 @@ interface CardItemOption extends BaseItemOption {
 }
 
 interface RadioGroupFieldProps extends CommonFieldProps {
-  as?: "cards";
+  as: "cards";
   options: CardItemOption[];
 }
 export function RadioGroupField({
@@ -52,33 +52,32 @@ export function RadioGroupField({
         onBlur={field.handleBlur}
         onValueChange={field.handleChange}
       >
-        {props.as === "cards"
-          ? props.options.map((option) => (
-              <FieldLabel key={option.value} htmlFor={option.value}>
-                <Field
-                  orientation="horizontal"
-                  data-invalid={isInvalid}
-                  data-disabled={option.disabled}
-                >
-                  <FieldContent>
-                    <FieldTitle>
-                      {option.icon && <>{option.icon}</>}
-                      {option.label}
-                    </FieldTitle>
-                    {option.description && (
-                      <FieldDescription>{option.description}</FieldDescription>
-                    )}
-                  </FieldContent>
-                  <RadioGroupItem
-                    value={option.value}
-                    id={option.value}
-                    aria-invalid={isInvalid}
-                    disabled={option.disabled}
-                  />
-                </Field>
-              </FieldLabel>
-            ))
-          : null}
+        {props.as === "cards" &&
+          props.options.map((option) => (
+            <FieldLabel key={option.value} htmlFor={option.value}>
+              <Field
+                orientation="horizontal"
+                data-invalid={isInvalid}
+                data-disabled={option.disabled}
+              >
+                <FieldContent>
+                  <FieldTitle>
+                    {option.icon && <>{option.icon}</>}
+                    {option.label}
+                  </FieldTitle>
+                  {option.description && (
+                    <FieldDescription>{option.description}</FieldDescription>
+                  )}
+                </FieldContent>
+                <RadioGroupItem
+                  value={option.value}
+                  id={option.value}
+                  aria-invalid={isInvalid}
+                  disabled={option.disabled}
+                />
+              </Field>
+            </FieldLabel>
+          ))}
       </RadioGroup>
     </BaseField>
   );
