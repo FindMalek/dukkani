@@ -6,7 +6,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
@@ -56,7 +55,12 @@ export function ProductSectionHeader({
               <div className="mx-auto w-full max-w-sm sm:max-w-md">
                 <FilterProductsForm storeCurrency={storeCurrency} />
                 <DrawerFooter>
-                  <Button>Submit</Button>
+                  <div className="flex space-x-2">
+                    <Button variant="secondary" className="mr-2 grow">
+                      Reset
+                    </Button>
+                    <Button className="grow">Submit</Button>
+                  </div>
                   <DrawerClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DrawerClose>
@@ -86,13 +90,16 @@ function FilterProductsForm({
       category: "all",
     },
   });
+
+  const sortByOptions = [
+    { label: "Featured", value: "featured" },
+    { label: "Cheapest first", value: "priceAsc" },
+    { label: "Most expensive first", value: "priceDesc" },
+    { label: "Newest first", value: "newest" },
+  ];
+
   return (
     <div className="space-y-4 p-4 pb-0">
-      <div className="flex items-center justify-between">
-        <span>Filter Products</span>
-        <Button variant="secondary">Reset</Button>
-      </div>
-
       <Form onSubmit={form.handleSubmit} className="space-y-6">
         <FieldSet className="rounded-md border px-4 pb-3">
           <FieldLegend>Price</FieldLegend>
@@ -127,7 +134,17 @@ function FilterProductsForm({
         </FieldSet>
         <FieldSet className="rounded-md border px-4 pb-3">
           <FieldLegend>Sort by</FieldLegend>
-          <FieldGroup />
+          <FieldGroup>
+            <form.AppField name="sortBy">
+              {(field) => (
+                <field.RadioGroupInput
+                  label="Price"
+                  as="cards"
+                  options={sortByOptions}
+                />
+              )}
+            </form.AppField>
+          </FieldGroup>
         </FieldSet>
       </Form>
     </div>
