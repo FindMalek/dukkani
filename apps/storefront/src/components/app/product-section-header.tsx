@@ -1,5 +1,6 @@
 "use client";
 
+import { store } from "@dukkani/common/schemas";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,
@@ -22,6 +23,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface ProductSectionHeaderProps {
+  storeCurrency: store.SupportedCurrencyInfer;
   title?: string;
   showFilter?: boolean;
   onFilterClick?: () => void;
@@ -29,6 +31,7 @@ interface ProductSectionHeaderProps {
 
 export function ProductSectionHeader({
   title = "New Arrivals",
+  storeCurrency,
   showFilter,
   onFilterClick,
 }: ProductSectionHeaderProps) {
@@ -51,7 +54,7 @@ export function ProductSectionHeader({
                 <DrawerTitle>Filter products</DrawerTitle>
               </DrawerHeader>
               <div className="mx-auto w-full max-w-sm sm:max-w-md">
-                <FilterProductsForm />
+                <FilterProductsForm storeCurrency={storeCurrency} />
                 <DrawerFooter>
                   <Button>Submit</Button>
                   <DrawerClose asChild>
@@ -67,9 +70,11 @@ export function ProductSectionHeader({
   );
 }
 
-
-
-function FilterProductsForm() {
+function FilterProductsForm({
+  storeCurrency,
+}: {
+  storeCurrency: store.SupportedCurrencyInfer;
+}) {
   const form = useAppForm({
     defaultValues: {
       price: {
@@ -97,6 +102,7 @@ function FilterProductsForm() {
                 <field.PriceInput
                   label="Min"
                   placeholder="0"
+                  currency={storeCurrency}
                 />
               )}
             </form.AppField>
@@ -105,6 +111,7 @@ function FilterProductsForm() {
                 <field.PriceInput
                   label="Max"
                   placeholder="1000"
+                  currency={storeCurrency}
                 />
               )}
             </form.AppField>
