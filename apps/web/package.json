@@ -15,8 +15,8 @@
     "@dukkani/common": "workspace:*",
     "@dukkani/env": "workspace:*",
     "@dukkani/orpc": "workspace:*",
-    "@dukkani/ui": "workspace:*",
     "@dukkani/tracing": "workspace:*",
+    "@dukkani/ui": "workspace:*",
     "@orpc/client": "catalog:",
     "@orpc/tanstack-query": "catalog:",
     "@prisma/client": "catalog:",
@@ -24,14 +24,14 @@
     "@tanstack/react-query": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "better-auth": "catalog:",
-    "framer-motion": "^12.23.24",
+    "dotenv": "catalog:",
+    "framer-motion": "^12.38.0",
     "next": "catalog:",
     "next-intl": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tw-animate-css": "catalog:",
-    "zod": "catalog:",
-    "dotenv": "catalog:"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@dukkani/config": "workspace:*",
@@ -41,7 +41,7 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "tailwindcss": "catalog:",
-    "baseline-browser-mapping": "catalog:"
+    "baseline-browser-mapping": "catalog:",
+    "tailwindcss": "catalog:"
   }
 }
