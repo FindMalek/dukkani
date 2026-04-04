@@ -348,6 +348,7 @@
     "create": {
       "header": {
         "title": "New product",
+        "editTitle": "Edit product",
         "save": "Save"
       },
       "storeMismatch": "This product belongs to another store. Switch stores to edit it.",

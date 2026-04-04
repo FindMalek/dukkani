@@ -1,117 +1,110 @@
 "use client";
 
-import { Badge } from "@dukkani/ui/components/badge";
+import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { Button } from "@dukkani/ui/components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { RoutePaths } from "@/lib/routes";
+import { notFound, useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useCallback, useMemo, useRef } from "react";
+import {
+  ProductForm,
+  type ProductFormHandle,
+} from "@/components/app/products/product-form";
+import { ProductFormSkeleton } from "@/components/app/products/product-form-skeleton";
+import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
+import { useActiveStoreStore } from "@/stores/active-store.store";
 
-export default function ProductDetailPage() {
+function useProductIdParam(): string {
   const params = useParams();
-  const productId = params.id as string;
+  return useMemo(() => {
+    const raw = params.id;
+    if (typeof raw === "string" && raw.length > 0) return raw;
+    if (Array.isArray(raw) && raw[0]) return raw[0];
+    return "";
+  }, [params.id]);
+}
+
+export default function EditProductPage() {
+  const productId = useProductIdParam();
+  const t = useTranslations("products.create");
+  const formRef = useRef<ProductFormHandle>(null);
+  const { selectedStoreId, isLoading } = useActiveStoreStore();
+
+  const handleSaveAsDraft = useCallback(() => {
+    formRef.current?.submit(false);
+  }, []);
+
+  if (!productId) {
+    notFound();
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen dark:bg-background">
+        <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b bg-background px-4">
+          <Link href={RoutePaths.PRODUCTS.INDEX.url} className="z-10">
+            <Icons.arrowLeft className="h-5 w-5" />
+          </Link>
+          <Skeleton className="absolute top-1/2 left-1/2 h-5 w-36 -translate-x-1/2 -translate-y-1/2" />
+          <Skeleton className="h-8 w-14 shrink-0 rounded-md" />
+        </header>
+        <main className="container max-w-lg px-2 pt-4">
+          <ProductFormSkeleton loadingLabel={t("loadingProduct")} />
+        </main>
+      </div>
+    );
+  }
+
+  if (!selectedStoreId) {
+    return (
+      <div className="container mx-auto flex min-h-[60vh] flex-col items-center justify-center p-6 text-center">
+        <div className="mb-4 rounded-full bg-muted p-4">
+          <Icons.package className="h-8 w-8 text-muted-foreground" />
+        </div>
+        <h2 className="font-bold text-xl">{t("noStore.title")}</h2>
+        <p className="mt-2 text-muted-foreground">{t("noStore.description")}</p>
+        <Button variant={"link"} asChild size="lg" className="mt-6">
+          <Link
+            href={getRouteWithQuery(RoutePaths.AUTH.ONBOARDING.INDEX.url, {
+              step: UserOnboardingStep.STORE_SETUP,
+            })}
+          >
+            {t("noStore.createStore")}
+          </Link>
+        </Button>
+      </div>
+    );
+  }
 
   return (
-    <div className="container mx-auto max-w-7xl p-4 md:p-6">
-      <div className="mb-6">
-        <div className="mb-4 flex items-center gap-4">
-          <Link href={RoutePaths.PRODUCTS.INDEX.url}>
-            <Button variant="ghost" size="icon">
-              <Icons.arrowLeft className="h-4 w-4" />
-            </Button>
-          </Link>
-          <div>
-            <h1 className="font-bold text-2xl md:text-3xl">Product Details</h1>
-            <p className="mt-2 text-muted-foreground text-sm md:text-base">
-              View and edit product information
-            </p>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen dark:bg-background">
+      <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b bg-background px-4">
+        <Link href={RoutePaths.PRODUCTS.INDEX.url} className="z-10">
+          <Icons.arrowLeft className="h-5 w-5" />
+        </Link>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Product Information</CardTitle>
-            <CardDescription>Product ID: {productId}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Name
-              </label>
-              <p className="mt-1 text-sm">Product name will appear here</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Description
-              </label>
-              <p className="mt-1 text-sm">
-                Product description will appear here
-              </p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Price
-              </label>
-              <p className="mt-1 text-sm">$0.00</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Stock
-              </label>
-              <p className="mt-1 text-sm">0 units</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Status
-              </label>
-              <div className="mt-1">
-                <Badge variant="secondary">Draft</Badge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-bold text-sm">
+          {t("header.editTitle")}
+        </h1>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Product Preview</CardTitle>
-            <CardDescription>
-              How customers will see this product
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex aspect-square items-center justify-center rounded-lg bg-muted">
-              <p className="text-muted-foreground text-sm">
-                Product images will appear here
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+        <Button
+          onClick={handleSaveAsDraft}
+          variant="ghost"
+          className="font-bold text-primary text-sm"
+        >
+          {t("header.save")}
+        </Button>
+      </header>
 
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Actions</CardTitle>
-          <CardDescription>Manage this product</CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-4">
-          <Button disabled>Edit Product</Button>
-          <Button disabled variant="outline">
-            Duplicate Product
-          </Button>
-          <Button disabled variant="destructive">
-            Delete Product
-          </Button>
-        </CardContent>
-      </Card>
+      <main className="container max-w-lg px-2 pt-4">
+        <ProductForm
+          ref={formRef}
+          storeId={selectedStoreId}
+          productId={productId}
+        />
+      </main>
     </div>
   );
 }

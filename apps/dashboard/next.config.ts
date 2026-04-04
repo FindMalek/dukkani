@@ -46,6 +46,10 @@ const nextConfig: NextConfig = {
         hostname: "flagcdn.com",
         pathname: "/**",
       },
+      {
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
     ],
   },
 };

@@ -338,6 +338,7 @@
     "create": {
       "header": {
         "title": "Nouveau produit",
+        "editTitle": "Modifier le produit",
         "save": "Enregistrer"
       },
       "storeMismatch": "Ce produit appartient à une autre boutique. Changez de boutique pour le modifier.",
