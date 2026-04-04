@@ -44,26 +44,26 @@
   },
   "dependencies": {
     "@dukkani/env": "workspace:*",
-    "@dukkani/tracing": "workspace:*",
     "@dukkani/logger": "workspace:*",
-    "@prisma/client": "catalog:",
-    "@t3-oss/env-core": "catalog:",
-    "@prisma/client-runtime-utils": "^7.6.0",
-    "bcryptjs": "^2.4.3",
-    "nanoid": "catalog:",
-    "zod": "catalog:",
+    "@dukkani/tracing": "workspace:*",
     "@neondatabase/serverless": "^1.0.2",
     "@prisma/adapter-neon": "^7.6.0",
     "@prisma/adapter-pg": "^7.6.0",
-    "ws": "^8.18.2"
+    "@prisma/client": "catalog:",
+    "@prisma/client-runtime-utils": "^7.6.0",
+    "@t3-oss/env-core": "catalog:",
+    "bcryptjs": "^3.0.3",
+    "nanoid": "catalog:",
+    "ws": "^8.20.0",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@dukkani/config": "workspace:*",
     "@next/env": "catalog:",
+    "@types/ws": "^8.18.1",
+    "dotenv": "catalog:",
     "prisma": "catalog:",
     "tsdown": "catalog:",
-    "tsx": "catalog:",
-    "@types/ws": "^8.18.1",
-    "dotenv": "catalog:"
+    "tsx": "catalog:"
   }
 }
