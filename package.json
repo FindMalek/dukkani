@@ -49,7 +49,7 @@
     "@typescript/native-preview": "catalog:",
     "@types/node": "catalog:",
     "dotenv": "catalog:",
-    "syncpack": "^13.0.4",
+    "syncpack": "^14.3.0",
     "tsdown": "catalog:",
     "tsx": "catalog:",
     "turbo": "catalog:",
