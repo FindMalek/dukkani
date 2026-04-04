@@ -39,8 +39,7 @@
   },
   "devDependencies": {
     "@dukkani/config": "workspace:*",
-    "tsdown": "catalog:",
-    "@types/inquirer": "^9.0.0"
+    "tsdown": "catalog:"
   },
   "peerDependencies": {
     "typescript": "^6.0.2"
