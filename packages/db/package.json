@@ -53,7 +53,7 @@
     "nanoid": "catalog:",
     "zod": "catalog:",
     "@neondatabase/serverless": "^0.10.4",
-    "@prisma/adapter-neon": "^7.0.0",
+    "@prisma/adapter-neon": "^7.6.0",
     "@prisma/adapter-pg": "^7.0.0",
     "ws": "^8.18.2"
   },
