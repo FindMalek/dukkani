@@ -1,12 +1,5 @@
 "use client";
 
-import type { ProductImageAttachment } from "@dukkani/common/schemas/product/form";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@dukkani/ui/components/dialog";
 import {
   Field,
   FieldContent,
@@ -17,21 +10,10 @@ import { ImageFileTrigger } from "@dukkani/ui/components/image-file-trigger";
 import { ImagePreviewStrip } from "@dukkani/ui/components/image-preview-strip";
 import { ImagePreviewThumb } from "@dukkani/ui/components/image-preview-thumb";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
-import { useFieldContext } from "@dukkani/ui/hooks/use-app-form";
-import { useObjectUrlPreviews } from "@dukkani/ui/hooks/use-object-url-previews";
 import { useTranslations } from "next-intl";
-import {
-  useCallback,
-  useEffect,
-  useEffectEvent,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useProductFormImagesField } from "@/hooks/use-product-form-images";
+import { ProductImagePreviewDialog } from "./product-image-preview-dialog";
 
-const MAX_IMAGES = 10;
-
-/** Loading placeholder for the product photos field (colocated with `ProductFormImages`). */
 export function ProductFormImagesSkeleton() {
   return (
     <div className="flex flex-col gap-2">
@@ -53,73 +35,21 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
   const t = useTranslations("products.create");
   const tFields = useTranslations("fields.images");
 
-  const thumbsRef = useRef<HTMLDivElement>(null);
-  const [isTransforming, setIsTransforming] = useState(false);
-  const [lightbox, setLightbox] = useState<{
-    src: string;
-    alt: string;
-  } | null>(null);
-  const field = useFieldContext<ProductImageAttachment[]>();
-
-  const attachments = field.state.value ?? [];
-
-  const attachmentsRef = useRef(attachments);
-  attachmentsRef.current = attachments;
-  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-
-  const localPreviewItems = useMemo(
-    () =>
-      attachments
-        .filter(
-          (a): a is Extract<ProductImageAttachment, { kind: "local" }> =>
-            a.kind === "local",
-        )
-        .map((a) => ({ id: a.clientId, file: a.file })),
-    [attachments],
-  );
-
-  const previewById = useObjectUrlPreviews(localPreviewItems);
-
-  const scrollToEnd = useEffectEvent(() => {
-    const viewport = thumbsRef.current?.closest(
-      "[data-radix-scroll-area-viewport]",
-    );
-    if (viewport) viewport.scrollLeft = viewport.scrollWidth;
-  });
-
-  useEffect(() => {
-    if (attachments.length > 0) {
-      scrollToEnd();
-    }
-  }, [attachments.length]);
-
-  const handleRemove = (index: number) => {
-    const next = attachments.filter((_, i) => i !== index);
-    field.handleChange(next);
-    field.handleBlur();
-  };
-
-  const onFilesSelected = useCallback(
-    (files: File[]) => {
-      if (files.length === 0) return;
-
-      const latest = attachmentsRef.current;
-      const space = MAX_IMAGES - latest.length;
-      if (space <= 0) return;
-
-      const toAdd = files.slice(0, space);
-      field.handleChange([
-        ...latest,
-        ...toAdd.map((file) => ({
-          kind: "local" as const,
-          file,
-          clientId: crypto.randomUUID(),
-        })),
-      ]);
-      field.handleBlur();
-    },
-    [field],
-  );
+  const {
+    maxImages,
+    attachments,
+    previewById,
+    thumbsRef,
+    isTransforming,
+    setIsTransforming,
+    fieldErrors,
+    isInvalid,
+    handleRemove,
+    onFilesSelected,
+    lightbox,
+    openPreview,
+    closePreview,
+  } = useProductFormImagesField(optimizeFiles);
 
   return (
     <Field>
@@ -148,10 +78,10 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
                     onOpenPreview={
                       resolvedSrc
                         ? () =>
-                            setLightbox({
-                              src: resolvedSrc,
-                              alt: item.kind === "remote" ? "" : item.file.name,
-                            })
+                            openPreview(
+                              resolvedSrc,
+                              item.kind === "remote" ? "" : item.file.name,
+                            )
                         : undefined
                     }
                     openPreviewAriaLabel={t("form.viewPhoto")}
@@ -163,9 +93,9 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
             </ImagePreviewStrip>
           )}
 
-          {attachments.length < MAX_IMAGES && (
+          {attachments.length < maxImages && (
             <ImageFileTrigger
-              maxFiles={MAX_IMAGES}
+              maxFiles={maxImages}
               currentCount={attachments.length}
               mode="append"
               label={tFields("label")}
@@ -182,31 +112,17 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
           </div>
         ) : null}
       </div>
-      <FieldErrors errors={field.state.meta.errors} match={isInvalid} />
+      <FieldErrors errors={fieldErrors} match={isInvalid} />
 
-      <Dialog
+      <ProductImagePreviewDialog
+        key={lightbox?.src ?? "preview-closed"}
         open={lightbox !== null}
         onOpenChange={(open) => {
-          if (!open) setLightbox(null);
+          if (!open) closePreview();
         }}
-      >
-        <DialogContent className="max-w-[min(90vw,56rem)] gap-4 p-4 sm:p-6">
-          <DialogHeader>
-            <DialogTitle>{t("form.photoPreviewTitle")}</DialogTitle>
-          </DialogHeader>
-          <div className="flex max-h-[85vh] w-full items-center justify-center overflow-auto rounded-md bg-muted p-2">
-            {lightbox?.src ? (
-              // Large arbitrary URLs (remote + blob): native img avoids Next image layout constraints.
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={lightbox.src}
-                alt={lightbox.alt}
-                className="max-h-[min(80vh,900px)] w-auto max-w-full object-contain"
-              />
-            ) : null}
-          </div>
-        </DialogContent>
-      </Dialog>
+        src={lightbox?.src ?? null}
+        alt={lightbox?.alt ?? ""}
+      />
     </Field>
   );
 }
