@@ -31,7 +31,7 @@ export async function generateAnalysis(
       const { text } = await generateText({
         model: groq(modelId),
         prompt,
-        maxTokens: 1024,
+        maxOutputTokens: 1024,
         temperature: 0.3,
         abortSignal: AbortSignal.timeout(TIMEOUT_MS),
       });

@@ -36,7 +36,7 @@ catalog:
   next: ^16.2.2
   next-intl: ^4.9.0
   ai: ^6.0.144
-  '@ai-sdk/groq': ^1.0.0
+  '@ai-sdk/groq': ^3.0.33
   pino: ^9.9.5
   prisma: ^7.5.0
   react: 19.2.4
