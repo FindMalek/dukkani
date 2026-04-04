@@ -31,6 +31,20 @@ import {
 
 const MAX_IMAGES = 10;
 
+/** Loading placeholder for the product photos field (colocated with `ProductFormImages`). */
+export function ProductFormImagesSkeleton() {
+  return (
+    <div className="flex flex-col gap-2">
+      <Skeleton className="h-4 w-24" />
+      <div className="flex flex-wrap items-center gap-3">
+        <Skeleton className="size-24 shrink-0 rounded-xl" />
+        <Skeleton className="size-24 shrink-0 rounded-xl" />
+        <Skeleton className="size-24 shrink-0 rounded-xl border-2 border-muted border-dashed" />
+      </div>
+    </div>
+  );
+}
+
 type ProductFormImagesProps = {
   optimizeFiles?: (files: File[]) => Promise<File[]>;
 };

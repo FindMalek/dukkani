@@ -62,7 +62,6 @@ export function useUpdateProductMutation() {
       queryClient.invalidateQueries({
         queryKey: queryKeys.products.byId(data.id),
       });
-      // Also invalidate dashboard stats
       queryClient.invalidateQueries({
         queryKey: queryKeys.dashboard.stats(),
       });

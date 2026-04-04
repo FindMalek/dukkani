@@ -350,6 +350,9 @@
         "title": "New product",
         "save": "Save"
       },
+      "storeMismatch": "This product belongs to another store. Switch stores to edit it.",
+      "loadError": "Could not load this product. Try again or go back to the list.",
+      "loadingProduct": "Loading product",
       "sections": {
         "photos": "Product Photos",
         "essentials": "Essentials",

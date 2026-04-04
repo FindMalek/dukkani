@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@dukkani/ui/components/button";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
 import { productFormOptions } from "@/lib/product-form-options";
@@ -44,3 +45,12 @@ export const ProductFormActions = withForm({
     );
   },
 });
+
+export function ProductFormActionsSkeleton() {
+  return (
+    <div className="flex w-full gap-2 pt-2">
+      <Skeleton className="h-10 flex-1 rounded-md" />
+      <Skeleton className="h-10 flex-1 rounded-md" />
+    </div>
+  );
+}

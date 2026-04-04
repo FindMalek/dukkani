@@ -2,7 +2,6 @@
 
 import { FieldGroup, FieldSet } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
-import { Spinner } from "@dukkani/ui/components/spinner";
 import { useTranslations } from "next-intl";
 import { forwardRef, useImperativeHandle } from "react";
 import { useProductForm } from "@/hooks/use-product-form";
@@ -10,6 +9,7 @@ import { compressImagesForUpload } from "@/lib/compress-images";
 import { CategoryDrawer } from "./category-drawer";
 import { ProductFormActions } from "./product-form-actions";
 import { ProductFormEssentials } from "./product-form-essentials";
+import { ProductFormSkeleton } from "./product-form-skeleton";
 import { ProductFormVariants } from "./product-form-variants";
 
 export interface ProductFormHandle {
@@ -43,23 +43,19 @@ export const ProductForm = forwardRef<
   if (storeMismatch) {
     return (
       <p className="px-2 text-center text-destructive text-sm">
-        This product belongs to another store. Switch stores to edit it.
+        {t("storeMismatch")}
       </p>
     );
   }
 
   if (productId && productQuery.isPending) {
-    return (
-      <div className="flex justify-center py-16">
-        <Spinner className="h-8 w-8 text-primary" />
-      </div>
-    );
+    return <ProductFormSkeleton loadingLabel={t("loadingProduct")} />;
   }
 
   if (productId && productQuery.isError) {
     return (
       <p className="px-2 text-center text-destructive text-sm">
-        Could not load this product. Try again or go back to the list.
+        {t("loadError")}
       </p>
     );
   }

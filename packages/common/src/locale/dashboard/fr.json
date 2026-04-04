@@ -340,6 +340,9 @@
         "title": "Nouveau produit",
         "save": "Enregistrer"
       },
+      "storeMismatch": "Ce produit appartient à une autre boutique. Changez de boutique pour le modifier.",
+      "loadError": "Impossible de charger ce produit. Réessayez ou revenez à la liste.",
+      "loadingProduct": "Chargement du produit",
       "sections": {
         "photos": "Photos du produit",
         "essentials": "Essentiels",

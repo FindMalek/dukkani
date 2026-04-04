@@ -12,6 +12,7 @@ import {
   FieldSet,
 } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
@@ -210,3 +211,17 @@ export const ProductFormVariants = withForm({
     );
   },
 });
+
+export function ProductFormVariantsSkeleton() {
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-1 flex-col gap-2">
+          <Skeleton className="h-4 w-40" />
+          <Skeleton className="h-3 w-full max-w-md" />
+        </div>
+        <Skeleton className="h-6 w-10 shrink-0 rounded-full" />
+      </div>
+    </div>
+  );
+}
