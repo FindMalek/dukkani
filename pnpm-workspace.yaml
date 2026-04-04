@@ -38,7 +38,7 @@ catalog:
   ai: ^6.0.144
   '@ai-sdk/groq': ^3.0.33
   pino: ^9.9.5
-  prisma: ^7.5.0
+  prisma: ^7.6.0
   react: 19.2.4
   react-dom: 19.2.4
   react-dropzone: ^15.0.0
