@@ -92,6 +92,7 @@ class StoreServiceBase {
         slug,
         description: input.description,
         notificationMethod: input.notificationMethod,
+        currency: input.currency,
         ownerId: userId,
         storePlan: {
           create: {

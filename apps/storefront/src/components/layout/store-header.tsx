@@ -66,7 +66,11 @@ export function StoreHeader({ store }: StoreHeaderProps) {
           </div>
         </div>
       </header>
-      <CartDrawer open={isCartDrawerOpen} onOpenChange={setCartDrawerOpen} />
+      <CartDrawer
+        open={isCartDrawerOpen}
+        onOpenChange={setCartDrawerOpen}
+        storeCurrency={store.currency}
+      />
     </>
   );
 }

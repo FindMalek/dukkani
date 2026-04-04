@@ -1,5 +1,6 @@
 "use client";
 
+import type { store } from "@dukkani/common/schemas";
 import type {
   VariantOptionOutput,
   VariantOutput,
@@ -10,6 +11,7 @@ import { AddToCartFooter } from "./add-to-cart-footer";
 
 interface ProductVariantManagerProps {
   productId: string;
+  storeCurrency: store.SupportedCurrencyInfer;
   productStock: number;
   productPrice: number;
   hasVariants: boolean;
@@ -21,6 +23,7 @@ interface ProductVariantManagerProps {
 
 export function ProductVariantManager({
   productId,
+  storeCurrency,
   productStock,
   productPrice,
   hasVariants,
@@ -52,6 +55,7 @@ export function ProductVariantManager({
         selectedVariantId={selectedVariantId}
         variant={variant}
         onAddToCart={onAddToCart}
+        currency={storeCurrency}
       />
     </>
   );

@@ -41,6 +41,7 @@ model Store {
   storePlan StorePlan?
   theme     StoreTheme?
   category  StoreCategory?
+  currency  SupportedCurrency @default(TND)
 
   status                  StoreStatus              @default(DRAFT)
   notificationMethod      StoreNotificationMethod? @default(EMAIL) @map("notification_method")

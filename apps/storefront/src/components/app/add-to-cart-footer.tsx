@@ -1,17 +1,19 @@
 "use client";
 
+import type { store } from "@dukkani/common/schemas";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useCartStore } from "@/stores/cart.store";
 
 interface AddToCartFooterProps {
   productId: string;
   stock: number;
   price: number;
-  currency?: string;
+  currency: store.SupportedCurrencyInfer;
   selectedVariantId?: string;
   variant?: "fixed" | "inline";
   onAddToCart?: () => void;
@@ -21,12 +23,13 @@ export function AddToCartFooter({
   productId,
   stock,
   price,
-  currency = "TND",
+  currency,
   selectedVariantId,
   variant = "fixed",
   onAddToCart,
 }: AddToCartFooterProps) {
   const t = useTranslations("storefront.store.product.addToCart");
+  const formatPrice = useFormatPriceCurrentStore(currency);
   const [quantity, setQuantity] = useState(1);
 
   const addItem = useCartStore((state) => state.addItem);
@@ -38,7 +41,6 @@ export function AddToCartFooter({
 
   const isOutOfStock = stock === 0;
   const maxQuantity = Math.min(stock, 99);
-  const formattedPrice = price.toFixed(3);
 
   const handleDecrease = () => {
     if (quantity > 1) {
@@ -93,7 +95,7 @@ export function AddToCartFooter({
               </div>
               <span className="text-sm">-</span>
               <span className="font-semibold tabular-nums" dir="ltr">
-                {formattedPrice} {currency}
+                {formatPrice(price)}
               </span>
             </div>
           </Button>
