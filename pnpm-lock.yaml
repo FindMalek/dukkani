@@ -1031,8 +1031,8 @@ importers:
         specifier: ^0.59.0
         version: 0.59.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/otlp-exporter-base':
-        specifier: ^0.209.0
-        version: 0.209.0(@opentelemetry/api@1.9.1)
+        specifier: ^0.214.0
+        version: 0.214.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/resources':
         specifier: ^2.3.0
         version: 2.3.0(@opentelemetry/api@1.9.1)
