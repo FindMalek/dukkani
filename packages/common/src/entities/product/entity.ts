@@ -6,30 +6,15 @@ import type {
 } from "../../schemas/product/output";
 import { ImageEntity } from "../image/entity";
 import { OrderItemEntity } from "../order-item/entity";
+import { ProductVersionEntity } from "../product-version/entity";
 import { StoreEntity } from "../store/entity";
 import { VariantEntity } from "../variant/entity";
 import type {
   ProductIncludeDbData,
   ProductListDbData,
-  ProductPublicDbData,
+  ProductPublicDbDataWithPublished,
   ProductSimpleDbData,
 } from "./query";
-
-type VersionListSlice = NonNullable<
-  ProductListDbData["currentPublishedVersion"]
->;
-
-function displayVersionForList(
-  entity: ProductListDbData,
-): VersionListSlice | null {
-  return entity.draftVersion ?? entity.currentPublishedVersion;
-}
-
-type VersionDetail = NonNullable<ProductIncludeDbData["draftVersion"]>;
-
-function editingVersion(entity: ProductIncludeDbData): VersionDetail | null {
-  return entity.draftVersion ?? entity.currentPublishedVersion;
-}
 
 export class ProductEntity {
   static getSimpleRo(entity: ProductSimpleDbData): ProductSimpleOutput {
@@ -48,7 +33,10 @@ export class ProductEntity {
   }
 
   static getListRo(entity: ProductListDbData): ListProductOutput {
-    const v = displayVersionForList(entity);
+    const v = ProductVersionEntity.pickForList(
+      entity.draftVersion,
+      entity.currentPublishedVersion,
+    );
     return {
       id: entity.id,
       name: v?.name ?? "",
@@ -65,7 +53,10 @@ export class ProductEntity {
   }
 
   static getRo(entity: ProductIncludeDbData): ProductIncludeOutput {
-    const v = editingVersion(entity);
+    const v = ProductVersionEntity.pickForEditor(
+      entity.draftVersion,
+      entity.currentPublishedVersion,
+    );
     if (!v) {
       return {
         id: entity.id,
@@ -107,11 +98,10 @@ export class ProductEntity {
     };
   }
 
-  static getPublicRo(entity: ProductPublicDbData): ProductPublicOutput {
+  static getPublicRo(
+    entity: ProductPublicDbDataWithPublished,
+  ): ProductPublicOutput {
     const v = entity.currentPublishedVersion;
-    if (!v) {
-      throw new Error("Product has no published version for public output");
-    }
     return {
       id: entity.id,
       name: v.name,

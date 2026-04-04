@@ -22,10 +22,8 @@ import { productFormOptions } from "@/lib/product-form-options";
 import { queryKeys } from "@/lib/query-keys";
 import { RoutePaths } from "@/lib/routes";
 
-/**
- * Create or edit product: TanStack Form + categories + create/update mutation.
- */
 export type ProductSubmitIntent = "save" | "saveAndPublish";
+export type ProductSubmitIntentRef = { current: ProductSubmitIntent };
 
 export function useProductForm({
   storeId,
@@ -112,6 +110,12 @@ export function useProductForm({
       const rest = cleanedFormData;
 
       if (isEdit) {
+        if (!productId) {
+          handleAPIError(new Error("Missing product id"));
+          return;
+        }
+        const editProductId = productId;
+
         const currentRemoteUrls = value.images
           .filter((item) => item.kind === "remote")
           .map((item) => item.url);
@@ -125,7 +129,7 @@ export function useProductForm({
           );
 
         const payload: UpdateProductInput = {
-          id: productId ?? "",
+          id: editProductId,
           name: rest.name,
           description: rest.description,
           price: rest.price,
@@ -140,11 +144,11 @@ export function useProductForm({
         try {
           await updateProductMutation.mutateAsync(payload);
           if (submitIntentRef.current === "saveAndPublish") {
-            await publishProductMutation.mutateAsync(productId ?? "");
+            await publishProductMutation.mutateAsync(editProductId);
             router.push(RoutePaths.PRODUCTS.INDEX.url);
           } else {
             await queryClient.invalidateQueries({
-              queryKey: queryKeys.products.byId(productId ?? ""),
+              queryKey: queryKeys.products.byId(editProductId),
             });
             await productQuery.refetch();
           }

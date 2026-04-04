@@ -142,12 +142,14 @@ enum PaymentMethod {
   CARD
 }
 
-/**
- * Lifecycle of a sellable product snapshot (catalog revision).
- */
+/// Lifecycle of a sellable product snapshot (catalog revision).
+/// Drafts are edited in the dashboard; publishing promotes a version to live; archived versions remain for historical orders.
 enum ProductVersionStatus {
+  /// Editable snapshot; not the live storefront row until published.
   DRAFT
+  /// Live catalog definition for a product when linked from Product.currentPublishedVersionId.
   PUBLISHED
+  /// Replaced by a newer publish; kept so OrderItem.productVersionId still resolves to correct copy.
   ARCHIVED
 }
 

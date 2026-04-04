@@ -2,21 +2,8 @@ import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { ImageQuery } from "../image/query";
 import { OrderItemQuery } from "../order-item/query";
+import { ProductVersionQuery } from "../product-version/query";
 import { StoreQuery } from "../store/query";
-import { VariantQuery } from "../variant/query";
-
-/** Nested payload for a version row (images, options, variants). */
-export function getProductVersionDetailInclude() {
-  return {
-    images: ImageQuery.getSimpleInclude(),
-    variantOptions: {
-      include: VariantQuery.getVariantOptionInclude(),
-    },
-    variants: {
-      include: VariantQuery.getVariantInclude(),
-    },
-  } satisfies Prisma.ProductVersionInclude;
-}
 
 export type ProductSimpleDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getSimpleInclude>;
@@ -38,15 +25,18 @@ export type ProductPublicDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getPublicInclude>;
 }>;
 
-const listVersionSelect = {
-  name: true,
-  description: true,
-  price: true,
-  stock: true,
-  hasVariants: true,
-  images: { select: { url: true } },
-  _count: { select: { variants: true } },
-} satisfies Prisma.ProductVersionSelect;
+/** Storefront-safe row: published version subgraph is loaded and non-null. */
+export type ProductPublicDbDataWithPublished = ProductPublicDbData & {
+  currentPublishedVersion: NonNullable<
+    ProductPublicDbData["currentPublishedVersion"]
+  >;
+};
+
+export function isProductPublicWithPublished(
+  product: ProductPublicDbData,
+): product is ProductPublicDbDataWithPublished {
+  return product.currentPublishedVersion != null;
+}
 
 export class ProductQuery {
   static getSimpleInclude() {
@@ -69,7 +59,7 @@ export class ProductQuery {
         select: StoreQuery.getPublicSimpleSelect(),
       },
       currentPublishedVersion: {
-        include: getProductVersionDetailInclude(),
+        include: ProductVersionQuery.getDetailInclude(),
       },
     } satisfies Prisma.ProductInclude;
   }
@@ -77,10 +67,10 @@ export class ProductQuery {
   static getInclude() {
     return {
       currentPublishedVersion: {
-        include: getProductVersionDetailInclude(),
+        include: ProductVersionQuery.getDetailInclude(),
       },
       draftVersion: {
-        include: getProductVersionDetailInclude(),
+        include: ProductVersionQuery.getDetailInclude(),
       },
       orderItems: OrderItemQuery.getSimpleInclude(),
     } satisfies Prisma.ProductInclude;
@@ -99,10 +89,10 @@ export class ProductQuery {
   static getListInclude() {
     return {
       draftVersion: {
-        select: listVersionSelect,
+        select: ProductVersionQuery.getListSelect(),
       },
       currentPublishedVersion: {
-        select: listVersionSelect,
+        select: ProductVersionQuery.getListSelect(),
       },
     } satisfies Prisma.ProductInclude;
   }

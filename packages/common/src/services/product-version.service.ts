@@ -1,25 +1,22 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
+import { ProductVersionQuery } from "../entities/product-version/query";
 import { BadRequestError, ConflictError, NotFoundError } from "../errors";
+import type { CreateInitialPublishedVersionInput } from "../schemas/product/input";
 import type {
   VariantInput,
   VariantOptionInput,
 } from "../schemas/variant/input";
 
-type Tx = Prisma.TransactionClient;
-
-const versionTreeInclude = {
-  images: true,
-  variantOptions: { include: { values: true } },
-  variants: { include: { selections: true } },
-} as const;
-
 class ProductVersionServiceBase {
   /**
    * Next monotonic version number for a product (1-based).
    */
-  static async nextVersionNumber(tx: Tx, productId: string): Promise<number> {
+  static async nextVersionNumber(
+    tx: Prisma.TransactionClient,
+    productId: string,
+  ): Promise<number> {
     const agg = await tx.productVersion.aggregate({
       where: { productId },
       _max: { versionNumber: true },
@@ -31,13 +28,15 @@ class ProductVersionServiceBase {
    * Deep-clone the current published snapshot into a new DRAFT and point Product.draftVersionId at it.
    */
   static async clonePublishedToDraft(
-    tx: Tx,
+    tx: Prisma.TransactionClient,
     productId: string,
   ): Promise<string> {
     const product = await tx.product.findUnique({
       where: { id: productId },
       include: {
-        currentPublishedVersion: { include: versionTreeInclude },
+        currentPublishedVersion: {
+          include: ProductVersionQuery.getCloneTreeInclude(),
+        },
       },
     });
 
@@ -136,7 +135,7 @@ class ProductVersionServiceBase {
    * Returns the id of the version merchants should mutate (existing draft or a new clone).
    */
   static async ensureEditingVersionId(
-    tx: Tx,
+    tx: Prisma.TransactionClient,
     productId: string,
   ): Promise<string> {
     const product = await tx.product.findUnique({
@@ -159,7 +158,7 @@ class ProductVersionServiceBase {
    * Replace options + variants for a version (used after deletes for draft updates).
    */
   static async writeVariantMatrix(
-    tx: Tx,
+    tx: Prisma.TransactionClient,
     productVersionId: string,
     variantOptions: VariantOptionInput[],
     variants: VariantInput[],
@@ -271,7 +270,7 @@ class ProductVersionServiceBase {
    * Clears variant matrix on a version (options, values, variants, selections via cascade).
    */
   static async clearVariantMatrix(
-    tx: Tx,
+    tx: Prisma.TransactionClient,
     productVersionId: string,
   ): Promise<void> {
     await tx.productVariant.deleteMany({ where: { productVersionId } });
@@ -282,7 +281,7 @@ class ProductVersionServiceBase {
    * Publish draft: archive previous published, promote draft, clear draft pointer.
    */
   static async publishDraft(
-    tx: Tx,
+    tx: Prisma.TransactionClient,
     productId: string,
     expectedDraftUpdatedAt?: Date,
   ): Promise<void> {
@@ -339,7 +338,10 @@ class ProductVersionServiceBase {
   /**
    * Delete draft version and clear Product.draftVersionId.
    */
-  static async discardDraft(tx: Tx, productId: string): Promise<void> {
+  static async discardDraft(
+    tx: Prisma.TransactionClient,
+    productId: string,
+  ): Promise<void> {
     const product = await tx.product.findUnique({
       where: { id: productId },
       select: { draftVersionId: true },
@@ -365,18 +367,9 @@ class ProductVersionServiceBase {
    * Create first published version (version 1) with optional variant matrix.
    */
   static async createInitialPublishedVersion(
-    tx: Tx,
+    tx: Prisma.TransactionClient,
     productId: string,
-    data: {
-      name: string;
-      description?: string | null;
-      price: number;
-      stock: number;
-      hasVariants: boolean;
-      imageUrls?: string[];
-      variantOptions?: VariantOptionInput[];
-      variants?: VariantInput[];
-    },
+    data: CreateInitialPublishedVersionInput,
   ): Promise<string> {
     const version = await tx.productVersion.create({
       data: {

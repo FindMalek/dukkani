@@ -1,6 +1,11 @@
 import { z } from "zod";
 
-import { variantInputSchema, variantOptionInputSchema } from "../variant/input";
+import {
+  type VariantInput,
+  type VariantOptionInput,
+  variantInputSchema,
+  variantOptionInputSchema,
+} from "../variant/input";
 
 /**
  * Product line item - productId, variantId, quantity.
@@ -152,6 +157,17 @@ export const discardDraftProductInputSchema = z.object({
 
 export type ProductInput = z.infer<typeof productInputSchema>;
 export type CreateProductInput = z.infer<typeof createProductInputSchema>;
+
+export type CreateInitialPublishedVersionInput = Pick<
+  CreateProductInput,
+  "name" | "price" | "stock" | "hasVariants"
+> & {
+  description?: string | null;
+  imageUrls?: string[];
+  variantOptions?: VariantOptionInput[];
+  variants?: VariantInput[];
+};
+
 export type UpdateProductInput = z.infer<typeof updateProductInputSchema>;
 export type GetProductInput = z.infer<typeof getProductInputSchema>;
 export type ListProductsInput = z.infer<typeof listProductsInputSchema>;

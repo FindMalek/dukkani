@@ -1,5 +1,8 @@
 import { ProductEntity } from "@dukkani/common/entities/product/entity";
-import { ProductQuery } from "@dukkani/common/entities/product/query";
+import {
+  isProductPublicWithPublished,
+  ProductQuery,
+} from "@dukkani/common/entities/product/query";
 import { StoreStatus } from "@dukkani/common/schemas/enums";
 import {
   createProductInputSchema,
@@ -714,6 +717,12 @@ export const productRouter = {
         });
       }
 
+      if (!isProductPublicWithPublished(product)) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
       return ProductEntity.getPublicRo(product);
     }),
 
@@ -740,11 +749,7 @@ export const productRouter = {
       }
 
       return products
-        .filter(
-          (p) =>
-            p.currentPublishedVersion?.status ===
-            ProductVersionStatus.PUBLISHED,
-        )
+        .filter(isProductPublicWithPublished)
         .map((p) => ProductEntity.getPublicRo(p));
     }),
 

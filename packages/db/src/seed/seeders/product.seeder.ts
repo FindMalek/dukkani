@@ -60,11 +60,17 @@ export class ProductSeeder extends BaseSeeder {
       this.log(`Skipping: ${existingProducts.length} products already exist`);
       for (const product of existingProducts) {
         const v = product.currentPublishedVersion;
+        if (!v?.name) {
+          this.error(
+            `Product ${product.id} has no current published version name; fix data or republish — not adding to seededProducts.`,
+          );
+          continue;
+        }
         this.seededProducts.push({
           id: product.id,
-          name: v?.name ?? "",
+          name: v.name,
           storeId: product.storeId,
-          price: v?.price ?? new Prisma.Decimal(0),
+          price: v.price ?? new Prisma.Decimal(0),
         });
       }
       return;

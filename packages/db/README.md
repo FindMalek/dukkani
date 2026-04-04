@@ -50,6 +50,9 @@ pnpm run db:generate
 # Create and apply migration
 pnpm run db:migrate
 
+# Create migration SQL only (review before applying)
+pnpm --filter @dukkani/db db:migrate:create-only
+
 # Open Prisma Studio (database GUI)
 pnpm run db:studio
 
@@ -62,6 +65,22 @@ pnpm run db:reset-and-seed
 # Reset database (WARNING: deletes all data)
 pnpm run db:reset
 ```
+
+### Migration CLI args (name, etc.)
+
+From the repo root, extra arguments are forwarded to the underlying script if you pass them **after** `--` (pnpm → Turborepo → `@dukkani/db` script). Example:
+
+```bash
+pnpm run db:migrate -- --name add_product_version_uniques
+```
+
+If your shell or Turbo version strips one `--`, run from `packages/db` instead:
+
+```bash
+cd packages/db && pnpm exec prisma migrate dev --name add_product_version_uniques
+```
+
+**Unique indexes on version-scoped columns:** if a migration adds `@@unique([productVersionId, name])` or `@@unique([productVersionId, sku])`, deduplicate those pairs in the database **before** applying the migration, or PostgreSQL will reject the migration when it tries to build the index.
 
 See [docs/storage.md](../../docs/storage.md) for MinIO and R2 storage setup.
 

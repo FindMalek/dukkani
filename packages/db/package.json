@@ -32,6 +32,7 @@
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
+    "db:migrate:create-only": "prisma migrate dev --create-only",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "tsx src/seed/index.ts",
     "db:reset-and-seed": "pnpm db:reset && pnpm db:seed",

@@ -1,6 +1,7 @@
 import { ProductEntity } from "@dukkani/common/entities/product/entity";
 import {
-  type ProductPublicDbData,
+  isProductPublicWithPublished,
+  type ProductPublicDbDataWithPublished,
   ProductQuery,
 } from "@dukkani/common/entities/product/query";
 import { getCartItemsInputSchema } from "@dukkani/common/schemas/cart/input";
@@ -19,7 +20,7 @@ import { baseProcedure } from "../procedures";
  */
 function enrichCartItem(
   item: { productId: string; variantId?: string; quantity: number },
-  product: ProductPublicDbData,
+  product: ProductPublicDbDataWithPublished,
 ): CartItemOutput {
   const productData = ProductEntity.getPublicRo(product);
   const variant = item.variantId
@@ -70,7 +71,10 @@ export const cartRouter = {
       return input.items
         .map((item) => {
           const product = productMap.get(item.productId);
-          return product ? enrichCartItem(item, product) : null;
+          if (!product || !isProductPublicWithPublished(product)) {
+            return null;
+          }
+          return enrichCartItem(item, product);
         })
         .filter((item): item is CartItemOutput => item !== null);
     }),

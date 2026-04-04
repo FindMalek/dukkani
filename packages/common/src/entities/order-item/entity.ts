@@ -27,7 +27,9 @@ export class OrderItemEntity {
       product: entity.product
         ? {
             id: entity.product.id,
-            name: entity.productVersion?.name ?? "",
+            ...(entity.productVersion?.name != null
+              ? { name: entity.productVersion.name }
+              : {}),
           }
         : undefined,
     };
@@ -41,7 +43,9 @@ export class OrderItemEntity {
       product: entity.product
         ? {
             id: entity.product.id,
-            name: entity.productVersion?.name ?? "",
+            ...(entity.productVersion?.name != null
+              ? { name: entity.productVersion.name }
+              : {}),
           }
         : undefined,
     };

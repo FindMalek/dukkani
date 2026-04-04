@@ -4,18 +4,19 @@ import { Button } from "@dukkani/ui/components/button";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
-import type { MutableRefObject } from "react";
-import type { ProductSubmitIntent } from "@/hooks/use-product-form";
+import type { ProductSubmitIntentRef } from "@/hooks/use-product-form";
 import { productFormOptions } from "@/lib/product-form-options";
+
+function defaultSubmitIntentRef(): ProductSubmitIntentRef {
+  return { current: "save" };
+}
 
 export const ProductFormActions = withForm({
   ...productFormOptions,
   props: {
     isEdit: false,
     hasDraft: false,
-    submitIntentRef: {
-      current: "save",
-    } as MutableRefObject<ProductSubmitIntent>,
+    submitIntentRef: defaultSubmitIntentRef(),
     onDiscardDraft: () => {
       /* no-op default */
     },
