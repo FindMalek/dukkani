@@ -24,7 +24,7 @@
     "@tanstack/react-query": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "better-auth": "catalog:",
-    "framer-motion": "^12.23.24",
+    "framer-motion": "^12.38.0",
     "next": "catalog:",
     "next-intl": "catalog:",
     "react": "catalog:",
