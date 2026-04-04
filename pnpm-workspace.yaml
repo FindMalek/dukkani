@@ -19,7 +19,7 @@ catalog:
   '@tailwindcss/postcss': ^4.2.2
   '@vercel/related-projects': ^1.0.1
   '@tanstack/react-form': ^1.28.6
-  '@tanstack/react-query': ^5.95.2
+  '@tanstack/react-query': ^5.96.2
   '@tanstack/react-query-devtools': ^5.95.2
   '@types/negotiator': ^0.6.4
   '@types/node': ^22.19.5
