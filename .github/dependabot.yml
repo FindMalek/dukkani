@@ -23,3 +23,17 @@ updates:
           - "@typescript/native-preview"
         update-types:
           - "patch"
+      minor-updates:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@typescript/native-preview"
+        update-types:
+          - "minor"
+      major-updates:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@typescript/native-preview"
+        update-types:
+          - "major"
