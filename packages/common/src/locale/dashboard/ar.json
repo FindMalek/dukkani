@@ -364,6 +364,8 @@
           "placeholder": "أدخل حالة نشر المنتج"
         },
         "photos": "صور",
+        "photoPreviewTitle": "معاينة الصورة",
+        "viewPhoto": "عرض بالحجم الكامل",
         "removePhoto": "إزالة الصورة",
         "priceHelp": "السعر الذي يدفعه العملاء (الدفع عند الاستلام)",
         "category": {

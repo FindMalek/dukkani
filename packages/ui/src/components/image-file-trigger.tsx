@@ -1,9 +1,10 @@
 "use client";
 
 import { cva, type VariantProps } from "class-variance-authority";
-import { type ChangeEvent, useCallback, useRef, useState } from "react";
+import { type ChangeEvent, useCallback, useId, useRef, useState } from "react";
 import { cn } from "../lib/utils";
 import { Icons } from "./icons";
+import { Label } from "./label";
 
 const triggerVariants = cva(
   "flex shrink-0 cursor-pointer flex-col items-center justify-center gap-1 border-2 border-input border-dashed bg-background text-center transition-colors hover:border-ring/50 hover:bg-accent/40",
@@ -50,6 +51,7 @@ export function ImageFileTrigger({
   variant,
   className,
 }: ImageFileTriggerProps) {
+  const inputId = useId();
   const requestIdRef = useRef(0);
   const [internalBusy, setInternalBusy] = useState(false);
   const busy = disabled || internalBusy;
@@ -127,14 +129,17 @@ export function ImageFileTrigger({
   }
 
   return (
-    <label
+    <Label
+      htmlFor={inputId}
       className={cn(
         triggerVariants({ variant }),
+        "!m-0 !text-[10px] !font-normal !leading-none flex cursor-pointer flex-col items-center justify-center gap-1",
         busy && "pointer-events-none opacity-60",
         className,
       )}
     >
       <input
+        id={inputId}
         type="file"
         accept={accept}
         multiple={multiple}
@@ -143,10 +148,10 @@ export function ImageFileTrigger({
         onChange={onChange}
       />
       <Icons.camera className="size-6 text-muted-foreground/60" />
-      <span className="px-1 text-center text-[10px] text-muted-foreground leading-tight">
+      <span className="px-1 text-center text-muted-foreground leading-tight">
         {label}
       </span>
       <span className="sr-only">{hint}</span>
-    </label>
+    </Label>
   );
 }

@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  FieldGroup,
-  FieldSet,
-} from "@dukkani/ui/components/field";
+import { FieldGroup, FieldSet } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { useTranslations } from "next-intl";

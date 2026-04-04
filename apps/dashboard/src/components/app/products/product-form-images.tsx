@@ -2,6 +2,12 @@
 
 import type { ProductImageAttachment } from "@dukkani/common/schemas/product/form";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@dukkani/ui/components/dialog";
+import {
   Field,
   FieldContent,
   FieldErrors,
@@ -35,6 +41,10 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
 
   const thumbsRef = useRef<HTMLDivElement>(null);
   const [isTransforming, setIsTransforming] = useState(false);
+  const [lightbox, setLightbox] = useState<{
+    src: string;
+    alt: string;
+  } | null>(null);
   const field = useFieldContext<ProductImageAttachment[]>();
 
   const attachments = field.state.value ?? [];
@@ -106,21 +116,36 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
         <div className="flex items-center gap-3">
           {attachments.length > 0 && (
             <ImagePreviewStrip thumbsRef={thumbsRef}>
-              {attachments.map((item, index) => (
-                <ImagePreviewThumb
-                  key={
-                    item.kind === "remote" ? item.url : `local-${item.clientId}`
-                  }
-                  src={
-                    item.kind === "remote"
-                      ? item.url
-                      : previewById[item.clientId]
-                  }
-                  alt={item.kind === "remote" ? "" : item.file.name}
-                  onRemove={() => handleRemove(index)}
-                  removeAriaLabel={t("form.removePhoto")}
-                />
-              ))}
+              {attachments.map((item, index) => {
+                const resolvedSrc =
+                  item.kind === "remote"
+                    ? item.url
+                    : previewById[item.clientId];
+
+                return (
+                  <ImagePreviewThumb
+                    key={
+                      item.kind === "remote"
+                        ? item.url
+                        : `local-${item.clientId}`
+                    }
+                    src={resolvedSrc}
+                    alt={item.kind === "remote" ? "" : item.file.name}
+                    onOpenPreview={
+                      resolvedSrc
+                        ? () =>
+                            setLightbox({
+                              src: resolvedSrc,
+                              alt: item.kind === "remote" ? "" : item.file.name,
+                            })
+                        : undefined
+                    }
+                    openPreviewAriaLabel={t("form.viewPhoto")}
+                    onRemove={() => handleRemove(index)}
+                    removeAriaLabel={t("form.removePhoto")}
+                  />
+                );
+              })}
             </ImagePreviewStrip>
           )}
 
@@ -144,6 +169,30 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
         ) : null}
       </div>
       <FieldErrors errors={field.state.meta.errors} match={isInvalid} />
+
+      <Dialog
+        open={lightbox !== null}
+        onOpenChange={(open) => {
+          if (!open) setLightbox(null);
+        }}
+      >
+        <DialogContent className="max-w-[min(90vw,56rem)] gap-4 p-4 sm:p-6">
+          <DialogHeader>
+            <DialogTitle>{t("form.photoPreviewTitle")}</DialogTitle>
+          </DialogHeader>
+          <div className="flex max-h-[85vh] w-full items-center justify-center overflow-auto rounded-md bg-muted p-2">
+            {lightbox?.src ? (
+              // Large arbitrary URLs (remote + blob): native img avoids Next image layout constraints.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={lightbox.src}
+                alt={lightbox.alt}
+                className="max-h-[min(80vh,900px)] w-auto max-w-full object-contain"
+              />
+            ) : null}
+          </div>
+        </DialogContent>
+      </Dialog>
     </Field>
   );
 }
