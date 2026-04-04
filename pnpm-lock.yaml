@@ -236,13 +236,13 @@ importers:
         version: link:../../packages/tracing
       '@orpc/openapi':
         specifier: 'catalog:'
-        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
+        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
       '@orpc/server':
         specifier: 'catalog:'
-        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
+        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
       '@orpc/zod':
         specifier: 'catalog:'
-        version: 1.13.13(@opentelemetry/api@1.9.1)(@orpc/contract@1.13.13(@opentelemetry/api@1.9.1))(@orpc/server@1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0))(ws@8.19.0)(zod@4.1.12)
+        version: 1.13.13(@opentelemetry/api@1.9.1)(@orpc/contract@1.13.13(@opentelemetry/api@1.9.1))(@orpc/server@1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0))(ws@8.20.0)(zod@4.1.12)
       '@prisma/client':
         specifier: 'catalog:'
         version: 7.5.0(prisma@7.5.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.2))(typescript@6.0.2)
@@ -312,7 +312,7 @@ importers:
         version: 1.13.13(@opentelemetry/api@1.9.1)
       '@orpc/server':
         specifier: 'catalog:'
-        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
+        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
       '@orpc/tanstack-query':
         specifier: 'catalog:'
         version: 1.13.13(@opentelemetry/api@1.9.1)(@orpc/client@1.13.13(@opentelemetry/api@1.9.1))(@tanstack/query-core@5.95.2)
@@ -424,7 +424,7 @@ importers:
         version: 1.13.13(@opentelemetry/api@1.9.1)
       '@orpc/server':
         specifier: 'catalog:'
-        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
+        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
       '@orpc/tanstack-query':
         specifier: 'catalog:'
         version: 1.13.13(@opentelemetry/api@1.9.1)(@orpc/client@1.13.13(@opentelemetry/api@1.9.1))(@tanstack/query-core@5.95.2)
@@ -863,8 +863,8 @@ importers:
         specifier: workspace:*
         version: link:../tracing
       '@supabase/supabase-js':
-        specifier: ^2.47.10
-        version: 2.99.0
+        specifier: ^2.101.1
+        version: 2.101.1
       '@t3-oss/env-core':
         specifier: 'catalog:'
         version: 0.13.11(typescript@6.0.2)(valibot@1.2.0(typescript@6.0.2))(zod@4.3.6)
@@ -928,10 +928,10 @@ importers:
         version: 1.13.13(@opentelemetry/api@1.9.1)
       '@orpc/openapi':
         specifier: 'catalog:'
-        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
+        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
       '@orpc/server':
         specifier: 'catalog:'
-        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
+        version: 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
       '@orpc/tanstack-query':
         specifier: 'catalog:'
         version: 1.13.13(@opentelemetry/api@1.9.1)(@orpc/client@1.13.13(@opentelemetry/api@1.9.1))(@tanstack/query-core@5.95.2)
@@ -3988,28 +3988,31 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@supabase/auth-js@2.99.0':
-    resolution: {integrity: sha512-tHiIST/OEoLmWBE+3X69xRY5srJM/lL86KltmMlIfDo9ePJLo14vQQV9T4NF+P+MoGhCwQL1GTmk51zuAFMXKw==}
+  '@supabase/auth-js@2.101.1':
+    resolution: {integrity: sha512-Kd0Wey+RkFHgyVep7adS6UOE2pN6MJ3mZ32PAXSvfw6IjUkFRC7IQpdZZjUOcUe5pXr1ejufCRgF6lsGINe4Tw==}
     engines: {node: '>=20.0.0'}
 
-  '@supabase/functions-js@2.99.0':
-    resolution: {integrity: sha512-zA9oad6EqGwMLLu2LfP1bXbqKcJGiotAdbdTfZG7YS7619YZQAEgejj9mp+E5vglKE1yMWbKK+S1J3PbuUtgLg==}
+  '@supabase/functions-js@2.101.1':
+    resolution: {integrity: sha512-OZWU7YtaG+NNNFZK8p/FuJ6gpq7pFyrG2fLOopP73HAIDHDGpOttPJapvO8ADu3RkqfQfkwrB354vPkSBbZ20A==}
     engines: {node: '>=20.0.0'}
 
-  '@supabase/postgrest-js@2.99.0':
-    resolution: {integrity: sha512-8qfOMi2pu9y0IQhUAeFqjrvR49G4ELGevXCWV9qAHXFQ/h2FFh0I8PYjFQj4rHcHSq6hrpozDnS1vbQU8NAQ/A==}
+  '@supabase/phoenix@0.4.0':
+    resolution: {integrity: sha512-RHSx8bHS02xwfHdAbX5Lpbo6PXbgyf7lTaXTlwtFDPwOIw64NnVRwFAXGojHhjtVYI+PEPNSWwkL90f4agN3bw==}
+
+  '@supabase/postgrest-js@2.101.1':
+    resolution: {integrity: sha512-UW1RajH5jbZoK+ldAJ1I6VZ+HWwZ2oaKjEQ6Gn+AQ67CHQVxGl8wNQoLYyumbyaExm41I+wn7arulcY1eHeZJw==}
     engines: {node: '>=20.0.0'}
 
-  '@supabase/realtime-js@2.99.0':
-    resolution: {integrity: sha512-7nFTZhNeANR7FvEY6PfWLCfE8dHqcaJd9SuR7IPEZvBPG9K4uEHMivpjZx4NWRSU7Eji7ZbKy2LG+cJ48DhwHg==}
+  '@supabase/realtime-js@2.101.1':
+    resolution: {integrity: sha512-Oa6dno0OB9I+hv5do5zsZHbFu41ViZnE9IWjmkeeF/8fPmB5fWoHGqeTYEC3/0DAgtpUoFJa4FpvzFH0SBHo1Q==}
     engines: {node: '>=20.0.0'}
 
-  '@supabase/storage-js@2.99.0':
-    resolution: {integrity: sha512-mAEEbfsght5EEALejYrwAP9k8sFBGjfMZT8n4SyMXk2iYuWVeRMs1kA/uKg0uDMctWdZ0bL+L4jZzksUJpCjMA==}
+  '@supabase/storage-js@2.101.1':
+    resolution: {integrity: sha512-WhTaUOBgeEvnKLy95Cdlp6+D5igSF/65yC727w1olxbet5nzUvMlajKUWyzNtQu2efrz2cQ7FcdVBdQqgT9YKQ==}
     engines: {node: '>=20.0.0'}
 
-  '@supabase/supabase-js@2.99.0':
-    resolution: {integrity: sha512-SP9Sn9tsHDB7N4u2gT13rdeZJewE4xibAxasG7vOz+fYi92+XkMMbWNx0uGK53zKTnAnvTs16isRooyBy4sn5w==}
+  '@supabase/supabase-js@2.101.1':
+    resolution: {integrity: sha512-Jnhm3LfuACwjIzvk2pfUbGQn7pa7hi6MFzfSyPrRYWVCCu69RPLCFyHSBl7HSBwadbQ3UZOznnD3gPca3ePrRA==}
     engines: {node: '>=20.0.0'}
 
   '@swc/core-darwin-arm64@1.15.8':
@@ -4354,9 +4357,6 @@ packages:
 
   '@types/pg@8.20.0':
     resolution: {integrity: sha512-bEPFOaMAHTEP1EzpvHTbmwR8UsFyHSKsRisLIHVMXnpNefSbGA1bD6CVy+qKjGSqmZqNqBDV2azOBo8TgkcVow==}
-
-  '@types/phoenix@1.6.7':
-    resolution: {integrity: sha512-oN9ive//QSBkf19rfDv45M7eZPi0eEXylht2OLEXicu5b4KoQ1OzXIw+xDSGWxSxe1JmepRR/ZH283vsu518/Q==}
 
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
@@ -7144,6 +7144,18 @@ packages:
       utf-8-validate:
         optional: true
 
+  ws@8.20.0:
+    resolution: {integrity: sha512-sAt8BhgNbzCtgGbt2OxmpuryO63ZoDk/sqaB/znQm94T4fCEsy/yV+7CdC1kJhOU9lboAEU7R3kquuycDoibVA==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
   xdg-basedir@4.0.0:
     resolution: {integrity: sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==}
     engines: {node: '>=8'}
@@ -8761,12 +8773,12 @@ snapshots:
 
   '@orpc/interop@1.13.13': {}
 
-  '@orpc/json-schema@1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)':
+  '@orpc/json-schema@1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)':
     dependencies:
       '@orpc/contract': 1.13.13(@opentelemetry/api@1.9.1)
       '@orpc/interop': 1.13.13
-      '@orpc/openapi': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
-      '@orpc/server': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
+      '@orpc/openapi': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
+      '@orpc/server': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
       '@orpc/shared': 1.13.13(@opentelemetry/api@1.9.1)
       json-schema-typed: 8.0.2
     transitivePeerDependencies:
@@ -8784,13 +8796,13 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
-  '@orpc/openapi@1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)':
+  '@orpc/openapi@1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)':
     dependencies:
       '@orpc/client': 1.13.13(@opentelemetry/api@1.9.1)
       '@orpc/contract': 1.13.13(@opentelemetry/api@1.9.1)
       '@orpc/interop': 1.13.13
       '@orpc/openapi-client': 1.13.13(@opentelemetry/api@1.9.1)
-      '@orpc/server': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
+      '@orpc/server': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
       '@orpc/shared': 1.13.13(@opentelemetry/api@1.9.1)
       '@orpc/standard-server': 1.13.13(@opentelemetry/api@1.9.1)
       json-schema-typed: 8.0.2
@@ -8807,7 +8819,7 @@ snapshots:
       '@opentelemetry/instrumentation': 0.209.0(@opentelemetry/api@1.9.1)
       '@orpc/shared': 1.13.13(@opentelemetry/api@1.9.1)
 
-  '@orpc/server@1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)':
+  '@orpc/server@1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)':
     dependencies:
       '@orpc/client': 1.13.13(@opentelemetry/api@1.9.1)
       '@orpc/contract': 1.13.13(@opentelemetry/api@1.9.1)
@@ -8821,7 +8833,7 @@ snapshots:
       '@orpc/standard-server-peer': 1.13.13(@opentelemetry/api@1.9.1)
       cookie: 1.1.1
     optionalDependencies:
-      ws: 8.19.0
+      ws: 8.20.0
     transitivePeerDependencies:
       - '@opentelemetry/api'
       - fastify
@@ -8886,12 +8898,12 @@ snapshots:
     transitivePeerDependencies:
       - '@opentelemetry/api'
 
-  '@orpc/zod@1.13.13(@opentelemetry/api@1.9.1)(@orpc/contract@1.13.13(@opentelemetry/api@1.9.1))(@orpc/server@1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0))(ws@8.19.0)(zod@4.1.12)':
+  '@orpc/zod@1.13.13(@opentelemetry/api@1.9.1)(@orpc/contract@1.13.13(@opentelemetry/api@1.9.1))(@orpc/server@1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0))(ws@8.20.0)(zod@4.1.12)':
     dependencies:
       '@orpc/contract': 1.13.13(@opentelemetry/api@1.9.1)
-      '@orpc/json-schema': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
-      '@orpc/openapi': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
-      '@orpc/server': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.19.0)
+      '@orpc/json-schema': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
+      '@orpc/openapi': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
+      '@orpc/server': 1.13.13(@opentelemetry/api@1.9.1)(ws@8.20.0)
       '@orpc/shared': 1.13.13(@opentelemetry/api@1.9.1)
       escape-string-regexp: 5.0.0
       wildcard-match: 5.1.4
@@ -10365,40 +10377,42 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@supabase/auth-js@2.99.0':
+  '@supabase/auth-js@2.101.1':
     dependencies:
       tslib: 2.8.1
 
-  '@supabase/functions-js@2.99.0':
+  '@supabase/functions-js@2.101.1':
     dependencies:
       tslib: 2.8.1
 
-  '@supabase/postgrest-js@2.99.0':
+  '@supabase/phoenix@0.4.0': {}
+
+  '@supabase/postgrest-js@2.101.1':
     dependencies:
       tslib: 2.8.1
 
-  '@supabase/realtime-js@2.99.0':
+  '@supabase/realtime-js@2.101.1':
     dependencies:
-      '@types/phoenix': 1.6.7
+      '@supabase/phoenix': 0.4.0
       '@types/ws': 8.18.1
       tslib: 2.8.1
-      ws: 8.19.0
+      ws: 8.20.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@supabase/storage-js@2.99.0':
+  '@supabase/storage-js@2.101.1':
     dependencies:
       iceberg-js: 0.8.1
       tslib: 2.8.1
 
-  '@supabase/supabase-js@2.99.0':
+  '@supabase/supabase-js@2.101.1':
     dependencies:
-      '@supabase/auth-js': 2.99.0
-      '@supabase/functions-js': 2.99.0
-      '@supabase/postgrest-js': 2.99.0
-      '@supabase/realtime-js': 2.99.0
-      '@supabase/storage-js': 2.99.0
+      '@supabase/auth-js': 2.101.1
+      '@supabase/functions-js': 2.101.1
+      '@supabase/postgrest-js': 2.101.1
+      '@supabase/realtime-js': 2.101.1
+      '@supabase/storage-js': 2.101.1
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -10666,8 +10680,6 @@ snapshots:
       '@types/node': 25.0.6
       pg-protocol: 1.10.3
       pg-types: 2.2.0
-
-  '@types/phoenix@1.6.7': {}
 
   '@types/react-dom@19.2.3(@types/react@19.2.14)':
     dependencies:
@@ -13571,6 +13583,8 @@ snapshots:
   ws@7.5.10: {}
 
   ws@8.19.0: {}
+
+  ws@8.20.0: {}
 
   xdg-basedir@4.0.0: {}
 
