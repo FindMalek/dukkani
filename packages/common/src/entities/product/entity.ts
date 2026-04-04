@@ -4,9 +4,8 @@ import type {
   ProductPublicOutput,
   ProductSimpleOutput,
 } from "../../schemas/product/output";
-import { ImageEntity } from "../image/entity";
 import { OrderItemEntity } from "../order-item/entity";
-import { ProductVersionQuery } from "../product-version/query";
+import { ProductVersionEntity } from "../product-version/entity";
 import { StoreEntity } from "../store/entity";
 import { VariantEntity } from "../variant/entity";
 import type {
@@ -33,7 +32,7 @@ export class ProductEntity {
   }
 
   static getListRo(entity: ProductListDbData): ListProductOutput {
-    const v = ProductVersionQuery.pickForList(
+    const v = ProductVersionEntity.pickForList(
       entity.draftVersion,
       entity.currentPublishedVersion,
     );
@@ -53,7 +52,7 @@ export class ProductEntity {
   }
 
   static getRo(entity: ProductIncludeDbData): ProductIncludeOutput {
-    const v = ProductVersionQuery.pickForEditor(
+    const v = ProductVersionEntity.pickForEditor(
       entity.draftVersion,
       entity.currentPublishedVersion,
     );
@@ -78,23 +77,25 @@ export class ProductEntity {
       };
     }
 
+    const version = ProductVersionEntity.getRo(v);
+
     return {
       id: entity.id,
-      name: v.name,
-      description: v.description,
-      price: Number(v.price),
-      stock: v.stock,
+      name: version.name,
+      description: version.description,
+      price: version.price,
+      stock: version.stock,
       published: entity.published,
       storeId: entity.storeId,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       categoryId: entity.categoryId,
       hasDraft: entity.draftVersionId !== null,
-      hasVariants: v.hasVariants,
-      images: v.images.map(ImageEntity.getSimpleRo),
+      hasVariants: version.hasVariants,
+      images: version.images,
       orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
-      variantOptions: v.variantOptions.map(VariantEntity.getVariantOptionRo),
-      variants: v.variants.map(VariantEntity.getVariantRo),
+      variantOptions: version.variantOptions,
+      variants: version.variants,
     };
   }
 
