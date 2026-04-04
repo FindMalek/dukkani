@@ -1,12 +1,11 @@
 "use client";
 
-import { Button } from "@dukkani/ui/components/button";
 import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-field";
-import { Icons } from "@dukkani/ui/components/icons";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
-import { useCurrentStoreCurrency } from "@/stores";
 import { productFormOptions } from "@/lib/product-form-options";
+import { useCurrentStoreCurrency } from "@/stores";
+import { ProductFormImages } from "./product-form-images";
 
 export const ProductFormEssentials = withForm({
   ...productFormOptions,
@@ -65,50 +64,8 @@ export const ProductFormEssentials = withForm({
             />
           )}
         </form.AppField>
-        <form.Subscribe selector={(state) => state.values.existingImageUrls}>
-          {(existing) =>
-            existing?.length ? (
-              <div className="space-y-2">
-                <p className="font-medium text-muted-foreground text-sm">
-                  {t("form.existingPhotos")}
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {existing.map((url, index) => (
-                    <div key={url} className="relative">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={url}
-                        alt=""
-                        className="size-24 rounded-xl border border-border object-cover"
-                      />
-                      <Button
-                        type="button"
-                        variant="secondary"
-                        size="icon"
-                        className="absolute -top-2 -right-2 h-7 w-7 rounded-full shadow-md"
-                        onClick={() =>
-                          form.setFieldValue("existingImageUrls", (prev) =>
-                            (prev ?? []).filter((_, i) => i !== index),
-                          )
-                        }
-                        aria-label={t("form.removePhoto")}
-                      >
-                        <Icons.x className="h-3.5 w-3.5" />
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null
-          }
-        </form.Subscribe>
-        <form.AppField name="imageFiles" mode="array">
-          {(imageUrlsField) => (
-            <imageUrlsField.ImagesInput
-              label={t("form.photos")}
-              optimizeFiles={optimizeFiles}
-            />
-          )}
+        <form.AppField name="images">
+          {() => <ProductFormImages optimizeFiles={optimizeFiles} />}
         </form.AppField>
       </>
     );

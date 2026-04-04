@@ -13,8 +13,7 @@ export const productFormOptions = formOptions({
     published: false,
     categoryId: "",
     hasVariants: false,
-    imageFiles: [],
-    existingImageUrls: [],
+    images: [],
     variantOptions: [],
   } as ProductFormInput,
   validators: {

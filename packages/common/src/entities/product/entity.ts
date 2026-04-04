@@ -46,7 +46,9 @@ export class ProductEntity {
       variantStructureLocked: entity.variants.length > 0,
       images: entity.images.map(ImageEntity.getSimpleRo),
       orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
-      variantOptions: entity.variantOptions.map(VariantEntity.getVariantOptionRo),
+      variantOptions: entity.variantOptions.map(
+        VariantEntity.getVariantOptionRo,
+      ),
       variants: entity.variants.map(VariantEntity.getVariantRo),
     };
   }

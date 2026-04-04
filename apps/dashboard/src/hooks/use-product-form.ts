@@ -1,8 +1,10 @@
 "use client";
 
 import { productFormSchema } from "@dukkani/common/schemas/product/form";
-import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
-import type { UpdateProductInput } from "@dukkani/common/schemas/product/input";
+import type {
+  CreateProductInput,
+  UpdateProductInput,
+} from "@dukkani/common/schemas/product/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -45,15 +47,19 @@ export function useProductForm({
   const form = useAppForm({
     ...productFormOptions,
     onSubmit: async ({ value }) => {
-      const imageUrls = await (async () => {
-        if (value.imageFiles.length === 0) {
+      const localFiles = value.images
+        .filter((item) => item.kind === "local")
+        .map((item) => item.file);
+
+      const uploadedUrls = await (async () => {
+        if (localFiles.length === 0) {
           return [];
         }
 
         try {
           const res = await client.product.uploadImages({
             storeId,
-            files: value.imageFiles,
+            files: localFiles,
           });
           return res.files.map((file) => file.url);
         } catch (error) {
@@ -62,19 +68,35 @@ export function useProductForm({
         }
       })();
 
-      if (imageUrls === null) {
+      if (uploadedUrls === null) {
         return;
       }
 
+      let uploadIndex = 0;
+      const finalUrls = value.images.map((item) => {
+        if (item.kind === "remote") {
+          return item.url;
+        }
+        const url = uploadedUrls[uploadIndex];
+        uploadIndex += 1;
+        return url;
+      });
+
       const cleanedFormData = productFormSchema.parse(value);
-      const { existingImageUrls = [], ...rest } = cleanedFormData;
+      const rest = cleanedFormData;
 
       if (isEdit) {
-        const merged = [...existingImageUrls, ...imageUrls];
+        const currentRemoteUrls = value.images
+          .filter((item) => item.kind === "remote")
+          .map((item) => item.url);
+        const hasLocal = value.images.some((item) => item.kind === "local");
+        // Compare order (not sort): first image is primary on storefront.
         const sameAsInitial =
-          value.imageFiles.length === 0 &&
-          JSON.stringify([...existingImageUrls].sort()) ===
-            JSON.stringify([...initialImageUrlsRef.current].sort());
+          !hasLocal &&
+          currentRemoteUrls.length === initialImageUrlsRef.current.length &&
+          currentRemoteUrls.every(
+            (url, i) => url === initialImageUrlsRef.current[i],
+          );
 
         const payload: UpdateProductInput = {
           id: productId ?? "",
@@ -86,7 +108,7 @@ export function useProductForm({
           categoryId: rest.categoryId,
           hasVariants: rest.hasVariants,
           variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
-          ...(sameAsInitial ? {} : { imageUrls: merged }),
+          ...(sameAsInitial ? {} : { imageUrls: finalUrls }),
         };
 
         await updateProductMutation.mutateAsync(payload, {
@@ -102,7 +124,7 @@ export function useProductForm({
 
       const cleanedData: CreateProductInput = {
         ...rest,
-        imageUrls: [...existingImageUrls, ...imageUrls],
+        imageUrls: finalUrls,
         storeId,
       };
 
@@ -129,7 +151,9 @@ export function useProductForm({
     if (initialLoadDone.current) return;
 
     const mapped = mapProductToFormValues(productQuery.data);
-    initialImageUrlsRef.current = [...mapped.existingImageUrls];
+    initialImageUrlsRef.current = mapped.images
+      .filter((item) => item.kind === "remote")
+      .map((item) => item.url);
     form.reset(mapped);
     initialLoadDone.current = true;
   }, [

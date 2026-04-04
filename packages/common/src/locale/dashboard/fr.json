@@ -368,7 +368,6 @@
           "placeholder": "Entrez le produit publié"
         },
         "photos": "Photos",
-        "existingPhotos": "Photos actuelles",
         "removePhoto": "Retirer la photo",
         "priceHelp": "Prix que les clients paient (COD)",
         "category": {

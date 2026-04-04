@@ -1,6 +1,26 @@
 import * as z from "zod";
 import { productSchema } from "./base";
 
+export const productImageRemoteSchema = z.strictObject({
+  kind: z.literal("remote"),
+  url: z.url(),
+});
+
+export const productImageLocalSchema = z.strictObject({
+  kind: z.literal("local"),
+  file: z.file(),
+  clientId: z.string().min(1, "Client ID is required"),
+});
+
+export const productImageAttachmentSchema = z.discriminatedUnion("kind", [
+  productImageRemoteSchema,
+  productImageLocalSchema,
+]);
+
+export type ProductImageAttachment = z.infer<
+  typeof productImageAttachmentSchema
+>;
+
 export const productFormSchema = productSchema
   .omit({
     storeId: true,
@@ -8,19 +28,11 @@ export const productFormSchema = productSchema
   .extend({
     price: z.coerce.number<string>().positive("Price must be positive"),
     stock: z.coerce.number<string>().min(0, "Stock cannot be negative"),
-    imageFiles: z.array(z.file()).max(10, "Maximum 10 images allowed"),
-    existingImageUrls: z.array(z.url()).max(10).default([]),
+    images: z
+      .array(productImageAttachmentSchema)
+      .max(10, "Maximum 10 images allowed"),
   })
-  .superRefine((data, ctx) => {
-    if (data.imageFiles.length + data.existingImageUrls.length > 10) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Maximum 10 images allowed",
-        path: ["imageFiles"],
-      });
-    }
-  })
-  .transform(({ imageFiles, ...form }) => form);
+  .transform(({ images, ...form }) => form);
 
 export type ProductFormInput = z.input<typeof productFormSchema>;
 export type ProductFormOutput = z.infer<typeof productFormSchema>;

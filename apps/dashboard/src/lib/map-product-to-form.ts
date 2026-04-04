@@ -1,5 +1,5 @@
-import type { ProductIncludeOutput } from "@dukkani/common/schemas/product/output";
 import type { ProductFormInput } from "@dukkani/common/schemas/product/form";
+import type { ProductIncludeOutput } from "@dukkani/common/schemas/product/output";
 
 export function mapProductToFormValues(
   product: ProductIncludeOutput,
@@ -16,7 +16,8 @@ export function mapProductToFormValues(
       name: o.name,
       values: o.values.map((v) => ({ value: v.value })),
     })),
-    imageFiles: [],
-    existingImageUrls: product.images?.map((i) => i.url) ?? [],
+    images:
+      product.images?.map((i) => ({ kind: "remote" as const, url: i.url })) ??
+      [],
   };
 }
