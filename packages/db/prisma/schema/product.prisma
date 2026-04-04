@@ -1,4 +1,7 @@
-/// Product category scoped to one store. Categories are stable identity; they do not version with catalog drafts.
+/**
+ * Product category scoped to one store.
+ * Stable identity only: categories do not version with catalog drafts (unlike ProductVersion).
+ */
 model Category {
   id String @id @default(cuid())
 
@@ -17,18 +20,19 @@ model Category {
   @@map("categories")
 }
 
-/// Logical product: stable id (e.g. storefront URL), store, category, and publish flag.
-/// Sellable copy (name, price, media, variants) always lives on ProductVersion, not here.
+/**
+ * Logical product: stable id (e.g. storefront URL), store, category, and merchant "listed" flag.
+ * Sellable copy (name, price, media, variants) always lives on ProductVersion, not here.
+ * `currentPublishedVersionId` / `draftVersionId` point at the live catalog row and the in-progress edit buffer.
+ */
 model Product {
   id String @id
 
   published Boolean @default(false)
 
-  /// Points at the version customers see when `published` is true; null if nothing is live yet.
   currentPublishedVersionId String?         @map("current_published_version_id")
   currentPublishedVersion   ProductVersion? @relation("ProductCurrentPublishedVersion", fields: [currentPublishedVersionId], references: [id], onDelete: Restrict)
 
-  /// In-progress edit buffer; may differ from the published snapshot until publish replaces it.
   draftVersionId String?         @map("draft_version_id")
   draftVersion   ProductVersion? @relation("ProductDraftVersion", fields: [draftVersionId], references: [id], onDelete: SetNull)
 
@@ -53,8 +57,11 @@ model Product {
   @@map("products")
 }
 
-/// Immutable-in-practice snapshot of what can be sold for a Product at a point in time.
-/// Draft = editable workspace; published = live catalog; archived = superseded but retained for order history.
+/**
+ * Immutable-in-practice snapshot of what can be sold for a Product at a point in time.
+ * Draft = editable workspace; published = live catalog; archived = superseded but kept for order history.
+ * `createdFromVersionId` records which version was forked when creating a new draft (optional).
+ */
 model ProductVersion {
   id String @id @default(cuid())
 
@@ -70,7 +77,6 @@ model ProductVersion {
   stock       Int
   hasVariants Boolean @default(false) @map("has_variants")
 
-  /// Version this row was cloned/forked from (e.g. new draft from last publish); null for the first version.
   createdFromVersionId String?          @map("created_from_version_id")
   createdFromVersion   ProductVersion?  @relation("VersionFork", fields: [createdFromVersionId], references: [id], onDelete: SetNull)
   forkedChildren       ProductVersion[] @relation("VersionFork")
@@ -93,7 +99,9 @@ model ProductVersion {
   @@map("product_versions")
 }
 
-/// Gallery row for one product version (ordering is by createdAt / application logic).
+/**
+ * Image row for one product version; URLs belong to the sellable snapshot, not the logical Product alone.
+ */
 model Image {
   id  String @id @default(cuid())
   url String
@@ -101,7 +109,6 @@ model Image {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  /// Parent sellable snapshot; images move with the version, not the logical Product alone.
   productVersionId String         @map("product_version_id")
   productVersion   ProductVersion @relation(fields: [productVersionId], references: [id], onDelete: Cascade)
 
@@ -109,7 +116,10 @@ model Image {
   @@map("images")
 }
 
-/// Named option (e.g. Size) and its allowed values for this version.
+/**
+ * Named variant option (e.g. Size) and its allowed values for this ProductVersion.
+ * Unique per version by option name.
+ */
 model ProductVariantOption {
   id String @id @default(cuid())
 
@@ -129,6 +139,9 @@ model ProductVariantOption {
   @@map("product_variant_options")
 }
 
+/**
+ * One allowed value for a ProductVariantOption (e.g. "M" under Size).
+ */
 model ProductVariantOptionValue {
   id String @id @default(cuid())
 
@@ -147,7 +160,10 @@ model ProductVariantOptionValue {
   @@map("product_variant_option_values")
 }
 
-/// Concrete SKU row: stock/optional price override under one ProductVersion.
+/**
+ * Concrete SKU row under one ProductVersion: stock and optional per-variant price override.
+ * Unique (productVersionId, sku) when sku is used.
+ */
 model ProductVariant {
   id String @id @default(cuid())
 
@@ -170,7 +186,9 @@ model ProductVariant {
   @@map("product_variants")
 }
 
-/// Join table: which option value a variant picks (one row per option dimension).
+/**
+ * Links a ProductVariant to one chosen value per option dimension (variant ↔ option ↔ value).
+ */
 model ProductVariantSelection {
   id String @id @default(cuid())
 

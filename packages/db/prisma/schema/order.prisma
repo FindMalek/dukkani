@@ -1,4 +1,7 @@
-/// Customer order header; line items carry frozen product/version/variant references.
+/**
+ * Customer order header: status, payment, store, customer, address.
+ * Line items carry frozen product, version, and variant references.
+ */
 model Order {
   id String @id
 
@@ -28,15 +31,17 @@ model Order {
   @@map("orders")
 }
 
-/// One purchased line: ties to logical Product, the frozen ProductVersion (title/price context), and optional variant.
+/**
+ * One purchased line: logical productId, frozen productVersionId (catalog snapshot at checkout),
+ * optional productVariantId, unit price and quantity.
+ * displayAttributes hold human-readable option labels at order time (no JSON).
+ */
 model OrderItem {
   id String @id @default(cuid())
 
   orderId   String @map("order_id")
-  /// Logical product id for navigation and relations; catalog text comes from productVersion.
   productId String @map("product_id")
 
-  /// Version snapshot at checkout (name, pricing rules, etc.); must stay even if the live catalog changes.
   productVersionId String         @map("product_version_id")
   productVersion   ProductVersion @relation(fields: [productVersionId], references: [id], onDelete: Restrict)
 
@@ -50,14 +55,15 @@ model OrderItem {
   product           Product                     @relation(fields: [productId], references: [id], onDelete: Cascade)
   productVariant    ProductVariant?             @relation(fields: [productVariantId], references: [id])
   productVariantId  String?                     @map("product_variant_id")
-  /// Human-readable option labels copied at checkout so receipts stay stable if option names change later.
   displayAttributes OrderItemVariantAttribute[]
 
   @@index([productVersionId])
   @@map("order_items")
 }
 
-/// Frozen option name + value strings at order time (no JSON); mirrors selections the customer picked.
+/**
+ * Frozen option name + value per order line; written at checkout so receipts stay stable if catalog option names change.
+ */
 model OrderItemVariantAttribute {
   id String @id @default(cuid())
 

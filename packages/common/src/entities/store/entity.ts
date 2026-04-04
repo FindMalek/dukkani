@@ -18,7 +18,7 @@ import type {
   StoreSimpleOutput,
 } from "../../schemas/store/output";
 import { ProductEntity } from "../product/entity";
-import { isProductPublicWithPublished } from "../product/query";
+import { ProductQuery } from "../product/query";
 import { SalesMetricEntity } from "../sales-metric/entity";
 import { StorePlanEntity } from "../store-plan/entity";
 import { TeamMemberEntity } from "../team-member/entity";
@@ -140,7 +140,7 @@ export class StoreEntity {
         ? UserEntity.getSimpleSelectRo(entity.owner)
         : undefined,
       products: entity.products
-        ?.filter(isProductPublicWithPublished)
+        ?.filter(ProductQuery.isPublicWithPublished)
         .map(ProductEntity.getPublicRo),
     };
   }

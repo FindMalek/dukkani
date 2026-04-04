@@ -1,6 +1,5 @@
 import { ProductEntity } from "@dukkani/common/entities/product/entity";
 import {
-  isProductPublicWithPublished,
   type ProductPublicDbDataWithPublished,
   ProductQuery,
 } from "@dukkani/common/entities/product/query";
@@ -71,7 +70,7 @@ export const cartRouter = {
       return input.items
         .map((item) => {
           const product = productMap.get(item.productId);
-          if (!product || !isProductPublicWithPublished(product)) {
+          if (!product || !ProductQuery.isPublicWithPublished(product)) {
             return null;
           }
           return enrichCartItem(item, product);

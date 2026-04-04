@@ -6,7 +6,7 @@ import type {
 } from "../../schemas/product/output";
 import { ImageEntity } from "../image/entity";
 import { OrderItemEntity } from "../order-item/entity";
-import { ProductVersionEntity } from "../product-version/entity";
+import { ProductVersionQuery } from "../product-version/query";
 import { StoreEntity } from "../store/entity";
 import { VariantEntity } from "../variant/entity";
 import type {
@@ -33,7 +33,7 @@ export class ProductEntity {
   }
 
   static getListRo(entity: ProductListDbData): ListProductOutput {
-    const v = ProductVersionEntity.pickForList(
+    const v = ProductVersionQuery.pickForList(
       entity.draftVersion,
       entity.currentPublishedVersion,
     );
@@ -53,7 +53,7 @@ export class ProductEntity {
   }
 
   static getRo(entity: ProductIncludeDbData): ProductIncludeOutput {
-    const v = ProductVersionEntity.pickForEditor(
+    const v = ProductVersionQuery.pickForEditor(
       entity.draftVersion,
       entity.currentPublishedVersion,
     );

@@ -1,8 +1,5 @@
 import { ProductEntity } from "@dukkani/common/entities/product/entity";
-import {
-  isProductPublicWithPublished,
-  ProductQuery,
-} from "@dukkani/common/entities/product/query";
+import { ProductQuery } from "@dukkani/common/entities/product/query";
 import { StoreStatus } from "@dukkani/common/schemas/enums";
 import {
   createProductInputSchema,
@@ -717,7 +714,7 @@ export const productRouter = {
         });
       }
 
-      if (!isProductPublicWithPublished(product)) {
+      if (!ProductQuery.isPublicWithPublished(product)) {
         throw new ORPCError("NOT_FOUND", {
           message: "Product not found",
         });
@@ -749,7 +746,7 @@ export const productRouter = {
       }
 
       return products
-        .filter(isProductPublicWithPublished)
+        .filter(ProductQuery.isPublicWithPublished)
         .map((p) => ProductEntity.getPublicRo(p));
     }),
 

@@ -32,12 +32,6 @@ export type ProductPublicDbDataWithPublished = ProductPublicDbData & {
   >;
 };
 
-export function isProductPublicWithPublished(
-  product: ProductPublicDbData,
-): product is ProductPublicDbDataWithPublished {
-  return product.currentPublishedVersion != null;
-}
-
 export class ProductQuery {
   static getSimpleInclude() {
     return {
@@ -229,6 +223,16 @@ export class ProductQuery {
         is: { status: ProductVersionStatus.PUBLISHED },
       },
     };
+  }
+
+  /**
+   * Narrows Prisma payloads before `ProductEntity.getPublicRo`.
+   * `getPublishableWhere()` already enforces the rule at query time; this still types `currentPublishedVersion` as non-null and skips inconsistent rows.
+   */
+  static isPublicWithPublished(
+    product: ProductPublicDbData,
+  ): product is ProductPublicDbDataWithPublished {
+    return product.currentPublishedVersion != null;
   }
 
   static getOrder(
