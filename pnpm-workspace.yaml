@@ -34,7 +34,7 @@ catalog:
   nanoid: ^5.1.7
   negotiator: ^1.0.0
   next: ^16.2.2
-  next-intl: ^4.8.3
+  next-intl: ^4.9.0
   ai: ^5.0.52
   '@ai-sdk/groq': ^1.0.0
   pino: ^9.9.5
