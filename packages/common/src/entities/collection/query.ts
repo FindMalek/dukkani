@@ -1,4 +1,5 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
+import { ProductQuery } from "../product/query";
 
 export type CollectionSimpleDbData = Prisma.CollectionGetPayload<{
   include: ReturnType<typeof CollectionQuery.getSimpleInclude>;
@@ -20,7 +21,7 @@ export class CollectionQuery {
         include: {
           product: {
             include: {
-              images: true,
+              ...ProductQuery.getSimpleInclude(),
               category: true,
             },
           },

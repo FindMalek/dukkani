@@ -6,7 +6,7 @@ import type {
   UpdateProductInput,
 } from "@dukkani/common/schemas/product/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useCategoriesQuery } from "@/hooks/api/use-categories.hook";
@@ -19,11 +19,14 @@ import { handleAPIError } from "@/lib/error";
 import { mapProductToFormValues } from "@/lib/map-product-to-form";
 import { client } from "@/lib/orpc";
 import { productFormOptions } from "@/lib/product-form-options";
+import { queryKeys } from "@/lib/query-keys";
 import { RoutePaths } from "@/lib/routes";
 
 /**
  * Create or edit product: TanStack Form + categories + create/update mutation.
  */
+export type ProductSubmitIntent = "save" | "saveAndPublish";
+
 export function useProductForm({
   storeId,
   productId,
@@ -32,6 +35,7 @@ export function useProductForm({
   productId?: string;
 }) {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const isEdit = Boolean(productId);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
 
@@ -40,6 +44,28 @@ export function useProductForm({
   });
   const createProductMutation = useMutation(createProductMutationOptions);
   const updateProductMutation = useUpdateProductMutation();
+  const submitIntentRef = useRef<ProductSubmitIntent>("save");
+
+  const publishProductMutation = useMutation({
+    mutationFn: (id: string) => client.product.publish({ id }),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.products.all() });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.products.byId(data.id),
+      });
+      queryClient.invalidateQueries({ queryKey: queryKeys.dashboard.stats() });
+    },
+  });
+
+  const discardDraftMutation = useMutation({
+    mutationFn: (id: string) => client.product.discardDraft({ id }),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.products.all() });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.products.byId(data.id),
+      });
+    },
+  });
 
   const initialLoadDone = useRef(false);
   const initialImageUrlsRef = useRef<string[]>([]);
@@ -111,14 +137,20 @@ export function useProductForm({
           ...(sameAsInitial ? {} : { imageUrls: finalUrls }),
         };
 
-        await updateProductMutation.mutateAsync(payload, {
-          onSuccess: () => {
+        try {
+          await updateProductMutation.mutateAsync(payload);
+          if (submitIntentRef.current === "saveAndPublish") {
+            await publishProductMutation.mutateAsync(productId ?? "");
             router.push(RoutePaths.PRODUCTS.INDEX.url);
-          },
-          onError: (error) => {
-            handleAPIError(error);
-          },
-        });
+          } else {
+            await queryClient.invalidateQueries({
+              queryKey: queryKeys.products.byId(productId ?? ""),
+            });
+            await productQuery.refetch();
+          }
+        } catch (error) {
+          handleAPIError(error);
+        }
         return;
       }
 
@@ -191,10 +223,21 @@ export function useProductForm({
     [form],
   );
 
-  const variantStructureLocked =
-    isEdit && productQuery.data
-      ? productQuery.data.variantStructureLocked
-      : false;
+  const hasDraft = Boolean(productQuery.data?.hasDraft);
+
+  const handleDiscardDraft = useCallback(async () => {
+    if (!productId) return;
+    try {
+      const data = await discardDraftMutation.mutateAsync(productId);
+      const mapped = mapProductToFormValues(data);
+      initialImageUrlsRef.current = mapped.images
+        .filter((item) => item.kind === "remote")
+        .map((item) => item.url);
+      form.reset(mapped);
+    } catch (error) {
+      handleAPIError(error);
+    }
+  }, [productId, discardDraftMutation, form]);
 
   return {
     form,
@@ -205,7 +248,11 @@ export function useProductForm({
     handleCategoryCreated,
     isEdit,
     productQuery,
-    variantStructureLocked,
+    hasDraft,
+    submitIntentRef,
+    publishProductMutation,
+    discardDraftMutation,
+    handleDiscardDraft,
     storeMismatch:
       isEdit &&
       Boolean(productQuery.data) &&

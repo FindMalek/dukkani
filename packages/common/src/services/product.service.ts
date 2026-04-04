@@ -19,16 +19,22 @@ class ProductServiceBase {
   }
 
   /**
-   * Get server-side prices for order items (public storefront)
-   * Fetches actual prices from DB - never trust client-provided prices
-   * - For items with variantId: uses ProductVariant.price if set, else Product.price
-   * - For items without variantId: uses Product.price
+   * Server-side prices from the **current published** product version.
+   * Stale cart lines (variant no longer on that version) throw {@link BadRequestError}.
    */
   static async getOrderItemPrices(
     items: ProductLineItem[],
     storeId: string,
     tx?: PrismaClient,
-  ): Promise<Array<ProductLineItem & { price: number }>> {
+  ): Promise<
+    Array<
+      ProductLineItem & {
+        price: number;
+        productVersionId: string;
+        productNameAtCheckout: string;
+      }
+    >
+  > {
     if (items.length === 0) {
       return [];
     }
@@ -44,9 +50,15 @@ class ProductServiceBase {
       },
       select: {
         id: true,
-        price: true,
-        variants: {
-          select: { id: true, price: true },
+        currentPublishedVersion: {
+          select: {
+            id: true,
+            name: true,
+            price: true,
+            variants: {
+              select: { id: true, price: true },
+            },
+          },
         },
       },
     });
@@ -58,29 +70,32 @@ class ProductServiceBase {
 
     return items.map((item) => {
       const product = productMap.get(item.productId);
-      if (!product) {
+      const pub = product?.currentPublishedVersion;
+      if (!product || !pub) {
         throw new NotFoundError(
           `Product ${item.productId} not found or not available for this store`,
         );
       }
       const variant = item.variantId
-        ? product.variants.find(
+        ? pub.variants.find(
             (v: { id: string; price: unknown }) => v.id === item.variantId,
           )
-        : null;
+        : undefined;
       if (item.variantId && variant === undefined) {
-        throw new NotFoundError(
-          `Product variant ${item.variantId} not found for product ${item.productId}`,
+        throw new BadRequestError(
+          "This product was updated. Remove it from your cart and add it again.",
         );
       }
       const price =
-        variant?.price != null ? Number(variant.price) : Number(product.price);
+        variant?.price != null ? Number(variant.price) : Number(pub.price);
 
       return {
         productId: item.productId,
         variantId: item.variantId,
         quantity: item.quantity,
         price,
+        productVersionId: pub.id,
+        productNameAtCheckout: pub.name,
       };
     });
   }
@@ -154,27 +169,45 @@ class ProductServiceBase {
       }
     }
 
-    // Check variant stock for items with variantId
+    // Check variant stock — variant must belong to the product's **current published** version
     if (variantItems.length > 0) {
-      const uniqueVariantIds = [
-        ...new Set(variantItems.map((i) => i.variantId)),
+      const uniqueProductIds = [
+        ...new Set(variantItems.map((i) => i.productId)),
       ];
-      const variants = await client.productVariant.findMany({
+      const products = await client.product.findMany({
         where: {
-          id: { in: uniqueVariantIds },
-          product: { storeId },
+          id: { in: uniqueProductIds },
+          storeId,
+          ...ProductQuery.getPublishableWhere(),
         },
-        select: { id: true, productId: true, stock: true },
+        select: {
+          id: true,
+          currentPublishedVersion: {
+            select: {
+              variants: { select: { id: true, stock: true } },
+            },
+          },
+        },
       });
+      type VariantStockProduct = (typeof products)[number];
+      const productMap = new Map<string, VariantStockProduct>(
+        products.map((p: VariantStockProduct) => [p.id, p]),
+      );
 
       for (const item of variantItems) {
-        const variant = variants.find(
-          (v: { id: string; productId: string; stock: number }) =>
-            v.id === item.variantId && v.productId === item.productId,
+        const row = productMap.get(item.productId);
+        const pub = row?.currentPublishedVersion;
+        if (!pub) {
+          throw new NotFoundError(
+            `Product ${item.productId} not found or not available for this store`,
+          );
+        }
+        const variant = pub.variants.find(
+          (v: { id: string; stock: number }) => v.id === item.variantId,
         );
         if (!variant) {
-          throw new NotFoundError(
-            "Product variant not found or doesn't belong to this store",
+          throw new BadRequestError(
+            "This product was updated. Remove it from your cart and add it again.",
           );
         }
         if (variant.stock < item.quantity) {
@@ -185,7 +218,7 @@ class ProductServiceBase {
       }
     }
 
-    // Check product stock for items without variantId
+    // Check base (no-variant) stock on the published version
     if (productItems.length > 0) {
       const uniqueProductIds = [
         ...new Set(productItems.map((i) => i.productId)),
@@ -194,8 +227,12 @@ class ProductServiceBase {
         where: {
           id: { in: uniqueProductIds },
           storeId,
+          ...ProductQuery.getPublishableWhere(),
         },
-        select: { id: true, stock: true },
+        select: {
+          id: true,
+          currentPublishedVersion: { select: { stock: true } },
+        },
       });
 
       if (products.length !== uniqueProductIds.length) {
@@ -206,9 +243,10 @@ class ProductServiceBase {
 
       for (const item of productItems) {
         const product = products.find(
-          (p: { id: string; stock: number }) => p.id === item.productId,
+          (p: (typeof products)[number]) => p.id === item.productId,
         );
-        if (!product || product.stock < item.quantity) {
+        const stock = product?.currentPublishedVersion?.stock;
+        if (stock === undefined || stock < item.quantity) {
           throw new BadRequestError(
             `Insufficient stock for product ${item.productId}`,
           );
@@ -242,8 +280,15 @@ class ProductServiceBase {
     });
 
     const client = tx ?? database;
-    await client.product.update({
+    const product = await client.product.findUnique({
       where: { id: productId },
+      select: { currentPublishedVersionId: true },
+    });
+    if (!product?.currentPublishedVersionId) {
+      throw new NotFoundError("Product has no published version");
+    }
+    await client.productVersion.update({
+      where: { id: product.currentPublishedVersionId },
       data: {
         stock: {
           [operation]: quantity,
@@ -277,48 +322,108 @@ class ProductServiceBase {
     }
 
     // Split into variant updates and product updates
-    const variantUpdates: Array<{ variantId: string; quantity: number }> = [];
+    const variantUpdates: Array<{
+      productId: string;
+      variantId: string;
+      quantity: number;
+    }> = [];
     const productUpdates: Array<{ productId: string; quantity: number }> = [];
     for (const [key, quantity] of aggregatedByKey.entries()) {
       const colonIdx = key.indexOf(":");
       const productId = colonIdx >= 0 ? key.slice(0, colonIdx) : key;
       const variantId = colonIdx >= 0 ? key.slice(colonIdx + 1) : "";
       if (variantId) {
-        variantUpdates.push({ variantId, quantity });
+        variantUpdates.push({ productId, variantId, quantity });
       } else {
         productUpdates.push({ productId, quantity });
       }
     }
 
-    // Update variant stocks
+    // Update variant stocks (only rows on the current published version)
     if (variantUpdates.length > 0) {
+      const uniqueVariantIds = [
+        ...new Set(variantUpdates.map((u) => u.variantId)),
+      ];
+      const variantRows = await client.productVariant.findMany({
+        where: { id: { in: uniqueVariantIds } },
+        select: {
+          id: true,
+          productVersionId: true,
+          productVersion: {
+            select: {
+              product: {
+                select: {
+                  id: true,
+                  currentPublishedVersionId: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      type VariantRow = (typeof variantRows)[number];
+      const rowById = new Map<string, VariantRow>(
+        variantRows.map((r: VariantRow) => [r.id, r]),
+      );
+
       await Promise.all(
-        variantUpdates.map(({ variantId, quantity }) =>
-          client.productVariant.update({
+        variantUpdates.map(({ productId, variantId, quantity }) => {
+          const row = rowById.get(variantId);
+          const pubId =
+            row?.productVersion.product.currentPublishedVersionId ?? null;
+          if (
+            !row ||
+            !pubId ||
+            row.productVersionId !== pubId ||
+            row.productVersion.product.id !== productId
+          ) {
+            throw new BadRequestError(
+              "Cannot adjust stock: variant is not on the live catalog version",
+            );
+          }
+          return client.productVariant.update({
             where: { id: variantId },
             data: {
               stock: {
                 [operation]: quantity,
               },
             },
-          }),
-        ),
+          });
+        }),
       );
     }
 
-    // Update product stocks
+    // Update base stock on the published ProductVersion
     if (productUpdates.length > 0) {
+      const uniqueProductIds = [
+        ...new Set(productUpdates.map((u) => u.productId)),
+      ];
+      const products = await client.product.findMany({
+        where: { id: { in: uniqueProductIds } },
+        select: { id: true, currentPublishedVersionId: true },
+      });
+      type PubProduct = (typeof products)[number];
+      const pubByProduct = new Map(
+        products.map((p: PubProduct) => [p.id, p.currentPublishedVersionId]),
+      );
+
       await Promise.all(
-        productUpdates.map(({ productId, quantity }) =>
-          client.product.update({
-            where: { id: productId },
+        productUpdates.map(({ productId, quantity }) => {
+          const versionId = pubByProduct.get(productId);
+          if (!versionId) {
+            throw new NotFoundError(
+              `Product ${productId} has no published version`,
+            );
+          }
+          return client.productVersion.update({
+            where: { id: versionId },
             data: {
               stock: {
                 [operation]: quantity,
               },
             },
-          }),
-        ),
+          });
+        }),
       );
     }
 

@@ -12,6 +12,7 @@ export {
 } from "./onboarding.service";
 export { OrderService } from "./order.service";
 export { ProductService } from "./product.service";
+export { ProductVersionService } from "./product-version.service";
 export { StorageService } from "./storage.service";
 export { StoreService } from "./store.service";
 export { TelegramService } from "./telegram.service";

@@ -4,6 +4,7 @@ import {
   NotFoundError,
 } from "@dukkani/common/errors";
 import { database } from "@dukkani/db";
+import type { Prisma } from "@dukkani/db/prisma/generated";
 import { generateOrderId } from "@dukkani/db/utils/generate-id";
 import logger from "@dukkani/logger";
 import {
@@ -34,6 +35,52 @@ import { ProductService } from "./product.service";
  * All methods are automatically traced via traceStaticClass
  */
 class OrderServiceBase {
+  /**
+   * Frozen option labels for an order line (published version at checkout time).
+   */
+  private static async buildOrderItemDisplayAttributes(
+    tx: Prisma.TransactionClient,
+    productVersionId: string,
+    variantId: string | undefined | null,
+    productNameAtCheckout: string,
+  ): Promise<Array<{ position: number; optionName: string; value: string }>> {
+    if (!variantId) {
+      return [
+        { position: 0, optionName: "Product", value: productNameAtCheckout },
+      ];
+    }
+
+    const variant = await tx.productVariant.findFirst({
+      where: { id: variantId, productVersionId },
+      include: {
+        selections: {
+          include: {
+            option: true,
+            value: true,
+          },
+        },
+      },
+    });
+
+    if (!variant) {
+      throw new BadRequestError(
+        "This product was updated. Remove it from your cart and add it again.",
+      );
+    }
+
+    const rows = [...variant.selections]
+      .sort((a, b) => a.option.name.localeCompare(b.option.name))
+      .map((s, position) => ({
+        position,
+        optionName: s.option.name,
+        value: s.value.value,
+      }));
+
+    return rows.length > 0
+      ? rows
+      : [{ position: 0, optionName: "Product", value: productNameAtCheckout }];
+  }
+
   /**
    * Generate order ID using store slug
    */
@@ -95,6 +142,46 @@ class OrderServiceBase {
 
       addSpanEvent("order.stock.validated", { store_id: store.id });
 
+      const orderItemsWithPrices = await ProductService.getOrderItemPrices(
+        input.orderItems.map((item) => ({
+          productId: item.productId,
+          variantId: item.variantId,
+          quantity: item.quantity,
+        })),
+        input.storeId,
+        tx,
+      );
+
+      for (let i = 0; i < input.orderItems.length; i++) {
+        const clientPrice = input.orderItems[i]!.price;
+        const serverPrice = orderItemsWithPrices[i]!.price;
+        if (Math.abs(clientPrice - serverPrice) > 0.009) {
+          throw new BadRequestError("Order line price does not match catalog");
+        }
+      }
+
+      const orderItemsCreate = await Promise.all(
+        orderItemsWithPrices.map(async (priced) => {
+          const displayAttributes =
+            await OrderServiceBase.buildOrderItemDisplayAttributes(
+              tx,
+              priced.productVersionId,
+              priced.variantId,
+              priced.productNameAtCheckout,
+            );
+          return {
+            productId: priced.productId,
+            productVersionId: priced.productVersionId,
+            productVariantId: priced.variantId ?? undefined,
+            quantity: priced.quantity,
+            price: priced.price,
+            displayAttributes: {
+              create: displayAttributes,
+            },
+          };
+        }),
+      );
+
       // Create order with order items (within transaction)
       const createdOrder = await tx.order.create({
         data: {
@@ -107,26 +194,10 @@ class OrderServiceBase {
           addressId: input.addressId,
           status: input.status,
           orderItems: {
-            create: input.orderItems.map((item) => ({
-              productId: item.productId,
-              productVariantId: item.variantId,
-              quantity: item.quantity,
-              price: item.price,
-            })),
+            create: orderItemsCreate,
           },
         },
-        include: {
-          ...OrderQuery.getInclude(),
-          orderItems: {
-            include: {
-              product: {
-                select: {
-                  name: true,
-                },
-              },
-            },
-          },
-        },
+        include: OrderQuery.getInclude(),
       });
 
       addSpanEvent("order.created", { order_id: createdOrder.id });
@@ -230,9 +301,12 @@ class OrderServiceBase {
 
       addSpanEvent("order.stock.validated", { store_id: store.id });
 
-      // Fetch server-side prices (never trust client-provided values)
       const orderItemsWithPrices = await ProductService.getOrderItemPrices(
-        input.orderItems,
+        input.orderItems.map((item) => ({
+          productId: item.productId,
+          variantId: item.variantId,
+          quantity: item.quantity,
+        })),
         input.storeId,
         tx,
       );
@@ -299,6 +373,28 @@ class OrderServiceBase {
         address_id: addressId,
       });
 
+      const orderItemsCreate = await Promise.all(
+        orderItemsWithPrices.map(async (priced) => {
+          const displayAttributes =
+            await OrderServiceBase.buildOrderItemDisplayAttributes(
+              tx,
+              priced.productVersionId,
+              priced.variantId,
+              priced.productNameAtCheckout,
+            );
+          return {
+            productId: priced.productId,
+            productVersionId: priced.productVersionId,
+            productVariantId: priced.variantId ?? undefined,
+            quantity: priced.quantity,
+            price: priced.price,
+            displayAttributes: {
+              create: displayAttributes,
+            },
+          };
+        }),
+      );
+
       // Create order with order items (within transaction)
       const createdOrder = await tx.order.create({
         data: {
@@ -311,26 +407,10 @@ class OrderServiceBase {
           addressId,
           status: OrderStatus.PENDING,
           orderItems: {
-            create: orderItemsWithPrices.map((item) => ({
-              productId: item.productId,
-              productVariantId: item.variantId,
-              quantity: item.quantity,
-              price: item.price,
-            })),
+            create: orderItemsCreate,
           },
         },
-        include: {
-          ...OrderQuery.getInclude(),
-          orderItems: {
-            include: {
-              product: {
-                select: {
-                  name: true,
-                },
-              },
-            },
-          },
-        },
+        include: OrderQuery.getIncludeWithProduct(),
       });
 
       addSpanEvent("order.created", { order_id: createdOrder.id });

@@ -401,6 +401,10 @@
           "structureLocked": "Les options de variante sont verrouillées car ce produit a des variantes SKU. Vous pouvez toujours modifier les autres détails du produit."
         },
         "saveDraft": "Enregistrer le brouillon",
+        "saveChanges": "Enregistrer",
+        "publishVersion": "Publier en ligne",
+        "discardDraft": "Abandonner le brouillon",
+        "draftHint": "Des modifications ne sont pas encore publiées. Enregistrez, puis publiez pour mettre à jour la vitrine.",
         "savePublish": "Enregistrer et publier",
         "optional": "optionnel",
         "cancel": "Annuler",

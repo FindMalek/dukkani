@@ -27,8 +27,8 @@ export const listProductOutputSchema = productSimpleOutputSchema.extend({
 
 export const productIncludeOutputSchema = productSimpleOutputSchema.extend({
   categoryId: z.string().nullable(),
+  hasDraft: z.boolean(),
   hasVariants: z.boolean(),
-  variantStructureLocked: z.boolean(),
   images: z.array(imageSimpleOutputSchema).optional(),
   orderItems: z.array(orderItemSimpleOutputSchema).optional(),
   variantOptions: z.array(variantOptionOutputSchema).optional(),

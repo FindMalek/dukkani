@@ -6,7 +6,7 @@ export class ImageEntity {
     return {
       id: entity.id,
       url: entity.url,
-      productId: entity.productId,
+      productVersionId: entity.productVersionId,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
     };

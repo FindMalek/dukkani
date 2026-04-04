@@ -412,6 +412,10 @@
         },
         "saveDraft": "Save draft",
         "savePublish": "Save & publish",
+        "saveChanges": "Save changes",
+        "publishVersion": "Publish live",
+        "discardDraft": "Discard draft",
+        "draftHint": "You have unpublished edits. Save changes, then publish to update the storefront.",
         "optional": "optional",
         "cancel": "Cancel",
         "validation": {

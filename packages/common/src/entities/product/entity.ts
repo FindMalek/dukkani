@@ -15,14 +15,31 @@ import type {
   ProductSimpleDbData,
 } from "./query";
 
+type VersionListSlice = NonNullable<
+  ProductListDbData["currentPublishedVersion"]
+>;
+
+function displayVersionForList(
+  entity: ProductListDbData,
+): VersionListSlice | null {
+  return entity.draftVersion ?? entity.currentPublishedVersion;
+}
+
+type VersionDetail = NonNullable<ProductIncludeDbData["draftVersion"]>;
+
+function editingVersion(entity: ProductIncludeDbData): VersionDetail | null {
+  return entity.draftVersion ?? entity.currentPublishedVersion;
+}
+
 export class ProductEntity {
   static getSimpleRo(entity: ProductSimpleDbData): ProductSimpleOutput {
+    const v = entity.currentPublishedVersion;
     return {
       id: entity.id,
-      name: entity.name,
-      description: entity.description,
-      price: Number(entity.price),
-      stock: entity.stock,
+      name: v?.name ?? "",
+      description: v?.description ?? null,
+      price: v ? Number(v.price) : 0,
+      stock: v?.stock ?? 0,
       published: entity.published,
       storeId: entity.storeId,
       createdAt: entity.createdAt,
@@ -31,42 +48,81 @@ export class ProductEntity {
   }
 
   static getListRo(entity: ProductListDbData): ListProductOutput {
+    const v = displayVersionForList(entity);
     return {
-      ...ProductEntity.getSimpleRo(entity),
-      imageUrls: entity.images.map((img) => img.url),
-      variantCount: entity._count.variants,
+      id: entity.id,
+      name: v?.name ?? "",
+      description: v?.description ?? null,
+      price: v ? Number(v.price) : 0,
+      stock: v?.stock ?? 0,
+      published: entity.published,
+      storeId: entity.storeId,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+      imageUrls: v?.images.map((img) => img.url) ?? [],
+      variantCount: v?._count.variants ?? 0,
     };
   }
 
   static getRo(entity: ProductIncludeDbData): ProductIncludeOutput {
+    const v = editingVersion(entity);
+    if (!v) {
+      return {
+        id: entity.id,
+        name: "",
+        description: null,
+        price: 0,
+        stock: 0,
+        published: entity.published,
+        storeId: entity.storeId,
+        createdAt: entity.createdAt,
+        updatedAt: entity.updatedAt,
+        categoryId: entity.categoryId,
+        hasDraft: entity.draftVersionId !== null,
+        hasVariants: false,
+        images: [],
+        orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
+        variantOptions: [],
+        variants: [],
+      };
+    }
+
     return {
-      ...ProductEntity.getSimpleRo(entity),
+      id: entity.id,
+      name: v.name,
+      description: v.description,
+      price: Number(v.price),
+      stock: v.stock,
+      published: entity.published,
+      storeId: entity.storeId,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
       categoryId: entity.categoryId,
-      hasVariants: entity.hasVariants,
-      variantStructureLocked: entity.variants.length > 0,
-      images: entity.images.map(ImageEntity.getSimpleRo),
+      hasDraft: entity.draftVersionId !== null,
+      hasVariants: v.hasVariants,
+      images: v.images.map(ImageEntity.getSimpleRo),
       orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
-      variantOptions: entity.variantOptions.map(
-        VariantEntity.getVariantOptionRo,
-      ),
-      variants: entity.variants.map(VariantEntity.getVariantRo),
+      variantOptions: v.variantOptions.map(VariantEntity.getVariantOptionRo),
+      variants: v.variants.map(VariantEntity.getVariantRo),
     };
   }
 
   static getPublicRo(entity: ProductPublicDbData): ProductPublicOutput {
+    const v = entity.currentPublishedVersion;
+    if (!v) {
+      throw new Error("Product has no published version for public output");
+    }
     return {
       id: entity.id,
-      name: entity.name,
-      description: entity.description,
-      price: Number(entity.price),
-      stock: entity.stock,
+      name: v.name,
+      description: v.description,
+      price: Number(v.price),
+      stock: v.stock,
       published: entity.published,
-      imagesUrls: entity.images.map((image) => image.url),
+      imagesUrls: v.images.map((image) => image.url),
       store: StoreEntity.getPublicSimpleRo(entity.store),
-      variants: entity.variants.map(VariantEntity.getVariantRo),
-      variantOptions: entity.variantOptions.map(
-        VariantEntity.getVariantOptionRo,
-      ),
+      variants: v.variants.map(VariantEntity.getVariantRo),
+      variantOptions: v.variantOptions.map(VariantEntity.getVariantOptionRo),
     };
   }
 }

@@ -1,20 +1,5 @@
 /**
  * Represents a product category within a store.
- * Categories are store-specific and reusable across multiple products.
- * **Key Fields:**
- * - `id`: Unique identifier (CUID)
- * - `name`: Name of the category
- * - `storeId`: Reference to the Store this category belongs to
- * - `createdAt`: Timestamp when the category was created
- * - `updatedAt`: Timestamp when the category was last updated
- * **Relationships:**
- * - Belongs to one Store
- * - Has many Products
- * **Business Logic:**
- * - Categories are store-specific and reusable across multiple products
- * - Categories can be used to group products for filtering and display
- * - Categories can be used to create product variations
- * - Categories can be used to create product variants
  */
 model Category {
   id String @id @default(cuid())
@@ -35,35 +20,24 @@ model Category {
 }
 
 /**
- * Represents a product available for sale in a store.
- * Products have a custom ID format: {STORE_PREFIX}-{RANDOM} (e.g., "AHM-xyz98765").
- * Products can be published or unpublished to control visibility in the store.
- * **Relationships:**
- * - Belongs to one Store
- * - Belongs to one Category
- * - Has many Images
- * - Has many OrderItems
- * - Has many ProductVariantOptions
- * - Has many ProductVariants
- * - Has many ProductVariantSelections
- * - Has many ProductVariantOptionValues
+ * Logical product: stable id (storefront URL), store, category, publish toggle.
+ * Sellable definition (name, price, variants, images) lives on ProductVersion.
  */
 model Product {
   id String @id
 
-  name        String
-  description String?
-  published   Boolean @default(false)
+  published Boolean @default(false)
 
-  stock       Int
-  price       Decimal @db.Decimal(10, 2)
-  hasVariants Boolean @default(false) @map("has_variants")
+  currentPublishedVersionId String?         @map("current_published_version_id")
+  currentPublishedVersion   ProductVersion? @relation("ProductCurrentPublishedVersion", fields: [currentPublishedVersionId], references: [id], onDelete: Restrict)
 
-  images             Image[]
+  draftVersionId String?         @map("draft_version_id")
+  draftVersion   ProductVersion? @relation("ProductDraftVersion", fields: [draftVersionId], references: [id], onDelete: SetNull)
+
+  versions ProductVersion[] @relation("ProductVersionsList")
+
   orderItems         OrderItem[]
-  variants           ProductVariant[]
   productCollections ProductCollection[]
-  variantOptions     ProductVariantOption[]
 
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
@@ -76,13 +50,54 @@ model Product {
 
   @@index([categoryId])
   @@index([storeId])
+  @@index([currentPublishedVersionId])
+  @@index([draftVersionId])
   @@map("products")
 }
 
 /**
- * Represents an image associated with a product.
- * **Relationships:**
- * - Belongs to one Product
+ * Immutable-in-practice snapshot of what can be sold for a Product.
+ * Draft = editable; published = live catalog; archived = superseded but kept for orders.
+ */
+model ProductVersion {
+  id String @id @default(cuid())
+
+  productId String  @map("product_id")
+  product   Product @relation("ProductVersionsList", fields: [productId], references: [id], onDelete: Cascade)
+
+  status        ProductVersionStatus
+  versionNumber Int                  @map("version_number")
+
+  name        String
+  description String?
+  price       Decimal @db.Decimal(10, 2)
+  stock       Int
+  hasVariants Boolean @default(false) @map("has_variants")
+
+  createdFromVersionId String?          @map("created_from_version_id")
+  createdFromVersion   ProductVersion?  @relation("VersionFork", fields: [createdFromVersionId], references: [id], onDelete: SetNull)
+  forkedChildren       ProductVersion[] @relation("VersionFork")
+
+  images         Image[]
+  variantOptions ProductVariantOption[]
+  variants       ProductVariant[]
+
+  productsAsCurrentPublished Product[] @relation("ProductCurrentPublishedVersion")
+  productsAsDraft            Product[] @relation("ProductDraftVersion")
+
+  orderItems OrderItem[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([productId])
+  @@index([productId, status])
+  @@index([productId, versionNumber])
+  @@map("product_versions")
+}
+
+/**
+ * Image belongs to a specific product version (sellable snapshot).
  */
 model Image {
   id  String @id @default(cuid())
@@ -91,26 +106,17 @@ model Image {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  productId String  @map("product_id")
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productVersionId String         @map("product_version_id")
+  productVersion   ProductVersion @relation(fields: [productVersionId], references: [id], onDelete: Cascade)
 
+  @@index([productVersionId])
   @@map("images")
 }
 
-/**
- * Represents a variant option type for a product (e.g., "Size", "Color", "Material").
- * Each product can have multiple option types, and each option type can have multiple values.
- * **Key Fields:**
- * - `id`: Unique identifier (CUID)
- * - `name`: Name of the option type
- * - `productId`: Reference to the Product this option type belongs to
- * - `createdAt`: Timestamp when the option type was created
- * - `updatedAt`: Timestamp when the option type was last updated
- */
 model ProductVariantOption {
   id String @id @default(cuid())
 
-  name String // e.g., "Size", "Color", "Material"
+  name String
 
   values            ProductVariantOptionValue[]
   variantSelections ProductVariantSelection[]
@@ -118,23 +124,14 @@ model ProductVariantOption {
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
 
-  productId String  @map("product_id")
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productVersionId String         @map("product_version_id")
+  productVersion   ProductVersion @relation(fields: [productVersionId], references: [id], onDelete: Cascade)
 
-  @@unique([productId, name])
-  @@index([productId])
+  @@unique([productVersionId, name])
+  @@index([productVersionId])
   @@map("product_variant_options")
 }
 
-/**
- * Represents a specific value for a variant option (e.g., "S", "M", "L" for Size).
- * **Key Fields:**
- * - `id`: Unique identifier (CUID)
- * - `value`: Value of the option (e.g., "S", "M", "L", "Red", "Blue")
- * - `optionId`: Reference to the ProductVariantOption this value belongs to
- * - `createdAt`: Timestamp when the option value was created
- * - `updatedAt`: Timestamp when the option value was last updated
- */
 model ProductVariantOptionValue {
   id String @id @default(cuid())
 
@@ -153,18 +150,6 @@ model ProductVariantOptionValue {
   @@map("product_variant_option_values")
 }
 
-/**
- * Represents a specific product variant (combination of option values).
- * Each variant represents a unique combination like "Size: M, Color: Red" with its own price and stock.
- * **Key Fields:**
- * - `id`: Unique identifier (CUID)
- * - `sku`: Stock Keeping Unit (unique identifier for the variant)
- * - `price`: Price of the variant (optional, overrides product price)
- * - `stock`: Stock of the variant
- * - `productId`: Reference to the Product this variant belongs to
- * - `createdAt`: Timestamp when the variant was created
- * - `updatedAt`: Timestamp when the variant was last updated
- */
 model ProductVariant {
   id String @id @default(cuid())
 
@@ -172,33 +157,21 @@ model ProductVariant {
   price Decimal? @db.Decimal(10, 2)
   stock Int
 
-  orders     Order[]
   orderItems OrderItem[]
   selections ProductVariantSelection[]
 
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
 
-  productId String  @map("product_id")
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productVersionId String         @map("product_version_id")
+  productVersion   ProductVersion @relation(fields: [productVersionId], references: [id], onDelete: Cascade)
 
-  @@unique([productId, sku])
-  @@index([productId])
+  @@unique([productVersionId, sku])
+  @@index([productVersionId])
   @@index([sku])
   @@map("product_variants")
 }
 
-/**
- * Junction table linking ProductVariant to ProductVariantOptionValue.
- * Represents which option values are selected for a specific variant.
- * **Key Fields:**
- * - `id`: Unique identifier (CUID)
- * - `variantId`: Reference to the ProductVariant this selection belongs to
- * - `optionId`: Reference to the ProductVariantOption this selection belongs to
- * - `valueId`: Reference to the ProductVariantOptionValue this selection belongs to
- * - `createdAt`: Timestamp when the selection was created
- * - `updatedAt`: Timestamp when the selection was last updated
- */
 model ProductVariantSelection {
   id String @id @default(cuid())
 

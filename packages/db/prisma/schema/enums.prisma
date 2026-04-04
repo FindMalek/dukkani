@@ -142,6 +142,15 @@ enum PaymentMethod {
   CARD
 }
 
+/**
+ * Lifecycle of a sellable product snapshot (catalog revision).
+ */
+enum ProductVersionStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 enum SupportedCurrency {
   TND
   USD

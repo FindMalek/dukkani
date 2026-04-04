@@ -141,6 +141,15 @@ export const togglePublishProductInputSchema = z.object({
   published: z.boolean(),
 });
 
+export const publishProductInputSchema = z.object({
+  id: z.string().min(1, "Product ID is required"),
+  expectedDraftUpdatedAt: z.coerce.date().optional(),
+});
+
+export const discardDraftProductInputSchema = z.object({
+  id: z.string().min(1, "Product ID is required"),
+});
+
 export type ProductInput = z.infer<typeof productInputSchema>;
 export type CreateProductInput = z.infer<typeof createProductInputSchema>;
 export type UpdateProductInput = z.infer<typeof updateProductInputSchema>;
@@ -150,6 +159,10 @@ export type StockFilter = z.infer<typeof stockFilterSchema>;
 export type VariantsFilter = z.infer<typeof variantsFilterSchema>;
 export type TogglePublishProductInput = z.infer<
   typeof togglePublishProductInputSchema
+>;
+export type PublishProductInput = z.infer<typeof publishProductInputSchema>;
+export type DiscardDraftProductInput = z.infer<
+  typeof discardDraftProductInputSchema
 >;
 
 export const getProductsByIdsInputSchema = z.object({

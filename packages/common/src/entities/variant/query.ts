@@ -36,6 +36,7 @@ export class VariantQuery {
   static getVariantOptionInclude() {
     return {
       values: true,
+      productVersion: { select: { productId: true } },
     } satisfies Prisma.ProductVariantOptionInclude;
   }
 
@@ -52,6 +53,7 @@ export class VariantQuery {
 
   static getVariantInclude() {
     return {
+      productVersion: { select: { productId: true } },
       selections: {
         include: VariantQuery.getVariantSelectionInclude(),
       },

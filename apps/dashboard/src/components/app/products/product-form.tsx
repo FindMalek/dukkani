@@ -28,9 +28,13 @@ export const ProductForm = forwardRef<
     setIsCategoryDrawerOpen,
     handleOpenCategoryDrawer,
     handleCategoryCreated,
-    variantStructureLocked,
     storeMismatch,
     productQuery,
+    isEdit,
+    hasDraft,
+    submitIntentRef,
+    handleDiscardDraft,
+    discardDraftMutation,
   } = useProductForm({ storeId, productId });
 
   useImperativeHandle(ref, () => ({
@@ -76,11 +80,15 @@ export const ProductForm = forwardRef<
                   onOpenCategoryDrawer={handleOpenCategoryDrawer}
                   optimizeFiles={compressImagesForUpload}
                 />
-                <ProductFormVariants
+                <ProductFormVariants form={form} />
+                <ProductFormActions
                   form={form}
-                  variantStructureLocked={variantStructureLocked}
+                  isEdit={isEdit}
+                  hasDraft={hasDraft}
+                  submitIntentRef={submitIntentRef}
+                  onDiscardDraft={handleDiscardDraft}
+                  isDiscardingDraft={discardDraftMutation.isPending}
                 />
-                <ProductFormActions form={form} />
               </form.AppForm>
             </FieldGroup>
           </FieldSet>

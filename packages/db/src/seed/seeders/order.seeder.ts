@@ -194,10 +194,44 @@ export class OrderSeeder extends BaseSeeder {
       return;
     }
 
-    // Create orders (need individual creates for orderItems relation)
     const createdOrders = await Promise.all(
-      orderData.map((orderInfo) =>
-        database.order.create({
+      orderData.map(async (orderInfo) => {
+        const orderItemsCreate = await Promise.all(
+          orderInfo.items.map(async (item) => {
+            const p = await database.product.findUnique({
+              where: { id: item.productId },
+              select: {
+                currentPublishedVersionId: true,
+                currentPublishedVersion: {
+                  select: { name: true },
+                },
+              },
+            });
+            const versionId = p?.currentPublishedVersionId;
+            if (!versionId || !p.currentPublishedVersion) {
+              throw new Error(
+                `Order seed: product ${item.productId} has no published version`,
+              );
+            }
+            return {
+              productId: item.productId,
+              productVersionId: versionId,
+              quantity: item.quantity,
+              price: item.price,
+              displayAttributes: {
+                create: [
+                  {
+                    position: 0,
+                    optionName: "Product",
+                    value: p.currentPublishedVersion.name,
+                  },
+                ],
+              },
+            };
+          }),
+        );
+
+        return database.order.create({
           data: {
             id: orderInfo.id,
             status: orderInfo.status,
@@ -206,15 +240,11 @@ export class OrderSeeder extends BaseSeeder {
             customerId: orderInfo.customerId,
             addressId: orderInfo.addressId,
             orderItems: {
-              create: orderInfo.items.map((item) => ({
-                productId: item.productId,
-                quantity: item.quantity,
-                price: item.price,
-              })),
+              create: orderItemsCreate,
             },
           },
-        }),
-      ),
+        });
+      }),
     );
 
     // Store for export

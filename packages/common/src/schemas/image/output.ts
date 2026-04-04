@@ -3,7 +3,7 @@ import { z } from "zod";
 export const imageSimpleOutputSchema = z.object({
   id: z.string(),
   url: z.string(),
-  productId: z.string(),
+  productVersionId: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });

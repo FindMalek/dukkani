@@ -38,7 +38,7 @@ export class VariantEntity {
     return {
       id: entity.id,
       name: entity.name,
-      productId: entity.productId,
+      productId: entity.productVersion.productId,
       values: entity.values.map(VariantEntity.getVariantValues),
     };
   }
@@ -62,7 +62,7 @@ export class VariantEntity {
       sku: entity.sku,
       price: entity.price != null ? Number(entity.price) : null,
       stock: entity.stock,
-      productId: entity.productId,
+      productId: entity.productVersion.productId,
       selections: entity.selections.map(VariantEntity.getVariantSelectionRo),
     };
   }

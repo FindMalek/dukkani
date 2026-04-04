@@ -41,7 +41,9 @@ export class StoreQuery {
       ...StoreQuery.getSimpleInclude(),
       owner: UserQuery.getSimpleInclude(),
       storePlan: StorePlanQuery.getSimpleInclude(),
-      products: ProductQuery.getSimpleInclude(),
+      products: {
+        include: ProductQuery.getSimpleInclude(),
+      },
       orders: OrderQuery.getSimpleInclude(),
       customers: CustomerQuery.getSimpleInclude(),
       teamMembers: TeamMemberQuery.getSimpleInclude(),
@@ -88,14 +90,7 @@ export class StoreQuery {
       },
       products: {
         where: ProductQuery.getPublishableWhere(),
-        include: {
-          ...ProductQuery.getPublicInclude(),
-          images: {
-            select: {
-              url: true,
-            },
-          },
-        },
+        include: ProductQuery.getPublicInclude(),
         skip: productSkip,
         take: productLimit,
         orderBy: {

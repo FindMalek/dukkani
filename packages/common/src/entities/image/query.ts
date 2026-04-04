@@ -20,7 +20,9 @@ export class ImageQuery {
   static getInclude() {
     return {
       ...ImageQuery.getSimpleInclude(),
-      product: true,
+      productVersion: {
+        select: { productId: true },
+      },
     } satisfies Prisma.ImageInclude;
   }
 

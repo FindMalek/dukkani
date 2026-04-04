@@ -25,26 +25,24 @@ export class OrderItemQuery {
     return {
       ...OrderItemQuery.getSimpleInclude(),
       order: true,
-      product: true,
+      product: { select: { id: true } },
+      productVersion: { select: { name: true } },
     } satisfies Prisma.OrderItemInclude;
   }
 
   static getIncludeWithProductSelect() {
     return {
       ...OrderItemQuery.getSimpleInclude(),
-      product: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
+      product: { select: { id: true } },
+      productVersion: { select: { name: true } },
     } satisfies Prisma.OrderItemInclude;
   }
 
   static getClientSafeInclude() {
     return {
       ...OrderItemQuery.getSimpleInclude(),
-      product: true,
+      product: { select: { id: true } },
+      productVersion: { select: { name: true } },
     } satisfies Prisma.OrderItemInclude;
   }
 

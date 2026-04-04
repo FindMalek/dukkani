@@ -3,10 +3,12 @@ import { ProductQuery } from "@dukkani/common/entities/product/query";
 import { StoreStatus } from "@dukkani/common/schemas/enums";
 import {
   createProductInputSchema,
+  discardDraftProductInputSchema,
   getProductInputSchema,
   getProductsByIdsInputSchema,
   listProductsInputSchema,
   productUploadImagesInputSchema,
+  publishProductInputSchema,
   togglePublishProductInputSchema,
   updateProductInputSchema,
 } from "@dukkani/common/schemas/product/input";
@@ -24,9 +26,13 @@ import {
 import type { UploadFilesOutput } from "@dukkani/common/schemas/storage/output";
 import { uploadFilesOutputSchema } from "@dukkani/common/schemas/storage/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
-import { ProductService } from "@dukkani/common/services";
+import {
+  ProductService,
+  ProductVersionService,
+} from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
+import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { logger } from "@dukkani/logger";
 import { StorageService } from "@dukkani/storage";
 import { env } from "@dukkani/storage/env";
@@ -35,19 +41,6 @@ import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { baseProcedure, protectedProcedure } from "../procedures";
 import { executeUploadFiles } from "../utils/storage-upload";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
-
-/** Stable JSON key for comparing variant option trees (names + value sets). */
-function normalizeVariantOptionsStructure(
-  options: Array<{ name: string; values: Array<{ value: string }> }>,
-): string {
-  const sorted = [...options]
-    .map((o) => ({
-      name: o.name.trim().toLowerCase(),
-      values: [...o.values.map((v) => v.value.trim().toLowerCase())].sort(),
-    }))
-    .sort((a, b) => a.name.localeCompare(b.name));
-  return JSON.stringify(sorted);
-}
 
 export const productRouter = {
   /**
@@ -189,9 +182,18 @@ export const productRouter = {
 
       // Add search filter if provided
       if (input?.search) {
+        const q = input.search;
         where.OR = [
-          { name: { contains: input?.search, mode: "insensitive" } },
-          { description: { contains: input?.search, mode: "insensitive" } },
+          {
+            currentPublishedVersion: {
+              name: { contains: q, mode: "insensitive" },
+            },
+          },
+          {
+            currentPublishedVersion: {
+              description: { contains: q, mode: "insensitive" },
+            },
+          },
         ];
       }
 
@@ -267,153 +269,33 @@ export const productRouter = {
 
       const productId = ProductService.generateProductId(store.slug);
 
-      // Create product with variants in a transaction
       const product = await database.$transaction(async (tx) => {
-        // 1. Create product base
         const createdProduct = await tx.product.create({
           data: {
             id: productId,
+            published: input.published ?? false,
+            storeId: input.storeId,
+            categoryId: input.categoryId,
+          },
+        });
+
+        await ProductVersionService.createInitialPublishedVersion(
+          tx,
+          createdProduct.id,
+          {
             name: input.name,
             description: input.description,
             price: input.price,
             stock: input.stock,
-            published: input.published ?? false,
-            storeId: input.storeId,
-            categoryId: input.categoryId,
             hasVariants: input.hasVariants ?? false,
-            images: input.imageUrls
-              ? {
-                  create: input.imageUrls.map((url) => ({ url })),
-                }
+            imageUrls: input.imageUrls,
+            variantOptions: input.hasVariants
+              ? input.variantOptions
               : undefined,
+            variants: input.hasVariants ? input.variants : undefined,
           },
-        });
+        );
 
-        // 2. Create variant options if hasVariants is true
-        if (input.hasVariants && input.variantOptions) {
-          // First, create all options and store them in a map
-          const optionMap = new Map<
-            string,
-            { optionId: string; values: Map<string, string> }
-          >();
-
-          for (const option of input.variantOptions) {
-            const createdOption = await tx.productVariantOption.create({
-              data: {
-                name: option.name,
-                productId: createdProduct.id,
-                values: {
-                  create: option.values.map((v) => ({
-                    value: v.value,
-                  })),
-                },
-              },
-              include: {
-                values: true,
-              },
-            });
-
-            // Store option ID and create a map of value strings to value IDs
-            const valueMap = new Map<string, string>();
-            for (const value of createdOption.values) {
-              valueMap.set(value.value, value.id);
-            }
-
-            optionMap.set(option.name, {
-              optionId: createdOption.id,
-              values: valueMap,
-            });
-          }
-
-          if (input.variants) {
-            // Track SKUs we're about to create to detect duplicates within this batch
-            const skusInBatch = new Set<string>();
-
-            // Check for duplicate SKUs in the incoming payload
-            for (const variant of input.variants) {
-              if (variant.sku?.trim()) {
-                const normalizedSku = variant.sku.trim();
-                if (skusInBatch.has(normalizedSku)) {
-                  throw new ORPCError("BAD_REQUEST", {
-                    message: `Duplicate SKU "${normalizedSku}" found in variants`,
-                  });
-                }
-                skusInBatch.add(normalizedSku);
-              }
-            }
-
-            // Check for existing SKUs in database for this product
-            // Note: Since we're creating a new product, this check is technically not needed
-            // but we'll keep it for safety and future-proofing (e.g., if update logic reuses this)
-            const existingVariants = await tx.productVariant.findMany({
-              where: {
-                productId: createdProduct.id,
-                sku: {
-                  in: Array.from(skusInBatch),
-                },
-              },
-              select: { sku: true },
-            });
-
-            if (existingVariants.length > 0) {
-              const existingSkus = existingVariants
-                .map((v) => v.sku)
-                .join(", ");
-              throw new ORPCError("BAD_REQUEST", {
-                message: `SKU(s) already exist for this product: ${existingSkus}`,
-              });
-            }
-
-            for (const variant of input.variants) {
-              const variantSelections: Array<{
-                optionId: string;
-                valueId: string;
-              }> = [];
-
-              for (const [optionName, valueString] of Object.entries(
-                variant.selections,
-              )) {
-                const optionData = optionMap.get(optionName);
-
-                if (!optionData) {
-                  throw new ORPCError("BAD_REQUEST", {
-                    message: `Option "${optionName}" not found`,
-                  });
-                }
-
-                const valueId = optionData.values.get(valueString);
-                if (!valueId) {
-                  throw new ORPCError("BAD_REQUEST", {
-                    message: `Value "${valueString}" not found for option "${optionName}"`,
-                  });
-                }
-
-                variantSelections.push({
-                  optionId: optionData.optionId,
-                  valueId,
-                });
-              }
-
-              // Create variant with selections
-              await tx.productVariant.create({
-                data: {
-                  sku: variant.sku,
-                  price: variant.price,
-                  stock: variant.stock,
-                  productId: createdProduct.id,
-                  selections: {
-                    create: variantSelections.map((s) => ({
-                      optionId: s.optionId,
-                      valueId: s.valueId,
-                    })),
-                  },
-                },
-              });
-            }
-          }
-        }
-
-        // Fetch complete product with all relations
         return await tx.product.findUnique({
           where: { id: createdProduct.id },
           include: ProductQuery.getInclude(),
@@ -438,24 +320,9 @@ export const productRouter = {
     .handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
       const userId = context.session.user.id;
 
-      // Get product to verify ownership and collect existing images for cleanup
       const existingProduct = await database.product.findUnique({
         where: { id: input.id },
-        select: {
-          storeId: true,
-          hasVariants: true,
-          images: {
-            select: { url: true },
-          },
-          variantOptions: {
-            include: {
-              values: true,
-            },
-          },
-          variants: {
-            select: { id: true },
-          },
-        },
+        select: { storeId: true },
       });
 
       if (!existingProduct) {
@@ -464,37 +331,9 @@ export const productRouter = {
         });
       }
 
-      // Verify ownership
       await verifyStoreOwnership(userId, existingProduct.storeId);
 
-      const variantStructureLocked = existingProduct.variants.length > 0;
-      const dbKey = normalizeVariantOptionsStructure(
-        existingProduct.variantOptions.map((o) => ({
-          name: o.name,
-          values: o.values.map((v) => ({ value: v.value })),
-        })),
-      );
-
       if (input.variantOptions !== undefined) {
-        if (variantStructureLocked) {
-          const incomingKey = normalizeVariantOptionsStructure(
-            input.variantOptions,
-          );
-          if (incomingKey !== dbKey) {
-            throw new ORPCError("BAD_REQUEST", {
-              message:
-                "Variant options cannot be changed while this product has SKU variants. Edit prices and stock elsewhere or remove variants from orders first.",
-            });
-          }
-        }
-      }
-
-      const effectiveHasVariants =
-        input.hasVariants !== undefined
-          ? input.hasVariants
-          : existingProduct.hasVariants;
-
-      if (effectiveHasVariants && input.variantOptions !== undefined) {
         const optionNames = input.variantOptions
           .map((opt) => opt.name.toLowerCase().trim())
           .filter((name) => name.length > 0);
@@ -505,169 +344,144 @@ export const productRouter = {
         }
       }
 
-      if (effectiveHasVariants === false && existingProduct.hasVariants) {
-        const variantIds = existingProduct.variants.map((v) => v.id);
-        if (variantIds.length > 0) {
-          const [orderItemCount, orderCount] = await Promise.all([
-            database.orderItem.count({
-              where: { productVariantId: { in: variantIds } },
-            }),
-            database.order.count({
-              where: { variantId: { in: variantIds } },
-            }),
-          ]);
-          if (orderItemCount > 0 || orderCount > 0) {
-            throw new ORPCError("BAD_REQUEST", {
-              message:
-                "Cannot turn off variants: existing orders reference this product's variants.",
-            });
-          }
-        }
-      }
+      const product = await database.$transaction(async (tx) => {
+        const versionId = await ProductVersionService.ensureEditingVersionId(
+          tx,
+          input.id,
+        );
 
-      if (
-        effectiveHasVariants &&
-        input.variantOptions !== undefined &&
-        input.variantOptions.length === 0
-      ) {
-        throw new ORPCError("BAD_REQUEST", {
-          message:
-            "At least one variant option is required when variants are enabled",
-        });
-      }
+        if (input.imageUrls !== undefined) {
+          const draftImages = await tx.image.findMany({
+            where: { productVersionId: versionId },
+            select: { url: true },
+          });
 
-      // Update product
-      const updateData: {
-        name?: string;
-        description?: string | null;
-        price?: number;
-        stock?: number;
-        published?: boolean;
-        categoryId?: string | null;
-        hasVariants?: boolean;
-      } = {};
+          if (draftImages.length > 0) {
+            try {
+              const folderPrefixes = new Set<string>();
+              for (const image of draftImages) {
+                if (image?.url) {
+                  const imageKey = await StorageService.getKeyFromPublicUrl(
+                    image.url,
+                    env.S3_PUBLIC_BASE_URL,
+                  );
 
-      if (input.name !== undefined) updateData.name = input.name;
-      if (input.description !== undefined)
-        updateData.description = input.description || null;
-      if (input.price !== undefined) updateData.price = input.price;
-      if (input.stock !== undefined) updateData.stock = input.stock;
-      if (input.published !== undefined) updateData.published = input.published;
-      if (input.categoryId !== undefined)
-        updateData.categoryId = input.categoryId || null;
-      if (input.hasVariants !== undefined)
-        updateData.hasVariants = input.hasVariants;
-
-      // Handle image updates
-      if (input.imageUrls !== undefined) {
-        // Delete existing image folders from storage if any exist
-        if (existingProduct.images.length > 0) {
-          try {
-            // Extract unique folder prefixes from all images
-            const folderPrefixes = new Set<string>();
-            for (const image of existingProduct.images) {
-              if (image?.url) {
-                const imageKey = await StorageService.getKeyFromPublicUrl(
-                  image.url,
-                  env.S3_PUBLIC_BASE_URL,
-                );
-
-                if (imageKey) {
-                  // Extract folder prefix by removing filename (last segment after last '/')
-                  const lastSlashIndex = imageKey.lastIndexOf("/");
-                  if (lastSlashIndex > 0) {
-                    const folderPrefix = imageKey.substring(0, lastSlashIndex);
-                    folderPrefixes.add(folderPrefix);
+                  if (imageKey) {
+                    const lastSlashIndex = imageKey.lastIndexOf("/");
+                    if (lastSlashIndex > 0) {
+                      const folderPrefix = imageKey.substring(
+                        0,
+                        lastSlashIndex,
+                      );
+                      folderPrefixes.add(folderPrefix);
+                    }
                   }
                 }
               }
-            }
 
-            // Delete each unique folder
-            for (const folderPrefix of folderPrefixes) {
-              await StorageService.deleteFolderByPrefix(
-                env.S3_BUCKET,
-                folderPrefix,
+              for (const folderPrefix of folderPrefixes) {
+                await StorageService.deleteFolderByPrefix(
+                  env.S3_BUCKET,
+                  folderPrefix,
+                );
+              }
+            } catch (storageError) {
+              logger.error(
+                { error: storageError, productId: input.id },
+                "Failed to delete old draft product image folders from storage",
               );
             }
-          } catch (storageError) {
-            logger.error(
-              { error: storageError, productId: input.id },
-              "Failed to delete old product image folders from storage",
-            );
+          }
+
+          await tx.image.deleteMany({
+            where: { productVersionId: versionId },
+          });
+
+          if (input.imageUrls.length > 0) {
+            await tx.image.createMany({
+              data: input.imageUrls.map((url) => ({
+                url,
+                productVersionId: versionId,
+              })),
+            });
           }
         }
 
-        // Delete existing images from database
-        await database.image.deleteMany({
-          where: { productId: input.id },
+        const draftRow = await tx.productVersion.findUniqueOrThrow({
+          where: { id: versionId },
+          select: { hasVariants: true },
         });
 
-        // Create new images
-        if (input.imageUrls.length > 0) {
-          await database.image.createMany({
-            data: input.imageUrls.map((url) => ({
-              url,
-              productId: input.id,
-            })),
-          });
-        }
-      }
+        const effectiveHasVariants =
+          input.hasVariants !== undefined
+            ? input.hasVariants
+            : draftRow.hasVariants;
 
-      const product = await database.$transaction(async (tx) => {
         if (
-          input.hasVariants === false &&
-          existingProduct.hasVariants === true
-        ) {
-          const variantIds = existingProduct.variants.map((v) => v.id);
-          if (variantIds.length > 0) {
-            await tx.orderItem.updateMany({
-              where: { productVariantId: { in: variantIds } },
-              data: { productVariantId: null },
-            });
-            await tx.order.updateMany({
-              where: { variantId: { in: variantIds } },
-              data: { variantId: null },
-            });
-            await tx.productVariant.deleteMany({
-              where: { productId: input.id },
-            });
-          }
-          await tx.productVariantOption.deleteMany({
-            where: { productId: input.id },
-          });
-        }
-
-        // Replace variant options only when no SKU rows exist (same as dashboard create flow)
-        if (
-          input.variantOptions !== undefined &&
           effectiveHasVariants &&
-          !variantStructureLocked
+          input.variantOptions !== undefined &&
+          input.variantOptions.length === 0
         ) {
-          await tx.productVariantOption.deleteMany({
-            where: { productId: input.id },
+          throw new ORPCError("BAD_REQUEST", {
+            message:
+              "At least one variant option is required when variants are enabled",
           });
-          for (const option of input.variantOptions) {
-            await tx.productVariantOption.create({
-              data: {
-                name: option.name,
-                productId: input.id,
-                values: {
-                  create: option.values.map((v) => ({
-                    value: v.value,
-                  })),
-                },
-              },
-            });
-          }
         }
 
-        return await tx.product.update({
+        if (input.hasVariants === false) {
+          await ProductVersionService.clearVariantMatrix(tx, versionId);
+        } else if (
+          effectiveHasVariants &&
+          input.variantOptions !== undefined &&
+          input.variants !== undefined
+        ) {
+          await ProductVersionService.clearVariantMatrix(tx, versionId);
+          await ProductVersionService.writeVariantMatrix(
+            tx,
+            versionId,
+            input.variantOptions,
+            input.variants,
+          );
+        }
+
+        await tx.productVersion.update({
+          where: { id: versionId },
+          data: {
+            ...(input.name !== undefined && { name: input.name }),
+            ...(input.description !== undefined && {
+              description: input.description || null,
+            }),
+            ...(input.price !== undefined && { price: input.price }),
+            ...(input.stock !== undefined && { stock: input.stock }),
+            ...(input.hasVariants !== undefined && {
+              hasVariants: input.hasVariants,
+            }),
+          },
+        });
+
+        await tx.product.update({
           where: { id: input.id },
-          data: updateData,
+          data: {
+            ...(input.published !== undefined && {
+              published: input.published,
+            }),
+            ...(input.categoryId !== undefined && {
+              categoryId: input.categoryId || null,
+            }),
+          },
+        });
+
+        return await tx.product.findUnique({
+          where: { id: input.id },
           include: ProductQuery.getInclude(),
         });
       });
+
+      if (!product) {
+        throw new ORPCError("INTERNAL_SERVER_ERROR", {
+          message: "Failed to update product",
+        });
+      }
 
       return ProductEntity.getRo(product);
     }),
@@ -681,14 +495,10 @@ export const productRouter = {
     .handler(async ({ input, context }) => {
       const userId = context.session.user.id;
 
-      // Get product with images to verify ownership and collect file URLs
       const product = await database.product.findUnique({
         where: { id: input.id },
         select: {
           storeId: true,
-          images: {
-            select: { url: true },
-          },
         },
       });
 
@@ -698,15 +508,17 @@ export const productRouter = {
         });
       }
 
-      // Verify ownership
       await verifyStoreOwnership(userId, product.storeId);
 
-      // Delete images from storage if any exist (both legacy and new systems)
-      if (product.images.length > 0) {
+      const images = await database.image.findMany({
+        where: { productVersion: { productId: input.id } },
+        select: { url: true },
+      });
+
+      if (images.length > 0) {
         try {
-          // Extract unique folder prefixes from all images
           const folderPrefixes = new Set<string>();
-          for (const image of product.images) {
+          for (const image of images) {
             if (image?.url) {
               const imageKey = await StorageService.getKeyFromPublicUrl(
                 image.url,
@@ -781,6 +593,84 @@ export const productRouter = {
       return ProductEntity.getRo(updated);
     }),
 
+  publish: protectedProcedure
+    .input(publishProductInputSchema)
+    .output(productIncludeOutputSchema)
+    .handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
+      const userId = context.session.user.id;
+
+      const product = await database.product.findUnique({
+        where: { id: input.id },
+        select: { storeId: true },
+      });
+
+      if (!product) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
+      await verifyStoreOwnership(userId, product.storeId);
+
+      await database.$transaction(async (tx) => {
+        await ProductVersionService.publishDraft(
+          tx,
+          input.id,
+          input.expectedDraftUpdatedAt,
+        );
+      });
+
+      const updated = await database.product.findUnique({
+        where: { id: input.id },
+        include: ProductQuery.getInclude(),
+      });
+
+      if (!updated) {
+        throw new ORPCError("INTERNAL_SERVER_ERROR", {
+          message: "Failed to load product after publish",
+        });
+      }
+
+      return ProductEntity.getRo(updated);
+    }),
+
+  discardDraft: protectedProcedure
+    .input(discardDraftProductInputSchema)
+    .output(productIncludeOutputSchema)
+    .handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
+      const userId = context.session.user.id;
+
+      const product = await database.product.findUnique({
+        where: { id: input.id },
+        select: { storeId: true },
+      });
+
+      if (!product) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
+      await verifyStoreOwnership(userId, product.storeId);
+
+      await database.$transaction(async (tx) => {
+        await ProductVersionService.discardDraft(tx, input.id);
+      });
+
+      const updated = await database.product.findUnique({
+        where: { id: input.id },
+        include: ProductQuery.getInclude(),
+      });
+
+      if (!updated) {
+        throw new ORPCError("INTERNAL_SERVER_ERROR", {
+          message: "Failed to load product after discarding draft",
+        });
+      }
+
+      return ProductEntity.getRo(updated);
+    }),
+
   /**
    * Get product by ID (public - for storefronts)
    * No authentication required, uses storefront rate limiting (100/min)
@@ -802,14 +692,22 @@ export const productRouter = {
         });
       }
 
-      // Only return published products
       if (!product.published) {
         throw new ORPCError("NOT_FOUND", {
           message: "Product not found",
         });
       }
 
-      // Verify store is published
+      if (
+        !product.currentPublishedVersionId ||
+        product.currentPublishedVersion?.status !==
+          ProductVersionStatus.PUBLISHED
+      ) {
+        throw new ORPCError("NOT_FOUND", {
+          message: "Product not found",
+        });
+      }
+
       if (product.store.status !== StoreStatus.PUBLISHED) {
         throw new ORPCError("NOT_FOUND", {
           message: "Product not found",
@@ -832,7 +730,7 @@ export const productRouter = {
       const products = await database.product.findMany({
         where: {
           id: { in: input.ids },
-          published: true,
+          ...ProductQuery.getPublishableWhere(),
         },
         include: ProductQuery.getPublicInclude(),
       });
@@ -841,7 +739,13 @@ export const productRouter = {
         return [];
       }
 
-      return products.map((product) => ProductEntity.getPublicRo(product));
+      return products
+        .filter(
+          (p) =>
+            p.currentPublishedVersion?.status ===
+            ProductVersionStatus.PUBLISHED,
+        )
+        .map((p) => ProductEntity.getPublicRo(p));
     }),
 
   /**

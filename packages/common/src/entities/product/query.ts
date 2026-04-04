@@ -1,8 +1,22 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
+import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { ImageQuery } from "../image/query";
 import { OrderItemQuery } from "../order-item/query";
 import { StoreQuery } from "../store/query";
 import { VariantQuery } from "../variant/query";
+
+/** Nested payload for a version row (images, options, variants). */
+export function getProductVersionDetailInclude() {
+  return {
+    images: ImageQuery.getSimpleInclude(),
+    variantOptions: {
+      include: VariantQuery.getVariantOptionInclude(),
+    },
+    variants: {
+      include: VariantQuery.getVariantInclude(),
+    },
+  } satisfies Prisma.ProductVersionInclude;
+}
 
 export type ProductSimpleDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getSimpleInclude>;
@@ -24,62 +38,75 @@ export type ProductPublicDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getPublicInclude>;
 }>;
 
+const listVersionSelect = {
+  name: true,
+  description: true,
+  price: true,
+  stock: true,
+  hasVariants: true,
+  images: { select: { url: true } },
+  _count: { select: { variants: true } },
+} satisfies Prisma.ProductVersionSelect;
+
 export class ProductQuery {
   static getSimpleInclude() {
-    return {} satisfies Prisma.ProductInclude;
+    return {
+      currentPublishedVersion: {
+        select: {
+          name: true,
+          description: true,
+          price: true,
+          stock: true,
+          hasVariants: true,
+        },
+      },
+    } satisfies Prisma.ProductInclude;
   }
 
   static getPublicInclude() {
     return {
-      ...ProductQuery.getSimpleInclude(),
-      images: {
-        select: ImageQuery.getPublicSelect(),
-      },
       store: {
         select: StoreQuery.getPublicSimpleSelect(),
       },
-      variantOptions: {
-        include: VariantQuery.getVariantOptionInclude(),
-      },
-      variants: {
-        include: VariantQuery.getVariantInclude(),
+      currentPublishedVersion: {
+        include: getProductVersionDetailInclude(),
       },
     } satisfies Prisma.ProductInclude;
   }
 
   static getInclude() {
     return {
-      ...ProductQuery.getSimpleInclude(),
-      images: ImageQuery.getSimpleInclude(),
+      currentPublishedVersion: {
+        include: getProductVersionDetailInclude(),
+      },
+      draftVersion: {
+        include: getProductVersionDetailInclude(),
+      },
       orderItems: OrderItemQuery.getSimpleInclude(),
-      variantOptions: {
-        include: VariantQuery.getVariantOptionInclude(),
-      },
-      variants: {
-        include: VariantQuery.getVariantInclude(),
-      },
     } satisfies Prisma.ProductInclude;
   }
 
   static getClientSafeInclude() {
     return {
-      ...ProductQuery.getSimpleInclude(),
-      images: ImageQuery.getSimpleInclude(),
+      currentPublishedVersion: {
+        include: {
+          images: ImageQuery.getSimpleInclude(),
+        },
+      },
     } satisfies Prisma.ProductInclude;
   }
 
   static getListInclude() {
     return {
-      ...ProductQuery.getClientSafeInclude(),
-      _count: {
-        select: { variants: true },
+      draftVersion: {
+        select: listVersionSelect,
+      },
+      currentPublishedVersion: {
+        select: listVersionSelect,
       },
     } satisfies Prisma.ProductInclude;
   }
 
-  /**
-   * Generate where clause for filtering products by store IDs and optional filters
-   */
   static getWhere(
     storeIds: string[],
     filters?: {
@@ -92,23 +119,42 @@ export class ProductQuery {
       priceMax?: number;
     },
   ): Prisma.ProductWhereInput {
-    const where: Prisma.ProductWhereInput = {
-      storeId: { in: storeIds },
-    };
+    const andParts: Prisma.ProductWhereInput[] = [];
 
-    if (filters?.storeId) {
-      where.storeId = { in: [filters.storeId] };
-    }
+    const where: Prisma.ProductWhereInput = {
+      storeId: filters?.storeId ? { in: [filters.storeId] } : { in: storeIds },
+    };
 
     if (filters?.published !== undefined) {
       where.published = filters.published;
     }
 
     if (filters?.search) {
-      where.OR = [
-        { name: { contains: filters.search, mode: "insensitive" } },
-        { description: { contains: filters.search, mode: "insensitive" } },
-      ];
+      const q = filters.search;
+      andParts.push({
+        OR: [
+          {
+            currentPublishedVersion: {
+              name: { contains: q, mode: "insensitive" },
+            },
+          },
+          {
+            currentPublishedVersion: {
+              description: { contains: q, mode: "insensitive" },
+            },
+          },
+          {
+            draftVersion: {
+              name: { contains: q, mode: "insensitive" },
+            },
+          },
+          {
+            draftVersion: {
+              description: { contains: q, mode: "insensitive" },
+            },
+          },
+        ],
+      });
     }
 
     if (filters?.stock) {
@@ -120,50 +166,94 @@ export class ProductQuery {
         stockFilter.gte = filters.stock.gte;
       }
       if (Object.keys(stockFilter).length > 0) {
-        where.stock = stockFilter;
+        andParts.push({
+          OR: [
+            {
+              currentPublishedVersion: {
+                is: { stock: stockFilter },
+              },
+            },
+            {
+              draftVersion: {
+                is: { stock: stockFilter },
+              },
+            },
+          ],
+        });
       }
     }
 
     if (filters?.hasVariants !== undefined) {
-      where.hasVariants = filters.hasVariants;
+      andParts.push({
+        OR: [
+          {
+            currentPublishedVersion: {
+              is: { hasVariants: filters.hasVariants },
+            },
+          },
+          {
+            draftVersion: {
+              is: { hasVariants: filters.hasVariants },
+            },
+          },
+        ],
+      });
     }
 
     if (filters?.priceMin !== undefined || filters?.priceMax !== undefined) {
-      where.price = {};
+      const price: { gte?: number; lte?: number } = {};
       if (filters.priceMin !== undefined) {
-        where.price.gte = filters.priceMin;
+        price.gte = filters.priceMin;
       }
       if (filters.priceMax !== undefined) {
-        where.price.lte = filters.priceMax;
+        price.lte = filters.priceMax;
       }
+      andParts.push({
+        OR: [
+          {
+            currentPublishedVersion: {
+              is: { price },
+            },
+          },
+          {
+            draftVersion: {
+              is: { price },
+            },
+          },
+        ],
+      });
+    }
+
+    if (andParts.length > 0) {
+      where.AND = andParts;
     }
 
     return where;
   }
 
-  /**
-   * Get where clause for products that should be visible publicly
-   * Centralizes logic for determining publishable products
-   * Currently: published = true
-   * Future: Can extend to include isDeleted = false, archived = false, etc.
-   */
   static getPublishableWhere(): Prisma.ProductWhereInput {
     return {
       published: true,
-      // Future: Add additional conditions here as needed
-      // isDeleted: false,
-      // archived: false,
-      // etc.
+      currentPublishedVersionId: { not: null },
+      currentPublishedVersion: {
+        is: { status: ProductVersionStatus.PUBLISHED },
+      },
     };
   }
 
-  /**
-   * Generate orderBy clause for products
-   */
   static getOrder(
     orderBy: "asc" | "desc" = "desc",
     field: "createdAt" | "updatedAt" | "name" | "price" | "stock" = "createdAt",
   ): Prisma.ProductOrderByWithRelationInput {
+    if (field === "name") {
+      return { currentPublishedVersion: { name: orderBy } };
+    }
+    if (field === "price") {
+      return { currentPublishedVersion: { price: orderBy } };
+    }
+    if (field === "stock") {
+      return { currentPublishedVersion: { stock: orderBy } };
+    }
     return { [field]: orderBy };
   }
 }
