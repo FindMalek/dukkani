@@ -1,67 +1,29 @@
 "use client";
 
 import type { ProductImageAttachment } from "@dukkani/common/schemas/product/form";
-import { Button } from "@dukkani/ui/components/button";
 import {
   Field,
   FieldContent,
   FieldErrors,
   FieldLabel,
 } from "@dukkani/ui/components/field";
-import { Icons } from "@dukkani/ui/components/icons";
-import { ScrollArea, ScrollBar } from "@dukkani/ui/components/scroll-area";
+import { ImageFileTrigger } from "@dukkani/ui/components/image-file-trigger";
+import { ImagePreviewStrip } from "@dukkani/ui/components/image-preview-strip";
+import { ImagePreviewThumb } from "@dukkani/ui/components/image-preview-thumb";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useFieldContext } from "@dukkani/ui/hooks/use-app-form";
-import { cn } from "@dukkani/ui/lib/utils";
-import Image from "next/image";
+import { useObjectUrlPreviews } from "@dukkani/ui/hooks/use-object-url-previews";
 import { useTranslations } from "next-intl";
 import {
-  type ChangeEvent,
   useCallback,
   useEffect,
   useEffectEvent,
+  useMemo,
   useRef,
   useState,
 } from "react";
 
 const MAX_IMAGES = 10;
-
-function useLocalPreviewUrls(attachments: ProductImageAttachment[]) {
-  const [previewById, setPreviewById] = useState<Record<string, string>>({});
-  const previewsRef = useRef(previewById);
-  previewsRef.current = previewById;
-
-  useEffect(() => {
-    const locals = attachments.filter(
-      (a): a is Extract<ProductImageAttachment, { kind: "local" }> =>
-        a.kind === "local",
-    );
-
-    setPreviewById((prev) => {
-      const next: Record<string, string> = {};
-      for (const l of locals) {
-        next[l.clientId] = prev[l.clientId] ?? URL.createObjectURL(l.file);
-      }
-      for (const id of Object.keys(prev)) {
-        if (!(id in next)) {
-          URL.revokeObjectURL(prev[id]!);
-        }
-      }
-      return next;
-    });
-  }, [attachments]);
-
-  useEffect(
-    () => () => {
-      for (const url of Object.values(previewsRef.current)) {
-        URL.revokeObjectURL(url);
-      }
-    },
-    [],
-  );
-
-  return previewById;
-}
 
 type ProductFormImagesProps = {
   optimizeFiles?: (files: File[]) => Promise<File[]>;
@@ -71,18 +33,28 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
   const t = useTranslations("products.create");
   const tFields = useTranslations("fields.images");
 
-  const optimizationRequestRef = useRef(0);
   const thumbsRef = useRef<HTMLDivElement>(null);
-  const [isOptimizing, setIsOptimizing] = useState(false);
+  const [isTransforming, setIsTransforming] = useState(false);
   const field = useFieldContext<ProductImageAttachment[]>();
 
   const attachments = field.state.value ?? [];
 
   const attachmentsRef = useRef(attachments);
-  const previewById = useLocalPreviewUrls(attachments);
-
   attachmentsRef.current = attachments;
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+
+  const localPreviewItems = useMemo(
+    () =>
+      attachments
+        .filter(
+          (a): a is Extract<ProductImageAttachment, { kind: "local" }> =>
+            a.kind === "local",
+        )
+        .map((a) => ({ id: a.clientId, file: a.file })),
+    [attachments],
+  );
+
+  const previewById = useObjectUrlPreviews(localPreviewItems);
 
   const scrollToEnd = useEffectEvent(() => {
     const viewport = thumbsRef.current?.closest(
@@ -103,152 +75,74 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
     field.handleBlur();
   };
 
-  const addFiles = useCallback(
-    async (incoming: File[]) => {
-      if (incoming.length === 0) return;
-
-      const current = attachmentsRef.current;
-      const room = MAX_IMAGES - current.length;
-      if (room <= 0) return;
-
-      const requestId = ++optimizationRequestRef.current;
-      let toAdd = incoming.slice(0, room);
-
-      if (optimizeFiles) {
-        setIsOptimizing(true);
-        try {
-          toAdd = await optimizeFiles(toAdd);
-          if (requestId !== optimizationRequestRef.current) {
-            return;
-          }
-          toAdd = toAdd.filter(Boolean).slice(0, room);
-        } catch {
-          if (requestId !== optimizationRequestRef.current) {
-            return;
-          }
-          toAdd = incoming.slice(0, room);
-        } finally {
-          if (requestId === optimizationRequestRef.current) {
-            setIsOptimizing(false);
-          }
-        }
-      }
-
-      if (toAdd.length === 0) return;
-
-      const newLocals: ProductImageAttachment[] = toAdd.map((file) => ({
-        kind: "local",
-        file,
-        clientId: crypto.randomUUID(),
-      }));
+  const onFilesSelected = useCallback(
+    (files: File[]) => {
+      if (files.length === 0) return;
 
       const latest = attachmentsRef.current;
       const space = MAX_IMAGES - latest.length;
       if (space <= 0) return;
 
-      field.handleChange([...latest, ...newLocals.slice(0, space)]);
+      const toAdd = files.slice(0, space);
+      field.handleChange([
+        ...latest,
+        ...toAdd.map((file) => ({
+          kind: "local" as const,
+          file,
+          clientId: crypto.randomUUID(),
+        })),
+      ]);
       field.handleBlur();
     },
-    [field, optimizeFiles],
+    [field],
   );
-
-  const onFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const list = e.target.files;
-    e.target.value = "";
-    if (!list?.length) return;
-    void addFiles(Array.from(list));
-  };
 
   return (
     <Field>
       <FieldContent>
         <FieldLabel>{t("form.photos")}</FieldLabel>
       </FieldContent>
-      <div className="flex items-center gap-3">
-        {attachments.length > 0 && (
-          <ScrollArea className="max-w-sm">
-            <div className="flex gap-3" ref={thumbsRef}>
-              {attachments.map((item, index) => {
-                const localPreview =
-                  item.kind === "local"
-                    ? previewById[item.clientId]
-                    : undefined;
+      <div className="flex flex-col gap-3">
+        <div className="flex items-center gap-3">
+          {attachments.length > 0 && (
+            <ImagePreviewStrip thumbsRef={thumbsRef}>
+              {attachments.map((item, index) => (
+                <ImagePreviewThumb
+                  key={
+                    item.kind === "remote" ? item.url : `local-${item.clientId}`
+                  }
+                  src={
+                    item.kind === "remote"
+                      ? item.url
+                      : previewById[item.clientId]
+                  }
+                  alt={item.kind === "remote" ? "" : item.file.name}
+                  onRemove={() => handleRemove(index)}
+                  removeAriaLabel={t("form.removePhoto")}
+                />
+              ))}
+            </ImagePreviewStrip>
+          )}
 
-                return (
-                  <div
-                    key={
-                      item.kind === "remote"
-                        ? item.url
-                        : `local-${item.clientId}`
-                    }
-                    className="relative shrink-0"
-                  >
-                    {item.kind === "remote" ? (
-                      <Image
-                        src={item.url}
-                        alt={item.url}
-                        width={96}
-                        height={96}
-                        className="size-24 rounded-xl border border-border object-cover"
-                      />
-                    ) : localPreview ? (
-                      <Image
-                        src={localPreview}
-                        alt={item.file.name}
-                        width={96}
-                        height={96}
-                        unoptimized
-                        className="size-24 rounded-xl border border-border object-cover"
-                      />
-                    ) : (
-                      <Skeleton className="size-24 shrink-0 rounded-xl border border-border" />
-                    )}
-                    <Button
-                      type="button"
-                      variant="secondary"
-                      size="icon"
-                      className="absolute -top-2 -right-2 h-7 w-7 rounded-full shadow-md"
-                      onClick={() => handleRemove(index)}
-                      aria-label={t("form.removePhoto")}
-                    >
-                      <Icons.x className="h-3.5 w-3.5" />
-                    </Button>
-                  </div>
-                );
-              })}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        )}
-
-        {attachments.length < MAX_IMAGES && (
-          <label
-            className={cn(
-              "flex size-24 shrink-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-2 border-input border-dashed bg-background text-center transition-colors",
-              "hover:border-ring/50 hover:bg-accent/40",
-              isOptimizing && "pointer-events-none opacity-60",
-            )}
-          >
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              className="sr-only"
-              onChange={onFileInputChange}
+          {attachments.length < MAX_IMAGES && (
+            <ImageFileTrigger
+              maxFiles={MAX_IMAGES}
+              currentCount={attachments.length}
+              mode="append"
+              label={tFields("label")}
+              hint={tFields("hint")}
+              transformFiles={optimizeFiles}
+              onBusyChange={optimizeFiles ? setIsTransforming : undefined}
+              onFilesSelected={onFilesSelected}
             />
-            <Icons.camera className="size-6 text-muted-foreground/60" />
-            <span className="px-1 text-center text-[10px] text-muted-foreground leading-tight">
-              {tFields("label")}
-            </span>
-            <span className="sr-only">{tFields("hint")}</span>
-          </label>
-        )}
-      </div>
-      {isOptimizing ? (
-        <div className="flex items-center gap-3 pt-1">
-          <Skeleton className="size-24 shrink-0 rounded-xl" />
+          )}
         </div>
-      ) : null}
+        {isTransforming ? (
+          <div className="flex items-center gap-3">
+            <Skeleton className="size-24 shrink-0 rounded-xl" />
+          </div>
+        ) : null}
+      </div>
       <FieldErrors errors={field.state.meta.errors} match={isInvalid} />
     </Field>
   );

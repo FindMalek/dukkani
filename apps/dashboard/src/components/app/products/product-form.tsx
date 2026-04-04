@@ -2,7 +2,6 @@
 
 import {
   FieldGroup,
-  FieldLegend,
   FieldSet,
 } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
@@ -76,7 +75,6 @@ export const ProductForm = forwardRef<
       >
         <FieldGroup>
           <FieldSet>
-            <FieldLegend>{t("sections.essentials")}</FieldLegend>
             <FieldGroup>
               <form.AppForm>
                 <ProductFormEssentials
