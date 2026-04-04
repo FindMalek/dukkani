@@ -1,5 +1,4 @@
 {
-	"dependencyTypes": ["prod", "dev", "peer"],
 	"versionGroups": [
 		{
 			"dependencies": ["date-fns", "sonner", "tw-animate-css"],

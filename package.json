@@ -18,7 +18,7 @@
     "build:packages": "turbo build --filter='@dukkani/db' --filter='@dukkani/auth' --filter='@dukkani/orpc'",
     "check-types": "turbo check-types",
     "check-types:fast": "turbo check-types:fast",
-    "deps:sync": "(pnpm outdated -r || true) && pnpm update -r --latest && pnpm install && syncpack fix-mismatches && (syncpack list-mismatches || true)",
+    "deps:sync": "(pnpm outdated -r || true) && pnpm update -r --latest && pnpm install && syncpack fix --dependency-types prod,dev,peer && (syncpack lint --dependency-types prod,dev,peer || true)",
     "dev:native": "turbo -F native dev",
     "dev:api": "turbo -F @dukkani/api dev",
     "dev:web": "turbo -F @dukkani/web dev",
