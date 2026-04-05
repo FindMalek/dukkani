@@ -52,12 +52,12 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
   } = useProductFormImagesField(optimizeFiles);
 
   return (
-    <Field>
+    <Field className="min-w-0">
       <FieldContent>
         <FieldLabel>{t("form.photos")}</FieldLabel>
       </FieldContent>
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-3">
+      <div className="flex w-full min-w-0 flex-col gap-3">
+        <div className="flex w-full min-w-0 items-center gap-3">
           {attachments.length > 0 && (
             <ImagePreviewStrip thumbsRef={thumbsRef}>
               {attachments.map((item, index) => {

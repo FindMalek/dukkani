@@ -67,8 +67,8 @@ export function ImageUploadRow({
   }, [items.length]);
 
   return (
-    <div className={cn("flex flex-col gap-3", className)}>
-      <div className="flex items-center gap-3">
+    <div className={cn("flex w-full min-w-0 flex-col gap-3", className)}>
+      <div className="flex w-full min-w-0 items-center gap-3">
         {items.length > 0 && (
           <ImagePreviewStrip
             thumbsRef={thumbsRef}

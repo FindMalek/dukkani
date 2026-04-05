@@ -90,12 +90,9 @@ export function ImagesField({
       srOnlyLabel={srOnlyLabel}
     >
       <div className="flex w-full flex-col gap-3">
-        <div className="flex items-center gap-3">
+        <div className="flex w-full min-w-0 items-center gap-3">
           {files.length > 0 && (
-            <ImagePreviewStrip
-              thumbsRef={thumbsRef}
-              scrollAreaClassName="max-w-sm"
-            >
+            <ImagePreviewStrip thumbsRef={thumbsRef}>
               {files.map((file, index) => {
                 const id = getFileId(file);
                 return (

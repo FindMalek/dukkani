@@ -4,6 +4,7 @@ import type {
   TogglePublishProductInput,
   UpdateProductInput,
 } from "@dukkani/common/schemas/product/input";
+import type { QueryClient } from "@tanstack/react-query";
 import {
   mutationOptions,
   useMutation,
@@ -12,6 +13,17 @@ import {
 } from "@tanstack/react-query";
 import { client, orpc } from "@/lib/orpc";
 import { queryKeys } from "@/lib/query-keys";
+
+/**
+ * Refetch every `product.getAll` query (active and inactive) so list thumbnails stay in sync
+ * after edits while the products page is not mounted (e.g. product detail route).
+ */
+export async function invalidateProductListQueries(queryClient: QueryClient) {
+  await queryClient.invalidateQueries({
+    queryKey: queryKeys.products.all(),
+    refetchType: "all",
+  });
+}
 
 /**
  * Query hook for fetching products list
@@ -37,11 +49,9 @@ export function useProductQuery(id: string, options?: { enabled?: boolean }) {
  */
 export const createProductMutationOptions = mutationOptions({
   mutationFn: (input: CreateProductInput) => client.product.create(input),
-  onSuccess(_data, _variables, _onMutateResult, context) {
-    context.client.invalidateQueries({
-      queryKey: queryKeys.products.all(),
-    });
-    context.client.invalidateQueries({
+  async onSuccess(_data, _variables, _onMutateResult, context) {
+    await invalidateProductListQueries(context.client);
+    await context.client.invalidateQueries({
       queryKey: queryKeys.dashboard.stats(),
     });
   },
@@ -55,14 +65,13 @@ export function useUpdateProductMutation() {
 
   return useMutation({
     mutationFn: (input: UpdateProductInput) => client.product.update(input),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.products.all(),
-      });
-      queryClient.invalidateQueries({
+    onSuccess: async (data) => {
+      await invalidateProductListQueries(queryClient);
+      await queryClient.invalidateQueries({
         queryKey: queryKeys.products.byId(data.id),
+        refetchType: "all",
       });
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: queryKeys.dashboard.stats(),
       });
     },
@@ -77,13 +86,9 @@ export function useDeleteProductMutation() {
 
   return useMutation({
     mutationFn: (id: string) => client.product.delete({ id }),
-    onSuccess: () => {
-      // Invalidate all products list queries (with any input)
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.products.all(),
-      });
-      // Also invalidate dashboard stats since products affect stats
-      queryClient.invalidateQueries({
+    onSuccess: async () => {
+      await invalidateProductListQueries(queryClient);
+      await queryClient.invalidateQueries({
         queryKey: queryKeys.dashboard.stats(),
       });
     },
@@ -99,17 +104,13 @@ export function useTogglePublishProductMutation() {
   return useMutation({
     mutationFn: (input: TogglePublishProductInput) =>
       client.product.togglePublish(input),
-    onSuccess: (data) => {
-      // Invalidate all products list queries
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.products.all(),
-      });
-      // Invalidate specific product
-      queryClient.invalidateQueries({
+    onSuccess: async (data) => {
+      await invalidateProductListQueries(queryClient);
+      await queryClient.invalidateQueries({
         queryKey: queryKeys.products.byId(data.id),
+        refetchType: "all",
       });
-      // Also invalidate dashboard stats
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: queryKeys.dashboard.stats(),
       });
     },

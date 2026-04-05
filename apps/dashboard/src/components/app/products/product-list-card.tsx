@@ -11,6 +11,7 @@ import { useMemo } from "react";
 import { useFormatPriceForActiveStore } from "@/stores";
 import { RoutePaths } from "@/lib/routes";
 import { ProductCardDropdown } from "./product-card-dropdown";
+import Image from "next/image";
 
 interface ProductListCardProps {
   product: ListProductOutput;
@@ -71,9 +72,13 @@ export function ProductListCard({
         {/* Image */}
         <div className="size-20 shrink-0 overflow-hidden rounded-lg border border-border/50 bg-muted/50">
           {firstImageUrl ? (
-            <img
+            <Image
+              key={firstImageUrl}
               src={firstImageUrl}
               alt={product.name}
+              width={80}
+              height={80}
+              unoptimized
               className="size-full object-cover"
             />
           ) : (

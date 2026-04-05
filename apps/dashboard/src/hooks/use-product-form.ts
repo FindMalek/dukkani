@@ -12,6 +12,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useCategoriesQuery } from "@/hooks/api/use-categories.hook";
 import {
   createProductMutationOptions,
+  invalidateProductListQueries,
   useProductQuery,
   useUpdateProductMutation,
 } from "@/hooks/api/use-products.hook";
@@ -46,21 +47,25 @@ export function useProductForm({
 
   const publishProductMutation = useMutation({
     mutationFn: (id: string) => client.product.publish({ id }),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.products.all() });
-      queryClient.invalidateQueries({
+    onSuccess: async (data) => {
+      await invalidateProductListQueries(queryClient);
+      await queryClient.invalidateQueries({
         queryKey: queryKeys.products.byId(data.id),
+        refetchType: "all",
       });
-      queryClient.invalidateQueries({ queryKey: queryKeys.dashboard.stats() });
+      await queryClient.invalidateQueries({
+        queryKey: queryKeys.dashboard.stats(),
+      });
     },
   });
 
   const discardDraftMutation = useMutation({
     mutationFn: (id: string) => client.product.discardDraft({ id }),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.products.all() });
-      queryClient.invalidateQueries({
+    onSuccess: async (data) => {
+      await invalidateProductListQueries(queryClient);
+      await queryClient.invalidateQueries({
         queryKey: queryKeys.products.byId(data.id),
+        refetchType: "all",
       });
     },
   });

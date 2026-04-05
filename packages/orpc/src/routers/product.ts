@@ -356,39 +356,34 @@ export const productRouter = {
             select: { url: true },
           });
 
+          const keptImageUrls = new Set(input.imageUrls);
+
           if (draftImages.length > 0) {
             try {
-              const folderPrefixes = new Set<string>();
+              // Only remove S3 objects for images that are actually dropped.
+              // Deleting by every draft URL's folder was wiping sibling assets that
+              // stay in `input.imageUrls` (same product path prefix).
               for (const image of draftImages) {
-                if (image?.url) {
-                  const imageKey = await StorageService.getKeyFromPublicUrl(
-                    image.url,
-                    env.S3_PUBLIC_BASE_URL,
-                  );
-
-                  if (imageKey) {
-                    const lastSlashIndex = imageKey.lastIndexOf("/");
-                    if (lastSlashIndex > 0) {
-                      const folderPrefix = imageKey.substring(
-                        0,
-                        lastSlashIndex,
-                      );
-                      folderPrefixes.add(folderPrefix);
-                    }
-                  }
+                if (!image?.url || keptImageUrls.has(image.url)) {
+                  continue;
                 }
-              }
-
-              for (const folderPrefix of folderPrefixes) {
+                const imageKey = await StorageService.getKeyFromPublicUrl(
+                  image.url,
+                  env.S3_PUBLIC_BASE_URL,
+                );
+                if (!imageKey) continue;
+                const lastSlashIndex = imageKey.lastIndexOf("/");
+                if (lastSlashIndex <= 0) continue;
+                const assetFolderPrefix = imageKey.substring(0, lastSlashIndex);
                 await StorageService.deleteFolderByPrefix(
                   env.S3_BUCKET,
-                  folderPrefix,
+                  assetFolderPrefix,
                 );
               }
             } catch (storageError) {
               logger.error(
                 { error: storageError, productId: input.id },
-                "Failed to delete old draft product image folders from storage",
+                "Failed to delete removed draft product image folders from storage",
               );
             }
           }
