@@ -1,4 +1,8 @@
-import type { ProductFormInput } from "@dukkani/common/schemas/product/form";
+import type { ProductAddonGroupInput } from "@dukkani/common/schemas/product-addon/input";
+import type {
+  ProductFormInput,
+  ProductFormOutput,
+} from "@dukkani/common/schemas/product/form";
 import type { ProductIncludeOutput } from "@dukkani/common/schemas/product/output";
 import type { FormVariantRow } from "@dukkani/common/utils";
 import { reconcileVariants } from "@dukkani/common/utils";
@@ -40,12 +44,28 @@ function mapVariantsFromProduct(
 
   if (product.hasVariants && fromApi.length === 0 && opts.length > 0) {
     return reconcileVariants([], opts, {
-      price: product.price,
       stock: product.stock,
     }).map(variantRowToFormInput);
   }
 
   return fromApi;
+}
+
+export function mapFormAddonGroupsToInput(
+  groups: ProductFormOutput["addonGroups"],
+): ProductAddonGroupInput[] {
+  return groups.map((g, gi) => ({
+    name: g.name,
+    sortOrder: g.sortOrder ?? gi,
+    selectionType: g.selectionType,
+    required: g.required,
+    options: g.options.map((o, oi) => ({
+      name: o.name,
+      sortOrder: o.sortOrder ?? oi,
+      priceDelta: o.priceDelta,
+      stock: o.stock,
+    })),
+  }));
 }
 
 export function mapProductToFormValues(
@@ -64,6 +84,18 @@ export function mapProductToFormValues(
       values: o.values.map((v) => ({ value: v.value })),
     })),
     variants: mapVariantsFromProduct(product),
+    addonGroups: (product.addonGroups ?? []).map((g) => ({
+      name: g.name,
+      sortOrder: String(g.sortOrder),
+      selectionType: g.selectionType,
+      required: g.required,
+      options: g.options.map((o) => ({
+        name: o.name,
+        sortOrder: String(o.sortOrder),
+        priceDelta: String(o.priceDelta),
+        stock: String(o.stock),
+      })),
+    })),
     images:
       product.images?.map((i) => ({ kind: "remote" as const, url: i.url })) ??
       [],

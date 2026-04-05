@@ -12,11 +12,12 @@ export type FormVariantRow = {
 
 /**
  * Merge a new option grid with prior rows: reuse SKU/price/stock when the selection tuple still exists.
+ * New rows use **inherit** pricing (`price: undefined`); the published version base price applies until the merchant sets an override.
  */
 export function reconcileVariants(
   previous: FormVariantRow[],
   options: ProductVariantOptionFormRow[],
-  defaults: { price: number; stock: number },
+  defaults: { stock: number },
 ): FormVariantRow[] {
   const target = cartesianSelections(options);
   const prevByKey = new Map(
@@ -35,18 +36,20 @@ export function reconcileVariants(
     return {
       selections,
       sku: undefined,
-      price: defaults.price,
+      price: undefined,
       stock: defaults.stock,
     };
   });
 }
 
-/** Map validated form rows to API `VariantInput`. */
+/** Map validated form rows to API `VariantInput` (omit `price` when inheriting version base). */
 export function formVariantRowsToInput(rows: FormVariantRow[]): VariantInput[] {
   return rows.map((row) => ({
     selections: row.selections,
     sku: row.sku?.trim() ? row.sku.trim() : undefined,
-    price: row.price,
+    ...(row.price !== undefined && row.price !== null
+      ? { price: row.price }
+      : {}),
     stock: row.stock,
   }));
 }

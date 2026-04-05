@@ -4,6 +4,7 @@ import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { RoutePaths, useRouter } from "@/lib/routes";
 import { useCartStore } from "@/stores/cart.store";
 import { ProductCard } from "./product-card";
 import { QuickAddToCart } from "./quick-add-to-cart";
@@ -15,6 +16,7 @@ interface ProductGridProps {
 
 export function ProductGrid({ products, store }: ProductGridProps) {
   const t = useTranslations("storefront.store.products");
+  const router = useRouter();
   const addItem = useCartStore((state) => state.addItem);
   const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
   const [selectedProduct, setSelectedProduct] =
@@ -27,6 +29,8 @@ export function ProductGrid({ products, store }: ProductGridProps) {
     if (hasVariants) {
       setSelectedProduct(product);
       setIsCartDrawerOpen(true);
+    } else if ((product.addonGroups ?? []).some((g) => g.required)) {
+      router.push(RoutePaths.PRODUCTS.DETAIL.url(product.id));
     } else {
       addItem(product.id, 1);
       setCartDrawerOpen(true);

@@ -3,6 +3,7 @@
 import {
   countVariantCombinations,
   MAX_VARIANT_COMBINATIONS,
+  selectionKey,
 } from "@dukkani/common/utils";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
@@ -258,7 +259,12 @@ export const ProductFormVariants = withForm({
                             <TableBody>
                               {Array.from({ length: variantCount }).map(
                                 (_, rowIndex) => (
-                                  <TableRow key={rowIndex}>
+                                  <TableRow
+                                    key={`${rowIndex}-${selectionKey(
+                                      form.state.values.variants?.[rowIndex]
+                                        ?.selections ?? {},
+                                    )}`}
+                                  >
                                     <TableCell>
                                       <form.Subscribe
                                         selector={(s) =>

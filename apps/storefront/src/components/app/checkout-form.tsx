@@ -115,6 +115,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
         productId: item.productId,
         variantId: item.variantId,
         quantity: item.quantity,
+        addonSelections: item.addonSelections ?? [],
       }));
 
       const c = detectedCoordsRef.current;

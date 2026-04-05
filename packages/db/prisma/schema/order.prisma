@@ -56,9 +56,34 @@ model OrderItem {
   productVariant    ProductVariant?             @relation(fields: [productVariantId], references: [id])
   productVariantId  String?                     @map("product_variant_id")
   displayAttributes OrderItemVariantAttribute[]
+  addonSelections   OrderItemAddon[]
 
   @@index([productVersionId])
   @@map("order_items")
+}
+
+/**
+ * Frozen add-on lines at checkout (snapshots + optional FK for analytics).
+ */
+model OrderItemAddon {
+  id String @id @default(cuid())
+
+  orderItemId String    @map("order_item_id")
+  orderItem   OrderItem @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+
+  addonOptionId String?             @map("addon_option_id")
+  addonOption   ProductAddonOption? @relation(fields: [addonOptionId], references: [id], onDelete: SetNull)
+
+  groupNameSnapshot  String  @map("group_name_snapshot")
+  optionNameSnapshot String  @map("option_name_snapshot")
+  priceDeltaSnapshot Decimal @map("price_delta_snapshot") @db.Decimal(10, 2)
+  quantity           Int     @default(1)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([orderItemId])
+  @@index([addonOptionId])
+  @@map("order_item_addons")
 }
 
 /**

@@ -156,6 +156,14 @@ enum ProductVersionStatus {
   ARCHIVED
 }
 
+/**
+ * Add-on group: whether the customer may pick one option or many from the group.
+ */
+enum ProductAddonSelectionType {
+  SINGLE
+  MULTIPLE
+}
+
 enum SupportedCurrency {
   TND
   USD

@@ -13,6 +13,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { useTranslations } from "next-intl";
 import { useEnrichedCart } from "@/hooks/use-enriched-cart";
+import { getItemKey } from "@/lib/cart-utils";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { RoutePaths, useRouter } from "@/lib/routes";
 import { CartItem as CartItemComponent } from "./cart-item";
@@ -63,7 +64,7 @@ export function CartDrawer({
             <div className="py-2">
               {enrichedData.map((item) => (
                 <CartItemComponent
-                  key={`${item.productId}-${item.variantId ?? "no-variant"}`}
+                  key={getItemKey(item)}
                   item={item}
                   productName={item.productName}
                   productImage={item.productImage}

@@ -293,6 +293,7 @@ export const productRouter = {
               ? input.variantOptions
               : undefined,
             variants: input.hasVariants ? input.variants : undefined,
+            addonGroups: input.addonGroups,
           },
         );
 
@@ -442,6 +443,14 @@ export const productRouter = {
             versionId,
             input.variantOptions,
             input.variants,
+          );
+        }
+
+        if (input.addonGroups !== undefined) {
+          await ProductVersionService.writeAddonGroups(
+            tx,
+            versionId,
+            input.addonGroups,
           );
         }
 

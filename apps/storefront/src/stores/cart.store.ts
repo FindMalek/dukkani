@@ -1,11 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { areItemsEqual } from "@/lib/cart-utils";
+import { areItemsEqual, normalizeAddonSelections } from "@/lib/cart-utils";
 
 export interface CartItem {
   productId: string;
   variantId?: string;
   quantity: number;
+  addonSelections?: Array<{ addonOptionId: string; quantity: number }>;
 }
 
 interface CartStoreState {
@@ -21,15 +22,29 @@ interface CartStoreState {
 
   // Actions
   setCurrentStore: (storeSlug: string) => void;
-  addItem: (productId: string, quantity?: number, variantId?: string) => void;
-  removeItem: (productId: string, variantId?: string) => void;
+  addItem: (
+    productId: string,
+    quantity?: number,
+    variantId?: string,
+    addonSelections?: Array<{ addonOptionId: string; quantity?: number }>,
+  ) => void;
+  removeItem: (
+    productId: string,
+    variantId?: string,
+    addonSelections?: Array<{ addonOptionId: string; quantity?: number }>,
+  ) => void;
   updateQuantity: (
     productId: string,
     quantity: number,
     variantId?: string,
+    addonSelections?: Array<{ addonOptionId: string; quantity?: number }>,
   ) => void;
   clearCart: () => void;
-  getItemQuantity: (productId: string, variantId?: string) => number;
+  getItemQuantity: (
+    productId: string,
+    variantId?: string,
+    addonSelections?: Array<{ addonOptionId: string; quantity?: number }>,
+  ) => number;
   getTotalItems: () => number;
 }
 
@@ -51,7 +66,7 @@ export const useCartStore = create<CartStoreState>()(
       /**
        * Add item to cart or update quantity if item already exists
        */
-      addItem: (productId, quantity, variantId) => {
+      addItem: (productId, quantity, variantId, addonSelections) => {
         set((state) => {
           const storeSlug = state.currentStoreSlug;
           if (!storeSlug) {
@@ -61,19 +76,23 @@ export const useCartStore = create<CartStoreState>()(
 
           const currentCart = state.carts[storeSlug] || [];
           const itemQuantity = quantity ?? 1;
+          const normalizedAddons = addonSelections?.length
+            ? normalizeAddonSelections(addonSelections)
+            : undefined;
           const newItem: CartItem = {
             productId,
             variantId,
             quantity: itemQuantity,
+            ...(normalizedAddons?.length
+              ? { addonSelections: normalizedAddons }
+              : {}),
           };
 
-          // Find existing item by key
           const existingItemIndex = currentCart.findIndex((item) =>
             areItemsEqual(item, newItem),
           );
 
           if (existingItemIndex >= 0) {
-            // Update existing item quantity
             const updatedCart = [...currentCart];
             updatedCart[existingItemIndex] = {
               ...updatedCart[existingItemIndex],
@@ -87,7 +106,6 @@ export const useCartStore = create<CartStoreState>()(
             };
           }
 
-          // Add new item
           return {
             carts: {
               ...state.carts,
@@ -97,18 +115,24 @@ export const useCartStore = create<CartStoreState>()(
         });
       },
 
-      /**
-       * Remove item from cart
-       */
-      removeItem: (productId, variantId) => {
+      removeItem: (productId, variantId, addonSelections) => {
         set((state) => {
           const storeSlug = state.currentStoreSlug;
           if (!storeSlug) return state;
 
           const currentCart = state.carts[storeSlug] || [];
-          const itemToRemove: CartItem = { productId, variantId, quantity: 0 };
+          const normalizedAddons = addonSelections?.length
+            ? normalizeAddonSelections(addonSelections)
+            : undefined;
+          const itemToRemove: CartItem = {
+            productId,
+            variantId,
+            quantity: 0,
+            ...(normalizedAddons?.length
+              ? { addonSelections: normalizedAddons }
+              : {}),
+          };
 
-          // Filter out the item to remove
           const filteredCart = currentCart.filter(
             (item) => !areItemsEqual(item, itemToRemove),
           );
@@ -122,13 +146,9 @@ export const useCartStore = create<CartStoreState>()(
         });
       },
 
-      /**
-       * Update quantity of an item in cart
-       * If quantity <= 0, removes the item instead
-       */
-      updateQuantity: (productId, quantity, variantId) => {
+      updateQuantity: (productId, quantity, variantId, addonSelections) => {
         if (quantity <= 0) {
-          get().removeItem(productId, variantId);
+          get().removeItem(productId, variantId, addonSelections);
           return;
         }
 
@@ -137,7 +157,17 @@ export const useCartStore = create<CartStoreState>()(
           if (!storeSlug) return state;
 
           const currentCart = state.carts[storeSlug] || [];
-          const itemToUpdate: CartItem = { productId, variantId, quantity: 0 };
+          const normalizedAddons = addonSelections?.length
+            ? normalizeAddonSelections(addonSelections)
+            : undefined;
+          const itemToUpdate: CartItem = {
+            productId,
+            variantId,
+            quantity: 0,
+            ...(normalizedAddons?.length
+              ? { addonSelections: normalizedAddons }
+              : {}),
+          };
 
           const updatedCart = currentCart.map((item) =>
             areItemsEqual(item, itemToUpdate) ? { ...item, quantity } : item,
@@ -166,16 +196,23 @@ export const useCartStore = create<CartStoreState>()(
         });
       },
 
-      /**
-       * Get quantity of a specific item in cart
-       */
-      getItemQuantity: (productId, variantId) => {
+      getItemQuantity: (productId, variantId, addonSelections) => {
         const state = get();
         const storeSlug = state.currentStoreSlug;
         if (!storeSlug) return 0;
 
         const cart = state.carts[storeSlug] || [];
-        const itemToFind: CartItem = { productId, variantId, quantity: 0 };
+        const normalizedAddons = addonSelections?.length
+          ? normalizeAddonSelections(addonSelections)
+          : undefined;
+        const itemToFind: CartItem = {
+          productId,
+          variantId,
+          quantity: 0,
+          ...(normalizedAddons?.length
+            ? { addonSelections: normalizedAddons }
+            : {}),
+        };
 
         const item = cart.find((item) => areItemsEqual(item, itemToFind));
         return item?.quantity ?? 0;

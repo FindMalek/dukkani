@@ -28,6 +28,12 @@ export class ProductVersionQuery {
       variants: {
         include: VariantQuery.getVariantInclude(),
       },
+      addonGroups: {
+        orderBy: { sortOrder: "asc" },
+        include: {
+          options: { orderBy: { sortOrder: "asc" } },
+        },
+      },
     } satisfies Prisma.ProductVersionInclude;
   }
 
@@ -54,6 +60,12 @@ export class ProductVersionQuery {
       images: true,
       variantOptions: { include: { values: true } },
       variants: { include: { selections: true } },
+      addonGroups: {
+        orderBy: { sortOrder: "asc" },
+        include: {
+          options: { orderBy: { sortOrder: "asc" } },
+        },
+      },
     } satisfies Prisma.ProductVersionInclude;
   }
 }

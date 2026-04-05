@@ -5,6 +5,7 @@ import type {
   ProductSimpleOutput,
 } from "../../schemas/product/output";
 import { OrderItemEntity } from "../order-item/entity";
+import { ProductAddonEntity } from "../product-addon/entity";
 import { ProductVersionEntity } from "../product-version/entity";
 import { StoreEntity } from "../store/entity";
 import { VariantEntity } from "../variant/entity";
@@ -74,6 +75,7 @@ export class ProductEntity {
         orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
         variantOptions: [],
         variants: [],
+        addonGroups: [],
       };
     }
 
@@ -96,6 +98,7 @@ export class ProductEntity {
       orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
       variantOptions: version.variantOptions,
       variants: version.variants,
+      addonGroups: version.addonGroups,
     };
   }
 
@@ -114,6 +117,7 @@ export class ProductEntity {
       store: StoreEntity.getPublicSimpleRo(entity.store),
       variants: v.variants.map(VariantEntity.getVariantRo),
       variantOptions: v.variantOptions.map(VariantEntity.getVariantOptionRo),
+      addonGroups: v.addonGroups.map(ProductAddonEntity.getGroupRo),
     };
   }
 }

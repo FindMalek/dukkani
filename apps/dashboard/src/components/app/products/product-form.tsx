@@ -10,6 +10,7 @@ import { CategoryDrawer } from "./category-drawer";
 import { ProductFormActions } from "./product-form-actions";
 import { ProductFormEssentials } from "./product-form-essentials";
 import { ProductFormSkeleton } from "./product-form-skeleton";
+import { ProductFormAddons } from "./product-form-addons";
 import { ProductFormVariants } from "./product-form-variants";
 
 export interface ProductFormHandle {
@@ -76,6 +77,7 @@ export const ProductForm = forwardRef<
                   optimizeFiles={compressImagesForUpload}
                 />
                 <ProductFormVariants form={form} />
+                <ProductFormAddons form={form} />
                 <ProductFormActions form={form} />
               </form.AppForm>
             </FieldGroup>

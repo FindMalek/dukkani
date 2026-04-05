@@ -16,7 +16,11 @@ interface AddToCartFooterProps {
   currency: store.SupportedCurrencyInfer;
   selectedVariantId?: string;
   variant?: "fixed" | "inline";
-  onAddToCart?: () => void;
+  /**
+   * When set, replaces the default add-to-cart behavior (you must call `addItem` yourself).
+   * Return `false` to cancel opening the cart drawer.
+   */
+  onAddToCart?: (args: { quantity: number }) => boolean | void;
 }
 
 export function AddToCartFooter({
@@ -55,11 +59,14 @@ export function AddToCartFooter({
   };
 
   const handleAddToCart = () => {
-    if (!isOutOfStock) {
+    if (isOutOfStock) return;
+    if (onAddToCart) {
+      const ok = onAddToCart({ quantity });
+      if (ok === false) return;
+    } else {
       addItem(productId, quantity, selectedVariantId);
-      setCartDrawerOpen(true);
-      onAddToCart?.();
     }
+    setCartDrawerOpen(true);
   };
 
   const containerClass =

@@ -84,6 +84,7 @@ model ProductVersion {
   images         Image[]
   variantOptions ProductVariantOption[]
   variants       ProductVariant[]
+  addonGroups    ProductAddonGroup[]
 
   productsAsCurrentPublished Product[] @relation("ProductCurrentPublishedVersion")
   productsAsDraft            Product[] @relation("ProductDraftVersion")
@@ -205,4 +206,51 @@ model ProductVariantSelection {
   @@index([optionId])
   @@index([valueId])
   @@map("product_variant_selections")
+}
+
+/**
+ * Optional extras for a product version (e.g. hooks). Not part of the variant matrix.
+ * Groups control single vs multi select and whether a choice is required.
+ */
+model ProductAddonGroup {
+  id String @id @default(cuid())
+
+  name          String
+  sortOrder     Int                       @default(0) @map("sort_order")
+  selectionType ProductAddonSelectionType @map("selection_type")
+  required      Boolean                   @default(false)
+
+  options ProductAddonOption[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  productVersionId String         @map("product_version_id")
+  productVersion   ProductVersion @relation(fields: [productVersionId], references: [id], onDelete: Cascade)
+
+  @@index([productVersionId])
+  @@map("product_addon_groups")
+}
+
+/**
+ * One selectable add-on (price delta + stock in canonical units for that option).
+ */
+model ProductAddonOption {
+  id String @id @default(cuid())
+
+  name       String
+  sortOrder  Int     @default(0) @map("sort_order")
+  priceDelta Decimal @map("price_delta") @db.Decimal(10, 2)
+  stock      Int     @default(0)
+
+  groupId String            @map("group_id")
+  group   ProductAddonGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  orderItemAddons OrderItemAddon[]
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([groupId])
+  @@map("product_addon_options")
 }

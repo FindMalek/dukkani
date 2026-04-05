@@ -18,7 +18,10 @@ import {
   useUpdateProductMutation,
 } from "@/hooks/api/use-products.hook";
 import { handleAPIError } from "@/lib/error";
-import { mapProductToFormValues } from "@/lib/map-product-to-form";
+import {
+  mapFormAddonGroupsToInput,
+  mapProductToFormValues,
+} from "@/lib/map-product-to-form";
 import { client } from "@/lib/orpc";
 import { productFormOptions } from "@/lib/product-form-options";
 import { queryKeys } from "@/lib/query-keys";
@@ -135,6 +138,7 @@ export function useProductForm({
           variants: rest.hasVariants
             ? formVariantRowsToInput(rest.variants)
             : undefined,
+          addonGroups: mapFormAddonGroupsToInput(rest.addonGroups ?? []),
           ...(sameAsInitial ? {} : { imageUrls: finalUrls }),
         };
 
@@ -157,6 +161,7 @@ export function useProductForm({
           ? formVariantRowsToInput(rest.variants)
           : undefined,
         variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
+        addonGroups: mapFormAddonGroupsToInput(rest.addonGroups ?? []),
       };
 
       await createProductMutation.mutateAsync(cleanedData, {

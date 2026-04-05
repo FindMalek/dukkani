@@ -407,6 +407,27 @@
         "validation": {
           "errors": "يرجى إصلاح أخطاء النموذج قبل الإرسال"
         },
+        "addons": {
+          "title": "إضافات",
+          "description": "خيارات اختيارية (مثل التغليف). تظهر في صفحة المنتج؛ المخزون والسعر لكل خيار.",
+          "groupName": "اسم المجموعة",
+          "groupNamePlaceholder": "مثال: ملحقات",
+          "selectionType": {
+            "label": "نوع الاختيار",
+            "single": "خيار واحد",
+            "multiple": "عدة خيارات"
+          },
+          "required": "مطلوب",
+          "removeGroup": "حذف المجموعة",
+          "optionsTitle": "الخيارات",
+          "optionName": "الاسم",
+          "optionNamePlaceholder": "تسمية الخيار",
+          "priceDelta": "سعر إضافي",
+          "stock": "المخزون",
+          "addOption": "إضافة خيار",
+          "removeOption": "حذف الخيار",
+          "addGroup": "إضافة مجموعة"
+        },
         "variants": {
           "options": {
             "title": "خيارات المتغير",

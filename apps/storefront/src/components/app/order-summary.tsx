@@ -6,6 +6,7 @@ import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
+import { getItemKey } from "@/lib/cart-utils";
 
 interface OrderSummaryProps {
   items: CartItemOutput[];
@@ -87,6 +88,14 @@ export function OrderSummary({
                     {item.productDescription}
                   </p>
                 )}
+                {item.addonSummaryLines &&
+                  item.addonSummaryLines.length > 0 && (
+                    <ul className="text-muted-foreground text-xs">
+                      {item.addonSummaryLines.map((line) => (
+                        <li key={line}>{line}</li>
+                      ))}
+                    </ul>
+                  )}
                 <p className="text-muted-foreground text-xs">
                   {t("quantity")}: {item.quantity}
                 </p>

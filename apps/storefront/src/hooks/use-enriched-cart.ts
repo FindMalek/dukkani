@@ -16,7 +16,7 @@ export interface UseEnrichedCartOptions {
 
 /**
  * Current cart lines from the store plus server-enriched rows (prices, names, stock).
- * Query input identity is stable when only quantities change (same product/variant keys),
+ * Query input identity is stable when only quantities change (same line keys),
  * so we avoid refetching; live quantities come from the Zustand merge step.
  */
 export function useEnrichedCart(options: UseEnrichedCartOptions = {}) {
@@ -40,6 +40,7 @@ export function useEnrichedCart(options: UseEnrichedCartOptions = {}) {
         productId: item.productId,
         variantId: item.variantId,
         quantity: item.quantity,
+        addonSelections: item.addonSelections ?? [],
       })),
     };
   }, [itemKeysString]);
@@ -59,17 +60,13 @@ export function useEnrichedCart(options: UseEnrichedCartOptions = {}) {
 
     const filteredData = query.data.filter((enrichedItem) => {
       return cartItems.some(
-        (item) =>
-          item.productId === enrichedItem.productId &&
-          item.variantId === enrichedItem.variantId,
+        (item) => getItemKey(item) === getItemKey(enrichedItem),
       );
     });
 
     return filteredData.map((enrichedItem) => {
       const currentItem = cartItems.find(
-        (item) =>
-          item.productId === enrichedItem.productId &&
-          item.variantId === enrichedItem.variantId,
+        (item) => getItemKey(item) === getItemKey(enrichedItem),
       );
       return {
         ...enrichedItem,

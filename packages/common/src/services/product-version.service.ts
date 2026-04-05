@@ -4,6 +4,7 @@ import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { ProductVersionQuery } from "../entities/product-version/query";
 import { BadRequestError, ConflictError, NotFoundError } from "../errors";
 import type { CreateInitialPublishedVersionInput } from "../schemas/product/input";
+import type { ProductAddonGroupInput } from "../schemas/product-addon/input";
 import type {
   VariantInput,
   VariantOptionInput,
@@ -71,6 +72,22 @@ class ProductVersionServiceBase {
             name: opt.name,
             values: {
               create: opt.values.map((v) => ({ value: v.value })),
+            },
+          })),
+        },
+        addonGroups: {
+          create: src.addonGroups.map((g) => ({
+            name: g.name,
+            sortOrder: g.sortOrder,
+            selectionType: g.selectionType,
+            required: g.required,
+            options: {
+              create: g.options.map((o) => ({
+                name: o.name,
+                sortOrder: o.sortOrder,
+                priceDelta: o.priceDelta,
+                stock: o.stock,
+              })),
             },
           })),
         },
@@ -152,6 +169,37 @@ class ProductVersionServiceBase {
     }
 
     return ProductVersionService.clonePublishedToDraft(tx, productId);
+  }
+
+  /**
+   * Replace add-on groups + options for a version (draft or initial publish).
+   */
+  static async writeAddonGroups(
+    tx: Prisma.TransactionClient,
+    productVersionId: string,
+    groups: ProductAddonGroupInput[],
+  ): Promise<void> {
+    await tx.productAddonGroup.deleteMany({ where: { productVersionId } });
+
+    for (const g of groups) {
+      await tx.productAddonGroup.create({
+        data: {
+          productVersionId,
+          name: g.name,
+          sortOrder: g.sortOrder ?? 0,
+          selectionType: g.selectionType,
+          required: g.required ?? false,
+          options: {
+            create: g.options.map((o) => ({
+              name: o.name,
+              sortOrder: o.sortOrder ?? 0,
+              priceDelta: o.priceDelta,
+              stock: o.stock ?? 0,
+            })),
+          },
+        },
+      });
+    }
   }
 
   /**
@@ -252,7 +300,7 @@ class ProductVersionServiceBase {
       await tx.productVariant.create({
         data: {
           sku: variant.sku,
-          price: variant.price,
+          price: variant.price ?? null,
           stock: variant.stock,
           productVersionId,
           selections: {
@@ -395,6 +443,14 @@ class ProductVersionServiceBase {
         version.id,
         data.variantOptions,
         data.variants ?? [],
+      );
+    }
+
+    if (data.addonGroups?.length) {
+      await ProductVersionService.writeAddonGroups(
+        tx,
+        version.id,
+        data.addonGroups,
       );
     }
 

@@ -70,7 +70,6 @@ export function ProductVariantMatrixSync({ form }: { form: ProductFormApi }) {
     store,
     (s: ProductFormSnapshot) => s.values.variantOptions,
   );
-  const price = useStore(store, (s: ProductFormSnapshot) => s.values.price);
   const stock = useStore(store, (s: ProductFormSnapshot) => s.values.stock);
 
   const optionStructureFingerprint = variantOptionsStructureFingerprint(
@@ -81,10 +80,6 @@ export function ProductVariantMatrixSync({ form }: { form: ProductFormApi }) {
     if (!hasVariants) return;
 
     const defaults = {
-      price: (() => {
-        const n = Number(price);
-        return Number.isFinite(n) && n > 0 ? n : 1;
-      })(),
       stock: (() => {
         const n = Number.parseInt(String(stock), 10);
         return Number.isFinite(n) && n >= 0 ? n : 0;
@@ -101,7 +96,7 @@ export function ProductVariantMatrixSync({ form }: { form: ProductFormApi }) {
       form.setFieldValue("variants", variantRowsToFormInput(next));
     }
     void optionStructureFingerprint;
-  }, [hasVariants, optionStructureFingerprint, price, stock, form]);
+  }, [hasVariants, optionStructureFingerprint, stock, form]);
 
   return null;
 }
