@@ -20,8 +20,8 @@ export default function NewProductPage() {
   const formRef = useRef<ProductFormHandle>(null);
   const { selectedStoreId, isLoading } = useActiveStoreStore();
 
-  const handleSaveAsDraft = useCallback(() => {
-    formRef.current?.submit(false);
+  const handleSave = useCallback(() => {
+    formRef.current?.submit();
   }, []);
   if (isLoading) {
     return (
@@ -73,7 +73,7 @@ export default function NewProductPage() {
         </h1>
 
         <Button
-          onClick={handleSaveAsDraft}
+          onClick={handleSave}
           variant="ghost"
           className="font-bold text-primary text-sm"
         >

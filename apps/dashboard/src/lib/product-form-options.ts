@@ -10,7 +10,7 @@ export const productFormOptions = formOptions({
     description: "",
     price: "",
     stock: "1",
-    published: false,
+    published: true,
     categoryId: "",
     hasVariants: false,
     images: [],

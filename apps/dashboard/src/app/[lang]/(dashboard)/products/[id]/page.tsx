@@ -32,8 +32,8 @@ export default function EditProductPage() {
   const formRef = useRef<ProductFormHandle>(null);
   const { selectedStoreId, isLoading } = useActiveStoreStore();
 
-  const handleSaveAsDraft = useCallback(() => {
-    formRef.current?.submit(false);
+  const handleSave = useCallback(() => {
+    formRef.current?.submit();
   }, []);
 
   if (!productId) {
@@ -90,7 +90,7 @@ export default function EditProductPage() {
         </h1>
 
         <Button
-          onClick={handleSaveAsDraft}
+          onClick={handleSave}
           variant="ghost"
           className="font-bold text-primary text-sm"
         >

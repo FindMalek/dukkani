@@ -23,9 +23,6 @@ import { productFormOptions } from "@/lib/product-form-options";
 import { queryKeys } from "@/lib/query-keys";
 import { RoutePaths } from "@/lib/routes";
 
-export type ProductSubmitIntent = "save" | "saveAndPublish";
-export type ProductSubmitIntentRef = { current: ProductSubmitIntent };
-
 export function useProductForm({
   storeId,
   productId,
@@ -43,7 +40,6 @@ export function useProductForm({
   });
   const createProductMutation = useMutation(createProductMutationOptions);
   const updateProductMutation = useUpdateProductMutation();
-  const submitIntentRef = useRef<ProductSubmitIntent>("save");
 
   const publishProductMutation = useMutation({
     mutationFn: (id: string) => client.product.publish({ id }),
@@ -59,24 +55,16 @@ export function useProductForm({
     },
   });
 
-  const discardDraftMutation = useMutation({
-    mutationFn: (id: string) => client.product.discardDraft({ id }),
-    onSuccess: async (data) => {
-      await invalidateProductListQueries(queryClient);
-      await queryClient.invalidateQueries({
-        queryKey: queryKeys.products.byId(data.id),
-        refetchType: "all",
-      });
-    },
-  });
-
   const initialLoadDone = useRef(false);
   const initialImageUrlsRef = useRef<string[]>([]);
 
   const form = useAppForm({
     ...productFormOptions,
     onSubmit: async ({ value }) => {
-      const localFiles = value.images
+      // Draft-only workflow is deferred (see product UX roadmap); always go live.
+      const valueLive = { ...value, published: true };
+
+      const localFiles = valueLive.images
         .filter((item) => item.kind === "local")
         .map((item) => item.file);
 
@@ -102,7 +90,7 @@ export function useProductForm({
       }
 
       let uploadIndex = 0;
-      const finalUrls = value.images.map((item) => {
+      const finalUrls = valueLive.images.map((item) => {
         if (item.kind === "remote") {
           return item.url;
         }
@@ -111,7 +99,7 @@ export function useProductForm({
         return url;
       });
 
-      const cleanedFormData = productFormSchema.parse(value);
+      const cleanedFormData = productFormSchema.parse(valueLive);
       const rest = cleanedFormData;
 
       if (isEdit) {
@@ -121,10 +109,10 @@ export function useProductForm({
         }
         const editProductId = productId;
 
-        const currentRemoteUrls = value.images
+        const currentRemoteUrls = valueLive.images
           .filter((item) => item.kind === "remote")
           .map((item) => item.url);
-        const hasLocal = value.images.some((item) => item.kind === "local");
+        const hasLocal = valueLive.images.some((item) => item.kind === "local");
         // Compare order (not sort): first image is primary on storefront.
         const sameAsInitial =
           !hasLocal &&
@@ -139,7 +127,7 @@ export function useProductForm({
           description: rest.description,
           price: rest.price,
           stock: rest.stock,
-          published: rest.published,
+          published: true,
           categoryId: rest.categoryId,
           hasVariants: rest.hasVariants,
           variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
@@ -148,15 +136,8 @@ export function useProductForm({
 
         try {
           await updateProductMutation.mutateAsync(payload);
-          if (submitIntentRef.current === "saveAndPublish") {
-            await publishProductMutation.mutateAsync(editProductId);
-            router.push(RoutePaths.PRODUCTS.INDEX.url);
-          } else {
-            await queryClient.invalidateQueries({
-              queryKey: queryKeys.products.byId(editProductId),
-            });
-            await productQuery.refetch();
-          }
+          await publishProductMutation.mutateAsync(editProductId);
+          router.push(RoutePaths.PRODUCTS.INDEX.url);
         } catch (error) {
           handleAPIError(error);
         }
@@ -165,6 +146,7 @@ export function useProductForm({
 
       const cleanedData: CreateProductInput = {
         ...rest,
+        published: true,
         imageUrls: finalUrls,
         storeId,
       };
@@ -232,22 +214,6 @@ export function useProductForm({
     [form],
   );
 
-  const hasDraft = Boolean(productQuery.data?.hasDraft);
-
-  const handleDiscardDraft = useCallback(async () => {
-    if (!productId) return;
-    try {
-      const data = await discardDraftMutation.mutateAsync(productId);
-      const mapped = mapProductToFormValues(data);
-      initialImageUrlsRef.current = mapped.images
-        .filter((item) => item.kind === "remote")
-        .map((item) => item.url);
-      form.reset(mapped);
-    } catch (error) {
-      handleAPIError(error);
-    }
-  }, [productId, discardDraftMutation, form]);
-
   return {
     form,
     categoriesOptions,
@@ -257,11 +223,7 @@ export function useProductForm({
     handleCategoryCreated,
     isEdit,
     productQuery,
-    hasDraft,
-    submitIntentRef,
     publishProductMutation,
-    discardDraftMutation,
-    handleDiscardDraft,
     storeMismatch:
       isEdit &&
       Boolean(productQuery.data) &&

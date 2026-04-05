@@ -13,7 +13,7 @@ import { ProductFormSkeleton } from "./product-form-skeleton";
 import { ProductFormVariants } from "./product-form-variants";
 
 export interface ProductFormHandle {
-  submit: (published: boolean) => void;
+  submit: () => void;
 }
 
 export const ProductForm = forwardRef<
@@ -30,16 +30,11 @@ export const ProductForm = forwardRef<
     handleCategoryCreated,
     storeMismatch,
     productQuery,
-    isEdit,
-    hasDraft,
-    submitIntentRef,
-    handleDiscardDraft,
-    discardDraftMutation,
   } = useProductForm({ storeId, productId });
 
   useImperativeHandle(ref, () => ({
-    submit: (published: boolean) => {
-      form.setFieldValue("published", published);
+    submit: () => {
+      void form.setFieldValue("published", true);
       form.handleSubmit();
     },
   }));
@@ -81,14 +76,7 @@ export const ProductForm = forwardRef<
                   optimizeFiles={compressImagesForUpload}
                 />
                 <ProductFormVariants form={form} />
-                <ProductFormActions
-                  form={form}
-                  isEdit={isEdit}
-                  hasDraft={hasDraft}
-                  submitIntentRef={submitIntentRef}
-                  onDiscardDraft={handleDiscardDraft}
-                  isDiscardingDraft={discardDraftMutation.isPending}
-                />
+                <ProductFormActions form={form} />
               </form.AppForm>
             </FieldGroup>
           </FieldSet>
