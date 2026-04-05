@@ -166,6 +166,11 @@ catalogs:
       specifier: ^5.0.12
       version: 5.0.12
 
+patchedDependencies:
+  next-themes@0.4.6:
+    hash: d5d3f6fccf19abc9f9510e0cb05b04476717842b72830eba0b1ee95507014317
+    path: patches/next-themes@0.4.6.patch
+
 importers:
 
   .:
@@ -1192,7 +1197,7 @@ importers:
         version: 4.9.0(next@16.2.2(@opentelemetry/api@1.9.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@6.0.2)
       next-themes:
         specifier: ^0.4.6
-        version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 0.4.6(patch_hash=d5d3f6fccf19abc9f9510e0cb05b04476717842b72830eba0b1ee95507014317)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       radix-ui:
         specifier: ^1.4.3
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -11710,7 +11715,7 @@ snapshots:
     transitivePeerDependencies:
       - '@swc/helpers'
 
-  next-themes@0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  next-themes@0.4.6(patch_hash=d5d3f6fccf19abc9f9510e0cb05b04476717842b72830eba0b1ee95507014317)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
