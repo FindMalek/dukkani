@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_API_URL: apiUrl,
   },
   images: {
+    dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
         protocol: "http",

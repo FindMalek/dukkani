@@ -118,10 +118,10 @@ export function ImageFileTrigger({
   );
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const list = e.target.files;
+    const picked = e.target.files?.length ? Array.from(e.target.files) : [];
     e.target.value = "";
-    if (!list?.length) return;
-    void processAndEmit(Array.from(list));
+    if (picked.length === 0) return;
+    void processAndEmit(picked);
   };
 
   if (mode === "append" && currentCount >= maxFiles) {
