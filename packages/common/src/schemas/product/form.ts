@@ -6,6 +6,8 @@ import {
 } from "../../utils/variant-matrix";
 import { productSchema } from "./base";
 
+export type { ProductVariantOptionFormRow } from "./base";
+
 export const productImageRemoteSchema = z.strictObject({
   kind: z.literal("remote"),
   url: z.url(),
@@ -74,14 +76,14 @@ export const productFormSchema = productSchema
       return;
     }
 
-    const matrixError = validateVariantMatrixAgainstOptions(
+    const matrixResult = validateVariantMatrixAgainstOptions(
       data.variantOptions,
       data.variants,
     );
-    if (matrixError) {
+    if (!matrixResult.ok) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: matrixError,
+        message: matrixResult.message,
         path: ["variants"],
       });
     }

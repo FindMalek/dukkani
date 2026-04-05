@@ -1,15 +1,8 @@
 "use client";
 
-import type {
-  ProductFormInput,
-  ProductFormVariantRow,
-} from "@dukkani/common/schemas/product/form";
 import {
   countVariantCombinations,
   MAX_VARIANT_COMBINATIONS,
-  reconcileVariants,
-  selectionKey,
-  type VariantOptionLike,
 } from "@dukkani/common/utils";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
@@ -34,74 +27,10 @@ import {
   TableRow,
 } from "@dukkani/ui/components/table";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
-import { useStore } from "@tanstack/react-form";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { productFormOptions } from "@/lib/product-form-options";
-
-function variantMatrixFingerprint(rows: ProductFormVariantRow[]): string {
-  return JSON.stringify(
-    rows.map((r) => ({
-      k: selectionKey(r.selections),
-      sku: r.sku ?? "",
-      price: r.price ?? null,
-      stock: r.stock,
-    })),
-  );
-}
-
-function formValues(state: unknown): ProductFormInput {
-  return (state as { values: ProductFormInput }).values;
-}
-
-function VariantMatrixSync({
-  form,
-}: {
-  // Form API from withForm; narrowed typing fights TanStack field name generics.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  form: any;
-}) {
-  const store = form.store;
-  const hasVariants = useStore(
-    store,
-    (s: unknown) => formValues(s).hasVariants,
-  );
-  const variantOptions = useStore(
-    store,
-    (s: unknown) => formValues(s).variantOptions,
-  );
-  const price = useStore(store, (s: unknown) => formValues(s).price);
-  const stock = useStore(store, (s: unknown) => formValues(s).stock);
-
-  const optionsKey = JSON.stringify(variantOptions ?? []);
-  const baseKey = `${String(price)}:${String(stock)}`;
-
-  useEffect(() => {
-    if (!hasVariants) return;
-
-    const defaults = {
-      price: (() => {
-        const n = Number(price);
-        return Number.isFinite(n) && n > 0 ? n : 1;
-      })(),
-      stock: (() => {
-        const n = Number.parseInt(String(stock), 10);
-        return Number.isFinite(n) && n >= 0 ? n : 0;
-      })(),
-    };
-
-    const opts: VariantOptionLike[] = variantOptions ?? [];
-    const current = (form.getFieldValue("variants") ??
-      []) as ProductFormVariantRow[];
-    const next = reconcileVariants(current, opts, defaults);
-
-    if (variantMatrixFingerprint(current) !== variantMatrixFingerprint(next)) {
-      form.setFieldValue("variants", next);
-    }
-  }, [hasVariants, optionsKey, baseKey, form, variantOptions, price, stock]);
-
-  return null;
-}
+import { ProductVariantMatrixSync } from "./product-variant-matrix-sync";
 
 export const ProductFormVariants = withForm({
   ...productFormOptions,
@@ -151,7 +80,7 @@ export const ProductFormVariants = withForm({
             />
           )}
         </form.AppField>
-        <VariantMatrixSync form={form} />
+        <ProductVariantMatrixSync form={form} />
         <form.Subscribe selector={(state) => state.values.hasVariants}>
           {(hasVariants) => (
             <Collapsible open={hasVariants}>

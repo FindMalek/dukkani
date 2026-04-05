@@ -98,14 +98,14 @@ export const createProductInputSchema = productInputSchema
   )
   .superRefine((data, ctx) => {
     if (!data.hasVariants) return;
-    const msg = validateVariantMatrixAgainstOptions(
+    const result = validateVariantMatrixAgainstOptions(
       data.variantOptions ?? [],
       data.variants ?? [],
     );
-    if (msg) {
+    if (!result.ok) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: msg,
+        message: result.message,
         path: ["variants"],
       });
     }
@@ -144,14 +144,14 @@ export const updateProductInputSchema = productInputSchema
       });
       return;
     }
-    const msg = validateVariantMatrixAgainstOptions(
+    const result = validateVariantMatrixAgainstOptions(
       data.variantOptions,
       data.variants,
     );
-    if (msg) {
+    if (!result.ok) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: msg,
+        message: result.message,
         path: ["variants"],
       });
     }
