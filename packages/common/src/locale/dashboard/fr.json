@@ -442,6 +442,18 @@
             "priceHelp": "Laissez vide pour utiliser le prix de base du produit",
             "stock": "Stock"
           },
+          "matrix": {
+            "title": "Combinaisons de variantes",
+            "hint": "Chaque ligne est une combinaison vendable. Le stock et le prix reprennent par défaut le produit ci-dessus ; laissez le prix vide pour utiliser le prix de base.",
+            "tooMany": "Trop de combinaisons (max {max}). Réduisez les valeurs d’option.",
+            "empty": "Ajoutez des noms et valeurs d’option ci-dessus pour générer les lignes.",
+            "columnCombination": "Combinaison",
+            "columnSku": "SKU",
+            "columnPrice": "Prix",
+            "columnStock": "Stock",
+            "skuPlaceholder": "Optionnel",
+            "pricePlaceholder": "Prix de base"
+          },
           "validation": {
             "duplicateOptionName": "Nom d'option dupliqué",
             "duplicateOptionValues": "Valeurs d'option dupliquées",

@@ -5,6 +5,7 @@ import type {
   CreateProductInput,
   UpdateProductInput,
 } from "@dukkani/common/schemas/product/input";
+import { formVariantRowsToInput } from "@dukkani/common/utils";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -131,6 +132,9 @@ export function useProductForm({
           categoryId: rest.categoryId,
           hasVariants: rest.hasVariants,
           variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
+          variants: rest.hasVariants
+            ? formVariantRowsToInput(rest.variants)
+            : undefined,
           ...(sameAsInitial ? {} : { imageUrls: finalUrls }),
         };
 
@@ -149,6 +153,10 @@ export function useProductForm({
         published: true,
         imageUrls: finalUrls,
         storeId,
+        variants: rest.hasVariants
+          ? formVariantRowsToInput(rest.variants)
+          : undefined,
+        variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
       };
 
       await createProductMutation.mutateAsync(cleanedData, {

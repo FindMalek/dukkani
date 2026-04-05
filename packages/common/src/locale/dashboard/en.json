@@ -452,6 +452,18 @@
             "priceHelp": "Leave empty to use base product price",
             "stock": "Stock"
           },
+          "matrix": {
+            "title": "Variant combinations",
+            "hint": "Each row is one sellable combination. Stock and price default from the product above; leave price blank to use the base price.",
+            "tooMany": "Too many combinations (max {max}). Remove option values.",
+            "empty": "Add option names and values above to generate rows.",
+            "columnCombination": "Combination",
+            "columnSku": "SKU",
+            "columnPrice": "Price",
+            "columnStock": "Stock",
+            "skuPlaceholder": "Optional",
+            "pricePlaceholder": "Base price"
+          },
           "validation": {
             "duplicateOptionName": "Duplicate option name",
             "duplicateOptionValues": "Duplicate option values",

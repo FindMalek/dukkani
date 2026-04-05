@@ -1,5 +1,17 @@
 "use client";
 
+import type {
+  ProductFormInput,
+  ProductFormVariantRow,
+} from "@dukkani/common/schemas/product/form";
+import {
+  countVariantCombinations,
+  MAX_VARIANT_COMBINATIONS,
+  reconcileVariants,
+  selectionKey,
+  type VariantOptionLike,
+} from "@dukkani/common/utils";
+import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Card, CardContent, CardFooter } from "@dukkani/ui/components/card";
 import {
@@ -13,10 +25,83 @@ import {
 } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@dukkani/ui/components/table";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
+import { useStore } from "@tanstack/react-form";
 import { useTranslations } from "next-intl";
-import { useCallback } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { productFormOptions } from "@/lib/product-form-options";
+
+function variantMatrixFingerprint(rows: ProductFormVariantRow[]): string {
+  return JSON.stringify(
+    rows.map((r) => ({
+      k: selectionKey(r.selections),
+      sku: r.sku ?? "",
+      price: r.price ?? null,
+      stock: r.stock,
+    })),
+  );
+}
+
+function formValues(state: unknown): ProductFormInput {
+  return (state as { values: ProductFormInput }).values;
+}
+
+function VariantMatrixSync({
+  form,
+}: {
+  // Form API from withForm; narrowed typing fights TanStack field name generics.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  form: any;
+}) {
+  const store = form.store;
+  const hasVariants = useStore(
+    store,
+    (s: unknown) => formValues(s).hasVariants,
+  );
+  const variantOptions = useStore(
+    store,
+    (s: unknown) => formValues(s).variantOptions,
+  );
+  const price = useStore(store, (s: unknown) => formValues(s).price);
+  const stock = useStore(store, (s: unknown) => formValues(s).stock);
+
+  const optionsKey = JSON.stringify(variantOptions ?? []);
+  const baseKey = `${String(price)}:${String(stock)}`;
+
+  useEffect(() => {
+    if (!hasVariants) return;
+
+    const defaults = {
+      price: (() => {
+        const n = Number(price);
+        return Number.isFinite(n) && n > 0 ? n : 1;
+      })(),
+      stock: (() => {
+        const n = Number.parseInt(String(stock), 10);
+        return Number.isFinite(n) && n >= 0 ? n : 0;
+      })(),
+    };
+
+    const opts: VariantOptionLike[] = variantOptions ?? [];
+    const current = (form.getFieldValue("variants") ??
+      []) as ProductFormVariantRow[];
+    const next = reconcileVariants(current, opts, defaults);
+
+    if (variantMatrixFingerprint(current) !== variantMatrixFingerprint(next)) {
+      form.setFieldValue("variants", next);
+    }
+  }, [hasVariants, optionsKey, baseKey, form, variantOptions, price, stock]);
+
+  return null;
+}
 
 export const ProductFormVariants = withForm({
   ...productFormOptions,
@@ -36,6 +121,11 @@ export const ProductFormVariants = withForm({
       ]);
     }, [form]);
 
+    const comboCount = useMemo(() => {
+      const opts = form.state.values.variantOptions ?? [];
+      return countVariantCombinations(opts);
+    }, [form.state.values.variantOptions]);
+
     return (
       <>
         <form.AppField
@@ -46,8 +136,10 @@ export const ProductFormVariants = withForm({
                 form.setFieldValue("variantOptions", [
                   { name: "", values: [] },
                 ]);
+                form.setFieldValue("variants", []);
               } else {
                 form.setFieldValue("variantOptions", []);
+                form.setFieldValue("variants", []);
               }
             },
           }}
@@ -59,6 +151,7 @@ export const ProductFormVariants = withForm({
             />
           )}
         </form.AppField>
+        <VariantMatrixSync form={form} />
         <form.Subscribe selector={(state) => state.values.hasVariants}>
           {(hasVariants) => (
             <Collapsible open={hasVariants}>
@@ -192,6 +285,136 @@ export const ProductFormVariants = withForm({
                       </Button>
                     </CardFooter>
                   </Card>
+
+                  <div className="mt-4 space-y-2">
+                    <h3 className="font-medium text-sm">
+                      {t("form.variants.matrix.title")}
+                    </h3>
+                    <p className="text-muted-foreground text-xs">
+                      {t("form.variants.matrix.hint")}
+                    </p>
+                    {comboCount > MAX_VARIANT_COMBINATIONS ? (
+                      <p className="text-destructive text-xs">
+                        {t("form.variants.matrix.tooMany", {
+                          max: MAX_VARIANT_COMBINATIONS,
+                        })}
+                      </p>
+                    ) : null}
+                    <form.Subscribe
+                      selector={(s) => s.values.variants?.length ?? 0}
+                    >
+                      {(variantCount) =>
+                        variantCount === 0 ? (
+                          <p className="text-muted-foreground text-sm">
+                            {t("form.variants.matrix.empty")}
+                          </p>
+                        ) : (
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                <TableHead className="min-w-[140px]">
+                                  {t("form.variants.matrix.columnCombination")}
+                                </TableHead>
+                                <TableHead className="w-28">
+                                  {t("form.variants.matrix.columnSku")}
+                                </TableHead>
+                                <TableHead className="w-24">
+                                  {t("form.variants.matrix.columnPrice")}
+                                </TableHead>
+                                <TableHead className="w-24">
+                                  {t("form.variants.matrix.columnStock")}
+                                </TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              {Array.from({ length: variantCount }).map(
+                                (_, rowIndex) => (
+                                  <TableRow key={rowIndex}>
+                                    <TableCell>
+                                      <form.Subscribe
+                                        selector={(s) =>
+                                          s.values.variants?.[rowIndex]
+                                            ?.selections ?? {}
+                                        }
+                                      >
+                                        {(selections) => (
+                                          <div className="flex flex-wrap gap-1">
+                                            {Object.entries(selections).map(
+                                              ([k, v]) => (
+                                                <Badge
+                                                  key={`${k}-${v}`}
+                                                  variant="secondary"
+                                                  className="font-normal text-xs"
+                                                >
+                                                  {k}: {v}
+                                                </Badge>
+                                              ),
+                                            )}
+                                          </div>
+                                        )}
+                                      </form.Subscribe>
+                                    </TableCell>
+                                    <TableCell>
+                                      <form.AppField
+                                        name={`variants[${rowIndex}].sku`}
+                                      >
+                                        {(cell) => (
+                                          <cell.TextInput
+                                            label={t(
+                                              "form.variants.matrix.columnSku",
+                                            )}
+                                            srOnlyLabel
+                                            placeholder={t(
+                                              "form.variants.matrix.skuPlaceholder",
+                                            )}
+                                          />
+                                        )}
+                                      </form.AppField>
+                                    </TableCell>
+                                    <TableCell>
+                                      <form.AppField
+                                        name={`variants[${rowIndex}].price`}
+                                      >
+                                        {(cell) => (
+                                          <cell.TextInput
+                                            label={t(
+                                              "form.variants.matrix.columnPrice",
+                                            )}
+                                            srOnlyLabel
+                                            type="text"
+                                            inputMode="decimal"
+                                            placeholder={t(
+                                              "form.variants.matrix.pricePlaceholder",
+                                            )}
+                                          />
+                                        )}
+                                      </form.AppField>
+                                    </TableCell>
+                                    <TableCell>
+                                      <form.AppField
+                                        name={`variants[${rowIndex}].stock`}
+                                      >
+                                        {(cell) => (
+                                          <cell.TextInput
+                                            label={t(
+                                              "form.variants.matrix.columnStock",
+                                            )}
+                                            srOnlyLabel
+                                            type="text"
+                                            inputMode="numeric"
+                                          />
+                                        )}
+                                      </form.AppField>
+                                    </TableCell>
+                                  </TableRow>
+                                ),
+                              )}
+                            </TableBody>
+                          </Table>
+                        )
+                      }
+                    </form.Subscribe>
+                  </div>
                 </FieldSet>
               </CollapsibleContent>
             </Collapsible>

@@ -1,4 +1,9 @@
 import * as z from "zod";
+import {
+  countVariantCombinations,
+  MAX_VARIANT_COMBINATIONS,
+  validateVariantMatrixAgainstOptions,
+} from "../../utils/variant-matrix";
 import { productSchema } from "./base";
 
 export const productImageRemoteSchema = z.strictObject({
@@ -21,6 +26,20 @@ export type ProductImageAttachment = z.infer<
   typeof productImageAttachmentSchema
 >;
 
+/** One SKU row in the dashboard product form (selections keyed by option name). */
+export const productFormVariantRowSchema = z.strictObject({
+  selections: z.record(z.string(), z.string()),
+  sku: z.string().optional(),
+  price: z.preprocess(
+    (val) =>
+      val === "" || val === null || val === undefined ? undefined : val,
+    z.coerce.number().positive().optional(),
+  ),
+  stock: z.coerce.number<string>().int().min(0, "Stock cannot be negative"),
+});
+
+export type ProductFormVariantRow = z.infer<typeof productFormVariantRowSchema>;
+
 export const productFormSchema = productSchema
   .omit({
     storeId: true,
@@ -31,6 +50,41 @@ export const productFormSchema = productSchema
     images: z
       .array(productImageAttachmentSchema)
       .max(10, "Maximum 10 images allowed"),
+    variants: z.array(productFormVariantRowSchema),
+  })
+  .superRefine((data, ctx) => {
+    if (!data.hasVariants) {
+      if (data.variants.length > 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Remove variant rows or turn off variants",
+          path: ["variants"],
+        });
+      }
+      return;
+    }
+
+    const comboCount = countVariantCombinations(data.variantOptions);
+    if (comboCount > MAX_VARIANT_COMBINATIONS) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Too many variant combinations (max ${MAX_VARIANT_COMBINATIONS}). Reduce option values.`,
+        path: ["variantOptions"],
+      });
+      return;
+    }
+
+    const matrixError = validateVariantMatrixAgainstOptions(
+      data.variantOptions,
+      data.variants,
+    );
+    if (matrixError) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: matrixError,
+        path: ["variants"],
+      });
+    }
   })
   .transform(({ images, ...form }) => form);
 

@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+import { validateVariantMatrixAgainstOptions } from "../../utils/variant-matrix";
 import {
   type VariantInput,
   type VariantOptionInput,
@@ -95,26 +95,80 @@ export const createProductInputSchema = productInputSchema
       message: "Duplicate SKUs are not allowed within the same product",
       path: ["variants"],
     },
-  );
+  )
+  .superRefine((data, ctx) => {
+    if (!data.hasVariants) return;
+    const msg = validateVariantMatrixAgainstOptions(
+      data.variantOptions ?? [],
+      data.variants ?? [],
+    );
+    if (msg) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: msg,
+        path: ["variants"],
+      });
+    }
+  });
 
-export const updateProductInputSchema = productInputSchema.partial().extend({
-  id: z.string().min(1, "Product ID is required"),
-  imageUrls: z.array(z.url()).optional(),
-  variantOptions: z.array(variantOptionInputSchema).optional(),
-  variants: z.array(variantInputSchema).optional(),
-  collectionIds: z
-    .array(z.string().min(1, "Collection ID cannot be empty"))
-    .optional()
-    .refine(
-      (arr) => {
-        if (!arr || arr.length === 0) return true;
-        return new Set(arr).size === arr.length;
-      },
-      {
-        message: "Collection IDs must be unique",
-      },
-    ),
-});
+export const updateProductInputSchema = productInputSchema
+  .partial()
+  .extend({
+    id: z.string().min(1, "Product ID is required"),
+    imageUrls: z.array(z.url()).optional(),
+    variantOptions: z.array(variantOptionInputSchema).optional(),
+    variants: z.array(variantInputSchema).optional(),
+    collectionIds: z
+      .array(z.string().min(1, "Collection ID cannot be empty"))
+      .optional()
+      .refine(
+        (arr) => {
+          if (!arr || arr.length === 0) return true;
+          return new Set(arr).size === arr.length;
+        },
+        {
+          message: "Collection IDs must be unique",
+        },
+      ),
+  })
+  .superRefine((data, ctx) => {
+    if (data.variantOptions === undefined || data.variantOptions.length === 0) {
+      return;
+    }
+    if (!data.variants?.length) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "Variants matrix is required when non-empty variant options are sent",
+        path: ["variants"],
+      });
+      return;
+    }
+    const msg = validateVariantMatrixAgainstOptions(
+      data.variantOptions,
+      data.variants,
+    );
+    if (msg) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: msg,
+        path: ["variants"],
+      });
+    }
+  })
+  .refine(
+    (data) => {
+      if (!data.variants?.length) return true;
+      const skus = data.variants
+        .map((v) => v.sku?.trim())
+        .filter((sku): sku is string => !!sku);
+      return new Set(skus).size === skus.length;
+    },
+    {
+      message: "Duplicate SKUs are not allowed within the same product",
+      path: ["variants"],
+    },
+  );
 
 export const getProductInputSchema = z.object({
   id: z.string().min(1, "Product ID is required"),

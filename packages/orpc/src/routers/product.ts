@@ -428,8 +428,14 @@ export const productRouter = {
         } else if (
           effectiveHasVariants &&
           input.variantOptions !== undefined &&
-          input.variants !== undefined
+          input.variantOptions.length > 0
         ) {
+          if (!input.variants?.length) {
+            throw new ORPCError("BAD_REQUEST", {
+              message:
+                "Variants matrix is required when variant options are provided",
+            });
+          }
           await ProductVersionService.clearVariantMatrix(tx, versionId);
           await ProductVersionService.writeVariantMatrix(
             tx,

@@ -15,6 +15,7 @@ export const productFormOptions = formOptions({
     hasVariants: false,
     images: [],
     variantOptions: [],
+    variants: [],
   } as ProductFormInput,
   validators: {
     onChange: productFormSchema,
