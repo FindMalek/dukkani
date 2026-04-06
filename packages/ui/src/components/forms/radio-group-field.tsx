@@ -100,7 +100,7 @@ export function RadioGroupField({
                   id={option.value}
                   aria-invalid={isInvalid}
                   disabled={option.disabled}
-                  className="sr-only"
+                  className="peer sr-only absolute"
                 />
                 <Badge
                   asChild
@@ -109,11 +109,12 @@ export function RadioGroupField({
                   }
                   className={cn(
                     "inline-flex px-3 py-1.5",
+                    "peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2",
                     option.disabled && "cursor-not-allowed opacity-50",
                   )}
                 >
                   <span>
-                    {option.icon && <>{option.icon}</>}
+                    {option.icon}
                     {option.label}
                   </span>
                 </Badge>
