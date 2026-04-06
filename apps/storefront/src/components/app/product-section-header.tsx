@@ -73,15 +73,17 @@ export function ProductSectionHeader({
   );
 }
 
+interface FilterProductsFormProps {
+  storeCurrency: store.SupportedCurrencyInfer;
+  categories: { id: string; name: string }[];
+  handleCloseDrawer: () => void;
+}
+
 function FilterProductsForm({
   storeCurrency,
   categories,
   handleCloseDrawer,
-}: {
-  storeCurrency: store.SupportedCurrencyInfer;
-  categories: { id: string; name: string }[];
-  handleCloseDrawer?: () => void;
-}) {
+}: FilterProductsFormProps) {
   const tFilter = useTranslations("storefront.store.filter");
   const tCategoryFilter = useTranslations("storefront.store.categoryFilter");
   const [queryFilters, setQueryFilters] = useQueryStates(
