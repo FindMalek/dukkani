@@ -10,6 +10,7 @@ import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NextIntlClientProvider } from "next-intl";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { useState } from "react";
 import { CartStoreProvider } from "@/components/layout/cart-store-provider";
 import { env } from "@/env";
@@ -31,29 +32,31 @@ export function Providers({
   const [queryClient] = useState(() => getQueryClient());
 
   return (
-    <DirectionProvider direction={getTextDirection(locale)}>
-      <NextIntlClientProvider
-        locale={locale}
-        messages={messages}
-        timeZone="Africa/Tunis"
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+    <NuqsAdapter>
+      <DirectionProvider direction={getTextDirection(locale)}>
+        <NextIntlClientProvider
+          locale={locale}
+          messages={messages}
+          timeZone="Africa/Tunis"
         >
-          <QueryClientProvider client={queryClient}>
-            <CartStoreProvider storeSlug={storeSlug}>
-              {children}
-            </CartStoreProvider>
-            {env.NEXT_PUBLIC_NODE_ENV === "development" && (
-              <ReactQueryDevtools />
-            )}
-          </QueryClientProvider>
-          <Toaster richColors />
-        </ThemeProvider>
-      </NextIntlClientProvider>
-    </DirectionProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <QueryClientProvider client={queryClient}>
+              <CartStoreProvider storeSlug={storeSlug}>
+                {children}
+              </CartStoreProvider>
+              {env.NEXT_PUBLIC_NODE_ENV === "development" && (
+                <ReactQueryDevtools />
+              )}
+            </QueryClientProvider>
+            <Toaster richColors />
+          </ThemeProvider>
+        </NextIntlClientProvider>
+      </DirectionProvider>
+    </NuqsAdapter>
   );
 }
