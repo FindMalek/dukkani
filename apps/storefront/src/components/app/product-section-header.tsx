@@ -62,6 +62,7 @@ export function ProductSectionHeader({
                 <FilterProductsForm
                   storeCurrency={storeCurrency}
                   categories={categories}
+                  handleCloseDrawer={() => setFilterDrawerOpen(false)}
                 />
               </div>
             </DrawerContent>
@@ -75,9 +76,11 @@ export function ProductSectionHeader({
 function FilterProductsForm({
   storeCurrency,
   categories,
+  handleCloseDrawer,
 }: {
   storeCurrency: store.SupportedCurrencyInfer;
   categories: { id: string; name: string }[];
+  handleCloseDrawer?: () => void;
 }) {
   const tFilter = useTranslations("storefront.store.filter");
   const tCategoryFilter = useTranslations("storefront.store.categoryFilter");
@@ -104,6 +107,7 @@ function FilterProductsForm({
         "filters[sort]": value.sortBy,
         "filters[category]": value.category,
       });
+      handleCloseDrawer?.();
       redirect(`${window.location.search}`);
     },
   });
