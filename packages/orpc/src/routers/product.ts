@@ -163,23 +163,52 @@ export const productRouter = {
         });
       }
 
-      // Build where clause for published products
-      const where: Prisma.ProductWhereInput = {
+      let stockFilter: { lte?: number; gte?: number } | undefined;
+      if (input?.stockFilter) {
+        switch (input.stockFilter) {
+          case "in-stock":
+            stockFilter = { gte: 1 };
+            break;
+          case "low-stock":
+            stockFilter = { gte: 1, lte: 10 };
+            break;
+          case "out-of-stock":
+            stockFilter = { lte: 0 };
+            break;
+          default:
+            break;
+        }
+      }
+
+      const where = ProductQuery.getWhere([input.storeId], {
         storeId: input.storeId,
-        ...ProductQuery.getPublishableWhere(),
-      };
+        published: true,
+        search: input?.search,
+        stock: stockFilter,
+        priceMin: input?.priceMin,
+        priceMax: input?.priceMax,
+      });
 
       // Add category filter if provided
       if (input?.categoryId) {
         where.categoryId = input?.categoryId;
       }
 
-      // Add search filter if provided
-      if (input?.search) {
-        where.OR = [
-          { name: { contains: input?.search, mode: "insensitive" } },
-          { description: { contains: input?.search, mode: "insensitive" } },
-        ];
+      let orderBy: Prisma.ProductOrderByWithRelationInput =
+        ProductQuery.getOrder("desc", "createdAt");
+
+      switch (input?.sortBy) {
+        case "priceAsc":
+          orderBy = ProductQuery.getOrder("asc", "price");
+          break;
+        case "priceDesc":
+          orderBy = ProductQuery.getOrder("desc", "price");
+          break;
+        case "newest":
+        case "featured":
+        default:
+          orderBy = ProductQuery.getOrder("desc", "createdAt");
+          break;
       }
 
       const [products, total] = await Promise.all([
@@ -187,7 +216,7 @@ export const productRouter = {
           where,
           skip,
           take: limit,
-          orderBy: { createdAt: "desc" },
+          orderBy,
           include: ProductQuery.getListInclude(),
         }),
         database.product.count({ where }),
