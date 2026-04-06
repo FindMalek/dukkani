@@ -90,7 +90,6 @@ export default async function StorePage({ searchParams }: StorePageProps) {
           <ProductSectionHeader
             title={t("products.title")}
             storeCurrency={store.currency}
-            showFilter={products.length > 0}
             categories={categoryOptions}
           />
           <ProductGrid products={products} store={store} />

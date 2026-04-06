@@ -28,8 +28,6 @@ interface ProductSectionHeaderProps {
   storeCurrency: store.SupportedCurrencyInfer;
   categories: { id: string; name: string }[];
   title?: string;
-  showFilter?: boolean;
-  onFilterClick?: () => void;
 }
 
 export function ProductSectionHeader({
