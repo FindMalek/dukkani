@@ -14,7 +14,24 @@
         "all": "All"
       },
       "filter": {
-        "button": "Filter"
+        "button": "Filter",
+        "drawerTitle": "Filter products",
+        "price": "Price",
+        "min": "Min",
+        "max": "Max",
+        "availability": "Availability",
+        "inStockOnly": "In Stock Only",
+        "sortBy": "Sort by",
+        "category": "Category",
+        "reset": "Reset",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "sortOptions": {
+          "newest": "Newest first",
+          "cheapest": "Cheapest first",
+          "mostExpensive": "Most expensive first",
+          "featured": "Featured"
+        }
       },
       "footer": {
         "copyright": "All rights reserved",

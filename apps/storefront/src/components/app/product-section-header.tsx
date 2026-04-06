@@ -33,28 +33,30 @@ interface ProductSectionHeaderProps {
 }
 
 export function ProductSectionHeader({
-  title = "New Arrivals",
+  title,
   storeCurrency,
   categories,
   showFilter,
 }: ProductSectionHeaderProps) {
-  const t = useTranslations("storefront.store.filter");
+  const tFilter = useTranslations("storefront.store.filter");
+  const tProducts = useTranslations("storefront.store.products");
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+  const sectionTitle = title ?? tProducts("title");
 
   return (
     <div className="container mx-auto mb-4 px-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-bold text-xl">{title}</h2>
+        <h2 className="font-bold text-xl">{sectionTitle}</h2>
         {showFilter && (
           <Drawer open={filterDrawerOpen} onOpenChange={setFilterDrawerOpen}>
             <DrawerTrigger asChild>
               <Button variant="outline" size="sm">
-                {t("button")}
+                {tFilter("button")}
               </Button>
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
-                <DrawerTitle>Filter products</DrawerTitle>
+                <DrawerTitle>{tFilter("drawerTitle")}</DrawerTitle>
               </DrawerHeader>
               <div className="mx-auto w-full max-w-sm sm:max-w-md">
                 <FilterProductsForm
@@ -77,6 +79,8 @@ function FilterProductsForm({
   storeCurrency: store.SupportedCurrencyInfer;
   categories: { id: string; name: string }[];
 }) {
+  const tFilter = useTranslations("storefront.store.filter");
+  const tCategoryFilter = useTranslations("storefront.store.categoryFilter");
   const [queryFilters, setQueryFilters] = useQueryStates(
     productsFilteringSearchParams(categories),
     {
@@ -105,22 +109,26 @@ function FilterProductsForm({
   });
 
   const sortByOptions = [
-    { label: "Newest first", value: "newest" },
-    { label: "Cheapest first", value: "priceAsc" },
-    { label: "Most expensive first", value: "priceDesc" },
-    { label: "Featured", value: "featured", disabled: true },
+    { label: tFilter("sortOptions.newest"), value: "newest" },
+    { label: tFilter("sortOptions.cheapest"), value: "priceAsc" },
+    { label: tFilter("sortOptions.mostExpensive"), value: "priceDesc" },
+    {
+      label: tFilter("sortOptions.featured"),
+      value: "featured",
+      disabled: true,
+    },
   ];
 
   return (
     <Form onSubmit={form.handleSubmit}>
       <div className="space-y-4 p-4 pb-0">
         <FieldSet className="rounded-md border px-4 pb-3">
-          <FieldLegend>Price</FieldLegend>
+          <FieldLegend>{tFilter("price")}</FieldLegend>
           <FieldGroup className="grid w-full grid-cols-2 gap-2">
             <form.AppField name="minPrice">
               {(field) => (
                 <field.PriceInput
-                  label="Min"
+                  label={tFilter("min")}
                   placeholder="0"
                   currency={storeCurrency}
                 />
@@ -129,7 +137,7 @@ function FilterProductsForm({
             <form.AppField name="maxPrice">
               {(field) => (
                 <field.PriceInput
-                  label="Max"
+                  label={tFilter("max")}
                   placeholder="1000"
                   currency={storeCurrency}
                 />
@@ -138,20 +146,20 @@ function FilterProductsForm({
           </FieldGroup>
         </FieldSet>
         <FieldSet className="rounded-md border px-4 pb-3">
-          <FieldLegend>Availability</FieldLegend>
+          <FieldLegend>{tFilter("availability")}</FieldLegend>
           <FieldGroup>
             <form.AppField name="inStockOnly">
-              {(field) => <field.SwitchInput label="In Stock Only" />}
+              {(field) => <field.SwitchInput label={tFilter("inStockOnly")} />}
             </form.AppField>
           </FieldGroup>
         </FieldSet>
         <FieldSet className="rounded-md border px-4 pb-3">
-          <FieldLegend>Sort by</FieldLegend>
+          <FieldLegend>{tFilter("sortBy")}</FieldLegend>
           <FieldGroup>
             <form.AppField name="sortBy">
               {(field) => (
                 <field.RadioGroupInput
-                  label="Sort by"
+                  label={tFilter("sortBy")}
                   srOnlyLabel
                   as="pills"
                   options={sortByOptions}
@@ -161,16 +169,16 @@ function FilterProductsForm({
           </FieldGroup>
         </FieldSet>
         <FieldSet className="rounded-md border px-4 pb-3">
-          <FieldLegend>Category</FieldLegend>
+          <FieldLegend>{tFilter("category")}</FieldLegend>
           <FieldGroup>
             <form.AppField name="category">
               {(field) => (
                 <field.RadioGroupInput
-                  label="Category"
+                  label={tFilter("category")}
                   srOnlyLabel
                   as="pills"
                   options={[
-                    { label: "All", value: "all" },
+                    { label: tCategoryFilter("all"), value: "all" },
                     ...categories.map((cat) => ({
                       label: cat.name,
                       value: cat.name,
@@ -185,12 +193,12 @@ function FilterProductsForm({
       <DrawerFooter>
         <div className="flex space-x-2">
           <Button type="button" variant="secondary" className="mr-2 grow">
-            Reset
+            {tFilter("reset")}
           </Button>
-          <Button className="grow">Submit</Button>
+          <Button className="grow">{tFilter("submit")}</Button>
         </div>
         <DrawerClose asChild>
-          <Button variant="outline">Cancel</Button>
+          <Button variant="outline">{tFilter("cancel")}</Button>
         </DrawerClose>
       </DrawerFooter>
     </Form>
