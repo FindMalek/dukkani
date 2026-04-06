@@ -74,9 +74,8 @@ export function RadioGroupField({
                   orientation="horizontal"
                   data-invalid={isInvalid}
                   data-disabled={option.disabled}
-                  className="max-w-6"
                 >
-                  <FieldContent className="w-6">
+                  <FieldContent>
                     <FieldTitle>
                       {option.icon && <>{option.icon}</>}
                       {option.label}
@@ -101,7 +100,7 @@ export function RadioGroupField({
                   id={option.value}
                   aria-invalid={isInvalid}
                   disabled={option.disabled}
-                  hidden
+                  className="sr-only"
                 />
                 <Badge
                   asChild

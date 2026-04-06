@@ -18,7 +18,7 @@ import {
 } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useQueryStates } from "nuqs";
 import { useState } from "react";
@@ -36,7 +36,6 @@ export function ProductSectionHeader({
   title,
   storeCurrency,
   categories,
-  showFilter,
 }: ProductSectionHeaderProps) {
   const tFilter = useTranslations("storefront.store.filter");
   const tProducts = useTranslations("storefront.store.products");
@@ -47,27 +46,25 @@ export function ProductSectionHeader({
     <div className="container mx-auto mb-4 px-4">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl">{sectionTitle}</h2>
-        {showFilter && (
-          <Drawer open={filterDrawerOpen} onOpenChange={setFilterDrawerOpen}>
-            <DrawerTrigger asChild>
-              <Button variant="outline" size="sm">
-                {tFilter("button")}
-              </Button>
-            </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader>
-                <DrawerTitle>{tFilter("drawerTitle")}</DrawerTitle>
-              </DrawerHeader>
-              <div className="mx-auto w-full max-w-sm sm:max-w-md">
-                <FilterProductsForm
-                  storeCurrency={storeCurrency}
-                  categories={categories}
-                  handleCloseDrawer={() => setFilterDrawerOpen(false)}
-                />
-              </div>
-            </DrawerContent>
-          </Drawer>
-        )}
+        <Drawer open={filterDrawerOpen} onOpenChange={setFilterDrawerOpen}>
+          <DrawerTrigger asChild>
+            <Button variant="outline" size="sm">
+              {tFilter("button")}
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>{tFilter("drawerTitle")}</DrawerTitle>
+            </DrawerHeader>
+            <div className="mx-auto w-full max-w-sm sm:max-w-md">
+              <FilterProductsForm
+                storeCurrency={storeCurrency}
+                categories={categories}
+                handleCloseDrawer={() => setFilterDrawerOpen(false)}
+              />
+            </div>
+          </DrawerContent>
+        </Drawer>
       </div>
     </div>
   );
@@ -84,6 +81,7 @@ function FilterProductsForm({
   categories,
   handleCloseDrawer,
 }: FilterProductsFormProps) {
+  const router = useRouter();
   const tFilter = useTranslations("storefront.store.filter");
   const tCategoryFilter = useTranslations("storefront.store.categoryFilter");
   const [queryFilters, setQueryFilters] = useQueryStates(
@@ -110,7 +108,7 @@ function FilterProductsForm({
         "filters[category]": value.category,
       });
       handleCloseDrawer?.();
-      redirect(`${window.location.search}`);
+      router.refresh();
     },
   });
 
