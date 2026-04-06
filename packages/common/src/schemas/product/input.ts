@@ -123,6 +123,10 @@ export const variantsFilterSchema = z
   .enum(["all", "with-variants", "single-sku"])
   .optional();
 
+export const productSortSchema = z
+  .enum(["featured", "priceAsc", "priceDesc", "newest"])
+  .optional();
+
 export const listProductsInputSchema = z.object({
   page: z.number().int().min(1).default(1),
   limit: z.number().int().min(1).max(100).default(10),
@@ -132,6 +136,7 @@ export const listProductsInputSchema = z.object({
   categoryId: z.string().optional(),
   stockFilter: stockFilterSchema,
   variantsFilter: variantsFilterSchema,
+  sortBy: productSortSchema,
   priceMin: z.number().positive().optional(),
   priceMax: z.number().positive().optional(),
 });
