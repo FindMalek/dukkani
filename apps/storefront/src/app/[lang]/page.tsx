@@ -5,15 +5,20 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { CategoryFilter } from "@/components/app/category-filter";
+import type { SearchParams } from "nuqs/server";
 import { ComingSoon } from "@/components/app/coming-soon";
 import { HeroBanner } from "@/components/app/hero-banner";
 import { ProductGrid } from "@/components/app/product-grid";
 import { ProductSectionHeader } from "@/components/app/product-section-header";
 import { getStoreSlug } from "@/lib/get-store-slug";
 import { client, getQueryClient, orpc } from "@/lib/orpc";
+import { loadProductsFiltersSearchParams } from "@/lib/products-filtering";
 
-export default async function StorePage() {
+interface StorePageProps {
+  searchParams: Promise<SearchParams>;
+}
+
+export default async function StorePage({ searchParams }: StorePageProps) {
   const headersList = await headers();
   const host = headersList.get("host");
   const cookieStore = await cookies();
@@ -50,8 +55,29 @@ export default async function StorePage() {
       id: cat.id,
       name: cat.name,
     }));
+    const filters =
+      await loadProductsFiltersSearchParams(categoryOptions)(searchParams);
 
-    const products = store.products || [];
+    const productsResponse = await client.product.getAllPublic({
+      storeId: store.id,
+      priceMin:
+        filters["filters[price]"].min === ""
+          ? undefined
+          : Number(filters["filters[price]"].min),
+      priceMax:
+        filters["filters[price]"].max === ""
+          ? undefined
+          : Number(filters["filters[price]"].max),
+      categoryId:
+        filters["filters[category]"] === "all"
+          ? undefined
+          : categories.find((cat) => cat.name === filters["filters[category]"])
+              ?.id,
+      stockFilter: filters["filters[inStockOnly]"] ? "in-stock" : undefined,
+      sortBy: filters["filters[sort]"],
+    });
+
+    const products = productsResponse.products;
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
@@ -61,13 +87,11 @@ export default async function StorePage() {
             subtitle="Shop the look →"
             linkHref="#"
           />
-          {categoryOptions.length > 0 && (
-            <CategoryFilter categories={categoryOptions} />
-          )}
           <ProductSectionHeader
             title={t("products.title")}
             storeCurrency={store.currency}
             showFilter={products.length > 0}
+            categories={categoryOptions}
           />
           <ProductGrid products={products} store={store} />
         </div>

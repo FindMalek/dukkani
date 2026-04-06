@@ -18,11 +18,15 @@ import {
 } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
+import { redirect } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useQueryStates } from "nuqs";
 import { useState } from "react";
+import { productsFilteringSearchParams } from "@/lib/products-filtering";
 
 interface ProductSectionHeaderProps {
   storeCurrency: store.SupportedCurrencyInfer;
+  categories: { id: string; name: string }[];
   title?: string;
   showFilter?: boolean;
   onFilterClick?: () => void;
@@ -31,8 +35,8 @@ interface ProductSectionHeaderProps {
 export function ProductSectionHeader({
   title = "New Arrivals",
   storeCurrency,
+  categories,
   showFilter,
-  onFilterClick,
 }: ProductSectionHeaderProps) {
   const t = useTranslations("storefront.store.filter");
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
@@ -53,18 +57,10 @@ export function ProductSectionHeader({
                 <DrawerTitle>Filter products</DrawerTitle>
               </DrawerHeader>
               <div className="mx-auto w-full max-w-sm sm:max-w-md">
-                <FilterProductsForm storeCurrency={storeCurrency} />
-                <DrawerFooter>
-                  <div className="flex space-x-2">
-                    <Button variant="secondary" className="mr-2 grow">
-                      Reset
-                    </Button>
-                    <Button className="grow">Submit</Button>
-                  </div>
-                  <DrawerClose asChild>
-                    <Button variant="outline">Cancel</Button>
-                  </DrawerClose>
-                </DrawerFooter>
+                <FilterProductsForm
+                  storeCurrency={storeCurrency}
+                  categories={categories}
+                />
               </div>
             </DrawerContent>
           </Drawer>
@@ -76,35 +72,52 @@ export function ProductSectionHeader({
 
 function FilterProductsForm({
   storeCurrency,
+  categories,
 }: {
   storeCurrency: store.SupportedCurrencyInfer;
+  categories: { id: string; name: string }[];
 }) {
+  const [queryFilters, setQueryFilters] = useQueryStates(
+    productsFilteringSearchParams(categories),
+    {
+      history: "push",
+      clearOnDefault: true,
+    },
+  );
+
   const form = useAppForm({
     defaultValues: {
-      price: {
-        min: "",
-        max: "",
-      },
-      inStockOnly: false,
-      sortBy: "featured",
-      category: "all",
+      minPrice: queryFilters["filters[price]"].min,
+      maxPrice: queryFilters["filters[price]"].max,
+      inStockOnly: queryFilters["filters[inStockOnly]"],
+      sortBy: queryFilters["filters[sort]"],
+      category: queryFilters["filters[category]"],
+    },
+    onSubmit: async ({ value }) => {
+      await setQueryFilters({
+        "filters[price]": { min: value.minPrice, max: value.maxPrice },
+        "filters[inStockOnly]": value.inStockOnly,
+        "filters[sort]": value.sortBy,
+        "filters[category]": value.category,
+      });
+      redirect(`${window.location.search}`);
     },
   });
 
   const sortByOptions = [
-    { label: "Featured", value: "featured" },
+    { label: "Newest first", value: "newest" },
     { label: "Cheapest first", value: "priceAsc" },
     { label: "Most expensive first", value: "priceDesc" },
-    { label: "Newest first", value: "newest" },
+    { label: "Featured", value: "featured", disabled: true },
   ];
 
   return (
-    <div className="space-y-4 p-4 pb-0">
-      <Form onSubmit={form.handleSubmit} className="space-y-6">
+    <Form onSubmit={form.handleSubmit}>
+      <div className="space-y-4 p-4 pb-0">
         <FieldSet className="rounded-md border px-4 pb-3">
           <FieldLegend>Price</FieldLegend>
           <FieldGroup className="grid w-full grid-cols-2 gap-2">
-            <form.AppField name="price.min">
+            <form.AppField name="minPrice">
               {(field) => (
                 <field.PriceInput
                   label="Min"
@@ -113,7 +126,7 @@ function FilterProductsForm({
                 />
               )}
             </form.AppField>
-            <form.AppField name="price.max">
+            <form.AppField name="maxPrice">
               {(field) => (
                 <field.PriceInput
                   label="Max"
@@ -138,15 +151,48 @@ function FilterProductsForm({
             <form.AppField name="sortBy">
               {(field) => (
                 <field.RadioGroupInput
-                  label="Price"
-                  as="cards"
+                  label="Sort by"
+                  srOnlyLabel
+                  as="pills"
                   options={sortByOptions}
                 />
               )}
             </form.AppField>
           </FieldGroup>
         </FieldSet>
-      </Form>
-    </div>
+        <FieldSet className="rounded-md border px-4 pb-3">
+          <FieldLegend>Category</FieldLegend>
+          <FieldGroup>
+            <form.AppField name="category">
+              {(field) => (
+                <field.RadioGroupInput
+                  label="Category"
+                  srOnlyLabel
+                  as="pills"
+                  options={[
+                    { label: "All", value: "all" },
+                    ...categories.map((cat) => ({
+                      label: cat.name,
+                      value: cat.name,
+                    })),
+                  ]}
+                />
+              )}
+            </form.AppField>
+          </FieldGroup>
+        </FieldSet>
+      </div>
+      <DrawerFooter>
+        <div className="flex space-x-2">
+          <Button type="button" variant="secondary" className="mr-2 grow">
+            Reset
+          </Button>
+          <Button className="grow">Submit</Button>
+        </div>
+        <DrawerClose asChild>
+          <Button variant="outline">Cancel</Button>
+        </DrawerClose>
+      </DrawerFooter>
+    </Form>
   );
 }
