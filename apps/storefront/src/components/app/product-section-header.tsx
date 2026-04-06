@@ -209,7 +209,9 @@ function FilterProductsForm({
           <Button className="grow">{tFilter("submit")}</Button>
         </div>
         <DrawerClose asChild>
-          <Button variant="outline">{tFilter("cancel")}</Button>
+          <Button type="button" variant="outline">
+            {tFilter("cancel")}
+          </Button>
         </DrawerClose>
       </DrawerFooter>
     </Form>
