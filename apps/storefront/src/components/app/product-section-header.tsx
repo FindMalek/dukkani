@@ -200,7 +200,16 @@ function FilterProductsForm({
             type="button"
             variant="secondary"
             className="mr-2 grow"
-            onClick={() => form.reset()}
+            onClick={async () => {
+              await setQueryFilters({
+                "filters[price]": { min: "", max: "" },
+                "filters[inStockOnly]": false,
+                "filters[sort]": "newest",
+                "filters[category]": "all",
+              });
+              form.reset();
+              router.refresh();
+            }}
           >
             {tFilter("reset")}
           </Button>
