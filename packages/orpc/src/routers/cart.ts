@@ -31,7 +31,7 @@ function enrichCartItem(
     variantId: item.variantId,
     quantity: item.quantity,
     productName: productData.name,
-    productImage: productData.imagesUrls?.[0],
+    productImage: productData.imageUrls?.[0],
     productDescription: buildVariantDescription(variant),
     price: variant?.price ?? productData.price,
     stock: variant?.stock ?? productData.stock,

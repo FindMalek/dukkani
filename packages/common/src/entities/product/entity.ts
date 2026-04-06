@@ -54,7 +54,7 @@ export class ProductEntity {
       price: Number(entity.price),
       stock: entity.stock,
       published: entity.published,
-      imagesUrls: entity.images.map((image) => image.url),
+      imageUrls: entity.images.map((image) => image.url),
       store: StoreEntity.getPublicSimpleRo(entity.store),
       variants: entity.variants.map(VariantEntity.getVariantRo),
       variantOptions: entity.variantOptions.map(

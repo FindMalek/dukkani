@@ -59,7 +59,7 @@ export default async function ProductDetailPage({
         <div className="min-h-screen bg-background">
           <div className="container mx-auto px-4 py-4">
             <ProductImageCarousel
-              images={product.imagesUrls || []}
+              images={product.imageUrls || []}
               productName={product.name}
             />
             <div className="mt-4 space-y-4">
