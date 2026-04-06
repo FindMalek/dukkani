@@ -198,7 +198,12 @@ function FilterProductsForm({
       </div>
       <DrawerFooter>
         <div className="flex space-x-2">
-          <Button type="button" variant="secondary" className="mr-2 grow">
+          <Button
+            type="button"
+            variant="secondary"
+            className="mr-2 grow"
+            onClick={() => form.reset()}
+          >
             {tFilter("reset")}
           </Button>
           <Button className="grow">{tFilter("submit")}</Button>
