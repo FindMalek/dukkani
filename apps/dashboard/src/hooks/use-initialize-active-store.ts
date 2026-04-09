@@ -1,7 +1,8 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useStoresQuery } from "@/hooks/api/use-stores.hook";
+import { appQueries } from "@/shared/api/queries";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 
 /**
@@ -11,7 +12,9 @@ import { useActiveStoreStore } from "@/stores/active-store.store";
 export function useInitializeActiveStore() {
   const { selectedStoreId, setSelectedStoreId, setIsLoading } =
     useActiveStoreStore();
-  const { data: stores, isLoading } = useStoresQuery(!selectedStoreId);
+  const { data: stores, isLoading } = useQuery(
+    appQueries.store.all({ enabled: !selectedStoreId }),
+  );
 
   // Update loading state whenever query loading state changes
   useEffect(() => {

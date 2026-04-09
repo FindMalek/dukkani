@@ -18,8 +18,8 @@ import {
 import { StoreConfigurationOnboardingForm } from "@/components/auth/onboarding-store-configuration-form";
 import { StoreSetupOnboardingForm } from "@/components/auth/onboarding-store-setup-form";
 import { useOnboardingController } from "@/hooks/controllers/use-onboarding-controller";
-import { authClient } from "@/lib/auth-client";
-import { RoutePaths } from "@/lib/routes";
+import { authClient } from "@/shared/api/auth-client";
+import { RoutePaths } from "@/shared/config/routes";
 
 export default function OnboardingPage() {
   const t = useTranslations("onboarding");

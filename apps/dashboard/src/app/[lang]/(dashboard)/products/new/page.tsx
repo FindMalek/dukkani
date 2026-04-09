@@ -11,7 +11,7 @@ import {
   ProductForm,
   type ProductFormHandle,
 } from "@/components/app/products/product-form";
-import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
+import { getRouteWithQuery, RoutePaths } from "@/shared/config/routes";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 
 export default function NewProductPage() {

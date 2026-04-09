@@ -8,13 +8,14 @@ import type { OrderIncludeOutput } from "@dukkani/common/schemas/order/output";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { useUpdateOrderStatusMutation } from "@/hooks/api/use-orders.hook";
-import { useFormatPriceForActiveStore } from "@/stores";
 import { getItemsCount, getOrderTotal } from "@/lib/order-utils";
-import { RoutePaths } from "@/lib/routes";
+import { appMutations } from "@/shared/api/mutations";
+import { RoutePaths } from "@/shared/config/routes";
+import { useFormatPriceForActiveStore } from "@/stores";
 
 interface OrderListCardProps {
   order: OrderIncludeOutput;
@@ -23,7 +24,7 @@ interface OrderListCardProps {
 export function OrderListCard({ order }: OrderListCardProps) {
   const t = useTranslations("orders.list");
   const router = useRouter();
-  const updateStatusMutation = useUpdateOrderStatusMutation();
+  const updateStatusMutation = useMutation(appMutations.order.updateStatus());
 
   const total = getOrderTotal(order);
   const itemsCount = getItemsCount(order);

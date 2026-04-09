@@ -1,12 +1,8 @@
 import type { ListProductsInput } from "@dukkani/common/schemas/product/input";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import {
-  createProductMutationOptions,
-  useDeleteProductMutation,
-  useProductsQuery,
-  useTogglePublishProductMutation,
-  useUpdateProductMutation,
-} from "@/hooks/api/use-products.hook";
+import { appMutations } from "@/shared/api/mutations";
+import { appQueries } from "@/shared/api/queries";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 import { useProductStore } from "@/stores/product.store";
 
@@ -82,12 +78,14 @@ export function useProductsController() {
   ]);
 
   // Query products
-  const productsQuery = useProductsQuery(queryInput);
+  const productsQuery = useQuery(appQueries.product.all({ input: queryInput }));
 
   // Mutations
-  const updateProductMutation = useUpdateProductMutation();
-  const deleteProductMutation = useDeleteProductMutation();
-  const togglePublishMutation = useTogglePublishProductMutation();
+  const updateProductMutation = useMutation(appMutations.product.update());
+  const deleteProductMutation = useMutation(appMutations.product.delete());
+  const togglePublishMutation = useMutation(
+    appMutations.product.togglePublished(),
+  );
 
   return {
     // Store state
@@ -119,7 +117,6 @@ export function useProductsController() {
     // Query
     productsQuery,
     // Mutations
-    createProductMutationOptions,
     updateProductMutation,
     deleteProductMutation,
     togglePublishMutation,

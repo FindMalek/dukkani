@@ -1,11 +1,8 @@
 import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import {
-  useCreateOrderMutation,
-  useDeleteOrderMutation,
-  useOrdersQuery,
-  useUpdateOrderStatusMutation,
-} from "@/hooks/api/use-orders.hook";
+import { appMutations } from "@/shared/api/mutations";
+import { appQueries } from "@/shared/api/queries";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 import { useOrderStore } from "@/stores/order.store";
 
@@ -53,12 +50,14 @@ export function useOrdersController() {
   }, [selectedStoreId, search, status, page, limit]);
 
   // Query orders
-  const ordersQuery = useOrdersQuery(queryInput);
+  const ordersQuery = useQuery(appQueries.order.all({ input: queryInput }));
 
   // Mutations
-  const createOrderMutation = useCreateOrderMutation();
-  const updateOrderStatusMutation = useUpdateOrderStatusMutation();
-  const deleteOrderMutation = useDeleteOrderMutation();
+  const createOrderMutation = useMutation(appMutations.order.create());
+  const updateOrderStatusMutation = useMutation(
+    appMutations.order.updateStatus(),
+  );
+  const deleteOrderMutation = useMutation(appMutations.order.delete());
 
   return {
     // Store state

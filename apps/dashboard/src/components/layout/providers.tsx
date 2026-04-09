@@ -11,7 +11,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NextIntlClientProvider } from "next-intl";
 import { env } from "@/env";
-import { queryClient } from "@/lib/orpc";
+import { queryClient } from "@/shared/api/orpc";
 import NuqsProvider from "./nuqs-provider";
 
 interface ProvidersProps {

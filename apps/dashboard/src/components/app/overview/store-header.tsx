@@ -2,15 +2,16 @@
 
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { StoreBadge } from "@dukkani/ui/components/store-badge";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { StoreLink } from "@/components/shared/store-link";
-import { useStoresQuery } from "@/hooks/api/use-stores.hook";
 import { getStoreUrl } from "@/lib/store-url";
+import { appQueries } from "@/shared/api/queries";
 import { useActiveStoreStore } from "@/stores/active-store.store";
 
 export function StoreHeader() {
   const { selectedStoreId } = useActiveStoreStore();
-  const { data: stores, isLoading } = useStoresQuery();
+  const { data: stores, isLoading } = useQuery(appQueries.store.all());
   const t = useTranslations("dashboard.overview.storeHeader");
 
   const activeStore = stores?.find((s) => s.id === selectedStoreId);

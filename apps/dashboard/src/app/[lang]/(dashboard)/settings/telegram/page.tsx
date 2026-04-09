@@ -21,33 +21,33 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { Label } from "@dukkani/ui/components/label";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useStoresQuery } from "@/hooks/api/use-stores.hook";
-import {
-  useDisconnectTelegramMutation,
-  useTelegramBotLinkQuery,
-  useTelegramStatusQuery,
-} from "@/hooks/api/use-telegram.hook";
-import { RoutePaths } from "@/lib/routes";
+import { appMutations } from "@/shared/api/mutations";
+import { appQueries } from "@/shared/api/queries";
+import { RoutePaths } from "@/shared/config/routes";
 
 export default function TelegramSettingsPage() {
   const t = useTranslations("settings.telegram");
   const [disconnectOpen, setDisconnectOpen] = useState(false);
   const [storeName, setStoreName] = useState("");
 
-  const { data: telegramStatus, isLoading: statusLoading } =
-    useTelegramStatusQuery();
-
-  const { data: stores, isLoading: storesLoading } = useStoresQuery();
-
-  const { data: botLinkData } = useTelegramBotLinkQuery(
-    !telegramStatus?.linked,
+  const { data: telegramStatus, isLoading: statusLoading } = useQuery(
+    appQueries.telegram.status(),
   );
 
-  const disconnectMutation = useDisconnectTelegramMutation();
+  const { data: stores, isLoading: storesLoading } = useQuery(
+    appQueries.store.all(),
+  );
+
+  const { data: botLinkData } = useQuery(
+    appQueries.telegram.botLink({ enabled: !telegramStatus?.linked }),
+  );
+
+  const disconnectMutation = useMutation(appMutations.telegram.disconnect());
 
   const handleDisconnect = () => {
     if (disconnectMutation.isPending) {

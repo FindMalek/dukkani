@@ -8,8 +8,8 @@ import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
+import { RoutePaths } from "@/shared/config/routes";
 import { useFormatPriceForActiveStore } from "@/stores";
-import { RoutePaths } from "@/lib/routes";
 import { ProductCardDropdown } from "./product-card-dropdown";
 
 interface ProductListCardProps {

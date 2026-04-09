@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 import { AuthGuard } from "@/components/auth/auth-guard";
 import { BottomNavigation } from "@/components/layout/bottom-navigation";
 import { StoreInitializer } from "@/components/layout/store-initializer";
-import { getServerSession } from "@/lib/get-server-session";
-import { client } from "@/lib/orpc";
-import { RoutePaths } from "@/lib/routes";
+import { client } from "@/shared/api/orpc";
+import { getServerSession } from "@/shared/api/session.server";
+import { RoutePaths } from "@/shared/config/routes";
 
 const DashboardLayoutContent = ({
   children,

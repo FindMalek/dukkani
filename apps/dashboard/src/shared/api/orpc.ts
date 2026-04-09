@@ -18,4 +18,6 @@ export const client: AppRouterClient =
   globalThis.$orpcClient ?? getORPCClient().client;
 
 export const queryClient = getORPCClient().queryClient;
-export const orpc = getORPCClient().orpc;
+const orpc = getORPCClient().orpc;
+
+export { orpc as api };

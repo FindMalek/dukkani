@@ -5,27 +5,19 @@ import type {
   CreateStoreOnboardingInput,
 } from "@dukkani/common/schemas/store/input";
 import type { OnboardingStepConfig } from "@dukkani/common/services/onboarding.service";
-import { logger } from "@dukkani/logger";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { createTranslator, Messages } from "next-intl";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOptions } from "@/components/auth/onboarding-store-configuration-form";
 import { storeSetupFormDefaultOptions } from "@/components/auth/onboarding-store-setup-form";
-import { useStoresQuery } from "@/hooks/api/use-stores.hook";
-import { useCurrentUserQueryForController } from "@/hooks/use-onboarding";
-import { authClient } from "@/lib/auth-client";
-import { handleAPIError } from "@/lib/error";
-import {
-  canProceedToNextStep,
-  getNextStep,
-  getPreviousStep,
-  isValidStepTransition,
-  shouldAutoSelectStore,
-} from "@/lib/onboarding.utils";
-import { client } from "@/lib/orpc";
-import { queryKeys } from "@/lib/query-keys";
+import { authClient } from "@/shared/api/auth-client";
+import { handleAPIError } from "@/shared/api/error-handler";
+import { api, client } from "@/shared/api/orpc";
+import { appQueries } from "@/shared/api/queries";
+
 import { useActiveStoreStore } from "@/stores/active-store.store";
+import { canProceedToNextStep, getNextStep, getPreviousStep, isValidStepTransition, shouldAutoSelectStore } from "@/lib/onboarding.utils";
 
 /**
  * Translation function type for i18n support
@@ -58,8 +50,10 @@ export function useOnboardingController(
   // API hooks
   const { data: sessionData, isPending: isSessionPending } =
     authClient.useSession();
-  const { isLoading: isCurrentUserLoading } = useCurrentUserQueryForController(
-    !!sessionData?.user,
+  const { isLoading: isCurrentUserLoading } = useQuery(
+    appQueries.account.currentUser({
+      enabled: !!sessionData?.user,
+    }),
   );
   const isAuthenticated = !!sessionData?.user;
 
@@ -95,8 +89,10 @@ export function useOnboardingController(
     : fallbackState;
 
   // Store management - use ORPC result
-  const { data: stores, isLoading: isStoresLoading } = useStoresQuery(
-    shouldShowStores ?? false,
+  const { data: stores, isLoading: isStoresLoading } = useQuery(
+    appQueries.store.all({
+      enabled: shouldShowStores ?? false,
+    }),
   );
 
   // Mutations
@@ -108,7 +104,7 @@ export function useOnboardingController(
       setSelectedStoreId(data.id);
 
       // Optimistically update stores cache to prevent race condition
-      queryClient.setQueryData(queryKeys.stores.all(), (old: any) => {
+      queryClient.setQueryData(api.store.getAll.queryKey(), (old: any) => {
         const existing = Array.isArray(old) ? old : [];
         // Avoid duplicates if store already exists in cache
         if (!existing.find((store: any) => store.id === data.id)) {
@@ -118,14 +114,16 @@ export function useOnboardingController(
       });
 
       // Then invalidate for fresh data
-      queryClient.invalidateQueries({ queryKey: queryKeys.stores.all() });
-      queryClient.invalidateQueries({ queryKey: queryKeys.account.current() });
+      await queryClient.invalidateQueries(api.store.getAll.queryOptions());
+      await queryClient.invalidateQueries(
+        api.account.getCurrentUser.queryOptions(),
+      );
 
       // Wait for stores to be available before changing step
-      await queryClient.refetchQueries({ queryKey: queryKeys.stores.all() });
-      await queryClient.refetchQueries({
-        queryKey: queryKeys.account.current(),
-      });
+      await queryClient.refetchQueries(api.store.getAll.queryOptions());
+      await queryClient.refetchQueries(
+        api.account.getCurrentUser.queryOptions(),
+      );
 
       if (onStepChange) {
         onStepChange(UserOnboardingStep.STORE_CREATED);
@@ -141,11 +139,13 @@ export function useOnboardingController(
       client.store.configure(input),
     onSuccess: async (_data, variables) => {
       setSelectedStoreId(variables.storeId);
-      queryClient.invalidateQueries({ queryKey: queryKeys.stores.all() });
-      queryClient.invalidateQueries({ queryKey: queryKeys.account.current() });
-      await queryClient.refetchQueries({
-        queryKey: queryKeys.account.current(),
-      });
+      await queryClient.invalidateQueries(api.store.getAll.queryOptions());
+      await queryClient.invalidateQueries(
+        api.account.getCurrentUser.queryOptions(),
+      );
+      await queryClient.refetchQueries(
+        api.account.getCurrentUser.queryOptions(),
+      );
 
       if (onStepChange) {
         onStepChange(UserOnboardingStep.STORE_LAUNCHED);

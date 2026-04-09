@@ -30,11 +30,13 @@ import { ProductsPageHeader } from "@/components/app/products/products-page-head
 import { ProductsSearchBar } from "@/components/app/products/products-search-bar";
 import { ProductsStatusTabs } from "@/components/app/products/products-status-tabs";
 import { useProductsController } from "@/hooks/controllers/use-products-controller";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 export default function ProductsPage() {
   const t = useTranslations("products.list");
-  const [productToDelete, setProductToDelete] = useState<string | null>(null);
+  const [productIdToDelete, setProductIdToDelete] = useState<string | null>(
+    null,
+  );
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
 
   const {
@@ -64,15 +66,15 @@ export default function ProductsPage() {
     priceMax != null;
 
   const handleDeleteRequest = useCallback((id: string) => {
-    setProductToDelete(id);
+    setProductIdToDelete(id);
   }, []);
 
   const handleDeleteConfirm = useCallback(() => {
-    if (productToDelete) {
-      deleteProductMutation.mutate(productToDelete);
-      setProductToDelete(null);
+    if (productIdToDelete) {
+      deleteProductMutation.mutate({ id: productIdToDelete });
+      setProductIdToDelete(null);
     }
-  }, [productToDelete, deleteProductMutation]);
+  }, [productIdToDelete, deleteProductMutation]);
 
   const handleTogglePublish = useCallback(
     (id: string, published: boolean) => {
@@ -160,7 +162,7 @@ export default function ProductsPage() {
       <Button
         asChild
         size="icon-lg"
-        className="fixed end-4 bottom-24 z-50 size-14 rounded-full shadow-lg md:end-6 md:bottom-8"
+        className="fixed inset-e-4 bottom-24 z-50 size-14 rounded-full shadow-lg md:inset-e-6 md:bottom-8"
         aria-label={t("addProduct")}
       >
         <Link href={RoutePaths.PRODUCTS.NEW.url}>
@@ -170,8 +172,8 @@ export default function ProductsPage() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog
-        open={!!productToDelete}
-        onOpenChange={(open) => !open && setProductToDelete(null)}
+        open={!!productIdToDelete}
+        onOpenChange={(open) => !open && setProductIdToDelete(null)}
       >
         <AlertDialogContent>
           <AlertDialogHeader>

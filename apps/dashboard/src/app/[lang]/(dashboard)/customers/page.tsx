@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@dukkani/ui/components/table";
 import Link from "next/link";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 export default function CustomersPage() {
   return (

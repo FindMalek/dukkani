@@ -9,7 +9,7 @@ import { FacebookSignIn } from "@/components/auth/facebook-sign-in";
 import { GoogleSignIn } from "@/components/auth/google-sign-in";
 import { LoginAccordion } from "@/components/auth/login-accordion";
 import { AuthBackground } from "@/components/layout/auth-background";
-import { Cookies } from "@/lib/constants";
+import { appConstants } from "@/shared/config/constants";
 
 export const metadata: Metadata = {
   title: "Login | Dukkani",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default async function LoginPage() {
   const cookieStore = await cookies();
   const { device } = userAgent({ headers: await headers() });
-  const preferred = cookieStore.get(Cookies.PreferredSignInProvider);
+  const preferred = cookieStore.get(appConstants.cookies.LAST_LOGIN_METHOD);
 
   let moreSignInOptions = null;
   let preferredSignInOption =

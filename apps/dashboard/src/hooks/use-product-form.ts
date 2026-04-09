@@ -3,15 +3,15 @@
 import { productFormSchema } from "@dukkani/common/schemas/product/form";
 import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import { useCategoriesQuery } from "@/hooks/api/use-categories.hook";
-import { createProductMutationOptions } from "@/hooks/api/use-products.hook";
-import { handleAPIError } from "@/lib/error";
-import { client } from "@/lib/orpc";
 import { productFormOptions } from "@/lib/product-form-options";
-import { RoutePaths } from "@/lib/routes";
+import { handleAPIError } from "@/shared/api/error-handler";
+import { appMutations } from "@/shared/api/mutations";
+import { client } from "@/shared/api/orpc";
+import { appQueries } from "@/shared/api/queries";
+import { RoutePaths } from "@/shared/config/routes";
 
 /**
  * Create-product flow: TanStack Form + categories + create mutation.
@@ -21,8 +21,10 @@ export function useProductForm({ storeId }: { storeId: string }) {
   const router = useRouter();
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
 
-  const { data: categories } = useCategoriesQuery({ storeId });
-  const createProductMutation = useMutation(createProductMutationOptions);
+  const { data: categories } = useQuery({
+    ...appQueries.category.all({ input: { storeId } }),
+  });
+  const createProductMutation = useMutation(appMutations.product.create());
 
   const form = useAppForm({
     ...productFormOptions,
@@ -49,7 +51,7 @@ export function useProductForm({ storeId }: { storeId: string }) {
       }
 
       const cleanedFormData = productFormSchema.parse(value);
-      const cleanedData: CreateProductInput = {
+      const cleanedData = {
         ...cleanedFormData,
         imageUrls,
         storeId,

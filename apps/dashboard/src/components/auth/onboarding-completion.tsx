@@ -4,27 +4,32 @@ import { Button } from "@dukkani/ui/components/button";
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useOnboardingCompleteQuery } from "@/hooks/api/use-onboarding.hook";
-import {
-  useTelegramBotLinkQuery,
-  useTelegramStatusQuery,
-} from "@/hooks/api/use-telegram.hook";
-import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
-import { RoutePaths } from "@/lib/routes";
+import { api } from "@/shared/api/orpc";
+import { appQueries } from "@/shared/api/queries";
+import { RoutePaths } from "@/shared/config/routes";
+import { useCopyToClipboard } from "@/shared/lib/clipboard";
 
 export function OnboardingCompletion({ storeId }: { storeId: string }) {
   const { copy } = useCopyToClipboard();
   const t = useTranslations("onboarding.complete");
 
-  const { data: completionData, isLoading: isLoadingComplete } =
-    useOnboardingCompleteQuery({ storeId });
+  const { data: completionData, isLoading: isLoadingComplete } = useQuery(
+    api.onboarding.complete.queryOptions({
+      input: {
+        storeId,
+      },
+    }),
+  );
 
-  const { data: telegramStatus } = useTelegramStatusQuery();
+  const { data: telegramStatus } = useQuery(appQueries.telegram.status());
 
-  const { data: botLinkData } = useTelegramBotLinkQuery(
-    !!completionData && !telegramStatus?.linked,
+  const { data: botLinkData } = useQuery(
+    appQueries.telegram.botLink({
+      enabled: !!completionData && !telegramStatus?.linked,
+    }),
   );
 
   if (isLoadingComplete) {

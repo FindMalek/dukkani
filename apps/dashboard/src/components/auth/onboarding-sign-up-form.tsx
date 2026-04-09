@@ -9,7 +9,7 @@ import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 export const signUpOnboardingFormDefaultValues = (email = "") =>
   formOptions({

@@ -2,14 +2,26 @@
 
 import { Card, CardContent } from "@dukkani/ui/components/card";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
+import { useQuery } from "@tanstack/react-query";
 import { QuickActions } from "@/components/app/overview/quick-actions";
 import { StoreHeader } from "@/components/app/overview/store-header";
 import { ThisWeekCard } from "@/components/app/overview/this-week-card";
 import { TodaysPerformance } from "@/components/app/overview/todays-performance";
-import { useDashboardStats } from "@/hooks/api/use-dashboard-stats.hook";
+import { appQueries } from "@/shared/api/queries";
+import { useActiveStoreStore } from "@/stores";
 
 export default function DashboardPage() {
-  const { data: stats, isLoading, error } = useDashboardStats();
+  const { selectedStoreId } = useActiveStoreStore();
+  const {
+    data: stats,
+    isLoading,
+    error,
+  } = useQuery(
+    appQueries.dashboard.stats({
+      input: { storeId: selectedStoreId ?? undefined },
+      enabled: !!selectedStoreId,
+    }),
+  );
 
   if (error) {
     return (

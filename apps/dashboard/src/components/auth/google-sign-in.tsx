@@ -2,8 +2,8 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
-import { authClient } from "@/lib/auth-client";
-import { RoutePaths } from "@/lib/routes";
+import { authClient } from "@/shared/api/auth-client";
+import { RoutePaths } from "@/shared/config/routes";
 
 interface GoogleSignInProps {
   showLastUsed?: boolean;

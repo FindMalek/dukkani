@@ -1,29 +1,5 @@
 import imageCompression from "browser-image-compression";
-
-const COMPRESS_SKIP_BELOW_BYTES = 1024 * 1024;
-const MAX_LONG_EDGE = 1600;
-const RETRIES_PER_PROFILE = 2;
-
-const COMPRESSION_PROFILES = [
-  {
-    maxSizeMB: 1,
-    maxWidthOrHeight: MAX_LONG_EDGE,
-    initialQuality: 0.85,
-    useWebWorker: true,
-  },
-  {
-    maxSizeMB: 0.85,
-    maxWidthOrHeight: MAX_LONG_EDGE,
-    initialQuality: 0.72,
-    useWebWorker: true,
-  },
-  {
-    maxSizeMB: 0.75,
-    maxWidthOrHeight: 1400,
-    initialQuality: 0.6,
-    useWebWorker: false,
-  },
-] as const;
+import { appConstants } from "@/shared/config/constants";
 
 function stripExtension(name: string): string {
   const i = name.lastIndexOf(".");
@@ -40,7 +16,7 @@ function toWebpFile(blob: File, originalName: string): File {
 
 async function compressWithProfile(
   file: File,
-  profile: (typeof COMPRESSION_PROFILES)[number],
+  profile: (typeof appConstants.imageCompression.COMPRESSION_PROFILES)[number],
 ): Promise<File> {
   const compressed = await imageCompression(file, {
     maxSizeMB: profile.maxSizeMB,
@@ -59,20 +35,24 @@ async function sleep(ms: number): Promise<void> {
 async function compressImageForUpload(file: File): Promise<File> {
   if (
     !file.type.startsWith("image/") ||
-    file.size <= COMPRESS_SKIP_BELOW_BYTES
+    file.size <= appConstants.imageCompression.COMPRESS_SKIP_BELOW_BYTES
   ) {
     return file;
   }
 
   let lastError: unknown;
 
-  for (const profile of COMPRESSION_PROFILES) {
-    for (let attempt = 1; attempt <= RETRIES_PER_PROFILE; attempt++) {
+  for (const profile of appConstants.imageCompression.COMPRESSION_PROFILES) {
+    for (
+      let attempt = 1;
+      attempt <= appConstants.imageCompression.RETRIES_PER_PROFILE;
+      attempt++
+    ) {
       try {
         return await compressWithProfile(file, profile);
       } catch (error) {
         lastError = error;
-        if (attempt < RETRIES_PER_PROFILE) {
+        if (attempt < appConstants.imageCompression.RETRIES_PER_PROFILE) {
           await sleep(120 * attempt);
         }
       }

@@ -1,7 +1,8 @@
 import type { OnboardingState } from "@dukkani/common/services";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { useStoresQuery } from "@/hooks/api/use-stores.hook";
 import { shouldAutoSelectStore } from "@/lib/onboarding.utils";
+import { appQueries } from "@/shared/api/queries";
 
 /**
  * Hook for managing store-related onboarding logic
@@ -9,8 +10,8 @@ import { shouldAutoSelectStore } from "@/lib/onboarding.utils";
  */
 export function useOnboardingStores(onboardingState: OnboardingState) {
   const [storeId, setStoreId] = useState<string | null>(null);
-  const { data: stores, isLoading: isStoresLoading } = useStoresQuery(
-    onboardingState.needsStores,
+  const { data: stores, isLoading: isStoresLoading } = useQuery(
+    appQueries.store.all({ enabled: onboardingState.needsStores }),
   );
 
   useEffect(() => {

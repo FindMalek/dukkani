@@ -3,7 +3,7 @@
 import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 const mainNavLinks = [
   RoutePaths.DASHBOARD,
