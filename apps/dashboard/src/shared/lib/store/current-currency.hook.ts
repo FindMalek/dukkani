@@ -6,10 +6,11 @@ import { useActiveStoreStore } from "./active.store";
 
 export function useCurrentStoreCurrency() {
   const selectedStoreId = useActiveStoreStore((state) => state.selectedStoreId);
+  const storeId = selectedStoreId || undefined;
   const currentStoreQuery = useQuery(
     appQueries.store.byId({
-      enabled: selectedStoreId !== null,
-      input: { id: selectedStoreId || undefined },
+      enabled: Boolean(selectedStoreId),
+      input: { id: storeId },
     }),
   );
 

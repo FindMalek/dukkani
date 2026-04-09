@@ -78,7 +78,12 @@ export function useProductsController() {
   ]);
 
   // Query products
-  const productsQuery = useQuery(appQueries.product.all({ input: queryInput }));
+  const productsQuery = useQuery(
+    appQueries.product.all({
+      input: queryInput,
+      enabled: Boolean(selectedStoreId),
+    }),
+  );
 
   // Mutations
   const updateProductMutation = useMutation(appMutations.product.update());

@@ -1,8 +1,9 @@
+"use client";
+
 import {
   type ProductFormInput,
   productFormSchema,
 } from "@dukkani/common/schemas/product/form";
-import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
