@@ -1,4 +1,3 @@
-import type { QueryOptions } from "@tanstack/react-query";
 import { api } from "./orpc";
 
 // const api = api.dashboard;
