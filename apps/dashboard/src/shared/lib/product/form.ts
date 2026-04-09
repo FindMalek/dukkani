@@ -1,17 +1,36 @@
-"use client";
-
-import { productFormSchema } from "@dukkani/common/schemas/product/form";
+import {
+  type ProductFormInput,
+  productFormSchema,
+} from "@dukkani/common/schemas/product/form";
 import type { CreateProductInput } from "@dukkani/common/schemas/product/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
+import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import { productFormOptions } from "@/lib/product-form-options";
 import { handleAPIError } from "@/shared/api/error-handler";
 import { appMutations } from "@/shared/api/mutations";
 import { client } from "@/shared/api/orpc";
 import { appQueries } from "@/shared/api/queries";
 import { RoutePaths } from "@/shared/config/routes";
+
+export const productFormOptions = formOptions({
+  defaultValues: {
+    name: "",
+    description: "",
+    price: "",
+    stock: "1",
+    published: false,
+    categoryId: "",
+    hasVariants: false,
+    imageFiles: [],
+    variantOptions: [],
+  } as ProductFormInput,
+  validators: {
+    onChange: productFormSchema,
+    onBlur: productFormSchema,
+  },
+});
 
 /**
  * Create-product flow: TanStack Form + categories + create mutation.

@@ -17,7 +17,7 @@ import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { appMutations } from "@/shared/api/mutations";
-import { useActiveStoreStore } from "@/stores/active-store.store";
+import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 
 interface CategoryDrawerProps {
   onCategoryCreated?: (categoryId: string) => void;

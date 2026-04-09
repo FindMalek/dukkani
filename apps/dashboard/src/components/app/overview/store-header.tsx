@@ -5,9 +5,9 @@ import { StoreBadge } from "@dukkani/ui/components/store-badge";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { StoreLink } from "@/components/shared/store-link";
-import { getStoreUrl } from "@/lib/store-url";
 import { appQueries } from "@/shared/api/queries";
-import { useActiveStoreStore } from "@/stores/active-store.store";
+import { useActiveStoreStore } from "@/shared/lib/store/active.store";
+import { getStoreUrl } from "@/shared/lib/store/url.util";
 
 export function StoreHeader() {
   const { selectedStoreId } = useActiveStoreStore();

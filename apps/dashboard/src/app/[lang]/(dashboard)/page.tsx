@@ -8,7 +8,7 @@ import { StoreHeader } from "@/components/app/overview/store-header";
 import { ThisWeekCard } from "@/components/app/overview/this-week-card";
 import { TodaysPerformance } from "@/components/app/overview/todays-performance";
 import { appQueries } from "@/shared/api/queries";
-import { useActiveStoreStore } from "@/stores";
+import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 
 export default function DashboardPage() {
   const { selectedStoreId } = useActiveStoreStore();

@@ -1,12 +1,7 @@
 "use client";
 
-import { store } from "@dukkani/common/schemas";
-import { useFormatPriceCurrentStore as useFormatPriceForCurrency } from "@dukkani/ui/hooks/use-format-price";
-import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { appQueries } from "@/shared/api/queries";
 
 interface ActiveStoreState {
   selectedStoreId: string | null;
@@ -44,25 +39,3 @@ export const useActiveStoreStore = create<ActiveStoreState>()(
     },
   ),
 );
-
-export function useCurrentStoreCurrency() {
-  const selectedStoreId = useActiveStoreStore((state) => state.selectedStoreId);
-  const currentStoreQuery = useQuery(
-    appQueries.store.byId({
-      enabled: selectedStoreId !== null,
-      input: { id: selectedStoreId || undefined },
-    }),
-  );
-
-  return useMemo(() => {
-    if (currentStoreQuery.isSuccess && currentStoreQuery.data) {
-      return currentStoreQuery.data.currency;
-    }
-    return store.supportedCurrencyEnum.TND;
-  }, [currentStoreQuery.data, currentStoreQuery.isSuccess]);
-}
-
-export function useFormatPriceForActiveStore() {
-  const currency = useCurrentStoreCurrency();
-  return useFormatPriceForCurrency(currency);
-}

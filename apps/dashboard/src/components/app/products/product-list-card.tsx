@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { RoutePaths } from "@/shared/config/routes";
-import { useFormatPriceForActiveStore } from "@/stores";
+import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 import { ProductCardDropdown } from "./product-card-dropdown";
 
 interface ProductListCardProps {

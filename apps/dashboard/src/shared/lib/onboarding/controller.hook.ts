@@ -15,9 +15,14 @@ import { authClient } from "@/shared/api/auth-client";
 import { handleAPIError } from "@/shared/api/error-handler";
 import { api, client } from "@/shared/api/orpc";
 import { appQueries } from "@/shared/api/queries";
-
-import { useActiveStoreStore } from "@/stores/active-store.store";
-import { canProceedToNextStep, getNextStep, getPreviousStep, isValidStepTransition, shouldAutoSelectStore } from "@/lib/onboarding.utils";
+import { useActiveStoreStore } from "../store/active.store";
+import {
+  canProceedToNextStep,
+  getNextStep,
+  getPreviousStep,
+  isValidStepTransition,
+  shouldAutoSelectStore,
+} from "./stepper.util";
 
 /**
  * Translation function type for i18n support

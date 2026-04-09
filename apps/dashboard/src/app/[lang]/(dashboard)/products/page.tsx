@@ -29,8 +29,8 @@ import { ProductsListSkeleton } from "@/components/app/products/products-list-sk
 import { ProductsPageHeader } from "@/components/app/products/products-page-header";
 import { ProductsSearchBar } from "@/components/app/products/products-search-bar";
 import { ProductsStatusTabs } from "@/components/app/products/products-status-tabs";
-import { useProductsController } from "@/hooks/controllers/use-products-controller";
 import { RoutePaths } from "@/shared/config/routes";
+import { useProductsController } from "@/shared/lib/product/controller.hook";
 
 export default function ProductsPage() {
   const t = useTranslations("products.list");

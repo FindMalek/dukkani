@@ -12,10 +12,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { getItemsCount, getOrderTotal } from "@/lib/order-utils";
 import { appMutations } from "@/shared/api/mutations";
 import { RoutePaths } from "@/shared/config/routes";
-import { useFormatPriceForActiveStore } from "@/stores";
+import { getItemsCount, getOrderTotal } from "@/shared/lib/order/price.util";
+import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 
 interface OrderListCardProps {
   order: OrderIncludeOutput;

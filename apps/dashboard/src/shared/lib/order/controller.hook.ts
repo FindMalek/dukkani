@@ -3,8 +3,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { appMutations } from "@/shared/api/mutations";
 import { appQueries } from "@/shared/api/queries";
-import { useActiveStoreStore } from "@/stores/active-store.store";
-import { useOrderStore } from "@/stores/order.store";
+import { useActiveStoreStore } from "../store/active.store";
+import { useOrderStore } from "./store";
 
 /**
  * Controller hook that composes:
