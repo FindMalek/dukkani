@@ -15,16 +15,16 @@ import {
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useEffectEvent, useRef } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { useCartHydration } from "@/hooks/use-cart-hydration";
 import { useCreateOrder } from "@/hooks/use-create-order";
-import { useDetectedAddress } from "@/hooks/use-detected-address";
 import { useEnrichedCart } from "@/hooks/use-enriched-cart";
-import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { RoutePaths, useRouter } from "@/shared/config/routes";
+import { useDetectedAddress } from "@/shared/lib/address-detection.hook";
 import { OrderSummary } from "./order-summary";
 
 interface CheckoutFormProps {
