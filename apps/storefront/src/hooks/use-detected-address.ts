@@ -5,7 +5,7 @@ import { useMemo } from "react";
  * Subset of Nominatim `address` keys (reverse JSON with addressdetails=1).
  * @see https://nominatim.org/release-docs/latest/api/Output/#addressdetails
  */
-export type NominatimAddressFields = Partial<{
+type NominatimAddressFields = Partial<{
   city: string;
   town: string;
   village: string;
@@ -41,7 +41,7 @@ export type NominatimAddressFields = Partial<{
   country_code: string;
 }>;
 
-export type ParsedNominatimReverse = {
+type ParsedNominatimReverse = {
   address: NominatimAddressFields;
   lat: string;
   lon: string;
@@ -55,9 +55,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 /**
  * Normalizes Nominatim reverse JSON into typed address parts (string values only).
  */
-export function parseNominatimReverseResponse(
-  json: unknown,
-): ParsedNominatimReverse {
+function parseNominatimReverseResponse(json: unknown): ParsedNominatimReverse {
   if (!isRecord(json)) {
     throw new Error("Reverse geocode response is not a JSON object.");
   }
@@ -156,18 +154,14 @@ function firstNonEmptyField(
   return "";
 }
 
-export function localityFromNominatimAddress(
-  address: NominatimAddressFields,
-): string {
+function localityFromNominatimAddress(address: NominatimAddressFields): string {
   const cc = address.country_code?.toLowerCase();
   const keys = cc === "tn" ? LOCALITY_KEYS_TN : LOCALITY_KEYS;
   return firstNonEmptyField(address, keys);
 }
 
 /** Nominatim usually splits `house_number` / `house` from the way name — join for a single line. */
-export function streetFromNominatimAddress(
-  address: NominatimAddressFields,
-): string {
+function streetFromNominatimAddress(address: NominatimAddressFields): string {
   const highway = firstNonEmptyField(address, STREET_KEYS);
   const prefix = [address.house_number, address.house_name ?? address.house]
     .map((v) => (typeof v === "string" ? v.trim() : ""))
@@ -226,7 +220,7 @@ function streetFromDisplayName(
 /**
  * Full street/area line: highway + house, else TN-style area parts, else trimmed `display_name`.
  */
-export function resolvedStreetLine(
+function resolvedStreetLine(
   parsed: ParsedNominatimReverse,
   cityChosen: string,
 ): string {
