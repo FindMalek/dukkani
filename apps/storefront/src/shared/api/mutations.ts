@@ -11,4 +11,15 @@ export const appMutations = {
         onError: (error) => handleAPIError(error),
       }),
   },
+  store: {
+    subscribeToLaunch: (
+      options?: Parameters<
+        typeof orpc.store.subscribeToLaunch.mutationOptions
+      >[0],
+    ) =>
+      orpc.store.subscribeToLaunch.mutationOptions({
+        ...options,
+        onError: (error) => handleAPIError(error),
+      }),
+  },
 };

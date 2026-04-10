@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { handleAPIError } from "@/shared/api/error-handler";
+import { appMutations } from "@/shared/api/mutations";
 import { client } from "@/shared/api/orpc";
 
 interface ComingSoonProps {
@@ -23,15 +24,7 @@ export function ComingSoon({ store }: ComingSoonProps) {
   const t = useTranslations("storefront.comingSoon");
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const subscribeMutation = useMutation({
-    mutationFn: (input: { storeId: string; emailOrPhone: string }) =>
-      client.store.subscribeToLaunch(input),
-    onSuccess: () => {
-      setIsSuccess(true);
-      form.reset();
-    },
-    onError: handleAPIError,
-  });
+  const subscribeMutation = useMutation(appMutations.store.subscribeToLaunch());
 
   const form = useAppForm({
     defaultValues: {
@@ -43,10 +36,18 @@ export function ComingSoon({ store }: ComingSoonProps) {
     },
     onSubmit: async ({ value }) => {
       const parsed = formSchema.parse(value);
-      const result = await subscribeMutation.mutateAsync({
-        storeId: store.id,
-        emailOrPhone: parsed.emailOrPhone,
-      });
+      const result = await subscribeMutation.mutateAsync(
+        {
+          storeId: store.id,
+          emailOrPhone: parsed.emailOrPhone,
+        },
+        {
+          onSuccess: () => {
+            setIsSuccess(true);
+            form.reset();
+          },
+        },
+      );
       return result;
     },
   });
