@@ -20,7 +20,7 @@ import { ProductAttributes } from "@/components/app/product-attributes";
 import { VariantSelector } from "@/components/shared/variant-selector";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useProductVariantSelection } from "@/hooks/use-product-variant-selection";
-import { useCartStore } from "@/stores/cart.store";
+import { useCartStore } from "@/shared/lib/cart/store";
 
 interface QuickAddToCartProps {
   product: ProductPublicOutput;

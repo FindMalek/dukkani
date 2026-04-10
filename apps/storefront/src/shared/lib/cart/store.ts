@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { areItemsEqual } from "@/lib/cart-utils";
@@ -200,3 +203,22 @@ export const useCartStore = create<CartStoreState>()(
     },
   ),
 );
+
+export function useCartHydration() {
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    const hydrate = async () => {
+      try {
+        await useCartStore.persist.rehydrate();
+        setIsHydrated(true);
+      } catch {
+        setIsHydrated(true);
+      }
+    };
+
+    hydrate();
+  }, []);
+
+  return isHydrated;
+}

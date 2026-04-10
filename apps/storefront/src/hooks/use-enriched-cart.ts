@@ -4,7 +4,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { getItemKey } from "@/lib/cart-utils";
 import { orpc } from "@/shared/api/orpc";
-import { useCartStore } from "@/stores/cart.store";
+import { useCartStore } from "@/shared/lib/cart/store";
 
 /**
  * Current cart lines from the store plus server-enriched rows (prices, names, stock).
