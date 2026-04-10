@@ -39,7 +39,7 @@ export function useEnrichedCart(enabled = true) {
       input: queryInput,
     }),
     enabled: enabled && cartItems.length > 0,
-    staleTime: 30 * 1000,
+    staleTime: Temporal.Duration.from({ seconds: 30 }).total("milliseconds"),
     placeholderData: keepPreviousData,
   });
 
