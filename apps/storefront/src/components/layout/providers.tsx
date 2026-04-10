@@ -19,8 +19,7 @@ interface ProvidersProps {
   children: React.ReactNode;
   locale: Locale;
   storeSlug: string;
-  // biome-ignore lint/suspicious/noExplicitAny: messages is a Record<string, any>
-  messages: Record<string, any>;
+  messages: Record<string, unknown>;
 }
 
 export function Providers({

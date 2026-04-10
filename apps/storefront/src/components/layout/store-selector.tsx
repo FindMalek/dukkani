@@ -15,8 +15,7 @@ import { getQueryClient, getStorefrontClient } from "@/lib/orpc";
 
 interface StoreSelectorProps {
   locale: Locale;
-  // biome-ignore lint/suspicious/noExplicitAny: messages is a Record<string, any>
-  messages: Record<string, any>;
+  messages: Record<string, unknown>;
 }
 
 interface StoreSelectorFormProps {
