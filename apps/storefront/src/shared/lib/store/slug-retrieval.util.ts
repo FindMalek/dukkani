@@ -1,6 +1,23 @@
+import { isReservedStoreSlug } from "@dukkani/common/schemas/store/constants";
+import { isStoreSelectorEnabled } from "@dukkani/env";
 import { env } from "@/env";
 
-export function getStoreSlugFromHost(host: string | null): string | null {
+export function getStoreSlug(
+  host: string | null,
+  cookies: { get: (name: string) => { value?: string } | undefined },
+): string | null {
+  if (!isStoreSelectorEnabled(process.env)) {
+    return getStoreSlugFromHost(host);
+  }
+
+  const slug = cookies.get("storefront_store_slug")?.value ?? null;
+  if (!slug || isReservedStoreSlug(slug)) {
+    return null;
+  }
+  return slug;
+}
+
+function getStoreSlugFromHost(host: string | null): string | null {
   if (!host) return null;
 
   // Remove port if present (e.g., "localhost:3000" -> "localhost")

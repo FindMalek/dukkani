@@ -3,8 +3,8 @@ import { ORPCError } from "@orpc/server";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { CheckoutForm } from "@/components/app/checkout-form";
-import { getStoreSlug } from "@/lib/get-store-slug";
 import { getQueryClient, orpc } from "@/lib/orpc";
+import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
 
 export default async function CheckoutPage() {
   const headersList = await headers();
