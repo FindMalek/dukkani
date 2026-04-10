@@ -16,15 +16,17 @@ import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { useLocale, useTranslations } from "next-intl";
+import { useMutation } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useEffectEvent, useRef } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { useCartHydration } from "@/hooks/use-cart-hydration";
-import { useCreateOrder } from "@/hooks/use-create-order";
 import { useEnrichedCart } from "@/hooks/use-enriched-cart";
+import { appMutations } from "@/shared/api/mutations";
 import { RoutePaths, useRouter } from "@/shared/config/routes";
 import { useDetectedAddress } from "@/shared/lib/address-detection.hook";
+import { useCartStore } from "@/stores/cart.store";
 import { OrderSummary } from "./order-summary";
 
 interface CheckoutFormProps {
@@ -48,13 +50,13 @@ const formSchema = createOrderPublicInputSchema
 
 export function CheckoutForm({ store }: CheckoutFormProps) {
   const router = useRouter();
-  const locale = useLocale();
   const t = useTranslations("storefront.store.checkout");
   const formatPrice = useFormatPriceCurrentStore(store.currency);
+  const clearCart = useCartStore((state) => state.clearCart);
 
   const hydrated = useCartHydration();
   const autoLocation = useDetectedAddress();
-  const createOrderMutation = useCreateOrder();
+  const createOrderMutation = useMutation(appMutations.order.create());
   const {
     cartItems,
     enrichedData,
@@ -126,12 +128,20 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
           ? { latitude: c.latitude, longitude: c.longitude }
           : {};
 
-      await createOrderMutation.mutateAsync({
-        ...data,
-        address: { ...data.address, ...coords },
-        storeId: store.id,
-        orderItems,
-      });
+      await createOrderMutation.mutateAsync(
+        {
+          ...data,
+          address: { ...data.address, ...coords },
+          storeId: store.id,
+          orderItems,
+        },
+        {
+          onSuccess: () => {
+            clearCart();
+            router.push(RoutePaths.CHECKOUT.SUCCESS.url);
+          },
+        },
+      );
     },
   });
 
