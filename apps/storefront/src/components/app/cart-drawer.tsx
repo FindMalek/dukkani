@@ -11,10 +11,10 @@ import {
 } from "@dukkani/ui/components/drawer";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useTranslations } from "next-intl";
 import { useEnrichedCart } from "@/hooks/use-enriched-cart";
-import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { RoutePaths, useRouter } from "@/lib/routes";
+import { RoutePaths, useRouter } from "@/shared/config/routes";
 import { CartItem as CartItemComponent } from "./cart-item";
 
 interface CartDrawerProps {

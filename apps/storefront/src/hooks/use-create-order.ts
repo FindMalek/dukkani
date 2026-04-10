@@ -4,7 +4,7 @@ import type { CreateOrderPublicInput } from "@dukkani/common/schemas/order/input
 import { useMutation } from "@tanstack/react-query";
 import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
-import { RoutePaths, useRouter } from "@/lib/routes";
+import { RoutePaths, useRouter } from "@/shared/config/routes";
 import { useCartStore } from "@/stores/cart.store";
 
 export function useCreateOrder() {

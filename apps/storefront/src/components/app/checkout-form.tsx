@@ -24,7 +24,7 @@ import { useCreateOrder } from "@/hooks/use-create-order";
 import { useDetectedAddress } from "@/hooks/use-detected-address";
 import { useEnrichedCart } from "@/hooks/use-enriched-cart";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { RoutePaths, useRouter } from "@/lib/routes";
+import { RoutePaths, useRouter } from "@/shared/config/routes";
 import { OrderSummary } from "./order-summary";
 
 interface CheckoutFormProps {

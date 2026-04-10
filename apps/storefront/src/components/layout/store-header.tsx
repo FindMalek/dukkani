@@ -8,7 +8,7 @@ import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { usePathname, useRouter } from "next/navigation";
 import { CartDrawer } from "@/components/app/cart-drawer";
 import { useCartHydration } from "@/hooks/use-cart-hydration";
-import { isDetailPage } from "@/lib/routes";
+import { isDetailPage } from "@/shared/config/routes";
 import { useCartStore } from "@/stores/cart.store";
 
 interface StoreHeaderProps {

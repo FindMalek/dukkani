@@ -8,9 +8,8 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 interface StoreInfoCardProps {
   storeName: string;
