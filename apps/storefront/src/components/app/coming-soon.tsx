@@ -10,8 +10,8 @@ import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { handleAPIError } from "@/lib/error";
 import { client } from "@/lib/orpc";
+import { handleAPIError } from "@/shared/api/error-handler";
 
 interface ComingSoonProps {
   store: StorePublicOutput;

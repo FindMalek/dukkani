@@ -19,8 +19,8 @@ import { StoreHeader } from "@/components/layout/store-header";
 import { StoreSelector } from "@/components/layout/store-selector";
 import { StoreSelectorBubble } from "@/components/layout/store-selector-bubble";
 import { STORE_HEADER_HEIGHT_PX } from "@/lib/constants";
-import { handleAPIError } from "@/lib/error";
 import { getQueryClient, orpc } from "@/lib/orpc";
+import { handleAPIError } from "@/shared/api/error-handler";
 import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
 
 const inter = Inter({
