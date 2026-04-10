@@ -1,7 +1,3 @@
-/**
- * Generate a unique key for a cart item
- * Used for identifying items consistently across the app
- */
 export function getItemKey(item: {
   productId: string;
   variantId?: string;

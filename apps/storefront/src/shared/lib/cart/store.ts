@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { areItemsEqual } from "@/lib/cart-utils";
+import { areItemsEqual } from "./item-comparator";
 
 export interface CartItem {
   productId: string;
