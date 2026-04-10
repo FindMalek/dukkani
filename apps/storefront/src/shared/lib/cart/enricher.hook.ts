@@ -3,6 +3,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { orpc } from "@/shared/api/orpc";
+import { appQueries } from "@/shared/api/queries";
 import { useCartStore } from "@/shared/lib/cart/store";
 import { getItemKey } from "./item-comparator";
 
@@ -35,12 +36,8 @@ export function useEnrichedCart(enabled = true) {
   }, [itemKeysString]);
 
   const query = useQuery({
-    ...orpc.cart.getCartItems.queryOptions({
-      input: queryInput,
-    }),
+    ...appQueries.cart.items(queryInput),
     enabled: enabled && cartItems.length > 0,
-    staleTime: Temporal.Duration.from({ seconds: 30 }).total("milliseconds"),
-    placeholderData: keepPreviousData,
   });
 
   const enrichedData = useMemo(() => {
