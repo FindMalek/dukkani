@@ -18,9 +18,9 @@ import { StoreFooter } from "@/components/layout/store-footer";
 import { StoreHeader } from "@/components/layout/store-header";
 import { StoreSelector } from "@/components/layout/store-selector";
 import { StoreSelectorBubble } from "@/components/layout/store-selector-bubble";
-import { STORE_HEADER_HEIGHT_PX } from "@/lib/constants";
 import { getQueryClient, orpc } from "@/lib/orpc";
 import { handleAPIError } from "@/shared/api/error-handler";
+import { appConstants } from "@/shared/config/constants";
 import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
 
 const inter = Inter({
@@ -112,7 +112,7 @@ export default async function RootLayout({
           <HydrationBoundary state={dehydrate(queryClient)}>
             <div className="min-h-screen overflow-x-hidden bg-background">
               <StoreHeader store={store} />
-              <div style={{ height: `${STORE_HEADER_HEIGHT_PX}px` }} />
+              <div style={{ height: appConstants.STORE_HEADER_HEIGHT }} />
               <main>{children}</main>
               <StoreFooter />
             </div>
