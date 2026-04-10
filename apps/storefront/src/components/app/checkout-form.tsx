@@ -21,12 +21,12 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useEffectEvent, useRef } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
-import { useEnrichedCart } from "@/hooks/use-enriched-cart";
 import { appMutations } from "@/shared/api/mutations";
 import { RoutePaths, useRouter } from "@/shared/config/routes";
 import { useDetectedAddress } from "@/shared/lib/address-detection.hook";
 import { OrderSummary } from "./order-summary";
 import { useCartHydration, useCartStore } from "@/shared/lib/cart/store";
+import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
 
 interface CheckoutFormProps {
   store: StorePublicOutput;
