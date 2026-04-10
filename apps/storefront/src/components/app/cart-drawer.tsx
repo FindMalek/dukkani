@@ -32,9 +32,7 @@ export function CartDrawer({
   const t = useTranslations("storefront.store.cart");
   const formatPrice = useFormatPriceCurrentStore(storeCurrency);
 
-  const { enrichedData, subtotal, isLoading } = useEnrichedCart({
-    enabled: open,
-  });
+  const { enrichedData, subtotal, isLoading } = useEnrichedCart(open);
 
   const hasItems = enrichedData && enrichedData.length > 0;
 

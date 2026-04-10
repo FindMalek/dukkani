@@ -1,27 +1,17 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { getItemKey } from "@/lib/cart-utils";
 import { orpc } from "@/lib/orpc";
 import { useCartStore } from "@/stores/cart.store";
-
-export interface UseEnrichedCartOptions {
-  /**
-   * When false, the query does not run even if the cart has items (e.g. drawer closed).
-   * Defaults to true.
-   */
-  enabled?: boolean;
-}
 
 /**
  * Current cart lines from the store plus server-enriched rows (prices, names, stock).
  * Query input identity is stable when only quantities change (same product/variant keys),
  * so we avoid refetching; live quantities come from the Zustand merge step.
  */
-export function useEnrichedCart(options: UseEnrichedCartOptions = {}) {
-  const { enabled = true } = options;
-
+export function useEnrichedCart(enabled = true) {
   const carts = useCartStore((state) => state.carts);
   const currentStoreSlug = useCartStore((state) => state.currentStoreSlug);
 
@@ -50,7 +40,7 @@ export function useEnrichedCart(options: UseEnrichedCartOptions = {}) {
     }),
     enabled: enabled && cartItems.length > 0,
     staleTime: 30 * 1000,
-    placeholderData: (previousData) => previousData,
+    placeholderData: keepPreviousData,
   });
 
   const enrichedData = useMemo(() => {
