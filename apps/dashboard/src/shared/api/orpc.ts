@@ -22,7 +22,7 @@ export function makeQueryClient() {
         gcTime: 5 * 60 * 1000, // 5 minutes
         retry: 3,
         retryDelay: (failureCount) =>
-          Math.min(Math.pow(2 * 1000, failureCount - 1), 30 * 1000),
+          Math.min(2000 * Math.pow(2, failureCount - 1), 30 * 1000),
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
       },
