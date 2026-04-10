@@ -12,15 +12,11 @@ export function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: Temporal.Duration.from({ minutes: 1 }).total("milliseconds"),
-        gcTime: Temporal.Duration.from({ minutes: 5 }).total("milliseconds"),
+        staleTime: 60 * 1000, // 60 seconds
+        gcTime: 5 * 60 * 1000, // 5 minutes
         retry: 3,
         retryDelay: (failureCount) =>
-          Math.min(
-            Temporal.Duration.from({ seconds: 2 }).total("milliseconds") **
-              failureCount,
-            Temporal.Duration.from({ seconds: 30 }).total("milliseconds"),
-          ),
+          Math.min(2 * 1000 ** failureCount, 30 * 1000),
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
       },

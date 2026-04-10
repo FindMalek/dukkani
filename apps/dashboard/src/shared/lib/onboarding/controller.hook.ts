@@ -66,14 +66,14 @@ export function useOnboardingController(
     queryKey: ["onboarding", "state", guestStep],
     queryFn: () => client.onboarding.getState({ guestStep }),
     enabled: isAuthenticated,
-    staleTime: Temporal.Duration.from({ minutes: 5 }).total("milliseconds"),
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
   const { data: shouldShowStores } = useQuery({
     queryKey: ["onboarding", "shouldShowStores"],
     queryFn: () => client.onboarding.shouldShowStores(),
     enabled: isAuthenticated,
-    staleTime: Temporal.Duration.from({ minutes: 5 }).total("milliseconds"),
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
   const fallbackState = useMemo(

@@ -252,7 +252,7 @@ async function getDetectedAddressRequest(): Promise<ParsedNominatimReverse> {
   const position = await new Promise<GeolocationPosition>((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject, {
       enableHighAccuracy: true,
-      timeout: Temporal.Duration.from({ seconds: 10 }).total("milliseconds"),
+      timeout: 10 * 1000, // 10 seconds
       maximumAge: 0,
     });
   });

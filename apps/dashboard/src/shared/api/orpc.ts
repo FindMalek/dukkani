@@ -1,6 +1,7 @@
 import { getApiUrl } from "@dukkani/env/get-api-url";
 import type { AppRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
+import { QueryClient } from "@tanstack/react-query";
 import { env } from "@/env";
 
 // Lazy ORPC client creation - only create when accessed
@@ -13,6 +14,21 @@ function getORPCClient() {
   return orpcClient;
 }
 
+export function makeQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000, // 60 seconds
+        gcTime: 5 * 60 * 1000, // 5 minutes
+        retry: 3,
+        retryDelay: (failureCount) =>
+          Math.min(2 * 1000 ** failureCount, 30 * 1000),
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
+      },
+    },
+  });
+}
 // Use server-side client during SSR, fallback to client-side client
 export const client: AppRouterClient =
   globalThis.$orpcClient ?? getORPCClient().client;
