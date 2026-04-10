@@ -18,8 +18,8 @@ import { StoreFooter } from "@/components/layout/store-footer";
 import { StoreHeader } from "@/components/layout/store-header";
 import { StoreSelector } from "@/components/layout/store-selector";
 import { StoreSelectorBubble } from "@/components/layout/store-selector-bubble";
-import { getQueryClient, orpc } from "@/lib/orpc";
 import { handleAPIError } from "@/shared/api/error-handler";
+import { getQueryClient, orpc } from "@/shared/api/orpc";
 import { appConstants } from "@/shared/config/constants";
 import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
 

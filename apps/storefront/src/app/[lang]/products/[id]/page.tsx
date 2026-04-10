@@ -7,7 +7,7 @@ import { ProductDescription } from "@/components/app/product-description";
 import { ProductImageCarousel } from "@/components/app/product-image-carousel";
 import { ProductVariantManager } from "@/components/app/product-variant-manager";
 import { StoreInfoCard } from "@/components/app/store-info-card";
-import { getQueryClient, orpc } from "@/lib/orpc";
+import { getQueryClient, orpc } from "@/shared/api/orpc";
 import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
 
 export default async function ProductDetailPage({

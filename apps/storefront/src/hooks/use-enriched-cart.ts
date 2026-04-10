@@ -3,7 +3,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { getItemKey } from "@/lib/cart-utils";
-import { orpc } from "@/lib/orpc";
+import { orpc } from "@/shared/api/orpc";
 import { useCartStore } from "@/stores/cart.store";
 
 /**

@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import { getQueryClient, getStorefrontClient } from "@/lib/orpc";
+import { getQueryClient, getStorefrontClient } from "@/shared/api/orpc";
 
 interface StoreSelectorProps {
   locale: Locale;

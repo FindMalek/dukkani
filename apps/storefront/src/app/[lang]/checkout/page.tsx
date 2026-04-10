@@ -3,7 +3,7 @@ import { ORPCError } from "@orpc/server";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { CheckoutForm } from "@/components/app/checkout-form";
-import { getQueryClient, orpc } from "@/lib/orpc";
+import { getQueryClient, orpc } from "@/shared/api/orpc";
 import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
 
 export default async function CheckoutPage() {

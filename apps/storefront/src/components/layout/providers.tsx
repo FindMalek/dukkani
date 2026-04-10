@@ -13,7 +13,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { useState } from "react";
 import { CartStoreProvider } from "@/components/layout/cart-store-provider";
 import { env } from "@/env";
-import { getQueryClient } from "@/lib/orpc";
+import { getQueryClient } from "@/shared/api/orpc";
 
 interface ProvidersProps {
   children: React.ReactNode;
