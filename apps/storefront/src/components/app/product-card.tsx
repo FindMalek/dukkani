@@ -45,7 +45,7 @@ export function ProductCard({
           <Button
             variant="secondary"
             size="icon"
-            className="absolute end-2 bottom-2 size-10 rounded-full border-border bg-card hover:bg-card/90"
+            className="absolute inset-e-2 bottom-2 size-10 rounded-full border-border bg-card hover:bg-card/90"
             onClick={(e) => {
               e.preventDefault();
               onAddToCart?.(product);
