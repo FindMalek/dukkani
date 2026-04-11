@@ -123,9 +123,9 @@ export const variantsFilterSchema = z
   .enum(["all", "with-variants", "single-sku"])
   .optional();
 
-export const productSortSchema = z
-  .enum(["featured", "priceAsc", "priceDesc", "newest"])
-  .optional();
+export const PRODUCT_SORT_OPTIONS = ["priceAsc", "priceDesc", "newest"] as const;
+
+export const productSortSchema = z.enum(PRODUCT_SORT_OPTIONS).optional();
 
 export const listProductsInputSchema = z.object({
   page: z.number().int().min(1).default(1),

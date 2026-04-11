@@ -1,21 +1,17 @@
 import type { ListProductsInput } from "@dukkani/common/schemas/product/input";
 import {
-  parseAsBoolean,
-  parseAsFloat,
-  parseAsString,
-  parseAsStringLiteral,
-} from "nuqs";
+  parsePriceMax,
+  parsePriceMin,
+  parseSortBy,
+} from "@dukkani/common/utils/query-parsers";
+import { parseAsBoolean, parseAsString } from "nuqs";
 import { createLoader } from "nuqs/server";
 
-export const SORT_OPTIONS = ["priceAsc", "priceDesc", "newest"] as const;
-
-export type SortOption = (typeof SORT_OPTIONS)[number];
-
 export const productFilterParams = {
-  sort: parseAsStringLiteral(SORT_OPTIONS).withDefault("newest"),
+  sort: parseSortBy,
   category: parseAsString, // category ID — null means "all"
-  minPrice: parseAsFloat, // null means no lower bound
-  maxPrice: parseAsFloat, // null means no upper bound
+  minPrice: parsePriceMin, // null means no lower bound
+  maxPrice: parsePriceMax, // null means no upper bound
   inStock: parseAsBoolean.withDefault(false),
 };
 

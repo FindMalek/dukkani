@@ -205,7 +205,6 @@ export const productRouter = {
           orderBy = ProductQuery.getOrder("desc", "price");
           break;
         case "newest":
-        case "featured":
         default:
           orderBy = ProductQuery.getOrder("desc", "createdAt");
           break;

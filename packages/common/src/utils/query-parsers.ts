@@ -5,8 +5,10 @@ import {
   parseAsInteger,
   parseAsString,
   parseAsStringEnum,
+  parseAsStringLiteral,
 } from "nuqs";
 import { OrderStatus, UserOnboardingStep } from "../schemas/enums";
+import { PRODUCT_SORT_OPTIONS } from "../schemas/product/input";
 
 /**
  * Parser for onboarding step with Zod validation
@@ -105,3 +107,9 @@ export const parsePriceMin = parseAsFloat;
  * Maps to priceMax in listProductsInputSchema.
  */
 export const parsePriceMax = parseAsFloat;
+
+/**
+ * Parser for product sort order.
+ * Derived from PRODUCT_SORT_OPTIONS — single source of truth with productSortSchema.
+ */
+export const parseSortBy = parseAsStringLiteral(PRODUCT_SORT_OPTIONS).withDefault("newest");
