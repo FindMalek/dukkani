@@ -17,7 +17,7 @@ export default function DashboardPage() {
     isLoading,
     error,
   } = useQuery(
-    appQueries.dashboard.stats({
+    appQueries.store.stats({
       input: { storeId: selectedStoreId ?? undefined },
       enabled: !!selectedStoreId,
     }),

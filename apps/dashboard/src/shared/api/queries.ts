@@ -10,9 +10,6 @@ export const appQueries = {
     all: api.category.getAll.queryOptions,
     byId: api.category.getById.queryOptions,
   },
-  dashboard: {
-    stats: api.dashboard.getStats.queryOptions,
-  },
   order: {
     all: api.order.getAll.queryOptions,
     byId: api.order.getById.queryOptions,
@@ -24,6 +21,7 @@ export const appQueries = {
   store: {
     all: api.store.getAll.queryOptions,
     byId: api.store.getById.queryOptions,
+    stats: api.dashboard.getStats.queryOptions,
   },
   telegram: {
     status: api.telegram.getStatus.queryOptions,
