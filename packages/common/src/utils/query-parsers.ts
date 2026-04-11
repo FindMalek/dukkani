@@ -112,4 +112,5 @@ export const parsePriceMax = parseAsFloat;
  * Parser for product sort order.
  * Derived from PRODUCT_SORT_OPTIONS — single source of truth with productSortSchema.
  */
-export const parseSortBy = parseAsStringLiteral(PRODUCT_SORT_OPTIONS).withDefault("newest");
+export const parseSortBy =
+  parseAsStringLiteral(PRODUCT_SORT_OPTIONS).withDefault("newest");
