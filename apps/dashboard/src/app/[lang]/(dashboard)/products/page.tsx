@@ -34,10 +34,11 @@ import { useProductsController } from "@/shared/lib/product/controller.hook";
 
 export default function ProductsPage() {
   const t = useTranslations("products.list");
+
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState<string | null>(
     null,
   );
-  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
 
   const {
     productsQuery: { data, isLoading, error },

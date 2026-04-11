@@ -32,8 +32,9 @@ import { RoutePaths } from "@/shared/config/routes";
 
 export default function TelegramSettingsPage() {
   const t = useTranslations("settings.telegram");
-  const [disconnectOpen, setDisconnectOpen] = useState(false);
+
   const [storeName, setStoreName] = useState("");
+  const [disconnectOpen, setDisconnectOpen] = useState(false);
 
   const { data: telegramStatus, isLoading: statusLoading } = useQuery(
     appQueries.telegram.status(),
