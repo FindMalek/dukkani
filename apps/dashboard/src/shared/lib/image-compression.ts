@@ -1,5 +1,5 @@
 import imageCompression from "browser-image-compression";
-import { appConstants } from "@/shared/config/constants";
+import { imageCompressionConstants } from "@/shared/config/constants";
 
 function stripExtension(name: string): string {
   const i = name.lastIndexOf(".");
@@ -16,7 +16,7 @@ function toWebpFile(blob: File, originalName: string): File {
 
 async function compressWithProfile(
   file: File,
-  profile: (typeof appConstants.imageCompression.COMPRESSION_PROFILES)[number],
+  profile: (typeof imageCompressionConstants.COMPRESSION_PROFILES)[number],
 ): Promise<File> {
   const compressed = await imageCompression(file, {
     maxSizeMB: profile.maxSizeMB,
@@ -35,24 +35,24 @@ async function sleep(ms: number): Promise<void> {
 async function compressImageForUpload(file: File): Promise<File> {
   if (
     !file.type.startsWith("image/") ||
-    file.size <= appConstants.imageCompression.COMPRESS_SKIP_BELOW_BYTES
+    file.size <= imageCompressionConstants.COMPRESS_SKIP_BELOW_BYTES
   ) {
     return file;
   }
 
   let lastError: unknown;
 
-  for (const profile of appConstants.imageCompression.COMPRESSION_PROFILES) {
+  for (const profile of imageCompressionConstants.COMPRESSION_PROFILES) {
     for (
       let attempt = 1;
-      attempt <= appConstants.imageCompression.RETRIES_PER_PROFILE;
+      attempt <= imageCompressionConstants.RETRIES_PER_PROFILE;
       attempt++
     ) {
       try {
         return await compressWithProfile(file, profile);
       } catch (error) {
         lastError = error;
-        if (attempt < appConstants.imageCompression.RETRIES_PER_PROFILE) {
+        if (attempt < imageCompressionConstants.RETRIES_PER_PROFILE) {
           await sleep(120 * attempt);
         }
       }
