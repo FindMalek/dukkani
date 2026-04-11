@@ -29,13 +29,16 @@ import { ProductsListSkeleton } from "@/components/app/products/products-list-sk
 import { ProductsPageHeader } from "@/components/app/products/products-page-header";
 import { ProductsSearchBar } from "@/components/app/products/products-search-bar";
 import { ProductsStatusTabs } from "@/components/app/products/products-status-tabs";
-import { useProductsController } from "@/hooks/controllers/use-products-controller";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
+import { useProductsController } from "@/shared/lib/product/controller.hook";
 
 export default function ProductsPage() {
   const t = useTranslations("products.list");
-  const [productToDelete, setProductToDelete] = useState<string | null>(null);
+
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+  const [productIdToDelete, setProductIdToDelete] = useState<string | null>(
+    null,
+  );
 
   const {
     productsQuery: { data, isLoading, error },
@@ -64,15 +67,15 @@ export default function ProductsPage() {
     priceMax != null;
 
   const handleDeleteRequest = useCallback((id: string) => {
-    setProductToDelete(id);
+    setProductIdToDelete(id);
   }, []);
 
   const handleDeleteConfirm = useCallback(() => {
-    if (productToDelete) {
-      deleteProductMutation.mutate(productToDelete);
-      setProductToDelete(null);
+    if (productIdToDelete) {
+      deleteProductMutation.mutate({ id: productIdToDelete });
+      setProductIdToDelete(null);
     }
-  }, [productToDelete, deleteProductMutation]);
+  }, [productIdToDelete, deleteProductMutation]);
 
   const handleTogglePublish = useCallback(
     (id: string, published: boolean) => {
@@ -170,8 +173,8 @@ export default function ProductsPage() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog
-        open={!!productToDelete}
-        onOpenChange={(open) => !open && setProductToDelete(null)}
+        open={!!productIdToDelete}
+        onOpenChange={(open) => !open && setProductIdToDelete(null)}
       >
         <AlertDialogContent>
           <AlertDialogHeader>

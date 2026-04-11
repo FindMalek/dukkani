@@ -12,7 +12,7 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 export default function OrderDetailPage() {
   const params = useParams();

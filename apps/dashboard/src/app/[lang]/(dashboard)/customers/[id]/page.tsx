@@ -19,7 +19,7 @@ import {
 } from "@dukkani/ui/components/table";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 export default function CustomerDetailPage() {
   const params = useParams();

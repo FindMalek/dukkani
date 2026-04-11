@@ -1,6 +1,7 @@
 import {
   parseAsArrayOf,
   parseAsBoolean,
+  parseAsFloat,
   parseAsInteger,
   parseAsString,
   parseAsStringEnum,
@@ -71,3 +72,36 @@ export const parseDateRange = {
   from: parseDate,
   to: parseDate,
 } as const;
+
+/**
+ * Parser for product stock filter.
+ * Maps to the stockFilter field in listProductsInputSchema.
+ */
+export const parseStockFilter = parseAsStringEnum([
+  "all",
+  "in-stock",
+  "low-stock",
+  "out-of-stock",
+] as const).withDefault("all");
+
+/**
+ * Parser for product variants filter.
+ * Maps to the variantsFilter field in listProductsInputSchema.
+ */
+export const parseVariantsFilter = parseAsStringEnum([
+  "all",
+  "with-variants",
+  "single-sku",
+] as const).withDefault("all");
+
+/**
+ * Parser for minimum price filter (inclusive).
+ * Maps to priceMin in listProductsInputSchema.
+ */
+export const parsePriceMin = parseAsFloat;
+
+/**
+ * Parser for maximum price filter (inclusive).
+ * Maps to priceMax in listProductsInputSchema.
+ */
+export const parsePriceMax = parseAsFloat;

@@ -22,6 +22,11 @@
         "addProduct": "Ajouter un nouveau produit",
         "viewOrders": "Voir toutes les commandes"
       }
+    },
+    "storeInitializer": {
+      "loadError": "Impossible de charger vos magasins. Veuillez réessayer.",
+      "noStores": "Vous n'avez pas encore de magasin. Créez-en un pour continuer.",
+      "goToOnboarding": "Aller à l'intégration"
     }
   },
   "auth": {

@@ -207,15 +207,81 @@ export function createORPCClientUtils(apiUrl: string) {
 
 ### Usage in Apps
 
-```typescript
-// apps/dashboard/src/utils/orpc.ts
-import { createORPCClientUtils } from "@dukkani/orpc/client";
-import { env } from "@dukkani/env";
+Each app's `shared/api/orpc.ts` wraps `createORPCClientUtils` and exports typed helpers:
 
-export const { queryClient, client, orpc } = createORPCClientUtils(
-  env.NEXT_PUBLIC_API_URL,
+```typescript
+// apps/dashboard/src/shared/api/orpc.ts
+import { createORPCClientUtils } from "@dukkani/orpc/client";
+
+// Use server-side client during SSR (globalThis.$orpcClient set by orpc.server.ts),
+// fallback to HTTP client on the browser.
+export const client: AppRouterClient = globalThis.$orpcClient ?? getORPCClient().client;
+export { orpc as api };  // createTanstackQueryUtils(client) — used in appQueries/appMutations
+```
+
+### `makeQueryClient` (per-app utility)
+
+Each app exports `makeQueryClient` from `shared/api/orpc.ts`. It accepts an optional `onError`
+callback for the `QueryCache`. Always call from `useState` in client providers — never as a module singleton.
+
+```typescript
+// Server-side (no toast — toasts are client-only)
+const serverQC = makeQueryClient();
+
+// Client-side (providers.tsx) — per-render, with global error toast
+const [queryClient] = useState(() =>
+  makeQueryClient((error) =>
+    toast.error(`Error: ${error.message}`, {
+      action: { label: "retry", onClick: () => queryClient.invalidateQueries() },
+    })
+  )
 );
 ```
+
+### `getServerQueryClient` (dashboard)
+
+```typescript
+// apps/dashboard/src/shared/api/query-client.server.ts
+import "server-only";
+import { cache } from "react";
+import { makeQueryClient } from "./orpc";
+
+// React.cache() scopes one instance per server render tree (per-request).
+// Multiple calls within the same RSC render return the same client.
+export const getServerQueryClient = cache(makeQueryClient);
+```
+
+Usage in RSC layouts:
+
+```typescript
+import { getServerQueryClient } from "@/shared/api/query-client.server";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { appQueries } from "@/shared/api/queries";
+
+const queryClient = getServerQueryClient();
+await queryClient.prefetchQuery(appQueries.store.all());
+
+return (
+  <HydrationBoundary state={dehydrate(queryClient)}>
+    {children}
+  </HydrationBoundary>
+);
+```
+
+### Server-side Direct Routing (`orpc.server.ts`)
+
+The dashboard's `orpc.server.ts` sets `globalThis.$orpcClient` to a `createRouterClient` that
+calls the router in-process (no HTTP). This is used automatically by `client` in `orpc.ts`:
+
+```typescript
+// orpc.server.ts
+globalThis.$orpcClient = createRouterClient(appRouter, {
+  context: async () => createContext(await headers()),
+});
+```
+
+This means `appQueries.x.queryOptions()` works identically on server and client — on the server
+the queryFn calls the router directly, on the client it goes through HTTP.
 
 ## Router Registration
 

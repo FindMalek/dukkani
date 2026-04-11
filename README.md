@@ -81,8 +81,8 @@ This project is built with modern, type-safe technologies:
 ### Apps
 
 - `@dukkani/api` (`apps/api`) - API gateway for oRPC, OpenAPI, auth endpoints, and webhooks.
-- `@dukkani/dashboard` (`apps/dashboard`) - Merchant dashboard for products, orders, customers, and settings.
-- `@dukkani/storefront` (`apps/storefront`) - Customer storefront and checkout runtime.
+- `@dukkani/dashboard` (`apps/dashboard`) - Merchant dashboard for products, orders, customers, and settings. Follows Feature Sliced Design (FSD) with a `src/shared/` layer.
+- `@dukkani/storefront` (`apps/storefront`) - Customer storefront and checkout runtime. Follows Feature Sliced Design (FSD) with a `src/shared/` layer.
 - `@dukkani/web` (`apps/web`) - Public marketing and product website.
 
 ### Shared packages
