@@ -214,4 +214,9 @@ export const appMutations = {
         },
       }),
   },
+  onboarding: {
+    complete: (
+      options?: Parameters<typeof api.onboarding.complete.mutationOptions>[0],
+    ) => api.onboarding.complete.mutationOptions({ ...options }),
+  },
 };
