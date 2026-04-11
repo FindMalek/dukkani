@@ -4,8 +4,7 @@ import {
   parsePriceMin,
   parseSortBy,
 } from "@dukkani/common/utils/query-parsers";
-import { parseAsBoolean, parseAsString } from "nuqs";
-import { createLoader } from "nuqs/server";
+import { createLoader, parseAsBoolean, parseAsString } from "nuqs/server";
 
 export const productFilterParams = {
   sort: parseSortBy,

@@ -6,7 +6,7 @@ import {
   parseAsString,
   parseAsStringEnum,
   parseAsStringLiteral,
-} from "nuqs";
+} from "nuqs/server";
 import { OrderStatus, UserOnboardingStep } from "../schemas/enums";
 import { PRODUCT_SORT_OPTIONS } from "../schemas/product/input";
 

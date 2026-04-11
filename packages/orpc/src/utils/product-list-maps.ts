@@ -5,7 +5,6 @@ import type {
 } from "@dukkani/common/schemas/product/input";
 import type { Prisma } from "@dukkani/db/prisma/generated";
 
-/** Maps dashboard / API stock filter tokens to Prisma stock range constraints. */
 export const STOCK_RANGE_MAP: Partial<
   Record<NonNullable<StockFilter>, { gte?: number; lte?: number }>
 > = {
@@ -15,7 +14,6 @@ export const STOCK_RANGE_MAP: Partial<
   // "all" intentionally absent — no filter applied
 };
 
-/** Maps `sortBy` input to Prisma `orderBy` for product lists. */
 export const SORT_ORDER_MAP: Record<
   NonNullable<ProductSort>,
   Prisma.ProductOrderByWithRelationInput
