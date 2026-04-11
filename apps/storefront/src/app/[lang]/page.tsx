@@ -2,6 +2,7 @@ import { StoreStatus } from "@dukkani/common/schemas/enums";
 import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -10,9 +11,19 @@ import { ComingSoon } from "@/components/app/coming-soon";
 import { HeroBanner } from "@/components/app/hero-banner";
 import { ProductGrid } from "@/components/app/product-grid";
 import { ProductSectionHeader } from "@/components/app/product-section-header";
-import { loadProductsFiltersSearchParams } from "@/lib/products-filtering";
+import {
+  buildProductFiltersInput,
+  loadProductFilters,
+} from "@/lib/product-filters";
 import { client, getQueryClient, orpc } from "@/shared/api/orpc";
+import { appQueries } from "@/shared/api/queries";
 import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    alternates: { canonical: "/" },
+  };
+}
 
 interface StorePageProps {
   searchParams: Promise<SearchParams>;
@@ -47,37 +58,16 @@ export default async function StorePage({ searchParams }: StorePageProps) {
       return <ComingSoon store={store} />;
     }
 
-    const categories = await client.category.getAllPublic({
+    const categories = await queryClient.fetchQuery(
+      appQueries.category.getAll({ input: { storeId: store.id } }),
+    );
+
+    const filters = await loadProductFilters(searchParams);
+
+    const { products } = await client.product.getAllPublic({
       storeId: store.id,
+      ...buildProductFiltersInput(filters),
     });
-
-    const categoryOptions = categories.map((cat) => ({
-      id: cat.id,
-      name: cat.name,
-    }));
-    const filters =
-      await loadProductsFiltersSearchParams(categoryOptions)(searchParams);
-
-    const productsResponse = await client.product.getAllPublic({
-      storeId: store.id,
-      priceMin:
-        filters["filters[price]"].min === ""
-          ? undefined
-          : Number(filters["filters[price]"].min),
-      priceMax:
-        filters["filters[price]"].max === ""
-          ? undefined
-          : Number(filters["filters[price]"].max),
-      categoryId:
-        filters["filters[category]"] === "all"
-          ? undefined
-          : categories.find((cat) => cat.name === filters["filters[category]"])
-              ?.id,
-      stockFilter: filters["filters[inStockOnly]"] ? "in-stock" : undefined,
-      sortBy: filters["filters[sort]"],
-    });
-
-    const products = productsResponse.products;
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
@@ -90,7 +80,7 @@ export default async function StorePage({ searchParams }: StorePageProps) {
           <ProductSectionHeader
             title={t("products.title")}
             storeCurrency={store.currency}
-            categories={categoryOptions}
+            categories={categories}
           />
           <ProductGrid products={products} store={store} />
         </div>

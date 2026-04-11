@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useQueryStates } from "nuqs";
 import { useState } from "react";
-import { productsFilteringSearchParams } from "@/lib/products-filtering";
+import { productFilterParams } from "@/lib/product-filters";
 
 interface ProductSectionHeaderProps {
   storeCurrency: store.SupportedCurrencyInfer;
@@ -82,28 +82,26 @@ function FilterProductsForm({
   const router = useRouter();
   const tFilter = useTranslations("storefront.store.filter");
   const tCategoryFilter = useTranslations("storefront.store.categoryFilter");
-  const [queryFilters, setQueryFilters] = useQueryStates(
-    productsFilteringSearchParams(categories),
-    {
-      history: "push",
-      clearOnDefault: true,
-    },
-  );
+  const [queryFilters, setQueryFilters] = useQueryStates(productFilterParams, {
+    history: "push",
+    clearOnDefault: true,
+  });
 
   const form = useAppForm({
     defaultValues: {
-      minPrice: queryFilters["filters[price]"].min,
-      maxPrice: queryFilters["filters[price]"].max,
-      inStockOnly: queryFilters["filters[inStockOnly]"],
-      sortBy: queryFilters["filters[sort]"],
-      category: queryFilters["filters[category]"],
+      minPrice: queryFilters.minPrice,
+      maxPrice: queryFilters.maxPrice,
+      inStock: queryFilters.inStock,
+      sort: queryFilters.sort,
+      category: queryFilters.category ?? "", // null → "" represents "All"
     },
     onSubmit: async ({ value }) => {
       await setQueryFilters({
-        "filters[price]": { min: value.minPrice, max: value.maxPrice },
-        "filters[inStockOnly]": value.inStockOnly,
-        "filters[sort]": value.sortBy,
-        "filters[category]": value.category,
+        minPrice: value.minPrice,
+        maxPrice: value.maxPrice,
+        inStock: value.inStock,
+        sort: value.sort,
+        category: value.category || null, // "" → null clears the URL param
       });
       handleCloseDrawer?.();
       router.refresh();
@@ -114,11 +112,6 @@ function FilterProductsForm({
     { label: tFilter("sortOptions.newest"), value: "newest" },
     { label: tFilter("sortOptions.cheapest"), value: "priceAsc" },
     { label: tFilter("sortOptions.mostExpensive"), value: "priceDesc" },
-    {
-      label: tFilter("sortOptions.featured"),
-      value: "featured",
-      disabled: true,
-    },
   ];
 
   return (
@@ -150,7 +143,7 @@ function FilterProductsForm({
         <FieldSet className="rounded-md border px-4 pb-3">
           <FieldLegend>{tFilter("availability")}</FieldLegend>
           <FieldGroup>
-            <form.AppField name="inStockOnly">
+            <form.AppField name="inStock">
               {(field) => <field.SwitchInput label={tFilter("inStockOnly")} />}
             </form.AppField>
           </FieldGroup>
@@ -158,7 +151,7 @@ function FilterProductsForm({
         <FieldSet className="rounded-md border px-4 pb-3">
           <FieldLegend>{tFilter("sortBy")}</FieldLegend>
           <FieldGroup>
-            <form.AppField name="sortBy">
+            <form.AppField name="sort">
               {(field) => (
                 <field.RadioGroupInput
                   label={tFilter("sortBy")}
@@ -180,10 +173,10 @@ function FilterProductsForm({
                   srOnlyLabel
                   as="pills"
                   options={[
-                    { label: tCategoryFilter("all"), value: "all" },
+                    { label: tCategoryFilter("all"), value: "" },
                     ...categories.map((cat) => ({
                       label: cat.name,
-                      value: cat.name,
+                      value: cat.id,
                     })),
                   ]}
                 />
@@ -200,10 +193,11 @@ function FilterProductsForm({
             className="mr-2 grow"
             onClick={async () => {
               await setQueryFilters({
-                "filters[price]": { min: "", max: "" },
-                "filters[inStockOnly]": false,
-                "filters[sort]": "newest",
-                "filters[category]": "all",
+                minPrice: null,
+                maxPrice: null,
+                inStock: false,
+                sort: "newest",
+                category: null,
               });
               form.reset();
               router.refresh();
