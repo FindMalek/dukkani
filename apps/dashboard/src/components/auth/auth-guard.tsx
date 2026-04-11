@@ -2,8 +2,8 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { authClient } from "@/lib/auth-client";
-import { RoutePaths } from "@/lib/routes";
+import { authClient } from "@/shared/api/auth-client";
+import { RoutePaths } from "@/shared/config/routes";
 
 interface AuthGuardProps {
   children: React.ReactNode;

@@ -4,7 +4,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { QuickActionButton } from "@dukkani/ui/components/quick-action-button";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 export function QuickActions() {
   const t = useTranslations("dashboard.overview.quickActions");

@@ -52,7 +52,13 @@ export function useOrders(input: ListOrdersInput) { ... }
 export function useDashboardStats() { ... }
 ```
 
-**Dashboard `apps/dashboard` — API hooks:** use **`use-<domain>.hook.ts`** (e.g. `use-products.hook.ts`) and export **`useProductsQuery`**, **`createProductMutationOptions`**, etc. See `.cursor/rules/apps/dashboard.mdc`.
+**Dashboard / Storefront `shared/lib/` hooks:** domain logic lives under `shared/lib/{domain}/` with these suffixes:
+- `controller.hook.ts` — screen-level orchestration (composes Zustand store + `appQueries` + `appMutations`)
+- `.hook.ts` — domain-specific hooks
+- `.util.ts` — pure utility functions
+- `.store.ts` — Zustand store definitions
+
+Queries and mutations are accessed via `appQueries` / `appMutations` from `shared/api/`, not via individual hook files. See `.cursor/rules/apps/dashboard.mdc` and `.cursor/rules/apps/storefront.mdc`.
 
 ### Utilities
 
@@ -190,15 +196,24 @@ Group files by feature/domain, not by file type:
 ✅ Correct:
 src/
   components/
-    dashboard/
+    app/
       orders/
         orders-list.tsx
       products/
         products-list.tsx
-  hooks/
+  shared/
     api/
-      use-orders.ts
-      use-products.ts
+      queries.ts         # appQueries — all domain query options
+      mutations.ts       # appMutations — all domain mutations
+    lib/
+      order/
+        controller.hook.ts
+        price.util.ts
+        store.ts
+      product/
+        controller.hook.ts
+        form.ts
+        store.ts
 
 ❌ Incorrect:
 src/
@@ -206,8 +221,9 @@ src/
     OrdersList.tsx
     ProductsList.tsx
   hooks/
-    useOrders.ts
-    useProducts.ts
+    api/
+      useOrders.ts
+      useProducts.ts
 ```
 
 ## Route Groups (Next.js)

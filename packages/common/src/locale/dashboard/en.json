@@ -22,6 +22,11 @@
         "addProduct": "Add new product",
         "viewOrders": "View all orders"
       }
+    },
+    "storeInitializer": {
+      "loadError": "Could not load your stores. Please try again.",
+      "noStores": "You don't have any stores yet. Create one to continue.",
+      "goToOnboarding": "Go to onboarding"
     }
   },
   "auth": {

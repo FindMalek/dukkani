@@ -11,10 +11,10 @@ import {
 } from "@dukkani/ui/components/drawer";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
-import { useTranslations } from "next-intl";
-import { useEnrichedCart } from "@/hooks/use-enriched-cart";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { RoutePaths, useRouter } from "@/lib/routes";
+import { useTranslations } from "next-intl";
+import { RoutePaths, useRouter } from "@/shared/config/routes";
+import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
 import { CartItem as CartItemComponent } from "./cart-item";
 
 interface CartDrawerProps {
@@ -32,9 +32,7 @@ export function CartDrawer({
   const t = useTranslations("storefront.store.cart");
   const formatPrice = useFormatPriceCurrentStore(storeCurrency);
 
-  const { enrichedData, subtotal, isLoading } = useEnrichedCart({
-    enabled: open,
-  });
+  const { enrichedData, subtotal, isLoading } = useEnrichedCart(open);
 
   const hasItems = enrichedData && enrichedData.length > 0;
 

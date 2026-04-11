@@ -8,8 +8,8 @@ import {
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { useTranslations } from "next-intl";
 import { forwardRef, useImperativeHandle } from "react";
-import { useProductForm } from "@/hooks/use-product-form";
-import { compressImagesForUpload } from "@/lib/compress-images";
+import { compressImagesForUpload } from "@/shared/lib/image-compression";
+import { useProductForm } from "@/shared/lib/product/form";
 import { CategoryDrawer } from "./category-drawer";
 import { ProductFormActions } from "./product-form-actions";
 import { ProductFormEssentials } from "./product-form-essentials";

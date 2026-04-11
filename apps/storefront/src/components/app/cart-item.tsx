@@ -5,14 +5,14 @@ import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { memo, useCallback, useMemo } from "react";
-import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import {
   type CartItem as CartItemType,
   useCartStore,
-} from "@/stores/cart.store";
+} from "@/shared/lib/cart/store";
 
 interface CartItemProps {
   item: CartItemType;
