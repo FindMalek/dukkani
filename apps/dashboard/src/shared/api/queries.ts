@@ -28,3 +28,15 @@ export const appQueries = {
     botLink: api.telegram.getBotLink.queryOptions,
   },
 };
+
+/**
+ * Extract the resolved data type from any appQueries factory function.
+ *
+ * @example
+ * type ProductList = QueryData<typeof appQueries.product.all>
+ * type CurrentUser = QueryData<typeof appQueries.account.currentUser>
+ * type StoreList   = QueryData<typeof appQueries.store.all>
+ */
+export type QueryData<
+  T extends (...args: any[]) => { queryFn: () => Promise<any> },
+> = Awaited<ReturnType<ReturnType<T>["queryFn"]>>;

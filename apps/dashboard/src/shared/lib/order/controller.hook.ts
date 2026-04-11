@@ -1,5 +1,12 @@
 import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
+import {
+  parseLimit,
+  parseOrderStatus,
+  parsePage,
+  parseSearchQuery,
+} from "@dukkani/common/utils/query-parsers";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQueryStates } from "nuqs";
 import { useMemo } from "react";
 import { appMutations } from "@/shared/api/mutations";
 import { appQueries } from "@/shared/api/queries";
@@ -8,51 +15,43 @@ import { useOrderStore } from "./store";
 
 /**
  * Controller hook that composes:
- * - Active store state
- * - Order store state (filters, pagination, selection)
+ * - Active store state (Zustand)
+ * - Filter + pagination state (nuqs — URL-synced, shareable, bookmarkable)
+ * - UI state — selection (Zustand)
  * - ORPC query hooks
  * - ORPC mutation hooks
  *
- * Provides a single interface for Orders pages
+ * Provides a single interface for Orders pages.
  */
 export function useOrdersController() {
   const { selectedStoreId } = useActiveStoreStore();
-  const {
-    search,
-    status,
-    dateRange,
-    page,
-    limit,
-    selectedOrderId,
-    setSearch,
-    setStatus,
-    setDateRange,
-    setPage,
-    setLimit,
-    setSelectedOrderId,
-    resetFilters,
-  } = useOrderStore();
+  const { selectedOrderId, setSelectedOrderId } = useOrderStore();
 
-  // Build query input from store state
+  // Filters and pagination live in the URL so they're shareable and
+  // cleared automatically when the user navigates away.
+  const [filters, setFilters] = useQueryStates({
+    search: parseSearchQuery.withDefault(""),
+    status: parseOrderStatus,
+    page: parsePage,
+    limit: parseLimit,
+  });
+
+  const resetFilters = () =>
+    setFilters({ search: "", status: null, page: 1, limit: 50 });
+
   const queryInput = useMemo<ListOrdersInput>(() => {
     const input: ListOrdersInput = {
-      page,
-      limit,
+      page: filters.page,
+      limit: filters.limit,
       storeId: selectedStoreId ?? undefined,
     };
-
-    if (search) input.search = search;
-    if (status) input.status = status;
-    // Note: dateRange filtering would need to be implemented on the backend
-    // For now, we'll just pass the storeId
-
+    if (filters.search) input.search = filters.search;
+    if (filters.status) input.status = filters.status;
     return input;
-  }, [selectedStoreId, search, status, page, limit]);
+  }, [selectedStoreId, filters]);
 
-  // Query orders
   const ordersQuery = useQuery(appQueries.order.all({ input: queryInput }));
 
-  // Mutations
   const createOrderMutation = useMutation(appMutations.order.create());
   const updateOrderStatusMutation = useMutation(
     appMutations.order.updateStatus(),
@@ -60,22 +59,26 @@ export function useOrdersController() {
   const deleteOrderMutation = useMutation(appMutations.order.delete());
 
   return {
-    // Store state
+    // Store context
     selectedStoreId,
-    search,
-    status,
-    dateRange,
-    page,
-    limit,
-    selectedOrderId,
-    // Store actions
-    setSearch,
-    setStatus,
-    setDateRange,
-    setPage,
-    setLimit,
-    setSelectedOrderId,
+    // URL filter state
+    search: filters.search,
+    status: filters.status,
+    page: filters.page,
+    // Filter setters — wrapped to return void (nuqs setters return Promise internally)
+    setSearch: (v: string) => {
+      setFilters({ search: v, page: 1 });
+    },
+    setStatus: (v: typeof filters.status) => {
+      setFilters({ status: v, page: 1 });
+    },
+    setPage: (v: number) => {
+      setFilters({ page: v });
+    },
     resetFilters,
+    // UI state
+    selectedOrderId,
+    setSelectedOrderId,
     // Query
     ordersQuery,
     // Mutations

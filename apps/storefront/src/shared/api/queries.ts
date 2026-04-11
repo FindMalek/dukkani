@@ -1,22 +1,17 @@
-import { keepPreviousData, queryOptions } from "@tanstack/react-query";
-import { client } from "./orpc";
+import { orpc } from "./orpc";
 
 export const appQueries = {
   cart: {
-    items: (data: Parameters<typeof client.cart.getCartItems>["0"]) =>
-      queryOptions({
-        queryKey: [
-          "cart",
-          "items",
-          data.items
-            .map(
-              (item) => `${item.productId}-${item.variantId ?? "no-variant"}`,
-            )
-            .join(","),
-        ],
-        queryFn: async () => client.cart.getCartItems(data),
-        staleTime: 30 * 1000, // 30 seconds
-        placeholderData: keepPreviousData,
-      }),
+    items: orpc.cart.getCartItems.queryOptions,
   },
 };
+
+/**
+ * Extract the resolved data type from any appQueries factory function.
+ *
+ * @example
+ * type CartItems = QueryData<typeof appQueries.cart.items>
+ */
+export type QueryData<
+  T extends (...args: any[]) => { queryFn: () => Promise<any> },
+> = Awaited<ReturnType<ReturnType<T>["queryFn"]>>;

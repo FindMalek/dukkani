@@ -18,7 +18,10 @@ import { Field, FieldLabel } from "@dukkani/ui/components/field";
 import { Input } from "@dukkani/ui/components/input";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import type { StockFilter, VariantsFilter } from "@/shared/lib/product/store";
+import type {
+  StockFilter,
+  VariantsFilter,
+} from "@dukkani/common/schemas/product/input";
 
 interface ProductsFilterDrawerProps {
   open: boolean;

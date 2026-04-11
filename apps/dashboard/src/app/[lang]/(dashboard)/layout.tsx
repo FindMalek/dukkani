@@ -1,10 +1,11 @@
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
-import { headers } from "next/headers";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import { AuthGuard } from "@/components/auth/auth-guard";
 import { BottomNavigation } from "@/components/layout/bottom-navigation";
 import { StoreInitializer } from "@/components/layout/store-initializer";
-import { client } from "@/shared/api/orpc";
+import { appQueries } from "@/shared/api/queries";
+import { getServerQueryClient } from "@/shared/api/query-client.server";
 import { getServerSession } from "@/shared/api/session.server";
 import { RoutePaths } from "@/shared/config/routes";
 
@@ -37,17 +38,29 @@ export default async function DashboardLayout({
     );
   }
 
-  try {
-    const headersList = await headers();
-    const user = await client.account.getCurrentUser({
-      headers: headersList,
-    });
-    if (user.onboardingStep === UserOnboardingStep.STORE_SETUP) {
-      redirect(RoutePaths.AUTH.ONBOARDING.INDEX.url);
-    }
-  } catch {
-    // Allow dashboard if user fetch fails
+  const queryClient = getServerQueryClient();
+
+  // Prefetch in parallel — eliminates the client-side waterfall where
+  // StoreInitializer had to wait for a network round-trip before knowing
+  // which store to select. Both queries resolve from the hydrated cache
+  // on the client without any additional fetches.
+  await Promise.all([
+    queryClient.prefetchQuery(appQueries.account.currentUser()),
+    queryClient.prefetchQuery(appQueries.store.all()),
+  ]);
+
+  // Read onboarding step from the prefetched cache — no extra API call needed
+  const user = queryClient.getQueryData(
+    appQueries.account.currentUser().queryKey,
+  );
+
+  if (user && user.onboardingStep === UserOnboardingStep.STORE_SETUP) {
+    redirect(RoutePaths.AUTH.ONBOARDING.INDEX.url);
   }
 
-  return <DashboardLayoutContent>{children}</DashboardLayoutContent>;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <DashboardLayoutContent>{children}</DashboardLayoutContent>
+    </HydrationBoundary>
+  );
 }

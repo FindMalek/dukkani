@@ -22,10 +22,10 @@ apps/storefront/src/
 │   └── shared/
 ├── shared/
 │   ├── api/                   # orpc client, error-handler, mutations, queries
-│   │   ├── orpc.ts            # oRPC client export
+│   │   ├── orpc.ts            # `client`, `orpc`, `getQueryClient`, `makeQueryClient`
 │   │   ├── error-handler.ts   # Centralized `handleAPIError`
 │   │   ├── mutations.ts       # `appMutations` (order.create, store.subscribeToLaunch)
-│   │   └── queries.ts         # `appQueries` (cart.items)
+│   │   └── queries.ts         # `appQueries` (cart.items) + `QueryData<T>` type utility
 │   ├── config/                # App-wide configuration
 │   │   ├── constants.ts       # Typed storefront constants
 │   │   ├── i18n.ts            # Locale helpers and i18n config
@@ -46,30 +46,84 @@ apps/storefront/src/
 - Keep request and response typing aligned with shared schemas from `@dukkani/common`.
 - Route API calls through `app/api/storefront/[[...rest]]/route.ts` when app-local API entry is needed.
 
+**Querying data** — always use `appQueries`, which wraps oRPC's typed `queryOptions`:
+
 ```typescript
-// Fetching data
 import { useQuery } from "@tanstack/react-query";
 import { appQueries } from "@/shared/api/queries";
 
-const { data: cartItems } = useQuery(appQueries.cart.items({ input: { storeId } }));
+// ✅ Correct — uses oRPC typed queryOptions (auto-generated queryKey, full type safety)
+const { data: cartItems } = useQuery(appQueries.cart.items({ input: data }));
+
+// ❌ Wrong — never build queryOptions manually
+const { data } = useQuery(queryOptions({
+  queryKey: ["cart", "items", ...],
+  queryFn: () => client.cart.getCartItems(data),
+}));
 ```
 
+**Extracting query data types:**
+
 ```typescript
-// Mutating data
+import type { QueryData } from "@/shared/api/queries";
+
+type CartItems = QueryData<typeof appQueries.cart.items>;
+```
+
+**Mutating data** — `onError` and `onSuccess` are chained, not replaced:
+
+```typescript
 import { useMutation } from "@tanstack/react-query";
 import { appMutations } from "@/shared/api/mutations";
 
-const mutation = useMutation(appMutations.order.create());
+// Built-in onError (handleAPIError) runs first, then your callback
+const mutation = useMutation(
+  appMutations.order.create({
+    onSuccess: () => router.push("/checkout/success"),
+  })
+);
+
 const subscribeMutation = useMutation(appMutations.store.subscribeToLaunch());
 ```
 
-## State Management
+## Server Prefetch Pattern
 
-- Cart and filter state lives in Zustand stores under `shared/lib/{domain}/store.ts`.
-- Derive computed cart values in selectors or utility functions within the domain folder, not in UI components.
+Always prefetch through `getQueryClient()` + `orpc.x.queryOptions` — never call `client.x()` directly in server components (it bypasses the cache).
 
 ```typescript
-// Cart store
+// apps/storefront/src/app/[lang]/layout.tsx
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getQueryClient, orpc } from "@/shared/api/orpc";
+
+export default async function RootLayout({ children }) {
+  const queryClient = getQueryClient();
+
+  if (storeSlug) {
+    await queryClient.prefetchQuery(
+      orpc.store.getBySlugPublic.queryOptions({ input: { slug: storeSlug } })
+    );
+  }
+
+  return (
+    <Providers>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        {children}
+      </HydrationBoundary>
+    </Providers>
+  );
+}
+```
+
+Client components under this layout receive the prefetched store data instantly.
+
+## State Management
+
+- Cart and UI state lives in Zustand stores under `shared/lib/{domain}/store.ts`.
+- Derive computed cart values in selectors or utility functions within the domain folder, not in UI components.
+- Server state (products, store info) belongs in TanStack Query via `appQueries` — never duplicate it in Zustand.
+
+```typescript
+// Cart store (client-only state)
 import { useCartStore } from "@/shared/lib/cart/store";
 
 // Cart enrichment hook (combines cart store with server product data)
@@ -86,7 +140,7 @@ import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
 
 - Use `handleAPIError` from `@/shared/api/error-handler.ts` for all error handling.
 - Do not inline generic error toasts; keep error mapping centralized.
-- `appMutations` factories automatically wire `onError` to `handleAPIError` — extend rather than replace.
+- `appMutations` factories automatically wire `onError` to `handleAPIError` — your `onError` callback chains after it, not instead of it.
 
 ## Best Practices
 
@@ -97,4 +151,4 @@ import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
 - File suffix conventions in `shared/lib/`:
   - `controller.hook.ts` / `.hook.ts` — React hooks
   - `.util.ts` — pure utility functions
-  - `.store.ts` — Zustand store definitions
+  - `.store.ts` — Zustand store definitions (client-only state only)

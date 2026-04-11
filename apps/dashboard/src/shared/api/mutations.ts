@@ -9,19 +9,21 @@ export const appMutations = {
     ) =>
       api.category.create.mutationOptions({
         ...options,
-        onSuccess: async (data, _input, _onMutateResult, context) =>
-          context.client.invalidateQueries(
+        onSuccess: async (data, input, result, context) => {
+          await context.client.invalidateQueries(
             api.category.getAll.queryOptions({
               input: { storeId: data.storeId },
             }),
-          ),
+          );
+          await options?.onSuccess?.(data, input, result, context);
+        },
       }),
     update: (
       options?: Parameters<typeof api.category.update.mutationOptions>[0],
     ) =>
       api.category.update.mutationOptions({
         ...options,
-        onSuccess: async (data, _input, _onMutateResult, context) => {
+        onSuccess: async (data, input, result, context) => {
           await context.client.invalidateQueries(
             api.category.getAll.queryOptions({
               input: { storeId: data.storeId },
@@ -30,6 +32,7 @@ export const appMutations = {
           await context.client.invalidateQueries(
             api.category.getById.queryOptions({ input: { id: data.id } }),
           );
+          await options?.onSuccess?.(data, input, result, context);
         },
       }),
     delete: (
@@ -37,12 +40,14 @@ export const appMutations = {
     ) =>
       api.category.delete.mutationOptions({
         ...options,
-        onSuccess: async (data, _input, _onMutateResult, context) =>
-          context.client.invalidateQueries(
+        onSuccess: async (data, input, result, context) => {
+          await context.client.invalidateQueries(
             api.category.getAll.queryOptions({
               input: { storeId: data.storeId },
             }),
-          ),
+          );
+          await options?.onSuccess?.(data, input, result, context);
+        },
       }),
   },
   order: {
@@ -51,13 +56,14 @@ export const appMutations = {
     ) =>
       api.order.create.mutationOptions({
         ...options,
-        onSuccess: async (_data, _input, _onMutateResult, context) => {
+        onSuccess: async (data, input, result, context) => {
           await context.client.invalidateQueries(
             api.order.getAll.queryOptions(),
           );
           await context.client.invalidateQueries(
             api.dashboard.getStats.queryOptions(),
           );
+          await options?.onSuccess?.(data, input, result, context);
         },
       }),
     updateStatus: (
@@ -65,7 +71,7 @@ export const appMutations = {
     ) =>
       api.order.updateStatus.mutationOptions({
         ...options,
-        onSuccess: async (data, _input, _onMutateResult, context) => {
+        onSuccess: async (data, input, result, context) => {
           await context.client.invalidateQueries(
             api.order.getAll.queryOptions(),
           );
@@ -75,6 +81,7 @@ export const appMutations = {
           await context.client.invalidateQueries(
             api.dashboard.getStats.queryOptions(),
           );
+          await options?.onSuccess?.(data, input, result, context);
         },
       }),
     delete: (
@@ -82,13 +89,14 @@ export const appMutations = {
     ) =>
       api.order.delete.mutationOptions({
         ...options,
-        onSuccess: async (_data, _input, _onMutateResult, context) => {
+        onSuccess: async (data, input, result, context) => {
           await context.client.invalidateQueries(
             api.order.getAll.queryOptions(),
           );
           await context.client.invalidateQueries(
             api.dashboard.getStats.queryOptions(),
           );
+          await options?.onSuccess?.(data, input, result, context);
         },
       }),
   },
@@ -98,13 +106,14 @@ export const appMutations = {
     ) =>
       api.product.create.mutationOptions({
         ...options,
-        onSuccess: async (_data, _input, _onMutateResult, context) => {
+        onSuccess: async (data, input, result, context) => {
           await context.client.invalidateQueries(
             api.product.getAll.queryOptions(),
           );
           await context.client.invalidateQueries(
             api.dashboard.getStats.queryOptions(),
           );
+          await options?.onSuccess?.(data, input, result, context);
         },
       }),
     update: (
@@ -112,7 +121,7 @@ export const appMutations = {
     ) =>
       api.product.update.mutationOptions({
         ...options,
-        onSuccess: async (data, _input, _onMutateResult, context) => {
+        onSuccess: async (data, input, result, context) => {
           await context.client.invalidateQueries(
             api.product.getAll.queryOptions(),
           );
@@ -122,6 +131,7 @@ export const appMutations = {
           await context.client.invalidateQueries(
             api.dashboard.getStats.queryOptions(),
           );
+          await options?.onSuccess?.(data, input, result, context);
         },
       }),
     delete: (
@@ -129,13 +139,14 @@ export const appMutations = {
     ) =>
       api.product.delete.mutationOptions({
         ...options,
-        onSuccess: async (_data, _input, _onMutateResult, context) => {
+        onSuccess: async (data, input, result, context) => {
           await context.client.invalidateQueries(
             api.product.getAll.queryOptions(),
           );
           await context.client.invalidateQueries(
             api.dashboard.getStats.queryOptions(),
           );
+          await options?.onSuccess?.(data, input, result, context);
         },
       }),
     togglePublished: (
@@ -143,7 +154,7 @@ export const appMutations = {
     ) =>
       api.product.togglePublish.mutationOptions({
         ...options,
-        onSuccess: async (data, _input, _onMutateResult, context) => {
+        onSuccess: async (data, input, result, context) => {
           await context.client.invalidateQueries(
             api.product.getAll.queryOptions(),
           );
@@ -153,6 +164,7 @@ export const appMutations = {
           await context.client.invalidateQueries(
             api.dashboard.getStats.queryOptions(),
           );
+          await options?.onSuccess?.(data, input, result, context);
         },
       }),
   },
@@ -162,13 +174,14 @@ export const appMutations = {
     ) =>
       api.store.create.mutationOptions({
         ...options,
-        onSuccess: async (_data, _input, _onMutateResult, context) => {
+        onSuccess: async (data, input, result, context) => {
           await context.client.invalidateQueries(
             api.store.getAll.queryOptions(),
           );
           await context.client.refetchQueries(
             api.account.getCurrentUser.queryOptions(),
           );
+          await options?.onSuccess?.(data, input, result, context);
         },
       }),
     configure: (
@@ -176,13 +189,14 @@ export const appMutations = {
     ) =>
       api.store.configure.mutationOptions({
         ...options,
-        onSuccess: async (_data, _input, _onMutateResult, context) => {
+        onSuccess: async (data, input, result, context) => {
           await context.client.invalidateQueries(
             api.store.getAll.queryOptions(),
           );
           await context.client.refetchQueries(
             api.account.getCurrentUser.queryOptions(),
           );
+          await options?.onSuccess?.(data, input, result, context);
         },
       }),
   },
@@ -192,10 +206,12 @@ export const appMutations = {
     ) =>
       api.telegram.disconnect.mutationOptions({
         ...options,
-        onSuccess: async (_data, _input, _onMutateResult, context) =>
-          context.client.invalidateQueries(
+        onSuccess: async (data, input, result, context) => {
+          await context.client.invalidateQueries(
             api.telegram.getStatus.queryOptions(),
-          ),
+          );
+          await options?.onSuccess?.(data, input, result, context);
+        },
       }),
   },
 };

@@ -8,7 +8,12 @@ export const appMutations = {
     ) =>
       orpc.order.createPublic.mutationOptions({
         ...options,
-        onError: (error) => handleAPIError(error),
+        onError: (...args) => {
+          handleAPIError(args[0]);
+          (options?.onError as ((...a: typeof args) => void) | undefined)?.(
+            ...args,
+          );
+        },
       }),
   },
   store: {
@@ -19,7 +24,12 @@ export const appMutations = {
     ) =>
       orpc.store.subscribeToLaunch.mutationOptions({
         ...options,
-        onError: (error) => handleAPIError(error),
+        onError: (...args) => {
+          handleAPIError(args[0]);
+          (options?.onError as ((...a: typeof args) => void) | undefined)?.(
+            ...args,
+          );
+        },
       }),
   },
 };

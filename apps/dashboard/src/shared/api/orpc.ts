@@ -1,7 +1,7 @@
 import { getApiUrl } from "@dukkani/env/get-api-url";
 import type { AppRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { env } from "@/env";
 
 // Lazy ORPC client creation - only create when accessed
@@ -14,8 +14,18 @@ function getORPCClient() {
   return orpcClient;
 }
 
-export function makeQueryClient() {
+/**
+ * Create a new QueryClient instance.
+ *
+ * Pass an `onError` callback to attach a global QueryCache error handler
+ * (e.g. showing a toast). On the server, omit it — toasts are client-only.
+ *
+ * Always call this from `useState` in providers, never as a module singleton:
+ *   const [qc] = useState(() => makeQueryClient((err) => toast.error(err.message)))
+ */
+export function makeQueryClient(onError?: (error: Error) => void) {
   return new QueryClient({
+    queryCache: onError ? new QueryCache({ onError }) : undefined,
     defaultOptions: {
       queries: {
         staleTime: 60 * 1000, // 60 seconds
@@ -29,11 +39,11 @@ export function makeQueryClient() {
     },
   });
 }
+
 // Use server-side client during SSR, fallback to client-side client
 export const client: AppRouterClient =
   globalThis.$orpcClient ?? getORPCClient().client;
 
-export const queryClient = getORPCClient().queryClient;
 const orpc = getORPCClient().orpc;
 
 export { orpc as api };

@@ -2,7 +2,6 @@
 
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { orpc } from "@/shared/api/orpc";
 import { appQueries } from "@/shared/api/queries";
 import { useCartStore } from "@/shared/lib/cart/store";
 import { getItemKey } from "./item-comparator";
@@ -26,19 +25,21 @@ export function useEnrichedCart(enabled = true) {
   }, [cartItems]);
 
   const queryInput = useMemo(() => {
-    return {
-      items: cartItems.map((item) => ({
-        productId: item.productId,
-        variantId: item.variantId,
-        quantity: item.quantity,
-      })),
-    };
+    return cartItems.map((item) => ({
+      productId: item.productId,
+      variantId: item.variantId,
+      quantity: item.quantity,
+    }));
   }, [itemKeysString]);
 
-  const query = useQuery({
-    ...appQueries.cart.items(queryInput),
-    enabled: enabled && cartItems.length > 0,
-  });
+  const query = useQuery(
+    appQueries.cart.items({
+      input: { items: queryInput },
+      placeholderData: keepPreviousData,
+      staleTime: 30 * 1000,
+      enabled: enabled && cartItems.length > 0,
+    }),
+  );
 
   const enrichedData = useMemo(() => {
     if (!query.data) return undefined;

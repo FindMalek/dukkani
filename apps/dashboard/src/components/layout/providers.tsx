@@ -10,8 +10,10 @@ import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NextIntlClientProvider } from "next-intl";
+import { useState } from "react";
+import { toast } from "sonner";
 import { env } from "@/env";
-import { queryClient } from "@/shared/api/orpc";
+import { makeQueryClient } from "@/shared/api/orpc";
 import NuqsProvider from "./nuqs-provider";
 
 interface ProvidersProps {
@@ -25,6 +27,22 @@ export default function Providers({
   locale,
   messages,
 }: ProvidersProps) {
+  // Create a per-render QueryClient (NOT a module singleton) to prevent
+  // cross-request state leaks in SSR. The onError callback wires up the
+  // global toast so all query errors are caught in one place.
+  const [queryClient] = useState(() =>
+    makeQueryClient((error) =>
+      toast.error(`Error: ${error.message}`, {
+        action: {
+          label: "retry",
+          onClick: () => {
+            queryClient.invalidateQueries();
+          },
+        },
+      }),
+    ),
+  );
+
   return (
     <NuqsProvider>
       <DirectionProvider direction={getTextDirection(locale)}>

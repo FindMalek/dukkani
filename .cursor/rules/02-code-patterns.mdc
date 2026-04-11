@@ -18,20 +18,13 @@ packages/common/src/entities/{entity-name}/
 ```typescript
 // entity.ts
 export class StoreEntity {
-  // Transform simple database data to simple output
   static getSimpleRo(entity: StoreSimpleDbData): StoreSimpleOutput {
-    return {
-      id: entity.id,
-      name: entity.name,
-      // ... map all simple fields
-    };
+    return { id: entity.id, name: entity.name };
   }
 
-  // Transform database data with relations to include output
   static getRo(entity: StoreIncludeDbData): StoreIncludeOutput {
     return {
       ...this.getSimpleRo(entity),
-      // Add relations using other entities
       owner: UserEntity.getSimpleRo(entity.owner),
       products: entity.products.map(ProductEntity.getSimpleRo),
     };
@@ -44,12 +37,10 @@ export class StoreEntity {
 ```typescript
 // query.ts
 export class StoreQuery {
-  // Simple include (no relations)
   static getSimpleInclude() {
     return {} satisfies Prisma.StoreInclude;
   }
 
-  // Full include (all relations)
   static getInclude() {
     return {
       ...this.getSimpleInclude(),
@@ -58,15 +49,6 @@ export class StoreQuery {
     } satisfies Prisma.StoreInclude;
   }
 
-  // Client-safe include (excludes sensitive data)
-  static getClientSafeInclude() {
-    return {
-      ...this.getSimpleInclude(),
-      storePlan: true,
-    } satisfies Prisma.StoreInclude;
-  }
-
-  // Where clause builder
   static getWhere(storeIds: string[], filters?: FilterOptions) {
     return {
       id: { in: storeIds },
@@ -74,7 +56,6 @@ export class StoreQuery {
     } satisfies Prisma.StoreWhereInput;
   }
 
-  // Order by builder
   static getOrder(direction: "asc" | "desc", field: string) {
     return { [field]: direction } satisfies Prisma.StoreOrderByWithRelationInput;
   }
@@ -83,7 +64,7 @@ export class StoreQuery {
 
 ## Schema Pattern
 
-Schemas define input/output validation using Zod. Each schema has multiple files:
+Schemas define input/output validation using Zod.
 
 ### Structure
 
@@ -98,20 +79,10 @@ packages/common/src/schemas/{entity-name}/
 ### Input Schema Pattern
 
 ```typescript
-// input.ts
-export const storeInputSchema = z.object({
-  name: z.string().min(1, "Store name is required"),
-  slug: z.string().min(1, "Store slug is required"),
+export const createStoreInputSchema = z.object({
+  name: z.string().min(1),
+  slug: z.string().min(1),
   description: z.string().optional(),
-});
-
-export const createStoreInputSchema = storeInputSchema;
-export const updateStoreInputSchema = storeInputSchema.partial().extend({
-  id: z.string().min(1, "Store ID is required"),
-});
-
-export const getStoreInputSchema = z.object({
-  id: z.string().min(1, "Store ID is required"),
 });
 
 export const listStoresInputSchema = z.object({
@@ -120,185 +91,61 @@ export const listStoresInputSchema = z.object({
   search: z.string().optional(),
 });
 
-// Export types
-export type StoreInput = z.infer<typeof storeInputSchema>;
 export type CreateStoreInput = z.infer<typeof createStoreInputSchema>;
-export type UpdateStoreInput = z.infer<typeof updateStoreInputSchema>;
-export type GetStoreInput = z.infer<typeof getStoreInputSchema>;
-export type ListStoresInput = z.infer<typeof listStoresInputSchema>;
-```
-
-### Output Schema Pattern
-
-```typescript
-// output.ts
-export const storeSimpleOutputSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  slug: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-});
-
-export const storeIncludeOutputSchema = storeSimpleOutputSchema.extend({
-  owner: userSimpleOutputSchema.optional(),
-  products: z.array(productSimpleOutputSchema).optional(),
-});
-
-export const listStoresOutputSchema = z.object({
-  stores: z.array(storeSimpleOutputSchema),
-  total: z.number().int(),
-  hasMore: z.boolean(),
-  page: z.number().int(),
-  limit: z.number().int(),
-});
-
-// Export types
-export type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
-export type StoreIncludeOutput = z.infer<typeof storeIncludeOutputSchema>;
-export type ListStoresOutput = z.infer<typeof listStoresOutputSchema>;
+export type ListStoresInput  = z.infer<typeof listStoresInputSchema>;
 ```
 
 ## Service Pattern
 
-Services contain business logic and database operations. They use entities and queries.
-
-### Structure
+Services contain business logic and database operations.
 
 ```typescript
 // packages/common/src/services/{entity}-service.ts
-import { database } from "@dukkani/db";
-import { StoreEntity } from "../entities/store/entity";
-import { StoreQuery } from "../entities/store/query";
-import type { StoreIncludeOutput, StoreSimpleOutput } from "../schemas/store/output";
-
 export class StoreService {
-  // Get all stores for a user
   static async getAllStores(userId: string): Promise<StoreSimpleOutput[]> {
     const stores = await database.store.findMany({
       where: { ownerId: userId },
-      orderBy: { createdAt: "desc" },
       include: StoreQuery.getClientSafeInclude(),
     });
-
     return stores.map(StoreEntity.getSimpleRo);
-  }
-
-  // Get store by ID with ownership verification
-  static async getStoreById(
-    id: string,
-    userId: string,
-  ): Promise<StoreIncludeOutput> {
-    const store = await database.store.findUnique({
-      where: { id },
-      include: StoreQuery.getInclude(),
-    });
-
-    if (!store) {
-      throw new Error("Store not found");
-    }
-
-    if (store.ownerId !== userId) {
-      throw new Error("You don't have access to this store");
-    }
-
-    return StoreEntity.getRo(store);
   }
 }
 ```
 
 ## Router Pattern
 
-Routers define API endpoints using oRPC. They use services and schemas.
-
-### Structure
+Routers define API endpoints using oRPC.
 
 ```typescript
 // packages/orpc/src/routers/{entity}.ts
-import { protectedProcedure } from "../index";
-import { StoreService } from "@dukkani/common/services";
-import { listStoresInputSchema, getStoreInputSchema } from "@dukkani/common/schemas/store/input";
-import { ORPCError } from "@orpc/server";
-
 export const storeRouter = {
-  /**
-   * Get all stores owned by the authenticated user
-   */
   getAll: protectedProcedure
     .input(listStoresInputSchema.optional())
     .handler(async ({ context }) => {
-      const userId = context.session.user.id;
-      return await StoreService.getAllStores(userId);
+      return await StoreService.getAllStores(context.session.user.id);
     }),
 
-  /**
-   * Get a specific store by ID (verify ownership)
-   */
   getById: protectedProcedure
     .input(getStoreInputSchema)
     .handler(async ({ input, context }) => {
-      const userId = context.session.user.id;
-
-      if (!input.id) {
-        throw new ORPCError("BAD_REQUEST", {
-          message: "Store ID is required",
-        });
-      }
-
-      return await StoreService.getStoreById(input.id, userId);
+      return await StoreService.getStoreById(input.id, context.session.user.id);
     }),
 };
 ```
 
-## Component Pattern
-
-Components are organized by feature and use kebab-case file names.
-
-### Structure
-
-```typescript
-// apps/dashboard/src/components/app/orders/orders-list.tsx
-"use client";
-
-import { useQuery } from "@tanstack/react-query";
-import { appQueries } from "@/shared/api/queries";
-import { Card, CardContent, CardHeader, CardTitle } from "@dukkani/ui/components/card";
-
-export default function OrdersList() {
-  const { data: orders, isLoading } = useQuery(
-    appQueries.order.all({ input: { page: 1, limit: 10 } })
-  );
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Orders</CardTitle>
-      </CardHeader>
-      <CardContent>
-        {/* Render orders */}
-      </CardContent>
-    </Card>
-  );
-}
-```
-
 ## Query and Mutation Pattern
 
-Queries and mutations are accessed through centralized `appQueries` and `appMutations` objects in `shared/api/`. There are no individual hook files per domain.
+Queries and mutations are accessed through centralized `appQueries` and `appMutations` in `shared/api/`.
+Never call `api.x.queryOptions` directly in components — always go through `appQueries`.
 
 ### Query pattern
 
 ```typescript
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { appQueries } from "@/shared/api/queries";
 
-// In a component or controller hook
 const { data, isLoading } = useQuery(appQueries.order.all({ input: { page, limit } }));
-const { data: product } = useQuery(appQueries.product.byId({ input: { id } }));
+const { data: product }   = useSuspenseQuery(appQueries.product.byId({ input: { id } }));
 ```
 
 ### Mutation pattern
@@ -307,22 +154,61 @@ const { data: product } = useQuery(appQueries.product.byId({ input: { id } }));
 import { useMutation } from "@tanstack/react-query";
 import { appMutations } from "@/shared/api/mutations";
 
-// appMutations factories include cache invalidation — extend via options, don't replace
+// appMutations handle cache invalidation automatically.
+// Any onSuccess/onError you pass runs AFTER the built-in behavior — it's chained, not replaced.
 const createMutation = useMutation(appMutations.product.create());
+
 const deleteMutation = useMutation(
-  appMutations.product.delete({ onSuccess: () => router.push("/products") })
+  appMutations.product.delete({
+    onSuccess: () => router.push("/products"),  // ← safe: runs after invalidation
+  })
 );
+
+// ❌ Never spread and override onSuccess — it drops the built-in invalidation
+const bad = useMutation({
+  ...appMutations.product.create(),
+  onSuccess: () => {},  // ← this silently removes cache invalidation
+});
+```
+
+## Query Data Type Extraction
+
+Use `QueryData<T>` to extract the resolved data type from any `appQueries` factory at the type level:
+
+```typescript
+import type { QueryData } from "@/shared/api/queries";
+
+// Extract types without calling the function or importing server-only code
+type ProductList = QueryData<typeof appQueries.product.all>;
+type CurrentUser = QueryData<typeof appQueries.account.currentUser>;
+type StoreList   = QueryData<typeof appQueries.store.all>;
+
+// Use in component props
+interface Props {
+  product: QueryData<typeof appQueries.product.byId>;
+}
+
+// Use to annotate return values
+function getDefaultProduct(): QueryData<typeof appQueries.product.byId> {
+  return { ... };
+}
 ```
 
 ## Controller Hook Pattern
 
-Controller hooks live in `shared/lib/{domain}/controller.hook.ts` and orchestrate a full screen or feature by composing Zustand state, queries, and mutations.
+Controller hooks live in `shared/lib/{domain}/controller.hook.ts`. They compose:
 
-### Structure
+- `useActiveStoreStore` — global active store (Zustand, persisted)
+- `useQueryStates` from `nuqs` — filter + pagination state in the URL (shareable, bookmarkable)
+- Zustand store — UI-only state (selection, view mode)
+- `appQueries` — typed server queries
+- `appMutations` — typed server mutations
 
 ```typescript
 // apps/dashboard/src/shared/lib/order/controller.hook.ts
+import { useQueryStates } from "nuqs";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { parseSearchQuery, parseOrderStatus, parsePage } from "@dukkani/common/utils/query-parsers";
 import { appQueries } from "@/shared/api/queries";
 import { appMutations } from "@/shared/api/mutations";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
@@ -330,39 +216,117 @@ import { useOrderStore } from "./store";
 
 export function useOrdersController() {
   const { selectedStoreId } = useActiveStoreStore();
-  const { page, limit, search, setPage, setSearch } = useOrderStore();
+  const { selectedOrderId, setSelectedOrderId } = useOrderStore();
 
-  const query = useQuery(
-    appQueries.order.all({ input: { storeId: selectedStoreId, page, limit, search } })
+  // Filters live in URL — shareable and cleared on navigation
+  const [filters, setFilters] = useQueryStates({
+    search: parseSearchQuery.withDefault(""),
+    status: parseOrderStatus,
+    page:   parsePage,
+  });
+
+  const ordersQuery = useQuery(
+    appQueries.order.all({
+      input: { storeId: selectedStoreId ?? undefined, ...filters },
+    })
   );
 
   const updateStatusMutation = useMutation(appMutations.order.updateStatus());
 
-  return { ...query, page, search, setPage, setSearch, updateStatusMutation };
+  return {
+    selectedStoreId,
+    ...filters,
+    setSearch: (v: string) => setFilters({ search: v, page: 1 }),
+    setStatus: (v: typeof filters.status) => setFilters({ status: v, page: 1 }),
+    setPage: (v: number) => setFilters({ page: v }),
+    resetFilters: () => setFilters({ search: "", status: null, page: 1 }),
+    selectedOrderId, setSelectedOrderId,
+    ordersQuery,
+    updateStatusMutation,
+  };
 }
 ```
 
-Use controller hooks for list pages and complex screens. For isolated create/update forms, import `appMutations` directly.
+**Rule:** Filters + pagination → `useQueryStates` (nuqs URL). Selection + view preferences → Zustand store.
+
+Use controller hooks for list pages. For isolated create/update forms, import `appMutations` directly.
+
+## nuqs Parsers
+
+All nuqs parsers are centralized in `@dukkani/common/utils/query-parsers`. Use them — never inline `parseAsString` etc. in individual hooks.
+
+```typescript
+import {
+  parseSearchQuery,    // string
+  parseProductStatus,  // boolean (published)
+  parseOrderStatus,    // OrderStatus enum
+  parsePage,           // integer, default 1
+  parseLimit,          // integer, default 50
+  parseStockFilter,    // "all" | "in-stock" | "low-stock" | "out-of-stock"
+  parseVariantsFilter, // "all" | "with-variants" | "single-sku"
+  parsePriceMin,       // float
+  parsePriceMax,       // float
+} from "@dukkani/common/utils/query-parsers";
+```
+
+When adding new filter types, add the parser to `query-parsers.ts` — not inline in controller hooks.
+
+## Server Prefetch Pattern (RSC layouts)
+
+```typescript
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getServerQueryClient } from "@/shared/api/query-client.server";
+import { appQueries } from "@/shared/api/queries";
+
+export default async function Layout({ children }) {
+  const queryClient = getServerQueryClient();
+
+  await Promise.all([
+    queryClient.prefetchQuery(appQueries.account.currentUser()),
+    queryClient.prefetchQuery(appQueries.store.all()),
+  ]);
+
+  // Read from cache — no extra API call
+  const user = queryClient.getQueryData(appQueries.account.currentUser().queryKey);
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      {children}
+    </HydrationBoundary>
+  );
+}
+```
 
 ## Error Handling
 
 ### Service Errors
 
 ```typescript
-if (!store) {
-  throw new Error("Store not found");
-}
+if (!store) throw new Error("Store not found");
 ```
 
 ### Router Errors
 
 ```typescript
+import { ORPCError } from "@orpc/server";
+
 if (!input.id) {
-  throw new ORPCError("BAD_REQUEST", {
-    message: "Store ID is required",
-  });
+  throw new ORPCError("BAD_REQUEST", { message: "Store ID is required" });
+}
+if (!store) {
+  throw new ORPCError("NOT_FOUND", { message: "Store not found" });
 }
 ```
+
+### Error Codes
+
+- `BAD_REQUEST` — invalid input
+- `UNAUTHORIZED` — not authenticated
+- `FORBIDDEN` — access denied
+- `NOT_FOUND` — resource not found
+- `CONFLICT` — duplicate entry
+- `TOO_MANY_REQUESTS` — rate limited
+- `INTERNAL_SERVER_ERROR` — server error
 
 ## Type Safety
 
@@ -370,8 +334,9 @@ Always use TypeScript types from schemas:
 
 ```typescript
 // ✅ Correct
-import type { StoreInput, StoreSimpleOutput } from "@dukkani/common/schemas/store/input";
+import type { StoreSimpleOutput } from "@dukkani/common/schemas/store/output";
+import type { QueryData } from "@/shared/api/queries";
 
-// ❌ Incorrect
-type StoreInput = { name: string; slug: string; };
+// ❌ Incorrect — never inline types that already exist in schemas
+type StoreInput = { name: string; slug: string };
 ```

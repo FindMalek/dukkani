@@ -26,12 +26,16 @@ export default function OrdersPage() {
     ordersQuery: { data, isLoading, error, refetch, isRefetching },
     search,
     status,
-    dateRange,
     setSearch,
     setStatus,
-    setDateRange,
     resetFilters,
   } = useOrdersController();
+
+  // dateRange is UI-only — backend filtering not yet implemented
+  const [dateRange, setDateRange] = useState<{
+    from: Date | null;
+    to: Date | null;
+  }>({ from: null, to: null });
 
   const filterActive =
     status !== null || dateRange.from !== null || dateRange.to !== null;
