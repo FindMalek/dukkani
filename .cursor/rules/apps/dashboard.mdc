@@ -19,12 +19,26 @@ apps/dashboard/src/
 │   ├── app/                   # Feature UI (products, orders, onboarding, settings, …)
 │   ├── layout/
 │   └── shared/
-├── hooks/
-│   ├── api/                   # TanStack Query + ORPC (*.hook.ts)
-│   ├── controllers/           # Compose Zustand + api hooks + list query inputs
-│   └── use-*.ts               # Cross-cutting client hooks (e.g. use-product-form, clipboard)
-├── lib/                       # App infra: orpc client, routes, query-keys, errors, i18n, …
-├── stores/                    # Zustand only (list filters, active store, …)
+├── shared/
+│   ├── api/                   # orpc client, auth-client, mutations, queries, error-handler
+│   │   ├── orpc.ts            # `api` and `queryClient` exports
+│   │   ├── orpc.server.ts     # Server-side oRPC utilities
+│   │   ├── session.server.ts  # Server-side session helpers
+│   │   ├── auth-client.ts     # Better Auth client
+│   │   ├── error-handler.ts   # Centralized `handleAPIError`
+│   │   ├── mutations.ts       # `appMutations` object (all domain mutations with invalidation)
+│   │   └── queries.ts         # `appQueries` object (all domain query options)
+│   ├── config/                # App-wide configuration
+│   │   ├── constants.ts       # Typed UI constants (e.g. STORE_HEADER_HEIGHT)
+│   │   ├── i18n.ts            # i18n helpers and locale config
+│   │   └── routes.ts          # Type-safe route definitions
+│   └── lib/                   # Domain-organized business logic
+│       ├── product/           # controller.hook.ts, form.ts, store.ts
+│       ├── order/             # controller.hook.ts, datetime.util.ts, group-by-date.util.ts, price.util.ts, store.ts
+│       ├── onboarding/        # controller.hook.ts, stepper.util.ts
+│       ├── store/             # active.store.ts, current-currency.hook.ts, format-price.hook.ts, url.util.ts
+│       ├── clipboard.ts
+│       └── image-compression.ts
 ├── types/                     # App-level TS (e.g. i18n helpers, module augmentation)
 ├── env.ts
 └── proxy.ts
@@ -105,11 +119,14 @@ components/
 // apps/dashboard/src/components/app/orders/orders-list.tsx
 "use client";
 
-import { useOrdersQuery } from "@/hooks/api/use-orders.hook";
+import { useQuery } from "@tanstack/react-query";
+import { appQueries } from "@/shared/api/queries";
 import { Card, CardContent, CardHeader, CardTitle } from "@dukkani/ui/components/card";
 
 export default function OrdersList() {
-  const { data: orders, isLoading } = useOrdersQuery({ page: 1, limit: 10 });
+  const { data: orders, isLoading } = useQuery(
+    appQueries.order.all({ input: { page: 1, limit: 10 } })
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -130,67 +147,88 @@ export default function OrdersList() {
 
 - Use `"use client"` directive for client components
 - Use UI components from `@dukkani/ui`
-- Use hooks for data fetching
+- Use `appQueries` / `appMutations` for data fetching and mutations
 - Handle loading and error states
 - Keep components focused and reusable
 
-## Hooks
+## Shared Layer
 
-### Organization
+The `shared/` directory is the FSD (Feature Sliced Design) shared layer. It contains all app-wide infrastructure organized into three sub-layers.
 
-```
-hooks/
-  ├── api/                    # TanStack Query + ORPC only
-  │   ├── use-orders.hook.ts
-  │   ├── use-products.hook.ts
-  │   ├── use-categories.hook.ts
-  │   └── …
-  ├── controllers/            # Screen orchestration: Zustand + api + derived inputs
-  │   ├── use-products-controller.ts
-  │   └── …
-  ├── use-product-form.ts     # Feature form wiring (create; edit later)
-  ├── use-copy-to-clipboard.ts
-  └── …
-```
-
-### File naming
-
-- **`hooks/api`:** `use-<domain>.hook.ts` (e.g. `use-products.hook.ts`).
-- **Root `hooks`:** `use-<thing>.ts` for small shared behavior.
-- **camelCase** exported hook function names (`useOrdersQuery`, `useProductForm`).
-
-### API hook pattern
+### `shared/api/` — API Infrastructure
 
 ```typescript
-// apps/dashboard/src/hooks/api/use-orders.hook.ts
+// Query data using appQueries
 import { useQuery } from "@tanstack/react-query";
-import { orpc } from "@/lib/orpc";
-import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
+import { appQueries } from "@/shared/api/queries";
 
-export function useOrdersQuery(input: ListOrdersInput) {
-  return useQuery(orpc.order.getAll.queryOptions({ input }));
+const { data } = useQuery(appQueries.order.all({ input: { page: 1, limit: 10 } }));
+const { data: product } = useQuery(appQueries.product.byId({ input: { id } }));
+```
+
+```typescript
+// Mutate data using appMutations
+import { useMutation } from "@tanstack/react-query";
+import { appMutations } from "@/shared/api/mutations";
+
+const mutation = useMutation(appMutations.product.create());
+const deleteMutation = useMutation(appMutations.order.updateStatus());
+```
+
+`appMutations` factories automatically handle cache invalidation — pass extra `onSuccess`/`onError` options to extend, not replace, the defaults.
+
+### `shared/lib/{domain}/` — Domain Business Logic
+
+Domain logic is grouped by feature. File suffix conventions:
+
+| Suffix | Purpose |
+|---|---|
+| `controller.hook.ts` | Screen-level orchestration: composes Zustand store + appQueries + appMutations |
+| `.store.ts` | Zustand store definitions (filters, pagination, selection state) |
+| `.util.ts` | Pure utility functions (formatting, grouping, calculations) |
+| `.hook.ts` | Domain-specific hooks that don't own full screen state |
+
+**Controller hook pattern** — use for list pages and complex screens:
+
+```typescript
+// apps/dashboard/src/shared/lib/product/controller.hook.ts
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { appQueries } from "@/shared/api/queries";
+import { appMutations } from "@/shared/api/mutations";
+import { useActiveStoreStore } from "@/shared/lib/store/active.store";
+import { useProductStore } from "./store";
+
+export function useProductsController() {
+  const { selectedStoreId } = useActiveStoreStore();
+  const { page, limit, search, setSearch, setPage } = useProductStore();
+
+  const query = useQuery(
+    appQueries.product.all({ input: { storeId: selectedStoreId, page, limit, search } })
+  );
+
+  const deleteMutation = useMutation(appMutations.product.delete());
+
+  return { ...query, page, search, setSearch, setPage, deleteMutation };
 }
 ```
 
-### Best practices
+For isolated create/update forms, import `appMutations` directly without a controller hook.
 
-- Import **`orpc` / `client` / `queryClient`** from **`@/lib/orpc`** (not `utils/orpc`).
-- Use input types from `@dukkani/common/schemas`.
-- Export **`mutationOptions`** factories where shared invalidation is needed (see `createProductMutationOptions`).
-- For list pages, prefer **`use*Controller`**; for isolated create/update forms, import **`mutationOptions` / queries** from `hooks/api` directly to avoid coupling to list store state.
-
-## Routing
-
-### Type-Safe Routes
-
-Routes are defined in `apps/dashboard/src/lib/routes.ts`:
+### `shared/config/` — Configuration
 
 ```typescript
-import { RoutePaths } from "@/lib/routes";
-
-// Use in components (see lib/routes.ts for RoutePaths shape)
+// Type-safe routing
+import { RoutePaths } from "@/shared/config/routes";
 <Link href={RoutePaths.PRODUCTS.INDEX.url}>Products</Link>
+
+// i18n helpers
+import { getLocale } from "@/shared/config/i18n";
+
+// UI constants
+import { STORE_HEADER_HEIGHT } from "@/shared/config/constants";
 ```
+
+## Routing
 
 ### Route Groups
 
@@ -208,29 +246,12 @@ dashboard/
       page.tsx
 ```
 
-## Data Fetching
-
-### Pattern
-
-Use React Query hooks with oRPC client:
-
-```typescript
-// In client component
-const { data, isLoading, error } = useOrdersQuery({ page: 1, limit: 10 });
-
-// Prefer server data fetching patterns from Next + oRPC when applicable
-```
-
-### oRPC client
-
-Defined in `apps/dashboard/src/lib/orpc.ts` — export `client`, `orpc`, `queryClient` for React Query and mutations.
-
 ## Authentication
 
 ### Auth Client
 
 ```typescript
-// apps/dashboard/src/lib/auth-client.ts
+// apps/dashboard/src/shared/api/auth-client.ts
 import { createAuthClient } from "better-auth/react";
 import { env } from "@dukkani/env";
 
@@ -264,7 +285,7 @@ if (!session?.user) {
 
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
-import { queryClient } from "@/lib/orpc";
+import { queryClient } from "@/shared/api/orpc";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -285,11 +306,16 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 ### Import Pattern
 
 ```typescript
-// Local imports (use @/)
-import { useOrdersQuery } from "@/hooks/api/use-orders.hook";
-import { Button } from "@dukkani/ui/components/button";
+// Shared layer imports
+import { appQueries } from "@/shared/api/queries";
+import { appMutations } from "@/shared/api/mutations";
+import { handleAPIError } from "@/shared/api/error-handler";
+import { authClient } from "@/shared/api/auth-client";
+import { RoutePaths } from "@/shared/config/routes";
+import { useProductsController } from "@/shared/lib/product/controller.hook";
 
 // Package imports
+import { Button } from "@dukkani/ui/components/button";
 import { env } from "@dukkani/env";
 ```
 
@@ -311,8 +337,8 @@ import { env } from "@dukkani/env";
 Always use the centralized `handleAPIError` function for error handling:
 
 ```typescript
-// apps/dashboard/src/lib/error.ts
-import { handleAPIError } from "@/lib/error";
+// apps/dashboard/src/shared/api/error-handler.ts
+import { handleAPIError } from "@/shared/api/error-handler";
 
 // In try-catch blocks
 try {
@@ -344,7 +370,7 @@ await authClient.signIn.email(
 
 - **Never use inline `toast.error()`** - Always use `handleAPIError()`
 - **Never use generic error messages** - Let `handleAPIError` categorize errors
-- **Import from `@/lib/error`** - Use the centralized error handler
+- **Import from `@/shared/api/error-handler`** - Use the centralized error handler
 - **Handle errors at the right level** - In mutation callbacks, try-catch blocks, or error boundaries
 - **Don't suppress errors** - Always show user-friendly messages via `handleAPIError`
 
@@ -370,7 +396,7 @@ try {
 }
 
 // ✅ Good - Using handleAPIError
-import { handleAPIError } from "@/lib/error";
+import { handleAPIError } from "@/shared/api/error-handler";
 
 try {
   await createProduct(data);
@@ -384,8 +410,9 @@ try {
 
 - Use route groups for layout organization
 - Use server components by default, add `"use client"` only when needed
-- Use type-safe routing from `@/lib/routes`
-- Use React Query hooks for data fetching
+- Use type-safe routing from `@/shared/config/routes`
+- Use `appQueries` / `appMutations` for all data fetching and mutations
+- Use controller hooks (`shared/lib/{domain}/controller.hook.ts`) for list pages and complex screens
 - Handle loading and error states in components
 - Use UI components from `@dukkani/ui`
 - Keep components focused and feature-based

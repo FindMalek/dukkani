@@ -257,14 +257,17 @@ Components are organized by feature and use kebab-case file names.
 ### Structure
 
 ```typescript
-// apps/dashboard/src/components/dashboard/orders/orders-list.tsx
+// apps/dashboard/src/components/app/orders/orders-list.tsx
 "use client";
 
-import { useOrders } from "@/hooks/api/use-orders";
+import { useQuery } from "@tanstack/react-query";
+import { appQueries } from "@/shared/api/queries";
 import { Card, CardContent, CardHeader, CardTitle } from "@dukkani/ui/components/card";
 
 export default function OrdersList() {
-  const { data: orders, isLoading } = useOrders({ page: 1, limit: 10 });
+  const { data: orders, isLoading } = useQuery(
+    appQueries.order.all({ input: { page: 1, limit: 10 } })
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -283,22 +286,63 @@ export default function OrdersList() {
 }
 ```
 
-## Hook Pattern
+## Query and Mutation Pattern
 
-Hooks use React Query with oRPC client for data fetching.
+Queries and mutations are accessed through centralized `appQueries` and `appMutations` objects in `shared/api/`. There are no individual hook files per domain.
+
+### Query pattern
+
+```typescript
+import { useQuery } from "@tanstack/react-query";
+import { appQueries } from "@/shared/api/queries";
+
+// In a component or controller hook
+const { data, isLoading } = useQuery(appQueries.order.all({ input: { page, limit } }));
+const { data: product } = useQuery(appQueries.product.byId({ input: { id } }));
+```
+
+### Mutation pattern
+
+```typescript
+import { useMutation } from "@tanstack/react-query";
+import { appMutations } from "@/shared/api/mutations";
+
+// appMutations factories include cache invalidation — extend via options, don't replace
+const createMutation = useMutation(appMutations.product.create());
+const deleteMutation = useMutation(
+  appMutations.product.delete({ onSuccess: () => router.push("/products") })
+);
+```
+
+## Controller Hook Pattern
+
+Controller hooks live in `shared/lib/{domain}/controller.hook.ts` and orchestrate a full screen or feature by composing Zustand state, queries, and mutations.
 
 ### Structure
 
 ```typescript
-// apps/dashboard/src/hooks/api/use-orders.ts
-import { useQuery } from "@tanstack/react-query";
-import { orpc } from "@/utils/orpc";
-import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
+// apps/dashboard/src/shared/lib/order/controller.hook.ts
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { appQueries } from "@/shared/api/queries";
+import { appMutations } from "@/shared/api/mutations";
+import { useActiveStoreStore } from "@/shared/lib/store/active.store";
+import { useOrderStore } from "./store";
 
-export function useOrders(input: ListOrdersInput) {
-  return useQuery(orpc.order.getAll.queryOptions({ input }));
+export function useOrdersController() {
+  const { selectedStoreId } = useActiveStoreStore();
+  const { page, limit, search, setPage, setSearch } = useOrderStore();
+
+  const query = useQuery(
+    appQueries.order.all({ input: { storeId: selectedStoreId, page, limit, search } })
+  );
+
+  const updateStatusMutation = useMutation(appMutations.order.updateStatus());
+
+  return { ...query, page, search, setPage, setSearch, updateStatusMutation };
 }
 ```
+
+Use controller hooks for list pages and complex screens. For isolated create/update forms, import `appMutations` directly.
 
 ## Error Handling
 
