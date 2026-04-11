@@ -3,7 +3,7 @@
 import { PaymentMethod } from "@dukkani/common/schemas/enums";
 import {
   addressInputSchema,
-  createOrderPublicInputSchema,
+  createOrderPublicInputObjectSchema,
 } from "@dukkani/common/schemas/order/input";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { Button } from "@dukkani/ui/components/button";
@@ -24,15 +24,15 @@ import * as z from "zod";
 import { appMutations } from "@/shared/api/mutations";
 import { RoutePaths, useRouter } from "@/shared/config/routes";
 import { useDetectedAddress } from "@/shared/lib/address-detection.hook";
-import { OrderSummary } from "./order-summary";
-import { useCartHydration, useCartStore } from "@/shared/lib/cart/store";
 import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
+import { useCartHydration, useCartStore } from "@/shared/lib/cart/store";
+import { OrderSummary } from "./order-summary";
 
 interface CheckoutFormProps {
   store: StorePublicOutput;
 }
 
-const formSchema = createOrderPublicInputSchema
+const formSchema = createOrderPublicInputObjectSchema
   .omit({
     orderItems: true,
     storeId: true,
@@ -45,6 +45,10 @@ const formSchema = createOrderPublicInputSchema
         postalCode: z.string().transform((val) => val || undefined),
       }),
     notes: z.string().transform((val) => val || undefined),
+  })
+  .refine((data) => !!data.addressId || !!data.address, {
+    message: "Either address or addressId must be provided",
+    path: ["address"],
   });
 
 export function CheckoutForm({ store }: CheckoutFormProps) {

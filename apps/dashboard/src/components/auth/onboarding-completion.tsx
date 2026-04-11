@@ -17,20 +17,20 @@ export function OnboardingCompletion({ storeId }: { storeId: string }) {
   const { copy } = useCopyToClipboard();
   const t = useTranslations("onboarding.complete");
 
-  const completionMutation = useMutation(appMutations.onboarding.complete());
+  const { mutate: completeOnboarding, ...completionMutation } = useMutation(
+    appMutations.onboarding.complete(),
+  );
 
   useEffect(() => {
-    completionMutation.mutate({ storeId });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storeId]);
+    completeOnboarding({ storeId });
+  }, [storeId, completeOnboarding]);
 
   const { data: telegramStatus } = useQuery(appQueries.telegram.status());
 
-  const { data: botLinkData } = useQuery(
-    appQueries.telegram.botLink({
-      enabled: !!completionMutation.data && !telegramStatus?.linked,
-    }),
-  );
+  const { data: botLinkData } = useQuery({
+    ...appQueries.telegram.botLink(),
+    enabled: !!completionMutation.data && !telegramStatus?.linked,
+  });
 
   if (completionMutation.isPending) {
     return (

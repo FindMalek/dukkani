@@ -7,12 +7,12 @@ import { useActiveStoreStore } from "./active.store";
 export function useCurrentStoreCurrency() {
   const selectedStoreId = useActiveStoreStore((state) => state.selectedStoreId);
   const storeId = selectedStoreId || undefined;
-  const currentStoreQuery = useQuery(
-    appQueries.store.byId({
-      enabled: Boolean(selectedStoreId),
+  const currentStoreQuery = useQuery({
+    ...appQueries.store.byId({
       input: { id: storeId },
     }),
-  );
+    enabled: Boolean(selectedStoreId),
+  });
 
   return useMemo(() => {
     if (currentStoreQuery.isSuccess && currentStoreQuery.data) {

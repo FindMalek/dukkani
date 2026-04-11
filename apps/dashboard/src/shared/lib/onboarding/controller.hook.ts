@@ -55,11 +55,10 @@ export function useOnboardingController(
   // API hooks
   const { data: sessionData, isPending: isSessionPending } =
     authClient.useSession();
-  const { isLoading: isCurrentUserLoading } = useQuery(
-    appQueries.account.currentUser({
-      enabled: !!sessionData?.user,
-    }),
-  );
+  const { isLoading: isCurrentUserLoading } = useQuery({
+    ...appQueries.account.currentUser(),
+    enabled: !!sessionData?.user,
+  });
   const isAuthenticated = !!sessionData?.user;
 
   const { data: onboardingState } = useQuery({
@@ -94,11 +93,10 @@ export function useOnboardingController(
     : fallbackState;
 
   // Store management - use ORPC result
-  const { data: stores, isLoading: isStoresLoading } = useQuery(
-    appQueries.store.all({
-      enabled: shouldShowStores ?? false,
-    }),
-  );
+  const { data: stores, isLoading: isStoresLoading } = useQuery({
+    ...appQueries.store.all(),
+    enabled: shouldShowStores ?? false,
+  });
 
   // Mutations
   const createStoreMutation = useMutation({

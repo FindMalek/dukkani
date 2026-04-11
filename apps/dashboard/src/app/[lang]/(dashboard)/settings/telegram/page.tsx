@@ -44,9 +44,10 @@ export default function TelegramSettingsPage() {
     appQueries.store.all(),
   );
 
-  const { data: botLinkData } = useQuery(
-    appQueries.telegram.botLink({ enabled: !telegramStatus?.linked }),
-  );
+  const { data: botLinkData } = useQuery({
+    ...appQueries.telegram.botLink(),
+    enabled: !telegramStatus?.linked,
+  });
 
   const disconnectMutation = useMutation(appMutations.telegram.disconnect());
 

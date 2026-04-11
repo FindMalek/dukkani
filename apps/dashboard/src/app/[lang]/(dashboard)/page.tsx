@@ -16,12 +16,12 @@ export default function DashboardPage() {
     data: stats,
     isLoading,
     error,
-  } = useQuery(
-    appQueries.store.stats({
+  } = useQuery({
+    ...appQueries.store.stats({
       input: { storeId: selectedStoreId ?? undefined },
-      enabled: !!selectedStoreId,
     }),
-  );
+    enabled: !!selectedStoreId,
+  });
 
   if (error) {
     return (

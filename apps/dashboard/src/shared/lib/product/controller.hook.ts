@@ -80,12 +80,12 @@ export function useProductsController() {
     return input;
   }, [selectedStoreId, filters]);
 
-  const productsQuery = useQuery(
-    appQueries.product.all({
+  const productsQuery = useQuery({
+    ...appQueries.product.all({
       input: queryInput,
-      enabled: Boolean(selectedStoreId),
     }),
-  );
+    enabled: Boolean(selectedStoreId),
+  });
 
   const updateProductMutation = useMutation(appMutations.product.update());
   const deleteProductMutation = useMutation(appMutations.product.delete());

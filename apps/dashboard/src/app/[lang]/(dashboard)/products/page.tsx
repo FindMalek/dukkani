@@ -163,7 +163,7 @@ export default function ProductsPage() {
       <Button
         asChild
         size="icon-lg"
-        className="fixed inset-e-4 bottom-24 z-50 size-14 rounded-full shadow-lg md:inset-e-6 md:bottom-8"
+        className="fixed end-4 bottom-24 z-50 size-14 rounded-full shadow-lg md:end-6 md:bottom-8"
         aria-label={t("addProduct")}
       >
         <Link href={RoutePaths.PRODUCTS.NEW.url}>
