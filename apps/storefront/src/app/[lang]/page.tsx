@@ -14,7 +14,7 @@ import { ProductSectionHeader } from "@/components/app/product-section-header";
 import {
   buildProductFiltersInput,
   loadProductFilters,
-} from "@/lib/product-filters";
+} from "@/shared/lib/product/filters";
 import { client, getQueryClient, orpc } from "@/shared/api/orpc";
 import { appQueries } from "@/shared/api/queries";
 import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";

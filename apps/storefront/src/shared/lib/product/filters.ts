@@ -1,17 +1,19 @@
 import type { ListProductsInput } from "@dukkani/common/schemas/product/input";
 import {
+  parseCategory,
+  parseInStock,
   parsePriceMax,
   parsePriceMin,
   parseSortBy,
 } from "@dukkani/common/utils/query-parsers";
-import { createLoader, parseAsBoolean, parseAsString } from "nuqs/server";
+import { createLoader } from "nuqs/server";
 
 export const productFilterParams = {
   sort: parseSortBy,
-  category: parseAsString, // category ID — null means "all"
+  category: parseCategory, // category ID — null means "all"
   minPrice: parsePriceMin, // null means no lower bound
   maxPrice: parsePriceMax, // null means no upper bound
-  inStock: parseAsBoolean.withDefault(false),
+  inStock: parseInStock,
 };
 
 export const loadProductFilters = createLoader(productFilterParams);
@@ -28,7 +30,13 @@ export function buildProductFiltersInput(
     categoryId: filters.category ?? undefined,
     stockFilter: filters.inStock ? "in-stock" : undefined,
     sortBy: filters.sort,
-    priceMin: filters.minPrice ?? undefined,
-    priceMax: filters.maxPrice ?? undefined,
+    priceMin:
+      filters.minPrice != null && filters.minPrice > 0
+        ? filters.minPrice
+        : undefined,
+    priceMax:
+      filters.maxPrice != null && filters.maxPrice > 0
+        ? filters.maxPrice
+        : undefined,
   };
 }

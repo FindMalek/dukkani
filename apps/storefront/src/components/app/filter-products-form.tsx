@@ -13,7 +13,7 @@ import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useQueryStates } from "nuqs";
-import { productFilterParams } from "@/lib/product-filters";
+import { productFilterParams } from "@/shared/lib/product/filters";
 
 export interface FilterProductsFormProps {
   storeCurrency: store.SupportedCurrencyInfer;

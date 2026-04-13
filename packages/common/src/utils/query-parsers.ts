@@ -68,6 +68,12 @@ export const parseStringArray = parseAsArrayOf(parseAsString);
 export const parseBooleanFlag = parseAsBoolean.withDefault(false);
 
 /**
+ * In-stock-only toggle for product listing URLs.
+ * Same semantics as {@link parseBooleanFlag}.
+ */
+export const parseInStock = parseBooleanFlag;
+
+/**
  * Combined date range parser
  */
 export const parseDateRange = {
@@ -95,6 +101,11 @@ export const parseVariantsFilter = parseAsStringEnum([
   "with-variants",
   "single-sku",
 ] as const).withDefault("all");
+
+/**
+ * Category ID in the query string; null means all categories.
+ */
+export const parseCategory = parseAsString;
 
 /**
  * Parser for minimum price filter (inclusive).
