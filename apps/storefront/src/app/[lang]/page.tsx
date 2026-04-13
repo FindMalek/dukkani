@@ -19,9 +19,14 @@ import { client, getQueryClient, orpc } from "@/shared/api/orpc";
 import { appQueries } from "@/shared/api/queries";
 import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
   return {
-    alternates: { canonical: "/" },
+    alternates: { canonical: `/${lang}/` },
   };
 }
 
