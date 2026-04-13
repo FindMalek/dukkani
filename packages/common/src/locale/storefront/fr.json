@@ -14,7 +14,24 @@
         "all": "Tous"
       },
       "filter": {
-        "button": "Filtrer"
+        "button": "Filtrer",
+        "drawerTitle": "Filtrer les produits",
+        "price": "Prix",
+        "min": "Min",
+        "max": "Max",
+        "availability": "Disponibilité",
+        "inStockOnly": "En stock uniquement",
+        "sortBy": "Trier par",
+        "category": "Catégorie",
+        "reset": "Réinitialiser",
+        "submit": "Valider",
+        "cancel": "Annuler",
+        "sortOptions": {
+          "newest": "Les plus récents",
+          "cheapest": "Les moins chers",
+          "mostExpensive": "Les plus chers",
+          "featured": "En vedette"
+        }
       },
       "footer": {
         "copyright": "Tous droits réservés",

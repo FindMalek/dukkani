@@ -22,7 +22,7 @@ export function ProductCard({
   onAddToCart,
   storeCurrency,
 }: ProductCardProps) {
-  const imageUrl = product.imagesUrls?.[0];
+  const imageUrl = product.imageUrls?.[0];
 
   const formatPrice = useFormatPriceCurrentStore(storeCurrency);
 
