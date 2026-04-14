@@ -18,7 +18,7 @@ import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
 export default function OrderDetailPage() {
   const params = useParams();
   const orderId = getDynamicRouteParam(params, "id");
-  
+
   if (!orderId) {
     notFound();
   }

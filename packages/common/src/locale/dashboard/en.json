@@ -426,27 +426,6 @@
         "validation": {
           "errors": "Please fix the form errors before submitting"
         },
-        "addons": {
-          "title": "Add-ons",
-          "description": "Optional extras (e.g. hooks, gift wrap). Shown on the product page; stock and price apply per option.",
-          "groupName": "Group name",
-          "groupNamePlaceholder": "e.g. Accessories",
-          "selectionType": {
-            "label": "Selection",
-            "single": "One choice",
-            "multiple": "Multiple choices"
-          },
-          "required": "Required",
-          "removeGroup": "Remove add-on group",
-          "optionsTitle": "Options",
-          "optionName": "Name",
-          "optionNamePlaceholder": "Option label",
-          "priceDelta": "Extra price",
-          "stock": "Stock",
-          "addOption": "Add option",
-          "removeOption": "Remove option",
-          "addGroup": "Add add-on group"
-        },
         "variants": {
           "options": {
             "title": "Variant Options",

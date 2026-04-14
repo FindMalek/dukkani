@@ -10,7 +10,7 @@ import { Checkbox } from "@dukkani/ui/components/checkbox";
 import { Label } from "@dukkani/ui/components/label";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { VariantSelector } from "@/components/shared/variant-selector";
 import { useCartStore } from "@/shared/lib/cart/store";
@@ -36,34 +36,34 @@ interface ProductVariantManagerProps {
   onAddToCart?: () => void;
 }
 
-export function ProductVariantManager({
+type CartPanelProps = {
+  productId: string;
+  storeCurrency: store.SupportedCurrencyInfer;
+  stock: number;
+  price: number;
+  selectedVariantId: string | undefined;
+  variant: "fixed" | "inline";
+  addonGroups: ProductAddonGroupPublic[];
+  onAddToCart?: () => void;
+};
+
+/**
+ * Isolated state remounts when product or variant identity changes (`key` on parent).
+ */
+function ProductVariantCartPanel({
   productId,
   storeCurrency,
-  productStock,
-  productPrice,
-  hasVariants,
-  variantOptions,
-  variants,
-  addonGroups = [],
-  variant = "fixed",
+  stock,
+  price,
+  selectedVariantId,
+  variant,
+  addonGroups,
   onAddToCart,
-}: ProductVariantManagerProps) {
+}: CartPanelProps) {
   const t = useTranslations("storefront.store.product.addons");
-  const { selectedVariantId, setSelectedVariantId, stock, price } =
-    useProductVariantSelection({
-      hasVariants,
-      variants,
-      productStock,
-      productPrice,
-    });
-
   const [addonChoiceByGroup, setAddonChoiceByGroup] = useState<
     Record<string, string[]>
   >({});
-
-  useEffect(() => {
-    setAddonChoiceByGroup({});
-  }, [selectedVariantId, productId]);
 
   const toggleAddon = useCallback(
     (group: ProductAddonGroupPublic, optionId: string) => {
@@ -145,13 +145,6 @@ export function ProductVariantManager({
 
   return (
     <>
-      <VariantSelector
-        variantOptions={variantOptions}
-        variants={variants}
-        selectedVariantId={selectedVariantId}
-        onVariantSelect={setSelectedVariantId}
-      />
-
       {addonGroups.length > 0 && (
         <div className="space-y-4 border-border border-t pt-4">
           <p className="font-medium text-foreground text-sm">{t("title")}</p>
@@ -224,6 +217,50 @@ export function ProductVariantManager({
         variant={variant}
         onAddToCart={handleFooterAdd}
         currency={storeCurrency}
+      />
+    </>
+  );
+}
+
+export function ProductVariantManager({
+  productId,
+  storeCurrency,
+  productStock,
+  productPrice,
+  hasVariants,
+  variantOptions,
+  variants,
+  addonGroups = [],
+  variant = "fixed",
+  onAddToCart,
+}: ProductVariantManagerProps) {
+  const { selectedVariantId, setSelectedVariantId, stock, price } =
+    useProductVariantSelection({
+      hasVariants,
+      variants,
+      productStock,
+      productPrice,
+    });
+
+  return (
+    <>
+      <VariantSelector
+        variantOptions={variantOptions}
+        variants={variants}
+        selectedVariantId={selectedVariantId}
+        onVariantSelect={setSelectedVariantId}
+      />
+
+      <ProductVariantCartPanel
+        key={`${productId}:${selectedVariantId ?? ""}`}
+        productId={productId}
+        storeCurrency={storeCurrency}
+        stock={stock}
+        price={price}
+        selectedVariantId={selectedVariantId}
+        variant={variant}
+        addonGroups={addonGroups}
+        onAddToCart={onAddToCart}
       />
     </>
   );

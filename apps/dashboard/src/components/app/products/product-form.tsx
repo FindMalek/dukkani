@@ -8,7 +8,6 @@ import { compressImagesForUpload } from "@/shared/lib/image-compression";
 import { useProductForm } from "@/shared/lib/product/form";
 import { CategoryDrawer } from "./category-drawer";
 import { ProductFormActions } from "./product-form-actions";
-import { ProductFormAddons } from "./product-form-addons";
 import { ProductFormEssentials } from "./product-form-essentials";
 import { ProductFormSkeleton } from "./product-form-skeleton";
 import { ProductFormVariants } from "./product-form-variants";
@@ -77,7 +76,6 @@ export const ProductForm = forwardRef<
                   optimizeFiles={compressImagesForUpload}
                 />
                 <ProductFormVariants form={form} />
-                <ProductFormAddons form={form} />
                 <ProductFormActions form={form} />
               </form.AppForm>
             </FieldGroup>

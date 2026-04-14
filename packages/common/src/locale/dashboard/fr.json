@@ -416,27 +416,6 @@
         "validation": {
           "errors": "Veuillez corriger les erreurs du formulaire avant de soumettre"
         },
-        "addons": {
-          "title": "Options",
-          "description": "Extras (ex. emballage cadeau). Affichés sur la fiche produit ; stock et prix par option.",
-          "groupName": "Nom du groupe",
-          "groupNamePlaceholder": "ex. Accessoires",
-          "selectionType": {
-            "label": "Sélection",
-            "single": "Un choix",
-            "multiple": "Plusieurs choix"
-          },
-          "required": "Obligatoire",
-          "removeGroup": "Supprimer le groupe",
-          "optionsTitle": "Options",
-          "optionName": "Nom",
-          "optionNamePlaceholder": "Libellé",
-          "priceDelta": "Prix supplémentaire",
-          "stock": "Stock",
-          "addOption": "Ajouter une option",
-          "removeOption": "Supprimer l'option",
-          "addGroup": "Ajouter un groupe"
-        },
         "variants": {
           "options": {
             "title": "Options de variante",

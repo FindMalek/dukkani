@@ -16,7 +16,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { VariantSelector } from "@/components/shared/variant-selector";
 import { useCartStore } from "@/shared/lib/cart/store";
@@ -29,39 +29,36 @@ interface QuickAddToCartProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function QuickAddToCart({
+type QuickAddBodyProps = {
+  product: ProductPublicOutput;
+  storeCurrency: store.SupportedCurrencyInfer;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  selectedVariantId: string | undefined;
+  setSelectedVariantId: (id: string | undefined) => void;
+  stock: number;
+  price: number;
+  isOutOfStock: boolean;
+  hasVariants: boolean;
+};
+
+function QuickAddToCartBody({
   product,
+  storeCurrency,
   open,
   onOpenChange,
-  storeCurrency,
-}: QuickAddToCartProps) {
+  selectedVariantId,
+  setSelectedVariantId,
+  stock,
+  price,
+  isOutOfStock,
+  hasVariants,
+}: QuickAddBodyProps) {
   const t = useTranslations("storefront.store.product");
-
-  const hasVariants = (product.variants?.length ?? 0) > 0;
-
-  const {
-    selectedVariantId,
-    setSelectedVariantId,
-    stock,
-    price,
-    isOutOfStock,
-  } = useProductVariantSelection({
-    hasVariants,
-    variants: product.variants,
-    productStock: product.stock,
-    productPrice: product.price,
-  });
-
   const formatPrice = useFormatPriceCurrentStore(storeCurrency);
-
   const [quantity, setQuantity] = useState(1);
   const addItem = useCartStore((state) => state.addItem);
   const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
-
-  // Reset quantity when variant changes
-  useEffect(() => {
-    setQuantity(1);
-  }, [selectedVariantId]);
 
   const maxQuantity = Math.min(stock, 99);
   const formattedPrice = formatPrice(price * quantity);
@@ -173,5 +170,43 @@ export function QuickAddToCart({
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
+  );
+}
+
+export function QuickAddToCart({
+  product,
+  open,
+  onOpenChange,
+  storeCurrency,
+}: QuickAddToCartProps) {
+  const hasVariants = (product.variants?.length ?? 0) > 0;
+
+  const {
+    selectedVariantId,
+    setSelectedVariantId,
+    stock,
+    price,
+    isOutOfStock,
+  } = useProductVariantSelection({
+    hasVariants,
+    variants: product.variants,
+    productStock: product.stock,
+    productPrice: product.price,
+  });
+
+  return (
+    <QuickAddToCartBody
+      key={selectedVariantId ?? "__default__"}
+      product={product}
+      storeCurrency={storeCurrency}
+      open={open}
+      onOpenChange={onOpenChange}
+      selectedVariantId={selectedVariantId}
+      setSelectedVariantId={setSelectedVariantId}
+      stock={stock}
+      price={price}
+      isOutOfStock={isOutOfStock}
+      hasVariants={hasVariants}
+    />
   );
 }

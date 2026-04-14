@@ -25,7 +25,7 @@ import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
 export default function CustomerDetailPage() {
   const params = useParams();
   const customerId = getDynamicRouteParam(params, "id");
-  
+
   if (!customerId) {
     notFound();
   }

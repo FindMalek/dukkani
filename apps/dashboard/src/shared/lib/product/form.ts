@@ -8,7 +8,6 @@ import type {
   CreateProductInput,
   UpdateProductInput,
 } from "@dukkani/common/schemas/product/input";
-import { formVariantRowsToInput } from "@dukkani/common/utils";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -16,7 +15,6 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { handleAPIError } from "@/shared/api/error-handler";
 import {
-  mapFormAddonGroupsToInput,
   mapProductToFormValues,
   resolveVariantImageUrls,
 } from "@/shared/api/map-product-to-form";
@@ -56,7 +54,11 @@ export function useProductForm({
   const isEdit = Boolean(productId);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
 
-  const { data: productData, isLoading: isProductLoading } = useQuery({
+  const {
+    data: productData,
+    isPending: isProductPending,
+    isError: isProductError,
+  } = useQuery({
     ...appQueries.product.byId({ input: { id: productId ?? "" } }),
     enabled: Boolean(isEdit && productId),
   });
@@ -78,6 +80,7 @@ export function useProductForm({
 
   const initialLoadDone = useRef(false);
   const initialImageUrlsRef = useRef<string[]>([]);
+  const lastHydratedProductIdRef = useRef<string | undefined>(undefined);
 
   const form = useAppForm({
     ...productFormOptions,
@@ -121,7 +124,8 @@ export function useProductForm({
       });
 
       const cleanedFormData = productFormSchema.parse(valueLive);
-      const rest = cleanedFormData;
+      const { addonGroups: _addonGroupsIgnored, ...rest } = cleanedFormData;
+      void _addonGroupsIgnored;
 
       if (isEdit) {
         if (!productId) {
@@ -159,7 +163,6 @@ export function useProductForm({
                 finalUrls,
               )
             : undefined,
-          addonGroups: mapFormAddonGroupsToInput(rest.addonGroups ?? []),
           ...(sameAsInitial ? {} : { imageUrls: finalUrls }),
         };
 
@@ -182,7 +185,6 @@ export function useProductForm({
           ? resolveVariantImageUrls(rest.variants, valueLive.images, finalUrls)
           : undefined,
         variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
-        addonGroups: mapFormAddonGroupsToInput(rest.addonGroups ?? []),
       };
 
       await createProductMutation.mutateAsync(cleanedData, {
@@ -198,13 +200,16 @@ export function useProductForm({
   });
 
   useEffect(() => {
-    initialLoadDone.current = false;
-  }, [productId]);
-
-  useEffect(() => {
     if (!isEdit || !productId) return;
-    if (!productData || isProductLoading) return;
+
+    if (lastHydratedProductIdRef.current !== productId) {
+      initialLoadDone.current = false;
+      lastHydratedProductIdRef.current = productId;
+    }
+
+    if (!productData || isProductPending) return;
     if (productData.storeId !== storeId) return;
+    if (productData.id !== productId) return;
     if (initialLoadDone.current) return;
 
     const mapped = mapProductToFormValues(productData);
@@ -213,7 +218,7 @@ export function useProductForm({
       .map((item) => item.url);
     form.reset(mapped);
     initialLoadDone.current = true;
-  }, [isEdit, productId, productData, isProductLoading, storeId, form]);
+  }, [isEdit, productId, productData, isProductPending, storeId, form]);
 
   const { data: categories } = useQuery({
     ...appQueries.category.all({ input: { storeId } }),
@@ -251,7 +256,11 @@ export function useProductForm({
     handleOpenCategoryDrawer,
     handleCategoryCreated,
     isEdit,
-    productQuery: { data: productData, isLoading: isProductLoading },
+    productQuery: {
+      data: productData,
+      isPending: isProductPending,
+      isError: isProductError,
+    },
     publishProductMutation,
     storeMismatch:
       isEdit && Boolean(productData) && productData!.storeId !== storeId,

@@ -4,6 +4,7 @@ import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { RoutePaths, useRouter } from "@/shared/config/routes";
 import { useCartStore } from "@/shared/lib/cart/store";
 import { ProductCard } from "./product-card";
 import { QuickAddToCart } from "./quick-add-to-cart";

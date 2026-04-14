@@ -168,7 +168,6 @@ export function SwipeableCard({
       </div>
 
       {/* Card — slides over the action panels */}
-      {/** biome-ignore lint/a11y/useSemanticElements: <explanation> */}
       <div
         role="button"
         tabIndex={disabled ? -1 : 0}
