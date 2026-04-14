@@ -16,8 +16,8 @@ import { OrdersListSkeleton } from "@/components/app/orders/orders-list-skeleton
 import { OrdersPageHeader } from "@/components/app/orders/orders-page-header";
 import { OrdersSearchBar } from "@/components/app/orders/orders-search-bar";
 import { OrdersStatusTabs } from "@/components/app/orders/orders-status-tabs";
-import { useOrdersController } from "@/hooks/controllers/use-orders-controller";
-import { groupOrdersByDate } from "@/lib/group-orders-by-date";
+import { useOrdersController } from "@/shared/lib/order/controller.hook";
+import { groupOrdersByDate } from "@/shared/lib/order/group-by-date.util";
 
 export default function OrdersPage() {
   const t = useTranslations("orders.list");
@@ -26,12 +26,16 @@ export default function OrdersPage() {
     ordersQuery: { data, isLoading, error, refetch, isRefetching },
     search,
     status,
-    dateRange,
     setSearch,
     setStatus,
-    setDateRange,
     resetFilters,
   } = useOrdersController();
+
+  // dateRange is UI-only — backend filtering not yet implemented
+  const [dateRange, setDateRange] = useState<{
+    from: Date | null;
+    to: Date | null;
+  }>({ from: null, to: null });
 
   const filterActive =
     status !== null || dateRange.from !== null || dateRange.to !== null;

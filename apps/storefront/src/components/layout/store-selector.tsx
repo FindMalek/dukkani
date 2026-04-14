@@ -11,12 +11,11 @@ import { useRouter } from "next/navigation";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import { getQueryClient, getStorefrontClient } from "@/lib/orpc";
+import { getQueryClient, getStorefrontClient } from "@/shared/api/orpc";
 
 interface StoreSelectorProps {
   locale: Locale;
-  // biome-ignore lint/suspicious/noExplicitAny: messages is a Record<string, any>
-  messages: Record<string, any>;
+  messages: Record<string, unknown>;
 }
 
 interface StoreSelectorFormProps {

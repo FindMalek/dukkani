@@ -6,10 +6,10 @@ import { AspectRatio } from "@dukkani/ui/components/aspect-ratio";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import Image from "next/image";
 import Link from "next/link";
-import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 interface ProductCardProps {
   product: ProductPublicOutput;
@@ -22,7 +22,7 @@ export function ProductCard({
   onAddToCart,
   storeCurrency,
 }: ProductCardProps) {
-  const imageUrl = product.imagesUrls?.[0];
+  const imageUrl = product.imageUrls?.[0];
 
   const formatPrice = useFormatPriceCurrentStore(storeCurrency);
 

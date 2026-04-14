@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormatPriceForActiveStore } from "@/stores";
+import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 import { MetricCard } from "./metric-card";
 
 interface RevenueCardProps {

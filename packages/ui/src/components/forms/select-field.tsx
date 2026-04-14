@@ -40,7 +40,8 @@ interface SelectFieldProps
 export function SelectField({
   label,
   description,
-  labelFirst = false,
+  labelFirst = true,
+  orientation = "vertical",
   placeholder = "",
   options: optionsOrPromise,
   onNewOptionClick,
@@ -93,7 +94,12 @@ export function SelectField({
   }, [field]);
 
   return (
-    <BaseField label={label} description={description} labelFirst={labelFirst}>
+    <BaseField
+      label={label}
+      description={description}
+      labelFirst={labelFirst}
+      orientation={orientation}
+    >
       <Select
         name={field.name}
         value={field.state.value}

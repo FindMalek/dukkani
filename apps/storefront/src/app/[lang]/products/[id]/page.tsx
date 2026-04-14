@@ -7,8 +7,8 @@ import { ProductDescription } from "@/components/app/product-description";
 import { ProductImageCarousel } from "@/components/app/product-image-carousel";
 import { ProductVariantManager } from "@/components/app/product-variant-manager";
 import { StoreInfoCard } from "@/components/app/store-info-card";
-import { getStoreSlug } from "@/lib/get-store-slug";
-import { getQueryClient, orpc } from "@/lib/orpc";
+import { getQueryClient, orpc } from "@/shared/api/orpc";
+import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
 
 export default async function ProductDetailPage({
   params,
@@ -59,7 +59,7 @@ export default async function ProductDetailPage({
         <div className="min-h-screen bg-background">
           <div className="container mx-auto px-4 py-4">
             <ProductImageCarousel
-              images={product.imagesUrls || []}
+              images={product.imageUrls || []}
               productName={product.name}
             />
             <div className="mt-4 space-y-4">

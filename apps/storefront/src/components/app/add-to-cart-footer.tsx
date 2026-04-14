@@ -4,10 +4,10 @@ import type { store } from "@dukkani/common/schemas";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { useCartStore } from "@/stores/cart.store";
+import { useCartStore } from "@/shared/lib/cart/store";
 
 interface AddToCartFooterProps {
   productId: string;

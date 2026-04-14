@@ -31,7 +31,6 @@ import {
   ProductVersionService,
 } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
-import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { logger } from "@dukkani/logger";
 import { StorageService } from "@dukkani/storage";
@@ -39,6 +38,7 @@ import { env } from "@dukkani/storage/env";
 import { ORPCError } from "@orpc/server";
 import { rateLimitPublicSafe } from "../middleware/rate-limit";
 import { baseProcedure, protectedProcedure } from "../procedures";
+import { SORT_ORDER_MAP, STOCK_RANGE_MAP } from "../utils/product-list-maps";
 import { executeUploadFiles } from "../utils/storage-upload";
 import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
 
@@ -74,25 +74,6 @@ export const productRouter = {
         });
       }
 
-      // Convert stockFilter to stock range format
-      let stockFilter: { lte?: number; gte?: number } | undefined;
-      if (input?.stockFilter) {
-        switch (input.stockFilter) {
-          case "in-stock":
-            stockFilter = { gte: 1 };
-            break;
-          case "low-stock":
-            stockFilter = { gte: 1, lte: 10 };
-            break;
-          case "out-of-stock":
-            stockFilter = { lte: 0 };
-            break;
-          default:
-            // No filter
-            break;
-        }
-      }
-
       const hasVariants =
         input?.variantsFilter && input.variantsFilter !== "all"
           ? input.variantsFilter === "with-variants"
@@ -102,7 +83,8 @@ export const productRouter = {
         storeId: input?.storeId,
         published: input?.published,
         search: input?.search,
-        stock: stockFilter,
+        stock: STOCK_RANGE_MAP[input?.stockFilter ?? "all"],
+        categoryId: input?.categoryId,
         hasVariants,
         priceMin: input?.priceMin,
         priceMax: input?.priceMax,
@@ -169,40 +151,24 @@ export const productRouter = {
         });
       }
 
-      // Build where clause for published products
-      const where: Prisma.ProductWhereInput = {
+      const where = ProductQuery.getWhere([input.storeId], {
         storeId: input.storeId,
-        ...ProductQuery.getPublishableWhere(),
-      };
+        published: true,
+        search: input.search,
+        stock: STOCK_RANGE_MAP[input.stockFilter ?? "all"],
+        categoryId: input.categoryId,
+        priceMin: input.priceMin,
+        priceMax: input.priceMax,
+      });
 
-      // Add category filter if provided
-      if (input?.categoryId) {
-        where.categoryId = input?.categoryId;
-      }
-
-      // Add search filter if provided
-      if (input?.search) {
-        const q = input.search;
-        where.OR = [
-          {
-            currentPublishedVersion: {
-              name: { contains: q, mode: "insensitive" },
-            },
-          },
-          {
-            currentPublishedVersion: {
-              description: { contains: q, mode: "insensitive" },
-            },
-          },
-        ];
-      }
+      const orderBy = SORT_ORDER_MAP[input.sortBy ?? "newest"];
 
       const [products, total] = await Promise.all([
         database.product.findMany({
           where,
           skip,
           take: limit,
-          orderBy: { createdAt: "desc" },
+          orderBy,
           include: ProductQuery.getListInclude(),
         }),
         database.product.count({ where }),

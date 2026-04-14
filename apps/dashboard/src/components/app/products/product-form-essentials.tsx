@@ -4,8 +4,8 @@ import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-fiel
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
-import { productFormOptions } from "@/lib/product-form-options";
-import { useCurrentStoreCurrency } from "@/stores";
+import { productFormOptions } from "@/shared/lib/product/form";
+import { useCurrentStoreCurrency } from "@/shared/lib/store/current-currency.hook";
 import {
   ProductFormImages,
   ProductFormImagesSkeleton,

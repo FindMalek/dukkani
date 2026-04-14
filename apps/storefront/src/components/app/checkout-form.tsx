@@ -3,7 +3,7 @@
 import { PaymentMethod } from "@dukkani/common/schemas/enums";
 import {
   addressInputSchema,
-  createOrderPublicInputSchema,
+  createOrderPublicInputObjectSchema,
 } from "@dukkani/common/schemas/order/input";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { Button } from "@dukkani/ui/components/button";
@@ -15,23 +15,24 @@ import {
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
-import { useLocale, useTranslations } from "next-intl";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
+import { useMutation } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useEffectEvent, useRef } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
-import { useCartHydration } from "@/hooks/use-cart-hydration";
-import { useCreateOrder } from "@/hooks/use-create-order";
-import { useDetectedAddress } from "@/hooks/use-detected-address";
-import { useEnrichedCart } from "@/hooks/use-enriched-cart";
-import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { RoutePaths, useRouter } from "@/lib/routes";
+import { appMutations } from "@/shared/api/mutations";
+import { RoutePaths, useRouter } from "@/shared/config/routes";
+import { useDetectedAddress } from "@/shared/lib/address-detection.hook";
+import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
+import { useCartHydration, useCartStore } from "@/shared/lib/cart/store";
 import { OrderSummary } from "./order-summary";
 
 interface CheckoutFormProps {
   store: StorePublicOutput;
 }
 
-const formSchema = createOrderPublicInputSchema
+const formSchema = createOrderPublicInputObjectSchema
   .omit({
     orderItems: true,
     storeId: true,
@@ -44,17 +45,21 @@ const formSchema = createOrderPublicInputSchema
         postalCode: z.string().transform((val) => val || undefined),
       }),
     notes: z.string().transform((val) => val || undefined),
+  })
+  .refine((data) => !!data.addressId || !!data.address, {
+    message: "Either address or addressId must be provided",
+    path: ["address"],
   });
 
 export function CheckoutForm({ store }: CheckoutFormProps) {
   const router = useRouter();
-  const locale = useLocale();
   const t = useTranslations("storefront.store.checkout");
   const formatPrice = useFormatPriceCurrentStore(store.currency);
+  const clearCart = useCartStore((state) => state.clearCart);
 
   const hydrated = useCartHydration();
   const autoLocation = useDetectedAddress();
-  const createOrderMutation = useCreateOrder();
+  const createOrderMutation = useMutation(appMutations.order.create());
   const {
     cartItems,
     enrichedData,
@@ -127,12 +132,20 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
           ? { latitude: c.latitude, longitude: c.longitude }
           : {};
 
-      await createOrderMutation.mutateAsync({
-        ...data,
-        address: { ...data.address, ...coords },
-        storeId: store.id,
-        orderItems,
-      });
+      await createOrderMutation.mutateAsync(
+        {
+          ...data,
+          address: { ...data.address, ...coords },
+          storeId: store.id,
+          orderItems,
+        },
+        {
+          onSuccess: () => {
+            clearCart();
+            router.push(RoutePaths.CHECKOUT.SUCCESS.url);
+          },
+        },
+      );
     },
   });
 

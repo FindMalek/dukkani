@@ -12,7 +12,7 @@ import { memo, useCallback, useMemo } from "react";
 import {
   type CartItem as CartItemType,
   useCartStore,
-} from "@/stores/cart.store";
+} from "@/shared/lib/cart/store";
 
 interface CartItemProps {
   item: CartItemType & { addonSummaryLines?: string[] };

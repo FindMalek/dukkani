@@ -9,10 +9,10 @@ import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { useCheckEmailExists } from "@/hooks/api/use-check-email.hook";
-import { authClient } from "@/lib/auth-client";
-import { handleAPIError } from "@/lib/error";
-import { getRouteWithQuery, RoutePaths } from "@/lib/routes";
+import { authClient } from "@/shared/api/auth-client";
+import { handleAPIError } from "@/shared/api/error-handler";
+import { api } from "@/shared/api/orpc";
+import { getRouteWithQuery, RoutePaths } from "@/shared/config/routes";
 
 const emailFormSchema = loginInputSchema.pick({ email: true });
 
@@ -22,12 +22,10 @@ export function EmailSignIn({
 }: React.HTMLAttributes<HTMLDivElement>) {
   const router = useRouter();
   const t = useTranslations("auth.emailSignIn");
-  const checkEmailMutation = useCheckEmailExists();
   const [emailExists, setEmailExists] = useState<boolean | null>(null);
-
   const handleEmailExistenceCheck = async (email: string) => {
     try {
-      const exists = await checkEmailMutation.mutateAsync({ email });
+      const exists = await api.account.checkEmailExists.call({ email });
 
       if (!exists) {
         const onboardingUrl = getRouteWithQuery(

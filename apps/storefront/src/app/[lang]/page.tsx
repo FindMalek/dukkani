@@ -2,18 +2,39 @@ import { StoreStatus } from "@dukkani/common/schemas/enums";
 import { logger } from "@dukkani/logger";
 import { ORPCError } from "@orpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { CategoryFilter } from "@/components/app/category-filter";
+import type { SearchParams } from "nuqs/server";
 import { ComingSoon } from "@/components/app/coming-soon";
 import { HeroBanner } from "@/components/app/hero-banner";
 import { ProductGrid } from "@/components/app/product-grid";
 import { ProductSectionHeader } from "@/components/app/product-section-header";
-import { getStoreSlug } from "@/lib/get-store-slug";
-import { client, getQueryClient, orpc } from "@/lib/orpc";
+import {
+  buildProductFiltersInput,
+  loadProductFilters,
+} from "@/shared/lib/product/filters";
+import { client, getQueryClient, orpc } from "@/shared/api/orpc";
+import { appQueries } from "@/shared/api/queries";
+import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
 
-export default async function StorePage() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  return {
+    alternates: { canonical: `/${lang}/` },
+  };
+}
+
+interface StorePageProps {
+  searchParams: Promise<SearchParams>;
+}
+
+export default async function StorePage({ searchParams }: StorePageProps) {
   const headersList = await headers();
   const host = headersList.get("host");
   const cookieStore = await cookies();
@@ -42,16 +63,16 @@ export default async function StorePage() {
       return <ComingSoon store={store} />;
     }
 
-    const categories = await client.category.getAllPublic({
+    const categories = await queryClient.fetchQuery(
+      appQueries.category.getAll({ input: { storeId: store.id } }),
+    );
+
+    const filters = await loadProductFilters(searchParams);
+
+    const { products } = await client.product.getAllPublic({
       storeId: store.id,
+      ...buildProductFiltersInput(filters),
     });
-
-    const categoryOptions = categories.map((cat) => ({
-      id: cat.id,
-      name: cat.name,
-    }));
-
-    const products = store.products || [];
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
@@ -61,10 +82,11 @@ export default async function StorePage() {
             subtitle="Shop the look →"
             linkHref="#"
           />
-          {categoryOptions.length > 0 && (
-            <CategoryFilter categories={categoryOptions} />
-          )}
-          <ProductSectionHeader title={t("products.title")} />
+          <ProductSectionHeader
+            title={t("products.title")}
+            storeCurrency={store.currency}
+            categories={categories}
+          />
           <ProductGrid products={products} store={store} />
         </div>
       </HydrationBoundary>

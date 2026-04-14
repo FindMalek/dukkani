@@ -57,6 +57,16 @@ pnpm run db:reset
 pnpm run db:reset-and-seed
 ```
 
+## Architecture
+
+Both `apps/dashboard` and `apps/storefront` follow **Feature Sliced Design (FSD)**. Each app has a `src/shared/` layer organized into:
+
+- `shared/api/` — oRPC client, `appQueries`, `appMutations`, `handleAPIError`, auth client
+- `shared/config/` — type-safe routes, i18n helpers, constants
+- `shared/lib/{domain}/` — domain business logic (controller hooks, Zustand stores, utilities)
+
+Do not add `hooks/api/`, `lib/`, or `stores/` top-level directories to these apps; place new code in the appropriate `shared/` sub-layer instead.
+
 ## Conventions
 
 - Use package imports with the `@dukkani/*` namespace.

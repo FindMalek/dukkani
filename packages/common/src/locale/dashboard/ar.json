@@ -22,6 +22,11 @@
         "addProduct": "Add new product",
         "viewOrders": "View all orders"
       }
+    },
+    "storeInitializer": {
+      "loadError": "تعذر تحميل متاجرك. يرجى المحاولة مرة أخرى.",
+      "noStores": "ليس لديك أي متاجر بعد. أنشئ متجرًا للمتابعة.",
+      "goToOnboarding": "الانتقال إلى الإعداد"
     }
   },
   "auth": {

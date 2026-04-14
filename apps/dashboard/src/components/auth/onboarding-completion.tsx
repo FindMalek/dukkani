@@ -4,30 +4,35 @@ import { Button } from "@dukkani/ui/components/button";
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useOnboardingCompleteQuery } from "@/hooks/api/use-onboarding.hook";
-import {
-  useTelegramBotLinkQuery,
-  useTelegramStatusQuery,
-} from "@/hooks/api/use-telegram.hook";
-import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
-import { RoutePaths } from "@/lib/routes";
+import { useEffect } from "react";
+import { appMutations } from "@/shared/api/mutations";
+import { appQueries } from "@/shared/api/queries";
+import { RoutePaths } from "@/shared/config/routes";
+import { useCopyToClipboard } from "@/shared/lib/clipboard";
 
 export function OnboardingCompletion({ storeId }: { storeId: string }) {
   const { copy } = useCopyToClipboard();
   const t = useTranslations("onboarding.complete");
 
-  const { data: completionData, isLoading: isLoadingComplete } =
-    useOnboardingCompleteQuery({ storeId });
-
-  const { data: telegramStatus } = useTelegramStatusQuery();
-
-  const { data: botLinkData } = useTelegramBotLinkQuery(
-    !!completionData && !telegramStatus?.linked,
+  const { mutate: completeOnboarding, ...completionMutation } = useMutation(
+    appMutations.onboarding.complete(),
   );
 
-  if (isLoadingComplete) {
+  useEffect(() => {
+    completeOnboarding({ storeId });
+  }, [storeId, completeOnboarding]);
+
+  const { data: telegramStatus } = useQuery(appQueries.telegram.status());
+
+  const { data: botLinkData } = useQuery({
+    ...appQueries.telegram.botLink(),
+    enabled: !!completionMutation.data && !telegramStatus?.linked,
+  });
+
+  if (completionMutation.isPending) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <Spinner className="h-8 w-8" />
@@ -51,13 +56,16 @@ export function OnboardingCompletion({ storeId }: { storeId: string }) {
         </p>
         <div className="flex items-center gap-2 rounded-md border bg-background p-2 pl-4">
           <span className="flex-1 truncate font-mono text-muted-foreground text-sm">
-            {completionData?.storeUrl}
+            {completionMutation.data?.storeUrl}
           </span>
           <Button
             size="icon"
             variant="ghost"
             onClick={() =>
-              copy(completionData?.storeUrl || "", t("storeLink.copied"))
+              copy(
+                completionMutation.data?.storeUrl || "",
+                t("storeLink.copied"),
+              )
             }
           >
             <Icons.copy className="h-4 w-4" />

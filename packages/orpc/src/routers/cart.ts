@@ -48,7 +48,7 @@ function buildCartItemOutput(
       ? item.addonSelections
       : undefined,
     productName: productData.name,
-    productImage: productData.imagesUrls?.[0],
+    productImage: productData.imageUrls?.[0],
     productDescription: buildVariantDescription(variant),
     price: unitPrice,
     stock: variant?.stock ?? productData.stock,
