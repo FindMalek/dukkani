@@ -11,12 +11,17 @@ import {
 } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { RoutePaths } from "@/shared/config/routes";
+import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
 
 export default function OrderDetailPage() {
   const params = useParams();
-  const orderId = params.id as string;
+  const orderId = getDynamicRouteParam(params, "id");
+  
+  if (!orderId) {
+    notFound();
+  }
 
   return (
     <div className="container mx-auto max-w-7xl p-4 md:p-6">
