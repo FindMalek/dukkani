@@ -19,7 +19,7 @@ export function ImagePreviewStrip({
 }: ImagePreviewStripProps) {
   return (
     <ScrollArea
-      className={cn("min-w-0 flex-1 max-w-full basis-0", scrollAreaClassName)}
+      className={cn("min-w-0 max-w-full flex-1 basis-0", scrollAreaClassName)}
     >
       <div className={cn("flex w-max gap-3", className)} ref={thumbsRef}>
         {children}

@@ -13,8 +13,8 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { VariantSelector } from "@/components/shared/variant-selector";
-import { useProductVariantSelection } from "@/shared/lib/product/variant-selector.hook";
 import { useCartStore } from "@/shared/lib/cart/store";
+import { useProductVariantSelection } from "@/shared/lib/product/variant-selector.hook";
 import { AddToCartFooter } from "./add-to-cart-footer";
 
 function isSingleSelection(

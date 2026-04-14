@@ -18,6 +18,8 @@ export const variantSimpleOutputSchema = z.object({
   sku: z.string().nullable(),
   price: z.number().nullable(),
   stock: z.number(),
+  trackStock: z.boolean(),
+  imageUrl: z.string().nullable(),
 });
 
 export const variantSelectionOutputSchema = z.object({
@@ -34,6 +36,8 @@ export const variantOutputSchema = z.object({
   sku: z.string().nullable(),
   price: z.number().nullable(),
   stock: z.number(),
+  trackStock: z.boolean(),
+  imageUrl: z.string().nullable(),
   productId: z.string(),
   selections: z.array(variantSelectionOutputSchema),
 });

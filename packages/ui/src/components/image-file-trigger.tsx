@@ -133,7 +133,7 @@ export function ImageFileTrigger({
       htmlFor={inputId}
       className={cn(
         triggerVariants({ variant }),
-        "shrink-0 !m-0 !text-[10px] !font-normal !leading-none flex cursor-pointer flex-col items-center justify-center gap-1",
+        "!m-0 !text-[10px] !font-normal !leading-none flex shrink-0 cursor-pointer flex-col items-center justify-center gap-1",
         busy && "pointer-events-none opacity-60",
         className,
       )}

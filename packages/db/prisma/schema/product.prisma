@@ -113,6 +113,8 @@ model Image {
   productVersionId String         @map("product_version_id")
   productVersion   ProductVersion @relation(fields: [productVersionId], references: [id], onDelete: Cascade)
 
+  variantImages ProductVariant[] @relation("VariantImage")
+
   @@index([productVersionId])
   @@map("images")
 }
@@ -168,14 +170,18 @@ model ProductVariantOptionValue {
 model ProductVariant {
   id String @id @default(cuid())
 
-  sku   String?
-  price Decimal? @db.Decimal(10, 2)
-  stock Int
+  sku        String?
+  price      Decimal? @db.Decimal(10, 2)
+  stock      Int
+  trackStock Boolean  @default(true) @map("track_stock")
+
+  imageId String? @map("image_id")
+  image   Image?  @relation("VariantImage", fields: [imageId], references: [id], onDelete: SetNull)
 
   orderItems OrderItem[]
   selections ProductVariantSelection[]
 
-  updatedAt DateTime @updatedAt @map("updated_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
 
   productVersionId String         @map("product_version_id")
@@ -184,6 +190,7 @@ model ProductVariant {
   @@unique([productVersionId, sku])
   @@index([productVersionId])
   @@index([sku])
+  @@index([imageId])
   @@map("product_variants")
 }
 

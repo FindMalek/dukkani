@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { validateVariantMatrixAgainstOptions } from "../../utils/variant-matrix";
 import {
-  productAddonGroupInputSchema,
-  type ProductAddonGroupInput,
   cartAddonSelectionSchema,
+  type ProductAddonGroupInput,
+  productAddonGroupInputSchema,
 } from "../product-addon/input";
 import {
   type VariantInput,

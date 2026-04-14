@@ -2,8 +2,8 @@ import { z } from "zod";
 import { categoryOutputSchema } from "../category/output";
 import { imageSimpleOutputSchema } from "../image/output";
 import { orderItemSimpleOutputSchema } from "../order-item/output";
-import { userSimpleSelectOutputSchema } from "../user/output";
 import { productAddonGroupPublicSchema } from "../product-addon/output";
+import { userSimpleSelectOutputSchema } from "../user/output";
 import {
   variantOptionOutputSchema,
   variantOutputSchema,

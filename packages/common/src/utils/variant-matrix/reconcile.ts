@@ -8,6 +8,7 @@ export type FormVariantRow = {
   sku?: string;
   price?: number;
   stock: number;
+  imageRef?: string;
 };
 
 /**
@@ -51,5 +52,6 @@ export function formVariantRowsToInput(rows: FormVariantRow[]): VariantInput[] {
       ? { price: row.price }
       : {}),
     stock: row.stock,
+    trackStock: true,
   }));
 }

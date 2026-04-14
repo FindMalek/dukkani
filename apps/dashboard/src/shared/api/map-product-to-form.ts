@@ -1,11 +1,15 @@
-import type { ProductAddonGroupInput } from "@dukkani/common/schemas/product-addon/input";
 import type {
   ProductFormInput,
   ProductFormOutput,
 } from "@dukkani/common/schemas/product/form";
 import type { ProductIncludeOutput } from "@dukkani/common/schemas/product/output";
+import type { ProductAddonGroupInput } from "@dukkani/common/schemas/product-addon/input";
+import type { VariantInput } from "@dukkani/common/schemas/variant/input";
 import type { FormVariantRow } from "@dukkani/common/utils";
-import { reconcileVariants } from "@dukkani/common/utils";
+import {
+  formVariantRowsToInput,
+  reconcileVariants,
+} from "@dukkani/common/utils";
 
 function variantRowToFormInput(
   row: FormVariantRow,
@@ -18,6 +22,7 @@ function variantRowToFormInput(
         ? String(row.price)
         : undefined,
     stock: String(row.stock),
+    imageRef: row.imageRef,
   };
 }
 
@@ -39,6 +44,7 @@ function mapVariantsFromProduct(
       sku: v.sku ?? undefined,
       price: v.price ?? undefined,
       stock: v.stock,
+      imageRef: v.imageUrl ?? undefined,
     });
   });
 
@@ -100,4 +106,28 @@ export function mapProductToFormValues(
       product.images?.map((i) => ({ kind: "remote" as const, url: i.url })) ??
       [],
   };
+}
+
+/**
+ * Resolve form variant rows to VariantInput array, mapping each variant's imageRef
+ * (either a remote URL or local file clientId) to the final uploaded URL.
+ */
+export function resolveVariantImageUrls(
+  variants: ProductFormInput["variants"],
+  images: ProductFormInput["images"],
+  finalUrls: (string | undefined)[],
+): VariantInput[] {
+  return formVariantRowsToInput(variants).map((v, i) => ({
+    ...v,
+    imageUrl: (() => {
+      const imageRef = variants[i]?.imageRef;
+      if (!imageRef) return undefined;
+      const idx = images.findIndex((img) =>
+        img.kind === "remote"
+          ? img.url === imageRef
+          : img.clientId === imageRef,
+      );
+      return idx >= 0 ? finalUrls[idx] : undefined;
+    })(),
+  }));
 }

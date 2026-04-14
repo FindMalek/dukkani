@@ -403,12 +403,24 @@ export const productRouter = {
                 "Variants matrix is required when variant options are provided",
             });
           }
+
+          // Build url→imageId map if any variant has an assigned image
+          let imageUrlToId: Map<string, string> | undefined;
+          if (input.variants.some((v) => v.imageUrl)) {
+            const images = await tx.image.findMany({
+              where: { productVersionId: versionId },
+              select: { id: true, url: true },
+            });
+            imageUrlToId = new Map(images.map((img) => [img.url, img.id]));
+          }
+
           await ProductVersionService.clearVariantMatrix(tx, versionId);
           await ProductVersionService.writeVariantMatrix(
             tx,
             versionId,
             input.variantOptions,
             input.variants,
+            imageUrlToId,
           );
         }
 

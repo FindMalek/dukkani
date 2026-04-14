@@ -443,14 +443,24 @@
             "add": "Ajouter une option",
             "empty": "Ajoutez des options comme Taille, Couleur, Matériau, etc.",
             "unnamed": "Option sans nom",
-            "optionName": "Nom de l'option",
+            "optionName": "Nom de l’option",
             "optionNamePlaceholder": "p. ex. Taille, Couleur",
             "values": "Valeurs",
-            "addValue": "Ajouter une valeur",
+            "addValue": "+ Ajouter une valeur",
             "noValues": "Ajoutez au moins une valeur",
-            "remove": "Supprimer l'option",
-            "addAnother": "Ajouter une option",
+            "remove": "Supprimer l’option",
+            "addAnother": "Ajouter une autre option",
+            "maxOptions": "Maximum 3 options",
             "value": "Valeur"
+          },
+          "pendingRemoval": {
+            "title": "Supprimer cette valeur effacera {count} variantes",
+            "description": "Appuyez pour confirmer avant d’appliquer les modifications.",
+            "confirm": "Confirmer",
+            "undo": "Annuler"
+          },
+          "optionOrder": {
+            "label": "Ordre des options"
           },
           "list": {
             "title": "Variantes",
@@ -468,6 +478,14 @@
             "priceHelp": "Laissez vide pour utiliser le prix de base du produit",
             "stock": "Stock"
           },
+          "editSheet": {
+            "title": "Modifier la variante : {label}",
+            "image": "Image"
+          },
+          "imagePicker": {
+            "title": "Choisir une image",
+            "noImage": "Sans image"
+          },
           "matrix": {
             "title": "Combinaisons de variantes",
             "hint": "Chaque ligne est une combinaison vendable. Le stock et le prix reprennent par défaut le produit ci-dessus ; laissez le prix vide pour utiliser le prix de base.",
@@ -478,11 +496,14 @@
             "columnPrice": "Prix",
             "columnStock": "Stock",
             "skuPlaceholder": "Optionnel",
-            "pricePlaceholder": "Prix de base"
+            "pricePlaceholder": "Prix de base",
+            "variantCount": "{count} variantes",
+            "inStock": "{count} en stock",
+            "outOfStock": "Rupture de stock"
           },
           "validation": {
-            "duplicateOptionName": "Nom d'option dupliqué",
-            "duplicateOptionValues": "Valeurs d'option dupliquées",
+            "duplicateOptionName": "Nom d’option dupliqué",
+            "duplicateOptionValues": "Valeurs d’option dupliquées",
             "duplicateValue": "Valeur dupliquée",
             "duplicateOption": "Option dupliquée"
           }

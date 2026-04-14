@@ -93,9 +93,15 @@ class ProductVersionServiceBase {
         },
       },
       include: {
+        images: { select: { id: true, url: true } },
         variantOptions: { include: { values: true } },
       },
     });
+
+    // Build old image URL → new draft image ID map for variant imageId remapping
+    const oldUrlToNewImageId = new Map<string, string>(
+      draft.images.map((img) => [img.url, img.id]),
+    );
 
     const oldValueIdToNew = new Map<string, string>();
     const oldOptionIdToNew = new Map<string, string>();
@@ -113,12 +119,19 @@ class ProductVersionServiceBase {
     }
 
     for (const v of src.variants) {
+      const newImageId = (() => {
+        if (!v.image?.url) return null;
+        return oldUrlToNewImageId.get(v.image.url) ?? null;
+      })();
+
       await tx.productVariant.create({
         data: {
           productVersionId: draft.id,
           sku: v.sku,
           price: v.price,
           stock: v.stock,
+          trackStock: v.trackStock,
+          imageId: newImageId,
           selections: {
             create: v.selections
               .map((s) => {
@@ -204,12 +217,14 @@ class ProductVersionServiceBase {
 
   /**
    * Replace options + variants for a version (used after deletes for draft updates).
+   * @param imageUrlToId Optional map of image URL → Image.id for resolving variant imageId FKs.
    */
   static async writeVariantMatrix(
     tx: Prisma.TransactionClient,
     productVersionId: string,
     variantOptions: VariantOptionInput[],
     variants: VariantInput[],
+    imageUrlToId?: Map<string, string>,
   ): Promise<void> {
     const optionMap = new Map<
       string,
@@ -302,6 +317,11 @@ class ProductVersionServiceBase {
           sku: variant.sku,
           price: variant.price ?? null,
           stock: variant.stock,
+          trackStock: variant.trackStock ?? true,
+          imageId:
+            variant.imageUrl && imageUrlToId
+              ? (imageUrlToId.get(variant.imageUrl) ?? null)
+              : null,
           productVersionId,
           selections: {
             create: variantSelections.map((s) => ({
@@ -438,11 +458,24 @@ class ProductVersionServiceBase {
     });
 
     if (data.hasVariants && data.variantOptions?.length) {
+      const variantsWithImages = (data.variants ?? []).filter(
+        (v) => v.imageUrl,
+      );
+      let imageUrlToId: Map<string, string> | undefined;
+      if (variantsWithImages.length > 0) {
+        const images = await tx.image.findMany({
+          where: { productVersionId: version.id },
+          select: { id: true, url: true },
+        });
+        imageUrlToId = new Map(images.map((img) => [img.url, img.id]));
+      }
+
       await ProductVersionService.writeVariantMatrix(
         tx,
         version.id,
         data.variantOptions,
         data.variants ?? [],
+        imageUrlToId,
       );
     }
 

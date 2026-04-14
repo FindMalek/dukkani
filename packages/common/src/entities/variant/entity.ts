@@ -21,6 +21,8 @@ export class VariantEntity {
       sku: entity.sku,
       price: entity.price != null ? Number(entity.price) : null,
       stock: entity.stock,
+      trackStock: entity.trackStock,
+      imageUrl: entity.image?.url ?? null,
     };
   }
 
@@ -62,6 +64,8 @@ export class VariantEntity {
       sku: entity.sku,
       price: entity.price != null ? Number(entity.price) : null,
       stock: entity.stock,
+      trackStock: entity.trackStock,
+      imageUrl: entity.image?.url ?? null,
       productId: entity.productVersion.productId,
       selections: entity.selections.map(VariantEntity.getVariantSelectionRo),
     };

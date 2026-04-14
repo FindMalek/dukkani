@@ -59,7 +59,12 @@ export class ProductVersionQuery {
     return {
       images: true,
       variantOptions: { include: { values: true } },
-      variants: { include: { selections: true } },
+      variants: {
+        include: {
+          selections: true,
+          image: { select: { id: true, url: true } },
+        },
+      },
       addonGroups: {
         orderBy: { sortOrder: "asc" },
         include: {

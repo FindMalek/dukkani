@@ -18,6 +18,7 @@ import { handleAPIError } from "@/shared/api/error-handler";
 import {
   mapFormAddonGroupsToInput,
   mapProductToFormValues,
+  resolveVariantImageUrls,
 } from "@/shared/api/map-product-to-form";
 import { appMutations } from "@/shared/api/mutations";
 import { client } from "@/shared/api/orpc";
@@ -152,7 +153,11 @@ export function useProductForm({
           hasVariants: rest.hasVariants,
           variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
           variants: rest.hasVariants
-            ? formVariantRowsToInput(rest.variants)
+            ? resolveVariantImageUrls(
+                rest.variants,
+                valueLive.images,
+                finalUrls,
+              )
             : undefined,
           addonGroups: mapFormAddonGroupsToInput(rest.addonGroups ?? []),
           ...(sameAsInitial ? {} : { imageUrls: finalUrls }),
@@ -174,7 +179,7 @@ export function useProductForm({
         imageUrls: finalUrls,
         storeId,
         variants: rest.hasVariants
-          ? formVariantRowsToInput(rest.variants)
+          ? resolveVariantImageUrls(rest.variants, valueLive.images, finalUrls)
           : undefined,
         variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
         addonGroups: mapFormAddonGroupsToInput(rest.addonGroups ?? []),
@@ -249,8 +254,6 @@ export function useProductForm({
     productQuery: { data: productData, isLoading: isProductLoading },
     publishProductMutation,
     storeMismatch:
-      isEdit &&
-      Boolean(productData) &&
-      productData!.storeId !== storeId,
+      isEdit && Boolean(productData) && productData!.storeId !== storeId,
   };
 }

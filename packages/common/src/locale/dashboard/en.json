@@ -456,11 +456,21 @@
             "optionName": "Option Name",
             "optionNamePlaceholder": "e.g. Size, Color",
             "values": "Values",
-            "addValue": "Add Value",
+            "addValue": "+ Add value",
             "noValues": "Add at least one value",
             "remove": "Remove Option",
-            "addAnother": "Add Option",
+            "addAnother": "Add another option",
+            "maxOptions": "Maximum 3 options",
             "value": "Value"
+          },
+          "pendingRemoval": {
+            "title": "Removing this value will delete {count} variants",
+            "description": "Tap to confirm before changes are applied.",
+            "confirm": "Confirm",
+            "undo": "Undo"
+          },
+          "optionOrder": {
+            "label": "Option order"
           },
           "list": {
             "title": "Variants",
@@ -478,6 +488,14 @@
             "priceHelp": "Leave empty to use base product price",
             "stock": "Stock"
           },
+          "editSheet": {
+            "title": "Edit variant: {label}",
+            "image": "Image"
+          },
+          "imagePicker": {
+            "title": "Choose image",
+            "noImage": "No image"
+          },
           "matrix": {
             "title": "Variant combinations",
             "hint": "Each row is one sellable combination. Stock and price default from the product above; leave price blank to use the base price.",
@@ -488,7 +506,10 @@
             "columnPrice": "Price",
             "columnStock": "Stock",
             "skuPlaceholder": "Optional",
-            "pricePlaceholder": "Base price"
+            "pricePlaceholder": "Base price",
+            "variantCount": "{count} variants",
+            "inStock": "{count} in stock",
+            "outOfStock": "Out of stock"
           },
           "validation": {
             "duplicateOptionName": "Duplicate option name",
