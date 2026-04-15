@@ -1,8 +1,13 @@
 "use client";
 
-import { SupportedLanguage, SupportedLanguages } from "@dukkani/i18n";
+import {
+  DefaultLanguage,
+  SupportedLanguage,
+  SupportedLanguages,
+} from "@dukkani/i18n";
 import { usePathname, useRouter } from "next/navigation";
 import { useT } from "next-i18next/client";
+import { useMemo } from "react";
 import { cn } from "../lib/utils";
 import { Button } from "./button";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "./select";
@@ -34,11 +39,12 @@ export function LanguageSwitcher({
   const router = useRouter();
   const Component = ComponentMap[variant];
 
-  const currentLanguage = Object.values(SupportedLanguages).includes(
-    i18n.resolvedLanguage as SupportedLanguage,
-  )
-    ? (i18n.resolvedLanguage as SupportedLanguage)
-    : SupportedLanguages.FRENCH;
+  const currentLanguage = useMemo(() => {
+    if (Languages.includes(i18n.language as SupportedLanguage)) {
+      return i18n.language as SupportedLanguage;
+    }
+    return DefaultLanguage;
+  }, [i18n.language]);
 
   const handleLanguageChange = async (language: SupportedLanguage) => {
     router.push(pathname.replace(currentLanguage, language));
