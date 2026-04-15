@@ -8,7 +8,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "composite": true,
-    "types": ["@dukkani/i18n/ui"]
+    "types": ["node", "@dukkani/i18n/ui"]
   },
   "include": ["./src/**/*"],
   "exclude": ["./node_modules", "./dist"]
