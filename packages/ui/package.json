@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@dukkani/common": "workspace:*",
+    "@dukkani/i18n": "workspace:*",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-aspect-ratio": "^1.1.8",
@@ -53,6 +54,7 @@
     "input-otp": "^1.4.2",
     "lucide-react": "catalog:",
     "next": "catalog:",
+    "next-i18next": "catalog:",
     "next-intl": "catalog:",
     "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",

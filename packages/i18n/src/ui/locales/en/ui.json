@@ -4,5 +4,10 @@
       "hide": "Hide password",
       "show": "Show password"
     }
+  },
+  "languageSwitcher": {
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
   }
 }

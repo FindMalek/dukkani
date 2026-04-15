@@ -1,8 +1,9 @@
 import type { I18nConfig } from "next-i18next";
+import { DefaultLanguage, SupportedLanguages } from "../../shared/language";
 
 const I18nextWebConfig: I18nConfig = {
-  supportedLngs: ["fr", "en"],
-  fallbackLng: "fr",
+  supportedLngs: Object.values(SupportedLanguages),
+  fallbackLng: DefaultLanguage,
   defaultNS: "home",
   ns: ["home", "ui"],
   resourceLoader: async (lng, ns) => {

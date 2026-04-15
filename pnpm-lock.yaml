@@ -1111,6 +1111,9 @@ importers:
       '@dukkani/common':
         specifier: workspace:*
         version: link:../common
+      '@dukkani/i18n':
+        specifier: workspace:*
+        version: link:../i18n
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -1219,12 +1222,15 @@ importers:
       next:
         specifier: 'catalog:'
         version: 16.2.3(@opentelemetry/api@1.9.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      next-i18next:
+        specifier: 'catalog:'
+        version: 16.0.5(@types/react@19.2.14)(i18next@26.0.4(typescript@6.0.2))(next@16.2.3(@opentelemetry/api@1.9.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-i18next@17.0.3(i18next@26.0.4(typescript@6.0.2))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@6.0.2))(react@19.2.5)
       next-intl:
         specifier: 'catalog:'
         version: 4.9.1(next@16.2.3(@opentelemetry/api@1.9.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(typescript@6.0.2)
       next-themes:
         specifier: ^0.4.6
-        version: 0.4.6(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 0.4.6(patch_hash=d5d3f6fccf19abc9f9510e0cb05b04476717842b72830eba0b1ee95507014317)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       radix-ui:
         specifier: ^1.4.3
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)

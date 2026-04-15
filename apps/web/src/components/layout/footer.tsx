@@ -1,6 +1,7 @@
 "use client";
 
 import { Icons } from "@dukkani/ui/components/icons";
+import { LanguageSwitcher } from "@dukkani/ui/components/language-switcher";
 import { ModeToggle } from "@dukkani/ui/components/mode-toggle";
 import Link from "next/link";
 import { useT } from "next-i18next/client";
@@ -37,7 +38,7 @@ export function Footer() {
           <div className="flex items-center justify-center gap-3 md:justify-end">
             <div className="flex items-center gap-2">
               <ModeToggle />
-              {/* <LanguageSwitcher className="h-9 w-9 min-w-9" /> */}
+              <LanguageSwitcher />
             </div>
           </div>
         </div>

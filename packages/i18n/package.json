@@ -3,6 +3,10 @@
   "private": true,
   "type": "module",
   "exports": {
+    ".": {
+      "default": "./src/shared/language.ts",
+      "types": "./src/shared/language.ts"
+    },
     "./web": {
       "default": "./src/apps/web/instance.ts",
       "types": "./src/apps/web/types.d.ts"

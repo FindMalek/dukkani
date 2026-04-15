@@ -6,6 +6,11 @@ interface Resources {
         "hide": "Cacher le mot de passe",
         "show": "Afficher le mot de passe"
       }
+    },
+    "languageSwitcher": {
+      "ar": "العربية",
+      "en": "English",
+      "fr": "Français"
     }
   }
 }
