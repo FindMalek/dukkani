@@ -11,7 +11,7 @@ interface ProvidersProps {
 export function ClientProviders({ children }: ProvidersProps) {
   const { i18n } = useT();
   return (
-    <DirectionProvider direction={i18n.dir()}>
+    <DirectionProvider dir={i18n.dir()}>
       <ThemeProvider
         attribute="class"
         defaultTheme="system"
