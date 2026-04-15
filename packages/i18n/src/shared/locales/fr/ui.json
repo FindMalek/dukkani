@@ -15,5 +15,31 @@
     "en": "English",
     "fr": "Français",
     "ar": "العربية"
+  },
+  "currencies": {
+    "TND": {
+      "region": "Tunisie",
+      "label": "Dinar tunisien"
+    },
+    "USD": {
+      "region": "États-Unis",
+      "label": "Dollar américain"
+    },
+    "EUR": {
+      "region": "Union européenne",
+      "label": "Euro"
+    },
+    "GBP": {
+      "region": "Royaume-Uni",
+      "label": "Livre sterling"
+    },
+    "DZD": {
+      "region": "Algérie",
+      "label": "Dinar algérien"
+    },
+    "LYD": {
+      "region": "Libye",
+      "label": "Dinar libyen"
+    }
   }
 }
