@@ -15,6 +15,7 @@
     "@dukkani/common": "workspace:*",
     "@dukkani/core": "workspace:*",
     "@dukkani/env": "workspace:*",
+    "@dukkani/i18n": "workspace:*",
     "@dukkani/logger": "workspace:*",
     "@dukkani/tracing": "workspace:*",
     "@dukkani/orpc": "workspace:*",

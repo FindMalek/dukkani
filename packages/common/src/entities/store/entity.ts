@@ -4,9 +4,9 @@ import {
   type StoreTheme,
   type UserOnboardingStep,
 } from "@dukkani/db/prisma/generated/enums";
+import { SupportedCurrencies, SupportedCurrency } from "@dukkani/i18n";
 import {
   LIST_STORE_THEMES,
-  SupportedCurrency,
   type StoreThemeInfer,
   storeThemeEnum,
 } from "../../schemas/enums";
@@ -236,13 +236,13 @@ export class StoreEntity {
    * ISO 3166-1 alpha-2 (or EU) country codes for currency display (flags)
    */
   static readonly CURRENCY_COUNTRY_CODE = {
-    [SupportedCurrency.TND]: "tn",
-    [SupportedCurrency.USD]: "us",
-    [SupportedCurrency.EUR]: "eu",
-    [SupportedCurrency.GBP]: "gb",
-    [SupportedCurrency.DZD]: "dz",
-    [SupportedCurrency.LYD]: "ly",
-  } as const satisfies Record<SupportedCurrency, string>;
+    [SupportedCurrencies.TND]: "tn",
+    [SupportedCurrencies.USD]: "us",
+    [SupportedCurrencies.EUR]: "eu",
+    [SupportedCurrencies.GBP]: "gb",
+    [SupportedCurrencies.DZD]: "dz",
+    [SupportedCurrencies.LYD]: "ly",
+  } as Record<SupportedCurrency, string>;
 
   static getCurrencyCountryCode(currency: SupportedCurrency): string {
     return StoreEntity.CURRENCY_COUNTRY_CODE[currency];

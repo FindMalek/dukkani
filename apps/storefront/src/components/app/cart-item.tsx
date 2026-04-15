@@ -1,6 +1,6 @@
 "use client";
 
-import type { store } from "@dukkani/common/schemas";
+import { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
@@ -16,7 +16,7 @@ import {
 
 interface CartItemProps {
   item: CartItemType;
-  currency: store.SupportedCurrencyInfer;
+  currency: SupportedCurrency;
   productName: string;
   productImage?: string;
   productDescription?: string;

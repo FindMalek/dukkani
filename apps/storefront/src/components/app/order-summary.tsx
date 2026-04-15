@@ -1,15 +1,15 @@
 "use client";
 
-import type { store } from "@dukkani/common/schemas";
 import type { CartItemOutput } from "@dukkani/common/schemas/cart/output";
+import { SupportedCurrency } from "@dukkani/i18n";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 
 interface OrderSummaryProps {
   items: CartItemOutput[];
-  storeCurrency: store.SupportedCurrencyInfer;
+  storeCurrency: SupportedCurrency;
   shippingCost: number;
   loading: boolean;
 }

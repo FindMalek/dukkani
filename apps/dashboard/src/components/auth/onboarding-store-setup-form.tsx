@@ -1,15 +1,16 @@
 "use client";
 
 import { StoreEntity } from "@dukkani/common/entities/store/entity";
-import {
-  LIST_SUPPORTED_CURRENCIES,
-  SupportedCurrency,
-  storeNotificationMethodEnum,
-} from "@dukkani/common/schemas/enums";
+import { storeNotificationMethodEnum } from "@dukkani/common/schemas/enums";
 import {
   type CreateStoreOnboardingInput,
   createStoreOnboardingInputSchema,
 } from "@dukkani/common/schemas/store/input";
+import {
+  DefaultCurrency,
+  SupportedCurrencies,
+  SupportedCurrency,
+} from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import { FlagComponent } from "@dukkani/ui/components/country";
 import { FieldGroup } from "@dukkani/ui/components/field";
@@ -23,7 +24,7 @@ export const storeSetupFormDefaultOptions = formOptions({
   defaultValues: {
     name: "",
     description: "",
-    currency: SupportedCurrency.TND,
+    currency: DefaultCurrency,
     notificationMethod: storeNotificationMethodEnum.EMAIL,
   } as CreateStoreOnboardingInput,
   validators: {
@@ -60,7 +61,7 @@ export const StoreSetupOnboardingForm = withForm({
       () => [
         {
           id: "currency",
-          options: LIST_SUPPORTED_CURRENCIES.map((currency) => ({
+          options: Object.values(SupportedCurrencies).map((currency) => ({
             id: currency,
             name: <CurrencySelectOption currency={currency} />,
             value: currency,

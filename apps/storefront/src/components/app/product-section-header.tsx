@@ -1,6 +1,6 @@
 "use client";
 
-import { store } from "@dukkani/common/schemas";
+import { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,
@@ -14,7 +14,7 @@ import { useState } from "react";
 import { FilterProductsForm } from "@/components/app/filter-products-form";
 
 interface ProductSectionHeaderProps {
-  storeCurrency: store.SupportedCurrencyInfer;
+  storeCurrency: SupportedCurrency;
   categories: { id: string; name: string }[];
   title?: string;
 }

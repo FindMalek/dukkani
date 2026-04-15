@@ -1,6 +1,7 @@
 "use client";
 
 import type { store } from "@dukkani/common/schemas";
+import { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
@@ -13,7 +14,7 @@ interface AddToCartFooterProps {
   productId: string;
   stock: number;
   price: number;
-  currency: store.SupportedCurrencyInfer;
+  currency: SupportedCurrency;
   selectedVariantId?: string;
   variant?: "fixed" | "inline";
   onAddToCart?: () => void;

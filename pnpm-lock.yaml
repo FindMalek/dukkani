@@ -306,6 +306,9 @@ importers:
       '@dukkani/env':
         specifier: workspace:*
         version: link:../../packages/env
+      '@dukkani/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       '@dukkani/logger':
         specifier: workspace:*
         version: link:../../packages/logger
@@ -418,6 +421,9 @@ importers:
       '@dukkani/env':
         specifier: workspace:*
         version: link:../../packages/env
+      '@dukkani/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
       '@dukkani/logger':
         specifier: workspace:*
         version: link:../../packages/logger
@@ -756,6 +762,9 @@ importers:
       '@dukkani/env':
         specifier: workspace:*
         version: link:../env
+      '@dukkani/i18n':
+        specifier: workspace:*
+        version: link:../i18n
       '@dukkani/logger':
         specifier: workspace:*
         version: link:../logger

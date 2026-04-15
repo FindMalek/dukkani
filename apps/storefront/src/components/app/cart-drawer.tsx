@@ -1,6 +1,6 @@
 "use client";
 
-import type { store } from "@dukkani/common/schemas";
+import { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,
@@ -19,7 +19,7 @@ import { CartItem as CartItemComponent } from "./cart-item";
 
 interface CartDrawerProps {
   open: boolean;
-  storeCurrency: store.SupportedCurrencyInfer;
+  storeCurrency: SupportedCurrency;
   onOpenChange: (open: boolean) => void;
 }
 

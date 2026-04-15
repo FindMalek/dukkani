@@ -1,4 +1,4 @@
-import { store } from "@dukkani/common/schemas";
+import { DefaultCurrency } from "@dukkani/i18n";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { appQueries } from "@/shared/api/queries";
@@ -18,6 +18,6 @@ export function useCurrentStoreCurrency() {
     if (currentStoreQuery.isSuccess && currentStoreQuery.data) {
       return currentStoreQuery.data.currency;
     }
-    return store.supportedCurrencyEnum.TND;
+    return DefaultCurrency;
   }, [currentStoreQuery.data, currentStoreQuery.isSuccess]);
 }

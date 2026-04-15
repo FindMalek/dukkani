@@ -1,6 +1,6 @@
 "use client";
 
-import { store } from "@dukkani/common/schemas";
+import { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import { DrawerClose, DrawerFooter } from "@dukkani/ui/components/drawer";
 import {
@@ -16,7 +16,7 @@ import { useQueryStates } from "nuqs";
 import { productFilterParams } from "@/shared/lib/product/filters";
 
 export interface FilterProductsFormProps {
-  storeCurrency: store.SupportedCurrencyInfer;
+  storeCurrency: SupportedCurrency;
   categories: { id: string; name: string }[];
   handleCloseDrawer: () => void;
 }

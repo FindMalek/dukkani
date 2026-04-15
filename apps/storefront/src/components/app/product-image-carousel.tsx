@@ -48,7 +48,7 @@ export function ProductImageCarousel({
     return (
       <div className="relative w-full overflow-hidden rounded-2xl">
         <AspectRatio ratio={1}>
-          <Skeleton className="h-full w-full" />
+          <Skeleton className="size-full" />
         </AspectRatio>
       </div>
     );

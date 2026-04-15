@@ -1,7 +1,7 @@
 "use client";
 
-import type { store } from "@dukkani/common/schemas";
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
+import { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,
@@ -11,7 +11,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@dukkani/ui/components/drawer";
-
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
@@ -24,7 +23,7 @@ import { useProductVariantSelection } from "@/shared/lib/product/variant-selecto
 
 interface QuickAddToCartProps {
   product: ProductPublicOutput;
-  storeCurrency: store.SupportedCurrencyInfer;
+  storeCurrency: SupportedCurrency;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }

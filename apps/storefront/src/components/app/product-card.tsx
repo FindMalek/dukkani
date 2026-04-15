@@ -1,7 +1,7 @@
 "use client";
 
-import type { store } from "@dukkani/common/schemas";
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
+import { SupportedCurrency } from "@dukkani/i18n";
 import { AspectRatio } from "@dukkani/ui/components/aspect-ratio";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
@@ -13,7 +13,7 @@ import { RoutePaths } from "@/shared/config/routes";
 
 interface ProductCardProps {
   product: ProductPublicOutput;
-  storeCurrency: store.SupportedCurrencyInfer;
+  storeCurrency: SupportedCurrency;
   onAddToCart?: (product: ProductPublicOutput) => void;
 }
 
