@@ -81,6 +81,26 @@
       "cache": false,
       "persistent": true
     },
+    "i18n:types": {
+      "dependsOn": ["@dukkani/i18n#web:types", "@dukkani/i18n#ui:types"]
+    },
+    "i18n:status": {
+      "dependsOn": ["@dukkani/i18n#web:status", "@dukkani/i18n#ui:status"]
+    },
+    "@dukkani/i18n#web:types": {
+      "dependsOn": ["^@dukkani/i18n#ui:types"],
+      "inputs": ["packages/i18n/src/apps/web/**"]
+    },
+    "@dukkani/i18n#web:status": {
+      "dependsOn": ["^@dukkani/i18n#ui:status"],
+      "inputs": ["packages/i18n/src/apps/web/**", "apps/web/src/**"]
+    },
+    "@dukkani/i18n#ui:types": {
+      "inputs": ["packages/i18n/src/ui/**"]
+    },
+    "@dukkani/i18n#ui:status": {
+      "inputs": ["packages/i18n/src/ui/**", "packages/ui/src/**"]
+    },
     "clean": {
       "cache": false,
       "persistent": true

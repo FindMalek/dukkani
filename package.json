@@ -16,6 +16,8 @@
     "build": "turbo run db:generate --filter=@dukkani/db && turbo build",
     "clean": "turbo run clean",
     "build:packages": "turbo build --filter='@dukkani/db' --filter='@dukkani/auth' --filter='@dukkani/orpc'",
+    "i18n:types": "turbo i18n:types",
+    "i18n:status": "turbo i18n:status",
     "check-types": "turbo check-types",
     "check-types:fast": "turbo check-types:fast",
     "deps:sync": "(pnpm outdated -r || true) && pnpm update -r --latest && pnpm install && syncpack fix --dependency-types prod,dev,peer && (syncpack lint --dependency-types prod,dev,peer || true)",
