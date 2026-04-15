@@ -1,13 +1,11 @@
-"use client";
-
 import { Icons } from "@dukkani/ui/components/icons";
 import { LanguageSwitcher } from "@dukkani/ui/components/language-switcher";
 import { ModeToggle } from "@dukkani/ui/components/mode-toggle";
 import Link from "next/link";
-import { useT } from "next-i18next/client";
+import { getT } from "next-i18next/server";
 
-export function Footer() {
-  const { t } = useT("home", { keyPrefix: "footer" });
+export async function Footer() {
+  const { t } = await getT("home", { keyPrefix: "footer" });
 
   return (
     <footer className="border-t bg-muted/30">
