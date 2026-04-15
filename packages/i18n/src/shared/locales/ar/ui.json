@@ -1,0 +1,19 @@
+{
+  "fields": {
+    "password": {
+      "hide": "إخفاء كلمة المرور",
+      "show": "إظهار كلمة المرور"
+    },
+    "images": {
+      "label": "إضافة صور",
+      "dragActiveLabel": "أسقط هنا",
+      "hint": "أو انقر للتصفح",
+      "optimizing": "جاري تحسين الصور..."
+    }
+  },
+  "languageSwitcher": {
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  }
+}
