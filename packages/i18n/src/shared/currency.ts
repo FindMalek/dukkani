@@ -6,7 +6,7 @@ export const SupportedCurrencies = {
   EUR: "EUR",
   GBP: "GBP",
   DZD: "DZD",
-  LYB: "LYB",
+  LYD: "LYD",
 } as const;
 
 export type SupportedCurrency =
