@@ -89,14 +89,14 @@
     },
     "@dukkani/i18n#web:types": {
       "dependsOn": ["^@dukkani/i18n#ui:types"],
-      "inputs": ["src/apps/web/**"]
+      "inputs": ["src/apps/web/locales/fr/*"]
     },
     "@dukkani/i18n#web:status": {
       "dependsOn": ["^@dukkani/i18n#ui:status"],
       "inputs": ["src/apps/web/**", "$TURBO_ROOT$/apps/web/src/**"]
     },
     "@dukkani/i18n#ui:types": {
-      "inputs": ["src/ui/**/*.{json,ts}"]
+      "inputs": ["src/ui/locales/fr/ui.json"]
     },
     "@dukkani/i18n#ui:status": {
       "inputs": ["src/ui/**", "$TURBO_ROOT$/packages/ui/src/**"]
