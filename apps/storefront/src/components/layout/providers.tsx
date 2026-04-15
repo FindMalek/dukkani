@@ -33,7 +33,7 @@ export function Providers({
 
   return (
     <NuqsAdapter>
-      <DirectionProvider direction={getTextDirection(locale)}>
+      <DirectionProvider dir={getTextDirection(locale)}>
         <NextIntlClientProvider
           locale={locale}
           messages={messages}

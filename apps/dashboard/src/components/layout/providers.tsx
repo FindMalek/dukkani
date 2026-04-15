@@ -45,7 +45,7 @@ export default function Providers({
 
   return (
     <NuqsProvider>
-      <DirectionProvider direction={getTextDirection(locale)}>
+      <DirectionProvider dir={getTextDirection(locale)}>
         <NextIntlClientProvider
           locale={locale}
           messages={messages}

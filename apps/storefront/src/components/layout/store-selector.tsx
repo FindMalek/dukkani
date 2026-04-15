@@ -92,7 +92,7 @@ export function StoreSelector({ locale, messages }: StoreSelectorProps) {
   const [queryClient] = useState(() => getQueryClient());
 
   return (
-    <DirectionProvider direction={getTextDirection(locale)}>
+    <DirectionProvider dir={getTextDirection(locale)}>
       <NextIntlClientProvider locale={locale} messages={messages}>
         <QueryClientProvider client={queryClient}>
           <StoreSelectorForm locale={locale} />
