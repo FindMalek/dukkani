@@ -89,17 +89,17 @@
     },
     "@dukkani/i18n#web:types": {
       "dependsOn": ["^@dukkani/i18n#ui:types"],
-      "inputs": ["packages/i18n/src/apps/web/**"]
+      "inputs": ["src/apps/web/**"]
     },
     "@dukkani/i18n#web:status": {
       "dependsOn": ["^@dukkani/i18n#ui:status"],
-      "inputs": ["packages/i18n/src/apps/web/**", "apps/web/src/**"]
+      "inputs": ["src/apps/web/**", "$TURBO_ROOT$/apps/web/src/**"]
     },
     "@dukkani/i18n#ui:types": {
-      "inputs": ["packages/i18n/src/ui/**"]
+      "inputs": ["src/ui/**/*.{json,ts}"]
     },
     "@dukkani/i18n#ui:status": {
-      "inputs": ["packages/i18n/src/ui/**", "packages/ui/src/**"]
+      "inputs": ["src/ui/**", "$TURBO_ROOT$/packages/ui/src/**"]
     },
     "clean": {
       "cache": false,
