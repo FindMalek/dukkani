@@ -7,7 +7,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@dukkani/ui/components/carousel";
-import { useIsRtl } from "@dukkani/ui/components/direction";
+import { useDirection } from "@dukkani/ui/components/direction";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { cn } from "@dukkani/ui/lib/utils";
 import Image from "next/image";
@@ -23,7 +23,7 @@ export function ProductImageCarousel({
   images,
   productName,
 }: ProductImageCarouselProps) {
-  const isRtl = useIsRtl();
+  const direction = useDirection();
   const [current, setCurrent] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
   const t = useTranslations("storefront.store.product.imageCarousel");
@@ -59,7 +59,7 @@ export function ProductImageCarousel({
       <Carousel
         setApi={setApi}
         className="w-full"
-        opts={{ direction: isRtl ? "rtl" : "ltr" }}
+        opts={{ direction: direction }}
       >
         <CarouselContent>
           {images.map((image, index) => (
