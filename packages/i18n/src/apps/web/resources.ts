@@ -162,6 +162,51 @@ interface Resources {
       "pricing": "Tarification",
       "startSelling": "Commencer à vendre"
     }
+  },
+  "ui": {
+    "currencies": {
+      "DZD": {
+        "label": "Dinar algérien",
+        "region": "Algérie"
+      },
+      "EUR": {
+        "label": "Euro",
+        "region": "Union européenne"
+      },
+      "GBP": {
+        "label": "Livre sterling",
+        "region": "Royaume-Uni"
+      },
+      "LYD": {
+        "label": "Dinar libyen",
+        "region": "Libye"
+      },
+      "TND": {
+        "label": "Dinar tunisien",
+        "region": "Tunisie"
+      },
+      "USD": {
+        "label": "Dollar américain",
+        "region": "États-Unis"
+      }
+    },
+    "fields": {
+      "images": {
+        "dragActiveLabel": "Déposez ici",
+        "hint": "ou cliquez pour naviguer",
+        "label": "Ajouter des photos",
+        "optimizing": "Optimisation des images..."
+      },
+      "password": {
+        "hide": "Cacher le mot de passe",
+        "show": "Afficher le mot de passe"
+      }
+    },
+    "languageSwitcher": {
+      "ar": "العربية",
+      "en": "English",
+      "fr": "Français"
+    }
   }
 }
 
