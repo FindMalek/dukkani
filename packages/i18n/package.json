@@ -7,9 +7,9 @@
       "default": "./src/apps/web/instance.ts",
       "types": "./src/apps/web/types.d.ts"
     },
-    "./shared": {
-      "default": "./src/shared/instance.ts",
-      "types": "./src/shared/types.d.ts"
+    "./ui": {
+      "default": "./src/ui/instance.ts",
+      "types": "./src/ui/types.d.ts"
     }
   },
   "scripts": {
