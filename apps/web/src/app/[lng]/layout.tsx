@@ -1,16 +1,18 @@
 import "@dukkani/ui/styles/globals.css";
 
-import {
-  getTextDirection,
-  LOCALES,
-  type Locale,
-} from "@dukkani/common/schemas/constants";
+import { I18nextWebConfig } from "@dukkani/i18n/web";
 import type { Metadata } from "next";
 import { Cairo, Inter } from "next/font/google";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import { I18nProvider } from "next-i18next/client";
+import {
+  generateI18nStaticParams,
+  getResources,
+  getT,
+  initServerI18next,
+} from "next-i18next/server";
+import { ClientProviders } from "@/components/layout/client-providers";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
-import { Providers } from "@/components/layout/providers";
 
 const inter = Inter({
   variable: "--font-sans-latin",
@@ -40,8 +42,10 @@ export const metadata: Metadata = {
   },
 };
 
+initServerI18next(I18nextWebConfig);
+
 export async function generateStaticParams() {
-  return LOCALES.map((lang) => ({ lang }));
+  return generateI18nStaticParams();
 }
 
 export default async function RootLayout({
@@ -49,27 +53,29 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ lang: string }>;
+  params: Promise<{ lng: string }>;
 }) {
-  const { lang } = (await params) as { lang: Locale };
-  setRequestLocale(lang);
-  const messages = await getMessages();
+  const { lng } = await params;
+  const { i18n } = await getT();
+  const resources = getResources(i18n);
 
   return (
     <html
-      lang={lang}
-      dir={getTextDirection(lang)}
+      lang={lng}
+      dir={i18n.dir()}
       className={`${inter.variable} ${cairo.variable}`}
       suppressHydrationWarning
     >
       <body className="antialiased">
-        <Providers locale={lang} messages={messages}>
-          <div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </div>
-        </Providers>
+        <I18nProvider language={lng} resources={resources}>
+          <ClientProviders>
+            <div className="grid min-h-svh grid-rows-[auto_1fr_auto]">
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </div>
+          </ClientProviders>
+        </I18nProvider>
       </body>
     </html>
   );

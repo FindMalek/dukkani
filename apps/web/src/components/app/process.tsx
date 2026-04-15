@@ -1,18 +1,18 @@
 "use client";
 
 import { Icons } from "@dukkani/ui/components/icons";
-import { useTranslations } from "next-intl";
+import type { Resources } from "i18next";
+import { step } from "next/dist/experimental/testmode/playwright/step";
+import { useT } from "next-i18next/client";
 
-type ProcessStepKey =
-  | "createStore"
-  | "shareLink"
-  | "weConfirm"
-  | "deliveryReady";
+type ProcessStepKey = keyof Resources["home"]["body"]["process"]["steps"];
 
-const PROCESS_STEPS: {
+type ProcessStepWithIcon = {
   key: ProcessStepKey;
-  icon: "storefront" | "share2" | "phone" | "packageCheck";
-}[] = [
+  icon: keyof typeof Icons;
+};
+
+const process_steps: ProcessStepWithIcon[] = [
   { key: "createStore", icon: "storefront" },
   { key: "shareLink", icon: "share2" },
   { key: "weConfirm", icon: "phone" },
@@ -20,7 +20,8 @@ const PROCESS_STEPS: {
 ];
 
 export function Process() {
-  const t = useTranslations("process");
+  const { t } = useT("home", { keyPrefix: "body.process" });
+  const { t: tSteps } = useT("home", { keyPrefix: "body.process.steps" });
 
   return (
     <section id="process" className="bg-background py-12 sm:py-16 md:py-24">
@@ -29,11 +30,11 @@ export function Process() {
           {t("title")}
         </h2>
         <div className="flex flex-col gap-9 lg:grid lg:grid-cols-4 lg:gap-8">
-          {PROCESS_STEPS.map(({ key, icon }) => {
+          {process_steps.map(({ key: stepKey, icon }) => {
             const Icon = Icons[icon];
             return (
               <div
-                key={key}
+                key={stepKey}
                 className="flex flex-row items-start gap-4 sm:gap-6 lg:flex-col lg:items-center lg:gap-4 lg:text-center"
               >
                 <div className="flex w-fit shrink-0 items-center justify-center self-start rounded-xl bg-primary p-4 text-primary-foreground lg:self-center dark:bg-primary/20 dark:text-primary-foreground">
@@ -41,13 +42,16 @@ export function Process() {
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col lg:min-w-0 lg:flex-initial">
                   <h3 className="font-semibold text-foreground text-xl">
-                    {t(`steps.${key}.title`)}
+                    {tSteps(stepKey, { returnObjects: true }).title}
                   </h3>
                   <p className="mt-1 block text-lg text-muted-foreground sm:text-base lg:hidden">
-                    {t(`steps.${key}.descriptionMobile`)}
+                    {tSteps(stepKey, { returnObjects: true }).descriptionMobile}
                   </p>
                   <p className="mt-1 hidden text-lg text-muted-foreground sm:text-base lg:block">
-                    {t(`steps.${key}.descriptionDesktop`)}
+                    {
+                      tSteps(stepKey, { returnObjects: true })
+                        .descriptionDesktop
+                    }
                   </p>
                 </div>
               </div>

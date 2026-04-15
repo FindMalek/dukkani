@@ -1,11 +1,11 @@
 import { Button } from "@dukkani/ui/components/button";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getT } from "next-i18next/server";
 import { env } from "@/env";
 
 export async function CTA() {
-  const t = await getTranslations("cta");
+  const { t } = await getT("home", { keyPrefix: "body.cta" });
 
   return (
     <section className="bg-primary py-24 text-primary-foreground">

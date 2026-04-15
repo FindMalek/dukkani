@@ -1,11 +1,11 @@
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getT } from "next-i18next/server";
 import { env } from "@/env";
 
 export async function Header() {
-  const t = await getTranslations("header");
+  const { t } = await getT("home", { keyPrefix: "header" });
 
   return (
     <header className="fixed top-0 z-50 w-full border-secondary border-b bg-background/80 backdrop-blur-md">
