@@ -53,6 +53,7 @@
   "dependencies": {
     "@dukkani/db": "workspace:*",
     "@dukkani/env": "workspace:*",
+    "@dukkani/i18n": "workspace:*",
     "@dukkani/logger": "workspace:*",
     "@dukkani/tracing": "workspace:*",
     "@prisma/client": "catalog:",
