@@ -1,0 +1,144 @@
+{
+  "title": "واجهة المتجر",
+  "description": "وصف واجهة المتجر",
+  "store": {
+    "owner": {
+      "title": "صاحب المتجر"
+    },
+    "products": {
+      "title": "المنتجات",
+      "empty": "لا توجد منتجات متاحة حاليا"
+    },
+    "categoryFilter": {
+      "all": "الكل"
+    },
+    "filter": {
+      "button": "تصفية",
+      "drawerTitle": "تصفية المنتجات",
+      "price": "السعر",
+      "min": "الحد الأدنى",
+      "max": "الحد الأقصى",
+      "availability": "التوفر",
+      "inStockOnly": "المتوفر فقط",
+      "sortBy": "الترتيب حسب",
+      "category": "الفئة",
+      "reset": "إعادة تعيين",
+      "submit": "تطبيق",
+      "cancel": "إلغاء",
+      "sortOptions": {
+        "newest": "الأحدث أولا",
+        "cheapest": "الأرخص أولا",
+        "mostExpensive": "الأغلى أولا"
+      }
+    },
+    "footer": {
+      "copyright": "جميع الحقوق محفوظة",
+      "poweredBy": "بدعم من Dukkani"
+    },
+    "product": {
+      "imageCarousel": {
+        "goToSlide": "الانتقال إلى الشريحة {{index}}"
+      },
+      "storeInfo": {
+        "openNow": "مفتوح الآن",
+        "closed": "مغلق"
+      },
+      "sizeSelector": {
+        "label": "المقاس"
+      },
+      "description": {
+        "label": "الوصف"
+      },
+      "addToCart": {
+        "button": "أضف إلى السلة",
+        "outOfStock": "غير متوفر"
+      },
+      "quickAdd": {
+        "viewDetails": "عرض التفاصيل الكاملة",
+        "quantity": "الكمية"
+      }
+    },
+    "cart": {
+      "title": "سلتك",
+      "empty": "سلتك فارغة",
+      "checkout": "إتمام الشراء",
+      "item": {
+        "lowStock": "متبقي {{count}} فقط",
+        "outOfStock": "غير متوفر"
+      }
+    },
+    "checkout": {
+      "title": "إتمام الشراء",
+      "submitting": "جار إنشاء الطلب...",
+      "placeOrder": "تأكيد الطلب",
+      "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+      "delivery": {
+        "addressFieldset": {
+          "title": "عنوان التوصيل",
+          "description": "يمكنك إدخال عنوانك يدويا أو استخدام موقعك الحالي لملء تفاصيل العنوان تلقائيا."
+        },
+        "title": "التوصيل",
+        "fastDelivery": "توصيل سريع خلال 24-48 ساعة",
+        "fullName": "الاسم الكامل",
+        "phone": "رقم الهاتف",
+        "whatsapp": "هذا الرقم على واتساب",
+        "whatsappDescription": "يمكننا التواصل معك بشكل أسرع عبر واتساب.",
+        "streetAddress": "سطر العنوان",
+        "city": "المدينة",
+        "postalCode": "الرمز البريدي",
+        "instructions": "تعليمات التوصيل",
+        "useLocation": "استخدام موقع الهاتف",
+        "useLocationDescription": "اضغط لملء الرمز البريدي والمدينة وسطر العنوان الأول عند الإمكان.",
+        "useLocationPrivacy": "نستخدم موقع GPS التقريبي فقط. دون خريطة ودون عنوان دقيق.",
+        "locationErrorTitle": "تعذر الحصول على موقعك",
+        "locationErrorDescription": "اسمح بالوصول إلى الموقع في متصفحك (أيقونة القفل أو المعلومات في شريط العنوان)، أو أدخل عنوانك يدويا.",
+        "addressLineDescription": "اسم الشارع أو الحي أو أقرب معلم - أي تفاصيل تساعد المندوب في الوصول إليك."
+      },
+      "payment": {
+        "title": "الدفع",
+        "cod": "الدفع عند الاستلام",
+        "creditCard": "بطاقة ائتمان",
+        "comingSoon": "قريبا"
+      },
+      "orderSummary": {
+        "title": "الطلب",
+        "subtotal": "المجموع الفرعي",
+        "shipping": "الشحن",
+        "total": "الإجمالي",
+        "free": "مجانا",
+        "quantity": "الكمية"
+      },
+      "success": {
+        "title": "تم إنشاء الطلب بنجاح",
+        "message": "شكرا لطلبك! سيتلقى التاجر طلبك وسيتواصل معك قريبا.",
+        "continueShopping": "متابعة التسوق"
+      }
+    }
+  },
+  "storeSelector": {
+    "heading": "اختر متجرا",
+    "description": "أدخل المعرف المختصر للمتجر لعرض واجهة المتجر.",
+    "placeholder": "مثال: demo, omar-home",
+    "button": "عرض المتجر",
+    "loading": "جار التحميل...",
+    "errorNotFound": "المتجر غير موجود. يرجى التحقق من المعرف.",
+    "errorReserved": "هذا المعرف محجوز."
+  },
+  "comingSoon": {
+    "heading": "نطلق قريبا",
+    "description": {
+      "line1": "كن أول من يعرف عند انطلاقنا.",
+      "line2": "تحديثات حصرية للزوار الأوائل."
+    },
+    "input": {
+      "placeholder": "أدخل بريدك الإلكتروني أو رقم هاتفك"
+    },
+    "button": {
+      "label": "أبلغني",
+      "submitting": "جار الاشتراك..."
+    },
+    "success": "شكرا! سنبلغك عند الإطلاق.",
+    "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "privacy": "لا رسائل مزعجة. فقط تحديثات الإطلاق."
+  }
+}

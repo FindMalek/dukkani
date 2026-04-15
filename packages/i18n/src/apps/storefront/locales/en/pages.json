@@ -1,0 +1,144 @@
+{
+  "title": "Storefront",
+  "description": "Storefront description",
+  "store": {
+    "owner": {
+      "title": "Store Owner"
+    },
+    "products": {
+      "title": "Products",
+      "empty": "No products available yet"
+    },
+    "categoryFilter": {
+      "all": "All"
+    },
+    "filter": {
+      "button": "Filter",
+      "drawerTitle": "Filter products",
+      "price": "Price",
+      "min": "Min",
+      "max": "Max",
+      "availability": "Availability",
+      "inStockOnly": "In Stock Only",
+      "sortBy": "Sort by",
+      "category": "Category",
+      "reset": "Reset",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "sortOptions": {
+        "newest": "Newest first",
+        "cheapest": "Cheapest first",
+        "mostExpensive": "Most expensive first"
+      }
+    },
+    "footer": {
+      "copyright": "All rights reserved",
+      "poweredBy": "Powered by Dukkani"
+    },
+    "product": {
+      "imageCarousel": {
+        "goToSlide": "Go to slide {{index}}"
+      },
+      "storeInfo": {
+        "openNow": "Open now",
+        "closed": "Closed"
+      },
+      "sizeSelector": {
+        "label": "Size"
+      },
+      "description": {
+        "label": "Description"
+      },
+      "addToCart": {
+        "button": "Add to Cart",
+        "outOfStock": "Out of Stock"
+      },
+      "quickAdd": {
+        "viewDetails": "View Full Details",
+        "quantity": "Quantity"
+      }
+    },
+    "cart": {
+      "title": "Your Cart",
+      "empty": "Your cart is empty",
+      "checkout": "Checkout",
+      "item": {
+        "lowStock": "Only {{count}} left",
+        "outOfStock": "Out of stock"
+      }
+    },
+    "checkout": {
+      "title": "Checkout",
+      "submitting": "Placing order...",
+      "placeOrder": "Place order",
+      "error": "Something went wrong. Please try again.",
+      "delivery": {
+        "addressFieldset": {
+          "title": "Delivery Address",
+          "description": "You can enter your address manually or use your current location to auto-fill your address details."
+        },
+        "title": "Delivery",
+        "fastDelivery": "Fast 24-48h delivery",
+        "fullName": "Full name",
+        "phone": "Phone",
+        "whatsapp": "This number is on WhatsApp",
+        "whatsappDescription": "We can reach you faster on WhatsApp.",
+        "streetAddress": "Address line",
+        "city": "City",
+        "postalCode": "Postal code",
+        "instructions": "Delivery instructions",
+        "useLocation": "Use phone location",
+        "useLocationDescription": "Tap to fill postal code, city, and the first address line when possible.",
+        "useLocationPrivacy": "We use your approximate GPS location only. No map, no exact address.",
+        "locationErrorTitle": "Could not get your location",
+        "locationErrorDescription": "Allow location access in your browser (lock or info icon in the address bar), or enter your address manually.",
+        "addressLineDescription": "Street name, neighborhood, or landmark — whatever helps the driver find you."
+      },
+      "payment": {
+        "title": "Payment",
+        "cod": "Cash on Delivery (COD)",
+        "creditCard": "Credit Card",
+        "comingSoon": "Coming soon"
+      },
+      "orderSummary": {
+        "title": "Order",
+        "subtotal": "Subtotal",
+        "shipping": "Shipping",
+        "total": "Total",
+        "free": "Free",
+        "quantity": "Quantity"
+      },
+      "success": {
+        "title": "Order created successfully",
+        "message": "Thank you for your order! The merchant will receive your order and contact you soon.",
+        "continueShopping": "Continue Shopping"
+      }
+    }
+  },
+  "storeSelector": {
+    "heading": "Select a store",
+    "description": "Enter the store slug to view the storefront.",
+    "placeholder": "e.g. demo, omar-home",
+    "button": "View Store",
+    "loading": "Loading...",
+    "errorNotFound": "Store not found. Please check the slug.",
+    "errorReserved": "This slug is reserved."
+  },
+  "comingSoon": {
+    "heading": "We're launching soon",
+    "description": {
+      "line1": "Be the first to know when we go live.",
+      "line2": "Exclusive updates for early visitors."
+    },
+    "input": {
+      "placeholder": "Enter your email or phone number"
+    },
+    "button": {
+      "label": "Notify me",
+      "submitting": "Subscribing..."
+    },
+    "success": "Thank you! We'll notify you when we launch.",
+    "error": "Something went wrong. Please try again.",
+    "privacy": "No spam. Only launch updates."
+  }
+}

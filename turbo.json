@@ -82,10 +82,18 @@
       "persistent": true
     },
     "i18n:types": {
-      "dependsOn": ["@dukkani/i18n#web:types", "@dukkani/i18n#ui:types"]
+      "dependsOn": [
+        "@dukkani/i18n#web:types",
+        "@dukkani/i18n#storefront:types",
+        "@dukkani/i18n#ui:types"
+      ]
     },
     "i18n:status": {
-      "dependsOn": ["@dukkani/i18n#web:status", "@dukkani/i18n#ui:status"]
+      "dependsOn": [
+        "@dukkani/i18n#web:status",
+        "@dukkani/i18n#storefront:status",
+        "@dukkani/i18n#ui:status"
+      ]
     },
     "@dukkani/i18n#web:types": {
       "dependsOn": ["^@dukkani/i18n#ui:types"],
@@ -94,6 +102,17 @@
     "@dukkani/i18n#web:status": {
       "dependsOn": ["^@dukkani/i18n#ui:status"],
       "inputs": ["src/apps/web/**", "$TURBO_ROOT$/apps/web/src/**"]
+    },
+    "@dukkani/i18n#storefront:types": {
+      "dependsOn": ["^@dukkani/i18n#ui:types"],
+      "inputs": ["src/apps/storefront/locales/fr/*"]
+    },
+    "@dukkani/i18n#storefront:status": {
+      "dependsOn": ["^@dukkani/i18n#ui:status"],
+      "inputs": [
+        "src/apps/storefront/**",
+        "$TURBO_ROOT$/apps/storefront/src/**"
+      ]
     },
     "@dukkani/i18n#ui:types": {
       "inputs": ["src/shared/ui/locales/fr/ui.json"]

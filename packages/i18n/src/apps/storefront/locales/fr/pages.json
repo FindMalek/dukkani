@@ -1,0 +1,144 @@
+{
+  "title": "Vitrine",
+  "description": "Description de la vitrine",
+  "store": {
+    "owner": {
+      "title": "Propriétaire du magasin"
+    },
+    "products": {
+      "title": "Produits",
+      "empty": "Aucun produit disponible pour le moment"
+    },
+    "categoryFilter": {
+      "all": "Tous"
+    },
+    "filter": {
+      "button": "Filtrer",
+      "drawerTitle": "Filtrer les produits",
+      "price": "Prix",
+      "min": "Min",
+      "max": "Max",
+      "availability": "Disponibilite",
+      "inStockOnly": "En stock uniquement",
+      "sortBy": "Trier par",
+      "category": "Categorie",
+      "reset": "Reinitialiser",
+      "submit": "Valider",
+      "cancel": "Annuler",
+      "sortOptions": {
+        "newest": "Plus recents d'abord",
+        "cheapest": "Moins chers d'abord",
+        "mostExpensive": "Plus chers d'abord"
+      }
+    },
+    "footer": {
+      "copyright": "Tous droits reserves",
+      "poweredBy": "Propulse par Dukkani"
+    },
+    "product": {
+      "imageCarousel": {
+        "goToSlide": "Aller a la diapositive {{index}}"
+      },
+      "storeInfo": {
+        "openNow": "Ouvert",
+        "closed": "Ferme"
+      },
+      "sizeSelector": {
+        "label": "Taille"
+      },
+      "description": {
+        "label": "Description"
+      },
+      "addToCart": {
+        "button": "Ajouter au panier",
+        "outOfStock": "Rupture de stock"
+      },
+      "quickAdd": {
+        "viewDetails": "Voir tous les details",
+        "quantity": "Quantite"
+      }
+    },
+    "cart": {
+      "title": "Votre panier",
+      "empty": "Votre panier est vide",
+      "checkout": "Commander",
+      "item": {
+        "lowStock": "Il ne reste que {{count}}",
+        "outOfStock": "Rupture de stock"
+      }
+    },
+    "checkout": {
+      "title": "Paiement",
+      "submitting": "Validation de la commande...",
+      "placeOrder": "Passer la commande",
+      "error": "Une erreur est survenue. Veuillez reessayer.",
+      "delivery": {
+        "addressFieldset": {
+          "title": "Adresse de livraison",
+          "description": "Vous pouvez saisir votre adresse manuellement ou utiliser votre position actuelle pour pre-remplir les details de votre adresse."
+        },
+        "title": "Livraison",
+        "fastDelivery": "Livraison rapide en 24-48 h",
+        "fullName": "Nom complet",
+        "phone": "Telephone",
+        "whatsapp": "Ce numero est sur WhatsApp",
+        "whatsappDescription": "Nous pouvons vous joindre plus rapidement sur WhatsApp.",
+        "streetAddress": "Ligne d'adresse",
+        "city": "Ville",
+        "postalCode": "Code postal",
+        "instructions": "Instructions de livraison",
+        "useLocation": "Utiliser la localisation du telephone",
+        "useLocationDescription": "Appuyez pour renseigner le code postal, la ville et la premiere ligne d'adresse lorsque c'est possible.",
+        "useLocationPrivacy": "Nous utilisons uniquement votre position GPS approximative. Pas de carte, pas d'adresse exacte.",
+        "locationErrorTitle": "Impossible d'obtenir votre position",
+        "locationErrorDescription": "Autorisez l'acces a la localisation dans votre navigateur (icone cadenas ou info dans la barre d'adresse), ou saisissez votre adresse manuellement.",
+        "addressLineDescription": "Nom de rue, quartier ou point de repere - tout ce qui aide le livreur a vous trouver."
+      },
+      "payment": {
+        "title": "Paiement",
+        "cod": "Paiement a la livraison (COD)",
+        "creditCard": "Carte bancaire",
+        "comingSoon": "Bientot disponible"
+      },
+      "orderSummary": {
+        "title": "Commande",
+        "subtotal": "Sous-total",
+        "shipping": "Livraison",
+        "total": "Total",
+        "free": "Gratuit",
+        "quantity": "Quantite"
+      },
+      "success": {
+        "title": "Commande creee avec succes",
+        "message": "Merci pour votre commande ! Le marchand recevra votre commande et vous contactera bientot.",
+        "continueShopping": "Continuer vos achats"
+      }
+    }
+  },
+  "storeSelector": {
+    "heading": "Selectionnez un magasin",
+    "description": "Saisissez le slug du magasin pour voir la vitrine.",
+    "placeholder": "ex. demo, omar-home",
+    "button": "Voir le magasin",
+    "loading": "Chargement...",
+    "errorNotFound": "Magasin introuvable. Veuillez verifier le slug.",
+    "errorReserved": "Ce slug est reserve."
+  },
+  "comingSoon": {
+    "heading": "Lancement imminent",
+    "description": {
+      "line1": "Soyez parmi les premiers informes de notre lancement.",
+      "line2": "Des mises a jour exclusives pour les premiers visiteurs."
+    },
+    "input": {
+      "placeholder": "Entrez votre e-mail ou numero de telephone"
+    },
+    "button": {
+      "label": "Me prevenir",
+      "submitting": "Inscription..."
+    },
+    "success": "Merci ! Nous vous informerons quand nous serons en ligne.",
+    "error": "Une erreur est survenue. Veuillez reessayer.",
+    "privacy": "Pas de spam. Seulement les infos de lancement."
+  }
+}
