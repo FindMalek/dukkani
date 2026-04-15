@@ -12,7 +12,7 @@ type FeatureKeyWithIcon = {
 };
 
 const features: FeatureKeyWithIcon[] = [
-  { key: "cleanDashboard", icon: "bell" },
+  { key: "telegramAlerts", icon: "bell" },
   { key: "recoverOrders", icon: "refreshCw" },
   { key: "massNotify", icon: "megaphone" },
   { key: "customDomain", icon: "globe" },
