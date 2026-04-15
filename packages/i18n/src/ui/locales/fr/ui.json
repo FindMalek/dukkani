@@ -3,6 +3,12 @@
     "password": {
       "hide": "Cacher le mot de passe",
       "show": "Afficher le mot de passe"
+    },
+    "images": {
+      "label": "Ajouter des photos",
+      "dragActiveLabel": "Déposez ici",
+      "hint": "ou cliquez pour naviguer",
+      "optimizing": "Optimisation des images..."
     }
   },
   "languageSwitcher": {

@@ -2,6 +2,12 @@
 interface Resources {
   "ui": {
     "fields": {
+      "images": {
+        "dragActiveLabel": "Déposez ici",
+        "hint": "ou cliquez pour naviguer",
+        "label": "Ajouter des photos",
+        "optimizing": "Optimisation des images..."
+      },
       "password": {
         "hide": "Cacher le mot de passe",
         "show": "Afficher le mot de passe"
