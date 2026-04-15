@@ -1,7 +1,7 @@
 export const SupportedLanguages = {
+  FRENCH: "fr",
   ENGLISH: "en",
   ARABIC: "ar",
-  FRENCH: "fr",
 } as const;
 
 export type SupportedLanguage =

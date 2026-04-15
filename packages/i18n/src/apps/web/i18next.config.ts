@@ -1,7 +1,8 @@
 import { defineConfig } from "i18next-cli";
+import { SupportedLanguages } from "../../shared";
 
 export default defineConfig({
-  locales: ["fr", "en"],
+  locales: Object.values(SupportedLanguages),
   extract: {
     input: ["../../apps/web/src/**/*.{ts,tsx}"],
     output: (language, namespace) => {
