@@ -1,0 +1,8 @@
+{
+  "fields": {
+    "password": {
+      "hide": "Hide password",
+      "show": "Show password"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "header": {
+    "brandName": "Dukkani",
+    "features": "Features",
+    "pricing": "Pricing",
+    "startSelling": "Start Selling"
+  },
+  "body": {
+    "hero": {
+      "badge": "",
+      "titleLine1": "",
+      "titleLine2": "",
+      "titleLine3": "",
+      "titleLine4": "",
+      "subtitle": "",
+      "ctaPrimary": "",
+      "ctaSecondary": ""
+    },
+    "painPoints": {
+      "title": "",
+      "subtitle": "",
+      "items": {
+        "wastedTime": {
+          "title": "",
+          "description": ""
+        },
+        "fakeOrders": {
+          "title": "",
+          "description": ""
+        },
+        "lostDms": {
+          "title": "",
+          "description": ""
+        },
+        "manualForms": {
+          "title": "",
+          "description": ""
+        }
+      }
+    },
+    "process": {
+      "title": "",
+      "steps": {
+        "createStore": {
+          "title": "",
+          "descriptionMobile": "",
+          "descriptionDesktop": ""
+        },
+        "shareLink": {
+          "title": "",
+          "descriptionMobile": "",
+          "descriptionDesktop": ""
+        },
+        "weConfirm": {
+          "title": "",
+          "descriptionMobile": "",
+          "descriptionDesktop": ""
+        },
+        "deliveryReady": {
+          "title": "",
+          "descriptionMobile": "",
+          "descriptionDesktop": ""
+        }
+      }
+    }
+  },
+  "footer": {
+    "brandName": "",
+    "terms": "",
+    "privacy": "",
+    "contact": "",
+    "madeForTunisia": ""
+  }
+}

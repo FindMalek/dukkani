@@ -1,0 +1,29 @@
+{
+  "name": "@dukkani/i18n",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./web": {
+      "default": "./src/apps/web/instance.ts",
+      "types": "./src/apps/web/types.d.ts"
+    },
+    "./shared": {
+      "default": "./src/shared/instance.ts",
+      "types": "./src/shared/types.d.ts"
+    }
+  },
+  "scripts": {
+    "web": "i18next-cli --config src/apps/web/i18next.config.ts",
+    "web:types": "i18next-cli --config src/apps/web/i18next.config.ts types",
+    "web:status": "i18next-cli --config src/apps/web/i18next.config.ts status",
+    "ui": "i18next-cli --config src/ui/i18next.config.ts",
+    "ui:types": "i18next-cli --config src/ui/i18next.config.ts types",
+    "ui:status": "i18next-cli --config src/ui/i18next.config.ts status"
+  },
+  "dependencies": {
+    "i18next": "catalog:",
+    "next-i18next": "catalog:",
+    "i18next-cli": "^1.53.2"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,8 @@
+{
+  "fields": {
+    "password": {
+      "hide": "Cacher le mot de passe",
+      "show": "Afficher le mot de passe"
+    }
+  }
+}
