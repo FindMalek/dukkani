@@ -1,5 +1,5 @@
 import type { I18nConfig } from "next-i18next";
-import { DefaultLanguage, SupportedLanguages } from "../../shared/language";
+import { DefaultLanguage, SupportedLanguages } from "../../shared";
 
 const I18nextWebConfig: I18nConfig = {
   supportedLngs: Object.values(SupportedLanguages),
@@ -7,9 +7,10 @@ const I18nextWebConfig: I18nConfig = {
   defaultNS: "home",
   ns: ["home", "ui"],
   resourceLoader: async (lng, ns) => {
-    if (ns === "ui") {
-      const uiResources = (await import(`../../ui/locales/${lng}/ui.json`))
-        .default;
+    if (ns !== "home") {
+      const uiResources = (
+        await import(`../../shared/locales/${lng}/${ns}.json`)
+      ).default;
       return uiResources;
     }
     const resources = (await import(`./locales/${lng}/${ns}.json`)).default;

@@ -6,7 +6,7 @@ export default defineConfig({
     input: ["../../apps/web/src/**/*.{ts,tsx}"],
     output: (language, namespace) => {
       if (namespace === "ui") {
-        return `./src/ui/locales/${language}/ui.json`;
+        return `./src/shared/locales/${language}/ui.json`;
       }
       return `./src/apps/web/locales/${language}/${namespace}.json`;
     },

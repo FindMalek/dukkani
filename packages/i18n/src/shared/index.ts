@@ -3,10 +3,10 @@ export {
   formatCurrencyFn,
   SupportedCurrencies,
   type SupportedCurrency,
-} from "./currency";
-export { DateTimeFormattingOptions, formatDateFn } from "./date";
+} from "./lib/currency";
+export { DateTimeFormattingOptions, formatDateFn } from "./lib/date";
 export {
   DefaultLanguage,
   type SupportedLanguage,
   SupportedLanguages,
-} from "./language";
+} from "./lib/language";

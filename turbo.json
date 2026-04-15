@@ -96,10 +96,14 @@
       "inputs": ["src/apps/web/**", "$TURBO_ROOT$/apps/web/src/**"]
     },
     "@dukkani/i18n#ui:types": {
-      "inputs": ["src/ui/locales/fr/ui.json"]
+      "inputs": ["src/shared/ui/locales/fr/ui.json"]
     },
     "@dukkani/i18n#ui:status": {
-      "inputs": ["src/ui/**", "$TURBO_ROOT$/packages/ui/src/**"]
+      "inputs": [
+        "src/shared/locales/*/ui.json",
+        "src/shared/ui/**",
+        "$TURBO_ROOT$/packages/ui/src/**"
+      ]
     },
     "clean": {
       "cache": false,
