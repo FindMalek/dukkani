@@ -1,18 +1,22 @@
 import "@dukkani/ui/styles/globals.css";
 
-import {
-  getTextDirection,
-  LOCALES,
-  type Locale,
-} from "@dukkani/common/schemas/constants";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { isStoreSelectorEnabled } from "@dukkani/env";
+import { I18nextStorefrontConfig } from "@dukkani/i18n/storefront";
+import { DirectionProvider } from "@dukkani/ui/components/direction";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { Cairo, Inter } from "next/font/google";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import { I18nProvider } from "next-i18next/client";
+import {
+  generateI18nStaticParams,
+  getResources,
+  getT,
+  initServerI18next,
+} from "next-i18next/server";
+import { NuqsAdapter } from "nuqs/adapters/react";
 import { Providers } from "@/components/layout/providers";
 import { StoreFooter } from "@/components/layout/store-footer";
 import { StoreHeader } from "@/components/layout/store-header";
@@ -39,8 +43,10 @@ export const metadata: Metadata = {
   description: "Storefront powered by Dukkani",
 };
 
+initServerI18next(I18nextStorefrontConfig);
+
 export async function generateStaticParams() {
-  return LOCALES.map((lang) => ({ lang }));
+  return generateI18nStaticParams();
 }
 
 export default async function RootLayout({
@@ -48,11 +54,11 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ lang: string }>;
+  params: Promise<{ lng: string }>;
 }) {
-  const { lang } = (await params) as { lang: Locale };
-  setRequestLocale(lang);
-  const messages = await getMessages();
+  const { lng } = await params;
+  const { i18n } = await getT();
+  const resources = getResources(i18n);
 
   const headersList = await headers();
   const host = headersList.get("host");
@@ -86,13 +92,15 @@ export default async function RootLayout({
     if (isStoreSelectorEnabled(process.env)) {
       return (
         <html
-          lang={lang}
-          dir={getTextDirection(lang)}
+          lang={lng}
+          dir={i18n.dir()}
           className={`${inter.variable} ${cairo.variable}`}
           suppressHydrationWarning
         >
           <body className="antialiased" suppressHydrationWarning>
-            <StoreSelector locale={lang} messages={messages} />
+            <I18nProvider language={lng} resources={resources}>
+              <StoreSelector />
+            </I18nProvider>
           </body>
         </html>
       );
@@ -102,25 +110,29 @@ export default async function RootLayout({
 
   return (
     <html
-      lang={lang}
-      dir={getTextDirection(lang)}
+      lang={lng}
+      dir={i18n.dir()}
       className={`${inter.variable} ${cairo.variable}`}
       suppressHydrationWarning
     >
       <body className="antialiased" suppressHydrationWarning>
-        <Providers locale={lang} messages={messages} storeSlug={store.slug}>
-          <HydrationBoundary state={dehydrate(queryClient)}>
-            <div className="min-h-screen overflow-x-hidden bg-background">
-              <StoreHeader store={store} />
-              <div style={{ height: appConstants.STORE_HEADER_HEIGHT }} />
-              <main>{children}</main>
-              <StoreFooter />
-            </div>
-          </HydrationBoundary>
-          {isStoreSelectorEnabled(process.env) && (
-            <StoreSelectorBubble locale={lang} />
-          )}
-        </Providers>
+        <NuqsAdapter>
+          <I18nProvider language={lng} resources={resources}>
+            <DirectionProvider dir={i18n.dir()}>
+              <Providers storeSlug={store.slug}>
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                  <div className="min-h-screen overflow-x-hidden bg-background">
+                    <StoreHeader store={store} />
+                    <div style={{ height: appConstants.STORE_HEADER_HEIGHT }} />
+                    <main>{children}</main>
+                    <StoreFooter />
+                  </div>
+                </HydrationBoundary>
+                {isStoreSelectorEnabled(process.env) && <StoreSelectorBubble />}
+              </Providers>
+            </DirectionProvider>
+          </I18nProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

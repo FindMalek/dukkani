@@ -1,35 +1,28 @@
 "use client";
 
-import type { Locale } from "@dukkani/common/schemas/constants";
-import { getTextDirection } from "@dukkani/common/schemas/constants";
 import { isReservedStoreSlug } from "@dukkani/common/schemas/store/constants";
 import { Button } from "@dukkani/ui/components/button";
-import { DirectionProvider } from "@dukkani/ui/components/direction";
 import { Input } from "@dukkani/ui/components/input";
+import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { NextIntlClientProvider, useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useState } from "react";
 import { toast } from "sonner";
 import { getQueryClient, getStorefrontClient } from "@/shared/api/orpc";
 
-interface StoreSelectorProps {
-  locale: Locale;
-  messages: Record<string, unknown>;
-}
-
 interface StoreSelectorFormProps {
-  locale: Locale;
   compact?: boolean;
 }
 
-export function StoreSelectorForm({ locale, compact }: StoreSelectorFormProps) {
-  const t = useTranslations("storefront.storeSelector");
+export function StoreSelectorForm({ compact }: StoreSelectorFormProps) {
+  const { t } = useT("pages", { keyPrefix: "storeSelector" });
   const router = useRouter();
+  const { i18n } = useT();
   const [slug, setSlug] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmed = slug.trim().toLowerCase();
     if (!trimmed) return;
@@ -42,7 +35,7 @@ export function StoreSelectorForm({ locale, compact }: StoreSelectorFormProps) {
     setIsSubmitting(true);
     try {
       await getStorefrontClient().selectStore({ slug: trimmed });
-      router.push(`/${locale}`);
+      router.push(`/${i18n.language}`);
       router.refresh();
     } catch {
       toast.error(t("errorNotFound"));
@@ -88,16 +81,19 @@ export function StoreSelectorForm({ locale, compact }: StoreSelectorFormProps) {
   );
 }
 
-export function StoreSelector({ locale, messages }: StoreSelectorProps) {
+export function StoreSelector() {
   const [queryClient] = useState(() => getQueryClient());
 
   return (
-    <DirectionProvider dir={getTextDirection(locale)}>
-      <NextIntlClientProvider locale={locale} messages={messages}>
-        <QueryClientProvider client={queryClient}>
-          <StoreSelectorForm locale={locale} />
-        </QueryClientProvider>
-      </NextIntlClientProvider>
-    </DirectionProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <QueryClientProvider client={queryClient}>
+        <StoreSelectorForm />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }

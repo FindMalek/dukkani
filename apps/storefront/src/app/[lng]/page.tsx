@@ -5,7 +5,7 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getT } from "next-i18next/server";
 import type { SearchParams } from "nuqs/server";
 import { ComingSoon } from "@/components/app/coming-soon";
 import { HeroBanner } from "@/components/app/hero-banner";
@@ -39,7 +39,7 @@ export default async function StorePage({ searchParams }: StorePageProps) {
   const host = headersList.get("host");
   const cookieStore = await cookies();
   const storeSlug = getStoreSlug(host, cookieStore);
-  const t = await getTranslations("storefront.store");
+  const { t } = await getT("pages", { keyPrefix: "store" });
 
   if (!storeSlug) {
     return notFound();

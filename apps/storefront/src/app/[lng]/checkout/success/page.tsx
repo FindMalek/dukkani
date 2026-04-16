@@ -2,12 +2,13 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
-import { useTranslations } from "next-intl";
-import { RoutePaths, useRouter } from "@/shared/config/routes";
+import { useRouter } from "next/navigation";
+import { useT } from "next-i18next/client";
+import { RoutePaths } from "@/shared/config/routes";
 
 export default function CheckoutSuccessPage() {
   const router = useRouter();
-  const t = useTranslations("storefront.store.checkout.success");
+  const { t } = useT("pages", { keyPrefix: "store.checkout.success" });
 
   return (
     <div className="container mx-auto max-w-2xl px-4 py-16">

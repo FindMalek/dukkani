@@ -17,12 +17,13 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useMutation } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useT } from "next-i18next/client";
 import { useCallback, useEffect, useEffectEvent, useRef } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { appMutations } from "@/shared/api/mutations";
-import { RoutePaths, useRouter } from "@/shared/config/routes";
+import { RoutePaths } from "@/shared/config/routes";
 import { useDetectedAddress } from "@/shared/lib/address-detection.hook";
 import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
 import { useCartHydration, useCartStore } from "@/shared/lib/cart/store";
@@ -53,7 +54,7 @@ const formSchema = createOrderPublicInputObjectSchema
 
 export function CheckoutForm({ store }: CheckoutFormProps) {
   const router = useRouter();
-  const t = useTranslations("storefront.store.checkout");
+  const { t } = useT("pages", { keyPrefix: "store.checkout" });
   const formatPrice = useFormatPriceCurrentStore(store.currency);
   const clearCart = useCartStore((state) => state.clearCart);
 

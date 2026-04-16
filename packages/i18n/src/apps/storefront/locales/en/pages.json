@@ -131,6 +131,7 @@
       "line2": "Exclusive updates for early visitors."
     },
     "input": {
+      "label": "Email or phone",
       "placeholder": "Enter your email or phone number"
     },
     "button": {

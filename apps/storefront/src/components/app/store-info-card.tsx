@@ -8,7 +8,7 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { RoutePaths } from "@/shared/config/routes";
 
 interface StoreInfoCardProps {
@@ -26,7 +26,7 @@ export function StoreInfoCard({
   isOpen,
   storeSlug,
 }: StoreInfoCardProps) {
-  const t = useTranslations("storefront.store.product.storeInfo");
+  const { t } = useT("pages", { keyPrefix: "store.product.storeInfo" });
 
   if (!storeSlug) {
     return null;

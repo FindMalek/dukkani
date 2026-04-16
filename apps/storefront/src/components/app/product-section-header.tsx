@@ -9,7 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@dukkani/ui/components/drawer";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useState } from "react";
 import { FilterProductsForm } from "@/components/app/filter-products-form";
 
@@ -24,8 +24,8 @@ export function ProductSectionHeader({
   storeCurrency,
   categories,
 }: ProductSectionHeaderProps) {
-  const tFilter = useTranslations("storefront.store.filter");
-  const tProducts = useTranslations("storefront.store.products");
+  const { t: tFilter } = useT("pages", { keyPrefix: "store.filter" });
+  const { t: tProducts } = useT("pages", { keyPrefix: "store.products" });
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const sectionTitle = title ?? tProducts("title");
 

@@ -1,12 +1,11 @@
 "use client";
 
-import type { store } from "@dukkani/common/schemas";
 import { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
 import { useCartStore } from "@/shared/lib/cart/store";
 
@@ -29,7 +28,7 @@ export function AddToCartFooter({
   variant = "fixed",
   onAddToCart,
 }: AddToCartFooterProps) {
-  const t = useTranslations("storefront.store.product.addToCart");
+  const { t } = useT("pages", { keyPrefix: "store.product.addToCart" });
   const formatPrice = useFormatPriceCurrentStore(currency);
   const [quantity, setQuantity] = useState(1);
 

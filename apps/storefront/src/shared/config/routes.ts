@@ -1,10 +1,4 @@
-import { LOCALES } from "@dukkani/common/schemas/constants";
 import type { Route } from "next";
-import { createNavigation } from "next-intl/navigation";
-
-export const { Link, redirect, usePathname, useRouter } = createNavigation({
-  locales: LOCALES,
-});
 
 /**
  * Route path definitions with type safety

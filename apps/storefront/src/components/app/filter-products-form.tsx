@@ -11,7 +11,7 @@ import {
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useQueryStates } from "nuqs";
 import { productFilterParams } from "@/shared/lib/product/filters";
 
@@ -27,8 +27,10 @@ export function FilterProductsForm({
   handleCloseDrawer,
 }: FilterProductsFormProps) {
   const router = useRouter();
-  const tFilter = useTranslations("storefront.store.filter");
-  const tCategoryFilter = useTranslations("storefront.store.categoryFilter");
+  const { t: tFilter } = useT("pages", { keyPrefix: "store.filter" });
+  const { t: tCategoryFilter } = useT("pages", {
+    keyPrefix: "store.categoryFilter",
+  });
   const [queryFilters, setQueryFilters] = useQueryStates(productFilterParams, {
     history: "push",
     clearOnDefault: true,

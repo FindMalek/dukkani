@@ -13,6 +13,7 @@ interface Resources {
       "error": "Une erreur est survenue. Veuillez reessayer.",
       "heading": "Lancement imminent",
       "input": {
+        "label": "E-mail ou telephone",
         "placeholder": "Entrez votre e-mail ou numero de telephone"
       },
       "privacy": "Pas de spam. Seulement les infos de lancement.",

@@ -2,7 +2,7 @@
 
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useState } from "react";
 import { useCartStore } from "@/shared/lib/cart/store";
 import { ProductCard } from "./product-card";
@@ -14,7 +14,7 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ products, store }: ProductGridProps) {
-  const t = useTranslations("storefront.store.products");
+  const { t } = useT("pages", { keyPrefix: "store.products" });
   const addItem = useCartStore((state) => state.addItem);
   const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
   const [selectedProduct, setSelectedProduct] =

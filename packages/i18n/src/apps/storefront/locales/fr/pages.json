@@ -131,6 +131,7 @@
       "line2": "Des mises a jour exclusives pour les premiers visiteurs."
     },
     "input": {
+      "label": "E-mail ou telephone",
       "placeholder": "Entrez votre e-mail ou numero de telephone"
     },
     "button": {

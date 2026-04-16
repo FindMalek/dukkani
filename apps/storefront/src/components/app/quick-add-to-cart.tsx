@@ -14,7 +14,7 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { VariantSelector } from "@/components/shared/variant-selector";
@@ -34,7 +34,7 @@ export function QuickAddToCart({
   onOpenChange,
   storeCurrency,
 }: QuickAddToCartProps) {
-  const t = useTranslations("storefront.store.product");
+  const { t } = useT("pages", { keyPrefix: "store.product" });
 
   const hasVariants = (product.variants?.length ?? 0) > 0;
 
