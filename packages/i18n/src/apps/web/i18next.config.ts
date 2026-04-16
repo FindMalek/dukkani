@@ -8,7 +8,7 @@ export default defineConfig({
     input: ["../../apps/web/src/**/*.{ts,tsx}"],
     output: (language, namespace) => {
       if (namespace && !I18nextWebNamespaces.includes(namespace)) {
-        return `./src/shared/locales/${language}/ui.json`;
+        return `./src/shared/locales/${language}/${namespace}.json`;
       }
       return `./src/apps/web/locales/${language}/${namespace}.json`;
     },
