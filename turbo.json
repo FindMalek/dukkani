@@ -128,7 +128,7 @@
       ]
     },
     "@dukkani/i18n#ui:types": {
-      "inputs": ["src/shared/ui/locales/fr/ui.json"]
+      "inputs": ["src/shared/locales/fr/ui.json"]
     },
     "@dukkani/i18n#ui:status": {
       "inputs": [
