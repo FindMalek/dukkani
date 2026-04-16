@@ -1,7 +1,11 @@
-import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
+"use client";
+
+import { formatCurrencyFn } from "@dukkani/i18n";
+import { useT } from "next-i18next/client";
 import { useCurrentStoreCurrency } from "./current-currency.hook";
 
 export function useFormatPriceForActiveStore() {
   const currency = useCurrentStoreCurrency();
-  return useFormatPriceCurrentStore(currency);
+  const { i18n } = useT();
+  return formatCurrencyFn(i18n.language, currency);
 }
