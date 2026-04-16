@@ -112,39 +112,39 @@ interface Resources {
         "category": {
           "label": "Quelle catégorie décrit le mieux votre magasin ?",
           "options": {
-            "beauty": {
+            "BEAUTY": {
               "description": "Cosmétiques et soins personnels",
               "label": "Beauté"
             },
-            "books": {
+            "BOOKS": {
               "description": "Livres et matériel de lecture",
               "label": "Livres"
             },
-            "electronics": {
+            "ELECTRONICS": {
               "description": "Gadgets, appareils et technologie",
               "label": "Électronique"
             },
-            "fashion": {
+            "FASHION": {
               "description": "Vêtements, accessoires et style",
               "label": "Mode"
             },
-            "food": {
+            "FOOD": {
               "description": "Produits alimentaires et boissons",
               "label": "Alimentation"
             },
-            "home": {
+            "HOME": {
               "description": "Décoration et essentiels pour la maison",
               "label": "Maison"
             },
-            "other": {
+            "OTHER": {
               "description": "Autres catégories",
               "label": "Autre"
             },
-            "sports": {
+            "SPORTS": {
               "description": "Équipement et matériel de sport",
               "label": "Sports"
             },
-            "toys": {
+            "TOYS": {
               "description": "Jouets et jeux",
               "label": "Jouets"
             }

@@ -13,7 +13,7 @@ import {
 } from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useCallback } from "react";
 import { productFormOptions } from "@/shared/lib/product/form";
 
@@ -21,7 +21,7 @@ export const ProductFormVariants = withForm({
   ...productFormOptions,
   props: {},
   render: function Render({ form }) {
-    const t = useTranslations("products.create");
+    const { t } = useT("pages", { keyPrefix: "products.create" });
 
     const handleAddNewVariantOption = useCallback(() => {
       if (

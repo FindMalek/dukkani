@@ -5,7 +5,7 @@ import {
   type OrderStatusFilter,
 } from "@dukkani/common/entities/order/entity";
 import { Button } from "@dukkani/ui/components/button";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 
 interface OrdersStatusTabsProps {
   value: OrderStatusFilter;
@@ -13,7 +13,7 @@ interface OrdersStatusTabsProps {
 }
 
 export function OrdersStatusTabs({ value, onChange }: OrdersStatusTabsProps) {
-  const t = useTranslations("orders.list.filters");
+  const { t } = useT("pages", { keyPrefix: "orders.list.filters" });
   const options = OrderEntity.getStatusFilterOptions();
 
   return (

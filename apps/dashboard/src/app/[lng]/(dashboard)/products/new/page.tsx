@@ -5,7 +5,7 @@ import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useCallback, useRef } from "react";
 import {
   ProductForm,
@@ -15,7 +15,7 @@ import { getRouteWithQuery, RoutePaths } from "@/shared/config/routes";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 
 export default function NewProductPage() {
-  const t = useTranslations("products.create");
+  const { t } = useT("pages", { keyPrefix: "products.create" });
   const formRef = useRef<ProductFormHandle>(null);
   const { selectedStoreId, isLoading } = useActiveStoreStore();
 

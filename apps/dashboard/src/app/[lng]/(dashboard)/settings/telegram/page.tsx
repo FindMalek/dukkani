@@ -23,7 +23,7 @@ import { Input } from "@dukkani/ui/components/input";
 import { Label } from "@dukkani/ui/components/label";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useState } from "react";
 import { toast } from "sonner";
 import { appMutations } from "@/shared/api/mutations";
@@ -31,7 +31,7 @@ import { appQueries } from "@/shared/api/queries";
 import { RoutePaths } from "@/shared/config/routes";
 
 export default function TelegramSettingsPage() {
-  const t = useTranslations("settings.telegram");
+  const { t } = useT("pages", { keyPrefix: "settings.telegram" });
 
   const [storeName, setStoreName] = useState("");
   const [disconnectOpen, setDisconnectOpen] = useState(false);

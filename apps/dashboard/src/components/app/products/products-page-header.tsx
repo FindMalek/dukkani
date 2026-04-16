@@ -1,9 +1,9 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 
 export function ProductsPageHeader() {
-  const t = useTranslations("products.list");
+  const { t } = useT("pages", { keyPrefix: "products.list" });
 
   return (
     <div className="mb-6">

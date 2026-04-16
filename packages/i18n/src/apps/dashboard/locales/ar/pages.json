@@ -107,39 +107,39 @@
       "category": {
         "label": "ما الفئة التي تصف متجرك بشكل أفضل؟",
         "options": {
-          "fashion": {
+          "FASHION": {
             "label": "الأزياء",
             "description": "الملابس والإكسسوارات والأناقة"
           },
-          "electronics": {
+          "ELECTRONICS": {
             "label": "الإلكترونيات",
             "description": "الأدوات والأجهزة والتقنية"
           },
-          "food": {
+          "FOOD": {
             "label": "المأكولات",
             "description": "الأطعمة والمشروبات"
           },
-          "home": {
+          "HOME": {
             "label": "المنزل",
             "description": "ديكور المنزل والاحتياجات الأساسية"
           },
-          "beauty": {
+          "BEAUTY": {
             "label": "الجمال",
             "description": "مستحضرات التجميل والعناية الشخصية"
           },
-          "sports": {
+          "SPORTS": {
             "label": "الرياضة",
             "description": "معدات وأدوات رياضية"
           },
-          "books": {
+          "BOOKS": {
             "label": "الكتب",
             "description": "الكتب ومواد القراءة"
           },
-          "toys": {
+          "TOYS": {
             "label": "الألعاب",
             "description": "الألعاب والمرح"
           },
-          "other": {
+          "OTHER": {
             "label": "أخرى",
             "description": "فئات أخرى"
           }

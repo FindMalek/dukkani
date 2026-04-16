@@ -21,7 +21,7 @@ import {
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useCallback, useState } from "react";
 import { ProductListCard } from "@/components/app/products/product-list-card";
 import { ProductsFilterDrawer } from "@/components/app/products/products-filter-drawer";
@@ -33,7 +33,7 @@ import { RoutePaths } from "@/shared/config/routes";
 import { useProductsController } from "@/shared/lib/product/controller.hook";
 
 export default function ProductsPage() {
-  const t = useTranslations("products.list");
+  const { t } = useT("pages", { keyPrefix: "products" });
 
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState<string | null>(
@@ -90,7 +90,7 @@ export default function ProductsPage() {
         <ProductsPageHeader />
         <Card>
           <CardContent className="pt-6">
-            <p className="text-destructive text-sm">{t("error")}</p>
+            <p className="text-destructive text-sm">{t("list.error")}</p>
           </CardContent>
         </Card>
       </div>
@@ -149,11 +149,13 @@ export default function ProductsPage() {
             <EmptyMedia variant="icon">
               <Icons.package />
             </EmptyMedia>
-            <EmptyDescription>{t("empty")}</EmptyDescription>
+            <EmptyDescription>{t("list.empty")}</EmptyDescription>
           </EmptyHeader>
           <EmptyContent>
             <Button asChild size="lg">
-              <Link href={RoutePaths.PRODUCTS.NEW.url}>{t("addProduct")}</Link>
+              <Link href={RoutePaths.PRODUCTS.NEW.url}>
+                {t("list.addProduct")}
+              </Link>
             </Button>
           </EmptyContent>
         </Empty>
@@ -164,7 +166,7 @@ export default function ProductsPage() {
         asChild
         size="icon-lg"
         className="fixed end-4 bottom-24 z-50 size-14 rounded-full shadow-lg md:end-6 md:bottom-8"
-        aria-label={t("addProduct")}
+        aria-label={t("list.addProduct")}
       >
         <Link href={RoutePaths.PRODUCTS.NEW.url}>
           <Icons.plus className="size-6" />
@@ -179,19 +181,19 @@ export default function ProductsPage() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {t("actions.deleteConfirmTitle")}
+              {t("list.actions.deleteConfirmTitle")}
             </AlertDialogTitle>
             <AlertDialogDescription>
-              {t("actions.deleteConfirmDescription")}
+              {t("list.actions.deleteConfirmDescription")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>{t("actions.cancel")}</AlertDialogCancel>
+            <AlertDialogCancel>{t("list.actions.cancel")}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteConfirm}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              {t("actions.delete")}
+              {t("list.actions.delete")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

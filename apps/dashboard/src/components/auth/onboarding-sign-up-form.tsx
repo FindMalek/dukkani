@@ -8,7 +8,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { RoutePaths } from "@/shared/config/routes";
 
 export const signUpOnboardingFormDefaultValues = (email = "") =>
@@ -30,7 +30,7 @@ export const SignUpOnboardingForm = withForm({
     emailFromQuery: null as string | null,
   },
   render: function RenderForm({ form, emailFromQuery }) {
-    const t = useTranslations("onboarding.signup");
+    const { t } = useT("pages", { keyPrefix: "onboarding.signup" });
     const hasEmailInQuery = !!emailFromQuery;
 
     return (

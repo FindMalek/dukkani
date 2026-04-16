@@ -8,7 +8,7 @@ import {
   EmptyMedia,
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useState } from "react";
 import { OrderListCard } from "@/components/app/orders/order-list-card";
 import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
@@ -20,7 +20,7 @@ import { useOrdersController } from "@/shared/lib/order/controller.hook";
 import { groupOrdersByDate } from "@/shared/lib/order/group-by-date.util";
 
 export default function OrdersPage() {
-  const t = useTranslations("orders.list");
+  const { t } = useT("pages", { keyPrefix: "orders" });
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const {
     ordersQuery: { data, isLoading, error, refetch, isRefetching },
@@ -46,7 +46,7 @@ export default function OrdersPage() {
         <OrdersPageHeader />
         <Card>
           <CardContent className="pt-6">
-            <p className="text-destructive text-sm">{t("error")}</p>
+            <p className="text-destructive text-sm">{t("list.error")}</p>
           </CardContent>
         </Card>
       </div>
@@ -92,7 +92,7 @@ export default function OrdersPage() {
           {grouped.today.length > 0 && (
             <section>
               <h2 className="mb-3 font-medium text-muted-foreground text-sm">
-                {t("today")}
+                {t("list.today")}
               </h2>
               <div className="space-y-3">
                 {grouped.today.map((order) => (
@@ -104,7 +104,7 @@ export default function OrdersPage() {
           {grouped.yesterday.length > 0 && (
             <section>
               <h2 className="mb-3 font-medium text-muted-foreground text-sm">
-                {t("yesterday")}
+                {t("list.yesterday")}
               </h2>
               <div className="space-y-3">
                 {grouped.yesterday.map((order) => (
@@ -132,7 +132,7 @@ export default function OrdersPage() {
             <EmptyMedia variant="icon">
               <Icons.shoppingCart />
             </EmptyMedia>
-            <EmptyDescription>{t("empty")}</EmptyDescription>
+            <EmptyDescription>{t("list.empty")}</EmptyDescription>
           </EmptyHeader>
         </Empty>
       )}

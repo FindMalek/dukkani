@@ -10,7 +10,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useMemo } from "react";
 import { appMutations } from "@/shared/api/mutations";
 import { RoutePaths } from "@/shared/config/routes";
@@ -22,7 +22,7 @@ interface OrderListCardProps {
 }
 
 export function OrderListCard({ order }: OrderListCardProps) {
-  const t = useTranslations("orders.list");
+  const { t } = useT("pages", { keyPrefix: "orders.list" });
   const router = useRouter();
   const updateStatusMutation = useMutation(appMutations.order.updateStatus());
 

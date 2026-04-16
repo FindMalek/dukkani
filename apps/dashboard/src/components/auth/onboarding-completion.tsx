@@ -6,7 +6,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useEffect } from "react";
 import { appMutations } from "@/shared/api/mutations";
 import { appQueries } from "@/shared/api/queries";
@@ -15,7 +15,7 @@ import { useCopyToClipboard } from "@/shared/lib/clipboard";
 
 export function OnboardingCompletion({ storeId }: { storeId: string }) {
   const { copy } = useCopyToClipboard();
-  const t = useTranslations("onboarding.complete");
+  const { t } = useT("pages", { keyPrefix: "onboarding.complete" });
 
   const { mutate: completeOnboarding, ...completionMutation } = useMutation(
     appMutations.onboarding.complete(),

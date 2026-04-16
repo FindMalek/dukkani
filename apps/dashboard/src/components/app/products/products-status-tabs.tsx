@@ -5,7 +5,7 @@ import {
   type PublishedFilter,
 } from "@dukkani/common/schemas/product/enums";
 import { Button } from "@dukkani/ui/components/button";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 
 interface ProductsStatusTabsProps {
   value: PublishedFilter;
@@ -16,7 +16,7 @@ export function ProductsStatusTabs({
   value,
   onChange,
 }: ProductsStatusTabsProps) {
-  const t = useTranslations("products.list.filters");
+  const { t } = useT("pages", { keyPrefix: "products.list.filters" });
 
   return (
     <div className="flex gap-2 overflow-x-auto">

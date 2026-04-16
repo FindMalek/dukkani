@@ -6,7 +6,7 @@ import { Button } from "@dukkani/ui/components/button";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { RedirectType, redirect } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
@@ -22,13 +22,13 @@ import { RoutePaths } from "@/shared/config/routes";
 import { useOnboardingController } from "@/shared/lib/onboarding/controller.hook";
 
 export default function OnboardingPage() {
-  const t = useTranslations("onboarding");
+  const { t } = useT("pages", { keyPrefix: "onboarding" });
 
   const [email] = useQueryState("email", parseEmail);
   const [step, setStep] = useQueryState("step", parseOnboardingStep);
   const [skeletonTimedOut, setSkeletonTimedOut] = useState(false);
 
-  const onboarding = useOnboardingController(t, step, setStep);
+  const onboarding = useOnboardingController(step, setStep);
 
   // Add timeout to prevent indefinite skeleton state
   useEffect(() => {
@@ -70,7 +70,7 @@ export default function OnboardingPage() {
                 ...fieldMeta,
                 errorMap: {
                   onSubmit: {
-                    message: t("errors.emailAlreadyInUse"),
+                    message: t("complete.errors.emailAlreadyInUse"),
                   },
                 },
               }));
@@ -134,7 +134,7 @@ export default function OnboardingPage() {
     return (
       <div className="flex w-full max-w-md flex-col gap-4 text-center">
         <p className="text-muted-foreground text-sm">
-          {t("errors.storeLoadFailed")}
+          {t("complete.errors.storeLoadFailed")}
         </p>
         <Button
           type="button"

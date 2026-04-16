@@ -1,7 +1,7 @@
 "use client";
 
 import type { DashboardStatsOutput } from "@dukkani/common/schemas/dashboard/output";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { OrdersCard } from "@/components/shared/orders-card";
 import { RevenueCard } from "@/components/shared/revenue-card";
 
@@ -10,7 +10,9 @@ interface TodaysPerformanceProps {
 }
 
 export function TodaysPerformance({ stats }: TodaysPerformanceProps) {
-  const t = useTranslations("dashboard.overview.todaysPerformance");
+  const { t } = useT("pages", {
+    keyPrefix: "dashboard.overview.todaysPerformance",
+  });
 
   return (
     <div className="space-y-4">

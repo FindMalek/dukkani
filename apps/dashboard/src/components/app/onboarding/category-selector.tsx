@@ -6,7 +6,7 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { ScrollArea, ScrollBar } from "@dukkani/ui/components/scroll-area";
 import { cn } from "@dukkani/ui/lib/utils";
-import type { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 
 const CATEGORY_ICONS: Record<
   StoreCategory,
@@ -26,12 +26,14 @@ const CATEGORY_ICONS: Record<
 export function CategorySelector({
   value,
   onChange,
-  t,
 }: {
   value: StoreCategory;
   onChange: (value: StoreCategory) => void;
-  t: ReturnType<typeof useTranslations>;
 }) {
+  const { t } = useT("pages", {
+    keyPrefix: "onboarding.storeConfiguration.category.options",
+  });
+
   return (
     <div className="w-full overflow-hidden">
       <ScrollArea className="w-full">
@@ -60,7 +62,7 @@ export function CategorySelector({
                   <Icon className="h-5 w-5" />
                 </div>
                 <span className="max-w-15 truncate text-center font-medium text-[11px]">
-                  {t(StoreEntity.getCategoryLabelKey(cat))}
+                  {t(cat, { returnObjects: true }).label}
                 </span>
               </button>
             );

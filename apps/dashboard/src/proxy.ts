@@ -1,48 +1,10 @@
-import { LOCALES } from "@dukkani/common/schemas/constants";
-import { getLocale, setLocaleCookie } from "@dukkani/common/utils/locale-proxy";
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import { I18nextDashboardConfig } from "@dukkani/i18n/dashboard";
+import { createProxy } from "next-i18next/middleware";
 
-export function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  // Skip API routes, static files, and Next.js internals
-  if (
-    pathname.startsWith("/api") ||
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/favicon") ||
-    pathname.startsWith("/manifest") ||
-    pathname.includes(".")
-  ) {
-    return NextResponse.next();
-  }
-
-  // Check if pathname already has a locale
-  const pathnameHasLocale = LOCALES.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
-  );
-
-  if (pathnameHasLocale) {
-    // Update cookie if needed
-    const locale = pathname.split("/")[1];
-    const response = NextResponse.next();
-    setLocaleCookie(response, locale);
-    return response;
-  }
-
-  // Redirect to add locale
-  const locale = getLocale(request);
-  request.nextUrl.pathname = `/${locale}${pathname}`;
-
-  const response = NextResponse.redirect(request.nextUrl);
-  setLocaleCookie(response, locale);
-
-  return response;
-}
+export const proxy = createProxy(I18nextDashboardConfig);
 
 export const config = {
   matcher: [
-    // Skip all internal paths (_next)
-    "/((?!_next|api|favicon|manifest|.*\\..*).*)",
+    "/((?!api|_next/static|_next/image|assets|favicon.ico|favicon|.*.webmanifest|sw.js|.well-known).*)",
   ],
 };

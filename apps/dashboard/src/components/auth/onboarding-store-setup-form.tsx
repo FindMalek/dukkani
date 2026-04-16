@@ -17,7 +17,7 @@ import { FieldGroup } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useMemo } from "react";
 
 export const storeSetupFormDefaultOptions = formOptions({
@@ -36,26 +36,27 @@ export const storeSetupFormDefaultOptions = formOptions({
 export const StoreSetupOnboardingForm = withForm({
   ...storeSetupFormDefaultOptions,
   render: function RenderForm({ form }) {
-    const t = useTranslations("onboarding.storeSetup");
+    const { t } = useT("pages", { keyPrefix: "onboarding.storeSetup" });
+
+    const { t: tNotifications } = useT("pages", {
+      keyPrefix: "onboarding.storeSetup.notifications.options",
+    });
     const notificationMethodOptions = useMemo(
       () => [
         {
-          label: t("notifications.options.email.label"),
-          description: t("notifications.options.email.description"),
+          ...tNotifications("email", { returnObjects: true }),
           value: storeNotificationMethodEnum.EMAIL,
         },
         {
-          label: t("notifications.options.telegram.label"),
-          description: t("notifications.options.telegram.description"),
+          ...tNotifications("telegram", { returnObjects: true }),
           value: storeNotificationMethodEnum.TELEGRAM,
         },
         {
-          label: t("notifications.options.both.label"),
-          description: t("notifications.options.both.description"),
+          ...tNotifications("both", { returnObjects: true }),
           value: storeNotificationMethodEnum.BOTH,
         },
       ],
-      [t],
+      [tNotifications],
     );
     const currenciesOptions = useMemo(
       () => [
@@ -129,28 +130,17 @@ export const StoreSetupOnboardingForm = withForm({
   },
 });
 
-function useCurrencyInformation(currency: SupportedCurrency) {
-  const t = useTranslations("currencies");
-  return useMemo(
-    () => ({
-      countryCode: StoreEntity.getCurrencyCountryCode(currency),
-      countryName: t(StoreEntity.getCurrencyCountryNameKey(currency)),
-      name: t(StoreEntity.getCurrencyNameKey(currency)),
-    }),
-    [currency, t],
-  );
-}
-
 function CurrencySelectOption({ currency }: { currency: SupportedCurrency }) {
-  const currencyInformation = useCurrencyInformation(currency);
+  const { t } = useT("ui");
+  const currencyData = t("currencies", { returnObjects: true })[currency];
   return (
     <span className="flex flex-row items-center justify-between gap-3">
       <FlagComponent
-        country={currencyInformation.countryCode}
-        countryName={currencyInformation.countryName}
+        country={currencyData.region.code}
+        countryName={currencyData.region.name}
       />
       <span className="flex items-center gap-2">
-        <span>{currencyInformation.name}</span>
+        <span>{currencyData.label}</span>
         <span className="text-muted-foreground text-sm">{currency}</span>
       </span>
     </span>

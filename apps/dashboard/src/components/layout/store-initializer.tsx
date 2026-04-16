@@ -4,7 +4,7 @@ import { Card, CardContent } from "@dukkani/ui/components/card";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useEffect } from "react";
 import { appQueries } from "@/shared/api/queries";
 import { RoutePaths } from "@/shared/config/routes";
@@ -24,7 +24,7 @@ function StoreInitializerLoader() {
  * Should be used in dashboard layouts to ensure store is initialized.
  */
 export function StoreInitializer({ children }: { children: React.ReactNode }) {
-  const t = useTranslations("dashboard.storeInitializer");
+  const { t } = useT("pages", { keyPrefix: "dashboard.storeInitializer" });
   const { selectedStoreId, setSelectedStoreId, setIsLoading } =
     useActiveStoreStore();
   const {

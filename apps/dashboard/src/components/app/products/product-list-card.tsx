@@ -6,7 +6,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useMemo } from "react";
 import { RoutePaths } from "@/shared/config/routes";
 import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
@@ -24,7 +24,7 @@ export function ProductListCard({
   onTogglePublish,
 }: ProductListCardProps) {
   const router = useRouter();
-  const t = useTranslations("products.list");
+  const { t } = useT("pages", { keyPrefix: "products.list" });
   const formatPrice = useFormatPriceForActiveStore();
 
   const firstImageUrl = product.imageUrls[0];

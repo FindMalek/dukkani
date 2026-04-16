@@ -107,39 +107,39 @@
       "category": {
         "label": "Quelle catégorie décrit le mieux votre magasin ?",
         "options": {
-          "fashion": {
+          "FASHION": {
             "label": "Mode",
             "description": "Vêtements, accessoires et style"
           },
-          "electronics": {
+          "ELECTRONICS": {
             "label": "Électronique",
             "description": "Gadgets, appareils et technologie"
           },
-          "food": {
+          "FOOD": {
             "label": "Alimentation",
             "description": "Produits alimentaires et boissons"
           },
-          "home": {
+          "HOME": {
             "label": "Maison",
             "description": "Décoration et essentiels pour la maison"
           },
-          "beauty": {
+          "BEAUTY": {
             "label": "Beauté",
             "description": "Cosmétiques et soins personnels"
           },
-          "sports": {
+          "SPORTS": {
             "label": "Sports",
             "description": "Équipement et matériel de sport"
           },
-          "books": {
+          "BOOKS": {
             "label": "Livres",
             "description": "Livres et matériel de lecture"
           },
-          "toys": {
+          "TOYS": {
             "label": "Jouets",
             "description": "Jouets et jeux"
           },
-          "other": {
+          "OTHER": {
             "label": "Autre",
             "description": "Autres catégories"
           }

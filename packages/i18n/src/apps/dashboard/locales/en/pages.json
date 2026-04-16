@@ -107,39 +107,39 @@
       "category": {
         "label": "Which category best describes your store?",
         "options": {
-          "fashion": {
+          "FASHION": {
             "label": "Fashion",
             "description": "Clothing, accessories, and style"
           },
-          "electronics": {
+          "ELECTRONICS": {
             "label": "Electronics",
             "description": "Gadgets, devices, and technology"
           },
-          "food": {
+          "FOOD": {
             "label": "Food",
             "description": "Food and beverages"
           },
-          "home": {
+          "HOME": {
             "label": "Home",
             "description": "Home decor and essentials"
           },
-          "beauty": {
+          "BEAUTY": {
             "label": "Beauty",
             "description": "Cosmetics and personal care"
           },
-          "sports": {
+          "SPORTS": {
             "label": "Sports",
             "description": "Sports equipment and gear"
           },
-          "books": {
+          "BOOKS": {
             "label": "Books",
             "description": "Books and reading materials"
           },
-          "toys": {
+          "TOYS": {
             "label": "Toys",
             "description": "Toys and games"
           },
-          "other": {
+          "OTHER": {
             "label": "Other",
             "description": "Other categories"
           }
