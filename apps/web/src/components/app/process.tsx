@@ -2,7 +2,6 @@
 
 import { Icons } from "@dukkani/ui/components/icons";
 import type { Resources } from "i18next";
-import { step } from "next/dist/experimental/testmode/playwright/step";
 import { useT } from "next-i18next/client";
 
 type ProcessStepKey = keyof Resources["home"]["body"]["process"]["steps"];
