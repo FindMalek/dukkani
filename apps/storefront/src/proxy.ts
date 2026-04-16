@@ -19,27 +19,24 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const { pathname } = request.nextUrl;
+  const response = localizedProxy(request);
 
   // Store selector env: when URL has ?store=slug, set cookie and redirect to same path without param
   if (isStoreSelectorEnabled(process.env)) {
     const { store: storeParam } = loadStoreParams(request.nextUrl.searchParams);
     if (storeParam && !isReservedStoreSlug(storeParam)) {
-      const redirectUrl = new URL(pathname + request.nextUrl.hash, request.url);
-      const response = NextResponse.redirect(redirectUrl);
       const isSecure = request.url.startsWith("https:");
-      return {
-        ...localizedProxy(request),
-        cookies: response.cookies.set(STORE_SLUG_COOKIE, storeParam, {
-          path: "/",
-          maxAge: COOKIE_MAX_AGE,
-          sameSite: "lax",
-          secure: isSecure,
-        }),
-      };
+      const response = localizedProxy(request);
+      response.cookies.set(STORE_SLUG_COOKIE, storeParam, {
+        path: "/",
+        maxAge: COOKIE_MAX_AGE,
+        sameSite: "lax",
+        secure: isSecure,
+      });
     }
   }
-  return localizedProxy(request);
+
+  return response;
 }
 export const config = {
   matcher: [
