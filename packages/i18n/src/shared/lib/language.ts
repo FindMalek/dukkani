@@ -10,7 +10,8 @@ export type SupportedLanguage =
 export function isSupportedLanguage(
   language: string,
 ): language is SupportedLanguage {
-  return Object.prototype.hasOwnProperty.call(SupportedLanguages, language);
+  const found = Object.values(SupportedLanguages).find((v) => v === language);
+  return found !== undefined;
 }
 
 export const DefaultLanguage = SupportedLanguages.FRENCH;
