@@ -1,5 +1,3 @@
-import { SupportedLanguage } from "./language";
-
 export const SupportedCurrencies = {
   TND: "TND",
   USD: "USD",
@@ -15,7 +13,7 @@ export type SupportedCurrency =
 export const DefaultCurrency = SupportedCurrencies.TND;
 
 export function formatCurrencyFn(
-  language: SupportedLanguage,
+  language: string,
   currency: SupportedCurrency,
 ) {
   return new Intl.NumberFormat(language, {
