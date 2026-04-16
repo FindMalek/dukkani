@@ -1,6 +1,5 @@
 "use client";
 
-import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import { storeNotificationMethodEnum } from "@dukkani/common/schemas/enums";
 import {
   type CreateStoreOnboardingInput,

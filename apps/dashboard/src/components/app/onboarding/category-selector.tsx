@@ -1,4 +1,3 @@
-import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import {
   StoreCategory,
   storeCategoryEnum,
