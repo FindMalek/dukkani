@@ -19,37 +19,43 @@
   "currencies": {
     "TND": {
       "region": {
-        "name": "Tunisia"
+        "name": "Tunisia",
+        "code": "TN"
       },
       "label": "Tunisian Dinar"
     },
     "USD": {
       "region": {
-        "name": "United States"
+        "name": "United States",
+        "code": "US"
       },
       "label": "US Dollar"
     },
     "EUR": {
       "region": {
-        "name": "European Union"
+        "name": "European Union",
+        "code": "EU"
       },
       "label": "Euro"
     },
     "GBP": {
       "region": {
-        "name": "United Kingdom"
+        "name": "United Kingdom",
+        "code": "GB"
       },
       "label": "British Pound"
     },
     "DZD": {
       "region": {
-        "name": "Algeria"
+        "name": "Algeria",
+        "code": "DZ"
       },
       "label": "Algerian Dinar"
     },
     "LYD": {
       "region": {
-        "name": "Libya"
+        "name": "Libya",
+        "code": "LY"
       },
       "label": "Libyan Dinar"
     }
