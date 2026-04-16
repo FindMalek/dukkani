@@ -5,7 +5,7 @@ export default defineConfig({
   locales: Object.values(SupportedLanguages),
   extract: {
     input: ["../ui/src/**/*.{ts,tsx}"],
-    output: "./src/shared/locales/{{language}}/{{namespace}}.json",
+    output: "./src/shared/locales/{{language}}/ui.json",
     defaultNS: "ui",
   },
   types: {
