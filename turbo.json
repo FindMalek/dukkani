@@ -83,6 +83,7 @@
     },
     "i18n:types": {
       "dependsOn": [
+        "@dukkani/i18n#dashboard:types",
         "@dukkani/i18n#web:types",
         "@dukkani/i18n#storefront:types",
         "@dukkani/i18n#ui:types"
@@ -90,9 +91,21 @@
     },
     "i18n:status": {
       "dependsOn": [
+        "@dukkani/i18n#dashboard:status",
         "@dukkani/i18n#web:status",
         "@dukkani/i18n#storefront:status",
         "@dukkani/i18n#ui:status"
+      ]
+    },
+    "@dukkani/i18n#dashboard:types": {
+      "dependsOn": ["^@dukkani/i18n#ui:types"],
+      "inputs": ["src/apps/dashboard/locales/fr/*"]
+    },
+    "@dukkani/i18n#dashboard:status": {
+      "dependsOn": ["^@dukkani/i18n#ui:status"],
+      "inputs": [
+        "src/apps/dashboard/**",
+        "$TURBO_ROOT$/apps/dashboard/src/**"
       ]
     },
     "@dukkani/i18n#web:types": {

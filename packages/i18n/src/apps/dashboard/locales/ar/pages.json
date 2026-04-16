@@ -1,0 +1,447 @@
+{
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "description": "وصف لوحة التحكم",
+    "overview": {
+      "storeHeader": {
+        "liveStore": "المتجر المباشر",
+        "yourStoreLink": "رابط متجرك",
+        "tapToCopy": "انقر للنسخ والمشاركة"
+      },
+      "todaysPerformance": {
+        "title": "أداء اليوم",
+        "orders": "الطلبات",
+        "revenue": "الإيرادات"
+      },
+      "thisWeek": {
+        "title": "هذا الأسبوع",
+        "orders": "الطلبات"
+      },
+      "quickActions": {
+        "title": "إجراءات سريعة",
+        "addProduct": "إضافة منتج جديد",
+        "viewOrders": "عرض جميع الطلبات"
+      }
+    },
+    "storeInitializer": {
+      "loadError": "تعذر تحميل متاجرك. يرجى المحاولة مرة أخرى.",
+      "noStores": "ليس لديك متجر بعد. أنشئ متجرًا للمتابعة.",
+      "goToOnboarding": "الانتقال إلى الإعداد"
+    }
+  },
+  "auth": {
+    "emailSignIn": {
+      "continue": "متابعة",
+      "rememberMe": "تذكرني",
+      "back": "رجوع",
+      "signIn": "تسجيل الدخول",
+      "email": {
+        "placeholder": "أدخل بريدك الإلكتروني",
+        "label": "عنوان البريد الإلكتروني"
+      },
+      "password": {
+        "placeholder": "أدخل كلمة المرور",
+        "label": "كلمة المرور"
+      }
+    }
+  },
+  "settings": {
+    "telegram": {
+      "title": "إشعارات تيليغرام",
+      "description": "اربط حساب تيليغرام الخاص بك لتلقي إشعارات الطلبات فورًا",
+      "linked": "تم ربط حساب تيليغرام في",
+      "recently": "مؤخرًا",
+      "linkButton": "الربط عبر تيليغرام",
+      "disconnectButton": "فصل تيليغرام",
+      "disconnectTitle": "فصل حساب تيليغرام",
+      "disconnectDescription": "لتأكيد الفصل، يرجى إدخال اسم أحد متاجرك:",
+      "disconnectPlaceholder": "أدخل اسم المتجر",
+      "disconnectSuccess": "تم فصل حساب تيليغرام بنجاح",
+      "disconnectError": "اسم المتجر غير مطابق. يرجى المحاولة مرة أخرى.",
+      "disconnectNotLinked": "حساب تيليغرام غير مرتبط",
+      "yourStores": "متاجرك:",
+      "otpCode": "رمز OTP",
+      "storeNameLabel": "اسم المتجر",
+      "cancelButton": "إلغاء",
+      "option1": "الخيار 1: انقر على الرابط أدناه",
+      "option2": "الخيار 2: امسح رمز QR",
+      "expires": "ينتهي هذا الرابط خلال 10 دقائق. إذا لم يكن تيليغرام مثبتًا، يمكنك تثبيته من",
+      "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+      "storeNameRequired": "اسم المتجر مطلوب"
+    }
+  },
+  "onboarding": {
+    "storeSetup": {
+      "title": "أنشئ متجرك",
+      "subtitle": "بقيت خطوة واحدة للبدء",
+      "storeName": {
+        "label": "اسم المتجر",
+        "placeholder": "متجري الرائع"
+      },
+      "notifications": {
+        "label": "كيف تريد استقبال تنبيهات الطلبات الجديدة؟",
+        "options": {
+          "email": {
+            "label": "إشعارات البريد الإلكتروني",
+            "description": "تصل إلى عنوان البريد الإلكتروني المستخدم لتسجيل الدخول"
+          },
+          "telegram": {
+            "label": "تنبيهات تيليغرام",
+            "description": "تنبيهات سريعة وفورية عبر بوت تيليغرام الخاص بنا"
+          },
+          "both": {
+            "label": "كلاهما",
+            "description": "احصل على التنبيهات في كل مكان حتى لا تفوتك أي طلبية"
+          }
+        }
+      },
+      "currency": {
+        "label": "عملة المتجر",
+        "placeholder": "اختر عملة متجرك"
+      },
+      "submit": "متابعة"
+    },
+    "storeConfiguration": {
+      "title": "تهيئة متجرك",
+      "subtitle": "خصّص مظهر متجرك وفئته",
+      "category": {
+        "label": "ما الفئة التي تصف متجرك بشكل أفضل؟",
+        "options": {
+          "fashion": {
+            "label": "الأزياء",
+            "description": "الملابس والإكسسوارات والأناقة"
+          },
+          "electronics": {
+            "label": "الإلكترونيات",
+            "description": "الأدوات والأجهزة والتقنية"
+          },
+          "food": {
+            "label": "المأكولات",
+            "description": "الأطعمة والمشروبات"
+          },
+          "home": {
+            "label": "المنزل",
+            "description": "ديكور المنزل والاحتياجات الأساسية"
+          },
+          "beauty": {
+            "label": "الجمال",
+            "description": "مستحضرات التجميل والعناية الشخصية"
+          },
+          "sports": {
+            "label": "الرياضة",
+            "description": "معدات وأدوات رياضية"
+          },
+          "books": {
+            "label": "الكتب",
+            "description": "الكتب ومواد القراءة"
+          },
+          "toys": {
+            "label": "الألعاب",
+            "description": "الألعاب والمرح"
+          },
+          "other": {
+            "label": "أخرى",
+            "description": "فئات أخرى"
+          }
+        }
+      },
+      "theme": {
+        "label": "اختر سمة متجرك",
+        "options": {
+          "light": {
+            "label": "فاتح",
+            "description": "نظيف ومشرق"
+          },
+          "dark": {
+            "label": "داكن",
+            "description": "حديث وأنيق"
+          },
+          "minimal": {
+            "label": "بسيط",
+            "description": "سهل وأنيق"
+          },
+          "modern": {
+            "label": "عصري",
+            "description": "تصميم معاصر"
+          },
+          "classic": {
+            "label": "كلاسيكي",
+            "description": "أسلوب خالد"
+          }
+        }
+      },
+      "submit": "إنهاء الإعداد"
+    },
+    "steps": {
+      "signup": "الحساب",
+      "storeSetup": "المتجر",
+      "storeConfiguration": "التهيئة",
+      "complete": "جاهز"
+    },
+    "actions": {
+      "retry": "إعادة المحاولة"
+    },
+    "signup": {
+      "title": "أنشئ حسابك",
+      "subtitle": "انضم إلى دكاني وابدأ البيع اليوم",
+      "name": {
+        "label": "ما الاسم الذي تود أن نناديك به؟",
+        "placeholder": "أدخل اسمك الكامل"
+      },
+      "email": {
+        "label": "عنوان البريد الإلكتروني",
+        "placeholder": "your@email.com",
+        "description": "تمت تعبئة هذا الحقل مسبقًا من الخطوة السابقة",
+        "missingWarning": "لم يتم توفير عنوان البريد الإلكتروني. يرجى إدخال بريدك الإلكتروني للمتابعة.",
+        "existsError": "هذا البريد الإلكتروني موجود بالفعل. يرجى استخدام بريد آخر.",
+        "readonlyHint": "لا يمكن تغيير البريد الإلكتروني المرسل في الرابط",
+        "validating": "جارٍ التحقق من توفر البريد الإلكتروني..."
+      },
+      "password": {
+        "label": "اختر كلمة مرور",
+        "placeholder": "الحد الأدنى 8 أحرف"
+      },
+      "submit": "المتابعة إلى إعداد المتجر",
+      "alreadyHaveAccount": "لديك حساب بالفعل؟",
+      "login": "تسجيل الدخول",
+      "agreeText": "بالمتابعة، فإنك توافق على",
+      "terms": "الشروط",
+      "and": "و",
+      "privacy": "سياسة الخصوصية"
+    },
+    "complete": {
+      "title": "تم إعداد كل شيء!",
+      "subtitle": "متجرك جاهز لبدء استقبال الطلبات.",
+      "storeLink": {
+        "label": "رابط متجرك",
+        "copied": "تم نسخ الرابط إلى الحافظة!"
+      },
+      "telegram": {
+        "title": "تنبيهات الطلبات الفورية",
+        "description": "اربط تيليغرام لتصلك إشعارات فور قيام العميل بتقديم طلب.",
+        "otpLabel": "رمز OTP الخاص بك",
+        "connectButton": "ربط",
+        "instructions": "أرسل /link {code} إلى البوت إذا لم تتم إعادة توجيهك."
+      },
+      "actions": {
+        "addProduct": "إضافة أول منتج",
+        "goToDashboard": "الانتقال إلى لوحة التحكم"
+      },
+      "errors": {
+        "emailAlreadyInUse": "يوجد حساب بهذا البريد الإلكتروني بالفعل. يرجى استخدام بريد آخر أو تسجيل الدخول.",
+        "storeLoadFailed": "تعذر تحميل متجرك. حدّث الصفحة أو تواصل مع الدعم."
+      }
+    }
+  },
+  "orders": {
+    "list": {
+      "title": "الطلبات",
+      "description": "عرض الطلبات وإدارتها",
+      "searchPlaceholder": "ابحث بالاسم أو الهاتف أو رقم الطلب #",
+      "empty": "لم يتم العثور على طلبات. ستظهر الطلبات هنا بمجرد أن يبدأ العملاء في تقديمها.",
+      "error": "حدث خطأ أثناء تحميل الطلبات. يرجى المحاولة لاحقًا.",
+      "refresh": "تحديث الطلبات",
+      "call": "اتصال",
+      "advanceStatus": "تقدّم",
+      "itemsCount": "{count} عنصر",
+      "cashOnDelivery": "الدفع عند الاستلام",
+      "card": "بطاقة",
+      "today": "اليوم",
+      "yesterday": "أمس",
+      "viewOrder": "عرض الطلب {id}",
+      "filters": {
+        "all": "الكل",
+        "pending": "قيد الانتظار",
+        "confirmed": "مؤكد",
+        "processing": "قيد المعالجة",
+        "shipped": "تم الشحن",
+        "delivered": "تم التسليم",
+        "cancelled": "ملغي"
+      },
+      "status": {
+        "pending": "بانتظار التأكيد",
+        "confirmed": "مؤكد",
+        "processing": "قيد المعالجة",
+        "shipped": "تم الشحن",
+        "delivered": "تم التسليم",
+        "cancelled": "ملغي"
+      },
+      "filterDrawer": {
+        "title": "تصفية الطلبات",
+        "clearAll": "مسح الكل",
+        "apply": "تطبيق التصفية",
+        "status": "الحالة",
+        "dateRange": "نطاق التاريخ",
+        "pickDateRange": "اختر نطاق تاريخ",
+        "from": "من",
+        "to": "إلى"
+      }
+    }
+  },
+  "products": {
+    "list": {
+      "title": "المنتجات",
+      "description": "إدارة منتجاتك",
+      "searchPlaceholder": "ابحث عن المنتجات",
+      "filters": {
+        "all": "الكل",
+        "published": "منشور",
+        "draft": "مسودة",
+        "archived": "مؤرشف"
+      },
+      "status": {
+        "published": "منشور",
+        "draft": "مسودة",
+        "archived": "مؤرشف"
+      },
+      "stockInfo": "المخزون: {count} وحدة • {variants} من المتغيرات",
+      "stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
+      "stockCount": "المخزون: {count} وحدة",
+      "variantCount": "• {variants} من المتغيرات",
+      "noVariants": "• لا توجد متغيرات",
+      "outOfStock": "نفد المخزون",
+      "outOfStockVariants": "نفد المخزون • {variants} من المتغيرات",
+      "empty": "لم يتم العثور على منتجات. أنشئ أول منتج للبدء.",
+      "error": "حدث خطأ أثناء تحميل المنتجات. يرجى المحاولة لاحقًا.",
+      "catalogCount": "كتالوج المنتجات لديك ({count} إجماليًا)",
+      "catalogDefault": "كتالوج المنتجات لديك",
+      "addProduct": "إضافة منتج",
+      "filterDrawer": {
+        "title": "التصفية",
+        "clearAll": "مسح الكل",
+        "apply": "تطبيق التصفية",
+        "close": "إغلاق",
+        "status": "الحالة",
+        "inventory": "المخزون",
+        "variants": "المتغيرات",
+        "priceRange": "نطاق السعر (TND)",
+        "all": "كل الحالات",
+        "allStatuses": "كل الحالات",
+        "published": "منشور",
+        "draft": "مسودة",
+        "allInventory": "الكل",
+        "inStock": "متوفر",
+        "lowStock": "مخزون منخفض",
+        "outOfStock": "نفد المخزون",
+        "allProducts": "كل المنتجات",
+        "withVariants": "مع متغيرات",
+        "singleSku": "SKU واحد",
+        "min": "الحد الأدنى",
+        "max": "الحد الأقصى"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف",
+        "publish": "نشر",
+        "unpublish": "إلغاء النشر",
+        "archive": "أرشفة",
+        "deleteConfirmTitle": "حذف المنتج؟",
+        "deleteConfirmDescription": "لا يمكن التراجع عن هذا الإجراء.",
+        "cancel": "إلغاء"
+      }
+    },
+    "create": {
+      "header": {
+        "title": "منتج جديد",
+        "save": "حفظ"
+      },
+      "sections": {
+        "photos": "صور المنتج",
+        "essentials": "الأساسيات",
+        "organization": "التنظيم",
+        "options": "يحتوي على خيارات"
+      },
+      "form": {
+        "name": {
+          "label": "اسم المنتج",
+          "placeholder": "أدخل اسم المنتج"
+        },
+        "price": {
+          "label": "السعر",
+          "placeholder": "أدخل سعر المنتج"
+        },
+        "stock": {
+          "label": "المخزون",
+          "placeholder": "أدخل مخزون المنتج"
+        },
+        "description": {
+          "label": "الوصف",
+          "placeholder": "أدخل وصف المنتج"
+        },
+        "published": {
+          "label": "منشور",
+          "placeholder": "أدخل المنتج المنشور"
+        },
+        "photos": "الصور",
+        "priceHelp": "السعر الذي يدفعه العملاء (الدفع عند الاستلام)",
+        "category": {
+          "label": "الفئة",
+          "placeholder": "اختر فئة...",
+          "searchPlaceholder": "ابحث عن الفئات...",
+          "noResults": "لم يتم العثور على فئات.",
+          "create": "إنشاء فئة",
+          "created": "تم إنشاء الفئة بنجاح",
+          "nameLabel": "اسم الفئة",
+          "namePlaceholder": "مثال: قمصان، إلكترونيات",
+          "createDescription": "أنشئ فئة جديدة لتنظيم منتجاتك.",
+          "uncategorized": "غير مصنف"
+        },
+        "options": {
+          "label": "يحتوي على خيارات",
+          "description": "أضف خيارات مثل المقاس أو اللون أو المادة وغيرها."
+        },
+        "saveDraft": "حفظ المسودة",
+        "savePublish": "حفظ ونشر",
+        "optional": "اختياري",
+        "cancel": "إلغاء",
+        "validation": {
+          "errors": "يرجى إصلاح أخطاء النموذج قبل الإرسال"
+        },
+        "variants": {
+          "options": {
+            "title": "خيارات المتغيرات",
+            "add": "إضافة خيار",
+            "empty": "أضف خيارات مثل المقاس أو اللون أو المادة وغيرها.",
+            "unnamed": "خيار بدون اسم",
+            "optionName": "اسم الخيار",
+            "optionNamePlaceholder": "مثال: المقاس، اللون",
+            "values": "القيم",
+            "addValue": "إضافة قيمة",
+            "noValues": "أضف قيمة واحدة على الأقل",
+            "remove": "إزالة الخيار",
+            "addAnother": "إضافة خيار آخر",
+            "value": "القيمة"
+          },
+          "list": {
+            "title": "المتغيرات",
+            "empty": "أضف خيارات المتغيرات أعلاه لتوليد المتغيرات",
+            "unnamed": "متغير بدون اسم",
+            "price": "السعر",
+            "stock": "المخزون",
+            "edit": "تعديل المتغير"
+          },
+          "edit": {
+            "title": "تعديل المتغير",
+            "sku": "SKU",
+            "skuPlaceholder": "اختياري",
+            "price": "السعر",
+            "priceHelp": "اتركه فارغًا لاستخدام سعر المنتج الأساسي",
+            "stock": "المخزون"
+          },
+          "validation": {
+            "duplicateOptionName": "اسم خيار مكرر",
+            "duplicateOptionValues": "قيم خيار مكررة",
+            "duplicateValue": "قيمة مكررة",
+            "duplicateOption": "خيار مكرر"
+          }
+        }
+      },
+      "success": "تم إنشاء المنتج بنجاح!",
+      "noStore": {
+        "title": "لم يتم العثور على متجر",
+        "description": "يرجى إنشاء متجر أولًا لإضافة المنتجات.",
+        "createStore": "إنشاء متجر"
+      }
+    }
+  }
+}

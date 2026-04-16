@@ -4,6 +4,10 @@
   "type": "module",
   "exports": {
     ".": "./src/shared/index.ts",
+    "./dashboard": {
+      "default": "./src/apps/dashboard/instance.ts",
+      "types": "./src/apps/dashboard/types.d.ts"
+    },
     "./web": {
       "default": "./src/apps/web/instance.ts",
       "types": "./src/apps/web/types.d.ts"
@@ -17,6 +21,9 @@
     }
   },
   "scripts": {
+    "dashboard": "i18next-cli --config src/apps/dashboard/i18next.config.ts",
+    "dashboard:types": "i18next-cli --config src/apps/dashboard/i18next.config.ts types",
+    "dashboard:status": "i18next-cli --config src/apps/dashboard/i18next.config.ts status",
     "web": "i18next-cli --config src/apps/web/i18next.config.ts",
     "web:types": "i18next-cli --config src/apps/web/i18next.config.ts types",
     "web:status": "i18next-cli --config src/apps/web/i18next.config.ts status",
