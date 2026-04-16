@@ -15,10 +15,7 @@ export default defineConfig({
     defaultNS: "pages",
   },
   types: {
-    input: [
-      "./src/apps/dashboard/locales/fr/*.json",
-      "./src/shared/locales/fr/ui.json",
-    ],
+    input: ["./src/apps/dashboard/locales/fr/*.json"],
     output: "./src/apps/dashboard/types.d.ts",
     enableSelector: false,
     resourcesFile: "./src/apps/dashboard/resources.ts",

@@ -15,10 +15,7 @@ export default defineConfig({
     defaultNS: "home",
   },
   types: {
-    input: [
-      "./src/apps/web/locales/fr/*.json",
-      "./src/shared/locales/fr/ui.json",
-    ],
+    input: ["./src/apps/web/locales/fr/*.json"],
     output: "./src/apps/web/types.d.ts",
     enableSelector: false,
     resourcesFile: "./src/apps/web/resources.ts",

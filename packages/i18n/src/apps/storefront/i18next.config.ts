@@ -15,10 +15,7 @@ export default defineConfig({
     defaultNS: "pages",
   },
   types: {
-    input: [
-      "./src/apps/storefront/locales/fr/*.json",
-      "./src/shared/locales/fr/ui.json",
-    ],
+    input: ["./src/apps/storefront/locales/fr/*.json"],
     output: "./src/apps/storefront/types.d.ts",
     enableSelector: false,
     resourcesFile: "./src/apps/storefront/resources.ts",
