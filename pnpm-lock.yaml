@@ -351,9 +351,15 @@ importers:
       dotenv:
         specifier: 'catalog:'
         version: 17.4.1
+      i18next:
+        specifier: 'catalog:'
+        version: 26.0.4(typescript@6.0.2)
       next:
         specifier: 'catalog:'
         version: 16.2.3(@opentelemetry/api@1.9.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      next-i18next:
+        specifier: 'catalog:'
+        version: 16.0.5(@types/react@19.2.14)(i18next@26.0.4(typescript@6.0.2))(next@16.2.3(@opentelemetry/api@1.9.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-i18next@17.0.3(i18next@26.0.4(typescript@6.0.2))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@6.0.2))(react@19.2.5)
       next-intl:
         specifier: 'catalog:'
         version: 4.9.1(next@16.2.3(@opentelemetry/api@1.9.1)(babel-plugin-react-compiler@19.1.0-rc.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(typescript@6.0.2)
