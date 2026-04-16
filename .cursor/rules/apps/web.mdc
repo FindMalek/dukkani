@@ -99,7 +99,7 @@ import { env } from "@dukkani/env";
 - `react` - React library
 - `@dukkani/ui` - UI components
 - `@dukkani/env` - Environment variables
-- `next-intl` - i18n routing and locale handling
+- `i18next` - i18n routing and locale handling
 
 ## Best Practices
 
