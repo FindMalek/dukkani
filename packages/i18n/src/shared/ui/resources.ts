@@ -4,27 +4,45 @@ interface Resources {
     "currencies": {
       "DZD": {
         "label": "Dinar algérien",
-        "region": "Algérie"
+        "region": {
+          "code": "DZ",
+          "name": "Algérie"
+        }
       },
       "EUR": {
         "label": "Euro",
-        "region": "Union européenne"
+        "region": {
+          "code": "EU",
+          "name": "Union européenne"
+        }
       },
       "GBP": {
         "label": "Livre sterling",
-        "region": "Royaume-Uni"
+        "region": {
+          "code": "GB",
+          "name": "Royaume-Uni"
+        }
       },
       "LYD": {
         "label": "Dinar libyen",
-        "region": "Libye"
+        "region": {
+          "code": "LY",
+          "name": "Libye"
+        }
       },
       "TND": {
         "label": "Dinar tunisien",
-        "region": "Tunisie"
+        "region": {
+          "code": "TN",
+          "name": "Tunisie"
+        }
       },
       "USD": {
         "label": "Dollar américain",
-        "region": "États-Unis"
+        "region": {
+          "code": "US",
+          "name": "États-Unis"
+        }
       }
     },
     "fields": {
