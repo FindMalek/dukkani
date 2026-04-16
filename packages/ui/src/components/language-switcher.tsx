@@ -2,12 +2,12 @@
 
 import {
   DefaultLanguage,
+  isSupportedLanguage,
   SupportedLanguage,
   SupportedLanguages,
 } from "@dukkani/i18n";
 import { usePathname, useRouter } from "next/navigation";
 import { useT } from "next-i18next/client";
-import { useMemo } from "react";
 import { cn } from "../lib/utils";
 import { Button } from "./button";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "./select";
@@ -19,7 +19,7 @@ interface LanguageSwitcherProps {
 
 interface LanguageSwitcherComponentProps {
   currentLanguage: SupportedLanguage;
-  handleLanguageChange: (locale: SupportedLanguage) => Promise<void>;
+  handleLanguageChange: (language: SupportedLanguage) => Promise<void>;
   className?: string;
 }
 
@@ -27,8 +27,6 @@ const ComponentMap = {
   buttons: LanguageSwitcherButtonsVariant,
   select: LanguageSwitcherSelectVariant,
 };
-
-const Languages = Object.values(SupportedLanguages);
 
 export function LanguageSwitcher({
   variant = "select",
@@ -39,15 +37,12 @@ export function LanguageSwitcher({
   const router = useRouter();
   const Component = ComponentMap[variant];
 
-  const currentLanguage = useMemo(() => {
-    if (Languages.includes(i18n.language as SupportedLanguage)) {
-      return i18n.language as SupportedLanguage;
-    }
-    return DefaultLanguage;
-  }, [i18n.language]);
+  const currentLanguage = isSupportedLanguage(i18n.language)
+    ? i18n.language
+    : DefaultLanguage;
 
   const handleLanguageChange = async (language: SupportedLanguage) => {
-    router.push(pathname.replace(currentLanguage, language));
+    router.push(pathname.replace(i18n.language, language));
   };
 
   return (
@@ -70,7 +65,7 @@ function LanguageSwitcherSelectVariant({
     <Select value={currentLanguage} onValueChange={handleLanguageChange}>
       <SelectTrigger className={className}>{t(currentLanguage)}</SelectTrigger>
       <SelectContent>
-        {Languages.map((language) => (
+        {Object.values(SupportedLanguages).map((language) => (
           <SelectItem key={language} value={language}>
             {t(language)}
           </SelectItem>
@@ -89,7 +84,7 @@ function LanguageSwitcherButtonsVariant({
 
   return (
     <div className={cn("flex gap-1", className)}>
-      {Languages.map((language) => (
+      {Object.values(SupportedLanguages).map((language) => (
         <Button
           key={language}
           variant={currentLanguage === language ? "default" : "outline"}

@@ -7,6 +7,7 @@ export {
 export { DateTimeFormattingOptions, formatDateFn } from "./lib/date";
 export {
   DefaultLanguage,
+  isSupportedLanguage,
   type SupportedLanguage,
   SupportedLanguages,
 } from "./lib/language";
