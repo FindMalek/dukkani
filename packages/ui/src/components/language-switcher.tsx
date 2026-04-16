@@ -42,7 +42,7 @@ export function LanguageSwitcher({
     : DefaultLanguage;
 
   const handleLanguageChange = async (language: SupportedLanguage) => {
-    router.push(pathname.replace(i18n.language, language));
+    router.push(pathname.replace(currentLanguage, language));
   };
 
   return (
