@@ -1,6 +1,5 @@
 import { getApiUrl } from "@dukkani/env/get-api-url";
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
 
 const apiUrl = getApiUrl(process.env.NEXT_PUBLIC_API_URL ?? "");
 
