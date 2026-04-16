@@ -55,7 +55,6 @@
     "lucide-react": "catalog:",
     "next": "catalog:",
     "next-i18next": "catalog:",
-    "next-intl": "catalog:",
     "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",
     "react": "catalog:",
