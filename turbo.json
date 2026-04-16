@@ -103,10 +103,7 @@
     },
     "@dukkani/i18n#dashboard:status": {
       "dependsOn": ["^@dukkani/i18n#ui:status"],
-      "inputs": [
-        "src/apps/dashboard/**",
-        "$TURBO_ROOT$/apps/dashboard/src/**"
-      ]
+      "inputs": ["src/apps/dashboard/**", "$TURBO_ROOT$/apps/dashboard/src/**"]
     },
     "@dukkani/i18n#web:types": {
       "dependsOn": ["^@dukkani/i18n#ui:types"],
