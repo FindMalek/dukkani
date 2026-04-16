@@ -68,7 +68,7 @@ interface Resources {
         "telegram": {
           "connectButton": "Connecter",
           "description": "Connectez votre Telegram pour être notifié dès qu'un client passe une commande.",
-          "instructions": "Envoyez /link {code} au bot si vous n'êtes pas redirigé.",
+          "instructions": "Envoyez /link {{code}} au bot si vous n'êtes pas redirigé.",
           "otpLabel": "Votre code OTP",
           "title": "Alertes de commande instantanées"
         },
@@ -238,7 +238,9 @@ interface Resources {
           "processing": "En traitement",
           "shipped": "Expédié"
         },
-        "itemsCount": "{count} articles",
+        "itemsCount": "{{count}} articles",
+        "itemsCount_one": "{{count}} article",
+        "itemsCount_other": "{{count}} articles",
         "refresh": "Rafraîchir les commandes",
         "searchPlaceholder": "Rechercher par nom, téléphone ou numéro de commande #",
         "status": {
@@ -251,7 +253,7 @@ interface Resources {
         },
         "title": "Commandes",
         "today": "Aujourd'hui",
-        "viewOrder": "Voir la commande {id}",
+        "viewOrder": "Voir la commande {{id}}",
         "yesterday": "Hier"
       }
     },
@@ -371,7 +373,7 @@ interface Resources {
           "unpublish": "Dépublier"
         },
         "addProduct": "Ajouter un produit",
-        "catalogCount": "Votre catalogue de produits ({count} au total)",
+        "catalogCount": "Votre catalogue de produits ({{count}} au total)",
         "catalogDefault": "Votre catalogue de produits",
         "description": "Gérez vos produits",
         "empty": "Aucun produit trouvé. Créez votre premier produit pour commencer.",
@@ -407,18 +409,20 @@ interface Resources {
         },
         "noVariants": "• Pas de variantes",
         "outOfStock": "Rupture de stock",
-        "outOfStockVariants": "Rupture de stock • {variants} variantes",
+        "outOfStockVariants": "Rupture de stock • {{variants}} variantes",
         "searchPlaceholder": "Rechercher des produits",
         "status": {
           "archived": "Archivé",
           "draft": "Brouillon",
           "published": "Publié"
         },
-        "stockCount": "Stock : {count} unités",
-        "stockInfo": "Stock : {count} unités • {variants} variantes",
-        "stockInfoNoVariants": "Stock : {count} unités • Pas de variantes",
+        "stockCount": "Stock : {{count}} unités",
+        "stockCount_one": "Stock : {{count}} unité",
+        "stockCount_other": "Stock : {{count}} unités",
+        "stockInfo": "Stock : {{count}} unités • {{variants}} variantes",
+        "stockInfoNoVariants": "Stock : {{count}} unités • Pas de variantes",
         "title": "Produits",
-        "variantCount": "• {variants} variantes"
+        "variantCount": "• {{variants}} variantes"
       }
     },
     "settings": {
