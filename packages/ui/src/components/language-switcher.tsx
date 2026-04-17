@@ -3,7 +3,7 @@
 import {
   DefaultLanguage,
   isSupportedLanguage,
-  SupportedLanguage,
+  type SupportedLanguage,
   SupportedLanguages,
 } from "@dukkani/i18n";
 import { usePathname, useRouter } from "next/navigation";

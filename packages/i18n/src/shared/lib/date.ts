@@ -1,4 +1,4 @@
-import { SupportedLanguage } from "./language";
+import type { SupportedLanguage } from "./language";
 
 export const DateTimeFormattingOptions = {
   date: {

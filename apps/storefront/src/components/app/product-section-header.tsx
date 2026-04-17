@@ -1,6 +1,6 @@
 "use client";
 
-import { SupportedCurrency } from "@dukkani/i18n";
+import type { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,

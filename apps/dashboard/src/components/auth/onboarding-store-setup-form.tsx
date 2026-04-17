@@ -8,7 +8,7 @@ import {
 import {
   DefaultCurrency,
   SupportedCurrencies,
-  SupportedCurrency,
+  type SupportedCurrency,
 } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import { FlagComponent } from "@dukkani/ui/components/country";

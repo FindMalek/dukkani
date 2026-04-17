@@ -4,7 +4,7 @@ import type {
   VariantOptionOutput,
   VariantOutput,
 } from "@dukkani/common/schemas/variant/output";
-import { SupportedCurrency } from "@dukkani/i18n";
+import type { SupportedCurrency } from "@dukkani/i18n";
 import { VariantSelector } from "@/components/shared/variant-selector";
 import { useProductVariantSelection } from "@/shared/lib/product/variant-selector.hook";
 import { AddToCartFooter } from "./add-to-cart-footer";

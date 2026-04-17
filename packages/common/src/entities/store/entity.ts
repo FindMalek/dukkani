@@ -4,7 +4,7 @@ import {
   type StoreTheme,
   type UserOnboardingStep,
 } from "@dukkani/db/prisma/generated/enums";
-import { SupportedCurrencies, SupportedCurrency } from "@dukkani/i18n";
+import { SupportedCurrencies, type SupportedCurrency } from "@dukkani/i18n";
 import {
   LIST_STORE_THEMES,
   type StoreThemeInfer,

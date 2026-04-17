@@ -1,7 +1,7 @@
 "use client";
 
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
-import { SupportedCurrency } from "@dukkani/i18n";
+import type { SupportedCurrency } from "@dukkani/i18n";
 import { AspectRatio } from "@dukkani/ui/components/aspect-ratio";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
