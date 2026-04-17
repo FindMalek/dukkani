@@ -1,6 +1,6 @@
 export {
   DefaultCurrency,
-  formatCurrencyFn,
+  formatPriceFn,
   SupportedCurrencies,
   type SupportedCurrency,
 } from "./lib/currency";

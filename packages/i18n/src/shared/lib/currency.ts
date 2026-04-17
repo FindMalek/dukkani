@@ -12,7 +12,7 @@ export type SupportedCurrency =
 
 export const DefaultCurrency = SupportedCurrencies.TND;
 
-export function formatCurrencyFn(
+export function formatPriceFn(
   language: string,
   currency: SupportedCurrency,
 ) {
