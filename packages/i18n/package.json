@@ -37,7 +37,7 @@
   "dependencies": {
     "i18next": "catalog:",
     "next-i18next": "catalog:",
-    "i18next-cli": "^1.53.2"
+    "i18next-cli": "^1.54.0"
   },
   "devDependencies": {}
 }
