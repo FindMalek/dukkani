@@ -17,7 +17,7 @@
       "types": "./src/apps/storefront/types.d.ts"
     },
     "./ui": {
-      "types": "./src/shared/ui/types.d.ts"
+      "types": "./src/packages/ui/types.d.ts"
     }
   },
   "scripts": {
@@ -30,9 +30,9 @@
     "storefront": "i18next-cli --config src/apps/storefront/i18next.config.ts",
     "storefront:types": "i18next-cli --config src/apps/storefront/i18next.config.ts types",
     "storefront:status": "i18next-cli --config src/apps/storefront/i18next.config.ts status",
-    "ui": "i18next-cli --config src/shared/ui/i18next.config.ts",
-    "ui:types": "i18next-cli --config src/shared/ui/i18next.config.ts types",
-    "ui:status": "i18next-cli --config src/shared/ui/i18next.config.ts status"
+    "shared": "i18next-cli --config src/shared/i18next.config.ts",
+    "shared:types": "i18next-cli --config src/shared/i18next.config.ts types",
+    "shared:status": "i18next-cli --config src/shared/i18next.config.ts status"
   },
   "dependencies": {
     "i18next": "catalog:",
