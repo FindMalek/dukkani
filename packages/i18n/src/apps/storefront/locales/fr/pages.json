@@ -63,7 +63,9 @@
       "empty": "Votre panier est vide",
       "checkout": "Commander",
       "item": {
-        "lowStock": "Il ne reste que {{count}}",
+        "lowStock_zero": "Rupture de stock",
+        "lowStock_one": "Il ne reste qu'une seule unité",
+        "lowStock_other": "Il ne reste que {{count}} unités",
         "outOfStock": "Rupture de stock"
       }
     },

@@ -63,7 +63,8 @@
       "empty": "Your cart is empty",
       "checkout": "Checkout",
       "item": {
-        "lowStock": "Only {{count}} left",
+        "lowStock_one": "Only {{count}} left",
+        "lowStock_other": "Only {{count}} left",
         "outOfStock": "Out of stock"
       }
     },

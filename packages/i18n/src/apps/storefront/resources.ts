@@ -25,7 +25,9 @@ interface Resources {
         "checkout": "Commander",
         "empty": "Votre panier est vide",
         "item": {
-          "lowStock": "Il ne reste que {{count}}",
+          "lowStock_one": "Il ne reste qu'une seule unité",
+          "lowStock_other": "Il ne reste que {{count}} unités",
+          "lowStock_zero": "Rupture de stock",
           "outOfStock": "Rupture de stock"
         },
         "title": "Votre panier"

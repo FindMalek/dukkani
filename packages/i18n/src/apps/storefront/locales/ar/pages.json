@@ -63,7 +63,13 @@
       "empty": "سلتك فارغة",
       "checkout": "إتمام الشراء",
       "item": {
-        "lowStock": "متبقي {{count}} فقط",
+        "lowStock": "لم يتبق سوى {{count}}",
+        "lowStock_zero": "نفد",
+        "lowStock_one": "لم يتبق سوى {{count}}",
+        "lowStock_two": "لم يتبق سوى {{count}}",
+        "lowStock_few": "لم يتبق سوى {{count}}",
+        "lowStock_many": "لم يتبق سوى {{count}}",
+        "lowStock_other": "لم يتبق سوى {{count}}",
         "outOfStock": "غير متوفر"
       }
     },
