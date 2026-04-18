@@ -11,7 +11,7 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 interface ProductCardDropdownProps {
   product: ListProductOutput;

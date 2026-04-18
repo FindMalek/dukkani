@@ -4,7 +4,7 @@ import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Label } from "@dukkani/ui/components/label";
 import { cn } from "@dukkani/ui/lib/utils";
-import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
+import { useCopyToClipboard } from "@/shared/lib/clipboard";
 
 interface StoreLinkProps {
   url: string;

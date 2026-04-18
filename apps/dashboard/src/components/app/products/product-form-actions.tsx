@@ -4,7 +4,7 @@ import { Button } from "@dukkani/ui/components/button";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
-import { productFormOptions } from "@/lib/product-form-options";
+import { productFormOptions } from "@/shared/lib/product/form";
 
 export const ProductFormActions = withForm({
   ...productFormOptions,

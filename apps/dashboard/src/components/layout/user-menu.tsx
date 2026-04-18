@@ -11,7 +11,7 @@ import { LanguageSwitcher } from "@dukkani/ui/components/language-switcher";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/shared/api/auth-client";
 
 export function UserMenu() {
   const router = useRouter();

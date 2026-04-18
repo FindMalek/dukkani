@@ -110,7 +110,7 @@ export class ProductEntity {
       price: Number(v.price),
       stock: v.stock,
       published: entity.published,
-      imagesUrls: v.images.map((image) => image.url),
+      imageUrls: v.images.map((image) => image.url),
       store: StoreEntity.getPublicSimpleRo(entity.store),
       variants: v.variants.map(VariantEntity.getVariantRo),
       variantOptions: v.variantOptions.map(VariantEntity.getVariantOptionRo),

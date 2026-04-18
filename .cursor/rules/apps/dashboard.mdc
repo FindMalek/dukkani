@@ -19,260 +19,303 @@ apps/dashboard/src/
 │   ├── app/                   # Feature UI (products, orders, onboarding, settings, …)
 │   ├── layout/
 │   └── shared/
-├── hooks/
-│   ├── api/                   # TanStack Query + ORPC (*.hook.ts)
-│   ├── controllers/           # Compose Zustand + api hooks + list query inputs
-│   └── use-*.ts               # Cross-cutting client hooks (e.g. use-product-form, clipboard)
-├── lib/                       # App infra: orpc client, routes, query-keys, errors, i18n, …
-├── stores/                    # Zustand only (list filters, active store, …)
+├── shared/
+│   ├── api/                   # oRPC client, mutations, queries, server utilities
+│   │   ├── orpc.ts            # `api`, `client`, `makeQueryClient` exports
+│   │   ├── orpc.server.ts     # Sets globalThis.$orpcClient for in-process RSC calls
+│   │   ├── query-client.server.ts  # `getServerQueryClient` — per-request server QC
+│   │   ├── session.server.ts  # `getServerSession` helper
+│   │   ├── auth-client.ts     # Better Auth client
+│   │   ├── error-handler.ts   # Centralized `handleAPIError`
+│   │   ├── mutations.ts       # `appMutations` — all mutations with invalidation + chained onSuccess
+│   │   └── queries.ts         # `appQueries` — all query option factories + `QueryData<T>`
+│   ├── config/                # App-wide configuration
+│   │   ├── constants.ts       # Typed UI constants
+│   │   ├── i18n.ts            # i18n helpers and locale config
+│   │   └── routes.ts          # Type-safe route definitions
+│   └── lib/                   # Domain-organized business logic
+│       ├── product/           # controller.hook.ts, form.ts, store.ts (UI-only)
+│       ├── order/             # controller.hook.ts, datetime.util.ts, group-by-date.util.ts, price.util.ts, store.ts (UI-only)
+│       ├── onboarding/        # controller.hook.ts, stepper.util.ts
+│       ├── store/             # active.store.ts, current-currency.hook.ts, format-price.hook.ts, url.util.ts
+│       ├── clipboard.ts
+│       └── image-compression.ts
 ├── types/                     # App-level TS (e.g. i18n helpers, module augmentation)
 ├── env.ts
 └── proxy.ts
+```
+
+## Shared Layer
+
+The `shared/` directory is the FSD (Feature Sliced Design) shared layer. It contains all app-wide infrastructure organized into three sub-layers.
+
+### `shared/api/` — API Infrastructure
+
+| File | Purpose |
+|---|---|
+| `orpc.ts` | `api` (tanstack-query utils), `client` (raw router), `makeQueryClient` factory |
+| `orpc.server.ts` | Sets `globalThis.$orpcClient` so RSC calls hit the router in-process (no HTTP) |
+| `query-client.server.ts` | `getServerQueryClient` — React.cache()-scoped per-request QueryClient for RSC |
+| `session.server.ts` | `getServerSession` — reads auth session from cookies on the server |
+| `auth-client.ts` | Better Auth browser client |
+| `error-handler.ts` | `handleAPIError` — centralized error → toast mapping |
+| `mutations.ts` | `appMutations` — all mutations with built-in cache invalidation |
+| `queries.ts` | `appQueries` — all typed query option factories + `QueryData<T>` type utility |
+
+**Querying data (client components):**
+
+```typescript
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { appQueries } from "@/shared/api/queries";
+
+const { data } = useQuery(appQueries.order.all({ input: { page, limit } }));
+const { data: product } = useSuspenseQuery(appQueries.product.byId({ input: { id } }));
+```
+
+**Extracting query data types:**
+
+```typescript
+import type { QueryData } from "@/shared/api/queries";
+
+type ProductList = QueryData<typeof appQueries.product.all>;
+type CurrentUser = QueryData<typeof appQueries.account.currentUser>;
+type StoreList   = QueryData<typeof appQueries.store.all>;
+
+// Use in component props
+interface Props {
+  product: QueryData<typeof appQueries.product.byId>;
+}
+```
+
+**Mutating data:**
+
+```typescript
+import { useMutation } from "@tanstack/react-query";
+import { appMutations } from "@/shared/api/mutations";
+
+// appMutations handle cache invalidation automatically.
+// Pass onSuccess/onError to EXTEND (not replace) the built-in behavior —
+// your callback runs AFTER invalidation completes.
+const createMutation = useMutation(appMutations.product.create());
+
+const deleteMutation = useMutation(
+  appMutations.product.delete({
+    onSuccess: () => router.push("/products"),  // ← safe: runs after invalidation
+  })
+);
+```
+
+**Server-side prefetch in RSC layouts:**
+
+```typescript
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getServerQueryClient } from "@/shared/api/query-client.server";
+import { appQueries } from "@/shared/api/queries";
+
+export default async function Layout({ children }) {
+  const queryClient = getServerQueryClient();
+
+  // Prefetch in parallel — data lands in the hydrated cache so client
+  // components get it instantly with no loading state on first render.
+  await Promise.all([
+    queryClient.prefetchQuery(appQueries.account.currentUser()),
+    queryClient.prefetchQuery(appQueries.store.all()),
+  ]);
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      {children}
+    </HydrationBoundary>
+  );
+}
+```
+
+### `shared/lib/{domain}/` — Domain Business Logic
+
+Domain logic is grouped by feature. File suffix conventions:
+
+| Suffix | Purpose |
+|---|---|
+| `controller.hook.ts` | Screen-level orchestration: composes Zustand store + nuqs URL state + appQueries + appMutations |
+| `.store.ts` | Zustand store definitions — **UI-only state** (selection, view mode). Filters live in the URL via nuqs. |
+| `.util.ts` | Pure utility functions (formatting, grouping, calculations) |
+| `.hook.ts` | Domain-specific hooks that don't own full screen state |
+
+**Controller hook pattern** — use for list pages and complex screens:
+
+```typescript
+// apps/dashboard/src/shared/lib/product/controller.hook.ts
+import { useQueryStates } from "nuqs";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import {
+  parseSearchQuery, parseProductStatus, parsePage,
+  parseStockFilter, parseVariantsFilter, parsePriceMin, parsePriceMax,
+} from "@dukkani/common/utils/query-parsers";
+import { appQueries } from "@/shared/api/queries";
+import { appMutations } from "@/shared/api/mutations";
+import { useActiveStoreStore } from "@/shared/lib/store/active.store";
+import { useProductStore } from "./store";
+
+export function useProductsController() {
+  const { selectedStoreId } = useActiveStoreStore();
+  const { viewMode, selectedProductId, setViewMode, setSelectedProductId } = useProductStore();
+
+  // Filters in the URL — shareable, bookmarkable, cleared on navigation
+  const [filters, setFilters] = useQueryStates({
+    search:         parseSearchQuery.withDefault(""),
+    published:      parseProductStatus,
+    stockFilter:    parseStockFilter,
+    variantsFilter: parseVariantsFilter,
+    priceMin:       parsePriceMin,
+    priceMax:       parsePriceMax,
+    page:           parsePage,
+  });
+
+  const productsQuery = useQuery(
+    appQueries.product.all({
+      input: { storeId: selectedStoreId ?? undefined, ...filters },
+      enabled: Boolean(selectedStoreId),
+    })
+  );
+
+  const deleteMutation = useMutation(appMutations.product.delete());
+
+  return {
+    selectedStoreId, ...filters,
+    setSearch: (v: string) => setFilters({ search: v, page: 1 }),
+    // ... other setters
+    viewMode, setViewMode, selectedProductId, setSelectedProductId,
+    productsQuery, deleteMutation,
+  };
+}
+```
+
+For isolated create/update forms, import `appMutations` directly without a controller hook.
+
+### `shared/lib/{domain}/store.ts` — Zustand Stores (UI-only)
+
+Zustand stores hold **UI-only state**. Filters and pagination live in the URL via nuqs.
+
+| What goes in Zustand | What goes in URL (nuqs) |
+|---|---|
+| `selectedProductId` | `search` |
+| `viewMode` (table/grid) | `published` / `status` |
+| `selectedOrderId` | `stockFilter` / `variantsFilter` |
+| `selectedStoreId` (persisted) | `priceMin` / `priceMax` |
+| `isSwitching` | `page` / `limit` |
+
+```typescript
+// ✅ Correct — UI-only state in Zustand
+export const useProductStore = create<ProductStoreState>()(
+  persist(
+    (set) => ({
+      selectedProductId: null,
+      viewMode: "table" as "table" | "grid",
+      setSelectedProductId: (id) => set({ selectedProductId: id }),
+      setViewMode: (mode) => set({ viewMode: mode }),
+    }),
+    { name: "product-store", partialize: (s) => ({ viewMode: s.viewMode }) }
+  )
+);
+
+// ❌ Wrong — never put filters in Zustand (use nuqs instead)
+```
+
+### `shared/config/` — Configuration
+
+```typescript
+// Type-safe routing
+import { RoutePaths } from "@/shared/config/routes";
+<Link href={RoutePaths.PRODUCTS.INDEX.url}>Products</Link>
+
+// i18n helpers
+import { getLocale } from "@/shared/config/i18n";
+
+// UI constants
+import { STORE_HEADER_HEIGHT } from "@/shared/config/constants";
+```
+
+## Providers
+
+**Location:** `apps/dashboard/src/components/layout/providers.tsx`
+
+Create the QueryClient per-render — never import it as a module singleton. The `onError` callback wires up the global toast for all query errors.
+
+```typescript
+"use client";
+
+import { useState } from "react";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { makeQueryClient } from "@/shared/api/orpc";
+import { toast } from "sonner";
+
+export default function Providers({ children }) {
+  // Per-render client prevents cross-request state leaks in SSR
+  const [queryClient] = useState(() =>
+    makeQueryClient((error) =>
+      toast.error(`Error: ${error.message}`, {
+        action: { label: "retry", onClick: () => queryClient.invalidateQueries() },
+      })
+    )
+  );
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+}
 ```
 
 ## Route Groups
 
 ### (auth) Route Group
 
-Public authentication routes. Layout handles unauthenticated state.
+Public authentication routes.
 
 **Location**: `apps/dashboard/src/app/[lang]/(auth)/`
 
-**Routes**:
-- `/login` - Login page
-
-**Layout**: `apps/dashboard/src/app/(auth)/layout.tsx`
+**Routes**: `/login`, `/onboarding`
 
 ### (dashboard) Route Group
 
-Protected dashboard routes. Layout handles authentication and redirects.
+Protected dashboard routes. Layout prefetches critical data server-side.
 
 **Location**: `apps/dashboard/src/app/[lang]/(dashboard)/`
 
-**Layout**: `apps/dashboard/src/app/[lang]/(dashboard)/layout.tsx`
-
 **Pattern**:
 ```typescript
-export default async function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+export default async function DashboardLayout({ children }) {
+  const session = await getServerSession();
+  if (!session?.user) { /* redirect or AuthGuard */ }
 
-  if (!session?.user) {
-    redirect("/login");
-  }
+  const queryClient = getServerQueryClient();
+  await Promise.all([
+    queryClient.prefetchQuery(appQueries.account.currentUser()),
+    queryClient.prefetchQuery(appQueries.store.all()),
+  ]);
 
   return (
-    <div className="grid h-svh grid-rows-[auto_1fr]">
-      <main className="overflow-auto">{children}</main>
-      <BottomNavigation />
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <DashboardLayoutContent>{children}</DashboardLayoutContent>
+    </HydrationBoundary>
   );
 }
 ```
-
-## Components
-
-### Organization
-
-Components are organized by feature/domain under `components/app/`:
-
-```
-components/
-  ├── auth/
-  ├── app/
-  │   ├── products/
-  │   ├── orders/
-  │   ├── onboarding/
-  │   ├── settings/
-  │   └── …
-  ├── layout/
-  └── shared/
-```
-
-### File Naming
-
-- **kebab-case** for file names
-- **PascalCase** for component names
-
-### Component Pattern
-
-```typescript
-// apps/dashboard/src/components/app/orders/orders-list.tsx
-"use client";
-
-import { useOrdersQuery } from "@/hooks/api/use-orders.hook";
-import { Card, CardContent, CardHeader, CardTitle } from "@dukkani/ui/components/card";
-
-export default function OrdersList() {
-  const { data: orders, isLoading } = useOrdersQuery({ page: 1, limit: 10 });
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Orders</CardTitle>
-      </CardHeader>
-      <CardContent>{/* Render orders */}</CardContent>
-    </Card>
-  );
-}
-```
-
-### Best Practices
-
-- Use `"use client"` directive for client components
-- Use UI components from `@dukkani/ui`
-- Use hooks for data fetching
-- Handle loading and error states
-- Keep components focused and reusable
-
-## Hooks
-
-### Organization
-
-```
-hooks/
-  ├── api/                    # TanStack Query + ORPC only
-  │   ├── use-orders.hook.ts
-  │   ├── use-products.hook.ts
-  │   ├── use-categories.hook.ts
-  │   └── …
-  ├── controllers/            # Screen orchestration: Zustand + api + derived inputs
-  │   ├── use-products-controller.ts
-  │   └── …
-  ├── use-product-form.ts     # Feature form wiring (create; edit later)
-  ├── use-copy-to-clipboard.ts
-  └── …
-```
-
-### File naming
-
-- **`hooks/api`:** `use-<domain>.hook.ts` (e.g. `use-products.hook.ts`).
-- **Root `hooks`:** `use-<thing>.ts` for small shared behavior.
-- **camelCase** exported hook function names (`useOrdersQuery`, `useProductForm`).
-
-### API hook pattern
-
-```typescript
-// apps/dashboard/src/hooks/api/use-orders.hook.ts
-import { useQuery } from "@tanstack/react-query";
-import { orpc } from "@/lib/orpc";
-import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
-
-export function useOrdersQuery(input: ListOrdersInput) {
-  return useQuery(orpc.order.getAll.queryOptions({ input }));
-}
-```
-
-### Best practices
-
-- Import **`orpc` / `client` / `queryClient`** from **`@/lib/orpc`** (not `utils/orpc`).
-- Use input types from `@dukkani/common/schemas`.
-- Export **`mutationOptions`** factories where shared invalidation is needed (see `createProductMutationOptions`).
-- For list pages, prefer **`use*Controller`**; for isolated create/update forms, import **`mutationOptions` / queries** from `hooks/api` directly to avoid coupling to list store state.
-
-## Routing
-
-### Type-Safe Routes
-
-Routes are defined in `apps/dashboard/src/lib/routes.ts`:
-
-```typescript
-import { RoutePaths } from "@/lib/routes";
-
-// Use in components (see lib/routes.ts for RoutePaths shape)
-<Link href={RoutePaths.PRODUCTS.INDEX.url}>Products</Link>
-```
-
-### Route Groups
-
-- `(auth)` - Authentication routes (not in URL)
-- `(dashboard)` - Dashboard routes (not in URL)
-
-### Dynamic Routes
-
-Use `[id]` for dynamic segments:
-
-```
-dashboard/
-  products/
-    [id]/
-      page.tsx
-```
-
-## Data Fetching
-
-### Pattern
-
-Use React Query hooks with oRPC client:
-
-```typescript
-// In client component
-const { data, isLoading, error } = useOrdersQuery({ page: 1, limit: 10 });
-
-// Prefer server data fetching patterns from Next + oRPC when applicable
-```
-
-### oRPC client
-
-Defined in `apps/dashboard/src/lib/orpc.ts` — export `client`, `orpc`, `queryClient` for React Query and mutations.
 
 ## Authentication
 
 ### Auth Client
 
 ```typescript
-// apps/dashboard/src/lib/auth-client.ts
 import { createAuthClient } from "better-auth/react";
-import { env } from "@dukkani/env";
-
-export const authClient = createAuthClient({
-  baseURL: env.NEXT_PUBLIC_API_URL,
-});
+export const authClient = createAuthClient({ baseURL: env.NEXT_PUBLIC_API_URL });
 ```
 
 ### Server-Side Auth Check
 
 ```typescript
-// In layout or page
-const session = await auth.api.getSession({
-  headers: await headers(),
-});
+import { getServerSession } from "@/shared/api/session.server";
 
-if (!session?.user) {
-  redirect("/login");
-}
-```
-
-## Providers
-
-### Location
-`apps/dashboard/src/components/layout/providers.tsx`
-
-### Pattern
-
-```typescript
-"use client";
-
-import { QueryClientProvider } from "@tanstack/react-query";
-import { ThemeProvider } from "@dukkani/ui/components/theme-provider";
-import { queryClient } from "@/lib/orpc";
-
-export default function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <ThemeProvider>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </ThemeProvider>
-  );
-}
+const session = await getServerSession();
+if (!session?.user) redirect("/login");
 ```
 
 ## Imports
@@ -285,109 +328,54 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 ### Import Pattern
 
 ```typescript
-// Local imports (use @/)
-import { useOrdersQuery } from "@/hooks/api/use-orders.hook";
-import { Button } from "@dukkani/ui/components/button";
+// Shared layer imports
+import { appQueries } from "@/shared/api/queries";
+import { appMutations } from "@/shared/api/mutations";
+import type { QueryData } from "@/shared/api/queries";
+import { getServerQueryClient } from "@/shared/api/query-client.server";
+import { handleAPIError } from "@/shared/api/error-handler";
+import { authClient } from "@/shared/api/auth-client";
+import { RoutePaths } from "@/shared/config/routes";
+import { useProductsController } from "@/shared/lib/product/controller.hook";
 
 // Package imports
+import { Button } from "@dukkani/ui/components/button";
 import { env } from "@dukkani/env";
+import {
+  parseSearchQuery, parseProductStatus, parsePage,
+} from "@dukkani/common/utils/query-parsers";
 ```
-
-## Dependencies
-
-- `next` - Next.js framework
-- `react` - React library
-- `@tanstack/react-query` - Data fetching
-- `@dukkani/orpc` - API client
-- `@dukkani/ui` - UI components
-- `@dukkani/auth` - Authentication
-- `@dukkani/common` - Shared types and schemas
-- `@dukkani/env` - Environment variables
 
 ## Error Handling
 
-### Pattern
-
-Always use the centralized `handleAPIError` function for error handling:
+Always use `handleAPIError` — never inline `toast.error()` for API errors:
 
 ```typescript
-// apps/dashboard/src/lib/error.ts
-import { handleAPIError } from "@/lib/error";
+import { handleAPIError } from "@/shared/api/error-handler";
 
-// In try-catch blocks
 try {
   await someAPI();
 } catch (error) {
   handleAPIError(error);
 }
 
-// In React Query hooks
-const mutation = useMutation({
-  mutationFn: someAPI,
-  onError: (error) => {
-    handleAPIError(error);
-  },
-});
-
-// In Better Auth callbacks
-await authClient.signIn.email(
-  { email, password },
-  {
-    onError: (error) => {
-      handleAPIError(error);
-    },
-  },
+// In mutation callbacks
+const mutation = useMutation(
+  appMutations.product.create({
+    onError: (error) => handleAPIError(error),  // extends built-in behavior
+  })
 );
-```
-
-### Best Practices
-
-- **Never use inline `toast.error()`** - Always use `handleAPIError()`
-- **Never use generic error messages** - Let `handleAPIError` categorize errors
-- **Import from `@/lib/error`** - Use the centralized error handler
-- **Handle errors at the right level** - In mutation callbacks, try-catch blocks, or error boundaries
-- **Don't suppress errors** - Always show user-friendly messages via `handleAPIError`
-
-### Error Categories
-
-The `handleAPIError` function automatically handles:
-- Rate limiting errors (`TOO_MANY_REQUESTS`)
-- Network errors (fetch failures)
-- Validation errors (`BAD_REQUEST`, 400)
-- Authentication errors (`UNAUTHORIZED`, 401)
-- Server errors (`INTERNAL_SERVER_ERROR`, 500+)
-- Fallback for unknown errors
-
-### Example
-
-```typescript
-// ❌ Bad - Inline error handling
-try {
-  await createProduct(data);
-  toast.success("Product created");
-} catch (error) {
-  toast.error("Failed to create product");
-}
-
-// ✅ Good - Using handleAPIError
-import { handleAPIError } from "@/lib/error";
-
-try {
-  await createProduct(data);
-  toast.success("Product created");
-} catch (error) {
-  handleAPIError(error);
-}
 ```
 
 ## Best Practices
 
-- Use route groups for layout organization
-- Use server components by default, add `"use client"` only when needed
-- Use type-safe routing from `@/lib/routes`
-- Use React Query hooks for data fetching
-- Handle loading and error states in components
-- Use UI components from `@dukkani/ui`
-- Keep components focused and feature-based
-- Use path aliases for cleaner imports
-- Verify authentication in layouts, not individual pages
+- Use server components by default; add `"use client"` only when needed
+- Use `appQueries` / `appMutations` for all data fetching — never call `api.x.queryOptions` directly in components
+- Use `QueryData<typeof appQueries.x.y>` to extract query result types
+- Use controller hooks (`shared/lib/{domain}/controller.hook.ts`) for list pages and complex screens
+- Filters and pagination → `useQueryStates` (nuqs) in controller hooks
+- UI-only state (selection, view mode) → Zustand stores
+- Prefetch in RSC layouts using `getServerQueryClient` + `HydrationBoundary`
+- Use `getServerSession` for server-side auth, `authClient` for client-side
+- Use type-safe routing from `@/shared/config/routes`
+- Use `@dukkani/common/utils/query-parsers` for all nuqs parsers — add new ones there, not inline

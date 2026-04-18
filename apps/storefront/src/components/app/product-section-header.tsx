@@ -1,30 +1,57 @@
 "use client";
 
+import { store } from "@dukkani/common/schemas";
 import { Button } from "@dukkani/ui/components/button";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@dukkani/ui/components/drawer";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { FilterProductsForm } from "@/components/app/filter-products-form";
 
 interface ProductSectionHeaderProps {
+  storeCurrency: store.SupportedCurrencyInfer;
+  categories: { id: string; name: string }[];
   title?: string;
-  showFilter?: boolean;
-  onFilterClick?: () => void;
 }
 
 export function ProductSectionHeader({
-  title = "New Arrivals",
-  showFilter = true,
-  onFilterClick,
+  title,
+  storeCurrency,
+  categories,
 }: ProductSectionHeaderProps) {
-  const t = useTranslations("storefront.store.filter");
+  const tFilter = useTranslations("storefront.store.filter");
+  const tProducts = useTranslations("storefront.store.products");
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+  const sectionTitle = title ?? tProducts("title");
 
   return (
     <div className="container mx-auto mb-4 px-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-bold text-xl">{title}</h2>
-        {showFilter && (
-          <Button variant="ghost" size="sm" onClick={onFilterClick}>
-            {t("button")}
-          </Button>
-        )}
+        <h2 className="font-bold text-xl">{sectionTitle}</h2>
+        <Drawer open={filterDrawerOpen} onOpenChange={setFilterDrawerOpen}>
+          <DrawerTrigger asChild>
+            <Button variant="outline" size="sm">
+              {tFilter("button")}
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>{tFilter("drawerTitle")}</DrawerTitle>
+            </DrawerHeader>
+            <div className="mx-auto w-full max-w-sm sm:max-w-md">
+              <FilterProductsForm
+                storeCurrency={storeCurrency}
+                categories={categories}
+                handleCloseDrawer={() => setFilterDrawerOpen(false)}
+              />
+            </div>
+          </DrawerContent>
+        </Drawer>
       </div>
     </div>
   );

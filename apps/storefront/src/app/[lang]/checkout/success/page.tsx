@@ -3,7 +3,7 @@
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useTranslations } from "next-intl";
-import { RoutePaths, useRouter } from "@/lib/routes";
+import { RoutePaths, useRouter } from "@/shared/config/routes";
 
 export default function CheckoutSuccessPage() {
   const router = useRouter();

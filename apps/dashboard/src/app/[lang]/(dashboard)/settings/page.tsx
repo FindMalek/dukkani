@@ -3,7 +3,7 @@
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
 import Link from "next/link";
-import { RoutePaths } from "@/lib/routes";
+import { RoutePaths } from "@/shared/config/routes";
 
 export default function SettingsPage() {
   return (

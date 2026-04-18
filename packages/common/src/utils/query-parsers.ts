@@ -1,11 +1,14 @@
 import {
   parseAsArrayOf,
   parseAsBoolean,
+  parseAsFloat,
   parseAsInteger,
   parseAsString,
   parseAsStringEnum,
-} from "nuqs";
+  parseAsStringLiteral,
+} from "nuqs/server";
 import { OrderStatus, UserOnboardingStep } from "../schemas/enums";
+import { PRODUCT_SORT_OPTIONS } from "../schemas/product/input";
 
 /**
  * Parser for onboarding step with Zod validation
@@ -65,9 +68,60 @@ export const parseStringArray = parseAsArrayOf(parseAsString);
 export const parseBooleanFlag = parseAsBoolean.withDefault(false);
 
 /**
+ * In-stock-only toggle for product listing URLs.
+ * Same semantics as {@link parseBooleanFlag}.
+ */
+export const parseInStock = parseBooleanFlag;
+
+/**
  * Combined date range parser
  */
 export const parseDateRange = {
   from: parseDate,
   to: parseDate,
 } as const;
+
+/**
+ * Parser for product stock filter.
+ * Maps to the stockFilter field in listProductsInputSchema.
+ */
+export const parseStockFilter = parseAsStringEnum([
+  "all",
+  "in-stock",
+  "low-stock",
+  "out-of-stock",
+] as const).withDefault("all");
+
+/**
+ * Parser for product variants filter.
+ * Maps to the variantsFilter field in listProductsInputSchema.
+ */
+export const parseVariantsFilter = parseAsStringEnum([
+  "all",
+  "with-variants",
+  "single-sku",
+] as const).withDefault("all");
+
+/**
+ * Category ID in the query string; null means all categories.
+ */
+export const parseCategory = parseAsString;
+
+/**
+ * Parser for minimum price filter (inclusive).
+ * Maps to priceMin in listProductsInputSchema.
+ */
+export const parsePriceMin = parseAsFloat;
+
+/**
+ * Parser for maximum price filter (inclusive).
+ * Maps to priceMax in listProductsInputSchema.
+ */
+export const parsePriceMax = parseAsFloat;
+
+/**
+ * Parser for product sort order.
+ * Derived from PRODUCT_SORT_OPTIONS — single source of truth with productSortSchema.
+ */
+export const parseSortBy =
+  parseAsStringLiteral(PRODUCT_SORT_OPTIONS).withDefault("newest");

@@ -27,6 +27,7 @@
     "sonner": "catalog:",
     "next": "catalog:",
     "next-intl": "catalog:",
+    "nuqs": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "@orpc/server": "catalog:",

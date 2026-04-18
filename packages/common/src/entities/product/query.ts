@@ -99,6 +99,7 @@ export class ProductQuery {
       search?: string;
       stock?: { lte?: number; gte?: number };
       hasVariants?: boolean;
+      categoryId?: string;
       priceMin?: number;
       priceMax?: number;
     },
@@ -182,6 +183,10 @@ export class ProductQuery {
           },
         ],
       });
+    }
+
+    if (filters?.categoryId) {
+      where.categoryId = filters.categoryId;
     }
 
     if (filters?.priceMin !== undefined || filters?.priceMax !== undefined) {

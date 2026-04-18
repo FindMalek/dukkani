@@ -14,9 +14,10 @@ import {
 import { FieldGroup } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
+import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useCreateCategoryMutation } from "@/hooks/api/use-categories.hook";
-import { useActiveStoreStore } from "@/stores/active-store.store";
+import { appMutations } from "@/shared/api/mutations";
+import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 
 interface CategoryDrawerProps {
   onCategoryCreated?: (categoryId: string) => void;
@@ -33,7 +34,7 @@ export function CategoryDrawer({
 }: CategoryDrawerProps) {
   const t = useTranslations("products.create");
   const { selectedStoreId } = useActiveStoreStore();
-  const createCategoryMutation = useCreateCategoryMutation();
+  const createCategoryMutation = useMutation(appMutations.category.create());
 
   if (!selectedStoreId) {
     return null;

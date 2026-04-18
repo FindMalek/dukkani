@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useCartStore } from "@/stores/cart.store";
+import { useCartStore } from "@/shared/lib/cart/store";
 
 interface CartStoreProviderProps {
   children: React.ReactNode;

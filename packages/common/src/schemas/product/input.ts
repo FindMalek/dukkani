@@ -182,6 +182,14 @@ export const variantsFilterSchema = z
   .enum(["all", "with-variants", "single-sku"])
   .optional();
 
+export const PRODUCT_SORT_OPTIONS = [
+  "priceAsc",
+  "priceDesc",
+  "newest",
+] as const;
+
+export const productSortSchema = z.enum(PRODUCT_SORT_OPTIONS).optional();
+
 export const listProductsInputSchema = z.object({
   page: z.number().int().min(1).default(1),
   limit: z.number().int().min(1).max(100).default(10),
@@ -191,6 +199,7 @@ export const listProductsInputSchema = z.object({
   categoryId: z.string().optional(),
   stockFilter: stockFilterSchema,
   variantsFilter: variantsFilterSchema,
+  sortBy: productSortSchema,
   priceMin: z.number().positive().optional(),
   priceMax: z.number().positive().optional(),
 });
@@ -227,6 +236,7 @@ export type GetProductInput = z.infer<typeof getProductInputSchema>;
 export type ListProductsInput = z.infer<typeof listProductsInputSchema>;
 export type StockFilter = z.infer<typeof stockFilterSchema>;
 export type VariantsFilter = z.infer<typeof variantsFilterSchema>;
+export type ProductSort = z.infer<typeof productSortSchema>;
 export type TogglePublishProductInput = z.infer<
   typeof togglePublishProductInputSchema
 >;

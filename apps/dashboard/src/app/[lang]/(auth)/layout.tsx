@@ -2,9 +2,9 @@ import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { AuthGuard } from "@/components/auth/auth-guard";
-import { getServerSession } from "@/lib/get-server-session";
-import { client } from "@/lib/orpc";
-import { RoutePaths } from "@/lib/routes";
+import { client } from "@/shared/api/orpc";
+import { getServerSession } from "@/shared/api/session.server";
+import { RoutePaths } from "@/shared/config/routes";
 
 export default async function AuthLayout({
   children,

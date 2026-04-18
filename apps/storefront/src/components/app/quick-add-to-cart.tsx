@@ -14,13 +14,13 @@ import {
 
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { VariantSelector } from "@/components/shared/variant-selector";
-import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { useProductVariantSelection } from "@/hooks/use-product-variant-selection";
-import { useCartStore } from "@/stores/cart.store";
+import { useCartStore } from "@/shared/lib/cart/store";
+import { useProductVariantSelection } from "@/shared/lib/product/variant-selector.hook";
 
 interface QuickAddToCartProps {
   product: ProductPublicOutput;

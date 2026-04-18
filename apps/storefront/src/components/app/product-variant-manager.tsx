@@ -6,7 +6,7 @@ import type {
   VariantOutput,
 } from "@dukkani/common/schemas/variant/output";
 import { VariantSelector } from "@/components/shared/variant-selector";
-import { useProductVariantSelection } from "@/hooks/use-product-variant-selection";
+import { useProductVariantSelection } from "@/shared/lib/product/variant-selector.hook";
 import { AddToCartFooter } from "./add-to-cart-footer";
 
 interface ProductVariantManagerProps {

@@ -52,7 +52,7 @@ export const productPublicStoreSchema = z.object({
 
 export const productPublicOutputSchema = productSimpleOutputSchema
   .extend({
-    imagesUrls: z.array(z.string()),
+    imageUrls: z.array(z.string()),
     tags: z.array(z.string()).optional(),
     store: productPublicStoreSchema.optional(),
     variants: z.array(variantOutputSchema).optional(),
