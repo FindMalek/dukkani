@@ -15,6 +15,7 @@ import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useTranslations } from "next-intl";
 import { RoutePaths, useRouter } from "@/shared/config/routes";
 import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
+import { getItemKey } from "@/shared/lib/cart/item-comparator";
 import { CartItem as CartItemComponent } from "./cart-item";
 
 interface CartDrawerProps {
@@ -61,7 +62,7 @@ export function CartDrawer({
             <div className="py-2">
               {enrichedData.map((item) => (
                 <CartItemComponent
-                  key={`${item.productId}-${item.variantId ?? "no-variant"}`}
+                  key={getItemKey(item)}
                   item={item}
                   productName={item.productName}
                   productImage={item.productImage}

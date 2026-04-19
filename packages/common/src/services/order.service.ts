@@ -28,7 +28,7 @@ import type {
 import { AddressService } from "./address.service";
 import { CustomerService } from "./customer.service";
 import { NotificationService } from "./notification.service";
-import { ProductService } from "./product.service";
+import { type PricedProductLineItem, ProductService } from "./product.service";
 
 /**
  * Order service - Shared business logic for order operations
@@ -135,6 +135,7 @@ class OrderServiceBase {
           productId: item.productId,
           variantId: item.variantId,
           quantity: item.quantity,
+          addonSelections: item.addonSelections,
         })),
         input.storeId,
         tx,
@@ -147,6 +148,7 @@ class OrderServiceBase {
           productId: item.productId,
           variantId: item.variantId,
           quantity: item.quantity,
+          addonSelections: item.addonSelections,
         })),
         input.storeId,
         tx,
@@ -161,7 +163,7 @@ class OrderServiceBase {
       }
 
       const orderItemsCreate = await Promise.all(
-        orderItemsWithPrices.map(async (priced) => {
+        orderItemsWithPrices.map(async (priced: PricedProductLineItem) => {
           const displayAttributes =
             await OrderServiceBase.buildOrderItemDisplayAttributes(
               tx,
@@ -178,6 +180,17 @@ class OrderServiceBase {
             displayAttributes: {
               create: displayAttributes,
             },
+            ...(priced.addonSnapshots.length > 0 && {
+              addonSelections: {
+                create: priced.addonSnapshots.map((s) => ({
+                  addonOptionId: s.addonOptionId,
+                  groupNameSnapshot: s.groupName,
+                  optionNameSnapshot: s.optionName,
+                  priceDeltaSnapshot: s.priceDelta,
+                  quantity: s.quantity,
+                })),
+              },
+            }),
           };
         }),
       );
@@ -221,6 +234,14 @@ class OrderServiceBase {
         tx,
       );
 
+      await ProductService.updateAddonOptionStocks(
+        OrderServiceBase.collectAddonStockDeltasFromPricedLines(
+          orderItemsWithPrices,
+        ),
+        "decrement",
+        tx,
+      );
+
       addSpanEvent("order.stock.updated", { order_id: createdOrder.id });
 
       return createdOrder;
@@ -234,6 +255,21 @@ class OrderServiceBase {
     });
 
     return OrderEntity.getRo(order);
+  }
+
+  private static collectAddonStockDeltasFromPricedLines(
+    pricedLines: PricedProductLineItem[],
+  ): Array<{ optionId: string; quantity: number }> {
+    const out: Array<{ optionId: string; quantity: number }> = [];
+    for (const line of pricedLines) {
+      for (const snap of line.addonSnapshots) {
+        out.push({
+          optionId: snap.addonOptionId,
+          quantity: line.quantity * snap.quantity,
+        });
+      }
+    }
+    return out;
   }
 
   /**
@@ -294,6 +330,7 @@ class OrderServiceBase {
           productId: item.productId,
           variantId: item.variantId,
           quantity: item.quantity,
+          addonSelections: item.addonSelections,
         })),
         input.storeId,
         tx,
@@ -306,6 +343,7 @@ class OrderServiceBase {
           productId: item.productId,
           variantId: item.variantId,
           quantity: item.quantity,
+          addonSelections: item.addonSelections,
         })),
         input.storeId,
         tx,
@@ -374,7 +412,7 @@ class OrderServiceBase {
       });
 
       const orderItemsCreate = await Promise.all(
-        orderItemsWithPrices.map(async (priced) => {
+        orderItemsWithPrices.map(async (priced: PricedProductLineItem) => {
           const displayAttributes =
             await OrderServiceBase.buildOrderItemDisplayAttributes(
               tx,
@@ -391,6 +429,17 @@ class OrderServiceBase {
             displayAttributes: {
               create: displayAttributes,
             },
+            ...(priced.addonSnapshots.length > 0 && {
+              addonSelections: {
+                create: priced.addonSnapshots.map((s) => ({
+                  addonOptionId: s.addonOptionId,
+                  groupNameSnapshot: s.groupName,
+                  optionNameSnapshot: s.optionName,
+                  priceDeltaSnapshot: s.priceDelta,
+                  quantity: s.quantity,
+                })),
+              },
+            }),
           };
         }),
       );
@@ -430,6 +479,14 @@ class OrderServiceBase {
           variantId: item.variantId,
           quantity: item.quantity,
         })),
+        "decrement",
+        tx,
+      );
+
+      await ProductService.updateAddonOptionStocks(
+        OrderServiceBase.collectAddonStockDeltasFromPricedLines(
+          orderItemsWithPrices,
+        ),
         "decrement",
         tx,
       );
@@ -541,6 +598,9 @@ class OrderServiceBase {
             productId: true,
             productVariantId: true,
             quantity: true,
+            addonSelections: {
+              select: { addonOptionId: true, quantity: true },
+            },
           },
         },
       },
@@ -579,6 +639,23 @@ class OrderServiceBase {
             variantId: item.productVariantId ?? undefined,
             quantity: item.quantity,
           })),
+          "increment",
+          tx,
+        );
+
+        const addonRestores: Array<{ optionId: string; quantity: number }> = [];
+        for (const item of order.orderItems) {
+          for (const a of item.addonSelections) {
+            if (a.addonOptionId) {
+              addonRestores.push({
+                optionId: a.addonOptionId,
+                quantity: item.quantity * a.quantity,
+              });
+            }
+          }
+        }
+        await ProductService.updateAddonOptionStocks(
+          addonRestores,
           "increment",
           tx,
         );

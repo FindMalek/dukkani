@@ -7,27 +7,19 @@ import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useRef } from "react";
 import {
   ProductForm,
   type ProductFormHandle,
 } from "@/components/app/products/product-form";
 import { ProductFormSkeleton } from "@/components/app/products/product-form-skeleton";
 import { getRouteWithQuery, RoutePaths } from "@/shared/config/routes";
+import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 
-function useProductIdParam(): string {
-  const params = useParams();
-  return useMemo(() => {
-    const raw = params.id;
-    if (typeof raw === "string" && raw.length > 0) return raw;
-    if (Array.isArray(raw) && raw[0]) return raw[0];
-    return "";
-  }, [params.id]);
-}
-
 export default function EditProductPage() {
-  const productId = useProductIdParam();
+  const params = useParams();
+  const productId = getDynamicRouteParam(params, "id");
   const t = useTranslations("products.create");
   const formRef = useRef<ProductFormHandle>(null);
   const { selectedStoreId, isLoading } = useActiveStoreStore();

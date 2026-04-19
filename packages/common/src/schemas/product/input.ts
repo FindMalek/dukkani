@@ -1,6 +1,11 @@
 import { z } from "zod";
 import { validateVariantMatrixAgainstOptions } from "../../utils/variant-matrix";
 import {
+  cartAddonSelectionSchema,
+  type ProductAddonGroupInput,
+  productAddonGroupInputSchema,
+} from "../product-addon/input";
+import {
   type VariantInput,
   type VariantOptionInput,
   variantInputSchema,
@@ -8,14 +13,27 @@ import {
 } from "../variant/input";
 
 /**
- * Product line item - productId, variantId, quantity.
+ * Product line item - productId, variantId, quantity, optional add-ons.
  * Shared across cart, orders, stock checks, price lookups.
  */
-export const productLineItemSchema = z.object({
-  productId: z.string().min(1, "Product ID is required"),
-  variantId: z.string().optional(),
-  quantity: z.number().int().min(1, "Quantity must be at least 1"),
-});
+export const productLineItemSchema = z
+  .object({
+    productId: z.string().min(1, "Product ID is required"),
+    variantId: z.string().optional(),
+    quantity: z.number().int().min(1, "Quantity must be at least 1"),
+    addonSelections: z.array(cartAddonSelectionSchema).optional().default([]),
+  })
+  .superRefine((data, ctx) => {
+    const ids = data.addonSelections.map((s) => s.addonOptionId);
+    if (new Set(ids).size !== ids.length) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "Duplicate add-on option selections are not allowed on one line",
+        path: ["addonSelections"],
+      });
+    }
+  });
 
 export type ProductLineItem = z.infer<typeof productLineItemSchema>;
 
@@ -35,6 +53,7 @@ export const createProductInputSchema = productInputSchema
     imageUrls: z.array(z.url()).optional(),
     variantOptions: z.array(variantOptionInputSchema).optional(),
     variants: z.array(variantInputSchema).optional(),
+    addonGroups: z.array(productAddonGroupInputSchema).optional(),
     collectionIds: z
       .array(z.string().min(1, "Collection ID cannot be empty"))
       .optional()
@@ -118,6 +137,7 @@ export const updateProductInputSchema = productInputSchema
     imageUrls: z.array(z.url()).optional(),
     variantOptions: z.array(variantOptionInputSchema).optional(),
     variants: z.array(variantInputSchema).optional(),
+    addonGroups: z.array(productAddonGroupInputSchema).optional(),
     collectionIds: z
       .array(z.string().min(1, "Collection ID cannot be empty"))
       .optional()
@@ -229,6 +249,7 @@ export type CreateInitialPublishedVersionInput = Pick<
   imageUrls?: string[];
   variantOptions?: VariantOptionInput[];
   variants?: VariantInput[];
+  addonGroups?: ProductAddonGroupInput[];
 };
 
 export type UpdateProductInput = z.infer<typeof updateProductInputSchema>;

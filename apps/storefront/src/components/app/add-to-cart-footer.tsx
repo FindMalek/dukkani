@@ -6,7 +6,7 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCartStore } from "@/shared/lib/cart/store";
 
 interface AddToCartFooterProps {
@@ -16,10 +16,14 @@ interface AddToCartFooterProps {
   currency: store.SupportedCurrencyInfer;
   selectedVariantId?: string;
   variant?: "fixed" | "inline";
-  onAddToCart?: () => void;
+  /**
+   * When set, replaces the default add-to-cart behavior (you must call `addItem` yourself).
+   * Return `false` to cancel opening the cart drawer.
+   */
+  onAddToCart?: (args: { quantity: number }) => boolean | void;
 }
 
-export function AddToCartFooter({
+function AddToCartFooterInner({
   productId,
   stock,
   price,
@@ -34,10 +38,6 @@ export function AddToCartFooter({
 
   const addItem = useCartStore((state) => state.addItem);
   const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
-
-  useEffect(() => {
-    setQuantity(1);
-  }, [selectedVariantId]);
 
   const isOutOfStock = stock === 0;
   const maxQuantity = Math.min(stock, 99);
@@ -55,11 +55,14 @@ export function AddToCartFooter({
   };
 
   const handleAddToCart = () => {
-    if (!isOutOfStock) {
+    if (isOutOfStock) return;
+    if (onAddToCart) {
+      const ok = onAddToCart({ quantity });
+      if (ok === false) return;
+    } else {
       addItem(productId, quantity, selectedVariantId);
-      setCartDrawerOpen(true);
-      onAddToCart?.();
     }
+    setCartDrawerOpen(true);
   };
 
   const containerClass =
@@ -102,5 +105,17 @@ export function AddToCartFooter({
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * Remounts quantity state when the selected variant changes (`key` on inner component).
+ */
+export function AddToCartFooter(props: AddToCartFooterProps) {
+  return (
+    <AddToCartFooterInner
+      key={props.selectedVariantId ?? "__base__"}
+      {...props}
+    />
   );
 }

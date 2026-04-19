@@ -15,7 +15,7 @@ import {
 } from "@/shared/lib/cart/store";
 
 interface CartItemProps {
-  item: CartItemType;
+  item: CartItemType & { addonSummaryLines?: string[] };
   currency: store.SupportedCurrencyInfer;
   productName: string;
   productImage?: string;
@@ -48,25 +48,42 @@ export const CartItem = memo(function CartItem({
 
   const handleDecrease = useCallback(() => {
     if (item.quantity > 1) {
-      updateQuantity(item.productId, item.quantity - 1, item.variantId);
-    }
-  }, [item.quantity, item.productId, item.variantId, updateQuantity]);
-
-  const handleIncrease = useCallback(() => {
-    if (item.quantity < maxQuantity) {
-      updateQuantity(item.productId, item.quantity + 1, item.variantId);
+      updateQuantity(
+        item.productId,
+        item.quantity - 1,
+        item.variantId,
+        item.addonSelections,
+      );
     }
   }, [
     item.quantity,
     item.productId,
     item.variantId,
+    item.addonSelections,
+    updateQuantity,
+  ]);
+
+  const handleIncrease = useCallback(() => {
+    if (item.quantity < maxQuantity) {
+      updateQuantity(
+        item.productId,
+        item.quantity + 1,
+        item.variantId,
+        item.addonSelections,
+      );
+    }
+  }, [
+    item.quantity,
+    item.productId,
+    item.variantId,
+    item.addonSelections,
     maxQuantity,
     updateQuantity,
   ]);
 
   const handleRemove = useCallback(() => {
-    removeItem(item.productId, item.variantId);
-  }, [item.productId, item.variantId, removeItem]);
+    removeItem(item.productId, item.variantId, item.addonSelections);
+  }, [item.productId, item.variantId, item.addonSelections, removeItem]);
 
   return (
     <div className="flex gap-3 border-border border-b py-4 last:border-b-0">
@@ -96,6 +113,13 @@ export const CartItem = memo(function CartItem({
               <p className="text-muted-foreground text-xs">
                 {productDescription}
               </p>
+            )}
+            {item.addonSummaryLines && item.addonSummaryLines.length > 0 && (
+              <ul className="mt-1 space-y-0.5 text-muted-foreground text-xs">
+                {item.addonSummaryLines.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
             )}
             {isLowStock && !isOutOfStock && (
               <p className="font-medium text-destructive text-xs">

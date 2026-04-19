@@ -38,6 +38,7 @@ apps/dashboard/src/
 │       ├── order/             # controller.hook.ts, datetime.util.ts, group-by-date.util.ts, price.util.ts, store.ts (UI-only)
 │       ├── onboarding/        # controller.hook.ts, stepper.util.ts
 │       ├── store/             # active.store.ts, current-currency.hook.ts, format-price.hook.ts, url.util.ts
+│       ├── route-params.util.ts  # `getDynamicRouteParam` — `useParams()` segment parsing
 │       ├── clipboard.ts
 │       └── image-compression.ts
 ├── types/                     # App-level TS (e.g. i18n helpers, module augmentation)
@@ -221,6 +222,24 @@ export const useProductStore = create<ProductStoreState>()(
 // ❌ Wrong — never put filters in Zustand (use nuqs instead)
 ```
 
+### Dynamic route params (client components)
+
+For pages under a single dynamic segment such as `[id]`, read the param with **`getDynamicRouteParam`** from `@/shared/lib/route-params.util` — do not use `useMemo` for this, and do not use `params.id as string` unless you have a measured reason to bypass the helper.
+
+```typescript
+import { notFound, useParams } from "next/navigation";
+import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
+
+const params = useParams();
+const id = getDynamicRouteParam(params, "id");
+if (!id) {
+  notFound();
+}
+```
+
+- Catch-all segments (`[...slug]`) may surface as `string[]`; the helper returns the **first** segment when given a key that maps to an array.
+- For `[lang]` and other segments, pass the matching key (e.g. `"lang"`).
+
 ### `shared/config/` — Configuration
 
 ```typescript
@@ -336,6 +355,7 @@ import { getServerQueryClient } from "@/shared/api/query-client.server";
 import { handleAPIError } from "@/shared/api/error-handler";
 import { authClient } from "@/shared/api/auth-client";
 import { RoutePaths } from "@/shared/config/routes";
+import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
 import { useProductsController } from "@/shared/lib/product/controller.hook";
 
 // Package imports
@@ -378,4 +398,5 @@ const mutation = useMutation(
 - Prefetch in RSC layouts using `getServerQueryClient` + `HydrationBoundary`
 - Use `getServerSession` for server-side auth, `authClient` for client-side
 - Use type-safe routing from `@/shared/config/routes`
+- Use `getDynamicRouteParam` from `@/shared/lib/route-params.util` for `useParams()` in client detail pages — call `notFound()` when the required segment is missing
 - Use `@dukkani/common/utils/query-parsers` for all nuqs parsers — add new ones there, not inline

@@ -8,16 +8,18 @@ import type {
   CreateProductInput,
   UpdateProductInput,
 } from "@dukkani/common/schemas/product/input";
-import { formVariantRowsToInput } from "@dukkani/common/utils";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { handleAPIError } from "@/shared/api/error-handler";
-import { mapProductToFormValues } from "@/shared/api/map-product-to-form";
+import {
+  mapProductToFormValues,
+  resolveVariantImageUrls,
+} from "@/shared/api/map-product-to-form";
 import { appMutations } from "@/shared/api/mutations";
-import { api, client } from "@/shared/api/orpc";
+import { client } from "@/shared/api/orpc";
 import { appQueries } from "@/shared/api/queries";
 import { RoutePaths } from "@/shared/config/routes";
 
@@ -31,9 +33,9 @@ export const productFormOptions = formOptions({
     categoryId: "",
     hasVariants: false,
     images: [],
-    variantOptions: [],
     variants: [],
-  } as ProductFormInput,
+    variantOptions: [],
+  } as unknown as ProductFormInput,
   validators: {
     onChange: productFormSchema,
     onBlur: productFormSchema,
@@ -52,7 +54,11 @@ export function useProductForm({
   const isEdit = Boolean(productId);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
 
-  const productQuery = useQuery({
+  const {
+    data: productData,
+    isPending: isProductPending,
+    isError: isProductError,
+  } = useQuery({
     ...appQueries.product.byId({ input: { id: productId ?? "" } }),
     enabled: Boolean(isEdit && productId),
   });
@@ -63,18 +69,19 @@ export function useProductForm({
   const publishProductMutation = useMutation({
     mutationFn: (id: string) => client.product.publish({ id }),
     onSuccess: async (data) => {
-      await queryClient.invalidateQueries(api.product.getAll.queryOptions());
       await queryClient.invalidateQueries(
-        api.product.getById.queryOptions({ input: { id: data.id } }),
+        appQueries.product.all({ input: {} }),
       );
       await queryClient.invalidateQueries(
-        api.dashboard.getStats.queryOptions(),
+        appQueries.product.byId({ input: { id: data.id } }),
       );
+      await queryClient.invalidateQueries(appQueries.store.stats());
     },
   });
 
   const initialLoadDone = useRef(false);
   const initialImageUrlsRef = useRef<string[]>([]);
+  const lastHydratedProductIdRef = useRef<string | undefined>(undefined);
 
   const form = useAppForm({
     ...productFormOptions,
@@ -117,7 +124,8 @@ export function useProductForm({
       });
 
       const cleanedFormData = productFormSchema.parse(valueLive);
-      const rest = cleanedFormData;
+      const { addonGroups: _addonGroupsIgnored, ...rest } = cleanedFormData;
+      void _addonGroupsIgnored;
 
       if (isEdit) {
         if (!productId) {
@@ -149,7 +157,11 @@ export function useProductForm({
           hasVariants: rest.hasVariants,
           variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
           variants: rest.hasVariants
-            ? formVariantRowsToInput(rest.variants)
+            ? resolveVariantImageUrls(
+                rest.variants,
+                valueLive.images,
+                finalUrls,
+              )
             : undefined,
           ...(sameAsInitial ? {} : { imageUrls: finalUrls }),
         };
@@ -170,7 +182,7 @@ export function useProductForm({
         imageUrls: finalUrls,
         storeId,
         variants: rest.hasVariants
-          ? formVariantRowsToInput(rest.variants)
+          ? resolveVariantImageUrls(rest.variants, valueLive.images, finalUrls)
           : undefined,
         variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
       };
@@ -188,29 +200,25 @@ export function useProductForm({
   });
 
   useEffect(() => {
-    initialLoadDone.current = false;
-  }, [productId]);
-
-  useEffect(() => {
     if (!isEdit || !productId) return;
-    if (!productQuery.data || productQuery.isLoading) return;
-    if (productQuery.data.storeId !== storeId) return;
+
+    if (lastHydratedProductIdRef.current !== productId) {
+      initialLoadDone.current = false;
+      lastHydratedProductIdRef.current = productId;
+    }
+
+    if (!productData || isProductPending) return;
+    if (productData.storeId !== storeId) return;
+    if (productData.id !== productId) return;
     if (initialLoadDone.current) return;
 
-    const mapped = mapProductToFormValues(productQuery.data);
+    const mapped = mapProductToFormValues(productData);
     initialImageUrlsRef.current = mapped.images
       .filter((item) => item.kind === "remote")
       .map((item) => item.url);
     form.reset(mapped);
     initialLoadDone.current = true;
-  }, [
-    isEdit,
-    productId,
-    productQuery.data,
-    productQuery.isLoading,
-    storeId,
-    form,
-  ]);
+  }, [isEdit, productId, productData, isProductPending, storeId, form]);
 
   const { data: categories } = useQuery({
     ...appQueries.category.all({ input: { storeId } }),
@@ -248,11 +256,13 @@ export function useProductForm({
     handleOpenCategoryDrawer,
     handleCategoryCreated,
     isEdit,
-    productQuery,
+    productQuery: {
+      data: productData,
+      isPending: isProductPending,
+      isError: isProductError,
+    },
     publishProductMutation,
     storeMismatch:
-      isEdit &&
-      Boolean(productQuery.data) &&
-      productQuery.data!.storeId !== storeId,
+      isEdit && Boolean(productData) && productData!.storeId !== storeId,
   };
 }

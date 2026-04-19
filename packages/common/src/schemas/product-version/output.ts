@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { imageSimpleOutputSchema } from "../image/output";
+import { productAddonGroupPublicSchema } from "../product-addon/output";
 import {
   variantOptionOutputSchema,
   variantOutputSchema,
@@ -15,6 +16,7 @@ export const productVersionDetailOutputSchema = z.object({
   images: z.array(imageSimpleOutputSchema),
   variantOptions: z.array(variantOptionOutputSchema),
   variants: z.array(variantOutputSchema),
+  addonGroups: z.array(productAddonGroupPublicSchema),
 });
 
 export type ProductVersionDetailOutput = z.infer<

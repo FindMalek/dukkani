@@ -1,5 +1,6 @@
 import type { ProductVersionDetailOutput } from "../../schemas/product-version/output";
 import { ImageEntity } from "../image/entity";
+import { ProductAddonEntity } from "../product-addon/entity";
 import { VariantEntity } from "../variant/entity";
 import type {
   ProductVersionDetailDbData,
@@ -42,6 +43,7 @@ export class ProductVersionEntity {
         VariantEntity.getVariantOptionRo,
       ),
       variants: entity.variants.map(VariantEntity.getVariantRo),
+      addonGroups: entity.addonGroups.map(ProductAddonEntity.getGroupRo),
     };
   }
 }

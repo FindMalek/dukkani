@@ -5,13 +5,13 @@ import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { cn } from "@dukkani/ui/lib/utils";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { RoutePaths } from "@/shared/config/routes";
 import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 import { ProductCardDropdown } from "./product-card-dropdown";
-import Image from "next/image";
 
 interface ProductListCardProps {
   product: ListProductOutput;

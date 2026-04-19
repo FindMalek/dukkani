@@ -22,7 +22,9 @@ export type VariantSelectionDbData = Prisma.ProductVariantSelectionGetPayload<{
 
 export class VariantQuery {
   static getSimpleInclude() {
-    return {} satisfies Prisma.ProductVariantInclude;
+    return {
+      image: { select: { url: true } },
+    } satisfies Prisma.ProductVariantInclude;
   }
 
   static getVariantValueSelect() {
@@ -57,6 +59,7 @@ export class VariantQuery {
       selections: {
         include: VariantQuery.getVariantSelectionInclude(),
       },
+      image: { select: { url: true } },
     } satisfies Prisma.ProductVariantInclude;
   }
 }

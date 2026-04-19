@@ -23,9 +23,11 @@ export const variantOptionInputSchema = z.object({
 /**
  * Represents a product variant.
  * @property {string} sku - The stock keeping unit of the variant.
- * @property {number} price - The price of the variant.
+ * @property {number} price - The price of the variant (omit to inherit version base price).
  * @property {number} stock - The stock of the variant.
  * @property {Record<string, string>} selections - The selections of the variant.
+ * @property {string} imageUrl - URL of the product image assigned to this variant.
+ * @property {boolean} trackStock - Whether to track stock for this variant (default true).
  *
  * @example This means: Option "Size" has value "M", Option "Color" has value "Red"
  * { "Size": "M", "Color": "Red" }
@@ -35,6 +37,8 @@ export const variantInputSchema = z.object({
   price: z.number().positive().optional(),
   stock: z.number().int().min(0),
   selections: z.record(z.string(), z.string()),
+  imageUrl: z.string().url().optional(),
+  trackStock: z.boolean().default(true),
 });
 
 export type VariantOptionInput = z.infer<typeof variantOptionInputSchema>;

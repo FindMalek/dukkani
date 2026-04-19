@@ -1,10 +1,53 @@
 import { BadRequestError, NotFoundError } from "@dukkani/common/errors";
 import { database } from "@dukkani/db";
+import { ProductAddonSelectionType } from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
 import { ProductQuery } from "../entities/product/query";
 import type { ProductLineItem } from "../schemas/product/input";
 import { generateProductId } from "../utils/generate-id";
+
+/** Server-computed add-on rows persisted on {@link OrderItemAddon}. */
+export type OrderItemAddonSnapshot = {
+  addonOptionId: string;
+  groupName: string;
+  optionName: string;
+  priceDelta: number;
+  quantity: number;
+};
+
+/** Variant / version stock lines (add-ons handled separately). */
+export type ProductStockUpdateLine = Pick<
+  ProductLineItem,
+  "productId" | "variantId" | "quantity"
+>;
+
+export type PricedProductLineItem = ProductLineItem & {
+  /** Unit price: base (version or variant override) + priced add-ons. */
+  price: number;
+  productVersionId: string;
+  productNameAtCheckout: string;
+  addonSnapshots: OrderItemAddonSnapshot[];
+};
+
+type PublishedAddonOptionRow = {
+  id: string;
+  name: string;
+  priceDelta: unknown;
+  stock: number;
+};
+
+type PublishedAddonGroupRow = {
+  id: string;
+  name: string;
+  selectionType: ProductAddonSelectionType;
+  required: boolean;
+  options: PublishedAddonOptionRow[];
+};
+
+type PublishedVersionForAddons = {
+  addonGroups: PublishedAddonGroupRow[];
+};
 
 /**
  * Product service - Shared business logic for product operations
@@ -18,6 +61,120 @@ class ProductServiceBase {
     return generateProductId(storeSlug);
   }
 
+  private static resolveAddonSelectionsForPublishedVersion(
+    pub: PublishedVersionForAddons,
+    selections: Array<{ addonOptionId: string; quantity: number }>,
+  ): {
+    unitAddonTotal: number;
+    addonSnapshots: OrderItemAddonSnapshot[];
+    stockRows: Array<{
+      optionName: string;
+      selectionQty: number;
+      optionStock: number;
+    }>;
+  } {
+    const flat = new Map<
+      string,
+      { group: PublishedAddonGroupRow; option: PublishedAddonOptionRow }
+    >();
+    for (const g of pub.addonGroups) {
+      for (const o of g.options) {
+        flat.set(o.id, { group: g, option: o });
+      }
+    }
+
+    const byGroup = new Map<
+      string,
+      Array<{
+        addonOptionId: string;
+        quantity: number;
+        group: PublishedAddonGroupRow;
+        option: PublishedAddonOptionRow;
+      }>
+    >();
+
+    for (const sel of selections) {
+      const hit = flat.get(sel.addonOptionId);
+      if (!hit) {
+        throw new BadRequestError(
+          "This product was updated. Remove it from your cart and add it again.",
+        );
+      }
+      const list = byGroup.get(hit.group.id) ?? [];
+      list.push({
+        addonOptionId: sel.addonOptionId,
+        quantity: sel.quantity,
+        group: hit.group,
+        option: hit.option,
+      });
+      byGroup.set(hit.group.id, list);
+    }
+
+    for (const g of pub.addonGroups) {
+      const picked = byGroup.get(g.id) ?? [];
+      if (g.required && picked.length === 0) {
+        throw new BadRequestError(
+          `Add-on group "${g.name}" requires a selection`,
+        );
+      }
+      if (
+        g.selectionType === ProductAddonSelectionType.SINGLE &&
+        picked.length > 1
+      ) {
+        throw new BadRequestError(
+          `Only one option allowed in add-on group "${g.name}"`,
+        );
+      }
+    }
+
+    let unitAddonTotal = 0;
+    const addonSnapshots: OrderItemAddonSnapshot[] = [];
+    const stockRows: Array<{
+      optionName: string;
+      selectionQty: number;
+      optionStock: number;
+    }> = [];
+
+    for (const [, picked] of byGroup) {
+      for (const row of picked) {
+        const pd = Number(row.option.priceDelta);
+        unitAddonTotal += pd * row.quantity;
+        addonSnapshots.push({
+          addonOptionId: row.addonOptionId,
+          groupName: row.group.name,
+          optionName: row.option.name,
+          priceDelta: pd,
+          quantity: row.quantity,
+        });
+        stockRows.push({
+          optionName: row.option.name,
+          selectionQty: row.quantity,
+          optionStock: row.option.stock,
+        });
+      }
+    }
+
+    return { unitAddonTotal, addonSnapshots, stockRows };
+  }
+
+  private static assertAddonStockForLine(
+    lineQuantity: number,
+    stockRows: Array<{
+      optionName: string;
+      selectionQty: number;
+      optionStock: number;
+    }>,
+  ): void {
+    for (const s of stockRows) {
+      const need = lineQuantity * s.selectionQty;
+      if (s.optionStock < need) {
+        throw new BadRequestError(
+          `Insufficient stock for add-on "${s.optionName}"`,
+        );
+      }
+    }
+  }
+
   /**
    * Server-side prices from the **current published** product version.
    * Stale cart lines (variant no longer on that version) throw {@link BadRequestError}.
@@ -26,21 +183,32 @@ class ProductServiceBase {
     items: ProductLineItem[],
     storeId: string,
     tx?: PrismaClient,
-  ): Promise<
-    Array<
-      ProductLineItem & {
-        price: number;
-        productVersionId: string;
-        productNameAtCheckout: string;
-      }
-    >
-  > {
+  ): Promise<PricedProductLineItem[]> {
     if (items.length === 0) {
       return [];
     }
 
     const client = tx ?? database;
     const productIds = [...new Set(items.map((i) => i.productId))];
+
+    const addonGroupSelect = {
+      orderBy: { sortOrder: "asc" as const },
+      select: {
+        id: true,
+        name: true,
+        selectionType: true,
+        required: true,
+        options: {
+          orderBy: { sortOrder: "asc" as const },
+          select: {
+            id: true,
+            name: true,
+            priceDelta: true,
+            stock: true,
+          },
+        },
+      },
+    };
 
     const products = await client.product.findMany({
       where: {
@@ -55,6 +223,7 @@ class ProductServiceBase {
             id: true,
             name: true,
             price: true,
+            addonGroups: addonGroupSelect,
             variants: {
               select: { id: true, price: true },
             },
@@ -86,16 +255,25 @@ class ProductServiceBase {
           "This product was updated. Remove it from your cart and add it again.",
         );
       }
-      const price =
+      const basePrice =
         variant?.price != null ? Number(variant.price) : Number(pub.price);
+
+      const selections = item.addonSelections ?? [];
+      const { unitAddonTotal, addonSnapshots } =
+        ProductServiceBase.resolveAddonSelectionsForPublishedVersion(
+          { addonGroups: pub.addonGroups },
+          selections,
+        );
 
       return {
         productId: item.productId,
         variantId: item.variantId,
         quantity: item.quantity,
-        price,
+        addonSelections: selections,
+        price: basePrice + unitAddonTotal,
         productVersionId: pub.id,
         productNameAtCheckout: pub.name,
+        addonSnapshots,
       };
     });
   }
@@ -130,6 +308,7 @@ class ProductServiceBase {
    * Check stock availability for order items
    * - For items with variantId: checks ProductVariant.stock
    * - For items without variantId: checks Product.stock
+   * - Add-on options: aggregate line quantity × selection quantity per option
    * Aggregates quantities by (productId, variantId) to handle duplicates correctly
    */
   static async checkStockAvailability(
@@ -254,6 +433,61 @@ class ProductServiceBase {
       }
     }
 
+    const lineProductIds = [...new Set(items.map((i) => i.productId))];
+    const productsForAddons = await client.product.findMany({
+      where: {
+        id: { in: lineProductIds },
+        storeId,
+        ...ProductQuery.getPublishableWhere(),
+      },
+      select: {
+        id: true,
+        currentPublishedVersion: {
+          select: {
+            addonGroups: {
+              orderBy: { sortOrder: "asc" },
+              select: {
+                id: true,
+                name: true,
+                selectionType: true,
+                required: true,
+                options: {
+                  orderBy: { sortOrder: "asc" },
+                  select: {
+                    id: true,
+                    name: true,
+                    priceDelta: true,
+                    stock: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+    type AddonProductRow = (typeof productsForAddons)[number];
+    const addonProductMap = new Map<string, AddonProductRow>(
+      productsForAddons.map((p: AddonProductRow) => [p.id, p]),
+    );
+
+    for (const item of items) {
+      const row = addonProductMap.get(item.productId);
+      const pub = row?.currentPublishedVersion;
+      if (!row || !pub) {
+        throw new NotFoundError(
+          `Product ${item.productId} not found or not available for this store`,
+        );
+      }
+      const selections = item.addonSelections ?? [];
+      const { stockRows } =
+        ProductServiceBase.resolveAddonSelectionsForPublishedVersion(
+          { addonGroups: pub.addonGroups },
+          selections,
+        );
+      ProductServiceBase.assertAddonStockForLine(item.quantity, stockRows);
+    }
+
     addSpanAttributes({
       "product.variant_items": variantItems.length,
       "product.simple_items": productItems.length,
@@ -298,13 +532,44 @@ class ProductServiceBase {
   }
 
   /**
+   * Update {@link ProductAddonOption} stock in bulk (aggregated by option id).
+   */
+  static async updateAddonOptionStocks(
+    updates: Array<{ optionId: string; quantity: number }>,
+    operation: "increment" | "decrement",
+    tx?: PrismaClient,
+  ): Promise<void> {
+    if (updates.length === 0) return;
+
+    const client = tx ?? database;
+    const aggregated = new Map<string, number>();
+    for (const u of updates) {
+      aggregated.set(
+        u.optionId,
+        (aggregated.get(u.optionId) ?? 0) + u.quantity,
+      );
+    }
+
+    await Promise.all(
+      [...aggregated.entries()].map(([optionId, quantity]) =>
+        client.productAddonOption.update({
+          where: { id: optionId },
+          data: {
+            stock: { [operation]: quantity },
+          },
+        }),
+      ),
+    );
+  }
+
+  /**
    * Update multiple product stocks
    * - For items with variantId: updates ProductVariant.stock
    * - For items without variantId: updates Product.stock
    * Aggregates quantities by (productId, variantId) to handle duplicates correctly
    */
   static async updateMultipleProductStocks(
-    updates: ProductLineItem[],
+    updates: ProductStockUpdateLine[],
     operation: "increment" | "decrement",
     tx?: PrismaClient,
   ): Promise<void> {

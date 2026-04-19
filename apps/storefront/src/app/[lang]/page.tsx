@@ -11,12 +11,12 @@ import { ComingSoon } from "@/components/app/coming-soon";
 import { HeroBanner } from "@/components/app/hero-banner";
 import { ProductGrid } from "@/components/app/product-grid";
 import { ProductSectionHeader } from "@/components/app/product-section-header";
+import { client, getQueryClient, orpc } from "@/shared/api/orpc";
+import { appQueries } from "@/shared/api/queries";
 import {
   buildProductFiltersInput,
   loadProductFilters,
 } from "@/shared/lib/product/filters";
-import { client, getQueryClient, orpc } from "@/shared/api/orpc";
-import { appQueries } from "@/shared/api/queries";
 import { getStoreSlug } from "@/shared/lib/store/slug-retrieval.util";
 
 export async function generateMetadata({

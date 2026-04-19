@@ -1,7 +1,10 @@
 import type { ProductVariantOptionFormRow } from "../../schemas/product/base";
 
-/** Hard cap for variant combinations (form + API). */
-export const MAX_VARIANT_COMBINATIONS = 200;
+/** Hard cap for variant combinations (form + API). 100 matches Shopify's limit and is sufficient for SMBs. */
+export const MAX_VARIANT_COMBINATIONS = 100;
+
+/** Alias for clarity in new code. */
+export const VARIANT_COMBINATIONS_LIMIT = MAX_VARIANT_COMBINATIONS;
 
 /**
  * Cartesian product of option values; keys are option **names** (matches `writeVariantMatrix`).

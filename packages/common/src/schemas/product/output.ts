@@ -2,6 +2,7 @@ import { z } from "zod";
 import { categoryOutputSchema } from "../category/output";
 import { imageSimpleOutputSchema } from "../image/output";
 import { orderItemSimpleOutputSchema } from "../order-item/output";
+import { productAddonGroupPublicSchema } from "../product-addon/output";
 import { userSimpleSelectOutputSchema } from "../user/output";
 import {
   variantOptionOutputSchema,
@@ -33,6 +34,7 @@ export const productIncludeOutputSchema = productSimpleOutputSchema.extend({
   orderItems: z.array(orderItemSimpleOutputSchema).optional(),
   variantOptions: z.array(variantOptionOutputSchema).optional(),
   variants: z.array(variantOutputSchema).optional(),
+  addonGroups: z.array(productAddonGroupPublicSchema).optional(),
 });
 
 export const listProductsOutputSchema = z.object({
@@ -57,6 +59,7 @@ export const productPublicOutputSchema = productSimpleOutputSchema
     store: productPublicStoreSchema.optional(),
     variants: z.array(variantOutputSchema).optional(),
     variantOptions: z.array(variantOptionOutputSchema).optional(),
+    addonGroups: z.array(productAddonGroupPublicSchema).optional(),
   })
   .omit({
     storeId: true,

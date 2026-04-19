@@ -18,11 +18,13 @@ import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 export default function NewProductPage() {
   const t = useTranslations("products.create");
   const formRef = useRef<ProductFormHandle>(null);
+
   const { selectedStoreId, isLoading } = useActiveStoreStore();
 
   const handleSave = useCallback(() => {
     formRef.current?.submit();
   }, []);
+
   if (isLoading) {
     return (
       <div className="min-h-screen dark:bg-background">

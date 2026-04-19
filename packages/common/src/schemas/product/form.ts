@@ -1,3 +1,4 @@
+import { ProductAddonSelectionType } from "@dukkani/db/prisma/generated/enums";
 import * as z from "zod";
 import {
   countVariantCombinations,
@@ -28,7 +29,10 @@ export type ProductImageAttachment = z.infer<
   typeof productImageAttachmentSchema
 >;
 
-/** One SKU row in the dashboard product form (selections keyed by option name). */
+/**
+ * One SKU row in the dashboard product form (selections keyed by option name).
+ * Empty variant `price` means inherit the product version base price (no per-variant override).
+ */
 export const productFormVariantRowSchema = z.strictObject({
   selections: z.record(z.string(), z.string()),
   sku: z.string().optional(),
@@ -38,9 +42,33 @@ export const productFormVariantRowSchema = z.strictObject({
     z.coerce.number().positive().optional(),
   ),
   stock: z.coerce.number<string>().int().min(0, "Stock cannot be negative"),
+  imageRef: z.string().optional(),
 });
 
 export type ProductFormVariantRow = z.infer<typeof productFormVariantRowSchema>;
+
+export const productFormAddonOptionRowSchema = z.strictObject({
+  name: z.string().min(1),
+  sortOrder: z.coerce.number<string>().int().min(0).optional(),
+  priceDelta: z.coerce
+    .number<string>()
+    .min(0, "Add-on price must be zero or positive"),
+  stock: z.coerce.number<string>().int().min(0),
+});
+
+export const productFormAddonGroupRowSchema = z.strictObject({
+  name: z.string().min(1),
+  sortOrder: z.coerce.number<string>().int().min(0).optional(),
+  selectionType: z.nativeEnum(ProductAddonSelectionType),
+  required: z.boolean(),
+  options: z
+    .array(productFormAddonOptionRowSchema)
+    .min(1, "At least one option per add-on group"),
+});
+
+export type ProductFormAddonGroupRow = z.infer<
+  typeof productFormAddonGroupRowSchema
+>;
 
 export const productFormSchema = productSchema
   .omit({
@@ -53,6 +81,7 @@ export const productFormSchema = productSchema
       .array(productImageAttachmentSchema)
       .max(10, "Maximum 10 images allowed"),
     variants: z.array(productFormVariantRowSchema),
+    addonGroups: z.array(productFormAddonGroupRowSchema).default([]),
   })
   .superRefine((data, ctx) => {
     if (!data.hasVariants) {

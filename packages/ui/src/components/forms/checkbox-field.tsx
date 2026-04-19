@@ -50,7 +50,7 @@ export function CheckboxField({
               </span>
             ) : null}
             <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-              <div className="font-medium text-sm leading-snug text-foreground">
+              <div className="font-medium text-foreground text-sm leading-snug">
                 {label}
               </div>
               {description ? (

@@ -421,11 +421,21 @@
             "optionName": "اسم الخيار",
             "optionNamePlaceholder": "مثال: الحجم، اللون",
             "values": "القيم",
-            "addValue": "إضافة قيمة",
+            "addValue": "+ إضافة قيمة",
             "noValues": "أضف قيمة واحدة على الأقل",
             "remove": "إزالة الخيار",
-            "addAnother": "إضافة خيار",
+            "addAnother": "إضافة خيار آخر",
+            "maxOptions": "الحد الأقصى 3 خيارات",
             "value": "القيمة"
+          },
+          "pendingRemoval": {
+            "title": "حذف هذه القيمة سيزيل {count} متغيرات",
+            "description": "اضغط للتأكيد قبل تطبيق التغييرات.",
+            "confirm": "تأكيد",
+            "undo": "تراجع"
+          },
+          "optionOrder": {
+            "label": "ترتيب الخيارات"
           },
           "list": {
             "title": "المتغيرات",
@@ -443,6 +453,14 @@
             "priceHelp": "اتركه فارغاً لاستخدام سعر المنتج الأساسي",
             "stock": "المخزون"
           },
+          "editSheet": {
+            "title": "تعديل المتغير: {label}",
+            "image": "الصورة"
+          },
+          "imagePicker": {
+            "title": "اختر صورة",
+            "noImage": "بدون صورة"
+          },
           "matrix": {
             "title": "تركيبات المتغير",
             "hint": "كل صف يمثل تركيبة قابلة للبيع. يُستورد المخزون والسعر من المنتج أعلاه؛ اترك السعر فارغاً لاستخدام السعر الأساسي.",
@@ -453,7 +471,10 @@
             "columnPrice": "السعر",
             "columnStock": "المخزون",
             "skuPlaceholder": "اختياري",
-            "pricePlaceholder": "السعر الأساسي"
+            "pricePlaceholder": "السعر الأساسي",
+            "variantCount": "{count} متغيرات",
+            "inStock": "{count} في المخزون",
+            "outOfStock": "نفد المخزون"
           },
           "validation": {
             "duplicateOptionName": "اسم الخيار مكرر",
