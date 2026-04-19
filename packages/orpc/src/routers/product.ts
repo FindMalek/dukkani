@@ -327,9 +327,6 @@ export const productRouter = {
 
           if (draftImages.length > 0) {
             try {
-              // Only remove S3 objects for images that are actually dropped.
-              // Deleting by every draft URL's folder was wiping sibling assets that
-              // stay in `input.imageUrls` (same product path prefix).
               for (const image of draftImages) {
                 if (!image?.url || keptImageUrls.has(image.url)) {
                   continue;
@@ -404,7 +401,6 @@ export const productRouter = {
             });
           }
 
-          // Build url→imageId map if any variant has an assigned image
           let imageUrlToId: Map<string, string> | undefined;
           if (input.variants.some((v) => v.imageUrl)) {
             const images = await tx.image.findMany({

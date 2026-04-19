@@ -7,7 +7,6 @@ export const cartItemOutputSchema = z.object({
   productName: z.string(),
   productImage: z.string().optional(),
   productDescription: z.string().optional(),
-  /** Unit price including selected add-ons (server authority). */
   price: z.number(),
   stock: z.number(),
 });
