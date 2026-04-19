@@ -26,6 +26,10 @@
       "types": "./dist/errors/index.d.ts",
       "default": "./src/errors/index.ts"
     },
+    "./constants": {
+      "types": "./dist/constants/index.d.ts",
+      "default": "./src/constants/index.ts"
+    },
     "./*": {
       "types": "./dist/*.d.ts",
       "default": "./src/*.ts"

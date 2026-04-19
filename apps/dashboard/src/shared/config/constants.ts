@@ -1,4 +1,4 @@
-import { MAX_VARIANT_COMBINATIONS } from "@dukkani/common/utils";
+import { MAX_VARIANT_COMBINATIONS } from "@dukkani/common/schemas/constants";
 
 export const cookieConstants = {
   LAST_LOGIN_METHOD: "better-auth.last_used_login_method", // Cookie name for storing the last used login method (e.g., "google", "email")

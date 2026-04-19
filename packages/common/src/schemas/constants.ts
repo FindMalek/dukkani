@@ -106,3 +106,5 @@ export const LOCALE_FLAGS: Record<Locale, string> = {
   fr: "🇫🇷",
   ar: "🇸🇦",
 };
+
+export const MAX_VARIANT_COMBINATIONS = 100;

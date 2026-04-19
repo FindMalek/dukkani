@@ -2,9 +2,9 @@ import { ProductAddonSelectionType } from "@dukkani/db/prisma/generated/enums";
 import * as z from "zod";
 import {
   countVariantCombinations,
-  MAX_VARIANT_COMBINATIONS,
   validateVariantMatrixAgainstOptions,
 } from "../../utils/variant-matrix";
+import { MAX_VARIANT_COMBINATIONS } from "../constants";
 import { productVariantFormRowSchema } from "../variant/form";
 import { productSchema } from "./base";
 

@@ -1,5 +1,6 @@
+import { MAX_VARIANT_COMBINATIONS } from "../../schemas/constants";
 import type { ProductVariantOptionFormRow } from "../../schemas/product/base";
-import { cartesianSelections, MAX_VARIANT_COMBINATIONS } from "./cartesian";
+import { cartesianSelections } from "./cartesian";
 import { selectionKey } from "./keys";
 
 export type MatrixValidationErrorCode =
