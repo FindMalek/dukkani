@@ -1,13 +1,10 @@
-import { StoreEntity } from "@dukkani/common/entities/store/entity";
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import type {
   ConfigureStoreOnboardingInput,
   CreateStoreOnboardingInput,
 } from "@dukkani/common/schemas/store/input";
-import type { OnboardingStepConfig } from "@dukkani/common/services/onboarding.service";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { createTranslator, Messages } from "next-intl";
 import { useMemo } from "react";
 import { storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOptions } from "@/components/auth/onboarding-store-configuration-form";
 import { storeSetupFormDefaultOptions } from "@/components/auth/onboarding-store-setup-form";
@@ -25,15 +22,6 @@ import {
 } from "./stepper.util";
 
 /**
- * Translation function type for i18n support
- * Compatible with next-intl's Translator type
- * Based on the solution from next-intl GitHub discussions
- */
-export type TranslationFunction = ReturnType<
-  typeof createTranslator<Messages, "onboarding">
->;
-
-/**
  * Controller hook that orchestrates:
  * - OnboardingService business logic
  * - API hooks (stores, user)
@@ -44,7 +32,6 @@ export type TranslationFunction = ReturnType<
  * Provides a single interface for onboarding functionality
  */
 export function useOnboardingController(
-  t: TranslationFunction,
   guestStep?: UserOnboardingStep | null,
   onStepChange?: (step: UserOnboardingStep) => void,
 ) {
@@ -214,24 +201,6 @@ export function useOnboardingController(
     canProceedToNext: () => canProceedToNextStep(enhancedState.effectiveStep),
     isValidTransition: (toStep: UserOnboardingStep | null) =>
       isValidStepTransition(enhancedState.effectiveStep, toStep),
-
-    // Step configuration with i18n - get base config from ORPC
-    getStepConfig: async (): Promise<OnboardingStepConfig> => {
-      const baseConfig = await client.onboarding.getStepConfig({
-        step: enhancedState.effectiveStep,
-      });
-
-      // Use type-safe mapping from StoreEntity to get the correct translation key
-      const stepKey = enhancedState.effectiveStep
-        ? StoreEntity.ONBOARDING_STEP_KEY_MAP[enhancedState.effectiveStep]
-        : StoreEntity.ONBOARDING_STEP_KEY_MAP.null;
-
-      return {
-        ...baseConfig,
-        title: t(`steps.${stepKey}`),
-        description: t(`steps.${stepKey}Description`),
-      };
-    },
   };
 
   // Forms

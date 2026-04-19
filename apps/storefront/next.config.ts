@@ -1,6 +1,5 @@
 import { getApiUrl } from "@dukkani/env/get-api-url";
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
 
 const apiUrl = getApiUrl(process.env.NEXT_PUBLIC_API_URL ?? "");
 
@@ -11,8 +10,6 @@ if (!apiUrl) {
 }
 
 process.env.NEXT_PUBLIC_API_URL = apiUrl;
-
-const withNextIntl = createNextIntlPlugin("./src/shared/config/i18n.ts");
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
@@ -55,4 +52,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default nextConfig;

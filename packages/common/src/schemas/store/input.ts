@@ -1,9 +1,9 @@
+import { SupportedCurrencies } from "@dukkani/i18n";
 import { z } from "zod";
 import {
   storeCategorySchema,
   storeNotificationMethodSchema,
   storeThemeSchema,
-  supportedCurrencySchema,
 } from "./enums";
 
 export const storeInputSchema = z.object({
@@ -20,7 +20,7 @@ export const storeInputSchema = z.object({
 export const createStoreOnboardingInputSchema = z.object({
   name: z.string().min(3, "Store name must be at least 3 characters"),
   description: z.string().optional(),
-  currency: supportedCurrencySchema,
+  currency: z.enum(SupportedCurrencies),
   notificationMethod: storeNotificationMethodSchema,
 });
 

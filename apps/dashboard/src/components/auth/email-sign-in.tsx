@@ -7,7 +7,7 @@ import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useState } from "react";
 import { authClient } from "@/shared/api/auth-client";
 import { handleAPIError } from "@/shared/api/error-handler";
@@ -21,7 +21,7 @@ export function EmailSignIn({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const router = useRouter();
-  const t = useTranslations("auth.emailSignIn");
+  const { t } = useT("pages", { keyPrefix: "auth.emailSignIn" });
   const [emailExists, setEmailExists] = useState<boolean | null>(null);
   const handleEmailExistenceCheck = async (email: string) => {
     try {

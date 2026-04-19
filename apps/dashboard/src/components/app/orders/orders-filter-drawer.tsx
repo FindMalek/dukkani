@@ -13,7 +13,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@dukkani/ui/components/drawer";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
 
 interface DateRange {
@@ -40,8 +40,8 @@ export function OrdersFilterDrawer({
   setDateRange,
   resetFilters,
 }: OrdersFilterDrawerProps) {
-  const t = useTranslations("orders.list.filterDrawer");
-  const tFilters = useTranslations("orders.list.filters");
+  const { t } = useT("pages", { keyPrefix: "orders.list.filterDrawer" });
+  const { t: tFilters } = useT("pages", { keyPrefix: "orders.list.filters" });
 
   const [draftStatus, setDraftStatus] = useState<OrderStatusFilter>(status);
   const [draftDateRange, setDraftDateRange] = useState<DateRange>(dateRange);

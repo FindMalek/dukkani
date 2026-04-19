@@ -8,11 +8,9 @@ import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useState } from "react";
-import { handleAPIError } from "@/shared/api/error-handler";
 import { appMutations } from "@/shared/api/mutations";
-import { client } from "@/shared/api/orpc";
 
 interface ComingSoonProps {
   store: StorePublicOutput;
@@ -21,7 +19,7 @@ interface ComingSoonProps {
 const formSchema = subscribeToLaunchInputSchema.omit({ storeId: true });
 
 export function ComingSoon({ store }: ComingSoonProps) {
-  const t = useTranslations("storefront.comingSoon");
+  const { t } = useT("pages", { keyPrefix: "comingSoon" });
   const [isSuccess, setIsSuccess] = useState(false);
 
   const subscribeMutation = useMutation(appMutations.store.subscribeToLaunch());

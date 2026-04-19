@@ -15,7 +15,7 @@ import { FieldGroup } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { appMutations } from "@/shared/api/mutations";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 
@@ -32,7 +32,7 @@ export function CategoryDrawer({
   open,
   onOpenChange,
 }: CategoryDrawerProps) {
-  const t = useTranslations("products.create");
+  const { t } = useT("pages", { keyPrefix: "products.create" });
   const { selectedStoreId } = useActiveStoreStore();
   const createCategoryMutation = useMutation(appMutations.category.create());
 

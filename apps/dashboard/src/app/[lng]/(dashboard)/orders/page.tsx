@@ -1,0 +1,141 @@
+"use client";
+
+import { Card, CardContent } from "@dukkani/ui/components/card";
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+} from "@dukkani/ui/components/empty";
+import { Icons } from "@dukkani/ui/components/icons";
+import { useT } from "next-i18next/client";
+import { useState } from "react";
+import { OrderListCard } from "@/components/app/orders/order-list-card";
+import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
+import { OrdersListSkeleton } from "@/components/app/orders/orders-list-skeleton";
+import { OrdersPageHeader } from "@/components/app/orders/orders-page-header";
+import { OrdersSearchBar } from "@/components/app/orders/orders-search-bar";
+import { OrdersStatusTabs } from "@/components/app/orders/orders-status-tabs";
+import { useOrdersController } from "@/shared/lib/order/controller.hook";
+import { groupOrdersByDate } from "@/shared/lib/order/group-by-date.util";
+
+export default function OrdersPage() {
+  const { t } = useT("pages", { keyPrefix: "orders" });
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+  const {
+    ordersQuery: { data, isLoading, error, refetch, isRefetching },
+    search,
+    status,
+    setSearch,
+    setStatus,
+    resetFilters,
+  } = useOrdersController();
+
+  // dateRange is UI-only — backend filtering not yet implemented
+  const [dateRange, setDateRange] = useState<{
+    from: Date | null;
+    to: Date | null;
+  }>({ from: null, to: null });
+
+  const filterActive =
+    status !== null || dateRange.from !== null || dateRange.to !== null;
+
+  if (error) {
+    return (
+      <div className="container mx-auto max-w-7xl p-4 md:p-6">
+        <OrdersPageHeader />
+        <Card>
+          <CardContent className="pt-6">
+            <p className="text-destructive text-sm">{t("list.error")}</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  const grouped = data?.orders ? groupOrdersByDate(data.orders) : null;
+
+  return (
+    <div className="container mx-auto max-w-7xl p-4 pb-24 md:p-6 md:pb-8">
+      <OrdersPageHeader
+        onRefresh={() => refetch()}
+        isRefetching={isRefetching}
+      />
+
+      {/* Search & Filters */}
+      <div className="mb-6 space-y-4">
+        <OrdersSearchBar
+          value={search}
+          onChange={setSearch}
+          onFilterClick={() => setFilterDrawerOpen(true)}
+          filterActive={filterActive}
+        />
+        <OrdersStatusTabs value={status} onChange={setStatus} />
+      </div>
+
+      {/* Filter Drawer */}
+      <OrdersFilterDrawer
+        open={filterDrawerOpen}
+        onOpenChange={setFilterDrawerOpen}
+        status={status}
+        dateRange={dateRange}
+        setStatus={setStatus}
+        setDateRange={setDateRange}
+        resetFilters={resetFilters}
+      />
+
+      {/* Order List */}
+      {isLoading ? (
+        <OrdersListSkeleton />
+      ) : data && data.orders.length > 0 && grouped ? (
+        <div className="space-y-6">
+          {grouped.today.length > 0 && (
+            <section>
+              <h2 className="mb-3 font-medium text-muted-foreground text-sm">
+                {t("list.today")}
+              </h2>
+              <div className="space-y-3">
+                {grouped.today.map((order) => (
+                  <OrderListCard key={order.id} order={order} />
+                ))}
+              </div>
+            </section>
+          )}
+          {grouped.yesterday.length > 0 && (
+            <section>
+              <h2 className="mb-3 font-medium text-muted-foreground text-sm">
+                {t("list.yesterday")}
+              </h2>
+              <div className="space-y-3">
+                {grouped.yesterday.map((order) => (
+                  <OrderListCard key={order.id} order={order} />
+                ))}
+              </div>
+            </section>
+          )}
+          {grouped.older.map(({ label, orders: ords }) => (
+            <section key={label}>
+              <h2 className="mb-3 font-medium text-muted-foreground text-sm">
+                {label}
+              </h2>
+              <div className="space-y-3">
+                {ords.map((order) => (
+                  <OrderListCard key={order.id} order={order} />
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      ) : (
+        <Empty className="border bg-muted/30">
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <Icons.shoppingCart />
+            </EmptyMedia>
+            <EmptyDescription>{t("list.empty")}</EmptyDescription>
+          </EmptyHeader>
+        </Empty>
+      )}
+    </div>
+  );
+}

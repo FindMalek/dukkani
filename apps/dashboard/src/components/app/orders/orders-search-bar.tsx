@@ -7,7 +7,7 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@dukkani/ui/components/input-group";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 
 interface OrdersSearchBarProps {
   value: string;
@@ -22,7 +22,7 @@ export function OrdersSearchBar({
   onFilterClick,
   filterActive = false,
 }: OrdersSearchBarProps) {
-  const t = useTranslations("orders.list");
+  const { t } = useT("pages", { keyPrefix: "orders.list" });
 
   return (
     <InputGroup>

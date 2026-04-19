@@ -1,7 +1,7 @@
 "use client";
 
-import type { store } from "@dukkani/common/schemas";
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
+import type { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,
@@ -11,11 +11,10 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@dukkani/ui/components/drawer";
-
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { VariantSelector } from "@/components/shared/variant-selector";
@@ -24,7 +23,7 @@ import { useProductVariantSelection } from "@/shared/lib/product/variant-selecto
 
 interface QuickAddToCartProps {
   product: ProductPublicOutput;
-  storeCurrency: store.SupportedCurrencyInfer;
+  storeCurrency: SupportedCurrency;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
@@ -35,7 +34,7 @@ export function QuickAddToCart({
   onOpenChange,
   storeCurrency,
 }: QuickAddToCartProps) {
-  const t = useTranslations("storefront.store.product");
+  const { t } = useT("pages", { keyPrefix: "store.product" });
 
   const hasVariants = (product.variants?.length ?? 0) > 0;
 

@@ -1,13 +1,14 @@
 "use client";
 
 import {
-  LOCALE_FLAGS,
-  LOCALES,
-  LOCALES_MAP,
-  type Locale,
-} from "@dukkani/common/schemas/constants";
+  DefaultLanguage,
+  isSupportedLanguage,
+  type SupportedLanguage,
+  SupportedLanguages,
+} from "@dukkani/i18n";
 import { usePathname, useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useT } from "next-i18next/client";
+import { cn } from "../lib/utils";
 import { Button } from "./button";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "./select";
 
@@ -16,55 +17,84 @@ interface LanguageSwitcherProps {
   className?: string;
 }
 
+interface LanguageSwitcherComponentProps {
+  currentLanguage: SupportedLanguage;
+  handleLanguageChange: (language: SupportedLanguage) => Promise<void>;
+  className?: string;
+}
+
+const ComponentMap = {
+  buttons: LanguageSwitcherButtonsVariant,
+  select: LanguageSwitcherSelectVariant,
+};
+
 export function LanguageSwitcher({
   variant = "select",
   className,
 }: LanguageSwitcherProps) {
-  const router = useRouter();
+  const { i18n } = useT();
   const pathname = usePathname();
-  const currentLocale = useLocale();
+  const router = useRouter();
+  const Component = ComponentMap[variant];
 
-  const switchLanguage = (newLocale: Locale) => {
-    // Replace the current locale in the pathname
-    const segments = pathname.split("/");
-    segments[1] = newLocale; // [lang] is always at index 1
-    const newPath = segments.join("/");
+  const currentLanguage = isSupportedLanguage(i18n.language)
+    ? i18n.language
+    : DefaultLanguage;
 
-    router.push(newPath);
+  const handleLanguageChange = async (language: SupportedLanguage) => {
+    router.push(pathname.replace(currentLanguage, language));
   };
 
-  if (variant === "buttons") {
-    return (
-      <div className={`flex gap-1 ${className}`}>
-        {LOCALES.map((locale) => (
-          <Button
-            key={locale}
-            variant={currentLocale === locale ? "default" : "outline"}
-            size="sm"
-            onClick={() => switchLanguage(locale)}
-            className="min-w-[100px]"
-          >
-            {LOCALES_MAP[locale]}
-          </Button>
-        ))}
-      </div>
-    );
-  }
+  return (
+    <Component
+      className={className}
+      handleLanguageChange={handleLanguageChange}
+      currentLanguage={currentLanguage}
+    />
+  );
+}
+
+function LanguageSwitcherSelectVariant({
+  className,
+  handleLanguageChange,
+  currentLanguage,
+}: LanguageSwitcherComponentProps) {
+  const { t } = useT("ui", { keyPrefix: "languageSwitcher" });
 
   return (
-    <Select value={currentLocale} onValueChange={switchLanguage}>
-      <SelectTrigger className={`${className}`}>
-        {LOCALE_FLAGS[currentLocale as Locale] && (
-          <span className="me-2">{LOCALE_FLAGS[currentLocale as Locale]}</span>
-        )}
-      </SelectTrigger>
+    <Select value={currentLanguage} onValueChange={handleLanguageChange}>
+      <SelectTrigger className={className}>{t(currentLanguage)}</SelectTrigger>
       <SelectContent>
-        {LOCALES.map((locale) => (
-          <SelectItem key={locale} value={locale}>
-            {LOCALES_MAP[locale]}
+        {Object.values(SupportedLanguages).map((language) => (
+          <SelectItem key={language} value={language}>
+            {t(language)}
           </SelectItem>
         ))}
       </SelectContent>
     </Select>
+  );
+}
+
+function LanguageSwitcherButtonsVariant({
+  className,
+  handleLanguageChange,
+  currentLanguage,
+}: LanguageSwitcherComponentProps) {
+  const { t } = useT("ui", { keyPrefix: "languageSwitcher" });
+
+  return (
+    <div className={cn("flex gap-1", className)}>
+      {Object.values(SupportedLanguages).map((language) => (
+        <Button
+          key={language}
+          variant={currentLanguage === language ? "default" : "outline"}
+          size="sm"
+          onClick={() => handleLanguageChange(language)}
+          className="min-w-25"
+        >
+          {t(language)}
+        </Button>
+      ))}
+    </div>
   );
 }

@@ -81,6 +81,64 @@
       "cache": false,
       "persistent": true
     },
+    "i18n:types": {
+      "dependsOn": [
+        "@dukkani/i18n#dashboard:types",
+        "@dukkani/i18n#web:types",
+        "@dukkani/i18n#storefront:types",
+        "@dukkani/i18n#shared:types"
+      ]
+    },
+    "i18n:status": {
+      "dependsOn": [
+        "@dukkani/i18n#dashboard:status",
+        "@dukkani/i18n#web:status",
+        "@dukkani/i18n#storefront:status",
+        "@dukkani/i18n#shared:status"
+      ]
+    },
+    "@dukkani/i18n#dashboard:types": {
+      "dependsOn": ["^@dukkani/i18n#shared:types"],
+      "inputs": ["src/apps/dashboard/**"]
+    },
+    "@dukkani/i18n#dashboard:status": {
+      "dependsOn": ["^@dukkani/i18n#shared:status"],
+      "inputs": ["src/apps/dashboard/**", "$TURBO_ROOT$/apps/dashboard/src/**"]
+    },
+    "@dukkani/i18n#web:types": {
+      "dependsOn": ["^@dukkani/i18n#shared:types"],
+      "inputs": ["src/apps/web/**"]
+    },
+    "@dukkani/i18n#web:status": {
+      "dependsOn": ["^@dukkani/i18n#shared:status"],
+      "inputs": [
+        "src/apps/web/locales/fr/*.json",
+        "src/apps/web/i18next.config.ts",
+        "$TURBO_ROOT$/apps/web/src/**"
+      ]
+    },
+    "@dukkani/i18n#storefront:types": {
+      "dependsOn": ["^@dukkani/i18n#shared:types"],
+      "inputs": ["src/apps/storefront/**"]
+    },
+    "@dukkani/i18n#storefront:status": {
+      "dependsOn": ["^@dukkani/i18n#shared:status"],
+      "inputs": [
+        "src/apps/storefront/locales/fr/*.json",
+        "src/apps/storefront/i18next.config.ts",
+        "$TURBO_ROOT$/apps/storefront/src/**"
+      ]
+    },
+    "@dukkani/i18n#shared:types": {
+      "inputs": ["src/shared/locales/fr/*.json"]
+    },
+    "@dukkani/i18n#shared:status": {
+      "inputs": [
+        "src/shared/locales/fr/*.json",
+        "src/shared/i18next.config.ts",
+        "$TURBO_ROOT$/packages/ui/src/**"
+      ]
+    },
     "clean": {
       "cache": false,
       "persistent": true

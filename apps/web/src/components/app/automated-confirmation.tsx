@@ -5,13 +5,13 @@ import {
   CardTitle,
 } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
-import { getTranslations } from "next-intl/server";
-
-const BENEFITS_COUNT = 3;
-const FLOWCHART_STEPS_COUNT = 6;
+import { getT } from "next-i18next/server";
 
 export async function AutomatedConfirmation() {
-  const t = await getTranslations("automatedConfirmation");
+  const { t } = await getT("home", { keyPrefix: "body.automatedConfirmation" });
+
+  const benefits = t("benefits", { returnObjects: true });
+  const flowchartSteps = t("flowchart.steps", { returnObjects: true });
 
   return (
     <section
@@ -30,10 +30,10 @@ export async function AutomatedConfirmation() {
             </h2>
             <p className="text-lg text-muted-foreground">{t("description")}</p>
             <ul className="flex flex-col gap-3">
-              {Array.from({ length: BENEFITS_COUNT }, (_, i) => (
+              {benefits.map((benefit, i) => (
                 <li key={i} className="flex items-center gap-3 text-foreground">
                   <Icons.check className="h-5 w-5 shrink-0 text-primary" />
-                  <span>{t(`benefits.${i}`)}</span>
+                  <span>{benefit}</span>
                 </li>
               ))}
             </ul>
@@ -62,12 +62,12 @@ export async function AutomatedConfirmation() {
               </CardTitle>
             </CardHeader>
             <div className="flex flex-col gap-0 px-6 pb-6">
-              {Array.from({ length: FLOWCHART_STEPS_COUNT }, (_, i) => (
+              {flowchartSteps.map((step, i) => (
                 <div key={i} className="flex flex-col items-center">
                   <div className="w-full rounded-lg border border-primary/30 bg-primary/5 px-4 py-3 text-center font-medium text-foreground text-sm">
-                    {t(`flowchart.steps.${i}`)}
+                    {step}
                   </div>
-                  {i < FLOWCHART_STEPS_COUNT - 1 && (
+                  {i < flowchartSteps.length - 1 && (
                     <Icons.chevronDown className="my-1 h-4 w-4 text-primary" />
                   )}
                 </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import * as React from "react";
 import { useFieldContext } from "../../hooks/use-app-form";
 import { Dropzone, DropzoneThumb, DropzoneZone } from "../dropzone";
@@ -22,7 +22,9 @@ export function ImagesField({
 }: ImagesFieldProps) {
   const field = useFieldContext<File[]>();
   const files = field.state.value ?? [];
-  const t = useTranslations("fields.images");
+  const { t } = useT("ui", {
+    keyPrefix: "fields.images",
+  });
   const thumbsRef = React.useRef<HTMLDivElement>(null);
   const optimizationRequestRef = React.useRef(0);
   const [isOptimizing, setIsOptimizing] = React.useState(false);

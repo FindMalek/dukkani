@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@dukkani/env": "workspace:*",
+    "@dukkani/i18n": "workspace:*",
     "@dukkani/logger": "workspace:*",
     "@dukkani/tracing": "workspace:*",
     "@neondatabase/serverless": "^1.0.2",

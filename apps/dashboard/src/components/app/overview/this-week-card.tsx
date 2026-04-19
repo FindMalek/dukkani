@@ -7,14 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@dukkani/ui/components/card";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 
 interface ThisWeekCardProps {
   stats: DashboardStatsOutput;
 }
 
 export function ThisWeekCard({ stats }: ThisWeekCardProps) {
-  const t = useTranslations("dashboard.overview.thisWeek");
+  const { t } = useT("pages", { keyPrefix: "dashboard.overview.thisWeek" });
 
   return (
     <Card className="border-border/50">

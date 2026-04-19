@@ -35,11 +35,12 @@ catalog:
   better-auth: ^1.6.2
   date-fns: ^4.1.0
   dotenv: ^17.4.1
+  i18next: ^26.0.5
   lucide-react: ^1.8.0
   nanoid: ^5.1.7
   negotiator: ^1.0.0
   next: ^16.2.3
-  next-intl: ^4.9.1
+  next-i18next: ^16.0.5
   nuqs: ^2.8.9
   pino: ^10.3.1
   prisma: ^7.7.0
@@ -60,5 +61,9 @@ catalog:
 onlyBuiltDependencies:
   - '@prisma/client'
   - '@prisma/engines'
+  - '@swc/core'
   - prisma
   - sharp
+
+patchedDependencies:
+  next-themes@0.4.6: patches/next-themes@0.4.6.patch

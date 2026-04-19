@@ -10,7 +10,7 @@ import {
 } from "@dukkani/ui/components/dropdown-menu";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { RoutePaths } from "@/shared/config/routes";
 
 interface ProductCardDropdownProps {
@@ -24,7 +24,7 @@ export function ProductCardDropdown({
   onDelete,
   onTogglePublish,
 }: ProductCardDropdownProps) {
-  const t = useTranslations("products.list.actions");
+  const { t } = useT("pages", { keyPrefix: "products.list.actions" });
   const router = useRouter();
 
   const handleEdit = () => {

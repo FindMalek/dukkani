@@ -7,11 +7,11 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@dukkani/ui/components/carousel";
-import { useIsRtl } from "@dukkani/ui/components/direction";
+import { useDirection } from "@dukkani/ui/components/direction";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { cn } from "@dukkani/ui/lib/utils";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
 
 interface ProductImageCarouselProps {
@@ -23,10 +23,10 @@ export function ProductImageCarousel({
   images,
   productName,
 }: ProductImageCarouselProps) {
-  const isRtl = useIsRtl();
+  const direction = useDirection();
   const [current, setCurrent] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
-  const t = useTranslations("storefront.store.product.imageCarousel");
+  const { t } = useT("pages", { keyPrefix: "store.product.imageCarousel" });
 
   useEffect(() => {
     if (!api) return;
@@ -48,7 +48,7 @@ export function ProductImageCarousel({
     return (
       <div className="relative w-full overflow-hidden rounded-2xl">
         <AspectRatio ratio={1}>
-          <Skeleton className="h-full w-full" />
+          <Skeleton className="size-full" />
         </AspectRatio>
       </div>
     );
@@ -59,7 +59,7 @@ export function ProductImageCarousel({
       <Carousel
         setApi={setApi}
         className="w-full"
-        opts={{ direction: isRtl ? "rtl" : "ltr" }}
+        opts={{ direction: direction }}
       >
         <CarouselContent>
           {images.map((image, index) => (
@@ -88,7 +88,7 @@ export function ProductImageCarousel({
                 "h-2 rounded-full transition-all",
                 current === index ? "w-8 bg-card" : "w-2 bg-card/40",
               )}
-              aria-label={t("goToSlide", { index: index + 1 })}
+              aria-label={t("goToSlide", { index: `${index + 1}` })}
             />
           ))}
         </div>

@@ -6,12 +6,12 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { motion } from "framer-motion";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { env } from "@/env";
 import { PhoneMockup } from "../shared/phone-mockup";
 
 export function Hero() {
-  const t = useTranslations("hero");
+  const { t } = useT("home", { keyPrefix: "body.hero" });
 
   return (
     <section className="relative overflow-hidden bg-linear-to-b from-primary/5 via-transparent to-transparent pt-24 pb-16 md:pt-32 md:pb-32 lg:pt-40">

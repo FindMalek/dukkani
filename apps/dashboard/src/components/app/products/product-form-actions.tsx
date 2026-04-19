@@ -2,14 +2,14 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { productFormOptions } from "@/shared/lib/product/form";
 
 export const ProductFormActions = withForm({
   ...productFormOptions,
   props: {},
   render: function Render({ form }) {
-    const t = useTranslations("products.create");
+    const { t } = useT("pages", { keyPrefix: "products.create" });
     return (
       <form.Subscribe>
         {(formState) => (

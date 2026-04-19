@@ -5,14 +5,17 @@ import {
   CardTitle,
 } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
-import { getTranslations } from "next-intl/server";
+import type { Resources } from "i18next";
+import { getT } from "next-i18next/server";
 
-type PainPointKey = "wastedTime" | "fakeOrders" | "lostDms" | "manualForms";
+type PainPointKey = keyof Resources["home"]["body"]["painPoints"]["items"];
 
-const PAIN_POINT_KEYS: {
+type PainPointKeyWithIcon = {
   key: PainPointKey;
-  icon: "clock" | "userX" | "messageSquareX" | "fileText";
-}[] = [
+  icon: keyof typeof Icons;
+};
+
+const painPoints: PainPointKeyWithIcon[] = [
   { key: "wastedTime", icon: "clock" },
   { key: "fakeOrders", icon: "userX" },
   { key: "lostDms", icon: "messageSquareX" },
@@ -20,7 +23,11 @@ const PAIN_POINT_KEYS: {
 ];
 
 export async function PainPoints() {
-  const t = await getTranslations("painPoints");
+  const { t } = await getT("home", { keyPrefix: "body.painPoints" });
+
+  const { t: tItems } = await getT("home", {
+    keyPrefix: "body.painPoints.items",
+  });
 
   return (
     <section
@@ -37,11 +44,11 @@ export async function PainPoints() {
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-          {PAIN_POINT_KEYS.map(({ key, icon }) => {
+          {painPoints.map(({ key: painPointKey, icon }) => {
             const Icon = Icons[icon];
             return (
               <Card
-                key={key}
+                key={painPointKey}
                 className="border-white/10 bg-primary-foreground/10 shadow-none transition-colors dark:bg-white/5"
               >
                 <CardHeader className="p-4 sm:p-6">
@@ -49,12 +56,10 @@ export async function PainPoints() {
                     <Icon className="size-7 text-destructive" />
                   </div>
                   <CardTitle className="font-semibold text-lg text-primary-foreground sm:text-xl">
-                    {t(`items.${key}.title` as `items.${PainPointKey}.title`)}
+                    {tItems(painPointKey, { returnObjects: true }).title}
                   </CardTitle>
                   <CardDescription className="text-muted-foreground text-sm sm:text-base">
-                    {t(
-                      `items.${key}.description` as `items.${PainPointKey}.description`,
-                    )}
+                    {tItems(painPointKey, { returnObjects: true }).description}
                   </CardDescription>
                 </CardHeader>
               </Card>

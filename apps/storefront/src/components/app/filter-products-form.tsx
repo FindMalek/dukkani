@@ -1,6 +1,6 @@
 "use client";
 
-import { store } from "@dukkani/common/schemas";
+import type { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import { DrawerClose, DrawerFooter } from "@dukkani/ui/components/drawer";
 import {
@@ -11,12 +11,12 @@ import {
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useQueryStates } from "nuqs";
 import { productFilterParams } from "@/shared/lib/product/filters";
 
 export interface FilterProductsFormProps {
-  storeCurrency: store.SupportedCurrencyInfer;
+  storeCurrency: SupportedCurrency;
   categories: { id: string; name: string }[];
   handleCloseDrawer: () => void;
 }
@@ -27,8 +27,10 @@ export function FilterProductsForm({
   handleCloseDrawer,
 }: FilterProductsFormProps) {
   const router = useRouter();
-  const tFilter = useTranslations("storefront.store.filter");
-  const tCategoryFilter = useTranslations("storefront.store.categoryFilter");
+  const { t: tFilter } = useT("pages", { keyPrefix: "store.filter" });
+  const { t: tCategoryFilter } = useT("pages", {
+    keyPrefix: "store.categoryFilter",
+  });
   const [queryFilters, setQueryFilters] = useQueryStates(productFilterParams, {
     history: "push",
     clearOnDefault: true,

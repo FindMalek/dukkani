@@ -1,0 +1,43 @@
+{
+  "name": "@dukkani/i18n",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/shared/index.ts",
+    "./dashboard": {
+      "default": "./src/apps/dashboard/instance.ts",
+      "types": "./src/apps/dashboard/types.d.ts"
+    },
+    "./web": {
+      "default": "./src/apps/web/instance.ts",
+      "types": "./src/apps/web/types.d.ts"
+    },
+    "./storefront": {
+      "default": "./src/apps/storefront/instance.ts",
+      "types": "./src/apps/storefront/types.d.ts"
+    },
+    "./ui": {
+      "types": "./src/packages/ui/types.d.ts"
+    }
+  },
+  "scripts": {
+    "dashboard": "i18next-cli --config src/apps/dashboard/i18next.config.ts",
+    "dashboard:types": "i18next-cli --config src/apps/dashboard/i18next.config.ts types",
+    "dashboard:status": "i18next-cli --config src/apps/dashboard/i18next.config.ts status",
+    "web": "i18next-cli --config src/apps/web/i18next.config.ts",
+    "web:types": "i18next-cli --config src/apps/web/i18next.config.ts types",
+    "web:status": "i18next-cli --config src/apps/web/i18next.config.ts status",
+    "storefront": "i18next-cli --config src/apps/storefront/i18next.config.ts",
+    "storefront:types": "i18next-cli --config src/apps/storefront/i18next.config.ts types",
+    "storefront:status": "i18next-cli --config src/apps/storefront/i18next.config.ts status",
+    "shared": "i18next-cli --config src/shared/i18next.config.ts",
+    "shared:types": "i18next-cli --config src/shared/i18next.config.ts types",
+    "shared:status": "i18next-cli --config src/shared/i18next.config.ts status"
+  },
+  "dependencies": {
+    "i18next": "catalog:",
+    "next-i18next": "catalog:",
+    "i18next-cli": "^1.54.0"
+  },
+  "devDependencies": {}
+}

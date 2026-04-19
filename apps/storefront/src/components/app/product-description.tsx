@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getT } from "next-i18next/server";
 
 interface ProductDescriptionProps {
   description: string | null;
@@ -7,7 +7,7 @@ interface ProductDescriptionProps {
 export async function ProductDescription({
   description,
 }: ProductDescriptionProps) {
-  const t = await getTranslations("storefront.store.product.description");
+  const { t } = await getT("pages", { keyPrefix: "store.product.description" });
 
   if (!description) {
     return null;

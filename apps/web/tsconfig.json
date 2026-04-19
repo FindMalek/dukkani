@@ -3,7 +3,8 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["@dukkani/i18n/web"]
   },
   "include": [
     "./next-env.d.ts",

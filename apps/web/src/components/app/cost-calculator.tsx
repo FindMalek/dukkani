@@ -6,7 +6,7 @@ import { Label } from "@dukkani/ui/components/label";
 import { Slider } from "@dukkani/ui/components/slider";
 import type { LinkProps } from "next/link";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useMemo, useState } from "react";
 import { env } from "@/env";
 
@@ -57,7 +57,7 @@ function useCostCalculatorState() {
 }
 
 export function CostCalculator() {
-  const t = useTranslations("costCalculator");
+  const { t } = useT("home", { keyPrefix: "body.costCalculator" });
   const {
     ordersPerDay,
     setOrdersPerDay,

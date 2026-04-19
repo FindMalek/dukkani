@@ -1,0 +1,63 @@
+{
+  "fields": {
+    "password": {
+      "hide": "إخفاء كلمة المرور",
+      "show": "إظهار كلمة المرور"
+    },
+    "images": {
+      "label": "إضافة صور",
+      "dragActiveLabel": "أسقط هنا",
+      "hint": "أو انقر للتصفح",
+      "optimizing": "جاري تحسين الصور..."
+    }
+  },
+  "languageSwitcher": {
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "currencies": {
+    "TND": {
+      "region": {
+        "name": "تونس",
+        "code": "TN"
+      },
+      "label": "الدينار التونسي"
+    },
+    "USD": {
+      "region": {
+        "name": "الولايات المتحدة",
+        "code": "US"
+      },
+      "label": "الدولار الأمريكي"
+    },
+    "EUR": {
+      "region": {
+        "name": "الاتحاد الأوروبي",
+        "code": "EU"
+      },
+      "label": "اليورو"
+    },
+    "GBP": {
+      "region": {
+        "name": "المملكة المتحدة",
+        "code": "GB"
+      },
+      "label": "الجنيه البريطاني"
+    },
+    "DZD": {
+      "region": {
+        "name": "الجزائر",
+        "code": "DZ"
+      },
+      "label": "الدينار الجزائري"
+    },
+    "LYD": {
+      "region": {
+        "name": "ليبيا",
+        "code": "LY"
+      },
+      "label": "الدينار الليبي"
+    }
+  }
+}

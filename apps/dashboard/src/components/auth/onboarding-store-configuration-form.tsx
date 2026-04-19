@@ -23,7 +23,7 @@ import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { cn } from "@dukkani/ui/lib/utils";
 import { formOptions } from "@tanstack/react-form";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { CategorySelector } from "@/components/app/onboarding/category-selector";
 import { THEME_PREVIEWS } from "@/components/app/onboarding/theme-previews";
 
@@ -41,7 +41,7 @@ export const storeConfigurationFormDefaultValues = formOptions({
 export const StoreConfigurationOnboardingForm = withForm({
   ...storeConfigurationFormDefaultValues,
   render: function RenderForm({ form }) {
-    const t = useTranslations("onboarding.storeConfiguration");
+    const { t } = useT("pages", { keyPrefix: "onboarding.storeConfiguration" });
 
     return (
       <>
@@ -64,7 +64,6 @@ export const StoreConfigurationOnboardingForm = withForm({
                       <CategorySelector
                         value={field.state.value}
                         onChange={field.handleChange}
-                        t={t}
                       />
                       <FieldErrors
                         errors={field.state.meta.errors}

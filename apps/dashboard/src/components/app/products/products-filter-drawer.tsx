@@ -6,6 +6,10 @@ import {
   STOCK_FILTER_OPTIONS,
   VARIANTS_FILTER_OPTIONS,
 } from "@dukkani/common/schemas/product/enums";
+import type {
+  StockFilter,
+  VariantsFilter,
+} from "@dukkani/common/schemas/product/input";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,
@@ -16,12 +20,8 @@ import {
 } from "@dukkani/ui/components/drawer";
 import { Field, FieldLabel } from "@dukkani/ui/components/field";
 import { Input } from "@dukkani/ui/components/input";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { useEffect, useState } from "react";
-import type {
-  StockFilter,
-  VariantsFilter,
-} from "@dukkani/common/schemas/product/input";
 
 interface ProductsFilterDrawerProps {
   open: boolean;
@@ -54,7 +54,7 @@ export function ProductsFilterDrawer({
   setPriceMax,
   resetFilters,
 }: ProductsFilterDrawerProps) {
-  const t = useTranslations("products.list.filterDrawer");
+  const { t } = useT("pages", { keyPrefix: "products.list.filterDrawer" });
 
   const [draftPublished, setDraftPublished] =
     useState<PublishedFilter>(published);

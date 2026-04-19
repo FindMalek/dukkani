@@ -6,7 +6,7 @@ import {
   FieldSet,
 } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { forwardRef, useImperativeHandle } from "react";
 import { compressImagesForUpload } from "@/shared/lib/image-compression";
 import { useProductForm } from "@/shared/lib/product/form";
@@ -21,7 +21,7 @@ export interface ProductFormHandle {
 
 export const ProductForm = forwardRef<ProductFormHandle, { storeId: string }>(
   ({ storeId }, ref) => {
-    const t = useTranslations("products.create");
+    const { t } = useT("pages", { keyPrefix: "products.create" });
     const {
       form,
       categoriesOptions,

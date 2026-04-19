@@ -2,7 +2,7 @@
 
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 
 interface OrdersPageHeaderProps {
   onRefresh?: () => void;
@@ -13,7 +13,7 @@ export function OrdersPageHeader({
   onRefresh,
   isRefetching = false,
 }: OrdersPageHeaderProps) {
-  const t = useTranslations("orders.list");
+  const { t } = useT("pages", { keyPrefix: "orders.list" });
 
   return (
     <div className="mb-6 flex items-start justify-between gap-4">

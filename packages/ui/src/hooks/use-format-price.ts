@@ -1,11 +1,7 @@
-import type { store } from "@dukkani/common/schemas";
-import { useFormatter } from "next-intl";
+import { formatPriceFn, type SupportedCurrency } from "@dukkani/i18n";
+import { useT } from "next-i18next/client";
 
-export function useFormatPriceCurrentStore(
-  currency: store.SupportedCurrencyInfer,
-) {
-  const formatter = useFormatter();
-
-  return (value: number | bigint) =>
-    formatter.number(value, { style: "currency", currency });
+export function useFormatPriceCurrentStore(currency: SupportedCurrency) {
+  const { i18n } = useT();
+  return formatPriceFn(i18n.language, currency);
 }

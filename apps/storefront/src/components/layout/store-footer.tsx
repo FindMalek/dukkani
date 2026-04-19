@@ -1,10 +1,10 @@
 import { LanguageSwitcher } from "@dukkani/ui/components/language-switcher";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getT } from "next-i18next/server";
 import { env } from "@/env";
 
 export async function StoreFooter() {
-  const t = await getTranslations("storefront.store.footer");
+  const { t } = await getT("pages", { keyPrefix: "store.footer" });
 
   return (
     <footer className="border-border/30 border-t bg-background pb-20">

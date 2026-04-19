@@ -1,0 +1,63 @@
+{
+  "fields": {
+    "password": {
+      "hide": "Cacher le mot de passe",
+      "show": "Afficher le mot de passe"
+    },
+    "images": {
+      "label": "Ajouter des photos",
+      "dragActiveLabel": "Déposez ici",
+      "hint": "ou cliquez pour naviguer",
+      "optimizing": "Optimisation des images..."
+    }
+  },
+  "languageSwitcher": {
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية"
+  },
+  "currencies": {
+    "TND": {
+      "region": {
+        "name": "Tunisie",
+        "code": "TN"
+      },
+      "label": "Dinar tunisien"
+    },
+    "USD": {
+      "region": {
+        "name": "États-Unis",
+        "code": "US"
+      },
+      "label": "Dollar américain"
+    },
+    "EUR": {
+      "region": {
+        "name": "Union européenne",
+        "code": "EU"
+      },
+      "label": "Euro"
+    },
+    "GBP": {
+      "region": {
+        "name": "Royaume-Uni",
+        "code": "GB"
+      },
+      "label": "Livre sterling"
+    },
+    "DZD": {
+      "region": {
+        "name": "Algérie",
+        "code": "DZ"
+      },
+      "label": "Dinar algérien"
+    },
+    "LYD": {
+      "region": {
+        "name": "Libye",
+        "code": "LY"
+      },
+      "label": "Dinar libyen"
+    }
+  }
+}

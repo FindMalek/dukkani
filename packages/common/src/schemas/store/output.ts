@@ -1,3 +1,4 @@
+import { SupportedCurrencies } from "@dukkani/i18n";
 import { z } from "zod";
 import {
   productPublicOutputSchema,
@@ -16,7 +17,6 @@ import {
   storeNotificationMethodSchema,
   storeStatusSchema,
   storeThemeSchema,
-  supportedCurrencySchema,
 } from "./enums";
 
 export const storeSafeOutputSchema = z.object({
@@ -29,7 +29,7 @@ export const storeSafeOutputSchema = z.object({
   status: storeStatusSchema,
   theme: storeThemeSchema.nullable(),
   notificationMethod: storeNotificationMethodSchema.nullable(),
-  currency: supportedCurrencySchema,
+  currency: z.enum(SupportedCurrencies),
   supportedPaymentMethods: z.array(paymentMethodSchema),
   shippingCost: z.number(),
   createdAt: z.date(),

@@ -1,6 +1,6 @@
 "use client";
 
-import type { store } from "@dukkani/common/schemas";
+import type { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,
@@ -12,14 +12,15 @@ import {
 import { Icons } from "@dukkani/ui/components/icons";
 import { Spinner } from "@dukkani/ui/components/spinner";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
-import { useTranslations } from "next-intl";
-import { RoutePaths, useRouter } from "@/shared/config/routes";
+import { useRouter } from "next/navigation";
+import { useT } from "next-i18next/client";
+import { RoutePaths } from "@/shared/config/routes";
 import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
 import { CartItem as CartItemComponent } from "./cart-item";
 
 interface CartDrawerProps {
   open: boolean;
-  storeCurrency: store.SupportedCurrencyInfer;
+  storeCurrency: SupportedCurrency;
   onOpenChange: (open: boolean) => void;
 }
 
@@ -29,7 +30,7 @@ export function CartDrawer({
   storeCurrency,
 }: CartDrawerProps) {
   const router = useRouter();
-  const t = useTranslations("storefront.store.cart");
+  const { t } = useT("pages", { keyPrefix: "store.cart" });
   const formatPrice = useFormatPriceCurrentStore(storeCurrency);
 
   const { enrichedData, subtotal, isLoading } = useEnrichedCart(open);

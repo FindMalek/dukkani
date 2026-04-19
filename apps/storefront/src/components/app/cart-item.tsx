@@ -1,13 +1,13 @@
 "use client";
 
-import type { store } from "@dukkani/common/schemas";
+import type { SupportedCurrency } from "@dukkani/i18n";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { memo, useCallback, useMemo } from "react";
 import {
   type CartItem as CartItemType,
@@ -16,7 +16,7 @@ import {
 
 interface CartItemProps {
   item: CartItemType;
-  currency: store.SupportedCurrencyInfer;
+  currency: SupportedCurrency;
   productName: string;
   productImage?: string;
   productDescription?: string;
@@ -33,7 +33,7 @@ export const CartItem = memo(function CartItem({
   stock,
   currency,
 }: CartItemProps) {
-  const t = useTranslations("storefront.store.cart.item");
+  const { t } = useT("pages", { keyPrefix: "store.cart" });
   const removeItem = useCartStore((state) => state.removeItem);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const formatPrice = useFormatPriceCurrentStore(currency);
@@ -99,12 +99,12 @@ export const CartItem = memo(function CartItem({
             )}
             {isLowStock && !isOutOfStock && (
               <p className="font-medium text-destructive text-xs">
-                {t("lowStock", { count: stock })}
+                {t("item.lowStock", { count: stock })}
               </p>
             )}
             {isOutOfStock && (
               <p className="font-medium text-destructive text-xs">
-                {t("outOfStock")}
+                {t("item.outOfStock")}
               </p>
             )}
           </div>

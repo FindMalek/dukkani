@@ -1,15 +1,15 @@
 "use client";
 
-import type { store } from "@dukkani/common/schemas";
 import type { CartItemOutput } from "@dukkani/common/schemas/cart/output";
+import type { SupportedCurrency } from "@dukkani/i18n";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
-import Image from "next/image";
-import { useTranslations } from "next-intl";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
+import Image from "next/image";
+import { useT } from "next-i18next/client";
 
 interface OrderSummaryProps {
   items: CartItemOutput[];
-  storeCurrency: store.SupportedCurrencyInfer;
+  storeCurrency: SupportedCurrency;
   shippingCost: number;
   loading: boolean;
 }
@@ -20,7 +20,7 @@ export function OrderSummary({
   shippingCost,
   loading,
 }: OrderSummaryProps) {
-  const t = useTranslations("storefront.store.checkout.orderSummary");
+  const { t } = useT("pages", { keyPrefix: "store.checkout.orderSummary" });
   const formatPrice = useFormatPriceCurrentStore(storeCurrency);
 
   const subtotal = items.reduce(

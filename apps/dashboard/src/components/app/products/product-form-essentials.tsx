@@ -2,7 +2,7 @@
 
 import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-field";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
-import { useTranslations } from "next-intl";
+import { useT } from "next-i18next/client";
 import { productFormOptions } from "@/shared/lib/product/form";
 import { useCurrentStoreCurrency } from "@/shared/lib/store/current-currency.hook";
 
@@ -19,7 +19,7 @@ export const ProductFormEssentials = withForm({
     onOpenCategoryDrawer,
     optimizeFiles,
   }) {
-    const t = useTranslations("products.create");
+    const { t } = useT("pages", { keyPrefix: "products.create" });
     const currency = useCurrentStoreCurrency();
 
     return (
