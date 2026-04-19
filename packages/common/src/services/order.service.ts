@@ -79,11 +79,12 @@ class OrderServiceBase {
       "Order creation started",
     );
 
-    // Wrap stock check, order creation, and stock updates in transaction
+    // Wrap order creation and atomic stock updates in transaction
     // This ensures atomicity: all operations succeed or fail together
     const order = await database.$transaction(async (tx) => {
-      // Validate products exist and check stock (within transaction for isolation)
-      await ProductService.checkStockAvailability(
+      // Atomically check stock and decrement in single operation
+      // This prevents race conditions by using conditional UPDATE
+      await ProductService.atomicCheckAndDecrementStock(
         input.orderItems.map((item) => ({
           productId: item.productId,
           variantId: item.variantId,
@@ -93,7 +94,7 @@ class OrderServiceBase {
         tx,
       );
 
-      addSpanEvent("order.stock.validated", { store_id: store.id });
+      addSpanEvent("order.stock.atomically_updated", { store_id: store.id });
 
       // Create order with order items (within transaction)
       const createdOrder = await tx.order.create({
@@ -139,18 +140,6 @@ class OrderServiceBase {
         }),
         "Order created successfully",
       );
-
-      await ProductService.updateMultipleProductStocks(
-        input.orderItems.map((item) => ({
-          productId: item.productId,
-          variantId: item.variantId,
-          quantity: item.quantity,
-        })),
-        "decrement",
-        tx,
-      );
-
-      addSpanEvent("order.stock.updated", { order_id: createdOrder.id });
 
       return createdOrder;
     });
@@ -215,10 +204,11 @@ class OrderServiceBase {
     // Generate order ID from store slug
     const orderId = OrderService.generateOrderId(store.slug);
 
-    // Wrap stock check, customer/address creation, order creation, and stock updates in transaction
+    // Wrap customer/address creation, order creation, and atomic stock updates in transaction
     const order = await database.$transaction(async (tx) => {
-      // Validate products exist and check stock (within transaction for isolation)
-      await ProductService.checkStockAvailability(
+      // Atomically check stock and decrement in single operation
+      // This prevents race conditions by using conditional UPDATE
+      await ProductService.atomicCheckAndDecrementStock(
         input.orderItems.map((item) => ({
           productId: item.productId,
           variantId: item.variantId,
@@ -228,7 +218,7 @@ class OrderServiceBase {
         tx,
       );
 
-      addSpanEvent("order.stock.validated", { store_id: store.id });
+      addSpanEvent("order.stock.atomically_updated", { store_id: store.id });
 
       // Fetch server-side prices (never trust client-provided values)
       const orderItemsWithPrices = await ProductService.getOrderItemPrices(
@@ -343,18 +333,6 @@ class OrderServiceBase {
         }),
         "Public order created successfully",
       );
-
-      await ProductService.updateMultipleProductStocks(
-        input.orderItems.map((item) => ({
-          productId: item.productId,
-          variantId: item.variantId,
-          quantity: item.quantity,
-        })),
-        "decrement",
-        tx,
-      );
-
-      addSpanEvent("order.stock.updated", { order_id: createdOrder.id });
 
       return createdOrder;
     });

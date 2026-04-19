@@ -79,6 +79,9 @@ model Product {
   @@map("products")
 }
 
+// Add CHECK constraint via raw SQL in migration
+// ALTER TABLE products ADD CONSTRAINT check_stock_non_negative CHECK (stock >= 0);
+
 /**
  * Represents an image associated with a product.
  * **Relationships:**
@@ -187,6 +190,9 @@ model ProductVariant {
   @@index([sku])
   @@map("product_variants")
 }
+
+// Add CHECK constraint via raw SQL in migration  
+// ALTER TABLE product_variants ADD CONSTRAINT check_stock_non_negative CHECK (stock >= 0);
 
 /**
  * Junction table linking ProductVariant to ProductVariantOptionValue.

@@ -129,10 +129,10 @@ class ProductServiceBase {
 
     const client = tx ?? database;
 
-    // Aggregate by (productId, variantId) - use empty string for non-variant items
+    // Aggregate by (productId, variantId) - use null for non-variant items
     const requiredByKey = new Map<string, number>();
     for (const { productId, variantId, quantity } of items) {
-      const key = variantId ? `${productId}:${variantId}` : `${productId}:`;
+      const key = variantId != null ? `${productId}:${variantId}` : `${productId}:null`;
       requiredByKey.set(key, (requiredByKey.get(key) ?? 0) + quantity);
     }
 
@@ -147,7 +147,7 @@ class ProductServiceBase {
       const colonIdx = key.indexOf(":");
       const productId = colonIdx >= 0 ? key.slice(0, colonIdx) : key;
       const variantId = colonIdx >= 0 ? key.slice(colonIdx + 1) : "";
-      if (variantId) {
+      if (variantId !== "null") {
         variantItems.push({ productId, variantId, quantity });
       } else {
         productItems.push({ productId, quantity });
@@ -253,6 +253,154 @@ class ProductServiceBase {
   }
 
   /**
+   * Atomically check and decrement stock for multiple products
+   * Uses conditional UPDATE to prevent race conditions
+   * - For items with variantId: updates ProductVariant.stock
+   * - For items without variantId: updates Product.stock
+   * Aggregates quantities by (productId, variantId) to handle duplicates correctly
+   * Throws BadRequestError if any item has insufficient stock
+   */
+  static async atomicCheckAndDecrementStock(
+    items: ProductLineItem[],
+    storeId: string,
+    tx?: PrismaClient,
+  ): Promise<void> {
+    addSpanAttributes({
+      "product.store_id": storeId,
+      "product.items_count": items.length,
+      "product.operation": "atomic_check_decrement",
+    });
+
+    const client = tx ?? database;
+
+    // Aggregate by (productId, variantId) - use null for non-variant items
+    const requiredByKey = new Map<string, number>();
+    for (const { productId, variantId, quantity } of items) {
+      const key = variantId != null ? `${productId}:${variantId}` : `${productId}:null`;
+      requiredByKey.set(key, (requiredByKey.get(key) ?? 0) + quantity);
+    }
+
+    // Split into variant items and product-only items
+    const variantItems: Array<{
+      productId: string;
+      variantId: string;
+      quantity: number;
+    }> = [];
+    const productItems: Array<{ productId: string; quantity: number }> = [];
+    for (const [key, quantity] of requiredByKey.entries()) {
+      const colonIdx = key.indexOf(":");
+      const productId = colonIdx >= 0 ? key.slice(0, colonIdx) : key;
+      const variantId = colonIdx >= 0 ? key.slice(colonIdx + 1) : "";
+      if (variantId !== "null") {
+        variantItems.push({ productId, variantId, quantity });
+      } else {
+        productItems.push({ productId, quantity });
+      }
+    }
+
+    // Process variant stock updates atomically
+    if (variantItems.length > 0) {
+        variantItems.sort((a, b) => a.variantId.localeCompare(b.variantId));
+        const uniqueVariantIds = [
+        ...new Set(variantItems.map((i) => i.variantId)),
+      ];
+      
+      // First verify all variants exist and belong to the store
+      const variants = await client.productVariant.findMany({
+        where: {
+          id: { in: uniqueVariantIds },
+          product: { storeId },
+        },
+        select: { id: true, productId: true, stock: true },
+      });
+
+      for (const item of variantItems) {
+        const variant = variants.find(
+          (v: { id: string; productId: string; stock: number }) =>
+            v.id === item.variantId && v.productId === item.productId,
+        );
+        if (!variant) {
+          throw new NotFoundError(
+            "Product variant not found or doesn't belong to this store",
+          );
+        }
+      }
+
+      // Perform atomic updates for each variant
+      for (const item of variantItems) {
+        const result = await client.productVariant.updateMany({
+          where: {
+            id: item.variantId,
+            stock: { gte: item.quantity }, // Only update if sufficient stock
+          },
+          data: {
+            stock: { decrement: item.quantity },
+          },
+        });
+
+        if (result.count === 0) {
+          // No rows updated means insufficient stock
+          throw new BadRequestError(
+            `Insufficient stock for product ${item.productId} (variant ${item.variantId})`,
+          );
+        }
+      }
+    }
+
+    // Process product stock updates atomically
+      if (productItems.length > 0) {
+        productItems.sort((a, b) => a.productId.localeCompare(b.productId));
+        const uniqueProductIds = [
+        ...new Set(productItems.map((i) => i.productId)),
+      ];
+      
+      // First verify all products exist and belong to the store
+      const products = await client.product.findMany({
+        where: {
+          id: { in: uniqueProductIds },
+          storeId,
+        },
+        select: { id: true, stock: true },
+      });
+
+      if (products.length !== uniqueProductIds.length) {
+        throw new NotFoundError(
+          "One or more products not found or don't belong to this store",
+        );
+      }
+
+      // Perform atomic updates for each product
+      for (const item of productItems) {
+        const result = await client.product.updateMany({
+          where: {
+            id: item.productId,
+            stock: { gte: item.quantity }, // Only update if sufficient stock
+          },
+          data: {
+            stock: { decrement: item.quantity },
+          },
+        });
+
+        if (result.count === 0) {
+          // No rows updated means insufficient stock
+          throw new BadRequestError(
+            `Insufficient stock for product ${item.productId}`,
+          );
+        }
+      }
+    }
+
+    addSpanAttributes({
+      "product.variant_items": variantItems.length,
+      "product.simple_items": productItems.length,
+      "product.total_quantity": Array.from(requiredByKey.values()).reduce(
+        (a, b) => a + b,
+        0,
+      ),
+    });
+  }
+
+  /**
    * Update multiple product stocks
    * - For items with variantId: updates ProductVariant.stock
    * - For items without variantId: updates Product.stock
@@ -269,10 +417,10 @@ class ProductServiceBase {
     });
     const client = tx ?? database;
 
-    // Aggregate by (productId, variantId) - use empty string for non-variant items
+    // Aggregate by (productId, variantId) - use null for non-variant items
     const aggregatedByKey = new Map<string, number>();
     for (const { productId, variantId, quantity } of updates) {
-      const key = variantId ? `${productId}:${variantId}` : `${productId}:`;
+      const key = variantId != null ? `${productId}:${variantId}` : `${productId}:null`;
       aggregatedByKey.set(key, (aggregatedByKey.get(key) ?? 0) + quantity);
     }
 
@@ -283,7 +431,7 @@ class ProductServiceBase {
       const colonIdx = key.indexOf(":");
       const productId = colonIdx >= 0 ? key.slice(0, colonIdx) : key;
       const variantId = colonIdx >= 0 ? key.slice(colonIdx + 1) : "";
-      if (variantId) {
+      if (variantId !== "null") {
         variantUpdates.push({ variantId, quantity });
       } else {
         productUpdates.push({ productId, quantity });
