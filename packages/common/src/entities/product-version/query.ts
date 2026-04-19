@@ -1,5 +1,6 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ImageQuery } from "../image/query";
+import { ProductAddonQuery } from "../product-addon/query";
 import { VariantQuery } from "../variant/query";
 
 export type ProductVersionListSliceDbData = Prisma.ProductVersionGetPayload<{
@@ -10,7 +11,6 @@ export type ProductVersionDetailDbData = Prisma.ProductVersionGetPayload<{
   include: ReturnType<typeof ProductVersionQuery.getDetailInclude>;
 }>;
 
-/** Full tree for clone/fork (images + option values + variant selections). */
 export type ProductVersionCloneTreeDbData = Prisma.ProductVersionGetPayload<{
   include: ReturnType<typeof ProductVersionQuery.getCloneTreeInclude>;
 }>;
@@ -28,12 +28,7 @@ export class ProductVersionQuery {
       variants: {
         include: VariantQuery.getVariantInclude(),
       },
-      addonGroups: {
-        orderBy: { sortOrder: "asc" },
-        include: {
-          options: { orderBy: { sortOrder: "asc" } },
-        },
-      },
+      addonGroups: ProductAddonQuery.getGroupsInclude(),
     } satisfies Prisma.ProductVersionInclude;
   }
 
@@ -65,12 +60,7 @@ export class ProductVersionQuery {
           image: { select: { id: true, url: true } },
         },
       },
-      addonGroups: {
-        orderBy: { sortOrder: "asc" },
-        include: {
-          options: { orderBy: { sortOrder: "asc" } },
-        },
-      },
+      addonGroups: ProductAddonQuery.getGroupsInclude(),
     } satisfies Prisma.ProductVersionInclude;
   }
 }

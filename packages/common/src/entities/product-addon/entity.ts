@@ -2,13 +2,15 @@ import type {
   ProductAddonGroupPublic,
   ProductAddonOptionPublic,
 } from "../../schemas/product-addon/output";
-import type { ProductVersionDetailDbData } from "../product-version/query";
-
-type AddonGroupRow = ProductVersionDetailDbData["addonGroups"][number];
-type AddonOptionRow = AddonGroupRow["options"][number];
+import type {
+  ProductAddonGroupDetailDbData,
+  ProductAddonOptionDetailDbData,
+} from "./query";
 
 export class ProductAddonEntity {
-  static getOptionRo(row: AddonOptionRow): ProductAddonOptionPublic {
+  static getOptionRo(
+    row: ProductAddonOptionDetailDbData,
+  ): ProductAddonOptionPublic {
     return {
       id: row.id,
       name: row.name,
@@ -18,7 +20,9 @@ export class ProductAddonEntity {
     };
   }
 
-  static getGroupRo(row: AddonGroupRow): ProductAddonGroupPublic {
+  static getGroupRo(
+    row: ProductAddonGroupDetailDbData,
+  ): ProductAddonGroupPublic {
     return {
       id: row.id,
       name: row.name,
