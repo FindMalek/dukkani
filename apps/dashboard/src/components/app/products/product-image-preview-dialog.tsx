@@ -15,13 +15,10 @@ import { cn } from "@dukkani/ui/lib/utils";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { productImagePreviewDialogConstants } from "@/shared/config/constants";
 
-const PLACEHOLDER_W = 1600;
-const PLACEHOLDER_H = 1200;
-
-const MIN_SCALE = 0.25;
-const MAX_SCALE = 4;
-const ZOOM_STEP = 0.25;
+const { PLACEHOLDER_W, PLACEHOLDER_H, MIN_SCALE, MAX_SCALE, ZOOM_STEP } =
+  productImagePreviewDialogConstants;
 
 type ProductImagePreviewDialogProps = {
   open: boolean;

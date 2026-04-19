@@ -1,12 +1,12 @@
 "use client";
 
-import { MAX_VARIANT_COMBINATIONS } from "@dukkani/common/utils";
 import { Button } from "@dukkani/ui/components/button";
 import { Card, CardContent, CardHeader } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { useTranslations } from "next-intl";
 import type { ProductFormVariantsField } from "@/hooks/use-product-form-variants-field";
+import { productVariantFormConstants } from "@/shared/config/constants";
 import type { ProductFormApi } from "@/shared/lib/product/form";
 import { PendingRemovalBanner } from "./products-variant-pending-removal-banner";
 
@@ -131,22 +131,25 @@ export function ProductsVariantOptionsSection({
               type="button"
               variant="ghost"
               onClick={v.handleAddOption}
-              disabled={variantOptions.length >= 3}
+              disabled={
+                variantOptions.length >= productVariantFormConstants.MAX_OPTIONS
+              }
               className="h-auto justify-start gap-2 px-0 py-1 font-normal text-primary hover:bg-transparent hover:text-primary/90 disabled:opacity-50"
             >
               <Icons.plusCircle className="h-4 w-4" />
               {t("form.variants.options.addAnother")}
-              {variantOptions.length >= 3 && (
+              {variantOptions.length >=
+                productVariantFormConstants.MAX_OPTIONS && (
                 <span className="text-muted-foreground text-xs">
                   — {t("form.variants.options.maxOptions")}
                 </span>
               )}
             </Button>
 
-            {v.comboCount > MAX_VARIANT_COMBINATIONS && (
+            {v.comboCount > productVariantFormConstants.MAX_COMBINATIONS && (
               <p className="text-destructive text-xs">
                 {t("form.variants.matrix.tooMany", {
-                  max: MAX_VARIANT_COMBINATIONS,
+                  max: productVariantFormConstants.MAX_COMBINATIONS,
                 })}
               </p>
             )}

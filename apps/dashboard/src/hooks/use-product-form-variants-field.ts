@@ -6,6 +6,7 @@ import {
   reconcileVariants,
 } from "@dukkani/common/utils";
 import { useCallback, useMemo, useState } from "react";
+import { productVariantFormConstants } from "@/shared/config/constants";
 import type { ProductFormApi } from "@/shared/lib/product/form";
 import {
   coerceVariantRows,
@@ -61,7 +62,7 @@ export function useProductFormVariantsField(form: ProductFormApi) {
   const handleAddOption = useCallback(() => {
     const opts = form.getFieldValue("variantOptions") ?? [];
     if (opts.some((o) => o.name === "")) return;
-    if (opts.length >= 3) return;
+    if (opts.length >= productVariantFormConstants.MAX_OPTIONS) return;
     const newOpts = [...opts, { name: "", values: [] }];
     form.setFieldValue("variantOptions", newOpts);
   }, [form]);

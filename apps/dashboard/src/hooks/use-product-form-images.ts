@@ -11,8 +11,7 @@ import {
   useRef,
   useState,
 } from "react";
-
-export const PRODUCT_FORM_MAX_IMAGES = 10;
+import { productFormConstants } from "@/shared/config/constants";
 
 export type ProductFormImagesLightbox = {
   src: string;
@@ -80,7 +79,7 @@ export function useProductFormImagesField(
       if (files.length === 0) return;
 
       const latest = attachmentsRef.current;
-      const space = PRODUCT_FORM_MAX_IMAGES - latest.length;
+      const space = productFormConstants.MAX_IMAGES - latest.length;
       if (space <= 0) return;
 
       const toAdd = files.slice(0, space);
@@ -106,7 +105,7 @@ export function useProductFormImagesField(
   }, []);
 
   return {
-    maxImages: PRODUCT_FORM_MAX_IMAGES,
+    maxImages: productFormConstants.MAX_IMAGES,
     attachments,
     previewById,
     thumbsRef,
