@@ -88,14 +88,6 @@ export function OrderSummary({
                     {item.productDescription}
                   </p>
                 )}
-                {item.addonSummaryLines &&
-                  item.addonSummaryLines.length > 0 && (
-                    <ul className="text-muted-foreground text-xs">
-                      {item.addonSummaryLines.map((line) => (
-                        <li key={line}>{line}</li>
-                      ))}
-                    </ul>
-                  )}
                 <p className="text-muted-foreground text-xs">
                   {t("quantity")}: {item.quantity}
                 </p>

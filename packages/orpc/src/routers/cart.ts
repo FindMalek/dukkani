@@ -9,10 +9,7 @@ import {
   cartItemOutputSchema,
 } from "@dukkani/common/schemas/cart/output";
 import type { ProductLineItem } from "@dukkani/common/schemas/product/input";
-import {
-  type OrderItemAddonSnapshot,
-  ProductService,
-} from "@dukkani/common/services/product.service";
+import { ProductService } from "@dukkani/common/services/product.service";
 import { buildVariantDescription } from "@dukkani/common/utils/build-variant-description";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
@@ -24,35 +21,21 @@ function buildCartItemOutput(
   item: ProductLineItem,
   unitPrice: number,
   product: ProductPublicDbDataWithPublished,
-  addonSnapshots: OrderItemAddonSnapshot[],
 ): CartItemOutput {
   const productData = ProductEntity.getPublicRo(product);
   const variant = item.variantId
     ? productData.variants?.find((v) => v.id === item.variantId)
     : null;
 
-  const addonSummaryLines =
-    addonSnapshots.length > 0
-      ? addonSnapshots.map((s) =>
-          s.quantity > 1
-            ? `${s.groupName}: ${s.optionName} ×${s.quantity}`
-            : `${s.groupName}: ${s.optionName}`,
-        )
-      : undefined;
-
   return {
     productId: item.productId,
     variantId: item.variantId,
     quantity: item.quantity,
-    addonSelections: item.addonSelections?.length
-      ? item.addonSelections
-      : undefined,
     productName: productData.name,
     productImage: productData.imageUrls?.[0],
     productDescription: buildVariantDescription(variant),
     price: unitPrice,
     stock: variant?.stock ?? productData.stock,
-    addonSummaryLines,
   };
 }
 
@@ -112,12 +95,7 @@ export const cartRouter = {
       );
 
       return rows.map((row, i) =>
-        buildCartItemOutput(
-          row.item,
-          priced[i]!.price,
-          row.product,
-          priced[i]!.addonSnapshots,
-        ),
+        buildCartItemOutput(row.item, priced[i]!.price, row.product),
       );
     }),
 };

@@ -25,7 +25,6 @@ export function useEnrichedCart(enabled = true) {
         productId: item.productId,
         variantId: item.variantId,
         quantity: item.quantity,
-        addonSelections: item.addonSelections ?? [],
       })),
     }),
     [cartItems],

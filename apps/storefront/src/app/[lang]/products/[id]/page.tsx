@@ -83,7 +83,6 @@ export default async function ProductDetailPage({
                 hasVariants={hasVariants}
                 variantOptions={product.variantOptions}
                 variants={product.variants}
-                addonGroups={product.addonGroups ?? []}
                 storeCurrency={store.currency}
               />
               <ProductDescription description={product.description} />
