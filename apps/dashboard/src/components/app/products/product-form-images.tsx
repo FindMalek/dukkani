@@ -1,5 +1,6 @@
 "use client";
 
+import type { ProductImageAttachment } from "@dukkani/common/schemas/product/form";
 import {
   Field,
   FieldContent,
@@ -13,6 +14,20 @@ import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useTranslations } from "next-intl";
 import { useProductFormImagesField } from "@/hooks/use-product-form-images";
 import { ProductImagePreviewDialog } from "./product-image-preview-dialog";
+
+function productImageThumbModel(
+  item: ProductImageAttachment,
+  previewById: Record<string, string>,
+): { key: string; src: string | undefined; alt: string } {
+  if (item.kind === "remote") {
+    return { key: item.url, src: item.url, alt: "" };
+  }
+  return {
+    key: `local-${item.clientId}`,
+    src: previewById[item.clientId],
+    alt: item.file.name,
+  };
+}
 
 export function ProductFormImagesSkeleton() {
   return (
@@ -61,28 +76,15 @@ export function ProductFormImages({ optimizeFiles }: ProductFormImagesProps) {
           {attachments.length > 0 && (
             <ImagePreviewStrip thumbsRef={thumbsRef}>
               {attachments.map((item, index) => {
-                const resolvedSrc =
-                  item.kind === "remote"
-                    ? item.url
-                    : previewById[item.clientId];
-
+                const thumb = productImageThumbModel(item, previewById);
+                const { src, alt } = thumb;
                 return (
                   <ImagePreviewThumb
-                    key={
-                      item.kind === "remote"
-                        ? item.url
-                        : `local-${item.clientId}`
-                    }
-                    src={resolvedSrc}
-                    alt={item.kind === "remote" ? "" : item.file.name}
+                    key={thumb.key}
+                    src={src}
+                    alt={alt}
                     onOpenPreview={
-                      resolvedSrc
-                        ? () =>
-                            openPreview(
-                              resolvedSrc,
-                              item.kind === "remote" ? "" : item.file.name,
-                            )
-                        : undefined
+                      src ? () => openPreview(src, alt) : undefined
                     }
                     openPreviewAriaLabel={t("form.viewPhoto")}
                     onRemove={() => handleRemove(index)}
