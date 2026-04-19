@@ -671,9 +671,6 @@ importers:
       '@dukkani/logger':
         specifier: workspace:*
         version: link:../logger
-      '@dukkani/storage':
-        specifier: workspace:*
-        version: link:../storage
       '@dukkani/tracing':
         specifier: workspace:*
         version: link:../tracing
