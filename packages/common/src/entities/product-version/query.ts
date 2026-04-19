@@ -15,6 +15,10 @@ export type ProductVersionCloneTreeDbData = Prisma.ProductVersionGetPayload<{
   include: ReturnType<typeof ProductVersionQuery.getCloneTreeInclude>;
 }>;
 
+export type ProductVersionOrderPricingDbData = Prisma.ProductVersionGetPayload<{
+  select: ReturnType<typeof ProductVersionQuery.getOrderPricingSelect>;
+}>;
+
 export class ProductVersionQuery {
   /**
    * Nested payload for API/detail: images, variant options, variants (with selections).
@@ -44,6 +48,24 @@ export class ProductVersionQuery {
       hasVariants: true,
       images: { select: { url: true } },
       _count: { select: { variants: true } },
+    } satisfies Prisma.ProductVersionSelect;
+  }
+
+  /**
+   * Published version slice for server-side cart pricing and add-on stock validation.
+   */
+  static getOrderPricingSelect() {
+    return {
+      id: true,
+      name: true,
+      price: true,
+      addonGroups: ProductAddonQuery.getOrderPricingGroupsRelationArgs(),
+      variants: {
+        select: {
+          id: true,
+          price: true,
+        },
+      },
     } satisfies Prisma.ProductVersionSelect;
   }
 

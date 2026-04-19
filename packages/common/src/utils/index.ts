@@ -1,3 +1,4 @@
+export * from "./decimal-like";
 export * from "./formatCurrency";
 export * from "./formatPrice";
 export * from "./generate-id";

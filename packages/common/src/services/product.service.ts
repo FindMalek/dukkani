@@ -4,50 +4,24 @@ import { ProductAddonSelectionType } from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
 import { ProductQuery } from "../entities/product/query";
+import type {
+  ProductAddonGroupOrderPricingDbData,
+  ProductAddonOptionOrderPricingDbData,
+} from "../entities/product-addon/query";
+import {
+  type ProductVersionOrderPricingDbData,
+  ProductVersionQuery,
+} from "../entities/product-version/query";
+import {
+  type OrderItemAddonSnapshot,
+  orderItemAddonSnapshotSchema,
+  type PricedProductLineItem,
+  pricedProductLineItemSchema,
+} from "../schemas/order/base";
+import { type ProductStockUpdateLine } from "../schemas/product/base";
 import type { ProductLineItem } from "../schemas/product/input";
+import { decimalLikeToNumber } from "../utils/decimal-like";
 import { generateProductId } from "../utils/generate-id";
-
-/** Server-computed add-on rows persisted on {@link OrderItemAddon}. */
-export type OrderItemAddonSnapshot = {
-  addonOptionId: string;
-  groupName: string;
-  optionName: string;
-  priceDelta: number;
-  quantity: number;
-};
-
-/** Variant / version stock lines (add-ons handled separately). */
-export type ProductStockUpdateLine = Pick<
-  ProductLineItem,
-  "productId" | "variantId" | "quantity"
->;
-
-export type PricedProductLineItem = ProductLineItem & {
-  /** Unit price: base (version or variant override) + priced add-ons. */
-  price: number;
-  productVersionId: string;
-  productNameAtCheckout: string;
-  addonSnapshots: OrderItemAddonSnapshot[];
-};
-
-type PublishedAddonOptionRow = {
-  id: string;
-  name: string;
-  priceDelta: unknown;
-  stock: number;
-};
-
-type PublishedAddonGroupRow = {
-  id: string;
-  name: string;
-  selectionType: ProductAddonSelectionType;
-  required: boolean;
-  options: PublishedAddonOptionRow[];
-};
-
-type PublishedVersionForAddons = {
-  addonGroups: PublishedAddonGroupRow[];
-};
 
 /**
  * Product service - Shared business logic for product operations
@@ -62,7 +36,7 @@ class ProductServiceBase {
   }
 
   private static resolveAddonSelectionsForPublishedVersion(
-    pub: PublishedVersionForAddons,
+    pub: { addonGroups: ProductAddonGroupOrderPricingDbData[] },
     selections: Array<{ addonOptionId: string; quantity: number }>,
   ): {
     unitAddonTotal: number;
@@ -75,7 +49,10 @@ class ProductServiceBase {
   } {
     const flat = new Map<
       string,
-      { group: PublishedAddonGroupRow; option: PublishedAddonOptionRow }
+      {
+        group: ProductAddonGroupOrderPricingDbData;
+        option: ProductAddonOptionOrderPricingDbData;
+      }
     >();
     for (const g of pub.addonGroups) {
       for (const o of g.options) {
@@ -88,8 +65,8 @@ class ProductServiceBase {
       Array<{
         addonOptionId: string;
         quantity: number;
-        group: PublishedAddonGroupRow;
-        option: PublishedAddonOptionRow;
+        group: ProductAddonGroupOrderPricingDbData;
+        option: ProductAddonOptionOrderPricingDbData;
       }>
     >();
 
@@ -137,15 +114,17 @@ class ProductServiceBase {
 
     for (const [, picked] of byGroup) {
       for (const row of picked) {
-        const pd = Number(row.option.priceDelta);
+        const pd = decimalLikeToNumber(row.option.priceDelta);
         unitAddonTotal += pd * row.quantity;
-        addonSnapshots.push({
-          addonOptionId: row.addonOptionId,
-          groupName: row.group.name,
-          optionName: row.option.name,
-          priceDelta: pd,
-          quantity: row.quantity,
-        });
+        addonSnapshots.push(
+          orderItemAddonSnapshotSchema.parse({
+            addonOptionId: row.addonOptionId,
+            groupName: row.group.name,
+            optionName: row.option.name,
+            priceDelta: pd,
+            quantity: row.quantity,
+          }),
+        );
         stockRows.push({
           optionName: row.option.name,
           selectionQty: row.quantity,
@@ -191,25 +170,6 @@ class ProductServiceBase {
     const client = tx ?? database;
     const productIds = [...new Set(items.map((i) => i.productId))];
 
-    const addonGroupSelect = {
-      orderBy: { sortOrder: "asc" as const },
-      select: {
-        id: true,
-        name: true,
-        selectionType: true,
-        required: true,
-        options: {
-          orderBy: { sortOrder: "asc" as const },
-          select: {
-            id: true,
-            name: true,
-            priceDelta: true,
-            stock: true,
-          },
-        },
-      },
-    };
-
     const products = await client.product.findMany({
       where: {
         id: { in: productIds },
@@ -219,15 +179,7 @@ class ProductServiceBase {
       select: {
         id: true,
         currentPublishedVersion: {
-          select: {
-            id: true,
-            name: true,
-            price: true,
-            addonGroups: addonGroupSelect,
-            variants: {
-              select: { id: true, price: true },
-            },
-          },
+          select: ProductVersionQuery.getOrderPricingSelect(),
         },
       },
     });
@@ -247,7 +199,8 @@ class ProductServiceBase {
       }
       const variant = item.variantId
         ? pub.variants.find(
-            (v: { id: string; price: unknown }) => v.id === item.variantId,
+            (v: ProductVersionOrderPricingDbData["variants"][number]) =>
+              v.id === item.variantId,
           )
         : undefined;
       if (item.variantId && variant === undefined) {
@@ -255,8 +208,9 @@ class ProductServiceBase {
           "This product was updated. Remove it from your cart and add it again.",
         );
       }
-      const basePrice =
-        variant?.price != null ? Number(variant.price) : Number(pub.price);
+      const basePrice = variant
+        ? decimalLikeToNumber(variant.price)
+        : decimalLikeToNumber(pub.price);
 
       const selections = item.addonSelections ?? [];
       const { unitAddonTotal, addonSnapshots } =
@@ -265,7 +219,7 @@ class ProductServiceBase {
           selections,
         );
 
-      return {
+      return pricedProductLineItemSchema.parse({
         productId: item.productId,
         variantId: item.variantId,
         quantity: item.quantity,
@@ -274,7 +228,7 @@ class ProductServiceBase {
         productVersionId: pub.id,
         productNameAtCheckout: pub.name,
         addonSnapshots,
-      };
+      });
     });
   }
 
@@ -443,26 +397,7 @@ class ProductServiceBase {
       select: {
         id: true,
         currentPublishedVersion: {
-          select: {
-            addonGroups: {
-              orderBy: { sortOrder: "asc" },
-              select: {
-                id: true,
-                name: true,
-                selectionType: true,
-                required: true,
-                options: {
-                  orderBy: { sortOrder: "asc" },
-                  select: {
-                    id: true,
-                    name: true,
-                    priceDelta: true,
-                    stock: true,
-                  },
-                },
-              },
-            },
-          },
+          select: ProductVersionQuery.getOrderPricingSelect(),
         },
       },
     });

@@ -54,3 +54,14 @@ export const productSchema = z.strictObject({
     },
   ),
 });
+
+/** Lines passed to bulk product stock updates (variant vs base product). */
+export const productStockUpdateLineSchema = z.object({
+  productId: z.string().min(1),
+  variantId: z.string().optional(),
+  quantity: z.number().int().min(1),
+});
+
+export type ProductStockUpdateLine = z.infer<
+  typeof productStockUpdateLineSchema
+>;

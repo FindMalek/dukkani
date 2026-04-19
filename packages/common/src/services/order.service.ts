@@ -16,6 +16,7 @@ import {
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import { StoreQuery } from "../entities/store/query";
+import type { PricedProductLineItem } from "../schemas/order/base";
 import { OrderStatus } from "../schemas/order/enums";
 import type {
   CreateOrderInput,
@@ -28,7 +29,7 @@ import type {
 import { AddressService } from "./address.service";
 import { CustomerService } from "./customer.service";
 import { NotificationService } from "./notification.service";
-import { type PricedProductLineItem, ProductService } from "./product.service";
+import { ProductService } from "./product.service";
 
 /**
  * Order service - Shared business logic for order operations
