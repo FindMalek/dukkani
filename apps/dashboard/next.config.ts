@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
   transpilePackages: ["@dukkani/ui", "@dukkani/env"],
   serverExternalPackages: [
     "@prisma/client",
+    "@dukkani/db",
     "pino",
     "pino-pretty",
     "thread-stream",
