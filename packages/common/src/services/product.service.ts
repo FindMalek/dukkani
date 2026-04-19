@@ -12,6 +12,8 @@ import {
   type ProductVersionOrderPricingDbData,
   ProductVersionQuery,
 } from "../entities/product-version/query";
+import { decimalLikeToNumber } from "../lib/decimal/decimal-like";
+import { generateProductId } from "../lib/id/generate-id";
 import {
   type OrderItemAddonSnapshot,
   orderItemAddonSnapshotSchema,
@@ -20,8 +22,6 @@ import {
 } from "../schemas/order/base";
 import { type ProductStockUpdateLine } from "../schemas/product/base";
 import type { ProductLineItem } from "../schemas/product/input";
-import { decimalLikeToNumber } from "../utils/decimal-like";
-import { generateProductId } from "../utils/generate-id";
 
 /**
  * Product service - Shared business logic for product operations

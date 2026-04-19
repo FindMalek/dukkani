@@ -1,5 +1,5 @@
-import { MAX_VARIANT_COMBINATIONS } from "../../schemas/constants";
-import type { ProductVariantOptionFormRow } from "../../schemas/product/base";
+import { MAX_VARIANT_COMBINATIONS } from "../../../schemas/constants";
+import type { ProductVariantOptionFormRow } from "../../../schemas/product/base";
 import { cartesianSelections } from "./cartesian";
 import { selectionKey } from "./keys";
 

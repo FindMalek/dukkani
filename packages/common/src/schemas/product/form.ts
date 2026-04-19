@@ -3,7 +3,7 @@ import * as z from "zod";
 import {
   countVariantCombinations,
   validateVariantMatrixAgainstOptions,
-} from "../../utils/variant-matrix";
+} from "../../lib/variant/matrix";
 import { MAX_VARIANT_COMBINATIONS } from "../constants";
 import { productVariantFormRowSchema } from "../variant/form";
 import { productSchema } from "./base";

@@ -3,6 +3,7 @@ import {
   type ProductPublicDbDataWithPublished,
   ProductQuery,
 } from "@dukkani/common/entities/product/query";
+import { buildVariantDescription } from "@dukkani/common/lib";
 import { getCartItemsInputSchema } from "@dukkani/common/schemas/cart/input";
 import {
   type CartItemOutput,
@@ -10,7 +11,6 @@ import {
 } from "@dukkani/common/schemas/cart/output";
 import type { ProductLineItem } from "@dukkani/common/schemas/product/input";
 import { ProductService } from "@dukkani/common/services/product.service";
-import { buildVariantDescription } from "@dukkani/common/utils/build-variant-description";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";

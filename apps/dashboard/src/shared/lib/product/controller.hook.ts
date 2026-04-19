@@ -1,8 +1,3 @@
-import type {
-  ListProductsInput,
-  StockFilter,
-  VariantsFilter,
-} from "@dukkani/common/schemas/product/input";
 import {
   parseLimit,
   parsePage,
@@ -12,7 +7,12 @@ import {
   parseSearchQuery,
   parseStockFilter,
   parseVariantsFilter,
-} from "@dukkani/common/utils/query-parsers";
+} from "@dukkani/common/lib";
+import type {
+  ListProductsInput,
+  StockFilter,
+  VariantsFilter,
+} from "@dukkani/common/schemas/product/input";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useQueryStates } from "nuqs";
 import { useMemo } from "react";

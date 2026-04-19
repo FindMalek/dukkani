@@ -1,3 +1,4 @@
+import type { FormVariantRow } from "../../lib/variant/matrix";
 import type { ProductVariantFormRowInput } from "../../schemas/variant/form";
 import type {
   VariantOptionOutput,
@@ -6,8 +7,6 @@ import type {
   VariantSelectionOutput,
   VariantSimpleOutput,
 } from "../../schemas/variant/output";
-
-import type { FormVariantRow } from "../../utils/variant-matrix";
 
 import type {
   VariantDbData,

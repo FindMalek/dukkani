@@ -4,6 +4,10 @@ import {
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
 import {
+  extractFallbackExtension,
+  validateMimeType,
+} from "@dukkani/common/lib";
+import {
   getFileExtensionFromMimeType,
   isImageMimeType,
   type SupportedMimeType,
@@ -17,10 +21,6 @@ import type {
   ProcessedImage,
   StorageFileResult,
 } from "@dukkani/common/schemas/storage/output";
-import {
-  extractFallbackExtension,
-  validateMimeType,
-} from "@dukkani/common/utils/mime-types";
 import { logger } from "@dukkani/logger";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { nanoid } from "nanoid";

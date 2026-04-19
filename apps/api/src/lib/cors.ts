@@ -1,7 +1,7 @@
 import {
   isOriginAllowedByPatterns,
   isOriginAllowedForRequest,
-} from "@dukkani/common/utils/origin";
+} from "@dukkani/common/lib";
 import { apiEnv } from "@dukkani/env/presets/api";
 
 /**

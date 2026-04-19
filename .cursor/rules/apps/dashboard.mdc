@@ -156,7 +156,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   parseSearchQuery, parseProductStatus, parsePage,
   parseStockFilter, parseVariantsFilter, parsePriceMin, parsePriceMax,
-} from "@dukkani/common/utils/query-parsers";
+} from "@dukkani/common/lib";
 import { appQueries } from "@/shared/api/queries";
 import { appMutations } from "@/shared/api/mutations";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
@@ -370,7 +370,7 @@ import { Button } from "@dukkani/ui/components/button";
 import { env } from "@dukkani/env";
 import {
   parseSearchQuery, parseProductStatus, parsePage,
-} from "@dukkani/common/utils/query-parsers";
+} from "@dukkani/common/lib";
 ```
 
 ## Error Handling
@@ -411,4 +411,4 @@ const mutation = useMutation(
 - Use `getServerSession` for server-side auth, `authClient` for client-side
 - Use type-safe routing from `@/shared/config/routes`
 - Use `getDynamicRouteParam` from `@/shared/lib/route-params.util` for `useParams()` in client detail pages — call `notFound()` when the required segment is missing
-- Use `@dukkani/common/utils/query-parsers` for all nuqs parsers — add new ones there, not inline
+- Use `@dukkani/common/lib` for all nuqs parsers — add new ones in `packages/common/src/lib/query/query-parsers.ts`, not inline

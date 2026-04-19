@@ -1,11 +1,11 @@
-import type { ListProductsInput } from "@dukkani/common/schemas/product/input";
 import {
   parseCategory,
   parseInStock,
   parsePriceMax,
   parsePriceMin,
   parseSortBy,
-} from "@dukkani/common/utils/query-parsers";
+} from "@dukkani/common/lib";
+import type { ListProductsInput } from "@dukkani/common/schemas/product/input";
 import { createLoader } from "nuqs/server";
 
 export const productFilterParams = {

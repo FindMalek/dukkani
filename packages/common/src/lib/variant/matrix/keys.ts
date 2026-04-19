@@ -1,4 +1,4 @@
-import type { ProductVariantOptionFormRow } from "../../schemas/product/base";
+import type { ProductVariantOptionFormRow } from "../../../schemas/product/base";
 
 /**
  * Stable key for a selection map (order-independent). Used for deduping rows.

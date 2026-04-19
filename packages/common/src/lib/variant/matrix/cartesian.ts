@@ -1,4 +1,4 @@
-import type { ProductVariantOptionFormRow } from "../../schemas/product/base";
+import type { ProductVariantOptionFormRow } from "../../../schemas/product/base";
 
 /**
  * Cartesian product of option values; keys are option **names** (matches `writeVariantMatrix`).

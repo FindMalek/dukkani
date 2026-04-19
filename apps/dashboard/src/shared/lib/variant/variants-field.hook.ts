@@ -1,10 +1,10 @@
 "use client";
 
-import type { ProductFormInput } from "@dukkani/common/schemas/product/form";
 import {
   countVariantCombinations,
   reconcileVariants,
-} from "@dukkani/common/utils";
+} from "@dukkani/common/lib";
+import type { ProductFormInput } from "@dukkani/common/schemas/product/form";
 import { useCallback, useMemo, useState } from "react";
 import { productVariantFormConstants } from "@/shared/config/constants";
 import type { ProductFormApi } from "@/shared/lib/product/form";

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { validateVariantMatrixAgainstOptions } from "../../utils/variant-matrix";
+import { validateVariantMatrixAgainstOptions } from "../../lib/variant/matrix";
 import { productAddonGroupInputSchema } from "../product-addon/input";
 import { variantInputSchema, variantOptionInputSchema } from "../variant/input";
 

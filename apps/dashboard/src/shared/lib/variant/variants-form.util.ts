@@ -1,3 +1,8 @@
+import {
+  type FormVariantRow,
+  formVariantRowsToInput,
+  reconcileVariants,
+} from "@dukkani/common/lib";
 import type {
   ProductFormInput,
   ProductFormOutput,
@@ -5,11 +10,6 @@ import type {
 } from "@dukkani/common/schemas/product/form";
 import type { ProductVariantFormRowInput } from "@dukkani/common/schemas/variant/form";
 import type { VariantInput } from "@dukkani/common/schemas/variant/input";
-import type { FormVariantRow } from "@dukkani/common/utils";
-import {
-  formVariantRowsToInput,
-  reconcileVariants,
-} from "@dukkani/common/utils";
 
 type VariantFormRowLike =
   | ProductVariantFormRowInput

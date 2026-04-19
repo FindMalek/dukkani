@@ -1,6 +1,6 @@
 "use client";
 
-import { selectionKey } from "@dukkani/common/utils";
+import { selectionKey } from "@dukkani/common/lib";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Card } from "@dukkani/ui/components/card";

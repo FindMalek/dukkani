@@ -1,4 +1,4 @@
-import type { VariantOutput } from "../schemas/variant/output";
+import type { VariantOutput } from "../../schemas/variant/output";
 
 /**
  * Build a human-readable description from variant selections

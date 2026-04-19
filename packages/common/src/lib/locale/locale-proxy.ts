@@ -1,6 +1,6 @@
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
-import { DEFAULT_LOCALE, LOCALES, type Locale } from "../schemas/constants";
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "../../schemas/constants";
 
 /**
  * Request type that has cookies and headers

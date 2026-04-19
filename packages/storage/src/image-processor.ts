@@ -1,4 +1,5 @@
 import { StorageFileEntity } from "@dukkani/common/entities/storage/entity";
+import { isWebOptimizedMimeType } from "@dukkani/common/lib";
 import {
   isImageMimeType,
   VARIANT_SIZES,
@@ -7,7 +8,6 @@ import type {
   ImageVariant,
   ProcessedImage,
 } from "@dukkani/common/schemas/storage/output";
-import { isWebOptimizedMimeType } from "@dukkani/common/utils/mime-types";
 import sharp from "sharp";
 
 /**

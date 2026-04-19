@@ -2,7 +2,7 @@ import { scrypt } from "node:crypto";
 import {
   isOriginAllowedByPatterns,
   isOriginAllowedForRequest,
-} from "@dukkani/common/utils/origin";
+} from "@dukkani/common/lib";
 
 /**
  * Custom password verifier to match seeder format

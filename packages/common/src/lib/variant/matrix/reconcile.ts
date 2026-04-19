@@ -1,5 +1,5 @@
-import type { ProductVariantOptionFormRow } from "../../schemas/product/base";
-import type { VariantInput } from "../../schemas/variant/input";
+import type { ProductVariantOptionFormRow } from "../../../schemas/product/base";
+import type { VariantInput } from "../../../schemas/variant/input";
 import { cartesianSelections } from "./cartesian";
 import { selectionKey } from "./keys";
 

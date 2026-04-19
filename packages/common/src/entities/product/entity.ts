@@ -1,3 +1,4 @@
+import { reconcileVariants } from "../../lib/variant/matrix";
 import type { ProductFormInput } from "../../schemas/product/form";
 import type {
   ListProductOutput,
@@ -6,7 +7,6 @@ import type {
   ProductSimpleOutput,
 } from "../../schemas/product/output";
 import type { ProductVariantFormRowInput } from "../../schemas/variant/form";
-import { reconcileVariants } from "../../utils/variant-matrix";
 import { OrderItemEntity } from "../order-item/entity";
 import { ProductAddonEntity } from "../product-addon/entity";
 import { ProductVersionEntity } from "../product-version/entity";

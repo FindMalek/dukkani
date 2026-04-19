@@ -1,7 +1,7 @@
 "use client";
 
+import { parseEmail, parseOnboardingStep } from "@dukkani/common/lib";
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
-import { parseEmail, parseOnboardingStep } from "@dukkani/common/utils";
 import { Button } from "@dukkani/ui/components/button";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
