@@ -266,3 +266,5 @@ export function useProductForm({
       isEdit && Boolean(productData) && productData!.storeId !== storeId,
   };
 }
+
+export type ProductFormApi = ReturnType<typeof useProductForm>["form"];

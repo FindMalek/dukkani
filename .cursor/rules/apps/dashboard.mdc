@@ -389,6 +389,11 @@ const mutation = useMutation(
 
 ## Best Practices
 
+### UI primitives (`@dukkani/ui`)
+
+- Use **`Button`** from `@dukkani/ui/components/button` instead of native `<button>` for all interactive actions (including icon-only controls). Prefer `variant` and `size` (for example `variant="ghost"` with `size="icon"` or `size="icon-sm"`) rather than bespoke `<button className="...">` styling.
+- Use **`Input`** from `@dukkani/ui/components/input` instead of raw `<input>` for text fields unless there is a documented exception (for example a third-party API that requires a bare element).
+
 - Use server components by default; add `"use client"` only when needed
 - Use `appQueries` / `appMutations` for all data fetching — never call `api.x.queryOptions` directly in components
 - Use `QueryData<typeof appQueries.x.y>` to extract query result types

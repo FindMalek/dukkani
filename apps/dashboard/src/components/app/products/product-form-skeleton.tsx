@@ -3,7 +3,7 @@
 import { FieldGroup, FieldSet } from "@dukkani/ui/components/field";
 import { ProductFormActionsSkeleton } from "./product-form-actions";
 import { ProductFormEssentialsSkeleton } from "./product-form-essentials";
-import { ProductFormVariantsSkeleton } from "./product-form-variants";
+import { ProductFormVariantsSkeleton } from "./products-variant-form";
 
 type ProductFormSkeletonProps = {
   loadingLabel: string;

@@ -428,6 +428,7 @@
             "addValue": "+ Ajouter une valeur",
             "noValues": "Ajoutez au moins une valeur",
             "remove": "Supprimer l’option",
+            "removeValue": "Supprimer la valeur",
             "addAnother": "Ajouter une autre option",
             "maxOptions": "Maximum 3 options",
             "value": "Valeur"

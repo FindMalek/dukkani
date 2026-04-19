@@ -10,7 +10,7 @@ import { CategoryDrawer } from "./category-drawer";
 import { ProductFormActions } from "./product-form-actions";
 import { ProductFormEssentials } from "./product-form-essentials";
 import { ProductFormSkeleton } from "./product-form-skeleton";
-import { ProductFormVariants } from "./product-form-variants";
+import { ProductFormVariants } from "./products-variant-form";
 
 export interface ProductFormHandle {
   submit: () => void;

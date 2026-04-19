@@ -30,6 +30,12 @@ packages/ui/src/
 
 Components follow shadcn/ui patterns with Radix UI primitives and Tailwind CSS styling.
 
+### Consumption in applications
+
+Prefer **`Button`** and **`Input`** from this package over native `<button>` and `<input>` so focus styles, disabled behavior, and theming stay aligned. For icon-only actions, use `Button` with `size="icon"` or `size="icon-sm"` (and `variant="ghost"` when appropriate) instead of custom-styled native buttons.
+
+### Example component structure
+
 ```typescript
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
