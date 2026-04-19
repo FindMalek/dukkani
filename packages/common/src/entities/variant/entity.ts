@@ -1,3 +1,4 @@
+import type { ProductVariantFormRowInput } from "../../schemas/variant/form";
 import type {
   VariantOptionOutput,
   VariantOptionValueOutput,
@@ -5,6 +6,8 @@ import type {
   VariantSelectionOutput,
   VariantSimpleOutput,
 } from "../../schemas/variant/output";
+
+import type { FormVariantRow } from "../../utils/variant-matrix";
 
 import type {
   VariantDbData,
@@ -68,6 +71,40 @@ export class VariantEntity {
       imageUrl: entity.image?.url ?? null,
       productId: entity.productVersion.productId,
       selections: entity.selections.map(VariantEntity.getVariantSelectionRo),
+    };
+  }
+
+  static convertFormVariantRowToInput(
+    row: FormVariantRow,
+  ): ProductVariantFormRowInput {
+    return {
+      selections: row.selections,
+      sku: row.sku,
+      price:
+        row.price !== undefined && row.price !== null
+          ? String(row.price)
+          : undefined,
+      stock: String(row.stock),
+      imageRef: row.imageRef,
+    };
+  }
+
+  static convertVariantOutputToFormRow(
+    variant: VariantOutput,
+  ): ProductVariantFormRowInput {
+    const selections: Record<string, string> = {};
+    for (const s of variant.selections) {
+      selections[s.option.name] = s.value.value;
+    }
+    return {
+      selections,
+      sku: variant.sku ?? undefined,
+      price:
+        variant.price !== undefined && variant.price !== null
+          ? String(variant.price)
+          : undefined,
+      stock: String(variant.stock),
+      imageRef: variant.imageUrl ?? undefined,
     };
   }
 }

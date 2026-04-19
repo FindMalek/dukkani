@@ -5,9 +5,9 @@ import { Card, CardContent, CardHeader } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Input } from "@dukkani/ui/components/input";
 import { useTranslations } from "next-intl";
-import type { ProductFormVariantsField } from "@/hooks/use-product-form-variants-field";
 import { productVariantFormConstants } from "@/shared/config/constants";
 import type { ProductFormApi } from "@/shared/lib/product/form";
+import type { ProductFormVariantsField } from "@/shared/lib/variant/variants-field.hook";
 import { PendingRemovalBanner } from "./products-variant-pending-removal-banner";
 
 type ProductsVariantOptionsSectionProps = {

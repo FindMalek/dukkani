@@ -8,7 +8,7 @@ import {
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useTranslations } from "next-intl";
-import type { PendingRemoval } from "@/hooks/use-product-form-variants-field";
+import type { PendingRemoval } from "@/shared/lib/variant/variants-field.hook";
 
 export function PendingRemovalBanner({
   pending,

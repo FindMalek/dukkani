@@ -1,9 +1,12 @@
+import type { ProductFormInput } from "../../schemas/product/form";
 import type {
   ListProductOutput,
   ProductIncludeOutput,
   ProductPublicOutput,
   ProductSimpleOutput,
 } from "../../schemas/product/output";
+import type { ProductVariantFormRowInput } from "../../schemas/variant/form";
+import { reconcileVariants } from "../../utils/variant-matrix";
 import { OrderItemEntity } from "../order-item/entity";
 import { ProductAddonEntity } from "../product-addon/entity";
 import { ProductVersionEntity } from "../product-version/entity";
@@ -100,6 +103,56 @@ export class ProductEntity {
       variants: version.variants,
       addonGroups: version.addonGroups,
     };
+  }
+
+  /**
+   * Dashboard editor: default form values from API include payload
+   * (`ProductIncludeOutput` from oRPC).
+   */
+  static convertIncludeOutputToFormInput(
+    product: ProductIncludeOutput,
+  ): ProductFormInput {
+    return {
+      name: product.name,
+      description: product.description ?? "",
+      price: String(product.price),
+      stock: String(product.stock),
+      published: product.published,
+      categoryId: product.categoryId ?? "",
+      hasVariants: product.hasVariants,
+      variantOptions: (product.variantOptions ?? []).map((o) => ({
+        name: o.name,
+        values: o.values.map((v) => ({ value: v.value })),
+      })),
+      variants: ProductEntity.convertIncludeOutputVariantsToForm(product),
+      addonGroups: [],
+      images:
+        product.images?.map((i) => ({
+          kind: "remote" as const,
+          url: i.url,
+        })) ?? [],
+    };
+  }
+
+  private static convertIncludeOutputVariantsToForm(
+    product: ProductIncludeOutput,
+  ): ProductVariantFormRowInput[] {
+    const opts = (product.variantOptions ?? []).map((o) => ({
+      name: o.name,
+      values: o.values.map((v) => ({ value: v.value })),
+    }));
+
+    const fromApi = (product.variants ?? []).map((v) =>
+      VariantEntity.convertVariantOutputToFormRow(v),
+    );
+
+    if (product.hasVariants && fromApi.length === 0 && opts.length > 0) {
+      return reconcileVariants([], opts, {
+        stock: product.stock,
+      }).map(VariantEntity.convertFormVariantRowToInput);
+    }
+
+    return fromApi;
   }
 
   static getPublicRo(

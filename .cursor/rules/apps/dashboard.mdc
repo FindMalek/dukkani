@@ -35,6 +35,7 @@ apps/dashboard/src/
 │   │   └── routes.ts          # Type-safe route definitions
 │   └── lib/                   # Domain-organized business logic
 │       ├── product/           # controller.hook.ts, form.ts, store.ts (UI-only)
+│       ├── variant/           # variants-form.util.ts, variants-field.hook.ts — product variant matrix (editor form slice)
 │       ├── order/             # controller.hook.ts, datetime.util.ts, group-by-date.util.ts, price.util.ts, store.ts (UI-only)
 │       ├── onboarding/        # controller.hook.ts, stepper.util.ts
 │       ├── store/             # active.store.ts, current-currency.hook.ts, format-price.hook.ts, url.util.ts
@@ -140,7 +141,11 @@ Domain logic is grouped by feature. File suffix conventions:
 | `controller.hook.ts` | Screen-level orchestration: composes Zustand store + nuqs URL state + appQueries + appMutations |
 | `.store.ts` | Zustand store definitions — **UI-only state** (selection, view mode). Filters live in the URL via nuqs. |
 | `.util.ts` | Pure utility functions (formatting, grouping, calculations) |
-| `.hook.ts` | Domain-specific hooks that don't own full screen state |
+| `.hook.ts` | Domain-specific hooks that don't own full screen state (includes **form field** hooks — see below) |
+
+**`controller.hook.ts` vs field hooks:** `controller.hook.ts` is for **screen-level** orchestration (nuqs + Zustand + `appQueries` + `appMutations`). Hooks that only coordinate a **subsection of one form** (e.g. variant options + matrix under `ProductFormApi`) belong in a `*.hook.ts` next to related utils — **do not** name them `controller.hook.ts`. Example: [`variants-field.hook.ts`](apps/dashboard/src/shared/lib/variant/variants-field.hook.ts) under [`shared/lib/variant/`](apps/dashboard/src/shared/lib/variant/).
+
+**`shared/lib/variant/`** — Dashboard-only code for the **product variant matrix** inside the product editor: pure helpers ([`variants-form.util.ts`](apps/dashboard/src/shared/lib/variant/variants-form.util.ts) — reconcile, thumbs, submit image resolution) and the **variants field hook** consumed by [`product-form.tsx`](apps/dashboard/src/components/app/products/product-form.tsx). This is not a separate backend “variant service” domain; it is a **slice** of the product form UI.
 
 **Controller hook pattern** — use for list pages and complex screens:
 
@@ -204,6 +209,8 @@ Zustand stores hold **UI-only state**. Filters and pagination live in the URL vi
 | `selectedOrderId` | `stockFilter` / `variantsFilter` |
 | `selectedStoreId` (persisted) | `priceMin` / `priceMax` |
 | `isSwitching` | `page` / `limit` |
+
+**Transient UI tied to a single form instance** (e.g. which variant row opened the image drawer, pending destructive confirmation) → prefer **`useState` inside the field hook** that owns that form section. Avoid a global Zustand store unless unrelated parts of the tree must share that state.
 
 ```typescript
 // ✅ Correct — UI-only state in Zustand

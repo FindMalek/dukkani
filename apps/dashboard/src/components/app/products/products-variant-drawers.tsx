@@ -7,9 +7,9 @@ import {
   DrawerTitle,
 } from "@dukkani/ui/components/drawer";
 import { useTranslations } from "next-intl";
-import type { ProductFormVariantsField } from "@/hooks/use-product-form-variants-field";
 import type { ProductFormApi } from "@/shared/lib/product/form";
-import { getVariantLabel } from "@/shared/lib/product/variants-form.util";
+import type { ProductFormVariantsField } from "@/shared/lib/variant/variants-field.hook";
+import { getVariantLabel } from "@/shared/lib/variant/variants-form.util";
 import { ImagePickerGrid } from "./products-variant-image-picker-grid";
 
 type ProductsVariantDrawersProps = {

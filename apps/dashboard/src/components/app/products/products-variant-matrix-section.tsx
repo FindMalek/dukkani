@@ -8,12 +8,12 @@ import { Icons } from "@dukkani/ui/components/icons";
 import { cn } from "@dukkani/ui/lib/utils";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import type { ProductFormVariantsField } from "@/hooks/use-product-form-variants-field";
 import type { ProductFormApi } from "@/shared/lib/product/form";
+import type { ProductFormVariantsField } from "@/shared/lib/variant/variants-field.hook";
 import {
   getVariantLabel,
   resolveVariantMatrixThumbSrc,
-} from "@/shared/lib/product/variants-form.util";
+} from "@/shared/lib/variant/variants-form.util";
 
 type ProductsVariantMatrixSectionProps = {
   form: ProductFormApi;

@@ -54,7 +54,7 @@ export function useDashboardStats() { ... }
 
 **Dashboard / Storefront `shared/lib/` hooks:** domain logic lives under `shared/lib/{domain}/` with these suffixes:
 - `controller.hook.ts` — screen-level orchestration (composes Zustand store + `appQueries` + `appMutations`)
-- `.hook.ts` — domain-specific hooks
+- `.hook.ts` — domain-specific hooks (including **form field** hooks such as `variants-field.hook.ts` under `shared/lib/variant/` — not a `controller`)
 - `.util.ts` — pure utility functions
 - `.store.ts` — Zustand store definitions
 
@@ -214,6 +214,9 @@ src/
         controller.hook.ts
         form.ts
         store.ts
+      variant/
+        variants-form.util.ts
+        variants-field.hook.ts
 
 ❌ Incorrect:
 src/

@@ -8,12 +8,12 @@ import {
 import { useCallback, useMemo, useState } from "react";
 import { productVariantFormConstants } from "@/shared/config/constants";
 import type { ProductFormApi } from "@/shared/lib/product/form";
+import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 import {
   coerceVariantRows,
   sanitizeOptsForReconcile,
   toFormRow,
-} from "@/shared/lib/product/variants-form.util";
-import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
+} from "./variants-form.util";
 
 export type PendingRemoval =
   | {

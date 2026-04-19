@@ -5,9 +5,8 @@ import {
   MAX_VARIANT_COMBINATIONS,
   validateVariantMatrixAgainstOptions,
 } from "../../utils/variant-matrix";
+import { productVariantFormRowSchema } from "../variant/form";
 import { productSchema } from "./base";
-
-export type { ProductVariantOptionFormRow } from "./base";
 
 export const productImageRemoteSchema = z.strictObject({
   kind: z.literal("remote"),
@@ -28,24 +27,6 @@ export const productImageAttachmentSchema = z.discriminatedUnion("kind", [
 export type ProductImageAttachment = z.infer<
   typeof productImageAttachmentSchema
 >;
-
-/**
- * One SKU row in the dashboard product form (selections keyed by option name).
- * Empty variant `price` means inherit the product version base price (no per-variant override).
- */
-export const productFormVariantRowSchema = z.strictObject({
-  selections: z.record(z.string(), z.string()),
-  sku: z.string().optional(),
-  price: z.preprocess(
-    (val) =>
-      val === "" || val === null || val === undefined ? undefined : val,
-    z.coerce.number().positive().optional(),
-  ),
-  stock: z.coerce.number<string>().int().min(0, "Stock cannot be negative"),
-  imageRef: z.string().optional(),
-});
-
-export type ProductFormVariantRow = z.infer<typeof productFormVariantRowSchema>;
 
 export const productFormAddonOptionRowSchema = z.strictObject({
   name: z.string().min(1),
@@ -80,7 +61,7 @@ export const productFormSchema = productSchema
     images: z
       .array(productImageAttachmentSchema)
       .max(10, "Maximum 10 images allowed"),
-    variants: z.array(productFormVariantRowSchema),
+    variants: z.array(productVariantFormRowSchema),
     addonGroups: z.array(productFormAddonGroupRowSchema).default([]),
   })
   .superRefine((data, ctx) => {

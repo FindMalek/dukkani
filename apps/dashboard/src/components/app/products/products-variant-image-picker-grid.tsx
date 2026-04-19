@@ -9,7 +9,7 @@ import { cn } from "@dukkani/ui/lib/utils";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { productImageAttachmentThumb } from "@/shared/lib/product/variants-form.util";
+import { productImageAttachmentThumb } from "@/shared/lib/variant/variants-form.util";
 
 type LocalAttachment = Extract<
   ProductFormInput["images"][number],

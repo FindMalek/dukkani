@@ -1,5 +1,6 @@
 "use client";
 
+import { ProductEntity } from "@dukkani/common/entities/product/entity";
 import {
   type ProductFormInput,
   productFormSchema,
@@ -14,14 +15,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { handleAPIError } from "@/shared/api/error-handler";
-import {
-  mapProductToFormValues,
-  resolveVariantImageUrls,
-} from "@/shared/api/map-product-to-form";
 import { appMutations } from "@/shared/api/mutations";
 import { client } from "@/shared/api/orpc";
 import { appQueries } from "@/shared/api/queries";
 import { RoutePaths } from "@/shared/config/routes";
+import { resolveVariantImageUrls } from "../variant/variants-form.util";
 
 export const productFormOptions = formOptions({
   defaultValues: {
@@ -212,7 +210,7 @@ export function useProductForm({
     if (productData.id !== productId) return;
     if (initialLoadDone.current) return;
 
-    const mapped = mapProductToFormValues(productData);
+    const mapped = ProductEntity.convertIncludeOutputToFormInput(productData);
     initialImageUrlsRef.current = mapped.images
       .filter((item) => item.kind === "remote")
       .map((item) => item.url);
