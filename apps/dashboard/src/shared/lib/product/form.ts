@@ -33,7 +33,7 @@ export const productFormOptions = formOptions({
     images: [],
     variants: [],
     variantOptions: [],
-  } as unknown as ProductFormInput,
+  } as ProductFormInput,
   validators: {
     onChange: productFormSchema,
     onBlur: productFormSchema,
