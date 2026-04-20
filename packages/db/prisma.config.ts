@@ -21,9 +21,11 @@ if (!process.env.VERCEL) {
  * This file only needs the raw value for Prisma CLI operations.
  */
 const databaseUrl = process.env.DATABASE_URL || "";
-// Neon pooler URLs contain "-pooler" in the hostname; migrations need a direct
-// connection to acquire advisory locks. Strip "-pooler" to get the direct URL.
-const directUrl =
+// Neon pooler URLs contain "-pooler" in the hostname; advisory locks needed by
+// Prisma CLI (migrate, reset) require a direct connection — strip the pooler.
+// App runtime code uses DATABASE_URL (with pooler) directly via @dukkani/env,
+// so this only affects CLI operations.
+const cliUrl =
   process.env.DATABASE_URL_UNPOOLED || databaseUrl.replace(/-pooler\./g, ".");
 
 export default defineConfig({
@@ -32,7 +34,6 @@ export default defineConfig({
     path: path.join("prisma", "migrations"),
   },
   datasource: {
-    url: databaseUrl,
-    directUrl,
+    url: cliUrl,
   },
 });
