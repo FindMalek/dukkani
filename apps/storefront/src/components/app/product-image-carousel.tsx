@@ -17,11 +17,13 @@ import { useEffect, useState } from "react";
 interface ProductImageCarouselProps {
   images: string[];
   productName: string;
+  targetSlideIndex?: number | null;
 }
 
 export function ProductImageCarousel({
   images,
   productName,
+  targetSlideIndex = null,
 }: ProductImageCarouselProps) {
   const isRtl = useIsRtl();
   const [current, setCurrent] = useState(0);
@@ -43,6 +45,16 @@ export function ProductImageCarousel({
       api.off("select", handler);
     };
   }, [api]);
+
+  useEffect(() => {
+    if (!api || targetSlideIndex == null || images.length === 0) {
+      return;
+    }
+    if (targetSlideIndex < 0 || targetSlideIndex >= images.length) {
+      return;
+    }
+    api.scrollTo(targetSlideIndex);
+  }, [api, images.length, targetSlideIndex]);
 
   if (images.length === 0) {
     return (
