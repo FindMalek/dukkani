@@ -6,6 +6,7 @@ import {
   StoreStatus,
   StoreTheme,
   SupportedCurrency,
+  UserOnboardingStep,
 } from "../../../prisma/generated/client";
 import { BaseSeeder } from "../base";
 import type { UserSeeder } from "./user.seeder";
@@ -81,6 +82,10 @@ export class StoreSeeder extends BaseSeeder {
           status: store.status,
         });
       }
+      // Self-heal: owners of a PUBLISHED store have completed onboarding.
+      // Without this, dev DBs seeded before this fix keep users stuck at
+      // STORE_SETUP, which the dashboard layout redirects to /onboarding.
+      await this.syncPublishedStoreOwnersOnboarding(database, existingStores);
       return;
     }
 
@@ -205,6 +210,46 @@ export class StoreSeeder extends BaseSeeder {
       });
     }
 
+    // Owners of a PUBLISHED store are done with onboarding — without this,
+    // the User table's `onboardingStep @default(STORE_SETUP)` keeps them
+    // stuck and the dashboard layout redirects them to /onboarding.
+    await this.syncPublishedStoreOwnersOnboarding(database, createdStores);
+
     this.log(`✅ Created ${createdStores.length} stores with plans`);
+  }
+
+  /**
+   * Advance the `onboardingStep` of every user who owns a PUBLISHED store to
+   * `STORE_LAUNCHED`. Idempotent — the `where` clause skips users who are
+   * already launched, so this is safe to run on every seed (including the
+   * "stores already exist" self-heal path).
+   */
+  private async syncPublishedStoreOwnersOnboarding(
+    database: PrismaClient,
+    stores: Array<{ ownerId: string; status: StoreStatus }>,
+  ): Promise<void> {
+    const ownerIds = Array.from(
+      new Set(
+        stores
+          .filter((store) => store.status === StoreStatus.PUBLISHED)
+          .map((store) => store.ownerId),
+      ),
+    );
+
+    if (ownerIds.length === 0) return;
+
+    const { count } = await database.user.updateMany({
+      where: {
+        id: { in: ownerIds },
+        onboardingStep: { not: UserOnboardingStep.STORE_LAUNCHED },
+      },
+      data: { onboardingStep: UserOnboardingStep.STORE_LAUNCHED },
+    });
+
+    if (count > 0) {
+      this.log(
+        `✅ Advanced onboardingStep → STORE_LAUNCHED for ${count} published-store owner(s)`,
+      );
+    }
   }
 }
