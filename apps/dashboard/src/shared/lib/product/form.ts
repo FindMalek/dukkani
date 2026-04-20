@@ -1,19 +1,25 @@
 "use client";
 
+import { ProductEntity } from "@dukkani/common/entities/product/entity";
 import {
   type ProductFormInput,
   productFormSchema,
 } from "@dukkani/common/schemas/product/form";
+import type {
+  CreateProductInput,
+  UpdateProductInput,
+} from "@dukkani/common/schemas/product/input";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { handleAPIError } from "@/shared/api/error-handler";
 import { appMutations } from "@/shared/api/mutations";
 import { client } from "@/shared/api/orpc";
 import { appQueries } from "@/shared/api/queries";
 import { RoutePaths } from "@/shared/config/routes";
+import { resolveVariantImageUrls } from "../variant/variants-form.util";
 
 export const productFormOptions = formOptions({
   defaultValues: {
@@ -21,10 +27,11 @@ export const productFormOptions = formOptions({
     description: "",
     price: "",
     stock: "1",
-    published: false,
+    published: true,
     categoryId: "",
     hasVariants: false,
-    imageFiles: [],
+    images: [],
+    variants: [],
     variantOptions: [],
   } as ProductFormInput,
   validators: {
@@ -33,31 +40,65 @@ export const productFormOptions = formOptions({
   },
 });
 
-/**
- * Create-product flow: TanStack Form + categories + create mutation.
- * Edit flow can extend this hook later with different defaultValues/onSubmit.
- */
-export function useProductForm({ storeId }: { storeId: string }) {
+export function useProductForm({
+  storeId,
+  productId,
+}: {
+  storeId: string;
+  productId?: string;
+}) {
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const isEdit = Boolean(productId);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
 
-  const { data: categories } = useQuery({
-    ...appQueries.category.all({ input: { storeId } }),
+  const {
+    data: productData,
+    isPending: isProductPending,
+    isError: isProductError,
+  } = useQuery({
+    ...appQueries.product.byId({ input: { id: productId ?? "" } }),
+    enabled: Boolean(isEdit && productId),
   });
+
   const createProductMutation = useMutation(appMutations.product.create());
+  const updateProductMutation = useMutation(appMutations.product.update());
+
+  const publishProductMutation = useMutation({
+    mutationFn: (id: string) => client.product.publish({ id }),
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries(
+        appQueries.product.all({ input: {} }),
+      );
+      await queryClient.invalidateQueries(
+        appQueries.product.byId({ input: { id: data.id } }),
+      );
+      await queryClient.invalidateQueries(appQueries.store.stats());
+    },
+  });
+
+  const initialLoadDone = useRef(false);
+  const initialImageUrlsRef = useRef<string[]>([]);
+  const lastHydratedProductIdRef = useRef<string | undefined>(undefined);
 
   const form = useAppForm({
     ...productFormOptions,
     onSubmit: async ({ value }) => {
-      const imageUrls = await (async () => {
-        if (value.imageFiles.length === 0) {
+      const valueLive = { ...value, published: true };
+
+      const localFiles = valueLive.images
+        .filter((item) => item.kind === "local")
+        .map((item) => item.file);
+
+      const uploadedUrls = await (async () => {
+        if (localFiles.length === 0) {
           return [];
         }
 
         try {
           const res = await client.product.uploadImages({
             storeId,
-            files: value.imageFiles,
+            files: localFiles,
           });
           return res.files.map((file) => file.url);
         } catch (error) {
@@ -66,15 +107,82 @@ export function useProductForm({ storeId }: { storeId: string }) {
         }
       })();
 
-      if (imageUrls === null) {
+      if (uploadedUrls === null) {
         return;
       }
 
-      const cleanedFormData = productFormSchema.parse(value);
-      const cleanedData = {
-        ...cleanedFormData,
-        imageUrls,
+      let uploadIndex = 0;
+      const finalUrls = valueLive.images.map((item) => {
+        if (item.kind === "remote") {
+          return item.url;
+        }
+        const url = uploadedUrls[uploadIndex];
+        uploadIndex += 1;
+        return url;
+      });
+
+      const cleanedFormData = productFormSchema.parse(valueLive);
+      const { addonGroups: _addonGroupsIgnored, ...rest } = cleanedFormData;
+      void _addonGroupsIgnored;
+
+      if (isEdit) {
+        if (!productId) {
+          handleAPIError(new Error("Missing product id"));
+          return;
+        }
+        const editProductId = productId;
+
+        const currentRemoteUrls = valueLive.images
+          .filter((item) => item.kind === "remote")
+          .map((item) => item.url);
+        const hasLocal = valueLive.images.some((item) => item.kind === "local");
+        // Compare order (not sort): first image is primary on storefront.
+        const sameAsInitial =
+          !hasLocal &&
+          currentRemoteUrls.length === initialImageUrlsRef.current.length &&
+          currentRemoteUrls.every(
+            (url, i) => url === initialImageUrlsRef.current[i],
+          );
+
+        const payload: UpdateProductInput = {
+          id: editProductId,
+          name: rest.name,
+          description: rest.description,
+          price: rest.price,
+          stock: rest.stock,
+          published: true,
+          categoryId: rest.categoryId,
+          hasVariants: rest.hasVariants,
+          variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
+          variants: rest.hasVariants
+            ? resolveVariantImageUrls(
+                rest.variants,
+                valueLive.images,
+                finalUrls,
+              )
+            : undefined,
+          ...(sameAsInitial ? {} : { imageUrls: finalUrls }),
+        };
+
+        try {
+          await updateProductMutation.mutateAsync(payload);
+          await publishProductMutation.mutateAsync(editProductId);
+          router.push(RoutePaths.PRODUCTS.INDEX.url);
+        } catch (error) {
+          handleAPIError(error);
+        }
+        return;
+      }
+
+      const cleanedData: CreateProductInput = {
+        ...rest,
+        published: true,
+        imageUrls: finalUrls,
         storeId,
+        variants: rest.hasVariants
+          ? resolveVariantImageUrls(rest.variants, valueLive.images, finalUrls)
+          : undefined,
+        variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
       };
 
       await createProductMutation.mutateAsync(cleanedData, {
@@ -87,6 +195,31 @@ export function useProductForm({ storeId }: { storeId: string }) {
         },
       });
     },
+  });
+
+  useEffect(() => {
+    if (!isEdit || !productId) return;
+
+    if (lastHydratedProductIdRef.current !== productId) {
+      initialLoadDone.current = false;
+      lastHydratedProductIdRef.current = productId;
+    }
+
+    if (!productData || isProductPending) return;
+    if (productData.storeId !== storeId) return;
+    if (productData.id !== productId) return;
+    if (initialLoadDone.current) return;
+
+    const mapped = ProductEntity.convertIncludeOutputToFormInput(productData);
+    initialImageUrlsRef.current = mapped.images
+      .filter((item) => item.kind === "remote")
+      .map((item) => item.url);
+    form.reset(mapped);
+    initialLoadDone.current = true;
+  }, [isEdit, productId, productData, isProductPending, storeId, form]);
+
+  const { data: categories } = useQuery({
+    ...appQueries.category.all({ input: { storeId } }),
   });
 
   const handleOpenCategoryDrawer = useCallback(() => {
@@ -120,5 +253,16 @@ export function useProductForm({ storeId }: { storeId: string }) {
     setIsCategoryDrawerOpen,
     handleOpenCategoryDrawer,
     handleCategoryCreated,
+    isEdit,
+    productQuery: {
+      data: productData,
+      isPending: isProductPending,
+      isError: isProductError,
+    },
+    publishProductMutation,
+    storeMismatch:
+      isEdit && Boolean(productData) && productData!.storeId !== storeId,
   };
 }
+
+export type ProductFormApi = ReturnType<typeof useProductForm>["form"];

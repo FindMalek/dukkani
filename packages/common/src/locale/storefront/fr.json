@@ -58,6 +58,11 @@
         "quickAdd": {
           "viewDetails": "Voir les détails complets",
           "quantity": "Quantité"
+        },
+        "addons": {
+          "title": "Options",
+          "required": "Obligatoire",
+          "requiredGroup": "Veuillez choisir une option pour « {name} »"
         }
       },
       "cart": {

@@ -6,6 +6,10 @@ import {
   STOCK_FILTER_OPTIONS,
   VARIANTS_FILTER_OPTIONS,
 } from "@dukkani/common/schemas/product/enums";
+import type {
+  StockFilter,
+  VariantsFilter,
+} from "@dukkani/common/schemas/product/input";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,
@@ -18,10 +22,6 @@ import { Field, FieldLabel } from "@dukkani/ui/components/field";
 import { Input } from "@dukkani/ui/components/input";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import type {
-  StockFilter,
-  VariantsFilter,
-} from "@dukkani/common/schemas/product/input";
 
 interface ProductsFilterDrawerProps {
   open: boolean;

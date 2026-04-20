@@ -1,5 +1,24 @@
+import { MAX_VARIANT_COMBINATIONS } from "@dukkani/common/schemas/constants";
+
 export const cookieConstants = {
   LAST_LOGIN_METHOD: "better-auth.last_used_login_method", // Cookie name for storing the last used login method (e.g., "google", "email")
+} as const;
+
+export const productFormConstants = {
+  MAX_IMAGES: 10,
+} as const;
+
+export const productVariantFormConstants = {
+  MAX_OPTIONS: 3,
+  MAX_COMBINATIONS: MAX_VARIANT_COMBINATIONS,
+} as const;
+
+export const productImagePreviewDialogConstants = {
+  PLACEHOLDER_W: 1600,
+  PLACEHOLDER_H: 1200,
+  MIN_SCALE: 0.25,
+  MAX_SCALE: 4,
+  ZOOM_STEP: 0.25,
 } as const;
 
 export const imageCompressionConstants = {

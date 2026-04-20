@@ -1,7 +1,3 @@
-/**
- * MIME type utilities with comprehensive error handling
- */
-
 import {
   getFileExtensionFromMimeType,
   isImageMimeType,
@@ -11,7 +7,7 @@ import {
   SUPPORTED_MIME_TYPES,
   type SupportedExtension,
   type SupportedMimeType,
-} from "../schemas/constants";
+} from "../../schemas/constants";
 
 /**
  * Validation functions with descriptive errors

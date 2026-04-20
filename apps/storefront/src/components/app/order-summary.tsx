@@ -3,9 +3,10 @@
 import type { store } from "@dukkani/common/schemas";
 import type { CartItemOutput } from "@dukkani/common/schemas/cart/output";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
+import { getItemKey } from "@/shared/lib/cart/item-comparator";
 
 interface OrderSummaryProps {
   items: CartItemOutput[];
@@ -54,7 +55,7 @@ export function OrderSummary({
         ) : (
           items.map((item) => (
             <div
-              key={`${item.productId}-${item.variantId ?? "no-variant"}`}
+              key={getItemKey(item)}
               className="flex gap-3 border-border/60 border-b py-3 last:border-b-0"
             >
               <div className="size-12 shrink-0 overflow-hidden rounded-md bg-muted">

@@ -339,8 +339,12 @@
     "create": {
       "header": {
         "title": "منتج جديد",
+        "editTitle": "تعديل المنتج",
         "save": "حفظ"
       },
+      "storeMismatch": "هذا المنتج يخص متجراً آخر. بدّل المتجر لتعديله.",
+      "loadError": "تعذّر تحميل هذا المنتج. أعد المحاولة أو ارجع إلى القائمة.",
+      "loadingProduct": "جاري تحميل المنتج",
       "sections": {
         "photos": "صور المنتج",
         "essentials": "المعلومات الأساسية",
@@ -369,6 +373,16 @@
           "placeholder": "أدخل حالة نشر المنتج"
         },
         "photos": "صور",
+        "photoPreviewTitle": "معاينة الصورة",
+        "photoPreviewZoomIn": "تكبير",
+        "photoPreviewZoomOut": "تصغير",
+        "photoPreviewZoomGroup": "عناصر التكبير",
+        "photoPreviewZoomReadout": "نسبة التكبير",
+        "photoPreviewResetZoom": "إعادة تعيين التكبير",
+        "photoPreviewClose": "إغلاق المعاينة",
+        "photoPreviewWheelHint": "مرر للتكبير أو التصغير",
+        "viewPhoto": "عرض بالحجم الكامل",
+        "removePhoto": "إزالة الصورة",
         "priceHelp": "السعر الذي يدفعه العملاء (الدفع عند الاستلام)",
         "category": {
           "label": "الفئة",
@@ -384,9 +398,14 @@
         },
         "options": {
           "label": "لديه خيارات",
-          "description": "أضف خيارات مثل الحجم، اللون، المادة، إلخ."
+          "description": "أضف خيارات مثل الحجم، اللون، المادة، إلخ.",
+          "structureLocked": "خيارات المتغير مقفلة لأن هذا المنتج يحتوي على متغيرات SKU. يمكنك لا يزال تعديل تفاصيل المنتج الأخرى."
         },
         "saveDraft": "حفظ كمسودة",
+        "saveChanges": "حفظ التغييرات",
+        "publishVersion": "نشر مباشرة",
+        "discardDraft": "تجاهل المسودة",
+        "draftHint": "لديك تعديلات غير منشورة. احفظ التغييرات ثم انشر لتحديث المتجر.",
         "savePublish": "حفظ ونشر",
         "optional": "اختياري",
         "cancel": "إلغاء",
@@ -402,11 +421,22 @@
             "optionName": "اسم الخيار",
             "optionNamePlaceholder": "مثال: الحجم، اللون",
             "values": "القيم",
-            "addValue": "إضافة قيمة",
+            "addValue": "+ إضافة قيمة",
             "noValues": "أضف قيمة واحدة على الأقل",
             "remove": "إزالة الخيار",
-            "addAnother": "إضافة خيار",
+            "removeValue": "إزالة القيمة",
+            "addAnother": "إضافة خيار آخر",
+            "maxOptions": "الحد الأقصى 3 خيارات",
             "value": "القيمة"
+          },
+          "pendingRemoval": {
+            "title": "حذف هذه القيمة سيزيل {count} متغيرات",
+            "description": "اضغط للتأكيد قبل تطبيق التغييرات.",
+            "confirm": "تأكيد",
+            "undo": "تراجع"
+          },
+          "optionOrder": {
+            "label": "ترتيب الخيارات"
           },
           "list": {
             "title": "المتغيرات",
@@ -424,6 +454,29 @@
             "priceHelp": "اتركه فارغاً لاستخدام سعر المنتج الأساسي",
             "stock": "المخزون"
           },
+          "editSheet": {
+            "title": "تعديل المتغير: {label}",
+            "image": "الصورة"
+          },
+          "imagePicker": {
+            "title": "اختر صورة",
+            "noImage": "بدون صورة"
+          },
+          "matrix": {
+            "title": "تركيبات المتغير",
+            "hint": "كل صف يمثل تركيبة قابلة للبيع. يُستورد المخزون والسعر من المنتج أعلاه؛ اترك السعر فارغاً لاستخدام السعر الأساسي.",
+            "tooMany": "عدد التركيبات كبير جداً (الحد الأقصى {max}). قلّل قيم الخيارات.",
+            "empty": "أضف أسماء الخيارات والقيم أعلاه لإنشاء الصفوف.",
+            "columnCombination": "التركيبة",
+            "columnSku": "رمز المنتج",
+            "columnPrice": "السعر",
+            "columnStock": "المخزون",
+            "skuPlaceholder": "اختياري",
+            "pricePlaceholder": "السعر الأساسي",
+            "variantCount": "{count} متغيرات",
+            "inStock": "{count} في المخزون",
+            "outOfStock": "نفد المخزون"
+          },
           "validation": {
             "duplicateOptionName": "اسم الخيار مكرر",
             "duplicateOptionValues": "قيم الخيار مكررة",
@@ -437,6 +490,12 @@
         "title": "لم يتم العثور على متجر",
         "description": "يرجى إنشاء متجر أولاً لإضافة المنتجات.",
         "createStore": "إنشاء متجر"
+      }
+    },
+    "edit": {
+      "header": {
+        "title": "تعديل المنتج",
+        "save": "حفظ"
       }
     }
   },

@@ -1,14 +1,15 @@
+/**
+ * Stable key for a cart line (product + variant).
+ */
 export function getItemKey(item: {
   productId: string;
   variantId?: string;
 }): string {
-  return item.variantId
-    ? `${item.productId}-${item.variantId}`
-    : item.productId;
+  return `${item.productId}\0${item.variantId ?? ""}`;
 }
 
 /**
- * Check if two cart items are the same (same product + variant)
+ * Whether two cart lines refer to the same product + variant row.
  */
 export function areItemsEqual(
   item1: { productId: string; variantId?: string },

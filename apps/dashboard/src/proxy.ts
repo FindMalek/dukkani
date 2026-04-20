@@ -1,5 +1,5 @@
+import { getLocale, setLocaleCookie } from "@dukkani/common/lib";
 import { LOCALES } from "@dukkani/common/schemas/constants";
-import { getLocale, setLocaleCookie } from "@dukkani/common/utils/locale-proxy";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 

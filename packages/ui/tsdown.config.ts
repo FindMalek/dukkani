@@ -4,5 +4,6 @@ export default defineConfig({
   entry: ["src/**/*.{ts,tsx}"],
   sourcemap: true,
   dts: true,
+  logLevel: "error",
   format: ["esm"],
 });

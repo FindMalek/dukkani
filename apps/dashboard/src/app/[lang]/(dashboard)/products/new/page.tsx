@@ -3,7 +3,7 @@
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
-import { Spinner } from "@dukkani/ui/components/spinner";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useCallback, useRef } from "react";
@@ -11,21 +11,33 @@ import {
   ProductForm,
   type ProductFormHandle,
 } from "@/components/app/products/product-form";
+import { ProductFormSkeleton } from "@/components/app/products/product-form-skeleton";
 import { getRouteWithQuery, RoutePaths } from "@/shared/config/routes";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 
 export default function NewProductPage() {
   const t = useTranslations("products.create");
   const formRef = useRef<ProductFormHandle>(null);
+
   const { selectedStoreId, isLoading } = useActiveStoreStore();
 
-  const handleSaveAsDraft = useCallback(() => {
-    formRef.current?.submit(false);
+  const handleSave = useCallback(() => {
+    formRef.current?.submit();
   }, []);
+
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Spinner className="h-8 w-8 text-primary" />
+      <div className="min-h-screen dark:bg-background">
+        <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b bg-background px-4">
+          <Link href={RoutePaths.PRODUCTS.INDEX.url} className="z-10">
+            <Icons.arrowLeft className="h-5 w-5" />
+          </Link>
+          <Skeleton className="absolute top-1/2 left-1/2 h-5 w-36 -translate-x-1/2 -translate-y-1/2" />
+          <Skeleton className="h-8 w-14 shrink-0 rounded-md" />
+        </header>
+        <main className="container max-w-lg px-2 pt-4">
+          <ProductFormSkeleton loadingLabel={t("loadingProduct")} />
+        </main>
       </div>
     );
   }
@@ -63,7 +75,7 @@ export default function NewProductPage() {
         </h1>
 
         <Button
-          onClick={handleSaveAsDraft}
+          onClick={handleSave}
           variant="ghost"
           className="font-bold text-primary text-sm"
         >

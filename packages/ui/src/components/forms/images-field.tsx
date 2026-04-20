@@ -3,10 +3,14 @@
 import { useTranslations } from "next-intl";
 import * as React from "react";
 import { useFieldContext } from "../../hooks/use-app-form";
-import { Dropzone, DropzoneThumb, DropzoneZone } from "../dropzone";
-import { ScrollArea, ScrollBar } from "../scroll-area";
+import { useObjectUrlPreviews } from "../../hooks/use-object-url-previews";
+import { ImageFileTrigger } from "../image-file-trigger";
+import { ImagePreviewStrip } from "../image-preview-strip";
+import { ImagePreviewThumb } from "../image-preview-thumb";
 import { Skeleton } from "../skeleton";
 import { BaseField, type CommonFieldProps } from "./base-field";
+
+const UNBOUNDED_MAX_FILES = 0x7fff_ffff;
 
 interface ImagesFieldProps extends CommonFieldProps {
   multiple?: boolean;
@@ -24,8 +28,26 @@ export function ImagesField({
   const files = field.state.value ?? [];
   const t = useTranslations("fields.images");
   const thumbsRef = React.useRef<HTMLDivElement>(null);
-  const optimizationRequestRef = React.useRef(0);
-  const [isOptimizing, setIsOptimizing] = React.useState(false);
+  const filesRef = React.useRef(files);
+  filesRef.current = files;
+  const [isTransforming, setIsTransforming] = React.useState(false);
+
+  const fileIdMap = React.useRef(new WeakMap<File, string>());
+  const getFileId = React.useCallback((file: File) => {
+    let id = fileIdMap.current.get(file);
+    if (!id) {
+      id = crypto.randomUUID();
+      fileIdMap.current.set(file, id);
+    }
+    return id;
+  }, []);
+
+  const previewItems = React.useMemo(
+    () => files.map((file) => ({ id: getFileId(file), file })),
+    [files, getFileId],
+  );
+
+  const previewById = useObjectUrlPreviews(previewItems);
 
   const scrollToEnd = React.useEffectEvent(() => {
     const viewport = thumbsRef.current?.closest(
@@ -40,39 +62,26 @@ export function ImagesField({
     }
   }, [files.length]);
 
-  const handleFilesChange = React.useCallback(
-    async (next: { file: File; preview: string }[]) => {
-      const requestId = ++optimizationRequestRef.current;
-      const nextFiles = next.map((fileWithPreview) => fileWithPreview.file);
+  const handleRemove = (index: number) => {
+    field.handleChange(files.filter((_, i) => i !== index));
+    field.handleBlur();
+  };
 
-      if (!optimizeFiles) {
-        field.handleChange(nextFiles);
-        field.handleBlur();
-        return;
+  const onFilesSelected = React.useCallback(
+    (newFiles: File[]) => {
+      const current = filesRef.current;
+      if (multiple) {
+        field.handleChange([...current, ...newFiles]);
+      } else {
+        field.handleChange(newFiles.slice(0, 1));
       }
-
-      setIsOptimizing(true);
-
-      try {
-        const optimizedFiles = await optimizeFiles(nextFiles);
-        if (requestId !== optimizationRequestRef.current) {
-          return;
-        }
-        field.handleChange(optimizedFiles.filter(Boolean));
-      } catch {
-        if (requestId !== optimizationRequestRef.current) {
-          return;
-        }
-        field.handleChange(nextFiles);
-      } finally {
-        if (requestId === optimizationRequestRef.current) {
-          setIsOptimizing(false);
-          field.handleBlur();
-        }
-      }
+      field.handleBlur();
     },
-    [field, optimizeFiles],
+    [field, multiple],
   );
+
+  const maxFiles = multiple ? UNBOUNDED_MAX_FILES : 1;
+  const mode = multiple ? "append" : "replace";
 
   return (
     <BaseField
@@ -80,48 +89,44 @@ export function ImagesField({
       description={description}
       srOnlyLabel={srOnlyLabel}
     >
-      <Dropzone
-        className="w-full"
-        accept={{ "image/*": [] }}
-        multiple={multiple}
-        files={files.map((file) => ({
-          file,
-          preview: URL.createObjectURL(file),
-        }))}
-        onFilesChange={handleFilesChange}
-      >
-        <div className="flex items-center gap-3">
+      <div className="flex w-full flex-col gap-3">
+        <div className="flex w-full min-w-0 items-center gap-3">
           {files.length > 0 && (
-            <ScrollArea className="max-w-sm">
-              <div className="flex gap-3" ref={thumbsRef}>
-                {files.map((file) => (
-                  <DropzoneThumb
-                    key={file.name}
-                    fileWithPreview={{
-                      file,
-                      preview: URL.createObjectURL(file),
-                    }}
-                    className="size-24 shrink-0 rounded-xl"
+            <ImagePreviewStrip thumbsRef={thumbsRef}>
+              {files.map((file, index) => {
+                const id = getFileId(file);
+                return (
+                  <ImagePreviewThumb
+                    key={id}
+                    src={previewById[id]}
+                    alt={file.name}
+                    className="border-muted-foreground/20"
+                    onRemove={() => handleRemove(index)}
+                    removeAriaLabel={`Remove ${file.name}`}
                   />
-                ))}
-              </div>
-              <ScrollBar orientation="horizontal" />
-            </ScrollArea>
+                );
+              })}
+            </ImagePreviewStrip>
           )}
 
-          <DropzoneZone
-            className="size-24 shrink-0 rounded-xl border-muted-foreground/20 p-2"
+          <ImageFileTrigger
+            maxFiles={maxFiles}
+            currentCount={files.length}
+            mode={mode}
+            className="border-muted-foreground/20 p-2"
             label={t("label")}
-            dragActiveLabel={t("dragActiveLabel")}
             hint={t("hint")}
+            transformFiles={optimizeFiles}
+            onBusyChange={optimizeFiles ? setIsTransforming : undefined}
+            onFilesSelected={onFilesSelected}
           />
         </div>
-      </Dropzone>
-      {isOptimizing ? (
-        <div className="flex items-center gap-3">
-          <Skeleton className="size-24 shrink-0 rounded-xl" />
-        </div>
-      ) : null}
+        {isTransforming ? (
+          <div className="flex items-center gap-3">
+            <Skeleton className="size-24 shrink-0 rounded-xl" />
+          </div>
+        ) : null}
+      </div>
     </BaseField>
   );
 }

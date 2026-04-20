@@ -6,8 +6,8 @@ import {
 } from "@dukkani/db/prisma/generated/enums";
 import {
   LIST_STORE_THEMES,
-  SupportedCurrency,
   type StoreThemeInfer,
+  SupportedCurrency,
   storeThemeEnum,
 } from "../../schemas/enums";
 import type {
@@ -18,6 +18,7 @@ import type {
   StoreSimpleOutput,
 } from "../../schemas/store/output";
 import { ProductEntity } from "../product/entity";
+import { ProductQuery } from "../product/query";
 import { SalesMetricEntity } from "../sales-metric/entity";
 import { StorePlanEntity } from "../store-plan/entity";
 import { TeamMemberEntity } from "../team-member/entity";
@@ -138,7 +139,9 @@ export class StoreEntity {
       owner: entity.owner
         ? UserEntity.getSimpleSelectRo(entity.owner)
         : undefined,
-      products: entity.products?.map(ProductEntity.getPublicRo),
+      products: entity.products
+        ?.filter(ProductQuery.isPublicWithPublished)
+        .map(ProductEntity.getPublicRo),
     };
   }
 

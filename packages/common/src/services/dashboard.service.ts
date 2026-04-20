@@ -74,6 +74,9 @@ class DashboardServiceBase {
 
     const baseOrderWhere = OrderQuery.getWhere(filteredStoreIds);
     const baseProductWhere = ProductQuery.getWhere(filteredStoreIds);
+    const lowStockProductWhere = ProductQuery.getWhere(filteredStoreIds, {
+      stock: { lte: 10 },
+    });
 
     const [
       totalProducts,
@@ -130,15 +133,12 @@ class DashboardServiceBase {
         include: OrderQuery.getInclude(),
       }),
 
-      // Get low stock products (stock <= 10)
+      // Get low stock products (stock <= 10 on published or draft version)
       database.product.findMany({
-        where: {
-          ...baseProductWhere,
-          stock: { lte: 10 },
-        },
+        where: lowStockProductWhere,
         take: 10,
         orderBy: ProductQuery.getOrder("asc", "stock"),
-        include: ProductQuery.getClientSafeInclude(),
+        include: ProductQuery.getSimpleInclude(),
       }),
 
       // Today's orders count

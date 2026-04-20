@@ -189,28 +189,23 @@ export class StoreService {
 - Use queries to build Prisma includes and where clauses
 - Throw domain errors (`NotFoundError`, `ForbiddenError`, `BadRequestError`, `ConflictError`) from `@dukkani/common/errors` instead of generic `Error`; routers convert these to ORPCError
 
-## Utils
+## Lib (shared helpers)
 
 ### Location
-`packages/common/src/utils/`
+`packages/common/src/lib/` — domain-oriented subfolders (`query/`, `http/`, `variant/`, etc.).
 
 ### Pattern
 
-Utility functions are pure functions (no side effects when possible).
+Pure helpers when possible; parsers and URL utilities live in `lib/query/` and `lib/http/`.
 
 ### File Naming
-`{utility-name}.ts` (kebab-case)
+`{utility-name}.ts` (kebab-case) within the appropriate subfolder.
 
 ### Example
 
 ```typescript
-// format-currency.ts
-export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount);
-}
+// lib/query/query-parsers.ts — nuqs parsers re-exported from @dukkani/common/lib
+export const parsePage = parseAsInteger.withDefault(1);
 ```
 
 ## Exports
@@ -220,7 +215,7 @@ export function formatCurrency(amount: number): string {
 - `schemas` - All schema exports
 - `entities` - All entity exports
 - `services` - All service exports
-- `utils` - All utility exports
+- `lib` - Shared helpers (formatting, parsers, variant matrix, MIME, locale proxy, etc.)
 
 ### Usage
 
@@ -228,7 +223,7 @@ export function formatCurrency(amount: number): string {
 import { StoreService } from "@dukkani/common/services";
 import { StoreEntity } from "@dukkani/common/entities/store";
 import { storeInputSchema } from "@dukkani/common/schemas/store/input";
-import { formatCurrency } from "@dukkani/common/utils";
+import { parsePage } from "@dukkani/common/lib";
 ```
 
 ## Dependencies

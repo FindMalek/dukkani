@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
   transpilePackages: ["@dukkani/ui", "@dukkani/env"],
   serverExternalPackages: [
     "@prisma/client",
+    "@dukkani/db",
     "pino",
     "pino-pretty",
     "thread-stream",
@@ -27,6 +28,7 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_API_URL: apiUrl,
   },
   images: {
+    dangerouslyAllowLocalIP: true,
     remotePatterns: [
       {
         protocol: "http",
@@ -44,6 +46,10 @@ const nextConfig: NextConfig = {
       },
       {
         hostname: "flagcdn.com",
+        pathname: "/**",
+      },
+      {
+        hostname: "images.unsplash.com",
         pathname: "/**",
       },
     ],

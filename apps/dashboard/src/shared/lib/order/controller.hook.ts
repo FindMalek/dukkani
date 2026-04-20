@@ -1,10 +1,10 @@
-import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
 import {
   parseLimit,
   parseOrderStatus,
   parsePage,
   parseSearchQuery,
-} from "@dukkani/common/utils/query-parsers";
+} from "@dukkani/common/lib";
+import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useQueryStates } from "nuqs";
 import { useMemo } from "react";

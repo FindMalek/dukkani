@@ -7,8 +7,8 @@ import {
   parseAsStringEnum,
   parseAsStringLiteral,
 } from "nuqs/server";
-import { OrderStatus, UserOnboardingStep } from "../schemas/enums";
-import { PRODUCT_SORT_OPTIONS } from "../schemas/product/input";
+import { OrderStatus, UserOnboardingStep } from "../../schemas/enums";
+import { PRODUCT_SORT_OPTIONS } from "../../schemas/product/input";
 
 /**
  * Parser for onboarding step with Zod validation

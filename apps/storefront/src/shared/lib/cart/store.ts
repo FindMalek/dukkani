@@ -70,13 +70,11 @@ export const useCartStore = create<CartStoreState>()(
             quantity: itemQuantity,
           };
 
-          // Find existing item by key
           const existingItemIndex = currentCart.findIndex((item) =>
             areItemsEqual(item, newItem),
           );
 
           if (existingItemIndex >= 0) {
-            // Update existing item quantity
             const updatedCart = [...currentCart];
             updatedCart[existingItemIndex] = {
               ...updatedCart[existingItemIndex],
@@ -90,7 +88,6 @@ export const useCartStore = create<CartStoreState>()(
             };
           }
 
-          // Add new item
           return {
             carts: {
               ...state.carts,
@@ -100,18 +97,18 @@ export const useCartStore = create<CartStoreState>()(
         });
       },
 
-      /**
-       * Remove item from cart
-       */
       removeItem: (productId, variantId) => {
         set((state) => {
           const storeSlug = state.currentStoreSlug;
           if (!storeSlug) return state;
 
           const currentCart = state.carts[storeSlug] || [];
-          const itemToRemove: CartItem = { productId, variantId, quantity: 0 };
+          const itemToRemove: CartItem = {
+            productId,
+            variantId,
+            quantity: 0,
+          };
 
-          // Filter out the item to remove
           const filteredCart = currentCart.filter(
             (item) => !areItemsEqual(item, itemToRemove),
           );
@@ -125,10 +122,6 @@ export const useCartStore = create<CartStoreState>()(
         });
       },
 
-      /**
-       * Update quantity of an item in cart
-       * If quantity <= 0, removes the item instead
-       */
       updateQuantity: (productId, quantity, variantId) => {
         if (quantity <= 0) {
           get().removeItem(productId, variantId);
@@ -140,7 +133,11 @@ export const useCartStore = create<CartStoreState>()(
           if (!storeSlug) return state;
 
           const currentCart = state.carts[storeSlug] || [];
-          const itemToUpdate: CartItem = { productId, variantId, quantity: 0 };
+          const itemToUpdate: CartItem = {
+            productId,
+            variantId,
+            quantity: 0,
+          };
 
           const updatedCart = currentCart.map((item) =>
             areItemsEqual(item, itemToUpdate) ? { ...item, quantity } : item,
@@ -169,16 +166,17 @@ export const useCartStore = create<CartStoreState>()(
         });
       },
 
-      /**
-       * Get quantity of a specific item in cart
-       */
       getItemQuantity: (productId, variantId) => {
         const state = get();
         const storeSlug = state.currentStoreSlug;
         if (!storeSlug) return 0;
 
         const cart = state.carts[storeSlug] || [];
-        const itemToFind: CartItem = { productId, variantId, quantity: 0 };
+        const itemToFind: CartItem = {
+          productId,
+          variantId,
+          quantity: 0,
+        };
 
         const item = cart.find((item) => areItemsEqual(item, itemToFind));
         return item?.quantity ?? 0;

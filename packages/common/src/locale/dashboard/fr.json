@@ -343,8 +343,12 @@
     "create": {
       "header": {
         "title": "Nouveau produit",
+        "editTitle": "Modifier le produit",
         "save": "Enregistrer"
       },
+      "storeMismatch": "Ce produit appartient à une autre boutique. Changez de boutique pour le modifier.",
+      "loadError": "Impossible de charger ce produit. Réessayez ou revenez à la liste.",
+      "loadingProduct": "Chargement du produit",
       "sections": {
         "photos": "Photos du produit",
         "essentials": "Essentiels",
@@ -373,6 +377,16 @@
           "placeholder": "Entrez le produit publié"
         },
         "photos": "Photos",
+        "photoPreviewTitle": "Aperçu de la photo",
+        "photoPreviewZoomIn": "Zoom avant",
+        "photoPreviewZoomOut": "Zoom arrière",
+        "photoPreviewZoomGroup": "Contrôles du zoom",
+        "photoPreviewZoomReadout": "Pourcentage du zoom",
+        "photoPreviewResetZoom": "Réinitialiser le zoom",
+        "photoPreviewClose": "Fermer l’aperçu",
+        "photoPreviewWheelHint": "Faites défiler pour zoomer",
+        "viewPhoto": "Voir en grand",
+        "removePhoto": "Retirer la photo",
         "priceHelp": "Prix que les clients paient (COD)",
         "category": {
           "label": "Catégorie",
@@ -388,9 +402,14 @@
         },
         "options": {
           "label": "A des options",
-          "description": "Ajoutez des options comme Taille, Couleur, Matériau, etc."
+          "description": "Ajoutez des options comme Taille, Couleur, Matériau, etc.",
+          "structureLocked": "Les options de variante sont verrouillées car ce produit a des variantes SKU. Vous pouvez toujours modifier les autres détails du produit."
         },
         "saveDraft": "Enregistrer le brouillon",
+        "saveChanges": "Enregistrer",
+        "publishVersion": "Publier en ligne",
+        "discardDraft": "Abandonner le brouillon",
+        "draftHint": "Des modifications ne sont pas encore publiées. Enregistrez, puis publiez pour mettre à jour la vitrine.",
         "savePublish": "Enregistrer et publier",
         "optional": "optionnel",
         "cancel": "Annuler",
@@ -403,14 +422,25 @@
             "add": "Ajouter une option",
             "empty": "Ajoutez des options comme Taille, Couleur, Matériau, etc.",
             "unnamed": "Option sans nom",
-            "optionName": "Nom de l'option",
+            "optionName": "Nom de l’option",
             "optionNamePlaceholder": "p. ex. Taille, Couleur",
             "values": "Valeurs",
-            "addValue": "Ajouter une valeur",
+            "addValue": "+ Ajouter une valeur",
             "noValues": "Ajoutez au moins une valeur",
-            "remove": "Supprimer l'option",
-            "addAnother": "Ajouter une option",
+            "remove": "Supprimer l’option",
+            "removeValue": "Supprimer la valeur",
+            "addAnother": "Ajouter une autre option",
+            "maxOptions": "Maximum 3 options",
             "value": "Valeur"
+          },
+          "pendingRemoval": {
+            "title": "Supprimer cette valeur effacera {count} variantes",
+            "description": "Appuyez pour confirmer avant d’appliquer les modifications.",
+            "confirm": "Confirmer",
+            "undo": "Annuler"
+          },
+          "optionOrder": {
+            "label": "Ordre des options"
           },
           "list": {
             "title": "Variantes",
@@ -428,9 +458,32 @@
             "priceHelp": "Laissez vide pour utiliser le prix de base du produit",
             "stock": "Stock"
           },
+          "editSheet": {
+            "title": "Modifier la variante : {label}",
+            "image": "Image"
+          },
+          "imagePicker": {
+            "title": "Choisir une image",
+            "noImage": "Sans image"
+          },
+          "matrix": {
+            "title": "Combinaisons de variantes",
+            "hint": "Chaque ligne est une combinaison vendable. Le stock et le prix reprennent par défaut le produit ci-dessus ; laissez le prix vide pour utiliser le prix de base.",
+            "tooMany": "Trop de combinaisons (max {max}). Réduisez les valeurs d’option.",
+            "empty": "Ajoutez des noms et valeurs d’option ci-dessus pour générer les lignes.",
+            "columnCombination": "Combinaison",
+            "columnSku": "SKU",
+            "columnPrice": "Prix",
+            "columnStock": "Stock",
+            "skuPlaceholder": "Optionnel",
+            "pricePlaceholder": "Prix de base",
+            "variantCount": "{count} variantes",
+            "inStock": "{count} en stock",
+            "outOfStock": "Rupture de stock"
+          },
           "validation": {
-            "duplicateOptionName": "Nom d'option dupliqué",
-            "duplicateOptionValues": "Valeurs d'option dupliquées",
+            "duplicateOptionName": "Nom d’option dupliqué",
+            "duplicateOptionValues": "Valeurs d’option dupliquées",
             "duplicateValue": "Valeur dupliquée",
             "duplicateOption": "Option dupliquée"
           }
@@ -441,6 +494,12 @@
         "title": "Aucun magasin trouvé",
         "description": "Veuillez d'abord créer un magasin pour ajouter des produits.",
         "createStore": "Créer un magasin"
+      }
+    },
+    "edit": {
+      "header": {
+        "title": "Modifier le produit",
+        "save": "Enregistrer"
       }
     }
   },

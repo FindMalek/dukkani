@@ -50,6 +50,9 @@ pnpm run db:generate
 # Create and apply migration
 pnpm run db:migrate
 
+# Create migration SQL only (review before applying)
+pnpm --filter @dukkani/db db:migrate:create-only
+
 # Open Prisma Studio (database GUI)
 pnpm run db:studio
 
@@ -62,6 +65,34 @@ pnpm run db:reset-and-seed
 # Reset database (WARNING: deletes all data)
 pnpm run db:reset
 ```
+
+### Migration CLI args (name, etc.)
+
+From the repo root, extra arguments are forwarded to the underlying script if you pass them **after** `--` (pnpm → Turborepo → `@dukkani/db` script). Example:
+
+```bash
+pnpm run db:migrate -- --name add_product_version_uniques
+```
+
+If your shell or Turbo version strips one `--`, run from `packages/db` instead:
+
+```bash
+cd packages/db && pnpm exec prisma migrate dev --name add_product_version_uniques
+```
+
+**Unique indexes on version-scoped columns:** if a migration adds `@@unique([productVersionId, name])` or `@@unique([productVersionId, sku])`, deduplicate those pairs in the database **before** applying the migration, or PostgreSQL will reject the migration when it tries to build the index.
+
+### Prisma Migrate warnings and “Are you sure?”
+
+When Prisma detects **risky** changes (for example the unique-index warnings above), `prisma migrate dev` prints the warnings and asks **“Are you sure you want to create and apply this migration?”** The safe default is often **No**—pressing **Enter** alone may **cancel** the run (exit code 130). That is unrelated to Turbo dropping `--name`: your migration name is still applied; the run stopped at the confirmation step.
+
+**Ways to proceed:**
+
+1. **Fix data first** (recommended when duplicates exist): dedupe rows, then run migrate again and answer **yes** when prompted.
+2. **Explicitly confirm**: type **yes** (or **y**) at the prompt when you accept the risk.
+3. **Review SQL before apply**: run `pnpm --filter @dukkani/db db:migrate:create-only`, inspect the generated migration, fix data, then run `db:migrate` (or apply + resolve as your team prefers).
+
+For non-interactive environments, piping `yes` is possible but dangerous if you have not resolved duplicate data—prefer fixing the database or using create-only first.
 
 See [docs/storage.md](../../docs/storage.md) for MinIO and R2 storage setup.
 

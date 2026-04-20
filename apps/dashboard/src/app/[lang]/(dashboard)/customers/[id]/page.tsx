@@ -18,12 +18,17 @@ import {
   TableRow,
 } from "@dukkani/ui/components/table";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { RoutePaths } from "@/shared/config/routes";
+import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
 
 export default function CustomerDetailPage() {
   const params = useParams();
-  const customerId = params.id as string;
+  const customerId = getDynamicRouteParam(params, "id");
+
+  if (!customerId) {
+    notFound();
+  }
 
   return (
     <div className="container mx-auto max-w-7xl p-4 md:p-6">

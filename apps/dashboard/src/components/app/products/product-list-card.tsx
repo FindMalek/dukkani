@@ -5,6 +5,7 @@ import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { cn } from "@dukkani/ui/lib/utils";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
@@ -71,9 +72,13 @@ export function ProductListCard({
         {/* Image */}
         <div className="size-20 shrink-0 overflow-hidden rounded-lg border border-border/50 bg-muted/50">
           {firstImageUrl ? (
-            <img
+            <Image
+              key={firstImageUrl}
               src={firstImageUrl}
               alt={product.name}
+              width={80}
+              height={80}
+              unoptimized
               className="size-full object-cover"
             />
           ) : (

@@ -44,7 +44,7 @@ export const RoutePaths = {
     },
     DETAIL: {
       url: (id: string) => `/products/${id}` as Route,
-      label: "Product Details",
+      label: "Edit product",
     },
   },
 

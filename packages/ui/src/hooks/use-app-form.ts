@@ -17,23 +17,35 @@ import { TextField } from "../components/forms/text-field";
 const { fieldContext, formContext, useFieldContext, useFormContext } =
   createFormHookContexts();
 
+export const dukkaniAppFormFieldComponents = {
+  TextInput: TextField,
+  EmailInput: EmailField,
+  PhoneNumberInput: PhoneNumberField,
+  TextAreaInput: TextAreaField,
+  PasswordInput: PasswordField,
+  NumberInput: NumberField,
+  PriceInput: PriceField,
+  SelectInput: SelectField,
+  CheckboxInput: CheckboxField,
+  SwitchInput: SwitchField,
+  ArrayInput: ArrayField,
+  ImagesInput: ImagesField,
+  PillInput: PillField,
+  RadioGroupInput: RadioGroupField,
+};
+
+export type DukkaniAppFormFieldComponents =
+  typeof dukkaniAppFormFieldComponents;
+
+/**
+ * Empty form-level component map. Use `{}`, not `Record<string, never>`: TanStack intersects
+ * `ReactFormExtendedApi & NoInfer<TFormComponents>`, and a string index signature forces a
+ * clash with `FormApi` members.
+ */
+export type DukkaniAppFormComponents = {};
+
 const { useAppForm, withForm } = createFormHook({
-  fieldComponents: {
-    TextInput: TextField,
-    EmailInput: EmailField,
-    PhoneNumberInput: PhoneNumberField,
-    TextAreaInput: TextAreaField,
-    PasswordInput: PasswordField,
-    NumberInput: NumberField,
-    PriceInput: PriceField,
-    SelectInput: SelectField,
-    CheckboxInput: CheckboxField,
-    SwitchInput: SwitchField,
-    ArrayInput: ArrayField,
-    ImagesInput: ImagesField,
-    PillInput: PillField,
-    RadioGroupInput: RadioGroupField,
-  },
+  fieldComponents: dukkaniAppFormFieldComponents,
   formComponents: {},
   fieldContext,
   formContext,

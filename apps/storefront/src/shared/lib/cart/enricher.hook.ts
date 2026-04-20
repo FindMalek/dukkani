@@ -8,8 +8,7 @@ import { getItemKey } from "./item-comparator";
 
 /**
  * Current cart lines from the store plus server-enriched rows (prices, names, stock).
- * Query input identity is stable when only quantities change (same product/variant keys),
- * so we avoid refetching; live quantities come from the Zustand merge step.
+ * Quantities are merged from Zustand into `enrichedData` so the UI stays in sync.
  */
 export function useEnrichedCart(enabled = true) {
   const carts = useCartStore((state) => state.carts);
@@ -20,21 +19,20 @@ export function useEnrichedCart(enabled = true) {
     return carts[currentStoreSlug] || [];
   }, [carts, currentStoreSlug]);
 
-  const itemKeysString = useMemo(() => {
-    return cartItems.map(getItemKey).sort().join(",");
-  }, [cartItems]);
-
-  const queryInput = useMemo(() => {
-    return cartItems.map((item) => ({
-      productId: item.productId,
-      variantId: item.variantId,
-      quantity: item.quantity,
-    }));
-  }, [itemKeysString]);
+  const queryInput = useMemo(
+    () => ({
+      items: cartItems.map((item) => ({
+        productId: item.productId,
+        variantId: item.variantId,
+        quantity: item.quantity,
+      })),
+    }),
+    [cartItems],
+  );
 
   const query = useQuery(
     appQueries.cart.items({
-      input: { items: queryInput },
+      input: queryInput,
       placeholderData: keepPreviousData,
       staleTime: 30 * 1000,
       enabled: enabled && cartItems.length > 0,
@@ -47,17 +45,13 @@ export function useEnrichedCart(enabled = true) {
 
     const filteredData = query.data.filter((enrichedItem) => {
       return cartItems.some(
-        (item) =>
-          item.productId === enrichedItem.productId &&
-          item.variantId === enrichedItem.variantId,
+        (item) => getItemKey(item) === getItemKey(enrichedItem),
       );
     });
 
     return filteredData.map((enrichedItem) => {
       const currentItem = cartItems.find(
-        (item) =>
-          item.productId === enrichedItem.productId &&
-          item.variantId === enrichedItem.variantId,
+        (item) => getItemKey(item) === getItemKey(enrichedItem),
       );
       return {
         ...enrichedItem,

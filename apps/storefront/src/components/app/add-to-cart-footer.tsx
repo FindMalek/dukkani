@@ -5,8 +5,9 @@ import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
 import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
+import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCartStore } from "@/shared/lib/cart/store";
 
 interface AddToCartFooterProps {
@@ -16,10 +17,10 @@ interface AddToCartFooterProps {
   currency: store.SupportedCurrencyInfer;
   selectedVariantId?: string;
   variant?: "fixed" | "inline";
-  onAddToCart?: () => void;
+  onAddToCart?: (args: { quantity: number }) => boolean | void;
 }
 
-export function AddToCartFooter({
+function AddToCartFooterInner({
   productId,
   stock,
   price,
@@ -29,15 +30,11 @@ export function AddToCartFooter({
   onAddToCart,
 }: AddToCartFooterProps) {
   const t = useTranslations("storefront.store.product.addToCart");
-  const formatPrice = useFormatPriceCurrentStore(currency);
-  const [quantity, setQuantity] = useState(1);
 
+  const [quantity, setQuantity] = useState(1);
+  const formatPrice = useFormatPriceCurrentStore(currency);
   const addItem = useCartStore((state) => state.addItem);
   const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
-
-  useEffect(() => {
-    setQuantity(1);
-  }, [selectedVariantId]);
 
   const isOutOfStock = stock === 0;
   const maxQuantity = Math.min(stock, 99);
@@ -55,23 +52,27 @@ export function AddToCartFooter({
   };
 
   const handleAddToCart = () => {
-    if (!isOutOfStock) {
+    if (isOutOfStock) return;
+    if (onAddToCart) {
+      const ok = onAddToCart({ quantity });
+      if (ok === false) return;
+    } else {
       addItem(productId, quantity, selectedVariantId);
-      setCartDrawerOpen(true);
-      onAddToCart?.();
     }
+    setCartDrawerOpen(true);
   };
 
-  const containerClass =
-    variant === "fixed"
-      ? "fixed inset-x-0 bottom-0 z-40 mb-0 border-border border-t bg-background/95 backdrop-blur-sm"
-      : "border-border border-t bg-background pt-3";
-
   return (
-    <div className={containerClass}>
+    <div
+      className={cn(
+        "border-border border-t",
+        variant === "fixed"
+          ? "fixed inset-x-0 bottom-0 z-40 mb-0 bg-background/95 backdrop-blur-sm"
+          : "bg-background pt-3",
+      )}
+    >
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center gap-3">
-          {/* Quantity Selector */}
           <QuantitySelector
             quantity={quantity}
             onDecrease={handleDecrease}
@@ -82,7 +83,6 @@ export function AddToCartFooter({
             size="md"
           />
 
-          {/* Add to Cart Button with Price */}
           <Button
             className="flex-1 bg-primary text-primary-foreground"
             onClick={handleAddToCart}
@@ -102,5 +102,17 @@ export function AddToCartFooter({
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * Remounts quantity state when the selected variant changes (`key` on inner component).
+ */
+export function AddToCartFooter(props: AddToCartFooterProps) {
+  return (
+    <AddToCartFooterInner
+      key={props.selectedVariantId ?? "__base__"}
+      {...props}
+    />
   );
 }

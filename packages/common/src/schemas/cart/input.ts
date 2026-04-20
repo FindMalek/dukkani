@@ -1,5 +1,14 @@
 import { z } from "zod";
-import { productLineItemSchema } from "../product/input";
+import { type ProductLineItem, productLineItemSchema } from "../product/input";
+
+function cartLineIdentity(item: ProductLineItem): string {
+  const adds = (item.addonSelections ?? [])
+    .slice()
+    .sort((a, b) => a.addonOptionId.localeCompare(b.addonOptionId))
+    .map((a) => `${a.addonOptionId}:${a.quantity}`)
+    .join("|");
+  return `${item.productId}\0${item.variantId ?? ""}\0${adds}`;
+}
 
 export const getCartItemsInputSchema = z.object({
   items: z
@@ -8,9 +17,7 @@ export const getCartItemsInputSchema = z.object({
     .max(50)
     .refine(
       (items) => {
-        const keys = items.map(
-          (item) => `${item.productId}-${item.variantId ?? ""}`,
-        );
+        const keys = items.map(cartLineIdentity);
         return new Set(keys).size === keys.length;
       },
       {

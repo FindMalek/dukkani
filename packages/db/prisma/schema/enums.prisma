@@ -142,6 +142,28 @@ enum PaymentMethod {
   CARD
 }
 
+/**
+ * Lifecycle of a sellable product snapshot (a single catalog revision for one logical Product).
+ * Merchandising (name, price, images, variant matrix) lives on ProductVersion rows, not on Product.
+ * **Statuses:**
+ * - `DRAFT`: Editable snapshot in the dashboard; not the live storefront row until published.
+ * - `PUBLISHED`: Live catalog definition; Product.currentPublishedVersionId points at one of these when the listing is live.
+ * - `ARCHIVED`: Superseded by a newer publish; rows stay so OrderItem.productVersionId and history stay correct.
+ */
+enum ProductVersionStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+/**
+ * Add-on group: whether the customer may pick one option or many from the group.
+ */
+enum ProductAddonSelectionType {
+  SINGLE
+  MULTIPLE
+}
+
 enum SupportedCurrency {
   TND
   USD

@@ -47,12 +47,8 @@ export class OrderQuery {
       },
       orderItems: {
         include: {
-          product: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
+          product: { select: { id: true } },
+          productVersion: { select: { name: true } },
         },
       },
       whatsappMessages: true,

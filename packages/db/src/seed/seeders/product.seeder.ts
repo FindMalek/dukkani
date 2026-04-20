@@ -1,6 +1,7 @@
 import { generateProductId } from "@/utils/generate-id";
 import type { PrismaClient } from "../../../prisma/generated/client";
 import { Prisma } from "../../../prisma/generated/client";
+import { ProductVersionStatus } from "../../../prisma/generated/enums";
 import { BaseSeeder } from "../base";
 import type { StoreSeeder } from "./store.seeder";
 
@@ -50,15 +51,26 @@ export class ProductSeeder extends BaseSeeder {
     }
 
     // Check if products already exist
-    const existingProducts = await database.product.findMany();
+    const existingProducts = await database.product.findMany({
+      include: {
+        currentPublishedVersion: { select: { name: true, price: true } },
+      },
+    });
     if (existingProducts.length > 0) {
       this.log(`Skipping: ${existingProducts.length} products already exist`);
       for (const product of existingProducts) {
+        const v = product.currentPublishedVersion;
+        if (!v?.name) {
+          this.error(
+            `Product ${product.id} has no current published version name; fix data or republish — not adding to seededProducts.`,
+          );
+          continue;
+        }
         this.seededProducts.push({
           id: product.id,
-          name: product.name,
+          name: v.name,
           storeId: product.storeId,
-          price: product.price,
+          price: v.price ?? new Prisma.Decimal(0),
         });
       }
       return;
@@ -919,17 +931,24 @@ export class ProductSeeder extends BaseSeeder {
     // Create products with categories, images, and variants
     const createdProducts = await Promise.all(
       productData.map(async (productInfo) => {
-        // Create product base
         const product = await database.product.create({
           data: {
             id: productInfo.id,
-            name: productInfo.name,
-            description: productInfo.description,
-            price: productInfo.price,
-            stock: productInfo.stock,
             published: productInfo.published,
             storeId: productInfo.storeId,
             categoryId: productInfo.categoryId,
+          },
+        });
+
+        const version = await database.productVersion.create({
+          data: {
+            productId: product.id,
+            status: ProductVersionStatus.PUBLISHED,
+            versionNumber: 1,
+            name: productInfo.name,
+            description: productInfo.description ?? null,
+            price: productInfo.price,
+            stock: productInfo.stock,
             hasVariants: productInfo.hasVariants,
             images: {
               create: productInfo.images.map((url) => ({ url })),
@@ -937,13 +956,16 @@ export class ProductSeeder extends BaseSeeder {
           },
         });
 
-        // Create variant options and variants if needed
+        await database.product.update({
+          where: { id: product.id },
+          data: { currentPublishedVersionId: version.id },
+        });
+
         if (
           productInfo.hasVariants &&
           productInfo.variantOptions &&
           productInfo.variants
         ) {
-          // Create variant options and store their IDs
           const optionMap = new Map<
             string,
             { optionId: string; values: Map<string, string> }
@@ -953,7 +975,7 @@ export class ProductSeeder extends BaseSeeder {
             const createdOption = await database.productVariantOption.create({
               data: {
                 name: optionDef.name,
-                productId: product.id,
+                productVersionId: version.id,
                 values: {
                   create: optionDef.values.map((value) => ({
                     value,
@@ -976,14 +998,12 @@ export class ProductSeeder extends BaseSeeder {
             });
           }
 
-          // Create variants
           for (const variantDef of productInfo.variants) {
             const variantSelections: Array<{
               optionId: string;
               valueId: string;
             }> = [];
 
-            // Build selections from variant definition
             for (const [optionName, valueString] of Object.entries(
               variantDef,
             )) {
@@ -1018,7 +1038,7 @@ export class ProductSeeder extends BaseSeeder {
                     ? new Prisma.Decimal(variantDef.price.toString())
                     : null,
                   stock: variantDef.stock,
-                  productId: product.id,
+                  productVersionId: version.id,
                   selections: {
                     create: variantSelections.map((s) => ({
                       optionId: s.optionId,
@@ -1036,12 +1056,14 @@ export class ProductSeeder extends BaseSeeder {
     );
 
     // Store for export
-    for (const product of createdProducts) {
+    for (let i = 0; i < createdProducts.length; i++) {
+      const product = createdProducts[i]!;
+      const info = productData[i]!;
       this.seededProducts.push({
         id: product.id,
-        name: product.name,
+        name: info.name,
         storeId: product.storeId,
-        price: product.price,
+        price: info.price,
       });
     }
 

@@ -8,6 +8,8 @@ export * as image from "./image";
 export * as order from "./order";
 export * as orderItem from "./order-item";
 export * as product from "./product";
+export * as productAddon from "./product-addon";
+export * as productVersion from "./product-version";
 export * as salesMetric from "./sales-metric";
 export * as storage from "./storage";
 export * as store from "./store";

@@ -35,9 +35,11 @@ apps/dashboard/src/
 │   │   └── routes.ts          # Type-safe route definitions
 │   └── lib/                   # Domain-organized business logic
 │       ├── product/           # controller.hook.ts, form.ts, store.ts (UI-only)
+│       ├── variant/           # variants-form.util.ts, variants-field.hook.ts — product variant matrix (editor form slice)
 │       ├── order/             # controller.hook.ts, datetime.util.ts, group-by-date.util.ts, price.util.ts, store.ts (UI-only)
 │       ├── onboarding/        # controller.hook.ts, stepper.util.ts
 │       ├── store/             # active.store.ts, current-currency.hook.ts, format-price.hook.ts, url.util.ts
+│       ├── route-params.util.ts  # `getDynamicRouteParam` — `useParams()` segment parsing
 │       ├── clipboard.ts
 │       └── image-compression.ts
 ├── types/                     # App-level TS (e.g. i18n helpers, module augmentation)
@@ -139,7 +141,11 @@ Domain logic is grouped by feature. File suffix conventions:
 | `controller.hook.ts` | Screen-level orchestration: composes Zustand store + nuqs URL state + appQueries + appMutations |
 | `.store.ts` | Zustand store definitions — **UI-only state** (selection, view mode). Filters live in the URL via nuqs. |
 | `.util.ts` | Pure utility functions (formatting, grouping, calculations) |
-| `.hook.ts` | Domain-specific hooks that don't own full screen state |
+| `.hook.ts` | Domain-specific hooks that don't own full screen state (includes **form field** hooks — see below) |
+
+**`controller.hook.ts` vs field hooks:** `controller.hook.ts` is for **screen-level** orchestration (nuqs + Zustand + `appQueries` + `appMutations`). Hooks that only coordinate a **subsection of one form** (e.g. variant options + matrix under `ProductFormApi`) belong in a `*.hook.ts` next to related utils — **do not** name them `controller.hook.ts`. Example: [`variants-field.hook.ts`](apps/dashboard/src/shared/lib/variant/variants-field.hook.ts) under [`shared/lib/variant/`](apps/dashboard/src/shared/lib/variant/).
+
+**`shared/lib/variant/`** — Dashboard-only code for the **product variant matrix** inside the product editor: pure helpers ([`variants-form.util.ts`](apps/dashboard/src/shared/lib/variant/variants-form.util.ts) — reconcile, thumbs, submit image resolution) and the **variants field hook** consumed by [`product-form.tsx`](apps/dashboard/src/components/app/products/product-form.tsx). This is not a separate backend “variant service” domain; it is a **slice** of the product form UI.
 
 **Controller hook pattern** — use for list pages and complex screens:
 
@@ -150,7 +156,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   parseSearchQuery, parseProductStatus, parsePage,
   parseStockFilter, parseVariantsFilter, parsePriceMin, parsePriceMax,
-} from "@dukkani/common/utils/query-parsers";
+} from "@dukkani/common/lib";
 import { appQueries } from "@/shared/api/queries";
 import { appMutations } from "@/shared/api/mutations";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
@@ -204,6 +210,8 @@ Zustand stores hold **UI-only state**. Filters and pagination live in the URL vi
 | `selectedStoreId` (persisted) | `priceMin` / `priceMax` |
 | `isSwitching` | `page` / `limit` |
 
+**Transient UI tied to a single form instance** (e.g. which variant row opened the image drawer, pending destructive confirmation) → prefer **`useState` inside the field hook** that owns that form section. Avoid a global Zustand store unless unrelated parts of the tree must share that state.
+
 ```typescript
 // ✅ Correct — UI-only state in Zustand
 export const useProductStore = create<ProductStoreState>()(
@@ -220,6 +228,24 @@ export const useProductStore = create<ProductStoreState>()(
 
 // ❌ Wrong — never put filters in Zustand (use nuqs instead)
 ```
+
+### Dynamic route params (client components)
+
+For pages under a single dynamic segment such as `[id]`, read the param with **`getDynamicRouteParam`** from `@/shared/lib/route-params.util` — do not use `useMemo` for this, and do not use `params.id as string` unless you have a measured reason to bypass the helper.
+
+```typescript
+import { notFound, useParams } from "next/navigation";
+import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
+
+const params = useParams();
+const id = getDynamicRouteParam(params, "id");
+if (!id) {
+  notFound();
+}
+```
+
+- Catch-all segments (`[...slug]`) may surface as `string[]`; the helper returns the **first** segment when given a key that maps to an array.
+- For `[lang]` and other segments, pass the matching key (e.g. `"lang"`).
 
 ### `shared/config/` — Configuration
 
@@ -336,6 +362,7 @@ import { getServerQueryClient } from "@/shared/api/query-client.server";
 import { handleAPIError } from "@/shared/api/error-handler";
 import { authClient } from "@/shared/api/auth-client";
 import { RoutePaths } from "@/shared/config/routes";
+import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
 import { useProductsController } from "@/shared/lib/product/controller.hook";
 
 // Package imports
@@ -343,7 +370,7 @@ import { Button } from "@dukkani/ui/components/button";
 import { env } from "@dukkani/env";
 import {
   parseSearchQuery, parseProductStatus, parsePage,
-} from "@dukkani/common/utils/query-parsers";
+} from "@dukkani/common/lib";
 ```
 
 ## Error Handling
@@ -369,6 +396,11 @@ const mutation = useMutation(
 
 ## Best Practices
 
+### UI primitives (`@dukkani/ui`)
+
+- Use **`Button`** from `@dukkani/ui/components/button` instead of native `<button>` for all interactive actions (including icon-only controls). Prefer `variant` and `size` (for example `variant="ghost"` with `size="icon"` or `size="icon-sm"`) rather than bespoke `<button className="...">` styling.
+- Use **`Input`** from `@dukkani/ui/components/input` instead of raw `<input>` for text fields unless there is a documented exception (for example a third-party API that requires a bare element).
+
 - Use server components by default; add `"use client"` only when needed
 - Use `appQueries` / `appMutations` for all data fetching — never call `api.x.queryOptions` directly in components
 - Use `QueryData<typeof appQueries.x.y>` to extract query result types
@@ -378,4 +410,5 @@ const mutation = useMutation(
 - Prefetch in RSC layouts using `getServerQueryClient` + `HydrationBoundary`
 - Use `getServerSession` for server-side auth, `authClient` for client-side
 - Use type-safe routing from `@/shared/config/routes`
-- Use `@dukkani/common/utils/query-parsers` for all nuqs parsers — add new ones there, not inline
+- Use `getDynamicRouteParam` from `@/shared/lib/route-params.util` for `useParams()` in client detail pages — call `notFound()` when the required segment is missing
+- Use `@dukkani/common/lib` for all nuqs parsers — add new ones in `packages/common/src/lib/query/query-parsers.ts`, not inline

@@ -1,5 +1,6 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { StoreQuery } from "../store/query";
+
 export type SalesMetricSimpleDbData = Prisma.SalesMetricGetPayload<{
   include: ReturnType<typeof SalesMetricQuery.getSimpleInclude>;
 }>;

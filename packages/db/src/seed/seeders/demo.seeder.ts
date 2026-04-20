@@ -9,6 +9,7 @@ import {
   StoreStatus,
   StoreTheme,
 } from "../../../prisma/generated/client";
+import { ProductVersionStatus } from "../../../prisma/generated/enums";
 import { BaseSeeder } from "../base";
 import type { StoreSeeder } from "./store.seeder";
 import type { UserSeeder } from "./user.seeder";
@@ -219,21 +220,34 @@ export class DemoSeeder extends BaseSeeder {
       if (!categoryId) continue;
 
       const productId = generateProductId(DEMO_STORE_SLUG);
-      await database.product.create({
+      const product = await database.product.create({
         data: {
           id: productId,
+          published: true,
+          storeId: demoStore.id,
+          categoryId,
+        },
+      });
+
+      const version = await database.productVersion.create({
+        data: {
+          productId: product.id,
+          status: ProductVersionStatus.PUBLISHED,
+          versionNumber: 1,
           name: def.name,
           description: def.description,
           price: def.price,
           stock: def.stock,
-          published: true,
           hasVariants: false,
-          storeId: demoStore.id,
-          categoryId,
           images: {
             create: def.images.map((url) => ({ url })),
           },
         },
+      });
+
+      await database.product.update({
+        where: { id: product.id },
+        data: { currentPublishedVersionId: version.id },
       });
     }
 

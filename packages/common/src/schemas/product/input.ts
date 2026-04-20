@@ -1,16 +1,39 @@
 import { z } from "zod";
-
-import { variantInputSchema, variantOptionInputSchema } from "../variant/input";
+import { validateVariantMatrixAgainstOptions } from "../../lib/variant/matrix";
+import {
+  cartAddonSelectionSchema,
+  type ProductAddonGroupInput,
+  productAddonGroupInputSchema,
+} from "../product-addon/input";
+import {
+  type VariantInput,
+  type VariantOptionInput,
+  variantInputSchema,
+  variantOptionInputSchema,
+} from "../variant/input";
 
 /**
- * Product line item - productId, variantId, quantity.
+ * Product line item - productId, variantId, quantity, optional add-ons.
  * Shared across cart, orders, stock checks, price lookups.
  */
-export const productLineItemSchema = z.object({
-  productId: z.string().min(1, "Product ID is required"),
-  variantId: z.string().optional(),
-  quantity: z.number().int().min(1, "Quantity must be at least 1"),
-});
+export const productLineItemSchema = z
+  .object({
+    productId: z.string().min(1, "Product ID is required"),
+    variantId: z.string().optional(),
+    quantity: z.number().int().min(1, "Quantity must be at least 1"),
+    addonSelections: z.array(cartAddonSelectionSchema).optional().default([]),
+  })
+  .superRefine((data, ctx) => {
+    const ids = data.addonSelections.map((s) => s.addonOptionId);
+    if (new Set(ids).size !== ids.length) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "Duplicate add-on option selections are not allowed on one line",
+        path: ["addonSelections"],
+      });
+    }
+  });
 
 export type ProductLineItem = z.infer<typeof productLineItemSchema>;
 
@@ -30,6 +53,7 @@ export const createProductInputSchema = productInputSchema
     imageUrls: z.array(z.url()).optional(),
     variantOptions: z.array(variantOptionInputSchema).optional(),
     variants: z.array(variantInputSchema).optional(),
+    addonGroups: z.array(productAddonGroupInputSchema).optional(),
     collectionIds: z
       .array(z.string().min(1, "Collection ID cannot be empty"))
       .optional()
@@ -90,26 +114,81 @@ export const createProductInputSchema = productInputSchema
       message: "Duplicate SKUs are not allowed within the same product",
       path: ["variants"],
     },
-  );
+  )
+  .superRefine((data, ctx) => {
+    if (!data.hasVariants) return;
+    const result = validateVariantMatrixAgainstOptions(
+      data.variantOptions ?? [],
+      data.variants ?? [],
+    );
+    if (!result.ok) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: result.message,
+        path: ["variants"],
+      });
+    }
+  });
 
-export const updateProductInputSchema = productInputSchema.partial().extend({
-  id: z.string().min(1, "Product ID is required"),
-  imageUrls: z.array(z.url()).optional(),
-  variantOptions: z.array(variantOptionInputSchema).optional(),
-  variants: z.array(variantInputSchema).optional(),
-  collectionIds: z
-    .array(z.string().min(1, "Collection ID cannot be empty"))
-    .optional()
-    .refine(
-      (arr) => {
-        if (!arr || arr.length === 0) return true;
-        return new Set(arr).size === arr.length;
-      },
-      {
-        message: "Collection IDs must be unique",
-      },
-    ),
-});
+export const updateProductInputSchema = productInputSchema
+  .partial()
+  .extend({
+    id: z.string().min(1, "Product ID is required"),
+    imageUrls: z.array(z.url()).optional(),
+    variantOptions: z.array(variantOptionInputSchema).optional(),
+    variants: z.array(variantInputSchema).optional(),
+    addonGroups: z.array(productAddonGroupInputSchema).optional(),
+    collectionIds: z
+      .array(z.string().min(1, "Collection ID cannot be empty"))
+      .optional()
+      .refine(
+        (arr) => {
+          if (!arr || arr.length === 0) return true;
+          return new Set(arr).size === arr.length;
+        },
+        {
+          message: "Collection IDs must be unique",
+        },
+      ),
+  })
+  .superRefine((data, ctx) => {
+    if (data.variantOptions === undefined || data.variantOptions.length === 0) {
+      return;
+    }
+    if (!data.variants?.length) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          "Variants matrix is required when non-empty variant options are sent",
+        path: ["variants"],
+      });
+      return;
+    }
+    const result = validateVariantMatrixAgainstOptions(
+      data.variantOptions,
+      data.variants,
+    );
+    if (!result.ok) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: result.message,
+        path: ["variants"],
+      });
+    }
+  })
+  .refine(
+    (data) => {
+      if (!data.variants?.length) return true;
+      const skus = data.variants
+        .map((v) => v.sku?.trim())
+        .filter((sku): sku is string => !!sku);
+      return new Set(skus).size === skus.length;
+    },
+    {
+      message: "Duplicate SKUs are not allowed within the same product",
+      path: ["variants"],
+    },
+  );
 
 export const getProductInputSchema = z.object({
   id: z.string().min(1, "Product ID is required"),
@@ -150,8 +229,29 @@ export const togglePublishProductInputSchema = z.object({
   published: z.boolean(),
 });
 
+export const publishProductInputSchema = z.object({
+  id: z.string().min(1, "Product ID is required"),
+  expectedDraftUpdatedAt: z.coerce.date().optional(),
+});
+
+export const discardDraftProductInputSchema = z.object({
+  id: z.string().min(1, "Product ID is required"),
+});
+
 export type ProductInput = z.infer<typeof productInputSchema>;
 export type CreateProductInput = z.infer<typeof createProductInputSchema>;
+
+export type CreateInitialPublishedVersionInput = Pick<
+  CreateProductInput,
+  "name" | "price" | "stock" | "hasVariants"
+> & {
+  description?: string | null;
+  imageUrls?: string[];
+  variantOptions?: VariantOptionInput[];
+  variants?: VariantInput[];
+  addonGroups?: ProductAddonGroupInput[];
+};
+
 export type UpdateProductInput = z.infer<typeof updateProductInputSchema>;
 export type GetProductInput = z.infer<typeof getProductInputSchema>;
 export type ListProductsInput = z.infer<typeof listProductsInputSchema>;
@@ -160,6 +260,10 @@ export type VariantsFilter = z.infer<typeof variantsFilterSchema>;
 export type ProductSort = z.infer<typeof productSortSchema>;
 export type TogglePublishProductInput = z.infer<
   typeof togglePublishProductInputSchema
+>;
+export type PublishProductInput = z.infer<typeof publishProductInputSchema>;
+export type DiscardDraftProductInput = z.infer<
+  typeof discardDraftProductInputSchema
 >;
 
 export const getProductsByIdsInputSchema = z.object({

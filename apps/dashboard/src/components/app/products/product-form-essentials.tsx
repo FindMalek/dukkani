@@ -1,10 +1,51 @@
 "use client";
 
 import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-field";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
 import { productFormOptions } from "@/shared/lib/product/form";
 import { useCurrentStoreCurrency } from "@/shared/lib/store/current-currency.hook";
+import {
+  ProductFormImages,
+  ProductFormImagesSkeleton,
+} from "./product-form-images";
+
+function EssentialsFieldRow({
+  labelWidth = "w-28",
+  controlHeight = "h-10",
+}: {
+  labelWidth?: string;
+  controlHeight?: string;
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <Skeleton className={`h-4 ${labelWidth}`} />
+      <Skeleton className={`w-full ${controlHeight} rounded-md`} />
+    </div>
+  );
+}
+
+export function ProductFormEssentialsSkeleton() {
+  return (
+    <>
+      <EssentialsFieldRow />
+      <EssentialsFieldRow controlHeight="h-24" />
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-1 flex-col gap-2">
+          <Skeleton className="h-4 w-16" />
+          <Skeleton className="h-10 w-full rounded-md" />
+        </div>
+        <div className="flex flex-1 flex-col gap-2">
+          <Skeleton className="h-4 w-14" />
+          <Skeleton className="h-10 w-full rounded-md" />
+        </div>
+      </div>
+      <EssentialsFieldRow labelWidth="w-20" />
+      <ProductFormImagesSkeleton />
+    </>
+  );
+}
 
 export const ProductFormEssentials = withForm({
   ...productFormOptions,
@@ -63,13 +104,8 @@ export const ProductFormEssentials = withForm({
             />
           )}
         </form.AppField>
-        <form.AppField name="imageFiles" mode="array">
-          {(imageUrlsField) => (
-            <imageUrlsField.ImagesInput
-              label={t("form.photos")}
-              optimizeFiles={optimizeFiles}
-            />
-          )}
+        <form.AppField name="images">
+          {() => <ProductFormImages optimizeFiles={optimizeFiles} />}
         </form.AppField>
       </>
     );

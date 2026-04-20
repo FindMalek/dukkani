@@ -208,7 +208,7 @@ Controller hooks live in `shared/lib/{domain}/controller.hook.ts`. They compose:
 // apps/dashboard/src/shared/lib/order/controller.hook.ts
 import { useQueryStates } from "nuqs";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { parseSearchQuery, parseOrderStatus, parsePage } from "@dukkani/common/utils/query-parsers";
+import { parseSearchQuery, parseOrderStatus, parsePage } from "@dukkani/common/lib";
 import { appQueries } from "@/shared/api/queries";
 import { appMutations } from "@/shared/api/mutations";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
@@ -253,7 +253,7 @@ Use controller hooks for list pages. For isolated create/update forms, import `a
 
 ## nuqs Parsers
 
-All nuqs parsers are centralized in `@dukkani/common/utils/query-parsers`. Use them — never inline `parseAsString` etc. in individual hooks.
+All nuqs parsers are centralized in `@dukkani/common/lib` (implemented in `packages/common/src/lib/query/query-parsers.ts`). Use them — never inline `parseAsString` etc. in individual hooks.
 
 ```typescript
 import {
@@ -266,10 +266,10 @@ import {
   parseVariantsFilter, // "all" | "with-variants" | "single-sku"
   parsePriceMin,       // float
   parsePriceMax,       // float
-} from "@dukkani/common/utils/query-parsers";
+} from "@dukkani/common/lib";
 ```
 
-When adding new filter types, add the parser to `query-parsers.ts` — not inline in controller hooks.
+When adding new filter types, add the parser to `packages/common/src/lib/query/query-parsers.ts` — not inline in controller hooks.
 
 ## Server Prefetch Pattern (RSC layouts)
 

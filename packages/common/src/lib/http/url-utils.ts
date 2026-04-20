@@ -1,9 +1,9 @@
-import type { UserOnboardingStep } from "../schemas/enums";
+import type { UserOnboardingStep } from "../../schemas/enums";
 import {
   parseEmail,
   parseOnboardingStep,
   parseStoreSlug,
-} from "./query-parsers";
+} from "../query/query-parsers";
 
 /**
  * Type-safe URL construction utilities

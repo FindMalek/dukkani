@@ -18,13 +18,17 @@
       "types": "./dist/services/index.d.ts",
       "default": "./src/services/index.ts"
     },
-    "./utils": {
-      "types": "./dist/utils/index.d.ts",
-      "default": "./src/utils/index.ts"
+    "./lib": {
+      "types": "./dist/lib/index.d.ts",
+      "default": "./src/lib/index.ts"
     },
     "./errors": {
       "types": "./dist/errors/index.d.ts",
       "default": "./src/errors/index.ts"
+    },
+    "./constants": {
+      "types": "./dist/constants/index.d.ts",
+      "default": "./src/constants/index.ts"
     },
     "./*": {
       "types": "./dist/*.d.ts",
