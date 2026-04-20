@@ -20,12 +20,19 @@ if (!process.env.VERCEL) {
  * The DATABASE_URL is validated by @dukkani/env when used in application code.
  * This file only needs the raw value for Prisma CLI operations.
  */
+const databaseUrl = process.env.DATABASE_URL || "";
+// Neon pooler URLs contain "-pooler" in the hostname; migrations need a direct
+// connection to acquire advisory locks. Strip "-pooler" to get the direct URL.
+const directUrl =
+  process.env.DATABASE_URL_UNPOOLED || databaseUrl.replace(/-pooler\./g, ".");
+
 export default defineConfig({
   schema: path.join("prisma", "schema"),
   migrations: {
     path: path.join("prisma", "migrations"),
   },
   datasource: {
-    url: process.env.DATABASE_URL || "",
+    url: databaseUrl,
+    directUrl,
   },
 });
