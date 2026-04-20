@@ -74,51 +74,6 @@ function ProductVariantCartPanel({
   );
 }
 
-type CartPanelProps = {
-  productId: string;
-  storeCurrency: store.SupportedCurrencyInfer;
-  stock: number;
-  price: number;
-  selectedVariantId: string | undefined;
-  variant: "fixed" | "inline";
-  onAddToCart?: () => void;
-};
-
-/**
- * Isolated state remounts when product or variant identity changes (`key` on parent).
- */
-function ProductVariantCartPanel({
-  productId,
-  storeCurrency,
-  stock,
-  price,
-  selectedVariantId,
-  variant,
-  onAddToCart,
-}: CartPanelProps) {
-  const addItem = useCartStore((state) => state.addItem);
-
-  const handleFooterAdd = useCallback(
-    ({ quantity }: { quantity: number }) => {
-      addItem(productId, quantity, selectedVariantId);
-      onAddToCart?.();
-    },
-    [addItem, onAddToCart, productId, selectedVariantId],
-  );
-
-  return (
-    <AddToCartFooter
-      productId={productId}
-      stock={stock}
-      price={price}
-      selectedVariantId={selectedVariantId}
-      variant={variant}
-      onAddToCart={handleFooterAdd}
-      currency={storeCurrency}
-    />
-  );
-}
-
 export function ProductVariantManager({
   productId,
   storeCurrency,
