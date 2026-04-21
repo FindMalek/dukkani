@@ -771,6 +771,9 @@ importers:
       nanoid:
         specifier: 'catalog:'
         version: 5.1.7
+      pg:
+        specifier: ^8.20.0
+        version: 8.20.0
       typescript:
         specifier: 'catalog:'
         version: 6.0.2
@@ -787,18 +790,12 @@ importers:
       '@next/env':
         specifier: 'catalog:'
         version: 16.2.3
-      '@types/pg':
-        specifier: ^8.20.0
-        version: 8.20.0
       '@types/ws':
         specifier: ^8.18.1
         version: 8.18.1
       dotenv:
         specifier: 'catalog:'
         version: 17.4.1
-      pg:
-        specifier: ^8.20.0
-        version: 8.20.0
       prisma:
         specifier: 'catalog:'
         version: 7.7.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@6.0.2)
