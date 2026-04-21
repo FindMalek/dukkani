@@ -2,6 +2,7 @@
 
 import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
+import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useCallback, useState } from "react";
 import { ProductAttributes } from "@/components/app/product-attributes";
 import { ProductDescription } from "@/components/app/product-description";
@@ -24,6 +25,11 @@ export function ProductDetailInteractive({
 }) {
   const hasVariants = (product.variants?.length ?? 0) > 0;
   const [targetSlideIndex, setTargetSlideIndex] = useState<number | null>(null);
+  const formatPrice = useFormatPriceCurrentStore(store.currency);
+  const priceHeadline =
+    product.priceDisplay.kind === "range"
+      ? `${formatPrice(product.priceDisplay.min)} – ${formatPrice(product.priceDisplay.max)}`
+      : formatPrice(product.priceDisplay.price);
 
   const handleVariantSelectionResolved = useCallback(
     (ctx: VariantSelectionResolved) => {
@@ -48,6 +54,14 @@ export function ProductDetailInteractive({
         />
         <div className="mt-4 space-y-4">
           <h1 className="font-bold text-foreground text-xl">{product.name}</h1>
+          {hasVariants && (
+            <p
+              className="font-semibold text-foreground text-lg tabular-nums"
+              dir="ltr"
+            >
+              {priceHeadline}
+            </p>
+          )}
           <ProductAttributes tags={product.tags} />
           {product.store && (
             <StoreInfoCard

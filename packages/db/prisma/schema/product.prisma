@@ -77,6 +77,10 @@ model ProductVersion {
   stock       Int
   hasVariants Boolean @default(false) @map("has_variants")
 
+  /// Denormalized min/max effective variant sell prices (variant.price ?? version.price). Null when !hasVariants or no variants.
+  variantEffectivePriceMin Decimal? @map("variant_effective_price_min") @db.Decimal(10, 2)
+  variantEffectivePriceMax Decimal? @map("variant_effective_price_max") @db.Decimal(10, 2)
+
   createdFromVersionId String?          @map("created_from_version_id")
   createdFromVersion   ProductVersion?  @relation("VersionFork", fields: [createdFromVersionId], references: [id], onDelete: SetNull)
   forkedChildren       ProductVersion[] @relation("VersionFork")

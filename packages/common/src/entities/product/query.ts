@@ -5,6 +5,40 @@ import { OrderItemQuery } from "../order-item/query";
 import { ProductVersionQuery } from "../product-version/query";
 import { StoreQuery } from "../store/query";
 
+/**
+ * List filter: simple products match `price` range; variant products match when
+ * [min,max] effective prices overlap the filter (denormalized columns), with
+ * fallback to version `price` when bounds are not yet backfilled.
+ */
+function productVersionWhereForPriceFilter(
+  price: { gte?: number; lte?: number },
+  priceMin: number | undefined,
+  priceMax: number | undefined,
+): Prisma.ProductVersionWhereInput {
+  const overlap: Prisma.ProductVersionWhereInput[] = [];
+  if (priceMin !== undefined) {
+    overlap.push({ variantEffectivePriceMax: { gte: priceMin } });
+  }
+  if (priceMax !== undefined) {
+    overlap.push({ variantEffectivePriceMin: { lte: priceMax } });
+  }
+
+  return {
+    OR: [
+      { hasVariants: false, price },
+      {
+        hasVariants: true,
+        AND: overlap,
+      },
+      {
+        hasVariants: true,
+        variantEffectivePriceMin: null,
+        price,
+      },
+    ],
+  };
+}
+
 export type ProductSimpleDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getSimpleInclude>;
 }>;
@@ -19,6 +53,10 @@ export type ProductClientSafeDbData = Prisma.ProductGetPayload<{
 
 export type ProductListDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getListInclude>;
+}>;
+
+export type ProductStorefrontListDbData = Prisma.ProductGetPayload<{
+  include: ReturnType<typeof ProductQuery.getStorefrontListInclude>;
 }>;
 
 export type ProductPublicDbData = Prisma.ProductGetPayload<{
@@ -85,6 +123,17 @@ export class ProductQuery {
       draftVersion: {
         select: ProductVersionQuery.getListSelect(),
       },
+      currentPublishedVersion: {
+        select: ProductVersionQuery.getListSelect(),
+      },
+    } satisfies Prisma.ProductInclude;
+  }
+
+  /**
+   * Storefront product grid: **published** version only (no draft leak).
+   */
+  static getStorefrontListInclude() {
+    return {
       currentPublishedVersion: {
         select: ProductVersionQuery.getListSelect(),
       },
@@ -197,16 +246,21 @@ export class ProductQuery {
       if (filters.priceMax !== undefined) {
         price.lte = filters.priceMax;
       }
+      const versionPriceWhere = productVersionWhereForPriceFilter(
+        price,
+        filters.priceMin,
+        filters.priceMax,
+      );
       andParts.push({
         OR: [
           {
             currentPublishedVersion: {
-              is: { price },
+              is: versionPriceWhere,
             },
           },
           {
             draftVersion: {
-              is: { price },
+              is: versionPriceWhere,
             },
           },
         ],

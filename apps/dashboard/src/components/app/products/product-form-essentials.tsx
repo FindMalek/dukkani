@@ -81,19 +81,41 @@ export const ProductFormEssentials = withForm({
             />
           )}
         </form.AppField>
-        <div className="flex items-start justify-between gap-4">
-          <form.AppField name="price">
-            {(field) => (
-              <field.PriceInput
-                label={t("form.price.label")}
-                currency={currency}
-              />
-            )}
-          </form.AppField>
-          <form.AppField name="stock">
-            {(field) => <field.NumberInput label={t("form.stock.label")} />}
-          </form.AppField>
-        </div>
+        <form.Subscribe selector={(s) => s.values.hasVariants}>
+          {(hasVariants) =>
+            hasVariants ? (
+              <p className="text-muted-foreground text-sm">
+                Price and stock for this product are managed per variant below.
+                A default base price is still saved for variants that inherit
+                pricing.
+              </p>
+            ) : null
+          }
+        </form.Subscribe>
+        <form.Subscribe selector={(s) => s.values.hasVariants}>
+          {(hasVariants) => (
+            <div
+              className={
+                hasVariants
+                  ? "sr-only"
+                  : "flex items-start justify-between gap-4"
+              }
+              aria-hidden={hasVariants}
+            >
+              <form.AppField name="price">
+                {(field) => (
+                  <field.PriceInput
+                    label={t("form.price.label")}
+                    currency={currency}
+                  />
+                )}
+              </form.AppField>
+              <form.AppField name="stock">
+                {(field) => <field.NumberInput label={t("form.stock.label")} />}
+              </form.AppField>
+            </div>
+          )}
+        </form.Subscribe>
         <form.AppField name="categoryId">
           {(field) => (
             <field.SelectInput

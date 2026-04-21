@@ -42,7 +42,9 @@ export class ProductVersionEntity {
       variantOptions: entity.variantOptions.map(
         VariantEntity.getVariantOptionRo,
       ),
-      variants: entity.variants.map(VariantEntity.getVariantRo),
+      variants: entity.variants.map((row) =>
+        VariantEntity.getVariantRo(row, Number(entity.price)),
+      ),
       addonGroups: entity.addonGroups.map(ProductAddonEntity.getGroupRo),
     };
   }

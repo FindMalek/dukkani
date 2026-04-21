@@ -3,6 +3,7 @@ import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { ProductVersionQuery } from "../entities/product-version/query";
 import { BadRequestError, ConflictError, NotFoundError } from "../errors";
+import { variantPriceRangeMinMax } from "../lib/pricing/variant-effective-price";
 import type { CreateInitialPublishedVersionInput } from "../schemas/product/input";
 import type { ProductAddonGroupInput } from "../schemas/product-addon/input";
 import type {
@@ -11,6 +12,41 @@ import type {
 } from "../schemas/variant/input";
 
 class ProductVersionServiceBase {
+  /**
+   * Refresh denormalized min/max effective variant prices on {@link ProductVersion}.
+   */
+  static async recomputeVariantEffectivePriceBounds(
+    tx: Prisma.TransactionClient,
+    productVersionId: string,
+  ): Promise<void> {
+    const row = await tx.productVersion.findUnique({
+      where: { id: productVersionId },
+      select: {
+        price: true,
+        variants: { select: { price: true } },
+      },
+    });
+
+    if (!row) {
+      return;
+    }
+
+    const range = variantPriceRangeMinMax(row.variants, row.price);
+    await tx.productVersion.update({
+      where: { id: productVersionId },
+      data:
+        range === null
+          ? {
+              variantEffectivePriceMin: null,
+              variantEffectivePriceMax: null,
+            }
+          : {
+              variantEffectivePriceMin: range.min,
+              variantEffectivePriceMax: range.max,
+            },
+    });
+  }
+
   /**
    * Next monotonic version number for a product (1-based).
    */
@@ -147,6 +183,11 @@ class ProductVersionServiceBase {
         },
       });
     }
+
+    await ProductVersionServiceBase.recomputeVariantEffectivePriceBounds(
+      tx,
+      draft.id,
+    );
 
     await tx.product.update({
       where: { id: productId },
@@ -332,6 +373,11 @@ class ProductVersionServiceBase {
         },
       });
     }
+
+    await ProductVersionServiceBase.recomputeVariantEffectivePriceBounds(
+      tx,
+      productVersionId,
+    );
   }
 
   /**
@@ -343,6 +389,10 @@ class ProductVersionServiceBase {
   ): Promise<void> {
     await tx.productVariant.deleteMany({ where: { productVersionId } });
     await tx.productVariantOption.deleteMany({ where: { productVersionId } });
+    await ProductVersionServiceBase.recomputeVariantEffectivePriceBounds(
+      tx,
+      productVersionId,
+    );
   }
 
   /**
@@ -401,6 +451,11 @@ class ProductVersionServiceBase {
         draftVersionId: null,
       },
     });
+
+    await ProductVersionServiceBase.recomputeVariantEffectivePriceBounds(
+      tx,
+      draftId,
+    );
   }
 
   /**
@@ -447,7 +502,7 @@ class ProductVersionServiceBase {
         name: data.name,
         description: data.description ?? null,
         price: data.price,
-        stock: data.stock,
+        stock: data.hasVariants ? 0 : data.stock,
         hasVariants: data.hasVariants,
         images: data.imageUrls?.length
           ? {
@@ -476,6 +531,11 @@ class ProductVersionServiceBase {
         data.variantOptions,
         data.variants ?? [],
         imageUrlToId,
+      );
+    } else {
+      await ProductVersionServiceBase.recomputeVariantEffectivePriceBounds(
+        tx,
+        version.id,
       );
     }
 

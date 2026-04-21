@@ -1,7 +1,7 @@
 "use client";
 
 import type { store } from "@dukkani/common/schemas";
-import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output";
+import type { ListProductOutput } from "@dukkani/common/schemas/product/output";
 import { AspectRatio } from "@dukkani/ui/components/aspect-ratio";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
@@ -12,9 +12,9 @@ import Link from "next/link";
 import { RoutePaths } from "@/shared/config/routes";
 
 interface ProductCardProps {
-  product: ProductPublicOutput;
+  product: ListProductOutput;
   storeCurrency: store.SupportedCurrencyInfer;
-  onAddToCart?: (product: ProductPublicOutput) => void;
+  onAddToCart?: (product: ListProductOutput) => void;
 }
 
 export function ProductCard({
@@ -25,6 +25,10 @@ export function ProductCard({
   const imageUrl = product.imageUrls?.[0];
 
   const formatPrice = useFormatPriceCurrentStore(storeCurrency);
+  const priceLabel =
+    product.priceDisplay.kind === "range"
+      ? `${formatPrice(product.priceDisplay.min)} – ${formatPrice(product.priceDisplay.max)}`
+      : formatPrice(product.priceDisplay.price);
 
   return (
     <div className="group">
@@ -57,7 +61,7 @@ export function ProductCard({
         <div className="mt-2">
           <h3 className="mb-1 font-bold text-foreground">{product.name}</h3>
           <p className="text-muted-foreground text-sm tabular-nums" dir="ltr">
-            {formatPrice(product.price)}
+            {priceLabel}
           </p>
         </div>
       </Link>

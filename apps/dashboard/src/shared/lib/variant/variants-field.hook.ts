@@ -207,6 +207,11 @@ export function useProductFormVariantsField(form: ProductFormApi) {
         if (value) {
           form.setFieldValue("variantOptions", [{ name: "", values: [] }]);
           form.setFieldValue("variants", []);
+          const p = form.state.values.price;
+          if (p === undefined || p === null || String(p).trim() === "") {
+            form.setFieldValue("price", "1");
+          }
+          form.setFieldValue("stock", "0");
         } else {
           form.setFieldValue("variantOptions", []);
           form.setFieldValue("variants", []);

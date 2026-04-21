@@ -35,6 +35,7 @@ export const variantOutputSchema = z.object({
   id: z.string(),
   sku: z.string().nullable(),
   price: z.number().nullable(),
+  effectivePrice: z.number().optional(),
   stock: z.number(),
   trackStock: z.boolean(),
   imageUrl: z.string().nullable(),
