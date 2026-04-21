@@ -48,8 +48,7 @@
     "build": "tsdown",
     "clean": "rm -rf dist node_modules",
     "check-types": "tsc --noEmit -p tsconfig.json",
-    "check-types:fast": "tsgo --noEmit -p tsconfig.json",
-    "test": "node --import tsx --test src/lib/pricing/variant-effective-price.test.ts"
+    "check-types:fast": "tsgo --noEmit -p tsconfig.json"
   },
   "peerDependencies": {
     "typescript": "catalog:",
@@ -71,7 +70,6 @@
   "devDependencies": {
     "@dukkani/config": "workspace:*",
     "@types/negotiator": "catalog:",
-    "tsdown": "catalog:",
-    "tsx": "catalog:"
+    "tsdown": "catalog:"
   }
 }

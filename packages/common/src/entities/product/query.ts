@@ -5,40 +5,6 @@ import { OrderItemQuery } from "../order-item/query";
 import { ProductVersionQuery } from "../product-version/query";
 import { StoreQuery } from "../store/query";
 
-/**
- * List filter: simple products match `price` range; variant products match when
- * [min,max] effective prices overlap the filter (denormalized columns), with
- * fallback to version `price` when bounds are not yet backfilled.
- */
-function productVersionWhereForPriceFilter(
-  price: { gte?: number; lte?: number },
-  priceMin: number | undefined,
-  priceMax: number | undefined,
-): Prisma.ProductVersionWhereInput {
-  const overlap: Prisma.ProductVersionWhereInput[] = [];
-  if (priceMin !== undefined) {
-    overlap.push({ variantEffectivePriceMax: { gte: priceMin } });
-  }
-  if (priceMax !== undefined) {
-    overlap.push({ variantEffectivePriceMin: { lte: priceMax } });
-  }
-
-  return {
-    OR: [
-      { hasVariants: false, price },
-      {
-        hasVariants: true,
-        AND: overlap,
-      },
-      {
-        hasVariants: true,
-        variantEffectivePriceMin: null,
-        price,
-      },
-    ],
-  };
-}
-
 export type ProductSimpleDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getSimpleInclude>;
 }>;
@@ -246,11 +212,30 @@ export class ProductQuery {
       if (filters.priceMax !== undefined) {
         price.lte = filters.priceMax;
       }
-      const versionPriceWhere = productVersionWhereForPriceFilter(
-        price,
-        filters.priceMin,
-        filters.priceMax,
-      );
+      // Simple products: match version `price` range. Variant products: overlap
+      // filter range with denormalized effective min/max, or fall back to
+      // version `price` when bounds were not yet backfilled (null min).
+      const overlap: Prisma.ProductVersionWhereInput[] = [];
+      if (filters.priceMin !== undefined) {
+        overlap.push({ variantEffectivePriceMax: { gte: filters.priceMin } });
+      }
+      if (filters.priceMax !== undefined) {
+        overlap.push({ variantEffectivePriceMin: { lte: filters.priceMax } });
+      }
+      const versionPriceWhere: Prisma.ProductVersionWhereInput = {
+        OR: [
+          { hasVariants: false, price },
+          {
+            hasVariants: true,
+            AND: overlap,
+          },
+          {
+            hasVariants: true,
+            variantEffectivePriceMin: null,
+            price,
+          },
+        ],
+      };
       andParts.push({
         OR: [
           {

@@ -85,9 +85,7 @@ export const ProductFormEssentials = withForm({
           {(hasVariants) =>
             hasVariants ? (
               <p className="text-muted-foreground text-sm">
-                Price and stock for this product are managed per variant below.
-                A default base price is still saved for variants that inherit
-                pricing.
+                {t("form.variants.mainPriceStockHiddenHint")}
               </p>
             ) : null
           }

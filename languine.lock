@@ -244,6 +244,7 @@ files:
     products.create.form.optional: d57c24f3fe52d16e7169b912dd647f0d
     products.create.form.cancel: ea4788705e6873b424c65e91c2846b19
     products.create.form.validation.errors: 4bd4d79c077eb90981d7b4599e6b7b7c
+    products.create.form.variants.mainPriceStockHiddenHint: 74a6e05adcceaed5de6cffc563bfa858
     products.create.form.variants.options.title: ec1906ae787e4ccf7e8c6e8421e69d41
     products.create.form.variants.options.add: 704468d3ab12246ce00c4529d723eb60
     products.create.form.variants.options.empty: b9e412ebf479f4186af2ac1167805b79

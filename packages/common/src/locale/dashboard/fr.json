@@ -417,6 +417,7 @@
           "errors": "Veuillez corriger les erreurs du formulaire avant de soumettre"
         },
         "variants": {
+          "mainPriceStockHiddenHint": "Le prix et le stock de ce produit sont gérés par variante ci-dessous. Un prix de base par défaut est toujours enregistré pour les variantes qui héritent du prix.",
           "options": {
             "title": "Options de variante",
             "add": "Ajouter une option",
