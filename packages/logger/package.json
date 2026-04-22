@@ -15,9 +15,9 @@
     "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
-    "pino": "catalog:",
-    "@opentelemetry/instrumentation-pino": "^0.60.0",
-    "@dukkani/env": "workspace:*"
+    "@dukkani/env": "workspace:*",
+    "@opentelemetry/instrumentation-pino": "catalog:",
+    "pino": "catalog:"
   },
   "devDependencies": {
     "@dukkani/config": "workspace:*",
