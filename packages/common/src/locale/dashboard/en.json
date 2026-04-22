@@ -413,7 +413,8 @@
         "options": {
           "label": "Has options",
           "description": "Add options like Size, Color, Material, etc.",
-          "structureLocked": "Variant options are locked because this product has SKU variants. You can still edit other product details."
+          "structureLocked": "Variant options are locked because this product has SKU variants. You can still edit other product details.",
+          "enableVariantsNeedPrice": "Enter a positive base price first. Variants can inherit it when their own price is not set."
         },
         "saveDraft": "Save draft",
         "savePublish": "Save & publish",

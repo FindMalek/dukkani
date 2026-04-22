@@ -403,7 +403,8 @@
         "options": {
           "label": "A des options",
           "description": "Ajoutez des options comme Taille, Couleur, Matériau, etc.",
-          "structureLocked": "Les options de variante sont verrouillées car ce produit a des variantes SKU. Vous pouvez toujours modifier les autres détails du produit."
+          "structureLocked": "Les options de variante sont verrouillées car ce produit a des variantes SKU. Vous pouvez toujours modifier les autres détails du produit.",
+          "enableVariantsNeedPrice": "Indiquez d’abord un prix de base positif. Les variantes peuvent en hériter si leur propre prix n’est pas défini."
         },
         "saveDraft": "Enregistrer le brouillon",
         "saveChanges": "Enregistrer",
