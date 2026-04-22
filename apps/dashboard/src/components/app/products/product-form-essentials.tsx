@@ -82,15 +82,6 @@ export const ProductFormEssentials = withForm({
           )}
         </form.AppField>
         <form.Subscribe selector={(s) => s.values.hasVariants}>
-          {(hasVariants) =>
-            hasVariants ? (
-              <p className="text-muted-foreground text-sm">
-                {t("form.variants.mainPriceStockHiddenHint")}
-              </p>
-            ) : null
-          }
-        </form.Subscribe>
-        <form.Subscribe selector={(s) => s.values.hasVariants}>
           {(hasVariants) => (
             <div
               className={

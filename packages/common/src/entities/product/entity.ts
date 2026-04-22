@@ -1,4 +1,5 @@
 import { buildProductPriceDisplay } from "../../lib/pricing/product-price-display";
+import { listDisplayStock } from "../../lib/variant/list-display-stock";
 import { reconcileVariants } from "../../lib/variant/matrix";
 import type { ProductFormInput } from "../../schemas/product/form";
 import type {
@@ -50,7 +51,7 @@ export class ProductEntity {
       name: v?.name ?? "",
       description: v?.description ?? null,
       price: versionPrice,
-      stock: v?.stock ?? 0,
+      stock: listDisplayStock(v),
       published: entity.published,
       storeId: entity.storeId,
       createdAt: entity.createdAt,
@@ -84,7 +85,7 @@ export class ProductEntity {
       name: v?.name ?? "",
       description: v?.description ?? null,
       price: versionPrice,
-      stock: v?.stock ?? 0,
+      stock: listDisplayStock(v),
       published: entity.published,
       storeId: entity.storeId,
       createdAt: entity.createdAt,

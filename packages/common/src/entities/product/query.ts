@@ -158,6 +158,10 @@ export class ProductQuery {
     }
 
     if (filters?.stock) {
+      // Note: for hasVariants products, `ProductVersion.stock` is 0; actual inventory
+      // lives on variants. This filter only matches version-level stock, so "in stock"
+      // views may omit variant-only products until we denormalize total variant stock
+      // or add a subquery. See also listDisplayStock in lib/variant/list-display-stock.
       const stockFilter: { lte?: number; gte?: number } = {};
       if (filters.stock.lte !== undefined) {
         stockFilter.lte = filters.stock.lte;
