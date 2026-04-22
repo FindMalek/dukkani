@@ -21,6 +21,9 @@ catalogs:
     '@next/env':
       specifier: ^16.2.4
       version: 16.2.4
+    '@opentelemetry/instrumentation-pino':
+      specifier: ^0.61.0
+      version: 0.61.0
     '@orpc/client':
       specifier: ^1.13.14
       version: 1.13.14
@@ -837,7 +840,7 @@ importers:
         specifier: workspace:*
         version: link:../env
       '@opentelemetry/instrumentation-pino':
-        specifier: ^0.61.0
+        specifier: 'catalog:'
         version: 0.61.0(@opentelemetry/api@1.9.1)
       pino:
         specifier: 'catalog:'
@@ -1039,7 +1042,7 @@ importers:
         specifier: ^0.215.0
         version: 0.215.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/instrumentation-pino':
-        specifier: ^0.61.0
+        specifier: 'catalog:'
         version: 0.61.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/otlp-exporter-base':
         specifier: ^0.215.0

@@ -8,6 +8,7 @@ catalog:
   '@biomejs/biome': ^2.4.12
   '@formatjs/intl-localematcher': ^0.8.3
   '@next/env': ^16.2.4
+  '@opentelemetry/instrumentation-pino': ^0.61.0
   '@orpc/client': ^1.13.14
   '@orpc/openapi': ^1.13.14
   '@orpc/otel': ^1.13.14
