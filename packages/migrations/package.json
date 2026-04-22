@@ -51,12 +51,12 @@
     "@dukkani/logger": "workspace:*",
     "@dukkani/storage": "workspace:*",
     "@dukkani/tracing": "workspace:*",
-    "@supabase/supabase-js": "^2.103.0",
+    "@supabase/supabase-js": "^2.104.0",
     "@t3-oss/env-core": "catalog:",
     "cli-progress": "^3.12.0",
     "commander": "^14.0.3",
     "dotenv": "catalog:",
-    "inquirer": "^13.4.1",
+    "inquirer": "^13.4.2",
     "nanoid": "catalog:"
   }
 }
