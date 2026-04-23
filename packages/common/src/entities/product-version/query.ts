@@ -50,7 +50,12 @@ export class ProductVersionQuery {
       variantEffectivePriceMax: true,
       images: { select: { url: true } },
       _count: { select: { variants: true } },
-      variants: { select: { stock: true, trackStock: true } },
+      variants: { select: { stock: true, trackStock: true, price: true } },
+      addonGroups: {
+        where: { required: true },
+        take: 1,
+        select: { id: true },
+      },
     } satisfies Prisma.ProductVersionSelect;
   }
 

@@ -3,25 +3,26 @@ import { decimalLikeToNumber } from "../decimal/decimal-like";
 
 /**
  * Unit price for a variant row: explicit variant price, or inherited product-version base price.
- * Never returns NaN when versionPrice is valid.
+ * Returns `null` when the coerced value is not finite (e.g. both prices nullish, or invalid numbers).
  */
 export function effectiveVariantUnitPrice(
   variantPrice: Decimal | number | bigint | string | null | undefined,
   versionPrice: Decimal | number | bigint | string | null | undefined,
-): number {
-  if (variantPrice != null) {
-    return decimalLikeToNumber(variantPrice);
-  }
-  return decimalLikeToNumber(versionPrice);
+): number | null {
+  const n =
+    variantPrice != null
+      ? decimalLikeToNumber(variantPrice)
+      : decimalLikeToNumber(versionPrice);
+  return Number.isFinite(n) ? n : null;
 }
 
-/** Effective sell prices for all variants (empty array if none). */
+/** Per-variant effective prices; entries are `null` when that row has no finite sell price. */
 export function effectiveVariantPrices(
   variants: ReadonlyArray<{
     price: Decimal | number | bigint | string | null | undefined;
   }>,
   versionPrice: Decimal | number | bigint | string | null | undefined,
-): number[] {
+): (number | null)[] {
   return variants.map((v) => effectiveVariantUnitPrice(v.price, versionPrice));
 }
 
@@ -37,9 +38,14 @@ export function variantPriceRangeMinMax(
   if (variants.length === 0) {
     return null;
   }
-  const prices = effectiveVariantPrices(variants, versionPrice);
+  const finite = effectiveVariantPrices(variants, versionPrice).filter(
+    (p): p is number => p != null,
+  );
+  if (finite.length === 0) {
+    return null;
+  }
   return {
-    min: Math.min(...prices),
-    max: Math.max(...prices),
+    min: Math.min(...finite),
+    max: Math.max(...finite),
   };
 }

@@ -48,6 +48,41 @@ class ProductVersionServiceBase {
   }
 
   /**
+   * Denormalize {@link ProductVersion}.totalVariantStock for list filters/sorts:
+   * when hasVariants, sum of variant `stock`; otherwise mirrors `stock`.
+   */
+  static async recomputeTotalVariantStock(
+    tx: Prisma.TransactionClient,
+    productVersionId: string,
+  ): Promise<void> {
+    const v = await tx.productVersion.findUnique({
+      where: { id: productVersionId },
+      select: { hasVariants: true, stock: true },
+    });
+
+    if (!v) {
+      return;
+    }
+
+    if (v.hasVariants) {
+      const agg = await tx.productVariant.aggregate({
+        where: { productVersionId },
+        _sum: { stock: true },
+      });
+      const total = agg._sum.stock ?? 0;
+      await tx.productVersion.update({
+        where: { id: productVersionId },
+        data: { totalVariantStock: total },
+      });
+    } else {
+      await tx.productVersion.update({
+        where: { id: productVersionId },
+        data: { totalVariantStock: v.stock },
+      });
+    }
+  }
+
+  /**
    * Next monotonic version number for a product (1-based).
    */
   static async nextVersionNumber(
@@ -98,6 +133,7 @@ class ProductVersionServiceBase {
         description: src.description,
         price: src.price,
         stock: src.stock,
+        totalVariantStock: src.hasVariants ? 0 : src.stock,
         hasVariants: src.hasVariants,
         createdFromVersionId: src.id,
         images: {
@@ -188,6 +224,7 @@ class ProductVersionServiceBase {
       tx,
       draft.id,
     );
+    await ProductVersionServiceBase.recomputeTotalVariantStock(tx, draft.id);
 
     await tx.product.update({
       where: { id: productId },
@@ -378,6 +415,10 @@ class ProductVersionServiceBase {
       tx,
       productVersionId,
     );
+    await ProductVersionServiceBase.recomputeTotalVariantStock(
+      tx,
+      productVersionId,
+    );
   }
 
   /**
@@ -390,6 +431,10 @@ class ProductVersionServiceBase {
     await tx.productVariant.deleteMany({ where: { productVersionId } });
     await tx.productVariantOption.deleteMany({ where: { productVersionId } });
     await ProductVersionServiceBase.recomputeVariantEffectivePriceBounds(
+      tx,
+      productVersionId,
+    );
+    await ProductVersionServiceBase.recomputeTotalVariantStock(
       tx,
       productVersionId,
     );
@@ -456,6 +501,7 @@ class ProductVersionServiceBase {
       tx,
       draftId,
     );
+    await ProductVersionServiceBase.recomputeTotalVariantStock(tx, draftId);
   }
 
   /**
@@ -503,6 +549,7 @@ class ProductVersionServiceBase {
         description: data.description ?? null,
         price: data.price,
         stock: data.hasVariants ? 0 : data.stock,
+        totalVariantStock: data.hasVariants ? 0 : data.stock,
         hasVariants: data.hasVariants,
         images: data.imageUrls?.length
           ? {
@@ -534,6 +581,10 @@ class ProductVersionServiceBase {
       );
     } else {
       await ProductVersionServiceBase.recomputeVariantEffectivePriceBounds(
+        tx,
+        version.id,
+      );
+      await ProductVersionServiceBase.recomputeTotalVariantStock(
         tx,
         version.id,
       );

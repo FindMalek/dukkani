@@ -447,6 +447,14 @@ export const productRouter = {
           },
         });
 
+        if (effectiveHasVariants && input.price !== undefined) {
+          await ProductVersionService.recomputeVariantEffectivePriceBounds(
+            tx,
+            versionId,
+          );
+        }
+        await ProductVersionService.recomputeTotalVariantStock(tx, versionId);
+
         await tx.product.update({
           where: { id: input.id },
           data: {

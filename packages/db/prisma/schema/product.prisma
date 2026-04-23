@@ -71,11 +71,13 @@ model ProductVersion {
   status        ProductVersionStatus
   versionNumber Int                  @map("version_number")
 
-  name        String
-  description String?
-  price       Decimal @db.Decimal(10, 2)
-  stock       Int
-  hasVariants Boolean @default(false) @map("has_variants")
+  name              String
+  description       String?
+  price             Decimal @db.Decimal(10, 2)
+  stock             Int
+  /// Denormalized units for list/filter/sort: equals `stock` when !hasVariants, else sum of variant stocks.
+  totalVariantStock Int     @default(0) @map("total_variant_stock")
+  hasVariants       Boolean @default(false) @map("has_variants")
 
   /// Denormalized min/max effective variant sell prices (variant.price ?? version.price). Null when !hasVariants or no variants.
   variantEffectivePriceMin Decimal? @map("variant_effective_price_min") @db.Decimal(10, 2)

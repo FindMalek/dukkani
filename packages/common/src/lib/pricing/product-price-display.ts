@@ -25,6 +25,9 @@ export function buildProductPriceDisplay(input: {
 
   if (hasVariants) {
     if (variantEffectivePriceMin != null && variantEffectivePriceMax != null) {
+      if (variantEffectivePriceMin === variantEffectivePriceMax) {
+        return { kind: "simple", price: variantEffectivePriceMin };
+      }
       return {
         kind: "range",
         min: variantEffectivePriceMin,
@@ -33,6 +36,9 @@ export function buildProductPriceDisplay(input: {
     }
     const range = variantPriceRangeMinMax(variantsFallback ?? [], versionPrice);
     if (range) {
+      if (range.min === range.max) {
+        return { kind: "simple", price: range.min };
+      }
       return { kind: "range", min: range.min, max: range.max };
     }
   }

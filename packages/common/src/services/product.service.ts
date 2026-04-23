@@ -15,6 +15,7 @@ import {
 import { decimalLikeToNumber } from "../lib/decimal/decimal-like";
 import { effectiveVariantUnitPrice } from "../lib/pricing/variant-effective-price";
 import { generateProductId } from "../lib/id/generate-id";
+import { ProductVersionService } from "./product-version.service";
 import {
   type OrderItemAddonSnapshot,
   orderItemAddonSnapshotSchema,
@@ -256,7 +257,15 @@ class ProductServiceBase {
       }
       const basePrice = variant
         ? effectiveVariantUnitPrice(variant.price, pub.price)
-        : decimalLikeToNumber(pub.price);
+        : (() => {
+            const n = decimalLikeToNumber(pub.price);
+            return Number.isFinite(n) ? n : null;
+          })();
+      if (basePrice == null) {
+        throw new BadRequestError(
+          "This product has no valid price. Remove it from your cart and add it again.",
+        );
+      }
 
       const selections = item.addonSelections ?? [];
       const { unitAddonTotal, addonSnapshots } =
@@ -534,6 +543,10 @@ class ProductServiceBase {
         },
       },
     });
+    await ProductVersionService.recomputeTotalVariantStock(
+      client,
+      product.currentPublishedVersionId,
+    );
   }
 
   /**
@@ -610,6 +623,7 @@ class ProductServiceBase {
     }
 
     // Update variant stocks (only rows on the current published version)
+    const versionIdsToRecompute = new Set<string>();
     if (variantUpdates.length > 0) {
       const uniqueVariantIds = [
         ...new Set(variantUpdates.map((u) => u.variantId)),
@@ -651,6 +665,7 @@ class ProductServiceBase {
               "Cannot adjust stock: variant is not on the live catalog version",
             );
           }
+          versionIdsToRecompute.add(pubId);
           return client.productVariant.update({
             where: { id: variantId },
             data: {
@@ -673,7 +688,7 @@ class ProductServiceBase {
         select: { id: true, currentPublishedVersionId: true },
       });
       type PubProduct = (typeof products)[number];
-      const pubByProduct = new Map(
+      const pubByProduct = new Map<string, string | null>(
         products.map((p: PubProduct) => [p.id, p.currentPublishedVersionId]),
       );
 
@@ -685,6 +700,7 @@ class ProductServiceBase {
               `Product ${productId} has no published version`,
             );
           }
+          versionIdsToRecompute.add(versionId);
           return client.productVersion.update({
             where: { id: versionId },
             data: {
@@ -696,6 +712,12 @@ class ProductServiceBase {
         }),
       );
     }
+
+    await Promise.all(
+      [...versionIdsToRecompute].map((vid) =>
+        ProductVersionService.recomputeTotalVariantStock(client, vid),
+      ),
+    );
 
     addSpanAttributes({
       "product.variants_updated": variantUpdates.length,

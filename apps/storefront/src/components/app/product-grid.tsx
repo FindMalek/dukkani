@@ -19,7 +19,8 @@ export function ProductGrid({ products, store }: ProductGridProps) {
   const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
 
   const handleAddToCart = (product: ListProductOutput) => {
-    if ((product.variantCount ?? 0) > 0) {
+    const hasVariants = (product.variantCount ?? 0) > 0;
+    if (hasVariants || product.hasRequiredAddonGroups) {
       router.push(RoutePaths.PRODUCTS.DETAIL.url(product.id));
       return;
     }

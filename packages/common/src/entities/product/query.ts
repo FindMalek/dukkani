@@ -158,10 +158,9 @@ export class ProductQuery {
     }
 
     if (filters?.stock) {
-      // Note: for hasVariants products, `ProductVersion.stock` is 0; actual inventory
-      // lives on variants. This filter only matches version-level stock, so "in stock"
-      // views may omit variant-only products until we denormalize total variant stock
-      // or add a subquery. See also listDisplayStock in lib/variant/list-display-stock.
+      // `ProductVersion.totalVariantStock` is denormalized: for simple products it
+      // matches `stock`; for variant products it is the sum of variant stocks. Kept
+      // in sync on version/variant stock writes. See `ProductVersionService.recomputeTotalVariantStock`.
       const stockFilter: { lte?: number; gte?: number } = {};
       if (filters.stock.lte !== undefined) {
         stockFilter.lte = filters.stock.lte;
@@ -174,12 +173,12 @@ export class ProductQuery {
           OR: [
             {
               currentPublishedVersion: {
-                is: { stock: stockFilter },
+                is: { totalVariantStock: stockFilter },
               },
             },
             {
               draftVersion: {
-                is: { stock: stockFilter },
+                is: { totalVariantStock: stockFilter },
               },
             },
           ],
@@ -294,7 +293,7 @@ export class ProductQuery {
       return { currentPublishedVersion: { price: orderBy } };
     }
     if (field === "stock") {
-      return { currentPublishedVersion: { stock: orderBy } };
+      return { currentPublishedVersion: { totalVariantStock: orderBy } };
     }
     return { [field]: orderBy };
   }

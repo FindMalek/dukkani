@@ -35,6 +35,7 @@ export const productSimpleOutputSchema = z.object({
 export const listProductOutputSchema = productSimpleOutputSchema.extend({
   imageUrls: z.array(z.string()),
   variantCount: z.number().int(),
+  hasRequiredAddonGroups: z.boolean(),
   priceDisplay: productPriceDisplaySchema,
 });
 

@@ -39,13 +39,14 @@ export class ProductEntity {
   }
 
   /**
-   * Storefront listing: **published** catalog only (see {@link ProductQuery.getStorefrontListInclude}).
+   * Storefront listing: **published** catalog only (see {@link ProductVersionQuery.getStorefrontListInclude}).
    */
   static getStorefrontListRo(
     entity: ProductStorefrontListDbData,
   ): ListProductOutput {
     const v = entity.currentPublishedVersion;
     const versionPrice = v ? Number(v.price) : 0;
+
     return {
       id: entity.id,
       name: v?.name ?? "",
@@ -58,6 +59,7 @@ export class ProductEntity {
       updatedAt: entity.updatedAt,
       imageUrls: v?.images.map((img) => img.url) ?? [],
       variantCount: v?._count.variants ?? 0,
+      hasRequiredAddonGroups: (v?.addonGroups?.length ?? 0) > 0,
       priceDisplay: buildProductPriceDisplay({
         hasVariants: v?.hasVariants ?? false,
         versionPrice,
@@ -69,6 +71,7 @@ export class ProductEntity {
           v?.variantEffectivePriceMax != null
             ? Number(v.variantEffectivePriceMax)
             : null,
+        variantsFallback: v?.variants,
       }),
     };
   }
@@ -92,6 +95,7 @@ export class ProductEntity {
       updatedAt: entity.updatedAt,
       imageUrls: v?.images.map((img) => img.url) ?? [],
       variantCount: v?._count.variants ?? 0,
+      hasRequiredAddonGroups: (v?.addonGroups?.length ?? 0) > 0,
       priceDisplay: buildProductPriceDisplay({
         hasVariants: v?.hasVariants ?? false,
         versionPrice,
@@ -103,6 +107,7 @@ export class ProductEntity {
           v?.variantEffectivePriceMax != null
             ? Number(v.variantEffectivePriceMax)
             : null,
+        variantsFallback: v?.variants,
       }),
     };
   }

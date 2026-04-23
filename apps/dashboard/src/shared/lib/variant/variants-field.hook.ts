@@ -223,6 +223,7 @@ export function useProductFormVariantsField(form: ProductFormApi) {
         if (value) {
           if (!hasValidPositiveBasePrice(form.state.values.price)) {
             form.setFieldValue("hasVariants", false);
+            toast.error(t("form.options.enableVariantsNeedPrice"));
             return;
           }
           form.setFieldValue("variantOptions", [{ name: "", values: [] }]);
