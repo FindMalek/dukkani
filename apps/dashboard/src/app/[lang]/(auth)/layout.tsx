@@ -1,7 +1,7 @@
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { AuthGuard } from "@/components/auth/auth-guard";
+import { AuthGuard } from "@/components/app/auth/auth-guard";
 import { client } from "@/shared/api/orpc";
 import { getServerSession } from "@/shared/api/session.server";
 import { RoutePaths } from "@/shared/config/routes";

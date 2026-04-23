@@ -1,7 +1,7 @@
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
-import { AuthGuard } from "@/components/auth/auth-guard";
+import { AuthGuard } from "@/components/app/auth/auth-guard";
 import { BottomNavigation } from "@/components/layout/bottom-navigation";
 import { StoreInitializer } from "@/components/layout/store-initializer";
 import { appQueries } from "@/shared/api/queries";

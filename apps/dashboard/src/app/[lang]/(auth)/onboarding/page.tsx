@@ -10,13 +10,13 @@ import { useTranslations } from "next-intl";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 import { OnboardingStepper } from "@/components/app/onboarding/onboarding-stepper";
-import { OnboardingCompletion } from "@/components/auth/onboarding-completion";
+import { OnboardingCompletion } from "@/components/app/auth/onboarding-completion";
 import {
   SignUpOnboardingForm,
   signUpOnboardingFormDefaultValues as signUpOnboardingFormDefaultOptions,
-} from "@/components/auth/onboarding-sign-up-form";
-import { StoreConfigurationOnboardingForm } from "@/components/auth/onboarding-store-configuration-form";
-import { StoreSetupOnboardingForm } from "@/components/auth/onboarding-store-setup-form";
+} from "@/components/app/auth/onboarding-sign-up-form";
+import { StoreConfigurationOnboardingForm } from "@/components/app/auth/onboarding-store-configuration-form";
+import { StoreSetupOnboardingForm } from "@/components/app/auth/onboarding-store-setup-form";
 import { authClient } from "@/shared/api/auth-client";
 import { RoutePaths } from "@/shared/config/routes";
 import { useOnboardingController } from "@/shared/lib/onboarding/controller.hook";
