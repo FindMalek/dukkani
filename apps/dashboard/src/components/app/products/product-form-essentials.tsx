@@ -81,19 +81,27 @@ export const ProductFormEssentials = withForm({
             />
           )}
         </form.AppField>
-        <div className="flex items-start justify-between gap-4">
-          <form.AppField name="price">
-            {(field) => (
-              <field.PriceInput
-                label={t("form.price.label")}
-                currency={currency}
-              />
-            )}
-          </form.AppField>
-          <form.AppField name="stock">
-            {(field) => <field.NumberInput label={t("form.stock.label")} />}
-          </form.AppField>
-        </div>
+        <form.Subscribe selector={(s) => s.values.hasVariants}>
+          {(hasVariants) =>
+            hasVariants ? null : (
+              <div className="flex items-start justify-between gap-4">
+                <form.AppField name="price">
+                  {(field) => (
+                    <field.PriceInput
+                      label={t("form.price.label")}
+                      currency={currency}
+                    />
+                  )}
+                </form.AppField>
+                <form.AppField name="stock">
+                  {(field) => (
+                    <field.NumberInput label={t("form.stock.label")} />
+                  )}
+                </form.AppField>
+              </div>
+            )
+          }
+        </form.Subscribe>
         <form.AppField name="categoryId">
           {(field) => (
             <field.SelectInput

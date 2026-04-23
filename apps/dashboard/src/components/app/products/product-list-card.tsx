@@ -27,6 +27,10 @@ export function ProductListCard({
   const router = useRouter();
   const t = useTranslations("products.list");
   const formatPrice = useFormatPriceForActiveStore();
+  const priceLabel =
+    product.priceDisplay.kind === "range"
+      ? `${formatPrice(product.priceDisplay.min)} – ${formatPrice(product.priceDisplay.max)}`
+      : formatPrice(product.priceDisplay.price);
 
   const firstImageUrl = product.imageUrls[0];
   const isOutOfStock = product.stock === 0;
@@ -110,7 +114,7 @@ export function ProductListCard({
 
           {/* Price */}
           <p className="mt-1.5 font-medium text-foreground text-sm">
-            {formatPrice(product.price)}
+            {priceLabel}
           </p>
 
           {/* Status / Meta row */}

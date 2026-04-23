@@ -9,11 +9,26 @@ import { useCallback, useMemo, useState } from "react";
 import { productVariantFormConstants } from "@/shared/config/constants";
 import type { ProductFormApi } from "@/shared/lib/product/form";
 import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import {
   coerceVariantRows,
   sanitizeOptsForReconcile,
   toFormRow,
 } from "./variants-form.util";
+
+/** Base product price in the form; must be positive to match `productFormSchema` when saving. */
+function hasValidPositiveBasePrice(raw: unknown): boolean {
+  if (raw === undefined || raw === null) {
+    return false;
+  }
+  const s = String(raw).trim();
+  if (s === "") {
+    return false;
+  }
+  const n = Number(s.replace(",", "."));
+  return Number.isFinite(n) && n > 0;
+}
 
 export type PendingRemoval =
   | {
@@ -29,6 +44,7 @@ export type PendingRemoval =
     };
 
 export function useProductFormVariantsField(form: ProductFormApi) {
+  const t = useTranslations("products.create");
   const formatPrice = useFormatPriceForActiveStore();
 
   const [pendingRemoval, setPendingRemoval] = useState<PendingRemoval | null>(
@@ -205,8 +221,14 @@ export function useProductFormVariantsField(form: ProductFormApi) {
     () => ({
       onChange: ({ value }: { value: boolean }) => {
         if (value) {
+          if (!hasValidPositiveBasePrice(form.state.values.price)) {
+            form.setFieldValue("hasVariants", false);
+            toast.error(t("form.options.enableVariantsNeedPrice"));
+            return;
+          }
           form.setFieldValue("variantOptions", [{ name: "", values: [] }]);
           form.setFieldValue("variants", []);
+          form.setFieldValue("stock", "0");
         } else {
           form.setFieldValue("variantOptions", []);
           form.setFieldValue("variants", []);
@@ -214,7 +236,7 @@ export function useProductFormVariantsField(form: ProductFormApi) {
         }
       },
     }),
-    [form],
+    [form, t],
   );
 
   return {

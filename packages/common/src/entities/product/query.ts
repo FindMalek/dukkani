@@ -21,6 +21,10 @@ export type ProductListDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getListInclude>;
 }>;
 
+export type ProductStorefrontListDbData = Prisma.ProductGetPayload<{
+  include: ReturnType<typeof ProductQuery.getStorefrontListInclude>;
+}>;
+
 export type ProductPublicDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getPublicInclude>;
 }>;
@@ -91,6 +95,17 @@ export class ProductQuery {
     } satisfies Prisma.ProductInclude;
   }
 
+  /**
+   * Storefront product grid: **published** version only (no draft leak).
+   */
+  static getStorefrontListInclude() {
+    return {
+      currentPublishedVersion: {
+        select: ProductVersionQuery.getListSelect(),
+      },
+    } satisfies Prisma.ProductInclude;
+  }
+
   static getWhere(
     storeIds: string[],
     filters?: {
@@ -143,6 +158,9 @@ export class ProductQuery {
     }
 
     if (filters?.stock) {
+      // `ProductVersion.totalVariantStock` is denormalized: for simple products it
+      // matches `stock`; for variant products it is the sum of variant stocks. Kept
+      // in sync on version/variant stock writes. See `ProductVersionService.recomputeTotalVariantStock`.
       const stockFilter: { lte?: number; gte?: number } = {};
       if (filters.stock.lte !== undefined) {
         stockFilter.lte = filters.stock.lte;
@@ -155,12 +173,12 @@ export class ProductQuery {
           OR: [
             {
               currentPublishedVersion: {
-                is: { stock: stockFilter },
+                is: { totalVariantStock: stockFilter },
               },
             },
             {
               draftVersion: {
-                is: { stock: stockFilter },
+                is: { totalVariantStock: stockFilter },
               },
             },
           ],
@@ -197,16 +215,40 @@ export class ProductQuery {
       if (filters.priceMax !== undefined) {
         price.lte = filters.priceMax;
       }
+      // Simple products: match version `price` range. Variant products: overlap
+      // filter range with denormalized effective min/max, or fall back to
+      // version `price` when bounds were not yet backfilled (null min).
+      const overlap: Prisma.ProductVersionWhereInput[] = [];
+      if (filters.priceMin !== undefined) {
+        overlap.push({ variantEffectivePriceMax: { gte: filters.priceMin } });
+      }
+      if (filters.priceMax !== undefined) {
+        overlap.push({ variantEffectivePriceMin: { lte: filters.priceMax } });
+      }
+      const versionPriceWhere: Prisma.ProductVersionWhereInput = {
+        OR: [
+          { hasVariants: false, price },
+          {
+            hasVariants: true,
+            AND: overlap,
+          },
+          {
+            hasVariants: true,
+            variantEffectivePriceMin: null,
+            price,
+          },
+        ],
+      };
       andParts.push({
         OR: [
           {
             currentPublishedVersion: {
-              is: { price },
+              is: versionPriceWhere,
             },
           },
           {
             draftVersion: {
-              is: { price },
+              is: versionPriceWhere,
             },
           },
         ],
@@ -251,7 +293,7 @@ export class ProductQuery {
       return { currentPublishedVersion: { price: orderBy } };
     }
     if (field === "stock") {
-      return { currentPublishedVersion: { stock: orderBy } };
+      return { currentPublishedVersion: { totalVariantStock: orderBy } };
     }
     return { [field]: orderBy };
   }

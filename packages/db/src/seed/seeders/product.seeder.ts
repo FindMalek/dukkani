@@ -5,6 +5,39 @@ import { ProductVersionStatus } from "../../../prisma/generated/enums";
 import { BaseSeeder } from "../base";
 import type { StoreSeeder } from "./store.seeder";
 
+/**
+ * Denormalize min/max effective variant sell prices (mirrors
+ * ProductVersionService.recomputeVariantEffectivePriceBounds; db package does not
+ * depend on @dukkani/common).
+ */
+async function recomputeVariantEffectivePriceBoundsForSeed(
+  database: PrismaClient,
+  productVersionId: string,
+  versionBasePrice: Prisma.Decimal,
+): Promise<void> {
+  const variants = await database.productVariant.findMany({
+    where: { productVersionId },
+    select: { price: true },
+  });
+  if (variants.length === 0) {
+    return;
+  }
+  const toNum = (d: Prisma.Decimal) => Number(d);
+  const base = toNum(versionBasePrice);
+  const prices = variants.map((row) =>
+    row.price != null ? toNum(row.price) : base,
+  );
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
+  await database.productVersion.update({
+    where: { id: productVersionId },
+    data: {
+      variantEffectivePriceMin: new Prisma.Decimal(min),
+      variantEffectivePriceMax: new Prisma.Decimal(max),
+    },
+  });
+}
+
 export interface SeededProduct {
   id: string;
   name: string;
@@ -287,6 +320,34 @@ export class ProductSeeder extends BaseSeeder {
         ],
       },
       {
+        name: "Classic Leather Belt",
+        description:
+          "Genuine full-grain leather belt with polished buckle. Adjustable sizing and double-stitch construction for long-lasting daily wear.",
+        price: new Prisma.Decimal("45.00"),
+        stock: 40,
+        published: true,
+        storeSlug: "ahmed-fashion",
+        categoryName: "Accessories",
+        hasVariants: false,
+        images: [
+          "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80",
+        ],
+      },
+      {
+        name: "Merino Wool Scarf",
+        description:
+          "Soft merino wool scarf, lightweight and warm. Ideal for cool evenings; finished edges and available in solid seasonal colors.",
+        price: new Prisma.Decimal("35.00"),
+        stock: 60,
+        published: true,
+        storeSlug: "ahmed-fashion",
+        categoryName: "Accessories",
+        hasVariants: false,
+        images: [
+          "https://images.unsplash.com/photo-1601925260368-af2a9a8a0d66?w=800&q=80",
+        ],
+      },
+      {
         name: "Slim Fit Chinos",
         description:
           "Classic slim-fit chinos in premium cotton twill. Features stretch fabric for comfort, wrinkle-resistant finish, and perfect for both casual and smart-casual occasions.",
@@ -457,6 +518,34 @@ export class ProductSeeder extends BaseSeeder {
         images: [
           "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&q=80",
           "https://images.unsplash.com/photo-1609091839311-d5365f5bf239?w=800&q=80",
+        ],
+      },
+      {
+        name: "Aluminum Laptop Stand",
+        description:
+          "Ergonomic ventilated stand for 13- to 16-inch laptops. Folds flat for travel and supports better posture and cooling.",
+        price: new Prisma.Decimal("42.00"),
+        stock: 50,
+        published: true,
+        storeSlug: "fatima-electronics",
+        categoryName: "Laptops",
+        hasVariants: false,
+        images: [
+          "https://images.unsplash.com/photo-1527864550417-7fd1fc5e7d0d?w=800&q=80",
+        ],
+      },
+      {
+        name: "HDMI 2.1 Certified Cable",
+        description:
+          "2-meter HDMI 2.1 cable for 4K/120Hz and 8K sources. Durable braiding and gold-plated connectors for reliable signal.",
+        price: new Prisma.Decimal("19.99"),
+        stock: 120,
+        published: true,
+        storeSlug: "fatima-electronics",
+        categoryName: "Chargers",
+        hasVariants: false,
+        images: [
+          "https://images.unsplash.com/photo-1588508065123-5abd63b1ef02?w=800&q=80",
         ],
       },
       {
@@ -747,6 +836,34 @@ export class ProductSeeder extends BaseSeeder {
         ],
       },
       {
+        name: "Bamboo Cutting Board",
+        description:
+          "Thick end-grain bamboo board for everyday prep. Knife-friendly surface and juice groove; oil occasionally for a long life.",
+        price: new Prisma.Decimal("32.00"),
+        stock: 70,
+        published: true,
+        storeSlug: "omar-home",
+        categoryName: "Kitchen",
+        hasVariants: false,
+        images: [
+          "https://images.unsplash.com/photo-1621996346565-e3dbc353d0e0?w=800&q=80",
+        ],
+      },
+      {
+        name: "Ceramic Planter Set",
+        description:
+          "Set of three modern ceramic pots with matching saucers. Drainage holes and matte finish; ideal for indoor herbs and succulents.",
+        price: new Prisma.Decimal("28.00"),
+        stock: 55,
+        published: true,
+        storeSlug: "omar-home",
+        categoryName: "Decor",
+        hasVariants: false,
+        images: [
+          "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=800&q=80",
+        ],
+      },
+      {
         name: "Modern Coffee Table",
         description:
           "Sleek modern coffee table with tempered glass top and metal frame. Features hidden storage compartment and scratch-resistant surface. Perfect for living rooms and modern interiors.",
@@ -902,12 +1019,16 @@ export class ProductSeeder extends BaseSeeder {
           return null;
         }
 
+        const hasVariants = def.hasVariants === true;
         return {
           id: generateProductId(store.slug),
           name: def.name,
           description: def.description,
-          price: def.price,
-          stock: def.stock,
+          price: hasVariants
+            ? new Prisma.Decimal(0)
+            : (def.price ?? new Prisma.Decimal(0)),
+          stock: hasVariants ? 0 : def.stock,
+          referencePriceForSeededProduct: def.price,
           published: def.published,
           storeId: store.id,
           categoryId,
@@ -1049,6 +1170,14 @@ export class ProductSeeder extends BaseSeeder {
               });
             }
           }
+
+          if (productInfo.variants?.length) {
+            await recomputeVariantEffectivePriceBoundsForSeed(
+              database,
+              version.id,
+              productInfo.price,
+            );
+          }
         }
 
         return product;
@@ -1063,7 +1192,7 @@ export class ProductSeeder extends BaseSeeder {
         id: product.id,
         name: info.name,
         storeId: product.storeId,
-        price: info.price,
+        price: info.referencePriceForSeededProduct,
       });
     }
 

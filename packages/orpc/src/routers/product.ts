@@ -169,7 +169,7 @@ export const productRouter = {
           skip,
           take: limit,
           orderBy,
-          include: ProductQuery.getListInclude(),
+          include: ProductQuery.getStorefrontListInclude(),
         }),
         database.product.count({ where }),
       ]);
@@ -177,7 +177,7 @@ export const productRouter = {
       const hasMore = skip + products.length < total;
 
       return {
-        products: products.map(ProductEntity.getListRo),
+        products: products.map(ProductEntity.getStorefrontListRo),
         total,
         hasMore,
         page,
@@ -252,7 +252,7 @@ export const productRouter = {
             name: input.name,
             description: input.description,
             price: input.price,
-            stock: input.stock,
+            stock: input.hasVariants ? 0 : input.stock,
             hasVariants: input.hasVariants ?? false,
             imageUrls: input.imageUrls,
             variantOptions: input.hasVariants
@@ -436,12 +436,24 @@ export const productRouter = {
               description: input.description || null,
             }),
             ...(input.price !== undefined && { price: input.price }),
-            ...(input.stock !== undefined && { stock: input.stock }),
+            ...(effectiveHasVariants
+              ? { stock: 0 }
+              : input.stock !== undefined
+                ? { stock: input.stock }
+                : {}),
             ...(input.hasVariants !== undefined && {
               hasVariants: input.hasVariants,
             }),
           },
         });
+
+        if (effectiveHasVariants && input.price !== undefined) {
+          await ProductVersionService.recomputeVariantEffectivePriceBounds(
+            tx,
+            versionId,
+          );
+        }
+        await ProductVersionService.recomputeTotalVariantStock(tx, versionId);
 
         await tx.product.update({
           where: { id: input.id },

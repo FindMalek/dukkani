@@ -1,3 +1,4 @@
+import { effectiveVariantUnitPrice } from "../../lib/pricing/variant-effective-price";
 import type { FormVariantRow } from "../../lib/variant/matrix";
 import type { ProductVariantFormRowInput } from "../../schemas/variant/form";
 import type {
@@ -7,7 +8,6 @@ import type {
   VariantSelectionOutput,
   VariantSimpleOutput,
 } from "../../schemas/variant/output";
-
 import type {
   VariantDbData,
   VariantOptionDbData,
@@ -60,11 +60,21 @@ export class VariantEntity {
     };
   }
 
-  static getVariantRo(entity: VariantDbData): VariantOutput {
+  static getVariantRo(
+    entity: VariantDbData,
+    versionBasePrice?: number,
+  ): VariantOutput {
+    const price = entity.price != null ? Number(entity.price) : null;
+    const effectivePrice =
+      versionBasePrice !== undefined
+        ? effectiveVariantUnitPrice(entity.price, versionBasePrice)
+        : undefined;
+
     return {
       id: entity.id,
       sku: entity.sku,
-      price: entity.price != null ? Number(entity.price) : null,
+      price,
+      effectivePrice,
       stock: entity.stock,
       trackStock: entity.trackStock,
       imageUrl: entity.image?.url ?? null,

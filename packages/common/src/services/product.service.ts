@@ -13,7 +13,9 @@ import {
   ProductVersionQuery,
 } from "../entities/product-version/query";
 import { decimalLikeToNumber } from "../lib/decimal/decimal-like";
+import { effectiveVariantUnitPrice } from "../lib/pricing/variant-effective-price";
 import { generateProductId } from "../lib/id/generate-id";
+import { ProductVersionService } from "./product-version.service";
 import {
   type OrderItemAddonSnapshot,
   orderItemAddonSnapshotSchema,
@@ -33,6 +35,49 @@ class ProductServiceBase {
    */
   static generateProductId(storeSlug: string): string {
     return generateProductId(storeSlug);
+  }
+
+  /**
+   * Variant products with a non-empty matrix require `variantId` on each line;
+   * simple products must not send `variantId`.
+   */
+  private static assertCatalogLineVariantRules(
+    items: ProductLineItem[],
+    productMap: Map<
+      string,
+      {
+        currentPublishedVersion: {
+          hasVariants: boolean;
+          variants: Array<{ id: string }>;
+        } | null;
+      }
+    >,
+  ): void {
+    for (const item of items) {
+      const row = productMap.get(item.productId);
+      const pub = row?.currentPublishedVersion;
+      if (!pub) {
+        throw new NotFoundError(
+          `Product ${item.productId} not found or not available for this store`,
+        );
+      }
+      const requiresVariant = pub.hasVariants && pub.variants.length > 0;
+      if (requiresVariant) {
+        if (!item.variantId) {
+          throw new BadRequestError("Select a variant for this product");
+        }
+        const ok = pub.variants.some((v) => v.id === item.variantId);
+        if (!ok) {
+          throw new BadRequestError(
+            "This product was updated. Remove it from your cart and add it again.",
+          );
+        }
+      } else if (item.variantId) {
+        throw new BadRequestError(
+          "This product has no variants. Remove it from your cart and add it again.",
+        );
+      }
+    }
   }
 
   private static resolveAddonSelectionsForPublishedVersion(
@@ -189,6 +234,8 @@ class ProductServiceBase {
       products.map((p: ProductWithPrices) => [p.id, p]),
     );
 
+    ProductServiceBase.assertCatalogLineVariantRules(items, productMap);
+
     return items.map((item) => {
       const product = productMap.get(item.productId);
       const pub = product?.currentPublishedVersion;
@@ -209,8 +256,16 @@ class ProductServiceBase {
         );
       }
       const basePrice = variant
-        ? decimalLikeToNumber(variant.price)
-        : decimalLikeToNumber(pub.price);
+        ? effectiveVariantUnitPrice(variant.price, pub.price)
+        : (() => {
+            const n = decimalLikeToNumber(pub.price);
+            return Number.isFinite(n) ? n : null;
+          })();
+      if (basePrice == null) {
+        throw new BadRequestError(
+          "This product has no valid price. Remove it from your cart and add it again.",
+        );
+      }
 
       const selections = item.addonSelections ?? [];
       const { unitAddonTotal, addonSnapshots } =
@@ -276,6 +331,31 @@ class ProductServiceBase {
     });
 
     const client = tx ?? database;
+
+    const lineProductIds = [...new Set(items.map((i) => i.productId))];
+    if (lineProductIds.length > 0) {
+      const catalogRows = await client.product.findMany({
+        where: {
+          id: { in: lineProductIds },
+          storeId,
+          ...ProductQuery.getPublishableWhere(),
+        },
+        select: {
+          id: true,
+          currentPublishedVersion: {
+            select: {
+              hasVariants: true,
+              variants: { select: { id: true } },
+            },
+          },
+        },
+      });
+      type CatalogRow = (typeof catalogRows)[number];
+      const catalogMap = new Map<string, CatalogRow>(
+        catalogRows.map((p: CatalogRow) => [p.id, p]),
+      );
+      ProductServiceBase.assertCatalogLineVariantRules(items, catalogMap);
+    }
 
     // Aggregate by (productId, variantId) - use empty string for non-variant items
     const requiredByKey = new Map<string, number>();
@@ -387,7 +467,6 @@ class ProductServiceBase {
       }
     }
 
-    const lineProductIds = [...new Set(items.map((i) => i.productId))];
     const productsForAddons = await client.product.findMany({
       where: {
         id: { in: lineProductIds },
@@ -464,6 +543,10 @@ class ProductServiceBase {
         },
       },
     });
+    await ProductVersionService.recomputeTotalVariantStock(
+      client,
+      product.currentPublishedVersionId,
+    );
   }
 
   /**
@@ -540,6 +623,7 @@ class ProductServiceBase {
     }
 
     // Update variant stocks (only rows on the current published version)
+    const versionIdsToRecompute = new Set<string>();
     if (variantUpdates.length > 0) {
       const uniqueVariantIds = [
         ...new Set(variantUpdates.map((u) => u.variantId)),
@@ -581,6 +665,7 @@ class ProductServiceBase {
               "Cannot adjust stock: variant is not on the live catalog version",
             );
           }
+          versionIdsToRecompute.add(pubId);
           return client.productVariant.update({
             where: { id: variantId },
             data: {
@@ -603,7 +688,7 @@ class ProductServiceBase {
         select: { id: true, currentPublishedVersionId: true },
       });
       type PubProduct = (typeof products)[number];
-      const pubByProduct = new Map(
+      const pubByProduct = new Map<string, string | null>(
         products.map((p: PubProduct) => [p.id, p.currentPublishedVersionId]),
       );
 
@@ -615,6 +700,7 @@ class ProductServiceBase {
               `Product ${productId} has no published version`,
             );
           }
+          versionIdsToRecompute.add(versionId);
           return client.productVersion.update({
             where: { id: versionId },
             data: {
@@ -626,6 +712,12 @@ class ProductServiceBase {
         }),
       );
     }
+
+    await Promise.all(
+      [...versionIdsToRecompute].map((vid) =>
+        ProductVersionService.recomputeTotalVariantStock(client, vid),
+      ),
+    );
 
     addSpanAttributes({
       "product.variants_updated": variantUpdates.length,

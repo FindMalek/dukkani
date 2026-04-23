@@ -1,3 +1,5 @@
+import { buildProductPriceDisplay } from "../../lib/pricing/product-price-display";
+import { listDisplayStock } from "../../lib/variant/list-display-stock";
 import { reconcileVariants } from "../../lib/variant/matrix";
 import type { ProductFormInput } from "../../schemas/product/form";
 import type {
@@ -17,6 +19,7 @@ import type {
   ProductListDbData,
   ProductPublicDbDataWithPublished,
   ProductSimpleDbData,
+  ProductStorefrontListDbData,
 } from "./query";
 
 export class ProductEntity {
@@ -35,23 +38,77 @@ export class ProductEntity {
     };
   }
 
-  static getListRo(entity: ProductListDbData): ListProductOutput {
-    const v = ProductVersionEntity.pickForList(
-      entity.draftVersion,
-      entity.currentPublishedVersion,
-    );
+  /**
+   * Storefront listing: **published** catalog only (see {@link ProductVersionQuery.getStorefrontListInclude}).
+   */
+  static getStorefrontListRo(
+    entity: ProductStorefrontListDbData,
+  ): ListProductOutput {
+    const v = entity.currentPublishedVersion;
+    const versionPrice = v ? Number(v.price) : 0;
+
     return {
       id: entity.id,
       name: v?.name ?? "",
       description: v?.description ?? null,
-      price: v ? Number(v.price) : 0,
-      stock: v?.stock ?? 0,
+      price: versionPrice,
+      stock: listDisplayStock(v),
       published: entity.published,
       storeId: entity.storeId,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       imageUrls: v?.images.map((img) => img.url) ?? [],
       variantCount: v?._count.variants ?? 0,
+      hasRequiredAddonGroups: (v?.addonGroups?.length ?? 0) > 0,
+      priceDisplay: buildProductPriceDisplay({
+        hasVariants: v?.hasVariants ?? false,
+        versionPrice,
+        variantEffectivePriceMin:
+          v?.variantEffectivePriceMin != null
+            ? Number(v.variantEffectivePriceMin)
+            : null,
+        variantEffectivePriceMax:
+          v?.variantEffectivePriceMax != null
+            ? Number(v.variantEffectivePriceMax)
+            : null,
+        variantsFallback: v?.variants,
+      }),
+    };
+  }
+
+  static getListRo(entity: ProductListDbData): ListProductOutput {
+    const v = ProductVersionEntity.pickForList(
+      entity.draftVersion,
+      entity.currentPublishedVersion,
+    );
+    const versionPrice = v ? Number(v.price) : 0;
+
+    return {
+      id: entity.id,
+      name: v?.name ?? "",
+      description: v?.description ?? null,
+      price: versionPrice,
+      stock: listDisplayStock(v),
+      published: entity.published,
+      storeId: entity.storeId,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+      imageUrls: v?.images.map((img) => img.url) ?? [],
+      variantCount: v?._count.variants ?? 0,
+      hasRequiredAddonGroups: (v?.addonGroups?.length ?? 0) > 0,
+      priceDisplay: buildProductPriceDisplay({
+        hasVariants: v?.hasVariants ?? false,
+        versionPrice,
+        variantEffectivePriceMin:
+          v?.variantEffectivePriceMin != null
+            ? Number(v.variantEffectivePriceMin)
+            : null,
+        variantEffectivePriceMax:
+          v?.variantEffectivePriceMax != null
+            ? Number(v.variantEffectivePriceMax)
+            : null,
+        variantsFallback: v?.variants,
+      }),
     };
   }
 
@@ -159,18 +216,35 @@ export class ProductEntity {
     entity: ProductPublicDbDataWithPublished,
   ): ProductPublicOutput {
     const v = entity.currentPublishedVersion;
+    const versionPrice = Number(v.price);
+
     return {
       id: entity.id,
       name: v.name,
       description: v.description,
-      price: Number(v.price),
+      price: versionPrice,
       stock: v.stock,
       published: entity.published,
       imageUrls: v.images.map((image) => image.url),
       store: StoreEntity.getPublicSimpleRo(entity.store),
-      variants: v.variants.map(VariantEntity.getVariantRo),
+      variants: v.variants.map((row) =>
+        VariantEntity.getVariantRo(row, versionPrice),
+      ),
       variantOptions: v.variantOptions.map(VariantEntity.getVariantOptionRo),
       addonGroups: v.addonGroups.map(ProductAddonEntity.getGroupRo),
+      priceDisplay: buildProductPriceDisplay({
+        hasVariants: v.hasVariants,
+        versionPrice,
+        variantEffectivePriceMin:
+          v.variantEffectivePriceMin != null
+            ? Number(v.variantEffectivePriceMin)
+            : null,
+        variantEffectivePriceMax:
+          v.variantEffectivePriceMax != null
+            ? Number(v.variantEffectivePriceMax)
+            : null,
+        variantsFallback: v.variants,
+      }),
     };
   }
 }

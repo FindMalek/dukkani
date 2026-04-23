@@ -9,6 +9,17 @@ import {
   variantOutputSchema,
 } from "../variant/output";
 
+export const productPriceDisplaySchema = z.discriminatedUnion("kind", [
+  z.object({ kind: z.literal("simple"), price: z.number() }),
+  z.object({
+    kind: z.literal("range"),
+    min: z.number(),
+    max: z.number(),
+  }),
+]);
+
+export type ProductPriceDisplay = z.infer<typeof productPriceDisplaySchema>;
+
 export const productSimpleOutputSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -24,6 +35,8 @@ export const productSimpleOutputSchema = z.object({
 export const listProductOutputSchema = productSimpleOutputSchema.extend({
   imageUrls: z.array(z.string()),
   variantCount: z.number().int(),
+  hasRequiredAddonGroups: z.boolean(),
+  priceDisplay: productPriceDisplaySchema,
 });
 
 export const productIncludeOutputSchema = productSimpleOutputSchema.extend({
@@ -60,6 +73,7 @@ export const productPublicOutputSchema = productSimpleOutputSchema
     variants: z.array(variantOutputSchema).optional(),
     variantOptions: z.array(variantOptionOutputSchema).optional(),
     addonGroups: z.array(productAddonGroupPublicSchema).optional(),
+    priceDisplay: productPriceDisplaySchema,
   })
   .omit({
     storeId: true,

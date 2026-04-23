@@ -98,7 +98,10 @@ export const productFormSchema = productSchema
       });
     }
   })
-  .transform(({ images, ...form }) => form);
+  .transform(({ images, ...form }) => ({
+    ...form,
+    stock: form.hasVariants ? 0 : form.stock,
+  }));
 
 export type ProductFormInput = z.input<typeof productFormSchema>;
 export type ProductFormOutput = z.infer<typeof productFormSchema>;
