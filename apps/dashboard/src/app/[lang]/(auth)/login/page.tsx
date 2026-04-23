@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import Link from "next/link";
 import { userAgent } from "next/server";
-import { AppleSignIn } from "@/components/auth/apple-sign-in";
-import { EmailSignIn } from "@/components/auth/email-sign-in";
-import { FacebookSignIn } from "@/components/auth/facebook-sign-in";
-import { GoogleSignIn } from "@/components/auth/google-sign-in";
-import { LoginAccordion } from "@/components/auth/login-accordion";
+import { AppleSignIn } from "@/components/app/auth/apple-sign-in";
+import { EmailSignIn } from "@/components/app/auth/email-sign-in";
+import { FacebookSignIn } from "@/components/app/auth/facebook-sign-in";
+import { GoogleSignIn } from "@/components/app/auth/google-sign-in";
+import { LoginAccordion } from "@/components/app/auth/login-accordion";
 import { AuthBackground } from "@/components/layout/auth-background";
 import { cookieConstants } from "@/shared/config/constants";
 
