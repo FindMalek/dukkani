@@ -82,30 +82,37 @@ export function OrderListCard({ order }: OrderListCardProps) {
       disabled={isPending}
       aria-label={t("viewOrder", { id: order.id })}
     >
-      {/* Top row: Name and Status */}
-      <div className="flex items-center justify-between gap-2">
-        <h3 className="font-semibold text-base text-foreground">
-          {order.customer?.name ?? "—"}
-        </h3>
-        <Badge variant={badgeVariant} className="shrink-0 font-normal">
-          {t(statusTranslationKey)}
-        </Badge>
-      </div>
-
-      {/* Bottom row: ID, Items/Payment, and Total */}
-      <div className="flex items-end justify-between gap-4">
-        <div className="flex flex-col gap-1">
-          <p className="font-bold text-base text-foreground">#{order.id}</p>
-          <p className="text-muted-foreground text-sm">
-            {t("itemsCount", { count: itemsCount })} • {paymentLabel}
-          </p>
+      <div className="flex flex-col gap-3">
+        {/* Top row: Name and Status */}
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="font-semibold text-base text-foreground">
+            {order.customer?.name ?? "—"}
+          </h3>
+          <Badge variant={badgeVariant} className="shrink-0 font-normal">
+            {t(statusTranslationKey)}
+          </Badge>
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* Middle row: ID, Items, Payment */}
+        <div className="flex items-center gap-2 font-medium text-muted-foreground text-sm">
+          <span className="font-bold text-foreground">#{order.id}</span>
+          <span>{t("itemsCount", { count: itemsCount })}</span>
+          <span className="font-normal">{paymentLabel}</span>
+        </div>
+
+        {/* Bottom row: Location and Total */}
+        <div className="flex items-end justify-between gap-4">
+          <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
+            <Icons.mapPin className="size-4" />
+            <span>
+              {order.address
+                ? `${order.address.city}, ${order.address.street}`
+                : "—"}
+            </span>
+          </div>
           <p className="font-bold text-foreground text-lg">
             {formatPrice(total)}
           </p>
-          <Icons.chevronRight className="size-5 shrink-0 text-muted-foreground" />
         </div>
       </div>
     </SwipeableCard>

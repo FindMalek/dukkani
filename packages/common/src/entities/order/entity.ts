@@ -150,6 +150,9 @@ export class OrderEntity {
       customer: entity.customer
         ? { name: entity.customer.name, phone: entity.customer.phone }
         : null,
+      address: entity.address
+        ? { city: entity.address.city, street: entity.address.street }
+        : null,
       orderItems: entity.orderItems.map((row) => ({
         price: Number(row.price),
         quantity: row.quantity,

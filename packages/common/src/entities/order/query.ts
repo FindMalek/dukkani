@@ -35,6 +35,7 @@ export class OrderQuery {
       paymentMethod: true,
       createdAt: true,
       customer: { select: { name: true, phone: true } },
+      address: { select: { city: true, street: true } },
       orderItems: { select: { price: true, quantity: true } },
     } satisfies Prisma.OrderSelect;
   }

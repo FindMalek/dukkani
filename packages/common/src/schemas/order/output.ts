@@ -11,6 +11,11 @@ export const orderListCustomerOutputSchema = z.object({
   phone: z.string(),
 });
 
+export const orderListAddressOutputSchema = z.object({
+  city: z.string(),
+  street: z.string(),
+});
+
 export const orderListLineOutputSchema = z.object({
   price: z.number(),
   quantity: z.number().int(),
@@ -22,6 +27,7 @@ export const orderListItemOutputSchema = z.object({
   paymentMethod: paymentMethodSchema,
   createdAt: z.date(),
   customer: orderListCustomerOutputSchema.nullable().optional(),
+  address: orderListAddressOutputSchema.nullable().optional(),
   orderItems: z.array(orderListLineOutputSchema),
 });
 
