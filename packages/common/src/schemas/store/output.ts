@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { orderSimpleOutputSchema } from "../order/output";
 import {
   productPublicOutputSchema,
   productSimpleOutputSchema,
@@ -126,7 +125,6 @@ export const storeStatsOutputSchema = z.object({
     CANCELLED: z.number().int(),
   }),
   totalRevenue: z.number(),
-  recentOrders: z.array(orderSimpleOutputSchema),
   lowStockProducts: z.array(productSimpleOutputSchema),
   todayOrders: z.number().int(),
   todayOrdersChange: z.number().int(),

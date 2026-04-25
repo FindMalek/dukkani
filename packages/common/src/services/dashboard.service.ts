@@ -7,7 +7,6 @@ import {
   startOfWeek,
   subDays,
 } from "date-fns";
-import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import { OrderItemQuery } from "../entities/order-item/query";
 import { ProductEntity } from "../entities/product/entity";
@@ -50,7 +49,6 @@ class DashboardServiceBase {
           CANCELLED: 0,
         },
         totalRevenue: 0,
-        recentOrders: [],
         lowStockProducts: [],
         todayOrders: 0,
         todayOrdersChange: 0,
@@ -83,7 +81,6 @@ class DashboardServiceBase {
       totalOrders,
       ordersByStatus,
       deliveredOrders,
-      recentOrders,
       lowStockProducts,
       todayOrders,
       yesterdayOrders,
@@ -123,14 +120,6 @@ class DashboardServiceBase {
             select: OrderItemQuery.getRevenueSelect(),
           },
         },
-      }),
-
-      // Get recent orders (last 10)
-      database.order.findMany({
-        where: baseOrderWhere,
-        take: 10,
-        orderBy: OrderQuery.getOrder("desc", "createdAt"),
-        include: OrderQuery.getInclude(),
       }),
 
       // Get low stock products (stock <= 10 on published or draft version)
@@ -239,7 +228,6 @@ class DashboardServiceBase {
       "dashboard.total_products": totalProducts,
       "dashboard.total_orders": totalOrders,
       "dashboard.total_revenue": totalRevenue,
-      "dashboard.recent_orders_count": recentOrders.length,
       "dashboard.low_stock_count": lowStockProducts.length,
     });
 
@@ -248,7 +236,6 @@ class DashboardServiceBase {
       totalOrders,
       ordersByStatus: ordersByStatusMap,
       totalRevenue,
-      recentOrders: recentOrders.map(OrderEntity.getSimpleRo),
       lowStockProducts: lowStockProducts.map(ProductEntity.getSimpleRo),
       todayOrders,
       todayOrdersChange,
