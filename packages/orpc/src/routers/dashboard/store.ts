@@ -15,7 +15,6 @@ import {
   storeStatsOutputSchema,
 } from "@dukkani/common/schemas/store/output";
 import {
-  DashboardService,
   LaunchNotificationService,
   StoreService,
 } from "@dukkani/common/services";
@@ -131,6 +130,6 @@ export const storeRouter = {
     .output(storeStatsOutputSchema)
     .handler(async ({ input, context }) => {
       const userId = context.session.user.id;
-      return await DashboardService.getDashboardStats(userId, input?.storeId);
+      return await StoreService.getStoreStats(userId, input?.storeId);
     }),
 };
