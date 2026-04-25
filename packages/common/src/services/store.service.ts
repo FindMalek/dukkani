@@ -373,8 +373,11 @@ class StoreServiceBase {
       };
     }
 
-    const filteredStoreIds =
-      storeId && storeIds.includes(storeId) ? [storeId] : storeIds;
+    if (storeId && !storeIds.includes(storeId)) {
+      throw new ForbiddenError("Store access denied");
+    }
+
+    const filteredStoreIds = storeId ? [storeId] : storeIds;
 
     const now = new Date();
     const todayStart = startOfDay(now);

@@ -4,6 +4,7 @@ import type {
   ConfigureStoreOnboardingInput,
   CreateStoreOnboardingInput,
 } from "@dukkani/common/schemas/store/input";
+import type { StoreSimpleOutput } from "@dukkani/common/schemas/store/output";
 import type { OnboardingStepConfig } from "@dukkani/common/services/onboarding.service";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";

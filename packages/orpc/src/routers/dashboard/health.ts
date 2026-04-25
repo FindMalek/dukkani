@@ -102,6 +102,16 @@ export const healthRouter = {
         });
       }
     } catch (error) {
+      if (health?.id) {
+        health = {
+          ...health,
+          status,
+          duration: dbLatency ?? 0,
+          endTime,
+          storageStatus,
+          storageLatencyMs: storageLatencyMs ?? null,
+        };
+      }
       logger.error(
         enhanceLogWithTraceContext({
           error: error instanceof Error ? error.message : String(error),
@@ -112,7 +122,7 @@ export const healthRouter = {
 
     return (
       health ?? {
-        id: "unpersisted",
+        id: crypto.randomUUID(),
         status,
         duration: dbLatency ?? 0,
         startTime,

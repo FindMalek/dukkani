@@ -38,6 +38,7 @@ export const storeRouter = {
     }),
 
   selectStore: publicProcedure
+    .use(rateLimitPublicSafe)
     .input(z.object({ slug: z.string() }))
     .output(z.object({ success: z.literal(true) }))
     .handler(async ({ input }) => {

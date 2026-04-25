@@ -18,22 +18,23 @@ import {
 import { database } from "@dukkani/db";
 import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { ORPCError } from "@orpc/server";
+import { z } from "zod";
 import { rateLimitPublicSafe } from "../../middleware/rate-limit";
 import { baseProcedure } from "../../procedures";
 import { SORT_ORDER_MAP, STOCK_RANGE_MAP } from "../../utils/product-list-maps";
 
+const listPublicProductsInputSchema = listProductsInputSchema.extend({
+  storeId: z.string().min(1),
+});
+
 export const productRouter = {
   getAllPublic: baseProcedure
     .use(rateLimitPublicSafe)
-    .input(listProductsInputSchema.optional())
+    .input(listPublicProductsInputSchema)
     .output(listProductsOutputSchema)
     .handler(async ({ input }): Promise<ListProductsOutput> => {
-      if (!input?.storeId) {
-        throw new ORPCError("BAD_REQUEST", { message: "storeId is required" });
-      }
-
-      const page = input?.page ?? 1;
-      const limit = input?.limit ?? 20;
+      const page = input.page ?? 1;
+      const limit = input.limit ?? 20;
       const skip = (page - 1) * limit;
 
       const store = await database.store.findUnique({
@@ -124,6 +125,7 @@ export const productRouter = {
       const products = await database.product.findMany({
         where: {
           id: { in: input.ids },
+          store: { status: StoreStatus.PUBLISHED },
           ...ProductQuery.getPublishableWhere(),
         },
         include: ProductQuery.getPublicInclude(),

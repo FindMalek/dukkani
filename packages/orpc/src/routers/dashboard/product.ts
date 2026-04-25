@@ -409,8 +409,18 @@ export const productRouter = {
               }
             }
           }
-          for (const imageKey of imageKeys) {
-            await StorageService.deleteFile(env.S3_BUCKET, imageKey);
+          const results = await Promise.allSettled(
+            [...imageKeys].map((key) =>
+              StorageService.deleteFile(env.S3_BUCKET, key),
+            ),
+          );
+          for (const result of results) {
+            if (result.status === "rejected") {
+              logger.error(
+                { error: result.reason, productId: input.id },
+                "Failed to delete product image from storage",
+              );
+            }
           }
         } catch (storageError) {
           logger.error(

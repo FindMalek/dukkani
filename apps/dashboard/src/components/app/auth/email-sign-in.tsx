@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { authClient } from "@/shared/api/auth-client";
 import { handleAPIError } from "@/shared/api/error-handler";
-import { orpc } from "@/shared/api/orpc";
+import { client } from "@/shared/api/orpc";
 import { getRouteWithQuery, RoutePaths } from "@/shared/config/routes";
 
 const emailFormSchema = loginInputSchema.pick({ email: true });
@@ -25,7 +25,7 @@ export function EmailSignIn({
   const [emailExists, setEmailExists] = useState<boolean | null>(null);
   const handleEmailExistenceCheck = async (email: string) => {
     try {
-      const exists = await orpc.account.checkEmailExists.call({ email });
+      const exists = await client.account.checkEmailExists({ email });
 
       if (!exists) {
         const onboardingUrl = getRouteWithQuery(

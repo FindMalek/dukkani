@@ -1,12 +1,12 @@
 "use client";
 
-import type { StoreStatsOutput as DashboardStatsOutput } from "@dukkani/common/schemas/store/output";
+import type { StoreStatsOutput } from "@dukkani/common/schemas/store/output";
 import { useTranslations } from "next-intl";
 import { OrdersCard } from "@/components/shared/orders-card";
 import { RevenueCard } from "@/components/shared/revenue-card";
 
 interface TodaysPerformanceProps {
-  stats: DashboardStatsOutput;
+  stats: StoreStatsOutput;
 }
 
 export function TodaysPerformance({ stats }: TodaysPerformanceProps) {

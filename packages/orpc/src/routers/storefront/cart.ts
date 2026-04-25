@@ -53,12 +53,14 @@ export const cartRouter = {
         storeId,
       );
 
-      return rows.map((row, i) =>
-        ProductEntity.getCartItemRo(
-          row.product,
-          row.item,
-          priced[i]?.price ?? 0,
-        ),
-      );
+      return rows.map((row, i) => {
+        const pricedItem = priced[i];
+        if (!pricedItem) {
+          throw new ORPCError("INTERNAL_SERVER_ERROR", {
+            message: `Missing price for cart row ${i} (productId: ${row.item.productId})`,
+          });
+        }
+        return ProductEntity.getCartItemRo(row.product, row.item, pricedItem.price);
+      });
     }),
 };
