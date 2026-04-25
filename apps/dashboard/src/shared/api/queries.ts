@@ -1,30 +1,28 @@
-import { api } from "./orpc";
-
-// const api = api.dashboard;
+import { orpc } from "./orpc";
 
 export const appQueries = {
   account: {
-    currentUser: api.account.getCurrentUser.queryOptions,
+    currentUser: orpc.account.getCurrentUser.queryOptions,
   },
   category: {
-    all: api.category.getAll.queryOptions,
-    byId: api.category.getById.queryOptions,
+    all: orpc.category.getAll.queryOptions,
+    byId: orpc.category.getById.queryOptions,
   },
   order: {
-    all: api.order.getAll.queryOptions,
-    byId: api.order.getById.queryOptions,
+    all: orpc.order.getAll.queryOptions,
+    byId: orpc.order.getById.queryOptions,
   },
   product: {
-    all: api.product.getAll.queryOptions,
-    byId: api.product.getById.queryOptions,
+    all: orpc.product.getAll.queryOptions,
+    byId: orpc.product.getById.queryOptions,
   },
   store: {
-    all: api.store.getAll.queryOptions,
-    byId: api.store.getById.queryOptions,
-    stats: api.store.getStats.queryOptions,
+    all: orpc.store.getAll.queryOptions,
+    byId: orpc.store.getById.queryOptions,
+    stats: orpc.store.getStats.queryOptions,
   },
   telegram: {
-    status: api.telegram.getStatus.queryOptions,
-    botLink: api.telegram.getBotLink.queryOptions,
+    status: orpc.telegram.getStatus.queryOptions,
+    botLink: orpc.telegram.getBotLink.queryOptions,
   },
 };

@@ -46,6 +46,4 @@ export function makeQueryClient(onError?: (error: Error) => void) {
 export const client: DashboardRouterClient =
   globalThis.$orpcClient ?? getORPCClient().client;
 
-const orpc = getORPCClient().orpc;
-
-export { orpc as api };
+export const orpc = getORPCClient().orpc;
