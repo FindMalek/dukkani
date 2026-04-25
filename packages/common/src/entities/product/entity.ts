@@ -1,7 +1,10 @@
 import { buildProductPriceDisplay } from "../../lib/pricing/product-price-display";
+import { buildVariantDescription } from "../../lib/variant/build-description";
 import { listDisplayStock } from "../../lib/variant/list-display-stock";
 import { reconcileVariants } from "../../lib/variant/matrix";
+import type { CartItemOutput } from "../../schemas/cart/output";
 import type { ProductFormInput } from "../../schemas/product/form";
+import type { ProductLineItem } from "../../schemas/product/input";
 import type {
   ListProductOutput,
   ProductIncludeOutput,
@@ -210,6 +213,28 @@ export class ProductEntity {
     }
 
     return fromApi;
+  }
+
+  static getCartItemRo(
+    entity: ProductPublicDbDataWithPublished,
+    item: ProductLineItem,
+    unitPrice: number,
+  ): CartItemOutput {
+    const productData = ProductEntity.getPublicRo(entity);
+    const variant = item.variantId
+      ? productData.variants?.find((v) => v.id === item.variantId)
+      : null;
+
+    return {
+      productId: item.productId,
+      variantId: item.variantId,
+      quantity: item.quantity,
+      productName: productData.name,
+      productImage: productData.imageUrls?.[0],
+      productDescription: buildVariantDescription(variant),
+      price: unitPrice,
+      stock: variant?.stock ?? productData.stock,
+    };
   }
 
   static getPublicRo(

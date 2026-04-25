@@ -1,43 +1,16 @@
 import { ProductEntity } from "@dukkani/common/entities/product/entity";
-import {
-  type ProductPublicDbDataWithPublished,
-  ProductQuery,
-} from "@dukkani/common/entities/product/query";
-import { buildVariantDescription } from "@dukkani/common/lib";
+import { ProductQuery } from "@dukkani/common/entities/product/query";
 import { getCartItemsInputSchema } from "@dukkani/common/schemas/cart/input";
 import {
   type CartItemOutput,
   cartItemOutputSchema,
 } from "@dukkani/common/schemas/cart/output";
-import type { ProductLineItem } from "@dukkani/common/schemas/product/input";
 import { ProductService } from "@dukkani/common/services/product.service";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
 import { rateLimitPublicSafe } from "../../middleware/rate-limit";
 import { baseProcedure } from "../../procedures";
-
-function buildCartItemOutput(
-  item: ProductLineItem,
-  unitPrice: number,
-  product: ProductPublicDbDataWithPublished,
-): CartItemOutput {
-  const productData = ProductEntity.getPublicRo(product);
-  const variant = item.variantId
-    ? productData.variants?.find((v) => v.id === item.variantId)
-    : null;
-
-  return {
-    productId: item.productId,
-    variantId: item.variantId,
-    quantity: item.quantity,
-    productName: productData.name,
-    productImage: productData.imageUrls?.[0],
-    productDescription: buildVariantDescription(variant),
-    price: unitPrice,
-    stock: variant?.stock ?? productData.stock,
-  };
-}
 
 export const cartRouter = {
   getCartItems: baseProcedure
@@ -59,18 +32,11 @@ export const cartRouter = {
 
       const productMap = new Map(products.map((p) => [p.id, p]));
 
-      const rows: Array<{
-        item: ProductLineItem;
-        product: ProductPublicDbDataWithPublished;
-      }> = [];
-
-      for (const item of input.items) {
+      const rows = input.items.flatMap((item) => {
         const product = productMap.get(item.productId);
-        if (!product || !ProductQuery.isPublicWithPublished(product)) {
-          continue;
-        }
-        rows.push({ item, product });
-      }
+        if (!product || !ProductQuery.isPublicWithPublished(product)) return [];
+        return [{ item, product }];
+      });
 
       if (rows.length === 0) return [];
 
@@ -88,7 +54,7 @@ export const cartRouter = {
       );
 
       return rows.map((row, i) =>
-        buildCartItemOutput(row.item, priced[i]!.price, row.product),
+        ProductEntity.getCartItemRo(row.product, row.item, priced[i]?.price ?? 0),
       );
     }),
 };
