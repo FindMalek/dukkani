@@ -1,8 +1,5 @@
 import { getApiUrl } from "@dukkani/env/get-api-url";
-import type {
-  AppRouter,
-  DashboardRouterClient,
-} from "@dukkani/orpc";
+import type { AppRouter, DashboardRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { env } from "@/env";
@@ -10,7 +7,9 @@ import { env } from "@/env";
 type DashboardScopedUtils = {
   queryClient: QueryClient;
   client: DashboardRouterClient;
-  orpc: ReturnType<typeof createORPCClientUtils<AppRouter>>["orpc"]["dashboard"];
+  orpc: ReturnType<
+    typeof createORPCClientUtils<AppRouter>
+  >["orpc"]["dashboard"];
 };
 
 let orpcClient: DashboardScopedUtils | null = null;
