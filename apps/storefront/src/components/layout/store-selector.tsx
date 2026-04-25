@@ -44,7 +44,13 @@ export function StoreSelectorForm({ locale, compact }: StoreSelectorFormProps) {
       await client.store.selectStore({ slug: trimmed });
       const maxAge = 60 * 60 * 24 * 7;
       const secure = location.protocol === "https:" ? "; Secure" : "";
-      document.cookie = `storefront_store_slug=${trimmed}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure}`;
+      document.cookie =
+        "storefront_store_slug=" +
+        encodeURIComponent(trimmed) +
+        "; Path=/; Max-Age=" +
+        maxAge +
+        "; SameSite=Lax" +
+        secure;
       router.push(`/${locale}`);
       router.refresh();
     } catch {

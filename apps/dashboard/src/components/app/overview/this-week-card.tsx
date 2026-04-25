@@ -1,6 +1,6 @@
 "use client";
 
-import type { DashboardStatsOutput } from "@dukkani/common/schemas/dashboard/output";
+import type { StoreStatsOutput as DashboardStatsOutput } from "@dukkani/common/schemas/store/output";
 import {
   Card,
   CardContent,

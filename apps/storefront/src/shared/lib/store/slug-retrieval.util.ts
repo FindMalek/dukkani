@@ -10,7 +10,16 @@ export function getStoreSlug(
     return getStoreSlugFromHost(host);
   }
 
-  const slug = cookies.get("storefront_store_slug")?.value ?? null;
+  const rawCookieValue = cookies.get("storefront_store_slug")?.value ?? null;
+  const slug = rawCookieValue
+    ? (() => {
+        try {
+          return decodeURIComponent(rawCookieValue);
+        } catch {
+          return rawCookieValue;
+        }
+      })()
+    : null;
   if (!slug || isReservedStoreSlug(slug)) {
     return null;
   }

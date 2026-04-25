@@ -235,17 +235,12 @@ export const productRouter = {
                   env.S3_PUBLIC_BASE_URL,
                 );
                 if (!imageKey) continue;
-                const lastSlashIndex = imageKey.lastIndexOf("/");
-                if (lastSlashIndex <= 0) continue;
-                await StorageService.deleteFolderByPrefix(
-                  env.S3_BUCKET,
-                  imageKey.substring(0, lastSlashIndex),
-                );
+                await StorageService.deleteFile(env.S3_BUCKET, imageKey);
               }
             } catch (storageError) {
               logger.error(
                 { error: storageError, productId: input.id },
-                "Failed to delete removed draft product image folders from storage",
+                "Failed to delete removed draft product images from storage",
               );
             }
           }
@@ -402,7 +397,7 @@ export const productRouter = {
 
       if (images.length > 0) {
         try {
-          const folderPrefixes = new Set<string>();
+          const imageKeys = new Set<string>();
           for (const image of images) {
             if (image?.url) {
               const imageKey = await StorageService.getKeyFromPublicUrl(
@@ -410,23 +405,17 @@ export const productRouter = {
                 env.S3_PUBLIC_BASE_URL,
               );
               if (imageKey) {
-                const lastSlashIndex = imageKey.lastIndexOf("/");
-                if (lastSlashIndex > 0) {
-                  folderPrefixes.add(imageKey.substring(0, lastSlashIndex));
-                }
+                imageKeys.add(imageKey);
               }
             }
           }
-          for (const folderPrefix of folderPrefixes) {
-            await StorageService.deleteFolderByPrefix(
-              env.S3_BUCKET,
-              folderPrefix,
-            );
+          for (const imageKey of imageKeys) {
+            await StorageService.deleteFile(env.S3_BUCKET, imageKey);
           }
         } catch (storageError) {
           logger.error(
             { error: storageError, productId: input.id },
-            "Failed to delete product image folders from storage",
+            "Failed to delete product images from storage",
           );
         }
       }

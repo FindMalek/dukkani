@@ -46,9 +46,30 @@ export const storageRouter = {
         }
 
         await database.$transaction(async (tx) => {
-          await StorageService.deleteFiles(file.bucket, [...paths]);
           await StorageDbService.deleteStorageFile(file.id, tx);
         });
+
+        const allPaths = [...paths];
+        if (allPaths.length > 0) {
+          try {
+            await StorageService.deleteFiles(file.bucket, allPaths);
+          } catch (error) {
+            logger.error(
+              { bucket: file.bucket, paths: allPaths, error },
+              "Failed to delete storage files, attempting individual cleanup",
+            );
+            for (const path of allPaths) {
+              try {
+                await StorageService.deleteFile(file.bucket, path);
+              } catch (individualError) {
+                logger.error(
+                  { bucket: file.bucket, path, error: individualError },
+                  "Failed to delete individual storage file - orphaned object created",
+                );
+              }
+            }
+          }
+        }
 
         return { success: true };
       } catch (error) {

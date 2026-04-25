@@ -77,30 +77,49 @@ export const healthRouter = {
         ? HealthStatus.DEGRADED
         : HealthStatus.HEALTHY;
 
-    if (health) {
-      health = await database.health.update({
-        where: { id: health.id },
-        data: {
-          status,
-          duration: dbLatency ?? 0,
-          endTime,
-          storageStatus,
-          storageLatencyMs,
-        },
-      });
-    } else {
-      health = await database.health.create({
-        data: {
-          status,
-          duration: 0,
-          startTime,
-          endTime,
-          storageStatus,
-          storageLatencyMs,
-        },
-      });
+    try {
+      if (health) {
+        health = await database.health.update({
+          where: { id: health.id },
+          data: {
+            status,
+            duration: dbLatency ?? 0,
+            endTime,
+            storageStatus,
+            storageLatencyMs,
+          },
+        });
+      } else {
+        health = await database.health.create({
+          data: {
+            status,
+            duration: 0,
+            startTime,
+            endTime,
+            storageStatus,
+            storageLatencyMs,
+          },
+        });
+      }
+    } catch (error) {
+      logger.error(
+        enhanceLogWithTraceContext({
+          error: error instanceof Error ? error.message : String(error),
+        }),
+        "Failed to persist health check result",
+      );
     }
 
-    return health;
+    return (
+      health ?? {
+        id: "unpersisted",
+        status,
+        duration: dbLatency ?? 0,
+        startTime,
+        endTime,
+        storageStatus,
+        storageLatencyMs: storageLatencyMs ?? null,
+      }
+    );
   }),
 };
