@@ -54,10 +54,6 @@ export const RoutePaths = {
       label: "Orders",
       icon: Icons.orders,
     },
-    NEW: {
-      url: "/orders/new" as Route,
-      label: "New Order",
-    },
     DETAIL: {
       url: (id: string) => `/orders/${id}` as Route,
       label: "Order Details",

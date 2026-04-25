@@ -38,7 +38,16 @@ export class OrderItemQuery {
     return {
       ...OrderItemQuery.getSimpleInclude(),
       product: { select: { id: true } },
-      productVersion: { select: { name: true } },
+      productVersion: {
+        select: {
+          name: true,
+          images: {
+            select: { url: true },
+            take: 1,
+            orderBy: { createdAt: "asc" },
+          },
+        },
+      },
     } satisfies Prisma.OrderItemInclude;
   }
 

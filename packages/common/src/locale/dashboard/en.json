@@ -286,6 +286,26 @@
         "from": "From",
         "to": "To"
       }
+    },
+    "detail": {
+      "title": "Order Details",
+      "payment": "Payment",
+      "items": "Items",
+      "itemsCount": "{count, plural, one {# Item} other {# Items}}",
+      "customer": "Customer",
+      "openWhatsApp": "Open WhatsApp",
+      "call": "Call",
+      "callCustomer": "Call {name}",
+      "deliveryAddress": "Delivery Address",
+      "deliveryNotes": "Delivery notes",
+      "orderItems": "Order Items",
+      "subtotal": "Subtotal",
+      "delivery": "Delivery",
+      "total": "Total",
+      "updateStatus": "Update Status",
+      "loading": "Loading order…",
+      "notFound": "Order not found",
+      "errorLoading": "Error loading order. Please try again."
     }
   },
   "products": {

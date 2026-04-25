@@ -95,7 +95,7 @@ export const orderRouter = {
 
       const order = await database.order.findUnique({
         where: { id: input.id },
-        include: OrderQuery.getInclude(),
+        include: OrderQuery.getIncludeWithProduct(),
       });
 
       if (!order) {
@@ -103,7 +103,7 @@ export const orderRouter = {
       }
 
       await verifyStoreOwnership(userId, order.storeId);
-      return OrderEntity.getRo(order);
+      return OrderEntity.getRoWithProduct(order);
     }),
 
   updateStatus: protectedProcedure

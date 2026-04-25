@@ -46,6 +46,7 @@ export class OrderItemEntity {
             ...(entity.productVersion?.name != null
               ? { name: entity.productVersion.name }
               : {}),
+            imageUrl: entity.productVersion?.images?.[0]?.url ?? null,
           }
         : undefined,
     };

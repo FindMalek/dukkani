@@ -272,6 +272,26 @@
         "from": "من",
         "to": "إلى"
       }
+    },
+    "detail": {
+      "title": "تفاصيل الطلب",
+      "payment": "الدفع",
+      "items": "العناصر",
+      "itemsCount": "{count} عنصر",
+      "customer": "العميل",
+      "openWhatsApp": "فتح واتساب",
+      "call": "اتصل",
+      "callCustomer": "اتصل بـ {name}",
+      "deliveryAddress": "عنوان التسليم",
+      "deliveryNotes": "ملاحظات التسليم",
+      "orderItems": "عناصر الطلب",
+      "subtotal": "المجموع الجزئي",
+      "delivery": "التوصيل",
+      "total": "الإجمالي",
+      "updateStatus": "تحديث الحالة",
+      "loading": "جارٍ التحميل…",
+      "notFound": "الطلب غير موجود",
+      "errorLoading": "خطأ في تحميل الطلب. يرجى المحاولة مرة أخرى."
     }
   },
   "products": {

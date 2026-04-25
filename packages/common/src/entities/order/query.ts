@@ -64,7 +64,17 @@ export class OrderQuery {
       orderItems: {
         include: {
           product: { select: { id: true } },
-          productVersion: { select: { name: true } },
+          productVersion: {
+            select: {
+              name: true,
+              // TODO: if they picked a variant, use the variant image
+              images: {
+                select: { url: true },
+                take: 1,
+                orderBy: { createdAt: "asc" },
+              },
+            },
+          },
         },
       },
       whatsappMessages: true,

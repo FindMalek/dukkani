@@ -13,6 +13,7 @@ export const orderItemSimpleOutputSchema = z.object({
 const productMinimalOutputSchema = z.object({
   id: z.string(),
   name: z.string().optional(),
+  imageUrl: z.string().nullable().optional(),
 });
 
 export const orderItemWithProductOutputSchema =
