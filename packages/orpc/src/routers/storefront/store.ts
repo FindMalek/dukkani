@@ -7,7 +7,10 @@ import {
   launchNotificationOutputSchema,
   storePublicOutputSchema,
 } from "@dukkani/common/schemas/store/output";
-import { LaunchNotificationService, StoreService } from "@dukkani/common/services";
+import {
+  LaunchNotificationService,
+  StoreService,
+} from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
@@ -48,7 +51,7 @@ export const storeRouter = {
         where: { slug },
         select: { id: true },
       });
-      
+
       if (!store) {
         throw new ORPCError("NOT_FOUND", { message: "Store not found" });
       }

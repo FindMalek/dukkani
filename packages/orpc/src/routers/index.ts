@@ -1,37 +1,36 @@
 import type { RouterClient } from "@orpc/server";
-import { accountRouter } from "./account";
-import { cartRouter } from "./cart";
-import { categoryRouter } from "./category";
-import { collectionRouter } from "./collection";
-import { customerRouter } from "./customer";
 import { dashboardRouter } from "./dashboard";
-import { healthRouter } from "./health";
-import { onboardingRouter } from "./onboarding";
-import { orderRouter } from "./order";
-import { productRouter } from "./product";
-import { storageRouter } from "./storage";
-import { storeRouter } from "./store";
 import { storefrontRouter } from "./storefront";
-import { telegramRouter } from "./telegram";
+import { webRouter } from "./web";
 
 export const appRouter = {
-  health: healthRouter,
-  store: storeRouter,
-  product: productRouter,
-  order: orderRouter,
-  customer: customerRouter,
-  dashboard: dashboardRouter,
-  storage: storageRouter,
-  account: accountRouter,
-  telegram: telegramRouter,
-  onboarding: onboardingRouter,
-  category: categoryRouter,
-  collection: collectionRouter,
-  cart: cartRouter,
+  // dashboard-only
+  customer: dashboardRouter.customer,
+  storage: dashboardRouter.storage,
+  telegram: dashboardRouter.telegram,
+  onboarding: dashboardRouter.onboarding,
+  // storefront-only
+  cart: storefrontRouter.cart,
+  // shared (dashboard + storefront merged — no key collisions)
+  health: { ...dashboardRouter.health, ...storefrontRouter.health },
+  store: { ...dashboardRouter.store, ...storefrontRouter.store },
+  product: { ...dashboardRouter.product, ...storefrontRouter.product },
+  order: { ...dashboardRouter.order, ...storefrontRouter.order },
+  account: { ...dashboardRouter.account, ...storefrontRouter.account },
+  category: { ...dashboardRouter.category, ...storefrontRouter.category },
+  collection: { ...dashboardRouter.collection, ...storefrontRouter.collection },
 };
+
+export { dashboardRouter, storefrontRouter, webRouter };
+
 export type AppRouter = typeof appRouter;
 export type AppRouterClient = RouterClient<typeof appRouter>;
 
-export { storefrontRouter };
+export type DashboardRouter = typeof dashboardRouter;
+export type DashboardRouterClient = RouterClient<typeof dashboardRouter>;
+
 export type StorefrontRouter = typeof storefrontRouter;
 export type StorefrontRouterClient = RouterClient<typeof storefrontRouter>;
+
+export type WebRouter = typeof webRouter;
+export type WebRouterClient = RouterClient<typeof webRouter>;

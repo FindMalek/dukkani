@@ -54,7 +54,11 @@ export const cartRouter = {
       );
 
       return rows.map((row, i) =>
-        ProductEntity.getCartItemRo(row.product, row.item, priced[i]?.price ?? 0),
+        ProductEntity.getCartItemRo(
+          row.product,
+          row.item,
+          priced[i]?.price ?? 0,
+        ),
       );
     }),
 };

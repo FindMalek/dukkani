@@ -136,7 +136,7 @@ export const customerRouter = {
 
       await verifyStoreOwnership(userId, customer.storeId);
       await database.customer.delete({ where: { id: input.id } });
-      
+
       return { success: true };
     }),
 };

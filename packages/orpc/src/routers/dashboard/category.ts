@@ -100,7 +100,7 @@ export const categoryRouter = {
 
       await verifyStoreOwnership(userId, category.storeId);
       await CategoryService.deleteCategory(input.id);
-      
+
       return { success: true, storeId: category.storeId };
     }),
 };

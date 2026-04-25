@@ -187,7 +187,7 @@ export const collectionRouter = {
         input.collectionId,
         input.productIds,
       );
-        
+
       return { success: true };
     }),
 

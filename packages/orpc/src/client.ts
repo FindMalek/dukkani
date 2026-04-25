@@ -1,12 +1,14 @@
 import { createORPCClient } from "@orpc/client";
+import type { AnyRouter, RouterClient } from "@orpc/server";
 import { RPCLink } from "@orpc/client/fetch";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import type { AppRouterClient } from "./index";
 import { headersToObject } from "./utils/headers";
 
-export function createORPCClientUtils(apiUrl: string) {
+export function createORPCClientUtils<TRouter extends AnyRouter>(
+  apiUrl: string,
+) {
   const queryClient = new QueryClient({
     queryCache: new QueryCache({
       onError: (error) => {
@@ -49,7 +51,7 @@ export function createORPCClientUtils(apiUrl: string) {
     },
   });
 
-  const client: AppRouterClient = createORPCClient(link);
+  const client = createORPCClient(link) as RouterClient<TRouter>;
   const orpc = createTanstackQueryUtils(client);
 
   return { queryClient, client, orpc };

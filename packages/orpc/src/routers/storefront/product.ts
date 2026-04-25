@@ -99,7 +99,8 @@ export const productRouter = {
 
       if (
         !product.currentPublishedVersionId ||
-        product.currentPublishedVersion?.status !== ProductVersionStatus.PUBLISHED
+        product.currentPublishedVersion?.status !==
+          ProductVersionStatus.PUBLISHED
       ) {
         throw new ORPCError("NOT_FOUND", { message: "Product not found" });
       }

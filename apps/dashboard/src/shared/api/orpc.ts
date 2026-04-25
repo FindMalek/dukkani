@@ -1,15 +1,18 @@
 import { getApiUrl } from "@dukkani/env/get-api-url";
-import type { AppRouterClient } from "@dukkani/orpc";
+import type { DashboardRouter, DashboardRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { env } from "@/env";
 
-// Lazy ORPC client creation - only create when accessed
-let orpcClient: ReturnType<typeof createORPCClientUtils> | null = null;
+let orpcClient: ReturnType<
+  typeof createORPCClientUtils<DashboardRouter>
+> | null = null;
 
 function getORPCClient() {
   if (!orpcClient) {
-    orpcClient = createORPCClientUtils(getApiUrl(env.NEXT_PUBLIC_API_URL));
+    orpcClient = createORPCClientUtils<DashboardRouter>(
+      getApiUrl(env.NEXT_PUBLIC_API_URL),
+    );
   }
   return orpcClient;
 }
@@ -40,8 +43,7 @@ export function makeQueryClient(onError?: (error: Error) => void) {
   });
 }
 
-// Use server-side client during SSR, fallback to client-side client
-export const client: AppRouterClient =
+export const client: DashboardRouterClient =
   globalThis.$orpcClient ?? getORPCClient().client;
 
 const orpc = getORPCClient().orpc;

@@ -38,7 +38,7 @@ export const storeRouter = {
         where: { id: userId },
         data: { onboardingStep: UserOnboardingStep.STORE_CREATED },
       });
-      
+
       return store;
     }),
 
