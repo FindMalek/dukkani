@@ -60,7 +60,11 @@ export const cartRouter = {
             message: `Missing price for cart row ${i} (productId: ${row.item.productId})`,
           });
         }
-        return ProductEntity.getCartItemRo(row.product, row.item, pricedItem.price);
+        return ProductEntity.getCartItemRo(
+          row.product,
+          row.item,
+          pricedItem.price,
+        );
       });
     }),
 };

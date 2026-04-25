@@ -14,7 +14,7 @@ import { storeConfigurationFormDefaultValues as storeConfigurationFormDefaultOpt
 import { storeSetupFormDefaultOptions } from "@/components/app/auth/onboarding-store-setup-form";
 import { authClient } from "@/shared/api/auth-client";
 import { handleAPIError } from "@/shared/api/error-handler";
-import { client, orpc } from "@/shared/api/orpc";
+import { client } from "@/shared/api/orpc";
 import { appQueries } from "@/shared/api/queries";
 import { useActiveStoreStore } from "../store/active.store";
 import {
@@ -108,26 +108,25 @@ export function useOnboardingController(
       setSelectedStoreId(data.id);
 
       // Optimistically update stores cache to prevent race condition
-      queryClient.setQueryData(orpc.store.getAll.queryKey(), (old: any) => {
-        const existing = Array.isArray(old) ? old : [];
-        // Avoid duplicates if store already exists in cache
-        if (!existing.find((store: any) => store.id === data.id)) {
-          return [...existing, data];
-        }
-        return existing;
-      });
+      queryClient.setQueryData(
+        appQueries.store.all().queryKey,
+        (old: StoreSimpleOutput[] | undefined) => {
+          const existing = old ?? [];
+          // Avoid duplicates if store already exists in cache
+          if (!existing.find((s) => s.id === data.id)) {
+            return [...existing, data];
+          }
+          return existing;
+        },
+      );
 
       // Then invalidate for fresh data
-      await queryClient.invalidateQueries(orpc.store.getAll.queryOptions());
-      await queryClient.invalidateQueries(
-        orpc.account.getCurrentUser.queryOptions(),
-      );
+      await queryClient.invalidateQueries(appQueries.store.all());
+      await queryClient.invalidateQueries(appQueries.account.currentUser());
 
       // Wait for stores to be available before changing step
-      await queryClient.refetchQueries(orpc.store.getAll.queryOptions());
-      await queryClient.refetchQueries(
-        orpc.account.getCurrentUser.queryOptions(),
-      );
+      await queryClient.refetchQueries(appQueries.store.all());
+      await queryClient.refetchQueries(appQueries.account.currentUser());
 
       if (onStepChange) {
         onStepChange(UserOnboardingStep.STORE_CREATED);
@@ -143,14 +142,10 @@ export function useOnboardingController(
       client.store.configure(input),
     onSuccess: async (_data, variables) => {
       setSelectedStoreId(variables.storeId);
-      await queryClient.invalidateQueries(orpc.store.getAll.queryOptions());
-      await queryClient.invalidateQueries(
-        orpc.account.getCurrentUser.queryOptions(),
-      );
-      await queryClient.refetchQueries(orpc.store.getAll.queryOptions());
-      await queryClient.refetchQueries(
-        orpc.account.getCurrentUser.queryOptions(),
-      );
+      await queryClient.invalidateQueries(appQueries.store.all());
+      await queryClient.invalidateQueries(appQueries.account.currentUser());
+      await queryClient.refetchQueries(appQueries.store.all());
+      await queryClient.refetchQueries(appQueries.account.currentUser());
 
       if (onStepChange) {
         onStepChange(UserOnboardingStep.STORE_LAUNCHED);
