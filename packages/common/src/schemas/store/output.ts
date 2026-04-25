@@ -114,18 +114,6 @@ export type LaunchNotificationOutput = z.infer<
 >;
 
 export const storeStatsOutputSchema = z.object({
-  totalProducts: z.number().int(),
-  totalOrders: z.number().int(),
-  ordersByStatus: z.object({
-    PENDING: z.number().int(),
-    CONFIRMED: z.number().int(),
-    PROCESSING: z.number().int(),
-    SHIPPED: z.number().int(),
-    DELIVERED: z.number().int(),
-    CANCELLED: z.number().int(),
-  }),
-  totalRevenue: z.number(),
-  lowStockProducts: z.array(productSimpleOutputSchema),
   todayOrders: z.number().int(),
   todayOrdersChange: z.number().int(),
   todayRevenue: z.number(),
