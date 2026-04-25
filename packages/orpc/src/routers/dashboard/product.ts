@@ -227,21 +227,34 @@ export const productRouter = {
           const keptImageUrls = new Set(input.imageUrls);
 
           if (draftImages.length > 0) {
-            try {
-              for (const image of draftImages) {
-                if (!image?.url || keptImageUrls.has(image.url)) continue;
-                const imageKey = await StorageService.getKeyFromPublicUrl(
-                  image.url,
-                  env.S3_PUBLIC_BASE_URL,
+            const deletionResults = await Promise.allSettled(
+              draftImages.map((image) =>
+                (async () => {
+                  if (!image?.url || keptImageUrls.has(image.url)) {
+                    return;
+                  }
+                  const imageKey = await StorageService.getKeyFromPublicUrl(
+                    image.url,
+                    env.S3_PUBLIC_BASE_URL,
+                  );
+                  if (!imageKey) {
+                    return;
+                  }
+                  await StorageService.deleteFile(env.S3_BUCKET, imageKey);
+                })(),
+              ),
+            );
+            for (const [i, r] of deletionResults.entries()) {
+              if (r.status === "rejected") {
+                logger.error(
+                  {
+                    error: r.reason,
+                    productId: input.id,
+                    imageUrl: draftImages[i]?.url,
+                  },
+                  "Failed to delete removed draft product image from storage",
                 );
-                if (!imageKey) continue;
-                await StorageService.deleteFile(env.S3_BUCKET, imageKey);
               }
-            } catch (storageError) {
-              logger.error(
-                { error: storageError, productId: input.id },
-                "Failed to delete removed draft product images from storage",
-              );
             }
           }
 

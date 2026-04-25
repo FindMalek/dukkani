@@ -42,12 +42,8 @@ export const productRouter = {
         select: { id: true, status: true },
       });
 
-      if (!store) {
+      if (!store || store.status !== StoreStatus.PUBLISHED) {
         throw new ORPCError("NOT_FOUND", { message: "Store not found" });
-      }
-
-      if (store.status !== StoreStatus.PUBLISHED) {
-        throw new ORPCError("FORBIDDEN", { message: "Store is not available" });
       }
 
       const where = ProductQuery.getWhere([input.storeId], {
