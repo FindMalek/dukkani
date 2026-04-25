@@ -146,6 +146,7 @@ export function useOnboardingController(
       await queryClient.invalidateQueries(
         orpc.account.getCurrentUser.queryOptions(),
       );
+      await queryClient.refetchQueries(orpc.store.getAll.queryOptions());
       await queryClient.refetchQueries(
         orpc.account.getCurrentUser.queryOptions(),
       );
