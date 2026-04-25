@@ -4,7 +4,7 @@ import {
   ORDER_STATUS_BADGE_VARIANT,
   OrderEntity,
 } from "@dukkani/common/entities/order/entity";
-import type { OrderIncludeOutput } from "@dukkani/common/schemas/order/output";
+import type { OrderListItemOutput } from "@dukkani/common/schemas/order/output";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
@@ -18,7 +18,7 @@ import { getItemsCount, getOrderTotal } from "@/shared/lib/order/price.util";
 import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 
 interface OrderListCardProps {
-  order: OrderIncludeOutput;
+  order: OrderListItemOutput;
 }
 
 export function OrderListCard({ order }: OrderListCardProps) {

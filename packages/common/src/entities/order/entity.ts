@@ -3,6 +3,7 @@ import { LIST_ORDER_STATUSES } from "../../schemas/enums";
 import type { OrderStatus } from "../../schemas/order/enums";
 import type {
   OrderIncludeOutput,
+  OrderListItemOutput,
   OrderPublicOutput,
   OrderSimpleOutput,
 } from "../../schemas/order/output";
@@ -14,6 +15,7 @@ import { WhatsAppMessageEntity } from "../whatsapp-message/entity";
 import type {
   OrderIncludeDbData,
   OrderIncludeWithProductDbData,
+  OrderListDbData,
   OrderSimpleDbData,
 } from "./query";
 
@@ -136,6 +138,22 @@ export class OrderEntity {
       addressId: entity.addressId,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
+    };
+  }
+
+  static getListRo(entity: OrderListDbData): OrderListItemOutput {
+    return {
+      id: entity.id,
+      status: entity.status,
+      paymentMethod: entity.paymentMethod,
+      createdAt: entity.createdAt,
+      customer: entity.customer
+        ? { name: entity.customer.name, phone: entity.customer.phone }
+        : null,
+      orderItems: entity.orderItems.map((row) => ({
+        price: Number(row.price),
+        quantity: row.quantity,
+      })),
     };
   }
 

@@ -19,9 +19,24 @@ export type OrderClientSafeDbData = Prisma.OrderGetPayload<{
   include: ReturnType<typeof OrderQuery.getClientSafeInclude>;
 }>;
 
+export type OrderListDbData = Prisma.OrderGetPayload<{
+  select: ReturnType<typeof OrderQuery.getListSelect>;
+}>;
+
 export class OrderQuery {
   static getSimpleInclude() {
     return {} satisfies Prisma.OrderInclude;
+  }
+
+  static getListSelect() {
+    return {
+      id: true,
+      status: true,
+      paymentMethod: true,
+      createdAt: true,
+      customer: { select: { name: true, phone: true } },
+      orderItems: { select: { price: true, quantity: true } },
+    } satisfies Prisma.OrderSelect;
   }
 
   static getInclude() {

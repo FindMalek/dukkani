@@ -71,7 +71,7 @@ export const orderRouter = {
           skip,
           take: limit,
           orderBy: OrderQuery.getOrder("desc", "createdAt"),
-          include: OrderQuery.getInclude(),
+          select: OrderQuery.getListSelect(),
         }),
         database.order.count({ where }),
       ]);
@@ -79,7 +79,7 @@ export const orderRouter = {
       const hasMore = skip + orders.length < total;
 
       return {
-        orders: orders.map(OrderEntity.getRo),
+        orders: orders.map(OrderEntity.getListRo),
         total,
         hasMore,
         page,

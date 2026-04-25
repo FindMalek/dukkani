@@ -1,11 +1,11 @@
-import type { OrderIncludeOutput } from "@dukkani/common/schemas/order/output";
+import type { OrderListItemOutput } from "@dukkani/common/schemas/order/output";
 
 export type DateGroupKey = "today" | "yesterday" | "older";
 
 export interface GroupedOrders {
-  today: OrderIncludeOutput[];
-  yesterday: OrderIncludeOutput[];
-  older: { label: string; orders: OrderIncludeOutput[] }[];
+  today: OrderListItemOutput[];
+  yesterday: OrderListItemOutput[];
+  older: { label: string; orders: OrderListItemOutput[] }[];
 }
 
 function getStartOfDay(date: Date): Date {
@@ -28,12 +28,12 @@ function isYesterday(d: Date, now: Date): boolean {
  * Groups orders by date: today, yesterday, and older (with formatted date labels).
  */
 export function groupOrdersByDate(
-  orders: OrderIncludeOutput[],
+  orders: OrderListItemOutput[],
   now = new Date(),
 ): GroupedOrders {
-  const today: OrderIncludeOutput[] = [];
-  const yesterday: OrderIncludeOutput[] = [];
-  const olderByDate = new Map<string, OrderIncludeOutput[]>();
+  const today: OrderListItemOutput[] = [];
+  const yesterday: OrderListItemOutput[] = [];
+  const olderByDate = new Map<string, OrderListItemOutput[]>();
 
   for (const order of orders) {
     const createdAt = new Date(order.createdAt);
