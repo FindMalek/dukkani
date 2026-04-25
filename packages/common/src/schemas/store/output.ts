@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { orderSimpleOutputSchema } from "../order/output";
 import {
   productPublicOutputSchema,
   productSimpleOutputSchema,
@@ -112,3 +113,25 @@ export const launchNotificationOutputSchema = z.object({
 export type LaunchNotificationOutput = z.infer<
   typeof launchNotificationOutputSchema
 >;
+
+export const storeStatsOutputSchema = z.object({
+  totalProducts: z.number().int(),
+  totalOrders: z.number().int(),
+  ordersByStatus: z.object({
+    PENDING: z.number().int(),
+    CONFIRMED: z.number().int(),
+    PROCESSING: z.number().int(),
+    SHIPPED: z.number().int(),
+    DELIVERED: z.number().int(),
+    CANCELLED: z.number().int(),
+  }),
+  totalRevenue: z.number(),
+  recentOrders: z.array(orderSimpleOutputSchema),
+  lowStockProducts: z.array(productSimpleOutputSchema),
+  todayOrders: z.number().int(),
+  todayOrdersChange: z.number().int(),
+  todayRevenue: z.number(),
+  weekOrders: z.number().int(),
+});
+
+export type StoreStatsOutput = z.infer<typeof storeStatsOutputSchema>;

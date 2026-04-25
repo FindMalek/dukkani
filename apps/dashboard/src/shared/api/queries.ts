@@ -21,7 +21,7 @@ export const appQueries = {
   store: {
     all: api.store.getAll.queryOptions,
     byId: api.store.getById.queryOptions,
-    stats: api.dashboard.getStats.queryOptions,
+    stats: api.store.getStats.queryOptions,
   },
   telegram: {
     status: api.telegram.getStatus.queryOptions,

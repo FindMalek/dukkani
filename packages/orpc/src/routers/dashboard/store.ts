@@ -12,8 +12,10 @@ import {
   launchNotificationOutputSchema,
   storeIncludeOutputSchema,
   storeSimpleOutputSchema,
+  storeStatsOutputSchema,
 } from "@dukkani/common/schemas/store/output";
 import {
+  DashboardService,
   LaunchNotificationService,
   StoreService,
 } from "@dukkani/common/services";
@@ -116,5 +118,19 @@ export const storeRouter = {
             error instanceof Error ? error.message : "Failed to upload image",
         });
       }
+    }),
+
+  getStats: protectedProcedure
+    .input(
+      z
+        .object({
+          storeId: z.string().optional(),
+        })
+        .optional(),
+    )
+    .output(storeStatsOutputSchema)
+    .handler(async ({ input, context }) => {
+      const userId = context.session.user.id;
+      return await DashboardService.getDashboardStats(userId, input?.storeId);
     }),
 };

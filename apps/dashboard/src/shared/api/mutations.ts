@@ -61,7 +61,7 @@ export const appMutations = {
             api.order.getAll.queryOptions(),
           );
           await context.client.invalidateQueries(
-            api.dashboard.getStats.queryOptions(),
+            api.store.getStats.queryOptions(),
           );
           await options?.onSuccess?.(data, input, result, context);
         },
@@ -79,7 +79,7 @@ export const appMutations = {
             api.order.getById.queryOptions({ input: { id: data.id } }),
           );
           await context.client.invalidateQueries(
-            api.dashboard.getStats.queryOptions(),
+            api.store.getStats.queryOptions(),
           );
           await options?.onSuccess?.(data, input, result, context);
         },
@@ -94,7 +94,7 @@ export const appMutations = {
             api.order.getAll.queryOptions(),
           );
           await context.client.invalidateQueries(
-            api.dashboard.getStats.queryOptions(),
+            api.store.getStats.queryOptions(),
           );
           await options?.onSuccess?.(data, input, result, context);
         },
@@ -111,7 +111,7 @@ export const appMutations = {
             api.product.getAll.queryOptions(),
           );
           await context.client.invalidateQueries(
-            api.dashboard.getStats.queryOptions(),
+            api.store.getStats.queryOptions(),
           );
           await options?.onSuccess?.(data, input, result, context);
         },
@@ -129,7 +129,7 @@ export const appMutations = {
             api.product.getById.queryOptions({ input: { id: data.id } }),
           );
           await context.client.invalidateQueries(
-            api.dashboard.getStats.queryOptions(),
+            api.store.getStats.queryOptions(),
           );
           await options?.onSuccess?.(data, input, result, context);
         },
@@ -144,7 +144,7 @@ export const appMutations = {
             api.product.getAll.queryOptions(),
           );
           await context.client.invalidateQueries(
-            api.dashboard.getStats.queryOptions(),
+            api.store.getStats.queryOptions(),
           );
           await options?.onSuccess?.(data, input, result, context);
         },
@@ -162,7 +162,7 @@ export const appMutations = {
             api.product.getById.queryOptions({ input: { id: data.id } }),
           );
           await context.client.invalidateQueries(
-            api.dashboard.getStats.queryOptions(),
+            api.store.getStats.queryOptions(),
           );
           await options?.onSuccess?.(data, input, result, context);
         },

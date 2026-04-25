@@ -2,7 +2,6 @@ import { accountRouter } from "./account";
 import { categoryRouter } from "./category";
 import { collectionRouter } from "./collection";
 import { customerRouter } from "./customer";
-import { dashboardStatsRouter } from "./dashboard";
 import { healthRouter } from "./health";
 import { onboardingRouter } from "./onboarding";
 import { orderRouter } from "./order";
@@ -17,7 +16,6 @@ export const dashboardRouter = {
   product: productRouter,
   order: orderRouter,
   customer: customerRouter,
-  dashboard: dashboardStatsRouter,
   storage: storageRouter,
   account: accountRouter,
   telegram: telegramRouter,
