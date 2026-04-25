@@ -1,18 +1,30 @@
 import { getApiUrl } from "@dukkani/env/get-api-url";
-import type { DashboardRouter, DashboardRouterClient } from "@dukkani/orpc";
+import type {
+  AppRouter,
+  DashboardRouterClient,
+} from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { env } from "@/env";
 
-let orpcClient: ReturnType<
-  typeof createORPCClientUtils<DashboardRouter>
-> | null = null;
+type DashboardScopedUtils = {
+  queryClient: QueryClient;
+  client: DashboardRouterClient;
+  orpc: ReturnType<typeof createORPCClientUtils<AppRouter>>["orpc"]["dashboard"];
+};
 
-function getORPCClient() {
+let orpcClient: DashboardScopedUtils | null = null;
+
+function getORPCClient(): DashboardScopedUtils {
   if (!orpcClient) {
-    orpcClient = createORPCClientUtils<DashboardRouter>(
+    const { queryClient, client, orpc } = createORPCClientUtils<AppRouter>(
       getApiUrl(env.NEXT_PUBLIC_API_URL),
     );
+    orpcClient = {
+      queryClient,
+      client: client.dashboard as DashboardRouterClient,
+      orpc: orpc.dashboard,
+    };
   }
   return orpcClient;
 }

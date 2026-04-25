@@ -14,4 +14,4 @@ globalThis.$orpcClient = createRouterClient(appRouter, {
     const headersObj = await headers();
     return createContext(headersObj);
   },
-}) as DashboardRouterClient;
+}).dashboard as DashboardRouterClient;

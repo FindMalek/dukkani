@@ -1,5 +1,8 @@
 import { getApiUrl } from "@dukkani/env/get-api-url";
-import type { StorefrontRouter, StorefrontRouterClient } from "@dukkani/orpc";
+import type {
+  AppRouter,
+  StorefrontRouterClient,
+} from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
 import { QueryClient } from "@tanstack/react-query";
 import { env } from "@/env";
@@ -20,15 +23,24 @@ export function makeQueryClient() {
   });
 }
 
-let orpcClient: ReturnType<
-  typeof createORPCClientUtils<StorefrontRouter>
-> | null = null;
+type StorefrontScopedUtils = {
+  queryClient: QueryClient;
+  client: StorefrontRouterClient;
+  orpc: ReturnType<typeof createORPCClientUtils<AppRouter>>["orpc"]["storefront"];
+};
 
-function getORPCClient() {
+let orpcClient: StorefrontScopedUtils | null = null;
+
+function getORPCClient(): StorefrontScopedUtils {
   if (!orpcClient) {
-    orpcClient = createORPCClientUtils<StorefrontRouter>(
+    const { queryClient, client, orpc } = createORPCClientUtils<AppRouter>(
       getApiUrl(env.NEXT_PUBLIC_API_URL),
     );
+    orpcClient = {
+      queryClient,
+      client: client.storefront as StorefrontRouterClient,
+      orpc: orpc.storefront,
+    };
   }
   return orpcClient;
 }

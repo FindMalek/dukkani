@@ -3,22 +3,14 @@ import { dashboardRouter } from "./dashboard";
 import { storefrontRouter } from "./storefront";
 import { webRouter } from "./web";
 
+/**
+ * Single API router: dashboard and storefront are separate namespaces so
+ * procedure names never overwrite each other (no spread-merge collisions).
+ */
 export const appRouter = {
-  // dashboard-only
-  customer: dashboardRouter.customer,
-  storage: dashboardRouter.storage,
-  telegram: dashboardRouter.telegram,
-  onboarding: dashboardRouter.onboarding,
-  // storefront-only
-  cart: storefrontRouter.cart,
-  // shared (dashboard + storefront merged — no key collisions)
-  health: { ...dashboardRouter.health, ...storefrontRouter.health },
-  store: { ...dashboardRouter.store, ...storefrontRouter.store },
-  product: { ...dashboardRouter.product, ...storefrontRouter.product },
-  order: { ...dashboardRouter.order, ...storefrontRouter.order },
-  account: { ...dashboardRouter.account, ...storefrontRouter.account },
-  category: { ...dashboardRouter.category, ...storefrontRouter.category },
-  collection: { ...dashboardRouter.collection, ...storefrontRouter.collection },
+  dashboard: dashboardRouter,
+  storefront: storefrontRouter,
+  web: webRouter,
 };
 
 export { dashboardRouter, storefrontRouter, webRouter };
