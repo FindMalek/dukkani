@@ -3,7 +3,6 @@ import { uploadFileOutputSchema } from "@dukkani/common/schemas/storage/output";
 import {
   configureStoreOnboardingInputSchema,
   createStoreOnboardingInputSchema,
-  getStoreBySlugPublicInputSchema,
   getStoreInputSchema,
   listStoresInputSchema,
   storeUploadImageInputSchema,
@@ -12,8 +11,8 @@ import {
 import {
   launchNotificationOutputSchema,
   storeIncludeOutputSchema,
-  storePublicOutputSchema,
   storeSimpleOutputSchema,
+  storeStatsOutputSchema,
 } from "@dukkani/common/schemas/store/output";
 import {
   LaunchNotificationService,
@@ -22,30 +21,18 @@ import {
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import { rateLimitPublicSafe } from "../middleware/rate-limit";
-import {
-  baseProcedure,
-  protectedProcedure,
-  publicProcedure,
-} from "../procedures";
-import { executeUploadFile } from "../utils/storage-upload";
-import { verifyStoreOwnership } from "../utils/store-access";
+import { rateLimitPublicSafe } from "../../middleware/rate-limit";
+import { protectedProcedure, publicProcedure } from "../../procedures";
+import { executeUploadFile } from "../../utils/storage-upload";
+import { verifyStoreOwnership } from "../../utils/store-access";
 
 export const storeRouter = {
-  /**
-   * Create a new store (onboarding flow)
-   * Auto-generates slug from store name and creates default FREE plan
-   */
   create: protectedProcedure
     .input(createStoreOnboardingInputSchema)
     .output(storeSimpleOutputSchema)
     .handler(async ({ input, context }) => {
       const userId = context.session.user.id;
-
-      // Create store using service
       const store = await StoreService.createStore(input, userId);
-
-      // Update user onboarding step to COMPLETE
       await database.user.update({
         where: { id: userId },
         data: { onboardingStep: UserOnboardingStep.STORE_CREATED },
@@ -54,45 +41,31 @@ export const storeRouter = {
       return store;
     }),
 
-  /**
-   * Get all stores owned by the authenticated user
-   */
   getAll: protectedProcedure
     .input(listStoresInputSchema.optional())
     .output(z.array(storeSimpleOutputSchema))
     .handler(async ({ context }) => {
       const userId = context.session.user.id;
-
       return await StoreService.getAllStores(userId);
     }),
 
-  /**
-   * Get a specific store by ID (verify ownership)
-   */
   getById: protectedProcedure
     .input(getStoreInputSchema)
     .output(storeIncludeOutputSchema)
     .handler(async ({ input, context }) => {
       const userId = context.session.user.id;
-
       if (!input.id) {
-        throw new ORPCError("BAD_REQUEST", {
-          message: "Store ID is required",
-        });
+        throw new ORPCError("BAD_REQUEST", { message: "Store ID is required" });
       }
 
       return await StoreService.getStoreById(input.id, userId);
     }),
 
-  /**
-   * Get store by slug (verify ownership)
-   */
   getBySlug: protectedProcedure
     .input(getStoreInputSchema)
     .output(storeIncludeOutputSchema)
     .handler(async ({ input, context }) => {
       const userId = context.session.user.id;
-
       if (!input.slug) {
         throw new ORPCError("BAD_REQUEST", {
           message: "Store slug is required",
@@ -102,41 +75,17 @@ export const storeRouter = {
       return await StoreService.getStoreBySlug(input.slug, userId);
     }),
 
-  /**
-   * Get store by slug (public - for storefronts)
-   * No authentication required, uses storefront rate limiting (100/min)
-   * Supports pagination for products
-   */
-  getBySlugPublic: baseProcedure
-    .use(rateLimitPublicSafe)
-    .input(getStoreBySlugPublicInputSchema)
-    .output(storePublicOutputSchema)
-    .handler(async ({ input }) => {
-      return await StoreService.getStoreBySlugPublic(input.slug, {
-        productPage: input.productPage,
-        productLimit: input.productLimit,
-      });
-    }),
-
-  /**
-   * Configure store (onboarding flow - theme and category)
-   */
   configure: protectedProcedure
     .input(configureStoreOnboardingInputSchema)
     .output(storeSimpleOutputSchema)
     .handler(async ({ input, context }) => {
       const userId = context.session.user.id;
-
       const store = await StoreService.updateStoreConfiguration(
         input.storeId,
         userId,
-        {
-          theme: input.theme,
-          category: input.category,
-        },
+        { theme: input.theme, category: input.category },
       );
 
-      // Update user onboarding step to STORE_CONFIGURED
       await database.user.update({
         where: { id: userId },
         data: { onboardingStep: UserOnboardingStep.STORE_CONFIGURED },
@@ -145,9 +94,6 @@ export const storeRouter = {
       return store;
     }),
 
-  /**
-   * Subscribe to launch notifications for a store
-   */
   subscribeToLaunch: publicProcedure
     .use(rateLimitPublicSafe)
     .input(subscribeToLaunchInputSchema)
@@ -156,22 +102,13 @@ export const storeRouter = {
       return await LaunchNotificationService.subscribe(input);
     }),
 
-  /**
-   * Upload store logo or banner image
-   * Validates store ownership and builds storage target internally
-   */
   uploadAvatar: protectedProcedure
     .input(storeUploadImageInputSchema)
     .output(uploadFileOutputSchema)
     .handler(async ({ input, context }) => {
       const userId = context.session.user.id;
       await verifyStoreOwnership(userId, input.storeId);
-
-      const target = {
-        resource: "stores" as const,
-        entityId: input.storeId,
-      };
-
+      const target = { resource: "stores" as const, entityId: input.storeId };
       try {
         return await executeUploadFile(input.file, target);
       } catch (error) {
@@ -180,5 +117,19 @@ export const storeRouter = {
             error instanceof Error ? error.message : "Failed to upload image",
         });
       }
+    }),
+
+  getStats: protectedProcedure
+    .input(
+      z
+        .object({
+          storeId: z.string().optional(),
+        })
+        .optional(),
+    )
+    .output(storeStatsOutputSchema)
+    .handler(async ({ input, context }) => {
+      const userId = context.session.user.id;
+      return await StoreService.getStoreStats(userId, input?.storeId);
     }),
 };

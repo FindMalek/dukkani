@@ -1,37 +1,28 @@
 import type { RouterClient } from "@orpc/server";
-import { accountRouter } from "./account";
-import { cartRouter } from "./cart";
-import { categoryRouter } from "./category";
-import { collectionRouter } from "./collection";
-import { customerRouter } from "./customer";
 import { dashboardRouter } from "./dashboard";
-import { healthRouter } from "./health";
-import { onboardingRouter } from "./onboarding";
-import { orderRouter } from "./order";
-import { productRouter } from "./product";
-import { storageRouter } from "./storage";
-import { storeRouter } from "./store";
 import { storefrontRouter } from "./storefront";
-import { telegramRouter } from "./telegram";
+import { webRouter } from "./web";
 
+/**
+ * Single API router: dashboard and storefront are separate namespaces so
+ * procedure names never overwrite each other (no spread-merge collisions).
+ */
 export const appRouter = {
-  health: healthRouter,
-  store: storeRouter,
-  product: productRouter,
-  order: orderRouter,
-  customer: customerRouter,
   dashboard: dashboardRouter,
-  storage: storageRouter,
-  account: accountRouter,
-  telegram: telegramRouter,
-  onboarding: onboardingRouter,
-  category: categoryRouter,
-  collection: collectionRouter,
-  cart: cartRouter,
+  storefront: storefrontRouter,
+  web: webRouter,
 };
+
+export { dashboardRouter, storefrontRouter, webRouter };
+
 export type AppRouter = typeof appRouter;
 export type AppRouterClient = RouterClient<typeof appRouter>;
 
-export { storefrontRouter };
+export type DashboardRouter = typeof dashboardRouter;
+export type DashboardRouterClient = RouterClient<typeof dashboardRouter>;
+
 export type StorefrontRouter = typeof storefrontRouter;
 export type StorefrontRouterClient = RouterClient<typeof storefrontRouter>;
+
+export type WebRouter = typeof webRouter;
+export type WebRouterClient = RouterClient<typeof webRouter>;

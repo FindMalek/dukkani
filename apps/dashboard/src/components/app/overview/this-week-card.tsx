@@ -1,6 +1,6 @@
 "use client";
 
-import type { DashboardStatsOutput } from "@dukkani/common/schemas/dashboard/output";
+import type { StoreStatsOutput } from "@dukkani/common/schemas/store/output";
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
 import { useTranslations } from "next-intl";
 
 interface ThisWeekCardProps {
-  stats: DashboardStatsOutput;
+  stats: StoreStatsOutput;
 }
 
 export function ThisWeekCard({ stats }: ThisWeekCardProps) {

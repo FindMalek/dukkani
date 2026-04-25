@@ -1,11 +1,9 @@
 import { ProductEntity } from "@dukkani/common/entities/product/entity";
 import { ProductQuery } from "@dukkani/common/entities/product/query";
-import { StoreStatus } from "@dukkani/common/schemas/enums";
 import {
   createProductInputSchema,
   discardDraftProductInputSchema,
   getProductInputSchema,
-  getProductsByIdsInputSchema,
   listProductsInputSchema,
   productUploadImagesInputSchema,
   publishProductInputSchema,
@@ -15,13 +13,10 @@ import {
 import type {
   ListProductsOutput,
   ProductIncludeOutput,
-  ProductPublicOutput,
 } from "@dukkani/common/schemas/product/output";
 import {
   listProductsOutputSchema,
   productIncludeOutputSchema,
-  productPublicOutputSchema,
-  productsPublicOutputSchema,
 } from "@dukkani/common/schemas/product/output";
 import type { UploadFilesOutput } from "@dukkani/common/schemas/storage/output";
 import { uploadFilesOutputSchema } from "@dukkani/common/schemas/storage/output";
@@ -31,21 +26,19 @@ import {
   ProductVersionService,
 } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
-import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { logger } from "@dukkani/logger";
 import { StorageService } from "@dukkani/storage";
 import { env } from "@dukkani/storage/env";
 import { ORPCError } from "@orpc/server";
-import { rateLimitPublicSafe } from "../middleware/rate-limit";
-import { baseProcedure, protectedProcedure } from "../procedures";
-import { SORT_ORDER_MAP, STOCK_RANGE_MAP } from "../utils/product-list-maps";
-import { executeUploadFiles } from "../utils/storage-upload";
-import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
+import { protectedProcedure } from "../../procedures";
+import { STOCK_RANGE_MAP } from "../../utils/product-list-maps";
+import { executeUploadFiles } from "../../utils/storage-upload";
+import {
+  getUserStoreIds,
+  verifyStoreOwnership,
+} from "../../utils/store-access";
 
 export const productRouter = {
-  /**
-   * Get all products for user's stores (with pagination/filtering)
-   */
   getAll: protectedProcedure
     .input(listProductsInputSchema.optional())
     .output(listProductsOutputSchema)
@@ -67,7 +60,6 @@ export const productRouter = {
       const limit = input?.limit ?? 20;
       const skip = (page - 1) * limit;
 
-      // Verify store ownership if filtering by specific store
       if (input?.storeId && !userStoreIds.includes(input.storeId)) {
         throw new ORPCError("FORBIDDEN", {
           message: "You don't have access to this store",
@@ -112,82 +104,6 @@ export const productRouter = {
       };
     }),
 
-  /**
-   * Get all public products for a store (for storefronts)
-   * No authentication required, uses storefront rate limiting
-   * Only returns published products
-   */
-  getAllPublic: baseProcedure
-    .use(rateLimitPublicSafe)
-    .input(listProductsInputSchema.optional())
-    .output(listProductsOutputSchema)
-    .handler(async ({ input }): Promise<ListProductsOutput> => {
-      // Validate storeId is required
-      if (!input?.storeId) {
-        throw new ORPCError("BAD_REQUEST", {
-          message: "storeId is required",
-        });
-      }
-
-      const page = input?.page ?? 1;
-      const limit = input?.limit ?? 20;
-      const skip = (page - 1) * limit;
-
-      // Verify store exists and is published
-      const store = await database.store.findUnique({
-        where: { id: input.storeId },
-        select: { id: true, status: true },
-      });
-
-      if (!store) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Store not found",
-        });
-      }
-
-      if (store.status !== StoreStatus.PUBLISHED) {
-        throw new ORPCError("FORBIDDEN", {
-          message: "Store is not available",
-        });
-      }
-
-      const where = ProductQuery.getWhere([input.storeId], {
-        storeId: input.storeId,
-        published: true,
-        search: input.search,
-        stock: STOCK_RANGE_MAP[input.stockFilter ?? "all"],
-        categoryId: input.categoryId,
-        priceMin: input.priceMin,
-        priceMax: input.priceMax,
-      });
-
-      const orderBy = SORT_ORDER_MAP[input.sortBy ?? "newest"];
-
-      const [products, total] = await Promise.all([
-        database.product.findMany({
-          where,
-          skip,
-          take: limit,
-          orderBy,
-          include: ProductQuery.getStorefrontListInclude(),
-        }),
-        database.product.count({ where }),
-      ]);
-
-      const hasMore = skip + products.length < total;
-
-      return {
-        products: products.map(ProductEntity.getStorefrontListRo),
-        total,
-        hasMore,
-        page,
-        limit,
-      };
-    }),
-
-  /**
-   * Get product by ID (verify store ownership)
-   */
   getById: protectedProcedure
     .input(getProductInputSchema)
     .output(productIncludeOutputSchema)
@@ -200,26 +116,18 @@ export const productRouter = {
       });
 
       if (!product) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
+        throw new ORPCError("NOT_FOUND", { message: "Product not found" });
       }
 
-      // Verify ownership
       await verifyStoreOwnership(userId, product.storeId);
-
       return ProductEntity.getRo(product);
     }),
 
-  /**
-   * Create new product (verify store ownership)
-   */
   create: protectedProcedure
     .input(createProductInputSchema)
     .output(productIncludeOutputSchema)
     .handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
       const userId = context.session.user.id;
-
       await verifyStoreOwnership(userId, input.storeId);
 
       const store = await database.store.findUnique({
@@ -228,9 +136,7 @@ export const productRouter = {
       });
 
       if (!store) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Store not found",
-        });
+        throw new ORPCError("NOT_FOUND", { message: "Store not found" });
       }
 
       const productId = ProductService.generateProductId(store.slug);
@@ -278,9 +184,6 @@ export const productRouter = {
       return ProductEntity.getRo(product);
     }),
 
-  /**
-   * Update product (verify store ownership)
-   */
   update: protectedProcedure
     .input(updateProductInputSchema)
     .output(productIncludeOutputSchema)
@@ -293,9 +196,7 @@ export const productRouter = {
       });
 
       if (!existingProduct) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
+        throw new ORPCError("NOT_FOUND", { message: "Product not found" });
       }
 
       await verifyStoreOwnership(userId, existingProduct.storeId);
@@ -326,35 +227,38 @@ export const productRouter = {
           const keptImageUrls = new Set(input.imageUrls);
 
           if (draftImages.length > 0) {
-            try {
-              for (const image of draftImages) {
-                if (!image?.url || keptImageUrls.has(image.url)) {
-                  continue;
-                }
-                const imageKey = await StorageService.getKeyFromPublicUrl(
-                  image.url,
-                  env.S3_PUBLIC_BASE_URL,
-                );
-                if (!imageKey) continue;
-                const lastSlashIndex = imageKey.lastIndexOf("/");
-                if (lastSlashIndex <= 0) continue;
-                const assetFolderPrefix = imageKey.substring(0, lastSlashIndex);
-                await StorageService.deleteFolderByPrefix(
-                  env.S3_BUCKET,
-                  assetFolderPrefix,
+            const deletionResults = await Promise.allSettled(
+              draftImages.map((image) =>
+                (async () => {
+                  if (!image?.url || keptImageUrls.has(image.url)) {
+                    return;
+                  }
+                  const imageKey = await StorageService.getKeyFromPublicUrl(
+                    image.url,
+                    env.S3_PUBLIC_BASE_URL,
+                  );
+                  if (!imageKey) {
+                    return;
+                  }
+                  await StorageService.deleteFile(env.S3_BUCKET, imageKey);
+                })(),
+              ),
+            );
+            for (const [i, r] of deletionResults.entries()) {
+              if (r.status === "rejected") {
+                logger.error(
+                  {
+                    error: r.reason,
+                    productId: input.id,
+                    imageUrl: draftImages[i]?.url,
+                  },
+                  "Failed to delete removed draft product image from storage",
                 );
               }
-            } catch (storageError) {
-              logger.error(
-                { error: storageError, productId: input.id },
-                "Failed to delete removed draft product image folders from storage",
-              );
             }
           }
 
-          await tx.image.deleteMany({
-            where: { productVersionId: versionId },
-          });
+          await tx.image.deleteMany({ where: { productVersionId: versionId } });
 
           if (input.imageUrls.length > 0) {
             await tx.image.createMany({
@@ -482,9 +386,6 @@ export const productRouter = {
       return ProductEntity.getRo(product);
     }),
 
-  /**
-   * Delete product (verify store ownership)
-   */
   delete: protectedProcedure
     .input(getProductInputSchema)
     .output(successOutputSchema)
@@ -493,15 +394,11 @@ export const productRouter = {
 
       const product = await database.product.findUnique({
         where: { id: input.id },
-        select: {
-          storeId: true,
-        },
+        select: { storeId: true },
       });
 
       if (!product) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
+        throw new ORPCError("NOT_FOUND", { message: "Product not found" });
       }
 
       await verifyStoreOwnership(userId, product.storeId);
@@ -513,73 +410,60 @@ export const productRouter = {
 
       if (images.length > 0) {
         try {
-          const folderPrefixes = new Set<string>();
+          const imageKeys = new Set<string>();
           for (const image of images) {
             if (image?.url) {
               const imageKey = await StorageService.getKeyFromPublicUrl(
                 image.url,
                 env.S3_PUBLIC_BASE_URL,
               );
-
               if (imageKey) {
-                // Extract folder prefix by removing filename (last segment after last '/')
-                const lastSlashIndex = imageKey.lastIndexOf("/");
-                if (lastSlashIndex > 0) {
-                  const folderPrefix = imageKey.substring(0, lastSlashIndex);
-                  folderPrefixes.add(folderPrefix);
-                }
+                imageKeys.add(imageKey);
               }
             }
           }
-
-          // Delete each unique folder
-          for (const folderPrefix of folderPrefixes) {
-            await StorageService.deleteFolderByPrefix(
-              env.S3_BUCKET,
-              folderPrefix,
-            );
+          const results = await Promise.allSettled(
+            [...imageKeys].map((key) =>
+              StorageService.deleteFile(env.S3_BUCKET, key),
+            ),
+          );
+          for (const result of results) {
+            if (result.status === "rejected") {
+              logger.error(
+                { error: result.reason, productId: input.id },
+                "Failed to delete product image from storage",
+              );
+            }
           }
         } catch (storageError) {
           logger.error(
             { error: storageError, productId: input.id },
-            "Failed to delete product image folders from storage",
+            "Failed to delete product images from storage",
           );
         }
       }
 
-      // Delete product (images will be cascade deleted from database)
-      await database.product.delete({
-        where: { id: input.id },
-      });
-
+      await database.product.delete({ where: { id: input.id } });
       return { success: true };
     }),
 
-  /**
-   * Toggle product published status
-   */
   togglePublish: protectedProcedure
     .input(togglePublishProductInputSchema)
     .output(productIncludeOutputSchema)
     .handler(async ({ input, context }): Promise<ProductIncludeOutput> => {
       const userId = context.session.user.id;
 
-      // Get product to verify ownership
       const product = await database.product.findUnique({
         where: { id: input.id },
         select: { storeId: true },
       });
 
       if (!product) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
+        throw new ORPCError("NOT_FOUND", { message: "Product not found" });
       }
 
-      // Verify ownership
       await verifyStoreOwnership(userId, product.storeId);
 
-      // Update published status
       const updated = await database.product.update({
         where: { id: input.id },
         data: { published: input.published },
@@ -601,9 +485,7 @@ export const productRouter = {
       });
 
       if (!product) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
+        throw new ORPCError("NOT_FOUND", { message: "Product not found" });
       }
 
       await verifyStoreOwnership(userId, product.storeId);
@@ -642,9 +524,7 @@ export const productRouter = {
       });
 
       if (!product) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
+        throw new ORPCError("NOT_FOUND", { message: "Product not found" });
       }
 
       await verifyStoreOwnership(userId, product.storeId);
@@ -667,101 +547,13 @@ export const productRouter = {
       return ProductEntity.getRo(updated);
     }),
 
-  /**
-   * Get product by ID (public - for storefronts)
-   * No authentication required, uses storefront rate limiting (100/min)
-   * Returns product with store info, variants, and images
-   */
-  getByIdPublic: baseProcedure
-    .use(rateLimitPublicSafe)
-    .input(getProductInputSchema)
-    .output(productPublicOutputSchema)
-    .handler(async ({ input }): Promise<ProductPublicOutput> => {
-      const product = await database.product.findUnique({
-        where: { id: input.id },
-        include: ProductQuery.getPublicInclude(),
-      });
-
-      if (!product) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
-      }
-
-      if (!product.published) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
-      }
-
-      if (
-        !product.currentPublishedVersionId ||
-        product.currentPublishedVersion?.status !==
-          ProductVersionStatus.PUBLISHED
-      ) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
-      }
-
-      if (product.store.status !== StoreStatus.PUBLISHED) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
-      }
-
-      if (!ProductQuery.isPublicWithPublished(product)) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Product not found",
-        });
-      }
-
-      return ProductEntity.getPublicRo(product);
-    }),
-
-  /**
-   * Get products by IDs (public - for storefronts)
-   * No authentication required, uses storefront rate limiting (100/min)
-   * Returns products with store info, variants, and images
-   */
-  getByIdsPublic: baseProcedure
-    .use(rateLimitPublicSafe)
-    .input(getProductsByIdsInputSchema)
-    .output(productsPublicOutputSchema)
-    .handler(async ({ input }): Promise<ProductPublicOutput[]> => {
-      const products = await database.product.findMany({
-        where: {
-          id: { in: input.ids },
-          ...ProductQuery.getPublishableWhere(),
-        },
-        include: ProductQuery.getPublicInclude(),
-      });
-
-      if (products.length === 0) {
-        return [];
-      }
-
-      return products
-        .filter(ProductQuery.isPublicWithPublished)
-        .map((p) => ProductEntity.getPublicRo(p));
-    }),
-
-  /**
-   * Upload product images (gallery or main)
-   * Validates store ownership and builds storage target internally
-   */
   uploadImages: protectedProcedure
     .input(productUploadImagesInputSchema)
     .output(uploadFilesOutputSchema)
     .handler(async ({ input, context }): Promise<UploadFilesOutput> => {
       const userId = context.session.user.id;
       await verifyStoreOwnership(userId, input.storeId);
-
-      const target = {
-        resource: "products" as const,
-        entityId: input.storeId,
-      };
-
+      const target = { resource: "products" as const, entityId: input.storeId };
       try {
         return await executeUploadFiles(input.files, target);
       } catch (error) {

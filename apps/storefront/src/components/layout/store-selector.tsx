@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
-import { getQueryClient, getStorefrontClient } from "@/shared/api/orpc";
+import { client, getQueryClient } from "@/shared/api/orpc";
 
 interface StoreSelectorProps {
   locale: Locale;
@@ -41,7 +41,10 @@ export function StoreSelectorForm({ locale, compact }: StoreSelectorFormProps) {
 
     setIsSubmitting(true);
     try {
-      await getStorefrontClient().selectStore({ slug: trimmed });
+      await client.store.selectStore({ slug: trimmed });
+      const maxAge = 60 * 60 * 24 * 7;
+      const secure = location.protocol === "https:" ? "; Secure" : "";
+      document.cookie = `storefront_store_slug=${encodeURIComponent(trimmed)}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure}`;
       router.push(`/${locale}`);
       router.refresh();
     } catch {

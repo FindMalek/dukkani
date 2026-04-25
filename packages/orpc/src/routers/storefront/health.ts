@@ -7,16 +7,13 @@ import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
 import { StorageService } from "@dukkani/storage";
 import { enhanceLogWithTraceContext } from "@dukkani/tracing";
-import { publicProcedure } from "../procedures";
+import { publicProcedure } from "../../procedures";
 
 const HEALTH_CHECK_CONFIG = {
   DEGRADED_THRESHOLD_MS: 1000,
 } as const;
 
 export const healthRouter = {
-  /**
-   * Health check endpoint with database and storage connectivity tests
-   */
   check: publicProcedure.output(healthSimpleOutputSchema).handler(async () => {
     const startTime = new Date();
     let dbConnected = false;
@@ -25,7 +22,6 @@ export const healthRouter = {
     let storageLatencyMs: number | undefined;
     let health: HealthSimpleOutput | null = null;
 
-    // Test database connectivity
     try {
       const dbStartTime = Date.now();
       health = await database.health.create({
@@ -51,7 +47,6 @@ export const healthRouter = {
       );
     }
 
-    // Test storage connectivity (upload + delete test object)
     try {
       const result = await StorageService.checkHealth();
       storageOk = result.ok;
@@ -66,7 +61,6 @@ export const healthRouter = {
       );
     }
 
-    // Determine overall health status (storage failure => UNHEALTHY)
     const status: HealthStatus =
       !dbConnected || !storageOk
         ? HealthStatus.UNHEALTHY
@@ -83,31 +77,49 @@ export const healthRouter = {
         ? HealthStatus.DEGRADED
         : HealthStatus.HEALTHY;
 
-    // Update health record with final status and metrics
-    if (health) {
-      health = await database.health.update({
-        where: { id: health.id },
-        data: {
-          status,
-          duration: dbLatency ?? 0,
-          endTime,
-          storageStatus,
-          storageLatencyMs,
-        },
-      });
-    } else {
-      health = await database.health.create({
-        data: {
-          status,
-          duration: 0,
-          startTime,
-          endTime,
-          storageStatus,
-          storageLatencyMs,
-        },
-      });
+    try {
+      if (health) {
+        health = await database.health.update({
+          where: { id: health.id },
+          data: {
+            status,
+            duration: dbLatency ?? 0,
+            endTime,
+            storageStatus,
+            storageLatencyMs,
+          },
+        });
+      } else {
+        health = await database.health.create({
+          data: {
+            status,
+            duration: 0,
+            startTime,
+            endTime,
+            storageStatus,
+            storageLatencyMs,
+          },
+        });
+      }
+    } catch (error) {
+      logger.error(
+        enhanceLogWithTraceContext({
+          error: error instanceof Error ? error.message : String(error),
+        }),
+        "Failed to persist health check result",
+      );
     }
 
-    return health;
+    return (
+      health ?? {
+        id: "unpersisted",
+        status,
+        duration: dbLatency ?? 0,
+        startTime,
+        endTime,
+        storageStatus,
+        storageLatencyMs: storageLatencyMs ?? null,
+      }
+    );
   }),
 };

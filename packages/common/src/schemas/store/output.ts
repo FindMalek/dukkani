@@ -112,3 +112,12 @@ export const launchNotificationOutputSchema = z.object({
 export type LaunchNotificationOutput = z.infer<
   typeof launchNotificationOutputSchema
 >;
+
+export const storeStatsOutputSchema = z.object({
+  todayOrders: z.number().int(),
+  todayOrdersChange: z.number().int(),
+  todayRevenue: z.number(),
+  weekOrders: z.number().int(),
+});
+
+export type StoreStatsOutput = z.infer<typeof storeStatsOutputSchema>;

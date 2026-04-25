@@ -20,13 +20,13 @@ import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { CustomerService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure } from "../procedures";
-import { getUserStoreIds, verifyStoreOwnership } from "../utils/store-access";
+import { protectedProcedure } from "../../procedures";
+import {
+  getUserStoreIds,
+  verifyStoreOwnership,
+} from "../../utils/store-access";
 
 export const customerRouter = {
-  /**
-   * Get all customers for user's stores (with pagination/filtering)
-   */
   getAll: protectedProcedure
     .input(listCustomersInputSchema.optional())
     .output(listCustomersOutputSchema)
@@ -48,7 +48,6 @@ export const customerRouter = {
       const limit = input?.limit ?? 20;
       const skip = (page - 1) * limit;
 
-      // Verify store ownership if filtering by specific store
       if (input?.storeId && !userStoreIds.includes(input.storeId)) {
         throw new ORPCError("FORBIDDEN", {
           message: "You don't have access to this store",
@@ -83,9 +82,6 @@ export const customerRouter = {
       };
     }),
 
-  /**
-   * Get customer by ID (verify store ownership)
-   */
   getById: protectedProcedure
     .input(getCustomerInputSchema)
     .output(customerIncludeOutputSchema)
@@ -98,42 +94,31 @@ export const customerRouter = {
       });
 
       if (!customer) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Customer not found",
-        });
+        throw new ORPCError("NOT_FOUND", { message: "Customer not found" });
       }
 
-      // Verify ownership
       await verifyStoreOwnership(userId, customer.storeId);
-
       return CustomerEntity.getRo(customer);
     }),
 
-  /**
-   * Create new customer (verify store ownership)
-   */
   create: protectedProcedure
     .input(createCustomerInputSchema)
     .output(customerSimpleOutputSchema)
     .handler(async ({ input, context }): Promise<CustomerSimpleOutput> => {
       const userId = context.session.user.id;
+
       return await CustomerService.createCustomer(input, userId);
     }),
 
-  /**
-   * Update customer (verify store ownership)
-   */
   update: protectedProcedure
     .input(updateCustomerInputSchema)
     .output(customerSimpleOutputSchema)
     .handler(async ({ input, context }): Promise<CustomerSimpleOutput> => {
       const userId = context.session.user.id;
+
       return await CustomerService.updateCustomer(input, userId);
     }),
 
-  /**
-   * Delete customer (verify store ownership)
-   */
   delete: protectedProcedure
     .input(getCustomerInputSchema)
     .output(successOutputSchema)
@@ -146,17 +131,11 @@ export const customerRouter = {
       });
 
       if (!customer) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "Customer not found",
-        });
+        throw new ORPCError("NOT_FOUND", { message: "Customer not found" });
       }
 
       await verifyStoreOwnership(userId, customer.storeId);
-
-      // Delete customer (orders will have customerId set to null)
-      await database.customer.delete({
-        where: { id: input.id },
-      });
+      await database.customer.delete({ where: { id: input.id } });
 
       return { success: true };
     }),

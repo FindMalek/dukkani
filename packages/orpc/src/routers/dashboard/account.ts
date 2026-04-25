@@ -9,14 +9,11 @@ import { userSimpleOutputSchema } from "@dukkani/common/schemas/user/output";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
-import { rateLimitSensitive } from "../middleware/rate-limit";
-import { protectedProcedure, publicProcedure } from "../procedures";
-import { executeUploadFile } from "../utils/storage-upload";
+import { rateLimitSensitive } from "../../middleware/rate-limit";
+import { protectedProcedure, publicProcedure } from "../../procedures";
+import { executeUploadFile } from "../../utils/storage-upload";
 
 export const accountRouter = {
-  /**
-   * Get current authenticated user with onboarding step
-   */
   getCurrentUser: protectedProcedure
     .output(userSimpleOutputSchema)
     .handler(async ({ context }) => {
@@ -28,18 +25,12 @@ export const accountRouter = {
       });
 
       if (!user) {
-        throw new ORPCError("NOT_FOUND", {
-          message: "User not found",
-        });
+        throw new ORPCError("NOT_FOUND", { message: "User not found" });
       }
 
       return UserEntity.getSimpleRo(user);
     }),
 
-  /**
-   * Check if an email address is already registered
-   * Rate limited to prevent email enumeration attacks
-   */
   checkEmailExists: publicProcedure
     .use(rateLimitSensitive)
     .input(checkEmailExistsInputSchema)
@@ -49,25 +40,15 @@ export const accountRouter = {
         where: { email: input.email },
         select: UserQuery.getMinimalSelect(),
       });
-
       return !!user;
     }),
 
-  /**
-   * Upload user avatar
-   * Uses userId from session; no storeId needed
-   */
   uploadAvatar: protectedProcedure
     .input(accountUploadAvatarInputSchema)
     .output(uploadFileOutputSchema)
     .handler(async ({ input, context }) => {
       const userId = context.session.user.id;
-
-      const target = {
-        resource: "avatars" as const,
-        entityId: userId,
-      };
-
+      const target = { resource: "avatars" as const, entityId: userId };
       try {
         return await executeUploadFile(input.file, target);
       } catch (error) {

@@ -10,11 +10,21 @@ export function getStoreSlug(
     return getStoreSlugFromHost(host);
   }
 
-  const slug = cookies.get("storefront_store_slug")?.value ?? null;
-  if (!slug || isReservedStoreSlug(slug)) {
+  const rawCookieValue = cookies.get("storefront_store_slug")?.value ?? null;
+  const slug = rawCookieValue
+    ? (() => {
+        try {
+          return decodeURIComponent(rawCookieValue);
+        } catch {
+          return rawCookieValue;
+        }
+      })()
+    : null;
+  const normalized = slug?.trim().toLowerCase() ?? null;
+  if (!normalized || isReservedStoreSlug(normalized)) {
     return null;
   }
-  return slug;
+  return normalized;
 }
 
 function getStoreSlugFromHost(host: string | null): string | null {
@@ -27,8 +37,8 @@ function getStoreSlugFromHost(host: string | null): string | null {
   // e.g., "omar-home.localhost" -> extract "omar-home"
   if (hostname.endsWith(".localhost")) {
     const subdomain = hostname.replace(".localhost", "");
-    if (subdomain && subdomain !== "www") {
-      return subdomain;
+    if (subdomain && subdomain.toLowerCase() !== "www") {
+      return subdomain.toLowerCase();
     }
     return null;
   }
@@ -80,9 +90,9 @@ function getStoreSlugFromHost(host: string | null): string | null {
   const subdomain = parts.slice(0, -baseDomainLength).join(".");
 
   // Skip "www" subdomain
-  if (subdomain === "www" || !subdomain) {
+  if (!subdomain || subdomain.toLowerCase() === "www") {
     return null;
   }
 
-  return subdomain;
+  return subdomain.toLowerCase();
 }

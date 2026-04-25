@@ -10,39 +10,28 @@ import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
 import { env, StorageService } from "@dukkani/storage";
 import { ORPCError } from "@orpc/server";
-import { protectedProcedure } from "../procedures";
+import { protectedProcedure } from "../../procedures";
 
 export const storageRouter = {
-  /**
-   * Delete a single file
-   */
   delete: protectedProcedure
     .input(deleteFileInputSchema)
     .output(successOutputSchema)
     .handler(async ({ input }) => {
       try {
-        // Get file paths (including variants) before deletion
         const file = await database.storageFile.findUnique({
           where: { id: input.id },
           select: {
             id: true,
             bucket: true,
             path: true,
-            variants: {
-              select: {
-                url: true,
-              },
-            },
+            variants: { select: { url: true } },
           },
         });
 
         if (!file) {
-          throw new ORPCError("NOT_FOUND", {
-            message: "File not found",
-          });
+          throw new ORPCError("NOT_FOUND", { message: "File not found" });
         }
 
-        // Extract paths from URLs (R2/MinIO format: baseUrl/key)
         const paths = new Set<string>([file.path]);
         for (const variant of file.variants) {
           const key = await StorageService.getKeyFromPublicUrl(
@@ -56,20 +45,35 @@ export const storageRouter = {
           }
         }
 
-        // Delete from storage and database in transaction
         await database.$transaction(async (tx) => {
-          // Delete from storage
-          await StorageService.deleteFiles(file.bucket, [...paths]);
-
-          // Delete from database (variants cascade delete)
           await StorageDbService.deleteStorageFile(file.id, tx);
         });
 
+        const allPaths = [...paths];
+        if (allPaths.length > 0) {
+          try {
+            await StorageService.deleteFiles(file.bucket, allPaths);
+          } catch (error) {
+            logger.error(
+              { bucket: file.bucket, paths: allPaths, error },
+              "Failed to delete storage files, attempting individual cleanup",
+            );
+            for (const path of allPaths) {
+              try {
+                await StorageService.deleteFile(file.bucket, path);
+              } catch (individualError) {
+                logger.error(
+                  { bucket: file.bucket, path, error: individualError },
+                  "Failed to delete individual storage file - orphaned object created",
+                );
+              }
+            }
+          }
+        }
+
         return { success: true };
       } catch (error) {
-        if (error instanceof ORPCError) {
-          throw error;
-        }
+        if (error instanceof ORPCError) throw error;
         throw new ORPCError("INTERNAL_SERVER_ERROR", {
           message:
             error instanceof Error ? error.message : "Failed to delete file",
@@ -77,28 +81,18 @@ export const storageRouter = {
       }
     }),
 
-  /**
-   * Delete multiple files
-   */
   deleteMany: protectedProcedure
     .input(deleteFilesInputSchema)
     .output(deleteManyOutputSchema)
     .handler(async ({ input }): Promise<DeleteManyOutput> => {
       try {
-        // Get all file records
         const files = await database.storageFile.findMany({
-          where: {
-            id: { in: input.ids },
-          },
+          where: { id: { in: input.ids } },
           select: {
             id: true,
             bucket: true,
             path: true,
-            variants: {
-              select: {
-                url: true,
-              },
-            },
+            variants: { select: { url: true } },
           },
         });
 
@@ -106,7 +100,6 @@ export const storageRouter = {
           return { success: true, deleted: 0 };
         }
 
-        // Prepare paths for storage deletion (group by bucket)
         const filesByBucket = new Map<
           string,
           Array<{ paths: string[]; fileId: string }>
@@ -124,15 +117,12 @@ export const storageRouter = {
               logger.warn({ url: variant.url }, "Failed to parse variant URL");
             }
           }
-
           const bucketFiles = filesByBucket.get(file.bucket) ?? [];
           bucketFiles.push({ paths: [...paths], fileId: file.id });
           filesByBucket.set(file.bucket, bucketFiles);
         }
 
-        // Delete from database first (within transaction)
         await database.$transaction(async (tx) => {
-          // Delete from database
           await Promise.all(
             files.map((file) =>
               StorageDbService.deleteStorageFile(file.id, tx),
@@ -140,7 +130,6 @@ export const storageRouter = {
           );
         });
 
-        // Delete from storage after DB commit succeeds with enhanced error handling
         const storageErrors: Array<{
           bucket: string;
           paths: string[];
@@ -154,14 +143,11 @@ export const storageRouter = {
             try {
               await StorageService.deleteFiles(bucket, allPaths);
             } catch (error) {
-              // Log for cleanup - DB records are already deleted
               storageErrors.push({ bucket, paths: allPaths, error });
               logger.error(
                 { bucket, paths: allPaths, error },
                 "Failed to delete storage files, attempting individual cleanup",
               );
-
-              // Attempt individual deletions to clean up as much as possible
               for (const path of allPaths) {
                 try {
                   await StorageService.deleteFile(bucket, path);
@@ -177,13 +163,9 @@ export const storageRouter = {
           }
         }
 
-        // If we have any failed paths, create a cleanup job record for later processing
         if (failedPaths.length > 0) {
           logger.warn(
-            {
-              failedPaths: failedPaths.length,
-              totalFiles: files.length,
-            },
+            { failedPaths: failedPaths.length, totalFiles: files.length },
             "Some storage files could not be deleted - manual cleanup may be required",
           );
         }
@@ -191,14 +173,10 @@ export const storageRouter = {
         return {
           success: true,
           deleted: files.length,
-          ...(storageErrors.length > 0 && {
-            warnings: storageErrors.length,
-          }),
+          ...(storageErrors.length > 0 && { warnings: storageErrors.length }),
         };
       } catch (error) {
-        if (error instanceof ORPCError) {
-          throw error;
-        }
+        if (error instanceof ORPCError) throw error;
         throw new ORPCError("INTERNAL_SERVER_ERROR", {
           message:
             error instanceof Error ? error.message : "Failed to delete files",

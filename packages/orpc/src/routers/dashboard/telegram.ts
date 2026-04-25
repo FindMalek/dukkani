@@ -14,28 +14,23 @@ import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { TelegramService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ORPCError } from "@orpc/server";
-import { createRateLimitMiddleware } from "../middleware/rate-limit";
-import { protectedProcedure } from "../procedures";
+import { createRateLimitMiddleware } from "../../middleware/rate-limit";
+import { protectedProcedure } from "../../procedures";
 
-// Rate limiter for link/disconnect operations: 3 per hour
 const telegramLinkRateLimit = createRateLimitMiddleware({
   custom: {
     max: 3,
-    windowMs: 60 * 60 * 1000, // 1 hour
+    windowMs: 60 * 60 * 1000,
   },
 });
 
 export const telegramRouter = {
-  /**
-   * Get Telegram bot link and generate OTP for account linking
-   */
   getBotLink: protectedProcedure
     .output(telegramBotLinkOutputSchema)
     .handler(async ({ context }): Promise<TelegramBotLinkOutput> => {
       const userId = context.session.user.id;
       const botLink = TelegramService.getBotLink();
       const otpCode = await TelegramService.generateLinkOTP(userId);
-
       return {
         botLink,
         otpCode,
@@ -43,15 +38,11 @@ export const telegramRouter = {
       };
     }),
 
-  /**
-   * Send OTP to user's linked Telegram account
-   */
   sendOTP: protectedProcedure
     .input(sendOTPInputSchema)
     .output(successOutputSchema)
     .handler(async ({ input, context }): Promise<SuccessOutput> => {
       const userId = context.session.user.id;
-
       try {
         await TelegramService.sendOTP(userId, input.otp);
         return { success: true };
@@ -63,9 +54,6 @@ export const telegramRouter = {
       }
     }),
 
-  /**
-   * Get Telegram linking status
-   */
   getStatus: protectedProcedure
     .output(telegramStatusOutputSchema)
     .handler(async ({ context }): Promise<TelegramStatusOutput> => {
@@ -78,12 +66,9 @@ export const telegramRouter = {
           telegramUserName: true,
           name: true,
           email: true,
-          stores: {
-            select: StoreQuery.getMinimalSelect(),
-          },
+          stores: { select: StoreQuery.getMinimalSelect() },
         },
       });
-
       return {
         linked: !!user?.telegramChatId,
         linkedAt: user?.telegramLinkedAt ?? null,
@@ -94,17 +79,12 @@ export const telegramRouter = {
       };
     }),
 
-  /**
-   * Disconnect Telegram account
-   * Requires store name confirmation
-   */
   disconnect: protectedProcedure
     .use(telegramLinkRateLimit)
     .input(disconnectTelegramInputSchema)
     .output(successOutputSchema)
     .handler(async ({ input, context }): Promise<SuccessOutput> => {
       const userId = context.session.user.id;
-
       try {
         await TelegramService.disconnectTelegramAccount(
           userId,

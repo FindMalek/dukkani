@@ -54,6 +54,25 @@ const apiHandler = new OpenAPIHandler(appRouter, {
           description: "API documentation and playground for Dukkani",
         },
       },
+      docsConfig: {
+        customCss: `
+          #app {
+            --scalar-layout-sidebar-width: min(32rem, 48vw);
+          }
+          .light-mode .sidebar,
+          .dark-mode .sidebar,
+          .t-doc__sidebar {
+            min-width: min(26rem, 44vw) !important;
+            flex-shrink: 0 !important;
+          }
+          .light-mode .sidebar a,
+          .dark-mode .sidebar a,
+          .t-doc__sidebar a {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+          }
+        `,
+      },
     }),
   ],
   interceptors: [
