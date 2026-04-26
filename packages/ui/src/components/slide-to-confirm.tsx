@@ -3,14 +3,15 @@
 import type * as React from "react";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { cn } from "../lib/utils";
-import { buttonVariants } from "./button";
 import { Icons } from "./icons";
 
 /** Past ~82% of handle travel from min width to full track, release confirms. */
 const THRESHOLD_RATIO = 0.82;
-const HANDLE_MIN_PX = 52;
+/** H-9 track, p-0.5 — min drag width, fits icon row. */
+const HANDLE_MIN_PX = 40;
 const STRIP_COUNT = 8;
-const PADDING_PX = 8; // p-1 (4px) * 2
+/** Left + right track padding (Tailwind p-0.5 → 2px + 2px). */
+const PADDING_H_PX = 4;
 
 export interface SlideToConfirmProps {
   onConfirm: () => void;
@@ -18,18 +19,25 @@ export interface SlideToConfirmProps {
   className?: string;
   children?: React.ReactNode;
   icon?: React.ReactNode;
+  /**
+   * Explicit accessible name. When omitted, the text from `children` is exposed
+   * (the label layer is not aria-hidden so assistive tech matches the screen).
+   */
+  "aria-label"?: string;
 }
 
 /**
  * Left-anchored growing handle (printer-style) — release past ~82% of max width to confirm.
  * `Enter` / `Space` on the track calls `onConfirm()` when not disabled.
+ * Track height is `h-9` to align with `Button` `size="icon"`.
  */
 export function SlideToConfirm({
   onConfirm,
   disabled = false,
   className,
   children,
-  icon = <Icons.chevronsRight className="size-4" />,
+  icon = <Icons.chevronsRight className="size-3.5" />,
+  "aria-label": ariaLabel,
 }: SlideToConfirmProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const handleWRef = useRef(HANDLE_MIN_PX);
@@ -48,7 +56,7 @@ export function SlideToConfirm({
   const measure = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
-    const inner = Math.max(0, el.offsetWidth - PADDING_PX);
+    const inner = Math.max(0, el.offsetWidth - PADDING_H_PX);
     setMaxInnerW(inner);
     setW(Math.min(handleWRef.current, Math.max(HANDLE_MIN_PX, inner)));
   }, [setW]);
@@ -104,8 +112,9 @@ export function SlideToConfirm({
         startPointerX.current === null ||
         disabled ||
         maxInnerW < HANDLE_MIN_PX
-      )
+      ) {
         return;
+      }
       const delta = e.clientX - startPointerX.current;
       const next = startW.current + delta;
       const cap = maxInnerW;
@@ -154,7 +163,7 @@ export function SlideToConfirm({
           (handleW - HANDLE_MIN_PX) / (maxInnerW - HANDLE_MIN_PX || 1),
         )
       : 0;
-  const labelOpacity = Math.max(0.15, 1 - coverRatio * 1.15);
+  const labelOpacity = Math.max(0.12, 1 - coverRatio * 1.15);
 
   return (
     <div
@@ -169,16 +178,16 @@ export function SlideToConfirm({
         data-slot="slide-to-confirm-track"
         role="button"
         tabIndex={disabled ? -1 : 0}
+        aria-label={ariaLabel}
         onKeyDown={handleKeyDown}
-        className="relative h-12 w-full min-w-0 select-none overflow-hidden rounded-full border border-primary/20 bg-primary p-1 shadow-inner outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        className="relative h-9 w-full min-w-0 select-none overflow-hidden rounded-full border border-primary/25 bg-primary p-0.5 shadow-inner outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         {children && (
           <div
-            className="pointer-events-none absolute inset-0 flex items-center justify-center px-2"
+            className="pointer-events-none absolute inset-0 flex items-center justify-center px-1.5"
             style={{ opacity: labelOpacity }}
-            aria-hidden
           >
-            <span className="line-clamp-1 text-center font-medium text-primary-foreground text-sm">
+            <span className="line-clamp-1 text-center font-medium text-primary-foreground text-xs sm:text-sm">
               {children}
             </span>
           </div>
@@ -186,8 +195,8 @@ export function SlideToConfirm({
         <div
           role="presentation"
           className={cn(
-            buttonVariants({ size: "icon-lg", variant: "secondary" }),
-            "absolute top-1 left-1 z-10 flex h-10 cursor-grab touch-none items-stretch overflow-hidden rounded-full p-0 active:cursor-grabbing",
+            "absolute top-0.5 bottom-0.5 left-0.5 z-10 flex min-h-0 min-w-0 touch-none items-stretch overflow-hidden rounded-full border border-primary-foreground/35 bg-primary-foreground/20 shadow-sm backdrop-blur-sm",
+            "cursor-grab active:cursor-grabbing",
             !isDragging && "transition-[width] duration-200 ease-out",
             disabled && "pointer-events-none",
           )}
@@ -202,11 +211,14 @@ export function SlideToConfirm({
           onPointerCancel={handlePointerCancel}
         >
           <div
-            className="flex h-full min-w-0 items-center justify-start gap-0.5 pl-1.5"
+            className="flex h-full min-w-0 items-center justify-start gap-px pr-0.5 pl-1"
             aria-hidden
           >
             {Array.from({ length: STRIP_COUNT }).map((_, i) => (
-              <span key={i} className="inline-flex shrink-0 text-primary">
+              <span
+                key={i}
+                className="inline-flex shrink-0 text-primary-foreground/90"
+              >
                 {icon}
               </span>
             ))}

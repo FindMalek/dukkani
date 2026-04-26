@@ -304,6 +304,7 @@
       "delivery": "Delivery",
       "total": "Total",
       "updateStatus": "Update Status",
+      "slideToSetStatus": "Slide to mark as {status}",
       "slideToUpdate": "Update Status",
       "loading": "Loading order…",
       "notFound": "Order not found",

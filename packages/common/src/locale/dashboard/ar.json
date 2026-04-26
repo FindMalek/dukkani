@@ -290,6 +290,7 @@
       "delivery": "التوصيل",
       "total": "الإجمالي",
       "updateStatus": "تحديث الحالة",
+      "slideToSetStatus": "اسحب لتعيين الحالة: {status}",
       "slideToUpdate": "تحديث الحالة",
       "loading": "جارٍ التحميل…",
       "notFound": "الطلب غير موجود",

@@ -294,6 +294,7 @@
       "delivery": "Livraison",
       "total": "Total",
       "updateStatus": "Mettre à jour le statut",
+      "slideToSetStatus": "Faire glisser pour marquer : {status}",
       "slideToUpdate": "Mettre à jour le statut",
       "loading": "Chargement…",
       "notFound": "Commande introuvable",
