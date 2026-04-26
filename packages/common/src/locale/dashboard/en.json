@@ -304,6 +304,7 @@
       "delivery": "Delivery",
       "total": "Total",
       "updateStatus": "Update Status",
+      "slideToUpdate": "Update Status",
       "loading": "Loading order…",
       "notFound": "Order not found",
       "errorLoading": "Error loading order. Please try again."

@@ -94,9 +94,7 @@ async function buildSeededOrderItemCreateData(
       quantity,
       price: listPriceFallback,
       displayAttributes: {
-        create: [
-          { position: 0, optionName: "Product", value: baseName },
-        ],
+        create: [{ position: 0, optionName: "Product", value: baseName }],
       },
     };
   }
@@ -123,7 +121,10 @@ async function buildSeededOrderItemCreateData(
     quantity,
     price: linePrice,
     displayAttributes: {
-      create: rows.length > 0 ? rows : [{ position: 0, optionName: "Product", value: baseName }],
+      create:
+        rows.length > 0
+          ? rows
+          : [{ position: 0, optionName: "Product", value: baseName }],
     },
   };
 }

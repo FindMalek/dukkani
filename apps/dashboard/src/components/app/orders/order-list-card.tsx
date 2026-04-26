@@ -16,6 +16,7 @@ import { useMemo } from "react";
 import { appMutations } from "@/shared/api/mutations";
 import { RoutePaths } from "@/shared/config/routes";
 import { getItemsCount, getOrderTotal } from "@/shared/lib/order/order.util";
+import { getContactHref } from "@/shared/lib/phone/contact-href.util";
 import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 
 interface OrderListCardProps {
@@ -49,7 +50,10 @@ export function OrderListCard({ order }: OrderListCardProps) {
             icon: <Icons.phone className="size-5" />,
             label: t("call"),
             onTrigger: () => {
-              window.location.href = `tel:${order.customer?.phone}`;
+              const phone = order.customer?.phone;
+              if (phone) {
+                window.location.href = getContactHref(phone, false);
+              }
             },
           }
         : undefined,
