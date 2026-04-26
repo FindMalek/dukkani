@@ -53,6 +53,10 @@ export class OrderItemQuery {
           },
         },
       },
+      displayAttributes: {
+        orderBy: { position: "asc" },
+        select: { optionName: true, value: true },
+      },
     } satisfies Prisma.OrderItemInclude;
   }
 

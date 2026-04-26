@@ -16,9 +16,17 @@ const productMinimalOutputSchema = z.object({
   imageUrl: z.string().nullable().optional(),
 });
 
+const orderItemDisplayAttributeOutputSchema = z.object({
+  optionName: z.string(),
+  value: z.string(),
+});
+
 export const orderItemWithProductOutputSchema =
   orderItemSimpleOutputSchema.extend({
     product: productMinimalOutputSchema.optional(),
+    displayAttributes: z
+      .array(orderItemDisplayAttributeOutputSchema)
+      .optional(),
   });
 
 export type OrderItemSimpleOutput = z.infer<typeof orderItemSimpleOutputSchema>;

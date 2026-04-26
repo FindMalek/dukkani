@@ -54,6 +54,13 @@ export function OrderDetailItemsCard({
                 <p className="truncate font-medium text-sm">
                   {item.product?.name ?? "—"}
                 </p>
+                {item.displayAttributes && item.displayAttributes.length > 0 ? (
+                  <p className="line-clamp-2 text-muted-foreground text-xs">
+                    {item.displayAttributes
+                      .map((a) => `${a.optionName}: ${a.value}`)
+                      .join(" · ")}
+                  </p>
+                ) : null}
                 <p className="text-muted-foreground text-xs">
                   {itemCountLine(item.quantity)}
                 </p>

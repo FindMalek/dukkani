@@ -40,6 +40,10 @@ export class OrderItemEntity {
   ): OrderItemWithProductOutput {
     return {
       ...OrderItemEntity.getSimpleRo(entity),
+      displayAttributes: entity.displayAttributes.map((row) => ({
+        optionName: row.optionName,
+        value: row.value,
+      })),
       product: entity.product
         ? {
             id: entity.product.id,
