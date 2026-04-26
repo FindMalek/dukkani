@@ -1,5 +1,6 @@
 "use client";
 
+import { AddressEntity } from "@dukkani/common/entities/address/entity";
 import {
   ORDER_STATUS_BADGE_VARIANT,
   OrderEntity,
@@ -83,7 +84,6 @@ export function OrderListCard({ order }: OrderListCardProps) {
       aria-label={t("viewOrder", { id: order.id })}
     >
       <div className="flex flex-col gap-3">
-        {/* Top row: Name and Status */}
         <div className="flex items-center justify-between gap-2">
           <h3 className="font-semibold text-base text-foreground">
             {order.customer?.name ?? "—"}
@@ -93,21 +93,17 @@ export function OrderListCard({ order }: OrderListCardProps) {
           </Badge>
         </div>
 
-        {/* Middle row: ID, Items, Payment */}
         <div className="flex items-center gap-2 font-medium text-muted-foreground text-sm">
           <span className="font-bold text-foreground">#{order.id}</span>
           <span>{t("itemsCount", { count: itemsCount })}</span>
           <span className="font-normal">{paymentLabel}</span>
         </div>
 
-        {/* Bottom row: Location and Total */}
         <div className="flex items-end justify-between gap-4">
           <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
             <Icons.mapPin className="size-4" />
             <span>
-              {order.address
-                ? `${order.address.city}, ${order.address.postalCode}`
-                : "—"}
+              {AddressEntity.formatOrderListLocation(order.address) ?? "—"}
             </span>
           </div>
           <p className="font-bold text-foreground text-lg">
