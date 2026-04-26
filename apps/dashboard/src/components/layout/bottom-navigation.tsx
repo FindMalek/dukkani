@@ -3,7 +3,7 @@
 import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { RoutePaths } from "@/shared/config/routes";
+import { RoutePaths, shouldHideBottomNav } from "@/shared/config/routes";
 
 const mainNavLinks = [
   RoutePaths.DASHBOARD,
@@ -24,12 +24,10 @@ function isActiveRoute(
   return currentPath.startsWith(targetPath);
 }
 
-const HIDE_BOTTOM_NAV = [/^\/[^/]+\/orders\/.+$/];
-
 export function BottomNavigation() {
   const pathname = usePathname();
 
-  if (HIDE_BOTTOM_NAV.some((pattern) => pattern.test(pathname))) {
+  if (shouldHideBottomNav(pathname)) {
     return null;
   }
 

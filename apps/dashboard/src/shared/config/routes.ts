@@ -57,6 +57,7 @@ export const RoutePaths = {
     DETAIL: {
       url: (id: string) => `/orders/${id}` as Route,
       label: "Order Details",
+      hideBottomNav: true,
     },
   },
 
@@ -99,6 +100,80 @@ export const RoutePaths = {
     },
   },
 } as const;
+
+const DYNAMIC_ID_MARKER = "___DYNAMIC_ID___" as const;
+
+/**
+ * Strips the leading `[lang]` segment from the pathname. App routes are under
+ * `/{locale}/…` (see `proxy`); `RoutePaths` use paths without the locale
+ * prefix.
+ */
+function pathWithoutLocale(pathname: string): string {
+  const parts = pathname.split("/").filter(Boolean);
+  if (parts.length < 2) {
+    if (parts.length === 0) {
+      return "/";
+    }
+    return `/${parts[0]}`;
+  }
+  return `/${parts.slice(1).join("/")}`;
+}
+
+/**
+ * Recursively collects `hideBottomNav` rules from `RoutePaths` and returns
+ * matchers for the app path (no locale prefix).
+ */
+function buildHideBottomNavMatchers(): ((pathname: string) => boolean)[] {
+  const matchers: ((pathname: string) => boolean)[] = [];
+  const visit = (node: unknown): void => {
+    if (node === null || typeof node !== "object") {
+      return;
+    }
+    const o = node as Record<string, unknown>;
+    if (
+      "url" in o &&
+      (typeof o.url === "string" || typeof o.url === "function")
+    ) {
+      if (o.hideBottomNav === true) {
+        const url = o.url;
+        if (typeof url === "string") {
+          matchers.push((pathname) => pathWithoutLocale(pathname) === url);
+        } else {
+          const built = url(DYNAMIC_ID_MARKER) as string;
+          const segs = built.split(DYNAMIC_ID_MARKER);
+          if (segs.length < 2) {
+            return;
+          }
+          const re = new RegExp(
+            `^${segs
+              .map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+              .join("[^/]+")}$`,
+          );
+          matchers.push((pathname) => re.test(pathWithoutLocale(pathname)));
+        }
+      }
+      return;
+    }
+    for (const v of Object.values(o)) {
+      visit(v);
+    }
+  };
+  visit(RoutePaths);
+  return matchers;
+}
+
+let hideBottomNavMatchers: ((pathname: string) => boolean)[] | null = null;
+function getHideBottomNavMatchers(): ((pathname: string) => boolean)[] {
+  if (hideBottomNavMatchers === null) {
+    hideBottomNavMatchers = buildHideBottomNavMatchers();
+  }
+  return hideBottomNavMatchers;
+}
+
+/** True when the current path matches a route that sets `hideBottomNav`. */
+export function shouldHideBottomNav(pathname: string): boolean {
+  return getHideBottomNavMatchers().some((m) => m(pathname));
+}
 
 /**
  * Type for route groups (e.g., 'AUTH', 'PRODUCTS', 'ORDERS')
