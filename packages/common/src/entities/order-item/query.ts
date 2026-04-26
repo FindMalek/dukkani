@@ -38,6 +38,11 @@ export class OrderItemQuery {
     return {
       ...OrderItemQuery.getSimpleInclude(),
       product: { select: { id: true } },
+      productVariant: {
+        select: {
+          image: { select: { url: true } },
+        },
+      },
       productVersion: {
         select: {
           name: true,

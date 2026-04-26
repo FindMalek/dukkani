@@ -2,6 +2,7 @@ import type { OrderStatus } from "@dukkani/common/schemas/order/enums";
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { AddressQuery } from "../address/query";
 import { CustomerQuery } from "../customer/query";
+import { OrderItemQuery } from "../order-item/query";
 
 export type OrderSimpleDbData = Prisma.OrderGetPayload<{
   include: ReturnType<typeof OrderQuery.getSimpleInclude>;
@@ -62,20 +63,7 @@ export class OrderQuery {
         select: AddressQuery.getSimpleSelect(),
       },
       orderItems: {
-        include: {
-          product: { select: { id: true } },
-          productVersion: {
-            select: {
-              name: true,
-              // TODO: if they picked a variant, use the variant image
-              images: {
-                select: { url: true },
-                take: 1,
-                orderBy: { createdAt: "asc" },
-              },
-            },
-          },
-        },
+        include: OrderItemQuery.getIncludeWithProductSelect(),
       },
       whatsappMessages: true,
     } satisfies Prisma.OrderInclude;
