@@ -36,7 +36,7 @@ apps/dashboard/src/
 │   └── lib/                   # Domain-organized business logic
 │       ├── product/           # controller.hook.ts, form.ts, store.ts (UI-only)
 │       ├── variant/           # variants-form.util.ts, variants-field.hook.ts — product variant matrix (editor form slice)
-│       ├── order/             # controller.hook.ts, datetime.util.ts, group-by-date.util.ts, price.util.ts, store.ts (UI-only)
+│       ├── order/             # controller.hook.ts, order.util.ts, store.ts (UI-only)
 │       ├── onboarding/        # controller.hook.ts, stepper.util.ts
 │       ├── store/             # active.store.ts, current-currency.hook.ts, format-price.hook.ts, url.util.ts
 │       ├── route-params.util.ts  # `getDynamicRouteParam` — `useParams()` segment parsing

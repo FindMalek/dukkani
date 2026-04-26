@@ -1,4 +1,7 @@
-import type { OrderListItemOutput } from "@dukkani/common/schemas/order/output";
+import type {
+  OrderForLineTotals,
+  OrderListItemOutput,
+} from "@dukkani/common/schemas/order/output";
 
 export type DateGroupKey = "today" | "yesterday" | "older";
 
@@ -6,6 +9,30 @@ export interface GroupedOrders {
   today: OrderListItemOutput[];
   yesterday: OrderListItemOutput[];
   older: { label: string; orders: OrderListItemOutput[] }[];
+}
+
+export interface OrderListDisplaySection {
+  key: string;
+  title: string;
+  orders: OrderListItemOutput[];
+}
+
+/**
+ * Flattens grouped orders into non-empty sections for list rendering (today, yesterday, then older by date).
+ */
+export function getOrderListDisplaySections(
+  grouped: GroupedOrders,
+  labels: { today: string; yesterday: string },
+): OrderListDisplaySection[] {
+  return [
+    { key: "today", title: labels.today, orders: grouped.today },
+    { key: "yesterday", title: labels.yesterday, orders: grouped.yesterday },
+    ...grouped.older.map((g) => ({
+      key: g.label,
+      title: g.label,
+      orders: g.orders,
+    })),
+  ].filter((s) => s.orders.length > 0);
 }
 
 function getStartOfDay(date: Date): Date {
@@ -63,4 +90,47 @@ export function groupOrdersByDate(
     .map(({ label, orders: ords }) => ({ label, orders: ords }));
 
   return { today, yesterday, older };
+}
+
+export function getOrderTotal(order: OrderForLineTotals): number {
+  return (
+    order.orderItems?.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0,
+    ) ?? 0
+  );
+}
+
+export function getItemsCount(order: OrderForLineTotals): number {
+  return order.orderItems?.reduce((sum, item) => sum + item.quantity, 0) ?? 0;
+}
+
+export function formatOrderDateTime(
+  date: Date,
+  now: Date,
+  t: (key: string) => string,
+): string {
+  const d = new Date(date);
+  const dStart = getStartOfDay(d);
+  const today = getStartOfDay(now);
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const timeStr = d.toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  if (dStart.getTime() === today.getTime()) {
+    return `${t("today")} ${timeStr}`;
+  }
+  if (dStart.getTime() === yesterday.getTime()) {
+    return `${t("yesterday")} ${timeStr}`;
+  }
+  return d.toLocaleDateString(undefined, {
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }

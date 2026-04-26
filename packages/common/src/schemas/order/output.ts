@@ -13,6 +13,7 @@ export const orderListCustomerOutputSchema = z.object({
 
 export const orderListAddressOutputSchema = z.object({
   city: z.string(),
+  postalCode: z.string().nullable(),
   street: z.string(),
 });
 

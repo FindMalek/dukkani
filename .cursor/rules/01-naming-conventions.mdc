@@ -208,7 +208,7 @@ src/
     lib/
       order/
         controller.hook.ts
-        price.util.ts
+        order.util.ts
         store.ts
       product/
         controller.hook.ts

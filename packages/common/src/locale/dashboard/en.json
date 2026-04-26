@@ -250,6 +250,7 @@
       "searchPlaceholder": "Search by name, phone or order #",
       "empty": "No orders found. Orders will appear here once customers start placing them.",
       "error": "Error loading orders. Please try again later.",
+      "retry": "Retry",
       "refresh": "Refresh orders",
       "call": "Call",
       "advanceStatus": "Advance",

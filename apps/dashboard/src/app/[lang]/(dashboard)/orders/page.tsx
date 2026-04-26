@@ -1,6 +1,11 @@
 "use client";
 
-import { Card, CardContent } from "@dukkani/ui/components/card";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@dukkani/ui/components/alert";
+import { Button } from "@dukkani/ui/components/button";
 import {
   Empty,
   EmptyDescription,
@@ -9,15 +14,18 @@ import {
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { OrderListCard } from "@/components/app/orders/order-list-card";
+import { type ReactNode, useState } from "react";
 import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
+import { OrdersGroupedList } from "@/components/app/orders/orders-grouped-list";
 import { OrdersListSkeleton } from "@/components/app/orders/orders-list-skeleton";
 import { OrdersPageHeader } from "@/components/app/orders/orders-page-header";
 import { OrdersSearchBar } from "@/components/app/orders/orders-search-bar";
 import { OrdersStatusTabs } from "@/components/app/orders/orders-status-tabs";
 import { useOrdersController } from "@/shared/lib/order/controller.hook";
-import { groupOrdersByDate } from "@/shared/lib/order/group-by-date.util";
+import {
+  getOrderListDisplaySections,
+  groupOrdersByDate,
+} from "@/shared/lib/order/order.util";
 
 export default function OrdersPage() {
   const t = useTranslations("orders.list");
@@ -31,7 +39,6 @@ export default function OrdersPage() {
     resetFilters,
   } = useOrdersController();
 
-  // dateRange is UI-only — backend filtering not yet implemented
   const [dateRange, setDateRange] = useState<{
     from: Date | null;
     to: Date | null;
@@ -42,27 +49,60 @@ export default function OrdersPage() {
 
   if (error) {
     return (
-      <div className="container mx-auto max-w-7xl p-4 md:p-6">
+      <div className="container mx-auto max-w-7xl p-4 pb-24 md:p-6 md:pb-8">
         <OrdersPageHeader />
-        <Card>
-          <CardContent className="pt-6">
-            <p className="text-destructive text-sm">{t("error")}</p>
-          </CardContent>
-        </Card>
+        <Alert className="mt-4" variant="destructive">
+          <Icons.alertTriangle />
+          <AlertTitle>{t("error")}</AlertTitle>
+          <AlertDescription className="col-start-2 flex sm:justify-end">
+            <Button
+              className="shrink-0"
+              size="sm"
+              type="button"
+              variant="outline"
+              onClick={() => void refetch()}
+            >
+              {t("retry")}
+            </Button>
+          </AlertDescription>
+        </Alert>
       </div>
     );
   }
 
   const grouped = data?.orders ? groupOrdersByDate(data.orders) : null;
+  const sections = grouped
+    ? getOrderListDisplaySections(grouped, {
+        today: t("today"),
+        yesterday: t("yesterday"),
+      })
+    : [];
+
+  let listBody: ReactNode;
+  if (isLoading) {
+    listBody = <OrdersListSkeleton />;
+  } else if (!data?.orders?.length) {
+    listBody = (
+      <Empty className="border bg-muted/30">
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <Icons.shoppingCart />
+          </EmptyMedia>
+          <EmptyDescription>{t("empty")}</EmptyDescription>
+        </EmptyHeader>
+      </Empty>
+    );
+  } else {
+    listBody = <OrdersGroupedList sections={sections} />;
+  }
 
   return (
     <div className="container mx-auto max-w-7xl p-4 pb-24 md:p-6 md:pb-8">
       <OrdersPageHeader
-        onRefresh={() => refetch()}
         isRefetching={isRefetching}
+        onRefresh={() => refetch()}
       />
 
-      {/* Search & Filters */}
       <div className="mb-6 space-y-4">
         <OrdersSearchBar
           value={search}
@@ -73,7 +113,6 @@ export default function OrdersPage() {
         <OrdersStatusTabs value={status} onChange={setStatus} />
       </div>
 
-      {/* Filter Drawer */}
       <OrdersFilterDrawer
         open={filterDrawerOpen}
         onOpenChange={setFilterDrawerOpen}
@@ -84,58 +123,7 @@ export default function OrdersPage() {
         resetFilters={resetFilters}
       />
 
-      {/* Order List */}
-      {isLoading ? (
-        <OrdersListSkeleton />
-      ) : data && data.orders.length > 0 && grouped ? (
-        <div className="space-y-6">
-          {grouped.today.length > 0 && (
-            <section>
-              <h2 className="mb-3 font-medium text-muted-foreground text-sm">
-                {t("today")}
-              </h2>
-              <div className="space-y-3">
-                {grouped.today.map((order) => (
-                  <OrderListCard key={order.id} order={order} />
-                ))}
-              </div>
-            </section>
-          )}
-          {grouped.yesterday.length > 0 && (
-            <section>
-              <h2 className="mb-3 font-medium text-muted-foreground text-sm">
-                {t("yesterday")}
-              </h2>
-              <div className="space-y-3">
-                {grouped.yesterday.map((order) => (
-                  <OrderListCard key={order.id} order={order} />
-                ))}
-              </div>
-            </section>
-          )}
-          {grouped.older.map(({ label, orders: ords }) => (
-            <section key={label}>
-              <h2 className="mb-3 font-medium text-muted-foreground text-sm">
-                {label}
-              </h2>
-              <div className="space-y-3">
-                {ords.map((order) => (
-                  <OrderListCard key={order.id} order={order} />
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      ) : (
-        <Empty className="border bg-muted/30">
-          <EmptyHeader>
-            <EmptyMedia variant="icon">
-              <Icons.shoppingCart />
-            </EmptyMedia>
-            <EmptyDescription>{t("empty")}</EmptyDescription>
-          </EmptyHeader>
-        </Empty>
-      )}
+      {listBody}
     </div>
   );
 }

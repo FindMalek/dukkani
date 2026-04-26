@@ -240,6 +240,7 @@
       "searchPlaceholder": "Rechercher par nom, téléphone ou numéro de commande #",
       "empty": "Aucune commande trouvée. Les commandes apparaîtront ici une fois que les clients commenceront à les passer.",
       "error": "Erreur de chargement des commandes. Veuillez réessayer plus tard.",
+      "retry": "Réessayer",
       "refresh": "Rafraîchir les commandes",
       "call": "Appeler",
       "advanceStatus": "Avancer",

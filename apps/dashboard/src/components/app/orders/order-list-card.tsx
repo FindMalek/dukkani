@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { appMutations } from "@/shared/api/mutations";
 import { RoutePaths } from "@/shared/config/routes";
-import { getItemsCount, getOrderTotal } from "@/shared/lib/order/price.util";
+import { getItemsCount, getOrderTotal } from "@/shared/lib/order/order.util";
 import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 
 interface OrderListCardProps {
@@ -106,7 +106,7 @@ export function OrderListCard({ order }: OrderListCardProps) {
             <Icons.mapPin className="size-4" />
             <span>
               {order.address
-                ? `${order.address.city}, ${order.address.street}`
+                ? `${order.address.city}, ${order.address.postalCode}`
                 : "—"}
             </span>
           </div>

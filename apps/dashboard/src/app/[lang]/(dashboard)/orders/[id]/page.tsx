@@ -17,7 +17,7 @@ import { OrderDetailSkeleton } from "@/components/app/orders/order-detail-skelet
 import { appMutations } from "@/shared/api/mutations";
 import { appQueries } from "@/shared/api/queries";
 import { RoutePaths } from "@/shared/config/routes";
-import { getItemsCount, getOrderTotal } from "@/shared/lib/order/price.util";
+import { getItemsCount, getOrderTotal } from "@/shared/lib/order/order.util";
 import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
 import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 
