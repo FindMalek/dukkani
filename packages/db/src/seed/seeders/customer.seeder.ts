@@ -19,6 +19,9 @@ export interface SeededAddress {
   street: string;
   city: string;
   customerId: string;
+  postalCode: string | null;
+  latitude: number | null;
+  longitude: number | null;
 }
 
 export class CustomerSeeder extends BaseSeeder {
@@ -97,6 +100,9 @@ export class CustomerSeeder extends BaseSeeder {
             street: address.street,
             city: address.city,
             customerId: address.customerId,
+            postalCode: address.postalCode,
+            latitude: address.latitude,
+            longitude: address.longitude,
           });
         }
       }
@@ -109,46 +115,82 @@ export class CustomerSeeder extends BaseSeeder {
       return;
     }
 
-    // Define customers with stable slug lookups and address data
+    // Define customers with stable slug lookups; UAE-style addresses (postal + map pins)
     const customerDefinitions = [
       // Customers for Ahmed's Fashion Boutique
       {
         name: "Khalid Al-Rashid",
         phone: "+971501111111",
         storeSlug: "ahmed-fashion",
-        address: { street: "123 Main Street", city: "Dubai" },
+        address: {
+          street: "123 Al Mina Road, Deira",
+          city: "Dubai",
+          postalCode: "12345",
+          latitude: 25.27,
+          longitude: 55.31,
+        },
       },
       {
         name: "Mariam Al-Zahra",
         phone: "+971501111112",
         storeSlug: "ahmed-fashion",
-        address: { street: "45 Al Wasl Road", city: "Dubai" },
+        address: {
+          street: "45 Al Wasl Road, Al Wasl",
+          city: "Dubai",
+          postalCode: "12346",
+          latitude: 25.21,
+          longitude: 55.26,
+        },
       },
       // Customers for Fatima's Electronics Hub
       {
         name: "Yusuf Al-Mazrouei",
         phone: "+971502222221",
         storeSlug: "fatima-electronics",
-        address: { street: "456 Business Bay", city: "Dubai" },
+        address: {
+          street: "456 Business Bay, Executive Towers",
+          city: "Dubai",
+          postalCode: "00000",
+          latitude: 25.19,
+          longitude: 55.27,
+        },
       },
       {
         name: "Layla Al-Mansoori",
         phone: "+971502222222",
         storeSlug: "fatima-electronics",
-        address: { street: "78 Sheikh Zayed Road", city: "Abu Dhabi" },
+        address: {
+          street: "78 Sheikh Zayed Street, Al Dana",
+          city: "Abu Dhabi",
+          postalCode: "00000",
+          latitude: 24.45,
+          longitude: 54.38,
+        },
       },
       // Customers for Omar's Home Essentials
       {
         name: "Hassan Al-Suwaidi",
         phone: "+971503333331",
         storeSlug: "omar-home",
-        address: { street: "789 Jumeirah Beach Road", city: "Dubai" },
+        address: {
+          street: "789 Jumeirah Street, Jumeirah 1",
+          city: "Dubai",
+          postalCode: "00000",
+          latitude: 25.2,
+          longitude: 55.24,
+        },
       },
       {
         name: "Noor Al-Kaabi",
         phone: "+971503333332",
         storeSlug: "omar-home",
-        address: { street: "12 Corniche Road", city: "Abu Dhabi" },
+        address: {
+          street: "12 Corniche Road West",
+          city: "Abu Dhabi",
+          postalCode: "00000",
+          latitude: 24.47,
+          longitude: 54.35,
+        },
       },
     ];
 
@@ -193,6 +235,9 @@ export class CustomerSeeder extends BaseSeeder {
               create: {
                 street: def.address.street,
                 city: def.address.city,
+                postalCode: def.address.postalCode,
+                latitude: def.address.latitude,
+                longitude: def.address.longitude,
                 isDefault: true,
               },
             },
@@ -216,6 +261,9 @@ export class CustomerSeeder extends BaseSeeder {
           street: address.street,
           city: address.city,
           customerId: address.customerId,
+          postalCode: address.postalCode,
+          latitude: address.latitude,
+          longitude: address.longitude,
         });
       }
     }

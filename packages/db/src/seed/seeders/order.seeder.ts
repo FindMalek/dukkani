@@ -1,10 +1,132 @@
 import { generateOrderId } from "@/utils/generate-id";
 import type { PrismaClient } from "../../../prisma/generated/client";
-import { OrderStatus, type Prisma } from "../../../prisma/generated/client";
+import {
+  OrderStatus,
+  PaymentMethod,
+  type Prisma,
+} from "../../../prisma/generated/client";
 import { BaseSeeder } from "../base";
 import type { CustomerSeeder } from "./customer.seeder";
 import type { ProductSeeder } from "./product.seeder";
 import type { StoreSeeder } from "./store.seeder";
+
+type OrderItemSeed = {
+  productId: string;
+  quantity: number;
+  /**
+   * Catalog list price (used if the version has no price or no variant line price).
+   */
+  price: Prisma.Decimal;
+};
+
+type OrderSeedDef = {
+  id: string;
+  status: OrderStatus;
+  notes?: string;
+  storeId: string;
+  customerId: string;
+  addressId: string;
+  paymentMethod: PaymentMethod;
+  isWhatsApp: boolean;
+  items: OrderItemSeed[];
+};
+
+/**
+ * Build a line item for seed: match storefront behavior (variant + option snapshots when variants exist).
+ */
+async function buildSeededOrderItemCreateData(
+  database: PrismaClient,
+  { productId, quantity, price: listPriceFallback }: OrderItemSeed,
+): Promise<{
+  productId: string;
+  productVersionId: string;
+  productVariantId?: string;
+  quantity: number;
+  price: Prisma.Decimal;
+  displayAttributes: {
+    create: Array<{
+      position: number;
+      optionName: string;
+      value: string;
+    }>;
+  };
+}> {
+  const p = await database.product.findUnique({
+    where: { id: productId },
+    select: {
+      currentPublishedVersionId: true,
+      currentPublishedVersion: {
+        select: { name: true, price: true },
+      },
+    },
+  });
+  const versionId = p?.currentPublishedVersionId;
+  if (!versionId || !p.currentPublishedVersion) {
+    throw new Error(
+      `Order seed: product ${productId} has no published version`,
+    );
+  }
+
+  const baseName = p.currentPublishedVersion.name;
+  const versionBasePrice = p.currentPublishedVersion.price;
+
+  const variantInStock = await database.productVariant.findFirst({
+    where: { productVersionId: versionId, stock: { gt: 0 } },
+    orderBy: { id: "asc" },
+    include: {
+      selections: { include: { option: true, value: true } },
+    },
+  });
+  const variant = variantInStock
+    ? variantInStock
+    : await database.productVariant.findFirst({
+        where: { productVersionId: versionId },
+        orderBy: { id: "asc" },
+        include: {
+          selections: { include: { option: true, value: true } },
+        },
+      });
+
+  if (!variant || variant.selections.length === 0) {
+    return {
+      productId,
+      productVersionId: versionId,
+      quantity,
+      price: listPriceFallback,
+      displayAttributes: {
+        create: [
+          { position: 0, optionName: "Product", value: baseName },
+        ],
+      },
+    };
+  }
+
+  const linePrice: Prisma.Decimal =
+    variant.price != null
+      ? variant.price
+      : versionBasePrice != null
+        ? versionBasePrice
+        : listPriceFallback;
+
+  const rows = [...variant.selections]
+    .sort((a, b) => a.option.name.localeCompare(b.option.name))
+    .map((s, position) => ({
+      position,
+      optionName: s.option.name,
+      value: s.value.value,
+    }));
+
+  return {
+    productId,
+    productVersionId: versionId,
+    productVariantId: variant.id,
+    quantity,
+    price: linePrice,
+    displayAttributes: {
+      create: rows.length > 0 ? rows : [{ position: 0, optionName: "Product", value: baseName }],
+    },
+  };
+}
 
 /**
  * Seeder for Order model
@@ -101,22 +223,8 @@ export class OrderSeeder extends BaseSeeder {
       return;
     }
 
-    // Define orders for each store
-    const orderData: Array<{
-      id: string;
-      status: OrderStatus;
-      notes?: string;
-      storeId: string;
-      customerId: string;
-      addressId?: string;
-      items: Array<{
-        productId: string;
-        quantity: number;
-        price: Prisma.Decimal;
-      }>;
-    }> = [];
+    const orderData: OrderSeedDef[] = [];
 
-    // Create orders for each store using stable slug lookups
     for (const [storeSlug, store] of storesBySlug) {
       const storeProducts = productsByStoreSlug.get(storeSlug) || [];
       const storeCustomers = customersByStoreSlug.get(storeSlug) || [];
@@ -128,64 +236,94 @@ export class OrderSeeder extends BaseSeeder {
         continue;
       }
 
-      // Order 1: Confirmed order with first customer
+      // Order 1: Confirmed, COD, first customer
       const customer1 = storeCustomers[0];
       if (customer1 && storeProducts.length >= 2) {
-        const address = this.customerSeeder?.findAddressByCustomerId(
+        const address1 = this.customerSeeder?.findAddressByCustomerId(
           customer1.id,
         );
-        orderData.push({
-          id: generateOrderId(store.slug),
-          status: OrderStatus.CONFIRMED,
-          notes: "Please deliver before 5 PM",
-          storeId: store.id,
-          customerId: customer1.id,
-          addressId: address?.id,
-          items: storeProducts.slice(0, 2).map((p) => ({
-            productId: p.id,
-            quantity: 1,
-            price: p.price,
-          })),
-        });
+        if (address1?.id) {
+          orderData.push({
+            id: generateOrderId(store.slug),
+            status: OrderStatus.CONFIRMED,
+            notes: "Please deliver before 5 PM",
+            storeId: store.id,
+            customerId: customer1.id,
+            addressId: address1.id,
+            paymentMethod: PaymentMethod.COD,
+            isWhatsApp: false,
+            items: storeProducts.slice(0, 2).map((p) => ({
+              productId: p.id,
+              quantity: 1,
+              price: p.price,
+            })),
+          });
+        } else {
+          this.log(
+            `⚠️  Skipping confirmed order for ${store.name}: no address for customer ${customer1.id}`,
+          );
+        }
       }
 
-      // Order 2: Processing order with second customer (or first)
+      // Order 2: Processing, online card, WhatsApp thread
       const customer2 = storeCustomers[1] ?? storeCustomers[0];
       if (customer2 && storeProducts.length > 1) {
-        const address = this.customerSeeder?.findAddressByCustomerId(
+        const address2 = this.customerSeeder?.findAddressByCustomerId(
           customer2.id,
         );
-        orderData.push({
-          id: generateOrderId(store.slug),
-          status: OrderStatus.PROCESSING,
-          storeId: store.id,
-          customerId: customer2.id,
-          addressId: address?.id,
-          items: storeProducts.slice(1, 3).map((p) => ({
-            productId: p.id,
-            quantity: 2,
-            price: p.price,
-          })),
-        });
+        if (address2?.id) {
+          orderData.push({
+            id: generateOrderId(store.slug),
+            status: OrderStatus.PROCESSING,
+            notes: "Gift receipt inside the box please",
+            storeId: store.id,
+            customerId: customer2.id,
+            addressId: address2.id,
+            paymentMethod: PaymentMethod.CARD,
+            isWhatsApp: true,
+            items: storeProducts.slice(1, 3).map((p) => ({
+              productId: p.id,
+              quantity: 2,
+              price: p.price,
+            })),
+          });
+        } else {
+          this.log(
+            `⚠️  Skipping processing order for ${store.name}: no address for customer ${customer2.id}`,
+          );
+        }
       }
 
-      // Order 3: Pending order with first customer
+      // Order 3: Pending, COD + WhatsApp, with delivery address (same as checkout)
       const customer3 = storeCustomers[0];
       const selectedProduct = storeProducts[0];
       if (customer3 && selectedProduct) {
-        orderData.push({
-          id: generateOrderId(store.slug),
-          status: OrderStatus.PENDING,
-          storeId: store.id,
-          customerId: customer3.id,
-          items: [
-            {
-              productId: selectedProduct.id,
-              quantity: 1,
-              price: selectedProduct.price,
-            },
-          ],
-        });
+        const address3 = this.customerSeeder?.findAddressByCustomerId(
+          customer3.id,
+        );
+        if (address3?.id) {
+          orderData.push({
+            id: generateOrderId(store.slug),
+            status: OrderStatus.PENDING,
+            notes: "Apartment 4B — please ring the video intercom twice",
+            storeId: store.id,
+            customerId: customer3.id,
+            addressId: address3.id,
+            paymentMethod: PaymentMethod.COD,
+            isWhatsApp: true,
+            items: [
+              {
+                productId: selectedProduct.id,
+                quantity: 1,
+                price: selectedProduct.price,
+              },
+            ],
+          });
+        } else {
+          this.log(
+            `⚠️  Skipping pending order for ${store.name}: no address for customer ${customer3.id}`,
+          );
+        }
       }
     }
 
@@ -197,44 +335,17 @@ export class OrderSeeder extends BaseSeeder {
     const createdOrders = await Promise.all(
       orderData.map(async (orderInfo) => {
         const orderItemsCreate = await Promise.all(
-          orderInfo.items.map(async (item) => {
-            const p = await database.product.findUnique({
-              where: { id: item.productId },
-              select: {
-                currentPublishedVersionId: true,
-                currentPublishedVersion: {
-                  select: { name: true },
-                },
-              },
-            });
-            const versionId = p?.currentPublishedVersionId;
-            if (!versionId || !p.currentPublishedVersion) {
-              throw new Error(
-                `Order seed: product ${item.productId} has no published version`,
-              );
-            }
-            return {
-              productId: item.productId,
-              productVersionId: versionId,
-              quantity: item.quantity,
-              price: item.price,
-              displayAttributes: {
-                create: [
-                  {
-                    position: 0,
-                    optionName: "Product",
-                    value: p.currentPublishedVersion.name,
-                  },
-                ],
-              },
-            };
-          }),
+          orderInfo.items.map((item) =>
+            buildSeededOrderItemCreateData(database, item),
+          ),
         );
 
         return database.order.create({
           data: {
             id: orderInfo.id,
             status: orderInfo.status,
+            paymentMethod: orderInfo.paymentMethod,
+            isWhatsApp: orderInfo.isWhatsApp,
             notes: orderInfo.notes,
             storeId: orderInfo.storeId,
             customerId: orderInfo.customerId,
@@ -247,7 +358,6 @@ export class OrderSeeder extends BaseSeeder {
       }),
     );
 
-    // Store for export
     for (const order of createdOrders) {
       this.seededOrders.push({
         id: order.id,
