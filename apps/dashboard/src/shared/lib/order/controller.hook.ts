@@ -101,7 +101,7 @@ export function useOrderDetailPage(orderId: string | undefined) {
       statusKey: OrderEntity.getStatusLabelKey(order.status),
       paymentKey: OrderEntity.getPaymentMethodLabelKey(order.paymentMethod),
       phone: order.customer?.phone,
-      isWhatsApp: order.customer?.prefersWhatsApp ?? false,
+      isWhatsApp: order.isWhatsApp,
       firstName: order.customer?.name?.split(" ")[0] ?? tDetail("call"),
     };
   }, [order, tDetail]);
