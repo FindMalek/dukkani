@@ -289,6 +289,7 @@
       }
     },
     "detail": {
+      "backToOrders": "Back to orders",
       "title": "Order Details",
       "payment": "Payment",
       "items": "Items",

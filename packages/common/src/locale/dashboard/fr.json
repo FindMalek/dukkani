@@ -279,6 +279,7 @@
       }
     },
     "detail": {
+      "backToOrders": "Retour aux commandes",
       "title": "Détails de la commande",
       "payment": "Paiement",
       "items": "Articles",
