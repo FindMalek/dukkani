@@ -6,6 +6,7 @@ import {
   isLocalCalendarDayToday,
   isLocalCalendarDayYesterday,
 } from "@dukkani/common/lib";
+import { DEFAULT_LOCALE } from "@dukkani/common/schemas/constants";
 import type {
   OrderForLineTotals,
   OrderIncludeOutput,
@@ -45,11 +46,31 @@ export function getOrderListDisplaySections(
 }
 
 /**
+ * Long full-date label for the orders list "older" sections (per dashboard locale), not the runtime default locale.
+ */
+export function formatOrderListOlderSectionDateLabel(
+  date: Date,
+  locale: string = DEFAULT_LOCALE,
+): string {
+  return date.toLocaleDateString(locale, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+export type GroupOrdersByDateOptions = {
+  now?: Date;
+  locale?: string;
+};
+
+/**
  * Groups orders by date: today, yesterday, and older (with formatted date labels).
  */
 export function groupOrdersByDate(
   orders: OrderListItemOutput[],
-  now = new Date(),
+  { now = new Date(), locale = DEFAULT_LOCALE }: GroupOrdersByDateOptions = {},
 ): GroupedOrders {
   const today: OrderListItemOutput[] = [];
   const yesterday: OrderListItemOutput[] = [];
@@ -62,12 +83,7 @@ export function groupOrdersByDate(
     } else if (isLocalCalendarDayYesterday(createdAt, now)) {
       yesterday.push(order);
     } else {
-      const label = createdAt.toLocaleDateString(undefined, {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
+      const label = formatOrderListOlderSectionDateLabel(createdAt, locale);
       const existing = olderByDate.get(label) ?? [];
       existing.push(order);
       olderByDate.set(label, existing);

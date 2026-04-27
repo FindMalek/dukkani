@@ -13,7 +13,7 @@ import {
   EmptyMedia,
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
 import { OrdersGroupedList } from "@/components/app/orders/orders-grouped-list";
@@ -28,8 +28,10 @@ import {
 } from "@/shared/lib/order/order.util";
 
 export default function OrdersPage() {
+  const locale = useLocale();
   const t = useTranslations("orders.list");
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+  
   const {
     ordersQuery: { data, isLoading, error, refetch, isRefetching },
     search,
@@ -70,7 +72,9 @@ export default function OrdersPage() {
     );
   }
 
-  const grouped = data?.orders ? groupOrdersByDate(data.orders) : null;
+  const grouped = data?.orders
+    ? groupOrdersByDate(data.orders, { locale })
+    : null;
   const sections = grouped
     ? getOrderListDisplaySections(grouped, {
         today: t("today"),
