@@ -16,11 +16,22 @@ export type OrderItemClientSafeDbData = Prisma.OrderItemGetPayload<{
   include: ReturnType<typeof OrderItemQuery.getClientSafeInclude>;
 }>;
 
+export type OrderItemListDbData = Prisma.OrderItemGetPayload<{
+  select: ReturnType<typeof OrderItemQuery.getListSelect>;
+}>;
+
 /**
  * Includes for order line items. When `product` is selected, always load `productVersion` with at least
  * `name` so storefront and notification UIs can show a title without fabricating empty strings.
  */
 export class OrderItemQuery {
+  static getListSelect() {
+    return {
+      price: true,
+      quantity: true,
+    } satisfies Prisma.OrderItemSelect;
+  }
+
   static getSimpleInclude() {
     return {} satisfies Prisma.OrderItemInclude;
   }

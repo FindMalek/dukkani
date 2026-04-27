@@ -4,11 +4,16 @@ import type {
 } from "../../schemas/order-item/output";
 import type {
   OrderItemIncludeDbData,
+  OrderItemListDbData,
   OrderItemSimpleDbData,
   OrderItemWithProductDbData,
 } from "./query";
 
 export class OrderItemEntity {
+  static getListRo(entity: OrderItemListDbData): { price: number; quantity: number } {
+    return { price: Number(entity.price), quantity: entity.quantity };
+  }
+
   static getSimpleRo(entity: OrderItemSimpleDbData): OrderItemSimpleOutput {
     return {
       id: entity.id,

@@ -1,5 +1,6 @@
 import type { OrderIncludeOutput } from "@dukkani/common/schemas/order/output";
 import { Card } from "@dukkani/ui/components/card";
+import Image from "next/image";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Separator } from "@dukkani/ui/components/separator";
 
@@ -41,13 +42,15 @@ export function OrderDetailItemsCard({
             >
               <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted">
                 {item.product?.imageUrl ? (
-                  <img
+                  <Image
                     src={item.product.imageUrl}
                     alt={item.product.name ?? ""}
+                    width={40}
+                    height={40}
                     className="size-full object-cover"
                   />
                 ) : (
-                  <Icons.package className="size-4 text-muted-foreground" />
+                  <Icons.orderItem className="size-4 text-muted-foreground" />
                 )}
               </div>
               <div className="min-w-0 flex-1">

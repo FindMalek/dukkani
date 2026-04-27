@@ -1,7 +1,17 @@
 import type { AddressSimpleOutput } from "../../schemas/address/output";
-import type { AddressSimpleDbData } from "./query";
+import type { AddressListDbData, AddressSimpleDbData } from "./query";
 
 export class AddressEntity {
+  static getListRo(
+    entity: AddressListDbData,
+  ): { city: string; postalCode: string | null; street: string | null } {
+    return {
+      city: entity.city,
+      postalCode: entity.postalCode,
+      street: entity.street,
+    };
+  }
+
   static formatShortLocation(
     address: AddressSimpleOutput | null | undefined,
   ): string | null {

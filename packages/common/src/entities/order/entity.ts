@@ -148,19 +148,12 @@ export class OrderEntity {
       paymentMethod: entity.paymentMethod,
       createdAt: entity.createdAt,
       customer: entity.customer
-        ? { name: entity.customer.name, phone: entity.customer.phone }
+        ? CustomerEntity.getListRo(entity.customer)
         : null,
       address: entity.address
-        ? {
-            city: entity.address.city,
-            postalCode: entity.address.postalCode,
-            street: entity.address.street,
-          }
+        ? AddressEntity.getListRo(entity.address)
         : null,
-      orderItems: entity.orderItems.map((row) => ({
-        price: Number(row.price),
-        quantity: row.quantity,
-      })),
+      orderItems: entity.orderItems.map(OrderItemEntity.getListRo),
     };
   }
 
