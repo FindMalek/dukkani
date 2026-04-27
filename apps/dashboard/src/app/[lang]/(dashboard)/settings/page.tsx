@@ -2,7 +2,9 @@
 
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
+import { Separator } from "@dukkani/ui/components/separator";
 import Link from "next/link";
+import { LogoutButton } from "@/components/app/settings/logout-button";
 import { RoutePaths } from "@/shared/config/routes";
 
 export default function SettingsPage() {
@@ -73,6 +75,10 @@ export default function SettingsPage() {
           </Card>
         </Link>
       </div>
+
+      <Separator className="my-6" />
+
+      <LogoutButton />
     </div>
   );
 }

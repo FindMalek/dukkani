@@ -46,6 +46,13 @@
     }
   },
   "settings": {
+    "logout": {
+      "button": "Log out",
+      "title": "Log out of your account?",
+      "description": "You will be redirected to the login page. Any unsaved changes in other tabs may be lost.",
+      "cancel": "Cancel",
+      "confirm": "Log out"
+    },
     "telegram": {
       "title": "Telegram Notifications",
       "description": "Link your Telegram account to receive instant order notifications",
