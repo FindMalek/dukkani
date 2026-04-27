@@ -1,3 +1,4 @@
+export * from "./datetime/calendar-day";
 export * from "./decimal/decimal-like";
 export * from "./http/origin";
 export * from "./http/url-utils";

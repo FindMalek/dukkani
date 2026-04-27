@@ -1,3 +1,7 @@
+import {
+  isLocalCalendarDayToday,
+  isLocalCalendarDayYesterday,
+} from "@dukkani/common/lib";
 import type {
   OrderForLineTotals,
   OrderListItemOutput,
@@ -35,22 +39,6 @@ export function getOrderListDisplaySections(
   ].filter((s) => s.orders.length > 0);
 }
 
-function getStartOfDay(date: Date): Date {
-  const d = new Date(date);
-  d.setHours(0, 0, 0, 0);
-  return d;
-}
-
-function isToday(d: Date, now: Date): boolean {
-  return getStartOfDay(d).getTime() === getStartOfDay(now).getTime();
-}
-
-function isYesterday(d: Date, now: Date): boolean {
-  const yesterday = new Date(now);
-  yesterday.setDate(yesterday.getDate() - 1);
-  return getStartOfDay(d).getTime() === getStartOfDay(yesterday).getTime();
-}
-
 /**
  * Groups orders by date: today, yesterday, and older (with formatted date labels).
  */
@@ -64,9 +52,9 @@ export function groupOrdersByDate(
 
   for (const order of orders) {
     const createdAt = new Date(order.createdAt);
-    if (isToday(createdAt, now)) {
+    if (isLocalCalendarDayToday(createdAt, now)) {
       today.push(order);
-    } else if (isYesterday(createdAt, now)) {
+    } else if (isLocalCalendarDayYesterday(createdAt, now)) {
       yesterday.push(order);
     } else {
       const label = createdAt.toLocaleDateString(undefined, {
@@ -103,34 +91,4 @@ export function getOrderTotal(order: OrderForLineTotals): number {
 
 export function getItemsCount(order: OrderForLineTotals): number {
   return order.orderItems?.reduce((sum, item) => sum + item.quantity, 0) ?? 0;
-}
-
-export function formatOrderDateTime(
-  date: Date,
-  now: Date,
-  t: (key: string) => string,
-): string {
-  const d = new Date(date);
-  const dStart = getStartOfDay(d);
-  const today = getStartOfDay(now);
-  const yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate() - 1);
-
-  const timeStr = d.toLocaleTimeString(undefined, {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  if (dStart.getTime() === today.getTime()) {
-    return `${t("today")} ${timeStr}`;
-  }
-  if (dStart.getTime() === yesterday.getTime()) {
-    return `${t("yesterday")} ${timeStr}`;
-  }
-  return d.toLocaleDateString(undefined, {
-    day: "numeric",
-    month: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
 }

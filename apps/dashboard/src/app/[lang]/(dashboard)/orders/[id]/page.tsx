@@ -42,7 +42,7 @@ export default function OrderDetailPage() {
     paymentKey,
     phone,
     isWhatsApp,
-    firstName,
+    customerName,
   } = useOrderDetailPage(orderId);
 
   if (!orderId) {
@@ -83,12 +83,13 @@ export default function OrderDetailPage() {
 
   const hasContact = phone != null && contactHref != null;
   const showFooter = canAdvance || hasContact;
+  const callActionLabel = customerName
+    ? t("callCustomer", { name: customerName })
+    : t("call");
   const contactCompactAriaLabel = isWhatsApp
     ? t("openWhatsApp")
-    : t("callCustomer", { name: firstName });
-  const contactOnlyLabel = isWhatsApp
-    ? t("openWhatsApp")
-    : t("callCustomer", { name: firstName });
+    : callActionLabel;
+  const contactOnlyLabel = isWhatsApp ? t("openWhatsApp") : callActionLabel;
 
   return (
     <>
@@ -118,7 +119,7 @@ export default function OrderDetailPage() {
           <OrderDetailCustomerCard
             name={order.customer.name}
             phone={phone}
-            callAriaLabel={t("callCustomer", { name: firstName })}
+            callAriaLabel={callActionLabel}
             openWhatsAppAriaLabel={t("openWhatsApp")}
             contactHref={contactHref}
             isWaLink={isWaLink}
