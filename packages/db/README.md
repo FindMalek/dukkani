@@ -116,27 +116,38 @@ pnpm run db:reset-and-seed
 
 ### Default Users
 
-Three users are created with the following credentials:
+Five Tunisian users are created. The three store owners also have a demo user:
 
-1. **Ahmed Al-Mansoori** (Admin)
-   - Email: `ahmed@dukkani.co`
-   - Password: `Admin123!`
+| Name | Email | Password | Role |
+|---|---|---|---|
+| Amine Trabelsi | `amine@dukkani.co` | `Admin123!` | Store owner (amine-fashion), Telegram linked |
+| Sana Ben Salah | `sana@dukkani.co` | `Merchant123!` | Store owner (sana-electronics) |
+| Yassine Gharbi | `yassine@dukkani.co` | `Store123!` | Store owner (yassine-home) |
+| Karim Mansouri | `karim@dukkani.co` | `Team123!` | Team MANAGER (amine-fashion) |
+| Rania Hamdi | `rania@dukkani.co` | `Team123!` | Team STAFF (sana-electronics) |
+| Demo User | `demo@dukkani.co` | `Demo123!` | Demo store (Lighthouse CI) |
 
-2. **Fatima Hassan** (Merchant)
-   - Email: `fatima@dukkani.co`
-   - Password: `Merchant123!`
+> **Note:** All data is fictional and safe for public repos (no real PII).  
+> Re-seeding requires a full DB reset: `pnpm run db:reset-and-seed`
 
-3. **Omar Abdullah** (Store Owner)
-   - Email: `omar@dukkani.co`
-   - Password: `Store123!`
+### Seeded Data (Tunisia theme)
 
-### Seeded Data
+Sample data uses Tunisian names, +216 phone numbers, and cities (Tunis, Sfax, Sousse, Gabès, Monastir, Kairouan, Ariana, Nabeul).
 
-- **3 users** with email/password authentication
-- **3 stores** (one per user) with different categories and plans
-- **9 products** (3 per store) with images
-- **6 customers** (2 per store)
-- **9 orders** (3 per store) with order items
+| Model | Count | Notes |
+|---|---|---|
+| Users | 5 (+1 demo) | Tunisian names; Amine has Telegram linked |
+| Stores | 3 (+1 demo) | All TND currency; Amine=PREMIUM, Sana=BASIC, Yassine=FREE |
+| TeamMembers | 2 | Karim (MANAGER) + Rania (STAFF) |
+| Categories | 21 (+3 demo) | French/Arabic category names |
+| Products | 32 (+5 demo) | 18 with variants; 4 with addon groups |
+| ProductVariants | ~250 | Multi-dimension SKUs |
+| ProductAddonGroups | 4 | Personnalisation, Accessoires, Service, Broderie, Gravure |
+| ProductCollections | 6 | 2 collections per store |
+| Customers | 9 | 3 per store; Tunisian cities + 4-digit postal codes |
+| Orders | 15 | 5 per store; CONFIRMED/PROCESSING/PENDING/DELIVERED/CANCELLED |
+| WhatsApp Messages | ~12 | Created for `isWhatsApp=true` orders |
+| OrderItemAddons | varies | Addon selections for products with addon groups |
 
 ### Using Seeded Data
 

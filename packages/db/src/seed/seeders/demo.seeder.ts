@@ -94,10 +94,10 @@ export class DemoSeeder extends BaseSeeder {
       create: {
         name: "Demo Store",
         slug: DEMO_STORE_SLUG,
-        description: "Demo store for Lighthouse CI and testing",
+        description: "Boutique de démonstration pour les tests Lighthouse CI",
         category: StoreCategory.HOME,
         theme: StoreTheme.MODERN,
-        whatsappNumber: "+971500000000",
+        whatsappNumber: "+21621000000",
         ownerId: demoUser.id,
         supportedPaymentMethods: [PaymentMethod.COD],
         shippingCost: 12.0,
@@ -113,7 +113,7 @@ export class DemoSeeder extends BaseSeeder {
       update: {
         status: StoreStatus.PUBLISHED,
         name: "Demo Store",
-        description: "Demo store for Lighthouse CI and testing",
+        description: "Boutique de démonstration pour les tests Lighthouse CI",
       },
     });
 

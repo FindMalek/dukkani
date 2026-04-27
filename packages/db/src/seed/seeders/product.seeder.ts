@@ -41,6 +41,14 @@ async function recomputeVariantEffectivePriceBoundsForSeed(
   });
 }
 
+type AddonOptionDef = { name: string; priceDelta: number; stock: number };
+type AddonGroupDef = {
+  name: string;
+  selectionType: ProductAddonSelectionType;
+  required: boolean;
+  options: AddonOptionDef[];
+};
+
 export interface SeededProduct {
   id: string;
   name: string;
@@ -1041,6 +1049,178 @@ export class ProductSeeder extends BaseSeeder {
           "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&q=80",
         ],
       },
+
+      // ========== AMINE'S FASHION — additional Tunisian items ==========
+      {
+        name: "Burnous Traditionnel",
+        description:
+          "Burnous artisanal en laine vierge, tissé à la main dans les ateliers de Sfax. Chaud et élégant, idéal pour les soirées fraîches. Broderie traditionnelle sur les bordures.",
+        price: new Prisma.Decimal("189.99"),
+        stock: 0,
+        published: true,
+        storeSlug: "amine-fashion",
+        categoryName: "Traditionnel",
+        hasVariants: true,
+        addonGroups: [
+          {
+            name: "Broderie Personnalisée",
+            selectionType: ProductAddonSelectionType.SINGLE,
+            required: false,
+            options: [
+              { name: "Sans broderie", priceDelta: 0, stock: 999 },
+              { name: "Broderie initiales dorées", priceDelta: 35, stock: 999 },
+            ],
+          },
+        ],
+        variantOptions: [
+          { name: "Taille", values: ["S", "M", "L", "XL"] },
+          { name: "Couleur", values: ["Blanc cassé", "Beige", "Gris"] },
+        ],
+        variants: [
+          { Taille: "S", Couleur: "Blanc cassé", stock: 8, price: 189.99 },
+          { Taille: "S", Couleur: "Beige", stock: 6, price: 189.99 },
+          { Taille: "S", Couleur: "Gris", stock: 5, price: 189.99 },
+          { Taille: "M", Couleur: "Blanc cassé", stock: 12, price: 189.99 },
+          { Taille: "M", Couleur: "Beige", stock: 10, price: 189.99 },
+          { Taille: "M", Couleur: "Gris", stock: 8, price: 189.99 },
+          { Taille: "L", Couleur: "Blanc cassé", stock: 10, price: 199.99 },
+          { Taille: "L", Couleur: "Beige", stock: 8, price: 199.99 },
+          { Taille: "L", Couleur: "Gris", stock: 7, price: 199.99 },
+          { Taille: "XL", Couleur: "Blanc cassé", stock: 6, price: 209.99 },
+          { Taille: "XL", Couleur: "Beige", stock: 5, price: 209.99 },
+          { Taille: "XL", Couleur: "Gris", stock: 4, price: 209.99 },
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&q=80",
+          "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80",
+        ],
+      },
+      {
+        name: "Sac en Bandoulière Cuir",
+        description:
+          "Sac en bandoulière en cuir naturel de qualité supérieure. Fabriqué à la main, avec compartiments multiples et fermeture zippée. Design intemporel adapté à tous les styles.",
+        price: new Prisma.Decimal("75.00"),
+        stock: 35,
+        published: true,
+        storeSlug: "amine-fashion",
+        categoryName: "Accessoires",
+        hasVariants: false,
+        images: [
+          "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80",
+          "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80",
+        ],
+      },
+
+      // ========== SANA'S ELECTRONICS — additional items ==========
+      {
+        name: "Station de Recharge Sans Fil",
+        description:
+          "Chargeur à induction 15W compatible Qi pour smartphones, écouteurs et montres connectées. Charge simultanée de 3 appareils. Certification CE et protection contre la surchauffe.",
+        price: new Prisma.Decimal("49.99"),
+        stock: 60,
+        published: true,
+        storeSlug: "sana-electronics",
+        categoryName: "Chargeurs",
+        hasVariants: false,
+        images: [
+          "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+          "https://images.unsplash.com/photo-1609091839311-d5365f5bf239?w=800&q=80",
+        ],
+      },
+      {
+        name: "Housse Laptop Universelle",
+        description:
+          "Housse de protection en néoprène haute densité pour ordinateurs portables. Résistante aux chocs et à l'eau. Compartiment supplémentaire pour accessoires.",
+        price: new Prisma.Decimal("22.00"),
+        stock: 0,
+        published: true,
+        storeSlug: "sana-electronics",
+        categoryName: "Accessoires PC",
+        hasVariants: true,
+        variantOptions: [
+          { name: "Taille", values: ['13"', '14"', '15.6"'] },
+          { name: "Couleur", values: ["Noir", "Gris", "Bleu marine"] },
+        ],
+        variants: [
+          { Taille: '13"', Couleur: "Noir", stock: 20, price: 22.0 },
+          { Taille: '13"', Couleur: "Gris", stock: 15, price: 22.0 },
+          { Taille: '13"', Couleur: "Bleu marine", stock: 12, price: 22.0 },
+          { Taille: '14"', Couleur: "Noir", stock: 25, price: 24.0 },
+          { Taille: '14"', Couleur: "Gris", stock: 20, price: 24.0 },
+          { Taille: '14"', Couleur: "Bleu marine", stock: 15, price: 24.0 },
+          { Taille: '15.6"', Couleur: "Noir", stock: 18, price: 26.0 },
+          { Taille: '15.6"', Couleur: "Gris", stock: 14, price: 26.0 },
+          { Taille: '15.6"', Couleur: "Bleu marine", stock: 10, price: 26.0 },
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1527864550417-7fd1fc5e7d0d?w=800&q=80",
+        ],
+      },
+
+      // ========== YASSINE'S MAISON — additional items ==========
+      {
+        name: "Tajine en Terre Cuite",
+        description:
+          "Tajine artisanal fabriqué à Nabeul en argile naturelle. Idéal pour les cuissons lentes au four ou sur feu doux. Motifs peints à la main inspirés des traditions tunisiennes.",
+        price: new Prisma.Decimal("45.00"),
+        stock: 0,
+        published: true,
+        storeSlug: "yassine-home",
+        categoryName: "Cuisine",
+        hasVariants: true,
+        addonGroups: [
+          {
+            name: "Gravure",
+            selectionType: ProductAddonSelectionType.SINGLE,
+            required: false,
+            options: [
+              { name: "Sans gravure", priceDelta: 0, stock: 999 },
+              { name: "Gravure prénom personnalisé", priceDelta: 15, stock: 999 },
+            ],
+          },
+        ],
+        variantOptions: [
+          { name: "Taille", values: ["Petit (22cm)", "Moyen (28cm)", "Grand (34cm)"] },
+        ],
+        variants: [
+          { Taille: "Petit (22cm)", stock: 30, price: 45.0 },
+          { Taille: "Moyen (28cm)", stock: 25, price: 55.0 },
+          { Taille: "Grand (34cm)", stock: 18, price: 69.0 },
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80",
+          "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
+        ],
+      },
+      {
+        name: "Nappe de Table Brodée",
+        description:
+          "Nappe en coton 100% avec broderies artisanales à la main. Motifs floraux traditionnels tunisiens. Lavable en machine. Disponible en plusieurs coloris harmonieux.",
+        price: new Prisma.Decimal("35.00"),
+        stock: 0,
+        published: true,
+        storeSlug: "yassine-home",
+        categoryName: "Art de la Table",
+        hasVariants: true,
+        variantOptions: [
+          { name: "Couleur", values: ["Blanc", "Écru", "Terracotta"] },
+          { name: "Taille", values: ["4 couverts", "6 couverts", "8 couverts"] },
+        ],
+        variants: [
+          { Couleur: "Blanc", Taille: "4 couverts", stock: 20, price: 35.0 },
+          { Couleur: "Blanc", Taille: "6 couverts", stock: 18, price: 42.0 },
+          { Couleur: "Blanc", Taille: "8 couverts", stock: 12, price: 52.0 },
+          { Couleur: "Écru", Taille: "4 couverts", stock: 18, price: 35.0 },
+          { Couleur: "Écru", Taille: "6 couverts", stock: 15, price: 42.0 },
+          { Couleur: "Écru", Taille: "8 couverts", stock: 10, price: 52.0 },
+          { Couleur: "Terracotta", Taille: "4 couverts", stock: 15, price: 38.0 },
+          { Couleur: "Terracotta", Taille: "6 couverts", stock: 12, price: 45.0 },
+          { Couleur: "Terracotta", Taille: "8 couverts", stock: 8, price: 55.0 },
+        ],
+        images: [
+          "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
+        ],
+      },
     ];
 
     // Resolve stores and categories, validate
@@ -1083,6 +1263,8 @@ export class ProductSeeder extends BaseSeeder {
           images: def.images,
           variantOptions: def.variantOptions,
           variants: def.variants,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          addonGroups: (def as any).addonGroups as AddonGroupDef[] | undefined,
         };
       })
       .filter(
@@ -1227,6 +1409,28 @@ export class ProductSeeder extends BaseSeeder {
           }
         }
 
+        // Create addon groups and options if defined
+        if (productInfo.addonGroups?.length) {
+          for (const groupDef of productInfo.addonGroups) {
+            await database.productAddonGroup.create({
+              data: {
+                name: groupDef.name,
+                selectionType: groupDef.selectionType,
+                required: groupDef.required,
+                productVersionId: version.id,
+                options: {
+                  create: groupDef.options.map((opt, i) => ({
+                    name: opt.name,
+                    priceDelta: new Prisma.Decimal(opt.priceDelta.toString()),
+                    stock: opt.stock,
+                    sortOrder: i,
+                  })),
+                },
+              },
+            });
+          }
+        }
+
         return product;
       }),
     );
@@ -1243,18 +1447,134 @@ export class ProductSeeder extends BaseSeeder {
       });
     }
 
-    const productsWithVariants = productData.filter(
-      (p) => p.hasVariants,
-    ).length;
+    const productsWithVariants = productData.filter((p) => p.hasVariants).length;
     const totalVariants = productData
       .filter((p) => p.hasVariants && p.variants)
       .reduce((sum, p) => sum + (p.variants?.length || 0), 0);
+    const productsWithAddons = productData.filter((p) => p.addonGroups?.length).length;
 
     this.log(`✅ Created ${createdProducts.length} products with images`);
     if (productsWithVariants > 0) {
-      this.log(
-        `✅ ${productsWithVariants} products include variants (${totalVariants} total variants)`,
-      );
+      this.log(`✅ ${productsWithVariants} products include variants (${totalVariants} total variants)`);
     }
+    if (productsWithAddons > 0) {
+      this.log(`✅ ${productsWithAddons} products include addon groups`);
+    }
+
+    // Step 3: Create collections per store
+    await this.createCollections(database, storesBySlug, createdProducts, productData);
+  }
+
+  private async createCollections(
+    database: PrismaClient,
+    storesBySlug: Map<string, { id: string; slug: string; name: string }>,
+    createdProducts: Array<{ id: string; storeId: string }>,
+    productData: Array<{ id: string; name: string; storeId: string }>,
+  ): Promise<void> {
+    // Build a name→id lookup scoped per store
+    const productNameToId = new Map<string, string>();
+    for (let i = 0; i < createdProducts.length; i++) {
+      const info = productData[i]!;
+      const product = createdProducts[i]!;
+      productNameToId.set(`${product.storeId}::${info.name}`, product.id);
+    }
+
+    const collectionDefs: Array<{
+      storeSlug: string;
+      name: string;
+      slug: string;
+      description: string;
+      position: number;
+      productNames: string[];
+    }> = [
+      // amine-fashion
+      {
+        storeSlug: "amine-fashion",
+        name: "Nouveautés",
+        slug: "nouveautes",
+        description: "Nos dernières arrivées",
+        position: 0,
+        productNames: ["Premium Leather Jacket", "Slim Fit Chinos", "Luxury Watch Collection"],
+      },
+      {
+        storeSlug: "amine-fashion",
+        name: "Accessoires & Style",
+        slug: "accessoires",
+        description: "Complétez votre look",
+        position: 1,
+        productNames: ["Designer Sunglasses", "Classic Leather Belt", "Sac en Bandoulière Cuir"],
+      },
+      // sana-electronics
+      {
+        storeSlug: "sana-electronics",
+        name: "Meilleures Offres",
+        slug: "meilleures-offres",
+        description: "Les meilleurs deals du moment",
+        position: 0,
+        productNames: ["Écouteurs Bluetooth Sans Fil Pro", "USB-C Fast Charger", "Station de Recharge Sans Fil"],
+      },
+      {
+        storeSlug: "sana-electronics",
+        name: "Informatique",
+        slug: "informatique",
+        description: "Laptops, tablettes et accessoires",
+        position: 1,
+        productNames: ["Ultrabook Laptop", "Tablet Pro", "Aluminum Laptop Stand"],
+      },
+      // yassine-home
+      {
+        storeSlug: "yassine-home",
+        name: "Cuisine Tunisienne",
+        slug: "cuisine",
+        description: "Équipez votre cuisine à la tunisienne",
+        position: 0,
+        productNames: ["Stainless Steel Cookware Set", "Bamboo Cutting Board", "Tajine en Terre Cuite"],
+      },
+      {
+        storeSlug: "yassine-home",
+        name: "Décoration",
+        slug: "decoration",
+        description: "Embellissez votre intérieur",
+        position: 1,
+        productNames: ["Ceramic Planter Set", "Wall Art Canvas Set", "Lampe de Bureau LED"],
+      },
+    ];
+
+    let collectionCount = 0;
+    let memberCount = 0;
+
+    for (const colDef of collectionDefs) {
+      const store = storesBySlug.get(colDef.storeSlug);
+      if (!store) continue;
+
+      const collection = await database.collection.create({
+        data: {
+          name: colDef.name,
+          slug: colDef.slug,
+          description: colDef.description,
+          position: colDef.position,
+          storeId: store.id,
+        },
+      });
+      collectionCount++;
+
+      const productIds = colDef.productNames
+        .map((name) => productNameToId.get(`${store.id}::${name}`))
+        .filter((id): id is string => id !== undefined);
+
+      if (productIds.length > 0) {
+        await database.productCollection.createMany({
+          data: productIds.map((productId, position) => ({
+            productId,
+            collectionId: collection.id,
+            position,
+          })),
+          skipDuplicates: true,
+        });
+        memberCount += productIds.length;
+      }
+    }
+
+    this.log(`✅ Created ${collectionCount} collections with ${memberCount} product memberships`);
   }
 }
