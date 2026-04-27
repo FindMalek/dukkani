@@ -3,6 +3,7 @@ import type { PrismaClient } from "../../../prisma/generated/client";
 import {
   OrderStatus,
   PaymentMethod,
+  WhatsAppMessageStatus,
   type Prisma,
 } from "../../../prisma/generated/client";
 import { BaseSeeder } from "../base";
@@ -13,9 +14,6 @@ import type { StoreSeeder } from "./store.seeder";
 type OrderItemSeed = {
   productId: string;
   quantity: number;
-  /**
-   * Catalog list price (used if the version has no price or no variant line price).
-   */
   price: Prisma.Decimal;
 };
 
@@ -32,7 +30,7 @@ type OrderSeedDef = {
 };
 
 /**
- * Build a line item for seed: match storefront behavior (variant + option snapshots when variants exist).
+ * Build a line item for seed: match storefront behavior (variant + addon snapshots where present).
  */
 async function buildSeededOrderItemCreateData(
   database: PrismaClient,
@@ -44,10 +42,15 @@ async function buildSeededOrderItemCreateData(
   quantity: number;
   price: Prisma.Decimal;
   displayAttributes: {
+    create: Array<{ position: number; optionName: string; value: string }>;
+  };
+  addonSelections?: {
     create: Array<{
-      position: number;
-      optionName: string;
-      value: string;
+      addonOptionId: string;
+      groupNameSnapshot: string;
+      optionNameSnapshot: string;
+      priceDeltaSnapshot: Prisma.Decimal;
+      quantity: number;
     }>;
   };
 }> {
@@ -55,9 +58,7 @@ async function buildSeededOrderItemCreateData(
     where: { id: productId },
     select: {
       currentPublishedVersionId: true,
-      currentPublishedVersion: {
-        select: { name: true, price: true },
-      },
+      currentPublishedVersion: { select: { name: true, price: true } },
     },
   });
   const versionId = p?.currentPublishedVersionId;
@@ -70,70 +71,80 @@ async function buildSeededOrderItemCreateData(
   const baseName = p.currentPublishedVersion.name;
   const versionBasePrice = p.currentPublishedVersion.price;
 
+  // Resolve variant
   const variantInStock = await database.productVariant.findFirst({
     where: { productVersionId: versionId, stock: { gt: 0 } },
     orderBy: { id: "asc" },
-    include: {
-      selections: { include: { option: true, value: true } },
-    },
+    include: { selections: { include: { option: true, value: true } } },
   });
-  const variant = variantInStock
-    ? variantInStock
-    : await database.productVariant.findFirst({
-        where: { productVersionId: versionId },
-        orderBy: { id: "asc" },
-        include: {
-          selections: { include: { option: true, value: true } },
-        },
-      });
-
-  if (!variant || variant.selections.length === 0) {
-    return {
-      productId,
-      productVersionId: versionId,
-      quantity,
-      price: listPriceFallback,
-      displayAttributes: {
-        create: [{ position: 0, optionName: "Product", value: baseName }],
-      },
-    };
-  }
+  const variant =
+    variantInStock ??
+    (await database.productVariant.findFirst({
+      where: { productVersionId: versionId },
+      orderBy: { id: "asc" },
+      include: { selections: { include: { option: true, value: true } } },
+    }));
 
   const linePrice: Prisma.Decimal =
-    variant.price != null
+    variant?.price != null
       ? variant.price
       : versionBasePrice != null
         ? versionBasePrice
         : listPriceFallback;
 
-  const rows = [...variant.selections]
-    .sort((a, b) => a.option.name.localeCompare(b.option.name))
-    .map((s, position) => ({
-      position,
-      optionName: s.option.name,
-      value: s.value.value,
-    }));
+  let displayRows: Array<{
+    position: number;
+    optionName: string;
+    value: string;
+  }>;
+
+  if (!variant || variant.selections.length === 0) {
+    displayRows = [{ position: 0, optionName: "Product", value: baseName }];
+  } else {
+    displayRows = [...variant.selections]
+      .sort((a, b) => a.option.name.localeCompare(b.option.name))
+      .map((s, position) => ({
+        position,
+        optionName: s.option.name,
+        value: s.value.value,
+      }));
+    if (displayRows.length === 0) {
+      displayRows = [{ position: 0, optionName: "Product", value: baseName }];
+    }
+  }
+
+  // Collect addon selections: pick the first option from each addon group
+  const addonGroups = await database.productAddonGroup.findMany({
+    where: { productVersionId: versionId },
+    include: { options: { orderBy: { sortOrder: "asc" }, take: 1 } },
+  });
+
+  const addonCreate = addonGroups
+    .filter((g) => g.options.length > 0)
+    .map((g) => {
+      const opt = g.options[0]!;
+      return {
+        addonOptionId: opt.id,
+        groupNameSnapshot: g.name,
+        optionNameSnapshot: opt.name,
+        priceDeltaSnapshot: opt.priceDelta,
+        quantity: 1,
+      };
+    });
 
   return {
     productId,
     productVersionId: versionId,
-    productVariantId: variant.id,
+    ...(variant ? { productVariantId: variant.id } : {}),
     quantity,
     price: linePrice,
-    displayAttributes: {
-      create:
-        rows.length > 0
-          ? rows
-          : [{ position: 0, optionName: "Product", value: baseName }],
-    },
+    displayAttributes: { create: displayRows },
+    ...(addonCreate.length > 0
+      ? { addonSelections: { create: addonCreate } }
+      : {}),
   };
 }
 
-/**
- * Seeder for Order model
- * Creates orders with order items linked to stores, products, and customers
- * Exports orders for use in other seeders
- */
 export interface SeededOrder {
   id: string;
   status: OrderStatus;
@@ -143,23 +154,16 @@ export interface SeededOrder {
 
 export class OrderSeeder extends BaseSeeder {
   name = "OrderSeeder";
-  order = 5; // Run after all other seeders
+  order = 5;
 
-  // Export seeded orders for use in other seeders
   public seededOrders: SeededOrder[] = [];
 
-  /**
-   * Find orders by store slug
-   */
   findByStoreSlug(storeSlug: string): SeededOrder[] {
     const store = this.storeSeeder?.findBySlug(storeSlug);
     if (!store) return [];
     return this.seededOrders.filter((o) => o.storeId === store.id);
   }
 
-  /**
-   * Get all orders grouped by store slug
-   */
   getOrdersByStoreSlug(): Map<string, SeededOrder[]> {
     const map = new Map<string, SeededOrder[]>();
     for (const order of this.seededOrders) {
@@ -177,9 +181,6 @@ export class OrderSeeder extends BaseSeeder {
   private productSeeder?: ProductSeeder;
   private customerSeeder?: CustomerSeeder;
 
-  /**
-   * Set the required seeder instances
-   */
   setSeeders(
     storeSeeder: StoreSeeder,
     productSeeder: ProductSeeder,
@@ -199,11 +200,9 @@ export class OrderSeeder extends BaseSeeder {
       );
     }
 
-    // Check if orders already exist
     const existingOrders = await database.order.findMany();
     if (existingOrders.length > 0) {
       this.log(`Skipping: ${existingOrders.length} orders already exist`);
-      // Load existing orders for export
       for (const order of existingOrders) {
         this.seededOrders.push({
           id: order.id,
@@ -232,104 +231,122 @@ export class OrderSeeder extends BaseSeeder {
 
       if (storeProducts.length === 0 || storeCustomers.length === 0) {
         this.log(
-          `⚠️  Missing products or customers for store "${store.name}" (${storeSlug}). Skipping orders.`,
+          `⚠️  Missing products or customers for store "${store.name}". Skipping.`,
         );
         continue;
       }
 
-      // Order 1: Confirmed, COD, first customer
-      const customer1 = storeCustomers[0];
-      if (customer1 && storeProducts.length >= 2) {
-        const address1 = this.customerSeeder?.findAddressByCustomerId(
-          customer1.id,
-        );
-        if (address1?.id) {
-          orderData.push({
-            id: generateOrderId(store.slug),
-            status: OrderStatus.CONFIRMED,
-            notes: "Please deliver before 5 PM",
-            storeId: store.id,
-            customerId: customer1.id,
-            addressId: address1.id,
-            paymentMethod: PaymentMethod.COD,
-            isWhatsApp: false,
-            items: storeProducts.slice(0, 2).map((p) => ({
-              productId: p.id,
+      const c0 = storeCustomers[0];
+      const c1 = storeCustomers[1] ?? storeCustomers[0];
+      const c2 = storeCustomers[2] ?? storeCustomers[0];
+
+      const addr0 = c0
+        ? this.customerSeeder.findAddressByCustomerId(c0.id)
+        : undefined;
+      const addr1 = c1
+        ? this.customerSeeder.findAddressByCustomerId(c1.id)
+        : undefined;
+      const addr2 = c2
+        ? this.customerSeeder.findAddressByCustomerId(c2.id)
+        : undefined;
+
+      // Order 1: CONFIRMED, COD
+      if (c0 && addr0 && storeProducts.length >= 2) {
+        orderData.push({
+          id: generateOrderId(store.slug),
+          status: OrderStatus.CONFIRMED,
+          notes: "Livraison avant 18h SVP",
+          storeId: store.id,
+          customerId: c0.id,
+          addressId: addr0.id,
+          paymentMethod: PaymentMethod.COD,
+          isWhatsApp: false,
+          items: storeProducts
+            .slice(0, 2)
+            .map((p) => ({ productId: p.id, quantity: 1, price: p.price })),
+        });
+      }
+
+      // Order 2: PROCESSING, CARD, WhatsApp
+      if (c1 && addr1 && storeProducts.length > 1) {
+        orderData.push({
+          id: generateOrderId(store.slug),
+          status: OrderStatus.PROCESSING,
+          notes: "Besoin d'un reçu cadeau dans la boîte",
+          storeId: store.id,
+          customerId: c1.id,
+          addressId: addr1.id,
+          paymentMethod: PaymentMethod.CARD,
+          isWhatsApp: true,
+          items: storeProducts
+            .slice(1, 3)
+            .map((p) => ({ productId: p.id, quantity: 2, price: p.price })),
+        });
+      }
+
+      // Order 3: PENDING, COD, WhatsApp — Arabic note
+      if (c0 && addr0 && storeProducts.length >= 1) {
+        orderData.push({
+          id: generateOrderId(store.slug),
+          status: OrderStatus.PENDING,
+          notes: "يرجى الاتصال قبل التسليم",
+          storeId: store.id,
+          customerId: c0.id,
+          addressId: addr0.id,
+          paymentMethod: PaymentMethod.COD,
+          isWhatsApp: true,
+          items: [
+            {
+              productId: storeProducts[0]!.id,
               quantity: 1,
-              price: p.price,
-            })),
-          });
-        } else {
-          this.log(
-            `⚠️  Skipping confirmed order for ${store.name}: no address for customer ${customer1.id}`,
-          );
-        }
+              price: storeProducts[0]!.price,
+            },
+          ],
+        });
       }
 
-      // Order 2: Processing, online card, WhatsApp thread
-      const customer2 = storeCustomers[1] ?? storeCustomers[0];
-      if (customer2 && storeProducts.length > 1) {
-        const address2 = this.customerSeeder?.findAddressByCustomerId(
-          customer2.id,
-        );
-        if (address2?.id) {
-          orderData.push({
-            id: generateOrderId(store.slug),
-            status: OrderStatus.PROCESSING,
-            notes: "Gift receipt inside the box please",
-            storeId: store.id,
-            customerId: customer2.id,
-            addressId: address2.id,
-            paymentMethod: PaymentMethod.CARD,
-            isWhatsApp: true,
-            items: storeProducts.slice(1, 3).map((p) => ({
-              productId: p.id,
-              quantity: 2,
-              price: p.price,
-            })),
-          });
-        } else {
-          this.log(
-            `⚠️  Skipping processing order for ${store.name}: no address for customer ${customer2.id}`,
-          );
-        }
+      // Order 4: DELIVERED, COD
+      if (c2 && addr2 && storeProducts.length >= 2) {
+        orderData.push({
+          id: generateOrderId(store.slug),
+          status: OrderStatus.DELIVERED,
+          notes: "Please leave at the door",
+          storeId: store.id,
+          customerId: c2.id,
+          addressId: addr2.id,
+          paymentMethod: PaymentMethod.COD,
+          isWhatsApp: false,
+          items: storeProducts
+            .slice(2, 4)
+            .map((p) => ({ productId: p.id, quantity: 1, price: p.price })),
+        });
       }
 
-      // Order 3: Pending, COD + WhatsApp, with delivery address (same as checkout)
-      const customer3 = storeCustomers[0];
-      const selectedProduct = storeProducts[0];
-      if (customer3 && selectedProduct) {
-        const address3 = this.customerSeeder?.findAddressByCustomerId(
-          customer3.id,
-        );
-        if (address3?.id) {
-          orderData.push({
-            id: generateOrderId(store.slug),
-            status: OrderStatus.PENDING,
-            notes: "Apartment 4B — please ring the video intercom twice",
-            storeId: store.id,
-            customerId: customer3.id,
-            addressId: address3.id,
-            paymentMethod: PaymentMethod.COD,
-            isWhatsApp: true,
-            items: [
-              {
-                productId: selectedProduct.id,
-                quantity: 1,
-                price: selectedProduct.price,
-              },
-            ],
-          });
-        } else {
-          this.log(
-            `⚠️  Skipping pending order for ${store.name}: no address for customer ${customer3.id}`,
-          );
-        }
+      // Order 5: CANCELLED, CARD
+      if (c1 && addr1 && storeProducts.length >= 1) {
+        const lastProduct = storeProducts[storeProducts.length - 1]!;
+        orderData.push({
+          id: generateOrderId(store.slug),
+          status: OrderStatus.CANCELLED,
+          notes: "Commande annulée — article hors stock",
+          storeId: store.id,
+          customerId: c1.id,
+          addressId: addr1.id,
+          paymentMethod: PaymentMethod.CARD,
+          isWhatsApp: false,
+          items: [
+            {
+              productId: lastProduct.id,
+              quantity: 1,
+              price: lastProduct.price,
+            },
+          ],
+        });
       }
     }
 
     if (orderData.length === 0) {
-      this.log("⚠️  No valid orders to create. All orders were skipped.");
+      this.log("⚠️  No valid orders to create.");
       return;
     }
 
@@ -351,9 +368,7 @@ export class OrderSeeder extends BaseSeeder {
             storeId: orderInfo.storeId,
             customerId: orderInfo.customerId,
             addressId: orderInfo.addressId,
-            orderItems: {
-              create: orderItemsCreate,
-            },
+            orderItems: { create: orderItemsCreate },
           },
         });
       }),
@@ -369,5 +384,55 @@ export class OrderSeeder extends BaseSeeder {
     }
 
     this.log(`✅ Created ${createdOrders.length} orders with order items`);
+
+    // Create WhatsApp messages for orders that used WhatsApp
+    await this.createWhatsAppMessages(database, orderData, createdOrders);
+  }
+
+  private async createWhatsAppMessages(
+    database: PrismaClient,
+    orderDefs: OrderSeedDef[],
+    createdOrders: Array<{ id: string; isWhatsApp: boolean }>,
+  ): Promise<void> {
+    const whatsappOrders = createdOrders.filter((o) => o.isWhatsApp);
+    if (whatsappOrders.length === 0) return;
+
+    const now = new Date();
+    let messageCount = 0;
+
+    for (const order of whatsappOrders) {
+      const def = orderDefs.find((d) => d.id === order.id);
+      const status = def?.status ?? OrderStatus.PENDING;
+
+      // Confirmation message
+      await database.whatsAppMessage.create({
+        data: {
+          orderId: order.id,
+          status: WhatsAppMessageStatus.DELIVERED,
+          content: `✅ Votre commande #${order.id} a été reçue. Nous vous contacterons sous peu.`,
+          messageId: `wa_seed_${order.id}_1`,
+          sentAt: now,
+        },
+      });
+      messageCount++;
+
+      // Status update message for PROCESSING orders
+      if (status === OrderStatus.PROCESSING) {
+        await database.whatsAppMessage.create({
+          data: {
+            orderId: order.id,
+            status: WhatsAppMessageStatus.READ,
+            content: `🚚 Votre commande #${order.id} est en cours de préparation.`,
+            messageId: `wa_seed_${order.id}_2`,
+            sentAt: new Date(now.getTime() + 3600_000),
+          },
+        });
+        messageCount++;
+      }
+    }
+
+    this.log(
+      `✅ Created ${messageCount} WhatsApp messages for ${whatsappOrders.length} orders`,
+    );
   }
 }

@@ -154,12 +154,12 @@ export function getSeeders() {
  * const seeders = getSeeders();
  *
  * // Find by stable keys
- * const ahmedStore = seeders.stores.findBySlug('ahmed-fashion');
- * const ahmedUser = seeders.users.findByEmail('ahmed@dukkani.co');
+ * const amineStore = seeders.stores.findBySlug('amine-fashion');
+ * const amineUser = seeders.users.findByEmail('amine@dukkani.co');
  *
  * // Get grouped data
  * const productsByStore = seeders.products.getProductsByStoreSlug();
- * const ahmedProducts = productsByStore.get('ahmed-fashion');
+ * const amineProducts = productsByStore.get('amine-fashion');
  *
  * // Direct access
  * const allStores = seeders.stores.seededStores;
