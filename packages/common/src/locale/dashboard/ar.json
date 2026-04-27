@@ -46,6 +46,13 @@
     }
   },
   "settings": {
+    "logout": {
+      "button": "تسجيل الخروج",
+      "title": "تسجيل الخروج من حسابك؟",
+      "description": "سيتم إعادة توجيهك إلى صفحة تسجيل الدخول. قد تُفقد التغييرات غير المحفوظة في علامات التبويب الأخرى.",
+      "cancel": "إلغاء",
+      "confirm": "تسجيل الخروج"
+    },
     "telegram": {
       "title": "Telegram Notifications",
       "description": "Link your Telegram account to receive instant order notifications",

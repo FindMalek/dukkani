@@ -46,6 +46,13 @@
     }
   },
   "settings": {
+    "logout": {
+      "button": "Se déconnecter",
+      "title": "Se déconnecter de votre compte ?",
+      "description": "Vous serez redirigé vers la page de connexion. Les modifications non enregistrées dans d'autres onglets peuvent être perdues.",
+      "cancel": "Annuler",
+      "confirm": "Se déconnecter"
+    },
     "telegram": {
       "title": "Notifications Telegram",
       "description": "Liez votre compte Telegram pour recevoir des notifications de commande instantanées",

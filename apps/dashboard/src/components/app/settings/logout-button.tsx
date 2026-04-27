@@ -13,12 +13,14 @@ import {
 } from "@dukkani/ui/components/alert-dialog";
 import { Button } from "@dukkani/ui/components/button";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { authClient } from "@/shared/api/auth-client";
 import { RoutePaths } from "@/shared/config/routes";
 
 export function LogoutButton() {
   const router = useRouter();
+  const t = useTranslations("settings.logout");
   const [isPending, setIsPending] = useState(false);
 
   function handleSignOut(e: React.MouseEvent) {
@@ -40,25 +42,26 @@ export function LogoutButton() {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="destructive" className="w-full sm:w-auto">
-          Log out
+          {t("button")}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Log out of your account?</AlertDialogTitle>
-          <AlertDialogDescription>
-            You will be redirected to the login page. Any unsaved changes in
-            other tabs may be lost.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{t("title")}</AlertDialogTitle>
+          <AlertDialogDescription>{t("description")}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-            isLoading={isPending}
-            onClick={handleSignOut}
-          >
-            Log out
+          <AlertDialogCancel disabled={isPending}>
+            {t("cancel")}
+          </AlertDialogCancel>
+          <AlertDialogAction asChild>
+            <Button
+              variant="destructive"
+              isLoading={isPending}
+              onClick={handleSignOut}
+            >
+              {t("confirm")}
+            </Button>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
