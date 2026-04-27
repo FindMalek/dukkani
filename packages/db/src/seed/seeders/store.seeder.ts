@@ -6,16 +6,12 @@ import {
   StoreStatus,
   StoreTheme,
   SupportedCurrency,
+  TeamMemberRole,
   UserOnboardingStep,
 } from "../../../prisma/generated/client";
 import { BaseSeeder } from "../base";
 import type { UserSeeder } from "./user.seeder";
 
-/**
- * Seeder for Store model
- * Creates stores linked to seeded users
- * Exports stores for use in other seeders
- */
 export interface SeededStore {
   id: string;
   name: string;
@@ -26,37 +22,24 @@ export interface SeededStore {
 
 export class StoreSeeder extends BaseSeeder {
   name = "StoreSeeder";
-  order = 2; // Run after UserSeeder
+  order = 2;
 
-  // Export seeded stores for use in other seeders
   public seededStores: SeededStore[] = [];
 
-  /**
-   * Find a store by slug (stable key)
-   */
   findBySlug(slug: string): SeededStore | undefined {
     return this.seededStores.find((s) => s.slug === slug);
   }
 
-  /**
-   * Find a store by ID
-   */
   findById(id: string): SeededStore | undefined {
     return this.seededStores.find((s) => s.id === id);
   }
 
-  /**
-   * Get all stores as a map keyed by slug for easy lookup
-   */
   getStoresBySlug(): Map<string, SeededStore> {
     return new Map(this.seededStores.map((s) => [s.slug, s]));
   }
 
   private userSeeder?: UserSeeder;
 
-  /**
-   * Set the UserSeeder instance to access seeded users
-   */
   setUserSeeder(userSeeder: UserSeeder): void {
     this.userSeeder = userSeeder;
   }
@@ -68,11 +51,9 @@ export class StoreSeeder extends BaseSeeder {
       throw new Error("UserSeeder must be set before running StoreSeeder");
     }
 
-    // Check if stores already exist
     const existingStores = await database.store.findMany();
     if (existingStores.length > 0) {
       this.log(`Skipping: ${existingStores.length} stores already exist`);
-      // Load existing stores for export
       for (const store of existingStores) {
         this.seededStores.push({
           id: store.id,
@@ -82,9 +63,6 @@ export class StoreSeeder extends BaseSeeder {
           status: store.status,
         });
       }
-      // Self-heal: owners of a PUBLISHED store have completed onboarding.
-      // Without this, dev DBs seeded before this fix keep users stuck at
-      // STORE_SETUP, which the dashboard layout redirects to /onboarding.
       await this.syncPublishedStoreOwnersOnboarding(database, existingStores);
       return;
     }
@@ -95,56 +73,54 @@ export class StoreSeeder extends BaseSeeder {
       return;
     }
 
-    // Define stores with stable email lookups
     const storeDefinitions = [
       {
-        name: "Ahmed's Fashion Boutique",
-        slug: "ahmed-fashion",
-        description: "Premium fashion and accessories for the modern gentleman",
+        name: "Amine's Fashion Boutique",
+        slug: "amine-fashion",
+        description: "Mode et accessoires premium pour l'homme moderne",
         category: StoreCategory.FASHION,
         theme: StoreTheme.MODERN,
-        whatsappNumber: "+971501234567",
-        ownerEmail: "ahmed@dukkani.co",
-        currency: SupportedCurrency.USD,
+        whatsappNumber: "+21621100001",
+        ownerEmail: "amine@dukkani.co",
+        currency: SupportedCurrency.TND,
         planType: StorePlanType.PREMIUM,
         orderLimit: 1000,
         status: StoreStatus.PUBLISHED,
       },
       {
-        name: "Fatima's Electronics Hub",
-        slug: "fatima-electronics",
-        description: "Latest electronics, gadgets, and tech accessories",
+        name: "Sana's Electronics",
+        slug: "sana-electronics",
+        description: "Derniers gadgets et accessoires high-tech",
         category: StoreCategory.ELECTRONICS,
         theme: StoreTheme.MINIMAL,
-        whatsappNumber: "+971502345678",
-        currency: SupportedCurrency.EUR,
-        ownerEmail: "fatima@dukkani.co",
+        whatsappNumber: "+21621100002",
+        ownerEmail: "sana@dukkani.co",
+        currency: SupportedCurrency.TND,
         planType: StorePlanType.BASIC,
         orderLimit: 500,
         status: StoreStatus.PUBLISHED,
       },
       {
-        name: "Omar's Home Essentials",
-        slug: "omar-home",
-        description: "Everything you need for your home and kitchen",
+        name: "Yassine's Maison",
+        slug: "yassine-home",
+        description: "Tout ce qu'il vous faut pour votre maison et cuisine",
         category: StoreCategory.HOME,
         theme: StoreTheme.CLASSIC,
-        whatsappNumber: "+971503456789",
+        whatsappNumber: "+21621100003",
+        ownerEmail: "yassine@dukkani.co",
         currency: SupportedCurrency.TND,
-        ownerEmail: "omar@dukkani.co",
         planType: StorePlanType.FREE,
         orderLimit: 100,
         status: StoreStatus.PUBLISHED,
       },
     ];
 
-    // Resolve owners by email and validate
     const storeData = storeDefinitions
       .map((def) => {
         const owner = usersByEmail.get(def.ownerEmail);
         if (!owner) {
           this.error(
-            `⚠️  Owner not found for store "${def.name}" (email: ${def.ownerEmail}). Skipping this store.`,
+            `⚠️  Owner not found for store "${def.name}" (email: ${def.ownerEmail}). Skipping.`,
           );
           return null;
         }
@@ -165,13 +141,10 @@ export class StoreSeeder extends BaseSeeder {
       .filter((store): store is NonNullable<typeof store> => store !== null);
 
     if (storeData.length === 0) {
-      this.log(
-        "⚠️  No valid stores to create. All stores were skipped due to missing owners.",
-      );
+      this.log("⚠️  No valid stores to create.");
       return;
     }
 
-    // Create stores (need individual creates for storePlan relation)
     const createdStores = await Promise.all(
       storeData.map((storeInfo) =>
         database.store.create({
@@ -184,8 +157,8 @@ export class StoreSeeder extends BaseSeeder {
             whatsappNumber: storeInfo.whatsappNumber,
             currency: storeInfo.currency,
             ownerId: storeInfo.ownerId,
-            supportedPaymentMethods: [PaymentMethod.COD],
-            shippingCost: 12.0,
+            supportedPaymentMethods: [PaymentMethod.COD, PaymentMethod.CARD],
+            shippingCost: 8.0,
             storePlan: {
               create: {
                 planType: storeInfo.planType,
@@ -199,7 +172,6 @@ export class StoreSeeder extends BaseSeeder {
       ),
     );
 
-    // Store for export
     for (const store of createdStores) {
       this.seededStores.push({
         id: store.id,
@@ -210,20 +182,66 @@ export class StoreSeeder extends BaseSeeder {
       });
     }
 
-    // Owners of a PUBLISHED store are done with onboarding — without this,
-    // the User table's `onboardingStep @default(STORE_SETUP)` keeps them
-    // stuck and the dashboard layout redirects them to /onboarding.
     await this.syncPublishedStoreOwnersOnboarding(database, createdStores);
+    await this.createTeamMembers(database, usersByEmail);
 
     this.log(`✅ Created ${createdStores.length} stores with plans`);
   }
 
   /**
-   * Advance the `onboardingStep` of every user who owns a PUBLISHED store to
-   * `STORE_LAUNCHED`. Idempotent — the `where` clause skips users who are
-   * already launched, so this is safe to run on every seed (including the
-   * "stores already exist" self-heal path).
+   * Create team members: Karim as MANAGER for amine-fashion, Rania as STAFF for sana-electronics.
+   * Idempotent via skipDuplicates.
    */
+  private async createTeamMembers(
+    database: PrismaClient,
+    usersByEmail: Map<string, { id: string; email: string; name: string }>,
+  ): Promise<void> {
+    const amineFashion = this.findBySlug("amine-fashion");
+    const sanaElectronics = this.findBySlug("sana-electronics");
+    const karim = usersByEmail.get("karim@dukkani.co");
+    const rania = usersByEmail.get("rania@dukkani.co");
+
+    const membersToCreate: Array<{
+      userId: string;
+      storeId: string;
+      role: TeamMemberRole;
+      label: string;
+    }> = [];
+
+    if (karim && amineFashion) {
+      membersToCreate.push({
+        userId: karim.id,
+        storeId: amineFashion.id,
+        role: TeamMemberRole.MANAGER,
+        label: "Karim (MANAGER) → amine-fashion",
+      });
+    }
+
+    if (rania && sanaElectronics) {
+      membersToCreate.push({
+        userId: rania.id,
+        storeId: sanaElectronics.id,
+        role: TeamMemberRole.STAFF,
+        label: "Rania (STAFF) → sana-electronics",
+      });
+    }
+
+    if (membersToCreate.length === 0) return;
+
+    await database.teamMember.createMany({
+      data: membersToCreate.map(({ userId, storeId, role }) => ({
+        userId,
+        storeId,
+        role,
+      })),
+      skipDuplicates: true,
+    });
+
+    for (const m of membersToCreate) {
+      this.log(`✅ Team member: ${m.label}`);
+    }
+  }
+
   private async syncPublishedStoreOwnersOnboarding(
     database: PrismaClient,
     stores: Array<{ ownerId: string; status: StoreStatus }>,

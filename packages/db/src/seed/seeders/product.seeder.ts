@@ -1,7 +1,10 @@
 import { generateProductId } from "@/utils/generate-id";
 import type { PrismaClient } from "../../../prisma/generated/client";
 import { Prisma } from "../../../prisma/generated/client";
-import { ProductVersionStatus } from "../../../prisma/generated/enums";
+import {
+  ProductAddonSelectionType,
+  ProductVersionStatus,
+} from "../../../prisma/generated/enums";
 import { BaseSeeder } from "../base";
 import type { StoreSeeder } from "./store.seeder";
 
@@ -124,32 +127,35 @@ export class ProductSeeder extends BaseSeeder {
 
       // Define categories per store type
       const categoryNames: string[] = [];
-      if (storeSlug === "ahmed-fashion") {
+      if (storeSlug === "amine-fashion") {
         categoryNames.push(
-          "Jackets",
-          "Shoes",
-          "Accessories",
+          "Vestes",
+          "Chaussures",
+          "Accessoires",
           "T-Shirts",
-          "Pants",
-          "Watches",
+          "Pantalons",
+          "Montres",
+          "Traditionnel",
         );
-      } else if (storeSlug === "fatima-electronics") {
+      } else if (storeSlug === "sana-electronics") {
         categoryNames.push(
           "Audio",
           "Wearables",
-          "Chargers",
+          "Chargeurs",
           "Smartphones",
           "Laptops",
-          "Tablets",
+          "Tablettes",
+          "Accessoires PC",
         );
-      } else if (storeSlug === "omar-home") {
+      } else if (storeSlug === "yassine-home") {
         categoryNames.push(
-          "Kitchen",
-          "Bedding",
-          "Lighting",
-          "Furniture",
-          "Storage",
-          "Decor",
+          "Cuisine",
+          "Literie",
+          "Éclairage",
+          "Mobilier",
+          "Rangement",
+          "Décoration",
+          "Art de la Table",
         );
       }
 
@@ -175,13 +181,24 @@ export class ProductSeeder extends BaseSeeder {
       {
         name: "Premium Leather Jacket",
         description:
-          "Handcrafted genuine leather jacket with modern design. Features premium Italian leather, quilted lining, and multiple pockets. Perfect for all seasons with removable inner lining.",
+          "Veste en cuir véritable haut de gamme avec design moderne. Cuir italien premium, doublure matelassée, multiples poches. Parfaite toutes saisons avec doublure intérieure amovible.",
         price: new Prisma.Decimal("349.99"),
         stock: 0,
         published: true,
-        storeSlug: "ahmed-fashion",
-        categoryName: "Jackets",
+        storeSlug: "amine-fashion",
+        categoryName: "Vestes",
         hasVariants: true,
+        addonGroups: [
+          {
+            name: "Personnalisation",
+            selectionType: ProductAddonSelectionType.MULTIPLE,
+            required: false,
+            options: [
+              { name: "Monogramme initiales", priceDelta: 20, stock: 999 },
+              { name: "Emballage cadeau premium", priceDelta: 10, stock: 999 },
+            ],
+          },
+        ],
         variantOptions: [
           { name: "Size", values: ["S", "M", "L", "XL", "XXL"] },
           { name: "Color", values: ["Black", "Brown", "Navy"] },
@@ -216,8 +233,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("129.99"),
         stock: 0,
         published: true,
-        storeSlug: "ahmed-fashion",
-        categoryName: "Shoes",
+        storeSlug: "amine-fashion",
+        categoryName: "Chaussures",
         hasVariants: true,
         variantOptions: [
           {
@@ -265,7 +282,7 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("29.99"),
         stock: 0,
         published: true,
-        storeSlug: "ahmed-fashion",
+        storeSlug: "amine-fashion",
         categoryName: "T-Shirts",
         hasVariants: true,
         variantOptions: [
@@ -311,8 +328,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("89.99"),
         stock: 50,
         published: true,
-        storeSlug: "ahmed-fashion",
-        categoryName: "Accessories",
+        storeSlug: "amine-fashion",
+        categoryName: "Accessoires",
         hasVariants: false,
         images: [
           "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&q=80",
@@ -326,8 +343,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("45.00"),
         stock: 40,
         published: true,
-        storeSlug: "ahmed-fashion",
-        categoryName: "Accessories",
+        storeSlug: "amine-fashion",
+        categoryName: "Accessoires",
         hasVariants: false,
         images: [
           "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80",
@@ -340,8 +357,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("35.00"),
         stock: 60,
         published: true,
-        storeSlug: "ahmed-fashion",
-        categoryName: "Accessories",
+        storeSlug: "amine-fashion",
+        categoryName: "Accessoires",
         hasVariants: false,
         images: [
           "https://images.unsplash.com/photo-1601925260368-af2a9a8a0d66?w=800&q=80",
@@ -354,8 +371,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("79.99"),
         stock: 0,
         published: true,
-        storeSlug: "ahmed-fashion",
-        categoryName: "Pants",
+        storeSlug: "amine-fashion",
+        categoryName: "Pantalons",
         hasVariants: true,
         variantOptions: [
           { name: "Size", values: ["28", "30", "32", "34", "36", "38"] },
@@ -399,8 +416,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("249.99"),
         stock: 0,
         published: true,
-        storeSlug: "ahmed-fashion",
-        categoryName: "Watches",
+        storeSlug: "amine-fashion",
+        categoryName: "Montres",
         hasVariants: true,
         variantOptions: [
           { name: "Strap Color", values: ["Black", "Brown", "Silver"] },
@@ -452,15 +469,30 @@ export class ProductSeeder extends BaseSeeder {
 
       // ========== FATIMA'S ELECTRONICS HUB ==========
       {
-        name: "Wireless Bluetooth Earbuds Pro",
+        name: "Écouteurs Bluetooth Sans Fil Pro",
         description:
-          "High-quality noise-canceling wireless earbuds with 30-hour battery life, IPX7 water resistance, and premium sound quality. Features touch controls and wireless charging case.",
+          "Écouteurs sans fil à réduction de bruit avec 30h d'autonomie, résistance IPX7 et son premium. Contrôle tactile et boîtier de charge sans fil inclus.",
         price: new Prisma.Decimal("129.99"),
         stock: 0,
         published: true,
-        storeSlug: "fatima-electronics",
+        storeSlug: "sana-electronics",
         categoryName: "Audio",
         hasVariants: true,
+        addonGroups: [
+          {
+            name: "Accessoires",
+            selectionType: ProductAddonSelectionType.MULTIPLE,
+            required: false,
+            options: [
+              { name: "Étui de protection rigide", priceDelta: 25, stock: 50 },
+              {
+                name: "Câble de recharge supplémentaire",
+                priceDelta: 15,
+                stock: 80,
+              },
+            ],
+          },
+        ],
         variantOptions: [
           { name: "Color", values: ["Black", "White", "Blue"] },
           { name: "Storage", values: ["Standard", "Premium"] },
@@ -485,7 +517,7 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("299.99"),
         stock: 0,
         published: true,
-        storeSlug: "fatima-electronics",
+        storeSlug: "sana-electronics",
         categoryName: "Wearables",
         hasVariants: true,
         variantOptions: [
@@ -512,8 +544,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("34.99"),
         stock: 75,
         published: true,
-        storeSlug: "fatima-electronics",
-        categoryName: "Chargers",
+        storeSlug: "sana-electronics",
+        categoryName: "Chargeurs",
         hasVariants: false,
         images: [
           "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&q=80",
@@ -527,7 +559,7 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("42.00"),
         stock: 50,
         published: true,
-        storeSlug: "fatima-electronics",
+        storeSlug: "sana-electronics",
         categoryName: "Laptops",
         hasVariants: false,
         images: [
@@ -541,8 +573,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("19.99"),
         stock: 120,
         published: true,
-        storeSlug: "fatima-electronics",
-        categoryName: "Chargers",
+        storeSlug: "sana-electronics",
+        categoryName: "Chargeurs",
         hasVariants: false,
         images: [
           "https://images.unsplash.com/photo-1588508065123-5abd63b1ef02?w=800&q=80",
@@ -555,7 +587,7 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("899.99"),
         stock: 0,
         published: true,
-        storeSlug: "fatima-electronics",
+        storeSlug: "sana-electronics",
         categoryName: "Smartphones",
         hasVariants: true,
         variantOptions: [
@@ -618,7 +650,7 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("1299.99"),
         stock: 0,
         published: true,
-        storeSlug: "fatima-electronics",
+        storeSlug: "sana-electronics",
         categoryName: "Laptops",
         hasVariants: true,
         variantOptions: [
@@ -696,8 +728,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("649.99"),
         stock: 0,
         published: true,
-        storeSlug: "fatima-electronics",
-        categoryName: "Tablets",
+        storeSlug: "sana-electronics",
+        categoryName: "Tablettes",
         hasVariants: true,
         variantOptions: [
           { name: "Storage", values: ["128GB", "256GB", "512GB"] },
@@ -740,8 +772,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("179.99"),
         stock: 0,
         published: true,
-        storeSlug: "omar-home",
-        categoryName: "Kitchen",
+        storeSlug: "yassine-home",
+        categoryName: "Cuisine",
         hasVariants: true,
         variantOptions: [
           { name: "Set Size", values: ["10-Piece", "14-Piece", "18-Piece"] },
@@ -797,8 +829,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("59.99"),
         stock: 0,
         published: true,
-        storeSlug: "omar-home",
-        categoryName: "Bedding",
+        storeSlug: "yassine-home",
+        categoryName: "Literie",
         hasVariants: true,
         variantOptions: [
           { name: "Firmness", values: ["Soft", "Medium", "Firm"] },
@@ -821,15 +853,30 @@ export class ProductSeeder extends BaseSeeder {
         ],
       },
       {
-        name: "LED Desk Lamp",
+        name: "Lampe de Bureau LED",
         description:
-          "Adjustable LED desk lamp with USB charging port. Features 5 brightness levels, 3 color temperatures, touch control, and flexible gooseneck design. Energy-efficient and eye-friendly.",
+          "Lampe LED réglable avec port USB. 5 niveaux de luminosité, 3 températures de couleur, commande tactile et col de cygne flexible. Économique et douce pour les yeux.",
         price: new Prisma.Decimal("39.99"),
         stock: 45,
         published: true,
-        storeSlug: "omar-home",
-        categoryName: "Lighting",
+        storeSlug: "yassine-home",
+        categoryName: "Éclairage",
         hasVariants: false,
+        addonGroups: [
+          {
+            name: "Service",
+            selectionType: ProductAddonSelectionType.SINGLE,
+            required: false,
+            options: [
+              { name: "Livraison standard", priceDelta: 0, stock: 999 },
+              {
+                name: "Livraison express + installation",
+                priceDelta: 30,
+                stock: 999,
+              },
+            ],
+          },
+        ],
         images: [
           "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80",
           "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
@@ -842,8 +889,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("32.00"),
         stock: 70,
         published: true,
-        storeSlug: "omar-home",
-        categoryName: "Kitchen",
+        storeSlug: "yassine-home",
+        categoryName: "Cuisine",
         hasVariants: false,
         images: [
           "https://images.unsplash.com/photo-1621996346565-e3dbc353d0e0?w=800&q=80",
@@ -856,8 +903,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("28.00"),
         stock: 55,
         published: true,
-        storeSlug: "omar-home",
-        categoryName: "Decor",
+        storeSlug: "yassine-home",
+        categoryName: "Décoration",
         hasVariants: false,
         images: [
           "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=800&q=80",
@@ -870,8 +917,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("299.99"),
         stock: 0,
         published: true,
-        storeSlug: "omar-home",
-        categoryName: "Furniture",
+        storeSlug: "yassine-home",
+        categoryName: "Mobilier",
         hasVariants: true,
         variantOptions: [
           {
@@ -903,8 +950,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("49.99"),
         stock: 0,
         published: true,
-        storeSlug: "omar-home",
-        categoryName: "Storage",
+        storeSlug: "yassine-home",
+        categoryName: "Rangement",
         hasVariants: true,
         variantOptions: [
           { name: "Set Size", values: ["6-Piece", "12-Piece", "18-Piece"] },
@@ -933,8 +980,8 @@ export class ProductSeeder extends BaseSeeder {
         price: new Prisma.Decimal("79.99"),
         stock: 0,
         published: true,
-        storeSlug: "omar-home",
-        categoryName: "Decor",
+        storeSlug: "yassine-home",
+        categoryName: "Décoration",
         hasVariants: true,
         variantOptions: [
           {

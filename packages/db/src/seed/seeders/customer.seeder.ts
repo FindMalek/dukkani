@@ -2,11 +2,6 @@ import type { PrismaClient } from "../../../prisma/generated/client";
 import { BaseSeeder } from "../base";
 import type { StoreSeeder } from "./store.seeder";
 
-/**
- * Seeder for Customer model
- * Creates customers and their addresses linked to seeded stores
- * Exports customers and addresses for use in other seeders
- */
 export interface SeededCustomer {
   id: string;
   name: string;
@@ -26,31 +21,21 @@ export interface SeededAddress {
 
 export class CustomerSeeder extends BaseSeeder {
   name = "CustomerSeeder";
-  order = 4; // Run after StoreSeeder
+  order = 4;
 
-  // Export seeded customers and addresses for use in other seeders
   public seededCustomers: SeededCustomer[] = [];
   public seededAddresses: SeededAddress[] = [];
 
-  /**
-   * Find customers by store slug
-   */
   findByStoreSlug(storeSlug: string): SeededCustomer[] {
     const store = this.storeSeeder?.findBySlug(storeSlug);
     if (!store) return [];
     return this.seededCustomers.filter((c) => c.storeId === store.id);
   }
 
-  /**
-   * Find the default address for a customer
-   */
   findAddressByCustomerId(customerId: string): SeededAddress | undefined {
     return this.seededAddresses.find((a) => a.customerId === customerId);
   }
 
-  /**
-   * Get all customers grouped by store slug
-   */
   getCustomersByStoreSlug(): Map<string, SeededCustomer[]> {
     const map = new Map<string, SeededCustomer[]>();
     for (const customer of this.seededCustomers) {
@@ -66,9 +51,6 @@ export class CustomerSeeder extends BaseSeeder {
 
   private storeSeeder?: StoreSeeder;
 
-  /**
-   * Set the StoreSeeder instance to access seeded stores
-   */
   setStoreSeeder(storeSeeder: StoreSeeder): void {
     this.storeSeeder = storeSeeder;
   }
@@ -80,13 +62,11 @@ export class CustomerSeeder extends BaseSeeder {
       throw new Error("StoreSeeder must be set before running CustomerSeeder");
     }
 
-    // Check if customers already exist
     const existingCustomers = await database.customer.findMany({
       include: { addresses: true },
     });
     if (existingCustomers.length > 0) {
       this.log(`Skipping: ${existingCustomers.length} customers already exist`);
-      // Load existing customers and addresses for export
       for (const customer of existingCustomers) {
         this.seededCustomers.push({
           id: customer.id,
@@ -115,92 +95,127 @@ export class CustomerSeeder extends BaseSeeder {
       return;
     }
 
-    // Define customers with stable slug lookups; UAE-style addresses (postal + map pins)
+    // 3 customers per store — Tunisian names, +216 phones, Tunisian cities
     const customerDefinitions = [
-      // Customers for Ahmed's Fashion Boutique
+      // amine-fashion
       {
-        name: "Khalid Al-Rashid",
-        phone: "+971501111111",
-        storeSlug: "ahmed-fashion",
+        name: "Mohamed Ben Salah",
+        phone: "+21655123456",
+        storeSlug: "amine-fashion",
         address: {
-          street: "123 Al Mina Road, Deira",
-          city: "Dubai",
-          postalCode: "12345",
-          latitude: 25.27,
-          longitude: 55.31,
+          street: "15 Rue Ibn Khaldoun",
+          city: "Tunis",
+          postalCode: "1000",
+          latitude: 36.817,
+          longitude: 10.181,
         },
       },
       {
-        name: "Mariam Al-Zahra",
-        phone: "+971501111112",
-        storeSlug: "ahmed-fashion",
+        name: "Amira Trabelsi",
+        phone: "+21695234567",
+        storeSlug: "amine-fashion",
         address: {
-          street: "45 Al Wasl Road, Al Wasl",
-          city: "Dubai",
-          postalCode: "12346",
-          latitude: 25.21,
-          longitude: 55.26,
-        },
-      },
-      // Customers for Fatima's Electronics Hub
-      {
-        name: "Yusuf Al-Mazrouei",
-        phone: "+971502222221",
-        storeSlug: "fatima-electronics",
-        address: {
-          street: "456 Business Bay, Executive Towers",
-          city: "Dubai",
-          postalCode: "00000",
-          latitude: 25.19,
-          longitude: 55.27,
+          street: "8 Avenue Habib Bourguiba",
+          city: "Sousse",
+          postalCode: "4000",
+          latitude: 35.825,
+          longitude: 10.637,
         },
       },
       {
-        name: "Layla Al-Mansoori",
-        phone: "+971502222222",
-        storeSlug: "fatima-electronics",
+        name: "Nadia Gharbi",
+        phone: "+21623345678",
+        storeSlug: "amine-fashion",
         address: {
-          street: "78 Sheikh Zayed Street, Al Dana",
-          city: "Abu Dhabi",
-          postalCode: "00000",
-          latitude: 24.45,
-          longitude: 54.38,
+          street: "42 Rue de la République",
+          city: "Sfax",
+          postalCode: "3000",
+          latitude: 34.741,
+          longitude: 10.762,
         },
       },
-      // Customers for Omar's Home Essentials
+      // sana-electronics
       {
-        name: "Hassan Al-Suwaidi",
-        phone: "+971503333331",
-        storeSlug: "omar-home",
+        name: "Karim Mansouri",
+        phone: "+21656456789",
+        storeSlug: "sana-electronics",
         address: {
-          street: "789 Jumeirah Street, Jumeirah 1",
-          city: "Dubai",
-          postalCode: "00000",
-          latitude: 25.2,
-          longitude: 55.24,
+          street: "3 Avenue Mohamed V",
+          city: "Tunis",
+          postalCode: "1002",
+          latitude: 36.801,
+          longitude: 10.195,
         },
       },
       {
-        name: "Noor Al-Kaabi",
-        phone: "+971503333332",
-        storeSlug: "omar-home",
+        name: "Rim Ben Ali",
+        phone: "+21697567890",
+        storeSlug: "sana-electronics",
         address: {
-          street: "12 Corniche Road West",
-          city: "Abu Dhabi",
-          postalCode: "00000",
-          latitude: 24.47,
-          longitude: 54.35,
+          street: "18 Rue Mongi Bali",
+          city: "Monastir",
+          postalCode: "5000",
+          latitude: 35.764,
+          longitude: 10.832,
+        },
+      },
+      {
+        name: "Bilel Chaari",
+        phone: "+21626678901",
+        storeSlug: "sana-electronics",
+        address: {
+          street: "7 Rue Farhat Hached",
+          city: "Kairouan",
+          postalCode: "3100",
+          latitude: 35.679,
+          longitude: 10.1,
+        },
+      },
+      // yassine-home
+      {
+        name: "Houda Sassi",
+        phone: "+21652789012",
+        storeSlug: "yassine-home",
+        address: {
+          street: "29 Avenue de la Liberté",
+          city: "Ariana",
+          postalCode: "2080",
+          latitude: 36.859,
+          longitude: 10.193,
+        },
+      },
+      {
+        name: "Yassine Ayari",
+        phone: "+21698890123",
+        storeSlug: "yassine-home",
+        address: {
+          street: "5 Avenue 7 Novembre",
+          city: "Gabès",
+          postalCode: "6000",
+          latitude: 33.882,
+          longitude: 10.098,
+        },
+      },
+      {
+        name: "Mariem Nouri",
+        phone: "+21627901234",
+        storeSlug: "yassine-home",
+        address: {
+          street: "11 Avenue Habib Thameur",
+          city: "Nabeul",
+          postalCode: "8000",
+          latitude: 36.453,
+          longitude: 10.726,
         },
       },
     ];
 
-    // Resolve stores by slug and validate
     const resolvedDefinitions = customerDefinitions
       .map((def) => {
         const store = storesBySlug.get(def.storeSlug);
         if (!store) {
           this.error(
-            `⚠️  Store not found for customer "${def.name}" (slug: ${def.storeSlug}). Skipping this customer.`,
+            `⚠️  Store not found for customer "${def.name}" (slug: ${def.storeSlug}). Skipping.`,
           );
           return null;
         }
@@ -217,13 +232,10 @@ export class CustomerSeeder extends BaseSeeder {
       );
 
     if (resolvedDefinitions.length === 0) {
-      this.log(
-        "⚠️  No valid customers to create. All customers were skipped due to missing stores.",
-      );
+      this.log("⚠️  No valid customers to create.");
       return;
     }
 
-    // Create customers with addresses using individual creates
     const createdCustomers = await Promise.all(
       resolvedDefinitions.map((def) =>
         database.customer.create({
@@ -247,7 +259,6 @@ export class CustomerSeeder extends BaseSeeder {
       ),
     );
 
-    // Store for export
     for (const customer of createdCustomers) {
       this.seededCustomers.push({
         id: customer.id,
@@ -268,6 +279,8 @@ export class CustomerSeeder extends BaseSeeder {
       }
     }
 
-    this.log(`✅ Created ${createdCustomers.length} customers with addresses`);
+    this.log(
+      `✅ Created ${createdCustomers.length} customers with Tunisian addresses`,
+    );
   }
 }
