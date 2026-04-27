@@ -1,9 +1,14 @@
 import {
+  ORDER_STATUS_BADGE_VARIANT,
+  OrderEntity,
+} from "@dukkani/common/entities/order/entity";
+import {
   isLocalCalendarDayToday,
   isLocalCalendarDayYesterday,
 } from "@dukkani/common/lib";
 import type {
   OrderForLineTotals,
+  OrderIncludeOutput,
   OrderListItemOutput,
 } from "@dukkani/common/schemas/order/output";
 
@@ -92,3 +97,29 @@ export function getOrderTotal(order: OrderForLineTotals): number {
 export function getItemsCount(order: OrderForLineTotals): number {
   return order.orderItems?.reduce((sum, item) => sum + item.quantity, 0) ?? 0;
 }
+
+/**
+ * Pure derived fields for the order detail screen. Call only when `order` is loaded.
+ */
+export function getOrderDetailView(order: OrderIncludeOutput) {
+  const subtotal = getOrderTotal(order);
+  const deliveryFee = order.store?.shippingCost ?? 0;
+  const nextStatus = OrderEntity.getNextStatus(order.status);
+  const customerName = order.customer?.name?.trim() || undefined;
+  return {
+    subtotal,
+    deliveryFee,
+    total: subtotal + deliveryFee,
+    itemsCount: getItemsCount(order),
+    nextStatus,
+    canAdvance: nextStatus !== null,
+    badgeVariant: ORDER_STATUS_BADGE_VARIANT[order.status] ?? "outline",
+    statusKey: OrderEntity.getStatusLabelKey(order.status),
+    paymentKey: OrderEntity.getPaymentMethodLabelKey(order.paymentMethod),
+    phone: order.customer?.phone,
+    isWhatsApp: order.isWhatsApp,
+    customerName,
+  };
+}
+
+export type OrderDetailView = ReturnType<typeof getOrderDetailView>;

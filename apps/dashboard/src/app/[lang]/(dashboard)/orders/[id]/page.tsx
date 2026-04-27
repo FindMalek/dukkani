@@ -14,6 +14,7 @@ import { OrderDetailMetaCards } from "@/components/app/orders/order-detail-meta-
 import { OrderDetailSkeleton } from "@/components/app/orders/order-detail-skeleton";
 import { OrderDetailSummary } from "@/components/app/orders/order-detail-summary";
 import { useOrderDetailPage } from "@/shared/lib/order/controller.hook";
+import { getOrderDetailView } from "@/shared/lib/order/order.util";
 import { getContactHref } from "@/shared/lib/phone/contact-href.util";
 import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
 import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
@@ -31,18 +32,6 @@ export default function OrderDetailPage() {
     isNotFoundError,
     updateStatusMutation,
     formattedCreatedAt: formattedDate,
-    subtotal,
-    total,
-    deliveryFee,
-    itemsCount,
-    nextStatus,
-    canAdvance,
-    badgeVariant,
-    statusKey,
-    paymentKey,
-    phone,
-    isWhatsApp,
-    customerName,
   } = useOrderDetailPage(orderId);
 
   if (!orderId) {
@@ -70,6 +59,21 @@ export default function OrderDetailPage() {
       />
     );
   }
+
+  const {
+    subtotal,
+    total,
+    deliveryFee,
+    itemsCount,
+    nextStatus,
+    canAdvance,
+    badgeVariant,
+    statusKey,
+    paymentKey,
+    phone,
+    isWhatsApp,
+    customerName,
+  } = getOrderDetailView(order);
 
   const contactHref = phone ? getContactHref(phone, isWhatsApp) : null;
   const isWaLink = contactHref != null && contactHref.startsWith("https://");

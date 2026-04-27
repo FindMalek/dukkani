@@ -1,8 +1,4 @@
 import {
-  ORDER_STATUS_BADGE_VARIANT,
-  OrderEntity,
-} from "@dukkani/common/entities/order/entity";
-import {
   parseLimit,
   parseOrderStatus,
   parsePage,
@@ -17,13 +13,12 @@ import { appMutations } from "@/shared/api/mutations";
 import { appQueries } from "@/shared/api/queries";
 import { useFormatOrderRelativeDateTime } from "@/shared/lib/i18n/use-format-order-relative-datetime";
 import { useActiveStoreStore } from "../store/active.store";
-import { getItemsCount, getOrderTotal } from "./order.util";
 import { useOrderStore } from "./store";
 
 /**
- * Data and derived fields for the order detail screen. Pass `orderId` from
- * `getDynamicRouteParam` after the page has ensured it is defined, or
- * `undefined` when missing (query will stay disabled).
+ * Order detail screen: oRPC query + `formattedCreatedAt` + status mutation.
+ * After `order` is loaded, derive UI fields with `getOrderDetailView` from
+ * `order.util.ts` (not returned here, to avoid placeholder values when loading).
  */
 export function useOrderDetailPage(orderId: string | undefined) {
   const {
@@ -39,43 +34,6 @@ export function useOrderDetailPage(orderId: string | undefined) {
   const updateStatusMutation = useMutation(appMutations.order.updateStatus());
   const formattedCreatedAt = useFormatOrderRelativeDateTime(order?.createdAt);
 
-  const view = useMemo(() => {
-    if (!order) {
-      return {
-        subtotal: 0,
-        deliveryFee: 0,
-        total: 0,
-        itemsCount: 0,
-        nextStatus: null,
-        canAdvance: false,
-        badgeVariant: "outline" as const,
-        statusKey: "status.pending" as const,
-        paymentKey: "cashOnDelivery" as const,
-        phone: undefined as string | undefined,
-        isWhatsApp: false,
-        customerName: undefined,
-      };
-    }
-    const subtotal = getOrderTotal(order);
-    const deliveryFee = order.store?.shippingCost ?? 0;
-    const nextStatus = OrderEntity.getNextStatus(order.status);
-    const customerName = order.customer?.name?.trim() || undefined;
-    return {
-      subtotal,
-      deliveryFee,
-      total: subtotal + deliveryFee,
-      itemsCount: getItemsCount(order),
-      nextStatus, 
-      canAdvance: nextStatus !== null,
-      badgeVariant: ORDER_STATUS_BADGE_VARIANT[order.status] ?? "outline",
-      statusKey: OrderEntity.getStatusLabelKey(order.status),
-      paymentKey: OrderEntity.getPaymentMethodLabelKey(order.paymentMethod),
-      phone: order.customer?.phone,
-      isWhatsApp: order.isWhatsApp,
-      customerName,
-    };
-  }, [order]);
-
   return {
     order,
     isLoading,
@@ -83,7 +41,6 @@ export function useOrderDetailPage(orderId: string | undefined) {
     isNotFoundError,
     updateStatusMutation,
     formattedCreatedAt,
-    ...view,
   };
 }
 
