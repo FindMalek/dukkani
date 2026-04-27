@@ -13,6 +13,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useFormatter, useTranslations } from "next-intl";
 import { useQueryStates } from "nuqs";
 import { useMemo } from "react";
+import { isOrpcNotFoundError } from "@/shared/api/error-handler";
 import { appMutations } from "@/shared/api/mutations";
 import { appQueries } from "@/shared/api/queries";
 import { useActiveStoreStore } from "../store/active.store";
@@ -60,10 +61,12 @@ export function useOrderDetailPage(orderId: string | undefined) {
     data: order,
     isLoading,
     isError,
+    error,
   } = useQuery({
     ...appQueries.order.byId({ input: { id: orderId ?? "" } }),
     enabled: !!orderId,
   });
+  const isNotFoundError = isError && isOrpcNotFoundError(error);
   const updateStatusMutation = useMutation(appMutations.order.updateStatus());
   const formattedCreatedAt = useFormatOrderListRelativeTime(order?.createdAt);
 
@@ -107,6 +110,7 @@ export function useOrderDetailPage(orderId: string | undefined) {
     order,
     isLoading,
     isError,
+    isNotFoundError,
     updateStatusMutation,
     formattedCreatedAt,
     ...view,

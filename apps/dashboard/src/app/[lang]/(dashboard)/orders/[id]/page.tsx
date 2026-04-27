@@ -28,6 +28,7 @@ export default function OrderDetailPage() {
     order,
     isLoading,
     isError,
+    isNotFoundError,
     updateStatusMutation,
     formattedCreatedAt: formattedDate,
     subtotal,
@@ -52,11 +53,20 @@ export default function OrderDetailPage() {
     return <OrderDetailSkeleton />;
   }
 
-  if (isError || !order) {
+  if (isError) {
     return (
       <OrderDetailErrorState
         title={t("title")}
-        errorMessage={t("errorLoading")}
+        errorMessage={isNotFoundError ? t("notFound") : t("errorLoading")}
+      />
+    );
+  }
+
+  if (!order) {
+    return (
+      <OrderDetailErrorState
+        title={t("title")}
+        errorMessage={t("notFound")}
       />
     );
   }
