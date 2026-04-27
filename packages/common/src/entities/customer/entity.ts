@@ -3,9 +3,20 @@ import type {
   CustomerSimpleOutput,
 } from "../../schemas/customer/output";
 import { StoreEntity } from "../store/entity";
-import type { CustomerIncludeDbData, CustomerSimpleDbData } from "./query";
+import type {
+  CustomerIncludeDbData,
+  CustomerListDbData,
+  CustomerSimpleDbData,
+} from "./query";
 
 export class CustomerEntity {
+  static getListRo(entity: CustomerListDbData): {
+    name: string;
+    phone: string;
+  } {
+    return { name: entity.name, phone: entity.phone };
+  }
+
   static getSimpleRo(entity: CustomerSimpleDbData): CustomerSimpleOutput {
     return {
       id: entity.id,

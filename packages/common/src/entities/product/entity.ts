@@ -230,7 +230,7 @@ export class ProductEntity {
       variantId: item.variantId,
       quantity: item.quantity,
       productName: productData.name,
-      productImage: productData.imageUrls?.[0],
+      productImage: variant?.imageUrl ?? productData.imageUrls?.[0],
       productDescription: buildVariantDescription(variant),
       price: unitPrice,
       stock: variant?.stock ?? productData.stock,

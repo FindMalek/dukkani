@@ -8,10 +8,41 @@ import type { ListOrdersInput } from "@dukkani/common/schemas/order/input";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useQueryStates } from "nuqs";
 import { useMemo } from "react";
+import { isOrpcNotFoundError } from "@/shared/api/error-handler";
 import { appMutations } from "@/shared/api/mutations";
 import { appQueries } from "@/shared/api/queries";
+import { useFormatOrderRelativeDateTime } from "@/shared/lib/i18n/use-format-order-relative-datetime";
 import { useActiveStoreStore } from "../store/active.store";
 import { useOrderStore } from "./store";
+
+/**
+ * Order detail screen: oRPC query + `formattedCreatedAt` + status mutation.
+ * After `order` is loaded, derive UI fields with `getOrderDetailView` from
+ * `order.util.ts` (not returned here, to avoid placeholder values when loading).
+ */
+export function useOrderDetailPage(orderId: string | undefined) {
+  const {
+    data: order,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    ...appQueries.order.byId({ input: { id: orderId ?? "" } }),
+    enabled: !!orderId,
+  });
+  const isNotFoundError = isError && isOrpcNotFoundError(error);
+  const updateStatusMutation = useMutation(appMutations.order.updateStatus());
+  const formattedCreatedAt = useFormatOrderRelativeDateTime(order?.createdAt);
+
+  return {
+    order,
+    isLoading,
+    isError,
+    isNotFoundError,
+    updateStatusMutation,
+    formattedCreatedAt,
+  };
+}
 
 /**
  * Controller hook that composes:
@@ -21,14 +52,12 @@ import { useOrderStore } from "./store";
  * - ORPC query hooks
  * - ORPC mutation hooks
  *
- * Provides a single interface for Orders pages.
+ * Provides a single interface for the orders list page.
  */
 export function useOrdersController() {
   const { selectedStoreId } = useActiveStoreStore();
   const { selectedOrderId, setSelectedOrderId } = useOrderStore();
 
-  // Filters and pagination live in the URL so they're shareable and
-  // cleared automatically when the user navigates away.
   const [filters, setFilters] = useQueryStates({
     search: parseSearchQuery.withDefault(""),
     status: parseOrderStatus,
@@ -59,13 +88,10 @@ export function useOrdersController() {
   const deleteOrderMutation = useMutation(appMutations.order.delete());
 
   return {
-    // Store context
     selectedStoreId,
-    // URL filter state
     search: filters.search,
     status: filters.status,
     page: filters.page,
-    // Filter setters — wrapped to return void (nuqs setters return Promise internally)
     setSearch: (v: string) => {
       setFilters({ search: v, page: 1 });
     },
@@ -76,12 +102,9 @@ export function useOrdersController() {
       setFilters({ page: v });
     },
     resetFilters,
-    // UI state
     selectedOrderId,
     setSelectedOrderId,
-    // Query
     ordersQuery,
-    // Mutations
     createOrderMutation,
     updateOrderStatusMutation,
     deleteOrderMutation,

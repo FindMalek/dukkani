@@ -1,127 +1,178 @@
 "use client";
 
-import { Badge } from "@dukkani/ui/components/badge";
-import { Button } from "@dukkani/ui/components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@dukkani/ui/components/card";
-import { Icons } from "@dukkani/ui/components/icons";
-import Link from "next/link";
+import { OrderEntity } from "@dukkani/common/entities/order/entity";
+import { cn } from "@dukkani/ui/lib/utils";
 import { notFound, useParams } from "next/navigation";
-import { RoutePaths } from "@/shared/config/routes";
+import { useTranslations } from "next-intl";
+import { OrderDetailCustomerCard } from "@/components/app/orders/order-detail-customer-card";
+import { OrderDetailDeliveryCard } from "@/components/app/orders/order-detail-delivery-card";
+import { OrderDetailErrorState } from "@/components/app/orders/order-detail-error-state";
+import { OrderDetailFooter } from "@/components/app/orders/order-detail-footer";
+import { OrderDetailHeader } from "@/components/app/orders/order-detail-header";
+import { OrderDetailItemsCard } from "@/components/app/orders/order-detail-items-card";
+import { OrderDetailMetaCards } from "@/components/app/orders/order-detail-meta-cards";
+import { OrderDetailSkeleton } from "@/components/app/orders/order-detail-skeleton";
+import { OrderDetailSummary } from "@/components/app/orders/order-detail-summary";
+import { useOrderDetailPage } from "@/shared/lib/order/controller.hook";
+import { getOrderDetailView } from "@/shared/lib/order/order.util";
+import { getContactHref } from "@/shared/lib/phone/contact-href.util";
 import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
+import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 
 export default function OrderDetailPage() {
   const params = useParams();
+  const t = useTranslations("orders.detail");
+  const tList = useTranslations("orders.list");
   const orderId = getDynamicRouteParam(params, "id");
+  const formatPrice = useFormatPriceForActiveStore();
+  const {
+    order,
+    isLoading,
+    isError,
+    isNotFoundError,
+    updateStatusMutation,
+    formattedCreatedAt: formattedDate,
+  } = useOrderDetailPage(orderId);
 
   if (!orderId) {
     notFound();
   }
 
+  if (isLoading) {
+    return <OrderDetailSkeleton />;
+  }
+
+  if (isError) {
+    return (
+      <OrderDetailErrorState
+        title={t("title")}
+        errorMessage={isNotFoundError ? t("notFound") : t("errorLoading")}
+      />
+    );
+  }
+
+  if (!order) {
+    return (
+      <OrderDetailErrorState title={t("title")} errorMessage={t("notFound")} />
+    );
+  }
+
+  const {
+    subtotal,
+    total,
+    deliveryFee,
+    itemsCount,
+    nextStatus,
+    canAdvance,
+    badgeVariant,
+    statusKey,
+    paymentKey,
+    phone,
+    isWhatsApp,
+    customerName,
+  } = getOrderDetailView(order);
+
+  const contactHref = phone ? getContactHref(phone, isWhatsApp) : null;
+  const isWaLink = contactHref != null && contactHref.startsWith("https://");
+  const nextStatusLabel =
+    canAdvance && nextStatus
+      ? tList(OrderEntity.getStatusLabelKey(nextStatus))
+      : null;
+  const slideToConfirmText = nextStatusLabel
+    ? t("slideToSetStatus", { status: nextStatusLabel })
+    : null;
+
+  const hasContact = phone != null && contactHref != null;
+  const showFooter = canAdvance || hasContact;
+  const callActionLabel = customerName
+    ? t("callCustomer", { name: customerName })
+    : t("call");
+  const contactCompactAriaLabel = isWhatsApp
+    ? t("openWhatsApp")
+    : callActionLabel;
+  const contactOnlyLabel = isWhatsApp ? t("openWhatsApp") : callActionLabel;
+
   return (
-    <div className="container mx-auto max-w-7xl p-4 md:p-6">
-      <div className="mb-6">
-        <div className="mb-4 flex items-center gap-4">
-          <Link href={RoutePaths.ORDERS.INDEX.url}>
-            <Button variant="ghost" size="icon">
-              <Icons.arrowLeft className="h-4 w-4" />
-            </Button>
-          </Link>
-          <div>
-            <h1 className="font-bold text-2xl md:text-3xl">Order Details</h1>
-            <p className="mt-2 text-muted-foreground text-sm md:text-base">
-              View and edit order information
-            </p>
-          </div>
-        </div>
+    <>
+      <div
+        className={cn(
+          "container mx-auto max-w-2xl space-y-2 p-3",
+          showFooter ? "pb-24" : "pb-3",
+        )}
+      >
+        <OrderDetailHeader title={t("title")} titleClassName="text-base" />
+
+        <OrderDetailSummary
+          badgeVariant={badgeVariant}
+          orderId={order.id}
+          orderMetaLine={formattedDate}
+          statusLabel={tList(statusKey)}
+          totalFormatted={formatPrice(total)}
+        />
+
+        <OrderDetailMetaCards
+          columnLabels={{ items: t("items"), payment: t("payment") }}
+          itemsLine={t("itemsCount", { count: itemsCount })}
+          paymentLabel={tList(paymentKey)}
+        />
+
+        {order.customer && (
+          <OrderDetailCustomerCard
+            name={order.customer.name}
+            phone={phone}
+            callAriaLabel={callActionLabel}
+            openWhatsAppAriaLabel={t("openWhatsApp")}
+            contactHref={contactHref}
+            isWaLink={isWaLink}
+            isWhatsApp={isWhatsApp}
+            sectionLabel={t("customer")}
+          />
+        )}
+
+        {order.address && (
+          <OrderDetailDeliveryCard
+            city={order.address.city}
+            labels={{ deliveryAddress: t("deliveryAddress") }}
+            notes={order.notes}
+            postalCode={order.address.postalCode}
+            street={order.address.street}
+          />
+        )}
+
+        <OrderDetailItemsCard
+          deliveryFee={deliveryFee}
+          formatPrice={formatPrice}
+          itemCountLine={(n) => t("itemsCount", { count: n })}
+          labels={{
+            delivery: t("delivery"),
+            orderItems: t("orderItems"),
+            subtotal: t("subtotal"),
+            total: t("total"),
+          }}
+          orderItems={order.orderItems}
+          subtotal={subtotal}
+          total={total}
+        />
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Order Information</CardTitle>
-            <CardDescription>Order ID: {orderId}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Status
-              </label>
-              <div className="mt-1">
-                <Badge variant="outline">PENDING</Badge>
-              </div>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Customer
-              </label>
-              <p className="mt-1 text-sm">Customer name will appear here</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Phone
-              </label>
-              <p className="mt-1 text-sm">Customer phone will appear here</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Created
-              </label>
-              <p className="mt-1 text-sm">
-                Order creation date will appear here
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Order Summary</CardTitle>
-            <CardDescription>Items and totals</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Items
-              </label>
-              <p className="mt-1 text-sm">Order items list will appear here</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Subtotal
-              </label>
-              <p className="mt-1 text-sm">$0.00</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Total
-              </label>
-              <p className="mt-1 font-bold text-lg">$0.00</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Actions</CardTitle>
-          <CardDescription>Manage this order</CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-4">
-          <Button disabled>Update Status</Button>
-          <Button disabled variant="outline">
-            Resend WhatsApp
-          </Button>
-          <Button disabled variant="outline">
-            Edit Order
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
+      {showFooter && (
+        <OrderDetailFooter
+          canAdvance={canAdvance}
+          contactCompactAriaLabel={contactCompactAriaLabel}
+          contactHref={contactHref}
+          contactOnlyLabel={contactOnlyLabel}
+          isMutating={updateStatusMutation.isPending}
+          isWaLink={isWaLink}
+          isWhatsApp={isWhatsApp}
+          onConfirmAdvance={() => {
+            if (nextStatus) {
+              updateStatusMutation.mutate({ id: order.id, status: nextStatus });
+            }
+          }}
+          phone={phone}
+          slideToConfirmText={slideToConfirmText}
+        />
+      )}
+    </>
   );
 }

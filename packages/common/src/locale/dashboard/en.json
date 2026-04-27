@@ -250,6 +250,7 @@
       "searchPlaceholder": "Search by name, phone or order #",
       "empty": "No orders found. Orders will appear here once customers start placing them.",
       "error": "Error loading orders. Please try again later.",
+      "retry": "Retry",
       "refresh": "Refresh orders",
       "call": "Call",
       "advanceStatus": "Advance",
@@ -286,6 +287,29 @@
         "from": "From",
         "to": "To"
       }
+    },
+    "detail": {
+      "backToOrders": "Back to orders",
+      "title": "Order Details",
+      "payment": "Payment",
+      "items": "Items",
+      "itemsCount": "{count, plural, one {# Item} other {# Items}}",
+      "customer": "Customer",
+      "openWhatsApp": "Open WhatsApp",
+      "call": "Call",
+      "callCustomer": "Call {name}",
+      "deliveryAddress": "Delivery Address",
+      "deliveryNotes": "Delivery notes",
+      "orderItems": "Order Items",
+      "subtotal": "Subtotal",
+      "delivery": "Delivery",
+      "total": "Total",
+      "updateStatus": "Update Status",
+      "slideToSetStatus": "Slide to mark as {status}",
+      "slideToUpdate": "Update Status",
+      "loading": "Loading order…",
+      "notFound": "Order not found",
+      "errorLoading": "Error loading order. Please try again."
     }
   },
   "products": {

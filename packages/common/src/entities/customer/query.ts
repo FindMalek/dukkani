@@ -4,6 +4,10 @@ export type CustomerSimpleDbData = Prisma.CustomerGetPayload<{
   include: ReturnType<typeof CustomerQuery.getSimpleInclude>;
 }>;
 
+export type CustomerListDbData = Prisma.CustomerGetPayload<{
+  select: ReturnType<typeof CustomerQuery.getListSelect>;
+}>;
+
 export type CustomerIncludeDbData = Prisma.CustomerGetPayload<{
   include: ReturnType<typeof CustomerQuery.getInclude>;
 }>;
@@ -13,6 +17,13 @@ export type CustomerClientSafeDbData = Prisma.CustomerGetPayload<{
 }>;
 
 export class CustomerQuery {
+  static getListSelect() {
+    return {
+      name: true,
+      phone: true,
+    } satisfies Prisma.CustomerSelect;
+  }
+
   static getSimpleInclude() {
     return {} satisfies Prisma.CustomerInclude;
   }

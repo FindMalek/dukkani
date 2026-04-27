@@ -3,7 +3,7 @@
 import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { RoutePaths } from "@/shared/config/routes";
+import { RoutePaths, shouldHideBottomNav } from "@/shared/config/routes";
 
 const mainNavLinks = [
   RoutePaths.DASHBOARD,
@@ -26,6 +26,10 @@ function isActiveRoute(
 
 export function BottomNavigation() {
   const pathname = usePathname();
+
+  if (shouldHideBottomNav(pathname)) {
+    return null;
+  }
 
   return (
     <nav className="fixed right-0 bottom-0 left-0 flex items-center justify-around border-border border-t bg-card px-4 py-3">

@@ -71,7 +71,7 @@ export const orderRouter = {
           skip,
           take: limit,
           orderBy: OrderQuery.getOrder("desc", "createdAt"),
-          include: OrderQuery.getInclude(),
+          select: OrderQuery.getListSelect(),
         }),
         database.order.count({ where }),
       ]);
@@ -79,7 +79,7 @@ export const orderRouter = {
       const hasMore = skip + orders.length < total;
 
       return {
-        orders: orders.map(OrderEntity.getRo),
+        orders: orders.map(OrderEntity.getListRo),
         total,
         hasMore,
         page,
@@ -95,7 +95,7 @@ export const orderRouter = {
 
       const order = await database.order.findUnique({
         where: { id: input.id },
-        include: OrderQuery.getInclude(),
+        include: OrderQuery.getIncludeWithProduct(),
       });
 
       if (!order) {
@@ -103,7 +103,7 @@ export const orderRouter = {
       }
 
       await verifyStoreOwnership(userId, order.storeId);
-      return OrderEntity.getRo(order);
+      return OrderEntity.getRoWithProduct(order);
     }),
 
   updateStatus: protectedProcedure

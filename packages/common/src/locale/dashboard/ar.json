@@ -236,6 +236,7 @@
       "searchPlaceholder": "البحث بالاسم أو الهاتف أو رقم الطلب",
       "empty": "لم يتم العثور على طلبات. ستظهر الطلبات هنا بمجرد أن يبدأ العملاء في تقديمها.",
       "error": "خطأ في تحميل الطلبات. يرجى المحاولة مرة أخرى لاحقًا.",
+      "retry": "إعادة المحاولة",
       "refresh": "تحديث الطلبات",
       "call": "اتصل",
       "advanceStatus": "تقدم",
@@ -272,6 +273,29 @@
         "from": "من",
         "to": "إلى"
       }
+    },
+    "detail": {
+      "backToOrders": "العودة إلى الطلبات",
+      "title": "تفاصيل الطلب",
+      "payment": "الدفع",
+      "items": "العناصر",
+      "itemsCount": "{count} عنصر",
+      "customer": "العميل",
+      "openWhatsApp": "فتح واتساب",
+      "call": "اتصل",
+      "callCustomer": "اتصل بـ {name}",
+      "deliveryAddress": "عنوان التسليم",
+      "deliveryNotes": "ملاحظات التسليم",
+      "orderItems": "عناصر الطلب",
+      "subtotal": "المجموع الجزئي",
+      "delivery": "التوصيل",
+      "total": "الإجمالي",
+      "updateStatus": "تحديث الحالة",
+      "slideToSetStatus": "اسحب لتعيين الحالة: {status}",
+      "slideToUpdate": "تحديث الحالة",
+      "loading": "جارٍ التحميل…",
+      "notFound": "الطلب غير موجود",
+      "errorLoading": "خطأ في تحميل الطلب. يرجى المحاولة مرة أخرى."
     }
   },
   "products": {

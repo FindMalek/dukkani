@@ -1,16 +1,33 @@
 import type { AddressSimpleOutput } from "../../schemas/address/output";
-import type { AddressSimpleDbData } from "./query";
+import type { AddressListDbData, AddressSimpleDbData } from "./query";
 
 export class AddressEntity {
-  /**
-   * Formats address as a short one-line string for display (e.g. "City, Street").
-   * Returns null if address is null.
-   */
+  static getListRo(entity: AddressListDbData): {
+    city: string;
+    postalCode: string | null;
+    street: string;
+  } {
+    return {
+      city: entity.city,
+      postalCode: entity.postalCode,
+      street: entity.street,
+    };
+  }
+
   static formatShortLocation(
     address: AddressSimpleOutput | null | undefined,
   ): string | null {
     if (!address) return null;
     return address.street ? `${address.city}, ${address.street}` : address.city;
+  }
+
+  static formatOrderListLocation(
+    address: { city: string; postalCode: string | null } | null | undefined,
+  ): string | null {
+    if (!address) return null;
+    const { city, postalCode } = address;
+    if (postalCode) return `${city}, ${postalCode}`;
+    return city;
   }
 
   static getSimpleRo(entity: AddressSimpleDbData): AddressSimpleOutput {

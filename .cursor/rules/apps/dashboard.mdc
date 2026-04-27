@@ -36,9 +36,10 @@ apps/dashboard/src/
 │   └── lib/                   # Domain-organized business logic
 │       ├── product/           # controller.hook.ts, form.ts, store.ts (UI-only)
 │       ├── variant/           # variants-form.util.ts, variants-field.hook.ts — product variant matrix (editor form slice)
-│       ├── order/             # controller.hook.ts, datetime.util.ts, group-by-date.util.ts, price.util.ts, store.ts (UI-only)
+│       ├── order/             # controller.hook.ts, order.util.ts, store.ts (UI-only)
 │       ├── onboarding/        # controller.hook.ts, stepper.util.ts
 │       ├── store/             # active.store.ts, current-currency.hook.ts, format-price.hook.ts, url.util.ts
+│       ├── i18n/                 # `use-format-order-relative-datetime.ts` — next-intl hooks for cross-screen copy
 │       ├── route-params.util.ts  # `getDynamicRouteParam` — `useParams()` segment parsing
 │       ├── clipboard.ts
 │       └── image-compression.ts
@@ -142,6 +143,10 @@ Domain logic is grouped by feature. File suffix conventions:
 | `.store.ts` | Zustand store definitions — **UI-only state** (selection, view mode). Filters live in the URL via nuqs. |
 | `.util.ts` | Pure utility functions (formatting, grouping, calculations) |
 | `.hook.ts` | Domain-specific hooks that don't own full screen state (includes **form field** hooks — see below) |
+
+**Order dates (today / yesterday / older):** use **`useFormatOrderRelativeDateTime`** from [`shared/lib/i18n/use-format-order-relative-datetime.ts`](apps/dashboard/src/shared/lib/i18n/use-format-order-relative-datetime.ts) for any UI string that should match the order list meta line and next-intl locale. Pure bucketing in [`order.util.ts`](apps/dashboard/src/shared/lib/order/order.util.ts) (`groupOrdersByDate(orders, { locale })` with `useLocale()`) uses **`isLocalCalendarDayToday` / `isLocalCalendarDayYesterday`** from `@dukkani/common/lib` so list sections and labels stay consistent, and `formatOrderListOlderSectionDateLabel` for “older” headings in the active dashboard locale.
+
+**Order detail screen:** `useOrderDetailPage` only exposes the by-id query, `formattedCreatedAt`, and the status mutation. **Derived totals, badge, next status, and contact fields** come from **`getOrderDetailView(order)`** in [`order.util.ts`](apps/dashboard/src/shared/lib/order/order.util.ts) after the page knows `order` is loaded — not placeholder values from the hook.
 
 **`controller.hook.ts` vs field hooks:** `controller.hook.ts` is for **screen-level** orchestration (nuqs + Zustand + `appQueries` + `appMutations`). Hooks that only coordinate a **subsection of one form** (e.g. variant options + matrix under `ProductFormApi`) belong in a `*.hook.ts` next to related utils — **do not** name them `controller.hook.ts`. Example: [`variants-field.hook.ts`](apps/dashboard/src/shared/lib/variant/variants-field.hook.ts) under [`shared/lib/variant/`](apps/dashboard/src/shared/lib/variant/).
 

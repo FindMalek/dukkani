@@ -2,6 +2,7 @@ import type { OrderStatus } from "@dukkani/common/schemas/order/enums";
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { AddressQuery } from "../address/query";
 import { CustomerQuery } from "../customer/query";
+import { OrderItemQuery } from "../order-item/query";
 
 export type OrderSimpleDbData = Prisma.OrderGetPayload<{
   include: ReturnType<typeof OrderQuery.getSimpleInclude>;
@@ -19,9 +20,25 @@ export type OrderClientSafeDbData = Prisma.OrderGetPayload<{
   include: ReturnType<typeof OrderQuery.getClientSafeInclude>;
 }>;
 
+export type OrderListDbData = Prisma.OrderGetPayload<{
+  select: ReturnType<typeof OrderQuery.getListSelect>;
+}>;
+
 export class OrderQuery {
   static getSimpleInclude() {
     return {} satisfies Prisma.OrderInclude;
+  }
+
+  static getListSelect() {
+    return {
+      id: true,
+      status: true,
+      paymentMethod: true,
+      createdAt: true,
+      customer: { select: CustomerQuery.getListSelect() },
+      address: { select: AddressQuery.getListSelect() },
+      orderItems: { select: OrderItemQuery.getListSelect() },
+    } satisfies Prisma.OrderSelect;
   }
 
   static getInclude() {
@@ -46,10 +63,7 @@ export class OrderQuery {
         select: AddressQuery.getSimpleSelect(),
       },
       orderItems: {
-        include: {
-          product: { select: { id: true } },
-          productVersion: { select: { name: true } },
-        },
+        include: OrderItemQuery.getIncludeWithProductSelect(),
       },
       whatsappMessages: true,
     } satisfies Prisma.OrderInclude;

@@ -240,6 +240,7 @@
       "searchPlaceholder": "Rechercher par nom, téléphone ou numéro de commande #",
       "empty": "Aucune commande trouvée. Les commandes apparaîtront ici une fois que les clients commenceront à les passer.",
       "error": "Erreur de chargement des commandes. Veuillez réessayer plus tard.",
+      "retry": "Réessayer",
       "refresh": "Rafraîchir les commandes",
       "call": "Appeler",
       "advanceStatus": "Avancer",
@@ -276,6 +277,29 @@
         "from": "De",
         "to": "À"
       }
+    },
+    "detail": {
+      "backToOrders": "Retour aux commandes",
+      "title": "Détails de la commande",
+      "payment": "Paiement",
+      "items": "Articles",
+      "itemsCount": "{count, plural, one {# Article} other {# Articles}}",
+      "customer": "Client",
+      "openWhatsApp": "Ouvrir WhatsApp",
+      "call": "Appeler",
+      "callCustomer": "Appeler {name}",
+      "deliveryAddress": "Adresse de livraison",
+      "deliveryNotes": "Notes de livraison",
+      "orderItems": "Articles commandés",
+      "subtotal": "Sous-total",
+      "delivery": "Livraison",
+      "total": "Total",
+      "updateStatus": "Mettre à jour le statut",
+      "slideToSetStatus": "Faire glisser pour marquer : {status}",
+      "slideToUpdate": "Mettre à jour le statut",
+      "loading": "Chargement…",
+      "notFound": "Commande introuvable",
+      "errorLoading": "Erreur lors du chargement. Veuillez réessayer."
     }
   },
   "products": {

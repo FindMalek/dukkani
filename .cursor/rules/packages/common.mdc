@@ -196,7 +196,7 @@ export class StoreService {
 
 ### Pattern
 
-Pure helpers when possible; parsers and URL utilities live in `lib/query/` and `lib/http/`.
+Pure helpers when possible; parsers and URL utilities live in `lib/query/` and `lib/http/`. **`lib/datetime/calendar-day.ts`** exports local **calendar-day** helpers (`getStartOfLocalDay`, `isLocalCalendarDayToday`, `isLocalCalendarDayYesterday`, `isSameLocalCalendarDay`) for bucketing instants by “today / yesterday” in the runtime timezone — used by the dashboard order list and kept in sync with locale-aware formatting in the app (not a replacement for `Intl` / next-intl display strings).
 
 ### File Naming
 `{utility-name}.ts` (kebab-case) within the appropriate subfolder.

@@ -8,6 +8,19 @@ export interface APIError {
 }
 
 /**
+ * oRPC and HTTP clients that surface {@link ORPCError} (code) or 404 `status`
+ * (e.g. a gateway). Use in UI to tell “missing resource” from network/server
+ * errors without relying on a generic isError flag alone.
+ */
+export function isOrpcNotFoundError(error: unknown): boolean {
+  if (error == null || typeof error !== "object") {
+    return false;
+  }
+  const e = error as APIError;
+  return e.code === "NOT_FOUND" || e.status === 404;
+}
+
+/**
  * Handle API errors with user-friendly toast messages
  */
 export function handleAPIError(
@@ -54,7 +67,7 @@ export function handleAPIError(
   }
 
   // Not found errors
-  if (error?.code === "NOT_FOUND" || error?.status === 404) {
+  if (isOrpcNotFoundError(error)) {
     toast.error("Resource not found. Please check your request and try again.");
     return;
   }
