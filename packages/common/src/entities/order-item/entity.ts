@@ -10,7 +10,10 @@ import type {
 } from "./query";
 
 export class OrderItemEntity {
-  static getListRo(entity: OrderItemListDbData): { price: number; quantity: number } {
+  static getListRo(entity: OrderItemListDbData): {
+    price: number;
+    quantity: number;
+  } {
     return { price: Number(entity.price), quantity: entity.quantity };
   }
 

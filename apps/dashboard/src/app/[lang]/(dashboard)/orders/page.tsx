@@ -31,7 +31,7 @@ export default function OrdersPage() {
   const locale = useLocale();
   const t = useTranslations("orders.list");
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
-  
+
   const {
     ordersQuery: { data, isLoading, error, refetch, isRefetching },
     search,

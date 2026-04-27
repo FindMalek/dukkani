@@ -19,10 +19,7 @@ export function OrderDetailHeader({
   return (
     <div className="flex items-center justify-between">
       <Button variant="ghost" size="icon" asChild>
-        <Link
-          href={RoutePaths.ORDERS.INDEX.url}
-          aria-label={t("backToOrders")}
-        >
+        <Link href={RoutePaths.ORDERS.INDEX.url} aria-label={t("backToOrders")}>
           <Icons.arrowLeft className="size-4" />
         </Link>
       </Button>

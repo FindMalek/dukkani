@@ -10,7 +10,10 @@ import type {
 } from "./query";
 
 export class CustomerEntity {
-  static getListRo(entity: CustomerListDbData): { name: string; phone: string } {
+  static getListRo(entity: CustomerListDbData): {
+    name: string;
+    phone: string;
+  } {
     return { name: entity.name, phone: entity.phone };
   }
 

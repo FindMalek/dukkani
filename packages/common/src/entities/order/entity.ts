@@ -150,9 +150,7 @@ export class OrderEntity {
       customer: entity.customer
         ? CustomerEntity.getListRo(entity.customer)
         : null,
-      address: entity.address
-        ? AddressEntity.getListRo(entity.address)
-        : null,
+      address: entity.address ? AddressEntity.getListRo(entity.address) : null,
       orderItems: entity.orderItems.map(OrderItemEntity.getListRo),
     };
   }

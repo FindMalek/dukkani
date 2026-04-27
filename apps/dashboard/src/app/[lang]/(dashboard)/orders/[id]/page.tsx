@@ -53,10 +53,7 @@ export default function OrderDetailPage() {
 
   if (!order) {
     return (
-      <OrderDetailErrorState
-        title={t("title")}
-        errorMessage={t("notFound")}
-      />
+      <OrderDetailErrorState title={t("title")} errorMessage={t("notFound")} />
     );
   }
 

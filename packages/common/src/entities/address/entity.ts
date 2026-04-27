@@ -2,9 +2,11 @@ import type { AddressSimpleOutput } from "../../schemas/address/output";
 import type { AddressListDbData, AddressSimpleDbData } from "./query";
 
 export class AddressEntity {
-  static getListRo(
-    entity: AddressListDbData,
-  ): { city: string; postalCode: string | null; street: string | null } {
+  static getListRo(entity: AddressListDbData): {
+    city: string;
+    postalCode: string | null;
+    street: string;
+  } {
     return {
       city: entity.city,
       postalCode: entity.postalCode,
