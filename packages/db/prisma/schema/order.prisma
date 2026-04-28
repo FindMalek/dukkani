@@ -57,6 +57,7 @@ model OrderItem {
   productVariantId  String?                     @map("product_variant_id")
   displayAttributes OrderItemVariantAttribute[]
   addonSelections   OrderItemAddon[]
+  bundleChildren    OrderItemBundleChild[]
 
   @@index([productVersionId])
   @@map("order_items")
@@ -103,4 +104,34 @@ model OrderItemVariantAttribute {
 
   @@index([orderItemId])
   @@map("order_item_variant_attributes")
+}
+
+/**
+ * Frozen snapshot of which child products/variants had stock decremented for a bundle OrderItem.
+ * Written atomically at order creation; used to restore stock on order deletion.
+ * itemQty = the bundle's configured qty for this child.
+ * totalQty = itemQty × orderItem.quantity (the actual units decremented).
+ */
+model OrderItemBundleChild {
+  id String @id @default(cuid())
+
+  orderItemId String    @map("order_item_id")
+  orderItem   OrderItem @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+
+  childProductId        String @map("child_product_id")
+  childVariantId        String? @map("child_variant_id")
+  childProductVersionId String @map("child_product_version_id")
+
+  itemQty  Int @map("item_qty")
+  totalQty Int @map("total_qty")
+
+  childProduct        Product         @relation(fields: [childProductId], references: [id], onDelete: Cascade)
+  childVariant        ProductVariant? @relation(fields: [childVariantId], references: [id], onDelete: SetNull)
+  childProductVersion ProductVersion  @relation(fields: [childProductVersionId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([orderItemId])
+  @@index([childProductId])
+  @@map("order_item_bundle_children")
 }
