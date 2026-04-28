@@ -16,10 +16,10 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Languine Translation
-        uses: languine-ai/languine@v1
+        uses: FindMalek/languine@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LANGUINE_BASE_URL: ${{ secrets.LANGUINE_BASE_URL }}
         with:
           api-key: ${{ secrets.LANGUINE_API_KEY }}
           project-id: ${{ secrets.LANGUINE_PROJECT_ID }}
+          base-url: ${{ secrets.LANGUINE_BASE_URL }}
