@@ -3,6 +3,10 @@ import { buildVariantDescription } from "../../lib/variant/build-description";
 import { listDisplayStock } from "../../lib/variant/list-display-stock";
 import { reconcileVariants } from "../../lib/variant/matrix";
 import type { CartItemOutput } from "../../schemas/cart/output";
+import type {
+  BundleIncludeOutput,
+  ListBundleOutput,
+} from "../../schemas/bundle/output";
 import type { ProductFormInput } from "../../schemas/product/form";
 import type { ProductLineItem } from "../../schemas/product/input";
 import type {
@@ -18,6 +22,7 @@ import { ProductVersionEntity } from "../product-version/entity";
 import { StoreEntity } from "../store/entity";
 import { VariantEntity } from "../variant/entity";
 import type {
+  ProductBundleIncludeDbData,
   ProductIncludeDbData,
   ProductListDbData,
   ProductPublicDbDataWithPublished,
@@ -234,6 +239,69 @@ export class ProductEntity {
       productDescription: buildVariantDescription(variant),
       price: unitPrice,
       stock: variant?.stock ?? productData.stock,
+    };
+  }
+
+  /**
+   * Dashboard bundle detail: maps a bundle product with full bundle items tree.
+   */
+  static getBundleRo(entity: ProductBundleIncludeDbData): BundleIncludeOutput {
+    const v = entity.draftVersion ?? entity.currentPublishedVersion;
+    const versionPrice = v ? Number(v.price) : 0;
+
+    return {
+      id: entity.id,
+      name: v?.name ?? "",
+      description: v?.description ?? null,
+      price: versionPrice,
+      effectiveStock: v?.totalVariantStock ?? 0,
+      published: entity.published,
+      storeId: entity.storeId,
+      categoryId: entity.categoryId,
+      hasDraft: entity.draftVersionId !== null,
+      images: v?.images.map(({ id, url, productVersionId, createdAt, updatedAt }) => ({
+        id, url, productVersionId, createdAt, updatedAt,
+      })),
+      bundleItems: v?.bundleItems
+        ? ProductVersionEntity.getBundleItemsRo(v.bundleItems)
+        : [],
+      orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
+      priceDisplay: buildProductPriceDisplay({
+        hasVariants: false,
+        versionPrice,
+        variantEffectivePriceMin: null,
+        variantEffectivePriceMax: null,
+      }),
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+    };
+  }
+
+  /**
+   * Dashboard bundle list card.
+   */
+  static getBundleListRo(entity: ProductBundleIncludeDbData): ListBundleOutput {
+    const v = entity.draftVersion ?? entity.currentPublishedVersion;
+    const versionPrice = v ? Number(v.price) : 0;
+
+    return {
+      id: entity.id,
+      name: v?.name ?? "",
+      description: v?.description ?? null,
+      price: versionPrice,
+      effectiveStock: v?.totalVariantStock ?? 0,
+      published: entity.published,
+      storeId: entity.storeId,
+      imageUrls: v?.images.map((img) => img.url) ?? [],
+      bundleItemCount: v?.bundleItems?.length ?? 0,
+      priceDisplay: buildProductPriceDisplay({
+        hasVariants: false,
+        versionPrice,
+        variantEffectivePriceMin: null,
+        variantEffectivePriceMax: null,
+      }),
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
     };
   }
 
