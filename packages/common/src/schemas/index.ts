@@ -1,4 +1,6 @@
 export * as address from "./address";
+export * as bundle from "./bundle";
+export * as bundleItem from "./bundle-item";
 export * as category from "./category";
 export * as constants from "./constants";
 export * as customer from "./customer";

@@ -1,4 +1,5 @@
 export * as address from "./address";
+export * as bundleItem from "./bundle-item";
 export * as category from "./category";
 export * as customer from "./customer";
 export * as image from "./image";
