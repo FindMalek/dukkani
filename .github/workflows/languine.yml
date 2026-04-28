@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'packages/common/src/locale/**/*.json'
+  workflow_dispatch:
 
 jobs:
   translate:
