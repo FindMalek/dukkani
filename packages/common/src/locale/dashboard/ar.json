@@ -24,9 +24,9 @@
       }
     },
     "storeInitializer": {
-      "loadError": "تعذر تحميل متاجرك. يرجى المحاولة مرة أخرى.",
-      "noStores": "ليس لديك أي متاجر بعد. أنشئ متجرًا للمتابعة.",
-      "goToOnboarding": "الانتقال إلى الإعداد"
+      "loadError": "Could not load your stores. Please try again.",
+      "noStores": "You don't have any stores yet. Create one to continue.",
+      "goToOnboarding": "Go to onboarding"
     }
   },
   "auth": {
@@ -47,11 +47,11 @@
   },
   "settings": {
     "logout": {
-      "button": "تسجيل الخروج",
-      "title": "تسجيل الخروج من حسابك؟",
-      "description": "سيتم إعادة توجيهك إلى صفحة تسجيل الدخول. قد تُفقد التغييرات غير المحفوظة في علامات التبويب الأخرى.",
-      "cancel": "إلغاء",
-      "confirm": "تسجيل الخروج"
+      "button": "Log out",
+      "title": "Log out of your account?",
+      "description": "You will be redirected to the login page. Any unsaved changes in other tabs may be lost.",
+      "cancel": "Cancel",
+      "confirm": "Log out"
     },
     "telegram": {
       "title": "Telegram Notifications",
@@ -102,7 +102,11 @@
           }
         }
       },
-      "submit": "Continue"
+      "submit": "Continue",
+      "currency": {
+        "label": "Store Currency",
+        "placeholder": "Select your store currency"
+      }
     },
     "storeConfiguration": {
       "title": "Configure your store",
@@ -177,12 +181,22 @@
     },
     "steps": {
       "signup": "Account",
-      "storeSetup": "Store",
+      "storeSetup": "Store Setup",
       "storeConfiguration": "Configure",
-      "complete": "Ready"
+      "complete": "Ready",
+      "welcome": "Welcome",
+      "welcomeDescription": "Get started with your store setup",
+      "storeSetupDescription": "Create your store",
+      "storeCreated": "Store Created",
+      "storeCreatedDescription": "Configure your store",
+      "storeConfigured": "Store Configured",
+      "storeConfiguredDescription": "Launch your store",
+      "storeLaunched": "Store Launched",
+      "storeLaunchedDescription": "Onboarding complete",
+      "storeSetupShort": "Store"
     },
     "actions": {
-      "retry": "إعادة المحاولة"
+      "retry": "Retry"
     },
     "signup": {
       "title": "Create your account",
@@ -234,6 +248,10 @@
         "emailAlreadyInUse": "حساب بهذا البريد الإلكتروني موجود بالفعل. يرجى استخدام بريد إلكتروني مختلف أو تسجيل الدخول.",
         "storeLoadFailed": "لم نتمكن من تحميل متجرك. يرجى تحديث الصفحة أو الاتصال بالدعم."
       }
+    },
+    "errors": {
+      "emailAlreadyInUse": "An account with this email already exists. Please use a different email or sign in.",
+      "storeLoadFailed": "We couldn't load your store. Refresh the page or contact support."
     }
   },
   "orders": {
@@ -243,7 +261,7 @@
       "searchPlaceholder": "البحث بالاسم أو الهاتف أو رقم الطلب",
       "empty": "لم يتم العثور على طلبات. ستظهر الطلبات هنا بمجرد أن يبدأ العملاء في تقديمها.",
       "error": "خطأ في تحميل الطلبات. يرجى المحاولة مرة أخرى لاحقًا.",
-      "retry": "إعادة المحاولة",
+      "retry": "Retry",
       "refresh": "تحديث الطلبات",
       "call": "اتصل",
       "advanceStatus": "تقدم",
@@ -282,27 +300,27 @@
       }
     },
     "detail": {
-      "backToOrders": "العودة إلى الطلبات",
-      "title": "تفاصيل الطلب",
-      "payment": "الدفع",
-      "items": "العناصر",
-      "itemsCount": "{count} عنصر",
-      "customer": "العميل",
-      "openWhatsApp": "فتح واتساب",
-      "call": "اتصل",
-      "callCustomer": "اتصل بـ {name}",
-      "deliveryAddress": "عنوان التسليم",
-      "deliveryNotes": "ملاحظات التسليم",
-      "orderItems": "عناصر الطلب",
-      "subtotal": "المجموع الجزئي",
-      "delivery": "التوصيل",
-      "total": "الإجمالي",
-      "updateStatus": "تحديث الحالة",
-      "slideToSetStatus": "اسحب لتعيين الحالة: {status}",
-      "slideToUpdate": "تحديث الحالة",
-      "loading": "جارٍ التحميل…",
-      "notFound": "الطلب غير موجود",
-      "errorLoading": "خطأ في تحميل الطلب. يرجى المحاولة مرة أخرى."
+      "backToOrders": "Back to orders",
+      "title": "Order Details",
+      "payment": "Payment",
+      "items": "Items",
+      "itemsCount": "{count, plural, one {# Item} other {# Items}}",
+      "customer": "Customer",
+      "openWhatsApp": "Open WhatsApp",
+      "call": "Call",
+      "callCustomer": "Call {name}",
+      "deliveryAddress": "Delivery Address",
+      "deliveryNotes": "Delivery notes",
+      "orderItems": "Order Items",
+      "subtotal": "Subtotal",
+      "delivery": "Delivery",
+      "total": "Total",
+      "updateStatus": "Update Status",
+      "slideToSetStatus": "Slide to mark as {status}",
+      "slideToUpdate": "Update Status",
+      "loading": "Loading order…",
+      "notFound": "Order not found",
+      "errorLoading": "Error loading order. Please try again."
     }
   },
   "products": {
@@ -370,12 +388,12 @@
     "create": {
       "header": {
         "title": "منتج جديد",
-        "editTitle": "تعديل المنتج",
+        "editTitle": "Edit product",
         "save": "حفظ"
       },
-      "storeMismatch": "هذا المنتج يخص متجراً آخر. بدّل المتجر لتعديله.",
-      "loadError": "تعذّر تحميل هذا المنتج. أعد المحاولة أو ارجع إلى القائمة.",
-      "loadingProduct": "جاري تحميل المنتج",
+      "storeMismatch": "This product belongs to another store. Switch stores to edit it.",
+      "loadError": "Could not load this product. Try again or go back to the list.",
+      "loadingProduct": "Loading product",
       "sections": {
         "photos": "صور المنتج",
         "essentials": "المعلومات الأساسية",
@@ -404,16 +422,16 @@
           "placeholder": "أدخل حالة نشر المنتج"
         },
         "photos": "صور",
-        "photoPreviewTitle": "معاينة الصورة",
-        "photoPreviewZoomIn": "تكبير",
-        "photoPreviewZoomOut": "تصغير",
-        "photoPreviewZoomGroup": "عناصر التكبير",
-        "photoPreviewZoomReadout": "نسبة التكبير",
-        "photoPreviewResetZoom": "إعادة تعيين التكبير",
-        "photoPreviewClose": "إغلاق المعاينة",
-        "photoPreviewWheelHint": "مرر للتكبير أو التصغير",
-        "viewPhoto": "عرض بالحجم الكامل",
-        "removePhoto": "إزالة الصورة",
+        "photoPreviewTitle": "Photo preview",
+        "photoPreviewZoomIn": "Zoom in",
+        "photoPreviewZoomOut": "Zoom out",
+        "photoPreviewZoomGroup": "Zoom controls",
+        "photoPreviewZoomReadout": "Zoom percentage",
+        "photoPreviewResetZoom": "Reset zoom",
+        "photoPreviewClose": "Close preview",
+        "photoPreviewWheelHint": "Scroll to zoom",
+        "viewPhoto": "View full size",
+        "removePhoto": "Remove photo",
         "priceHelp": "السعر الذي يدفعه العملاء (الدفع عند الاستلام)",
         "category": {
           "label": "الفئة",
@@ -430,14 +448,14 @@
         "options": {
           "label": "لديه خيارات",
           "description": "أضف خيارات مثل الحجم، اللون، المادة، إلخ.",
-          "structureLocked": "خيارات المتغير مقفلة لأن هذا المنتج يحتوي على متغيرات SKU. يمكنك لا يزال تعديل تفاصيل المنتج الأخرى.",
-          "enableVariantsNeedPrice": "أدخل سعراً أساسياً موجباً أولاً. يمكن للمتغيرات أن ترثه إذا لم يُحدد سعر خاص بها."
+          "structureLocked": "Variant options are locked because this product has SKU variants. You can still edit other product details.",
+          "enableVariantsNeedPrice": "Enter a positive base price first. Variants can inherit it when their own price is not set."
         },
         "saveDraft": "حفظ كمسودة",
-        "saveChanges": "حفظ التغييرات",
-        "publishVersion": "نشر مباشرة",
-        "discardDraft": "تجاهل المسودة",
-        "draftHint": "لديك تعديلات غير منشورة. احفظ التغييرات ثم انشر لتحديث المتجر.",
+        "saveChanges": "Save changes",
+        "publishVersion": "Publish live",
+        "discardDraft": "Discard draft",
+        "draftHint": "You have unpublished edits. Save changes, then publish to update the storefront.",
         "savePublish": "حفظ ونشر",
         "optional": "اختياري",
         "cancel": "إلغاء",
@@ -454,22 +472,22 @@
             "optionName": "اسم الخيار",
             "optionNamePlaceholder": "مثال: الحجم، اللون",
             "values": "القيم",
-            "addValue": "+ إضافة قيمة",
+            "addValue": "+ Add value",
             "noValues": "أضف قيمة واحدة على الأقل",
             "remove": "إزالة الخيار",
-            "removeValue": "إزالة القيمة",
-            "addAnother": "إضافة خيار آخر",
-            "maxOptions": "الحد الأقصى 3 خيارات",
+            "removeValue": "Remove value",
+            "addAnother": "Add another option",
+            "maxOptions": "Maximum 3 options",
             "value": "القيمة"
           },
           "pendingRemoval": {
-            "title": "حذف هذه القيمة سيزيل {count} متغيرات",
-            "description": "اضغط للتأكيد قبل تطبيق التغييرات.",
-            "confirm": "تأكيد",
-            "undo": "تراجع"
+            "title": "Removing this value will delete {count} variants",
+            "description": "Tap to confirm before changes are applied.",
+            "confirm": "Confirm",
+            "undo": "Undo"
           },
           "optionOrder": {
-            "label": "ترتيب الخيارات"
+            "label": "Option order"
           },
           "list": {
             "title": "المتغيرات",
@@ -488,27 +506,27 @@
             "stock": "المخزون"
           },
           "editSheet": {
-            "title": "تعديل المتغير: {label}",
-            "image": "الصورة"
+            "title": "Edit variant: {label}",
+            "image": "Image"
           },
           "imagePicker": {
-            "title": "اختر صورة",
-            "noImage": "بدون صورة"
+            "title": "Choose image",
+            "noImage": "No image"
           },
           "matrix": {
-            "title": "تركيبات المتغير",
-            "hint": "كل صف يمثل تركيبة قابلة للبيع. يُستورد المخزون والسعر من المنتج أعلاه؛ اترك السعر فارغاً لاستخدام السعر الأساسي.",
-            "tooMany": "عدد التركيبات كبير جداً (الحد الأقصى {max}). قلّل قيم الخيارات.",
-            "empty": "أضف أسماء الخيارات والقيم أعلاه لإنشاء الصفوف.",
-            "columnCombination": "التركيبة",
-            "columnSku": "رمز المنتج",
-            "columnPrice": "السعر",
-            "columnStock": "المخزون",
-            "skuPlaceholder": "اختياري",
-            "pricePlaceholder": "السعر الأساسي",
-            "variantCount": "{count} متغيرات",
-            "inStock": "{count} في المخزون",
-            "outOfStock": "نفد المخزون"
+            "title": "Variant combinations",
+            "hint": "Each row is one sellable combination. Stock and price default from the product above; leave price blank to use the base price.",
+            "tooMany": "Too many combinations (max {max}). Remove option values.",
+            "empty": "Add option names and values above to generate rows.",
+            "columnCombination": "Combination",
+            "columnSku": "SKU",
+            "columnPrice": "Price",
+            "columnStock": "Stock",
+            "skuPlaceholder": "Optional",
+            "pricePlaceholder": "Base price",
+            "variantCount": "{count} variants",
+            "inStock": "{count} in stock",
+            "outOfStock": "Out of stock"
           },
           "validation": {
             "duplicateOptionName": "اسم الخيار مكرر",
@@ -527,8 +545,11 @@
     },
     "edit": {
       "header": {
-        "title": "تعديل المنتج",
-        "save": "حفظ"
+        "title": "Edit product",
+        "save": "Save"
+      },
+      "sections": {
+        "essentials": "Essentials"
       }
     }
   },
@@ -537,7 +558,45 @@
       "label": "إضافة صور",
       "dragActiveLabel": "اسحب هنا",
       "hint": "أو انقر للتصفح",
-      "optimizing": "جاري تحسين الصور..."
+      "optimizing": "Optimizing images..."
+    }
+  },
+  "currencies": {
+    "tnd": {
+      "country": {
+        "name": "Tunisia"
+      },
+      "name": "Tunisian Dinar"
+    },
+    "usd": {
+      "country": {
+        "name": "United States"
+      },
+      "name": "US Dollar"
+    },
+    "eur": {
+      "country": {
+        "name": "الاتحاد الأوروبي"
+      },
+      "name": "اليورو"
+    },
+    "gbp": {
+      "country": {
+        "name": "المملكة المتحدة"
+      },
+      "name": "الجنيه البريطاني"
+    },
+    "lyd": {
+      "country": {
+        "name": "ليبيا"
+      },
+      "name": "الدينار الليبي"
+    },
+    "dzd": {
+      "country": {
+        "name": "الجزائر"
+      },
+      "name": "الدينار الجزائري"
     }
   }
 }

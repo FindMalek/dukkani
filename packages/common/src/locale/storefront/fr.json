@@ -24,12 +24,12 @@
         "sortBy": "Trier par",
         "category": "Catégorie",
         "reset": "Réinitialiser",
-        "submit": "Valider",
+        "submit": "Soumettre",
         "cancel": "Annuler",
         "sortOptions": {
-          "newest": "Les plus récents",
-          "cheapest": "Les moins chers",
-          "mostExpensive": "Les plus chers",
+          "newest": "Les plus récents d'abord",
+          "cheapest": "Les moins chers d'abord",
+          "mostExpensive": "Les plus chers d'abord",
           "featured": "En vedette"
         }
       },
@@ -60,9 +60,9 @@
           "quantity": "Quantité"
         },
         "addons": {
-          "title": "Options",
+          "title": "Suppléments",
           "required": "Obligatoire",
-          "requiredGroup": "Veuillez choisir une option pour « {name} »"
+          "requiredGroup": "Veuillez choisir une option pour \"{name}\""
         }
       },
       "cart": {
@@ -89,17 +89,17 @@
           "fullName": "Nom complet",
           "phone": "Téléphone",
           "whatsapp": "Ce numéro est sur WhatsApp",
-          "whatsappDescription": "Nous vous enverrons une notification sur WhatsApp lorsque votre commande sera prête à être livrée.",
+          "whatsappDescription": "Nous pouvons vous joindre plus rapidement sur WhatsApp.",
           "streetAddress": "Ligne d'adresse",
           "city": "Ville",
           "postalCode": "Code postal",
           "instructions": "Instructions de livraison",
-          "useLocation": "Utiliser la position du téléphone",
-          "useLocationDescription": "Appuyez pour remplir le code postal, la ville et la ligne d'adresse lorsque c'est possible.",
+          "useLocation": "Utiliser la localisation du téléphone",
+          "useLocationDescription": "Appuyez pour remplir le code postal, la ville et la première ligne d'adresse lorsque c'est possible.",
           "useLocationPrivacy": "Nous utilisons uniquement votre position GPS approximative. Pas de carte, pas d'adresse exacte.",
           "locationErrorTitle": "Impossible d'obtenir votre localisation",
           "locationErrorDescription": "Autorisez l'accès à la localisation dans votre navigateur (icône de verrou ou d'information dans la barre d'adresse), ou saisissez votre adresse manuellement.",
-          "addressLineDescription": "Rue, quartier ou point de repère — ce qui aide le livreur à vous trouver."
+          "addressLineDescription": "Nom de rue, quartier ou point de repère — tout ce qui aide le livreur à vous trouver."
         },
         "payment": {
           "title": "Paiement",
