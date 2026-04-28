@@ -403,6 +403,39 @@ export const productRouter = {
 
       await verifyStoreOwnership(userId, product.storeId);
 
+      // Block deletion if this product is used as a child in any active bundle
+      const bundleRefs = await database.bundleItem.findMany({
+        where: {
+          childProductId: input.id,
+          bundleVersion: { status: { not: "ARCHIVED" } },
+        },
+        select: {
+          bundleVersion: {
+            select: {
+              product: {
+                select: {
+                  id: true,
+                  currentPublishedVersion: { select: { name: true } },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (bundleRefs.length > 0) {
+        const blockingBundles = bundleRefs.map((ref) => ({
+          id: ref.bundleVersion.product.id,
+          name:
+            ref.bundleVersion.product.currentPublishedVersion?.name ??
+            ref.bundleVersion.product.id,
+        }));
+        throw new ORPCError("CONFLICT", {
+          message: `Cannot delete: this product is used in ${blockingBundles.length === 1 ? "a bundle" : "bundles"}: ${blockingBundles.map((b) => b.name).join(", ")}`,
+          data: { blockingBundles },
+        });
+      }
+
       const images = await database.image.findMany({
         where: { productVersion: { productId: input.id } },
         select: { url: true },
