@@ -15,6 +15,10 @@ export type ProductVersionCloneTreeDbData = Prisma.ProductVersionGetPayload<{
   include: ReturnType<typeof ProductVersionQuery.getCloneTreeInclude>;
 }>;
 
+export type ProductVersionBundleItemsDbData = Prisma.ProductVersionGetPayload<{
+  include: ReturnType<typeof ProductVersionQuery.getBundleItemsInclude>;
+}>;
+
 export type ProductVersionOrderPricingDbData = Prisma.ProductVersionGetPayload<{
   select: ReturnType<typeof ProductVersionQuery.getOrderPricingSelect>;
 }>;
@@ -80,6 +84,7 @@ export class ProductVersionQuery {
 
   /**
    * Include for loading a published version when deep-cloning to draft.
+   * Includes bundle items so they can be re-created on the new draft version.
    */
   static getCloneTreeInclude() {
     return {
@@ -92,6 +97,59 @@ export class ProductVersionQuery {
         },
       },
       addonGroups: ProductAddonQuery.getGroupsInclude(),
+      bundleItems: {
+        orderBy: { sortOrder: "asc" as const },
+        select: {
+          childProductId: true,
+          childVariantId: true,
+          itemQty: true,
+          sortOrder: true,
+        },
+      },
+    } satisfies Prisma.ProductVersionInclude;
+  }
+
+  /**
+   * Include for bundle item children: full child product/variant detail for
+   * dashboard bundle detail view and storefront bundle page.
+   */
+  static getBundleItemsInclude() {
+    return {
+      bundleItems: {
+        orderBy: { sortOrder: "asc" as const },
+        include: {
+          childProduct: {
+            select: {
+              id: true,
+              published: true,
+              currentPublishedVersionId: true,
+              currentPublishedVersion: {
+                select: {
+                  id: true,
+                  name: true,
+                  price: true,
+                  hasVariants: true,
+                  images: {
+                    select: { url: true },
+                    take: 4,
+                  },
+                  variants: {
+                    select: {
+                      id: true,
+                      stock: true,
+                      trackStock: true,
+                      price: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          childVariant: {
+            select: { id: true, stock: true, trackStock: true, price: true },
+          },
+        },
+      },
     } satisfies Prisma.ProductVersionInclude;
   }
 }
