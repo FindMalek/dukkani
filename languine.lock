@@ -14,6 +14,9 @@ files:
     dashboard.overview.quickActions.title: 07a221d6f9e778b8b4de7cbd9fc415b9
     dashboard.overview.quickActions.addProduct: 3fa8c89ef63fbb7056fc1d8d1b67f97a
     dashboard.overview.quickActions.viewOrders: 2309d9606fa9660d65acfbb60d055284
+    dashboard.storeInitializer.loadError: c698325edafece657140f52a6483317b
+    dashboard.storeInitializer.noStores: b27bb79b938a8bc32539e2af4289b61b
+    dashboard.storeInitializer.goToOnboarding: 9da19d5c88e43fea1f42fc18aa56f841
     auth.emailSignIn.continue: a0bfb8e59e6c13fc8d990781f77694fe
     auth.emailSignIn.rememberMe: 878530871f0db73f004f5bd6591eeb76
     auth.emailSignIn.back: 0557fa923dcee4d0f86b1409f5c2167f
@@ -22,6 +25,11 @@ files:
     auth.emailSignIn.email.label: b357b524e740bc85b9790a0712d84a30
     auth.emailSignIn.password.placeholder: e8d28194f9b3498d21fbda21321d0226
     auth.emailSignIn.password.label: dc647eb65e6711e155375218212b3964
+    settings.logout.button: 4394c8d8e63c470de62ced3ae85de5ae
+    settings.logout.title: 2d1249f9ee5dd433396b4be5c6ffd3f6
+    settings.logout.description: 5899b3fc6df8666baf37bdce1d29f8c8
+    settings.logout.cancel: ea4788705e6873b424c65e91c2846b19
+    settings.logout.confirm: 4394c8d8e63c470de62ced3ae85de5ae
     settings.telegram.title: 1ddbd0a49932f6c1784e13e31f285376
     settings.telegram.description: ad8f3be53a7eed24d89fb41b20b685b1
     settings.telegram.linked: 7330094b095d2229d0774a58fa8000ff
@@ -54,6 +62,8 @@ files:
     onboarding.storeSetup.notifications.options.telegram.description: f2dbf67a0e38b31420f83f2d83fb37e7
     onboarding.storeSetup.notifications.options.both.label: 130c5b3473c57faa76e2a1c54e26f88e
     onboarding.storeSetup.notifications.options.both.description: a168a30f111bc99a4d19d73f8a43bf02
+    onboarding.storeSetup.currency.label: 3976e3bfd50ec928abb81b59c69d6955
+    onboarding.storeSetup.currency.placeholder: 8be6757ec2716905caa379dcc2178958
     onboarding.storeSetup.submit: a0bfb8e59e6c13fc8d990781f77694fe
     onboarding.storeConfiguration.title: 453d90f549ba2b0fb3705acd5e005728
     onboarding.storeConfiguration.subtitle: 43a998374abbd308ffc241a811fa0706
@@ -88,10 +98,23 @@ files:
     onboarding.storeConfiguration.theme.options.classic.label: d35b51b639528d580362ca7042de6a0e
     onboarding.storeConfiguration.theme.options.classic.description: 4eac152faa912f3146080e0e88d9656a
     onboarding.storeConfiguration.submit: 223d7226693427e0983c422e4b359502
+    onboarding.steps.welcome: 83218ac34c1834c26781fe4bde918ee4
+    onboarding.steps.welcomeDescription: 3c76f3bc8e8f6163734b27080da7452f
+    onboarding.steps.storeSetup: 66897706e5e0de8d838f06050031736a
+    onboarding.steps.storeSetupDescription: 7d76d7f2be8081594740e40d3b11f693
+    onboarding.steps.storeCreated: 23b74e47525b161ce9c04f5df082ee58
+    onboarding.steps.storeCreatedDescription: 453d90f549ba2b0fb3705acd5e005728
+    onboarding.steps.storeConfigured: 5dc148b2e9b97e2eb82524f671f02aed
+    onboarding.steps.storeConfiguredDescription: 0920dc2e099a33fa52a6aef30310beff
+    onboarding.steps.storeLaunched: 761be91a9d6d26427e34f22b8a39f4a9
+    onboarding.steps.storeLaunchedDescription: a01078ea798ba9d68c5a6b0f507f41ab
     onboarding.steps.signup: 08bd40c7543007ad06e4fce31618f6ec
-    onboarding.steps.storeSetup: fdb0c388de01d545017cdf9ccf00eb72
+    onboarding.steps.storeSetupShort: fdb0c388de01d545017cdf9ccf00eb72
     onboarding.steps.storeConfiguration: f1206f9fadc5ce41694f69129aecac26
     onboarding.steps.complete: e7d31fc0602fb2ede144d18cdffd816b
+    onboarding.actions.retry: 6327b4e59f58137083214a1fec358855
+    onboarding.errors.emailAlreadyInUse: 43a963f044700ebe0d3f30b418bdaae8
+    onboarding.errors.storeLoadFailed: 0a6eb0c57b7d1939a4f7811839d903b4
     onboarding.signup.title: 5bef23eb7efff2736c5583bda59e5eb7
     onboarding.signup.subtitle: 582f7ea78ee567fabccea0f30a84c9a6
     onboarding.signup.name.label: 85d497a141b77922ba13652ab6a477ad
@@ -128,6 +151,7 @@ files:
     orders.list.searchPlaceholder: 3d2d34530fe2604eec85bb3d28a23ed2
     orders.list.empty: bde0e3bd032868c3026df6511fc00f52
     orders.list.error: 91f52eaa925e08dcab82d7f60b817fd6
+    orders.list.retry: 6327b4e59f58137083214a1fec358855
     orders.list.refresh: 40b9ee51db0383fc05af244829f38c2a
     orders.list.call: c3755e61202abd74da5885d2e9c9160e
     orders.list.advanceStatus: 0a86dddc699c7e6fe7f1e43153a5cbee
@@ -158,6 +182,27 @@ files:
     orders.list.filterDrawer.pickDateRange: b08c8d8ad8b80d4918b295e33cb2b042
     orders.list.filterDrawer.from: 5da618e8e4b89c66fe86e32cdafde142
     orders.list.filterDrawer.to: e12167aa0a7698e6ebc92b4ce3909b53
+    orders.detail.backToOrders: 9390390581f54c65d6acfc8da4e17362
+    orders.detail.title: c5c8ac6bbc6d7f5c95d0a888527554d3
+    orders.detail.payment: c453a4b8e8d98e82f35b67f433e3b4da
+    orders.detail.items: 9dea4016dbcc290b773ab2fae678aaa8
+    orders.detail.itemsCount: 1151a3167b4e74bb506d928f70bd5bb1
+    orders.detail.customer: ce26601dac0dea138b7295f02b7620a7
+    orders.detail.openWhatsApp: 5be5914bbe0f0d1a4216eaeaa35388f5
+    orders.detail.call: c3755e61202abd74da5885d2e9c9160e
+    orders.detail.callCustomer: e3f890e3f5a55e590dcc81fa4512fbe0
+    orders.detail.deliveryAddress: 2f2f0f119a907c6c67a3c6fcde0193ab
+    orders.detail.deliveryNotes: a9cab78230da64adebcfb719a2dcc1a0
+    orders.detail.orderItems: 4b84bd35233c0d3d3c36b9a6ce6e0745
+    orders.detail.subtotal: 2194aaec8cc7086ab0e93f74547e5f53
+    orders.detail.delivery: 065ab3a28ca4f16f55f103adc7d0226f
+    orders.detail.total: 96b0141273eabab320119c467cdcaf17
+    orders.detail.updateStatus: a90e34862583b4802fee08f31ba090c8
+    orders.detail.slideToSetStatus: 91dfc6695583483b6a9a836d5ee77e73
+    orders.detail.slideToUpdate: a90e34862583b4802fee08f31ba090c8
+    orders.detail.loading: e0aee313c7cec4ce74eafbee91138db5
+    orders.detail.notFound: 24909e87dc242b9dd539e10609b8b050
+    orders.detail.errorLoading: 263efb34ab8a7560209b1b9666f510a2
     products.list.title: 068f80c7519d0528fb08e82137a72131
     products.list.description: 1f775e7d1340eecbf87dd76ad028ec89
     products.list.searchPlaceholder: 437ac95a91364eb49587af5e146b1745
@@ -210,7 +255,11 @@ files:
     products.list.actions.deleteConfirmDescription: 36fbfc01d63e4b57d18991077535c6e0
     products.list.actions.cancel: ea4788705e6873b424c65e91c2846b19
     products.create.header.title: 656c3be690ee43df4b845bd2a2ebe587
+    products.create.header.editTitle: 38dcfe97230f5eee7bf911f3b56f955a
     products.create.header.save: c9cc8cce247e49bae79f15173ce97354
+    products.create.storeMismatch: 457151ae3045c2783126430e815af80c
+    products.create.loadError: 5756a896a896369e1aa0d7f5287ded1e
+    products.create.loadingProduct: 6e79019e5fb29bf3ff37d50e8ea54a1c
     products.create.sections.photos: c7c8998e1dd7c6ee3bd42f2bcb803d3c
     products.create.sections.essentials: 4d55f77f062bf48891bd0f749c36a36d
     products.create.sections.organization: d6b258792ff06f82933c74eeb8aef591
@@ -226,6 +275,16 @@ files:
     products.create.form.published.label: 9b9d8a976b42e0bd66381797644943d5
     products.create.form.published.placeholder: 756a9d43c7bcefdea831d7980b344341
     products.create.form.photos: 5daaf223b01f8f3e1bd9287170826fbc
+    products.create.form.photoPreviewTitle: 82b5169920699d4208dd154b7c16ab7f
+    products.create.form.photoPreviewZoomIn: 7b91156d64b76a5dda815937fce9119d
+    products.create.form.photoPreviewZoomOut: 52ebc26c2921d5b84fc670dff9891821
+    products.create.form.photoPreviewZoomGroup: f64cbdf7b7776b71cc86b672a0a703df
+    products.create.form.photoPreviewZoomReadout: 499a5f12a9ddd7f5c9724ccc0bff2f35
+    products.create.form.photoPreviewResetZoom: b251adfdd01ee02c61010200912f4bf3
+    products.create.form.photoPreviewClose: 79ea73fa61d7752847b59a431911091f
+    products.create.form.photoPreviewWheelHint: 6ef4bdee5ed10a49ffed3a57b585ac49
+    products.create.form.viewPhoto: c6beb9157a0e29e604ad5ec484488608
+    products.create.form.removePhoto: 453b8593df001956ad46e426538908e9
     products.create.form.priceHelp: bc3cf15ac61e2b1f9ba6040723bd354f
     products.create.form.category.label: 3adbdb3ac060038aa0e6e6c138ef9873
     products.create.form.category.placeholder: b210532aab8d2d0eb5dedb0b6958802d
@@ -239,8 +298,14 @@ files:
     products.create.form.category.uncategorized: 0d015d96f63a8c12d96b8399482b593f
     products.create.form.options.label: f0f6020f40acb5426fa9318fca5f30b9
     products.create.form.options.description: b9e412ebf479f4186af2ac1167805b79
+    products.create.form.options.structureLocked: 4e09279846706a20b990acb5d9741a62
+    products.create.form.options.enableVariantsNeedPrice: daf047da6014f4b4f51d9e9acd7dcb83
     products.create.form.saveDraft: 48ca50ce77bf12c9e86c6b4a98973ec9
     products.create.form.savePublish: 2157046d5665ca2ed2d41512dcf5106c
+    products.create.form.saveChanges: daa6b483e9f6ca081ec7e0b4a352f9e9
+    products.create.form.publishVersion: 3c74357ccb6964513a2022e2b443d1e1
+    products.create.form.discardDraft: 2bb3825f6c46906ed7b4fcf6ebde576b
+    products.create.form.draftHint: 3dc040693d96b6dfa6cefa23731b9646
     products.create.form.optional: d57c24f3fe52d16e7169b912dd647f0d
     products.create.form.cancel: ea4788705e6873b424c65e91c2846b19
     products.create.form.validation.errors: 4bd4d79c077eb90981d7b4599e6b7b7c
@@ -252,11 +317,18 @@ files:
     products.create.form.variants.options.optionName: cad8a76c4d01c805ce0e9d2178709a2f
     products.create.form.variants.options.optionNamePlaceholder: 7805d41ff700f716d9802dc6fdf06b6b
     products.create.form.variants.options.values: c82a6100dace2b41087ba6cf99a5976a
-    products.create.form.variants.options.addValue: d9ec74f5aa29ceef6bf7b45f7fec5d0f
+    products.create.form.variants.options.addValue: a9eeeb8cf7005a55cd3e892ce85a2d7c
     products.create.form.variants.options.noValues: b2559ddd60b40896fe3f7fb35e09a241
     products.create.form.variants.options.remove: c13b301c5b8b91198f15ff137c18e1d0
-    products.create.form.variants.options.addAnother: 704468d3ab12246ce00c4529d723eb60
+    products.create.form.variants.options.removeValue: f5c0535048fc60970fddf83b26d2bd2b
+    products.create.form.variants.options.addAnother: a04a2b58943543054445c1a1a8fa86a6
+    products.create.form.variants.options.maxOptions: 3929cf9275449c277add1da6cc2f4ade
     products.create.form.variants.options.value: 689202409e48743b914713f96d93947c
+    products.create.form.variants.pendingRemoval.title: 34f0c8fc616acd458649507ccaab4e74
+    products.create.form.variants.pendingRemoval.description: 8fdc17853e5d604b41ee7a2fe16209af
+    products.create.form.variants.pendingRemoval.confirm: 70d9be9b139893aa6c69b5e77e614311
+    products.create.form.variants.pendingRemoval.undo: 1cdc076b28f70afac5fcedadf99fa119
+    products.create.form.variants.optionOrder.label: e2d887cc949a37ffc0b515f44cfab567
     products.create.form.variants.list.title: e9ad310d6d05f80daeaad048b877fdfd
     products.create.form.variants.list.empty: 02606f5ce66ea3b29f1f16947d1dfa40
     products.create.form.variants.list.unnamed: b3c26ee9cac44cdc4fc82d861080bd56
@@ -269,6 +341,23 @@ files:
     products.create.form.variants.edit.price: 3601146c4e948c32b6424d2c0a7f0118
     products.create.form.variants.edit.priceHelp: 60864114fe2f1f67b0063027679ee0b1
     products.create.form.variants.edit.stock: 27ce7f8b5623b2e2df568d64cf051607
+    products.create.form.variants.editSheet.title: 67c2b451944a401c1764729b64882428
+    products.create.form.variants.editSheet.image: be53a0541a6d36f6ecb879fa2c584b08
+    products.create.form.variants.imagePicker.title: 5a31ca938eff79f9dd79786b57b19173
+    products.create.form.variants.imagePicker.noImage: 9dd7104e68d1b5f994264b9387c9d271
+    products.create.form.variants.matrix.title: 3732d658944ca4a625e781d606b47f92
+    products.create.form.variants.matrix.hint: 69246c0bc11caa1ba5d47c92ccf1b4ab
+    products.create.form.variants.matrix.tooMany: cbe66faef5d45bf75c1143e2defa7861
+    products.create.form.variants.matrix.empty: 12b60989f8c37682b0e676abf6272d3c
+    products.create.form.variants.matrix.columnCombination: 47ac923d219501859fb68fed8c8db77b
+    products.create.form.variants.matrix.columnSku: 6665e3761028c84e1d228de3432229ed
+    products.create.form.variants.matrix.columnPrice: 3601146c4e948c32b6424d2c0a7f0118
+    products.create.form.variants.matrix.columnStock: 27ce7f8b5623b2e2df568d64cf051607
+    products.create.form.variants.matrix.skuPlaceholder: ebb061953c0454b2c8ee7b0ac615ebcd
+    products.create.form.variants.matrix.pricePlaceholder: ad0d28cdd9113d3ce911bc064b137cde
+    products.create.form.variants.matrix.variantCount: c79b9272ef78d80aa9bb4f62b84e57ed
+    products.create.form.variants.matrix.inStock: 93d114d0343fa34f5f70862b31ef38a2
+    products.create.form.variants.matrix.outOfStock: b55197a49e8c4cd8c314bc2aa39d6feb
     products.create.form.variants.validation.duplicateOptionName: 49a2c0f863776472930cb7ae34972472
     products.create.form.variants.validation.duplicateOptionValues: cab31c2e09b281b7fb4068cc9e52456a
     products.create.form.variants.validation.duplicateValue: 6a865b75e7fa0d6efffc21041a2d6a56
@@ -277,9 +366,25 @@ files:
     products.create.noStore.title: 4b75c480bcac57bbee5c041bcedfe688
     products.create.noStore.description: 7af36a206b40613d844617bfbac45595
     products.create.noStore.createStore: 9c6e59d56dc4e8a12c07627b51ab3c27
+    products.edit.header.title: 38dcfe97230f5eee7bf911f3b56f955a
+    products.edit.header.save: c9cc8cce247e49bae79f15173ce97354
+    products.edit.sections.essentials: 4d55f77f062bf48891bd0f749c36a36d
     fields.images.label: 937d4703e4b4b07953a8ec425230b3af
     fields.images.dragActiveLabel: 2a83723db914aecd9197953b58dd99ba
     fields.images.hint: a868638b00a3df297bc69a70716c9960
+    fields.images.optimizing: 2aa3640486dfef44b0d1bc6825431cc5
+    currencies.tnd.country.name: d6dacba23ab4a1d5b72f223bfb010a05
+    currencies.tnd.name: b954466b60264c501fc20fb12454bbce
+    currencies.usd.country.name: f253efe302d32ab264a76e0ce65be769
+    currencies.usd.name: 1ee4d4350fee2a20c4f3055564f56fdb
+    currencies.eur.country.name: 9a18968af130ca0040b68b9e2eec4838
+    currencies.eur.name: 3e823fac7473e42888932c7761c224fc
+    currencies.gbp.country.name: 89f9c9f489be2a83cf57e53b9197d288
+    currencies.gbp.name: df632db5b26b2cfb258d8b03f77c6cb5
+    currencies.lyd.country.name: 742b8abe5776a6d942a92ce7dc7d84a0
+    currencies.lyd.name: 83b669f10d473e64613c5e6d48fef8cc
+    currencies.dzd.country.name: 575b9408b6daa2ddcefbcf6d81c9b4c9
+    currencies.dzd.name: 063cf71ba226ae5b82b01e0052f38838
   packages/common/src/locale/web/en.json:
     common.title: 320d58a491caec758288fbdf545c9a89
     common.description: 315dfc45ae153c215808d037f1e93d3f
@@ -395,6 +500,20 @@ files:
     storefront.store.products.empty: 85c435036ee6b5b6ae8dc26b5c336e3a
     storefront.store.categoryFilter.all: b1c94ca2fbc3e78fc30069c8d0f01680
     storefront.store.filter.button: d7778d0c64b6ba21494c97f77a66885a
+    storefront.store.filter.drawerTitle: 1932297c4cd332cfd513b8348ce1bbb4
+    storefront.store.filter.price: 3601146c4e948c32b6424d2c0a7f0118
+    storefront.store.filter.min: 78d811e98514cd165dda532286610fd2
+    storefront.store.filter.max: 6a061313d22e51e0f25b7cd4dc065233
+    storefront.store.filter.availability: faeaec9eda6bc4c8cb6e1a9156a858be
+    storefront.store.filter.inStockOnly: ac8f07dbd9d94ac3085fee3a1bdddc6f
+    storefront.store.filter.sortBy: 33d8042bd735c559cc3206f4bc99aedc
+    storefront.store.filter.category: 3adbdb3ac060038aa0e6e6c138ef9873
+    storefront.store.filter.reset: 526d688f37a86d3c3f27d0c5016eb71d
+    storefront.store.filter.submit: a4d3b161ce1309df1c4e25df28694b7b
+    storefront.store.filter.cancel: ea4788705e6873b424c65e91c2846b19
+    storefront.store.filter.sortOptions.newest: 88241ddd8e6f8ea848409c02dcd7549d
+    storefront.store.filter.sortOptions.cheapest: b35642f0d715e6f26b27984cf4af9a45
+    storefront.store.filter.sortOptions.mostExpensive: c1f914617d283d22c0911f0293c10b94
     storefront.store.footer.copyright: 5db707f74d87bd123c565cfe06c13522
     storefront.store.footer.poweredBy: 647a731af2b0a777cdb1e9a50adc5c3e
     storefront.store.product.imageCarousel.goToSlide: 9209ab5368c0c4d92f41f9909b3d0b9e
@@ -406,6 +525,9 @@ files:
     storefront.store.product.addToCart.outOfStock: e990b6285ed2a575c561235378a5e691
     storefront.store.product.quickAdd.viewDetails: d248b7896bffb1d7bc56d6378930affb
     storefront.store.product.quickAdd.quantity: 694e8d1f2ee056f98ee488bdc4982d73
+    storefront.store.product.addons.title: 2ed9fe3318cba954f72a23d9cfa0cf21
+    storefront.store.product.addons.required: b651efdb98a5d6bd2b3935d0c3f4a5e2
+    storefront.store.product.addons.requiredGroup: 2e2bed3bf0c88541d074e75c61223bc6
     storefront.store.cart.title: c8c2e90c1d7cc78fdb3d6a4f90060522
     storefront.store.cart.empty: a2a24f4120a52aa71620662c73eced9d
     storefront.store.cart.checkout: 6ff063fbc860a79759a7369ac32cee22
@@ -415,20 +537,24 @@ files:
     storefront.store.checkout.submitting: 42d69cfb920d42a61484267f7f660be3
     storefront.store.checkout.placeOrder: e7965ae5942a09b8778af5a9fd481460
     storefront.store.checkout.error: e9f36d65b0491f99ef8f0ce2c11bf998
+    storefront.store.checkout.delivery.addressFieldset.title: 2f2f0f119a907c6c67a3c6fcde0193ab
+    storefront.store.checkout.delivery.addressFieldset.description: 9f39ff6f14b4e9d1ec2d952ea6582120
     storefront.store.checkout.delivery.title: 065ab3a28ca4f16f55f103adc7d0226f
     storefront.store.checkout.delivery.fastDelivery: 401f9aac204489d0d1076fc036e4789d
     storefront.store.checkout.delivery.fullName: f11b368cddfe37c47af9b9d91c6ba4f0
     storefront.store.checkout.delivery.phone: bcc254b55c4a1babdf1dcb82c207506b
     storefront.store.checkout.delivery.whatsapp: 61074d3dbebc9b0c6593e91182f079fc
-    storefront.store.checkout.delivery.whatsappDescription: 7f9541442a59af56034f187cea186757
-    storefront.store.checkout.delivery.streetAddress: 669a90ec9aac95cd93556470ddaebf44
+    storefront.store.checkout.delivery.whatsappDescription: da831cc7504a5de5374d33ba401fedc5
+    storefront.store.checkout.delivery.streetAddress: 4d6361b59da8780666a9a5cdba8b77ea
     storefront.store.checkout.delivery.city: 57d056ed0984166336b7879c2af3657f
     storefront.store.checkout.delivery.postalCode: 572ed696f21038e6cc6c86bb272a3222
     storefront.store.checkout.delivery.instructions: d0f5987ecd37b9d842a0afd9468ba5d0
-    storefront.store.checkout.delivery.useLocation: a019813051b493024557ee538fcd1823
-    storefront.store.checkout.delivery.useLocationDescription: 62b8d91a8435328dd013ab096977913f
+    storefront.store.checkout.delivery.useLocation: b950799fc937716fd493dab7eb4e96c7
+    storefront.store.checkout.delivery.useLocationDescription: a8cfc1d5215ad444480e77d097fd58ee
+    storefront.store.checkout.delivery.useLocationPrivacy: d3d42bd8d777c779a2a5da6b13aa3804
     storefront.store.checkout.delivery.locationErrorTitle: 4700c95b60a6c454600c0188850da105
     storefront.store.checkout.delivery.locationErrorDescription: f5686a39eb156aa42d9c6f0c19a8c2f9
+    storefront.store.checkout.delivery.addressLineDescription: 379054147c390d48a72589883b2b786e
     storefront.store.checkout.payment.title: c453a4b8e8d98e82f35b67f433e3b4da
     storefront.store.checkout.payment.cod: 52be6587817dd45228a813c2508cdb7a
     storefront.store.checkout.payment.creditCard: 73a61696f100b3858511e212a3feea6b

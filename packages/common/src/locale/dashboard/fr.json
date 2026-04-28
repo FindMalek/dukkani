@@ -24,9 +24,9 @@
       }
     },
     "storeInitializer": {
-      "loadError": "Impossible de charger vos magasins. Veuillez réessayer.",
-      "noStores": "Vous n'avez pas encore de magasin. Créez-en un pour continuer.",
-      "goToOnboarding": "Aller à l'intégration"
+      "loadError": "Could not load your stores. Please try again.",
+      "noStores": "You don't have any stores yet. Create one to continue.",
+      "goToOnboarding": "Go to onboarding"
     }
   },
   "auth": {
@@ -47,11 +47,11 @@
   },
   "settings": {
     "logout": {
-      "button": "Se déconnecter",
-      "title": "Se déconnecter de votre compte ?",
-      "description": "Vous serez redirigé vers la page de connexion. Les modifications non enregistrées dans d'autres onglets peuvent être perdues.",
-      "cancel": "Annuler",
-      "confirm": "Se déconnecter"
+      "button": "Log out",
+      "title": "Log out of your account?",
+      "description": "You will be redirected to the login page. Any unsaved changes in other tabs may be lost.",
+      "cancel": "Cancel",
+      "confirm": "Log out"
     },
     "telegram": {
       "title": "Notifications Telegram",
@@ -103,8 +103,8 @@
         }
       },
       "currency": {
-        "label": "Devise du magasin",
-        "placeholder": "Sélectionnez la devise de votre magasin"
+        "label": "Store Currency",
+        "placeholder": "Select your store currency"
       },
       "submit": "Continuer"
     },
@@ -181,12 +181,22 @@
     },
     "steps": {
       "signup": "Compte",
-      "storeSetup": "Magasin",
+      "storeSetup": "Store Setup",
       "storeConfiguration": "Configurer",
-      "complete": "Prêt"
+      "complete": "Prêt",
+      "welcome": "Welcome",
+      "welcomeDescription": "Get started with your store setup",
+      "storeSetupDescription": "Create your store",
+      "storeCreated": "Store Created",
+      "storeCreatedDescription": "Configure your store",
+      "storeConfigured": "Store Configured",
+      "storeConfiguredDescription": "Launch your store",
+      "storeLaunched": "Store Launched",
+      "storeLaunchedDescription": "Onboarding complete",
+      "storeSetupShort": "Store"
     },
     "actions": {
-      "retry": "Réessayer"
+      "retry": "Retry"
     },
     "signup": {
       "title": "Créez votre compte",
@@ -238,6 +248,10 @@
         "emailAlreadyInUse": "Un compte avec cet e-mail existe déjà. Veuillez utiliser un autre e-mail ou vous connecter.",
         "storeLoadFailed": "Nous n'avons pas pu charger votre magasin. Actualisez la page ou contactez le support."
       }
+    },
+    "errors": {
+      "emailAlreadyInUse": "An account with this email already exists. Please use a different email or sign in.",
+      "storeLoadFailed": "We couldn't load your store. Refresh the page or contact support."
     }
   },
   "orders": {
@@ -247,7 +261,7 @@
       "searchPlaceholder": "Rechercher par nom, téléphone ou numéro de commande #",
       "empty": "Aucune commande trouvée. Les commandes apparaîtront ici une fois que les clients commenceront à les passer.",
       "error": "Erreur de chargement des commandes. Veuillez réessayer plus tard.",
-      "retry": "Réessayer",
+      "retry": "Retry",
       "refresh": "Rafraîchir les commandes",
       "call": "Appeler",
       "advanceStatus": "Avancer",
@@ -286,27 +300,27 @@
       }
     },
     "detail": {
-      "backToOrders": "Retour aux commandes",
-      "title": "Détails de la commande",
-      "payment": "Paiement",
-      "items": "Articles",
-      "itemsCount": "{count, plural, one {# Article} other {# Articles}}",
-      "customer": "Client",
-      "openWhatsApp": "Ouvrir WhatsApp",
-      "call": "Appeler",
-      "callCustomer": "Appeler {name}",
-      "deliveryAddress": "Adresse de livraison",
-      "deliveryNotes": "Notes de livraison",
-      "orderItems": "Articles commandés",
-      "subtotal": "Sous-total",
-      "delivery": "Livraison",
+      "backToOrders": "Back to orders",
+      "title": "Order Details",
+      "payment": "Payment",
+      "items": "Items",
+      "itemsCount": "{count, plural, one {# Item} other {# Items}}",
+      "customer": "Customer",
+      "openWhatsApp": "Open WhatsApp",
+      "call": "Call",
+      "callCustomer": "Call {name}",
+      "deliveryAddress": "Delivery Address",
+      "deliveryNotes": "Delivery notes",
+      "orderItems": "Order Items",
+      "subtotal": "Subtotal",
+      "delivery": "Delivery",
       "total": "Total",
-      "updateStatus": "Mettre à jour le statut",
-      "slideToSetStatus": "Faire glisser pour marquer : {status}",
-      "slideToUpdate": "Mettre à jour le statut",
-      "loading": "Chargement…",
-      "notFound": "Commande introuvable",
-      "errorLoading": "Erreur lors du chargement. Veuillez réessayer."
+      "updateStatus": "Update Status",
+      "slideToSetStatus": "Slide to mark as {status}",
+      "slideToUpdate": "Update Status",
+      "loading": "Loading order…",
+      "notFound": "Order not found",
+      "errorLoading": "Error loading order. Please try again."
     }
   },
   "products": {
@@ -374,12 +388,12 @@
     "create": {
       "header": {
         "title": "Nouveau produit",
-        "editTitle": "Modifier le produit",
+        "editTitle": "Edit product",
         "save": "Enregistrer"
       },
-      "storeMismatch": "Ce produit appartient à une autre boutique. Changez de boutique pour le modifier.",
-      "loadError": "Impossible de charger ce produit. Réessayez ou revenez à la liste.",
-      "loadingProduct": "Chargement du produit",
+      "storeMismatch": "This product belongs to another store. Switch stores to edit it.",
+      "loadError": "Could not load this product. Try again or go back to the list.",
+      "loadingProduct": "Loading product",
       "sections": {
         "photos": "Photos du produit",
         "essentials": "Essentiels",
@@ -408,16 +422,16 @@
           "placeholder": "Entrez le produit publié"
         },
         "photos": "Photos",
-        "photoPreviewTitle": "Aperçu de la photo",
-        "photoPreviewZoomIn": "Zoom avant",
-        "photoPreviewZoomOut": "Zoom arrière",
-        "photoPreviewZoomGroup": "Contrôles du zoom",
-        "photoPreviewZoomReadout": "Pourcentage du zoom",
-        "photoPreviewResetZoom": "Réinitialiser le zoom",
-        "photoPreviewClose": "Fermer l’aperçu",
-        "photoPreviewWheelHint": "Faites défiler pour zoomer",
-        "viewPhoto": "Voir en grand",
-        "removePhoto": "Retirer la photo",
+        "photoPreviewTitle": "Photo preview",
+        "photoPreviewZoomIn": "Zoom in",
+        "photoPreviewZoomOut": "Zoom out",
+        "photoPreviewZoomGroup": "Zoom controls",
+        "photoPreviewZoomReadout": "Zoom percentage",
+        "photoPreviewResetZoom": "Reset zoom",
+        "photoPreviewClose": "Close preview",
+        "photoPreviewWheelHint": "Scroll to zoom",
+        "viewPhoto": "View full size",
+        "removePhoto": "Remove photo",
         "priceHelp": "Prix que les clients paient (COD)",
         "category": {
           "label": "Catégorie",
@@ -434,14 +448,14 @@
         "options": {
           "label": "A des options",
           "description": "Ajoutez des options comme Taille, Couleur, Matériau, etc.",
-          "structureLocked": "Les options de variante sont verrouillées car ce produit a des variantes SKU. Vous pouvez toujours modifier les autres détails du produit.",
-          "enableVariantsNeedPrice": "Indiquez d’abord un prix de base positif. Les variantes peuvent en hériter si leur propre prix n’est pas défini."
+          "structureLocked": "Variant options are locked because this product has SKU variants. You can still edit other product details.",
+          "enableVariantsNeedPrice": "Enter a positive base price first. Variants can inherit it when their own price is not set."
         },
         "saveDraft": "Enregistrer le brouillon",
-        "saveChanges": "Enregistrer",
-        "publishVersion": "Publier en ligne",
-        "discardDraft": "Abandonner le brouillon",
-        "draftHint": "Des modifications ne sont pas encore publiées. Enregistrez, puis publiez pour mettre à jour la vitrine.",
+        "saveChanges": "Save changes",
+        "publishVersion": "Publish live",
+        "discardDraft": "Discard draft",
+        "draftHint": "You have unpublished edits. Save changes, then publish to update the storefront.",
         "savePublish": "Enregistrer et publier",
         "optional": "optionnel",
         "cancel": "Annuler",
@@ -458,22 +472,22 @@
             "optionName": "Nom de l’option",
             "optionNamePlaceholder": "p. ex. Taille, Couleur",
             "values": "Valeurs",
-            "addValue": "+ Ajouter une valeur",
+            "addValue": "+ Add value",
             "noValues": "Ajoutez au moins une valeur",
             "remove": "Supprimer l’option",
-            "removeValue": "Supprimer la valeur",
-            "addAnother": "Ajouter une autre option",
+            "removeValue": "Remove value",
+            "addAnother": "Add another option",
             "maxOptions": "Maximum 3 options",
             "value": "Valeur"
           },
           "pendingRemoval": {
-            "title": "Supprimer cette valeur effacera {count} variantes",
-            "description": "Appuyez pour confirmer avant d’appliquer les modifications.",
-            "confirm": "Confirmer",
-            "undo": "Annuler"
+            "title": "Removing this value will delete {count} variants",
+            "description": "Tap to confirm before changes are applied.",
+            "confirm": "Confirm",
+            "undo": "Undo"
           },
           "optionOrder": {
-            "label": "Ordre des options"
+            "label": "Option order"
           },
           "list": {
             "title": "Variantes",
@@ -492,27 +506,27 @@
             "stock": "Stock"
           },
           "editSheet": {
-            "title": "Modifier la variante : {label}",
+            "title": "Edit variant: {label}",
             "image": "Image"
           },
           "imagePicker": {
-            "title": "Choisir une image",
-            "noImage": "Sans image"
+            "title": "Choose image",
+            "noImage": "No image"
           },
           "matrix": {
-            "title": "Combinaisons de variantes",
-            "hint": "Chaque ligne est une combinaison vendable. Le stock et le prix reprennent par défaut le produit ci-dessus ; laissez le prix vide pour utiliser le prix de base.",
-            "tooMany": "Trop de combinaisons (max {max}). Réduisez les valeurs d’option.",
-            "empty": "Ajoutez des noms et valeurs d’option ci-dessus pour générer les lignes.",
-            "columnCombination": "Combinaison",
+            "title": "Variant combinations",
+            "hint": "Each row is one sellable combination. Stock and price default from the product above; leave price blank to use the base price.",
+            "tooMany": "Too many combinations (max {max}). Remove option values.",
+            "empty": "Add option names and values above to generate rows.",
+            "columnCombination": "Combination",
             "columnSku": "SKU",
-            "columnPrice": "Prix",
+            "columnPrice": "Price",
             "columnStock": "Stock",
-            "skuPlaceholder": "Optionnel",
-            "pricePlaceholder": "Prix de base",
-            "variantCount": "{count} variantes",
-            "inStock": "{count} en stock",
-            "outOfStock": "Rupture de stock"
+            "skuPlaceholder": "Optional",
+            "pricePlaceholder": "Base price",
+            "variantCount": "{count} variants",
+            "inStock": "{count} in stock",
+            "outOfStock": "Out of stock"
           },
           "validation": {
             "duplicateOptionName": "Nom d’option dupliqué",
@@ -531,8 +545,11 @@
     },
     "edit": {
       "header": {
-        "title": "Modifier le produit",
-        "save": "Enregistrer"
+        "title": "Edit product",
+        "save": "Save"
+      },
+      "sections": {
+        "essentials": "Essentials"
       }
     }
   },
@@ -541,7 +558,45 @@
       "label": "Ajouter des photos",
       "dragActiveLabel": "Déposez ici",
       "hint": "ou cliquez pour naviguer",
-      "optimizing": "Optimisation des images..."
+      "optimizing": "Optimizing images..."
+    }
+  },
+  "currencies": {
+    "tnd": {
+      "country": {
+        "name": "Tunisia"
+      },
+      "name": "Tunisian Dinar"
+    },
+    "usd": {
+      "country": {
+        "name": "United States"
+      },
+      "name": "US Dollar"
+    },
+    "eur": {
+      "country": {
+        "name": "Union européenne"
+      },
+      "name": "Euro"
+    },
+    "gbp": {
+      "country": {
+        "name": "Royaume-Uni"
+      },
+      "name": "Livre sterling"
+    },
+    "lyd": {
+      "country": {
+        "name": "Libye"
+      },
+      "name": "Dinar libyen"
+    },
+    "dzd": {
+      "country": {
+        "name": "Algérie"
+      },
+      "name": "Dinar algérien"
     }
   }
 }
