@@ -1,8 +1,10 @@
 import { BadRequestError, NotFoundError } from "@dukkani/common/errors";
 import { database } from "@dukkani/db";
-import { ProductAddonSelectionType } from "@dukkani/db/prisma/generated/enums";
+import type { Prisma } from "@dukkani/db/prisma/generated";
+import { ProductAddonSelectionType, ProductType } from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
+import { BundleItemQuery } from "../entities/bundle-item/query";
 import { ProductQuery } from "../entities/product/query";
 import type {
   ProductAddonGroupOrderPricingDbData,
@@ -13,10 +15,14 @@ import {
   ProductVersionQuery,
 } from "../entities/product-version/query";
 import { decimalLikeToNumber } from "../lib/decimal/decimal-like";
+import { computeBundleEffectiveStock } from "../lib/bundle/compute-bundle-stock";
 import { effectiveVariantUnitPrice } from "../lib/pricing/variant-effective-price";
 import { generateProductId } from "../lib/id/generate-id";
+import { BundleService } from "./bundle.service";
 import { ProductVersionService } from "./product-version.service";
 import {
+  type BundleChildLine,
+  bundleChildLineSchema,
   type OrderItemAddonSnapshot,
   orderItemAddonSnapshotSchema,
   type PricedProductLineItem,
@@ -202,6 +208,8 @@ class ProductServiceBase {
   /**
    * Server-side prices from the **current published** product version.
    * Stale cart lines (variant no longer on that version) throw {@link BadRequestError}.
+   * For bundle products, resolves bundleChildren and populates them on the priced item
+   * so the order service can route stock decrements to the correct child products.
    */
   static async getOrderItemPrices(
     items: ProductLineItem[],
@@ -215,6 +223,7 @@ class ProductServiceBase {
     const client = tx ?? database;
     const productIds = [...new Set(items.map((i) => i.productId))];
 
+    // Load all products — include type to split bundles from standard
     const products = await client.product.findMany({
       where: {
         id: { in: productIds },
@@ -223,6 +232,7 @@ class ProductServiceBase {
       },
       select: {
         id: true,
+        type: true,
         currentPublishedVersion: {
           select: ProductVersionQuery.getOrderPricingSelect(),
         },
@@ -234,9 +244,14 @@ class ProductServiceBase {
       products.map((p: ProductWithPrices) => [p.id, p]),
     );
 
-    ProductServiceBase.assertCatalogLineVariantRules(items, productMap);
+    const standardItems = items.filter(
+      (i) => (productMap.get(i.productId) as ProductWithPrices | undefined)?.type !== ProductType.BUNDLE,
+    );
+    ProductServiceBase.assertCatalogLineVariantRules(standardItems, productMap);
 
-    return items.map((item) => {
+    const result: PricedProductLineItem[] = [];
+
+    for (const item of items) {
       const product = productMap.get(item.productId);
       const pub = product?.currentPublishedVersion;
       if (!product || !pub) {
@@ -244,6 +259,63 @@ class ProductServiceBase {
           `Product ${item.productId} not found or not available for this store`,
         );
       }
+
+      if (product.type === ProductType.BUNDLE) {
+        // Bundles: price comes from version.price (merchant-set), no variants/addons
+        const basePrice = (() => {
+          const n = decimalLikeToNumber(pub.price);
+          return Number.isFinite(n) ? n : null;
+        })();
+        if (basePrice == null) {
+          throw new BadRequestError(
+            "This bundle has no valid price. Remove it from your cart and add it again.",
+          );
+        }
+
+        // Resolve bundle children for stock routing and OrderItemBundleChild creation
+        const bundleItems = await client.bundleItem.findMany({
+          where: { bundleVersionId: pub.id },
+          select: BundleItemQuery.getOrderPricingSelect(),
+        });
+        type BundlePricingItem = (typeof bundleItems)[number];
+
+        const bundleChildren: BundleChildLine[] = (bundleItems as BundlePricingItem[]).map((bi) => {
+          const childPubVersionId =
+            bi.childProduct.currentPublishedVersion?.id ??
+            bi.childProduct.currentPublishedVersionId ??
+            "";
+          const trackStock = bi.childVariantId
+            ? (bi.childVariant?.trackStock ?? true)
+            : true;
+
+          return bundleChildLineSchema.parse({
+            childProductId: bi.childProductId,
+            childVariantId: bi.childVariantId ?? undefined,
+            childProductVersionId: childPubVersionId,
+            itemQty: bi.itemQty,
+            quantity: bi.itemQty * item.quantity,
+            trackStock,
+          });
+        });
+
+        result.push(
+          pricedProductLineItemSchema.parse({
+            productId: item.productId,
+            variantId: undefined,
+            quantity: item.quantity,
+            addonSelections: [],
+            price: basePrice,
+            productVersionId: pub.id,
+            productNameAtCheckout: pub.name,
+            addonSnapshots: [],
+            isBundle: true,
+            bundleChildren,
+          }),
+        );
+        continue;
+      }
+
+      // Standard product path (unchanged)
       const variant = item.variantId
         ? pub.variants.find(
             (v: ProductVersionOrderPricingDbData["variants"][number]) =>
@@ -274,17 +346,21 @@ class ProductServiceBase {
           selections,
         );
 
-      return pricedProductLineItemSchema.parse({
-        productId: item.productId,
-        variantId: item.variantId,
-        quantity: item.quantity,
-        addonSelections: selections,
-        price: basePrice + unitAddonTotal,
-        productVersionId: pub.id,
-        productNameAtCheckout: pub.name,
-        addonSnapshots,
-      });
-    });
+      result.push(
+        pricedProductLineItemSchema.parse({
+          productId: item.productId,
+          variantId: item.variantId,
+          quantity: item.quantity,
+          addonSelections: selections,
+          price: basePrice + unitAddonTotal,
+          productVersionId: pub.id,
+          productNameAtCheckout: pub.name,
+          addonSnapshots,
+        }),
+      );
+    }
+
+    return result;
   }
 
   /**
@@ -333,10 +409,88 @@ class ProductServiceBase {
     const client = tx ?? database;
 
     const lineProductIds = [...new Set(items.map((i) => i.productId))];
-    if (lineProductIds.length > 0) {
+
+    // Detect bundle vs standard products
+    const productTypeRows =
+      lineProductIds.length > 0
+        ? await client.product.findMany({
+            where: {
+              id: { in: lineProductIds },
+              storeId,
+            },
+            select: { id: true, type: true, currentPublishedVersionId: true },
+          })
+        : [];
+
+    type ProductTypeRow = (typeof productTypeRows)[number];
+    const productTypeMap = new Map<string, ProductTypeRow>(
+      productTypeRows.map((p: ProductTypeRow) => [p.id, p]),
+    );
+    const bundleLineItems = items.filter(
+      (i) => productTypeMap.get(i.productId)?.type === ProductType.BUNDLE,
+    );
+    const standardItems = items.filter(
+      (i) => productTypeMap.get(i.productId)?.type !== ProductType.BUNDLE,
+    );
+
+    // Check bundle stock by resolving children
+    for (const bundleLine of bundleLineItems) {
+      const pubVersionId = productTypeMap.get(bundleLine.productId)?.currentPublishedVersionId;
+      if (!pubVersionId) {
+        throw new NotFoundError(
+          `Bundle ${bundleLine.productId} not found or not published`,
+        );
+      }
+
+      const bundleItems = await client.bundleItem.findMany({
+        where: { bundleVersionId: pubVersionId },
+        select: BundleItemQuery.getStockCheckSelect(),
+      });
+      type BundleItemRow = (typeof bundleItems)[number];
+
+      // Verify child variants still belong to their child's currentPublishedVersion
+      for (const bi of bundleItems as BundleItemRow[]) {
+        if (bi.childVariantId) {
+          const pubVariants = bi.childProduct.currentPublishedVersion?.variants ?? [];
+          type PubVariant = (typeof pubVariants)[number];
+          const variantIsValid = pubVariants.some((v: PubVariant) => v.id === bi.childVariantId);
+          if (!variantIsValid) {
+            throw new BadRequestError(
+              "A bundle component was updated. Remove the bundle from your cart and add it again.",
+            );
+          }
+        }
+      }
+
+      const slots = (bundleItems as BundleItemRow[]).map((bi) => {
+        if (bi.childVariantId && bi.childVariant) {
+          return {
+            stock: bi.childVariant.stock,
+            trackStock: bi.childVariant.trackStock,
+            itemQty: bi.itemQty,
+          };
+        }
+        const pub = bi.childProduct.currentPublishedVersion;
+        return {
+          stock: pub?.stock ?? 0,
+          trackStock: true,
+          itemQty: bi.itemQty,
+        };
+      });
+
+      const effective = computeBundleEffectiveStock(slots);
+      if (effective < bundleLine.quantity) {
+        throw new BadRequestError(
+          `Insufficient stock for bundle ${bundleLine.productId}`,
+        );
+      }
+    }
+
+    const standardLineProductIds = [...new Set(standardItems.map((i) => i.productId))];
+    if (standardLineProductIds.length > 0) {
       const catalogRows = await client.product.findMany({
         where: {
-          id: { in: lineProductIds },
+          id: { in: standardLineProductIds },
           storeId,
           ...ProductQuery.getPublishableWhere(),
         },
@@ -354,12 +508,12 @@ class ProductServiceBase {
       const catalogMap = new Map<string, CatalogRow>(
         catalogRows.map((p: CatalogRow) => [p.id, p]),
       );
-      ProductServiceBase.assertCatalogLineVariantRules(items, catalogMap);
+      ProductServiceBase.assertCatalogLineVariantRules(standardItems, catalogMap);
     }
 
-    // Aggregate by (productId, variantId) - use empty string for non-variant items
+    // Aggregate by (productId, variantId) for standard (non-bundle) items only
     const requiredByKey = new Map<string, number>();
-    for (const { productId, variantId, quantity } of items) {
+    for (const { productId, variantId, quantity } of standardItems) {
       const key = variantId ? `${productId}:${variantId}` : `${productId}:`;
       requiredByKey.set(key, (requiredByKey.get(key) ?? 0) + quantity);
     }
@@ -467,39 +621,42 @@ class ProductServiceBase {
       }
     }
 
-    const productsForAddons = await client.product.findMany({
-      where: {
-        id: { in: lineProductIds },
-        storeId,
-        ...ProductQuery.getPublishableWhere(),
-      },
-      select: {
-        id: true,
-        currentPublishedVersion: {
-          select: ProductVersionQuery.getOrderPricingSelect(),
+    // Addon stock check only applies to standard (non-bundle) products
+    if (standardItems.length > 0) {
+      const productsForAddons = await client.product.findMany({
+        where: {
+          id: { in: standardLineProductIds },
+          storeId,
+          ...ProductQuery.getPublishableWhere(),
         },
-      },
-    });
-    type AddonProductRow = (typeof productsForAddons)[number];
-    const addonProductMap = new Map<string, AddonProductRow>(
-      productsForAddons.map((p: AddonProductRow) => [p.id, p]),
-    );
+        select: {
+          id: true,
+          currentPublishedVersion: {
+            select: ProductVersionQuery.getOrderPricingSelect(),
+          },
+        },
+      });
+      type AddonProductRow = (typeof productsForAddons)[number];
+      const addonProductMap = new Map<string, AddonProductRow>(
+        productsForAddons.map((p: AddonProductRow) => [p.id, p]),
+      );
 
-    for (const item of items) {
-      const row = addonProductMap.get(item.productId);
-      const pub = row?.currentPublishedVersion;
-      if (!row || !pub) {
-        throw new NotFoundError(
-          `Product ${item.productId} not found or not available for this store`,
-        );
+      for (const item of standardItems) {
+        const row = addonProductMap.get(item.productId);
+        const pub = row?.currentPublishedVersion;
+        if (!row || !pub) {
+          throw new NotFoundError(
+            `Product ${item.productId} not found or not available for this store`,
+          );
+        }
+        const selections = item.addonSelections ?? [];
+        const { stockRows } =
+          ProductServiceBase.resolveAddonSelectionsForPublishedVersion(
+            { addonGroups: pub.addonGroups },
+            selections,
+          );
+        ProductServiceBase.assertAddonStockForLine(item.quantity, stockRows);
       }
-      const selections = item.addonSelections ?? [];
-      const { stockRows } =
-        ProductServiceBase.resolveAddonSelectionsForPublishedVersion(
-          { addonGroups: pub.addonGroups },
-          selections,
-        );
-      ProductServiceBase.assertAddonStockForLine(item.quantity, stockRows);
     }
 
     addSpanAttributes({
@@ -596,6 +753,21 @@ class ProductServiceBase {
       "product.operation": operation,
     });
     const client = tx ?? database;
+
+    // Guard: bundle productIds must never be passed here — stock lives on children
+    const uniqueUpdateProductIds = [...new Set(updates.map((u) => u.productId))];
+    if (uniqueUpdateProductIds.length > 0) {
+      const bundleCheck = await client.product.findMany({
+        where: { id: { in: uniqueUpdateProductIds }, type: ProductType.BUNDLE },
+        select: { id: true },
+      });
+      type BundleCheckRow = (typeof bundleCheck)[number];
+      if ((bundleCheck as BundleCheckRow[]).length > 0) {
+        throw new BadRequestError(
+          "Bundle stock cannot be directly updated. Update the child products instead.",
+        );
+      }
+    }
 
     // Aggregate by (productId, variantId) - use empty string for non-variant items
     const aggregatedByKey = new Map<string, number>();
@@ -717,6 +889,15 @@ class ProductServiceBase {
       [...versionIdsToRecompute].map((vid) =>
         ProductVersionService.recomputeTotalVariantStock(client, vid),
       ),
+    );
+
+    // Recompute effective stock for all PUBLISHED bundle versions that reference
+    // any of the products/variants that just had their stock changed
+    const updatedVariantIds = variantUpdates.map((u) => u.variantId);
+    await BundleService.recomputeBundlesReferencingProducts(
+      client as unknown as Prisma.TransactionClient,
+      uniqueUpdateProductIds,
+      updatedVariantIds,
     );
 
     addSpanAttributes({
