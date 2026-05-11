@@ -40,7 +40,7 @@ catalog:
   nanoid: ^5.1.9
   negotiator: ^1.0.0
   next: ^16.2.4
-  next-intl: ^4.9.1
+  next-intl: ^4.9.2
   nuqs: ^2.8.9
   pino: ^10.3.1
   prisma: ^7.7.0
