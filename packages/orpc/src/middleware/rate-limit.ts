@@ -16,6 +16,11 @@ export interface RateLimitOptions {
   custom?: {
     max: number;
     windowMs: number;
+    /**
+     * Distinguishes this limiter's bucket from other custom limiters, which
+     * otherwise all share the same default "ratelimit" prefix (see RateLimiter).
+     */
+    keyPrefix?: string;
   };
 }
 

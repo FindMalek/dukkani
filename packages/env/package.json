@@ -34,6 +34,10 @@
       "types": "./src/presets/api.ts",
       "default": "./src/presets/api.ts"
     },
+    "./presets/common": {
+      "types": "./src/presets/common.ts",
+      "default": "./src/presets/common.ts"
+    },
     "./presets/dashboard": {
       "types": "./src/presets/dashboard.ts",
       "default": "./src/presets/dashboard.ts"

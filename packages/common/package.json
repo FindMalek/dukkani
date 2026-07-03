@@ -26,6 +26,10 @@
       "types": "./dist/errors/index.d.ts",
       "default": "./src/errors/index.ts"
     },
+    "./env": {
+      "types": "./dist/env.d.ts",
+      "default": "./src/env.ts"
+    },
     "./constants": {
       "types": "./dist/constants/index.d.ts",
       "default": "./src/constants/index.ts"
@@ -55,11 +59,14 @@
     "next": "catalog:"
   },
   "dependencies": {
+    "@ai-sdk/groq": "catalog:",
+    "@zenbase/llml": "catalog:",
     "@dukkani/db": "workspace:*",
     "@dukkani/env": "workspace:*",
     "@dukkani/logger": "workspace:*",
     "@dukkani/tracing": "workspace:*",
     "@prisma/client": "catalog:",
+    "ai": "catalog:",
     "@formatjs/intl-localematcher": "catalog:",
     "negotiator": "catalog:",
     "nanoid": "catalog:",

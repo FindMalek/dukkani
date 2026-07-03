@@ -1,3 +1,5 @@
+import { groq } from "@ai-sdk/groq";
+import { llml } from "@zenbase/llml";
 import { BadRequestError, NotFoundError } from "@dukkani/common/errors";
 import { database } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
@@ -7,6 +9,9 @@ import {
 } from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
+import { generateObject } from "ai";
+import { z } from "zod";
+import { env } from "../env";
 import { BundleItemQuery } from "../entities/bundle-item/query";
 import { ProductQuery } from "../entities/product/query";
 import type {
@@ -32,7 +37,43 @@ import {
   pricedProductLineItemSchema,
 } from "../schemas/order/base";
 import { type ProductStockUpdateLine } from "../schemas/product/base";
+import type {
+  GenerateProductDescriptionInput,
+  GenerateProductDescriptionOutput,
+} from "../schemas/product/description";
 import type { ProductLineItem } from "../schemas/product/input";
+
+/** Groq's other vision model, llama-4-scout-17b-16e-instruct, is deprecated 2026-07-17 — do not use it. */
+const DESCRIPTION_MODEL_ID = "qwen/qwen3.6-27b";
+const DESCRIPTION_MAX_OUTPUT_TOKENS = 512;
+const DESCRIPTION_TEMPERATURE = 0.4;
+const DESCRIPTION_TIMEOUT_MS = 20_000;
+const DESCRIPTION_MAX_RETRIES = 2;
+const DESCRIPTION_MAX_MARKDOWN_LENGTH = 4000;
+
+const generatedDescriptionSchema = z.object({
+  description: z
+    .string()
+    .min(1)
+    .max(DESCRIPTION_MAX_MARKDOWN_LENGTH)
+    .describe(
+      "A markdown-formatted product description: 2-4 short paragraphs or a paragraph plus a bullet " +
+        "list. Use **bold** sparingly, bullet lists for variant/bundle contents when present. " +
+        "No headings, no HTML.",
+    ),
+});
+
+function extractErrorStatus(error: unknown): number | undefined {
+  if (
+    error &&
+    typeof error === "object" &&
+    "status" in error &&
+    typeof (error as { status: unknown }).status === "number"
+  ) {
+    return (error as { status: number }).status;
+  }
+  return undefined;
+}
 
 /**
  * Product service - Shared business logic for product operations
@@ -945,6 +986,107 @@ class ProductServiceBase {
       "product.total_quantity_change": Array.from(
         aggregatedByKey.values(),
       ).reduce((a, b) => a + b, 0),
+    });
+  }
+
+  /**
+   * Generate a markdown product description from title/category/price/notes plus
+   * up to 3 pre-resized vision images, using Groq's qwen/qwen3.6-27b (vision +
+   * tool-calling capable). Pure prompt-building + LLM call — no DB access, so it
+   * works identically for create (no productId yet) and edit flows.
+   */
+  static async generateDescription(
+    input: GenerateProductDescriptionInput,
+  ): Promise<GenerateProductDescriptionOutput> {
+    addSpanAttributes({
+      "product_description.title_length": input.title.length,
+      "product_description.image_count": input.images.length,
+      "product_description.has_variants": input.hasVariants,
+      "product_description.is_bundle": input.isBundle,
+      "product_description.model": DESCRIPTION_MODEL_ID,
+    });
+
+    if (!env.GROQ_API_KEY) {
+      throw new BadRequestError("AI description generation is not configured");
+    }
+
+    const prompt = ProductServiceBase.buildDescriptionPrompt(input);
+    const imageParts = input.images.map((image) => ({
+      type: "image" as const,
+      image: `data:${image.mimeType};base64,${image.base64}`,
+    }));
+
+    for (let attempt = 0; attempt <= DESCRIPTION_MAX_RETRIES; attempt++) {
+      try {
+        const { object } = await generateObject({
+          model: groq(DESCRIPTION_MODEL_ID),
+          schema: generatedDescriptionSchema,
+          maxOutputTokens: DESCRIPTION_MAX_OUTPUT_TOKENS,
+          temperature: DESCRIPTION_TEMPERATURE,
+          abortSignal: AbortSignal.timeout(DESCRIPTION_TIMEOUT_MS),
+          messages: [
+            {
+              role: "user",
+              content: [{ type: "text", text: prompt }, ...imageParts],
+            },
+          ],
+        });
+        return { description: object.description.trim() };
+      } catch (error) {
+        const status = extractErrorStatus(error);
+        const isRetryable =
+          status === 429 || (typeof status === "number" && status >= 500);
+        if (attempt < DESCRIPTION_MAX_RETRIES && isRetryable) {
+          await new Promise((resolve) =>
+            setTimeout(resolve, 1500 * (attempt + 1)),
+          );
+          continue;
+        }
+        throw new BadRequestError(
+          status === 429
+            ? "AI description generation is temporarily unavailable (provider rate limit). Try again shortly."
+            : "Failed to generate product description. Try again or write it manually.",
+        );
+      }
+    }
+
+    throw new BadRequestError("Failed to generate product description.");
+  }
+
+  private static buildDescriptionPrompt(
+    input: GenerateProductDescriptionInput,
+  ): string {
+    const product: Record<string, unknown> = { title: input.title };
+    if (input.categoryName) {
+      product.category = input.categoryName;
+    }
+    if (input.price != null) {
+      product.price = `${input.price}${input.currency ? ` ${input.currency}` : ""}`;
+    }
+    if (input.merchantNotes) {
+      product.merchantNotes = input.merchantNotes;
+    }
+    if (input.hasVariants && input.variantOptions.length > 0) {
+      product.variants = input.variantOptions.map(
+        (option) => `${option.name}: ${option.values.join(", ")}`,
+      );
+    }
+    if (input.isBundle && input.bundleItems.length > 0) {
+      product.bundleContents = input.bundleItems.map((item) =>
+        item.quantity > 1 ? `${item.quantity}x ${item.name}` : item.name,
+      );
+    }
+
+    return llml({
+      role: "Write a compelling, honest e-commerce product description in Markdown for the following product.",
+      product,
+      instructions: [
+        "If variants are listed, mention them naturally (e.g. 'available in Small, Medium, Large'). Do not invent options not listed.",
+        "If bundle contents are listed, mention them explicitly.",
+        "Use the attached image(s) (if any) as visual reference for materials, color, and style.",
+        "Do not fabricate specifications not visible or stated above.",
+        "Keep it concise (under ~120 words), markdown only (no headings, no HTML), suitable for a mobile storefront.",
+      ],
     });
   }
 }
