@@ -11,11 +11,11 @@
 export function computeBundleEffectiveStock(
   children: Array<{ stock: number; trackStock: boolean; itemQty: number }>,
 ): number {
-  let min = Infinity;
+  let min = Number.POSITIVE_INFINITY;
   for (const c of children) {
     if (!c.trackStock) continue;
     const eff = Math.floor(c.stock / c.itemQty);
     if (eff < min) min = eff;
   }
-  return min === Infinity ? Number.MAX_SAFE_INTEGER : min;
+  return min === Number.POSITIVE_INFINITY ? Number.MAX_SAFE_INTEGER : min;
 }

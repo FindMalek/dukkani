@@ -3,6 +3,8 @@ import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { ProductVersionQuery } from "../entities/product-version/query";
 import { BadRequestError, ConflictError, NotFoundError } from "../errors";
+import { assertPublishWontBreakBundles } from "../lib/bundle/assert-publish-wont-break-bundles";
+import { recomputeBundleEffectiveStock } from "../lib/bundle/recompute-bundle-effective-stock";
 import { variantPriceRangeMinMax } from "../lib/pricing/variant-effective-price";
 import type { CreateInitialPublishedVersionInput } from "../schemas/product/input";
 import type { ProductAddonGroupInput } from "../schemas/product-addon/input";
@@ -50,6 +52,7 @@ class ProductVersionServiceBase {
   /**
    * Denormalize {@link ProductVersion}.totalVariantStock for list filters/sorts:
    * when hasVariants, sum of variant `stock`; otherwise mirrors `stock`.
+   * Bundles skip this — their effective stock is managed by BundleService.recomputeBundleEffectiveStock.
    */
   static async recomputeTotalVariantStock(
     tx: Prisma.TransactionClient,
@@ -57,10 +60,10 @@ class ProductVersionServiceBase {
   ): Promise<void> {
     const v = await tx.productVersion.findUnique({
       where: { id: productVersionId },
-      select: { hasVariants: true, stock: true },
+      select: { hasVariants: true, stock: true, isBundle: true },
     });
 
-    if (!v) {
+    if (!v || v.isBundle) {
       return;
     }
 
@@ -218,6 +221,21 @@ class ProductVersionServiceBase {
           },
         },
       });
+    }
+
+    // Copy bundle items when forking a bundle version to draft
+    if (src.isBundle && src.bundleItems?.length) {
+      for (const item of src.bundleItems) {
+        await tx.bundleItem.create({
+          data: {
+            bundleVersionId: draft.id,
+            childProductId: item.childProductId,
+            childVariantId: item.childVariantId,
+            itemQty: item.itemQty,
+            sortOrder: item.sortOrder,
+          },
+        });
+      }
     }
 
     await ProductVersionServiceBase.recomputeVariantEffectivePriceBounds(
@@ -451,7 +469,9 @@ class ProductVersionServiceBase {
     const product = await tx.product.findUnique({
       where: { id: productId },
       include: {
-        draftVersion: true,
+        draftVersion: {
+          select: { id: true, status: true, updatedAt: true, isBundle: true },
+        },
         currentPublishedVersion: { select: { id: true, status: true } },
       },
     });
@@ -477,6 +497,16 @@ class ProductVersionServiceBase {
     const draftId = product.draftVersion.id;
     const previousPublishedId = product.currentPublishedVersionId;
 
+    // Before promoting: ensure publishing won't break any bundles that reference this product
+    if (!product.draftVersion.isBundle) {
+      await assertPublishWontBreakBundles(
+        tx,
+        productId,
+        draftId,
+        previousPublishedId,
+      );
+    }
+
     if (previousPublishedId) {
       await tx.productVersion.update({
         where: { id: previousPublishedId },
@@ -501,7 +531,12 @@ class ProductVersionServiceBase {
       tx,
       draftId,
     );
-    await ProductVersionServiceBase.recomputeTotalVariantStock(tx, draftId);
+
+    if (product.draftVersion.isBundle) {
+      await recomputeBundleEffectiveStock(tx, draftId);
+    } else {
+      await ProductVersionServiceBase.recomputeTotalVariantStock(tx, draftId);
+    }
   }
 
   /**

@@ -225,14 +225,20 @@ class OrderServiceBase {
         "Order created successfully",
       );
 
+      // Route stock decrements: bundle items → their children, standard items → themselves
+      const stockUpdates =
+        OrderServiceBase.buildStockUpdates(orderItemsWithPrices);
       await ProductService.updateMultipleProductStocks(
-        input.orderItems.map((item) => ({
-          productId: item.productId,
-          variantId: item.variantId,
-          quantity: item.quantity,
-        })),
+        stockUpdates,
         "decrement",
         tx,
+      );
+
+      // Write OrderItemBundleChild snapshot rows for any bundle order items
+      await OrderServiceBase.writeBundleChildSnapshots(
+        tx,
+        createdOrder.orderItems,
+        orderItemsWithPrices,
       );
 
       await ProductService.updateAddonOptionStocks(
@@ -256,6 +262,86 @@ class OrderServiceBase {
     });
 
     return OrderEntity.getRo(order);
+  }
+
+  /**
+   * Build the stock update list for an order.
+   * Bundle items are replaced by their children (using bundleChildren from priced items).
+   * Standard items use their own productId/variantId.
+   */
+  private static buildStockUpdates(
+    pricedLines: PricedProductLineItem[],
+  ): Array<{ productId: string; variantId?: string; quantity: number }> {
+    const updates: Array<{
+      productId: string;
+      variantId?: string;
+      quantity: number;
+    }> = [];
+
+    for (const priced of pricedLines) {
+      if (priced.isBundle && priced.bundleChildren?.length) {
+        for (const child of priced.bundleChildren) {
+          if (child.trackStock) {
+            updates.push({
+              productId: child.childProductId,
+              variantId: child.childVariantId,
+              quantity: child.quantity,
+            });
+          }
+        }
+      } else {
+        updates.push({
+          productId: priced.productId,
+          variantId: priced.variantId,
+          quantity: priced.quantity,
+        });
+      }
+    }
+
+    return updates;
+  }
+
+  /**
+   * Write OrderItemBundleChild snapshot rows atomically at order creation.
+   * These rows are the source of truth for stock restoration on order deletion.
+   */
+  private static async writeBundleChildSnapshots(
+    tx: Prisma.TransactionClient,
+    orderItems: Array<{ id: string; productId: string }>,
+    pricedLines: PricedProductLineItem[],
+  ): Promise<void> {
+    // Track consumed order items so each priced line claims a distinct row —
+    // an order can contain multiple lines for the same bundle productId, and
+    // matching by productId alone would attach every one of them to the same
+    // first order item, silently dropping snapshots for the rest.
+    const usedOrderItemIds = new Set<string>();
+    const rows: Prisma.OrderItemBundleChildCreateManyInput[] = [];
+
+    for (const priced of pricedLines) {
+      if (!priced.isBundle || !priced.bundleChildren?.length) continue;
+
+      const orderItem = orderItems.find(
+        (oi) =>
+          oi.productId === priced.productId && !usedOrderItemIds.has(oi.id),
+      );
+      if (!orderItem) continue;
+      usedOrderItemIds.add(orderItem.id);
+
+      for (const child of priced.bundleChildren) {
+        rows.push({
+          orderItemId: orderItem.id,
+          childProductId: child.childProductId,
+          childVariantId: child.childVariantId ?? null,
+          childProductVersionId: child.childProductVersionId,
+          itemQty: child.itemQty,
+          totalQty: child.quantity,
+        });
+      }
+    }
+
+    if (rows.length > 0) {
+      await tx.orderItemBundleChild.createMany({ data: rows });
+    }
   }
 
   private static collectAddonStockDeltasFromPricedLines(
@@ -474,14 +560,20 @@ class OrderServiceBase {
         "Public order created successfully",
       );
 
+      // Route stock decrements: bundle items → their children, standard items → themselves
+      const stockUpdates =
+        OrderServiceBase.buildStockUpdates(orderItemsWithPrices);
       await ProductService.updateMultipleProductStocks(
-        input.orderItems.map((item) => ({
-          productId: item.productId,
-          variantId: item.variantId,
-          quantity: item.quantity,
-        })),
+        stockUpdates,
         "decrement",
         tx,
+      );
+
+      // Write OrderItemBundleChild snapshot rows for any bundle order items
+      await OrderServiceBase.writeBundleChildSnapshots(
+        tx,
+        createdOrder.orderItems,
+        orderItemsWithPrices,
       );
 
       await ProductService.updateAddonOptionStocks(
@@ -589,7 +681,7 @@ class OrderServiceBase {
       "order.user_id": userId,
     });
 
-    // Get order to verify ownership and get order items
+    // Get order to verify ownership and get order items (including bundle children for stock restore)
     const order = await database.order.findUnique({
       where: { id: orderId },
       select: {
@@ -601,6 +693,13 @@ class OrderServiceBase {
             quantity: true,
             addonSelections: {
               select: { addonOptionId: true, quantity: true },
+            },
+            bundleChildren: {
+              select: {
+                childProductId: true,
+                childVariantId: true,
+                totalQty: true,
+              },
             },
           },
         },
@@ -632,14 +731,35 @@ class OrderServiceBase {
     // Wrap stock increment and order deletion in transaction
     // This ensures atomicity: both operations succeed or fail together
     await database.$transaction(async (tx) => {
-      // Restore product stock if order has items (within transaction)
+      // Restore stock: for bundle items use the frozen bundleChildren snapshot,
+      // for standard items use the orderItem's own productId/variantId
       if (order.orderItems.length > 0) {
+        const stockRestores: Array<{
+          productId: string;
+          variantId?: string;
+          quantity: number;
+        }> = [];
+
+        for (const item of order.orderItems) {
+          if (item.bundleChildren.length > 0) {
+            for (const child of item.bundleChildren) {
+              stockRestores.push({
+                productId: child.childProductId,
+                variantId: child.childVariantId ?? undefined,
+                quantity: child.totalQty,
+              });
+            }
+          } else {
+            stockRestores.push({
+              productId: item.productId,
+              variantId: item.productVariantId ?? undefined,
+              quantity: item.quantity,
+            });
+          }
+        }
+
         await ProductService.updateMultipleProductStocks(
-          order.orderItems.map((item) => ({
-            productId: item.productId,
-            variantId: item.productVariantId ?? undefined,
-            quantity: item.quantity,
-          })),
+          stockRestores,
           "increment",
           tx,
         );
