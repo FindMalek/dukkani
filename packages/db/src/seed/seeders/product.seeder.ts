@@ -1175,12 +1175,19 @@ export class ProductSeeder extends BaseSeeder {
             required: false,
             options: [
               { name: "Sans gravure", priceDelta: 0, stock: 999 },
-              { name: "Gravure prénom personnalisé", priceDelta: 15, stock: 999 },
+              {
+                name: "Gravure prénom personnalisé",
+                priceDelta: 15,
+                stock: 999,
+              },
             ],
           },
         ],
         variantOptions: [
-          { name: "Taille", values: ["Petit (22cm)", "Moyen (28cm)", "Grand (34cm)"] },
+          {
+            name: "Taille",
+            values: ["Petit (22cm)", "Moyen (28cm)", "Grand (34cm)"],
+          },
         ],
         variants: [
           { Taille: "Petit (22cm)", stock: 30, price: 45.0 },
@@ -1204,7 +1211,10 @@ export class ProductSeeder extends BaseSeeder {
         hasVariants: true,
         variantOptions: [
           { name: "Couleur", values: ["Blanc", "Écru", "Terracotta"] },
-          { name: "Taille", values: ["4 couverts", "6 couverts", "8 couverts"] },
+          {
+            name: "Taille",
+            values: ["4 couverts", "6 couverts", "8 couverts"],
+          },
         ],
         variants: [
           { Couleur: "Blanc", Taille: "4 couverts", stock: 20, price: 35.0 },
@@ -1213,9 +1223,24 @@ export class ProductSeeder extends BaseSeeder {
           { Couleur: "Écru", Taille: "4 couverts", stock: 18, price: 35.0 },
           { Couleur: "Écru", Taille: "6 couverts", stock: 15, price: 42.0 },
           { Couleur: "Écru", Taille: "8 couverts", stock: 10, price: 52.0 },
-          { Couleur: "Terracotta", Taille: "4 couverts", stock: 15, price: 38.0 },
-          { Couleur: "Terracotta", Taille: "6 couverts", stock: 12, price: 45.0 },
-          { Couleur: "Terracotta", Taille: "8 couverts", stock: 8, price: 55.0 },
+          {
+            Couleur: "Terracotta",
+            Taille: "4 couverts",
+            stock: 15,
+            price: 38.0,
+          },
+          {
+            Couleur: "Terracotta",
+            Taille: "6 couverts",
+            stock: 12,
+            price: 45.0,
+          },
+          {
+            Couleur: "Terracotta",
+            Taille: "8 couverts",
+            stock: 8,
+            price: 55.0,
+          },
         ],
         images: [
           "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
@@ -1447,22 +1472,33 @@ export class ProductSeeder extends BaseSeeder {
       });
     }
 
-    const productsWithVariants = productData.filter((p) => p.hasVariants).length;
+    const productsWithVariants = productData.filter(
+      (p) => p.hasVariants,
+    ).length;
     const totalVariants = productData
       .filter((p) => p.hasVariants && p.variants)
       .reduce((sum, p) => sum + (p.variants?.length || 0), 0);
-    const productsWithAddons = productData.filter((p) => p.addonGroups?.length).length;
+    const productsWithAddons = productData.filter(
+      (p) => p.addonGroups?.length,
+    ).length;
 
     this.log(`✅ Created ${createdProducts.length} products with images`);
     if (productsWithVariants > 0) {
-      this.log(`✅ ${productsWithVariants} products include variants (${totalVariants} total variants)`);
+      this.log(
+        `✅ ${productsWithVariants} products include variants (${totalVariants} total variants)`,
+      );
     }
     if (productsWithAddons > 0) {
       this.log(`✅ ${productsWithAddons} products include addon groups`);
     }
 
     // Step 3: Create collections per store
-    await this.createCollections(database, storesBySlug, createdProducts, productData);
+    await this.createCollections(
+      database,
+      storesBySlug,
+      createdProducts,
+      productData,
+    );
   }
 
   private async createCollections(
@@ -1494,7 +1530,11 @@ export class ProductSeeder extends BaseSeeder {
         slug: "nouveautes",
         description: "Nos dernières arrivées",
         position: 0,
-        productNames: ["Premium Leather Jacket", "Slim Fit Chinos", "Luxury Watch Collection"],
+        productNames: [
+          "Premium Leather Jacket",
+          "Slim Fit Chinos",
+          "Luxury Watch Collection",
+        ],
       },
       {
         storeSlug: "amine-fashion",
@@ -1502,7 +1542,11 @@ export class ProductSeeder extends BaseSeeder {
         slug: "accessoires",
         description: "Complétez votre look",
         position: 1,
-        productNames: ["Designer Sunglasses", "Classic Leather Belt", "Sac en Bandoulière Cuir"],
+        productNames: [
+          "Designer Sunglasses",
+          "Classic Leather Belt",
+          "Sac en Bandoulière Cuir",
+        ],
       },
       // sana-electronics
       {
@@ -1511,7 +1555,11 @@ export class ProductSeeder extends BaseSeeder {
         slug: "meilleures-offres",
         description: "Les meilleurs deals du moment",
         position: 0,
-        productNames: ["Écouteurs Bluetooth Sans Fil Pro", "USB-C Fast Charger", "Station de Recharge Sans Fil"],
+        productNames: [
+          "Écouteurs Bluetooth Sans Fil Pro",
+          "USB-C Fast Charger",
+          "Station de Recharge Sans Fil",
+        ],
       },
       {
         storeSlug: "sana-electronics",
@@ -1519,7 +1567,11 @@ export class ProductSeeder extends BaseSeeder {
         slug: "informatique",
         description: "Laptops, tablettes et accessoires",
         position: 1,
-        productNames: ["Ultrabook Laptop", "Tablet Pro", "Aluminum Laptop Stand"],
+        productNames: [
+          "Ultrabook Laptop",
+          "Tablet Pro",
+          "Aluminum Laptop Stand",
+        ],
       },
       // yassine-home
       {
@@ -1528,7 +1580,11 @@ export class ProductSeeder extends BaseSeeder {
         slug: "cuisine",
         description: "Équipez votre cuisine à la tunisienne",
         position: 0,
-        productNames: ["Stainless Steel Cookware Set", "Bamboo Cutting Board", "Tajine en Terre Cuite"],
+        productNames: [
+          "Stainless Steel Cookware Set",
+          "Bamboo Cutting Board",
+          "Tajine en Terre Cuite",
+        ],
       },
       {
         storeSlug: "yassine-home",
@@ -1536,7 +1592,11 @@ export class ProductSeeder extends BaseSeeder {
         slug: "decoration",
         description: "Embellissez votre intérieur",
         position: 1,
-        productNames: ["Ceramic Planter Set", "Wall Art Canvas Set", "Lampe de Bureau LED"],
+        productNames: [
+          "Ceramic Planter Set",
+          "Wall Art Canvas Set",
+          "Lampe de Bureau LED",
+        ],
       },
     ];
 
@@ -1575,6 +1635,8 @@ export class ProductSeeder extends BaseSeeder {
       }
     }
 
-    this.log(`✅ Created ${collectionCount} collections with ${memberCount} product memberships`);
+    this.log(
+      `✅ Created ${collectionCount} collections with ${memberCount} product memberships`,
+    );
   }
 }

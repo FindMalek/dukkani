@@ -20,6 +20,9 @@ import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
 import { BundleService, ProductVersionService } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { ProductType } from "@dukkani/db/prisma/generated/enums";
+import { logger } from "@dukkani/logger";
+import { StorageService } from "@dukkani/storage";
+import { env } from "@dukkani/storage/env";
 import { ORPCError } from "@orpc/server";
 import { z } from "zod";
 import { protectedProcedure } from "../../procedures";
@@ -84,7 +87,7 @@ export const bundleRouter = {
           skip,
           take: limit,
           orderBy: { createdAt: "desc" },
-          include: ProductQuery.getBundleInclude(),
+          include: ProductQuery.getListInclude(),
         }),
         database.product.count({ where }),
       ]);
@@ -209,6 +212,46 @@ export const bundleRouter = {
       }
 
       await verifyStoreOwnership(userId, product.storeId);
+
+      const images = await database.image.findMany({
+        where: { productVersion: { productId: input.id } },
+        select: { url: true },
+      });
+
+      if (images.length > 0) {
+        try {
+          const imageKeys = new Set<string>();
+          for (const image of images) {
+            if (image?.url) {
+              const imageKey = await StorageService.getKeyFromPublicUrl(
+                image.url,
+                env.S3_PUBLIC_BASE_URL,
+              );
+              if (imageKey) {
+                imageKeys.add(imageKey);
+              }
+            }
+          }
+          const results = await Promise.allSettled(
+            [...imageKeys].map((key) =>
+              StorageService.deleteFile(env.S3_BUCKET, key),
+            ),
+          );
+          for (const result of results) {
+            if (result.status === "rejected") {
+              logger.error(
+                { error: result.reason, productId: input.id },
+                "Failed to delete bundle image from storage",
+              );
+            }
+          }
+        } catch (storageError) {
+          logger.error(
+            { error: storageError, productId: input.id },
+            "Failed to delete bundle images from storage",
+          );
+        }
+      }
 
       await database.product.delete({ where: { id: input.id } });
       return { success: true };

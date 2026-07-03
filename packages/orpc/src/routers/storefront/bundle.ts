@@ -5,7 +5,11 @@ import { getBundleInputSchema } from "@dukkani/common/schemas/bundle/input";
 import type { BundlePublicOutput } from "@dukkani/common/schemas/bundle/output";
 import { bundlePublicOutputSchema } from "@dukkani/common/schemas/bundle/output";
 import { database } from "@dukkani/db";
-import { ProductType, ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
+import {
+  ProductType,
+  ProductVersionStatus,
+  StoreStatus,
+} from "@dukkani/db/prisma/generated/enums";
 import { ORPCError } from "@orpc/server";
 import { rateLimitPublicSafe } from "../../middleware/rate-limit";
 import { baseProcedure } from "../../procedures";
@@ -21,6 +25,7 @@ export const bundleRouter = {
         select: {
           id: true,
           published: true,
+          store: { select: { status: true } },
           currentPublishedVersion: {
             select: {
               id: true,
@@ -39,6 +44,10 @@ export const bundleRouter = {
       const v = product?.currentPublishedVersion;
 
       if (!product || !v || v.status !== ProductVersionStatus.PUBLISHED) {
+        throw new ORPCError("NOT_FOUND", { message: "Bundle not found" });
+      }
+
+      if (product.store.status !== StoreStatus.PUBLISHED) {
         throw new ORPCError("NOT_FOUND", { message: "Bundle not found" });
       }
 

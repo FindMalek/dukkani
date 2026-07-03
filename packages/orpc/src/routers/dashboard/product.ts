@@ -403,11 +403,15 @@ export const productRouter = {
 
       await verifyStoreOwnership(userId, product.storeId);
 
-      // Block deletion if this product is used as a child in any active bundle
+      // Block deletion if this product is referenced by any bundle item.
+      // BundleItem.childProduct is onDelete: Restrict at the DB level
+      // regardless of the referencing bundleVersion's status (including
+      // ARCHIVED), so this check must not filter by status either — an
+      // archived-only reference would otherwise pass this check and then
+      // fail as a raw FK constraint error at `product.delete()` below.
       const bundleRefs = await database.bundleItem.findMany({
         where: {
           childProductId: input.id,
-          bundleVersion: { status: { not: "ARCHIVED" } },
         },
         select: {
           bundleVersion: {
@@ -424,12 +428,22 @@ export const productRouter = {
       });
 
       if (bundleRefs.length > 0) {
-        const blockingBundles = bundleRefs.map((ref) => ({
-          id: ref.bundleVersion.product.id,
-          name:
-            ref.bundleVersion.product.currentPublishedVersion?.name ??
-            ref.bundleVersion.product.id,
-        }));
+        // Dedupe: the same bundle product can reference this child via
+        // multiple BundleItem rows (e.g. two variants, or both a draft and
+        // a published/archived version each with their own bundle items).
+        const blockingBundlesById = new Map<
+          string,
+          { id: string; name: string }
+        >();
+        for (const ref of bundleRefs) {
+          const bundleProduct = ref.bundleVersion.product;
+          blockingBundlesById.set(bundleProduct.id, {
+            id: bundleProduct.id,
+            name:
+              bundleProduct.currentPublishedVersion?.name ?? bundleProduct.id,
+          });
+        }
+        const blockingBundles = [...blockingBundlesById.values()];
         throw new ORPCError("CONFLICT", {
           message: `Cannot delete: this product is used in ${blockingBundles.length === 1 ? "a bundle" : "bundles"}: ${blockingBundles.map((b) => b.name).join(", ")}`,
           data: { blockingBundles },
