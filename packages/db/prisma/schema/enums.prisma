@@ -172,3 +172,8 @@ enum SupportedCurrency {
   DZD
   LYD
 }
+
+enum ProductType {
+  SIMPLE
+  BUNDLE
+}

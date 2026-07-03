@@ -30,6 +30,8 @@ model Product {
 
   published Boolean @default(false)
 
+  type ProductType @default(SIMPLE)
+
   currentPublishedVersionId String?         @map("current_published_version_id")
   currentPublishedVersion   ProductVersion? @relation("ProductCurrentPublishedVersion", fields: [currentPublishedVersionId], references: [id], onDelete: Restrict)
 
@@ -40,6 +42,9 @@ model Product {
 
   orderItems         OrderItem[]
   productCollections ProductCollection[]
+
+  bundleChildRefs      BundleItem[]           @relation("BundleChildProduct")
+  orderItemBundleRefs  OrderItemBundleChild[]
 
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
@@ -52,6 +57,7 @@ model Product {
 
   @@index([categoryId])
   @@index([storeId])
+  @@index([storeId, type])
   @@index([currentPublishedVersionId])
   @@index([draftVersionId])
   @@map("products")
@@ -78,6 +84,7 @@ model ProductVersion {
   /// Denormalized units for list/filter/sort: equals `stock` when !hasVariants, else sum of variant stocks.
   totalVariantStock Int     @default(0) @map("total_variant_stock")
   hasVariants       Boolean @default(false) @map("has_variants")
+  isBundle          Boolean @default(false) @map("is_bundle")
 
   /// Denormalized min/max effective variant sell prices (variant.price ?? version.price). Null when !hasVariants or no variants.
   variantEffectivePriceMin Decimal? @map("variant_effective_price_min") @db.Decimal(10, 2)
@@ -95,7 +102,9 @@ model ProductVersion {
   productsAsCurrentPublished Product[] @relation("ProductCurrentPublishedVersion")
   productsAsDraft            Product[] @relation("ProductDraftVersion")
 
-  orderItems OrderItem[]
+  orderItems           OrderItem[]
+  bundleItems          BundleItem[]           @relation("BundleVersionItems")
+  orderItemBundleRefs  OrderItemBundleChild[]
 
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
@@ -184,8 +193,10 @@ model ProductVariant {
   imageId String? @map("image_id")
   image   Image?  @relation("VariantImage", fields: [imageId], references: [id], onDelete: SetNull)
 
-  orderItems OrderItem[]
-  selections ProductVariantSelection[]
+  orderItems          OrderItem[]
+  selections          ProductVariantSelection[]
+  bundleChildRefs     BundleItem[]           @relation("BundleChildVariant")
+  orderItemBundleRefs OrderItemBundleChild[]
 
   updatedAt DateTime @default(now()) @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
@@ -266,4 +277,33 @@ model ProductAddonOption {
 
   @@index([groupId])
   @@map("product_addon_options")
+}
+
+/**
+ * One child-product slot inside a bundle version.
+ * itemQty = how many units of the child are consumed per bundle unit.
+ * NULL uniqueness for childVariantId is enforced at the service layer, not the DB,
+ * because Postgres treats NULL != NULL in unique indexes.
+ */
+model BundleItem {
+  id        String @id @default(cuid())
+  itemQty   Int    @default(1) @map("item_qty")
+  sortOrder Int    @default(0) @map("sort_order")
+
+  bundleVersionId String         @map("bundle_version_id")
+  bundleVersion   ProductVersion @relation("BundleVersionItems", fields: [bundleVersionId], references: [id], onDelete: Cascade)
+
+  childProductId String  @map("child_product_id")
+  childProduct   Product @relation("BundleChildProduct", fields: [childProductId], references: [id], onDelete: Restrict)
+
+  childVariantId String?         @map("child_variant_id")
+  childVariant   ProductVariant? @relation("BundleChildVariant", fields: [childVariantId], references: [id], onDelete: Restrict)
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([bundleVersionId])
+  @@index([childProductId])
+  @@index([childVariantId])
+  @@map("bundle_items")
 }
