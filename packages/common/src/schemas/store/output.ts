@@ -32,8 +32,8 @@ export const storeSafeOutputSchema = z.object({
   currency: supportedCurrencySchema,
   supportedPaymentMethods: z.array(paymentMethodSchema),
   shippingCost: z.number(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
   storePlan: storePlanSimpleOutputSchema.optional(),
 });
 

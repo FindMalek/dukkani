@@ -63,14 +63,25 @@ const generatedDescriptionSchema = z.object({
     ),
 });
 
+/**
+ * Extracts an HTTP status from an error. The AI SDK throws `APICallError`
+ * which exposes `statusCode` (not `status`), so check that first, then fall
+ * back to `status` for other error shapes (e.g. fetch responses).
+ */
 function extractErrorStatus(error: unknown): number | undefined {
-  if (
-    error &&
-    typeof error === "object" &&
-    "status" in error &&
-    typeof (error as { status: unknown }).status === "number"
-  ) {
-    return (error as { status: number }).status;
+  if (error && typeof error === "object") {
+    if (
+      "statusCode" in error &&
+      typeof (error as { statusCode: unknown }).statusCode === "number"
+    ) {
+      return (error as { statusCode: number }).statusCode;
+    }
+    if (
+      "status" in error &&
+      typeof (error as { status: unknown }).status === "number"
+    ) {
+      return (error as { status: number }).status;
+    }
   }
   return undefined;
 }
@@ -1023,6 +1034,7 @@ class ProductServiceBase {
           schema: generatedDescriptionSchema,
           maxOutputTokens: DESCRIPTION_MAX_OUTPUT_TOKENS,
           temperature: DESCRIPTION_TEMPERATURE,
+          maxRetries: 0,
           abortSignal: AbortSignal.timeout(DESCRIPTION_TIMEOUT_MS),
           providerOptions: {
             // qwen/qwen3.6-27b doesn't support Groq's `json_schema` structured-output
@@ -1069,9 +1081,6 @@ class ProductServiceBase {
     if (input.price != null) {
       product.price = `${input.price}${input.currency ? ` ${input.currency}` : ""}`;
     }
-    if (input.merchantNotes) {
-      product.merchantNotes = input.merchantNotes;
-    }
     if (input.hasVariants && input.variantOptions.length > 0) {
       product.variants = input.variantOptions.map(
         (option) => `${option.name}: ${option.values.join(", ")}`,
@@ -1092,8 +1101,6 @@ class ProductServiceBase {
         "Use the attached image(s) (if any) as visual reference for materials, color, and style.",
         "Do not fabricate specifications not visible or stated above.",
         "Keep it concise (under ~120 words), markdown only (no headings, no HTML), suitable for a mobile storefront.",
-        // Groq's json_object response format requires the word "json" to appear
-        // literally somewhere in the prompt, or the request is rejected outright.
         'Respond with a JSON object of the exact shape {"description": string}. Output only the JSON object, nothing else.',
       ],
     });

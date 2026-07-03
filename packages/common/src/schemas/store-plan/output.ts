@@ -6,10 +6,10 @@ export const storePlanSimpleOutputSchema = z.object({
   planType: storePlanTypeSchema,
   orderLimit: z.number().int(),
   orderCount: z.number().int(),
-  resetAt: z.date().nullable(),
+  resetAt: z.coerce.date().nullable(),
   storeId: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 });
 
 export type StorePlanSimpleOutput = z.infer<typeof storePlanSimpleOutputSchema>;

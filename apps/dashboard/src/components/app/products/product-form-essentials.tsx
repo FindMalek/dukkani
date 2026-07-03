@@ -4,6 +4,7 @@ import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-fiel
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
+import { handleAPIError } from "@/shared/api/error-handler";
 import { client } from "@/shared/api/orpc";
 import { productFormOptions } from "@/shared/lib/product/form";
 import { useCurrentStoreCurrency } from "@/shared/lib/store/current-currency.hook";
@@ -95,6 +96,7 @@ export const ProductFormEssentials = withForm({
               label={t("form.description.label")}
               placeholder={t("form.description.placeholder")}
               onImageUpload={handleInlineImageUpload}
+              onImageUploadError={handleAPIError}
               imageUploadLabel={t("form.generateAi.insertImageLabel")}
             />
           )}

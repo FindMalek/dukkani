@@ -416,8 +416,6 @@
         "generateAi": {
           "button": "Generate with AI",
           "generating": "Generating…",
-          "notesToggle": "Add notes for AI",
-          "notesPlaceholder": "Optional notes or keywords to guide the AI (e.g. material, audience, style)",
           "insertImageLabel": "Insert image"
         },
         "published": {

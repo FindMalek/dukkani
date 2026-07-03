@@ -15,6 +15,8 @@ interface MarkdownEditorFieldProps extends CommonFieldProps {
   minHeight?: number;
   /** Uploads a file to storage and resolves to its public URL. Enables the image toolbar button and paste/drop-to-insert. */
   onImageUpload?: (file: File) => Promise<string>;
+  /** Called when an inline image upload fails (toolbar button, paste, or drop). */
+  onImageUploadError?: (error: unknown) => void;
   imageUploadLabel?: string;
 }
 
@@ -25,6 +27,7 @@ export function MarkdownEditorField({
   placeholder,
   minHeight = 160,
   onImageUpload,
+  onImageUploadError,
   imageUploadLabel = "Insert image",
 }: MarkdownEditorFieldProps) {
   const field = useFieldContext<string>();
@@ -38,7 +41,13 @@ export function MarkdownEditorField({
     commands.unorderedListCommand,
     commands.link,
     ...(onImageUpload
-      ? [buildImageUploadCommand(onImageUpload, imageUploadLabel)]
+      ? [
+          buildImageUploadCommand(
+            onImageUpload,
+            imageUploadLabel,
+            onImageUploadError,
+          ),
+        ]
       : []),
   ];
 
@@ -72,6 +81,7 @@ export function MarkdownEditorField({
                     event.clipboardData?.files,
                     event.currentTarget,
                     onImageUpload,
+                    onImageUploadError,
                   );
                   if (handled) event.preventDefault();
                 }
@@ -82,6 +92,7 @@ export function MarkdownEditorField({
                     event.dataTransfer?.files,
                     event.currentTarget,
                     onImageUpload,
+                    onImageUploadError,
                   );
                   if (handled) event.preventDefault();
                 }

@@ -420,8 +420,6 @@
         "generateAi": {
           "button": "Générer avec l'IA",
           "generating": "Génération…",
-          "notesToggle": "Ajouter des notes pour l'IA",
-          "notesPlaceholder": "Notes ou mots-clés facultatifs pour guider l'IA (ex : matière, public, style)",
           "insertImageLabel": "Insérer une image"
         },
         "published": {

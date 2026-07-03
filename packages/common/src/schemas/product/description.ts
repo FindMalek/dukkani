@@ -15,9 +15,8 @@ const generateProductDescriptionSharedSchema = z.object({
   storeId: z.string().min(1, "Store ID is required"),
   title: z.string().trim().min(1, "Title is required").max(200),
   categoryName: z.string().trim().max(120).optional(),
-  price: z.number().positive().optional(),
+  price: z.number().nonnegative().optional(),
   currency: z.string().trim().length(3).optional(),
-  merchantNotes: z.string().trim().max(1000).optional(),
   productType: z.nativeEnum(ProductType).default(ProductType.SIMPLE),
   hasVariants: z.boolean().default(false),
   variantOptions: z
