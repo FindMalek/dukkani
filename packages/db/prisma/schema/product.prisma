@@ -43,8 +43,8 @@ model Product {
   orderItems         OrderItem[]
   productCollections ProductCollection[]
 
-  bundleChildRefs      BundleItem[]           @relation("BundleChildProduct")
-  orderItemBundleRefs  OrderItemBundleChild[]
+  bundleChildRefs     BundleItem[]           @relation("BundleChildProduct")
+  orderItemBundleRefs OrderItemBundleChild[]
 
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
@@ -102,9 +102,9 @@ model ProductVersion {
   productsAsCurrentPublished Product[] @relation("ProductCurrentPublishedVersion")
   productsAsDraft            Product[] @relation("ProductDraftVersion")
 
-  orderItems           OrderItem[]
-  bundleItems          BundleItem[]           @relation("BundleVersionItems")
-  orderItemBundleRefs  OrderItemBundleChild[]
+  orderItems          OrderItem[]
+  bundleItems         BundleItem[]           @relation("BundleVersionItems")
+  orderItemBundleRefs OrderItemBundleChild[]
 
   updatedAt DateTime @updatedAt @map("updated_at")
   createdAt DateTime @default(now()) @map("created_at")
@@ -195,7 +195,7 @@ model ProductVariant {
 
   orderItems          OrderItem[]
   selections          ProductVariantSelection[]
-  bundleChildRefs     BundleItem[]           @relation("BundleChildVariant")
+  bundleChildRefs     BundleItem[]              @relation("BundleChildVariant")
   orderItemBundleRefs OrderItemBundleChild[]
 
   updatedAt DateTime @default(now()) @map("updated_at")

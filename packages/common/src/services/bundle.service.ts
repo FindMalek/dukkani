@@ -1,13 +1,19 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
-import { ProductType, ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
-import { BundleItemQuery } from "../entities/bundle-item/query";
-import { BadRequestError, NotFoundError } from "../errors";
-import { computeBundleEffectiveStock } from "../lib/bundle/compute-bundle-stock";
-import { generateProductId } from "../lib/id/generate-id";
-import type { BundleItemInput } from "../schemas/bundle-item/input";
-import type { CreateBundleInput, UpdateBundleInput } from "../schemas/bundle/input";
-import { ProductVersionService } from "./product-version.service";
+import {
+  ProductType,
+  ProductVersionStatus,
+} from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
+import { BadRequestError, NotFoundError } from "../errors";
+import { assertPublishWontBreakBundles as assertPublishWontBreakBundlesImpl } from "../lib/bundle/assert-publish-wont-break-bundles";
+import { recomputeBundleEffectiveStock as recomputeBundleEffectiveStockImpl } from "../lib/bundle/recompute-bundle-effective-stock";
+import { generateProductId } from "../lib/id/generate-id";
+import type {
+  CreateBundleInput,
+  UpdateBundleInput,
+} from "../schemas/bundle/input";
+import type { BundleItemInput } from "../schemas/bundle-item/input";
+import { ProductVersionService } from "./product-version.service";
 
 class BundleServiceBase {
   /**
@@ -30,7 +36,9 @@ class BundleServiceBase {
     }
 
     // Null-variant uniqueness: same product without variant can only appear once
-    const simpleRefs = items.filter((i) => !i.childVariantId).map((i) => i.childProductId);
+    const simpleRefs = items
+      .filter((i) => !i.childVariantId)
+      .map((i) => i.childProductId);
     if (new Set(simpleRefs).size < simpleRefs.length) {
       throw new BadRequestError(
         "Cannot add the same product (without a variant) more than once to a bundle",
@@ -122,58 +130,31 @@ class BundleServiceBase {
   ): Promise<void> {
     await tx.bundleItem.deleteMany({ where: { bundleVersionId } });
 
-    for (const item of items) {
-      await tx.bundleItem.create({
-        data: {
-          bundleVersionId,
-          childProductId: item.childProductId,
-          childVariantId: item.childVariantId ?? null,
-          itemQty: item.itemQty,
-          sortOrder: item.sortOrder ?? 0,
-        },
-      });
-    }
+    await tx.bundleItem.createMany({
+      data: items.map((item) => ({
+        bundleVersionId,
+        childProductId: item.childProductId,
+        childVariantId: item.childVariantId ?? null,
+        itemQty: item.itemQty,
+        sortOrder: item.sortOrder ?? 0,
+      })),
+    });
   }
 
   /**
    * Recompute and persist effective stock for a bundle's ProductVersion.
    * Sets both `stock` and `totalVariantStock` to the computed effective stock
    * so list filters and storefront OOS logic work correctly without extra queries.
+   *
+   * Delegates to `lib/bundle/recompute-bundle-effective-stock` so
+   * `ProductVersionService.publishDraft` can call the same logic without a
+   * circular import (see {@link ProductVersionServiceBase.publishDraft}).
    */
   static async recomputeBundleEffectiveStock(
     tx: Prisma.TransactionClient,
     bundleVersionId: string,
   ): Promise<void> {
-    const bundleItems = await tx.bundleItem.findMany({
-      where: { bundleVersionId },
-      select: BundleItemQuery.getStockCheckSelect(),
-    });
-
-    const slots = bundleItems.map((bi) => {
-      if (bi.childVariantId && bi.childVariant) {
-        return {
-          stock: bi.childVariant.stock,
-          trackStock: bi.childVariant.trackStock,
-          itemQty: bi.itemQty,
-        };
-      }
-      const pub = bi.childProduct.currentPublishedVersion;
-      if (!pub) {
-        return { stock: 0, trackStock: true, itemQty: bi.itemQty };
-      }
-      return {
-        stock: pub.stock,
-        trackStock: true,
-        itemQty: bi.itemQty,
-      };
-    });
-
-    const effective = computeBundleEffectiveStock(slots);
-
-    await tx.productVersion.update({
-      where: { id: bundleVersionId },
-      data: { stock: effective, totalVariantStock: effective },
-    });
+    await recomputeBundleEffectiveStockImpl(tx, bundleVersionId);
   }
 
   /**
@@ -206,11 +187,14 @@ class BundleServiceBase {
       distinct: ["bundleVersionId"],
     });
 
-    await Promise.all(
-      affected.map(({ bundleVersionId }) =>
-        BundleServiceBase.recomputeBundleEffectiveStock(tx, bundleVersionId),
-      ),
-    );
+    // Sequential, not Promise.all: an interactive transaction shares a single
+    // connection, so concurrent queries against the same `tx` can race.
+    for (const { bundleVersionId } of affected) {
+      await BundleServiceBase.recomputeBundleEffectiveStock(
+        tx,
+        bundleVersionId,
+      );
+    }
   }
 
   /**
@@ -230,82 +214,19 @@ class BundleServiceBase {
     draftVersionId: string,
     previousPublishedVersionId: string | null,
   ): Promise<void> {
-    // Load draft hasVariants
+    // Bundles can't be children of bundles — only check SIMPLE products
     const draftVersion = await tx.productVersion.findUnique({
       where: { id: draftVersionId },
-      select: { hasVariants: true, isBundle: true },
+      select: { isBundle: true },
     });
-
-    // Bundles can't be children of bundles — only check SIMPLE products
     if (!draftVersion || draftVersion.isBundle) return;
 
-    // Load bundles referencing this product
-    const bundleRefs = await tx.bundleItem.findMany({
-      where: {
-        childProductId: productId,
-        bundleVersion: { status: ProductVersionStatus.PUBLISHED },
-      },
-      select: {
-        childVariantId: true,
-        bundleVersion: {
-          select: {
-            product: {
-              select: {
-                currentPublishedVersion: { select: { name: true } },
-              },
-            },
-          },
-        },
-      },
-    });
-
-    if (bundleRefs.length === 0) return;
-
-    // Get variant IDs in the draft
-    const draftVariantIds = new Set(
-      (
-        await tx.productVariant.findMany({
-          where: { productVersionId: draftVersionId },
-          select: { id: true },
-        })
-      ).map((v) => v.id),
+    await assertPublishWontBreakBundlesImpl(
+      tx,
+      productId,
+      draftVersionId,
+      previousPublishedVersionId,
     );
-
-    // Get old published hasVariants (if exists)
-    const oldHasVariants = previousPublishedVersionId
-      ? (
-          await tx.productVersion.findUnique({
-            where: { id: previousPublishedVersionId },
-            select: { hasVariants: true },
-          })
-        )?.hasVariants ?? false
-      : false;
-
-    const blockingNames: string[] = [];
-
-    for (const ref of bundleRefs) {
-      const bundleName =
-        ref.bundleVersion.product.currentPublishedVersion?.name ?? "Unknown bundle";
-
-      if (ref.childVariantId !== null) {
-        // Case a: variant-specific reference that disappears in the draft
-        if (!draftVariantIds.has(ref.childVariantId)) {
-          blockingNames.push(bundleName);
-        }
-      } else {
-        // Case b: null-variant ref + product transitions from simple → variant
-        if (!oldHasVariants && draftVersion.hasVariants) {
-          blockingNames.push(bundleName);
-        }
-      }
-    }
-
-    if (blockingNames.length > 0) {
-      const unique = [...new Set(blockingNames)];
-      throw new BadRequestError(
-        `Cannot publish: this product is used in ${unique.length === 1 ? "a bundle" : "bundles"}: ${unique.join(", ")}. Update those bundles first.`,
-      );
-    }
   }
 
   /**
@@ -397,7 +318,11 @@ class BundleServiceBase {
         product.storeId,
         input.bundleItems,
       );
-      await BundleServiceBase.writeBundleItems(tx, versionId, input.bundleItems);
+      await BundleServiceBase.writeBundleItems(
+        tx,
+        versionId,
+        input.bundleItems,
+      );
     }
 
     await tx.productVersion.update({
@@ -415,7 +340,10 @@ class BundleServiceBase {
       await tx.image.deleteMany({ where: { productVersionId: versionId } });
       if (input.imageUrls.length > 0) {
         await tx.image.createMany({
-          data: input.imageUrls.map((url) => ({ url, productVersionId: versionId })),
+          data: input.imageUrls.map((url) => ({
+            url,
+            productVersionId: versionId,
+          })),
         });
       }
     }

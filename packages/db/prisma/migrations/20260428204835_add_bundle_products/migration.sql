@@ -42,6 +42,9 @@ CREATE INDEX "order_item_bundle_children_order_item_id_idx" ON "order_item_bundl
 CREATE INDEX "order_item_bundle_children_child_product_id_idx" ON "order_item_bundle_children"("child_product_id");
 
 -- CreateIndex
+CREATE INDEX "order_item_bundle_children_child_product_version_id_idx" ON "order_item_bundle_children"("child_product_version_id");
+
+-- CreateIndex
 CREATE INDEX "bundle_items_bundle_version_id_idx" ON "bundle_items"("bundle_version_id");
 
 -- CreateIndex
@@ -57,7 +60,7 @@ CREATE INDEX "products_store_id_type_idx" ON "products"("store_id", "type");
 ALTER TABLE "order_item_bundle_children" ADD CONSTRAINT "order_item_bundle_children_order_item_id_fkey" FOREIGN KEY ("order_item_id") REFERENCES "order_items"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "order_item_bundle_children" ADD CONSTRAINT "order_item_bundle_children_child_product_id_fkey" FOREIGN KEY ("child_product_id") REFERENCES "products"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "order_item_bundle_children" ADD CONSTRAINT "order_item_bundle_children_child_product_id_fkey" FOREIGN KEY ("child_product_id") REFERENCES "products"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "order_item_bundle_children" ADD CONSTRAINT "order_item_bundle_children_child_variant_id_fkey" FOREIGN KEY ("child_variant_id") REFERENCES "product_variants"("id") ON DELETE SET NULL ON UPDATE CASCADE;

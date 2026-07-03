@@ -3,6 +3,8 @@ import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import { ProductVersionQuery } from "../entities/product-version/query";
 import { BadRequestError, ConflictError, NotFoundError } from "../errors";
+import { assertPublishWontBreakBundles } from "../lib/bundle/assert-publish-wont-break-bundles";
+import { recomputeBundleEffectiveStock } from "../lib/bundle/recompute-bundle-effective-stock";
 import { variantPriceRangeMinMax } from "../lib/pricing/variant-effective-price";
 import type { CreateInitialPublishedVersionInput } from "../schemas/product/input";
 import type { ProductAddonGroupInput } from "../schemas/product-addon/input";
@@ -457,84 +459,6 @@ class ProductVersionServiceBase {
   }
 
   /**
-   * Checks that publishing `draftVersionId` for `productId` won't break any existing bundles.
-   * Called inside publishDraft before any status writes.
-   * Blocks if:
-   *  a) Draft removes a variant used as childVariantId in a PUBLISHED bundle
-   *  b) Draft transitions hasVariants false→true while product is a simple child of a bundle
-   */
-  private static async assertPublishWontBreakBundles(
-    tx: Prisma.TransactionClient,
-    productId: string,
-    draftVersionId: string,
-    previousPublishedId: string | null,
-  ): Promise<void> {
-    const bundleRefs = await tx.bundleItem.findMany({
-      where: {
-        childProductId: productId,
-        bundleVersion: { status: ProductVersionStatus.PUBLISHED },
-      },
-      select: {
-        childVariantId: true,
-        bundleVersion: {
-          select: {
-            product: {
-              select: {
-                currentPublishedVersion: { select: { name: true } },
-              },
-            },
-          },
-        },
-      },
-    });
-
-    if (bundleRefs.length === 0) return;
-
-    const [draftVariantRows, draftVersionRow, oldVersionRow] = await Promise.all([
-      tx.productVariant.findMany({
-        where: { productVersionId: draftVersionId },
-        select: { id: true },
-      }),
-      tx.productVersion.findUnique({
-        where: { id: draftVersionId },
-        select: { hasVariants: true },
-      }),
-      previousPublishedId
-        ? tx.productVersion.findUnique({
-            where: { id: previousPublishedId },
-            select: { hasVariants: true },
-          })
-        : Promise.resolve(null),
-    ]);
-
-    const draftVariantIds = new Set(draftVariantRows.map((v) => v.id));
-    const oldHasVariants = oldVersionRow?.hasVariants ?? false;
-    const newHasVariants = draftVersionRow?.hasVariants ?? false;
-
-    const blockingNames: string[] = [];
-
-    for (const ref of bundleRefs) {
-      const name =
-        ref.bundleVersion.product.currentPublishedVersion?.name ?? "Unknown bundle";
-
-      if (ref.childVariantId !== null) {
-        if (!draftVariantIds.has(ref.childVariantId)) {
-          blockingNames.push(name);
-        }
-      } else if (!oldHasVariants && newHasVariants) {
-        blockingNames.push(name);
-      }
-    }
-
-    if (blockingNames.length > 0) {
-      const unique = [...new Set(blockingNames)];
-      throw new BadRequestError(
-        `Cannot publish: this product is used in ${unique.length === 1 ? "a bundle" : "bundles"}: ${unique.join(", ")}. Update those bundles first.`,
-      );
-    }
-  }
-
-  /**
    * Publish draft: archive previous published, promote draft, clear draft pointer.
    */
   static async publishDraft(
@@ -545,7 +469,9 @@ class ProductVersionServiceBase {
     const product = await tx.product.findUnique({
       where: { id: productId },
       include: {
-        draftVersion: { select: { id: true, status: true, updatedAt: true, isBundle: true } },
+        draftVersion: {
+          select: { id: true, status: true, updatedAt: true, isBundle: true },
+        },
         currentPublishedVersion: { select: { id: true, status: true } },
       },
     });
@@ -573,7 +499,7 @@ class ProductVersionServiceBase {
 
     // Before promoting: ensure publishing won't break any bundles that reference this product
     if (!product.draftVersion.isBundle) {
-      await ProductVersionServiceBase.assertPublishWontBreakBundles(
+      await assertPublishWontBreakBundles(
         tx,
         productId,
         draftId,
@@ -605,7 +531,12 @@ class ProductVersionServiceBase {
       tx,
       draftId,
     );
-    await ProductVersionServiceBase.recomputeTotalVariantStock(tx, draftId);
+
+    if (product.draftVersion.isBundle) {
+      await recomputeBundleEffectiveStock(tx, draftId);
+    } else {
+      await ProductVersionServiceBase.recomputeTotalVariantStock(tx, draftId);
+    }
   }
 
   /**

@@ -2,11 +2,11 @@ import { buildProductPriceDisplay } from "../../lib/pricing/product-price-displa
 import { buildVariantDescription } from "../../lib/variant/build-description";
 import { listDisplayStock } from "../../lib/variant/list-display-stock";
 import { reconcileVariants } from "../../lib/variant/matrix";
-import type { CartItemOutput } from "../../schemas/cart/output";
 import type {
   BundleIncludeOutput,
   ListBundleOutput,
 } from "../../schemas/bundle/output";
+import type { CartItemOutput } from "../../schemas/cart/output";
 import type { ProductFormInput } from "../../schemas/product/form";
 import type { ProductLineItem } from "../../schemas/product/input";
 import type {
@@ -16,6 +16,7 @@ import type {
   ProductSimpleOutput,
 } from "../../schemas/product/output";
 import type { ProductVariantFormRowInput } from "../../schemas/variant/form";
+import { ImageEntity } from "../image/entity";
 import { OrderItemEntity } from "../order-item/entity";
 import { ProductAddonEntity } from "../product-addon/entity";
 import { ProductVersionEntity } from "../product-version/entity";
@@ -242,69 +243,6 @@ export class ProductEntity {
     };
   }
 
-  /**
-   * Dashboard bundle detail: maps a bundle product with full bundle items tree.
-   */
-  static getBundleRo(entity: ProductBundleIncludeDbData): BundleIncludeOutput {
-    const v = entity.draftVersion ?? entity.currentPublishedVersion;
-    const versionPrice = v ? Number(v.price) : 0;
-
-    return {
-      id: entity.id,
-      name: v?.name ?? "",
-      description: v?.description ?? null,
-      price: versionPrice,
-      effectiveStock: v?.totalVariantStock ?? 0,
-      published: entity.published,
-      storeId: entity.storeId,
-      categoryId: entity.categoryId,
-      hasDraft: entity.draftVersionId !== null,
-      images: v?.images.map(({ id, url, productVersionId, createdAt, updatedAt }) => ({
-        id, url, productVersionId, createdAt, updatedAt,
-      })),
-      bundleItems: v?.bundleItems
-        ? ProductVersionEntity.getBundleItemsRo(v.bundleItems)
-        : [],
-      orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
-      priceDisplay: buildProductPriceDisplay({
-        hasVariants: false,
-        versionPrice,
-        variantEffectivePriceMin: null,
-        variantEffectivePriceMax: null,
-      }),
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
-    };
-  }
-
-  /**
-   * Dashboard bundle list card.
-   */
-  static getBundleListRo(entity: ProductBundleIncludeDbData): ListBundleOutput {
-    const v = entity.draftVersion ?? entity.currentPublishedVersion;
-    const versionPrice = v ? Number(v.price) : 0;
-
-    return {
-      id: entity.id,
-      name: v?.name ?? "",
-      description: v?.description ?? null,
-      price: versionPrice,
-      effectiveStock: v?.totalVariantStock ?? 0,
-      published: entity.published,
-      storeId: entity.storeId,
-      imageUrls: v?.images.map((img) => img.url) ?? [],
-      bundleItemCount: v?.bundleItems?.length ?? 0,
-      priceDisplay: buildProductPriceDisplay({
-        hasVariants: false,
-        versionPrice,
-        variantEffectivePriceMin: null,
-        variantEffectivePriceMax: null,
-      }),
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
-    };
-  }
-
   static getPublicRo(
     entity: ProductPublicDbDataWithPublished,
   ): ProductPublicOutput {
@@ -338,6 +276,89 @@ export class ProductEntity {
             : null,
         variantsFallback: v.variants,
       }),
+    };
+  }
+
+  /**
+   * Dashboard bundle detail: draft preferred over published (see {@link ProductQuery.getBundleInclude}).
+   */
+  static getBundleRo(entity: ProductBundleIncludeDbData): BundleIncludeOutput {
+    const v = entity.draftVersion ?? entity.currentPublishedVersion;
+
+    if (!v) {
+      return {
+        id: entity.id,
+        name: "",
+        description: null,
+        price: 0,
+        effectiveStock: 0,
+        published: entity.published,
+        storeId: entity.storeId,
+        categoryId: entity.categoryId,
+        hasDraft: entity.draftVersionId !== null,
+        images: [],
+        bundleItems: [],
+        orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
+        priceDisplay: { kind: "simple", price: 0 },
+        createdAt: entity.createdAt,
+        updatedAt: entity.updatedAt,
+      };
+    }
+
+    const versionPrice = Number(v.price);
+
+    return {
+      id: entity.id,
+      name: v.name,
+      description: v.description,
+      price: versionPrice,
+      effectiveStock: ProductVersionEntity.getBundleEffectiveStock(
+        v.bundleItems,
+      ),
+      published: entity.published,
+      storeId: entity.storeId,
+      categoryId: entity.categoryId,
+      hasDraft: entity.draftVersionId !== null,
+      images: v.images.map(ImageEntity.getSimpleRo),
+      bundleItems: ProductVersionEntity.getBundleItemsRo(v.bundleItems),
+      orderItems: entity.orderItems.map(OrderItemEntity.getSimpleRo),
+      priceDisplay: buildProductPriceDisplay({
+        hasVariants: false,
+        versionPrice,
+      }),
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+    };
+  }
+
+  /**
+   * Dashboard bundle list card: prefers draft slice (see {@link ProductEntity.getListRo}).
+   * Effective stock uses the denormalized `totalVariantStock` column so list
+   * queries never need the full bundle item tree.
+   */
+  static getBundleListRo(entity: ProductListDbData): ListBundleOutput {
+    const v = ProductVersionEntity.pickForList(
+      entity.draftVersion,
+      entity.currentPublishedVersion,
+    );
+    const versionPrice = v ? Number(v.price) : 0;
+
+    return {
+      id: entity.id,
+      name: v?.name ?? "",
+      description: v?.description ?? null,
+      price: versionPrice,
+      effectiveStock: v?.totalVariantStock ?? 0,
+      published: entity.published,
+      storeId: entity.storeId,
+      imageUrls: v?.images.map((img) => img.url) ?? [],
+      bundleItemCount: v?._count.bundleItems ?? 0,
+      priceDisplay: buildProductPriceDisplay({
+        hasVariants: false,
+        versionPrice,
+      }),
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
     };
   }
 }

@@ -5,7 +5,7 @@ export const createBundleInputSchema = z.object({
   storeId: z.string().min(1),
   name: z.string().min(1),
   description: z.string().optional(),
-  price: z.number().positive(),
+  price: z.number().nonnegative(),
   published: z.boolean().default(false),
   categoryId: z.string().min(1).optional(),
   imageUrls: z.array(z.string().url()).optional(),

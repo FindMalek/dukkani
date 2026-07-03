@@ -7,11 +7,14 @@ export type BundleItemStockCheckDbData = Prisma.BundleItemGetPayload<{
 export class BundleItemQuery {
   /**
    * Minimal select for stock availability check and effective stock computation.
-   * Includes child product's published version stock + variants, and child variant stock.
+   * Includes child product's published version stock + variant ids (to verify a
+   * bundle's childVariantId still exists on the child's current published version),
+   * and child variant stock.
    */
   static getStockCheckSelect() {
     return {
       id: true,
+      bundleVersionId: true,
       itemQty: true,
       childProductId: true,
       childVariantId: true,
@@ -24,9 +27,7 @@ export class BundleItemQuery {
               id: true,
               stock: true,
               hasVariants: true,
-              variants: {
-                select: { id: true, stock: true, trackStock: true },
-              },
+              variants: { select: { id: true } },
             },
           },
         },
@@ -43,6 +44,7 @@ export class BundleItemQuery {
   static getOrderPricingSelect() {
     return {
       id: true,
+      bundleVersionId: true,
       itemQty: true,
       sortOrder: true,
       childProductId: true,
@@ -59,9 +61,6 @@ export class BundleItemQuery {
               stock: true,
               hasVariants: true,
               images: { select: { url: true }, take: 1 },
-              variants: {
-                select: { id: true, stock: true, trackStock: true, price: true },
-              },
             },
           },
         },
