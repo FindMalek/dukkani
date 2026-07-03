@@ -24,9 +24,6 @@ export class BundleItemQuery {
               id: true,
               stock: true,
               hasVariants: true,
-              variants: {
-                select: { id: true, stock: true, trackStock: true },
-              },
             },
           },
         },
@@ -59,9 +56,6 @@ export class BundleItemQuery {
               stock: true,
               hasVariants: true,
               images: { select: { url: true }, take: 1 },
-              variants: {
-                select: { id: true, stock: true, trackStock: true, price: true },
-              },
             },
           },
         },

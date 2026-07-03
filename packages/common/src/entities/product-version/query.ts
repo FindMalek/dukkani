@@ -53,7 +53,8 @@ export class ProductVersionQuery {
       variantEffectivePriceMin: true,
       variantEffectivePriceMax: true,
       images: { select: { url: true } },
-      _count: { select: { variants: true } },
+      totalVariantStock: true,
+      _count: { select: { variants: true, bundleItems: true } },
       variants: { select: { stock: true, trackStock: true, price: true } },
       addonGroups: {
         where: { required: true },
@@ -128,25 +129,29 @@ export class ProductVersionQuery {
                   id: true,
                   name: true,
                   price: true,
+                  stock: true,
                   hasVariants: true,
                   images: {
                     select: { url: true },
                     take: 4,
-                  },
-                  variants: {
-                    select: {
-                      id: true,
-                      stock: true,
-                      trackStock: true,
-                      price: true,
-                    },
                   },
                 },
               },
             },
           },
           childVariant: {
-            select: { id: true, stock: true, trackStock: true, price: true },
+            select: {
+              id: true,
+              stock: true,
+              trackStock: true,
+              price: true,
+              selections: {
+                select: {
+                  option: { select: { name: true } },
+                  value: { select: { value: true } },
+                },
+              },
+            },
           },
         },
       },

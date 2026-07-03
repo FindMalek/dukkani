@@ -125,7 +125,7 @@ model OrderItemBundleChild {
   itemQty  Int @map("item_qty")
   totalQty Int @map("total_qty")
 
-  childProduct        Product         @relation(fields: [childProductId], references: [id], onDelete: Cascade)
+  childProduct        Product         @relation(fields: [childProductId], references: [id], onDelete: Restrict)
   childVariant        ProductVariant? @relation(fields: [childVariantId], references: [id], onDelete: SetNull)
   childProductVersion ProductVersion  @relation(fields: [childProductVersionId], references: [id], onDelete: Restrict)
 
@@ -133,5 +133,6 @@ model OrderItemBundleChild {
 
   @@index([orderItemId])
   @@index([childProductId])
+  @@index([childProductVersionId])
   @@map("order_item_bundle_children")
 }
