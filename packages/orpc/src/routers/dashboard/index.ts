@@ -1,4 +1,5 @@
 import { accountRouter } from "./account";
+import { bundleRouter } from "./bundle";
 import { categoryRouter } from "./category";
 import { collectionRouter } from "./collection";
 import { customerRouter } from "./customer";
@@ -14,6 +15,7 @@ export const dashboardRouter = {
   health: healthRouter,
   store: storeRouter,
   product: productRouter,
+  bundle: bundleRouter,
   order: orderRouter,
   customer: customerRouter,
   storage: storageRouter,
