@@ -48,12 +48,12 @@
     "@types/node": "catalog:",
     "@typescript/native-preview": "catalog:",
     "dotenv": "catalog:",
-    "syncpack": "^14.3.0",
+    "syncpack": "^15.3.2",
     "tsdown": "catalog:",
     "tsx": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:",
-    "wait-on": "^9.0.5"
+    "wait-on": "^9.0.10"
   },
   "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319"
 }
