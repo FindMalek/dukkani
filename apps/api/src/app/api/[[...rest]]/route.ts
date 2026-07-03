@@ -89,9 +89,10 @@ async function handleRequest(req: NextRequest) {
   let response: Response;
 
   try {
+    const context = await createContext(req.headers);
     const rpcResult = await rpcHandler.handle(req, {
       prefix: "/api",
-      context: await createContext(req.headers),
+      context,
     });
     if (rpcResult.response) {
       response = rpcResult.response;
@@ -101,7 +102,7 @@ async function handleRequest(req: NextRequest) {
     } else {
       const apiResult = await apiHandler.handle(req, {
         prefix: "/api",
-        context: await createContext(req.headers),
+        context,
       });
       if (apiResult.response) {
         response = apiResult.response;

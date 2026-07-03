@@ -57,6 +57,16 @@ export function createAuth(
         },
       },
     },
+    session: {
+      // Avoids a DB round trip on every session read (every oRPC request) by
+      // trusting a short-lived signed cookie between checks. Safe here: no
+      // impersonation/ban/role flow in this codebase depends on sub-5-minute
+      // session freshness.
+      cookieCache: {
+        enabled: true,
+        maxAge: 5 * 60,
+      },
+    },
     emailAndPassword: {
       enabled: true,
       password: {
