@@ -25,6 +25,10 @@ export type ProductStorefrontListDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getStorefrontListInclude>;
 }>;
 
+export type ProductBundleIncludeDbData = Prisma.ProductGetPayload<{
+  include: ReturnType<typeof ProductQuery.getBundleInclude>;
+}>;
+
 export type ProductPublicDbData = Prisma.ProductGetPayload<{
   include: ReturnType<typeof ProductQuery.getPublicInclude>;
 }>;
@@ -92,6 +96,27 @@ export class ProductQuery {
       currentPublishedVersion: {
         select: ProductVersionQuery.getListSelect(),
       },
+    } satisfies Prisma.ProductInclude;
+  }
+
+  /**
+   * Dashboard bundle detail: both versions with full bundle item tree.
+   */
+  static getBundleInclude() {
+    return {
+      currentPublishedVersion: {
+        include: {
+          ...ProductVersionQuery.getDetailInclude(),
+          ...ProductVersionQuery.getBundleItemsInclude(),
+        },
+      },
+      draftVersion: {
+        include: {
+          ...ProductVersionQuery.getDetailInclude(),
+          ...ProductVersionQuery.getBundleItemsInclude(),
+        },
+      },
+      orderItems: OrderItemQuery.getSimpleInclude(),
     } satisfies Prisma.ProductInclude;
   }
 

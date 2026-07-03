@@ -1,3 +1,4 @@
+export * from "./bundle/compute-bundle-stock";
 export * from "./datetime/calendar-day";
 export * from "./decimal/decimal-like";
 export * from "./http/origin";

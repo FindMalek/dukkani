@@ -20,6 +20,10 @@ export type OrderItemListDbData = Prisma.OrderItemGetPayload<{
   select: ReturnType<typeof OrderItemQuery.getListSelect>;
 }>;
 
+export type OrderItemWithBundleChildrenDbData = Prisma.OrderItemGetPayload<{
+  include: ReturnType<typeof OrderItemQuery.getBundleChildrenInclude>;
+}>;
+
 /**
  * Includes for order line items. When `product` is selected, always load `productVersion` with at least
  * `name` so storefront and notification UIs can show a title without fabricating empty strings.
@@ -76,6 +80,23 @@ export class OrderItemQuery {
       ...OrderItemQuery.getSimpleInclude(),
       product: { select: { id: true } },
       productVersion: { select: { name: true } },
+    } satisfies Prisma.OrderItemInclude;
+  }
+
+  /**
+   * Includes bundle children so deleteOrder can restore stock from the frozen snapshot.
+   */
+  static getBundleChildrenInclude() {
+    return {
+      bundleChildren: {
+        select: {
+          childProductId: true,
+          childVariantId: true,
+          childProductVersionId: true,
+          itemQty: true,
+          totalQty: true,
+        },
+      },
     } satisfies Prisma.OrderItemInclude;
   }
 
