@@ -167,6 +167,11 @@ export const appMutations = {
           await options?.onSuccess?.(data, input, result, context);
         },
       }),
+    generateDescription: (
+      options?: Parameters<
+        typeof orpc.product.generateDescription.mutationOptions
+      >[0],
+    ) => orpc.product.generateDescription.mutationOptions(options),
   },
   store: {
     create: (

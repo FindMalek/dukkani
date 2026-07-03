@@ -1,5 +1,6 @@
 "use client";
 
+import { SafeMarkdown } from "@dukkani/ui/components/markdown/safe-markdown";
 import { useTranslations } from "next-intl";
 
 interface ProductDescriptionProps {
@@ -18,9 +19,9 @@ export function ProductDescription({ description }: ProductDescriptionProps) {
       <h3 className="font-medium text-muted-foreground text-sm">
         {t("label")}
       </h3>
-      <p className="text-muted-foreground text-sm leading-relaxed">
+      <SafeMarkdown className="prose prose-sm max-w-none text-muted-foreground text-sm leading-relaxed">
         {description}
-      </p>
+      </SafeMarkdown>
     </div>
   );
 }

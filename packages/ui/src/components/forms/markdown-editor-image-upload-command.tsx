@@ -1,5 +1,5 @@
-import { insertTextAtPosition } from "@uiw/react-md-editor";
 import type { ICommand } from "@uiw/react-md-editor";
+import { insertTextAtPosition } from "@uiw/react-md-editor";
 import { Image as ImageIcon } from "lucide-react";
 
 /** Builds a markdown image reference, escaping characters that would break the link syntax. */

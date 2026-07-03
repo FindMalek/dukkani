@@ -1,5 +1,4 @@
 import { groq } from "@ai-sdk/groq";
-import { llml } from "@zenbase/llml";
 import { BadRequestError, NotFoundError } from "@dukkani/common/errors";
 import { database } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
@@ -9,9 +8,9 @@ import {
 } from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
+import { llml } from "@zenbase/llml";
 import { generateObject } from "ai";
 import { z } from "zod";
-import { env } from "../env";
 import { BundleItemQuery } from "../entities/bundle-item/query";
 import { ProductQuery } from "../entities/product/query";
 import type {
@@ -22,12 +21,11 @@ import {
   type ProductVersionOrderPricingDbData,
   ProductVersionQuery,
 } from "../entities/product-version/query";
-import { decimalLikeToNumber } from "../lib/decimal/decimal-like";
+import { env } from "../env";
 import { computeBundleEffectiveStock } from "../lib/bundle/compute-bundle-stock";
-import { effectiveVariantUnitPrice } from "../lib/pricing/variant-effective-price";
+import { decimalLikeToNumber } from "../lib/decimal/decimal-like";
 import { generateProductId } from "../lib/id/generate-id";
-import { BundleService } from "./bundle.service";
-import { ProductVersionService } from "./product-version.service";
+import { effectiveVariantUnitPrice } from "../lib/pricing/variant-effective-price";
 import {
   type BundleChildLine,
   bundleChildLineSchema,
@@ -42,6 +40,8 @@ import type {
   GenerateProductDescriptionOutput,
 } from "../schemas/product/description";
 import type { ProductLineItem } from "../schemas/product/input";
+import { BundleService } from "./bundle.service";
+import { ProductVersionService } from "./product-version.service";
 
 /** Groq's other vision model, llama-4-scout-17b-16e-instruct, is deprecated 2026-07-17 — do not use it. */
 const DESCRIPTION_MODEL_ID = "qwen/qwen3.6-27b";

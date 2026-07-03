@@ -1,6 +1,7 @@
 "use client";
 
 import MDEditor, { commands } from "@uiw/react-md-editor";
+import "@uiw/react-md-editor/markdown-editor.css";
 import { useTheme } from "next-themes";
 import { useFieldContext } from "../../hooks/use-app-form";
 import { BaseField, type CommonFieldProps } from "./base-field";
