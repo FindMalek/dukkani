@@ -226,11 +226,20 @@ class OrderServiceBase {
       );
 
       // Route stock decrements: bundle items → their children, standard items → themselves
-      const stockUpdates = OrderServiceBase.buildStockUpdates(orderItemsWithPrices);
-      await ProductService.updateMultipleProductStocks(stockUpdates, "decrement", tx);
+      const stockUpdates =
+        OrderServiceBase.buildStockUpdates(orderItemsWithPrices);
+      await ProductService.updateMultipleProductStocks(
+        stockUpdates,
+        "decrement",
+        tx,
+      );
 
       // Write OrderItemBundleChild snapshot rows for any bundle order items
-      await OrderServiceBase.writeBundleChildSnapshots(tx, createdOrder.orderItems, orderItemsWithPrices);
+      await OrderServiceBase.writeBundleChildSnapshots(
+        tx,
+        createdOrder.orderItems,
+        orderItemsWithPrices,
+      );
 
       await ProductService.updateAddonOptionStocks(
         OrderServiceBase.collectAddonStockDeltasFromPricedLines(
@@ -301,24 +310,37 @@ class OrderServiceBase {
     orderItems: Array<{ id: string; productId: string }>,
     pricedLines: PricedProductLineItem[],
   ): Promise<void> {
+    // Track consumed order items so each priced line claims a distinct row —
+    // an order can contain multiple lines for the same bundle productId, and
+    // matching by productId alone would attach every one of them to the same
+    // first order item, silently dropping snapshots for the rest.
+    const usedOrderItemIds = new Set<string>();
+    const rows: Prisma.OrderItemBundleChildCreateManyInput[] = [];
+
     for (const priced of pricedLines) {
       if (!priced.isBundle || !priced.bundleChildren?.length) continue;
 
-      const orderItem = orderItems.find((oi) => oi.productId === priced.productId);
+      const orderItem = orderItems.find(
+        (oi) =>
+          oi.productId === priced.productId && !usedOrderItemIds.has(oi.id),
+      );
       if (!orderItem) continue;
+      usedOrderItemIds.add(orderItem.id);
 
       for (const child of priced.bundleChildren) {
-        await tx.orderItemBundleChild.create({
-          data: {
-            orderItemId: orderItem.id,
-            childProductId: child.childProductId,
-            childVariantId: child.childVariantId ?? null,
-            childProductVersionId: child.childProductVersionId,
-            itemQty: child.itemQty,
-            totalQty: child.quantity,
-          },
+        rows.push({
+          orderItemId: orderItem.id,
+          childProductId: child.childProductId,
+          childVariantId: child.childVariantId ?? null,
+          childProductVersionId: child.childProductVersionId,
+          itemQty: child.itemQty,
+          totalQty: child.quantity,
         });
       }
+    }
+
+    if (rows.length > 0) {
+      await tx.orderItemBundleChild.createMany({ data: rows });
     }
   }
 
@@ -539,11 +561,20 @@ class OrderServiceBase {
       );
 
       // Route stock decrements: bundle items → their children, standard items → themselves
-      const stockUpdates = OrderServiceBase.buildStockUpdates(orderItemsWithPrices);
-      await ProductService.updateMultipleProductStocks(stockUpdates, "decrement", tx);
+      const stockUpdates =
+        OrderServiceBase.buildStockUpdates(orderItemsWithPrices);
+      await ProductService.updateMultipleProductStocks(
+        stockUpdates,
+        "decrement",
+        tx,
+      );
 
       // Write OrderItemBundleChild snapshot rows for any bundle order items
-      await OrderServiceBase.writeBundleChildSnapshots(tx, createdOrder.orderItems, orderItemsWithPrices);
+      await OrderServiceBase.writeBundleChildSnapshots(
+        tx,
+        createdOrder.orderItems,
+        orderItemsWithPrices,
+      );
 
       await ProductService.updateAddonOptionStocks(
         OrderServiceBase.collectAddonStockDeltasFromPricedLines(

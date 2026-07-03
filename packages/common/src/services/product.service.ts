@@ -1,7 +1,10 @@
 import { BadRequestError, NotFoundError } from "@dukkani/common/errors";
 import { database } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
-import { ProductAddonSelectionType, ProductType } from "@dukkani/db/prisma/generated/enums";
+import {
+  ProductAddonSelectionType,
+  ProductType,
+} from "@dukkani/db/prisma/generated/enums";
 import { addSpanAttributes, traceStaticClass } from "@dukkani/tracing";
 import type { PrismaClient } from "@prisma/client/extension";
 import { BundleItemQuery } from "../entities/bundle-item/query";
@@ -245,11 +248,39 @@ class ProductServiceBase {
     );
 
     const standardItems = items.filter(
-      (i) => (productMap.get(i.productId) as ProductWithPrices | undefined)?.type !== ProductType.BUNDLE,
+      (i) =>
+        (productMap.get(i.productId) as ProductWithPrices | undefined)?.type !==
+        ProductType.BUNDLE,
     );
     ProductServiceBase.assertCatalogLineVariantRules(standardItems, productMap);
 
     const result: PricedProductLineItem[] = [];
+
+    // Batch-fetch bundle children for every bundle line up front to avoid N+1
+    // queries (one findMany per bundle line inside the loop below).
+    const bundleVersionIds = [
+      ...new Set(
+        items
+          .map((item) => productMap.get(item.productId))
+          .filter((p): p is ProductWithPrices => p?.type === ProductType.BUNDLE)
+          .map((p) => p.currentPublishedVersion?.id)
+          .filter((id): id is string => id != null),
+      ),
+    ];
+    const allBundleItems =
+      bundleVersionIds.length > 0
+        ? await client.bundleItem.findMany({
+            where: { bundleVersionId: { in: bundleVersionIds } },
+            select: BundleItemQuery.getOrderPricingSelect(),
+          })
+        : [];
+    type BundlePricingItem = (typeof allBundleItems)[number];
+    const bundleItemsByVersionId = new Map<string, BundlePricingItem[]>();
+    for (const bi of allBundleItems as BundlePricingItem[]) {
+      const list = bundleItemsByVersionId.get(bi.bundleVersionId) ?? [];
+      list.push(bi);
+      bundleItemsByVersionId.set(bi.bundleVersionId, list);
+    }
 
     for (const item of items) {
       const product = productMap.get(item.productId);
@@ -273,13 +304,9 @@ class ProductServiceBase {
         }
 
         // Resolve bundle children for stock routing and OrderItemBundleChild creation
-        const bundleItems = await client.bundleItem.findMany({
-          where: { bundleVersionId: pub.id },
-          select: BundleItemQuery.getOrderPricingSelect(),
-        });
-        type BundlePricingItem = (typeof bundleItems)[number];
+        const bundleItems = bundleItemsByVersionId.get(pub.id) ?? [];
 
-        const bundleChildren: BundleChildLine[] = (bundleItems as BundlePricingItem[]).map((bi) => {
+        const bundleChildren: BundleChildLine[] = bundleItems.map((bi) => {
           const childPubVersionId =
             bi.childProduct.currentPublishedVersion?.id ??
             bi.childProduct.currentPublishedVersionId ??
@@ -435,7 +462,9 @@ class ProductServiceBase {
 
     // Check bundle stock by resolving children
     for (const bundleLine of bundleLineItems) {
-      const pubVersionId = productTypeMap.get(bundleLine.productId)?.currentPublishedVersionId;
+      const pubVersionId = productTypeMap.get(
+        bundleLine.productId,
+      )?.currentPublishedVersionId;
       if (!pubVersionId) {
         throw new NotFoundError(
           `Bundle ${bundleLine.productId} not found or not published`,
@@ -451,9 +480,12 @@ class ProductServiceBase {
       // Verify child variants still belong to their child's currentPublishedVersion
       for (const bi of bundleItems as BundleItemRow[]) {
         if (bi.childVariantId) {
-          const pubVariants = bi.childProduct.currentPublishedVersion?.variants ?? [];
+          const pubVariants =
+            bi.childProduct.currentPublishedVersion?.variants ?? [];
           type PubVariant = (typeof pubVariants)[number];
-          const variantIsValid = pubVariants.some((v: PubVariant) => v.id === bi.childVariantId);
+          const variantIsValid = pubVariants.some(
+            (v: PubVariant) => v.id === bi.childVariantId,
+          );
           if (!variantIsValid) {
             throw new BadRequestError(
               "A bundle component was updated. Remove the bundle from your cart and add it again.",
@@ -486,7 +518,9 @@ class ProductServiceBase {
       }
     }
 
-    const standardLineProductIds = [...new Set(standardItems.map((i) => i.productId))];
+    const standardLineProductIds = [
+      ...new Set(standardItems.map((i) => i.productId)),
+    ];
     if (standardLineProductIds.length > 0) {
       const catalogRows = await client.product.findMany({
         where: {
@@ -508,7 +542,10 @@ class ProductServiceBase {
       const catalogMap = new Map<string, CatalogRow>(
         catalogRows.map((p: CatalogRow) => [p.id, p]),
       );
-      ProductServiceBase.assertCatalogLineVariantRules(standardItems, catalogMap);
+      ProductServiceBase.assertCatalogLineVariantRules(
+        standardItems,
+        catalogMap,
+      );
     }
 
     // Aggregate by (productId, variantId) for standard (non-bundle) items only
@@ -755,7 +792,9 @@ class ProductServiceBase {
     const client = tx ?? database;
 
     // Guard: bundle productIds must never be passed here — stock lives on children
-    const uniqueUpdateProductIds = [...new Set(updates.map((u) => u.productId))];
+    const uniqueUpdateProductIds = [
+      ...new Set(updates.map((u) => u.productId)),
+    ];
     if (uniqueUpdateProductIds.length > 0) {
       const bundleCheck = await client.product.findMany({
         where: { id: { in: uniqueUpdateProductIds }, type: ProductType.BUNDLE },
