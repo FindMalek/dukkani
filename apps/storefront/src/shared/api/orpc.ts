@@ -2,6 +2,7 @@ import { getApiUrl } from "@dukkani/env/get-api-url";
 import type { AppRouter, StorefrontRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
 import { QueryClient } from "@tanstack/react-query";
+import { cache } from "react";
 import { env } from "@/env";
 
 export function makeQueryClient() {
@@ -50,9 +51,15 @@ export const orpc = getORPCClient().orpc;
 
 let browserQueryClient: QueryClient | undefined;
 
+// On the server, `cache()` memoizes the QueryClient for the lifetime of a
+// single request/render pass, so the root layout's prefetch and a page's own
+// fetchQuery for the same input share one client instead of each issuing an
+// independent DB round trip.
+const getServerQueryClient = cache(makeQueryClient);
+
 export function getQueryClient() {
   if (typeof window === "undefined") {
-    return makeQueryClient();
+    return getServerQueryClient();
   }
   if (!browserQueryClient) {
     browserQueryClient = makeQueryClient();
