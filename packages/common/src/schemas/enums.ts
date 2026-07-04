@@ -1,4 +1,5 @@
 import {
+  Governorate,
   HealthStatus,
   OrderStatus,
   PaymentMethod,
@@ -147,3 +148,12 @@ export const supportedCurrencySchema = z.enum(SupportedCurrency);
 export const supportedCurrencyEnum = supportedCurrencySchema.enum;
 export const LIST_SUPPORTED_CURRENCIES = Object.values(SupportedCurrency);
 export type SupportedCurrencyInfer = z.infer<typeof supportedCurrencySchema>;
+
+/**
+ * Governorate Enum (Tunisia's 24 governorates)
+ */
+export { Governorate };
+export const governorateSchema = z.nativeEnum(Governorate);
+export const governorateEnum = governorateSchema.enum;
+export const LIST_GOVERNORATES = Object.values(Governorate);
+export type GovernorateInfer = z.infer<typeof governorateSchema>;

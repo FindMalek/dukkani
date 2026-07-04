@@ -6,12 +6,22 @@ import {
 import { database, PrismaClientKnownRequestError } from "@dukkani/db";
 import type { PrismaClient } from "@prisma/client/extension";
 import { CustomerEntity } from "../entities/customer/entity";
+import type {
+  CustomerGovernorateCountRow,
+  CustomerStatsFilters,
+  CustomerStatsRow,
+  CustomerStatsSort,
+} from "../entities/customer/query";
 import { CustomerQuery } from "../entities/customer/query";
 import type {
   CreateCustomerInput,
   UpdateCustomerInput,
 } from "../schemas/customer/input";
-import type { CustomerSimpleOutput } from "../schemas/customer/output";
+import type {
+  CustomerListItemOutput,
+  CustomerSimpleOutput,
+  GovernorateCountsOutput,
+} from "../schemas/customer/output";
 
 /**
  * Customer service - Shared business logic for customer operations
@@ -188,5 +198,90 @@ export class CustomerService {
       }
       throw error;
     }
+  }
+
+  /**
+   * Paginated customer list with derived order stats, for the dashboard
+   * Customers list screen. See CustomerQuery.getStatsQuery for why this
+   * needs a raw aggregate query rather than an app-level reduce.
+   */
+  static async listWithStats(
+    storeIds: string[],
+    filters: CustomerStatsFilters | undefined,
+    sortBy: CustomerStatsSort,
+    page: number,
+    limit: number,
+  ): Promise<{ customers: CustomerListItemOutput[]; total: number }> {
+    const skip = (page - 1) * limit;
+
+    const [rows, countRows] = await Promise.all([
+      database.$queryRaw<CustomerStatsRow[]>(
+        CustomerQuery.getStatsQuery(storeIds, filters, sortBy, skip, limit),
+      ),
+      database.$queryRaw<{ count: number }[]>(
+        CustomerQuery.getStatsCountQuery(storeIds, filters),
+      ),
+    ]);
+
+    return {
+      customers: rows.map(CustomerEntity.getListWithStatsRo),
+      total: countRows[0]?.count ?? 0,
+    };
+  }
+
+  /**
+   * Governorate chip counts for the list screen's quick-filter row.
+   */
+  static async getGovernorateCounts(
+    storeIds: string[],
+    storeId?: string,
+  ): Promise<GovernorateCountsOutput> {
+    const rows = await database.$queryRaw<CustomerGovernorateCountRow[]>(
+      CustomerQuery.getGovernorateCountsQuery(storeIds, storeId),
+    );
+
+    return {
+      counts: rows.map((row) => ({
+        governorate: row.governorate,
+        count: row.count,
+      })),
+    };
+  }
+
+  /**
+   * Update the merchant-authored notes field only, decoupled from the
+   * general update procedure so detail-page autosave doesn't need to pass
+   * name/phone.
+   */
+  static async updateNotes(
+    id: string,
+    notes: string | null,
+    userId: string,
+  ): Promise<CustomerSimpleOutput> {
+    const existingCustomer = await database.customer.findUnique({
+      where: { id },
+      select: { storeId: true },
+    });
+
+    if (!existingCustomer) {
+      throw new NotFoundError("Customer not found");
+    }
+
+    const store = await database.store.findUnique({
+      where: { id: existingCustomer.storeId },
+      select: { ownerId: true },
+    });
+
+    if (!store || store.ownerId !== userId) {
+      throw new ForbiddenError("You don't have access to this customer");
+    }
+
+    const customer = await database.customer.update({
+      where: { id },
+      data: { notes },
+      include: CustomerQuery.getSimpleInclude(),
+    });
+
+    return CustomerEntity.getSimpleRo(customer);
   }
 }
