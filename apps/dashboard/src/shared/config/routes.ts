@@ -74,6 +74,7 @@ export const RoutePaths = {
     DETAIL: {
       url: (id: string) => `/customers/${id}` as Route,
       label: "Customer Details",
+      hideBottomNav: true,
     },
   },
 
