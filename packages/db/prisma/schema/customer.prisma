@@ -7,6 +7,7 @@
  * - `name`: Customer's name
  * - `phone`: Customer's phone number (used for identification)
  * - `prefersWhatsApp`: Whether customer prefers to receive order updates via WhatsApp (default preference)
+ * - `notes`: Optional merchant-authored free text about this customer
  * - `storeId`: Reference to the Store this customer belongs to
  * - `createdAt`: Timestamp when the customer was created
  * - `updatedAt`: Timestamp when the customer was last updated
@@ -28,6 +29,8 @@ model Customer {
   phone String
 
   prefersWhatsApp Boolean @default(false) @map("prefers_whatsapp")
+
+  notes String?
 
   orders    Order[]
   addresses Address[]

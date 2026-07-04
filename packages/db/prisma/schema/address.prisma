@@ -6,6 +6,7 @@
  * - `id`: Unique identifier (CUID)
  * - `street`: Street address (required)
  * - `city`: City name (required)
+ * - `governorate`: Optional Tunisian governorate, used for merchant-facing filtering
  * - `postalCode`: Optional postal/ZIP code
  * - `latitude`: Optional latitude for map display
  * - `longitude`: Optional longitude for map display
@@ -26,6 +27,7 @@ model Address {
 
   street     String
   city       String
+  governorate Governorate?
   postalCode String? @map("postal_code")
 
   latitude  Float?
