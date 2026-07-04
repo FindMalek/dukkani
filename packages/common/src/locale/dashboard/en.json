@@ -319,6 +319,114 @@
       "errorLoading": "Error loading order. Please try again."
     }
   },
+  "customers": {
+    "list": {
+      "title": "Customers",
+      "description": "Manage your customer database",
+      "searchPlaceholder": "Search by name or phone",
+      "empty": "No customers found. Customers will appear here once they place orders or you add them manually.",
+      "noResults": "No customers match your filters.",
+      "error": "Error loading customers. Please try again later.",
+      "retry": "Retry",
+      "addCustomer": "Add customer",
+      "select": "Select",
+      "cancelSelection": "Cancel",
+      "itemsSelected": "{count} selected",
+      "exportCsv": "Export CSV",
+      "messageOnWhatsApp": "Message on WhatsApp",
+      "selectExactlyOne": "Select a single customer to message",
+      "waPrefill": "Hi {name}, ",
+      "totalSpent": "Total spent",
+      "lastOrder": "Last order",
+      "governorates": {
+        "all": "All",
+        "TUNIS": "Tunis",
+        "ARIANA": "Ariana",
+        "BEN_AROUS": "Ben Arous",
+        "MANOUBA": "Manouba",
+        "NABEUL": "Nabeul",
+        "ZAGHOUAN": "Zaghouan",
+        "BIZERTE": "Bizerte",
+        "BEJA": "Beja",
+        "JENDOUBA": "Jendouba",
+        "KEF": "Kef",
+        "SILIANA": "Siliana",
+        "KAIROUAN": "Kairouan",
+        "KASSERINE": "Kasserine",
+        "SIDI_BOUZID": "Sidi Bouzid",
+        "SOUSSE": "Sousse",
+        "MONASTIR": "Monastir",
+        "MAHDIA": "Mahdia",
+        "SFAX": "Sfax",
+        "GABES": "Gabes",
+        "MEDENINE": "Medenine",
+        "TATAOUINE": "Tataouine",
+        "GAFSA": "Gafsa",
+        "TOZEUR": "Tozeur",
+        "KEBILI": "Kebili"
+      },
+      "filterDrawer": {
+        "title": "Filter customers",
+        "clearAll": "Reset all",
+        "apply": "Apply filters",
+        "governorate": "Governorate",
+        "sortBy": "Sort by",
+        "sortOptions": {
+          "recent": "Most recent",
+          "orderCount": "Order count",
+          "totalSpent": "Total spent",
+          "lastOrderAt": "Last order date"
+        }
+      },
+      "ordersCount": "{count, plural, one {# order} other {# orders}}"
+    },
+    "detail": {
+      "backToCustomers": "Back to customers",
+      "title": "Customer Details",
+      "call": "Call",
+      "whatsapp": "WhatsApp",
+      "delete": "Delete customer",
+      "deleteBlockedReason": "This customer has existing orders and can't be deleted.",
+      "deleteConfirmTitle": "Delete this customer?",
+      "deleteConfirmBody": "This action can't be undone.",
+      "cancel": "Cancel",
+      "confirmDelete": "Delete",
+      "summary": {
+        "totalSpent": "Total spent",
+        "orderCount": "Orders",
+        "avgOrderValue": "Avg. order value",
+        "customerSince": "Customer since"
+      },
+      "locations": {
+        "title": "Locations",
+        "empty": "No saved addresses yet.",
+        "ordersCount": "{count, plural, one {# order} other {# orders}}"
+      },
+      "orders": {
+        "title": "Order history",
+        "empty": "No orders yet."
+      },
+      "notes": {
+        "title": "Notes",
+        "placeholder": "Add a note about this customer…",
+        "saved": "Saved",
+        "saving": "Saving…"
+      },
+      "loading": "Loading customer…",
+      "notFound": "Customer not found",
+      "errorLoading": "Error loading customer. Please try again."
+    },
+    "new": {
+      "title": "New customer",
+      "description": "Add a customer manually",
+      "nameLabel": "Name",
+      "namePlaceholder": "Customer name",
+      "phoneLabel": "Phone number",
+      "phonePlaceholder": "e.g. 55 123 456",
+      "submit": "Add customer",
+      "cancel": "Cancel"
+    }
+  },
   "products": {
     "list": {
       "title": "Products",

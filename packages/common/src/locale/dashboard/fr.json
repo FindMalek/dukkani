@@ -323,6 +323,114 @@
       "errorLoading": "Error loading order. Please try again."
     }
   },
+  "customers": {
+    "list": {
+      "title": "Clients",
+      "description": "Gérez votre base de clients",
+      "searchPlaceholder": "Rechercher par nom ou téléphone",
+      "empty": "Aucun client trouvé. Les clients apparaîtront ici après leur première commande, ou vous pouvez les ajouter manuellement.",
+      "noResults": "Aucun client ne correspond à vos filtres.",
+      "error": "Erreur lors du chargement des clients. Veuillez réessayer plus tard.",
+      "retry": "Réessayer",
+      "addCustomer": "Ajouter un client",
+      "select": "Sélectionner",
+      "cancelSelection": "Annuler",
+      "itemsSelected": "{count} sélectionné(s)",
+      "exportCsv": "Exporter en CSV",
+      "messageOnWhatsApp": "Envoyer sur WhatsApp",
+      "selectExactlyOne": "Sélectionnez un seul client pour envoyer un message",
+      "waPrefill": "Bonjour {name}, ",
+      "totalSpent": "Total dépensé",
+      "lastOrder": "Dernière commande",
+      "governorates": {
+        "all": "Tous",
+        "TUNIS": "Tunis",
+        "ARIANA": "Ariana",
+        "BEN_AROUS": "Ben Arous",
+        "MANOUBA": "Manouba",
+        "NABEUL": "Nabeul",
+        "ZAGHOUAN": "Zaghouan",
+        "BIZERTE": "Bizerte",
+        "BEJA": "Béja",
+        "JENDOUBA": "Jendouba",
+        "KEF": "Le Kef",
+        "SILIANA": "Siliana",
+        "KAIROUAN": "Kairouan",
+        "KASSERINE": "Kasserine",
+        "SIDI_BOUZID": "Sidi Bouzid",
+        "SOUSSE": "Sousse",
+        "MONASTIR": "Monastir",
+        "MAHDIA": "Mahdia",
+        "SFAX": "Sfax",
+        "GABES": "Gabès",
+        "MEDENINE": "Médenine",
+        "TATAOUINE": "Tataouine",
+        "GAFSA": "Gafsa",
+        "TOZEUR": "Tozeur",
+        "KEBILI": "Kébili"
+      },
+      "filterDrawer": {
+        "title": "Filtrer les clients",
+        "clearAll": "Réinitialiser",
+        "apply": "Appliquer les filtres",
+        "governorate": "Gouvernorat",
+        "sortBy": "Trier par",
+        "sortOptions": {
+          "recent": "Plus récent",
+          "orderCount": "Nombre de commandes",
+          "totalSpent": "Total dépensé",
+          "lastOrderAt": "Date de dernière commande"
+        }
+      },
+      "ordersCount": "{count, plural, one {# commande} other {# commandes}}"
+    },
+    "detail": {
+      "backToCustomers": "Retour aux clients",
+      "title": "Détails du client",
+      "call": "Appeler",
+      "whatsapp": "WhatsApp",
+      "delete": "Supprimer le client",
+      "deleteBlockedReason": "Ce client a des commandes existantes et ne peut pas être supprimé.",
+      "deleteConfirmTitle": "Supprimer ce client ?",
+      "deleteConfirmBody": "Cette action est irréversible.",
+      "cancel": "Annuler",
+      "confirmDelete": "Supprimer",
+      "summary": {
+        "totalSpent": "Total dépensé",
+        "orderCount": "Commandes",
+        "avgOrderValue": "Valeur moyenne",
+        "customerSince": "Client depuis"
+      },
+      "locations": {
+        "title": "Adresses",
+        "empty": "Aucune adresse enregistrée.",
+        "ordersCount": "{count, plural, one {# commande} other {# commandes}}"
+      },
+      "orders": {
+        "title": "Historique des commandes",
+        "empty": "Aucune commande pour le moment."
+      },
+      "notes": {
+        "title": "Notes",
+        "placeholder": "Ajouter une note sur ce client…",
+        "saved": "Enregistré",
+        "saving": "Enregistrement…"
+      },
+      "loading": "Chargement du client…",
+      "notFound": "Client introuvable",
+      "errorLoading": "Erreur lors du chargement du client. Veuillez réessayer."
+    },
+    "new": {
+      "title": "Nouveau client",
+      "description": "Ajouter un client manuellement",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Nom du client",
+      "phoneLabel": "Numéro de téléphone",
+      "phonePlaceholder": "ex. 55 123 456",
+      "submit": "Ajouter le client",
+      "cancel": "Annuler"
+    }
+  },
   "products": {
     "list": {
       "title": "Produits",

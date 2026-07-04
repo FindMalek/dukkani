@@ -323,6 +323,114 @@
       "errorLoading": "Error loading order. Please try again."
     }
   },
+  "customers": {
+    "list": {
+      "title": "العملاء",
+      "description": "إدارة قاعدة بيانات عملائك",
+      "searchPlaceholder": "البحث بالاسم أو الهاتف",
+      "empty": "لا يوجد عملاء. سيظهر العملاء هنا بعد أول طلب، أو يمكنك إضافتهم يدويًا.",
+      "noResults": "لا يوجد عملاء يطابقون عوامل التصفية.",
+      "error": "خطأ في تحميل العملاء. يرجى المحاولة مرة أخرى لاحقًا.",
+      "retry": "إعادة المحاولة",
+      "addCustomer": "إضافة عميل",
+      "select": "تحديد",
+      "cancelSelection": "إلغاء",
+      "itemsSelected": "تم تحديد {count}",
+      "exportCsv": "تصدير CSV",
+      "messageOnWhatsApp": "إرسال رسالة على واتساب",
+      "selectExactlyOne": "حدد عميلاً واحداً فقط لإرسال رسالة",
+      "waPrefill": "مرحباً {name}، ",
+      "totalSpent": "إجمالي المصروف",
+      "lastOrder": "آخر طلب",
+      "governorates": {
+        "all": "الكل",
+        "TUNIS": "تونس",
+        "ARIANA": "أريانة",
+        "BEN_AROUS": "بن عروس",
+        "MANOUBA": "منوبة",
+        "NABEUL": "نابل",
+        "ZAGHOUAN": "زقوان",
+        "BIZERTE": "بنزرت",
+        "BEJA": "باجة",
+        "JENDOUBA": "جندوبة",
+        "KEF": "الكاف",
+        "SILIANA": "سليانة",
+        "KAIROUAN": "القيروان",
+        "KASSERINE": "القصرين",
+        "SIDI_BOUZID": "سيدي بوزيد",
+        "SOUSSE": "سوسة",
+        "MONASTIR": "المنستير",
+        "MAHDIA": "المهدية",
+        "SFAX": "صفاقس",
+        "GABES": "قابس",
+        "MEDENINE": "مدنين",
+        "TATAOUINE": "ططاوين",
+        "GAFSA": "قفصة",
+        "TOZEUR": "توزر",
+        "KEBILI": "قبلي"
+      },
+      "filterDrawer": {
+        "title": "تصفية العملاء",
+        "clearAll": "إعادة التعيين",
+        "apply": "تطبيق الفلاتر",
+        "governorate": "الولاية",
+        "sortBy": "الترتيب حسب",
+        "sortOptions": {
+          "recent": "الأحدث",
+          "orderCount": "عدد الطلبات",
+          "totalSpent": "إجمالي المصروف",
+          "lastOrderAt": "تاريخ آخر طلب"
+        }
+      },
+      "ordersCount": "{count, plural, one {# طلب} other {# طلبات}}"
+    },
+    "detail": {
+      "backToCustomers": "العودة إلى العملاء",
+      "title": "تفاصيل العميل",
+      "call": "اتصال",
+      "whatsapp": "واتساب",
+      "delete": "حذف العميل",
+      "deleteBlockedReason": "لدى هذا العميل طلبات سابقة ولا يمكن حذفه.",
+      "deleteConfirmTitle": "حذف هذا العميل؟",
+      "deleteConfirmBody": "لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "confirmDelete": "حذف",
+      "summary": {
+        "totalSpent": "إجمالي المصروف",
+        "orderCount": "الطلبات",
+        "avgOrderValue": "متوسط قيمة الطلب",
+        "customerSince": "عميل منذ"
+      },
+      "locations": {
+        "title": "العناوين",
+        "empty": "لا توجد عناوين محفوظة.",
+        "ordersCount": "{count, plural, one {# طلب} other {# طلبات}}"
+      },
+      "orders": {
+        "title": "سجل الطلبات",
+        "empty": "لا توجد طلبات بعد."
+      },
+      "notes": {
+        "title": "ملاحظات",
+        "placeholder": "أضف ملاحظة حول هذا العميل…",
+        "saved": "تم الحفظ",
+        "saving": "جارٍ الحفظ…"
+      },
+      "loading": "جارٍ تحميل العميل…",
+      "notFound": "العميل غير موجود",
+      "errorLoading": "خطأ في تحميل العميل. يرجى المحاولة مرة أخرى."
+    },
+    "new": {
+      "title": "عميل جديد",
+      "description": "إضافة عميل يدويًا",
+      "nameLabel": "الاسم",
+      "namePlaceholder": "اسم العميل",
+      "phoneLabel": "رقم الهاتف",
+      "phonePlaceholder": "مثال: 55 123 456",
+      "submit": "إضافة العميل",
+      "cancel": "إلغاء"
+    }
+  },
   "products": {
     "list": {
       "title": "المنتجات",
