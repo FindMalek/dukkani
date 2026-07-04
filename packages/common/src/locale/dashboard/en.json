@@ -413,6 +413,11 @@
           "label": "Description",
           "placeholder": "Enter product description"
         },
+        "generateAi": {
+          "button": "Generate with AI",
+          "generating": "Generating…",
+          "insertImageLabel": "Insert image"
+        },
         "published": {
           "label": "Published",
           "placeholder": "Enter product published"

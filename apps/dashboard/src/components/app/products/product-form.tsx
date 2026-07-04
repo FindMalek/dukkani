@@ -71,6 +71,7 @@ export const ProductForm = forwardRef<
               <form.AppForm>
                 <ProductFormEssentials
                   form={form}
+                  storeId={storeId}
                   categoriesOptions={categoriesOptions}
                   onOpenCategoryDrawer={handleOpenCategoryDrawer}
                   optimizeFiles={compressImagesForUpload}

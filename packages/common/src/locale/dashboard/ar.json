@@ -417,6 +417,11 @@
           "label": "الوصف",
           "placeholder": "أدخل وصف المنتج"
         },
+        "generateAi": {
+          "button": "إنشاء بالذكاء الاصطناعي",
+          "generating": "جارٍ الإنشاء…",
+          "insertImageLabel": "إدراج صورة"
+        },
         "published": {
           "label": "منشور",
           "placeholder": "أدخل حالة نشر المنتج"

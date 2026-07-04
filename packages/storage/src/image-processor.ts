@@ -92,6 +92,32 @@ export class ImageProcessor {
   }
 
   /**
+   * Resize + compress an image for LLM vision input. Returns base64 JPEG only
+   * (no variants, no upload) — purely for building a vision-model prompt payload.
+   * Resizing to ~1024px/quality 80 cuts vision tokens/cost by ~80-95% with no
+   * meaningful accuracy loss for description-generation use cases.
+   */
+  static async resizeForVision(
+    file: File,
+    {
+      maxEdge = 1024,
+      quality = 80,
+    }: { maxEdge?: number; quality?: number } = {},
+  ): Promise<{ base64: string; mimeType: "image/jpeg" }> {
+    if (!isImageMimeType(file.type)) {
+      throw new Error(`Unsupported image format: ${file.type}`);
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const resized = await sharp(buffer)
+      .resize(maxEdge, maxEdge, { fit: "inside", withoutEnlargement: true })
+      .toFormat("jpeg", { quality })
+      .toBuffer();
+
+    return { base64: resized.toString("base64"), mimeType: "image/jpeg" };
+  }
+
+  /**
    * Generate variants from a buffer
    */
   static async generateVariants(

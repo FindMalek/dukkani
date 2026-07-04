@@ -21,6 +21,7 @@ const telegramLinkRateLimit = createRateLimitMiddleware({
   custom: {
     max: 3,
     windowMs: 60 * 60 * 1000,
+    keyPrefix: "ratelimit:telegram-link",
   },
 });
 

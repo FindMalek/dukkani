@@ -3,6 +3,7 @@ import { ArrayField } from "../components/forms/array-field";
 import { CheckboxField } from "../components/forms/checkbox-field";
 import { EmailField } from "../components/forms/email-field";
 import { ImagesField } from "../components/forms/images-field";
+import { MarkdownEditorField } from "../components/forms/markdown-editor-field";
 import { NumberField } from "../components/forms/number-field";
 import { PasswordField } from "../components/forms/password-field";
 import { PhoneNumberField } from "../components/forms/phone-number-field";
@@ -22,6 +23,7 @@ export const dukkaniAppFormFieldComponents = {
   EmailInput: EmailField,
   PhoneNumberInput: PhoneNumberField,
   TextAreaInput: TextAreaField,
+  MarkdownEditorInput: MarkdownEditorField,
   PasswordInput: PasswordField,
   NumberInput: NumberField,
   PriceInput: PriceField,

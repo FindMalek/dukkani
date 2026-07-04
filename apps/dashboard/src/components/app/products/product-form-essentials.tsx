@@ -4,8 +4,11 @@ import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-fiel
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
+import { handleAPIError } from "@/shared/api/error-handler";
+import { client } from "@/shared/api/orpc";
 import { productFormOptions } from "@/shared/lib/product/form";
 import { useCurrentStoreCurrency } from "@/shared/lib/store/current-currency.hook";
+import { GenerateDescriptionButton } from "./generate-description-button";
 import {
   ProductFormImages,
   ProductFormImagesSkeleton,
@@ -50,18 +53,32 @@ export function ProductFormEssentialsSkeleton() {
 export const ProductFormEssentials = withForm({
   ...productFormOptions,
   props: {
+    storeId: "",
     categoriesOptions: [] as SelectOptionGroup[],
     onOpenCategoryDrawer: () => {},
     optimizeFiles: async (files: File[]) => files,
   },
   render: function Render({
     form,
+    storeId,
     categoriesOptions,
     onOpenCategoryDrawer,
     optimizeFiles,
   }) {
     const t = useTranslations("products.create");
     const currency = useCurrentStoreCurrency();
+
+    const handleInlineImageUpload = async (file: File) => {
+      const res = await client.product.uploadImages({
+        storeId,
+        files: [file],
+      });
+      const url = res.files[0]?.url;
+      if (!url) {
+        throw new Error("Upload did not return a file URL");
+      }
+      return url;
+    };
 
     return (
       <>
@@ -75,12 +92,44 @@ export const ProductFormEssentials = withForm({
         </form.AppField>
         <form.AppField name="description">
           {(field) => (
-            <field.TextAreaInput
+            <field.MarkdownEditorInput
               label={t("form.description.label")}
               placeholder={t("form.description.placeholder")}
+              onImageUpload={handleInlineImageUpload}
+              onImageUploadError={handleAPIError}
+              imageUploadLabel={t("form.generateAi.insertImageLabel")}
             />
           )}
         </form.AppField>
+        <form.Subscribe
+          selector={(s) => ({
+            name: s.values.name,
+            price: s.values.price,
+            categoryId: s.values.categoryId,
+            hasVariants: s.values.hasVariants,
+            variantOptions: s.values.variantOptions,
+            images: s.values.images,
+          })}
+        >
+          {(snapshot) => {
+            const selectedCategoryName = categoriesOptions[0]?.options.find(
+              (option) => option.id === snapshot.categoryId,
+            )?.name;
+            return (
+              <GenerateDescriptionButton
+                form={form}
+                storeId={storeId}
+                currency={currency}
+                categoryName={
+                  typeof selectedCategoryName === "string"
+                    ? selectedCategoryName
+                    : undefined
+                }
+                snapshot={snapshot}
+              />
+            );
+          }}
+        </form.Subscribe>
         <form.Subscribe selector={(s) => s.values.hasVariants}>
           {(hasVariants) =>
             hasVariants ? null : (

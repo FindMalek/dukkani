@@ -1,5 +1,10 @@
 import { ProductEntity } from "@dukkani/common/entities/product/entity";
 import { ProductQuery } from "@dukkani/common/entities/product/query";
+import type { GenerateProductDescriptionOutput } from "@dukkani/common/schemas/product/description";
+import {
+  generateProductDescriptionOutputSchema,
+  generateProductDescriptionProcedureInputSchema,
+} from "@dukkani/common/schemas/product/description";
 import {
   createProductInputSchema,
   discardDraftProductInputSchema,
@@ -27,9 +32,10 @@ import {
 } from "@dukkani/common/services";
 import { database } from "@dukkani/db";
 import { logger } from "@dukkani/logger";
-import { StorageService } from "@dukkani/storage";
+import { ImageProcessor, StorageService } from "@dukkani/storage";
 import { env } from "@dukkani/storage/env";
 import { ORPCError } from "@orpc/server";
+import { createRateLimitMiddleware } from "../../middleware/rate-limit";
 import { protectedProcedure } from "../../procedures";
 import { STOCK_RANGE_MAP } from "../../utils/product-list-maps";
 import { executeUploadFiles } from "../../utils/storage-upload";
@@ -37,6 +43,14 @@ import {
   getUserStoreIds,
   verifyStoreOwnership,
 } from "../../utils/store-access";
+
+const generateDescriptionRateLimit = createRateLimitMiddleware({
+  custom: {
+    max: 8,
+    windowMs: 60 * 60 * 1000,
+    keyPrefix: "ratelimit:product-description",
+  },
+});
 
 export const productRouter = {
   getAll: protectedProcedure
@@ -610,4 +624,21 @@ export const productRouter = {
         });
       }
     }),
+
+  generateDescription: protectedProcedure
+    .use(generateDescriptionRateLimit)
+    .input(generateProductDescriptionProcedureInputSchema)
+    .output(generateProductDescriptionOutputSchema)
+    .handler(
+      async ({ input, context }): Promise<GenerateProductDescriptionOutput> => {
+        const userId = context.session.user.id;
+        await verifyStoreOwnership(userId, input.storeId);
+        const images = await Promise.all(
+          input.images
+            .slice(0, 3)
+            .map((file) => ImageProcessor.resizeForVision(file)),
+        );
+        return ProductService.generateDescription({ ...input, images });
+      },
+    ),
 };
