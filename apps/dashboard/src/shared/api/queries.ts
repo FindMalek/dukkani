@@ -8,6 +8,11 @@ export const appQueries = {
     all: orpc.category.getAll.queryOptions,
     byId: orpc.category.getById.queryOptions,
   },
+  customer: {
+    all: orpc.customer.getAllWithStats.queryOptions,
+    byId: orpc.customer.getById.queryOptions,
+    governorateCounts: orpc.customer.getGovernorateCounts.queryOptions,
+  },
   order: {
     all: orpc.order.getAll.queryOptions,
     byId: orpc.order.getById.queryOptions,

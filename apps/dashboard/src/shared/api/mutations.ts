@@ -48,6 +48,59 @@ export const appMutations = {
         },
       }),
   },
+  customer: {
+    create: (
+      options?: Parameters<typeof orpc.customer.create.mutationOptions>[0],
+    ) =>
+      orpc.customer.create.mutationOptions({
+        ...options,
+        onSuccess: async (data, input, result, context) => {
+          await context.client.invalidateQueries(
+            orpc.customer.getAllWithStats.queryOptions(),
+          );
+          await options?.onSuccess?.(data, input, result, context);
+        },
+      }),
+    update: (
+      options?: Parameters<typeof orpc.customer.update.mutationOptions>[0],
+    ) =>
+      orpc.customer.update.mutationOptions({
+        ...options,
+        onSuccess: async (data, input, result, context) => {
+          await context.client.invalidateQueries(
+            orpc.customer.getAllWithStats.queryOptions(),
+          );
+          await context.client.invalidateQueries(
+            orpc.customer.getById.queryOptions({ input: { id: data.id } }),
+          );
+          await options?.onSuccess?.(data, input, result, context);
+        },
+      }),
+    updateNotes: (
+      options?: Parameters<typeof orpc.customer.updateNotes.mutationOptions>[0],
+    ) =>
+      orpc.customer.updateNotes.mutationOptions({
+        ...options,
+        onSuccess: async (data, input, result, context) => {
+          await context.client.invalidateQueries(
+            orpc.customer.getById.queryOptions({ input: { id: data.id } }),
+          );
+          await options?.onSuccess?.(data, input, result, context);
+        },
+      }),
+    delete: (
+      options?: Parameters<typeof orpc.customer.delete.mutationOptions>[0],
+    ) =>
+      orpc.customer.delete.mutationOptions({
+        ...options,
+        onSuccess: async (data, input, result, context) => {
+          await context.client.invalidateQueries(
+            orpc.customer.getAllWithStats.queryOptions(),
+          );
+          await options?.onSuccess?.(data, input, result, context);
+        },
+      }),
+  },
   order: {
     create: (
       options?: Parameters<typeof orpc.order.create.mutationOptions>[0],
