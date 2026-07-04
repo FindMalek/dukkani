@@ -42,28 +42,35 @@ export function buildImageUploadCommand(
 }
 
 /**
- * Uploads the first image file found in a paste/drop event's file list and
- * inserts a markdown image reference at the cursor. No-ops if no image file is
- * present (lets normal text paste/drop proceed). Upload failures are forwarded
- * to `onError` and return `false` so the caller's `preventDefault` is skipped.
+ * Synchronously finds the first image file in a paste/drop event's file list.
+ * Callers must check this (and call `preventDefault` themselves) before the
+ * event handler returns — `preventDefault` has no effect once called from
+ * inside an `async` continuation, since the browser applies the event's
+ * default action synchronously right after dispatch.
+ */
+export function findImageFile(
+  files: FileList | null | undefined,
+): File | undefined {
+  return files
+    ? Array.from(files).find((f) => f.type.startsWith("image/"))
+    : undefined;
+}
+
+/**
+ * Uploads an image file (see `findImageFile`) and inserts a markdown image
+ * reference at the cursor. Upload failures are forwarded to `onError` rather
+ * than becoming an unhandled rejection.
  */
 export async function handleImageFileTransfer(
-  files: FileList | null | undefined,
+  file: File,
   textarea: HTMLTextAreaElement,
   uploadFile: (file: File) => Promise<string>,
   onError?: (error: unknown) => void,
-): Promise<boolean> {
-  const file = files
-    ? Array.from(files).find((f) => f.type.startsWith("image/"))
-    : undefined;
-  if (!file) return false;
-
+): Promise<void> {
   try {
     const url = await uploadFile(file);
     insertTextAtPosition(textarea, toImageMarkdown(file.name, url));
-    return true;
   } catch (error) {
     onError?.(error);
-    return false;
   }
 }

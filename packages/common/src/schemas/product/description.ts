@@ -27,11 +27,18 @@ const generateProductDescriptionSharedSchema = z.object({
   bundleItems: z.array(generateDescriptionBundleItemSchema).max(50).default([]),
 });
 
+const MAX_DESCRIPTION_IMAGE_BYTES = 10 * 1024 * 1024;
+
 /** oRPC wire contract: client sends raw files, same as `productUploadImagesInputSchema`. */
 export const generateProductDescriptionProcedureInputSchema =
   generateProductDescriptionSharedSchema.extend({
     images: z
-      .array(z.file())
+      .array(
+        z
+          .file()
+          .max(MAX_DESCRIPTION_IMAGE_BYTES, "Each image must be 10MB or less")
+          .mime(["image/jpeg", "image/png", "image/webp"]),
+      )
       .max(3, "Maximum 3 images per generation")
       .default([]),
   });

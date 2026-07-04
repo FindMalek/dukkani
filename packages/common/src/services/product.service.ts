@@ -1027,6 +1027,11 @@ class ProductServiceBase {
       image: `data:${image.mimeType};base64,${image.base64}`,
     }));
 
+    // Shared across all attempts (not re-created per retry) so worst-case total
+    // latency stays bounded instead of stacking up to `DESCRIPTION_MAX_RETRIES + 1`
+    // independent timeouts.
+    const overallSignal = AbortSignal.timeout(DESCRIPTION_TIMEOUT_MS);
+
     for (let attempt = 0; attempt <= DESCRIPTION_MAX_RETRIES; attempt++) {
       try {
         const { object } = await generateObject({
@@ -1035,7 +1040,7 @@ class ProductServiceBase {
           maxOutputTokens: DESCRIPTION_MAX_OUTPUT_TOKENS,
           temperature: DESCRIPTION_TEMPERATURE,
           maxRetries: 0,
-          abortSignal: AbortSignal.timeout(DESCRIPTION_TIMEOUT_MS),
+          abortSignal: overallSignal,
           providerOptions: {
             // qwen/qwen3.6-27b doesn't support Groq's `json_schema` structured-output
             // mode (only plain `json_object`), and defaults to "thinking mode", which

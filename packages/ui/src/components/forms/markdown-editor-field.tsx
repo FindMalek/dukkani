@@ -3,10 +3,12 @@
 import MDEditor, { commands } from "@uiw/react-md-editor";
 import "@uiw/react-md-editor/markdown-editor.css";
 import { useTheme } from "next-themes";
+import rehypeSanitize from "rehype-sanitize";
 import { useFieldContext } from "../../hooks/use-app-form";
 import { BaseField, type CommonFieldProps } from "./base-field";
 import {
   buildImageUploadCommand,
+  findImageFile,
   handleImageFileTransfer,
 } from "./markdown-editor-image-upload-command";
 
@@ -57,7 +59,7 @@ export function MarkdownEditorField({
       description={description}
       orientation={orientation}
     >
-      <div className="w-full" aria-invalid={isInvalid}>
+      <div className="w-full">
         <MDEditor
           value={field.state.value}
           onChange={(value) => field.handleChange(value ?? "")}
@@ -67,6 +69,7 @@ export function MarkdownEditorField({
             commands.codeLive,
             commands.codePreview,
           ]}
+          previewOptions={{ rehypePlugins: [[rehypeSanitize]] }}
           preview="edit"
           height={minHeight}
           data-color-mode={colorMode}
@@ -74,27 +77,32 @@ export function MarkdownEditorField({
             id: field.name,
             name: field.name,
             placeholder,
+            "aria-invalid": isInvalid,
             onBlur: field.handleBlur,
             onPaste: onImageUpload
-              ? async (event) => {
-                  const handled = await handleImageFileTransfer(
-                    event.clipboardData?.files,
+              ? (event) => {
+                  const file = findImageFile(event.clipboardData?.files);
+                  if (!file) return;
+                  event.preventDefault();
+                  void handleImageFileTransfer(
+                    file,
                     event.currentTarget,
                     onImageUpload,
                     onImageUploadError,
                   );
-                  if (handled) event.preventDefault();
                 }
               : undefined,
             onDrop: onImageUpload
-              ? async (event) => {
-                  const handled = await handleImageFileTransfer(
-                    event.dataTransfer?.files,
+              ? (event) => {
+                  const file = findImageFile(event.dataTransfer?.files);
+                  if (!file) return;
+                  event.preventDefault();
+                  void handleImageFileTransfer(
+                    file,
                     event.currentTarget,
                     onImageUpload,
                     onImageUploadError,
                   );
-                  if (handled) event.preventDefault();
                 }
               : undefined,
           }}

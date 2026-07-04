@@ -49,7 +49,8 @@ export function GenerateDescriptionButton({
     )
     .slice(0, 3)
     .map((image) => image.file);
-  const price = Number(snapshot.price);
+  const price =
+    snapshot.price.trim() === "" ? Number.NaN : Number(snapshot.price);
 
   const handleGenerate = () => {
     generateMutation.mutate({
