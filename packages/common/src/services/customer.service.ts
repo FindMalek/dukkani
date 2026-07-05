@@ -3,9 +3,9 @@ import {
   ForbiddenError,
   NotFoundError,
 } from "@dukkani/common/errors";
+import type { PrismaClient } from "@dukkani/db";
 import { database, PrismaClientKnownRequestError } from "@dukkani/db";
 import { Prisma } from "@dukkani/db/prisma/generated";
-import type { PrismaClient } from "@prisma/client/extension";
 import { CustomerEntity } from "../entities/customer/entity";
 import type {
   CustomerGovernorateCountRow,
@@ -278,7 +278,7 @@ export class CustomerService {
     phone: string,
     name: string,
     storeId: string,
-    tx?: PrismaClient,
+    tx?: Prisma.TransactionClient,
   ): Promise<CustomerSimpleOutput> {
     const client = tx ?? database;
 
@@ -317,7 +317,7 @@ export class CustomerService {
   private static async recordNameVariant(
     customerId: string,
     name: string,
-    client: PrismaClient,
+    client: PrismaClient | Prisma.TransactionClient,
   ): Promise<string | null> {
     const normalizedName = normalizeCustomerName(name);
     const now = new Date();
