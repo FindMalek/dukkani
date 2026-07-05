@@ -21,6 +21,7 @@ import { CustomerDetailNotesCard } from "@/components/app/customers/customer-det
 import { CustomerDetailOrdersCard } from "@/components/app/customers/customer-detail-orders-card";
 import { CustomerDetailSkeleton } from "@/components/app/customers/customer-detail-skeleton";
 import { CustomerDetailSummaryCard } from "@/components/app/customers/customer-detail-summary-card";
+import { handleAPIError } from "@/shared/api/error-handler";
 import { RoutePaths } from "@/shared/config/routes";
 import { useCustomerDetailPage } from "@/shared/lib/customer/controller.hook";
 import { getContactHref } from "@/shared/lib/phone/contact-href.util";
@@ -66,7 +67,10 @@ export default function CustomerDetailPage() {
   const handleDeleteConfirm = () => {
     deleteCustomerMutation.mutate(
       { id: customer.id },
-      { onSuccess: () => router.push(RoutePaths.CUSTOMERS.INDEX.url) },
+      {
+        onSuccess: () => router.push(RoutePaths.CUSTOMERS.INDEX.url),
+        onError: (error) => handleAPIError(error),
+      },
     );
   };
 
@@ -96,6 +100,7 @@ export default function CustomerDetailPage() {
         isWaLink={isWaLink}
         callLabel={t("call")}
         whatsappLabel={t("whatsapp")}
+        currentName={customer.name}
         nameVariants={customer.nameVariants}
       />
 
@@ -120,6 +125,7 @@ export default function CustomerDetailPage() {
             <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteConfirm}
+              isLoading={deleteCustomerMutation.isPending}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
               {t("confirmDelete")}

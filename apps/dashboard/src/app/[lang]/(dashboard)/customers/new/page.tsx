@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { handleAPIError } from "@/shared/api/error-handler";
 import { appMutations } from "@/shared/api/mutations";
 import { RoutePaths } from "@/shared/config/routes";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
@@ -28,21 +29,21 @@ export default function NewCustomerPage() {
       phone: "",
     },
     validators: {
-      // onChange (not onBlur) so a "required" error raised while tabbing
-      // through an empty field clears the instant the user types a valid
-      // value — onBlur-only left the submit button stuck disabled whenever
-      // a field was validated while still empty and never blurred again.
       onChange: customerFormSchema,
       onSubmit: customerFormSchema,
     },
     onSubmit: async ({ value }) => {
       if (!selectedStoreId) return;
       const parsed = customerFormSchema.parse(value);
-      const customer = await createCustomerMutation.mutateAsync({
-        ...parsed,
-        storeId: selectedStoreId,
-      });
-      router.push(RoutePaths.CUSTOMERS.DETAIL.url(customer.id));
+      try {
+        const customer = await createCustomerMutation.mutateAsync({
+          ...parsed,
+          storeId: selectedStoreId,
+        });
+        router.push(RoutePaths.CUSTOMERS.DETAIL.url(customer.id));
+      } catch (error) {
+        handleAPIError(error);
+      }
     },
   });
 
