@@ -415,7 +415,8 @@
       "loading": "Loading customer…",
       "notFound": "Customer not found",
       "errorLoading": "Error loading customer. Please try again.",
-      "alsoKnownAs": "Also known as: {names}"
+      "alsoKnownAs": "Also known as: {names}",
+      "moreOptions": "More options"
     },
     "new": {
       "title": "New customer",

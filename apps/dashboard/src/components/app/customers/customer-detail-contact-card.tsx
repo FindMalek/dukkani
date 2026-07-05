@@ -13,6 +13,7 @@ interface CustomerDetailContactCardProps {
   isWaLink: boolean;
   callLabel: string;
   whatsappLabel: string;
+  currentName: string;
   nameVariants: CustomerIncludeOutput["nameVariants"];
 }
 
@@ -23,12 +24,11 @@ export function CustomerDetailContactCard({
   isWaLink,
   callLabel,
   whatsappLabel,
+  currentName,
   nameVariants,
 }: CustomerDetailContactCardProps) {
   const t = useTranslations("customers.detail");
-  // Only worth showing once a second spelling has actually been observed —
-  // a single variant is just the customer's one-and-only name, not an alias.
-  const alsoKnownAs = nameVariants.slice(1);
+  const alsoKnownAs = nameVariants.filter((v) => v.name !== currentName);
 
   return (
     <Card className="gap-0 py-0 shadow-sm">
