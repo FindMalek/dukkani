@@ -14,7 +14,10 @@ export function CustomerDetailNotesCard({
   notes,
 }: CustomerDetailNotesCardProps) {
   const t = useTranslations("customers.detail.notes");
-  const { value, onChange, isSaving } = useNotesAutosave(customerId, notes);
+  const { value, onChange, isSaving, isSaved } = useNotesAutosave(
+    customerId,
+    notes,
+  );
 
   return (
     <div className="rounded-xl border bg-card p-3 shadow-sm">
@@ -22,8 +25,12 @@ export function CustomerDetailNotesCard({
         <p className="font-medium text-muted-foreground text-xs">
           {t("title")}
         </p>
-        {isSaving && (
+        {isSaving ? (
           <p className="text-muted-foreground text-xs">{t("saving")}</p>
+        ) : (
+          isSaved && (
+            <p className="text-muted-foreground text-xs">{t("saved")}</p>
+          )
         )}
       </div>
       <Textarea
