@@ -34,6 +34,7 @@ export class ProductVersionQuery {
         include: VariantQuery.getVariantOptionInclude(),
       },
       variants: {
+        where: { discontinuedAt: null },
         include: VariantQuery.getVariantInclude(),
       },
       addonGroups: ProductAddonQuery.getGroupsInclude(),
@@ -54,8 +55,16 @@ export class ProductVersionQuery {
       variantEffectivePriceMax: true,
       images: { select: { url: true } },
       totalVariantStock: true,
-      _count: { select: { variants: true, bundleItems: true } },
-      variants: { select: { stock: true, trackStock: true, price: true } },
+      _count: {
+        select: {
+          variants: { where: { discontinuedAt: null } },
+          bundleItems: true,
+        },
+      },
+      variants: {
+        where: { discontinuedAt: null },
+        select: { stock: true, trackStock: true, price: true },
+      },
       addonGroups: {
         where: { required: true },
         take: 1,
@@ -75,6 +84,7 @@ export class ProductVersionQuery {
       hasVariants: true,
       addonGroups: ProductAddonQuery.getOrderPricingGroupsRelationArgs(),
       variants: {
+        where: { discontinuedAt: null },
         select: {
           id: true,
           price: true,
@@ -92,6 +102,7 @@ export class ProductVersionQuery {
       images: true,
       variantOptions: { include: { values: true } },
       variants: {
+        where: { discontinuedAt: null },
         include: {
           selections: true,
           image: { select: { id: true, url: true } },

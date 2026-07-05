@@ -78,6 +78,12 @@ export function handleAPIError(
     return;
   }
 
+  // Conflict errors (e.g. concurrent draft edits, blocked deletes with existing references)
+  if (error?.code === "CONFLICT") {
+    toast.error(error?.message || fallbackMessage);
+    return;
+  }
+
   // Fallback
   toast.error(fallbackMessage);
 }

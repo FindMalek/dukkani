@@ -190,6 +190,11 @@ model ProductVariant {
   stock      Int
   trackStock Boolean  @default(true) @map("track_stock")
 
+  // Set instead of deleting the row when a variant with order history is
+  // removed from the matrix, so OrderItem/OrderItemBundleChild references
+  // stay valid. Hidden from storefront/checkout/dashboard editor once set.
+  discontinuedAt DateTime? @map("discontinued_at")
+
   imageId String? @map("image_id")
   image   Image?  @relation("VariantImage", fields: [imageId], references: [id], onDelete: SetNull)
 
@@ -206,6 +211,7 @@ model ProductVariant {
 
   @@unique([productVersionId, sku])
   @@index([productVersionId])
+  @@index([productVersionId, discontinuedAt])
   @@index([sku])
   @@index([imageId])
   @@map("product_variants")

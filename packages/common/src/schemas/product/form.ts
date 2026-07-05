@@ -56,7 +56,7 @@ export const productFormSchema = productSchema
     storeId: true,
   })
   .extend({
-    price: z.coerce.number<string>().positive("Price must be positive"),
+    price: z.coerce.number<string>().min(0, "Price cannot be negative"),
     stock: z.coerce.number<string>().min(0, "Stock cannot be negative"),
     images: z
       .array(productImageAttachmentSchema)
@@ -66,6 +66,13 @@ export const productFormSchema = productSchema
   })
   .superRefine((data, ctx) => {
     if (!data.hasVariants) {
+      if (data.price <= 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Price must be positive",
+          path: ["price"],
+        });
+      }
       if (data.variants.length > 0) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,

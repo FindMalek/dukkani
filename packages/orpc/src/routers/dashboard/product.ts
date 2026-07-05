@@ -551,8 +551,8 @@ export const productRouter = {
 
       await verifyStoreOwnership(userId, product.storeId);
 
-      await database.$transaction(async (tx) => {
-        await ProductVersionService.publishDraft(
+      const { discontinuedCount } = await database.$transaction(async (tx) => {
+        return await ProductVersionService.publishDraft(
           tx,
           input.id,
           input.expectedDraftUpdatedAt,
@@ -570,7 +570,10 @@ export const productRouter = {
         });
       }
 
-      return ProductEntity.getRo(updated);
+      return {
+        ...ProductEntity.getRo(updated),
+        discontinuedVariantCount: discontinuedCount,
+      };
     }),
 
   discardDraft: protectedProcedure

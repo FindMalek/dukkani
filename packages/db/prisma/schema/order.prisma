@@ -60,6 +60,7 @@ model OrderItem {
   bundleChildren    OrderItemBundleChild[]
 
   @@index([productVersionId])
+  @@index([productVariantId])
   @@map("order_items")
 }
 
@@ -134,5 +135,6 @@ model OrderItemBundleChild {
   @@index([orderItemId])
   @@index([childProductId])
   @@index([childProductVersionId])
+  @@index([childVariantId])
   @@map("order_item_bundle_children")
 }

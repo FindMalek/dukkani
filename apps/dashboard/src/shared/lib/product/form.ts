@@ -13,7 +13,9 @@ import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { toast } from "sonner";
 import { handleAPIError } from "@/shared/api/error-handler";
 import { appMutations } from "@/shared/api/mutations";
 import { client } from "@/shared/api/orpc";
@@ -48,6 +50,7 @@ export function useProductForm({
   productId?: string;
 }) {
   const router = useRouter();
+  const t = useTranslations("products.create");
   const queryClient = useQueryClient();
   const isEdit = Boolean(productId);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
@@ -148,7 +151,7 @@ export function useProductForm({
           id: editProductId,
           name: rest.name,
           description: rest.description,
-          price: rest.price,
+          price: rest.hasVariants ? undefined : rest.price,
           stock: rest.stock,
           published: true,
           categoryId: rest.categoryId,
@@ -166,7 +169,18 @@ export function useProductForm({
 
         try {
           await updateProductMutation.mutateAsync(payload);
-          await publishProductMutation.mutateAsync(editProductId);
+          const published =
+            await publishProductMutation.mutateAsync(editProductId);
+          if (
+            published.discontinuedVariantCount &&
+            published.discontinuedVariantCount > 0
+          ) {
+            toast(
+              t("form.discontinuedVariants", {
+                count: published.discontinuedVariantCount,
+              }),
+            );
+          }
           router.push(RoutePaths.PRODUCTS.INDEX.url);
         } catch (error) {
           handleAPIError(error);
