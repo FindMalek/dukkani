@@ -418,7 +418,8 @@
       },
       "loading": "Chargement du client…",
       "notFound": "Client introuvable",
-      "errorLoading": "Erreur lors du chargement du client. Veuillez réessayer."
+      "errorLoading": "Erreur lors du chargement du client. Veuillez réessayer.",
+      "alsoKnownAs": "Aussi connu sous : {names}"
     },
     "new": {
       "title": "Nouveau client",
