@@ -3,6 +3,7 @@
 import type { CustomerListItemOutput } from "@dukkani/common/schemas/customer/output";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Checkbox } from "@dukkani/ui/components/checkbox";
+import { FlagComponent, getPhoneCountry } from "@dukkani/ui/components/country";
 import { Icons } from "@dukkani/ui/components/icons";
 import { SwipeableCard } from "@dukkani/ui/components/swipeable-card";
 import { useRouter } from "next/navigation";
@@ -92,7 +93,13 @@ export function CustomerListCard({
             )}
           </div>
 
-          <p className="text-muted-foreground text-sm">{customer.phone}</p>
+          <p className="flex items-center gap-1.5 text-muted-foreground text-sm">
+            <FlagComponent
+              country={getPhoneCountry(customer.phone)}
+              countryName={customer.phone}
+            />
+            {customer.phone}
+          </p>
 
           <div className="flex items-end justify-between gap-4 border-t pt-3">
             <div>

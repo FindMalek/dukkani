@@ -89,6 +89,7 @@ export default function CustomerDetailPage() {
         isWaLink={isWaLink}
         callLabel={t("call")}
         whatsappLabel={t("whatsapp")}
+        nameVariants={customer.nameVariants}
       />
 
       <CustomerDetailLocationsCard addresses={customer.addresses} />

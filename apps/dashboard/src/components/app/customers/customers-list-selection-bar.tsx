@@ -42,25 +42,35 @@ export function CustomersListSelectionBar({
   return (
     <div className="fixed inset-x-0 bottom-16 z-40 border-t bg-background/95 p-3 backdrop-blur-sm md:bottom-0">
       <div className="container mx-auto flex max-w-7xl items-center justify-between gap-2">
-        <span className="shrink-0 font-medium text-sm">
+        <span className="min-w-0 shrink font-medium text-sm">
           {t("itemsSelected", { count })}
         </span>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={handleExport} disabled={count === 0}>
+        <div className="flex shrink-0 items-center gap-1">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleExport}
+            disabled={count === 0}
+            aria-label={t("exportCsv")}
+          >
             <Icons.download className="size-4" />
-            {t("exportCsv")}
           </Button>
           <Button
             variant="outline"
-            size="sm"
+            size="icon"
             onClick={handleMessage}
             disabled={!canMessage}
+            aria-label={t("messageOnWhatsApp")}
           >
             <Icons.whatsapp className="size-4" />
-            {t("messageOnWhatsApp")}
           </Button>
-          <Button variant="ghost" size="sm" onClick={onCancel}>
-            {t("cancelSelection")}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onCancel}
+            aria-label={t("cancelSelection")}
+          >
+            <Icons.x className="size-4" />
           </Button>
         </div>
       </div>

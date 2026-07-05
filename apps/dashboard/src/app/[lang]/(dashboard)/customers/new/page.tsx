@@ -28,7 +28,11 @@ export default function NewCustomerPage() {
       phone: "",
     },
     validators: {
-      onBlur: customerFormSchema,
+      // onChange (not onBlur) so a "required" error raised while tabbing
+      // through an empty field clears the instant the user types a valid
+      // value — onBlur-only left the submit button stuck disabled whenever
+      // a field was validated while still empty and never blurred again.
+      onChange: customerFormSchema,
       onSubmit: customerFormSchema,
     },
     onSubmit: async ({ value }) => {
