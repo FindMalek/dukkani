@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { exportCustomersToCsv } from "@/shared/lib/customer/customer-csv-export.util";
 import { getContactHref } from "@/shared/lib/phone/contact-href.util";
+import { useCurrentStoreCurrency } from "@/shared/lib/store/current-currency.hook";
 
 interface CustomersListSelectionBarProps {
   selectedCustomers: CustomerListItemOutput[];
@@ -18,11 +19,12 @@ export function CustomersListSelectionBar({
   onCancel,
 }: CustomersListSelectionBarProps) {
   const t = useTranslations("customers.list");
+  const currency = useCurrentStoreCurrency();
   const count = selectedCustomers.length;
   const canMessage = count === 1;
 
   const handleExport = () => {
-    exportCustomersToCsv(selectedCustomers);
+    exportCustomersToCsv(selectedCustomers, currency);
   };
 
   const handleMessage = () => {

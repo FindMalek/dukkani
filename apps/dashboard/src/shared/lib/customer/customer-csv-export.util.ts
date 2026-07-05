@@ -1,4 +1,5 @@
 import type { CustomerListItemOutput } from "@dukkani/common/schemas/customer/output";
+import type { store } from "@dukkani/common/schemas";
 
 const CSV_HEADERS = [
   "Name",
@@ -10,19 +11,34 @@ const CSV_HEADERS = [
 ];
 
 function escapeCsvField(value: string): string {
-  if (/[",\n]/.test(value)) {
-    return `"${value.replace(/"/g, '""')}"`;
+  const safeValue = /^[=+\-@]/.test(value) ? `'${value}` : value;
+  if (/[",\n]/.test(safeValue)) {
+    return `"${safeValue.replace(/"/g, '""')}"`;
   }
-  return value;
+  return safeValue;
 }
 
-function toCsvRow(customer: CustomerListItemOutput): string {
+function getCurrencyDecimalDigits(
+  currency: store.SupportedCurrencyInfer,
+): number {
+  return (
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency,
+    }).resolvedOptions().maximumFractionDigits ?? 2
+  );
+}
+
+function toCsvRow(
+  customer: CustomerListItemOutput,
+  totalSpentDecimalDigits: number,
+): string {
   return [
     customer.name,
     customer.phone,
     customer.governorates.join("; "),
     String(customer.orderCount),
-    customer.totalSpent.toFixed(3),
+    customer.totalSpent.toFixed(totalSpentDecimalDigits),
     customer.lastOrderAt ? new Date(customer.lastOrderAt).toISOString() : "",
   ]
     .map(escapeCsvField)
@@ -36,8 +52,13 @@ function toCsvRow(customer: CustomerListItemOutput): string {
  */
 export function exportCustomersToCsv(
   customers: CustomerListItemOutput[],
+  currency: store.SupportedCurrencyInfer,
 ): void {
-  const rows = [CSV_HEADERS.join(","), ...customers.map(toCsvRow)];
+  const totalSpentDecimalDigits = getCurrencyDecimalDigits(currency);
+  const rows = [
+    CSV_HEADERS.join(","),
+    ...customers.map((c) => toCsvRow(c, totalSpentDecimalDigits)),
+  ];
   const csv = rows.join("\n");
   // UTF-8 BOM: without it, Excel misreads non-ASCII bytes (Arabic names,
   // governorates) as a different encoding and renders mojibake.
