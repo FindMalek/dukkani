@@ -1,40 +1,40 @@
 {
   "dashboard": {
-    "title": "Dashboard",
-    "description": "Dashboard description",
+    "title": "لوحة التحكم",
+    "description": "وصف لوحة التحكم",
     "overview": {
       "storeHeader": {
-        "liveStore": "Live store",
-        "yourStoreLink": "Your store link",
-        "tapToCopy": "Tap to copy and share"
+        "liveStore": "المتجر المباشر",
+        "yourStoreLink": "رابط متجرك",
+        "tapToCopy": "اضغط للنسخ والمشاركة"
       },
       "todaysPerformance": {
-        "title": "TODAY'S PERFORMANCE",
-        "orders": "Orders",
-        "revenue": "Revenue"
+        "title": "أداء اليوم",
+        "orders": "الطلبات",
+        "revenue": "الإيرادات"
       },
       "thisWeek": {
-        "title": "This Week",
-        "orders": "Orders"
+        "title": "هذا الأسبوع",
+        "orders": "الطلبات"
       },
       "quickActions": {
-        "title": "QUICK ACTIONS",
-        "addProduct": "Add new product",
-        "viewOrders": "View all orders"
+        "title": "إجراءات سريعة",
+        "addProduct": "إضافة منتج جديد",
+        "viewOrders": "عرض جميع الطلبات"
       }
     },
     "storeInitializer": {
-      "loadError": "Could not load your stores. Please try again.",
-      "noStores": "You don't have any stores yet. Create one to continue.",
-      "goToOnboarding": "Go to onboarding"
+      "loadError": "تعذر تحميل متاجرك. يرجى المحاولة مرة أخرى.",
+      "noStores": "ليس لديك أي متجر بعد. أنشئ متجرًا للمتابعة.",
+      "goToOnboarding": "الانتقال إلى الإعداد"
     }
   },
   "auth": {
     "emailSignIn": {
-      "continue": "Continue",
-      "rememberMe": "Remember me",
-      "back": "Back",
-      "signIn": "Sign in",
+      "continue": "متابعة",
+      "rememberMe": "تذكرني",
+      "back": "رجوع",
+      "signIn": "تسجيل الدخول",
       "email": {
         "placeholder": "أدخل بريدك الإلكتروني",
         "label": "عنوان البريد الإلكتروني"
@@ -47,211 +47,207 @@
   },
   "settings": {
     "logout": {
-      "button": "Log out",
-      "title": "Log out of your account?",
-      "description": "You will be redirected to the login page. Any unsaved changes in other tabs may be lost.",
-      "cancel": "Cancel",
-      "confirm": "Log out"
+      "button": "تسجيل الخروج",
+      "title": "تسجيل الخروج من حسابك؟",
+      "description": "سيتم إعادة توجيهك إلى صفحة تسجيل الدخول. قد تُفقد أي تغييرات غير محفوظة في علامات تبويب أخرى.",
+      "cancel": "إلغاء",
+      "confirm": "تسجيل الخروج"
     },
     "telegram": {
-      "title": "Telegram Notifications",
-      "description": "Link your Telegram account to receive instant order notifications",
-      "linked": "Telegram account linked on",
-      "recently": "recently",
-      "linkButton": "Link via Telegram",
-      "disconnectButton": "Disconnect Telegram",
-      "disconnectTitle": "Disconnect Telegram Account",
-      "disconnectDescription": "To confirm disconnection, please enter the name of one of your stores:",
-      "disconnectPlaceholder": "Enter store name",
-      "disconnectSuccess": "Telegram account disconnected successfully",
-      "disconnectError": "Store name doesn't match. Please try again.",
-      "disconnectNotLinked": "Telegram account is not linked",
-      "yourStores": "Your stores:",
-      "otpCode": "OTP Code",
-      "storeNameLabel": "Store Name",
-      "cancelButton": "Cancel",
-      "option1": "Option 1: Click the link below",
-      "option2": "Option 2: Scan QR code",
-      "expires": "This link expires in 10 minutes. If Telegram is not installed, you can install it from",
-      "error": "An error occurred. Please try again.",
-      "storeNameRequired": "Store name is required"
+      "title": "إشعارات Telegram",
+      "description": "اربط حساب Telegram الخاص بك لتلقي إشعارات فورية بالطلبات",
+      "linked": "تم ربط حساب Telegram في",
+      "recently": "مؤخرًا",
+      "linkButton": "الربط عبر Telegram",
+      "disconnectButton": "فصل Telegram",
+      "disconnectTitle": "فصل حساب Telegram",
+      "disconnectDescription": "لتأكيد الفصل، يرجى إدخال اسم أحد متاجرك:",
+      "disconnectPlaceholder": "أدخل اسم المتجر",
+      "disconnectSuccess": "تم فصل حساب Telegram بنجاح",
+      "disconnectError": "اسم المتجر غير مطابق. يرجى المحاولة مرة أخرى.",
+      "disconnectNotLinked": "حساب Telegram غير مرتبط",
+      "yourStores": "متاجرك:",
+      "otpCode": "رمز OTP",
+      "storeNameLabel": "اسم المتجر",
+      "cancelButton": "إلغاء",
+      "option1": "الخيار 1: انقر على الرابط أدناه",
+      "option2": "الخيار 2: امسح رمز QR",
+      "expires": "تنتهي صلاحية هذا الرابط خلال 10 دقائق. إذا لم يكن Telegram مثبتًا، يمكنك تثبيته من",
+      "error": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+      "storeNameRequired": "اسم المتجر مطلوب"
     }
   },
   "onboarding": {
     "storeSetup": {
-      "title": "Create your store",
-      "subtitle": "Just one more step to get started",
+      "title": "أنشئ متجرك",
+      "subtitle": "خطوة واحدة فقط للبدء",
       "storeName": {
-        "label": "Store Name",
-        "placeholder": "My Awesome Store"
+        "label": "اسم المتجر",
+        "placeholder": "متجري الرائع"
       },
       "notifications": {
-        "label": "How do you want to receive new order alerts?",
+        "label": "كيف تريد تلقي تنبيهات الطلبات الجديدة؟",
         "options": {
           "email": {
-            "label": "Email Notifications",
-            "description": "Sent to your login email address"
+            "label": "إشعارات البريد الإلكتروني",
+            "description": "تُرسل إلى بريدك الإلكتروني المستخدم لتسجيل الدخول"
           },
           "telegram": {
-            "label": "Telegram Alerts",
-            "description": "Fast and instant alerts via our Telegram bot"
+            "label": "تنبيهات Telegram",
+            "description": "تنبيهات سريعة وفورية عبر بوت Telegram الخاص بنا"
           },
           "both": {
-            "label": "Both",
-            "description": "Get notified everywhere so you never miss an order"
+            "label": "كلاهما",
+            "description": "احصل على إشعارات في كل مكان حتى لا يفوتك أي طلب"
           }
         }
       },
-      "submit": "Continue",
       "currency": {
-        "label": "Store Currency",
-        "placeholder": "Select your store currency"
-      }
+        "label": "عملة المتجر",
+        "placeholder": "اختر عملة متجرك"
+      },
+      "submit": "متابعة"
     },
     "storeConfiguration": {
-      "title": "Configure your store",
-      "subtitle": "Customize your store's appearance and category",
+      "title": "قم بإعداد متجرك",
+      "subtitle": "خصص مظهر متجرك وفئته",
       "category": {
-        "label": "What category best describes your store?",
+        "label": "ما الفئة التي تصف متجرك بشكل أفضل؟",
         "options": {
           "fashion": {
-            "label": "Fashion",
-            "description": "Clothing, accessories, and style"
+            "label": "الأزياء",
+            "description": "الملابس والإكسسوارات والأناقة"
           },
           "electronics": {
-            "label": "Electronics",
-            "description": "Gadgets, devices, and tech"
+            "label": "الإلكترونيات",
+            "description": "الأجهزة والتقنيات"
           },
           "food": {
-            "label": "Food",
-            "description": "Food items and beverages"
+            "label": "الطعام",
+            "description": "المواد الغذائية والمشروبات"
           },
           "home": {
-            "label": "Home",
-            "description": "Home decor and essentials"
+            "label": "المنزل",
+            "description": "ديكور المنزل والأساسيات"
           },
           "beauty": {
-            "label": "Beauty",
-            "description": "Cosmetics and personal care"
+            "label": "الجمال",
+            "description": "مستحضرات التجميل والعناية الشخصية"
           },
           "sports": {
-            "label": "Sports",
-            "description": "Sports equipment and gear"
+            "label": "الرياضة",
+            "description": "المعدات والأدوات الرياضية"
           },
           "books": {
-            "label": "Books",
-            "description": "Books and reading materials"
+            "label": "الكتب",
+            "description": "الكتب ومواد القراءة"
           },
           "toys": {
-            "label": "Toys",
-            "description": "Toys and games"
+            "label": "الألعاب",
+            "description": "الألعاب وأدوات التسلية"
           },
           "other": {
-            "label": "Other",
-            "description": "Other categories"
+            "label": "أخرى",
+            "description": "فئات أخرى"
           }
         }
       },
       "theme": {
-        "label": "Choose your store theme",
+        "label": "اختر مظهر متجرك",
         "options": {
           "light": {
-            "label": "Light",
-            "description": "Clean and bright"
+            "label": "فاتح",
+            "description": "نظيف ومشرق"
           },
           "dark": {
-            "label": "Dark",
-            "description": "Modern and sleek"
+            "label": "داكن",
+            "description": "عصري وأنيق"
           },
           "minimal": {
-            "label": "Minimal",
-            "description": "Simple and elegant"
+            "label": "بسيط",
+            "description": "بسيط وأنيق"
           },
           "modern": {
-            "label": "Modern",
-            "description": "Contemporary design"
+            "label": "حديث",
+            "description": "تصميم عصري"
           },
           "classic": {
-            "label": "Classic",
-            "description": "Timeless style"
+            "label": "كلاسيكي",
+            "description": "أسلوب خالد"
           }
         }
       },
-      "submit": "Finish Setup"
+      "submit": "إنهاء الإعداد"
     },
     "steps": {
-      "signup": "Account",
-      "storeSetup": "Store Setup",
-      "storeConfiguration": "Configure",
-      "complete": "Ready",
-      "welcome": "Welcome",
-      "welcomeDescription": "Get started with your store setup",
-      "storeSetupDescription": "Create your store",
-      "storeCreated": "Store Created",
-      "storeCreatedDescription": "Configure your store",
-      "storeConfigured": "Store Configured",
-      "storeConfiguredDescription": "Launch your store",
-      "storeLaunched": "Store Launched",
-      "storeLaunchedDescription": "Onboarding complete",
-      "storeSetupShort": "Store"
+      "welcome": "مرحبًا",
+      "welcomeDescription": "ابدأ في إعداد متجرك",
+      "storeSetup": "إعداد المتجر",
+      "storeSetupDescription": "أنشئ متجرك",
+      "storeCreated": "تم إنشاء المتجر",
+      "storeCreatedDescription": "قم بإعداد متجرك",
+      "storeConfigured": "تم إعداد المتجر",
+      "storeConfiguredDescription": "أطلق متجرك",
+      "storeLaunched": "تم إطلاق المتجر",
+      "storeLaunchedDescription": "اكتمل الإعداد",
+      "signup": "الحساب",
+      "storeSetupShort": "المتجر",
+      "storeConfiguration": "الإعداد",
+      "complete": "جاهز"
     },
     "actions": {
-      "retry": "Retry"
+      "retry": "إعادة المحاولة"
+    },
+    "errors": {
+      "emailAlreadyInUse": "حساب بهذا البريد الإلكتروني موجود بالفعل. يرجى استخدام بريد إلكتروني مختلف أو تسجيل الدخول.",
+      "storeLoadFailed": "لم نتمكن من تحميل متجرك. يرجى تحديث الصفحة أو الاتصال بالدعم."
     },
     "signup": {
-      "title": "Create your account",
-      "subtitle": "Join Dukkani and start selling today",
+      "title": "أنشئ حسابك",
+      "subtitle": "انضم إلى Dukkani وابدأ البيع اليوم",
       "name": {
-        "label": "What should we call you?",
-        "placeholder": "Enter your full name"
+        "label": "بماذا نناديك؟",
+        "placeholder": "أدخل اسمك الكامل"
       },
       "email": {
-        "label": "Email address",
+        "label": "عنوان البريد الإلكتروني",
         "placeholder": "your@email.com",
-        "description": "We pre-filled this from the previous step",
-        "missingWarning": "Email address was not provided. Please enter your email address to continue.",
+        "description": "قمنا بتعبئة هذا الحقل مسبقًا من الخطوة السابقة",
+        "missingWarning": "لم يتم توفير عنوان بريد إلكتروني. يرجى إدخال بريدك الإلكتروني للمتابعة.",
         "existsError": "البريد الإلكتروني موجود بالفعل. يرجى استخدام بريد إلكتروني مختلف.",
         "readonlyHint": "لا يمكن تغيير البريد الإلكتروني المقدم في الرابط",
         "validating": "جارٍ التحقق من توفر البريد الإلكتروني..."
       },
       "password": {
-        "label": "Choose a password",
-        "placeholder": "Minimum 8 characters"
+        "label": "اختر كلمة مرور",
+        "placeholder": "8 أحرف على الأقل"
       },
-      "submit": "Continue to Store Setup",
-      "alreadyHaveAccount": "Already have an account?",
-      "login": "Log in",
-      "agreeText": "By continuing, you agree to our",
-      "terms": "Terms",
+      "submit": "المتابعة إلى إعداد المتجر",
+      "alreadyHaveAccount": "لديك حساب بالفعل؟",
+      "login": "تسجيل الدخول",
+      "agreeText": "بالمتابعة، فإنك توافق على",
+      "terms": "الشروط",
       "and": "&",
-      "privacy": "Privacy Policy"
+      "privacy": "سياسة الخصوصية"
     },
     "complete": {
-      "title": "You're all set!",
-      "subtitle": "Your store is ready to start receiving orders.",
+      "title": "كل شيء جاهز!",
+      "subtitle": "متجرك جاهز لبدء استقبال الطلبات.",
       "storeLink": {
-        "label": "Your Store Link",
-        "copied": "Link copied to clipboard!"
+        "label": "رابط متجرك",
+        "copied": "تم نسخ الرابط!"
       },
       "telegram": {
-        "title": "Instant Order Alerts",
-        "description": "Connect your Telegram to get notified the second a customer places an order.",
-        "otpLabel": "Your OTP Code",
-        "connectButton": "Connect",
-        "instructions": "Send /link {code} to the bot if you're not redirected."
+        "title": "تنبيهات فورية للطلبات",
+        "description": "اربط حساب Telegram الخاص بك لتصلك إشعارات فور تقديم العميل لطلبه.",
+        "otpLabel": "رمز OTP الخاص بك",
+        "connectButton": "ربط",
+        "instructions": "أرسل /link {code} إلى البوت إذا لم تتم إعادة توجيهك."
       },
       "actions": {
-        "addProduct": "Add Your First Product",
-        "goToDashboard": "Go to Dashboard"
-      },
-      "errors": {
-        "emailAlreadyInUse": "حساب بهذا البريد الإلكتروني موجود بالفعل. يرجى استخدام بريد إلكتروني مختلف أو تسجيل الدخول.",
-        "storeLoadFailed": "لم نتمكن من تحميل متجرك. يرجى تحديث الصفحة أو الاتصال بالدعم."
+        "addProduct": "أضف منتجك الأول",
+        "goToDashboard": "الانتقال إلى لوحة التحكم"
       }
-    },
-    "errors": {
-      "emailAlreadyInUse": "An account with this email already exists. Please use a different email or sign in.",
-      "storeLoadFailed": "We couldn't load your store. Refresh the page or contact support."
     }
   },
   "orders": {
@@ -261,7 +257,7 @@
       "searchPlaceholder": "البحث بالاسم أو الهاتف أو رقم الطلب",
       "empty": "لم يتم العثور على طلبات. ستظهر الطلبات هنا بمجرد أن يبدأ العملاء في تقديمها.",
       "error": "خطأ في تحميل الطلبات. يرجى المحاولة مرة أخرى لاحقًا.",
-      "retry": "Retry",
+      "retry": "إعادة المحاولة",
       "refresh": "تحديث الطلبات",
       "call": "اتصل",
       "advanceStatus": "تقدم",
@@ -300,137 +296,137 @@
       }
     },
     "detail": {
-      "backToOrders": "Back to orders",
-      "title": "Order Details",
-      "payment": "Payment",
-      "items": "Items",
-      "itemsCount": "{count, plural, one {# Item} other {# Items}}",
-      "customer": "Customer",
-      "openWhatsApp": "Open WhatsApp",
-      "call": "Call",
-      "callCustomer": "Call {name}",
-      "deliveryAddress": "Delivery Address",
-      "deliveryNotes": "Delivery notes",
-      "orderItems": "Order Items",
-      "subtotal": "Subtotal",
-      "delivery": "Delivery",
-      "total": "Total",
-      "updateStatus": "Update Status",
-      "slideToSetStatus": "Slide to mark as {status}",
-      "slideToUpdate": "Update Status",
-      "loading": "Loading order…",
-      "notFound": "Order not found",
-      "errorLoading": "Error loading order. Please try again."
+      "backToOrders": "العودة إلى الطلبات",
+      "title": "تفاصيل الطلب",
+      "payment": "الدفع",
+      "items": "العناصر",
+      "itemsCount": "{count, plural, zero {لا عناصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرًا} other {# عنصر}}",
+      "customer": "العميل",
+      "openWhatsApp": "فتح WhatsApp",
+      "call": "اتصال",
+      "callCustomer": "اتصال بـ {name}",
+      "deliveryAddress": "عنوان التوصيل",
+      "deliveryNotes": "ملاحظات التوصيل",
+      "orderItems": "عناصر الطلب",
+      "subtotal": "المجموع الفرعي",
+      "delivery": "التوصيل",
+      "total": "الإجمالي",
+      "updateStatus": "تحديث الحالة",
+      "slideToSetStatus": "اسحب للتحديد كـ {status}",
+      "slideToUpdate": "تحديث الحالة",
+      "loading": "جارٍ تحميل الطلب…",
+      "notFound": "الطلب غير موجود",
+      "errorLoading": "خطأ في تحميل الطلب. يرجى المحاولة مرة أخرى."
     }
   },
   "customers": {
     "list": {
-      "title": "Customers",
-      "description": "Manage your customer database",
-      "searchPlaceholder": "Search by name or phone",
-      "empty": "No customers found. Customers will appear here once they place orders or you add them manually.",
-      "noResults": "No customers match your filters.",
-      "error": "Error loading customers. Please try again later.",
-      "retry": "Retry",
-      "addCustomer": "Add customer",
-      "select": "Select",
-      "cancelSelection": "Cancel",
-      "itemsSelected": "{count} selected",
-      "exportCsv": "Export CSV",
-      "messageOnWhatsApp": "Message on WhatsApp",
-      "selectExactlyOne": "Select a single customer to message",
-      "waPrefill": "Hi {name}, ",
-      "totalSpent": "Total spent",
-      "lastOrder": "Last order",
+      "title": "العملاء",
+      "description": "إدارة قاعدة بيانات عملائك",
+      "searchPlaceholder": "البحث بالاسم أو الهاتف",
+      "empty": "لم يتم العثور على عملاء. سيظهر العملاء هنا بمجرد أن يقدموا طلبات أو تقوم بإضافتهم يدويًا.",
+      "noResults": "لا يوجد عملاء يطابقون عوامل التصفية الخاصة بك.",
+      "error": "خطأ في تحميل العملاء. يرجى المحاولة مرة أخرى لاحقًا.",
+      "retry": "إعادة المحاولة",
+      "addCustomer": "إضافة عميل",
+      "select": "تحديد",
+      "cancelSelection": "إلغاء",
+      "itemsSelected": "{count} محدد",
+      "exportCsv": "تصدير CSV",
+      "messageOnWhatsApp": "مراسلة عبر WhatsApp",
+      "selectExactlyOne": "اختر عميلًا واحدًا للمراسلة",
+      "waPrefill": "مرحبًا {name}، ",
+      "totalSpent": "إجمالي الإنفاق",
+      "lastOrder": "آخر طلب",
       "governorates": {
-        "all": "All",
-        "TUNIS": "Tunis",
-        "ARIANA": "Ariana",
-        "BEN_AROUS": "Ben Arous",
-        "MANOUBA": "Manouba",
-        "NABEUL": "Nabeul",
-        "ZAGHOUAN": "Zaghouan",
-        "BIZERTE": "Bizerte",
-        "BEJA": "Beja",
-        "JENDOUBA": "Jendouba",
-        "KEF": "Kef",
-        "SILIANA": "Siliana",
-        "KAIROUAN": "Kairouan",
-        "KASSERINE": "Kasserine",
-        "SIDI_BOUZID": "Sidi Bouzid",
-        "SOUSSE": "Sousse",
-        "MONASTIR": "Monastir",
-        "MAHDIA": "Mahdia",
-        "SFAX": "Sfax",
-        "GABES": "Gabes",
-        "MEDENINE": "Medenine",
-        "TATAOUINE": "Tataouine",
-        "GAFSA": "Gafsa",
-        "TOZEUR": "Tozeur",
-        "KEBILI": "Kebili"
+        "all": "الكل",
+        "TUNIS": "تونس",
+        "ARIANA": "أريانة",
+        "BEN_AROUS": "بن عروس",
+        "MANOUBA": "منوبة",
+        "NABEUL": "نابل",
+        "ZAGHOUAN": "زغوان",
+        "BIZERTE": "بنزرت",
+        "BEJA": "باجة",
+        "JENDOUBA": "جندوبة",
+        "KEF": "الكاف",
+        "SILIANA": "سليانة",
+        "KAIROUAN": "القيروان",
+        "KASSERINE": "القصرين",
+        "SIDI_BOUZID": "سيدي بوزيد",
+        "SOUSSE": "سوسة",
+        "MONASTIR": "المنستير",
+        "MAHDIA": "المهدية",
+        "SFAX": "صفاقس",
+        "GABES": "قابس",
+        "MEDENINE": "مدنين",
+        "TATAOUINE": "تطاوين",
+        "GAFSA": "قفصة",
+        "TOZEUR": "توزر",
+        "KEBILI": "قبلي"
       },
       "filterDrawer": {
-        "title": "Filter customers",
-        "clearAll": "Reset all",
-        "apply": "Apply filters",
-        "governorate": "Governorate",
-        "sortBy": "Sort by",
+        "title": "تصفية العملاء",
+        "clearAll": "إعادة تعيين الكل",
+        "apply": "تطبيق الفلاتر",
+        "governorate": "الولاية",
+        "sortBy": "الترتيب حسب",
         "sortOptions": {
-          "recent": "Most recent",
-          "orderCount": "Order count",
-          "totalSpent": "Total spent",
-          "lastOrderAt": "Last order date"
+          "recent": "الأحدث",
+          "orderCount": "عدد الطلبات",
+          "totalSpent": "إجمالي الإنفاق",
+          "lastOrderAt": "تاريخ آخر طلب"
         }
       },
-      "ordersCount": "{count, plural, one {# order} other {# orders}}"
+      "ordersCount": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبًا} other {# طلب}}"
     },
     "detail": {
-      "backToCustomers": "Back to customers",
-      "title": "Customer Details",
-      "call": "Call",
+      "backToCustomers": "العودة إلى العملاء",
+      "title": "تفاصيل العميل",
+      "call": "اتصال",
       "whatsapp": "WhatsApp",
-      "delete": "Delete customer",
-      "deleteBlockedReason": "This customer has existing orders and can't be deleted.",
-      "deleteConfirmTitle": "Delete this customer?",
-      "deleteConfirmBody": "This action can't be undone.",
-      "cancel": "Cancel",
-      "confirmDelete": "Delete",
+      "delete": "حذف العميل",
+      "deleteBlockedReason": "لدى هذا العميل طلبات حالية ولا يمكن حذفه.",
+      "deleteConfirmTitle": "هل تريد حذف هذا العميل؟",
+      "deleteConfirmBody": "لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "confirmDelete": "حذف",
       "summary": {
-        "totalSpent": "Total spent",
-        "orderCount": "Orders",
-        "avgOrderValue": "Avg. order value",
-        "customerSince": "Customer since"
+        "totalSpent": "إجمالي الإنفاق",
+        "orderCount": "الطلبات",
+        "avgOrderValue": "متوسط قيمة الطلب",
+        "customerSince": "عميل منذ"
       },
       "locations": {
-        "title": "Locations",
-        "empty": "No saved addresses yet.",
-        "ordersCount": "{count, plural, one {# order} other {# orders}}"
+        "title": "المواقع",
+        "empty": "لا توجد عناوين محفوظة بعد.",
+        "ordersCount": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبًا} other {# طلب}}"
       },
       "orders": {
-        "title": "Order history",
-        "empty": "No orders yet."
+        "title": "سجل الطلبات",
+        "empty": "لا توجد طلبات بعد."
       },
       "notes": {
-        "title": "Notes",
-        "placeholder": "Add a note about this customer…",
-        "saved": "Saved",
-        "saving": "Saving…"
+        "title": "الملاحظات",
+        "placeholder": "أضف ملاحظة حول هذا العميل…",
+        "saved": "تم الحفظ",
+        "saving": "جارٍ الحفظ…"
       },
-      "loading": "Loading customer…",
-      "notFound": "Customer not found",
-      "errorLoading": "Error loading customer. Please try again.",
-      "alsoKnownAs": "Also known as: {names}",
-      "moreOptions": "More options"
+      "loading": "جارٍ تحميل العميل…",
+      "notFound": "العميل غير موجود",
+      "errorLoading": "خطأ في تحميل العميل. يرجى المحاولة مرة أخرى.",
+      "alsoKnownAs": "يُعرف أيضًا باسم: {names}",
+      "moreOptions": "خيارات إضافية"
     },
     "new": {
-      "title": "New customer",
-      "description": "Add a customer manually",
-      "nameLabel": "Name",
-      "namePlaceholder": "Customer name",
-      "phoneLabel": "Phone number",
-      "phonePlaceholder": "e.g. 55 123 456",
-      "submit": "Add customer",
-      "cancel": "Cancel"
+      "title": "عميل جديد",
+      "description": "إضافة عميل يدويًا",
+      "nameLabel": "الاسم",
+      "namePlaceholder": "اسم العميل",
+      "phoneLabel": "رقم الهاتف",
+      "phonePlaceholder": "مثال: 55 123 456",
+      "submit": "إضافة عميل",
+      "cancel": "إلغاء"
     }
   },
   "products": {
@@ -498,12 +494,12 @@
     "create": {
       "header": {
         "title": "منتج جديد",
-        "editTitle": "Edit product",
+        "editTitle": "تعديل المنتج",
         "save": "حفظ"
       },
-      "storeMismatch": "This product belongs to another store. Switch stores to edit it.",
-      "loadError": "Could not load this product. Try again or go back to the list.",
-      "loadingProduct": "Loading product",
+      "storeMismatch": "هذا المنتج ينتمي إلى متجر آخر. قم بتبديل المتجر لتعديله.",
+      "loadError": "تعذر تحميل هذا المنتج. حاول مرة أخرى أو ارجع إلى القائمة.",
+      "loadingProduct": "جارٍ تحميل المنتج",
       "sections": {
         "photos": "صور المنتج",
         "essentials": "المعلومات الأساسية",
@@ -528,25 +524,25 @@
           "placeholder": "أدخل وصف المنتج"
         },
         "generateAi": {
-          "button": "Generate with AI",
-          "generating": "Generating…",
-          "insertImageLabel": "Insert image"
+          "button": "إنشاء بالذكاء الاصطناعي",
+          "generating": "جارٍ الإنشاء…",
+          "insertImageLabel": "إدراج صورة"
         },
         "published": {
           "label": "منشور",
           "placeholder": "أدخل حالة نشر المنتج"
         },
         "photos": "صور",
-        "photoPreviewTitle": "Photo preview",
-        "photoPreviewZoomIn": "Zoom in",
-        "photoPreviewZoomOut": "Zoom out",
-        "photoPreviewZoomGroup": "Zoom controls",
-        "photoPreviewZoomReadout": "Zoom percentage",
-        "photoPreviewResetZoom": "Reset zoom",
-        "photoPreviewClose": "Close preview",
-        "photoPreviewWheelHint": "Scroll to zoom",
-        "viewPhoto": "View full size",
-        "removePhoto": "Remove photo",
+        "photoPreviewTitle": "معاينة الصورة",
+        "photoPreviewZoomIn": "تكبير",
+        "photoPreviewZoomOut": "تصغير",
+        "photoPreviewZoomGroup": "أدوات التكبير",
+        "photoPreviewZoomReadout": "نسبة التكبير",
+        "photoPreviewResetZoom": "إعادة ضبط التكبير",
+        "photoPreviewClose": "إغلاق المعاينة",
+        "photoPreviewWheelHint": "مرر للتكبير",
+        "viewPhoto": "عرض بالحجم الكامل",
+        "removePhoto": "إزالة الصورة",
         "priceHelp": "السعر الذي يدفعه العملاء (الدفع عند الاستلام)",
         "category": {
           "label": "الفئة",
@@ -563,15 +559,15 @@
         "options": {
           "label": "لديه خيارات",
           "description": "أضف خيارات مثل الحجم، اللون، المادة، إلخ.",
-          "structureLocked": "Variant options are locked because this product has SKU variants. You can still edit other product details.",
-          "enableVariantsNeedPrice": "Enter a positive base price first. Variants can inherit it when their own price is not set."
+          "structureLocked": "خيارات المتغيرات مقفلة لأن هذا المنتج يحتوي على متغيرات SKU. يمكنك مع ذلك تعديل بقية تفاصيل المنتج.",
+          "enableVariantsNeedPrice": "أدخل سعرًا أساسيًا موجبًا أولاً. يمكن للمتغيرات أن ترثه عندما لا يكون لها سعر خاص محدد."
         },
         "saveDraft": "حفظ كمسودة",
-        "saveChanges": "Save changes",
-        "publishVersion": "Publish live",
-        "discardDraft": "Discard draft",
-        "draftHint": "You have unpublished edits. Save changes, then publish to update the storefront.",
         "savePublish": "حفظ ونشر",
+        "saveChanges": "حفظ التغييرات",
+        "publishVersion": "نشر مباشرةً",
+        "discardDraft": "تجاهل المسودة",
+        "draftHint": "لديك تعديلات غير منشورة. احفظ التغييرات، ثم انشر لتحديث واجهة المتجر.",
         "optional": "اختياري",
         "cancel": "إلغاء",
         "validation": {
@@ -587,22 +583,22 @@
             "optionName": "اسم الخيار",
             "optionNamePlaceholder": "مثال: الحجم، اللون",
             "values": "القيم",
-            "addValue": "+ Add value",
+            "addValue": "+ إضافة قيمة",
             "noValues": "أضف قيمة واحدة على الأقل",
             "remove": "إزالة الخيار",
-            "removeValue": "Remove value",
-            "addAnother": "Add another option",
-            "maxOptions": "Maximum 3 options",
+            "removeValue": "إزالة القيمة",
+            "addAnother": "إضافة خيار آخر",
+            "maxOptions": "الحد الأقصى 3 خيارات",
             "value": "القيمة"
           },
           "pendingRemoval": {
-            "title": "Removing this value will delete {count} variants",
-            "description": "Tap to confirm before changes are applied.",
-            "confirm": "Confirm",
-            "undo": "Undo"
+            "title": "{count, plural, zero {حذف هذه القيمة لن يؤدي إلى حذف أي متغيرات} one {حذف هذه القيمة سيؤدي إلى حذف متغير واحد} two {حذف هذه القيمة سيؤدي إلى حذف متغيرين} few {حذف هذه القيمة سيؤدي إلى حذف # متغيرات} many {حذف هذه القيمة سيؤدي إلى حذف # متغيرًا} other {حذف هذه القيمة سيؤدي إلى حذف # متغير}}",
+            "description": "اضغط للتأكيد قبل تطبيق التغييرات.",
+            "confirm": "تأكيد",
+            "undo": "تراجع"
           },
           "optionOrder": {
-            "label": "Option order"
+            "label": "ترتيب الخيار"
           },
           "list": {
             "title": "المتغيرات",
@@ -621,27 +617,27 @@
             "stock": "المخزون"
           },
           "editSheet": {
-            "title": "Edit variant: {label}",
-            "image": "Image"
+            "title": "تعديل المتغير: {label}",
+            "image": "صورة"
           },
           "imagePicker": {
-            "title": "Choose image",
-            "noImage": "No image"
+            "title": "اختر صورة",
+            "noImage": "لا توجد صورة"
           },
           "matrix": {
-            "title": "Variant combinations",
-            "hint": "Each row is one sellable combination. Stock and price default from the product above; leave price blank to use the base price.",
-            "tooMany": "Too many combinations (max {max}). Remove option values.",
-            "empty": "Add option names and values above to generate rows.",
-            "columnCombination": "Combination",
+            "title": "تركيبات المتغيرات",
+            "hint": "كل صف يمثل تركيبة قابلة للبيع. يعتمد المخزون والسعر افتراضيًا على المنتج أعلاه؛ اترك السعر فارغًا لاستخدام السعر الأساسي.",
+            "tooMany": "عدد كبير جدًا من التركيبات (الحد الأقصى {max}). قم بإزالة بعض قيم الخيارات.",
+            "empty": "أضف أسماء وقيم الخيارات أعلاه لإنشاء الصفوف.",
+            "columnCombination": "التركيبة",
             "columnSku": "SKU",
-            "columnPrice": "Price",
-            "columnStock": "Stock",
-            "skuPlaceholder": "Optional",
-            "pricePlaceholder": "Base price",
-            "variantCount": "{count} variants",
-            "inStock": "{count} in stock",
-            "outOfStock": "Out of stock"
+            "columnPrice": "السعر",
+            "columnStock": "المخزون",
+            "skuPlaceholder": "اختياري",
+            "pricePlaceholder": "السعر الأساسي",
+            "variantCount": "{count, plural, zero {لا متغيرات} one {متغير واحد} two {متغيران} few {# متغيرات} many {# متغيرًا} other {# متغير}}",
+            "inStock": "{count} في المخزون",
+            "outOfStock": "نفاد المخزون"
           },
           "validation": {
             "duplicateOptionName": "اسم الخيار مكرر",
@@ -660,11 +656,11 @@
     },
     "edit": {
       "header": {
-        "title": "Edit product",
-        "save": "Save"
+        "title": "تعديل المنتج",
+        "save": "حفظ"
       },
       "sections": {
-        "essentials": "Essentials"
+        "essentials": "المعلومات الأساسية"
       }
     }
   },
@@ -673,21 +669,21 @@
       "label": "إضافة صور",
       "dragActiveLabel": "اسحب هنا",
       "hint": "أو انقر للتصفح",
-      "optimizing": "Optimizing images..."
+      "optimizing": "جارٍ تحسين الصور..."
     }
   },
   "currencies": {
     "tnd": {
       "country": {
-        "name": "Tunisia"
+        "name": "تونس"
       },
-      "name": "Tunisian Dinar"
+      "name": "الدينار التونسي"
     },
     "usd": {
       "country": {
-        "name": "United States"
+        "name": "الولايات المتحدة"
       },
-      "name": "US Dollar"
+      "name": "الدولار الأمريكي"
     },
     "eur": {
       "country": {
