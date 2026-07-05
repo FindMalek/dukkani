@@ -1,4 +1,18 @@
 import Image from "next/image";
+import { parsePhoneNumber } from "react-phone-number-input";
+
+/**
+ * Derives the ISO country code (e.g. "TN") from an E.164 phone number, for
+ * use with FlagComponent. Returns undefined for numbers libphonenumber
+ * can't attribute to a country (missing/unrecognized calling code).
+ */
+export function getPhoneCountry(phone: string): string | undefined {
+  try {
+    return parsePhoneNumber(phone)?.country;
+  } catch {
+    return undefined;
+  }
+}
 
 export function FlagComponent({
   country,
