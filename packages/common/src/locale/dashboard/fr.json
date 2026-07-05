@@ -325,25 +325,25 @@
   },
   "customers": {
     "list": {
-      "title": "Clients",
-      "description": "Gérez votre base de clients",
-      "searchPlaceholder": "Rechercher par nom ou téléphone",
-      "empty": "Aucun client trouvé. Les clients apparaîtront ici après leur première commande, ou vous pouvez les ajouter manuellement.",
-      "noResults": "Aucun client ne correspond à vos filtres.",
-      "error": "Erreur lors du chargement des clients. Veuillez réessayer plus tard.",
-      "retry": "Réessayer",
-      "addCustomer": "Ajouter un client",
-      "select": "Sélectionner",
-      "cancelSelection": "Annuler",
-      "itemsSelected": "{count} sélectionné(s)",
-      "exportCsv": "Exporter en CSV",
-      "messageOnWhatsApp": "Envoyer sur WhatsApp",
-      "selectExactlyOne": "Sélectionnez un seul client pour envoyer un message",
-      "waPrefill": "Bonjour {name}, ",
-      "totalSpent": "Total dépensé",
-      "lastOrder": "Dernière commande",
+      "title": "Customers",
+      "description": "Manage your customer database",
+      "searchPlaceholder": "Search by name or phone",
+      "empty": "No customers found. Customers will appear here once they place orders or you add them manually.",
+      "noResults": "No customers match your filters.",
+      "error": "Error loading customers. Please try again later.",
+      "retry": "Retry",
+      "addCustomer": "Add customer",
+      "select": "Select",
+      "cancelSelection": "Cancel",
+      "itemsSelected": "{count} selected",
+      "exportCsv": "Export CSV",
+      "messageOnWhatsApp": "Message on WhatsApp",
+      "selectExactlyOne": "Select a single customer to message",
+      "waPrefill": "Hi {name}, ",
+      "totalSpent": "Total spent",
+      "lastOrder": "Last order",
       "governorates": {
-        "all": "Tous",
+        "all": "All",
         "TUNIS": "Tunis",
         "ARIANA": "Ariana",
         "BEN_AROUS": "Ben Arous",
@@ -351,9 +351,9 @@
         "NABEUL": "Nabeul",
         "ZAGHOUAN": "Zaghouan",
         "BIZERTE": "Bizerte",
-        "BEJA": "Béja",
+        "BEJA": "Beja",
         "JENDOUBA": "Jendouba",
-        "KEF": "Le Kef",
+        "KEF": "Kef",
         "SILIANA": "Siliana",
         "KAIROUAN": "Kairouan",
         "KASSERINE": "Kasserine",
@@ -362,75 +362,75 @@
         "MONASTIR": "Monastir",
         "MAHDIA": "Mahdia",
         "SFAX": "Sfax",
-        "GABES": "Gabès",
-        "MEDENINE": "Médenine",
+        "GABES": "Gabes",
+        "MEDENINE": "Medenine",
         "TATAOUINE": "Tataouine",
         "GAFSA": "Gafsa",
         "TOZEUR": "Tozeur",
-        "KEBILI": "Kébili"
+        "KEBILI": "Kebili"
       },
       "filterDrawer": {
-        "title": "Filtrer les clients",
-        "clearAll": "Réinitialiser",
-        "apply": "Appliquer les filtres",
-        "governorate": "Gouvernorat",
-        "sortBy": "Trier par",
+        "title": "Filter customers",
+        "clearAll": "Reset all",
+        "apply": "Apply filters",
+        "governorate": "Governorate",
+        "sortBy": "Sort by",
         "sortOptions": {
-          "recent": "Plus récent",
-          "orderCount": "Nombre de commandes",
-          "totalSpent": "Total dépensé",
-          "lastOrderAt": "Date de dernière commande"
+          "recent": "Most recent",
+          "orderCount": "Order count",
+          "totalSpent": "Total spent",
+          "lastOrderAt": "Last order date"
         }
       },
-      "ordersCount": "{count, plural, one {# commande} other {# commandes}}"
+      "ordersCount": "{count, plural, one {# order} other {# orders}}"
     },
     "detail": {
-      "backToCustomers": "Retour aux clients",
-      "title": "Détails du client",
-      "call": "Appeler",
+      "backToCustomers": "Back to customers",
+      "title": "Customer Details",
+      "call": "Call",
       "whatsapp": "WhatsApp",
-      "delete": "Supprimer le client",
-      "deleteBlockedReason": "Ce client a des commandes existantes et ne peut pas être supprimé.",
-      "deleteConfirmTitle": "Supprimer ce client ?",
-      "deleteConfirmBody": "Cette action est irréversible.",
-      "cancel": "Annuler",
-      "confirmDelete": "Supprimer",
+      "delete": "Delete customer",
+      "deleteBlockedReason": "This customer has existing orders and can't be deleted.",
+      "deleteConfirmTitle": "Delete this customer?",
+      "deleteConfirmBody": "This action can't be undone.",
+      "cancel": "Cancel",
+      "confirmDelete": "Delete",
       "summary": {
-        "totalSpent": "Total dépensé",
-        "orderCount": "Commandes",
-        "avgOrderValue": "Valeur moyenne",
-        "customerSince": "Client depuis"
+        "totalSpent": "Total spent",
+        "orderCount": "Orders",
+        "avgOrderValue": "Avg. order value",
+        "customerSince": "Customer since"
       },
       "locations": {
-        "title": "Adresses",
-        "empty": "Aucune adresse enregistrée.",
-        "ordersCount": "{count, plural, one {# commande} other {# commandes}}"
+        "title": "Locations",
+        "empty": "No saved addresses yet.",
+        "ordersCount": "{count, plural, one {# order} other {# orders}}"
       },
       "orders": {
-        "title": "Historique des commandes",
-        "empty": "Aucune commande pour le moment."
+        "title": "Order history",
+        "empty": "No orders yet."
       },
       "notes": {
         "title": "Notes",
-        "placeholder": "Ajouter une note sur ce client…",
-        "saved": "Enregistré",
-        "saving": "Enregistrement…"
+        "placeholder": "Add a note about this customer…",
+        "saved": "Saved",
+        "saving": "Saving…"
       },
-      "loading": "Chargement du client…",
-      "notFound": "Client introuvable",
-      "errorLoading": "Erreur lors du chargement du client. Veuillez réessayer.",
-      "alsoKnownAs": "Aussi connu sous : {names}",
-      "moreOptions": "Plus d'options"
+      "loading": "Loading customer…",
+      "notFound": "Customer not found",
+      "errorLoading": "Error loading customer. Please try again.",
+      "alsoKnownAs": "Also known as: {names}",
+      "moreOptions": "More options"
     },
     "new": {
-      "title": "Nouveau client",
-      "description": "Ajouter un client manuellement",
-      "nameLabel": "Nom",
-      "namePlaceholder": "Nom du client",
-      "phoneLabel": "Numéro de téléphone",
-      "phonePlaceholder": "ex. 55 123 456",
-      "submit": "Ajouter le client",
-      "cancel": "Annuler"
+      "title": "New customer",
+      "description": "Add a customer manually",
+      "nameLabel": "Name",
+      "namePlaceholder": "Customer name",
+      "phoneLabel": "Phone number",
+      "phonePlaceholder": "e.g. 55 123 456",
+      "submit": "Add customer",
+      "cancel": "Cancel"
     }
   },
   "products": {
@@ -528,9 +528,9 @@
           "placeholder": "Entrez la description du produit"
         },
         "generateAi": {
-          "button": "Générer avec l'IA",
-          "generating": "Génération…",
-          "insertImageLabel": "Insérer une image"
+          "button": "Generate with AI",
+          "generating": "Generating…",
+          "insertImageLabel": "Insert image"
         },
         "published": {
           "label": "Publié",
