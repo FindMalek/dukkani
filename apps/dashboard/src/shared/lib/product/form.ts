@@ -14,6 +14,7 @@ import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { toast } from "sonner";
 import { handleAPIError } from "@/shared/api/error-handler";
 import { appMutations } from "@/shared/api/mutations";
 import { client } from "@/shared/api/orpc";
@@ -165,7 +166,16 @@ export function useProductForm({
         };
 
         try {
-          await updateProductMutation.mutateAsync(payload);
+          const result = await updateProductMutation.mutateAsync(payload);
+          if (
+            result.discontinuedVariantCount &&
+            result.discontinuedVariantCount > 0
+          ) {
+            const n = result.discontinuedVariantCount;
+            toast(
+              `${n} variant${n === 1 ? "" : "s"} had order history and ${n === 1 ? "was" : "were"} discontinued instead of removed. They're hidden from customers but preserved for existing orders.`,
+            );
+          }
           await publishProductMutation.mutateAsync(editProductId);
           router.push(RoutePaths.PRODUCTS.INDEX.url);
         } catch (error) {

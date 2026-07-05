@@ -26,7 +26,10 @@ class ProductVersionServiceBase {
       where: { id: productVersionId },
       select: {
         price: true,
-        variants: { select: { price: true } },
+        variants: {
+          where: { discontinuedAt: null },
+          select: { price: true },
+        },
       },
     });
 
@@ -70,7 +73,7 @@ class ProductVersionServiceBase {
 
     if (v.hasVariants) {
       const agg = await tx.productVariant.aggregate({
-        where: { productVersionId },
+        where: { productVersionId, discontinuedAt: null },
         _sum: { stock: true },
       });
       const total = agg._sum.stock ?? 0;
@@ -441,27 +444,34 @@ class ProductVersionServiceBase {
   }
 
   /**
-   * Blocks variant matrix saves that would drop a published variant combination
-   * with existing order history. Variant identity never survives a draft clone
-   * (every clone/rewrite creates fresh ids), so "same variant" is determined by
-   * comparing selection tuples against the currently published version.
+   * Soft-deletes published variants that would be dropped by a variant matrix
+   * save if they have real order history: instead of deleting the row (which
+   * would sever OrderItem/OrderItemBundleChild references), marks them
+   * `discontinuedAt` so they stay resolvable for past orders but disappear
+   * from the storefront, checkout, and the dashboard editor. Variant identity
+   * never survives a draft clone (every clone/rewrite creates fresh ids), so
+   * "same variant" is determined by comparing selection tuples against the
+   * currently published version.
    */
-  static async assertVariantRemovalWontOrphanOrders(
+  static async discontinueOrderedRemovedVariants(
     tx: Prisma.TransactionClient,
     productId: string,
     targetSelections: Record<string, string>[],
-  ): Promise<void> {
+  ): Promise<{ discontinuedCount: number }> {
     const product = await tx.product.findUnique({
       where: { id: productId },
       select: { currentPublishedVersionId: true },
     });
 
     if (!product?.currentPublishedVersionId) {
-      return;
+      return { discontinuedCount: 0 };
     }
 
     const publishedVariants = await tx.productVariant.findMany({
-      where: { productVersionId: product.currentPublishedVersionId },
+      where: {
+        productVersionId: product.currentPublishedVersionId,
+        discontinuedAt: null,
+      },
       select: {
         id: true,
         selections: {
@@ -485,7 +495,7 @@ class ProductVersionServiceBase {
       .map((v) => v.id);
 
     if (removedIds.length === 0) {
-      return;
+      return { discontinuedCount: 0 };
     }
 
     const [orderedVariants, bundleOrderedVariants] = await Promise.all([
@@ -501,16 +511,32 @@ class ProductVersionServiceBase {
       }),
     ]);
 
-    const affected = new Set([
-      ...orderedVariants.map((r) => r.productVariantId),
-      ...bundleOrderedVariants.map((r) => r.childVariantId),
-    ]);
+    const affected = new Set(
+      [
+        ...orderedVariants.map((r) => r.productVariantId),
+        ...bundleOrderedVariants.map((r) => r.childVariantId),
+      ].filter((id): id is string => id !== null),
+    );
 
-    if (affected.size > 0) {
-      throw new ConflictError(
-        `${affected.size} variant${affected.size === 1 ? "" : "s"} have orders and cannot be removed. Archive this product or contact support.`,
-      );
+    if (affected.size === 0) {
+      return { discontinuedCount: 0 };
     }
+
+    await tx.productVariant.updateMany({
+      where: { id: { in: [...affected] }, discontinuedAt: null },
+      data: { discontinuedAt: new Date() },
+    });
+
+    await ProductVersionServiceBase.recomputeVariantEffectivePriceBounds(
+      tx,
+      product.currentPublishedVersionId,
+    );
+    await ProductVersionServiceBase.recomputeTotalVariantStock(
+      tx,
+      product.currentPublishedVersionId,
+    );
+
+    return { discontinuedCount: affected.size };
   }
 
   /**

@@ -226,6 +226,8 @@ export const productRouter = {
         }
       }
 
+      let discontinuedVariantCount = 0;
+
       const product = await database.$transaction(async (tx) => {
         const versionId = await ProductVersionService.ensureEditingVersionId(
           tx,
@@ -306,11 +308,13 @@ export const productRouter = {
         }
 
         if (input.hasVariants === false) {
-          await ProductVersionService.assertVariantRemovalWontOrphanOrders(
-            tx,
-            input.id,
-            [],
-          );
+          const { discontinuedCount } =
+            await ProductVersionService.discontinueOrderedRemovedVariants(
+              tx,
+              input.id,
+              [],
+            );
+          discontinuedVariantCount += discontinuedCount;
           await ProductVersionService.clearVariantMatrix(tx, versionId);
         } else if (
           effectiveHasVariants &&
@@ -333,11 +337,13 @@ export const productRouter = {
             imageUrlToId = new Map(images.map((img) => [img.url, img.id]));
           }
 
-          await ProductVersionService.assertVariantRemovalWontOrphanOrders(
-            tx,
-            input.id,
-            input.variants.map((v) => v.selections),
-          );
+          const { discontinuedCount } =
+            await ProductVersionService.discontinueOrderedRemovedVariants(
+              tx,
+              input.id,
+              input.variants.map((v) => v.selections),
+            );
+          discontinuedVariantCount += discontinuedCount;
           await ProductVersionService.clearVariantMatrix(tx, versionId);
           await ProductVersionService.writeVariantMatrix(
             tx,
@@ -407,7 +413,7 @@ export const productRouter = {
         });
       }
 
-      return ProductEntity.getRo(product);
+      return { ...ProductEntity.getRo(product), discontinuedVariantCount };
     }),
 
   delete: protectedProcedure

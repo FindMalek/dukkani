@@ -46,7 +46,9 @@ function removeValuePruningEmptyOption(
   if (newValues.length === 0) {
     return opts.filter((_, i) => i !== optionIdx);
   }
-  return opts.map((o, i) => (i === optionIdx ? { ...o, values: newValues } : o));
+  return opts.map((o, i) =>
+    i === optionIdx ? { ...o, values: newValues } : o,
+  );
 }
 
 export type PendingRemoval =

@@ -48,6 +48,7 @@ export const productIncludeOutputSchema = productSimpleOutputSchema.extend({
   variantOptions: z.array(variantOptionOutputSchema).optional(),
   variants: z.array(variantOutputSchema).optional(),
   addonGroups: z.array(productAddonGroupPublicSchema).optional(),
+  discontinuedVariantCount: z.number().int().optional(),
 });
 
 export const listProductsOutputSchema = z.object({
