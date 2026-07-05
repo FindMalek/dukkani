@@ -203,6 +203,94 @@ files:
     orders.detail.loading: e0aee313c7cec4ce74eafbee91138db5
     orders.detail.notFound: 24909e87dc242b9dd539e10609b8b050
     orders.detail.errorLoading: 263efb34ab8a7560209b1b9666f510a2
+    customers.list.title: e6d0e1c8fc6a4fcf47869df87e04cd88
+    customers.list.description: 2a833f18628dde3b64b26fb9be5408dd
+    customers.list.searchPlaceholder: 08ec37d9ca1c9b719818506b46258515
+    customers.list.empty: 667066204e90b872cf75f61789afc724
+    customers.list.noResults: c0c7f2418fe68bc1dd6408d03833d8d0
+    customers.list.error: 41dda108c23d1b570c3b60b39f3383ee
+    customers.list.retry: 6327b4e59f58137083214a1fec358855
+    customers.list.addCustomer: e3ec664efb1dcbafb161a2da6c0e5b3b
+    customers.list.select: e0626222614bdee31951d84c64e5e9ff
+    customers.list.cancelSelection: ea4788705e6873b424c65e91c2846b19
+    customers.list.itemsSelected: ef1b031573031a3eca39e4b16e1eacec
+    customers.list.exportCsv: c04f1e4841a6af78088d6ccf6f3a8a76
+    customers.list.messageOnWhatsApp: dac058c568222732bfce19b9cc68024a
+    customers.list.selectExactlyOne: cd6a805d1c1ef1e2e7402f4eaec25aed
+    customers.list.waPrefill: 6b399299461b337615eb09bc26cf9173
+    customers.list.totalSpent: 25326db0dcb2cf342b3477fbdad373dc
+    customers.list.lastOrder: d957e2652355299cb367c4b7e07d9141
+    customers.list.governorates.all: b1c94ca2fbc3e78fc30069c8d0f01680
+    customers.list.governorates.TUNIS: 044c0f755d7e410a0da4c7d2b1a52263
+    customers.list.governorates.ARIANA: 20a8e429d58dfe01327b4e6f0a1cf05a
+    customers.list.governorates.BEN_AROUS: b65759c07593dd82ef4ca4129b5e6542
+    customers.list.governorates.MANOUBA: bbf67b7f7153ee4760260330f88dcc3b
+    customers.list.governorates.NABEUL: 6a0598be4f01b77d753959fda15e3ca1
+    customers.list.governorates.ZAGHOUAN: aaf8b07e256490ddd3d4142a17f5d2e2
+    customers.list.governorates.BIZERTE: 9537b5aad02c60ba4efc384fe25c000e
+    customers.list.governorates.BEJA: b4dde8b6631bb67da8b1a5fd7d68dd7b
+    customers.list.governorates.JENDOUBA: 53e028a8dbc4519c9a6f0684f59d3c80
+    customers.list.governorates.KEF: ef0dd61f3c2a779ed7e4a45384cc81a3
+    customers.list.governorates.SILIANA: f212f794a0a1e7884f19ea2ffe8bb9d9
+    customers.list.governorates.KAIROUAN: 8c5c2030089851884366a2157d10ab6f
+    customers.list.governorates.KASSERINE: 6120f232ce589187bb63776a2df145ce
+    customers.list.governorates.SIDI_BOUZID: cfb33a96c8eab32854cd204574445ff6
+    customers.list.governorates.SOUSSE: 653d8a914e87941ed3007265d386151f
+    customers.list.governorates.MONASTIR: 45c94f4e917410f3e332987ca7f6f94d
+    customers.list.governorates.MAHDIA: d4034f2b1b0f7bb076cb48d01509153a
+    customers.list.governorates.SFAX: 545aac8b5336ac5c13e2f36382481fc0
+    customers.list.governorates.GABES: 374f442c5f6e3dd58ef25540e2c6d452
+    customers.list.governorates.MEDENINE: 4aad4470e054e6e16e3e5862195c2a73
+    customers.list.governorates.TATAOUINE: 02b04509f6324ce383c3305a4590cd75
+    customers.list.governorates.GAFSA: 07d059fdf7f3aef710dc2edbbe6c4a02
+    customers.list.governorates.TOZEUR: 734dcd87cd3eb442237d283dccb8718c
+    customers.list.governorates.KEBILI: bb43a30c363b7a7cf2cc0916dc496a3d
+    customers.list.filterDrawer.title: 18c15d0a0374ba18252e131e3631ba7f
+    customers.list.filterDrawer.clearAll: 09a5a307de671894b4276b0ea8577671
+    customers.list.filterDrawer.apply: 79ee641715155ec7d121815215f2b70c
+    customers.list.filterDrawer.governorate: 2f14f720d81c2fa9bc003237d50a6b9a
+    customers.list.filterDrawer.sortBy: 33d8042bd735c559cc3206f4bc99aedc
+    customers.list.filterDrawer.sortOptions.recent: 9b63d2a43fee94e63e5bd613f82fea96
+    customers.list.filterDrawer.sortOptions.orderCount: d1534e087050fc53fe88ceffc3bf4487
+    customers.list.filterDrawer.sortOptions.totalSpent: 25326db0dcb2cf342b3477fbdad373dc
+    customers.list.filterDrawer.sortOptions.lastOrderAt: 788b212e2524ec85463d68861342693c
+    customers.list.ordersCount: 10b04538e99343a4beb362416bac2710
+    customers.detail.backToCustomers: 59666ad60cc1933b5f3ebcab0120a296
+    customers.detail.title: ed2c066909c9fa156861ded62108fb6e
+    customers.detail.call: c3755e61202abd74da5885d2e9c9160e
+    customers.detail.whatsapp: 8b777ebcc5034ce0fe96dd154bcb370e
+    customers.detail.delete: e3748217b8d1f3752b31ee0fd5ae2dbd
+    customers.detail.deleteBlockedReason: c549e1f6b143a4b932e9e34a3f6eea86
+    customers.detail.deleteConfirmTitle: fd980c2225435d1d2d55ac0d3b2b57fc
+    customers.detail.deleteConfirmBody: 6aa2c3333c0a32f1f738b665253f83b1
+    customers.detail.cancel: ea4788705e6873b424c65e91c2846b19
+    customers.detail.confirmDelete: f2a6c498fb90ee345d997f888fce3b18
+    customers.detail.summary.totalSpent: 25326db0dcb2cf342b3477fbdad373dc
+    customers.detail.summary.orderCount: 7442e29d7d53e549b78d93c46b8cdcfc
+    customers.detail.summary.avgOrderValue: b5af0dc25f7fb88aeb509892866c4ca5
+    customers.detail.summary.customerSince: 00316caf7586c32bd7a46f8fd98ab247
+    customers.detail.locations.title: eebd338ddbd547e41e4a1296de82963a
+    customers.detail.locations.empty: d96bfc79c48a6b99bf8ff1719156643c
+    customers.detail.locations.ordersCount: 10b04538e99343a4beb362416bac2710
+    customers.detail.orders.title: 782c8b38bce4f2f6975ca7f33ac8189b
+    customers.detail.orders.empty: 5f46ae5457e3605c89a1fb994b79a2af
+    customers.detail.notes.title: f4c6f851b00d5518bf888815de279aba
+    customers.detail.notes.placeholder: 1bdc2e4e2f760c6ca7b612a3b60e256f
+    customers.detail.notes.saved: 248336101b461380a4b2391a7625493d
+    customers.detail.notes.saving: eedf6b8bfc83284c3294ec4b38188e8a
+    customers.detail.loading: c58d0935763bf1417fd70cfb1ef2b41b
+    customers.detail.notFound: 28ca4ab8455ffa19e6f0577aefa9f1c9
+    customers.detail.errorLoading: 7860b6d6bbf08c428870a478366529df
+    customers.detail.alsoKnownAs: aef96e78bdfcf7b578d0f94b9c45774e
+    customers.detail.moreOptions: 4dab36ac83853282fc0d7bae20c19e90
+    customers.new.title: d8165ec099ad89c083692dae84567e87
+    customers.new.description: 2023d685a93563017962c0374b3b292c
+    customers.new.nameLabel: 49ee3087348e8d44e1feda1917443987
+    customers.new.namePlaceholder: b8e97dd2df718b18ba0111008a745c57
+    customers.new.phoneLabel: 1f8261d17452a959e013666c5df45e07
+    customers.new.phonePlaceholder: 6656b3a5bc0bbff33b0e11d33655eb6d
+    customers.new.submit: e3ec664efb1dcbafb161a2da6c0e5b3b
+    customers.new.cancel: ea4788705e6873b424c65e91c2846b19
     products.list.title: 068f80c7519d0528fb08e82137a72131
     products.list.description: 1f775e7d1340eecbf87dd76ad028ec89
     products.list.searchPlaceholder: 437ac95a91364eb49587af5e146b1745
@@ -272,6 +360,9 @@ files:
     products.create.form.stock.placeholder: 260aa7224c78018577d0b50bc451285e
     products.create.form.description.label: b5a7adde1af5c87d7fd797b6245c2a39
     products.create.form.description.placeholder: 12392215e6fc7d7af2ee56061ccf5f24
+    products.create.form.generateAi.button: 98716bd271908cc87d07a40858c889d5
+    products.create.form.generateAi.generating: f93642ae2d90147d24e974a5649c6622
+    products.create.form.generateAi.insertImageLabel: 21051abf79012a1b2ee50d13b9731a16
     products.create.form.published.label: 9b9d8a976b42e0bd66381797644943d5
     products.create.form.published.placeholder: 756a9d43c7bcefdea831d7980b344341
     products.create.form.photos: 5daaf223b01f8f3e1bd9287170826fbc
@@ -494,7 +585,7 @@ files:
     footer.madeForTunisia: ab7f45a5da29ce9cc341d37de0babfb8
   packages/common/src/locale/storefront/en.json:
     storefront.title: f0dca7e4eaedf573d4664be249845942
-    storefront.description: 72a7968024562003a2287b3c4c3949ca
+    storefront.description: adff37d85f092d25015ff18907dcbf98
     storefront.store.owner.title: 6b3bc34167e5c57ad206297bdf17078f
     storefront.store.products.title: 068f80c7519d0528fb08e82137a72131
     storefront.store.products.empty: 85c435036ee6b5b6ae8dc26b5c336e3a
