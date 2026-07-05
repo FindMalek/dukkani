@@ -74,3 +74,9 @@ onlyBuiltDependencies:
   - sharp
 patchedDependencies:
   next-themes@0.4.6: patches/next-themes@0.4.6.patch
+
+overrides:
+  tmp: '>=0.2.6'
+  uuid: '>=11.1.1'
+  postcss: '>=8.5.10'
+  '@hono/node-server': '>=1.19.13'
