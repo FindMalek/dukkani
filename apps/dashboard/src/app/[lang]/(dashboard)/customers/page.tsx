@@ -52,7 +52,9 @@ export default function CustomersPage() {
       <div className="container mx-auto max-w-7xl p-4 pb-24 md:p-6 md:pb-8">
         <CustomersPageHeader
           selectionActive={selection.active}
-          onToggleSelection={selection.active ? selection.exit : selection.enter}
+          onToggleSelection={() =>
+            selection.active ? selection.exit() : selection.enter()
+          }
         />
         <p className="text-destructive text-sm">{t("error")}</p>
       </div>

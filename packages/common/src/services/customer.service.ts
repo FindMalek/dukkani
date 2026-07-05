@@ -34,14 +34,17 @@ import type {
  * a runtime `Prisma` import there pulls the full Prisma client runtime
  * into the browser bundle and breaks the build.
  */
+function getAllowedStoreIds(storeIds: string[], filterStoreId?: string): string[] {
+  return filterStoreId && storeIds.includes(filterStoreId)
+    ? [filterStoreId]
+    : storeIds;
+}
+
 function getCustomerStatsWhereFragment(
   storeIds: string[],
   filters?: CustomerStatsFilters,
 ): Prisma.Sql {
-  const allowedStoreIds =
-    filters?.storeId && storeIds.includes(filters.storeId)
-      ? [filters.storeId]
-      : storeIds;
+  const allowedStoreIds = getAllowedStoreIds(storeIds, filters?.storeId);
 
   const conditions: Prisma.Sql[] = [
     Prisma.sql`c."store_id" IN (${Prisma.join(allowedStoreIds)})`,
@@ -95,6 +98,8 @@ function getCustomerStatsQuery(
 ): Prisma.Sql {
   const where = getCustomerStatsWhereFragment(storeIds, filters);
   const order = getCustomerStatsOrderFragment(sortBy);
+  const allowedStoreIds = getAllowedStoreIds(storeIds, filters?.storeId);
+  const storeFilter = Prisma.sql`c2."store_id" IN (${Prisma.join(allowedStoreIds)})`;
 
   return Prisma.sql`
     WITH order_stats AS (
@@ -104,12 +109,16 @@ function getCustomerStatsQuery(
              MAX(o."created_at") AS last_order_at
       FROM orders o
       JOIN order_items oi ON oi."order_id" = o.id
+      JOIN customers c2 ON c2.id = o."customer_id"
+      WHERE ${storeFilter}
       GROUP BY o."customer_id"
     ),
     address_stats AS (
       SELECT a."customer_id" AS customer_id,
              array_agg(DISTINCT a.governorate::text) FILTER (WHERE a.governorate IS NOT NULL) AS governorates
       FROM addresses a
+      JOIN customers c2 ON c2.id = a."customer_id"
+      WHERE ${storeFilter}
       GROUP BY a."customer_id"
     )
     SELECT
@@ -150,8 +159,7 @@ function getCustomerGovernorateCountsQuery(
   storeIds: string[],
   storeId?: string,
 ): Prisma.Sql {
-  const allowedStoreIds =
-    storeId && storeIds.includes(storeId) ? [storeId] : storeIds;
+  const allowedStoreIds = getAllowedStoreIds(storeIds, storeId);
 
   return Prisma.sql`
     SELECT a.governorate AS "governorate", COUNT(DISTINCT c.id)::int AS "count"

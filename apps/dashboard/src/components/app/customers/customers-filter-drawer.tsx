@@ -124,9 +124,7 @@ export function CustomersFilterDrawer({
         </div>
 
         <DrawerFooter className="flex flex-row gap-2">
-          <Button onClick={handleApply} className="w-full">
-            {t("apply")}
-          </Button>
+          <Button onClick={handleApply}>{t("apply")}</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

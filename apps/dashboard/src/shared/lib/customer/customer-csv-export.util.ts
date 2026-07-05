@@ -37,7 +37,9 @@ function toCsvRow(customer: CustomerListItemOutput): string {
 export function exportCustomersToCsv(customers: CustomerListItemOutput[]): void {
   const rows = [CSV_HEADERS.join(","), ...customers.map(toCsvRow)];
   const csv = rows.join("\n");
-  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  // UTF-8 BOM: without it, Excel misreads non-ASCII bytes (Arabic names,
+  // governorates) as a different encoding and renders mojibake.
+  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
 
   const link = document.createElement("a");
