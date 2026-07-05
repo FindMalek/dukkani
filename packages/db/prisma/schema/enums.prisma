@@ -177,3 +177,34 @@ enum ProductType {
   SIMPLE
   BUNDLE
 }
+
+/**
+ * The 24 governorates of Tunisia, used to classify customer addresses
+ * for merchant-facing filtering and reporting (e.g. Customers list).
+ */
+enum Governorate {
+  TUNIS
+  ARIANA
+  BEN_AROUS
+  MANOUBA
+  NABEUL
+  ZAGHOUAN
+  BIZERTE
+  BEJA
+  JENDOUBA
+  KEF
+  SILIANA
+  KAIROUAN
+  KASSERINE
+  SIDI_BOUZID
+  SOUSSE
+  MONASTIR
+  MAHDIA
+  SFAX
+  GABES
+  MEDENINE
+  TATAOUINE
+  GAFSA
+  TOZEUR
+  KEBILI
+}

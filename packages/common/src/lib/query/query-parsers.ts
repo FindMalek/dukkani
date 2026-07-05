@@ -7,7 +7,12 @@ import {
   parseAsStringEnum,
   parseAsStringLiteral,
 } from "nuqs/server";
-import { OrderStatus, UserOnboardingStep } from "../../schemas/enums";
+import {
+  Governorate,
+  OrderStatus,
+  UserOnboardingStep,
+} from "../../schemas/enums";
+import { CUSTOMER_SORT_OPTIONS } from "../../schemas/customer/input";
 import { PRODUCT_SORT_OPTIONS } from "../../schemas/product/input";
 
 /**
@@ -125,3 +130,18 @@ export const parsePriceMax = parseAsFloat;
  */
 export const parseSortBy =
   parseAsStringLiteral(PRODUCT_SORT_OPTIONS).withDefault("newest");
+
+/**
+ * Parser for the Customers list governorate filter (multi-select).
+ */
+export const parseGovernorates = parseAsArrayOf(
+  parseAsStringEnum(Object.values(Governorate)),
+);
+
+/**
+ * Parser for the Customers list sort option.
+ * Derived from CUSTOMER_SORT_OPTIONS — single source of truth with customerSortSchema.
+ */
+export const parseCustomerSort = parseAsStringLiteral(
+  CUSTOMER_SORT_OPTIONS,
+).withDefault("recent");

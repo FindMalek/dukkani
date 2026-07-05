@@ -7,6 +7,9 @@
  * - `name`: Customer's name
  * - `phone`: Customer's phone number (used for identification)
  * - `prefersWhatsApp`: Whether customer prefers to receive order updates via WhatsApp (default preference)
+ * - `notes`: Optional merchant-authored free text about this customer
+ * - `nameManuallySet`: Once a merchant edits `name` by hand, this pins it so
+ * future orders typed under a different spelling never auto-overwrite it
  * - `storeId`: Reference to the Store this customer belongs to
  * - `createdAt`: Timestamp when the customer was created
  * - `updatedAt`: Timestamp when the customer was last updated
@@ -14,12 +17,15 @@
  * - Belongs to one Store
  * - Has many Orders
  * - Has many Addresses
+ * - Has many CustomerNameVariants (every distinct spelling seen at checkout for this phone)
  * **Business Logic:**
  * - Phone number must be unique per store (enforced by unique constraint on [phone, storeId])
  * - Same phone number can exist in different stores
  * - When a store is deleted, all its customers are cascade deleted
  * - Customers can place orders, and orders can optionally link to a customer record
  * - Guest orders (without customer record) are also supported
+ * - `name` auto-updates to whichever variant has been typed most often at
+ * checkout, unless `nameManuallySet` is true (see CustomerNameVariant)
  */
 model Customer {
   id String @id @default(cuid())
@@ -28,9 +34,13 @@ model Customer {
   phone String
 
   prefersWhatsApp Boolean @default(false) @map("prefers_whatsapp")
+  nameManuallySet Boolean @default(false) @map("name_manually_set")
 
-  orders    Order[]
-  addresses Address[]
+  notes String?
+
+  orders       Order[]
+  addresses    Address[]
+  nameVariants CustomerNameVariant[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -40,4 +50,37 @@ model Customer {
 
   @@unique([phone, storeId])
   @@map("customers")
+}
+
+/**
+ * A distinct spelling of a customer's name seen at checkout for the same
+ * phone number (e.g. "Mohamed Ben Salah" vs "mohammed bensalah"). Tracked
+ * so the merchant can see every variant a customer has used, and so
+ * `Customer.name` can auto-correct toward whichever spelling is most common.
+ * **Key Fields:**
+ * - `name`: The variant as originally typed (display casing preserved)
+ * - `normalizedName`: Trimmed/lowercased form used for de-duplication —
+ * "Mohamed Ben Salah" and "mohamed  ben salah" collapse to the same row
+ * - `timesUsed`: How many checkouts used this exact normalized spelling
+ * - `lastUsedAt`: Most recent checkout that used this spelling
+ * **Business Logic:**
+ * - Unique per (customerId, normalizedName) — repeats increment `timesUsed`
+ * - Deleted along with the Customer
+ */
+model CustomerNameVariant {
+  id String @id @default(cuid())
+
+  name           String
+  normalizedName String @map("normalized_name")
+
+  timesUsed Int @default(1) @map("times_used")
+
+  firstSeenAt DateTime @default(now()) @map("first_seen_at")
+  lastUsedAt  DateTime @default(now()) @map("last_used_at")
+
+  customerId String   @map("customer_id")
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@unique([customerId, normalizedName])
+  @@map("customer_name_variants")
 }

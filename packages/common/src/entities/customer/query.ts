@@ -1,4 +1,6 @@
 import type { Prisma } from "@dukkani/db/prisma/generated";
+import type { Governorate } from "@dukkani/db/prisma/generated/enums";
+import { OrderItemQuery } from "../order-item/query";
 
 export type CustomerSimpleDbData = Prisma.CustomerGetPayload<{
   include: ReturnType<typeof CustomerQuery.getSimpleInclude>;
@@ -32,7 +34,12 @@ export class CustomerQuery {
     return {
       ...CustomerQuery.getSimpleInclude(),
       store: true,
-      orders: true,
+      orders: {
+        orderBy: { createdAt: "desc" },
+        include: { orderItems: { select: OrderItemQuery.getRevenueSelect() } },
+      },
+      addresses: { include: { _count: { select: { orders: true } } } },
+      nameVariants: { orderBy: { timesUsed: "desc" } },
     } satisfies Prisma.CustomerInclude;
   }
 
@@ -85,4 +92,35 @@ export class CustomerQuery {
   ): Prisma.CustomerOrderByWithRelationInput {
     return { [field]: orderBy };
   }
+}
+
+export interface CustomerStatsFilters {
+  storeId?: string;
+  search?: string;
+  governorates?: Governorate[];
+}
+
+export type CustomerStatsSort =
+  | "recent"
+  | "orderCount"
+  | "totalSpent"
+  | "lastOrderAt";
+
+export interface CustomerStatsRow {
+  id: string;
+  name: string;
+  phone: string;
+  prefersWhatsApp: boolean;
+  storeId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  orderCount: number;
+  totalSpent: number;
+  lastOrderAt: Date | null;
+  governorates: Governorate[] | null;
+}
+
+export interface CustomerGovernorateCountRow {
+  governorate: Governorate;
+  count: number;
 }

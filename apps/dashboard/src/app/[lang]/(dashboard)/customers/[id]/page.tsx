@@ -1,158 +1,138 @@
 "use client";
 
-import { Button } from "@dukkani/ui/components/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@dukkani/ui/components/card";
-import { Icons } from "@dukkani/ui/components/icons";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@dukkani/ui/components/table";
-import Link from "next/link";
-import { notFound, useParams } from "next/navigation";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@dukkani/ui/components/alert-dialog";
+import { notFound, useParams, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { CustomerDetailContactCard } from "@/components/app/customers/customer-detail-contact-card";
+import { CustomerDetailErrorState } from "@/components/app/customers/customer-detail-error-state";
+import { CustomerDetailHeader } from "@/components/app/customers/customer-detail-header";
+import { CustomerDetailLocationsCard } from "@/components/app/customers/customer-detail-locations-card";
+import { CustomerDetailNotesCard } from "@/components/app/customers/customer-detail-notes-card";
+import { CustomerDetailOrdersCard } from "@/components/app/customers/customer-detail-orders-card";
+import { CustomerDetailSkeleton } from "@/components/app/customers/customer-detail-skeleton";
+import { CustomerDetailSummaryCard } from "@/components/app/customers/customer-detail-summary-card";
+import { handleAPIError } from "@/shared/api/error-handler";
 import { RoutePaths } from "@/shared/config/routes";
+import { useCustomerDetailPage } from "@/shared/lib/customer/controller.hook";
+import { getContactHref } from "@/shared/lib/phone/contact-href.util";
 import { getDynamicRouteParam } from "@/shared/lib/route-params.util";
+import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 
 export default function CustomerDetailPage() {
   const params = useParams();
+  const router = useRouter();
+  const t = useTranslations("customers.detail");
   const customerId = getDynamicRouteParam(params, "id");
+  const formatPrice = useFormatPriceForActiveStore();
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+  const {
+    customer,
+    isLoading,
+    isError,
+    isNotFoundError,
+    deleteCustomerMutation,
+  } = useCustomerDetailPage(customerId);
 
   if (!customerId) {
     notFound();
   }
 
+  if (isLoading) {
+    return <CustomerDetailSkeleton />;
+  }
+
+  if (isError || !customer) {
+    return (
+      <CustomerDetailErrorState
+        errorMessage={isNotFoundError ? t("notFound") : t("errorLoading")}
+      />
+    );
+  }
+
+  const contactHref = getContactHref(customer.phone, customer.prefersWhatsApp);
+  const isWaLink = contactHref.startsWith("https://");
+  const canDelete = customer.orderCount === 0;
+
+  const handleDeleteConfirm = () => {
+    deleteCustomerMutation.mutate(
+      { id: customer.id },
+      {
+        onSuccess: () => router.push(RoutePaths.CUSTOMERS.INDEX.url),
+        onError: (error) => handleAPIError(error),
+      },
+    );
+  };
+
   return (
-    <div className="container mx-auto max-w-7xl p-4 md:p-6">
-      <div className="mb-6">
-        <div className="mb-4 flex items-center gap-4">
-          <Link href={RoutePaths.CUSTOMERS.INDEX.url}>
-            <Button variant="ghost" size="icon">
-              <Icons.arrowLeft className="h-4 w-4" />
-            </Button>
-          </Link>
-          <div>
-            <h1 className="font-bold text-2xl md:text-3xl">Customer Details</h1>
-            <p className="mt-2 text-muted-foreground text-sm md:text-base">
-              View and edit customer information
-            </p>
-          </div>
-        </div>
-      </div>
+    <div className="container mx-auto max-w-2xl space-y-2 p-3 pb-8">
+      <CustomerDetailHeader
+        title={customer.name}
+        contactHref={contactHref}
+        isWhatsApp={customer.prefersWhatsApp}
+        canDelete={canDelete}
+        onDeleteRequest={() => setDeleteDialogOpen(true)}
+      />
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Contact Information</CardTitle>
-            <CardDescription>Customer ID: {customerId}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Name
-              </label>
-              <p className="mt-1 text-sm">Customer name will appear here</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Phone
-              </label>
-              <p className="mt-1 text-sm">Customer phone will appear here</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Email
-              </label>
-              <p className="mt-1 text-sm">Customer email will appear here</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Notes
-              </label>
-              <p className="mt-1 text-sm">Customer notes will appear here</p>
-            </div>
-          </CardContent>
-        </Card>
+      <CustomerDetailSummaryCard
+        totalSpentFormatted={formatPrice(customer.totalSpent)}
+        orderCount={customer.orderCount}
+        avgOrderValueFormatted={formatPrice(customer.avgOrderValue)}
+        customerSinceFormatted={new Date(
+          customer.createdAt,
+        ).toLocaleDateString()}
+      />
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Customer Statistics</CardTitle>
-            <CardDescription>Order history and totals</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Total Orders
-              </label>
-              <p className="mt-1 font-bold text-2xl">0</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Total Spent
-              </label>
-              <p className="mt-1 font-bold text-2xl">$0.00</p>
-            </div>
-            <div>
-              <label className="font-medium text-muted-foreground text-sm">
-                Last Order
-              </label>
-              <p className="mt-1 text-sm">No orders yet</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <CustomerDetailContactCard
+        phone={customer.phone}
+        contactHref={contactHref}
+        isWhatsApp={customer.prefersWhatsApp}
+        isWaLink={isWaLink}
+        callLabel={t("call")}
+        whatsappLabel={t("whatsapp")}
+        currentName={customer.name}
+        nameVariants={customer.nameVariants}
+      />
 
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Order History</CardTitle>
-          <CardDescription>All orders placed by this customer</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Order ID</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Total</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell colSpan={4} className="py-8 text-center">
-                  <p className="text-muted-foreground text-sm">
-                    No orders found for this customer
-                  </p>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+      <CustomerDetailLocationsCard addresses={customer.addresses} />
 
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Actions</CardTitle>
-          <CardDescription>Manage this customer</CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-4">
-          <Button disabled>Edit Customer</Button>
-          <Button disabled variant="outline">
-            Send Message
-          </Button>
-          <Button disabled variant="outline">
-            Create Order
-          </Button>
-        </CardContent>
-      </Card>
+      <CustomerDetailOrdersCard orders={customer.orders} />
+
+      <CustomerDetailNotesCard
+        customerId={customer.id}
+        notes={customer.notes}
+      />
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {t("deleteConfirmBody")}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteConfirm}
+              isLoading={deleteCustomerMutation.isPending}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {t("confirmDelete")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
