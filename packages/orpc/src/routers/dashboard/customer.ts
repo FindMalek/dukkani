@@ -135,27 +135,25 @@ export const customerRouter = {
   getGovernorateCounts: protectedProcedure
     .input(getGovernorateCountsInputSchema.optional())
     .output(governorateCountsOutputSchema)
-    .handler(
-      async ({ input, context }): Promise<GovernorateCountsOutput> => {
-        const userId = context.session.user.id;
-        const userStoreIds = await getUserStoreIds(userId);
+    .handler(async ({ input, context }): Promise<GovernorateCountsOutput> => {
+      const userId = context.session.user.id;
+      const userStoreIds = await getUserStoreIds(userId);
 
-        if (userStoreIds.length === 0) {
-          return { counts: [] };
-        }
+      if (userStoreIds.length === 0) {
+        return { counts: [] };
+      }
 
-        if (input?.storeId && !userStoreIds.includes(input.storeId)) {
-          throw new ORPCError("FORBIDDEN", {
-            message: "You don't have access to this store",
-          });
-        }
+      if (input?.storeId && !userStoreIds.includes(input.storeId)) {
+        throw new ORPCError("FORBIDDEN", {
+          message: "You don't have access to this store",
+        });
+      }
 
-        return await CustomerService.getGovernorateCounts(
-          userStoreIds,
-          input?.storeId,
-        );
-      },
-    ),
+      return await CustomerService.getGovernorateCounts(
+        userStoreIds,
+        input?.storeId,
+      );
+    }),
 
   getById: protectedProcedure
     .input(getCustomerInputSchema)
@@ -200,11 +198,7 @@ export const customerRouter = {
     .handler(async ({ input, context }): Promise<CustomerSimpleOutput> => {
       const userId = context.session.user.id;
 
-      return await CustomerService.updateNotes(
-        input.id,
-        input.notes,
-        userId,
-      );
+      return await CustomerService.updateNotes(input.id, input.notes, userId);
     }),
 
   delete: protectedProcedure

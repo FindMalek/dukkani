@@ -83,7 +83,9 @@ export function useCustomersController() {
     return input;
   }, [selectedStoreId, filters]);
 
-  const customersQuery = useQuery(appQueries.customer.all({ input: queryInput }));
+  const customersQuery = useQuery(
+    appQueries.customer.all({ input: queryInput }),
+  );
   const governorateCountsQuery = useQuery(
     appQueries.customer.governorateCounts({
       input: { storeId: selectedStoreId ?? undefined },

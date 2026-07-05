@@ -9,7 +9,10 @@ const AUTOSAVE_DELAY_MS = 600;
  * AUTOSAVE_DELAY_MS after the last keystroke, not on blur, so merchants
  * don't need a separate save action.
  */
-export function useNotesAutosave(customerId: string, initialNotes: string | null) {
+export function useNotesAutosave(
+  customerId: string,
+  initialNotes: string | null,
+) {
   const [value, setValue] = useState(initialNotes ?? "");
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const mutation = useMutation(appMutations.customer.updateNotes());

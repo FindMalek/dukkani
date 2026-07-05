@@ -11,7 +11,9 @@ import type {
   CustomerStatsRow,
 } from "./query";
 
-function getOrderTotal(order: { orderItems: { price: unknown; quantity: number }[] }): number {
+function getOrderTotal(order: {
+  orderItems: { price: unknown; quantity: number }[];
+}): number {
   return order.orderItems.reduce(
     (sum, item) => sum + Number(item.price) * item.quantity,
     0,

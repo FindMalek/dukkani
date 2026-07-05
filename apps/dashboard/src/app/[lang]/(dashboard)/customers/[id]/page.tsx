@@ -35,8 +35,13 @@ export default function CustomerDetailPage() {
   const formatPrice = useFormatPriceForActiveStore();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-  const { customer, isLoading, isError, isNotFoundError, deleteCustomerMutation } =
-    useCustomerDetailPage(customerId);
+  const {
+    customer,
+    isLoading,
+    isError,
+    isNotFoundError,
+    deleteCustomerMutation,
+  } = useCustomerDetailPage(customerId);
 
   if (!customerId) {
     notFound();
@@ -79,7 +84,9 @@ export default function CustomerDetailPage() {
         totalSpentFormatted={formatPrice(customer.totalSpent)}
         orderCount={customer.orderCount}
         avgOrderValueFormatted={formatPrice(customer.avgOrderValue)}
-        customerSinceFormatted={new Date(customer.createdAt).toLocaleDateString()}
+        customerSinceFormatted={new Date(
+          customer.createdAt,
+        ).toLocaleDateString()}
       />
 
       <CustomerDetailContactCard
@@ -96,7 +103,10 @@ export default function CustomerDetailPage() {
 
       <CustomerDetailOrdersCard orders={customer.orders} />
 
-      <CustomerDetailNotesCard customerId={customer.id} notes={customer.notes} />
+      <CustomerDetailNotesCard
+        customerId={customer.id}
+        notes={customer.notes}
+      />
 
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>

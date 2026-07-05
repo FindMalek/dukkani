@@ -92,7 +92,6 @@ export class CustomerQuery {
   ): Prisma.CustomerOrderByWithRelationInput {
     return { [field]: orderBy };
   }
-
 }
 
 export interface CustomerStatsFilters {

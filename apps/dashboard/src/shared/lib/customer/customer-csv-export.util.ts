@@ -34,7 +34,9 @@ function toCsvRow(customer: CustomerListItemOutput): string {
  * download. Client-side only — bulk actions operate on the currently
  * loaded/selected page, no dedicated export endpoint needed.
  */
-export function exportCustomersToCsv(customers: CustomerListItemOutput[]): void {
+export function exportCustomersToCsv(
+  customers: CustomerListItemOutput[],
+): void {
   const rows = [CSV_HEADERS.join(","), ...customers.map(toCsvRow)];
   const csv = rows.join("\n");
   // UTF-8 BOM: without it, Excel misreads non-ASCII bytes (Arabic names,

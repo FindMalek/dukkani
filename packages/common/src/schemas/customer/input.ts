@@ -34,12 +34,11 @@ export const CUSTOMER_SORT_OPTIONS = [
 export const customerSortSchema = z.enum(CUSTOMER_SORT_OPTIONS);
 export type CustomerSort = z.infer<typeof customerSortSchema>;
 
-export const listCustomersWithStatsInputSchema = listCustomersInputSchema.extend(
-  {
+export const listCustomersWithStatsInputSchema =
+  listCustomersInputSchema.extend({
     governorates: z.array(governorateSchema).optional(),
     sortBy: customerSortSchema.default("recent"),
-  },
-);
+  });
 
 export const getGovernorateCountsInputSchema = z.object({
   storeId: z.string().optional(),

@@ -34,7 +34,10 @@ import type {
  * a runtime `Prisma` import there pulls the full Prisma client runtime
  * into the browser bundle and breaks the build.
  */
-function getAllowedStoreIds(storeIds: string[], filterStoreId?: string): string[] {
+function getAllowedStoreIds(
+  storeIds: string[],
+  filterStoreId?: string,
+): string[] {
   return filterStoreId && storeIds.includes(filterStoreId)
     ? [filterStoreId]
     : storeIds;

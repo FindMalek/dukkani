@@ -38,7 +38,12 @@ export function CustomersPageHeader({
             <Icons.checkSquare className="size-4" />
           )}
         </Button>
-        <Button variant="ghost" size="icon" asChild aria-label={t("addCustomer")}>
+        <Button
+          variant="ghost"
+          size="icon"
+          asChild
+          aria-label={t("addCustomer")}
+        >
           <Link href={RoutePaths.CUSTOMERS.NEW.url}>
             <Icons.userPlus className="size-4" />
           </Link>

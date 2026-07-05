@@ -25,10 +25,10 @@
 model Address {
   id String @id @default(cuid())
 
-  street     String
-  city       String
+  street      String
+  city        String
   governorate Governorate?
-  postalCode String? @map("postal_code")
+  postalCode  String?      @map("postal_code")
 
   latitude  Float?
   longitude Float?

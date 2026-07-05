@@ -9,7 +9,7 @@
  * - `prefersWhatsApp`: Whether customer prefers to receive order updates via WhatsApp (default preference)
  * - `notes`: Optional merchant-authored free text about this customer
  * - `nameManuallySet`: Once a merchant edits `name` by hand, this pins it so
- *   future orders typed under a different spelling never auto-overwrite it
+ * future orders typed under a different spelling never auto-overwrite it
  * - `storeId`: Reference to the Store this customer belongs to
  * - `createdAt`: Timestamp when the customer was created
  * - `updatedAt`: Timestamp when the customer was last updated
@@ -25,7 +25,7 @@
  * - Customers can place orders, and orders can optionally link to a customer record
  * - Guest orders (without customer record) are also supported
  * - `name` auto-updates to whichever variant has been typed most often at
- *   checkout, unless `nameManuallySet` is true (see CustomerNameVariant)
+ * checkout, unless `nameManuallySet` is true (see CustomerNameVariant)
  */
 model Customer {
   id String @id @default(cuid())
@@ -60,7 +60,7 @@ model Customer {
  * **Key Fields:**
  * - `name`: The variant as originally typed (display casing preserved)
  * - `normalizedName`: Trimmed/lowercased form used for de-duplication —
- *   "Mohamed Ben Salah" and "mohamed  ben salah" collapse to the same row
+ * "Mohamed Ben Salah" and "mohamed  ben salah" collapse to the same row
  * - `timesUsed`: How many checkouts used this exact normalized spelling
  * - `lastUsedAt`: Most recent checkout that used this spelling
  * **Business Logic:**

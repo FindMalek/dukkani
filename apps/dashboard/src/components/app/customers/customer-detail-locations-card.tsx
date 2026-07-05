@@ -27,7 +27,9 @@ export function CustomerDetailLocationsCard({
               <Icons.mapPin className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm">{address.street}, {address.city}</p>
+                  <p className="text-sm">
+                    {address.street}, {address.city}
+                  </p>
                   {address.governorate && (
                     <Badge variant="outline" className="shrink-0 font-normal">
                       {tGov(address.governorate)}

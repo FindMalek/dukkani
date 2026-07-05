@@ -44,7 +44,9 @@ export default function CustomersPage() {
 
   const filterActive = governorates.length > 0 || sortBy !== "recent";
   const customers = data?.customers ?? [];
-  const selectedCustomers = customers.filter((c) => selection.selectedIds.has(c.id));
+  const selectedCustomers = customers.filter((c) =>
+    selection.selectedIds.has(c.id),
+  );
   const hasNextPage = data?.hasMore ?? false;
 
   if (error) {

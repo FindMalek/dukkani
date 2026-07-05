@@ -49,7 +49,9 @@ export function CustomerDetailOrdersCard({
               </div>
               <div className="flex shrink-0 items-center gap-2">
                 <Badge
-                  variant={ORDER_STATUS_BADGE_VARIANT[order.status] ?? "outline"}
+                  variant={
+                    ORDER_STATUS_BADGE_VARIANT[order.status] ?? "outline"
+                  }
                   className="font-normal"
                 >
                   {tOrderList(OrderEntity.getStatusLabelKey(order.status))}
