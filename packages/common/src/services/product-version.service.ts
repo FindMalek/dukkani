@@ -444,54 +444,57 @@ class ProductVersionServiceBase {
   }
 
   /**
-   * Soft-deletes published variants that would be dropped by a variant matrix
-   * save if they have real order history: instead of deleting the row (which
+   * Soft-deletes previously-published variants that the incoming draft drops
+   * and that have real order history: instead of deleting the row (which
    * would sever OrderItem/OrderItemBundleChild references), marks them
-   * `discontinuedAt` so they stay resolvable for past orders but disappear
-   * from the storefront, checkout, and the dashboard editor. Variant identity
-   * never survives a draft clone (every clone/rewrite creates fresh ids), so
-   * "same variant" is determined by comparing selection tuples against the
-   * currently published version.
+   * `discontinuedAt`. Called from {@link publishDraft} — atomically with the
+   * archive/promote status flip — never from `update`, since the previously
+   * published version is what customers see *right now*; mutating it outside
+   * of a successful publish would hide a live variant even if the publish
+   * itself later fails or the draft is discarded. Variant identity never
+   * survives a draft clone (every clone/rewrite creates fresh ids), so "same
+   * variant" is determined by comparing selection tuples between the two
+   * versions rather than by id.
    */
   static async discontinueOrderedRemovedVariants(
     tx: Prisma.TransactionClient,
-    productId: string,
-    targetSelections: Record<string, string>[],
+    previousPublishedVersionId: string,
+    draftVersionId: string,
   ): Promise<{ discontinuedCount: number }> {
-    const product = await tx.product.findUnique({
-      where: { id: productId },
-      select: { currentPublishedVersionId: true },
-    });
-
-    if (!product?.currentPublishedVersionId) {
-      return { discontinuedCount: 0 };
-    }
-
-    const publishedVariants = await tx.productVariant.findMany({
-      where: {
-        productVersionId: product.currentPublishedVersionId,
-        discontinuedAt: null,
-      },
+    const selectionsInclude = {
       select: {
-        id: true,
-        selections: {
-          select: {
-            option: { select: { name: true } },
-            value: { select: { value: true } },
-          },
-        },
+        option: { select: { name: true } },
+        value: { select: { value: true } },
       },
-    });
+    } as const;
 
-    const targetKeys = new Set(targetSelections.map(selectionKey));
+    const [publishedVariants, draftVariants] = await Promise.all([
+      tx.productVariant.findMany({
+        where: {
+          productVersionId: previousPublishedVersionId,
+          discontinuedAt: null,
+        },
+        select: { id: true, selections: selectionsInclude },
+      }),
+      tx.productVariant.findMany({
+        where: { productVersionId: draftVersionId },
+        select: { selections: selectionsInclude },
+      }),
+    ]);
+
+    const toKey = (
+      selections: { option: { name: string }; value: { value: string } }[],
+    ) =>
+      selectionKey(
+        Object.fromEntries(
+          selections.map((s) => [s.option.name, s.value.value]),
+        ),
+      );
+
+    const targetKeys = new Set(draftVariants.map((v) => toKey(v.selections)));
 
     const removedIds = publishedVariants
-      .filter((v) => {
-        const selections = Object.fromEntries(
-          v.selections.map((s) => [s.option.name, s.value.value]),
-        );
-        return !targetKeys.has(selectionKey(selections));
-      })
+      .filter((v) => !targetKeys.has(toKey(v.selections)))
       .map((v) => v.id);
 
     if (removedIds.length === 0) {
@@ -527,15 +530,6 @@ class ProductVersionServiceBase {
       data: { discontinuedAt: new Date() },
     });
 
-    await ProductVersionServiceBase.recomputeVariantEffectivePriceBounds(
-      tx,
-      product.currentPublishedVersionId,
-    );
-    await ProductVersionServiceBase.recomputeTotalVariantStock(
-      tx,
-      product.currentPublishedVersionId,
-    );
-
     return { discontinuedCount: affected.size };
   }
 
@@ -565,7 +559,7 @@ class ProductVersionServiceBase {
     tx: Prisma.TransactionClient,
     productId: string,
     expectedDraftUpdatedAt?: Date,
-  ): Promise<void> {
+  ): Promise<{ discontinuedCount: number }> {
     const product = await tx.product.findUnique({
       where: { id: productId },
       include: {
@@ -607,6 +601,21 @@ class ProductVersionServiceBase {
       );
     }
 
+    // Soft-delete (instead of physically losing) previously-published variants
+    // with order history that this draft drops. Must happen before the archive
+    // write below, atomically with it, so a failed/aborted publish never
+    // discontinues a variant that's still live.
+    let discontinuedCount = 0;
+    if (!product.draftVersion.isBundle && previousPublishedId) {
+      const result =
+        await ProductVersionServiceBase.discontinueOrderedRemovedVariants(
+          tx,
+          previousPublishedId,
+          draftId,
+        );
+      discontinuedCount = result.discontinuedCount;
+    }
+
     if (previousPublishedId) {
       await tx.productVersion.update({
         where: { id: previousPublishedId },
@@ -637,6 +646,8 @@ class ProductVersionServiceBase {
     } else {
       await ProductVersionServiceBase.recomputeTotalVariantStock(tx, draftId);
     }
+
+    return { discontinuedCount };
   }
 
   /**

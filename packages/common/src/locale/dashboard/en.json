@@ -570,6 +570,7 @@
         "draftHint": "You have unpublished edits. Save changes, then publish to update the storefront.",
         "optional": "optional",
         "cancel": "Cancel",
+        "discontinuedVariants": "{count, plural, one {# variant} other {# variants}} had order history and {count, plural, one {was} other {were}} discontinued instead of removed. {count, plural, one {It's} other {They're}} hidden from customers but preserved for existing orders.",
         "validation": {
           "errors": "Please fix the form errors before submitting"
         },

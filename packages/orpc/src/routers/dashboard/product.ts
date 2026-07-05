@@ -226,8 +226,6 @@ export const productRouter = {
         }
       }
 
-      let discontinuedVariantCount = 0;
-
       const product = await database.$transaction(async (tx) => {
         const versionId = await ProductVersionService.ensureEditingVersionId(
           tx,
@@ -308,13 +306,6 @@ export const productRouter = {
         }
 
         if (input.hasVariants === false) {
-          const { discontinuedCount } =
-            await ProductVersionService.discontinueOrderedRemovedVariants(
-              tx,
-              input.id,
-              [],
-            );
-          discontinuedVariantCount += discontinuedCount;
           await ProductVersionService.clearVariantMatrix(tx, versionId);
         } else if (
           effectiveHasVariants &&
@@ -337,13 +328,6 @@ export const productRouter = {
             imageUrlToId = new Map(images.map((img) => [img.url, img.id]));
           }
 
-          const { discontinuedCount } =
-            await ProductVersionService.discontinueOrderedRemovedVariants(
-              tx,
-              input.id,
-              input.variants.map((v) => v.selections),
-            );
-          discontinuedVariantCount += discontinuedCount;
           await ProductVersionService.clearVariantMatrix(tx, versionId);
           await ProductVersionService.writeVariantMatrix(
             tx,
@@ -413,7 +397,7 @@ export const productRouter = {
         });
       }
 
-      return { ...ProductEntity.getRo(product), discontinuedVariantCount };
+      return ProductEntity.getRo(product);
     }),
 
   delete: protectedProcedure
@@ -567,8 +551,8 @@ export const productRouter = {
 
       await verifyStoreOwnership(userId, product.storeId);
 
-      await database.$transaction(async (tx) => {
-        await ProductVersionService.publishDraft(
+      const { discontinuedCount } = await database.$transaction(async (tx) => {
+        return await ProductVersionService.publishDraft(
           tx,
           input.id,
           input.expectedDraftUpdatedAt,
@@ -586,7 +570,10 @@ export const productRouter = {
         });
       }
 
-      return ProductEntity.getRo(updated);
+      return {
+        ...ProductEntity.getRo(updated),
+        discontinuedVariantCount: discontinuedCount,
+      };
     }),
 
   discardDraft: protectedProcedure

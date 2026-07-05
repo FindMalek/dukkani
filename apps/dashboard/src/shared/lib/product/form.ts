@@ -13,6 +13,7 @@ import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { formOptions } from "@tanstack/react-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { handleAPIError } from "@/shared/api/error-handler";
@@ -49,6 +50,7 @@ export function useProductForm({
   productId?: string;
 }) {
   const router = useRouter();
+  const t = useTranslations("products.create");
   const queryClient = useQueryClient();
   const isEdit = Boolean(productId);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
@@ -166,17 +168,19 @@ export function useProductForm({
         };
 
         try {
-          const result = await updateProductMutation.mutateAsync(payload);
+          await updateProductMutation.mutateAsync(payload);
+          const published =
+            await publishProductMutation.mutateAsync(editProductId);
           if (
-            result.discontinuedVariantCount &&
-            result.discontinuedVariantCount > 0
+            published.discontinuedVariantCount &&
+            published.discontinuedVariantCount > 0
           ) {
-            const n = result.discontinuedVariantCount;
             toast(
-              `${n} variant${n === 1 ? "" : "s"} had order history and ${n === 1 ? "was" : "were"} discontinued instead of removed. They're hidden from customers but preserved for existing orders.`,
+              t("form.discontinuedVariants", {
+                count: published.discontinuedVariantCount,
+              }),
             );
           }
-          await publishProductMutation.mutateAsync(editProductId);
           router.push(RoutePaths.PRODUCTS.INDEX.url);
         } catch (error) {
           handleAPIError(error);
