@@ -28,9 +28,17 @@ export const customerOrderSummaryOutputSchema = z.object({
   total: z.number(),
 });
 
+export const customerNameVariantOutputSchema = z.object({
+  name: z.string(),
+  timesUsed: z.number().int(),
+  lastUsedAt: z.date(),
+});
+
 export const customerIncludeOutputSchema = customerSimpleOutputSchema.extend({
   store: storeSimpleOutputSchema.optional(),
   notes: z.string().nullable(),
+  nameManuallySet: z.boolean(),
+  nameVariants: z.array(customerNameVariantOutputSchema),
   addresses: z.array(customerAddressWithOrderCountOutputSchema),
   orders: z.array(customerOrderSummaryOutputSchema),
   orderCount: z.number().int(),

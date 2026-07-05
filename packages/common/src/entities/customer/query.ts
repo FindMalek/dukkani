@@ -39,6 +39,7 @@ export class CustomerQuery {
         include: { orderItems: { select: OrderItemQuery.getRevenueSelect() } },
       },
       addresses: { include: { _count: { select: { orders: true } } } },
+      nameVariants: { orderBy: { timesUsed: "desc" } },
     } satisfies Prisma.CustomerInclude;
   }
 

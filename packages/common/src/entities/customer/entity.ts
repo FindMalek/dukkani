@@ -54,6 +54,12 @@ export class CustomerEntity {
       ...CustomerEntity.getSimpleRo(entity),
       store: StoreEntity.getSimpleRo(entity.store),
       notes: entity.notes,
+      nameManuallySet: entity.nameManuallySet,
+      nameVariants: entity.nameVariants.map((variant) => ({
+        name: variant.name,
+        timesUsed: variant.timesUsed,
+        lastUsedAt: variant.lastUsedAt,
+      })),
       addresses: entity.addresses.map((address) => ({
         id: address.id,
         street: address.street,

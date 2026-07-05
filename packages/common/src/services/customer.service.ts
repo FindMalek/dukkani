@@ -108,7 +108,7 @@ function getCustomerStatsQuery(
     ),
     address_stats AS (
       SELECT a."customer_id" AS customer_id,
-             array_agg(DISTINCT a.governorate) FILTER (WHERE a.governorate IS NOT NULL) AS governorates
+             array_agg(DISTINCT a.governorate::text) FILTER (WHERE a.governorate IS NOT NULL) AS governorates
       FROM addresses a
       GROUP BY a."customer_id"
     )
@@ -123,7 +123,7 @@ function getCustomerStatsQuery(
       COALESCE(os.order_count, 0) AS "orderCount",
       COALESCE(os.total_spent, 0) AS "totalSpent",
       os.last_order_at AS "lastOrderAt",
-      COALESCE(ads.governorates, ARRAY[]::"Governorate"[]) AS "governorates"
+      COALESCE(ads.governorates, ARRAY[]::text[]) AS "governorates"
     FROM customers c
     LEFT JOIN order_stats os ON os.customer_id = c.id
     LEFT JOIN address_stats ads ON ads.customer_id = c.id
@@ -160,6 +160,14 @@ function getCustomerGovernorateCountsQuery(
     WHERE c."store_id" IN (${Prisma.join(allowedStoreIds)}) AND a.governorate IS NOT NULL
     GROUP BY a.governorate
   `;
+}
+
+/**
+ * Collapses whitespace/casing differences so "Mohamed Ben Salah" and
+ * "mohamed  ben salah" are treated as the same spelling for de-duplication.
+ */
+function normalizeCustomerName(name: string): string {
+  return name.trim().toLowerCase().replace(/\s+/g, " ");
 }
 
 /**
@@ -249,6 +257,11 @@ export class CustomerService {
    * If not, create new customer
    * No ownership check - used for public order creation
    * Accepts optional tx for transactional use (e.g. order creation)
+   *
+   * Records `name` as a name variant (see recordNameVariant) so a customer
+   * who types their name slightly differently on each order doesn't lose
+   * that history, and `Customer.name` can self-correct toward whichever
+   * spelling is actually most common.
    */
   static async findOrCreateCustomer(
     phone: string,
@@ -265,7 +278,84 @@ export class CustomerService {
       include: CustomerQuery.getSimpleInclude(),
     });
 
-    return CustomerEntity.getSimpleRo(customer);
+    const updatedName = await CustomerService.recordNameVariant(
+      customer.id,
+      name,
+      client,
+    );
+
+    return CustomerEntity.getSimpleRo({
+      ...customer,
+      name: updatedName ?? customer.name,
+    });
+  }
+
+  /**
+   * Upserts a CustomerNameVariant for this spelling (incrementing timesUsed
+   * on repeats) and, unless the merchant has manually pinned the name
+   * (`nameManuallySet`), promotes `Customer.name` to a variant only once it
+   * *strictly* outnumbers the variant backing the current name — a tie
+   * (e.g. a customer's very first alternate spelling, 1 use vs. 1 use)
+   * must not flip the name, or a single one-off typo on someone's second
+   * order would override an established spelling before any real majority
+   * exists. Stability wins ties; only a genuine majority promotes.
+   *
+   * Returns the customer's current name after this call, so callers don't
+   * need a second round-trip to know whether it changed.
+   */
+  private static async recordNameVariant(
+    customerId: string,
+    name: string,
+    client: PrismaClient,
+  ): Promise<string | null> {
+    const normalizedName = normalizeCustomerName(name);
+    const now = new Date();
+
+    await client.customerNameVariant.upsert({
+      where: { customerId_normalizedName: { customerId, normalizedName } },
+      create: { customerId, name, normalizedName, lastUsedAt: now },
+      update: { timesUsed: { increment: 1 }, lastUsedAt: now },
+    });
+
+    const customer = await client.customer.findUnique({
+      where: { id: customerId },
+      select: { name: true, nameManuallySet: true },
+    });
+    if (!customer || customer.nameManuallySet) {
+      return customer?.name ?? null;
+    }
+
+    const [topVariant, currentVariant] = await Promise.all([
+      client.customerNameVariant.findFirst({
+        where: { customerId },
+        orderBy: [{ timesUsed: "desc" }, { firstSeenAt: "asc" }],
+      }),
+      client.customerNameVariant.findUnique({
+        where: {
+          customerId_normalizedName: {
+            customerId,
+            normalizedName: normalizeCustomerName(customer.name),
+          },
+        },
+      }),
+    ]);
+
+    const currentCount = currentVariant?.timesUsed ?? 0;
+    const shouldPromote =
+      topVariant &&
+      topVariant.name !== customer.name &&
+      topVariant.timesUsed > currentCount;
+
+    if (shouldPromote) {
+      const updated = await client.customer.update({
+        where: { id: customerId },
+        data: { name: topVariant.name },
+        select: { name: true },
+      });
+      return updated.name;
+    }
+
+    return customer.name;
   }
 
   /**
@@ -278,7 +368,7 @@ export class CustomerService {
     // Get existing customer to verify ownership
     const existingCustomer = await database.customer.findUnique({
       where: { id: input.id },
-      select: { storeId: true, phone: true },
+      select: { storeId: true, phone: true, name: true },
     });
 
     if (!existingCustomer) {
@@ -313,10 +403,16 @@ export class CustomerService {
     const updateData: {
       name?: string;
       phone?: string;
+      nameManuallySet?: boolean;
     } = {};
 
     if (input.name !== undefined) updateData.name = input.name;
     if (input.phone !== undefined) updateData.phone = input.phone;
+    // A merchant-edited name is pinned so a later order typed under a
+    // different spelling never silently overwrites the correction.
+    if (input.name !== undefined && input.name !== existingCustomer.name) {
+      updateData.nameManuallySet = true;
+    }
 
     try {
       const customer = await database.customer.update({
