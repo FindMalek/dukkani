@@ -9,7 +9,7 @@ import type { ListCustomersWithStatsInput } from "@dukkani/common/schemas/custom
 import type { GovernorateInfer } from "@dukkani/common/schemas/enums";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useQueryStates } from "nuqs";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { isOrpcNotFoundError } from "@/shared/api/error-handler";
 import { appMutations } from "@/shared/api/mutations";
 import { appQueries } from "@/shared/api/queries";
@@ -54,6 +54,8 @@ export function useCustomerDetailPage(customerId: string | undefined) {
  *
  * Provides a single interface for the customers list page.
  */
+const SEARCH_DEBOUNCE_MS = 400;
+
 export function useCustomersController() {
   const { selectedStoreId } = useActiveStoreStore();
   const selection = useSelectionMode();
@@ -65,6 +67,16 @@ export function useCustomersController() {
     page: parsePage,
     limit: parseLimit,
   });
+
+  const [searchInput, setSearchInput] = useState(filters.search);
+  const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => setSearchInput(filters.search), [filters.search]);
+  useEffect(
+    () => () => {
+      if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+    },
+    [],
+  );
 
   const resetFilters = () =>
     setFilters({ search: "", governorates: null, sortBy: "recent", page: 1 });
@@ -97,30 +109,42 @@ export function useCustomersController() {
 
   return {
     selectedStoreId,
-    search: filters.search,
+    search: searchInput,
     governorates: filters.governorates ?? [],
     sortBy: filters.sortBy,
     page: filters.page,
     setSearch: (v: string) => {
-      setFilters({ search: v, page: 1 });
+      setSearchInput(v);
+      if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+      searchDebounceRef.current = setTimeout(() => {
+        selection.exit();
+        setFilters({ search: v, page: 1 });
+      }, SEARCH_DEBOUNCE_MS);
     },
     toggleGovernorate: (governorate: GovernorateInfer) => {
       const current = filters.governorates ?? [];
       const next = current.includes(governorate)
         ? current.filter((g) => g !== governorate)
         : [...current, governorate];
+      selection.exit();
       setFilters({ governorates: next.length > 0 ? next : null, page: 1 });
     },
     setGovernorates: (v: GovernorateInfer[]) => {
+      selection.exit();
       setFilters({ governorates: v.length > 0 ? v : null, page: 1 });
     },
     setSortBy: (v: typeof filters.sortBy) => {
+      selection.exit();
       setFilters({ sortBy: v, page: 1 });
     },
     setPage: (v: number) => {
+      selection.exit();
       setFilters({ page: v });
     },
-    resetFilters,
+    resetFilters: () => {
+      selection.exit();
+      resetFilters();
+    },
     selection,
     customersQuery,
     governorateCountsQuery,
