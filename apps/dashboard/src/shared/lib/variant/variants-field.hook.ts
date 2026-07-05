@@ -30,6 +30,25 @@ function hasValidPositiveBasePrice(raw: unknown): boolean {
   return Number.isFinite(n) && n > 0;
 }
 
+/**
+ * Remove one value from an option; if that empties the option's values, drop
+ * the option itself (an option with `values: []` fails the schema's
+ * `.nonempty()` rule and would leave the form permanently unsubmittable).
+ */
+function removeValuePruningEmptyOption(
+  opts: ProductFormInput["variantOptions"],
+  optionIdx: number,
+  valueIdx: number,
+): ProductFormInput["variantOptions"] {
+  const newValues = (opts[optionIdx]?.values ?? []).filter(
+    (_, i) => i !== valueIdx,
+  );
+  if (newValues.length === 0) {
+    return opts.filter((_, i) => i !== optionIdx);
+  }
+  return opts.map((o, i) => (i === optionIdx ? { ...o, values: newValues } : o));
+}
+
 export type PendingRemoval =
   | {
       type: "value";
@@ -125,14 +144,13 @@ export function useProductFormVariantsField(form: ProductFormApi) {
         return;
       }
 
-      const newValues = (opts[optionIdx]?.values ?? []).filter(
-        (_, i) => i !== valueIdx,
-      );
-      const newOpts = opts.map((o, i) =>
-        i === optionIdx ? { ...o, values: newValues } : o,
-      );
+      const newOpts = removeValuePruningEmptyOption(opts, optionIdx, valueIdx);
       form.setFieldValue("variantOptions", newOpts);
-      doReconcile(newOpts);
+      if (newOpts.length === 0) {
+        form.setFieldValue("variants", []);
+      } else {
+        doReconcile(newOpts);
+      }
     },
     [form, doReconcile],
   );
@@ -177,14 +195,13 @@ export function useProductFormVariantsField(form: ProductFormApi) {
 
     if (pendingRemoval.type === "value") {
       const { optionIdx, valueIdx } = pendingRemoval;
-      const newValues = (opts[optionIdx]?.values ?? []).filter(
-        (_, i) => i !== valueIdx,
-      );
-      const newOpts = opts.map((o, i) =>
-        i === optionIdx ? { ...o, values: newValues } : o,
-      );
+      const newOpts = removeValuePruningEmptyOption(opts, optionIdx, valueIdx);
       form.setFieldValue("variantOptions", newOpts);
-      doReconcile(newOpts);
+      if (newOpts.length === 0) {
+        form.setFieldValue("variants", []);
+      } else {
+        doReconcile(newOpts);
+      }
     } else {
       const { optionIdx } = pendingRemoval;
       const newOpts = opts.filter((_, i) => i !== optionIdx);

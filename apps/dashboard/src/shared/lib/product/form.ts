@@ -148,7 +148,7 @@ export function useProductForm({
           id: editProductId,
           name: rest.name,
           description: rest.description,
-          price: rest.price,
+          price: rest.hasVariants ? undefined : rest.price,
           stock: rest.stock,
           published: true,
           categoryId: rest.categoryId,
