@@ -6,6 +6,7 @@ import { BadRequestError, ConflictError, NotFoundError } from "../errors";
 import { assertPublishWontBreakBundles } from "../lib/bundle/assert-publish-wont-break-bundles";
 import { recomputeBundleEffectiveStock } from "../lib/bundle/recompute-bundle-effective-stock";
 import { variantPriceRangeMinMax } from "../lib/pricing/variant-effective-price";
+import { selectionKey } from "../lib/variant/matrix/keys";
 import type { CreateInitialPublishedVersionInput } from "../schemas/product/input";
 import type { ProductAddonGroupInput } from "../schemas/product-addon/input";
 import type {
@@ -437,6 +438,79 @@ class ProductVersionServiceBase {
       tx,
       productVersionId,
     );
+  }
+
+  /**
+   * Blocks variant matrix saves that would drop a published variant combination
+   * with existing order history. Variant identity never survives a draft clone
+   * (every clone/rewrite creates fresh ids), so "same variant" is determined by
+   * comparing selection tuples against the currently published version.
+   */
+  static async assertVariantRemovalWontOrphanOrders(
+    tx: Prisma.TransactionClient,
+    productId: string,
+    targetSelections: Record<string, string>[],
+  ): Promise<void> {
+    const product = await tx.product.findUnique({
+      where: { id: productId },
+      select: { currentPublishedVersionId: true },
+    });
+
+    if (!product?.currentPublishedVersionId) {
+      return;
+    }
+
+    const publishedVariants = await tx.productVariant.findMany({
+      where: { productVersionId: product.currentPublishedVersionId },
+      select: {
+        id: true,
+        selections: {
+          select: {
+            option: { select: { name: true } },
+            value: { select: { value: true } },
+          },
+        },
+      },
+    });
+
+    const targetKeys = new Set(targetSelections.map(selectionKey));
+
+    const removedIds = publishedVariants
+      .filter((v) => {
+        const selections = Object.fromEntries(
+          v.selections.map((s) => [s.option.name, s.value.value]),
+        );
+        return !targetKeys.has(selectionKey(selections));
+      })
+      .map((v) => v.id);
+
+    if (removedIds.length === 0) {
+      return;
+    }
+
+    const [orderedVariants, bundleOrderedVariants] = await Promise.all([
+      tx.orderItem.findMany({
+        where: { productVariantId: { in: removedIds } },
+        select: { productVariantId: true },
+        distinct: ["productVariantId"],
+      }),
+      tx.orderItemBundleChild.findMany({
+        where: { childVariantId: { in: removedIds } },
+        select: { childVariantId: true },
+        distinct: ["childVariantId"],
+      }),
+    ]);
+
+    const affected = new Set([
+      ...orderedVariants.map((r) => r.productVariantId),
+      ...bundleOrderedVariants.map((r) => r.childVariantId),
+    ]);
+
+    if (affected.size > 0) {
+      throw new ConflictError(
+        `${affected.size} variant${affected.size === 1 ? "" : "s"} have orders and cannot be removed. Archive this product or contact support.`,
+      );
+    }
   }
 
   /**

@@ -306,6 +306,11 @@ export const productRouter = {
         }
 
         if (input.hasVariants === false) {
+          await ProductVersionService.assertVariantRemovalWontOrphanOrders(
+            tx,
+            input.id,
+            [],
+          );
           await ProductVersionService.clearVariantMatrix(tx, versionId);
         } else if (
           effectiveHasVariants &&
@@ -328,6 +333,11 @@ export const productRouter = {
             imageUrlToId = new Map(images.map((img) => [img.url, img.id]));
           }
 
+          await ProductVersionService.assertVariantRemovalWontOrphanOrders(
+            tx,
+            input.id,
+            input.variants.map((v) => v.selections),
+          );
           await ProductVersionService.clearVariantMatrix(tx, versionId);
           await ProductVersionService.writeVariantMatrix(
             tx,

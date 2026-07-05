@@ -78,6 +78,12 @@ export function handleAPIError(
     return;
   }
 
+  // Conflict errors (e.g. removing a variant with existing order history)
+  if (error?.code === "CONFLICT") {
+    toast.error(error?.message || fallbackMessage);
+    return;
+  }
+
   // Fallback
   toast.error(fallbackMessage);
 }
