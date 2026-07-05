@@ -300,7 +300,7 @@
       "title": "تفاصيل الطلب",
       "payment": "الدفع",
       "items": "العناصر",
-      "itemsCount": "{count, plural, one {# عنصر} other {# عناصر}}",
+      "itemsCount": "{count, plural, zero {لا عناصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرًا} other {# عنصر}}",
       "customer": "العميل",
       "openWhatsApp": "فتح WhatsApp",
       "call": "اتصال",
@@ -378,7 +378,7 @@
           "lastOrderAt": "تاريخ آخر طلب"
         }
       },
-      "ordersCount": "{count, plural, one {# طلب} other {# طلبات}}"
+      "ordersCount": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبًا} other {# طلب}}"
     },
     "detail": {
       "backToCustomers": "العودة إلى العملاء",
@@ -400,7 +400,7 @@
       "locations": {
         "title": "المواقع",
         "empty": "لا توجد عناوين محفوظة بعد.",
-        "ordersCount": "{count, plural, one {# طلب} other {# طلبات}}"
+        "ordersCount": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبًا} other {# طلب}}"
       },
       "orders": {
         "title": "سجل الطلبات",
@@ -592,7 +592,7 @@
             "value": "القيمة"
           },
           "pendingRemoval": {
-            "title": "حذف هذه القيمة سيؤدي إلى حذف {count} متغيرات",
+            "title": "{count, plural, zero {حذف هذه القيمة لن يؤدي إلى حذف أي متغيرات} one {حذف هذه القيمة سيؤدي إلى حذف متغير واحد} two {حذف هذه القيمة سيؤدي إلى حذف متغيرين} few {حذف هذه القيمة سيؤدي إلى حذف # متغيرات} many {حذف هذه القيمة سيؤدي إلى حذف # متغيرًا} other {حذف هذه القيمة سيؤدي إلى حذف # متغير}}",
             "description": "اضغط للتأكيد قبل تطبيق التغييرات.",
             "confirm": "تأكيد",
             "undo": "تراجع"
@@ -635,7 +635,7 @@
             "columnStock": "المخزون",
             "skuPlaceholder": "اختياري",
             "pricePlaceholder": "السعر الأساسي",
-            "variantCount": "{count} متغيرات",
+            "variantCount": "{count, plural, zero {لا متغيرات} one {متغير واحد} two {متغيران} few {# متغيرات} many {# متغيرًا} other {# متغير}}",
             "inStock": "{count} في المخزون",
             "outOfStock": "نفاد المخزون"
           },
