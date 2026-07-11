@@ -16,6 +16,8 @@ import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
+import { useIsMobile } from "@dukkani/ui/hooks/use-mobile";
+import { useViewportLock } from "@dukkani/ui/hooks/use-viewport-lock";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useEffectEvent, useRef } from "react";
@@ -71,6 +73,10 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
     latitude?: number;
     longitude?: number;
   }>({});
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  useViewportLock(containerRef, { enabled: isMobile });
 
   // Redirect if cart is empty (but not when we just completed an order)
   // Wait for cart rehydration so we don't redirect before persisted cart is loaded
@@ -178,145 +184,147 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
   }, [autoLocation, autoLocation.detect]);
 
   return (
-    <Form
-      onSubmit={form.handleSubmit}
-      className="mx-auto max-w-md px-4 md:max-w-2xl"
-    >
-      <form.AppForm>
-        <FieldGroup>
-          <form.AppField name="customerName">
-            {(field) => <field.TextInput label={t("delivery.fullName")} />}
-          </form.AppField>
-          <form.AppField name="customerPhone">
-            {(field) => (
-              <field.PhoneNumberInput
-                label={t("delivery.phone")}
-                defaultCountry="TN"
-              />
-            )}
-          </form.AppField>
-          <form.AppField name="isWhatsApp">
-            {(field) => (
-              <field.CheckboxInput
-                variant="card"
-                leadingVisual={<Icons.whatsapp />}
-                label={t("delivery.whatsapp")}
-                description={t("delivery.whatsappDescription")}
-              />
-            )}
-          </form.AppField>
-          <FieldSet>
-            <FieldGroup className="gap-6">
-              <form.AppField name="address.street">
-                {(field) => (
-                  <field.TextInput label={t("delivery.streetAddress")} />
-                )}
-              </form.AppField>
-              <div className="grid grid-cols-2 gap-4">
-                <form.AppField name="address.city">
-                  {(field) => <field.TextInput label={t("delivery.city")} />}
-                </form.AppField>
-                <form.AppField name="address.postalCode">
+    <div ref={containerRef} data-viewport-locked={isMobile ? "" : undefined}>
+      <Form
+        onSubmit={form.handleSubmit}
+        className="mx-auto max-w-md px-4 md:max-w-2xl"
+      >
+        <form.AppForm>
+          <FieldGroup data-viewport-scrollable="">
+            <form.AppField name="customerName">
+              {(field) => <field.TextInput label={t("delivery.fullName")} />}
+            </form.AppField>
+            <form.AppField name="customerPhone">
+              {(field) => (
+                <field.PhoneNumberInput
+                  label={t("delivery.phone")}
+                  defaultCountry="TN"
+                />
+              )}
+            </form.AppField>
+            <form.AppField name="isWhatsApp">
+              {(field) => (
+                <field.CheckboxInput
+                  variant="card"
+                  leadingVisual={<Icons.whatsapp />}
+                  label={t("delivery.whatsapp")}
+                  description={t("delivery.whatsappDescription")}
+                />
+              )}
+            </form.AppField>
+            <FieldSet>
+              <FieldGroup className="gap-6">
+                <form.AppField name="address.street">
                   {(field) => (
-                    <field.TextInput label={t("delivery.postalCode")} />
+                    <field.TextInput label={t("delivery.streetAddress")} />
                   )}
                 </form.AppField>
-              </div>
-              <div className="flex flex-col gap-2">
-                <Button
-                  type="button"
-                  variant="secondary"
-                  disabled={createOrderMutation.isPending}
-                  isLoading={autoLocation.isFetching}
-                  onClick={handleDetectLocation}
-                >
-                  <Icons.mapPin
-                    className="size-5 shrink-0 text-foreground"
-                    aria-hidden
-                  />
-                  {t("delivery.useLocation")}
-                </Button>
-              </div>
-            </FieldGroup>
-          </FieldSet>
-          <form.AppField name="paymentMethod">
-            {(field) => (
-              <field.RadioGroupInput
-                label={t("payment.title")}
-                as="cards"
-                options={[
-                  {
-                    label: t("payment.cod"),
-                    value: PaymentMethod.COD,
-                  },
-                  {
-                    label: t("payment.creditCard"),
-                    value: PaymentMethod.CARD,
-                    disabled: !store.supportedPaymentMethods.includes(
-                      PaymentMethod.CARD,
-                    ),
-                    description: !store.supportedPaymentMethods.includes(
-                      PaymentMethod.CARD,
-                    )
-                      ? t("payment.comingSoon")
-                      : undefined,
-                  },
-                ]}
-              />
-            )}
-          </form.AppField>
-          <form.AppField name="notes">
-            {(field) => (
-              <field.TextAreaInput
-                label={t("delivery.instructions")}
-                rows={3}
-              />
-            )}
-          </form.AppField>
-          <FieldSeparator />
-          <OrderSummary
-            items={enrichedData ?? []}
-            shippingCost={store.shippingCost}
-            storeCurrency={store.currency}
-            loading={cartQueryLoading || !enrichedData}
-          />
-        </FieldGroup>
-        <div className="fixed inset-x-0 bottom-0 z-10 border-t bg-background px-4 py-3">
-          <div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
-            <form.Subscribe>
-              {(formState) => (
-                <Button
-                  type="submit"
-                  className="w-full bg-primary text-primary-foreground"
-                  size="lg"
-                  disabled={
-                    formState.isSubmitting ||
-                    enrichedData?.length === 0 ||
-                    !formState.canSubmit
-                  }
-                  isLoading={formState.isSubmitting}
-                >
-                  <div className="flex w-full items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Icons.shoppingCart className="size-4" />
-                      <span>{t("placeOrder")}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span
-                        className="font-semibold text-sm tabular-nums"
-                        dir="ltr"
-                      >
-                        {formatPrice(total)}
-                      </span>
-                      <Icons.arrowRight className="size-4 rtl:rotate-180" />
-                    </div>
-                  </div>
-                </Button>
+                <div className="grid grid-cols-2 gap-4">
+                  <form.AppField name="address.city">
+                    {(field) => <field.TextInput label={t("delivery.city")} />}
+                  </form.AppField>
+                  <form.AppField name="address.postalCode">
+                    {(field) => (
+                      <field.TextInput label={t("delivery.postalCode")} />
+                    )}
+                  </form.AppField>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    disabled={createOrderMutation.isPending}
+                    isLoading={autoLocation.isFetching}
+                    onClick={handleDetectLocation}
+                  >
+                    <Icons.mapPin
+                      className="size-5 shrink-0 text-foreground"
+                      aria-hidden
+                    />
+                    {t("delivery.useLocation")}
+                  </Button>
+                </div>
+              </FieldGroup>
+            </FieldSet>
+            <form.AppField name="paymentMethod">
+              {(field) => (
+                <field.RadioGroupInput
+                  label={t("payment.title")}
+                  as="cards"
+                  options={[
+                    {
+                      label: t("payment.cod"),
+                      value: PaymentMethod.COD,
+                    },
+                    {
+                      label: t("payment.creditCard"),
+                      value: PaymentMethod.CARD,
+                      disabled: !store.supportedPaymentMethods.includes(
+                        PaymentMethod.CARD,
+                      ),
+                      description: !store.supportedPaymentMethods.includes(
+                        PaymentMethod.CARD,
+                      )
+                        ? t("payment.comingSoon")
+                        : undefined,
+                    },
+                  ]}
+                />
               )}
-            </form.Subscribe>
+            </form.AppField>
+            <form.AppField name="notes">
+              {(field) => (
+                <field.TextAreaInput
+                  label={t("delivery.instructions")}
+                  rows={3}
+                />
+              )}
+            </form.AppField>
+            <FieldSeparator />
+            <OrderSummary
+              items={enrichedData ?? []}
+              shippingCost={store.shippingCost}
+              storeCurrency={store.currency}
+              loading={cartQueryLoading || !enrichedData}
+            />
+          </FieldGroup>
+          <div className="fixed inset-x-0 bottom-0 z-10 border-t bg-background px-4 py-3">
+            <div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
+              <form.Subscribe>
+                {(formState) => (
+                  <Button
+                    type="submit"
+                    className="w-full bg-primary text-primary-foreground"
+                    size="lg"
+                    disabled={
+                      formState.isSubmitting ||
+                      enrichedData?.length === 0 ||
+                      !formState.canSubmit
+                    }
+                    isLoading={formState.isSubmitting}
+                  >
+                    <div className="flex w-full items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Icons.shoppingCart className="size-4" />
+                        <span>{t("placeOrder")}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="font-semibold text-sm tabular-nums"
+                          dir="ltr"
+                        >
+                          {formatPrice(total)}
+                        </span>
+                        <Icons.arrowRight className="size-4 rtl:rotate-180" />
+                      </div>
+                    </div>
+                  </Button>
+                )}
+              </form.Subscribe>
+            </div>
           </div>
-        </div>
-      </form.AppForm>
-    </Form>
+        </form.AppForm>
+      </Form>
+    </div>
   );
 }

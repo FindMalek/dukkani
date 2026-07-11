@@ -1,7 +1,9 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
+import { useIsMobile } from "../hooks/use-mobile";
+import { useViewportLock } from "../hooks/use-viewport-lock";
 import { cn } from "../lib/utils";
 
 function Drawer({
@@ -49,11 +51,17 @@ function DrawerContent({
   children,
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Content>) {
+  const contentRef = React.useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  useViewportLock(contentRef, { enabled: isMobile });
+
   return (
     <DrawerPortal data-slot="drawer-portal">
       <DrawerOverlay />
       <DrawerPrimitive.Content
+        ref={contentRef}
         data-slot="drawer-content"
+        data-viewport-locked={isMobile ? "" : undefined}
         className={cn(
           "group/drawer-content fixed z-50 flex h-auto flex-col bg-background",
           "data-[vaul-drawer-direction=top]:inset-x-0 data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:mb-24 data-[vaul-drawer-direction=top]:max-h-[80vh] data-[vaul-drawer-direction=top]:rounded-b-lg data-[vaul-drawer-direction=top]:border-b",

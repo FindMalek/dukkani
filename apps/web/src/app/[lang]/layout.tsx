@@ -5,7 +5,7 @@ import {
   LOCALES,
   type Locale,
 } from "@dukkani/common/schemas/constants";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cairo, Inter } from "next/font/google";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { Footer } from "@/components/layout/footer";
@@ -38,6 +38,13 @@ export const metadata: Metadata = {
   appleWebApp: {
     title: "Dukkani",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  interactiveWidget: "resizes-content",
 };
 
 export async function generateStaticParams() {

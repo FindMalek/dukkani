@@ -1,5 +1,9 @@
+"use client";
+
 import * as SheetPrimitive from "@radix-ui/react-dialog";
-import type * as React from "react";
+import * as React from "react";
+import { useIsMobile } from "../hooks/use-mobile";
+import { useViewportLock } from "../hooks/use-viewport-lock";
 import { cn } from "../lib/utils";
 import { Icons } from "./icons";
 
@@ -49,11 +53,17 @@ function SheetContent({
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
   side?: "top" | "right" | "bottom" | "left";
 }) {
+  const contentRef = React.useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  useViewportLock(contentRef, { enabled: isMobile });
+
   return (
     <SheetPortal>
       <SheetOverlay />
       <SheetPrimitive.Content
+        ref={contentRef}
         data-slot="sheet-content"
+        data-viewport-locked={isMobile ? "" : undefined}
         className={cn(
           "fixed z-50 flex flex-col gap-4 bg-background shadow-lg transition ease-in-out data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:duration-300 data-[state=open]:duration-500",
           side === "right" &&
