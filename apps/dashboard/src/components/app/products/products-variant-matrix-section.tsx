@@ -59,7 +59,7 @@ export function ProductsVariantMatrixSection({
               const label = getVariantLabel(variant.selections ?? {});
               const stock = Number.parseInt(String(variant.stock), 10);
               const trackStock = variant.trackStock ?? true;
-              const inStock = !trackStock || stock > 0;
+              const inStock = isStockAvailable(stock, trackStock);
               const priceNum = variant.price
                 ? Number.parseFloat(String(variant.price))
                 : undefined;

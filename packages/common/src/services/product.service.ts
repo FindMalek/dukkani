@@ -667,7 +667,7 @@ class ProductServiceBase {
             "This product was updated. Remove it from your cart and add it again.",
           );
         }
-        if (variant.trackStock && variant.stock < item.quantity) {
+        if ((variant.trackStock ?? true) && variant.stock < item.quantity) {
           throw new BadRequestError(
             `Insufficient stock for product ${item.productId} (variant ${item.variantId})`,
           );
@@ -931,7 +931,7 @@ class ProductServiceBase {
             );
           }
           versionIdsToRecompute.add(pubId);
-          if (!row.trackStock) {
+          if (row.trackStock === false) {
             return Promise.resolve();
           }
           return client.productVariant.update({
