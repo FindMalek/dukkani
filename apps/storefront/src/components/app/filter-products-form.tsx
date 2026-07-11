@@ -124,7 +124,10 @@ export function FilterProductsForm({
   ];
 
   return (
-    <Form onSubmit={form.handleSubmit} className="flex flex-1 flex-col overflow-hidden">
+    <Form
+      onSubmit={form.handleSubmit}
+      className="flex flex-1 flex-col overflow-hidden"
+    >
       <DrawerHeader className="flex-row items-center justify-between gap-2 border-b pb-3">
         <DrawerTitle>{tFilter("drawerTitle")}</DrawerTitle>
         <Button
@@ -238,7 +241,11 @@ export function FilterProductsForm({
         </DrawerClose>
         <form.Subscribe selector={(state) => state.values}>
           {(values) => (
-            <SubmitWithCount storeId={storeId} values={values} label={tFilter} />
+            <SubmitWithCount
+              storeId={storeId}
+              values={values}
+              label={tFilter}
+            />
           )}
         </form.Subscribe>
       </DrawerFooter>
