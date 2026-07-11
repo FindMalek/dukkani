@@ -84,6 +84,7 @@ export default async function StorePage({ searchParams }: StorePageProps) {
           />
           <ProductSectionHeader
             title={t("products.title")}
+            storeId={store.id}
             storeCurrency={store.currency}
             categories={categories}
           />

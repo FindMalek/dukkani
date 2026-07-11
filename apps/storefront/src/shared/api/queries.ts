@@ -7,4 +7,7 @@ export const appQueries = {
   category: {
     getAll: orpc.category.getAllPublic.queryOptions,
   },
+  product: {
+    getAll: orpc.product.getAllPublic.queryOptions,
+  },
 };

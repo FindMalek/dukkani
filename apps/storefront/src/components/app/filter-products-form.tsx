@@ -2,26 +2,76 @@
 
 import { store } from "@dukkani/common/schemas";
 import { Button } from "@dukkani/ui/components/button";
-import { DrawerClose, DrawerFooter } from "@dukkani/ui/components/drawer";
+import {
+  DrawerClose,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "@dukkani/ui/components/drawer";
 import {
   FieldGroup,
   FieldLegend,
   FieldSet,
 } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
+import { Label } from "@dukkani/ui/components/label";
+import { Switch } from "@dukkani/ui/components/switch";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useQueryStates } from "nuqs";
-import { productFilterParams } from "@/shared/lib/product/filters";
+import { useEffect, useState } from "react";
+import { appQueries } from "@/shared/api/queries";
+import {
+  buildProductFiltersInput,
+  type ProductFilters,
+  productFilterParams,
+} from "@/shared/lib/product/filters";
 
 export interface FilterProductsFormProps {
+  storeId: string;
   storeCurrency: store.SupportedCurrencyInfer;
   categories: { id: string; name: string }[];
   handleCloseDrawer: () => void;
 }
 
+type LiveFilterValues = Pick<
+  ProductFilters,
+  "sort" | "category" | "minPrice" | "maxPrice" | "inStock"
+>;
+
+function useDebouncedValue<T>(value: T, delayMs: number): T {
+  const [debounced, setDebounced] = useState(value);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setDebounced(value), delayMs);
+    return () => clearTimeout(timeout);
+  }, [value, delayMs]);
+
+  return debounced;
+}
+
+function useLiveResultCount(storeId: string, values: LiveFilterValues) {
+  const debouncedValues = useDebouncedValue(values, 300);
+
+  const { data } = useQuery(
+    appQueries.product.getAll({
+      input: {
+        storeId,
+        limit: 1,
+        ...buildProductFiltersInput(debouncedValues),
+      },
+      placeholderData: keepPreviousData,
+      staleTime: 30 * 1000,
+    }),
+  );
+
+  return data?.total;
+}
+
 export function FilterProductsForm({
+  storeId,
   storeCurrency,
   categories,
   handleCloseDrawer,
@@ -55,6 +105,18 @@ export function FilterProductsForm({
     },
   });
 
+  const handleReset = async () => {
+    await setQueryFilters({
+      minPrice: null,
+      maxPrice: null,
+      inStock: false,
+      sort: "newest",
+      category: null,
+    });
+    form.reset();
+    router.refresh();
+  };
+
   const sortByOptions = [
     { label: tFilter("sortOptions.newest"), value: "newest" },
     { label: tFilter("sortOptions.cheapest"), value: "priceAsc" },
@@ -62,15 +124,30 @@ export function FilterProductsForm({
   ];
 
   return (
-    <Form onSubmit={form.handleSubmit}>
-      <div className="space-y-4 p-4 pb-0">
-        <FieldSet className="rounded-md border px-4 pb-3">
-          <FieldLegend>{tFilter("price")}</FieldLegend>
+    <Form onSubmit={form.handleSubmit} className="flex flex-1 flex-col overflow-hidden">
+      <DrawerHeader className="flex-row items-center justify-between gap-2 border-b pb-3">
+        <DrawerTitle>{tFilter("drawerTitle")}</DrawerTitle>
+        <Button
+          type="button"
+          variant="link"
+          size="sm"
+          className="h-auto p-0 text-muted-foreground"
+          onClick={handleReset}
+        >
+          {tFilter("reset")}
+        </Button>
+      </DrawerHeader>
+      <div className="flex-1 space-y-3 overflow-y-auto p-4">
+        <FieldSet className="gap-2">
+          <FieldLegend className="font-medium text-sm">
+            {tFilter("priceRange")}
+          </FieldLegend>
           <FieldGroup className="grid w-full grid-cols-2 gap-2">
             <form.AppField name="minPrice">
               {(field) => (
                 <field.PriceInput
                   label={tFilter("min")}
+                  srOnlyLabel
                   placeholder="0"
                   currency={storeCurrency}
                 />
@@ -80,6 +157,7 @@ export function FilterProductsForm({
               {(field) => (
                 <field.PriceInput
                   label={tFilter("max")}
+                  srOnlyLabel
                   placeholder="1000"
                   currency={storeCurrency}
                 />
@@ -87,16 +165,34 @@ export function FilterProductsForm({
             </form.AppField>
           </FieldGroup>
         </FieldSet>
-        <FieldSet className="rounded-md border px-4 pb-3">
-          <FieldLegend>{tFilter("availability")}</FieldLegend>
+        <FieldSet className="gap-2">
+          <FieldLegend className="font-medium text-sm">
+            {tFilter("availability")}
+          </FieldLegend>
           <FieldGroup>
             <form.AppField name="inStock">
-              {(field) => <field.SwitchInput label={tFilter("inStockOnly")} />}
+              {(field) => (
+                <Label
+                  htmlFor={field.name}
+                  className="flex items-center justify-between rounded-full bg-primary/10 px-4 py-2.5 font-normal"
+                >
+                  {tFilter("inStockOnly")}
+                  <Switch
+                    id={field.name}
+                    name={field.name}
+                    checked={field.state.value}
+                    onCheckedChange={field.handleChange}
+                    onBlur={field.handleBlur}
+                  />
+                </Label>
+              )}
             </form.AppField>
           </FieldGroup>
         </FieldSet>
-        <FieldSet className="rounded-md border px-4 pb-3">
-          <FieldLegend>{tFilter("sortBy")}</FieldLegend>
+        <FieldSet className="gap-2">
+          <FieldLegend className="font-medium text-sm">
+            {tFilter("sortBy")}
+          </FieldLegend>
           <FieldGroup>
             <form.AppField name="sort">
               {(field) => (
@@ -110,8 +206,10 @@ export function FilterProductsForm({
             </form.AppField>
           </FieldGroup>
         </FieldSet>
-        <FieldSet className="rounded-md border px-4 pb-3">
-          <FieldLegend>{tFilter("category")}</FieldLegend>
+        <FieldSet className="gap-2">
+          <FieldLegend className="font-medium text-sm">
+            {tFilter("category")}
+          </FieldLegend>
           <FieldGroup>
             <form.AppField name="category">
               {(field) => (
@@ -132,34 +230,54 @@ export function FilterProductsForm({
           </FieldGroup>
         </FieldSet>
       </div>
-      <DrawerFooter>
-        <div className="flex space-x-2">
-          <Button
-            type="button"
-            variant="secondary"
-            className="mr-2 grow"
-            onClick={async () => {
-              await setQueryFilters({
-                minPrice: null,
-                maxPrice: null,
-                inStock: false,
-                sort: "newest",
-                category: null,
-              });
-              form.reset();
-              router.refresh();
-            }}
-          >
-            {tFilter("reset")}
-          </Button>
-          <Button className="grow">{tFilter("submit")}</Button>
-        </div>
+      <DrawerFooter className="flex-row gap-2 border-t pt-3">
         <DrawerClose asChild>
-          <Button type="button" variant="outline">
-            {tFilter("cancel")}
+          <Button type="button" variant="ghost" className="grow">
+            {tFilter("close")}
           </Button>
         </DrawerClose>
+        <form.Subscribe selector={(state) => state.values}>
+          {(values) => (
+            <SubmitWithCount storeId={storeId} values={values} label={tFilter} />
+          )}
+        </form.Subscribe>
       </DrawerFooter>
     </Form>
+  );
+}
+
+function toNullableNumber(value: number | string | null): number | null {
+  if (value === null || value === "") return null;
+  const parsed = Number(value);
+  return Number.isNaN(parsed) ? null : parsed;
+}
+
+function SubmitWithCount({
+  storeId,
+  values,
+  label,
+}: {
+  storeId: string;
+  values: {
+    minPrice: number | string | null;
+    maxPrice: number | string | null;
+    inStock: boolean;
+    sort: LiveFilterValues["sort"];
+    category: string;
+  };
+  label: ReturnType<typeof useTranslations>;
+}) {
+  const count = useLiveResultCount(storeId, {
+    sort: values.sort,
+    category: values.category || null,
+    minPrice: toNullableNumber(values.minPrice),
+    maxPrice: toNullableNumber(values.maxPrice),
+    inStock: values.inStock,
+  });
+
+  return (
+    <Button type="submit" className="grow">
+      {label("showResults", { count: count ?? "…" })}
+    </Button>
   );
 }

@@ -105,10 +105,10 @@ export function RadioGroupField({
                 <Badge
                   asChild
                   variant={
-                    field.state.value === option.value ? "default" : "outline"
+                    field.state.value === option.value ? "solid" : "soft"
                   }
                   className={cn(
-                    "inline-flex px-3 py-1.5",
+                    "inline-flex px-2.5 py-1",
                     "peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2",
                     option.disabled && "cursor-not-allowed opacity-50",
                   )}
