@@ -51,9 +51,8 @@ function DrawerContent({
   children,
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Content>) {
-  const contentRef = React.useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-  useViewportLock(contentRef, { enabled: isMobile });
+  const contentRef = useViewportLock({ enabled: isMobile });
 
   return (
     <DrawerPortal data-slot="drawer-portal">

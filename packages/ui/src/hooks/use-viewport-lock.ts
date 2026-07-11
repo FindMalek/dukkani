@@ -9,14 +9,11 @@ type UseViewportLockOptions = {
 // iOS Safari scrolls the layout viewport (not the shrinking visual viewport) to keep
 // a focused input visible, pushing `position: fixed` containers off-screen; this
 // counters it. Consumers must add `data-viewport-locked` (see globals.css).
-export function useViewportLock(
-  containerRef: React.RefObject<HTMLElement | null>,
-  options: UseViewportLockOptions = {},
-) {
+export function useViewportLock(options: UseViewportLockOptions = {}) {
   const { enabled = true } = options;
+  const [container, setContainer] = React.useState<HTMLElement | null>(null);
 
   React.useEffect(() => {
-    const container = containerRef.current;
     const visualViewport = window.visualViewport;
 
     if (!enabled || !container || !visualViewport) {
@@ -34,9 +31,12 @@ export function useViewportLock(
     const onTouchEnd = (event: TouchEvent) => {
       const target = event.target;
       if (
-        target instanceof HTMLElement &&
-        (target.tagName === "INPUT" || target.tagName === "TEXTAREA")
+        (target instanceof HTMLInputElement ||
+          target instanceof HTMLTextAreaElement) &&
+        !target.disabled &&
+        !target.readOnly
       ) {
+        event.preventDefault();
         target.focus({ preventScroll: true });
       }
     };
@@ -52,5 +52,7 @@ export function useViewportLock(
       container.removeEventListener("touchend", onTouchEnd);
       container.style.height = "";
     };
-  }, [containerRef, enabled]);
+  }, [container, enabled]);
+
+  return setContainer;
 }

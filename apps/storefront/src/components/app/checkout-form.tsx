@@ -74,9 +74,8 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
     longitude?: number;
   }>({});
 
-  const containerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-  useViewportLock(containerRef, { enabled: isMobile });
+  const containerRef = useViewportLock({ enabled: isMobile });
 
   // Redirect if cart is empty (but not when we just completed an order)
   // Wait for cart rehydration so we don't redirect before persisted cart is loaded

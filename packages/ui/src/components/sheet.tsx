@@ -53,9 +53,8 @@ function SheetContent({
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
   side?: "top" | "right" | "bottom" | "left";
 }) {
-  const contentRef = React.useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
-  useViewportLock(contentRef, { enabled: isMobile });
+  const contentRef = useViewportLock({ enabled: isMobile });
 
   return (
     <SheetPortal>
