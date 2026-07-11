@@ -23,7 +23,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useQueryStates } from "nuqs";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { appQueries } from "@/shared/api/queries";
 import {
   buildProductFiltersInput,
@@ -147,14 +147,15 @@ export function FilterProductsForm({
   });
 
   const handleReset = async () => {
-    await setQueryFilters({
+    const cleared = {
       minPrice: null,
       maxPrice: null,
       inStock: false,
-      sort: "newest",
-      category: null,
-    });
-    form.reset();
+      sort: "newest" as const,
+      category: "", // null → "" represents "All", matching defaultValues
+    };
+    await setQueryFilters({ ...cleared, category: null });
+    form.reset(cleared);
     router.refresh();
   };
 
@@ -207,7 +208,7 @@ export function FilterProductsForm({
                       min={roundedBounds.min}
                       max={roundedBounds.max}
                       step={sliderStep}
-                      minStepsBetweenThumbs={sliderStep}
+                      minStepsBetweenThumbs={1}
                       value={[
                         clamp(
                           toNullableNumber(min) ?? roundedBounds.min,
@@ -221,13 +222,20 @@ export function FilterProductsForm({
                         ),
                       ]}
                       onValueChange={([newMin, newMax]) => {
+                        // Snap back to null (unbounded) at the track edges instead of
+                        // pinning to the fetched bound, so a touch-and-release keeps
+                        // "no filter" semantics consistent with Reset/defaultValues.
                         form.setFieldValue(
                           "minPrice",
-                          newMin ?? roundedBounds.min,
+                          newMin != null && newMin > roundedBounds.min
+                            ? newMin
+                            : null,
                         );
                         form.setFieldValue(
                           "maxPrice",
-                          newMax ?? roundedBounds.max,
+                          newMax != null && newMax < roundedBounds.max
+                            ? newMax
+                            : null,
                         );
                       }}
                     />
@@ -266,13 +274,9 @@ export function FilterProductsForm({
           <FieldGroup>
             <form.AppField name="inStock">
               {(field) => (
-                <Label
-                  htmlFor={field.name}
-                  className="flex items-center justify-between rounded-full bg-primary/10 px-4 py-2.5 font-normal"
-                >
+                <Label className="flex items-center justify-between rounded-full bg-primary/10 px-4 py-2.5 font-normal">
                   {tFilter("inStockOnly")}
                   <Switch
-                    id={field.name}
                     name={field.name}
                     checked={field.state.value}
                     onCheckedChange={field.handleChange}
@@ -365,13 +369,23 @@ function SubmitWithCount({
   };
   label: ReturnType<typeof useTranslations>;
 }) {
-  const count = useLiveResultCount(storeId, {
-    sort: values.sort,
-    category: values.category || null,
-    minPrice: toNullableNumber(values.minPrice),
-    maxPrice: toNullableNumber(values.maxPrice),
-    inStock: values.inStock,
-  });
+  const memoizedValues = useMemo(
+    () => ({
+      sort: values.sort,
+      category: values.category || null,
+      minPrice: toNullableNumber(values.minPrice),
+      maxPrice: toNullableNumber(values.maxPrice),
+      inStock: values.inStock,
+    }),
+    [
+      values.sort,
+      values.category,
+      values.minPrice,
+      values.maxPrice,
+      values.inStock,
+    ],
+  );
+  const count = useLiveResultCount(storeId, memoizedValues);
 
   return (
     <Button type="submit" className="grow">

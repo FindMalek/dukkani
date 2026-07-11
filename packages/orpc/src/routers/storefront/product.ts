@@ -29,6 +29,17 @@ const listPublicProductsInputSchema = listProductsInputSchema.extend({
   storeId: z.string().min(1),
 });
 
+async function assertStorePublished(storeId: string): Promise<void> {
+  const store = await database.store.findUnique({
+    where: { id: storeId },
+    select: { id: true, status: true },
+  });
+
+  if (!store || store.status !== StoreStatus.PUBLISHED) {
+    throw new ORPCError("NOT_FOUND", { message: "Store not found" });
+  }
+}
+
 export const productRouter = {
   getAllPublic: baseProcedure
     .use(rateLimitPublicSafe)
@@ -39,14 +50,7 @@ export const productRouter = {
       const limit = input.limit ?? 20;
       const skip = (page - 1) * limit;
 
-      const store = await database.store.findUnique({
-        where: { id: input.storeId },
-        select: { id: true, status: true },
-      });
-
-      if (!store || store.status !== StoreStatus.PUBLISHED) {
-        throw new ORPCError("NOT_FOUND", { message: "Store not found" });
-      }
+      await assertStorePublished(input.storeId);
 
       const where = ProductQuery.getWhere([input.storeId], {
         storeId: input.storeId,
@@ -88,14 +92,7 @@ export const productRouter = {
     .input(getProductPriceBoundsInputSchema)
     .output(productPriceBoundsOutputSchema)
     .handler(async ({ input }) => {
-      const store = await database.store.findUnique({
-        where: { id: input.storeId },
-        select: { id: true, status: true },
-      });
-
-      if (!store || store.status !== StoreStatus.PUBLISHED) {
-        throw new ORPCError("NOT_FOUND", { message: "Store not found" });
-      }
+      await assertStorePublished(input.storeId);
 
       return ProductQuery.getPriceBounds(database, input.storeId);
     }),
