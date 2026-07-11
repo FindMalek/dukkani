@@ -31,6 +31,7 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "@orpc/server": "catalog:",
+    "sharp": "catalog:",
     "zod": "catalog:",
     "zustand": "catalog:",
     "dotenv": "catalog:"
