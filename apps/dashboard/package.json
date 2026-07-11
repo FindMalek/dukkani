@@ -37,6 +37,7 @@
     "@orpc/server": "catalog:",
     "browser-image-compression": "^2.0.2",
     "qrcode.react": "4.2.0",
+    "sharp": "catalog:",
     "zustand": "catalog:",
     "dotenv": "catalog:"
   },
