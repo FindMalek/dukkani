@@ -1,5 +1,6 @@
 "use client";
 
+import { effectiveMaxQuantity, isStockAvailable } from "@dukkani/common/lib";
 import type { VariantOutput } from "@dukkani/common/schemas/variant/output";
 import { useEffect, useState } from "react";
 
@@ -17,6 +18,7 @@ interface UseProductVariantSelectionReturn {
   stock: number;
   price: number;
   isOutOfStock: boolean;
+  maxQuantity: number;
 }
 
 /**
@@ -42,8 +44,10 @@ export function useProductVariantSelection({
   // Auto-select first available variant when product has variants
   useEffect(() => {
     if (hasVariants && variants && variants.length > 0) {
-      // Find first variant with stock > 0, or just first variant if all are out of stock
-      const firstAvailable = variants.find((v) => v.stock > 0) || variants[0];
+      // Find first available variant (tracked with stock, or untracked), or just first variant otherwise
+      const firstAvailable =
+        variants.find((v) => isStockAvailable(v.stock, v.trackStock)) ||
+        variants[0];
       if (firstAvailable) {
         setSelectedVariantId(firstAvailable.id);
       }
@@ -57,10 +61,12 @@ export function useProductVariantSelection({
   // For products with variants: use variant stock/price, or 0 if no variant selected yet
   // For products without variants: use product stock/price
   const stock = hasVariants ? (selectedVariant?.stock ?? 0) : productStock;
+  const trackStock = hasVariants ? (selectedVariant?.trackStock ?? true) : true;
   const price = hasVariants
     ? (selectedVariant?.price ?? productPrice)
     : productPrice;
-  const isOutOfStock = stock === 0;
+  const isOutOfStock = !isStockAvailable(stock, trackStock);
+  const maxQuantity = effectiveMaxQuantity(stock, trackStock);
 
   return {
     selectedVariantId,
@@ -69,5 +75,6 @@ export function useProductVariantSelection({
     stock,
     price,
     isOutOfStock,
+    maxQuantity,
   };
 }

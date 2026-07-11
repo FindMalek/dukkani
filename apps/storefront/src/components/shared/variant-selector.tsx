@@ -1,5 +1,6 @@
 "use client";
 
+import { isStockAvailable } from "@dukkani/common/lib";
 import type {
   VariantOptionOutput,
   VariantOutput,

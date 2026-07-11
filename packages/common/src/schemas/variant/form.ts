@@ -13,6 +13,7 @@ export const productVariantFormRowSchema = z.strictObject({
     z.coerce.number().positive().optional(),
   ),
   stock: z.coerce.number<string>().int().min(0, "Stock cannot be negative"),
+  trackStock: z.boolean().default(true),
   imageRef: z.string().optional(),
 });
 

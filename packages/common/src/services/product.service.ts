@@ -640,7 +640,7 @@ class ProductServiceBase {
           id: true,
           currentPublishedVersion: {
             select: {
-              variants: { select: { id: true, stock: true } },
+              variants: { select: { id: true, stock: true, trackStock: true } },
             },
           },
         },
@@ -659,14 +659,15 @@ class ProductServiceBase {
           );
         }
         const variant = pub.variants.find(
-          (v: { id: string; stock: number }) => v.id === item.variantId,
+          (v: { id: string; stock: number; trackStock: boolean }) =>
+            v.id === item.variantId,
         );
         if (!variant) {
           throw new BadRequestError(
             "This product was updated. Remove it from your cart and add it again.",
           );
         }
-        if (variant.stock < item.quantity) {
+        if (variant.trackStock && variant.stock < item.quantity) {
           throw new BadRequestError(
             `Insufficient stock for product ${item.productId} (variant ${item.variantId})`,
           );
@@ -896,6 +897,7 @@ class ProductServiceBase {
         select: {
           id: true,
           productVersionId: true,
+          trackStock: true,
           productVersion: {
             select: {
               product: {
@@ -929,6 +931,9 @@ class ProductServiceBase {
             );
           }
           versionIdsToRecompute.add(pubId);
+          if (!row.trackStock) {
+            return Promise.resolve();
+          }
           return client.productVariant.update({
             where: { id: variantId },
             data: {

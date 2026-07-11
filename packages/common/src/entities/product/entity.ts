@@ -1,6 +1,9 @@
 import { buildProductPriceDisplay } from "../../lib/pricing/product-price-display";
 import { buildVariantDescription } from "../../lib/variant/build-description";
-import { listDisplayStock } from "../../lib/variant/list-display-stock";
+import {
+  isListOutOfStock,
+  listDisplayStock,
+} from "../../lib/variant/list-display-stock";
 import { reconcileVariants } from "../../lib/variant/matrix";
 import type {
   BundleIncludeOutput,
@@ -69,6 +72,7 @@ export class ProductEntity {
       imageUrls: v?.images.map((img) => img.url) ?? [],
       variantCount: v?._count.variants ?? 0,
       hasRequiredAddonGroups: (v?.addonGroups?.length ?? 0) > 0,
+      isOutOfStock: isListOutOfStock(v),
       priceDisplay: buildProductPriceDisplay({
         hasVariants: v?.hasVariants ?? false,
         versionPrice,
@@ -105,6 +109,7 @@ export class ProductEntity {
       imageUrls: v?.images.map((img) => img.url) ?? [],
       variantCount: v?._count.variants ?? 0,
       hasRequiredAddonGroups: (v?.addonGroups?.length ?? 0) > 0,
+      isOutOfStock: isListOutOfStock(v),
       priceDisplay: buildProductPriceDisplay({
         hasVariants: v?.hasVariants ?? false,
         versionPrice,
@@ -240,6 +245,7 @@ export class ProductEntity {
       productDescription: buildVariantDescription(variant),
       price: unitPrice,
       stock: variant?.stock ?? productData.stock,
+      trackStock: variant?.trackStock ?? true,
     };
   }
 

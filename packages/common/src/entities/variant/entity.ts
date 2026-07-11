@@ -94,6 +94,7 @@ export class VariantEntity {
           ? String(row.price)
           : undefined,
       stock: String(row.stock),
+      trackStock: row.trackStock,
       imageRef: row.imageRef,
     };
   }
@@ -113,6 +114,7 @@ export class VariantEntity {
           ? String(variant.price)
           : undefined,
       stock: String(variant.stock),
+      trackStock: variant.trackStock,
       imageRef: variant.imageUrl ?? undefined,
     };
   }

@@ -69,6 +69,7 @@ export function CartDrawer({
                   productDescription={item.productDescription}
                   price={item.price}
                   stock={item.stock}
+                  trackStock={item.trackStock}
                   currency={storeCurrency}
                 />
               ))}

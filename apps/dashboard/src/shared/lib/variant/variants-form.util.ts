@@ -49,6 +49,7 @@ export function toFormVariantRows(
     sku: v.sku,
     price: coerceOptionalNumber(v.price),
     stock: coerceStock(v.stock),
+    trackStock: v.trackStock ?? true,
     imageRef: v.imageRef,
   }));
 }
@@ -113,6 +114,7 @@ export function toFormRow(
     sku: row.sku,
     price: row.price !== undefined ? String(row.price) : undefined,
     stock: String(row.stock),
+    trackStock: row.trackStock,
     imageRef: row.imageRef,
   };
 }
@@ -133,6 +135,7 @@ export function coerceVariantRows(
       const n = Number.parseInt(String(r.stock), 10);
       return Number.isFinite(n) && n >= 0 ? n : 0;
     })(),
+    trackStock: r.trackStock ?? true,
     imageRef: r.imageRef,
   }));
 }

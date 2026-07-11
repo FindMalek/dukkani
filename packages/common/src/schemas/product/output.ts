@@ -36,6 +36,7 @@ export const listProductOutputSchema = productSimpleOutputSchema.extend({
   imageUrls: z.array(z.string()),
   variantCount: z.number().int(),
   hasRequiredAddonGroups: z.boolean(),
+  isOutOfStock: z.boolean(),
   priceDisplay: productPriceDisplaySchema,
 });
 

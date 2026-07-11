@@ -10,3 +10,4 @@ export * from "./query/query-parsers";
 export * from "./query/server-query-parsers";
 export * from "./variant/build-description";
 export * from "./variant/matrix";
+export * from "./variant/stock-availability";

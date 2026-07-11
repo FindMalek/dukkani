@@ -448,6 +448,7 @@
       "stockInfo": "المخزون: {count} وحدة • {variants} متغيرات",
       "stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
       "stockCount": "المخزون: {count} وحدة",
+      "inStock": "متوفر",
       "variantCount": "• {variants} متغيرات",
       "noVariants": "• لا توجد متغيرات",
       "outOfStock": "نفاد المخزون",
@@ -621,6 +622,10 @@
             "title": "تعديل المتغير: {label}",
             "image": "صورة"
           },
+          "trackStock": {
+            "label": "تتبع المخزون",
+            "description": "أوقف التفعيل لإظهار هذا المتغير كمتوفر دائمًا، بغض النظر عن كمية المخزون."
+          },
           "imagePicker": {
             "title": "اختر صورة",
             "noImage": "لا توجد صورة"
@@ -638,7 +643,8 @@
             "pricePlaceholder": "السعر الأساسي",
             "variantCount": "{count, plural, zero {لا متغيرات} one {متغير واحد} two {متغيران} few {# متغيرات} many {# متغيرًا} other {# متغير}}",
             "inStock": "{count} في المخزون",
-            "outOfStock": "نفاد المخزون"
+            "outOfStock": "نفاد المخزون",
+            "notTracked": "متوفر دائمًا"
           },
           "validation": {
             "duplicateOptionName": "اسم الخيار مكرر",

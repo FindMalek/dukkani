@@ -452,6 +452,7 @@
       "stockInfo": "Stock : {count} unités • {variants} variantes",
       "stockInfoNoVariants": "Stock : {count} unités • Pas de variantes",
       "stockCount": "Stock : {count} unités",
+      "inStock": "En stock",
       "variantCount": "• {variants} variantes",
       "noVariants": "• Pas de variantes",
       "outOfStock": "Rupture de stock",
@@ -625,6 +626,10 @@
             "title": "Edit variant: {label}",
             "image": "Image"
           },
+          "trackStock": {
+            "label": "Suivre le stock",
+            "description": "Désactivez pour que cette variante soit toujours disponible, quel que soit le stock."
+          },
           "imagePicker": {
             "title": "Choose image",
             "noImage": "No image"
@@ -642,7 +647,8 @@
             "pricePlaceholder": "Base price",
             "variantCount": "{count} variants",
             "inStock": "{count} in stock",
-            "outOfStock": "Out of stock"
+            "outOfStock": "Out of stock",
+            "notTracked": "Toujours disponible"
           },
           "validation": {
             "duplicateOptionName": "Nom d’option dupliqué",

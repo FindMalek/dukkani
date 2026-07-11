@@ -12,7 +12,8 @@ import { useCartStore } from "@/shared/lib/cart/store";
 
 interface AddToCartFooterProps {
   productId: string;
-  stock: number;
+  isOutOfStock: boolean;
+  maxQuantity: number;
   price: number;
   currency: store.SupportedCurrencyInfer;
   selectedVariantId?: string;
@@ -22,7 +23,8 @@ interface AddToCartFooterProps {
 
 function AddToCartFooterInner({
   productId,
-  stock,
+  isOutOfStock,
+  maxQuantity,
   price,
   currency,
   selectedVariantId,
@@ -35,9 +37,6 @@ function AddToCartFooterInner({
   const formatPrice = useFormatPriceCurrentStore(currency);
   const addItem = useCartStore((state) => state.addItem);
   const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
-
-  const isOutOfStock = stock === 0;
-  const maxQuantity = Math.min(stock, 99);
 
   const handleDecrease = () => {
     if (quantity > 1) {

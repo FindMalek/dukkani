@@ -33,11 +33,13 @@ export function ProductListCard({
       : formatPrice(product.priceDisplay.price);
 
   const firstImageUrl = product.imageUrls[0];
-  const isOutOfStock = product.stock === 0;
+  const isOutOfStock = product.isOutOfStock;
 
   const stockStatusText = isOutOfStock
     ? t("outOfStock")
-    : t("stockCount", { count: product.stock });
+    : product.stock > 0
+      ? t("stockCount", { count: product.stock })
+      : t("inStock");
 
   const actions = useMemo(
     () => [

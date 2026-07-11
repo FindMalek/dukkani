@@ -8,6 +8,7 @@ export type FormVariantRow = {
   sku?: string;
   price?: number;
   stock: number;
+  trackStock: boolean;
   imageRef?: string;
 };
 
@@ -39,6 +40,7 @@ export function reconcileVariants(
       sku: undefined,
       price: undefined,
       stock: defaults.stock,
+      trackStock: true,
     };
   });
 }
@@ -52,6 +54,6 @@ export function formVariantRowsToInput(rows: FormVariantRow[]): VariantInput[] {
       ? { price: row.price }
       : {}),
     stock: row.stock,
-    trackStock: true,
+    trackStock: row.trackStock,
   }));
 }
