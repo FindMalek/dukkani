@@ -24,7 +24,7 @@
         "sortBy": "Trier par",
         "category": "Catégorie",
         "reset": "Réinitialiser",
-        "showResults": "Voir les résultats ({count})",
+        "showResults": "Afficher les résultats ({count})",
         "close": "Fermer",
         "sortOptions": {
           "newest": "Les plus récents d'abord",
