@@ -8,7 +8,7 @@ import {
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { isStoreSelectorEnabled } from "@dukkani/env";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cairo, Inter } from "next/font/google";
 import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
@@ -37,6 +37,13 @@ const cairo = Cairo({
 export const metadata: Metadata = {
   title: "Dukkani Storefront",
   description: "Storefront powered by Dukkani",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  interactiveWidget: "resizes-content",
 };
 
 export async function generateStaticParams() {

@@ -134,6 +134,24 @@ import { cn } from "@dukkani/ui/lib/utils";
 
 Component-specific hooks (e.g., `use-toast` for toast notifications).
 
+### `useViewportLock`
+
+Prevents iOS Safari from pushing `position: fixed` headers/footers off-screen when the virtual keyboard opens (it scrolls the layout viewport while the visual viewport shrinks). Already wired into `SheetContent` and `DrawerContent` — any new fixed-position surface containing text inputs (e.g. a page-level fixed action bar, see `checkout-form.tsx`) should adopt the same pattern instead of re-deriving a keyboard workaround:
+
+```typescript
+const isMobile = useIsMobile();
+const containerRef = useViewportLock({ enabled: isMobile });
+
+<div ref={containerRef} data-viewport-locked={isMobile ? "" : undefined}>
+  <div data-viewport-scrollable="">{/* scrollable form fields */}</div>
+  <div className="fixed inset-x-0 bottom-0">{/* fixed action bar */}</div>
+</div>
+```
+
+- Returns a callback ref (not a `RefObject`) — assign it directly via `ref={containerRef}`.
+- Gate `enabled` with `useIsMobile()`; this is a mobile-Safari-specific fix and should no-op on desktop.
+- Mark the container `data-viewport-locked` (sets `touch-action: none`, see `globals.css`) and mark any internally scrollable region `data-viewport-scrollable` (restores `touch-action: pan-y`) — omitting the scrollable marker on a page-level container will silently break normal scroll gestures.
+
 ## Styles
 
 ### Location

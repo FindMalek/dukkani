@@ -148,6 +148,15 @@
     @apply bg-background text-foreground font-sans;
   }
 
+  /* touch-action: none stops the viewport-drag jitter useViewportLock guards against;
+     pan-y is restored on scrollable descendants so they keep scrolling normally. */
+  [data-viewport-locked] {
+    touch-action: none;
+  }
+  [data-viewport-locked] [data-viewport-scrollable] {
+    touch-action: pan-y;
+  }
+
   [data-slot="collapsible-content"][data-state="open"] {
     animation: slideDown 300ms cubic-bezier(0.32, 0.72, 0, 1);
   }
