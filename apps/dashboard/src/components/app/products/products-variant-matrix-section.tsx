@@ -1,6 +1,6 @@
 "use client";
 
-import { selectionKey } from "@dukkani/common/lib";
+import { isStockAvailable, selectionKey } from "@dukkani/common/lib";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Card } from "@dukkani/ui/components/card";
@@ -115,7 +115,9 @@ export function ProductsVariantMatrixSection({
                         {!trackStock
                           ? t("form.variants.matrix.notTracked")
                           : inStock
-                            ? t("form.variants.matrix.inStock", { count: stock })
+                            ? t("form.variants.matrix.inStock", {
+                                count: stock,
+                              })
                             : t("form.variants.matrix.outOfStock")}
                       </span>
                       {variant.sku ? (
