@@ -1,6 +1,6 @@
 "use client";
 
-import { selectionKey } from "@dukkani/common/lib";
+import { isStockAvailable, selectionKey } from "@dukkani/common/lib";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import { Card } from "@dukkani/ui/components/card";
@@ -58,7 +58,8 @@ export function ProductsVariantMatrixSection({
             {variants.map((variant, idx) => {
               const label = getVariantLabel(variant.selections ?? {});
               const stock = Number.parseInt(String(variant.stock), 10);
-              const inStock = stock > 0;
+              const trackStock = variant.trackStock ?? true;
+              const inStock = isStockAvailable(stock, trackStock);
               const priceNum = variant.price
                 ? Number.parseFloat(String(variant.price))
                 : undefined;
@@ -111,9 +112,13 @@ export function ProductsVariantMatrixSection({
                           inStock ? "text-primary" : "text-muted-foreground",
                         )}
                       >
-                        {inStock
-                          ? t("form.variants.matrix.inStock", { count: stock })
-                          : t("form.variants.matrix.outOfStock")}
+                        {!trackStock
+                          ? t("form.variants.matrix.notTracked")
+                          : inStock
+                            ? t("form.variants.matrix.inStock", {
+                                count: stock,
+                              })
+                            : t("form.variants.matrix.outOfStock")}
                       </span>
                       {variant.sku ? (
                         <span className="text-muted-foreground text-xs">

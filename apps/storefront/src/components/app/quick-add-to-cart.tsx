@@ -36,7 +36,7 @@ type QuickAddBodyProps = {
   onOpenChange: (open: boolean) => void;
   selectedVariantId: string | undefined;
   setSelectedVariantId: (id: string | undefined) => void;
-  stock: number;
+  maxQuantity: number;
   price: number;
   isOutOfStock: boolean;
   hasVariants: boolean;
@@ -49,7 +49,7 @@ function QuickAddToCartBody({
   onOpenChange,
   selectedVariantId,
   setSelectedVariantId,
-  stock,
+  maxQuantity,
   price,
   isOutOfStock,
   hasVariants,
@@ -60,7 +60,6 @@ function QuickAddToCartBody({
   const addItem = useCartStore((state) => state.addItem);
   const setCartDrawerOpen = useCartStore((state) => state.setCartDrawerOpen);
 
-  const maxQuantity = Math.min(stock, 99);
   const formattedPrice = formatPrice(price * quantity);
 
   const handleDecrease = () => {
@@ -184,7 +183,7 @@ export function QuickAddToCart({
   const {
     selectedVariantId,
     setSelectedVariantId,
-    stock,
+    maxQuantity,
     price,
     isOutOfStock,
   } = useProductVariantSelection({
@@ -203,7 +202,7 @@ export function QuickAddToCart({
       onOpenChange={onOpenChange}
       selectedVariantId={selectedVariantId}
       setSelectedVariantId={setSelectedVariantId}
-      stock={stock}
+      maxQuantity={maxQuantity}
       price={price}
       isOutOfStock={isOutOfStock}
       hasVariants={hasVariants}

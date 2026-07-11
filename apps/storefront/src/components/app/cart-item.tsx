@@ -1,5 +1,6 @@
 "use client";
 
+import { effectiveMaxQuantity, isStockAvailable } from "@dukkani/common/lib";
 import type { store } from "@dukkani/common/schemas";
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
@@ -22,6 +23,7 @@ interface CartItemProps {
   productDescription?: string;
   price: number;
   stock: number;
+  trackStock: boolean;
 }
 
 export const CartItem = memo(function CartItem({
@@ -31,6 +33,7 @@ export const CartItem = memo(function CartItem({
   productDescription,
   price,
   stock,
+  trackStock,
   currency,
 }: CartItemProps) {
   const t = useTranslations("storefront.store.cart.item");
@@ -38,9 +41,9 @@ export const CartItem = memo(function CartItem({
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const formatPrice = useFormatPriceCurrentStore(currency);
 
-  const isLowStock = stock <= 5 && stock > 0;
-  const isOutOfStock = stock === 0;
-  const maxQuantity = Math.min(stock, 99);
+  const isLowStock = trackStock && stock <= 5 && stock > 0;
+  const isOutOfStock = !isStockAvailable(stock, trackStock);
+  const maxQuantity = effectiveMaxQuantity(stock, trackStock);
   const formattedPrice = useMemo(
     () => formatPrice(price * item.quantity),
     [formatPrice, price, item.quantity],

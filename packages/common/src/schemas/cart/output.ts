@@ -9,6 +9,7 @@ export const cartItemOutputSchema = z.object({
   productDescription: z.string().optional(),
   price: z.number(),
   stock: z.number(),
+  trackStock: z.boolean(),
 });
 
 export type CartItemOutput = z.infer<typeof cartItemOutputSchema>;

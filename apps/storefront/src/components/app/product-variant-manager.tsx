@@ -32,7 +32,8 @@ interface ProductVariantManagerProps {
 type CartPanelProps = {
   productId: string;
   storeCurrency: store.SupportedCurrencyInfer;
-  stock: number;
+  isOutOfStock: boolean;
+  maxQuantity: number;
   price: number;
   selectedVariantId: string | undefined;
   variant: "fixed" | "inline";
@@ -45,7 +46,8 @@ type CartPanelProps = {
 function ProductVariantCartPanel({
   productId,
   storeCurrency,
-  stock,
+  isOutOfStock,
+  maxQuantity,
   price,
   selectedVariantId,
   variant,
@@ -64,7 +66,8 @@ function ProductVariantCartPanel({
   return (
     <AddToCartFooter
       productId={productId}
-      stock={stock}
+      isOutOfStock={isOutOfStock}
+      maxQuantity={maxQuantity}
       price={price}
       selectedVariantId={selectedVariantId}
       variant={variant}
@@ -90,7 +93,8 @@ export function ProductVariantManager({
     selectedVariantId,
     setSelectedVariantId,
     selectedVariant,
-    stock,
+    isOutOfStock,
+    maxQuantity,
     price,
   } = useProductVariantSelection({
     hasVariants,
@@ -119,7 +123,8 @@ export function ProductVariantManager({
         key={`${productId}:${selectedVariantId ?? ""}`}
         productId={productId}
         storeCurrency={storeCurrency}
-        stock={stock}
+        isOutOfStock={isOutOfStock}
+        maxQuantity={maxQuantity}
         price={price}
         selectedVariantId={selectedVariantId}
         variant={variant}

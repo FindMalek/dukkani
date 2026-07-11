@@ -89,6 +89,15 @@ export function ProductsVariantDrawers({
                 </form.Subscribe>
               </DrawerHeader>
               <div className="flex flex-col gap-4 p-4 pb-8">
+                <form.AppField name={`variants[${editSheetIdx}].trackStock`}>
+                  {(field) => (
+                    <field.SwitchInput
+                      label={t("form.variants.trackStock.label")}
+                      description={t("form.variants.trackStock.description")}
+                    />
+                  )}
+                </form.AppField>
+
                 <div className="grid grid-cols-2 gap-4">
                   <form.AppField name={`variants[${editSheetIdx}].price`}>
                     {(field) => (
@@ -99,14 +108,24 @@ export function ProductsVariantDrawers({
                       />
                     )}
                   </form.AppField>
-                  <form.AppField name={`variants[${editSheetIdx}].stock`}>
-                    {(field) => (
-                      <field.TextInput
-                        label={t("form.stock.label")}
-                        inputMode="numeric"
-                      />
-                    )}
-                  </form.AppField>
+                  <form.Subscribe
+                    selector={(s) =>
+                      s.values.variants?.[editSheetIdx]?.trackStock ?? true
+                    }
+                  >
+                    {(trackStock) =>
+                      trackStock ? (
+                        <form.AppField name={`variants[${editSheetIdx}].stock`}>
+                          {(field) => (
+                            <field.TextInput
+                              label={t("form.stock.label")}
+                              inputMode="numeric"
+                            />
+                          )}
+                        </form.AppField>
+                      ) : null
+                    }
+                  </form.Subscribe>
                 </div>
                 <form.AppField name={`variants[${editSheetIdx}].sku`}>
                   {(field) => (

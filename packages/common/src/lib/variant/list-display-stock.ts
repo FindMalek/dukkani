@@ -5,7 +5,7 @@
 export type ListVersionStockSlice = {
   hasVariants: boolean;
   stock: number;
-  variants?: ReadonlyArray<{ stock: number }> | null;
+  variants?: ReadonlyArray<{ stock: number; trackStock?: boolean }> | null;
 };
 
 /**
@@ -24,4 +24,22 @@ export function listDisplayStock(v: ListVersionStockSlice | null): number {
     return v.stock;
   }
   return rows.reduce((sum, row) => sum + row.stock, 0);
+}
+
+/**
+ * A product is out of stock only if every unit that could sell it is both
+ * stock-tracked and at zero — an untracked variant is always purchasable.
+ */
+export function isListOutOfStock(v: ListVersionStockSlice | null): boolean {
+  if (!v) {
+    return true;
+  }
+  if (!v.hasVariants) {
+    return v.stock === 0;
+  }
+  const rows = v.variants;
+  if (!rows?.length) {
+    return v.stock === 0;
+  }
+  return rows.every((row) => row.trackStock !== false && row.stock === 0);
 }

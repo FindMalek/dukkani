@@ -1,5 +1,6 @@
 "use client";
 
+import { isStockAvailable } from "@dukkani/common/lib";
 import type {
   VariantOptionOutput,
   VariantOutput,
@@ -64,7 +65,9 @@ export function VariantSelector({
   // Helper to check if a value is available (has a matching variant with stock)
   const isValueAvailable = (optionId: string, valueId: string): boolean => {
     const variant = findMatchingVariant(optionId, valueId);
-    return variant ? variant.stock > 0 : false;
+    return variant
+      ? isStockAvailable(variant.stock, variant.trackStock)
+      : false;
   };
 
   return (
