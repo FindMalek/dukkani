@@ -12,6 +12,7 @@ import { BaseField } from "./base-field";
 interface PriceFieldProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "inputMode"> {
   label: string;
+  srOnlyLabel?: boolean;
   currency: string;
   min?: number;
   max?: number;
@@ -21,6 +22,7 @@ interface PriceFieldProps
 
 export function PriceField({
   label,
+  srOnlyLabel = false,
   currency,
   min = Number.NEGATIVE_INFINITY,
   max = Number.POSITIVE_INFINITY,
@@ -83,12 +85,12 @@ export function PriceField({
   );
 
   return (
-    <BaseField label={label} orientation={"vertical"}>
+    <BaseField label={label} srOnlyLabel={srOnlyLabel} orientation={"vertical"}>
       <InputGroup>
         <InputGroupInput
           id={field.name}
           name={field.name}
-          value={field.state.value}
+          value={field.state.value ?? ""}
           onChange={handleChange}
           onBlur={field.handleBlur}
           aria-invalid={isInvalid}

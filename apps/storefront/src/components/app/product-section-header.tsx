@@ -5,8 +5,6 @@ import { Button } from "@dukkani/ui/components/button";
 import {
   Drawer,
   DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@dukkani/ui/components/drawer";
 import { useTranslations } from "next-intl";
@@ -14,6 +12,7 @@ import { useState } from "react";
 import { FilterProductsForm } from "@/components/app/filter-products-form";
 
 interface ProductSectionHeaderProps {
+  storeId: string;
   storeCurrency: store.SupportedCurrencyInfer;
   categories: { id: string; name: string }[];
   title?: string;
@@ -21,6 +20,7 @@ interface ProductSectionHeaderProps {
 
 export function ProductSectionHeader({
   title,
+  storeId,
   storeCurrency,
   categories,
 }: ProductSectionHeaderProps) {
@@ -39,12 +39,10 @@ export function ProductSectionHeader({
               {tFilter("button")}
             </Button>
           </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>{tFilter("drawerTitle")}</DrawerTitle>
-            </DrawerHeader>
-            <div className="mx-auto w-full max-w-sm sm:max-w-md">
+          <DrawerContent className="data-[vaul-drawer-direction=bottom]:max-h-[85vh]">
+            <div className="mx-auto flex w-full max-w-sm flex-col sm:max-w-md">
               <FilterProductsForm
+                storeId={storeId}
                 storeCurrency={storeCurrency}
                 categories={categories}
                 handleCloseDrawer={() => setFilterDrawerOpen(false)}

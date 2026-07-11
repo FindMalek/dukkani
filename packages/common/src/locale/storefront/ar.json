@@ -16,7 +16,7 @@
       "filter": {
         "button": "تصفية",
         "drawerTitle": "تصفية المنتجات",
-        "price": "السعر",
+        "priceRange": "نطاق السعر",
         "min": "الحد الأدنى",
         "max": "الحد الأقصى",
         "availability": "التوافر",
@@ -24,8 +24,8 @@
         "sortBy": "الترتيب حسب",
         "category": "الفئة",
         "reset": "إعادة ضبط",
-        "submit": "إرسال",
-        "cancel": "إلغاء",
+        "showResults": "عرض النتائج ({count})",
+        "close": "إغلاق",
         "sortOptions": {
           "newest": "الأحدث أولاً",
           "cheapest": "الأرخص أولاً",

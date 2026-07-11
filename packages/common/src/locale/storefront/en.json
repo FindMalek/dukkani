@@ -16,7 +16,7 @@
       "filter": {
         "button": "Filter",
         "drawerTitle": "Filter products",
-        "price": "Price",
+        "priceRange": "Price range",
         "min": "Min",
         "max": "Max",
         "availability": "Availability",
@@ -24,8 +24,8 @@
         "sortBy": "Sort by",
         "category": "Category",
         "reset": "Reset",
-        "submit": "Submit",
-        "cancel": "Cancel",
+        "showResults": "Show results ({count})",
+        "close": "Close",
         "sortOptions": {
           "newest": "Newest first",
           "cheapest": "Cheapest first",

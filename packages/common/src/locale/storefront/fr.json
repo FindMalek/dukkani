@@ -16,7 +16,7 @@
       "filter": {
         "button": "Filtrer",
         "drawerTitle": "Filtrer les produits",
-        "price": "Prix",
+        "priceRange": "Fourchette de prix",
         "min": "Min",
         "max": "Max",
         "availability": "Disponibilité",
@@ -24,8 +24,8 @@
         "sortBy": "Trier par",
         "category": "Catégorie",
         "reset": "Réinitialiser",
-        "submit": "Soumettre",
-        "cancel": "Annuler",
+        "showResults": "Voir les résultats ({count})",
+        "close": "Fermer",
         "sortOptions": {
           "newest": "Les plus récents d'abord",
           "cheapest": "Les moins chers d'abord",

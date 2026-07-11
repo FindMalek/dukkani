@@ -1,3 +1,4 @@
+import type { PrismaClient } from "@dukkani/db";
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { ProductVersionStatus } from "@dukkani/db/prisma/generated/enums";
 import { ImageQuery } from "../image/query";
@@ -142,6 +143,13 @@ export class ProductQuery {
       categoryId?: string;
       priceMin?: number;
       priceMax?: number;
+      /**
+       * Restricts search/stock/hasVariants/price matching to `currentPublishedVersion`,
+       * skipping `draftVersion`. Set for public/storefront queries so a product can't
+       * match (e.g. appear "in stock") based on unpublished draft data. Dashboard
+       * queries leave this unset to keep matching either version.
+       */
+      publicOnly?: boolean;
     },
   ): Prisma.ProductWhereInput {
     const andParts: Prisma.ProductWhereInput[] = [];
@@ -150,36 +158,33 @@ export class ProductQuery {
       storeId: filters?.storeId ? { in: [filters.storeId] } : { in: storeIds },
     };
 
+    const publicOnly = filters?.publicOnly === true;
+    const versionMatch = (
+      versionWhere: Prisma.ProductVersionWhereInput,
+    ): Prisma.ProductWhereInput =>
+      publicOnly
+        ? { currentPublishedVersion: { is: versionWhere } }
+        : {
+            OR: [
+              { currentPublishedVersion: { is: versionWhere } },
+              { draftVersion: { is: versionWhere } },
+            ],
+          };
+
     if (filters?.published !== undefined) {
       where.published = filters.published;
     }
 
     if (filters?.search) {
       const q = filters.search;
-      andParts.push({
-        OR: [
-          {
-            currentPublishedVersion: {
-              name: { contains: q, mode: "insensitive" },
-            },
-          },
-          {
-            currentPublishedVersion: {
-              description: { contains: q, mode: "insensitive" },
-            },
-          },
-          {
-            draftVersion: {
-              name: { contains: q, mode: "insensitive" },
-            },
-          },
-          {
-            draftVersion: {
-              description: { contains: q, mode: "insensitive" },
-            },
-          },
-        ],
-      });
+      andParts.push(
+        versionMatch({
+          OR: [
+            { name: { contains: q, mode: "insensitive" } },
+            { description: { contains: q, mode: "insensitive" } },
+          ],
+        }),
+      );
     }
 
     if (filters?.stock) {
@@ -194,38 +199,12 @@ export class ProductQuery {
         stockFilter.gte = filters.stock.gte;
       }
       if (Object.keys(stockFilter).length > 0) {
-        andParts.push({
-          OR: [
-            {
-              currentPublishedVersion: {
-                is: { totalVariantStock: stockFilter },
-              },
-            },
-            {
-              draftVersion: {
-                is: { totalVariantStock: stockFilter },
-              },
-            },
-          ],
-        });
+        andParts.push(versionMatch({ totalVariantStock: stockFilter }));
       }
     }
 
     if (filters?.hasVariants !== undefined) {
-      andParts.push({
-        OR: [
-          {
-            currentPublishedVersion: {
-              is: { hasVariants: filters.hasVariants },
-            },
-          },
-          {
-            draftVersion: {
-              is: { hasVariants: filters.hasVariants },
-            },
-          },
-        ],
-      });
+      andParts.push(versionMatch({ hasVariants: filters.hasVariants }));
     }
 
     if (filters?.categoryId) {
@@ -264,20 +243,7 @@ export class ProductQuery {
           },
         ],
       };
-      andParts.push({
-        OR: [
-          {
-            currentPublishedVersion: {
-              is: versionPriceWhere,
-            },
-          },
-          {
-            draftVersion: {
-              is: versionPriceWhere,
-            },
-          },
-        ],
-      });
+      andParts.push(versionMatch(versionPriceWhere));
     }
 
     if (andParts.length > 0) {
@@ -295,6 +261,49 @@ export class ProductQuery {
         is: { status: ProductVersionStatus.PUBLISHED },
       },
     };
+  }
+
+  /**
+   * Min/max price across a store's published catalog (for storefront price-range
+   * filter bounds). Live aggregate rather than a denormalized column: `Product.storeId`
+   * is indexed and this is a cheap read at realistic catalog sizes, whereas denormalizing
+   * would need a recompute hook wired into every price-affecting write path (product,
+   * variant, and bundle create/update/delete/publish) — not worth the correctness risk
+   * for a slider bound. Returns `null` when the store has no published products.
+   */
+  static async getPriceBounds(
+    database: PrismaClient | Prisma.TransactionClient,
+    storeId: string,
+  ): Promise<{ min: number; max: number } | null> {
+    const publishedFilter = {
+      productsAsCurrentPublished: { some: { storeId, published: true } },
+    } satisfies Prisma.ProductVersionWhereInput;
+
+    const [simple, variant] = await Promise.all([
+      database.productVersion.aggregate({
+        where: { ...publishedFilter, hasVariants: false },
+        _min: { price: true },
+        _max: { price: true },
+      }),
+      database.productVersion.aggregate({
+        where: { ...publishedFilter, hasVariants: true },
+        _min: { variantEffectivePriceMin: true },
+        _max: { variantEffectivePriceMax: true },
+      }),
+    ]);
+
+    const mins = [simple._min.price, variant._min.variantEffectivePriceMin]
+      .filter((v): v is Prisma.Decimal => v != null)
+      .map(Number);
+    const maxs = [simple._max.price, variant._max.variantEffectivePriceMax]
+      .filter((v): v is Prisma.Decimal => v != null)
+      .map(Number);
+
+    if (mins.length === 0) {
+      return null;
+    }
+
+    return { min: Math.min(...mins), max: Math.max(...maxs) };
   }
 
   /**
