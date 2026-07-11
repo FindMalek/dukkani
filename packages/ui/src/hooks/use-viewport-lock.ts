@@ -44,7 +44,10 @@ export function useViewportLock(options: UseViewportLockOptions = {}) {
     visualViewport.addEventListener("resize", onResize);
     visualViewport.addEventListener("scroll", onScroll);
     container.addEventListener("touchend", onTouchEnd);
-    onResize();
+    // No eager onResize() here: locking height on mount forces every drawer to
+    // the full viewport height before any keyboard interaction, overriding
+    // content-based sizing (max-h-*). The resize listener above still locks
+    // height reactively once the visual viewport actually shrinks (keyboard open).
 
     return () => {
       visualViewport.removeEventListener("resize", onResize);

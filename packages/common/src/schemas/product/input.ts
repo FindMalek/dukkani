@@ -194,6 +194,10 @@ export const getProductInputSchema = z.object({
   id: z.string().min(1, "Product ID is required"),
 });
 
+export const getProductPriceBoundsInputSchema = z.object({
+  storeId: z.string().min(1, "Store ID is required"),
+});
+
 export const stockFilterSchema = z
   .enum(["all", "in-stock", "low-stock", "out-of-stock"])
   .optional();

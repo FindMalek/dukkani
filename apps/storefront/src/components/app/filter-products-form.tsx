@@ -15,6 +15,8 @@ import {
 } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Label } from "@dukkani/ui/components/label";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
+import { Slider } from "@dukkani/ui/components/slider";
 import { Switch } from "@dukkani/ui/components/switch";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -40,6 +42,45 @@ type LiveFilterValues = Pick<
   ProductFilters,
   "sort" | "category" | "minPrice" | "maxPrice" | "inStock"
 >;
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(Math.max(value, min), max);
+}
+
+/** Rounds `rawStep` up to the nearest 1x/2x/5x power of ten (D3-style tick step). */
+function niceStep(rawStep: number): number {
+  const magnitude = 10 ** Math.floor(Math.log10(Math.max(rawStep, 1)));
+  const normalized = rawStep / magnitude;
+  const niceNormalized =
+    normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10;
+  return niceNormalized * magnitude;
+}
+
+/**
+ * Widens exact catalog min/max prices to clean slider bounds (e.g. 12.99-899.5
+ * -> 0-900) so the track reads as a round number instead of an arbitrary decimal.
+ * Guards the degenerate single-price-catalog case (min === max) by padding max by 1.
+ */
+function roundPriceBounds(
+  min: number,
+  max: number,
+): { min: number; max: number } {
+  const safeMax = max > min ? max : min + 1;
+  const step = niceStep((safeMax - min) / 10);
+  return {
+    min: Math.max(0, Math.floor(min / step) * step),
+    max: Math.ceil(safeMax / step) * step,
+  };
+}
+
+function usePriceBounds(storeId: string) {
+  return useQuery(
+    appQueries.product.getPriceBounds({
+      input: { storeId },
+      staleTime: 60 * 1000,
+    }),
+  );
+}
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = useState(value);
@@ -123,11 +164,16 @@ export function FilterProductsForm({
     { label: tFilter("sortOptions.mostExpensive"), value: "priceDesc" },
   ];
 
+  const priceBoundsQuery = usePriceBounds(storeId);
+  const roundedBounds = priceBoundsQuery.data
+    ? roundPriceBounds(priceBoundsQuery.data.min, priceBoundsQuery.data.max)
+    : null;
+  const sliderStep = roundedBounds
+    ? Math.max(1, Math.round((roundedBounds.max - roundedBounds.min) / 100))
+    : 1;
+
   return (
-    <Form
-      onSubmit={form.handleSubmit}
-      className="flex flex-1 flex-col overflow-hidden"
-    >
+    <Form onSubmit={form.handleSubmit} className="flex flex-col">
       <DrawerHeader className="flex-row items-center justify-between gap-2 border-b pb-3">
         <DrawerTitle>{tFilter("drawerTitle")}</DrawerTitle>
         <Button
@@ -140,18 +186,63 @@ export function FilterProductsForm({
           {tFilter("reset")}
         </Button>
       </DrawerHeader>
-      <div className="flex-1 space-y-3 overflow-y-auto p-4">
+      <div className="max-h-[50vh] space-y-3 overflow-y-auto p-4">
         <FieldSet className="gap-2">
           <FieldLegend className="font-medium text-sm">
             {tFilter("priceRange")}
           </FieldLegend>
+          <div className="mb-1 px-1">
+            {priceBoundsQuery.isLoading ? (
+              <Skeleton className="h-1.5 w-full rounded-full" />
+            ) : (
+              roundedBounds && (
+                <form.Subscribe
+                  selector={(state) => ({
+                    min: state.values.minPrice,
+                    max: state.values.maxPrice,
+                  })}
+                >
+                  {({ min, max }) => (
+                    <Slider
+                      min={roundedBounds.min}
+                      max={roundedBounds.max}
+                      step={sliderStep}
+                      minStepsBetweenThumbs={sliderStep}
+                      value={[
+                        clamp(
+                          toNullableNumber(min) ?? roundedBounds.min,
+                          roundedBounds.min,
+                          roundedBounds.max,
+                        ),
+                        clamp(
+                          toNullableNumber(max) ?? roundedBounds.max,
+                          roundedBounds.min,
+                          roundedBounds.max,
+                        ),
+                      ]}
+                      onValueChange={([newMin, newMax]) => {
+                        form.setFieldValue(
+                          "minPrice",
+                          newMin ?? roundedBounds.min,
+                        );
+                        form.setFieldValue(
+                          "maxPrice",
+                          newMax ?? roundedBounds.max,
+                        );
+                      }}
+                    />
+                  )}
+                </form.Subscribe>
+              )
+            )}
+          </div>
           <FieldGroup className="grid w-full grid-cols-2 gap-2">
             <form.AppField name="minPrice">
               {(field) => (
                 <field.PriceInput
                   label={tFilter("min")}
                   srOnlyLabel
-                  placeholder="0"
+                  placeholder={String(roundedBounds?.min ?? 0)}
                   currency={storeCurrency}
                 />
               )}
@@ -161,7 +252,7 @@ export function FilterProductsForm({
                 <field.PriceInput
                   label={tFilter("max")}
                   srOnlyLabel
-                  placeholder="1000"
+                  placeholder={roundedBounds ? String(roundedBounds.max) : "—"}
                   currency={storeCurrency}
                 />
               )}

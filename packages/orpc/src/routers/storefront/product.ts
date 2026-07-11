@@ -3,6 +3,7 @@ import { ProductQuery } from "@dukkani/common/entities/product/query";
 import { StoreStatus } from "@dukkani/common/schemas/enums";
 import {
   getProductInputSchema,
+  getProductPriceBoundsInputSchema,
   getProductsByIdsInputSchema,
   listProductsInputSchema,
 } from "@dukkani/common/schemas/product/input";
@@ -12,6 +13,7 @@ import type {
 } from "@dukkani/common/schemas/product/output";
 import {
   listProductsOutputSchema,
+  productPriceBoundsOutputSchema,
   productPublicOutputSchema,
   productsPublicOutputSchema,
 } from "@dukkani/common/schemas/product/output";
@@ -54,6 +56,7 @@ export const productRouter = {
         categoryId: input.categoryId,
         priceMin: input.priceMin,
         priceMax: input.priceMax,
+        publicOnly: true,
       });
 
       const orderBy = SORT_ORDER_MAP[input.sortBy ?? "newest"];
@@ -78,6 +81,23 @@ export const productRouter = {
         page,
         limit,
       };
+    }),
+
+  getPriceBoundsPublic: baseProcedure
+    .use(rateLimitPublicSafe)
+    .input(getProductPriceBoundsInputSchema)
+    .output(productPriceBoundsOutputSchema)
+    .handler(async ({ input }) => {
+      const store = await database.store.findUnique({
+        where: { id: input.storeId },
+        select: { id: true, status: true },
+      });
+
+      if (!store || store.status !== StoreStatus.PUBLISHED) {
+        throw new ORPCError("NOT_FOUND", { message: "Store not found" });
+      }
+
+      return ProductQuery.getPriceBounds(database, input.storeId);
     }),
 
   getByIdPublic: baseProcedure

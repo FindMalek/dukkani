@@ -59,6 +59,13 @@ export const listProductsOutputSchema = z.object({
   limit: z.number().int(),
 });
 
+export const productPriceBoundsOutputSchema = z
+  .object({
+    min: z.number(),
+    max: z.number(),
+  })
+  .nullable();
+
 export const productPublicStoreSchema = z.object({
   id: z.string(),
   name: z.string(),

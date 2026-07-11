@@ -39,8 +39,8 @@ export function ProductSectionHeader({
               {tFilter("button")}
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="data-[vaul-drawer-direction=bottom]:max-h-[70vh]">
-            <div className="mx-auto flex w-full max-w-sm flex-1 flex-col overflow-hidden sm:max-w-md">
+          <DrawerContent className="data-[vaul-drawer-direction=bottom]:max-h-[85vh]">
+            <div className="mx-auto flex w-full max-w-sm flex-col sm:max-w-md">
               <FilterProductsForm
                 storeId={storeId}
                 storeCurrency={storeCurrency}

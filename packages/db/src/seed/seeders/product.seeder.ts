@@ -41,6 +41,42 @@ async function recomputeVariantEffectivePriceBoundsForSeed(
   });
 }
 
+/**
+ * Denormalize ProductVersion.totalVariantStock for seed data (mirrors
+ * ProductVersionService.recomputeTotalVariantStock; db package does not
+ * depend on @dukkani/common). Sums variant stock for variant products;
+ * mirrors `stock` otherwise. Without this, seeded totalVariantStock stays at
+ * its schema default of 0 and every "in stock" filter returns no results.
+ */
+async function recomputeTotalVariantStockForSeed(
+  database: PrismaClient,
+  productVersionId: string,
+): Promise<void> {
+  const version = await database.productVersion.findUnique({
+    where: { id: productVersionId },
+    select: { hasVariants: true, stock: true },
+  });
+  if (!version) {
+    return;
+  }
+
+  if (version.hasVariants) {
+    const agg = await database.productVariant.aggregate({
+      where: { productVersionId, discontinuedAt: null },
+      _sum: { stock: true },
+    });
+    await database.productVersion.update({
+      where: { id: productVersionId },
+      data: { totalVariantStock: agg._sum.stock ?? 0 },
+    });
+  } else {
+    await database.productVersion.update({
+      where: { id: productVersionId },
+      data: { totalVariantStock: version.stock },
+    });
+  }
+}
+
 type AddonOptionDef = { name: string; priceDelta: number; stock: number };
 type AddonGroupDef = {
   name: string;
@@ -1324,6 +1360,9 @@ export class ProductSeeder extends BaseSeeder {
             description: productInfo.description ?? null,
             price: productInfo.price,
             stock: productInfo.stock,
+            // Correct final value for variant products is set by
+            // recomputeTotalVariantStockForSeed once variants exist.
+            totalVariantStock: productInfo.hasVariants ? 0 : productInfo.stock,
             hasVariants: productInfo.hasVariants,
             images: {
               create: productInfo.images.map((url) => ({ url })),
@@ -1431,6 +1470,7 @@ export class ProductSeeder extends BaseSeeder {
               version.id,
               productInfo.price,
             );
+            await recomputeTotalVariantStockForSeed(database, version.id);
           }
         }
 

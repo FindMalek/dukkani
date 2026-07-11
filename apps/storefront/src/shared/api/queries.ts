@@ -9,5 +9,6 @@ export const appQueries = {
   },
   product: {
     getAll: orpc.product.getAllPublic.queryOptions,
+    getPriceBounds: orpc.product.getPriceBoundsPublic.queryOptions,
   },
 };
