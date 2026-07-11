@@ -593,7 +593,7 @@ files:
     storefront.store.categoryFilter.all: b1c94ca2fbc3e78fc30069c8d0f01680
     storefront.store.filter.button: d7778d0c64b6ba21494c97f77a66885a
     storefront.store.filter.drawerTitle: 1932297c4cd332cfd513b8348ce1bbb4
-    storefront.store.filter.price: 3601146c4e948c32b6424d2c0a7f0118
+    storefront.store.filter.priceRange: 10dc718bf671ff802edcc013954cd0cb
     storefront.store.filter.min: 78d811e98514cd165dda532286610fd2
     storefront.store.filter.max: 6a061313d22e51e0f25b7cd4dc065233
     storefront.store.filter.availability: faeaec9eda6bc4c8cb6e1a9156a858be
@@ -601,8 +601,8 @@ files:
     storefront.store.filter.sortBy: 33d8042bd735c559cc3206f4bc99aedc
     storefront.store.filter.category: 3adbdb3ac060038aa0e6e6c138ef9873
     storefront.store.filter.reset: 526d688f37a86d3c3f27d0c5016eb71d
-    storefront.store.filter.submit: a4d3b161ce1309df1c4e25df28694b7b
-    storefront.store.filter.cancel: ea4788705e6873b424c65e91c2846b19
+    storefront.store.filter.showResults: 07dd22eed60fd0f04c65361ee267e88a
+    storefront.store.filter.close: d3d2e617335f08df83599665eef8a418
     storefront.store.filter.sortOptions.newest: 88241ddd8e6f8ea848409c02dcd7549d
     storefront.store.filter.sortOptions.cheapest: b35642f0d715e6f26b27984cf4af9a45
     storefront.store.filter.sortOptions.mostExpensive: c1f914617d283d22c0911f0293c10b94
