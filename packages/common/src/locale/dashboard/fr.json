@@ -627,8 +627,8 @@
             "image": "Image"
           },
           "trackStock": {
-            "label": "Suivre le stock",
-            "description": "Désactivez pour que cette variante soit toujours disponible, quel que soit le stock."
+            "label": "Suivi du stock",
+            "description": "Désactiver pour toujours afficher cette variante comme disponible, quel que soit le nombre en stock."
           },
           "imagePicker": {
             "title": "Choose image",
