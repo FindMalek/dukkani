@@ -304,6 +304,7 @@ files:
     products.list.stockInfo: 899f890c87d8722251222154ac5a73fb
     products.list.stockInfoNoVariants: 70d366e9a8c8119c9bbf785fa86c7387
     products.list.stockCount: 557ecb607610c52e8d3820924edff636
+    products.list.inStock: fcebe56087b9373f15514831184fa572
     products.list.variantCount: ef8326aac0e6c311ebcf8717cd0764a3
     products.list.noVariants: 4b2492f2a54a5d602c3c7808db182c6b
     products.list.outOfStock: b55197a49e8c4cd8c314bc2aa39d6feb
@@ -435,6 +436,8 @@ files:
     products.create.form.variants.edit.stock: 27ce7f8b5623b2e2df568d64cf051607
     products.create.form.variants.editSheet.title: 67c2b451944a401c1764729b64882428
     products.create.form.variants.editSheet.image: be53a0541a6d36f6ecb879fa2c584b08
+    products.create.form.variants.trackStock.label: 92f6477e2f2d7c4e2f5079d2389f0592
+    products.create.form.variants.trackStock.description: 992f7ca7f28ba97a5ef1a2dd4c78b4b4
     products.create.form.variants.imagePicker.title: 5a31ca938eff79f9dd79786b57b19173
     products.create.form.variants.imagePicker.noImage: 9dd7104e68d1b5f994264b9387c9d271
     products.create.form.variants.matrix.title: 3732d658944ca4a625e781d606b47f92
@@ -450,6 +453,7 @@ files:
     products.create.form.variants.matrix.variantCount: c79b9272ef78d80aa9bb4f62b84e57ed
     products.create.form.variants.matrix.inStock: 93d114d0343fa34f5f70862b31ef38a2
     products.create.form.variants.matrix.outOfStock: b55197a49e8c4cd8c314bc2aa39d6feb
+    products.create.form.variants.matrix.notTracked: 8a2783fbb97e18d8f3dd2a823cd16acf
     products.create.form.variants.validation.duplicateOptionName: 49a2c0f863776472930cb7ae34972472
     products.create.form.variants.validation.duplicateOptionValues: cab31c2e09b281b7fb4068cc9e52456a
     products.create.form.variants.validation.duplicateValue: 6a865b75e7fa0d6efffc21041a2d6a56
