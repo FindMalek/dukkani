@@ -39,13 +39,15 @@ export function CustomerDetailSkeleton() {
                 <Skeleton className="h-4 w-24" />
                 <Skeleton className="h-3 w-16" />
               </div>
-              <Skeleton className="h-5 w-16 rounded-full" />
+              <div className="flex shrink-0 items-center gap-2">
+                <Skeleton className="h-5 w-16 rounded-full" />
+                <Skeleton className="h-4 w-12" />
+              </div>
             </div>
           ))}
         </div>
 
         <div className="rounded-xl border bg-card p-3 shadow-sm xl:[grid-area:contact]">
-          <Skeleton className="mb-1.5 h-2.5 w-16" />
           <div className="flex items-center justify-between gap-2">
             <Skeleton className="h-4 w-28" />
             <Skeleton className="h-8 w-20 rounded-md" />

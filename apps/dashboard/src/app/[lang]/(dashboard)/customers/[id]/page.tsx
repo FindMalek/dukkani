@@ -12,7 +12,7 @@ import {
 } from "@dukkani/ui/components/alert-dialog";
 import { cn } from "@dukkani/ui/lib/utils";
 import { notFound, useParams, useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import { CustomerDetailContactCard } from "@/components/app/customers/customer-detail-contact-card";
 import { CustomerDetailErrorState } from "@/components/app/customers/customer-detail-error-state";
@@ -33,6 +33,7 @@ export default function CustomerDetailPage() {
   const params = useParams();
   const router = useRouter();
   const t = useTranslations("customers.detail");
+  const format = useFormatter();
   const customerId = getDynamicRouteParam(params, "id");
   const formatPrice = useFormatPriceForActiveStore();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -97,9 +98,10 @@ export default function CustomerDetailPage() {
           totalSpentFormatted={formatPrice(customer.totalSpent)}
           orderCount={customer.orderCount}
           avgOrderValueFormatted={formatPrice(customer.avgOrderValue)}
-          customerSinceFormatted={new Date(
-            customer.createdAt,
-          ).toLocaleDateString()}
+          customerSinceFormatted={format.dateTime(
+            new Date(customer.createdAt),
+            { dateStyle: "medium" },
+          )}
         />
 
         <CustomerDetailOrdersCard
