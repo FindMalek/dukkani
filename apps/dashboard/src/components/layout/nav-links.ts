@@ -24,8 +24,8 @@ export function isActiveRoute(
   exact = false,
 ): boolean {
   const current = pathWithoutLocale(currentPath);
-  if (exact) {
+  if (exact || targetPath === "/") {
     return current === targetPath;
   }
-  return current.startsWith(targetPath);
+  return current === targetPath || current.startsWith(`${targetPath}/`);
 }

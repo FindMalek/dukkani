@@ -14,6 +14,7 @@ import {
   useSidebar,
 } from "@dukkani/ui/components/sidebar";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { RoutePaths } from "@/shared/config/routes";
 
 /**
@@ -24,6 +25,7 @@ import { RoutePaths } from "@/shared/config/routes";
  */
 export function NavCreateAction() {
   const { isMobile } = useSidebar();
+  const t = useTranslations("dashboard.sidebar");
 
   return (
     <SidebarMenu>
@@ -31,11 +33,11 @@ export function NavCreateAction() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
-              tooltip="Create"
+              tooltip={t("create")}
               className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
             >
               <Icons.plus />
-              <span>Create</span>
+              <span>{t("create")}</span>
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent

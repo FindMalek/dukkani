@@ -49,7 +49,11 @@ export function AppSidebar() {
           <SidebarMenu>
             {mainNavLinks.map((item) => {
               const Icon = item.icon;
-              const isActive = isActiveRoute(pathname, item.url, true);
+              const isActive = isActiveRoute(
+                pathname,
+                item.url,
+                item.url === "/",
+              );
 
               return (
                 <SidebarMenuItem key={item.url}>

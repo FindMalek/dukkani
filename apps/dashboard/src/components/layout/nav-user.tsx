@@ -30,7 +30,10 @@ import { appQueries } from "@/shared/api/queries";
 import { RoutePaths } from "@/shared/config/routes";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 
-function getInitials(name: string): string {
+function getInitials(name?: string | null): string {
+  if (!name) {
+    return "?";
+  }
   const parts = name.trim().split(/\s+/).filter(Boolean);
   if (parts.length === 0) {
     return "?";

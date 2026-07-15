@@ -46,10 +46,10 @@ function useSidebarIsMobile() {
       `(max-width: ${SIDEBAR_MOBILE_BREAKPOINT - 1}px)`,
     );
     const onChange = () => {
-      setIsMobile(window.innerWidth < SIDEBAR_MOBILE_BREAKPOINT);
+      setIsMobile(mql.matches);
     };
     mql.addEventListener("change", onChange);
-    setIsMobile(window.innerWidth < SIDEBAR_MOBILE_BREAKPOINT);
+    setIsMobile(mql.matches);
     return () => mql.removeEventListener("change", onChange);
   }, []);
 

@@ -113,11 +113,8 @@ const DYNAMIC_ID_MARKER = "___DYNAMIC_ID___" as const;
  */
 export function pathWithoutLocale(pathname: string): string {
   const parts = pathname.split("/").filter(Boolean);
-  if (parts.length < 2) {
-    if (parts.length === 0) {
-      return "/";
-    }
-    return `/${parts[0]}`;
+  if (parts.length <= 1) {
+    return "/";
   }
   return `/${parts.slice(1).join("/")}`;
 }

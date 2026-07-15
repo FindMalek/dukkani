@@ -18,9 +18,7 @@ import { useState } from "react";
 import { authClient } from "@/shared/api/auth-client";
 import { RoutePaths } from "@/shared/config/routes";
 
-interface LogoutButtonProps {
-  variant?: React.ComponentProps<typeof Button>["variant"];
-  className?: string;
+interface LogoutButtonProps extends React.ComponentProps<typeof Button> {
   /** Overrides the default "Log out" label — e.g. an icon for a menu item. */
   children?: React.ReactNode;
 }
@@ -29,7 +27,8 @@ export function LogoutButton({
   variant = "destructive",
   className,
   children,
-}: LogoutButtonProps = {}) {
+  ...props
+}: LogoutButtonProps) {
   const router = useRouter();
   const t = useTranslations("settings.logout");
   const [isPending, setIsPending] = useState(false);
@@ -52,7 +51,11 @@ export function LogoutButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant={variant} className={className ?? "w-full sm:w-auto"}>
+        <Button
+          variant={variant}
+          className={className ?? "w-full sm:w-auto"}
+          {...props}
+        >
           {children ?? t("button")}
         </Button>
       </AlertDialogTrigger>

@@ -17,7 +17,7 @@ export function BottomNavigation() {
     <nav className="fixed right-0 bottom-0 left-0 flex items-center justify-around border-border border-t bg-card px-4 py-3 xl:hidden">
       {mainNavLinks.map((item) => {
         const Icon = item.icon;
-        const isActive = isActiveRoute(pathname, item.url, true);
+        const isActive = isActiveRoute(pathname, item.url, item.url === "/");
         return (
           <Link
             key={item.url}
