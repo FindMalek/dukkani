@@ -10,6 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@dukkani/ui/components/alert-dialog";
+import { cn } from "@dukkani/ui/lib/utils";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -75,7 +76,7 @@ export default function CustomerDetailPage() {
   };
 
   return (
-    <div className="container mx-auto max-w-2xl space-y-2 p-3 pb-8">
+    <div className="container mx-auto max-w-2xl p-3 pb-8 xl:max-w-6xl">
       <CustomerDetailHeader
         title={customer.name}
         contactHref={contactHref}
@@ -84,34 +85,51 @@ export default function CustomerDetailPage() {
         onDeleteRequest={() => setDeleteDialogOpen(true)}
       />
 
-      <CustomerDetailSummaryCard
-        totalSpentFormatted={formatPrice(customer.totalSpent)}
-        orderCount={customer.orderCount}
-        avgOrderValueFormatted={formatPrice(customer.avgOrderValue)}
-        customerSinceFormatted={new Date(
-          customer.createdAt,
-        ).toLocaleDateString()}
-      />
+      <div
+        className={cn(
+          "mt-2 space-y-2",
+          "xl:grid xl:grid-cols-3 xl:items-start xl:gap-4 xl:space-y-0",
+          "xl:[grid-template-areas:'summary_summary_contact'_'orders_orders_locations'_'orders_orders_notes']",
+        )}
+      >
+        <CustomerDetailSummaryCard
+          className="xl:[grid-area:summary]"
+          totalSpentFormatted={formatPrice(customer.totalSpent)}
+          orderCount={customer.orderCount}
+          avgOrderValueFormatted={formatPrice(customer.avgOrderValue)}
+          customerSinceFormatted={new Date(
+            customer.createdAt,
+          ).toLocaleDateString()}
+        />
 
-      <CustomerDetailContactCard
-        phone={customer.phone}
-        contactHref={contactHref}
-        isWhatsApp={customer.prefersWhatsApp}
-        isWaLink={isWaLink}
-        callLabel={t("call")}
-        whatsappLabel={t("whatsapp")}
-        currentName={customer.name}
-        nameVariants={customer.nameVariants}
-      />
+        <CustomerDetailOrdersCard
+          className="xl:[grid-area:orders]"
+          orders={customer.orders}
+        />
 
-      <CustomerDetailLocationsCard addresses={customer.addresses} />
+        <CustomerDetailContactCard
+          className="xl:[grid-area:contact]"
+          phone={customer.phone}
+          contactHref={contactHref}
+          isWhatsApp={customer.prefersWhatsApp}
+          isWaLink={isWaLink}
+          callLabel={t("call")}
+          whatsappLabel={t("whatsapp")}
+          currentName={customer.name}
+          nameVariants={customer.nameVariants}
+        />
 
-      <CustomerDetailOrdersCard orders={customer.orders} />
+        <CustomerDetailLocationsCard
+          className="xl:[grid-area:locations]"
+          addresses={customer.addresses}
+        />
 
-      <CustomerDetailNotesCard
-        customerId={customer.id}
-        notes={customer.notes}
-      />
+        <CustomerDetailNotesCard
+          className="xl:[grid-area:notes]"
+          customerId={customer.id}
+          notes={customer.notes}
+        />
+      </div>
 
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>

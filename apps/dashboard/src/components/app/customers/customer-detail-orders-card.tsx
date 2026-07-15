@@ -6,6 +6,7 @@ import {
 } from "@dukkani/common/entities/order/entity";
 import type { CustomerIncludeOutput } from "@dukkani/common/schemas/customer/output";
 import { Badge } from "@dukkani/ui/components/badge";
+import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { RoutePaths } from "@/shared/config/routes";
@@ -13,10 +14,12 @@ import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.ho
 
 interface CustomerDetailOrdersCardProps {
   orders: CustomerIncludeOutput["orders"];
+  className?: string;
 }
 
 export function CustomerDetailOrdersCard({
   orders,
+  className,
 }: CustomerDetailOrdersCardProps) {
   const t = useTranslations("customers.detail.orders");
   const tOrderList = useTranslations("orders.list");
@@ -24,7 +27,7 @@ export function CustomerDetailOrdersCard({
   const formatPrice = useFormatPriceForActiveStore();
 
   return (
-    <div className="rounded-xl border bg-card p-3 shadow-sm">
+    <div className={cn("rounded-xl border bg-card p-3 shadow-sm", className)}>
       <p className="mb-2 font-medium text-muted-foreground text-xs">
         {t("title")}
       </p>

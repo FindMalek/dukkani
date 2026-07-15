@@ -1,17 +1,20 @@
 "use client";
 
 import { Textarea } from "@dukkani/ui/components/textarea";
+import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
 import { useNotesAutosave } from "@/shared/lib/customer/use-notes-autosave.hook";
 
 interface CustomerDetailNotesCardProps {
   customerId: string;
   notes: string | null;
+  className?: string;
 }
 
 export function CustomerDetailNotesCard({
   customerId,
   notes,
+  className,
 }: CustomerDetailNotesCardProps) {
   const t = useTranslations("customers.detail.notes");
   const { value, onChange, isSaving, isSaved } = useNotesAutosave(
@@ -20,7 +23,7 @@ export function CustomerDetailNotesCard({
   );
 
   return (
-    <div className="rounded-xl border bg-card p-3 shadow-sm">
+    <div className={cn("rounded-xl border bg-card p-3 shadow-sm", className)}>
       <div className="mb-2 flex items-center justify-between">
         <p className="font-medium text-muted-foreground text-xs">
           {t("title")}
