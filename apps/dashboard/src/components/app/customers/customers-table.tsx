@@ -2,6 +2,7 @@
 
 import type { CustomerListItemOutput } from "@dukkani/common/schemas/customer/output";
 import { Badge } from "@dukkani/ui/components/badge";
+import { Button } from "@dukkani/ui/components/button";
 import { Checkbox } from "@dukkani/ui/components/checkbox";
 import { FlagComponent, getPhoneCountry } from "@dukkani/ui/components/country";
 import { Icons } from "@dukkani/ui/components/icons";
@@ -135,7 +136,10 @@ function CustomersTableRow({
         </TableCell>
       )}
       <TableCell className="max-w-xs whitespace-normal">
-        <p className="line-clamp-1 font-medium text-foreground/90">
+        <p
+          className="line-clamp-1 font-medium text-foreground/90"
+          title={customer.name}
+        >
           {customer.name}
         </p>
       </TableCell>
@@ -169,16 +173,18 @@ function CustomersTableRow({
         onClick={(e) => e.stopPropagation()}
         onPointerDown={(e) => e.stopPropagation()}
       >
-        <button
+        <Button
           type="button"
-          className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
+          variant="ghost"
+          size="icon-sm"
+          className="text-muted-foreground"
           aria-label={t("viewCustomer", { name: customer.name })}
           onClick={() =>
             router.push(RoutePaths.CUSTOMERS.DETAIL.url(customer.id))
           }
         >
           <Icons.chevronRight className="size-4" />
-        </button>
+        </Button>
       </TableCell>
     </TableRow>
   );
