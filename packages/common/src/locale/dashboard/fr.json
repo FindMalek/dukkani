@@ -297,6 +297,16 @@
         "pickDateRange": "Choisir une plage de dates",
         "from": "De",
         "to": "À"
+      },
+      "loading": "Chargement des commandes…",
+      "table": {
+        "orderNumber": "Commande",
+        "customer": "Client",
+        "date": "Date",
+        "status": "Statut",
+        "items": "Articles",
+        "total": "Total",
+        "actions": "Actions"
       }
     },
     "detail": {

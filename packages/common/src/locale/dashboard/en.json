@@ -293,6 +293,16 @@
         "pickDateRange": "Pick a date range",
         "from": "From",
         "to": "To"
+      },
+      "loading": "Loading orders…",
+      "table": {
+        "orderNumber": "Order",
+        "customer": "Customer",
+        "date": "Date",
+        "status": "Status",
+        "items": "Items",
+        "total": "Total",
+        "actions": "Actions"
       }
     },
     "detail": {

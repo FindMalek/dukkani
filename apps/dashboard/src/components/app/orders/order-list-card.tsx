@@ -1,10 +1,6 @@
 "use client";
 
 import { AddressEntity } from "@dukkani/common/entities/address/entity";
-import {
-  ORDER_STATUS_BADGE_VARIANT,
-  OrderEntity,
-} from "@dukkani/common/entities/order/entity";
 import type { OrderListItemOutput } from "@dukkani/common/schemas/order/output";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
@@ -15,7 +11,7 @@ import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { appMutations } from "@/shared/api/mutations";
 import { RoutePaths } from "@/shared/config/routes";
-import { getItemsCount, getOrderTotal } from "@/shared/lib/order/order.util";
+import { useOrderListItemView } from "@/shared/lib/order/list-item-view.hook";
 import { getContactHref } from "@/shared/lib/phone/contact-href.util";
 import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 
@@ -28,16 +24,16 @@ export function OrderListCard({ order }: OrderListCardProps) {
   const router = useRouter();
   const updateStatusMutation = useMutation(appMutations.order.updateStatus());
 
-  const total = getOrderTotal(order);
-  const itemsCount = getItemsCount(order);
-  const paymentLabel = t(
-    OrderEntity.getPaymentMethodLabelKey(order.paymentMethod),
-  );
-  const badgeVariant = ORDER_STATUS_BADGE_VARIANT[order.status] ?? "outline";
-  const statusTranslationKey = OrderEntity.getStatusLabelKey(order.status);
-  const nextStatus = OrderEntity.getNextStatus(order.status);
+  const {
+    total,
+    itemsCount,
+    paymentLabel,
+    badgeVariant,
+    statusLabel,
+    nextStatus,
+    canAdvance,
+  } = useOrderListItemView(order);
   const canCall = !!order.customer?.phone;
-  const canAdvance = nextStatus !== null;
   const isPending = updateStatusMutation.isPending;
   const formatPrice = useFormatPriceForActiveStore();
 
@@ -93,7 +89,7 @@ export function OrderListCard({ order }: OrderListCardProps) {
             {order.customer?.name ?? "—"}
           </h3>
           <Badge variant={badgeVariant} className="shrink-0 font-normal">
-            {t(statusTranslationKey)}
+            {statusLabel}
           </Badge>
         </div>
 

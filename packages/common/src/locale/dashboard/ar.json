@@ -293,6 +293,16 @@
         "pickDateRange": "اختر نطاق تاريخ",
         "from": "من",
         "to": "إلى"
+      },
+      "loading": "جارٍ تحميل الطلبات…",
+      "table": {
+        "orderNumber": "الطلب",
+        "customer": "العميل",
+        "date": "التاريخ",
+        "status": "الحالة",
+        "items": "العناصر",
+        "total": "الإجمالي",
+        "actions": "الإجراءات"
       }
     },
     "detail": {

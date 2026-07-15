@@ -13,6 +13,7 @@ import {
   EmptyMedia,
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
+import { InputGroupButton } from "@dukkani/ui/components/input-group";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
@@ -21,6 +22,8 @@ import { OrdersListSkeleton } from "@/components/app/orders/orders-list-skeleton
 import { OrdersPageHeader } from "@/components/app/orders/orders-page-header";
 import { OrdersSearchBar } from "@/components/app/orders/orders-search-bar";
 import { OrdersStatusTabs } from "@/components/app/orders/orders-status-tabs";
+import { OrdersTable } from "@/components/app/orders/orders-table";
+import { OrdersTableSkeleton } from "@/components/app/orders/orders-table-skeleton";
 import { useOrdersController } from "@/shared/lib/order/controller.hook";
 import {
   getOrderListDisplaySections,
@@ -84,7 +87,12 @@ export default function OrdersPage() {
 
   let listBody: ReactNode;
   if (isLoading) {
-    listBody = <OrdersListSkeleton />;
+    listBody = (
+      <>
+        <OrdersListSkeleton />
+        <OrdersTableSkeleton />
+      </>
+    );
   } else if (!data?.orders?.length) {
     listBody = (
       <Empty className="border bg-muted/30">
@@ -97,7 +105,16 @@ export default function OrdersPage() {
       </Empty>
     );
   } else {
-    listBody = <OrdersGroupedList sections={sections} />;
+    listBody = (
+      <>
+        {/* Cards below xl:, grouped table at xl: and up — see OrdersTable for
+        how date grouping is preserved as row-group headers on desktop. */}
+        <div className="xl:hidden">
+          <OrdersGroupedList sections={sections} />
+        </div>
+        <OrdersTable sections={sections} />
+      </>
+    );
   }
 
   return (
@@ -111,21 +128,30 @@ export default function OrdersPage() {
         <OrdersSearchBar
           value={search}
           onChange={setSearch}
-          onFilterClick={() => setFilterDrawerOpen(true)}
-          filterActive={filterActive}
+          filterTrigger={
+            <OrdersFilterDrawer
+              trigger={
+                <InputGroupButton
+                  type="button"
+                  variant={filterActive ? "default" : "ghost"}
+                  size="icon-sm"
+                  aria-label={t("filterDrawer.title")}
+                >
+                  <Icons.slidersHorizontal className="size-4" />
+                </InputGroupButton>
+              }
+              open={filterDrawerOpen}
+              onOpenChange={setFilterDrawerOpen}
+              status={status}
+              dateRange={dateRange}
+              setStatus={setStatus}
+              setDateRange={setDateRange}
+              resetFilters={resetFilters}
+            />
+          }
         />
         <OrdersStatusTabs value={status} onChange={setStatus} />
       </div>
-
-      <OrdersFilterDrawer
-        open={filterDrawerOpen}
-        onOpenChange={setFilterDrawerOpen}
-        status={status}
-        dateRange={dateRange}
-        setStatus={setStatus}
-        setDateRange={setDateRange}
-        resetFilters={resetFilters}
-      />
 
       {listBody}
     </div>
