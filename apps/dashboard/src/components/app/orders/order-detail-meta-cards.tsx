@@ -1,17 +1,20 @@
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
+import { cn } from "@dukkani/ui/lib/utils";
 
 export function OrderDetailMetaCards({
   paymentLabel,
   itemsLine,
   columnLabels,
+  className,
 }: {
   paymentLabel: string;
   itemsLine: string;
   columnLabels: { payment: string; items: string };
+  className?: string;
 }) {
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className={cn("grid grid-cols-2 gap-2", className)}>
       <Card className="gap-0 py-0 shadow-sm">
         <div className="flex items-center gap-2.5 p-3">
           <Icons.payments className="size-4 shrink-0 text-muted-foreground" />

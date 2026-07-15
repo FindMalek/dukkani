@@ -1,8 +1,9 @@
 import type { OrderIncludeOutput } from "@dukkani/common/schemas/order/output";
 import { Card } from "@dukkani/ui/components/card";
-import Image from "next/image";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Separator } from "@dukkani/ui/components/separator";
+import { cn } from "@dukkani/ui/lib/utils";
+import Image from "next/image";
 
 type LineItem = NonNullable<OrderIncludeOutput["orderItems"]>[number];
 
@@ -14,6 +15,7 @@ export function OrderDetailItemsCard({
   formatPrice,
   labels,
   itemCountLine,
+  className,
 }: {
   orderItems: LineItem[] | undefined;
   subtotal: number;
@@ -27,9 +29,10 @@ export function OrderDetailItemsCard({
     total: string;
   };
   itemCountLine: (quantity: number) => string;
+  className?: string;
 }) {
   return (
-    <Card className="gap-0 py-0 shadow-sm">
+    <Card className={cn("gap-0 py-0 shadow-sm", className)}>
       <div className="p-3">
         <p className="mb-1.5 font-medium text-muted-foreground text-xs">
           {labels.orderItems}

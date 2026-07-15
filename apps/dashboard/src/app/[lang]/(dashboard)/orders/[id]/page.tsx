@@ -1,6 +1,7 @@
 "use client";
 
 import { OrderEntity } from "@dukkani/common/entities/order/entity";
+import { Badge } from "@dukkani/ui/components/badge";
 import { cn } from "@dukkani/ui/lib/utils";
 import { notFound, useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -96,63 +97,84 @@ export default function OrderDetailPage() {
     <>
       <div
         className={cn(
-          "container mx-auto max-w-2xl space-y-2 p-3",
+          "container mx-auto max-w-2xl p-3 xl:max-w-6xl",
           showFooter ? "pb-24" : "pb-3",
         )}
       >
-        <OrderDetailHeader title={t("title")} titleClassName="text-base" />
-
-        <OrderDetailSummary
-          badgeVariant={badgeVariant}
-          orderId={order.id}
-          orderMetaLine={formattedDate}
-          statusLabel={tList(statusKey)}
-          totalFormatted={formatPrice(total)}
+        <OrderDetailHeader
+          title={t("title")}
+          titleClassName="text-base"
+          endSlot={
+            <Badge className="hidden xl:inline-flex" variant={badgeVariant}>
+              {tList(statusKey)}
+            </Badge>
+          }
         />
 
-        <OrderDetailMetaCards
-          columnLabels={{ items: t("items"), payment: t("payment") }}
-          itemsLine={t("itemsCount", { count: itemsCount })}
-          paymentLabel={tList(paymentKey)}
-        />
-
-        {order.customer && (
-          <OrderDetailCustomerCard
-            name={order.customer.name}
-            phone={phone}
-            callAriaLabel={callActionLabel}
-            openWhatsAppAriaLabel={t("openWhatsApp")}
-            contactHref={contactHref}
-            isWaLink={isWaLink}
-            isWhatsApp={isWhatsApp}
-            sectionLabel={t("customer")}
+        <div
+          className={cn(
+            "mt-2 space-y-2",
+            "xl:grid xl:grid-cols-3 xl:items-start xl:gap-4 xl:space-y-0",
+            "xl:[grid-template-areas:'summary_summary_customer'_'items_items_delivery'_'items_items_meta']",
+          )}
+        >
+          <OrderDetailSummary
+            badgeVariant={badgeVariant}
+            className="xl:[grid-area:summary]"
+            orderId={order.id}
+            orderMetaLine={formattedDate}
+            statusLabel={tList(statusKey)}
+            totalFormatted={formatPrice(total)}
           />
-        )}
 
-        {order.address && (
-          <OrderDetailDeliveryCard
-            city={order.address.city}
-            labels={{ deliveryAddress: t("deliveryAddress") }}
-            notes={order.notes}
-            postalCode={order.address.postalCode}
-            street={order.address.street}
+          <OrderDetailMetaCards
+            className="xl:[grid-area:meta]"
+            columnLabels={{ items: t("items"), payment: t("payment") }}
+            itemsLine={t("itemsCount", { count: itemsCount })}
+            paymentLabel={tList(paymentKey)}
           />
-        )}
 
-        <OrderDetailItemsCard
-          deliveryFee={deliveryFee}
-          formatPrice={formatPrice}
-          itemCountLine={(n) => t("itemsCount", { count: n })}
-          labels={{
-            delivery: t("delivery"),
-            orderItems: t("orderItems"),
-            subtotal: t("subtotal"),
-            total: t("total"),
-          }}
-          orderItems={order.orderItems}
-          subtotal={subtotal}
-          total={total}
-        />
+          {order.customer && (
+            <OrderDetailCustomerCard
+              callAriaLabel={callActionLabel}
+              className="xl:[grid-area:customer]"
+              contactHref={contactHref}
+              isWaLink={isWaLink}
+              isWhatsApp={isWhatsApp}
+              name={order.customer.name}
+              openWhatsAppAriaLabel={t("openWhatsApp")}
+              phone={phone}
+              sectionLabel={t("customer")}
+            />
+          )}
+
+          {order.address && (
+            <OrderDetailDeliveryCard
+              city={order.address.city}
+              className="xl:[grid-area:delivery]"
+              labels={{ deliveryAddress: t("deliveryAddress") }}
+              notes={order.notes}
+              postalCode={order.address.postalCode}
+              street={order.address.street}
+            />
+          )}
+
+          <OrderDetailItemsCard
+            className="xl:[grid-area:items]"
+            deliveryFee={deliveryFee}
+            formatPrice={formatPrice}
+            itemCountLine={(n) => t("itemsCount", { count: n })}
+            labels={{
+              delivery: t("delivery"),
+              orderItems: t("orderItems"),
+              subtotal: t("subtotal"),
+              total: t("total"),
+            }}
+            orderItems={order.orderItems}
+            subtotal={subtotal}
+            total={total}
+          />
+        </div>
       </div>
 
       {showFooter && (
