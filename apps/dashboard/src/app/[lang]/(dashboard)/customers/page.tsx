@@ -92,6 +92,7 @@ export default function CustomersPage() {
         open={filterDrawerOpen}
         onOpenChange={setFilterDrawerOpen}
         governorates={governorates}
+        counts={governorateCountsData?.counts ?? []}
         sortBy={sortBy}
         setGovernorates={setGovernorates}
         setSortBy={setSortBy}

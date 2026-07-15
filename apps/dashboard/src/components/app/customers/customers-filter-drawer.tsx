@@ -1,6 +1,5 @@
 "use client";
 
-import { LIST_GOVERNORATES } from "@dukkani/common/schemas/enums";
 import type { CustomerSort } from "@dukkani/common/schemas/customer/input";
 import type { GovernorateInfer } from "@dukkani/common/schemas/enums";
 import { Button } from "@dukkani/ui/components/button";
@@ -14,7 +13,7 @@ import {
 import { Label } from "@dukkani/ui/components/label";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const SORT_OPTIONS: CustomerSort[] = [
   "recent",
@@ -27,6 +26,7 @@ interface CustomersFilterDrawerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   governorates: GovernorateInfer[];
+  counts: { governorate: GovernorateInfer; count: number }[];
   sortBy: CustomerSort;
   setGovernorates: (value: GovernorateInfer[]) => void;
   setSortBy: (value: CustomerSort) => void;
@@ -37,6 +37,7 @@ export function CustomersFilterDrawer({
   open,
   onOpenChange,
   governorates,
+  counts,
   sortBy,
   setGovernorates,
   setSortBy,
@@ -48,6 +49,25 @@ export function CustomersFilterDrawer({
   const [draftGovernorates, setDraftGovernorates] =
     useState<GovernorateInfer[]>(governorates);
   const [draftSortBy, setDraftSortBy] = useState<CustomerSort>(sortBy);
+
+  // Governorates with zero customers are excluded from `counts` (the query
+  // GROUPs BY governorate, so empty ones never appear). If a governorate was
+  // selected before its last customer was removed/moved, it may no longer be
+  // in `counts` — keep it in the draft selection (don't silently clear the
+  // merchant's active filter) but don't offer it as a new option beyond the
+  // toggle needed to deselect it.
+  const governorateOptions = useMemo(() => {
+    const options = counts.map(({ governorate, count }) => ({
+      governorate,
+      count: count as number | undefined,
+    }));
+    for (const governorate of draftGovernorates) {
+      if (!counts.some((c) => c.governorate === governorate)) {
+        options.push({ governorate, count: undefined });
+      }
+    }
+    return options;
+  }, [counts, draftGovernorates]);
 
   useEffect(() => {
     if (open) {
@@ -89,7 +109,7 @@ export function CustomersFilterDrawer({
           <div className="space-y-2">
             <p className="font-medium text-sm">{t("governorate")}</p>
             <div className="flex flex-wrap gap-2">
-              {LIST_GOVERNORATES.map((governorate) => {
+              {governorateOptions.map(({ governorate, count }) => {
                 const isActive = draftGovernorates.includes(governorate);
                 return (
                   <Button
@@ -99,6 +119,9 @@ export function CustomersFilterDrawer({
                     onClick={() => toggleDraftGovernorate(governorate)}
                   >
                     {tGov(governorate)}
+                    {count !== undefined && (
+                      <span className="ms-1 font-bold">{count}</span>
+                    )}
                   </Button>
                 );
               })}
