@@ -29,6 +29,8 @@ import { ProductsListSkeleton } from "@/components/app/products/products-list-sk
 import { ProductsPageHeader } from "@/components/app/products/products-page-header";
 import { ProductsSearchBar } from "@/components/app/products/products-search-bar";
 import { ProductsStatusTabs } from "@/components/app/products/products-status-tabs";
+import { ProductsTable } from "@/components/app/products/products-table";
+import { ProductsTableSkeleton } from "@/components/app/products/products-table-skeleton";
 import { RoutePaths } from "@/shared/config/routes";
 import { useProductsController } from "@/shared/lib/product/controller.hook";
 
@@ -129,20 +131,30 @@ export default function ProductsPage() {
         resetFilters={resetFilters}
       />
 
-      {/* Product List */}
+      {/* Product List — cards below xl:, table at xl: and up */}
       {isLoading ? (
-        <ProductsListSkeleton />
+        <>
+          <ProductsListSkeleton />
+          <ProductsTableSkeleton />
+        </>
       ) : data && data.products.length > 0 ? (
-        <div className="space-y-3">
-          {data.products.map((product) => (
-            <ProductListCard
-              key={product.id}
-              product={product}
-              onDelete={handleDeleteRequest}
-              onTogglePublish={handleTogglePublish}
-            />
-          ))}
-        </div>
+        <>
+          <div className="space-y-3 xl:hidden">
+            {data.products.map((product) => (
+              <ProductListCard
+                key={product.id}
+                product={product}
+                onDelete={handleDeleteRequest}
+                onTogglePublish={handleTogglePublish}
+              />
+            ))}
+          </div>
+          <ProductsTable
+            products={data.products}
+            onDelete={handleDeleteRequest}
+            onTogglePublish={handleTogglePublish}
+          />
+        </>
       ) : (
         <Empty className="border bg-muted/30">
           <EmptyHeader>

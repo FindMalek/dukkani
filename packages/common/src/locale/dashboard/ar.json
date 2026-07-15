@@ -490,6 +490,15 @@
         "deleteConfirmTitle": "هل تريد حذف المنتج؟",
         "deleteConfirmDescription": "لا يمكن التراجع عن هذا الإجراء.",
         "cancel": "إلغاء"
+      },
+      "loading": "جارٍ تحميل المنتجات…",
+      "table": {
+        "image": "الصورة",
+        "name": "الاسم",
+        "price": "السعر",
+        "stock": "المخزون",
+        "status": "الحالة",
+        "actions": "الإجراءات"
       }
     },
     "create": {
