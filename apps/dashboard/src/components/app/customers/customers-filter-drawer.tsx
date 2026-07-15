@@ -53,21 +53,24 @@ export function CustomersFilterDrawer({
   // Governorates with zero customers are excluded from `counts` (the query
   // GROUPs BY governorate, so empty ones never appear). If a governorate was
   // selected before its last customer was removed/moved, it may no longer be
-  // in `counts` — keep it in the draft selection (don't silently clear the
-  // merchant's active filter) but don't offer it as a new option beyond the
-  // toggle needed to deselect it.
+  // in `counts` — keep it visible as an option (don't silently drop the
+  // merchant's active filter) but don't offer it as a brand-new option beyond
+  // that. We source the extra governorates from the applied `governorates`
+  // prop (not `draftGovernorates`): the prop only changes on "Apply", so a
+  // mid-interaction deselect of a zero-count governorate keeps its button
+  // visible (inactive) instead of vanishing before the user confirms.
   const governorateOptions = useMemo(() => {
     const options = counts.map(({ governorate, count }) => ({
       governorate,
       count: count as number | undefined,
     }));
-    for (const governorate of draftGovernorates) {
+    for (const governorate of governorates) {
       if (!counts.some((c) => c.governorate === governorate)) {
         options.push({ governorate, count: undefined });
       }
     }
     return options;
-  }, [counts, draftGovernorates]);
+  }, [counts, governorates]);
 
   useEffect(() => {
     if (open) {
