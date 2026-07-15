@@ -5,7 +5,6 @@ import {
 import type { OrderListItemOutput } from "@dukkani/common/schemas/order/output";
 import { useTranslations } from "next-intl";
 import { useFormatOrderRelativeDateTime } from "@/shared/lib/i18n/use-format-order-relative-datetime";
-import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 import { getItemsCount, getOrderTotal } from "./order.util";
 
 /**
@@ -17,7 +16,6 @@ import { getItemsCount, getOrderTotal } from "./order.util";
  */
 export function useOrderListItemView(order: OrderListItemOutput) {
   const t = useTranslations("orders.list");
-  const formatPrice = useFormatPriceForActiveStore();
   const formattedDate = useFormatOrderRelativeDateTime(order.createdAt);
 
   const total = getOrderTotal(order);

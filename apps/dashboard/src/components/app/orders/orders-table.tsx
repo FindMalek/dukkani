@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@dukkani/ui/components/table";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { RoutePaths } from "@/shared/config/routes";
 import { useOrderListItemView } from "@/shared/lib/order/list-item-view.hook";
@@ -87,18 +87,20 @@ function OrdersTableSectionRows({
 }
 
 function OrdersTableRow({ order }: { order: OrderListItemOutput }) {
-  const router = useRouter();
   const t = useTranslations("orders.list");
   const formatPrice = useFormatPriceForActiveStore();
   const { total, itemsCount, badgeVariant, statusLabel, formattedDate } =
     useOrderListItemView(order);
 
+  const detailUrl = RoutePaths.ORDERS.DETAIL.url(order.id);
+
   return (
-    <TableRow
-      className="cursor-pointer"
-      onClick={() => router.push(RoutePaths.ORDERS.DETAIL.url(order.id))}
-    >
-      <TableCell className="font-medium">#{order.id}</TableCell>
+    <TableRow className="group relative">
+      <TableCell className="font-medium">
+        <Link href={detailUrl} className="after:absolute after:inset-0">
+          #{order.id}
+        </Link>
+      </TableCell>
       <TableCell className="max-w-xs whitespace-normal">
         <p className="line-clamp-1 font-medium text-foreground/90">
           {order.customer?.name ?? "—"}
@@ -116,19 +118,13 @@ function OrdersTableRow({ order }: { order: OrderListItemOutput }) {
       <TableCell className="text-end font-medium">
         {formatPrice(total)}
       </TableCell>
-      <TableCell
-        className="text-end"
-        onClick={(e) => e.stopPropagation()}
-        onPointerDown={(e) => e.stopPropagation()}
-      >
-        <button
-          type="button"
-          className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
-          aria-label={t("viewOrder", { id: order.id })}
-          onClick={() => router.push(RoutePaths.ORDERS.DETAIL.url(order.id))}
+      <TableCell className="relative z-10 text-end">
+        <div
+          className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground group-hover:bg-muted group-hover:text-foreground"
+          aria-hidden="true"
         >
           <Icons.chevronRight className="size-4" />
-        </button>
+        </div>
       </TableCell>
     </TableRow>
   );
