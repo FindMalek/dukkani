@@ -82,6 +82,9 @@ type ResponsivePopoverContentProps = React.ComponentProps<
 function ResponsivePopoverContent({
   className,
   align = "end",
+  side = "bottom",
+  sideOffset = 4,
+  alignOffset = 0,
   children,
   ...props
 }: ResponsivePopoverContentProps) {
@@ -92,6 +95,9 @@ function ResponsivePopoverContent({
       <PopoverContent
         data-slot="responsive-popover-content"
         align={align}
+        side={side}
+        sideOffset={sideOffset}
+        alignOffset={alignOffset}
         className={cn("w-80 max-w-sm p-0", className)}
         {...props}
       >
@@ -104,6 +110,7 @@ function ResponsivePopoverContent({
     <DrawerContent
       data-slot="responsive-popover-content"
       className={cn("max-h-[85vh]", className)}
+      {...props}
     >
       {children}
     </DrawerContent>

@@ -107,7 +107,7 @@ export function ProductsFilterDrawer({
   return (
     <ResponsivePopover open={open} onOpenChange={onOpenChange}>
       <ResponsivePopoverTrigger asChild>{trigger}</ResponsivePopoverTrigger>
-      <ResponsivePopoverContent className="w-96 max-w-md">
+      <ResponsivePopoverContent className="w-full xl:w-96 xl:max-w-md">
         <div className="flex flex-row items-center justify-between border-b p-4">
           <p className="font-semibold text-foreground">{t("title")}</p>
           <Button

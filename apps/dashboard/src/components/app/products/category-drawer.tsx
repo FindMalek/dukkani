@@ -66,7 +66,7 @@ export function CategoryDrawer({
   return (
     <ResponsivePopover open={open} onOpenChange={onOpenChange}>
       <ResponsivePopoverTrigger asChild>{trigger}</ResponsivePopoverTrigger>
-      <ResponsivePopoverContent className="w-96 max-w-md">
+      <ResponsivePopoverContent className="w-full xl:w-96 xl:max-w-md">
         <div className="flex flex-col gap-0.5 border-b p-4">
           <p className="font-semibold text-foreground">
             {t("form.category.create")}
