@@ -11,19 +11,19 @@ import type {
   VariantsFilter,
 } from "@dukkani/common/schemas/product/input";
 import { Button } from "@dukkani/ui/components/button";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from "@dukkani/ui/components/drawer";
 import { Field, FieldLabel } from "@dukkani/ui/components/field";
 import { Input } from "@dukkani/ui/components/input";
+import {
+  ResponsivePopover,
+  ResponsivePopoverContent,
+  ResponsivePopoverTrigger,
+} from "@dukkani/ui/components/responsive-popover";
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 
 interface ProductsFilterDrawerProps {
+  trigger: ReactNode;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   published: PublishedFilter;
@@ -40,6 +40,7 @@ interface ProductsFilterDrawerProps {
 }
 
 export function ProductsFilterDrawer({
+  trigger,
   open,
   onOpenChange,
   published,
@@ -104,10 +105,11 @@ export function ProductsFilterDrawer({
   };
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="max-h-[85vh]">
-        <DrawerHeader className="flex flex-row items-center justify-between">
-          <DrawerTitle>{t("title")}</DrawerTitle>
+    <ResponsivePopover open={open} onOpenChange={onOpenChange}>
+      <ResponsivePopoverTrigger asChild>{trigger}</ResponsivePopoverTrigger>
+      <ResponsivePopoverContent className="w-96 max-w-md">
+        <div className="flex flex-row items-center justify-between border-b p-4">
+          <p className="font-semibold text-foreground">{t("title")}</p>
           <Button
             variant="ghost"
             size="sm"
@@ -116,9 +118,9 @@ export function ProductsFilterDrawer({
           >
             {t("clearAll")}
           </Button>
-        </DrawerHeader>
+        </div>
 
-        <div className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-4">
+        <div className="flex max-h-[60vh] flex-1 flex-col gap-6 overflow-y-auto px-4 py-4">
           {/* Status */}
           <div className="space-y-2">
             <p className="font-medium text-sm">{t("status")}</p>
@@ -211,12 +213,12 @@ export function ProductsFilterDrawer({
           </div>
         </div>
 
-        <DrawerFooter className="flex flex-row gap-2">
+        <div className="flex flex-row gap-2 border-t p-4">
           <Button onClick={handleApply} className="w-full">
             {t("apply")}
           </Button>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        </div>
+      </ResponsivePopoverContent>
+    </ResponsivePopover>
   );
 }
