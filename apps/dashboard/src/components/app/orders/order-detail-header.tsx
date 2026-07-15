@@ -34,9 +34,7 @@ export function OrderDetailHeader({
           {title}
         </h1>
       </div>
-      {endSlot ? (
-        <div className="flex shrink-0 items-center gap-2">{endSlot}</div>
-      ) : null}
+      {endSlot}
     </div>
   );
 }

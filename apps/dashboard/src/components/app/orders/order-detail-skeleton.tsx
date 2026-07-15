@@ -21,7 +21,7 @@ export function OrderDetailSkeleton() {
           )}
         >
           <div className="flex flex-col items-center gap-0.5 py-6 xl:[grid-area:summary]">
-            <Skeleton className="h-6 w-24 rounded-full" />
+            <Skeleton className="h-6 w-24 rounded-full xl:hidden" />
             <Skeleton className="h-10 w-40" />
             <Skeleton className="mt-1 h-3 w-48" />
           </div>

@@ -115,12 +115,11 @@ export default function OrderDetailPage() {
           className={cn(
             "mt-2 space-y-2",
             "xl:grid xl:grid-cols-3 xl:items-start xl:gap-4 xl:space-y-0",
-            "xl:[grid-template-areas:'summary_summary_customer'_'items_items_delivery'_'items_items_meta']",
           )}
         >
           <OrderDetailSummary
             badgeVariant={badgeVariant}
-            className="xl:[grid-area:summary]"
+            className="xl:order-1 xl:col-span-2"
             orderId={order.id}
             orderMetaLine={formattedDate}
             statusLabel={tList(statusKey)}
@@ -128,7 +127,7 @@ export default function OrderDetailPage() {
           />
 
           <OrderDetailMetaCards
-            className="xl:[grid-area:meta]"
+            className="xl:order-4 xl:col-span-1 xl:col-start-3"
             columnLabels={{ items: t("items"), payment: t("payment") }}
             itemsLine={t("itemsCount", { count: itemsCount })}
             paymentLabel={tList(paymentKey)}
@@ -137,7 +136,7 @@ export default function OrderDetailPage() {
           {order.customer && (
             <OrderDetailCustomerCard
               callAriaLabel={callActionLabel}
-              className="xl:[grid-area:customer]"
+              className="xl:order-2 xl:col-span-1 xl:col-start-3"
               contactHref={contactHref}
               isWaLink={isWaLink}
               isWhatsApp={isWhatsApp}
@@ -151,7 +150,7 @@ export default function OrderDetailPage() {
           {order.address && (
             <OrderDetailDeliveryCard
               city={order.address.city}
-              className="xl:[grid-area:delivery]"
+              className="xl:order-3 xl:col-span-1 xl:col-start-3"
               labels={{ deliveryAddress: t("deliveryAddress") }}
               notes={order.notes}
               postalCode={order.address.postalCode}
@@ -160,7 +159,7 @@ export default function OrderDetailPage() {
           )}
 
           <OrderDetailItemsCard
-            className="xl:[grid-area:items]"
+            className="xl:order-5 xl:col-span-2 xl:col-start-1 xl:row-span-2"
             deliveryFee={deliveryFee}
             formatPrice={formatPrice}
             itemCountLine={(n) => t("itemsCount", { count: n })}
