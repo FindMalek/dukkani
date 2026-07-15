@@ -382,7 +382,19 @@
           "lastOrderAt": "Last order date"
         }
       },
-      "ordersCount": "{count, plural, one {# order} other {# orders}}"
+      "ordersCount": "{count, plural, one {# order} other {# orders}}",
+      "loading": "Chargement des clients…",
+      "selectAll": "Tout sélectionner",
+      "viewCustomer": "Voir {name}",
+      "table": {
+        "name": "Nom",
+        "contact": "Contact",
+        "governorate": "Gouvernorat",
+        "orderCount": "Commandes",
+        "totalSpent": "Total dépensé",
+        "lastOrder": "Dernière commande",
+        "actions": "Actions"
+      }
     },
     "detail": {
       "backToCustomers": "Back to customers",

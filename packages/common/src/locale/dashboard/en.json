@@ -378,7 +378,19 @@
           "lastOrderAt": "Last order date"
         }
       },
-      "ordersCount": "{count, plural, one {# order} other {# orders}}"
+      "ordersCount": "{count, plural, one {# order} other {# orders}}",
+      "loading": "Loading customers…",
+      "selectAll": "Select all",
+      "viewCustomer": "View {name}",
+      "table": {
+        "name": "Name",
+        "contact": "Contact",
+        "governorate": "Governorate",
+        "orderCount": "Orders",
+        "totalSpent": "Total spent",
+        "lastOrder": "Last order",
+        "actions": "Actions"
+      }
     },
     "detail": {
       "backToCustomers": "Back to customers",

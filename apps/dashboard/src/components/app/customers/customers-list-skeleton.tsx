@@ -25,7 +25,7 @@ function CustomerListCardSkeleton() {
 
 export function CustomersListSkeleton() {
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 xl:hidden">
       {Array.from({ length: 5 }).map((_, i) => (
         <CustomerListCardSkeleton key={i} />
       ))}

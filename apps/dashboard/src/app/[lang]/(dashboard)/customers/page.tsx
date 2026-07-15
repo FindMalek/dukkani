@@ -9,6 +9,7 @@ import {
   EmptyMedia,
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
+import { InputGroupButton } from "@dukkani/ui/components/input-group";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -19,6 +20,8 @@ import { CustomersListSelectionBar } from "@/components/app/customers/customers-
 import { CustomersListSkeleton } from "@/components/app/customers/customers-list-skeleton";
 import { CustomersPageHeader } from "@/components/app/customers/customers-page-header";
 import { CustomersSearchBar } from "@/components/app/customers/customers-search-bar";
+import { CustomersTable } from "@/components/app/customers/customers-table";
+import { CustomersTableSkeleton } from "@/components/app/customers/customers-table-skeleton";
 import { RoutePaths } from "@/shared/config/routes";
 import { useCustomersController } from "@/shared/lib/customer/controller.hook";
 
@@ -76,8 +79,27 @@ export default function CustomersPage() {
         <CustomersSearchBar
           value={search}
           onChange={setSearch}
-          onFilterClick={() => setFilterDrawerOpen(true)}
-          filterActive={filterActive}
+          filterTrigger={
+            <CustomersFilterDrawer
+              trigger={
+                <InputGroupButton
+                  type="button"
+                  variant={filterActive ? "default" : "ghost"}
+                  size="icon-sm"
+                  aria-label={t("filterDrawer.title")}
+                >
+                  <Icons.slidersHorizontal className="size-4" />
+                </InputGroupButton>
+              }
+              open={filterDrawerOpen}
+              onOpenChange={setFilterDrawerOpen}
+              governorates={governorates}
+              sortBy={sortBy}
+              setGovernorates={setGovernorates}
+              setSortBy={setSortBy}
+              resetFilters={resetFilters}
+            />
+          }
         />
         <CustomersGovernorateChips
           counts={governorateCountsData?.counts ?? []}
@@ -88,30 +110,32 @@ export default function CustomersPage() {
         />
       </div>
 
-      <CustomersFilterDrawer
-        open={filterDrawerOpen}
-        onOpenChange={setFilterDrawerOpen}
-        governorates={governorates}
-        sortBy={sortBy}
-        setGovernorates={setGovernorates}
-        setSortBy={setSortBy}
-        resetFilters={resetFilters}
-      />
-
+      {/* Customer list — cards below xl:, table at xl: and up */}
       {isLoading ? (
-        <CustomersListSkeleton />
+        <>
+          <CustomersListSkeleton />
+          <CustomersTableSkeleton />
+        </>
       ) : customers.length > 0 ? (
-        <div className="space-y-3">
-          {customers.map((customer) => (
-            <CustomerListCard
-              key={customer.id}
-              customer={customer}
-              selectionMode={selection.active}
-              selected={selection.selectedIds.has(customer.id)}
-              onToggleSelect={() => selection.toggle(customer.id)}
-            />
-          ))}
-        </div>
+        <>
+          <div className="space-y-3 xl:hidden">
+            {customers.map((customer) => (
+              <CustomerListCard
+                key={customer.id}
+                customer={customer}
+                selectionMode={selection.active}
+                selected={selection.selectedIds.has(customer.id)}
+                onToggleSelect={() => selection.toggle(customer.id)}
+              />
+            ))}
+          </div>
+          <CustomersTable
+            customers={customers}
+            selectionMode={selection.active}
+            selectedIds={selection.selectedIds}
+            onToggleSelect={selection.toggle}
+          />
+        </>
       ) : (
         <Empty className="border bg-muted/30">
           <EmptyHeader>

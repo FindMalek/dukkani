@@ -10,9 +10,8 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { RoutePaths } from "@/shared/config/routes";
-import { useFormatOrderRelativeDateTime } from "@/shared/lib/i18n/use-format-order-relative-datetime";
+import { useCustomerListItemView } from "@/shared/lib/customer/list-item-view.hook";
 import { getContactHref } from "@/shared/lib/phone/contact-href.util";
-import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
 
 interface CustomerListCardProps {
   customer: CustomerListItemOutput;
@@ -28,12 +27,9 @@ export function CustomerListCard({
   onToggleSelect,
 }: CustomerListCardProps) {
   const t = useTranslations("customers.list");
-  const tGov = useTranslations("customers.list.governorates");
   const router = useRouter();
-  const formatPrice = useFormatPriceForActiveStore();
-  const lastOrderLabel = useFormatOrderRelativeDateTime(
-    customer.lastOrderAt ?? undefined,
-  );
+  const { totalSpentLabel, lastOrderLabel, governorateLabel } =
+    useCustomerListItemView(customer);
 
   // Selection mode must NOT use SwipeableCard's `disabled` prop: it
   // early-returns in handlePointerDown, so startXRef never gets set and
@@ -86,9 +82,9 @@ export function CustomerListCard({
             <h3 className="font-semibold text-base text-foreground">
               {customer.name}
             </h3>
-            {customer.governorates[0] && (
+            {governorateLabel && (
               <Badge variant="outline" className="shrink-0 font-normal">
-                {tGov(customer.governorates[0])}
+                {governorateLabel}
               </Badge>
             )}
           </div>
@@ -106,9 +102,7 @@ export function CustomerListCard({
               <p className="text-muted-foreground text-xs">
                 {t("ordersCount", { count: customer.orderCount })}
               </p>
-              <p className="font-bold text-foreground">
-                {formatPrice(customer.totalSpent)}
-              </p>
+              <p className="font-bold text-foreground">{totalSpentLabel}</p>
             </div>
             <p className="text-muted-foreground text-xs">{lastOrderLabel}</p>
           </div>

@@ -152,6 +152,33 @@ const containerRef = useViewportLock({ enabled: isMobile });
 - Gate `enabled` with `useIsMobile()`; this is a mobile-Safari-specific fix and should no-op on desktop.
 - Mark the container `data-viewport-locked` (sets `touch-action: none`, see `globals.css`) and mark any internally scrollable region `data-viewport-scrollable` (restores `touch-action: pan-y`) — omitting the scrollable marker on a page-level container will silently break normal scroll gestures.
 
+### `useIsMobile(breakpoint?)`
+
+Tracks whether the viewport is narrower than `breakpoint` (default 768px) via `matchMedia`. Pass a custom breakpoint to reuse the same tracking logic for other layout switches instead of writing a second matchMedia hook — e.g. `ResponsivePopover` calls `useIsMobile(1280)` to match the dashboard shell's always-visible sidebar breakpoint.
+
+## `ResponsivePopover`
+
+### Location
+`packages/ui/src/components/responsive-popover.tsx`
+
+### Pattern
+
+Renders a `Popover` at >=1280px and a `Drawer` (bottom sheet) below that, so the same trigger/content markup can serve both mobile and desktop without a mobile/desktop content fork. Use for filter panels, quick-create forms, and other lightweight anchored surfaces — not multi-step forms or dedicated editing screens (those should stay a plain `Drawer`/`Sheet`).
+
+```tsx
+<ResponsivePopover open={open} onOpenChange={setOpen}>
+  <ResponsivePopoverTrigger asChild>
+    <Button variant="outline">Filters</Button>
+  </ResponsivePopoverTrigger>
+  <ResponsivePopoverContent>
+    {/* shared body, unchanged between mobile/desktop */}
+  </ResponsivePopoverContent>
+</ResponsivePopover>
+```
+
+- The trigger element must be rendered inside `ResponsivePopoverTrigger` (not by a sibling/parent component) — Radix `Popover` needs the trigger in its own tree to anchor correctly. If the trigger currently lives in a separate "search bar" or "select field" component, thread it in via a `trigger`/`*Trigger` render-prop (`ReactNode`) instead of an `onClick` callback — see `apps/dashboard/src/components/app/products/products-filter-drawer.tsx` and `packages/ui/src/components/forms/select-field.tsx` (`newOptionTrigger`) for the pattern.
+- `ResponsivePopoverContent` defaults to a fixed max width on desktop (unlike `PopoverContent`'s default) — override via `className` per usage.
+
 ## Styles
 
 ### Location

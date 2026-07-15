@@ -378,7 +378,19 @@
           "lastOrderAt": "تاريخ آخر طلب"
         }
       },
-      "ordersCount": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبًا} other {# طلب}}"
+      "ordersCount": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبًا} other {# طلب}}",
+      "loading": "جارٍ تحميل العملاء…",
+      "selectAll": "تحديد الكل",
+      "viewCustomer": "عرض {name}",
+      "table": {
+        "name": "الاسم",
+        "contact": "التواصل",
+        "governorate": "الولاية",
+        "orderCount": "الطلبات",
+        "totalSpent": "إجمالي الإنفاق",
+        "lastOrder": "آخر طلب",
+        "actions": "الإجراءات"
+      }
     },
     "detail": {
       "backToCustomers": "العودة إلى العملاء",
