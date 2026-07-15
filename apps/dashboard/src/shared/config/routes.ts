@@ -107,9 +107,11 @@ const DYNAMIC_ID_MARKER = "___DYNAMIC_ID___" as const;
 /**
  * Strips the leading `[lang]` segment from the pathname. App routes are under
  * `/{locale}/…` (see `proxy`); `RoutePaths` use paths without the locale
- * prefix.
+ * prefix. Exported so nav components (bottom nav, sidebar) can compare the
+ * current route to a `RoutePaths` entry without the locale segment throwing
+ * off the match.
  */
-function pathWithoutLocale(pathname: string): string {
+export function pathWithoutLocale(pathname: string): string {
   const parts = pathname.split("/").filter(Boolean);
   if (parts.length < 2) {
     if (parts.length === 0) {
