@@ -13,6 +13,7 @@ import {
   EmptyMedia,
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
+import { InputGroupButton } from "@dukkani/ui/components/input-group";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
@@ -111,21 +112,30 @@ export default function OrdersPage() {
         <OrdersSearchBar
           value={search}
           onChange={setSearch}
-          onFilterClick={() => setFilterDrawerOpen(true)}
-          filterActive={filterActive}
+          filterTrigger={
+            <OrdersFilterDrawer
+              trigger={
+                <InputGroupButton
+                  type="button"
+                  variant={filterActive ? "default" : "ghost"}
+                  size="icon-sm"
+                  aria-label={t("filterDrawer.title")}
+                >
+                  <Icons.slidersHorizontal className="size-4" />
+                </InputGroupButton>
+              }
+              open={filterDrawerOpen}
+              onOpenChange={setFilterDrawerOpen}
+              status={status}
+              dateRange={dateRange}
+              setStatus={setStatus}
+              setDateRange={setDateRange}
+              resetFilters={resetFilters}
+            />
+          }
         />
         <OrdersStatusTabs value={status} onChange={setStatus} />
       </div>
-
-      <OrdersFilterDrawer
-        open={filterDrawerOpen}
-        onOpenChange={setFilterDrawerOpen}
-        status={status}
-        dateRange={dateRange}
-        setStatus={setStatus}
-        setDateRange={setDateRange}
-        resetFilters={resetFilters}
-      />
 
       {listBody}
     </div>
