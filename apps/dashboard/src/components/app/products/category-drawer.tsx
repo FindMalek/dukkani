@@ -2,24 +2,22 @@
 
 import { createCategoryInputSchema } from "@dukkani/common/schemas/category/input";
 import { Button } from "@dukkani/ui/components/button";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from "@dukkani/ui/components/drawer";
 import { FieldGroup } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
+import {
+  ResponsivePopover,
+  ResponsivePopoverContent,
+  ResponsivePopoverTrigger,
+} from "@dukkani/ui/components/responsive-popover";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 import { appMutations } from "@/shared/api/mutations";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 
 interface CategoryDrawerProps {
+  trigger: ReactNode;
   onCategoryCreated?: (categoryId: string) => void;
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -28,6 +26,7 @@ interface CategoryDrawerProps {
 const categoryFormSchema = createCategoryInputSchema.omit({ storeId: true });
 
 export function CategoryDrawer({
+  trigger,
   onCategoryCreated,
   open,
   onOpenChange,
@@ -65,15 +64,18 @@ export function CategoryDrawer({
   });
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>{t("form.category.create")}</DrawerTitle>
-          <DrawerDescription>
+    <ResponsivePopover open={open} onOpenChange={onOpenChange}>
+      <ResponsivePopoverTrigger asChild>{trigger}</ResponsivePopoverTrigger>
+      <ResponsivePopoverContent className="w-full xl:w-96 xl:max-w-md">
+        <div className="flex flex-col gap-0.5 border-b p-4">
+          <p className="font-semibold text-foreground">
+            {t("form.category.create")}
+          </p>
+          <p className="text-muted-foreground text-sm">
             {t("form.category.createDescription")}
-          </DrawerDescription>
-        </DrawerHeader>
-        <div className="px-6">
+          </p>
+        </div>
+        <div className="px-6 py-4">
           <Form onSubmit={form.handleSubmit}>
             <form.AppForm>
               <FieldGroup>
@@ -86,7 +88,7 @@ export function CategoryDrawer({
                   )}
                 </form.AppField>
               </FieldGroup>
-              <DrawerFooter className="px-0">
+              <div className="mt-4 flex flex-col gap-2">
                 <form.Subscribe>
                   {(formState) => (
                     <>
@@ -99,19 +101,21 @@ export function CategoryDrawer({
                       >
                         {t("form.category.create")}
                       </Button>
-                      <DrawerClose asChild>
-                        <Button variant="outline" type="button">
-                          {t("form.cancel")}
-                        </Button>
-                      </DrawerClose>
+                      <Button
+                        variant="outline"
+                        type="button"
+                        onClick={() => onOpenChange(false)}
+                      >
+                        {t("form.cancel")}
+                      </Button>
                     </>
                   )}
                 </form.Subscribe>
-              </DrawerFooter>
+              </div>
             </form.AppForm>
           </Form>
         </div>
-      </DrawerContent>
-    </Drawer>
+      </ResponsivePopoverContent>
+    </ResponsivePopover>
   );
 }
