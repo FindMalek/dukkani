@@ -48,7 +48,7 @@ export default function NewCustomerPage() {
   });
 
   return (
-    <div className="container mx-auto max-w-lg p-4 md:p-6">
+    <div className="mx-auto w-full p-4 md:p-6 xl:max-w-2xl">
       <div className="mb-6 flex items-center gap-2">
         <Button variant="ghost" size="icon" asChild>
           <Link href={RoutePaths.CUSTOMERS.INDEX.url}>
