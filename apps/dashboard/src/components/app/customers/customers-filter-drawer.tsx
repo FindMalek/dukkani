@@ -1,19 +1,18 @@
 "use client";
 
-import { LIST_GOVERNORATES } from "@dukkani/common/schemas/enums";
 import type { CustomerSort } from "@dukkani/common/schemas/customer/input";
 import type { GovernorateInfer } from "@dukkani/common/schemas/enums";
+import { LIST_GOVERNORATES } from "@dukkani/common/schemas/enums";
 import { Button } from "@dukkani/ui/components/button";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from "@dukkani/ui/components/drawer";
 import { Label } from "@dukkani/ui/components/label";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
+import {
+  ResponsivePopover,
+  ResponsivePopoverContent,
+  ResponsivePopoverTrigger,
+} from "@dukkani/ui/components/responsive-popover";
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 
 const SORT_OPTIONS: CustomerSort[] = [
@@ -24,6 +23,7 @@ const SORT_OPTIONS: CustomerSort[] = [
 ];
 
 interface CustomersFilterDrawerProps {
+  trigger: ReactNode;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   governorates: GovernorateInfer[];
@@ -34,6 +34,7 @@ interface CustomersFilterDrawerProps {
 }
 
 export function CustomersFilterDrawer({
+  trigger,
   open,
   onOpenChange,
   governorates,
@@ -71,10 +72,11 @@ export function CustomersFilterDrawer({
   };
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="max-h-[85vh]">
-        <DrawerHeader className="flex flex-row items-center justify-between">
-          <DrawerTitle>{t("title")}</DrawerTitle>
+    <ResponsivePopover open={open} onOpenChange={onOpenChange}>
+      <ResponsivePopoverTrigger asChild>{trigger}</ResponsivePopoverTrigger>
+      <ResponsivePopoverContent className="w-full xl:w-96 xl:max-w-md">
+        <div className="flex flex-row items-center justify-between border-b p-4">
+          <p className="font-semibold text-foreground">{t("title")}</p>
           <Button
             variant="ghost"
             size="sm"
@@ -83,9 +85,9 @@ export function CustomersFilterDrawer({
           >
             {t("clearAll")}
           </Button>
-        </DrawerHeader>
+        </div>
 
-        <div className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-4">
+        <div className="flex max-h-[60vh] flex-1 flex-col gap-6 overflow-y-auto px-4 py-4">
           <div className="space-y-2">
             <p className="font-medium text-sm">{t("governorate")}</p>
             <div className="flex flex-wrap gap-2">
@@ -123,10 +125,10 @@ export function CustomersFilterDrawer({
           </div>
         </div>
 
-        <DrawerFooter className="flex flex-row gap-2">
+        <div className="flex flex-row gap-2 border-t p-4">
           <Button onClick={handleApply}>{t("apply")}</Button>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        </div>
+      </ResponsivePopoverContent>
+    </ResponsivePopover>
   );
 }
