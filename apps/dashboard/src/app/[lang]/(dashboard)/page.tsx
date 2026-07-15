@@ -47,18 +47,20 @@ export default function DashboardPage() {
 
         {isLoading ? (
           <div className="space-y-6">
-            {/* Today's Performance Skeleton */}
-            <div className="space-y-4">
-              <Skeleton className="h-4 w-40" />
-              <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">
-                <Skeleton className="h-24 rounded-lg" />
-                <Skeleton className="h-24 rounded-lg" />
-                <Skeleton className="hidden h-24 rounded-lg xl:block" />
+            {/* Stats Skeleton: Today's Performance + This Week reflow into one row at desktop */}
+            <div className="grid grid-cols-1 gap-6 xl:grid-cols-[2fr_1fr] xl:items-start">
+              {/* Today's Performance Skeleton */}
+              <div className="space-y-4">
+                <Skeleton className="h-4 w-40" />
+                <div className="grid grid-cols-2 gap-4">
+                  <Skeleton className="h-24 rounded-lg" />
+                  <Skeleton className="h-24 rounded-lg" />
+                </div>
               </div>
-            </div>
 
-            {/* This Week Skeleton */}
-            <Skeleton className="h-32 rounded-lg" />
+              {/* This Week Skeleton */}
+              <Skeleton className="h-32 rounded-lg" />
+            </div>
 
             {/* Quick Actions Skeleton */}
             <div className="space-y-4">
