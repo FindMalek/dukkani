@@ -13,7 +13,7 @@ import {
 } from "@dukkani/ui/components/table";
 import { cn } from "@dukkani/ui/lib/utils";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { RoutePaths } from "@/shared/config/routes";
 import { useProductListItemView } from "@/shared/lib/product/list-item-view.hook";
@@ -84,16 +84,12 @@ function ProductsTableRow({
   onDelete,
   onTogglePublish,
 }: ProductsTableRowProps) {
-  const router = useRouter();
   const t = useTranslations("products.list");
   const { priceLabel, isOutOfStock, stockStatusText, firstImageUrl } =
     useProductListItemView(product);
 
   return (
-    <TableRow
-      className="cursor-pointer"
-      onClick={() => router.push(RoutePaths.PRODUCTS.DETAIL.url(product.id))}
-    >
+    <TableRow className="group relative hover:bg-muted/50">
       <TableCell>
         <div className="size-12 shrink-0 overflow-hidden rounded-md border border-border/50 bg-muted/50">
           {firstImageUrl ? (
@@ -114,9 +110,12 @@ function ProductsTableRow({
         </div>
       </TableCell>
       <TableCell className="max-w-xs whitespace-normal">
-        <p className="line-clamp-2 font-medium text-foreground/90">
+        <Link
+          href={RoutePaths.PRODUCTS.DETAIL.url(product.id)}
+          className="line-clamp-2 font-medium text-foreground/90 after:absolute after:inset-0 hover:underline"
+        >
           {product.name}
-        </p>
+        </Link>
       </TableCell>
       <TableCell className="font-medium">{priceLabel}</TableCell>
       <TableCell>
@@ -137,11 +136,7 @@ function ProductsTableRow({
           {product.published ? t("status.published") : t("status.draft")}
         </Badge>
       </TableCell>
-      <TableCell
-        className="text-end"
-        onClick={(e) => e.stopPropagation()}
-        onPointerDown={(e) => e.stopPropagation()}
-      >
+      <TableCell className="relative z-10 text-end">
         <ProductCardDropdown
           product={product}
           onDelete={onDelete}
