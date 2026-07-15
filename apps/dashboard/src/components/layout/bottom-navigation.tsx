@@ -3,26 +3,8 @@
 import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { RoutePaths, shouldHideBottomNav } from "@/shared/config/routes";
-
-const mainNavLinks = [
-  RoutePaths.DASHBOARD,
-  RoutePaths.PRODUCTS.INDEX,
-  RoutePaths.ORDERS.INDEX,
-  RoutePaths.CUSTOMERS.INDEX,
-  RoutePaths.SETTINGS.INDEX,
-];
-
-function isActiveRoute(
-  currentPath: string,
-  targetPath: string,
-  exact = false,
-): boolean {
-  if (exact) {
-    return currentPath === targetPath;
-  }
-  return currentPath.startsWith(targetPath);
-}
+import { isActiveRoute, mainNavLinks } from "@/components/layout/nav-links";
+import { shouldHideBottomNav } from "@/shared/config/routes";
 
 export function BottomNavigation() {
   const pathname = usePathname();
@@ -32,10 +14,10 @@ export function BottomNavigation() {
   }
 
   return (
-    <nav className="fixed right-0 bottom-0 left-0 flex items-center justify-around border-border border-t bg-card px-4 py-3">
+    <nav className="fixed right-0 bottom-0 left-0 flex items-center justify-around border-border border-t bg-card px-4 py-3 xl:hidden">
       {mainNavLinks.map((item) => {
         const Icon = item.icon;
-        const isActive = isActiveRoute(pathname, item.url, true);
+        const isActive = isActiveRoute(pathname, item.url, item.url === "/");
         return (
           <Link
             key={item.url}

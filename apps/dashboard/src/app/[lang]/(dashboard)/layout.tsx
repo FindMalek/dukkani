@@ -1,26 +1,45 @@
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
+import { SidebarInset, SidebarProvider } from "@dukkani/ui/components/sidebar";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { AuthGuard } from "@/components/app/auth/auth-guard";
+import { AppSidebar } from "@/components/layout/app-sidebar";
 import { BottomNavigation } from "@/components/layout/bottom-navigation";
+import { DashboardTopbar } from "@/components/layout/dashboard-topbar";
 import { StoreInitializer } from "@/components/layout/store-initializer";
 import { appQueries } from "@/shared/api/queries";
 import { getServerQueryClient } from "@/shared/api/query-client.server";
 import { getServerSession } from "@/shared/api/session.server";
 import { RoutePaths } from "@/shared/config/routes";
 
-const DashboardLayoutContent = ({
+// Matches the cookie name shadcn's `SidebarProvider` writes on toggle
+// (`packages/ui/src/components/sidebar.tsx`) — read server-side so the
+// desktop sidebar renders already-collapsed/expanded on first paint instead
+// of flashing open then snapping to the persisted state.
+const SIDEBAR_COOKIE_NAME = "sidebar_state";
+
+const DashboardLayoutContent = async ({
   children,
 }: {
   children: React.ReactNode;
-}) => (
-  <StoreInitializer>
-    <div className="grid h-svh grid-rows-[auto_1fr]">
-      <main className="overflow-auto">{children}</main>
-      <BottomNavigation />
-    </div>
-  </StoreInitializer>
-);
+}) => {
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get(SIDEBAR_COOKIE_NAME)?.value !== "false";
+
+  return (
+    <StoreInitializer>
+      <SidebarProvider defaultOpen={defaultOpen} className="h-svh">
+        <AppSidebar />
+        <SidebarInset>
+          <DashboardTopbar />
+          <div className="flex-1 overflow-auto pb-16 xl:pb-0">{children}</div>
+        </SidebarInset>
+        <BottomNavigation />
+      </SidebarProvider>
+    </StoreInitializer>
+  );
+};
 
 export default async function DashboardLayout({
   children,
