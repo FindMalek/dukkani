@@ -27,6 +27,9 @@
       "loadError": "Could not load your stores. Please try again.",
       "noStores": "You don't have any stores yet. Create one to continue.",
       "goToOnboarding": "Go to onboarding"
+    },
+    "sidebar": {
+      "create": "Create"
     }
   },
   "auth": {
@@ -293,6 +296,16 @@
         "pickDateRange": "Pick a date range",
         "from": "From",
         "to": "To"
+      },
+      "loading": "Loading orders…",
+      "table": {
+        "orderNumber": "Order",
+        "customer": "Customer",
+        "date": "Date",
+        "status": "Status",
+        "items": "Items",
+        "total": "Total",
+        "actions": "Actions"
       }
     },
     "detail": {

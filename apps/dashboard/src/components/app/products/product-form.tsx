@@ -1,7 +1,9 @@
 "use client";
 
+import { Button } from "@dukkani/ui/components/button";
 import { FieldGroup, FieldSet } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
+import { Icons } from "@dukkani/ui/components/icons";
 import { useTranslations } from "next-intl";
 import { forwardRef, useImperativeHandle } from "react";
 import { compressImagesForUpload } from "@/shared/lib/image-compression";
@@ -26,7 +28,6 @@ export const ProductForm = forwardRef<
     categoriesOptions,
     isCategoryDrawerOpen,
     setIsCategoryDrawerOpen,
-    handleOpenCategoryDrawer,
     handleCategoryCreated,
     storeMismatch,
     productQuery,
@@ -60,35 +61,39 @@ export const ProductForm = forwardRef<
   }
 
   return (
-    <>
-      <Form
-        onSubmit={form.handleSubmit}
-        className="flex flex-col gap-4 px-2 pb-24"
-      >
-        <FieldGroup>
-          <FieldSet>
-            <FieldGroup>
-              <form.AppForm>
-                <ProductFormEssentials
-                  form={form}
-                  storeId={storeId}
-                  categoriesOptions={categoriesOptions}
-                  onOpenCategoryDrawer={handleOpenCategoryDrawer}
-                  optimizeFiles={compressImagesForUpload}
-                />
-                <ProductFormVariants form={form} />
-                <ProductFormActions form={form} />
-              </form.AppForm>
-            </FieldGroup>
-          </FieldSet>
-        </FieldGroup>
-      </Form>
-      <CategoryDrawer
-        onCategoryCreated={handleCategoryCreated}
-        open={isCategoryDrawerOpen}
-        onOpenChange={setIsCategoryDrawerOpen}
-      />
-    </>
+    <Form
+      onSubmit={form.handleSubmit}
+      className="flex flex-col gap-4 px-2 pb-24"
+    >
+      <FieldGroup>
+        <FieldSet>
+          <FieldGroup>
+            <form.AppForm>
+              <ProductFormEssentials
+                form={form}
+                storeId={storeId}
+                categoriesOptions={categoriesOptions}
+                categoryNewOptionTrigger={
+                  <CategoryDrawer
+                    trigger={
+                      <Button type="button" variant="outline" size="icon">
+                        <Icons.plus className="size-4" />
+                      </Button>
+                    }
+                    onCategoryCreated={handleCategoryCreated}
+                    open={isCategoryDrawerOpen}
+                    onOpenChange={setIsCategoryDrawerOpen}
+                  />
+                }
+                optimizeFiles={compressImagesForUpload}
+              />
+              <ProductFormVariants form={form} />
+              <ProductFormActions form={form} />
+            </form.AppForm>
+          </FieldGroup>
+        </FieldSet>
+      </FieldGroup>
+    </Form>
   );
 });
 
