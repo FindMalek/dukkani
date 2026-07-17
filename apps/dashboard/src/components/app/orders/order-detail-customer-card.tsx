@@ -1,6 +1,7 @@
 import { Button } from "@dukkani/ui/components/button";
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
+import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
 
 export function OrderDetailCustomerCard({
@@ -12,6 +13,7 @@ export function OrderDetailCustomerCard({
   callAriaLabel,
   openWhatsAppAriaLabel,
   sectionLabel,
+  className,
 }: {
   name: string;
   phone: string | undefined;
@@ -21,9 +23,10 @@ export function OrderDetailCustomerCard({
   callAriaLabel: string;
   openWhatsAppAriaLabel: string;
   sectionLabel: string;
+  className?: string;
 }) {
   return (
-    <Card className="gap-0 py-0 shadow-sm">
+    <Card className={cn("gap-0 py-0 shadow-sm", className)}>
       <div className="p-3">
         <p className="mb-1.5 font-medium text-muted-foreground text-xs">
           {sectionLabel}

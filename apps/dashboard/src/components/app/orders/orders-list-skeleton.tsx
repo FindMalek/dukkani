@@ -29,7 +29,7 @@ function OrderListCardSkeleton() {
 
 export function OrdersListSkeleton() {
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 xl:hidden">
       {Array.from({ length: 5 }).map((_, i) => (
         <OrderListCardSkeleton key={i} />
       ))}

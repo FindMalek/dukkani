@@ -1,6 +1,7 @@
 import { AddressEntity } from "@dukkani/common/entities/address/entity";
 import { Card } from "@dukkani/ui/components/card";
 import { Icons } from "@dukkani/ui/components/icons";
+import { cn } from "@dukkani/ui/lib/utils";
 
 export function OrderDetailDeliveryCard({
   city,
@@ -8,12 +9,14 @@ export function OrderDetailDeliveryCard({
   street,
   notes,
   labels,
+  className,
 }: {
   city: string;
   postalCode: string | null | undefined;
   street: string;
   notes: string | null | undefined;
   labels: { deliveryAddress: string };
+  className?: string;
 }) {
   const headline =
     AddressEntity.formatOrderListLocation({
@@ -21,7 +24,7 @@ export function OrderDetailDeliveryCard({
       postalCode: postalCode ?? null,
     }) ?? city;
   return (
-    <Card className="gap-0 py-0 shadow-sm">
+    <Card className={cn("gap-0 py-0 shadow-sm", className)}>
       <div className="space-y-1.5 p-3">
         <p className="font-medium text-muted-foreground text-xs">
           {labels.deliveryAddress}
