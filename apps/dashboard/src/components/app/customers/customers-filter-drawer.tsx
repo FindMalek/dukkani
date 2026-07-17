@@ -2,7 +2,6 @@
 
 import type { CustomerSort } from "@dukkani/common/schemas/customer/input";
 import type { GovernorateInfer } from "@dukkani/common/schemas/enums";
-import { LIST_GOVERNORATES } from "@dukkani/common/schemas/enums";
 import { Button } from "@dukkani/ui/components/button";
 import { Label } from "@dukkani/ui/components/label";
 import { RadioGroup, RadioGroupItem } from "@dukkani/ui/components/radio-group";
@@ -13,7 +12,7 @@ import {
 } from "@dukkani/ui/components/responsive-popover";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const SORT_OPTIONS: CustomerSort[] = [
   "recent",
@@ -27,6 +26,7 @@ interface CustomersFilterDrawerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   governorates: GovernorateInfer[];
+  counts: { governorate: GovernorateInfer; count: number }[];
   sortBy: CustomerSort;
   setGovernorates: (value: GovernorateInfer[]) => void;
   setSortBy: (value: CustomerSort) => void;
@@ -38,6 +38,7 @@ export function CustomersFilterDrawer({
   open,
   onOpenChange,
   governorates,
+  counts,
   sortBy,
   setGovernorates,
   setSortBy,
@@ -49,6 +50,28 @@ export function CustomersFilterDrawer({
   const [draftGovernorates, setDraftGovernorates] =
     useState<GovernorateInfer[]>(governorates);
   const [draftSortBy, setDraftSortBy] = useState<CustomerSort>(sortBy);
+
+  // Governorates with zero customers are excluded from `counts` (the query
+  // GROUPs BY governorate, so empty ones never appear). If a governorate was
+  // selected before its last customer was removed/moved, it may no longer be
+  // in `counts` — keep it visible as an option (don't silently drop the
+  // merchant's active filter) but don't offer it as a brand-new option beyond
+  // that. We source the extra governorates from the applied `governorates`
+  // prop (not `draftGovernorates`): the prop only changes on "Apply", so a
+  // mid-interaction deselect of a zero-count governorate keeps its button
+  // visible (inactive) instead of vanishing before the user confirms.
+  const governorateOptions = useMemo(() => {
+    const options = counts.map(({ governorate, count }) => ({
+      governorate,
+      count: count as number | undefined,
+    }));
+    for (const governorate of governorates) {
+      if (!counts.some((c) => c.governorate === governorate)) {
+        options.push({ governorate, count: undefined });
+      }
+    }
+    return options;
+  }, [counts, governorates]);
 
   useEffect(() => {
     if (open) {
@@ -91,7 +114,7 @@ export function CustomersFilterDrawer({
           <div className="space-y-2">
             <p className="font-medium text-sm">{t("governorate")}</p>
             <div className="flex flex-wrap gap-2">
-              {LIST_GOVERNORATES.map((governorate) => {
+              {governorateOptions.map(({ governorate, count }) => {
                 const isActive = draftGovernorates.includes(governorate);
                 return (
                   <Button
@@ -101,6 +124,9 @@ export function CustomersFilterDrawer({
                     onClick={() => toggleDraftGovernorate(governorate)}
                   >
                     {tGov(governorate)}
+                    {count !== undefined && (
+                      <span className="ms-1 font-bold">{count}</span>
+                    )}
                   </Button>
                 );
               })}
