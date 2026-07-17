@@ -152,7 +152,9 @@ export function CustomersFilterDrawer({
         </div>
 
         <div className="flex flex-row gap-2 border-t p-4">
-          <Button onClick={handleApply}>{t("apply")}</Button>
+          <Button onClick={handleApply} className="w-full">
+            {t("apply")}
+          </Button>
         </div>
       </ResponsivePopoverContent>
     </ResponsivePopover>
