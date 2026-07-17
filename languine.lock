@@ -183,6 +183,14 @@ files:
     orders.list.filterDrawer.pickDateRange: b08c8d8ad8b80d4918b295e33cb2b042
     orders.list.filterDrawer.from: 5da618e8e4b89c66fe86e32cdafde142
     orders.list.filterDrawer.to: e12167aa0a7698e6ebc92b4ce3909b53
+    orders.list.loading: 963bacea850f116af7d59842e75c4d7d
+    orders.list.table.orderNumber: a240fa27925a635b08dc28c9e4f9216d
+    orders.list.table.customer: ce26601dac0dea138b7295f02b7620a7
+    orders.list.table.date: 44749712dbec183e983dcd78a7736c41
+    orders.list.table.status: ec53a8c4f07baed5d8825072c89799be
+    orders.list.table.items: 9dea4016dbcc290b773ab2fae678aaa8
+    orders.list.table.total: 96b0141273eabab320119c467cdcaf17
+    orders.list.table.actions: 06df33001c1d7187fdd81ea1f5b277aa
     orders.detail.backToOrders: 9390390581f54c65d6acfc8da4e17362
     orders.detail.title: c5c8ac6bbc6d7f5c95d0a888527554d3
     orders.detail.payment: c453a4b8e8d98e82f35b67f433e3b4da
