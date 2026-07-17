@@ -4,23 +4,22 @@ import { Icons } from "@dukkani/ui/components/icons";
 import {
   InputGroup,
   InputGroupAddon,
-  InputGroupButton,
   InputGroupInput,
 } from "@dukkani/ui/components/input-group";
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 
 interface OrdersSearchBarProps {
   value: string;
   onChange: (value: string) => void;
-  onFilterClick?: () => void;
-  filterActive?: boolean;
+  /** The filter trigger + popover/drawer, e.g. `<OrdersFilterDrawer trigger={...} .../>`. */
+  filterTrigger?: ReactNode;
 }
 
 export function OrdersSearchBar({
   value,
   onChange,
-  onFilterClick,
-  filterActive = false,
+  filterTrigger,
 }: OrdersSearchBarProps) {
   const t = useTranslations("orders.list");
 
@@ -36,17 +35,7 @@ export function OrdersSearchBar({
       <InputGroupAddon align="inline-start">
         <Icons.search className="text-muted-foreground" />
       </InputGroupAddon>
-      <InputGroupAddon align="inline-end">
-        <InputGroupButton
-          type="button"
-          variant={filterActive ? "default" : "ghost"}
-          size="icon-sm"
-          onClick={onFilterClick}
-          aria-label={t("filterDrawer.title")}
-        >
-          <Icons.slidersHorizontal className="size-4" />
-        </InputGroupButton>
-      </InputGroupAddon>
+      <InputGroupAddon align="inline-end">{filterTrigger}</InputGroupAddon>
     </InputGroup>
   );
 }

@@ -34,6 +34,13 @@ interface SelectFieldProps
   options?: SelectOptionGroup[] | (() => Promise<SelectOptionGroup[]>);
   placeholder?: string;
   onNewOptionClick?: () => void;
+  /**
+   * Renders in place of the default "+" button when provided — use this to
+   * wrap the button in a `ResponsivePopoverTrigger`/`DrawerTrigger` (e.g. a
+   * "create category" popover) instead of a plain `onClick` callback.
+   * Takes precedence over `onNewOptionClick`.
+   */
+  newOptionTrigger?: React.ReactNode;
   noReset?: boolean;
 }
 
@@ -45,6 +52,7 @@ export function SelectField({
   placeholder = "",
   options: optionsOrPromise,
   onNewOptionClick,
+  newOptionTrigger,
   noReset = false,
   ...props
 }: SelectFieldProps) {
@@ -110,16 +118,17 @@ export function SelectField({
           <SelectTrigger aria-invalid={isInvalid} className="grow">
             <SelectValue id={field.name} placeholder={placeholder} />
           </SelectTrigger>
-          {onNewOptionClick && (
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              onClick={onNewOptionClick}
-            >
-              <Icons.plus className="size-4" />
-            </Button>
-          )}
+          {newOptionTrigger ??
+            (onNewOptionClick && (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={onNewOptionClick}
+              >
+                <Icons.plus className="size-4" />
+              </Button>
+            ))}
           {!noReset && (
             <Button
               type="button"

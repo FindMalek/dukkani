@@ -4,6 +4,7 @@ import type { SelectOptionGroup } from "@dukkani/ui/components/forms/select-fiel
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 import { handleAPIError } from "@/shared/api/error-handler";
 import { client } from "@/shared/api/orpc";
 import { productFormOptions } from "@/shared/lib/product/form";
@@ -55,14 +56,14 @@ export const ProductFormEssentials = withForm({
   props: {
     storeId: "",
     categoriesOptions: [] as SelectOptionGroup[],
-    onOpenCategoryDrawer: () => {},
+    categoryNewOptionTrigger: null as ReactNode,
     optimizeFiles: async (files: File[]) => files,
   },
   render: function Render({
     form,
     storeId,
     categoriesOptions,
-    onOpenCategoryDrawer,
+    categoryNewOptionTrigger,
     optimizeFiles,
   }) {
     const t = useTranslations("products.create");
@@ -157,7 +158,7 @@ export const ProductFormEssentials = withForm({
               label={t("form.category.label")}
               placeholder={t("form.category.uncategorized")}
               options={categoriesOptions}
-              onNewOptionClick={onOpenCategoryDrawer}
+              newOptionTrigger={categoryNewOptionTrigger}
             />
           )}
         </form.AppField>

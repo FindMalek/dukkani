@@ -10,7 +10,7 @@ export function OrderDetailErrorState({
   errorMessage: string;
 }) {
   return (
-    <div className="container mx-auto max-w-2xl p-4">
+    <div className="container mx-auto max-w-2xl p-4 xl:max-w-6xl">
       <div className="mb-4">
         <OrderDetailHeader title={title} />
       </div>

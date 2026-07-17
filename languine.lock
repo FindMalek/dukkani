@@ -17,6 +17,7 @@ files:
     dashboard.storeInitializer.loadError: c698325edafece657140f52a6483317b
     dashboard.storeInitializer.noStores: b27bb79b938a8bc32539e2af4289b61b
     dashboard.storeInitializer.goToOnboarding: 9da19d5c88e43fea1f42fc18aa56f841
+    dashboard.sidebar.create: 686e697538050e4664636337cc3b834f
     auth.emailSignIn.continue: a0bfb8e59e6c13fc8d990781f77694fe
     auth.emailSignIn.rememberMe: 878530871f0db73f004f5bd6591eeb76
     auth.emailSignIn.back: 0557fa923dcee4d0f86b1409f5c2167f
