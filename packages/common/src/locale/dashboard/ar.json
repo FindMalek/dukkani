@@ -397,8 +397,8 @@
       "viewCustomer": "عرض {name}",
       "table": {
         "name": "الاسم",
-        "contact": "التواصل",
-        "governorate": "الولاية",
+        "contact": "جهة الاتصال",
+        "governorate": "المحافظة",
         "orderCount": "الطلبات",
         "totalSpent": "إجمالي الإنفاق",
         "lastOrder": "آخر طلب",

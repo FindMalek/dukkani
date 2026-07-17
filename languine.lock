@@ -264,6 +264,16 @@ files:
     customers.list.filterDrawer.sortOptions.totalSpent: 25326db0dcb2cf342b3477fbdad373dc
     customers.list.filterDrawer.sortOptions.lastOrderAt: 788b212e2524ec85463d68861342693c
     customers.list.ordersCount: 10b04538e99343a4beb362416bac2710
+    customers.list.loading: cc3c16016f5f22e636536dbf9031abb3
+    customers.list.selectAll: 4c41e0bd957698b58100a5c687d757d9
+    customers.list.viewCustomer: 08a0903ede5780989fafddcf369cb45f
+    customers.list.table.name: 49ee3087348e8d44e1feda1917443987
+    customers.list.table.contact: bbaff12800505b22a853e8b7f4eb6a22
+    customers.list.table.governorate: 2f14f720d81c2fa9bc003237d50a6b9a
+    customers.list.table.orderCount: 7442e29d7d53e549b78d93c46b8cdcfc
+    customers.list.table.totalSpent: 25326db0dcb2cf342b3477fbdad373dc
+    customers.list.table.lastOrder: d957e2652355299cb367c4b7e07d9141
+    customers.list.table.actions: 06df33001c1d7187fdd81ea1f5b277aa
     customers.detail.backToCustomers: 59666ad60cc1933b5f3ebcab0120a296
     customers.detail.title: ed2c066909c9fa156861ded62108fb6e
     customers.detail.call: c3755e61202abd74da5885d2e9c9160e
