@@ -90,7 +90,7 @@ export default function EditProductPage() {
         </Button>
       </header>
 
-      <main className="container max-w-lg px-2 pt-4">
+      <main className="container max-w-lg px-2 pt-4 xl:max-w-6xl">
         <ProductForm
           ref={formRef}
           storeId={selectedStoreId}

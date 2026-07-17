@@ -523,6 +523,11 @@
       "storeMismatch": "This product belongs to another store. Switch stores to edit it.",
       "loadError": "Could not load this product. Try again or go back to the list.",
       "loadingProduct": "Loading product",
+      "preview": {
+        "title": "Storefront preview",
+        "untitled": "Untitled product",
+        "goToSlide": "Go to image {index}"
+      },
       "sections": {
         "photos": "Product Photos",
         "essentials": "Essentials",
