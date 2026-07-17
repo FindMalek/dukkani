@@ -20,6 +20,7 @@ import {
   EmptyMedia,
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
+import { InputGroupButton } from "@dukkani/ui/components/input-group";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
@@ -106,28 +107,36 @@ export default function ProductsPage() {
         <ProductsSearchBar
           value={search}
           onChange={setSearch}
-          onFilterClick={() => setFilterDrawerOpen(true)}
-          filterActive={filterActive}
+          filterTrigger={
+            <ProductsFilterDrawer
+              trigger={
+                <InputGroupButton
+                  type="button"
+                  variant={filterActive ? "default" : "ghost"}
+                  size="icon-sm"
+                  aria-label={t("filterDrawer.title")}
+                >
+                  <Icons.slidersHorizontal className="size-4" />
+                </InputGroupButton>
+              }
+              open={filterDrawerOpen}
+              onOpenChange={setFilterDrawerOpen}
+              published={published}
+              stockFilter={stockFilter}
+              variantsFilter={variantsFilter}
+              priceMin={priceMin}
+              priceMax={priceMax}
+              setPublished={setPublished}
+              setStockFilter={setStockFilter}
+              setVariantsFilter={setVariantsFilter}
+              setPriceMin={setPriceMin}
+              setPriceMax={setPriceMax}
+              resetFilters={resetFilters}
+            />
+          }
         />
         <ProductsStatusTabs value={published} onChange={setPublished} />
       </div>
-
-      {/* Filter Drawer */}
-      <ProductsFilterDrawer
-        open={filterDrawerOpen}
-        onOpenChange={setFilterDrawerOpen}
-        published={published}
-        stockFilter={stockFilter}
-        variantsFilter={variantsFilter}
-        priceMin={priceMin}
-        priceMax={priceMax}
-        setPublished={setPublished}
-        setStockFilter={setStockFilter}
-        setVariantsFilter={setVariantsFilter}
-        setPriceMin={setPriceMin}
-        setPriceMax={setPriceMax}
-        resetFilters={resetFilters}
-      />
 
       {/* Product List */}
       {isLoading ? (
