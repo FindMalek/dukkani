@@ -114,7 +114,7 @@ export default function OrderDetailPage() {
         <div
           className={cn(
             "mt-2 space-y-2",
-            "xl:grid xl:grid-cols-3 xl:items-start xl:gap-4 xl:space-y-0",
+            "xl:grid xl:grid-flow-row-dense xl:grid-cols-3 xl:items-start xl:gap-4 xl:space-y-0",
           )}
         >
           <OrderDetailSummary
