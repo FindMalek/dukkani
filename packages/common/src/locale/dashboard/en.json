@@ -503,6 +503,15 @@
         "deleteConfirmTitle": "Delete product?",
         "deleteConfirmDescription": "This action cannot be undone.",
         "cancel": "Cancel"
+      },
+      "loading": "Loading products…",
+      "table": {
+        "image": "Image",
+        "name": "Name",
+        "price": "Price",
+        "stock": "Stock",
+        "status": "Status",
+        "actions": "Actions"
       }
     },
     "create": {

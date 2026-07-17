@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { RoutePaths } from "@/shared/config/routes";
-import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.hook";
+import { useProductListItemView } from "@/shared/lib/product/list-item-view.hook";
 import { ProductCardDropdown } from "./product-card-dropdown";
 
 interface ProductListCardProps {
@@ -26,20 +26,8 @@ export function ProductListCard({
 }: ProductListCardProps) {
   const router = useRouter();
   const t = useTranslations("products.list");
-  const formatPrice = useFormatPriceForActiveStore();
-  const priceLabel =
-    product.priceDisplay.kind === "range"
-      ? `${formatPrice(product.priceDisplay.min)} – ${formatPrice(product.priceDisplay.max)}`
-      : formatPrice(product.priceDisplay.price);
-
-  const firstImageUrl = product.imageUrls[0];
-  const isOutOfStock = product.isOutOfStock;
-
-  const stockStatusText = isOutOfStock
-    ? t("outOfStock")
-    : product.stock > 0
-      ? t("stockCount", { count: product.stock })
-      : t("inStock");
+  const { priceLabel, isOutOfStock, stockStatusText, firstImageUrl } =
+    useProductListItemView(product);
 
   const actions = useMemo(
     () => [

@@ -507,6 +507,15 @@
         "deleteConfirmTitle": "Supprimer le produit ?",
         "deleteConfirmDescription": "Cette action ne peut pas être annulée.",
         "cancel": "Annuler"
+      },
+      "loading": "Chargement des produits…",
+      "table": {
+        "image": "Image",
+        "name": "Nom",
+        "price": "Prix",
+        "stock": "Stock",
+        "status": "Statut",
+        "actions": "Actions"
       }
     },
     "create": {
