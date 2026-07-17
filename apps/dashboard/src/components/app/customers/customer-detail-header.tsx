@@ -30,19 +30,26 @@ export function CustomerDetailHeader({
   const t = useTranslations("customers.detail");
 
   return (
-    <div className="flex items-center justify-between">
-      <Button variant="ghost" size="icon" asChild>
-        <Link
-          href={RoutePaths.CUSTOMERS.INDEX.url}
-          aria-label={t("backToCustomers")}
-        >
-          <Icons.arrowLeft className="size-4" />
-        </Link>
-      </Button>
-      <h1 className="font-semibold text-base">{title}</h1>
+    <div className="flex items-center justify-between gap-2">
+      <div className="flex min-w-0 items-center gap-1">
+        <Button variant="ghost" size="icon" asChild className="shrink-0">
+          <Link
+            href={RoutePaths.CUSTOMERS.INDEX.url}
+            aria-label={t("backToCustomers")}
+          >
+            <Icons.arrowLeft className="size-4" />
+          </Link>
+        </Button>
+        <h1 className="truncate font-semibold text-base">{title}</h1>
+      </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" aria-label={t("moreOptions")}>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label={t("moreOptions")}
+            className="shrink-0"
+          >
             <Icons.moreHorizontal className="size-4" />
           </Button>
         </DropdownMenuTrigger>

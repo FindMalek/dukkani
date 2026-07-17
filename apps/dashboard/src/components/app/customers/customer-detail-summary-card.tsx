@@ -1,3 +1,4 @@
+import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
 
 interface CustomerDetailSummaryCardProps {
@@ -5,6 +6,7 @@ interface CustomerDetailSummaryCardProps {
   orderCount: number;
   avgOrderValueFormatted: string;
   customerSinceFormatted: string;
+  className?: string;
 }
 
 export function CustomerDetailSummaryCard({
@@ -12,6 +14,7 @@ export function CustomerDetailSummaryCard({
   orderCount,
   avgOrderValueFormatted,
   customerSinceFormatted,
+  className,
 }: CustomerDetailSummaryCardProps) {
   const t = useTranslations("customers.detail.summary");
 
@@ -23,7 +26,7 @@ export function CustomerDetailSummaryCard({
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className={cn("grid grid-cols-2 gap-2", className)}>
       {stats.map((stat) => (
         <div
           key={stat.label}

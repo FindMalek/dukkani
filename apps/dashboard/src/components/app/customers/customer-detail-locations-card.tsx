@@ -1,20 +1,23 @@
 import type { CustomerIncludeOutput } from "@dukkani/common/schemas/customer/output";
 import { Badge } from "@dukkani/ui/components/badge";
 import { Icons } from "@dukkani/ui/components/icons";
+import { cn } from "@dukkani/ui/lib/utils";
 import { useTranslations } from "next-intl";
 
 interface CustomerDetailLocationsCardProps {
   addresses: CustomerIncludeOutput["addresses"];
+  className?: string;
 }
 
 export function CustomerDetailLocationsCard({
   addresses,
+  className,
 }: CustomerDetailLocationsCardProps) {
   const t = useTranslations("customers.detail.locations");
   const tGov = useTranslations("customers.list.governorates");
 
   return (
-    <div className="rounded-xl border bg-card p-3 shadow-sm">
+    <div className={cn("rounded-xl border bg-card p-3 shadow-sm", className)}>
       <p className="mb-2 font-medium text-muted-foreground text-xs">
         {t("title")}
       </p>

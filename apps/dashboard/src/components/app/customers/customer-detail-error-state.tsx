@@ -13,9 +13,9 @@ export function CustomerDetailErrorState({
   const t = useTranslations("customers.detail");
 
   return (
-    <div className="container mx-auto max-w-2xl p-4">
-      <div className="mb-4 flex items-center justify-between">
-        <Button variant="ghost" size="icon" asChild>
+    <div className="container mx-auto max-w-2xl p-4 xl:max-w-6xl">
+      <div className="mb-4 flex items-center gap-2">
+        <Button variant="ghost" size="icon" asChild className="shrink-0">
           <Link
             href={RoutePaths.CUSTOMERS.INDEX.url}
             aria-label={t("backToCustomers")}
@@ -23,8 +23,7 @@ export function CustomerDetailErrorState({
             <Icons.arrowLeft className="size-4" />
           </Link>
         </Button>
-        <h1 className="font-semibold text-base">{t("title")}</h1>
-        <div className="size-9" />
+        <h1 className="truncate font-semibold text-base">{t("title")}</h1>
       </div>
       <Alert variant="destructive">
         <Icons.alertTriangle />
