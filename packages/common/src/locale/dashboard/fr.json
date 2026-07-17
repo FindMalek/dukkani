@@ -685,6 +685,11 @@
         "title": "Aucun magasin trouvé",
         "description": "Veuillez d'abord créer un magasin pour ajouter des produits.",
         "createStore": "Créer un magasin"
+      },
+      "preview": {
+        "title": "Aperçu de la vitrine",
+        "untitled": "Produit sans titre",
+        "goToSlide": "Aller à l'image {index}"
       }
     },
     "edit": {

@@ -352,12 +352,22 @@ files:
     products.list.actions.deleteConfirmTitle: 3fc8a96873ad6ca0aab10982d2d57332
     products.list.actions.deleteConfirmDescription: 36fbfc01d63e4b57d18991077535c6e0
     products.list.actions.cancel: ea4788705e6873b424c65e91c2846b19
+    products.list.loading: f4ddb3f5cb7efc92dffda93da966acc6
+    products.list.table.image: be53a0541a6d36f6ecb879fa2c584b08
+    products.list.table.name: 49ee3087348e8d44e1feda1917443987
+    products.list.table.price: 3601146c4e948c32b6424d2c0a7f0118
+    products.list.table.stock: 27ce7f8b5623b2e2df568d64cf051607
+    products.list.table.status: ec53a8c4f07baed5d8825072c89799be
+    products.list.table.actions: 06df33001c1d7187fdd81ea1f5b277aa
     products.create.header.title: 656c3be690ee43df4b845bd2a2ebe587
     products.create.header.editTitle: 38dcfe97230f5eee7bf911f3b56f955a
     products.create.header.save: c9cc8cce247e49bae79f15173ce97354
     products.create.storeMismatch: 457151ae3045c2783126430e815af80c
     products.create.loadError: 5756a896a896369e1aa0d7f5287ded1e
     products.create.loadingProduct: 6e79019e5fb29bf3ff37d50e8ea54a1c
+    products.create.preview.title: a16d6ba8142e733b262643a833c1b423
+    products.create.preview.untitled: c0edb2a89b3be1d961f4082e0bc5466a
+    products.create.preview.goToSlide: 51865af30db02476552d55cd29e26338
     products.create.sections.photos: c7c8998e1dd7c6ee3bd42f2bcb803d3c
     products.create.sections.essentials: 4d55f77f062bf48891bd0f749c36a36d
     products.create.sections.organization: d6b258792ff06f82933c74eeb8aef591
