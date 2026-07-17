@@ -77,7 +77,7 @@ export default function TelegramSettingsPage() {
 
   if (statusLoading || storesLoading) {
     return (
-      <div className="container mx-auto max-w-7xl p-4 md:p-6">
+      <div className="mx-auto w-full p-4 md:p-6 xl:max-w-2xl">
         <div className="flex items-center justify-center py-12">
           <Icons.spinner className="h-8 w-8 animate-spin" />
         </div>
@@ -86,7 +86,7 @@ export default function TelegramSettingsPage() {
   }
 
   return (
-    <div className="container mx-auto max-w-7xl p-4 md:p-6">
+    <div className="mx-auto w-full p-4 md:p-6 xl:max-w-2xl">
       <div className="mb-6">
         <div className="mb-4 flex items-center gap-4">
           <Link href={RoutePaths.SETTINGS.INDEX.url}>

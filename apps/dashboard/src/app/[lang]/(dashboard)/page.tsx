@@ -41,28 +41,31 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-md space-y-6 p-4">
+      <div className="mx-auto max-w-md space-y-6 p-4 md:max-w-3xl md:p-6 xl:max-w-6xl">
         {/* Store Identity Section */}
         <StoreHeader />
 
         {isLoading ? (
           <div className="space-y-6">
-            {/* Today's Performance Skeleton */}
-            <div className="space-y-4">
-              <Skeleton className="h-4 w-40" />
-              <div className="grid grid-cols-2 gap-4">
-                <Skeleton className="h-24 rounded-lg" />
-                <Skeleton className="h-24 rounded-lg" />
+            {/* Stats Skeleton: Today's Performance + This Week reflow into one row at desktop */}
+            <div className="grid grid-cols-1 gap-6 xl:grid-cols-[2fr_1fr] xl:items-start">
+              {/* Today's Performance Skeleton */}
+              <div className="space-y-4">
+                <Skeleton className="h-4 w-40" />
+                <div className="grid grid-cols-2 gap-4">
+                  <Skeleton className="h-24 rounded-lg" />
+                  <Skeleton className="h-24 rounded-lg" />
+                </div>
               </div>
-            </div>
 
-            {/* This Week Skeleton */}
-            <Skeleton className="h-32 rounded-lg" />
+              {/* This Week Skeleton */}
+              <Skeleton className="h-32 rounded-lg" />
+            </div>
 
             {/* Quick Actions Skeleton */}
             <div className="space-y-4">
               <Skeleton className="h-4 w-32" />
-              <div className="space-y-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <Skeleton className="h-16 rounded-lg" />
                 <Skeleton className="h-16 rounded-lg" />
               </div>
@@ -70,11 +73,11 @@ export default function DashboardPage() {
           </div>
         ) : stats ? (
           <>
-            {/* Today's Performance */}
-            <TodaysPerformance stats={stats} />
-
-            {/* This Week */}
-            <ThisWeekCard stats={stats} />
+            {/* Stats: Today's Performance + This Week reflow into one row at desktop */}
+            <div className="grid grid-cols-1 gap-6 xl:grid-cols-[2fr_1fr] xl:items-start">
+              <TodaysPerformance stats={stats} />
+              <ThisWeekCard stats={stats} />
+            </div>
 
             {/* Quick Actions */}
             <QuickActions />

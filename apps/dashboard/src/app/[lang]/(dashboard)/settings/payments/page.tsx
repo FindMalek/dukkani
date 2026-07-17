@@ -15,7 +15,7 @@ import { RoutePaths } from "@/shared/config/routes";
 
 export default function PaymentSettingsPage() {
   return (
-    <div className="container mx-auto max-w-7xl p-4 md:p-6">
+    <div className="mx-auto w-full p-4 md:p-6 xl:max-w-2xl">
       <div className="mb-6">
         <div className="mb-4 flex items-center gap-4">
           <Link href={RoutePaths.SETTINGS.INDEX.url}>
