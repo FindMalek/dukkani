@@ -516,7 +516,8 @@
       "loadingProduct": "Loading product",
       "preview": {
         "title": "Storefront preview",
-        "untitled": "Untitled product"
+        "untitled": "Untitled product",
+        "goToSlide": "Go to image {index}"
       },
       "sections": {
         "photos": "Product Photos",

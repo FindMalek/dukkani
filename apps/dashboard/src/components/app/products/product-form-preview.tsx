@@ -1,17 +1,16 @@
 "use client";
 
 import type { ProductFormInput } from "@dukkani/common/schemas/product/form";
-import { AspectRatio } from "@dukkani/ui/components/aspect-ratio";
-import { Icons } from "@dukkani/ui/components/icons";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useObjectUrlPreviews } from "@dukkani/ui/hooks/use-object-url-previews";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { ProductFormPreviewCarousel } from "@/components/app/products/product-form-preview-carousel";
 import { productFormOptions } from "@/shared/lib/product/form";
 import { useCurrentStoreCurrency } from "@/shared/lib/store/current-currency.hook";
+import { productImageAttachmentThumb } from "@/shared/lib/variant/variants-form.util";
 
 type PreviewSnapshot = Pick<
   ProductFormInput,
@@ -20,8 +19,18 @@ type PreviewSnapshot = Pick<
 
 type ImageAttachment = ProductFormInput["images"][number];
 
-/** Resolves the primary image url from form-watched attachments (remote or local blob preview). */
-function usePrimaryImageUrl(images: ProductFormInput["images"]) {
+/** A displayable preview image, keeping the same `ref` identity `variants[].imageRef` points at. */
+type ResolvedPreviewImage = { ref: string; src: string };
+
+/**
+ * Resolves the ordered, displayable image list from form-watched attachments
+ * (remote URLs and local blob previews), preserving attachment order. Local
+ * attachments without a resolved blob preview yet (or malformed remote
+ * entries) are skipped rather than rendered as a broken slide.
+ */
+function useResolvedImages(
+  images: ProductFormInput["images"],
+): ResolvedPreviewImage[] {
   const localItems = useMemo(
     () =>
       images
@@ -34,9 +43,54 @@ function usePrimaryImageUrl(images: ProductFormInput["images"]) {
   );
   const previewById = useObjectUrlPreviews(localItems);
 
-  const first = images[0];
-  if (!first) return undefined;
-  return first.kind === "remote" ? first.url : previewById[first.clientId];
+  return useMemo(() => {
+    const resolved: ResolvedPreviewImage[] = [];
+    for (const image of images) {
+      const thumb = productImageAttachmentThumb(image, previewById);
+      if (thumb.src) resolved.push({ ref: thumb.ref, src: thumb.src });
+    }
+    return resolved;
+  }, [images, previewById]);
+}
+
+/**
+ * Finds the `imageRef` of the variant row matching the currently selected
+ * swatch options — mirroring the storefront's `findMatchingVariant`
+ * (`apps/storefront/src/components/shared/variant-selector.tsx`), which
+ * requires every option to match exactly (no partial matches). Missing
+ * selections fall back to each option's first value, matching
+ * `ProductPreviewSwatches`' own default-selection display logic.
+ */
+function useSelectedVariantImageRef(
+  variants: PreviewSnapshot["variants"],
+  variantOptions: PreviewSnapshot["variantOptions"],
+  selectedOptions: Record<string, string>,
+): string | undefined {
+  return useMemo(() => {
+    const validOptions = variantOptions.filter(
+      (option) => option.name.trim().length > 0 && option.values.length > 0,
+    );
+    if (validOptions.length === 0) return undefined;
+
+    const effectiveSelections: Record<string, string> = {};
+    for (const option of validOptions) {
+      const value = selectedOptions[option.name] ?? option.values[0]?.value;
+      if (value) effectiveSelections[option.name] = value;
+    }
+
+    const effectiveKeys = Object.keys(effectiveSelections);
+    if (effectiveKeys.length === 0) return undefined;
+
+    const match = variants.find((variant) => {
+      const variantKeys = Object.keys(variant.selections);
+      if (variantKeys.length !== effectiveKeys.length) return false;
+      return effectiveKeys.every(
+        (key) => variant.selections[key] === effectiveSelections[key],
+      );
+    });
+
+    return match?.imageRef;
+  }, [variants, variantOptions, selectedOptions]);
 }
 
 /** Formats a price label for the preview, computing a range across variant prices when applicable. */
@@ -131,7 +185,20 @@ function ProductPreviewCard({ snapshot }: { snapshot: PreviewSnapshot }) {
     Record<string, string>
   >({});
 
-  const imageUrl = usePrimaryImageUrl(snapshot.images);
+  const resolvedImages = useResolvedImages(snapshot.images);
+  const selectedVariantImageRef = useSelectedVariantImageRef(
+    snapshot.variants,
+    snapshot.variantOptions,
+    selectedOptions,
+  );
+  const targetSlideIndex = useMemo(() => {
+    if (!selectedVariantImageRef) return null;
+    const idx = resolvedImages.findIndex(
+      (image) => image.ref === selectedVariantImageRef,
+    );
+    return idx >= 0 ? idx : null;
+  }, [resolvedImages, selectedVariantImageRef]);
+
   const priceLabel = usePriceLabel(snapshot, (v) => formatPrice(v));
   const displayName =
     snapshot.name.trim().length > 0 ? snapshot.name : t("untitled");
@@ -141,23 +208,11 @@ function ProductPreviewCard({ snapshot }: { snapshot: PreviewSnapshot }) {
       <p className="font-semibold text-muted-foreground text-xs uppercase tracking-wide">
         {t("title")}
       </p>
-      <div className="overflow-hidden rounded-lg">
-        <AspectRatio ratio={3 / 4}>
-          {imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt={displayName}
-              fill
-              className="object-cover"
-              unoptimized={imageUrl.startsWith("blob:")}
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center bg-muted">
-              <Icons.image className="size-8 text-muted-foreground" />
-            </div>
-          )}
-        </AspectRatio>
-      </div>
+      <ProductFormPreviewCarousel
+        images={resolvedImages.map((image) => image.src)}
+        productName={displayName}
+        targetSlideIndex={targetSlideIndex}
+      />
       <div className="flex flex-col gap-1">
         <h3
           className={`font-bold text-sm ${
