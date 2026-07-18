@@ -698,7 +698,8 @@
         "title": "No Store Found",
         "description": "Please create a store first to add products.",
         "createStore": "Create Store"
-      }
+      },
+      "previewInStorefront": "Preview in storefront"
     },
     "edit": {
       "header": {

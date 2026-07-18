@@ -702,7 +702,8 @@
         "title": "Aperçu de la vitrine",
         "untitled": "Produit sans titre",
         "goToSlide": "Aller à l'image {index}"
-      }
+      },
+      "previewInStorefront": "Aperçu sur la boutique"
     },
     "edit": {
       "header": {

@@ -698,7 +698,8 @@
         "title": "معاينة الواجهة",
         "untitled": "منتج بدون عنوان",
         "goToSlide": "انتقل إلى الصورة {index}"
-      }
+      },
+      "previewInStorefront": "معاينة في المتجر"
     },
     "edit": {
       "header": {
