@@ -403,7 +403,8 @@
         "totalSpent": "إجمالي الإنفاق",
         "lastOrder": "آخر طلب",
         "actions": "الإجراءات"
-      }
+      },
+      "phoneCopied": "تم نسخ رقم الهاتف!"
     },
     "detail": {
       "backToCustomers": "العودة إلى العملاء",

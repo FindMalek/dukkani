@@ -403,7 +403,8 @@
         "totalSpent": "Total spent",
         "lastOrder": "Last order",
         "actions": "Actions"
-      }
+      },
+      "phoneCopied": "Phone number copied!"
     },
     "detail": {
       "backToCustomers": "Back to customers",
