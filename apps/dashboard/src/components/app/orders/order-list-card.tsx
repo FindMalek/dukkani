@@ -17,9 +17,11 @@ import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.ho
 
 interface OrderListCardProps {
   order: OrderListItemOutput;
+  /** Hide the status badge when a specific status filter (not "All") is active — every visible card already shares it. */
+  showStatus: boolean;
 }
 
-export function OrderListCard({ order }: OrderListCardProps) {
+export function OrderListCard({ order, showStatus }: OrderListCardProps) {
   const t = useTranslations("orders.list");
   const router = useRouter();
   const updateStatusMutation = useMutation(appMutations.order.updateStatus());
@@ -88,9 +90,11 @@ export function OrderListCard({ order }: OrderListCardProps) {
           <h3 className="font-semibold text-base text-foreground">
             {order.customer?.name ?? "—"}
           </h3>
-          <Badge variant={badgeVariant} className="shrink-0 font-normal">
-            {statusLabel}
-          </Badge>
+          {showStatus && (
+            <Badge variant={badgeVariant} className="shrink-0 font-normal">
+              {statusLabel}
+            </Badge>
+          )}
         </div>
 
         <div className="flex items-center gap-2 font-medium text-muted-foreground text-sm">

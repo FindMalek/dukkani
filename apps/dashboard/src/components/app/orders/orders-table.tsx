@@ -22,6 +22,8 @@ const TABLE_COLUMN_COUNT = 7;
 
 interface OrdersTableProps {
   sections: OrderListDisplaySection[];
+  /** Hide the Status column when a specific status filter (not "All") is active — every visible row already shares it. */
+  showStatus: boolean;
 }
 
 /**
@@ -35,8 +37,11 @@ interface OrdersTableProps {
  * Filtering, search and pagination all stay owned by `useOrdersController`;
  * this component is presentation only.
  */
-export function OrdersTable({ sections }: OrdersTableProps) {
+export function OrdersTable({ sections, showStatus }: OrdersTableProps) {
   const t = useTranslations("orders.list");
+  const columnCount = showStatus
+    ? TABLE_COLUMN_COUNT
+    : TABLE_COLUMN_COUNT - 1;
 
   return (
     <div className="hidden rounded-lg border xl:block">
@@ -46,7 +51,7 @@ export function OrdersTable({ sections }: OrdersTableProps) {
             <TableHead>{t("table.orderNumber")}</TableHead>
             <TableHead>{t("table.customer")}</TableHead>
             <TableHead>{t("table.date")}</TableHead>
-            <TableHead>{t("table.status")}</TableHead>
+            {showStatus && <TableHead>{t("table.status")}</TableHead>}
             <TableHead className="text-end">{t("table.items")}</TableHead>
             <TableHead className="text-end">{t("table.total")}</TableHead>
             <TableHead className="w-12 text-end">
@@ -56,7 +61,12 @@ export function OrdersTable({ sections }: OrdersTableProps) {
         </TableHeader>
         <TableBody>
           {sections.map((section) => (
-            <OrdersTableSectionRows key={section.key} section={section} />
+            <OrdersTableSectionRows
+              key={section.key}
+              section={section}
+              columnCount={columnCount}
+              showStatus={showStatus}
+            />
           ))}
         </TableBody>
       </Table>
@@ -66,27 +76,37 @@ export function OrdersTable({ sections }: OrdersTableProps) {
 
 function OrdersTableSectionRows({
   section,
+  columnCount,
+  showStatus,
 }: {
   section: OrderListDisplaySection;
+  columnCount: number;
+  showStatus: boolean;
 }) {
   return (
     <>
       <TableRow className="bg-muted/40 hover:bg-muted/40">
         <TableCell
-          colSpan={TABLE_COLUMN_COUNT}
+          colSpan={columnCount}
           className="py-2 font-medium text-muted-foreground text-sm"
         >
           {section.title}
         </TableCell>
       </TableRow>
       {section.orders.map((order) => (
-        <OrdersTableRow key={order.id} order={order} />
+        <OrdersTableRow key={order.id} order={order} showStatus={showStatus} />
       ))}
     </>
   );
 }
 
-function OrdersTableRow({ order }: { order: OrderListItemOutput }) {
+function OrdersTableRow({
+  order,
+  showStatus,
+}: {
+  order: OrderListItemOutput;
+  showStatus: boolean;
+}) {
   const t = useTranslations("orders.list");
   const formatPrice = useFormatPriceForActiveStore();
   const { total, itemsCount, badgeVariant, statusLabel, formattedDate } =
@@ -107,11 +127,13 @@ function OrdersTableRow({ order }: { order: OrderListItemOutput }) {
         </p>
       </TableCell>
       <TableCell className="text-muted-foreground">{formattedDate}</TableCell>
-      <TableCell>
-        <Badge variant={badgeVariant} className="font-normal">
-          {statusLabel}
-        </Badge>
-      </TableCell>
+      {showStatus && (
+        <TableCell>
+          <Badge variant={badgeVariant} className="font-normal">
+            {statusLabel}
+          </Badge>
+        </TableCell>
+      )}
       <TableCell className="text-end text-muted-foreground">
         {t("itemsCount", { count: itemsCount })}
       </TableCell>
