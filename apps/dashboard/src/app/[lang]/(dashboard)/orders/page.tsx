@@ -17,6 +17,7 @@ import { InputGroupButton } from "@dukkani/ui/components/input-group";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
+import { OrdersGovernorateChips } from "@/components/app/orders/orders-governorate-chips";
 import { OrdersGroupedList } from "@/components/app/orders/orders-grouped-list";
 import { OrdersListSkeleton } from "@/components/app/orders/orders-list-skeleton";
 import { OrdersPageHeader } from "@/components/app/orders/orders-page-header";
@@ -37,10 +38,13 @@ export default function OrdersPage() {
 
   const {
     ordersQuery: { data, isLoading, error, refetch, isRefetching },
+    governorateCountsQuery: { data: governorateCountsData },
     search,
     status,
+    governorates,
     setSearch,
     setStatus,
+    toggleGovernorate,
     resetFilters,
   } = useOrdersController();
 
@@ -50,7 +54,10 @@ export default function OrdersPage() {
   }>({ from: null, to: null });
 
   const filterActive =
-    status !== null || dateRange.from !== null || dateRange.to !== null;
+    status !== null ||
+    governorates.length > 0 ||
+    dateRange.from !== null ||
+    dateRange.to !== null;
 
   if (error) {
     return (
@@ -151,6 +158,13 @@ export default function OrdersPage() {
           }
         />
         <OrdersStatusTabs value={status} onChange={setStatus} />
+        <OrdersGovernorateChips
+          counts={governorateCountsData?.counts ?? []}
+          totalCount={data?.total ?? 0}
+          selected={governorates}
+          onToggle={toggleGovernorate}
+          onClear={() => resetFilters()}
+        />
       </div>
 
       {listBody}
