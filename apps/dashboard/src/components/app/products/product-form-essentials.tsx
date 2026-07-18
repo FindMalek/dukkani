@@ -91,46 +91,54 @@ export const ProductFormEssentials = withForm({
             />
           )}
         </form.AppField>
-        <form.AppField name="description">
-          {(field) => (
-            <field.MarkdownEditorInput
-              label={t("form.description.label")}
-              placeholder={t("form.description.placeholder")}
-              onImageUpload={handleInlineImageUpload}
-              onImageUploadError={handleAPIError}
-              imageUploadLabel={t("form.generateAi.insertImageLabel")}
-            />
-          )}
-        </form.AppField>
-        <form.Subscribe
-          selector={(s) => ({
-            name: s.values.name,
-            price: s.values.price,
-            categoryId: s.values.categoryId,
-            hasVariants: s.values.hasVariants,
-            variantOptions: s.values.variantOptions,
-            images: s.values.images,
-          })}
-        >
-          {(snapshot) => {
-            const selectedCategoryName = categoriesOptions[0]?.options.find(
-              (option) => option.id === snapshot.categoryId,
-            )?.name;
-            return (
-              <GenerateDescriptionButton
-                form={form}
-                storeId={storeId}
-                currency={currency}
-                categoryName={
-                  typeof selectedCategoryName === "string"
-                    ? selectedCategoryName
-                    : undefined
-                }
-                snapshot={snapshot}
+        {/* `contents` on mobile keeps both children flush with FieldGroup's own
+            gap-7 rhythm (unchanged placement below the field); at xl: it
+            becomes a positioning context so the button can float at the
+            description field's top-right instead of pushing content down. */}
+        <div className="contents xl:relative xl:block">
+          <form.AppField name="description">
+            {(field) => (
+              <field.MarkdownEditorInput
+                label={t("form.description.label")}
+                placeholder={t("form.description.placeholder")}
+                onImageUpload={handleInlineImageUpload}
+                onImageUploadError={handleAPIError}
+                imageUploadLabel={t("form.generateAi.insertImageLabel")}
               />
-            );
-          }}
-        </form.Subscribe>
+            )}
+          </form.AppField>
+          <form.Subscribe
+            selector={(s) => ({
+              name: s.values.name,
+              price: s.values.price,
+              categoryId: s.values.categoryId,
+              hasVariants: s.values.hasVariants,
+              variantOptions: s.values.variantOptions,
+              images: s.values.images,
+            })}
+          >
+            {(snapshot) => {
+              const selectedCategoryName = categoriesOptions[0]?.options.find(
+                (option) => option.id === snapshot.categoryId,
+              )?.name;
+              return (
+                <div className="xl:absolute xl:top-0 xl:right-0">
+                  <GenerateDescriptionButton
+                    form={form}
+                    storeId={storeId}
+                    currency={currency}
+                    categoryName={
+                      typeof selectedCategoryName === "string"
+                        ? selectedCategoryName
+                        : undefined
+                    }
+                    snapshot={snapshot}
+                  />
+                </div>
+              );
+            }}
+          </form.Subscribe>
+        </div>
         <form.Subscribe selector={(s) => s.values.hasVariants}>
           {(hasVariants) =>
             hasVariants ? null : (
