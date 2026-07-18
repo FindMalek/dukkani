@@ -102,7 +102,16 @@ export default function ProductsPage() {
 
   return (
     <div className="container mx-auto max-w-7xl p-4 pb-24 md:p-6 md:pb-8">
-      <ProductsPageHeader />
+      <ProductsPageHeader
+        action={
+          <Button asChild>
+            <Link href={RoutePaths.PRODUCTS.NEW.url}>
+              <Icons.plus className="size-4" />
+              {t("addProduct")}
+            </Link>
+          </Button>
+        }
+      />
 
       {/* Search & Filters */}
       <div className="mb-6 space-y-4">
@@ -180,11 +189,11 @@ export default function ProductsPage() {
         </Empty>
       )}
 
-      {/* FAB - Add Product */}
+      {/* FAB - Add Product: mobile/tablet only, the header action covers desktop */}
       <Button
         asChild
         size="icon-lg"
-        className="fixed end-4 bottom-24 z-50 size-14 rounded-full shadow-lg md:end-6 md:bottom-8"
+        className="fixed end-4 bottom-24 z-50 size-14 rounded-full shadow-lg md:end-6 md:bottom-8 xl:hidden"
         aria-label={t("addProduct")}
       >
         <Link href={RoutePaths.PRODUCTS.NEW.url}>
