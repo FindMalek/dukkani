@@ -1,5 +1,5 @@
-import type { CustomerListItemOutput } from "@dukkani/common/schemas/customer/output";
 import type { store } from "@dukkani/common/schemas";
+import type { CustomerListItemOutput } from "@dukkani/common/schemas/customer/output";
 
 const CSV_HEADERS = [
   "Name",

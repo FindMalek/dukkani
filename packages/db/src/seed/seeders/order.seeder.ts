@@ -3,8 +3,8 @@ import type { PrismaClient } from "../../../prisma/generated/client";
 import {
   OrderStatus,
   PaymentMethod,
-  WhatsAppMessageStatus,
   type Prisma,
+  WhatsAppMessageStatus,
 } from "../../../prisma/generated/client";
 import { BaseSeeder } from "../base";
 import type { CustomerSeeder } from "./customer.seeder";

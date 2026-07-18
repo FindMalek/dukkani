@@ -73,7 +73,7 @@ export function CustomerListCard({
             checked={selected}
             onCheckedChange={onToggleSelect}
             onClick={(e) => e.stopPropagation()}
-            className="mt-1 ms-0.5 shrink-0"
+            className="ms-0.5 mt-1 shrink-0"
             aria-label={customer.name}
           />
         )}
