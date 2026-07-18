@@ -62,8 +62,8 @@ export default function DashboardPage() {
               <Skeleton className="h-32 rounded-lg" />
             </div>
 
-            {/* Quick Actions Skeleton */}
-            <div className="space-y-4">
+            {/* Quick Actions Skeleton: mobile/tablet only, see QuickActions itself */}
+            <div className="space-y-4 xl:hidden">
               <Skeleton className="h-4 w-32" />
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <Skeleton className="h-16 rounded-lg" />
@@ -79,8 +79,10 @@ export default function DashboardPage() {
               <ThisWeekCard stats={stats} />
             </div>
 
-            {/* Quick Actions */}
-            <QuickActions />
+            {/* Quick Actions: mobile/tablet only — redundant with sidebar nav + "+ Create" on desktop */}
+            <div className="xl:hidden">
+              <QuickActions />
+            </div>
           </>
         ) : null}
       </div>
