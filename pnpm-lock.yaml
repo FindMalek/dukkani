@@ -629,7 +629,7 @@ importers:
         specifier: 'catalog:'
         version: 17.4.2
       typescript:
-        specifier: ^6.0.2
+        specifier: 'catalog:'
         version: 7.0.2
       zod:
         specifier: 'catalog:'
@@ -843,7 +843,7 @@ importers:
         specifier: 'catalog:'
         version: 17.4.2
       typescript:
-        specifier: ^6.0.2
+        specifier: 'catalog:'
         version: 7.0.2
       zod:
         specifier: 'catalog:'
@@ -917,7 +917,7 @@ importers:
         specifier: 'catalog:'
         version: 6.0.0
       typescript:
-        specifier: ^6.0.2
+        specifier: 'catalog:'
         version: 7.0.2
     devDependencies:
       '@dukkani/config':
@@ -981,7 +981,7 @@ importers:
         specifier: 'catalog:'
         version: 2.0.7(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       typescript:
-        specifier: ^6.0.2
+        specifier: 'catalog:'
         version: 7.0.2
       zod:
         specifier: 'catalog:'
@@ -991,7 +991,7 @@ importers:
         specifier: workspace:*
         version: link:../config
       next:
-        specifier: ^16.2.10
+        specifier: 'catalog:'
         version: 16.2.10(@opentelemetry/api@1.9.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       tsdown:
         specifier: 'catalog:'
@@ -1024,7 +1024,7 @@ importers:
         specifier: 'catalog:'
         version: 0.35.3(@types/node@26.1.1)
       typescript:
-        specifier: ^6.0.2
+        specifier: 'catalog:'
         version: 7.0.2
     devDependencies:
       '@dukkani/config':
@@ -1233,13 +1233,13 @@ importers:
         specifier: ^1.6.2
         version: 1.6.2(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react:
-        specifier: ^19.2.7
+        specifier: 'catalog:'
         version: 19.2.7
       react-day-picker:
         specifier: ^10.0.1
         version: 10.0.1(@types/react@19.2.17)(react@19.2.7)
       react-dom:
-        specifier: ^19.2.7
+        specifier: 'catalog:'
         version: 19.2.7(react@19.2.7)
       react-dropzone:
         specifier: 'catalog:'

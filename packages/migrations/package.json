@@ -42,7 +42,7 @@
     "tsdown": "catalog:"
   },
   "peerDependencies": {
-    "typescript": "^6.0.2"
+    "typescript": "catalog:"
   },
   "dependencies": {
     "@dukkani/common": "workspace:*",

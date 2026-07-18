@@ -27,12 +27,12 @@
   },
   "devDependencies": {
     "@dukkani/config": "workspace:*",
-    "next": "^16.2.10",
+    "next": "catalog:",
     "tsdown": "catalog:"
   },
   "peerDependencies": {
     "next": ">=14.0.0",
-    "typescript": "^6.0.2"
+    "typescript": "catalog:"
   },
   "dependencies": {
     "@dukkani/auth": "workspace:*",
