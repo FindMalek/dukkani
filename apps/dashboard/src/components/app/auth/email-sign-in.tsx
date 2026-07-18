@@ -9,12 +9,23 @@ import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { env } from "@/env";
 import { authClient } from "@/shared/api/auth-client";
 import { handleAPIError } from "@/shared/api/error-handler";
 import { client } from "@/shared/api/orpc";
 import { getRouteWithQuery, RoutePaths } from "@/shared/config/routes";
 
 const emailFormSchema = loginInputSchema.pick({ email: true });
+
+// Seeded by DemoSeeder (packages/db/src/seed/seeders/demo.seeder.ts), always
+// present in every environment. Only ever used to prefill the login form,
+// and only when NEXT_PUBLIC_VERCEL_ENV === "preview" — never in production,
+// and not in local dev unless that var is explicitly set.
+const DEMO_ACCOUNT = {
+  email: "demo@dukkani.co",
+  password: "Demo123!",
+} as const;
+const isPreviewEnvironment = env.NEXT_PUBLIC_VERCEL_ENV === "preview";
 
 export function EmailSignIn({
   className,
@@ -44,7 +55,9 @@ export function EmailSignIn({
   };
 
   const emailForm = useAppForm({
-    defaultValues: { email: "" },
+    defaultValues: {
+      email: isPreviewEnvironment ? DEMO_ACCOUNT.email : "",
+    },
     validators: {
       onChangeAsync: emailFormSchema,
       onChangeAsyncDebounceMs: 500,
@@ -57,7 +70,7 @@ export function EmailSignIn({
   const passwordForm = useAppForm({
     defaultValues: {
       email: emailForm.state.values.email,
-      password: "",
+      password: isPreviewEnvironment ? DEMO_ACCOUNT.password : "",
       rememberMe: false,
     },
     validators: {

@@ -1,3 +1,6 @@
 {
-  "relatedProjects": ["prj_K3UBGTooRpmNyl2Q9AFAHJ04Hm7L"]
+  "relatedProjects": ["prj_K3UBGTooRpmNyl2Q9AFAHJ04Hm7L"],
+  "env": {
+    "NEXT_PUBLIC_VERCEL_ENV": "$VERCEL_ENV"
+  }
 }
