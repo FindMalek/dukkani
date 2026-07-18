@@ -31,18 +31,19 @@
     "tsdown": "catalog:"
   },
   "peerDependencies": {
-    "typescript": "^6.0.2",
-    "next": ">=14.0.0"
+    "next": ">=14.0.0",
+    "typescript": "catalog:"
   },
   "dependencies": {
     "@dukkani/auth": "workspace:*",
-    "@dukkani/tracing": "workspace:*",
-    "@dukkani/logger": "workspace:*",
     "@dukkani/common": "workspace:*",
-    "@dukkani/db": "workspace:*",
     "@dukkani/core": "workspace:*",
-    "@dukkani/storage": "workspace:*",
+    "@dukkani/db": "workspace:*",
     "@dukkani/env": "workspace:*",
+    "@dukkani/logger": "workspace:*",
+    "@dukkani/storage": "workspace:*",
+    "@dukkani/tracing": "workspace:*",
+    "@opentelemetry/api": "^1.9.1",
     "@orpc/client": "catalog:",
     "@orpc/openapi": "catalog:",
     "@orpc/server": "catalog:",
@@ -51,7 +52,6 @@
     "@tanstack/react-query": "catalog:",
     "dotenv": "catalog:",
     "sonner": "catalog:",
-    "zod": "catalog:",
-    "@opentelemetry/api": "^1.9.1"
+    "zod": "catalog:"
   }
 }

@@ -56,7 +56,7 @@
     "bcryptjs": "^3.0.3",
     "nanoid": "catalog:",
     "pg": "^8.22.0",
-    "ws": "^8.21.0",
+    "ws": "^8.21.1",
     "zod": "catalog:"
   },
   "devDependencies": {

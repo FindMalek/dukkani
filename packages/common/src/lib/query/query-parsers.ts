@@ -7,12 +7,12 @@ import {
   parseAsStringEnum,
   parseAsStringLiteral,
 } from "nuqs/server";
+import { CUSTOMER_SORT_OPTIONS } from "../../schemas/customer/input";
 import {
   Governorate,
   OrderStatus,
   UserOnboardingStep,
 } from "../../schemas/enums";
-import { CUSTOMER_SORT_OPTIONS } from "../../schemas/customer/input";
 import { PRODUCT_SORT_OPTIONS } from "../../schemas/product/input";
 
 /**

@@ -1,8 +1,8 @@
 import { z } from "zod";
+import { bundleItemOutputSchema } from "../bundle-item/output";
 import { imageSimpleOutputSchema } from "../image/output";
 import { orderItemSimpleOutputSchema } from "../order-item/output";
 import { productPriceDisplaySchema } from "../product/output";
-import { bundleItemOutputSchema } from "../bundle-item/output";
 
 export const bundleIncludeOutputSchema = z.object({
   id: z.string(),
