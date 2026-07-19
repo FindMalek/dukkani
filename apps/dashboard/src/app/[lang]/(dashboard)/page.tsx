@@ -56,10 +56,10 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Quick Actions Skeleton */}
-            <div className="space-y-4">
+            {/* Quick Actions Skeleton: mobile/tablet only, see QuickActions itself */}
+            <div className="space-y-4 xl:hidden">
               <Skeleton className="h-4 w-32" />
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 <Skeleton className="h-16 rounded-lg" />
                 <Skeleton className="h-16 rounded-lg" />
               </div>
@@ -70,8 +70,10 @@ export default function DashboardPage() {
             {/* Performance: all metric cards share one grid, equal proportions on desktop */}
             <PerformanceOverview stats={stats} />
 
-            {/* Quick Actions */}
-            <QuickActions />
+            {/* Quick Actions: mobile/tablet only — redundant with sidebar nav + "+ Create" on desktop */}
+            <div className="xl:hidden">
+              <QuickActions />
+            </div>
           </>
         ) : null}
       </div>
