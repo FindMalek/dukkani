@@ -45,6 +45,7 @@ export default function OrdersPage() {
     setSearch,
     setStatus,
     toggleGovernorate,
+    setGovernorates,
     resetFilters,
   } = useOrdersController();
 
@@ -163,7 +164,7 @@ export default function OrdersPage() {
           totalCount={data?.total ?? 0}
           selected={governorates}
           onToggle={toggleGovernorate}
-          onClear={() => resetFilters()}
+          onClear={() => setGovernorates([])}
         />
       </div>
 
