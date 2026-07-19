@@ -3,10 +3,9 @@
 import { Card, CardContent } from "@dukkani/ui/components/card";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useQuery } from "@tanstack/react-query";
+import { PerformanceOverview } from "@/components/app/overview/performance-overview";
 import { QuickActions } from "@/components/app/overview/quick-actions";
 import { StoreHeader } from "@/components/app/overview/store-header";
-import { ThisWeekCard } from "@/components/app/overview/this-week-card";
-import { TodaysPerformance } from "@/components/app/overview/todays-performance";
 import { appQueries } from "@/shared/api/queries";
 import { useActiveStoreStore } from "@/shared/lib/store/active.store";
 
@@ -47,19 +46,14 @@ export default function DashboardPage() {
 
         {isLoading ? (
           <div className="space-y-6">
-            {/* Stats Skeleton: Today's Performance + This Week reflow into one row at desktop */}
-            <div className="grid grid-cols-1 gap-6 xl:grid-cols-[2fr_1fr] xl:items-start">
-              {/* Today's Performance Skeleton */}
-              <div className="space-y-4">
-                <Skeleton className="h-4 w-40" />
-                <div className="grid grid-cols-2 gap-4">
-                  <Skeleton className="h-24 rounded-lg" />
-                  <Skeleton className="h-24 rounded-lg" />
-                </div>
+            {/* Performance Skeleton: all metric cards share one grid */}
+            <div className="space-y-4">
+              <Skeleton className="h-4 w-40" />
+              <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">
+                <Skeleton className="h-24 rounded-lg" />
+                <Skeleton className="h-24 rounded-lg" />
+                <Skeleton className="col-span-2 h-24 rounded-lg xl:col-span-1" />
               </div>
-
-              {/* This Week Skeleton */}
-              <Skeleton className="h-32 rounded-lg" />
             </div>
 
             {/* Quick Actions Skeleton */}
@@ -73,11 +67,8 @@ export default function DashboardPage() {
           </div>
         ) : stats ? (
           <>
-            {/* Stats: Today's Performance + This Week reflow into one row at desktop */}
-            <div className="grid grid-cols-1 gap-6 xl:grid-cols-[2fr_1fr] xl:items-start">
-              <TodaysPerformance stats={stats} />
-              <ThisWeekCard stats={stats} />
-            </div>
+            {/* Performance: all metric cards share one grid, equal proportions on desktop */}
+            <PerformanceOverview stats={stats} />
 
             {/* Quick Actions */}
             <QuickActions />
