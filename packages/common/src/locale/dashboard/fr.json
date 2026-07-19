@@ -49,6 +49,12 @@
     }
   },
   "settings": {
+    "theme": {
+      "label": "Thème",
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système"
+    },
     "logout": {
       "button": "Log out",
       "title": "Log out of your account?",
