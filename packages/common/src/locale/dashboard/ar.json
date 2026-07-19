@@ -697,7 +697,10 @@
       "preview": {
         "title": "معاينة الواجهة",
         "untitled": "منتج بدون عنوان",
-        "goToSlide": "انتقل إلى الصورة {index}"
+        "goToSlide": "انتقل إلى الصورة {index}",
+        "description": "الوصف",
+        "hide": "إخفاء المعاينة",
+        "show": "إظهار المعاينة"
       }
     },
     "edit": {

@@ -701,7 +701,10 @@
       "preview": {
         "title": "Aperçu de la vitrine",
         "untitled": "Produit sans titre",
-        "goToSlide": "Aller à l'image {index}"
+        "goToSlide": "Aller à l'image {index}",
+        "description": "Description",
+        "hide": "Masquer l'aperçu",
+        "show": "Afficher l'aperçu"
       }
     },
     "edit": {

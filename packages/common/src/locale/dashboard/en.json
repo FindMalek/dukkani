@@ -538,7 +538,10 @@
       "preview": {
         "title": "Storefront preview",
         "untitled": "Untitled product",
-        "goToSlide": "Go to image {index}"
+        "goToSlide": "Go to image {index}",
+        "description": "Description",
+        "hide": "Hide preview",
+        "show": "Show preview"
       },
       "sections": {
         "photos": "Product Photos",
