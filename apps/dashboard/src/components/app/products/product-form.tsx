@@ -33,16 +33,27 @@ function usePreviewVisible() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(PREVIEW_VISIBLE_STORAGE_KEY);
-    if (stored !== null) {
-      setIsVisible(stored !== "false");
+    try {
+      const stored = window.localStorage.getItem(PREVIEW_VISIBLE_STORAGE_KEY);
+      if (stored !== null) {
+        setIsVisible(stored !== "false");
+      }
+    } catch {
+      // Storage unavailable (e.g. private browsing) — keep the default.
     }
   }, []);
 
   const toggle = useCallback(() => {
     setIsVisible((prev) => {
       const next = !prev;
-      window.localStorage.setItem(PREVIEW_VISIBLE_STORAGE_KEY, String(next));
+      try {
+        window.localStorage.setItem(
+          PREVIEW_VISIBLE_STORAGE_KEY,
+          String(next),
+        );
+      } catch {
+        // Storage unavailable — toggle still works for this session.
+      }
       return next;
     });
   }, []);

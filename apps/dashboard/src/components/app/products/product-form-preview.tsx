@@ -245,7 +245,7 @@ function ProductPreviewCard({ snapshot }: { snapshot: PreviewSnapshot }) {
           setSelectedOptions((prev) => ({ ...prev, [optionName]: value }))
         }
       />
-      {snapshot.description ? (
+      {snapshot.description?.trim() ? (
         <div className="flex flex-col gap-1 border-t pt-3">
           <p className="font-medium text-muted-foreground text-xs">
             {t("description")}
