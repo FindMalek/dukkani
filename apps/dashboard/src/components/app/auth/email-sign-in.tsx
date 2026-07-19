@@ -70,7 +70,11 @@ export function EmailSignIn({
   const passwordForm = useAppForm({
     defaultValues: {
       email: emailForm.state.values.email,
-      password: isPreviewEnvironment ? DEMO_ACCOUNT.password : "",
+      password:
+        isPreviewEnvironment &&
+        emailForm.state.values.email === DEMO_ACCOUNT.email
+          ? DEMO_ACCOUNT.password
+          : "",
       rememberMe: false,
     },
     validators: {
