@@ -80,3 +80,8 @@ overrides:
   uuid: '>=11.1.1'
   postcss: '>=8.5.10'
   '@hono/node-server': '>=1.19.13'
+  # Next.js bundles its own optional `sharp` (used for Image Optimization) at
+  # a different version than our own catalog pin, resolving a second,
+  # mismatched libvips native binary. Force everything onto one version to
+  # avoid ERR_DLOPEN_FAILED at runtime. See #518.
+  sharp: ^0.35.3
