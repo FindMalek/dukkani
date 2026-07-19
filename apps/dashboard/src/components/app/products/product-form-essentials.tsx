@@ -122,7 +122,7 @@ export const ProductFormEssentials = withForm({
                 (option) => option.id === snapshot.categoryId,
               )?.name;
               return (
-                <div className="xl:absolute xl:top-0 xl:right-0">
+                <div className="xl:absolute xl:-top-1 xl:right-0">
                   <GenerateDescriptionButton
                     form={form}
                     storeId={storeId}
