@@ -111,7 +111,7 @@ export default function ProductsPage() {
           this scroll area, not inside it, so no extra offset is needed. */}
       <div
         className={cn(
-          "sticky z-10 mb-6 space-y-4 bg-background/95 py-2 backdrop-blur-sm",
+          "sticky z-10 mb-6 space-y-4 bg-background/95 py-2",
           layoutConstants.TOPBAR_STICKY_OFFSET_CLASS,
         )}
       >
