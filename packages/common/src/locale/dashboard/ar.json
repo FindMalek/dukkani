@@ -520,7 +520,8 @@
         "archive": "أرشفة",
         "deleteConfirmTitle": "هل تريد حذف المنتج؟",
         "deleteConfirmDescription": "لا يمكن التراجع عن هذا الإجراء.",
-        "cancel": "إلغاء"
+        "cancel": "إلغاء",
+        "previewInStorefront": "معاينة في المتجر"
       },
       "loading": "جارٍ تحميل المنتجات…",
       "table": {

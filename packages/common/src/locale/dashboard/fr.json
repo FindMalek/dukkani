@@ -524,7 +524,8 @@
         "archive": "Archiver",
         "deleteConfirmTitle": "Supprimer le produit ?",
         "deleteConfirmDescription": "Cette action ne peut pas être annulée.",
-        "cancel": "Annuler"
+        "cancel": "Annuler",
+        "previewInStorefront": "Aperçu sur la boutique"
       },
       "loading": "Chargement des produits…",
       "table": {
