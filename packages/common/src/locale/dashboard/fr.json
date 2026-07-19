@@ -476,7 +476,7 @@
       },
       "stockInfo": "Stock : {count} unités • {variants} variantes",
       "stockInfoNoVariants": "Stock : {count} unités • Pas de variantes",
-      "stockCount": "{count} unités",
+      "stockCount": "{count, plural, one {# unité} other {# unités}}",
       "inStock": "En stock",
       "variantCount": "• {variants} variantes",
       "noVariants": "• Pas de variantes",
