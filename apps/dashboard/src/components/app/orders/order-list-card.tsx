@@ -18,10 +18,13 @@ import { useFormatPriceForActiveStore } from "@/shared/lib/store/format-price.ho
 interface OrderListCardProps {
   order: OrderListItemOutput;
   /** Hide the status badge when a specific status filter (not "All") is active — every visible card already shares it. */
-  showStatus: boolean;
+  showStatus?: boolean;
 }
 
-export function OrderListCard({ order, showStatus }: OrderListCardProps) {
+export function OrderListCard({
+  order,
+  showStatus = true,
+}: OrderListCardProps) {
   const t = useTranslations("orders.list");
   const router = useRouter();
   const updateStatusMutation = useMutation(appMutations.order.updateStatus());

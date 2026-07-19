@@ -23,7 +23,7 @@ const TABLE_COLUMN_COUNT = 7;
 interface OrdersTableProps {
   sections: OrderListDisplaySection[];
   /** Hide the Status column when a specific status filter (not "All") is active — every visible row already shares it. */
-  showStatus: boolean;
+  showStatus?: boolean;
 }
 
 /**
@@ -37,7 +37,10 @@ interface OrdersTableProps {
  * Filtering, search and pagination all stay owned by `useOrdersController`;
  * this component is presentation only.
  */
-export function OrdersTable({ sections, showStatus }: OrdersTableProps) {
+export function OrdersTable({
+  sections,
+  showStatus = true,
+}: OrdersTableProps) {
   const t = useTranslations("orders.list");
   const columnCount = showStatus
     ? TABLE_COLUMN_COUNT

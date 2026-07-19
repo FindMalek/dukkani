@@ -5,10 +5,10 @@ import type { OrderListDisplaySection } from "@/shared/lib/order/order.util";
 
 export function OrdersGroupedList({
   sections,
-  showStatus,
+  showStatus = true,
 }: {
   sections: OrderListDisplaySection[];
-  showStatus: boolean;
+  showStatus?: boolean;
 }) {
   return (
     <div className="space-y-6">
