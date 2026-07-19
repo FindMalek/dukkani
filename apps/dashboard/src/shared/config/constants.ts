@@ -4,6 +4,21 @@ export const cookieConstants = {
   LAST_LOGIN_METHOD: "better-auth.last_used_login_method", // Cookie name for storing the last used login method (e.g., "google", "email")
 } as const;
 
+/**
+ * `DashboardTopbar` (`components/layout/dashboard-topbar.tsx`) is `h-14` and
+ * lives as a flex sibling *above* the scrollable content area (`SidebarProvider`
+ * fixes the shell to `h-svh`; the content div below the topbar is the one
+ * with `overflow-auto`). That means the topbar already reserves its own
+ * space — an in-page sticky header inside the scrollable area only needs
+ * `top-0` to sit flush below it, on every breakpoint. Kept as a named
+ * constant (rather than a bare `top-0` scattered around) so any future
+ * layout change that turns the topbar into an overlay is a one-line fix.
+ */
+export const layoutConstants = {
+  TOPBAR_HEIGHT_CLASS: "h-14",
+  TOPBAR_STICKY_OFFSET_CLASS: "top-0",
+} as const;
+
 export const productFormConstants = {
   MAX_IMAGES: 10,
 } as const;

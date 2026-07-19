@@ -14,6 +14,7 @@ import {
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
 import { InputGroupButton } from "@dukkani/ui/components/input-group";
+import { cn } from "@dukkani/ui/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
@@ -24,6 +25,7 @@ import { OrdersSearchBar } from "@/components/app/orders/orders-search-bar";
 import { OrdersStatusTabs } from "@/components/app/orders/orders-status-tabs";
 import { OrdersTable } from "@/components/app/orders/orders-table";
 import { OrdersTableSkeleton } from "@/components/app/orders/orders-table-skeleton";
+import { layoutConstants } from "@/shared/config/constants";
 import { useOrdersController } from "@/shared/lib/order/controller.hook";
 import {
   getOrderListDisplaySections,
@@ -124,7 +126,15 @@ export default function OrdersPage() {
         onRefresh={() => refetch()}
       />
 
-      <div className="mb-6 space-y-4">
+      {/* Search & Filters — sticky within the scrollable content area so they
+          stay usable while scrolling a long list. The topbar lives above
+          this scroll area, not inside it, so no extra offset is needed. */}
+      <div
+        className={cn(
+          "sticky z-10 mb-6 space-y-4 bg-background/95 py-2",
+          layoutConstants.TOPBAR_STICKY_OFFSET_CLASS,
+        )}
+      >
         <OrdersSearchBar
           value={search}
           onChange={setSearch}
