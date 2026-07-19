@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 interface ProductsPageHeaderProps {
-  /** Desktop-only action rendered next to the heading (e.g. "Add product"). */
+  /** Action rendered next to the heading — the caller controls its own responsive visibility (e.g. "Add product", desktop-only). */
   action?: ReactNode;
 }
 
@@ -19,7 +19,7 @@ export function ProductsPageHeader({ action }: ProductsPageHeaderProps) {
           {t("description")}
         </p>
       </div>
-      {action && <div className="hidden shrink-0 xl:block">{action}</div>}
+      {action && <div className="shrink-0">{action}</div>}
     </div>
   );
 }

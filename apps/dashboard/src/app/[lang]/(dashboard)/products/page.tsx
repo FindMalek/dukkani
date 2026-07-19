@@ -104,7 +104,7 @@ export default function ProductsPage() {
     <div className="container mx-auto max-w-7xl p-4 pb-24 md:p-6 md:pb-8">
       <ProductsPageHeader
         action={
-          <Button asChild>
+          <Button asChild className="hidden xl:inline-flex">
             <Link href={RoutePaths.PRODUCTS.NEW.url}>
               <Icons.plus className="size-4" />
               {t("addProduct")}
