@@ -478,7 +478,7 @@
       },
       "stockInfo": "المخزون: {count} وحدة • {variants} متغيرات",
       "stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
-      "stockCount": "المخزون: {count} وحدة",
+      "stockCount": "{count} وحدة",
       "inStock": "متوفر في المخزون",
       "variantCount": "• {variants} متغيرات",
       "noVariants": "• لا توجد متغيرات",

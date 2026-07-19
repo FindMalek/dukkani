@@ -322,7 +322,7 @@ files:
     products.list.status.archived: 7d69b3cb4cada18ae61811304f8fbcb5
     products.list.stockInfo: 899f890c87d8722251222154ac5a73fb
     products.list.stockInfoNoVariants: 70d366e9a8c8119c9bbf785fa86c7387
-    products.list.stockCount: 557ecb607610c52e8d3820924edff636
+    products.list.stockCount: 393a28e220681d6443b8a36471193e6c
     products.list.inStock: fcebe56087b9373f15514831184fa572
     products.list.variantCount: ef8326aac0e6c311ebcf8717cd0764a3
     products.list.noVariants: 4b2492f2a54a5d602c3c7808db182c6b
