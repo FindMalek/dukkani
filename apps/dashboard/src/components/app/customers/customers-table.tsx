@@ -145,11 +145,14 @@ function CustomersTableRow({
           {customer.name}
         </p>
       </TableCell>
-      <TableCell onClick={(e) => e.stopPropagation()}>
+      <TableCell>
         <button
           type="button"
-          onClick={() => copy(customer.phone, t("phoneCopied"))}
-          className="flex cursor-pointer items-center gap-1.5 text-muted-foreground text-sm hover:text-foreground hover:underline"
+          onClick={(e) => {
+            e.stopPropagation();
+            copy(customer.phone, t("phoneCopied"));
+          }}
+          className="inline-flex cursor-pointer items-center gap-1.5 text-muted-foreground text-sm hover:text-foreground hover:underline"
         >
           <FlagComponent
             country={getPhoneCountry(customer.phone)}
