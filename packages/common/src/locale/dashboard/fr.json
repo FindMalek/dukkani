@@ -9,7 +9,7 @@
         "tapToCopy": "Appuyez pour copier et partager"
       },
       "todaysPerformance": {
-        "title": "PERFORMANCE D'AUJOURD'HUI",
+        "title": "PERFORMANCE",
         "orders": "Commandes",
         "revenue": "Revenus"
       },
@@ -49,6 +49,12 @@
     }
   },
   "settings": {
+    "theme": {
+      "label": "Thème",
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système"
+    },
     "logout": {
       "button": "Log out",
       "title": "Log out of your account?",
@@ -476,7 +482,7 @@
       },
       "stockInfo": "Stock : {count} unités • {variants} variantes",
       "stockInfoNoVariants": "Stock : {count} unités • Pas de variantes",
-      "stockCount": "{count} unités",
+      "stockCount": "{count, plural, one {# unité} other {# unités}}",
       "inStock": "En stock",
       "variantCount": "• {variants} variantes",
       "noVariants": "• Pas de variantes",
@@ -701,7 +707,10 @@
       "preview": {
         "title": "Aperçu de la vitrine",
         "untitled": "Produit sans titre",
-        "goToSlide": "Aller à l'image {index}"
+        "goToSlide": "Aller à l'image {index}",
+        "description": "Description",
+        "hide": "Masquer l'aperçu",
+        "show": "Afficher l'aperçu"
       },
       "previewInStorefront": "Aperçu sur la boutique"
     },

@@ -1,6 +1,7 @@
 "use client";
 
 import type { ProductFormInput } from "@dukkani/common/schemas/product/form";
+import { SafeMarkdown } from "@dukkani/ui/components/markdown/safe-markdown";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { withForm } from "@dukkani/ui/hooks/use-app-form";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
@@ -14,7 +15,13 @@ import { productImageAttachmentThumb } from "@/shared/lib/variant/variants-form.
 
 type PreviewSnapshot = Pick<
   ProductFormInput,
-  "name" | "price" | "hasVariants" | "images" | "variants" | "variantOptions"
+  | "name"
+  | "description"
+  | "price"
+  | "hasVariants"
+  | "images"
+  | "variants"
+  | "variantOptions"
 >;
 
 type ImageAttachment = ProductFormInput["images"][number];
@@ -238,6 +245,16 @@ function ProductPreviewCard({ snapshot }: { snapshot: PreviewSnapshot }) {
           setSelectedOptions((prev) => ({ ...prev, [optionName]: value }))
         }
       />
+      {snapshot.description?.trim() ? (
+        <div className="flex flex-col gap-1 border-t pt-3">
+          <p className="font-medium text-muted-foreground text-xs">
+            {t("description")}
+          </p>
+          <SafeMarkdown className="prose prose-sm max-w-none text-foreground text-sm leading-relaxed">
+            {snapshot.description}
+          </SafeMarkdown>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -255,6 +272,7 @@ export const ProductFormPreview = withForm({
       <form.Subscribe
         selector={(s) => ({
           name: s.values.name,
+          description: s.values.description,
           price: s.values.price,
           hasVariants: s.values.hasVariants,
           images: s.values.images,
