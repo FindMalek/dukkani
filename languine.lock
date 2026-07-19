@@ -6,7 +6,7 @@ files:
     dashboard.overview.storeHeader.liveStore: d2e0a4199be2b6f2aaae136b60c329e2
     dashboard.overview.storeHeader.yourStoreLink: 5a903397955c2aef24a0a7672d9ec17e
     dashboard.overview.storeHeader.tapToCopy: 18c64fb6514d553213c865b1a869a91e
-    dashboard.overview.todaysPerformance.title: 007ae933a4feac218b91b9a9b8e63e6c
+    dashboard.overview.todaysPerformance.title: 063360736adfccfae2f1d8093c02959a
     dashboard.overview.todaysPerformance.orders: 7442e29d7d53e549b78d93c46b8cdcfc
     dashboard.overview.todaysPerformance.revenue: 54358a914f51e1af19df8520159fe607
     dashboard.overview.thisWeek.title: 983268bc2eba161bbc25dd3e73ecdba0
@@ -322,7 +322,7 @@ files:
     products.list.status.archived: 7d69b3cb4cada18ae61811304f8fbcb5
     products.list.stockInfo: 899f890c87d8722251222154ac5a73fb
     products.list.stockInfoNoVariants: 70d366e9a8c8119c9bbf785fa86c7387
-    products.list.stockCount: 393a28e220681d6443b8a36471193e6c
+    products.list.stockCount: fe232235f9b27042601298eccfeec6df
     products.list.inStock: fcebe56087b9373f15514831184fa572
     products.list.variantCount: ef8326aac0e6c311ebcf8717cd0764a3
     products.list.noVariants: 4b2492f2a54a5d602c3c7808db182c6b
@@ -378,6 +378,9 @@ files:
     products.create.preview.title: a16d6ba8142e733b262643a833c1b423
     products.create.preview.untitled: c0edb2a89b3be1d961f4082e0bc5466a
     products.create.preview.goToSlide: 51865af30db02476552d55cd29e26338
+    products.create.preview.description: b5a7adde1af5c87d7fd797b6245c2a39
+    products.create.preview.hide: f55e03d5e2b11dfa6c24c4fcd09b950d
+    products.create.preview.show: 3b14cd54dd2b1a356c5ec0b55c80632d
     products.create.sections.photos: c7c8998e1dd7c6ee3bd42f2bcb803d3c
     products.create.sections.essentials: 4d55f77f062bf48891bd0f749c36a36d
     products.create.sections.organization: d6b258792ff06f82933c74eeb8aef591

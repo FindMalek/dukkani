@@ -9,7 +9,7 @@
         "tapToCopy": "اضغط للنسخ والمشاركة"
       },
       "todaysPerformance": {
-        "title": "الأداء",
+        "title": "PERFORMANCE",
         "orders": "الطلبات",
         "revenue": "الإيرادات"
       },
@@ -472,7 +472,7 @@
       },
       "stockInfo": "المخزون: {count} وحدة • {variants} متغيرات",
       "stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
-      "stockCount": "{count, plural, one {وحدة واحدة} two {وحدتان} few {# وحدات} many {# وحدة} other {# وحدة}}",
+      "stockCount": "{count, plural, one {# unit} other {# units}}",
       "inStock": "متوفر في المخزون",
       "variantCount": "• {variants} متغيرات",
       "noVariants": "• لا توجد متغيرات",
@@ -698,9 +698,9 @@
         "title": "معاينة الواجهة",
         "untitled": "منتج بدون عنوان",
         "goToSlide": "انتقل إلى الصورة {index}",
-        "description": "الوصف",
-        "hide": "إخفاء المعاينة",
-        "show": "إظهار المعاينة"
+        "description": "Description",
+        "hide": "Hide preview",
+        "show": "Show preview"
       }
     },
     "edit": {
