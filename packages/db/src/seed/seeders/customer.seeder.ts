@@ -1,4 +1,7 @@
-import type { PrismaClient } from "../../../prisma/generated/client";
+import type {
+  Governorate,
+  PrismaClient,
+} from "../../../prisma/generated/client";
 import { BaseSeeder } from "../base";
 import type { StoreSeeder } from "./store.seeder";
 
@@ -13,6 +16,7 @@ export interface SeededAddress {
   id: string;
   street: string;
   city: string;
+  governorate: Governorate | null;
   customerId: string;
   postalCode: string | null;
   latitude: number | null;
@@ -79,6 +83,7 @@ export class CustomerSeeder extends BaseSeeder {
             id: address.id,
             street: address.street,
             city: address.city,
+            governorate: address.governorate,
             customerId: address.customerId,
             postalCode: address.postalCode,
             latitude: address.latitude,
@@ -105,6 +110,7 @@ export class CustomerSeeder extends BaseSeeder {
         address: {
           street: "15 Rue Ibn Khaldoun",
           city: "Tunis",
+          governorate: "TUNIS" as const,
           postalCode: "1000",
           latitude: 36.817,
           longitude: 10.181,
@@ -117,6 +123,7 @@ export class CustomerSeeder extends BaseSeeder {
         address: {
           street: "8 Avenue Habib Bourguiba",
           city: "Sousse",
+          governorate: "SOUSSE" as const,
           postalCode: "4000",
           latitude: 35.825,
           longitude: 10.637,
@@ -129,6 +136,7 @@ export class CustomerSeeder extends BaseSeeder {
         address: {
           street: "42 Rue de la République",
           city: "Sfax",
+          governorate: "SFAX" as const,
           postalCode: "3000",
           latitude: 34.741,
           longitude: 10.762,
@@ -142,6 +150,7 @@ export class CustomerSeeder extends BaseSeeder {
         address: {
           street: "3 Avenue Mohamed V",
           city: "Tunis",
+          governorate: "TUNIS" as const,
           postalCode: "1002",
           latitude: 36.801,
           longitude: 10.195,
@@ -154,6 +163,7 @@ export class CustomerSeeder extends BaseSeeder {
         address: {
           street: "18 Rue Mongi Bali",
           city: "Monastir",
+          governorate: "MONASTIR" as const,
           postalCode: "5000",
           latitude: 35.764,
           longitude: 10.832,
@@ -166,6 +176,7 @@ export class CustomerSeeder extends BaseSeeder {
         address: {
           street: "7 Rue Farhat Hached",
           city: "Kairouan",
+          governorate: "KAIROUAN" as const,
           postalCode: "3100",
           latitude: 35.679,
           longitude: 10.1,
@@ -179,6 +190,7 @@ export class CustomerSeeder extends BaseSeeder {
         address: {
           street: "29 Avenue de la Liberté",
           city: "Ariana",
+          governorate: "ARIANA" as const,
           postalCode: "2080",
           latitude: 36.859,
           longitude: 10.193,
@@ -191,6 +203,7 @@ export class CustomerSeeder extends BaseSeeder {
         address: {
           street: "5 Avenue 7 Novembre",
           city: "Gabès",
+          governorate: "GABES" as const,
           postalCode: "6000",
           latitude: 33.882,
           longitude: 10.098,
@@ -203,6 +216,7 @@ export class CustomerSeeder extends BaseSeeder {
         address: {
           street: "11 Avenue Habib Thameur",
           city: "Nabeul",
+          governorate: "NABEUL" as const,
           postalCode: "8000",
           latitude: 36.453,
           longitude: 10.726,
@@ -247,6 +261,7 @@ export class CustomerSeeder extends BaseSeeder {
               create: {
                 street: def.address.street,
                 city: def.address.city,
+                governorate: def.address.governorate,
                 postalCode: def.address.postalCode,
                 latitude: def.address.latitude,
                 longitude: def.address.longitude,
@@ -271,6 +286,7 @@ export class CustomerSeeder extends BaseSeeder {
           id: address.id,
           street: address.street,
           city: address.city,
+          governorate: address.governorate,
           customerId: address.customerId,
           postalCode: address.postalCode,
           latitude: address.latitude,
