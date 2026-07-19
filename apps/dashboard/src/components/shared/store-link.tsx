@@ -30,22 +30,37 @@ export function StoreLink({
       <Label htmlFor="store-link" className="text-muted-foreground text-sm">
         {label}
       </Label>
-      <Button
-        variant="outline"
-        onClick={handleCopy}
-        className="h-auto w-full justify-between rounded-lg border-border/50 p-4 text-left font-normal transition-colors hover:bg-accent/50"
-      >
-        <span className="truncate pr-2 font-semibold text-base text-foreground">
+      <div className="flex items-center gap-2 rounded-lg border border-border/50 p-4">
+        <span className="flex-1 truncate font-semibold text-base text-foreground">
           {url}
         </span>
-        <div className="flex shrink-0 items-center gap-2">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="size-8 shrink-0"
+          aria-label="Copy store link"
+          onClick={handleCopy}
+        >
           {copied ? (
             <Icons.check className="size-4 text-success" />
           ) : (
             <Icons.copy className="size-4 text-muted-foreground" />
           )}
-        </div>
-      </Button>
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="size-8 shrink-0"
+          aria-label="Open store in new tab"
+          asChild
+        >
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            <Icons.externalLink className="size-4 text-muted-foreground" />
+          </a>
+        </Button>
+      </div>
       <p className="text-muted-foreground text-xs">{hint}</p>
     </div>
   );
