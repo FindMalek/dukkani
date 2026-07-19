@@ -37,7 +37,7 @@ export function OrderDetailFooter({
   return (
     <div
       className={cn(
-        "fixed inset-x-0 bottom-0 z-10 border-t bg-background/95 p-3 backdrop-blur supports-[backdrop-filter]:bg-background/80",
+        "fixed inset-x-0 bottom-0 z-10 border-t bg-background/95 p-3 backdrop-blur transition-[left] duration-200 ease-linear supports-[backdrop-filter]:bg-background/80",
         state === "collapsed"
           ? "xl:left-(--sidebar-width-icon)"
           : "xl:left-(--sidebar-width)",
