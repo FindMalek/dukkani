@@ -4,7 +4,7 @@ import {
   NotFoundError,
 } from "@dukkani/common/errors";
 import { database } from "@dukkani/db";
-import type { Prisma } from "@dukkani/db/prisma/generated";
+import { Prisma } from "@dukkani/db/prisma/generated";
 import { generateOrderId } from "@dukkani/db/utils/generate-id";
 import logger from "@dukkani/logger";
 import {
@@ -13,6 +13,7 @@ import {
   enhanceLogWithTraceContext,
   traceStaticClass,
 } from "@dukkani/tracing";
+import type { OrderGovernorateCountRow } from "../entities/order/query";
 import { OrderEntity } from "../entities/order/entity";
 import { OrderQuery } from "../entities/order/query";
 import { StoreQuery } from "../entities/store/query";
@@ -23,6 +24,7 @@ import type {
   CreateOrderPublicInput,
 } from "../schemas/order/input";
 import type {
+  OrderGovernorateCountsOutput,
   OrderIncludeOutput,
   OrderPublicOutput,
 } from "../schemas/order/output";
@@ -31,11 +33,56 @@ import { CustomerService } from "./customer.service";
 import { NotificationService } from "./notification.service";
 import { ProductService } from "./product.service";
 
+function getAllowedStoreIds(
+  storeIds: string[],
+  filterStoreId?: string,
+): string[] {
+  return filterStoreId && storeIds.includes(filterStoreId)
+    ? [filterStoreId]
+    : storeIds;
+}
+
+/**
+ * Raw SQL rather than Prisma's query API — orders link to a single Address
+ * via `addressId`, so this is a plain join/group-by (no de-dup concerns
+ * like the customer version, which joins through a one-to-many relation).
+ */
+function getOrderGovernorateCountsQuery(
+  storeIds: string[],
+  storeId?: string,
+): Prisma.Sql {
+  const allowedStoreIds = getAllowedStoreIds(storeIds, storeId);
+
+  return Prisma.sql`
+    SELECT a.governorate AS "governorate", COUNT(o.id)::int AS "count"
+    FROM orders o
+    JOIN addresses a ON a.id = o."address_id"
+    WHERE o."store_id" IN (${Prisma.join(allowedStoreIds)}) AND a.governorate IS NOT NULL
+    GROUP BY a.governorate
+  `;
+}
+
 /**
  * Order service - Shared business logic for order operations
  * All methods are automatically traced via traceStaticClass
  */
 class OrderServiceBase {
+  static async getGovernorateCounts(
+    storeIds: string[],
+    storeId?: string,
+  ): Promise<OrderGovernorateCountsOutput> {
+    const rows = await database.$queryRaw<OrderGovernorateCountRow[]>(
+      getOrderGovernorateCountsQuery(storeIds, storeId),
+    );
+
+    return {
+      counts: rows.map((row) => ({
+        governorate: row.governorate,
+        count: row.count,
+      })),
+    };
+  }
+
   /**
    * Frozen option labels for an order line (published version at checkout time).
    */

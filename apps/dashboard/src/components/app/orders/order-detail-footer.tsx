@@ -1,6 +1,8 @@
 import { Button } from "@dukkani/ui/components/button";
 import { Icons } from "@dukkani/ui/components/icons";
+import { useSidebar } from "@dukkani/ui/components/sidebar";
 import { SlideToConfirm } from "@dukkani/ui/components/slide-to-confirm";
+import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
 
 export function OrderDetailFooter({
@@ -26,9 +28,22 @@ export function OrderDetailFooter({
   isMutating: boolean;
   onConfirmAdvance: () => void;
 }) {
+  // `fixed` escapes the sidebar's flex layout, so without a left offset this
+  // bar renders across the full viewport width and visually overlaps the
+  // desktop sidebar. Match its current rendered width (icon-collapsed vs.
+  // expanded) so it stays scoped to the main content column instead.
+  const { state } = useSidebar();
+
   return (
-    <div className="fixed inset-x-0 bottom-0 z-10 border-t bg-background/95 p-3 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto max-w-2xl">
+    <div
+      className={cn(
+        "fixed inset-x-0 bottom-0 z-10 border-t bg-background/95 p-3 backdrop-blur transition-[left] duration-200 ease-linear supports-[backdrop-filter]:bg-background/80",
+        state === "collapsed"
+          ? "xl:left-(--sidebar-width-icon)"
+          : "xl:left-(--sidebar-width)",
+      )}
+    >
+      <div className="mx-auto max-w-2xl xl:max-w-3xl">
         {canAdvance && slideToConfirmText ? (
           <div className="flex items-center gap-2">
             {phone && contactHref ? (
