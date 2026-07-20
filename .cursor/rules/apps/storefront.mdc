@@ -142,6 +142,10 @@ import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
 - Do not inline generic error toasts; keep error mapping centralized.
 - `appMutations` factories automatically wire `onError` to `handleAPIError` — your `onError` callback chains after it, not instead of it.
 
+## Deployment (`next.config.ts`)
+
+`serverExternalPackages: ["sharp"]` and an `outputFileTracingIncludes` block force-including the pnpm content-addressable `@img/sharp-linux-x64`/`@img/sharp-libvips-linux-x64` binaries are **required**, not optional — without them Next's built-in image optimizer `dlopen`s a native libvips binary that Vercel's output-file tracing otherwise drops from the deployed function, crashing with `ERR_DLOPEN_FAILED` in production. Do not remove this config as "unused"; see #561/#562.
+
 ## Best Practices
 
 - Use server components by default and opt into `"use client"` only when needed.
