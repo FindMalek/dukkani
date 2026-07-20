@@ -1,5 +1,9 @@
 import { UserOnboardingStep } from "@dukkani/common/schemas/enums";
-import { SidebarInset, SidebarProvider } from "@dukkani/ui/components/sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@dukkani/ui/components/sidebar";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -33,6 +37,9 @@ const DashboardLayoutContent = async ({
         <AppSidebar />
         <SidebarInset>
           <DashboardTopbar />
+          <header className="hidden h-14 shrink-0 items-center border-border border-b px-4 xl:flex">
+            <SidebarTrigger />
+          </header>
           <div className="flex-1 overflow-auto pb-16 xl:pb-0">{children}</div>
         </SidebarInset>
         <BottomNavigation />

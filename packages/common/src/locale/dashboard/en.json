@@ -9,7 +9,7 @@
         "tapToCopy": "Tap to copy and share"
       },
       "todaysPerformance": {
-        "title": "TODAY'S PERFORMANCE",
+        "title": "PERFORMANCE",
         "orders": "Orders",
         "revenue": "Revenue"
       },
@@ -49,6 +49,12 @@
     }
   },
   "settings": {
+    "theme": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
     "logout": {
       "button": "Log out",
       "title": "Log out of your account?",
@@ -472,7 +478,7 @@
       },
       "stockInfo": "Stock: {count} units • {variants} variants",
       "stockInfoNoVariants": "Stock: {count} units • No variants",
-      "stockCount": "{count} units",
+      "stockCount": "{count, plural, one {# unit} other {# units}}",
       "inStock": "In stock",
       "variantCount": "• {variants} variants",
       "noVariants": "• No variants",
@@ -538,7 +544,10 @@
       "preview": {
         "title": "Storefront preview",
         "untitled": "Untitled product",
-        "goToSlide": "Go to image {index}"
+        "goToSlide": "Go to image {index}",
+        "description": "Description",
+        "hide": "Hide preview",
+        "show": "Show preview"
       },
       "sections": {
         "photos": "Product Photos",
