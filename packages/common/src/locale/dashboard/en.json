@@ -520,7 +520,8 @@
         "archive": "Archive",
         "deleteConfirmTitle": "Delete product?",
         "deleteConfirmDescription": "This action cannot be undone.",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "previewInStorefront": "Preview in storefront"
       },
       "loading": "Loading products…",
       "table": {
@@ -707,7 +708,8 @@
         "title": "No Store Found",
         "description": "Please create a store first to add products.",
         "createStore": "Create Store"
-      }
+      },
+      "previewInStorefront": "Preview in storefront"
     },
     "edit": {
       "header": {
