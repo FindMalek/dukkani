@@ -1,14 +1,16 @@
 import type { auth } from "@dukkani/auth";
-import { getApiUrl } from "@dukkani/env/get-api-url";
 import {
   inferAdditionalFields,
   lastLoginMethodClient,
 } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
-import { env } from "@/env";
 
+// No baseURL: defaults to a same-origin relative "/api/auth", proxied to
+// the real API by the rewrite in next.config.ts. This makes the session
+// cookie first-party to the dashboard's own domain in every environment —
+// see the rewrite comment for why that matters. Don't point this at the
+// API's absolute URL again.
 export const authClient = createAuthClient({
-  baseURL: getApiUrl(env.NEXT_PUBLIC_API_URL),
   plugins: [inferAdditionalFields<typeof auth>(), lastLoginMethodClient()],
 });
 
