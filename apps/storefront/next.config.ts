@@ -22,7 +22,19 @@ const nextConfig: NextConfig = {
     "pino",
     "pino-pretty",
     "thread-stream",
+    "sharp",
   ],
+  // Next's built-in image optimizer dlopen's sharp's native libvips binary
+  // lazily, from a chunk shared across routes — output file tracing has a
+  // known gap with pnpm's content-addressable store where that binary gets
+  // dropped from the deployed serverless function, crashing unrelated
+  // routes with ERR_DLOPEN_FAILED on first touch. Force-include it. See #561.
+  outputFileTracingIncludes: {
+    "/**/*": [
+      "./node_modules/.pnpm/@img+sharp-linux-x64@*/node_modules/@img/sharp-linux-x64/**/*",
+      "./node_modules/.pnpm/@img+sharp-libvips-linux-x64@*/node_modules/@img/sharp-libvips-linux-x64/**/*",
+    ],
+  },
   env: {
     NEXT_PUBLIC_API_URL: apiUrl,
   },

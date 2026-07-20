@@ -5,7 +5,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
 import { lastLoginMethod, openAPI } from "better-auth/plugins";
 import type { env } from "./env";
-import { buildTrustedOrigins, verifyPassword } from "./utils";
+import { buildTrustedOrigins, deriveCookieDomain, verifyPassword } from "./utils";
 
 /**
  * Factory function to create a Better Auth instance
@@ -33,11 +33,23 @@ export function createAuth(
     envConfig.CORS_PREVIEW_ORIGIN_PATTERN,
   );
 
-  // Determine if we need cross-origin cookie settings
-  // In Vercel environments or when using HTTPS, we need SameSite=None and Secure
+  // Determine if we need production-grade cookie settings (secure cookies,
+  // shared across the dashboard/API subdomains).
   const isVercel = !!envConfig.VERCEL;
   const isProduction =
     isVercel || envConfig.NEXT_PUBLIC_API_URL.startsWith("https://");
+
+  // The dashboard and API run on different subdomains of the same base
+  // domain (e.g. api.dukkani.co / dashboard.dukkani.co, or
+  // api.preview.dukkani.co / dashboard.preview.dukkani.co in preview).
+  // Without a shared cookie Domain, the session cookie is host-only to the
+  // API's origin and the browser never attaches it when the dashboard's own
+  // server renders a page — every dashboard load then falls through to a
+  // client-side session check that races the redirect-to-login logic. See
+  // github.com/FindMalek/dukkani/issues/517.
+  const cookieDomain = isProduction
+    ? deriveCookieDomain(envConfig.NEXT_PUBLIC_API_URL)
+    : undefined;
 
   return betterAuth<BetterAuthOptions>({
     database: prismaAdapter(database, {
@@ -48,10 +60,15 @@ export function createAuth(
     trustedOrigins,
     advanced: {
       useSecureCookies: isProduction,
+      crossSubDomainCookies: cookieDomain
+        ? { enabled: true, domain: cookieDomain }
+        : { enabled: false },
       cookies: {
         session_token: {
           attributes: {
-            sameSite: isProduction ? "none" : "lax",
+            // Same-site once the cookie is shared across subdomains via
+            // `crossSubDomainCookies` above — no longer need SameSite=None.
+            sameSite: "lax",
             httpOnly: true,
           },
         },
