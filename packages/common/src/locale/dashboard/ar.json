@@ -9,7 +9,7 @@
         "tapToCopy": "اضغط للنسخ والمشاركة"
       },
       "todaysPerformance": {
-        "title": "الأداء",
+        "title": "PERFORMANCE",
         "orders": "الطلبات",
         "revenue": "الإيرادات"
       },
@@ -50,10 +50,10 @@
   },
   "settings": {
     "theme": {
-      "label": "المظهر",
-      "light": "فاتح",
-      "dark": "داكن",
-      "system": "النظام"
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
     },
     "logout": {
       "button": "تسجيل الخروج",
@@ -478,7 +478,7 @@
       },
       "stockInfo": "المخزون: {count} وحدة • {variants} متغيرات",
       "stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
-      "stockCount": "{count, plural, one {وحدة واحدة} two {وحدتان} few {# وحدات} many {# وحدة} other {# وحدة}}",
+      "stockCount": "{count, plural, one {# unit} other {# units}}",
       "inStock": "متوفر في المخزون",
       "variantCount": "• {variants} متغيرات",
       "noVariants": "• لا توجد متغيرات",
