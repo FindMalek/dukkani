@@ -25,6 +25,11 @@ export function StoreLink({
     copy(url, "Link copied to clipboard!");
   };
 
+  // Defensive: callers are expected to pass an absolute URL (getStoreUrl()
+  // always includes a protocol today), but a bare domain here would silently
+  // become a relative path when used as an <a href>.
+  const href = /^https?:\/\//.test(url) ? url : `https://${url}`;
+
   return (
     <div className={cn("space-y-2", className)}>
       <Label htmlFor="store-link" className="text-muted-foreground text-sm">
@@ -56,7 +61,7 @@ export function StoreLink({
           aria-label="Open store in new tab"
           asChild
         >
-          <a href={url} target="_blank" rel="noopener noreferrer">
+          <a href={href} target="_blank" rel="noopener noreferrer">
             <Icons.externalLink className="size-4 text-muted-foreground" />
           </a>
         </Button>
