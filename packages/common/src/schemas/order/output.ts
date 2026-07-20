@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { addressSimpleOutputSchema } from "../address/output";
 import { customerSimpleOutputSchema } from "../customer/output";
-import { orderStatusSchema, paymentMethodSchema } from "../enums";
+import { governorateSchema, orderStatusSchema, paymentMethodSchema } from "../enums";
 import { orderItemWithProductOutputSchema } from "../order-item/output";
 import { storeSimpleOutputSchema } from "../store/output";
 import { whatsappMessageSimpleOutputSchema } from "../whatsapp-message/output";
@@ -65,6 +65,12 @@ export const listOrdersOutputSchema = z.object({
   limit: z.number().int(),
 });
 
+export const orderGovernorateCountsOutputSchema = z.object({
+  counts: z.array(
+    z.object({ governorate: governorateSchema, count: z.number().int() }),
+  ),
+});
+
 export const orderPublicOutputSchema = orderSimpleOutputSchema.extend({
   store: storeSimpleOutputSchema.optional(),
   orderItems: z.array(orderItemWithProductOutputSchema).optional(),
@@ -76,3 +82,6 @@ export type OrderSimpleOutput = z.infer<typeof orderSimpleOutputSchema>;
 export type OrderIncludeOutput = z.infer<typeof orderIncludeOutputSchema>;
 export type OrderListItemOutput = z.infer<typeof orderListItemOutputSchema>;
 export type ListOrdersOutput = z.infer<typeof listOrdersOutputSchema>;
+export type OrderGovernorateCountsOutput = z.infer<
+  typeof orderGovernorateCountsOutputSchema
+>;

@@ -12,6 +12,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@dukkani/ui/components/dropdown-menu";
 import { Icons } from "@dukkani/ui/components/icons";
@@ -23,6 +26,7 @@ import {
 } from "@dukkani/ui/components/sidebar";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import { useQuery } from "@tanstack/react-query";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { LogoutButton } from "@/components/app/settings/logout-button";
@@ -52,6 +56,8 @@ function getInitials(name?: string | null): string {
 export function NavUser() {
   const { isMobile } = useSidebar();
   const t = useTranslations("settings.logout");
+  const tTheme = useTranslations("settings.theme");
+  const { theme, setTheme } = useTheme();
   const { selectedStoreId } = useActiveStoreStore();
   const { data: user, isPending: isUserPending } = useQuery(
     appQueries.account.currentUser(),
@@ -130,6 +136,36 @@ export function NavUser() {
                   {RoutePaths.SETTINGS.INDEX.label}
                 </Link>
               </DropdownMenuItem>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <Icons.sun className="dark:hidden" />
+                  <Icons.moon className="hidden dark:block" />
+                  {tTheme("label")}
+                </DropdownMenuSubTrigger>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem onClick={() => setTheme("light")}>
+                    <Icons.sun />
+                    {tTheme("light")}
+                    {theme === "light" && (
+                      <Icons.check className="ml-auto size-4" />
+                    )}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme("dark")}>
+                    <Icons.moon />
+                    {tTheme("dark")}
+                    {theme === "dark" && (
+                      <Icons.check className="ml-auto size-4" />
+                    )}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme("system")}>
+                    <Icons.laptop />
+                    {tTheme("system")}
+                    {theme === "system" && (
+                      <Icons.check className="ml-auto size-4" />
+                    )}
+                  </DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
