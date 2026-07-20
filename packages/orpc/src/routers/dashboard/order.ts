@@ -2,16 +2,19 @@ import { OrderEntity } from "@dukkani/common/entities/order/entity";
 import { OrderQuery } from "@dukkani/common/entities/order/query";
 import {
   createOrderInputSchema,
+  getOrderGovernorateCountsInputSchema,
   getOrderInputSchema,
   listOrdersInputSchema,
   updateOrderStatusInputSchema,
 } from "@dukkani/common/schemas/order/input";
 import type {
   ListOrdersOutput,
+  OrderGovernorateCountsOutput,
   OrderIncludeOutput,
 } from "@dukkani/common/schemas/order/output";
 import {
   listOrdersOutputSchema,
+  orderGovernorateCountsOutputSchema,
   orderIncludeOutputSchema,
 } from "@dukkani/common/schemas/order/output";
 import { successOutputSchema } from "@dukkani/common/schemas/utils/success";
@@ -63,6 +66,7 @@ export const orderRouter = {
         status: input?.status,
         customerId: input?.customerId,
         search: input?.search,
+        governorates: input?.governorates,
       });
 
       const [orders, total] = await Promise.all([
@@ -86,6 +90,31 @@ export const orderRouter = {
         limit,
       };
     }),
+
+  getGovernorateCounts: protectedProcedure
+    .input(getOrderGovernorateCountsInputSchema.optional())
+    .output(orderGovernorateCountsOutputSchema)
+    .handler(
+      async ({ input, context }): Promise<OrderGovernorateCountsOutput> => {
+        const userId = context.session.user.id;
+        const userStoreIds = await getUserStoreIds(userId);
+
+        if (userStoreIds.length === 0) {
+          return { counts: [] };
+        }
+
+        if (input?.storeId && !userStoreIds.includes(input.storeId)) {
+          throw new ORPCError("FORBIDDEN", {
+            message: "You don't have access to this store",
+          });
+        }
+
+        return await OrderService.getGovernorateCounts(
+          userStoreIds,
+          input?.storeId,
+        );
+      },
+    ),
 
   getById: protectedProcedure
     .input(getOrderInputSchema)
