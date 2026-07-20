@@ -56,11 +56,7 @@ catalog:
   react: 19.2.7
   react-dom: 19.2.7
   react-dropzone: ^17.0.0
-  # Pinned below 0.35.x — sharp 0.35.x has a confirmed Turbopack-specific
-  # regression on Vercel (ERR_DLOPEN_FAILED: libvips-cpp.so, ".next/server/
-  # chunks/[turbopack]_runtime.js"), fixed upstream only in Next.js
-  # 16.3.0-canary+, not yet in a stable release. See #570 and
-  # https://github.com/lovell/sharp/issues/4567.
+  # Pinned below 0.35.x: Turbopack regression, ERR_DLOPEN_FAILED on Vercel. See #570.
   sharp: ^0.34.4
   sonner: 2.0.7
   tailwindcss: ^4.3.3
@@ -85,9 +81,6 @@ overrides:
   uuid: '>=11.1.1'
   postcss: '>=8.5.10'
   '@hono/node-server': '>=1.19.13'
-  # Next.js bundles its own optional `sharp` (used for Image Optimization) at
-  # a different version than our own catalog pin, resolving a second,
-  # mismatched libvips native binary. Force everything onto one version to
-  # avoid ERR_DLOPEN_FAILED at runtime. See #518. Kept in sync with the
-  # catalog pin above — see that comment for why we're below 0.35.x.
+  # Next.js bundles its own sharp at a different version than our catalog
+  # pin — force one version everywhere. See #518. Keep in sync with catalog.
   sharp: ^0.34.4
