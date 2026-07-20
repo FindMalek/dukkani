@@ -5,7 +5,8 @@ import { FieldGroup, FieldSet } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Icons } from "@dukkani/ui/components/icons";
 import { cn } from "@dukkani/ui/lib/utils";
-import { useTranslations } from "next-intl";
+import { useQuery } from "@tanstack/react-query";
+import { useLocale, useTranslations } from "next-intl";
 import {
   forwardRef,
   useCallback,
@@ -13,8 +14,10 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
+import { appQueries } from "@/shared/api/queries";
 import { compressImagesForUpload } from "@/shared/lib/image-compression";
 import { useProductForm } from "@/shared/lib/product/form";
+import { getProductPreviewUrl } from "@/shared/lib/store/url.util";
 import { CategoryDrawer } from "./category-drawer";
 import { ProductFormActions } from "./product-form-actions";
 import { ProductFormEssentials } from "./product-form-essentials";
@@ -66,6 +69,7 @@ export const ProductForm = forwardRef<
   { storeId: string; productId?: string }
 >(({ storeId, productId }, ref) => {
   const t = useTranslations("products.create");
+  const locale = useLocale();
   const {
     form,
     categoriesOptions,
@@ -75,6 +79,14 @@ export const ProductForm = forwardRef<
     storeMismatch,
     productQuery,
   } = useProductForm({ storeId, productId });
+  const { data: stores } = useQuery(appQueries.store.all());
+  const activeStore = stores?.find((store) => store.id === storeId);
+
+  const previewUrl =
+    productId && activeStore && productQuery.data?.published
+      ? getProductPreviewUrl(activeStore, productId, locale)
+      : undefined;
+
   const [isPreviewVisible, togglePreviewVisible] = usePreviewVisible();
 
   useImperativeHandle(ref, () => ({
@@ -167,7 +179,15 @@ export const ProductForm = forwardRef<
             button above. Below xl it stays out of the DOM so the single-column
             layout matches today's behavior exactly. */}
         {isPreviewVisible && (
-          <aside className="hidden xl:sticky xl:top-20 xl:block xl:self-start xl:pr-2">
+          <aside className="hidden xl:sticky xl:top-20 xl:flex xl:flex-col xl:gap-2 xl:self-start xl:pr-2">
+            {previewUrl && (
+              <Button variant="outline" size="sm" className="self-end" asChild>
+                <a href={previewUrl} target="_blank" rel="noopener noreferrer">
+                  <Icons.externalLink className="size-4" />
+                  {t("previewInStorefront")}
+                </a>
+              </Button>
+            )}
             <ProductFormPreview form={form} />
           </aside>
         )}
