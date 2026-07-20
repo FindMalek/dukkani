@@ -9,7 +9,7 @@
         "tapToCopy": "اضغط للنسخ والمشاركة"
       },
       "todaysPerformance": {
-        "title": "أداء اليوم",
+        "title": "PERFORMANCE",
         "orders": "الطلبات",
         "revenue": "الإيرادات"
       },
@@ -49,6 +49,12 @@
     }
   },
   "settings": {
+    "theme": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
     "logout": {
       "button": "تسجيل الخروج",
       "title": "تسجيل الخروج من حسابك؟",
@@ -472,7 +478,7 @@
       },
       "stockInfo": "المخزون: {count} وحدة • {variants} متغيرات",
       "stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
-      "stockCount": "{count} وحدة",
+      "stockCount": "{count, plural, one {# unit} other {# units}}",
       "inStock": "متوفر في المخزون",
       "variantCount": "• {variants} متغيرات",
       "noVariants": "• لا توجد متغيرات",
@@ -697,7 +703,10 @@
       "preview": {
         "title": "معاينة الواجهة",
         "untitled": "منتج بدون عنوان",
-        "goToSlide": "انتقل إلى الصورة {index}"
+        "goToSlide": "انتقل إلى الصورة {index}",
+        "description": "Description",
+        "hide": "Hide preview",
+        "show": "Show preview"
       }
     },
     "edit": {

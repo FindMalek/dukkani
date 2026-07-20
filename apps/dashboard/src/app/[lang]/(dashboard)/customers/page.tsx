@@ -10,6 +10,7 @@ import {
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
 import { InputGroupButton } from "@dukkani/ui/components/input-group";
+import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -22,6 +23,7 @@ import { CustomersPageHeader } from "@/components/app/customers/customers-page-h
 import { CustomersSearchBar } from "@/components/app/customers/customers-search-bar";
 import { CustomersTable } from "@/components/app/customers/customers-table";
 import { CustomersTableSkeleton } from "@/components/app/customers/customers-table-skeleton";
+import { layoutConstants } from "@/shared/config/constants";
 import { RoutePaths } from "@/shared/config/routes";
 import { useCustomersController } from "@/shared/lib/customer/controller.hook";
 
@@ -75,7 +77,15 @@ export default function CustomersPage() {
         }
       />
 
-      <div className="mb-4 space-y-4">
+      {/* Search & Filters — sticky within the scrollable content area so they
+          stay usable while scrolling a long list. The topbar lives above
+          this scroll area, not inside it, so no extra offset is needed. */}
+      <div
+        className={cn(
+          "sticky z-10 mb-4 space-y-4 bg-background/95 py-2",
+          layoutConstants.TOPBAR_STICKY_OFFSET_CLASS,
+        )}
+      >
         <CustomersSearchBar
           value={search}
           onChange={setSearch}

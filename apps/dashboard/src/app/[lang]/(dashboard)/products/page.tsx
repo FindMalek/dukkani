@@ -21,6 +21,7 @@ import {
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
 import { InputGroupButton } from "@dukkani/ui/components/input-group";
+import { cn } from "@dukkani/ui/lib/utils";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
@@ -32,6 +33,7 @@ import { ProductsSearchBar } from "@/components/app/products/products-search-bar
 import { ProductsStatusTabs } from "@/components/app/products/products-status-tabs";
 import { ProductsTable } from "@/components/app/products/products-table";
 import { ProductsTableSkeleton } from "@/components/app/products/products-table-skeleton";
+import { layoutConstants } from "@/shared/config/constants";
 import { RoutePaths } from "@/shared/config/routes";
 import { useProductsController } from "@/shared/lib/product/controller.hook";
 
@@ -102,10 +104,26 @@ export default function ProductsPage() {
 
   return (
     <div className="container mx-auto max-w-7xl p-4 pb-24 md:p-6 md:pb-8">
-      <ProductsPageHeader />
+      <ProductsPageHeader
+        action={
+          <Button asChild className="hidden xl:inline-flex">
+            <Link href={RoutePaths.PRODUCTS.NEW.url}>
+              <Icons.plus className="size-4" />
+              {t("addProduct")}
+            </Link>
+          </Button>
+        }
+      />
 
-      {/* Search & Filters */}
-      <div className="mb-6 space-y-4">
+      {/* Search & Filters — sticky within the scrollable content area so they
+          stay usable while scrolling a long list. The topbar lives above
+          this scroll area, not inside it, so no extra offset is needed. */}
+      <div
+        className={cn(
+          "sticky z-10 mb-6 space-y-4 bg-background/95 py-2",
+          layoutConstants.TOPBAR_STICKY_OFFSET_CLASS,
+        )}
+      >
         <ProductsSearchBar
           value={search}
           onChange={setSearch}
@@ -180,11 +198,11 @@ export default function ProductsPage() {
         </Empty>
       )}
 
-      {/* FAB - Add Product */}
+      {/* FAB - Add Product: mobile/tablet only, the header action covers desktop */}
       <Button
         asChild
         size="icon-lg"
-        className="fixed end-4 bottom-24 z-50 size-14 rounded-full shadow-lg md:end-6 md:bottom-8"
+        className="fixed end-4 bottom-24 z-50 size-14 rounded-full shadow-lg md:end-6 md:bottom-8 xl:hidden"
         aria-label={t("addProduct")}
       >
         <Link href={RoutePaths.PRODUCTS.NEW.url}>

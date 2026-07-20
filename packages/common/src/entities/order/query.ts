@@ -1,8 +1,14 @@
+import type { Governorate } from "@dukkani/common/schemas/enums";
 import type { OrderStatus } from "@dukkani/common/schemas/order/enums";
 import type { Prisma } from "@dukkani/db/prisma/generated";
 import { AddressQuery } from "../address/query";
 import { CustomerQuery } from "../customer/query";
 import { OrderItemQuery } from "../order-item/query";
+
+export interface OrderGovernorateCountRow {
+  governorate: Governorate;
+  count: number;
+}
 
 export type OrderSimpleDbData = Prisma.OrderGetPayload<{
   include: ReturnType<typeof OrderQuery.getSimpleInclude>;
@@ -86,6 +92,7 @@ export class OrderQuery {
       status?: OrderStatus;
       customerId?: string;
       search?: string;
+      governorates?: Governorate[];
     },
   ): Prisma.OrderWhereInput {
     const where: Prisma.OrderWhereInput = {
@@ -102,6 +109,10 @@ export class OrderQuery {
 
     if (filters?.customerId) {
       where.customerId = filters.customerId;
+    }
+
+    if (filters?.governorates && filters.governorates.length > 0) {
+      where.address = { governorate: { in: filters.governorates } };
     }
 
     if (filters?.search) {

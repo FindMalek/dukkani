@@ -38,7 +38,7 @@ export function NavCreateAction() {
             >
               <Icons.plus />
               <span>{t("create")}</span>
-              <Icons.chevronDown className="ml-auto size-4 group-data-[collapsible=icon]:hidden" />
+              <Icons.chevronDown className="ms-auto size-4 group-data-[collapsible=icon]:hidden" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
