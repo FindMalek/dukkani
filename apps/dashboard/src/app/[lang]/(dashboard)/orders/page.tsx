@@ -14,9 +14,11 @@ import {
 } from "@dukkani/ui/components/empty";
 import { Icons } from "@dukkani/ui/components/icons";
 import { InputGroupButton } from "@dukkani/ui/components/input-group";
+import { cn } from "@dukkani/ui/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 import { OrdersFilterDrawer } from "@/components/app/orders/orders-filter-drawer";
+import { OrdersGovernorateChips } from "@/components/app/orders/orders-governorate-chips";
 import { OrdersGroupedList } from "@/components/app/orders/orders-grouped-list";
 import { OrdersListSkeleton } from "@/components/app/orders/orders-list-skeleton";
 import { OrdersPageHeader } from "@/components/app/orders/orders-page-header";
@@ -24,6 +26,7 @@ import { OrdersSearchBar } from "@/components/app/orders/orders-search-bar";
 import { OrdersStatusTabs } from "@/components/app/orders/orders-status-tabs";
 import { OrdersTable } from "@/components/app/orders/orders-table";
 import { OrdersTableSkeleton } from "@/components/app/orders/orders-table-skeleton";
+import { layoutConstants } from "@/shared/config/constants";
 import { useOrdersController } from "@/shared/lib/order/controller.hook";
 import {
   getOrderListDisplaySections,
@@ -37,10 +40,14 @@ export default function OrdersPage() {
 
   const {
     ordersQuery: { data, isLoading, error, refetch, isRefetching },
+    governorateCountsQuery: { data: governorateCountsData },
     search,
     status,
+    governorates,
     setSearch,
     setStatus,
+    toggleGovernorate,
+    setGovernorates,
     resetFilters,
   } = useOrdersController();
 
@@ -50,7 +57,10 @@ export default function OrdersPage() {
   }>({ from: null, to: null });
 
   const filterActive =
-    status !== null || dateRange.from !== null || dateRange.to !== null;
+    status !== null ||
+    governorates.length > 0 ||
+    dateRange.from !== null ||
+    dateRange.to !== null;
 
   if (error) {
     return (
@@ -124,7 +134,15 @@ export default function OrdersPage() {
         onRefresh={() => refetch()}
       />
 
-      <div className="mb-6 space-y-4">
+      {/* Search & Filters — sticky within the scrollable content area so they
+          stay usable while scrolling a long list. The topbar lives above
+          this scroll area, not inside it, so no extra offset is needed. */}
+      <div
+        className={cn(
+          "sticky z-10 mb-6 space-y-4 bg-background/95 py-2",
+          layoutConstants.TOPBAR_STICKY_OFFSET_CLASS,
+        )}
+      >
         <OrdersSearchBar
           value={search}
           onChange={setSearch}
@@ -151,6 +169,13 @@ export default function OrdersPage() {
           }
         />
         <OrdersStatusTabs value={status} onChange={setStatus} />
+        <OrdersGovernorateChips
+          counts={governorateCountsData?.counts ?? []}
+          totalCount={data?.total ?? 0}
+          selected={governorates}
+          onToggle={toggleGovernorate}
+          onClear={() => setGovernorates([])}
+        />
       </div>
 
       {listBody}

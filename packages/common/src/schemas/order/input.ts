@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { governorateSchema } from "../enums";
 import { productLineItemSchema } from "../product/input";
 import { orderStatusSchema, paymentMethodSchema } from "./enums";
 
@@ -38,12 +39,20 @@ export const listOrdersInputSchema = z.object({
   storeId: z.string().optional(),
   customerId: z.string().optional(),
   status: orderStatusSchema.optional(),
+  governorates: z.array(governorateSchema).optional(),
+});
+
+export const getOrderGovernorateCountsInputSchema = z.object({
+  storeId: z.string().optional(),
 });
 
 export type CreateOrderInput = z.infer<typeof createOrderInputSchema>;
 export type UpdateOrderInput = z.infer<typeof updateOrderInputSchema>;
 export type GetOrderInput = z.infer<typeof getOrderInputSchema>;
 export type ListOrdersInput = z.infer<typeof listOrdersInputSchema>;
+export type GetOrderGovernorateCountsInput = z.infer<
+  typeof getOrderGovernorateCountsInputSchema
+>;
 
 export const updateOrderStatusInputSchema = z.object({
   id: z.string().min(1, "Order ID is required"),

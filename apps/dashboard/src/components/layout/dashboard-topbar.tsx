@@ -1,6 +1,8 @@
 "use client";
 
 import { SidebarTrigger } from "@dukkani/ui/components/sidebar";
+import { cn } from "@dukkani/ui/lib/utils";
+import { layoutConstants } from "@/shared/config/constants";
 
 /**
  * Mobile/tablet-only top bar (<1280px) that hosts the hamburger trigger for
@@ -9,7 +11,12 @@ import { SidebarTrigger } from "@dukkani/ui/components/sidebar";
  */
 export function DashboardTopbar() {
   return (
-    <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-border border-b bg-card px-4 xl:hidden">
+    <header
+      className={cn(
+        "sticky top-0 z-10 flex shrink-0 items-center gap-2 border-border border-b bg-card px-4 xl:hidden",
+        layoutConstants.TOPBAR_HEIGHT_CLASS,
+      )}
+    >
       <SidebarTrigger />
       <span className="font-semibold text-sm">Dukkani</span>
     </header>
