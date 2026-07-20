@@ -9,7 +9,8 @@ The `auth` package contains Better Auth configuration and authentication logic. 
 ```
 packages/auth/src/
 ├── env.ts         # Auth environment variables
-└── index.ts       # Auth instance export
+├── utils.ts       # buildTrustedOrigins, deriveCookieDomain, verifyPassword
+└── index.ts       # createAuth factory + auth singleton
 ```
 
 ## Auth Configuration
@@ -19,39 +20,71 @@ packages/auth/src/
 
 ### Pattern
 
-Better Auth is configured with Prisma adapter, email/password authentication, and social providers.
+Auth is built via a `createAuth(database, envConfig)` **factory function**, not a static export — this avoids a circular dependency between `@dukkani/auth` and `@dukkani/db`. The server package calls `initializeAuth()` once at startup to populate the `auth` singleton; everywhere else imports `auth` directly from `@dukkani/auth`.
 
 ```typescript
-import { betterAuth } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
-import { database } from "@dukkani/db";
+export function createAuth(
+  database: PrismaClient,
+  envConfig: typeof env,
+): ReturnType<typeof betterAuth<BetterAuthOptions>> {
+  const trustedOrigins = buildTrustedOrigins(/* ... */);
 
-export const auth = betterAuth({
-  database: prismaAdapter(database, {
-    provider: "postgresql",
-  }),
-  secret: env.BETTER_AUTH_SECRET,
-  trustedOrigins: [env.NEXT_PUBLIC_API_URL],
-  emailAndPassword: {
-    enabled: true,
-    password: {
-      hash: hashPassword,
-      verify: verifyPassword,
+  const isProduction =
+    !!envConfig.VERCEL || envConfig.NEXT_PUBLIC_API_URL.startsWith("https://");
+
+  // Dashboard and API run on different subdomains of the same base domain.
+  // Share the session cookie across them via `crossSubDomainCookies`, or the
+  // dashboard's own SSR never sees the cookie the API set.
+  const cookieDomain = isProduction
+    ? deriveCookieDomain(envConfig.NEXT_PUBLIC_API_URL)
+    : undefined;
+
+  return betterAuth<BetterAuthOptions>({
+    database: prismaAdapter(database, { provider: "postgresql" }),
+    secret: envConfig.BETTER_AUTH_SECRET,
+    baseURL: envConfig.NEXT_PUBLIC_API_URL,
+    trustedOrigins,
+    advanced: {
+      useSecureCookies: isProduction,
+      crossSubDomainCookies: cookieDomain
+        ? { enabled: true, domain: cookieDomain }
+        : { enabled: false },
+      cookies: {
+        session_token: { attributes: { sameSite: "lax", httpOnly: true } },
+      },
     },
-  },
-  socialProviders: {
-    facebook: {
-      clientId: env.FACEBOOK_CLIENT_ID,
-      clientSecret: env.FACEBOOK_CLIENT_SECRET,
+    session: {
+      // Trusts a short-lived signed cookie between DB checks, avoiding a
+      // round trip on every oRPC request. No impersonation/ban/role flow
+      // here depends on sub-5-minute session freshness.
+      cookieCache: { enabled: true, maxAge: 5 * 60 },
     },
-    google: {
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    emailAndPassword: {
+      enabled: true,
+      password: { hash: hashPassword, verify: verifyPassword },
     },
-  },
-  plugins: [nextCookies()],
-});
+    socialProviders: {
+      facebook: { clientId: envConfig.FACEBOOK_CLIENT_ID, clientSecret: envConfig.FACEBOOK_CLIENT_SECRET },
+      google: { clientId: envConfig.GOOGLE_CLIENT_ID, clientSecret: envConfig.GOOGLE_CLIENT_SECRET },
+      apple: { clientId: envConfig.APPLE_CLIENT_ID, clientSecret: envConfig.APPLE_CLIENT_SECRET },
+    },
+    plugins: [nextCookies(), openAPI(), lastLoginMethod()],
+  });
+}
+
+export let auth: ReturnType<typeof betterAuth<BetterAuthOptions>>;
+
+export function initializeAuth(
+  database: PrismaClient,
+  envConfig: Parameters<typeof createAuth>[1],
+): void {
+  auth = createAuth(database, envConfig);
+}
 ```
+
+### Cross-subdomain cookie sharing
+
+`deriveCookieDomain` (in `utils.ts`) parses the API's hostname and returns a leading-dot shared domain (e.g. `.dukkani.co`) so the session cookie set by the API is readable by the dashboard's own server on a sibling subdomain. Without this, the dashboard's SSR never sees the session cookie and every load falls through to a client-side check racing the redirect-to-login logic. Only applied in production/Vercel — local dev stays on the default host-only cookie.
 
 ## Password Hashing
 
@@ -80,11 +113,12 @@ async function verifyPassword({
 ### Required Variables
 
 - `BETTER_AUTH_SECRET` - Secret for session encryption
-- `NEXT_PUBLIC_API_URL` - Allowed CORS origin
-- `FACEBOOK_CLIENT_ID` - Facebook OAuth client ID (optional)
-- `FACEBOOK_CLIENT_SECRET` - Facebook OAuth client secret (optional)
-- `GOOGLE_CLIENT_ID` - Google OAuth client ID (optional)
-- `GOOGLE_CLIENT_SECRET` - Google OAuth client secret (optional)
+- `NEXT_PUBLIC_API_URL` - Allowed CORS origin; also the source hostname for `deriveCookieDomain`
+- `NEXT_PUBLIC_DASHBOARD_URL` - Added to `trustedOrigins`
+- `NEXT_PUBLIC_ALLOWED_ORIGIN`, `CORS_PREVIEW_ORIGIN_PATTERN` - Extra origins passed to `buildTrustedOrigins` (e.g. Vercel preview URL patterns)
+- `FACEBOOK_CLIENT_ID` / `FACEBOOK_CLIENT_SECRET` - Facebook OAuth (optional)
+- `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` - Google OAuth (optional)
+- `APPLE_CLIENT_ID` / `APPLE_CLIENT_SECRET` - Apple OAuth (optional)
 
 ## Usage
 
@@ -114,7 +148,9 @@ export const authClient = createAuthClient({
 
 ### Main Export
 `packages/auth/src/index.ts` exports:
-- `auth` - Better Auth instance
+- `auth` - Better Auth instance (singleton, populated by `initializeAuth()` at server startup — do not read it before init runs)
+- `createAuth` - Factory used by `initializeAuth`; call directly only in tests/tooling that need their own instance
+- `initializeAuth` - Called once by the server package's init module
 
 ### Usage
 

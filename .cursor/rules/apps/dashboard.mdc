@@ -263,8 +263,29 @@ import { RoutePaths } from "@/shared/config/routes";
 import { getLocale } from "@/shared/config/i18n";
 
 // UI constants
-import { STORE_HEADER_HEIGHT } from "@/shared/config/constants";
+import { layoutConstants } from "@/shared/config/constants";
 ```
+
+### Sticky list-page header pattern
+
+Products/customers/orders list pages wrap their search bar + filter tabs in a sticky container that sits flush under the topbar (which is a flex sibling above the scroll area, not an overlay — see the comment on `layoutConstants` in `constants.ts`):
+
+```tsx
+<div
+  className={cn(
+    "sticky z-10 mb-6 space-y-4 bg-background/95 py-2",
+    layoutConstants.TOPBAR_STICKY_OFFSET_CLASS,
+  )}
+>
+  {/* search bar, status tabs, filter chips */}
+</div>
+```
+
+If the topbar ever becomes an overlay (`position: fixed`/`sticky` itself) instead of a flex sibling, update `layoutConstants.TOPBAR_STICKY_OFFSET_CLASS` in one place rather than every list page.
+
+### Storefront preview links
+
+`getStoreUrl`/`getProductPreviewUrl` (`shared/lib/store/url.util.ts`) build the storefront URL for a store/product — subdomain-based in production, `?store=<slug>` query param in preview/dev (since preview deployments don't have real subdomains). Used by the product edit page's preview pane and the products-list row's "Preview in storefront" quick action; both require `product.published` and an `activeStore` resolved from `appQueries.store.all()`.
 
 ## Providers
 
@@ -398,6 +419,10 @@ const mutation = useMutation(
   })
 );
 ```
+
+## Deployment (`next.config.ts`)
+
+`serverExternalPackages: ["sharp"]` and an `outputFileTracingIncludes` block force-including the pnpm content-addressable `@img/sharp-linux-x64`/`@img/sharp-libvips-linux-x64` binaries are **required**, not optional — without them Next's built-in image optimizer `dlopen`s a native libvips binary that Vercel's output-file tracing otherwise drops from the deployed function, crashing with `ERR_DLOPEN_FAILED` in production. Do not remove this config as "unused"; see #561/#562.
 
 ## Best Practices
 
