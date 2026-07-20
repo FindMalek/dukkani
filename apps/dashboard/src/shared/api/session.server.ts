@@ -3,9 +3,12 @@ import { cookies } from "next/headers";
 import { env } from "@/env";
 
 /**
- * Get session from API by making an HTTP request
- * Server components can't access cross-origin cookies directly, so we forward
- * cookies from the incoming request to the API endpoint.
+ * Get session from API by making an HTTP request, forwarding whatever
+ * cookies came in on the dashboard's own incoming request. This only works
+ * because the session cookie's Domain attribute is shared across the
+ * dashboard/API subdomains (see `crossSubDomainCookies` in
+ * `packages/auth/src/index.ts`) — without that, the browser never attaches
+ * the API-issued cookie to a request made to the dashboard's own host.
  *
  * @returns Session object with user data, or null if not authenticated
  */

@@ -67,6 +67,10 @@ Both `apps/dashboard` and `apps/storefront` follow **Feature Sliced Design (FSD)
 
 Do not add `hooks/api/`, `lib/`, or `stores/` top-level directories to these apps; place new code in the appropriate `shared/` sub-layer instead.
 
+## Maintaining these rules
+
+`.cursor/rules/*.mdc` is the single source of truth referenced by `CLAUDE.md` — stale rules that contradict the code are worse than no rules, since agents trust them over re-deriving the pattern from scratch. When a change introduces or changes a pattern worth reusing (a new shared constant/convention, a non-obvious config requirement, a changed package API shape), update the relevant `.mdc` file **in the same PR**, not as separate follow-up work. Skip it only for one-off, page-specific code that isn't a reusable pattern.
+
 ## Conventions
 
 - Use package imports with the `@dukkani/*` namespace.
