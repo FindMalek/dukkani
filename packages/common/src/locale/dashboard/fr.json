@@ -525,7 +525,7 @@
         "deleteConfirmTitle": "Supprimer le produit ?",
         "deleteConfirmDescription": "Cette action ne peut pas être annulée.",
         "cancel": "Annuler",
-        "previewInStorefront": "Aperçu sur la boutique"
+        "previewInStorefront": "Aperçu dans la vitrine"
       },
       "loading": "Chargement des produits…",
       "table": {
@@ -713,7 +713,7 @@
         "hide": "Masquer l'aperçu",
         "show": "Afficher l'aperçu"
       },
-      "previewInStorefront": "Aperçu sur la boutique"
+      "previewInStorefront": "Aperçu dans la vitrine"
     },
     "edit": {
       "header": {

@@ -521,7 +521,7 @@
         "deleteConfirmTitle": "هل تريد حذف المنتج؟",
         "deleteConfirmDescription": "لا يمكن التراجع عن هذا الإجراء.",
         "cancel": "إلغاء",
-        "previewInStorefront": "معاينة في المتجر"
+        "previewInStorefront": "Preview in storefront"
       },
       "loading": "جارٍ تحميل المنتجات…",
       "table": {
@@ -709,7 +709,7 @@
         "hide": "إخفاء المعاينة",
         "show": "إظهار المعاينة"
       },
-      "previewInStorefront": "معاينة في المتجر"
+      "previewInStorefront": "Preview in storefront"
     },
     "edit": {
       "header": {
