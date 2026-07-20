@@ -14,6 +14,14 @@ export const clientModule = {
         if (process.env.VERCEL_ENV === "preview") return "development";
         return val;
       }),
+    // Distinct from NEXT_PUBLIC_NODE_ENV, which collapses preview into
+    // "development" — some client-only behavior (e.g. demo-account login
+    // prefill) needs to detect preview specifically, not local dev too.
+    // Not auto-populated by Vercel; must be set explicitly (see each app's
+    // vercel.json `env` block, e.g. `"NEXT_PUBLIC_VERCEL_ENV": "$VERCEL_ENV"`).
+    NEXT_PUBLIC_VERCEL_ENV: z
+      .enum(["production", "preview", "development"])
+      .optional(),
     NEXT_PUBLIC_API_URL: z.url(),
     NEXT_PUBLIC_ALLOWED_ORIGIN: z
       .string()
