@@ -120,9 +120,9 @@ export default function OrdersPage() {
         {/* Cards below xl:, grouped table at xl: and up — see OrdersTable for
         how date grouping is preserved as row-group headers on desktop. */}
         <div className="xl:hidden">
-          <OrdersGroupedList sections={sections} />
+          <OrdersGroupedList sections={sections} showStatus={!status} />
         </div>
-        <OrdersTable sections={sections} />
+        <OrdersTable sections={sections} showStatus={!status} />
       </>
     );
   }

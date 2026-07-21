@@ -5,8 +5,10 @@ import type { OrderListDisplaySection } from "@/shared/lib/order/order.util";
 
 export function OrdersGroupedList({
   sections,
+  showStatus = true,
 }: {
   sections: OrderListDisplaySection[];
+  showStatus?: boolean;
 }) {
   return (
     <div className="space-y-6">
@@ -17,7 +19,11 @@ export function OrdersGroupedList({
           </h2>
           <div className="space-y-3">
             {section.orders.map((order) => (
-              <OrderListCard key={order.id} order={order} />
+              <OrderListCard
+                key={order.id}
+                order={order}
+                showStatus={showStatus}
+              />
             ))}
           </div>
         </section>
