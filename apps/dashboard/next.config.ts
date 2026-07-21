@@ -38,7 +38,25 @@ const nextConfig: NextConfig = {
   },
   env: {
     NEXT_PUBLIC_API_URL: apiUrl,
+    // Vercel doesn't auto-expose VERCEL_ENV to the client, and vercel.json's
+    // `env` block can't do shell-style `$VERCEL_ENV` expansion — this is the
+    // documented way to bridge a server-only var to the client bundle.
+    NEXT_PUBLIC_VERCEL_ENV: process.env.VERCEL_ENV,
   },
+  // Proxy the whole API surface through the dashboard's own origin so the
+  // browser only ever talks to one domain. Without this, the session cookie
+  // the API sets is only shareable with the dashboard via a cookie `Domain`
+  // spanning both hosts' shared apex — which doesn't exist on preview
+  // (each app gets its own sibling *.vercel.app alias, not a subdomain of a
+  // common apex), so the cookie never reaches the dashboard's own requests
+  // and every load bounces back to /login. Proxying makes the cookie
+  // first-party to the dashboard in every environment. See #572.
+  rewrites: async () => [
+    {
+      source: "/api/:path*",
+      destination: `${apiUrl}/api/:path*`,
+    },
+  ],
   images: {
     dangerouslyAllowLocalIP: true,
     remotePatterns: [

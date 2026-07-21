@@ -50,10 +50,21 @@ export async function verifyPassword({
  * `.preview.dukkani.co`). Returns undefined when there's no subdomain to
  * strip (e.g. localhost, or an apex domain), in which case cross-subdomain
  * cookie sharing should stay disabled.
+ *
+ * Also returns undefined for `*.vercel.app` hosts: `vercel.app` is on the
+ * Public Suffix List, so a `Domain=.vercel.app` cookie is silently rejected
+ * by the browser — and it wouldn't help anyway, since each app's Vercel
+ * git-branch preview alias (`dukkani-api-git-<branch>-<team>.vercel.app` vs
+ * `dukkani-dashboard-git-<branch>-<team>.vercel.app`) is a sibling domain,
+ * not a subdomain of a shared apex. See #517/#538.
  */
 export function deriveCookieDomain(apiUrl: string): string | undefined {
   try {
-    const labels = new URL(apiUrl).hostname.split(".");
+    const hostname = new URL(apiUrl).hostname;
+    if (hostname === "vercel.app" || hostname.endsWith(".vercel.app")) {
+      return undefined;
+    }
+    const labels = hostname.split(".");
     if (labels.length < 3) {
       return undefined;
     }
