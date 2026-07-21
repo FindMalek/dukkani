@@ -16,9 +16,16 @@ let orpcClient: DashboardScopedUtils | null = null;
 
 function getORPCClient(): DashboardScopedUtils {
   if (!orpcClient) {
-    const { queryClient, client, orpc } = createORPCClientUtils<AppRouter>(
-      getApiUrl(env.NEXT_PUBLIC_API_URL),
-    );
+    // Browser: relative "" (-> "/api") so requests go through the
+    // dashboard's own origin, proxied to the API by the rewrite in
+    // next.config.ts — keeps the session cookie first-party. See #572.
+    // Server: absolute API URL, since Node's fetch can't resolve a
+    // relative URL and this path already forwards the incoming request's
+    // cookies itself (see the `headers()` option in createORPCClientUtils).
+    const apiUrl =
+      typeof window === "undefined" ? getApiUrl(env.NEXT_PUBLIC_API_URL) : "";
+    const { queryClient, client, orpc } =
+      createORPCClientUtils<AppRouter>(apiUrl);
     orpcClient = {
       queryClient,
       client: client.dashboard as DashboardRouterClient,
