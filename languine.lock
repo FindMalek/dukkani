@@ -278,6 +278,7 @@ files:
     customers.list.table.totalSpent: 25326db0dcb2cf342b3477fbdad373dc
     customers.list.table.lastOrder: d957e2652355299cb367c4b7e07d9141
     customers.list.table.actions: 06df33001c1d7187fdd81ea1f5b277aa
+    customers.list.phoneCopied: eaa2c247d1024146b91875f7fbdc0a6f
     customers.detail.backToCustomers: 59666ad60cc1933b5f3ebcab0120a296
     customers.detail.title: ed2c066909c9fa156861ded62108fb6e
     customers.detail.call: c3755e61202abd74da5885d2e9c9160e
@@ -366,6 +367,7 @@ files:
     products.list.actions.deleteConfirmTitle: 3fc8a96873ad6ca0aab10982d2d57332
     products.list.actions.deleteConfirmDescription: 36fbfc01d63e4b57d18991077535c6e0
     products.list.actions.cancel: ea4788705e6873b424c65e91c2846b19
+    products.list.actions.previewInStorefront: b5c2810cfb966ebb2d4d2d07a0462c42
     products.list.loading: f4ddb3f5cb7efc92dffda93da966acc6
     products.list.table.image: be53a0541a6d36f6ecb879fa2c584b08
     products.list.table.name: 49ee3087348e8d44e1feda1917443987
@@ -498,6 +500,7 @@ files:
     products.create.noStore.title: 4b75c480bcac57bbee5c041bcedfe688
     products.create.noStore.description: 7af36a206b40613d844617bfbac45595
     products.create.noStore.createStore: 9c6e59d56dc4e8a12c07627b51ab3c27
+    products.create.previewInStorefront: b5c2810cfb966ebb2d4d2d07a0462c42
     products.edit.header.title: 38dcfe97230f5eee7bf911f3b56f955a
     products.edit.header.save: c9cc8cce247e49bae79f15173ce97354
     products.edit.sections.essentials: 4d55f77f062bf48891bd0f749c36a36d
