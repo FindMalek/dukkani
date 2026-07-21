@@ -16,6 +16,7 @@ import {
 } from "@dukkani/ui/components/table";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useCopyToClipboard } from "@/shared/lib/clipboard";
 import { RoutePaths } from "@/shared/config/routes";
 import { useCustomerListItemView } from "@/shared/lib/customer/list-item-view.hook";
 
@@ -115,6 +116,7 @@ function CustomersTableRow({
   const t = useTranslations("customers.list");
   const { totalSpentLabel, lastOrderLabel, governorateLabel } =
     useCustomerListItemView(customer);
+  const { copy } = useCopyToClipboard();
 
   const handleRowClick = () => {
     if (selectionMode) {
@@ -144,13 +146,20 @@ function CustomersTableRow({
         </p>
       </TableCell>
       <TableCell>
-        <span className="flex items-center gap-1.5 text-muted-foreground text-sm">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            copy(customer.phone, t("phoneCopied"));
+          }}
+          className="inline-flex cursor-pointer items-center gap-1.5 text-muted-foreground text-sm hover:text-foreground hover:underline"
+        >
           <FlagComponent
             country={getPhoneCountry(customer.phone)}
             countryName={customer.phone}
           />
           {customer.phone}
-        </span>
+        </button>
       </TableCell>
       <TableCell>
         {governorateLabel ? (

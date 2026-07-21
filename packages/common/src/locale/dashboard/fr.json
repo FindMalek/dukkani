@@ -413,7 +413,8 @@
         "totalSpent": "Total dépensé",
         "lastOrder": "Dernière commande",
         "actions": "Actions"
-      }
+      },
+      "phoneCopied": "Numéro de téléphone copié !"
     },
     "detail": {
       "backToCustomers": "Back to customers",
