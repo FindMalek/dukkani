@@ -5,7 +5,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
 import { lastLoginMethod, openAPI } from "better-auth/plugins";
 import type { env } from "./env";
-import { buildTrustedOrigins, deriveCookieDomain, verifyPassword } from "./utils";
+import { buildTrustedOrigins, verifyPassword } from "./utils";
 
 /**
  * Factory function to create a Better Auth instance
@@ -33,24 +33,23 @@ export function createAuth(
     envConfig.CORS_PREVIEW_ORIGIN_PATTERN,
   );
 
-  // Determine if we need production-grade cookie settings (secure cookies,
-  // shared across the dashboard/API subdomains).
+  // Determine if we need production-grade cookie settings (secure cookies).
   const isVercel = !!envConfig.VERCEL;
   const isProduction =
     isVercel || envConfig.NEXT_PUBLIC_API_URL.startsWith("https://");
 
-  // The dashboard and API run on different subdomains of the same base
-  // domain (e.g. api.dukkani.co / dashboard.dukkani.co, or
-  // api.preview.dukkani.co / dashboard.preview.dukkani.co in preview).
-  // Without a shared cookie Domain, the session cookie is host-only to the
-  // API's origin and the browser never attaches it when the dashboard's own
-  // server renders a page — every dashboard load then falls through to a
-  // client-side session check that races the redirect-to-login logic. See
-  // github.com/FindMalek/dukkani/issues/517.
-  const cookieDomain = isProduction
-    ? deriveCookieDomain(envConfig.NEXT_PUBLIC_API_URL)
-    : undefined;
-
+  // We don't attempt to share the session cookie across the dashboard/API
+  // via a cookie `Domain` (crossSubDomainCookies) — dashboard and API are
+  // separate Vercel projects, so their preview URLs are sibling
+  // *.vercel.app aliases with no shared apex to set a Domain on (and it's
+  // not just preview: this app's own NEXT_PUBLIC_API_URL is a static env
+  // var, not resolved per-deployment, so a computed Domain can silently be
+  // wrong in any environment — see #572/#574). Cookies are host-only
+  // instead: apps/dashboard proxies its whole /api/* surface through its
+  // own origin (next.config.ts rewrite), so the browser only ever talks to
+  // one domain and the cookie is naturally first-party there. This is the
+  // pattern Better Auth's own docs/community recommend for split
+  // frontend/backend deployments. See github.com/FindMalek/dukkani/issues/517.
   return betterAuth<BetterAuthOptions>({
     database: prismaAdapter(database, {
       provider: "postgresql",
@@ -60,14 +59,9 @@ export function createAuth(
     trustedOrigins,
     advanced: {
       useSecureCookies: isProduction,
-      crossSubDomainCookies: cookieDomain
-        ? { enabled: true, domain: cookieDomain }
-        : { enabled: false },
       cookies: {
         session_token: {
           attributes: {
-            // Same-site once the cookie is shared across subdomains via
-            // `crossSubDomainCookies` above — no longer need SameSite=None.
             sameSite: "lax",
             httpOnly: true,
           },
