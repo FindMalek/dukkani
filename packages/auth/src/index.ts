@@ -105,7 +105,10 @@ export function createAuth(
         clientSecret: envConfig.APPLE_CLIENT_SECRET,
       },
     },
-    plugins: [nextCookies(), openAPI(), lastLoginMethod()],
+    // nextCookies() must be last: it forwards pending Set-Cookie headers to
+    // Next's cookie store, so any plugin after it whose hooks also set
+    // cookies (e.g. lastLoginMethod) would have theirs silently dropped.
+    plugins: [openAPI(), lastLoginMethod(), nextCookies()],
   });
 }
 
