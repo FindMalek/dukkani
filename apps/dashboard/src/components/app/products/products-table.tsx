@@ -23,6 +23,8 @@ interface ProductsTableProps {
   products: ListProductOutput[];
   onDelete: (id: string) => void;
   onTogglePublish: (id: string, published: boolean) => void;
+  /** Hide the Status column when a specific status filter (not "All") is active — every visible row already shares it. */
+  showStatus: boolean;
 }
 
 /**
@@ -38,6 +40,7 @@ export function ProductsTable({
   products,
   onDelete,
   onTogglePublish,
+  showStatus,
 }: ProductsTableProps) {
   const t = useTranslations("products.list");
 
@@ -52,7 +55,7 @@ export function ProductsTable({
             <TableHead>{t("table.name")}</TableHead>
             <TableHead>{t("table.price")}</TableHead>
             <TableHead>{t("table.stock")}</TableHead>
-            <TableHead>{t("table.status")}</TableHead>
+            {showStatus && <TableHead>{t("table.status")}</TableHead>}
             <TableHead className="w-12 text-end">
               <span className="sr-only">{t("table.actions")}</span>
             </TableHead>
@@ -65,6 +68,7 @@ export function ProductsTable({
               product={product}
               onDelete={onDelete}
               onTogglePublish={onTogglePublish}
+              showStatus={showStatus}
             />
           ))}
         </TableBody>
@@ -77,12 +81,14 @@ interface ProductsTableRowProps {
   product: ListProductOutput;
   onDelete: (id: string) => void;
   onTogglePublish: (id: string, published: boolean) => void;
+  showStatus: boolean;
 }
 
 function ProductsTableRow({
   product,
   onDelete,
   onTogglePublish,
+  showStatus,
 }: ProductsTableRowProps) {
   const t = useTranslations("products.list");
   const { priceLabel, isOutOfStock, stockStatusText, firstImageUrl } =
@@ -128,14 +134,16 @@ function ProductsTableRow({
           {stockStatusText}
         </span>
       </TableCell>
-      <TableCell>
-        <Badge
-          variant={product.published ? "statusSuccess" : "statusMuted"}
-          size="sm"
-        >
-          {product.published ? t("status.published") : t("status.draft")}
-        </Badge>
-      </TableCell>
+      {showStatus && (
+        <TableCell>
+          <Badge
+            variant={product.published ? "statusSuccess" : "statusMuted"}
+            size="sm"
+          >
+            {product.published ? t("status.published") : t("status.draft")}
+          </Badge>
+        </TableCell>
+      )}
       <TableCell className="relative z-10 text-end">
         <ProductCardDropdown
           product={product}

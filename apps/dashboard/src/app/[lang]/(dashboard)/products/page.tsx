@@ -173,6 +173,7 @@ export default function ProductsPage() {
                 product={product}
                 onDelete={handleDeleteRequest}
                 onTogglePublish={handleTogglePublish}
+                showStatus={published == null}
               />
             ))}
           </div>
@@ -180,6 +181,7 @@ export default function ProductsPage() {
             products={data.products}
             onDelete={handleDeleteRequest}
             onTogglePublish={handleTogglePublish}
+            showStatus={published == null}
           />
         </>
       ) : (

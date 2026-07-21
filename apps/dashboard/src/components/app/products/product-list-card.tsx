@@ -17,12 +17,15 @@ interface ProductListCardProps {
   product: ListProductOutput;
   onDelete: (id: string) => void;
   onTogglePublish: (id: string, published: boolean) => void;
+  /** Hide the status badge when a specific status filter (not "All") is active — every visible card already shares it. */
+  showStatus: boolean;
 }
 
 export function ProductListCard({
   product,
   onDelete,
   onTogglePublish,
+  showStatus,
 }: ProductListCardProps) {
   const router = useRouter();
   const t = useTranslations("products.list");
@@ -117,13 +120,17 @@ export function ProductListCard({
             >
               {stockStatusText}
             </p>
-            <Badge
-              variant={product.published ? "statusSuccess" : "statusMuted"}
-              size="sm"
-              className="ml-auto shrink-0"
-            >
-              {product.published ? t("status.published") : t("status.draft")}
-            </Badge>
+            {showStatus && (
+              <Badge
+                variant={product.published ? "statusSuccess" : "statusMuted"}
+                size="sm"
+                className="ml-auto shrink-0"
+              >
+                {product.published
+                  ? t("status.published")
+                  : t("status.draft")}
+              </Badge>
+            )}
           </div>
         </div>
       </div>
