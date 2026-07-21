@@ -9,6 +9,7 @@ export function createNextjsRuntimeEnv() {
     CORS_PREVIEW_ORIGIN_PATTERN: process.env.CORS_PREVIEW_ORIGIN_PATTERN,
     // Base client vars - MUST be literal, or Next won't inline
     NEXT_PUBLIC_NODE_ENV: process.env.NEXT_PUBLIC_NODE_ENV,
+    NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_ALLOWED_ORIGIN: process.env.NEXT_PUBLIC_ALLOWED_ORIGIN,
     // URLs module vars
