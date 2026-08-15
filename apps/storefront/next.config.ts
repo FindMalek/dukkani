@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
   },
   images: {
     dangerouslyAllowLocalIP: true,
+    // Scoped to what the storefront actually renders (cart thumb, product
+    // grid at 50vw, full-bleed hero/carousel at 100vw) instead of Next's
+    // full default range, so the optimizer isn't decoding/encoding variants
+    // no layout ever requests.
+    deviceSizes: [384, 640, 828, 1080, 1440, 1920],
+    imageSizes: [16, 32, 48, 64, 80, 96, 128, 256],
     remotePatterns: [
       {
         hostname: "images.unsplash.com",

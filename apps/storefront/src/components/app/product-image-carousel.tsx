@@ -81,6 +81,7 @@ export function ProductImageCarousel({
                   src={image}
                   alt={`${productName} - Image ${index + 1}`}
                   fill
+                  sizes="100vw"
                   className="object-cover"
                   priority={index === 0}
                 />
