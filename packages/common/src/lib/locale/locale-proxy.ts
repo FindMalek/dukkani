@@ -43,11 +43,30 @@ export function getLocale(request: RequestWithCookiesAndHeaders): string {
   }
 
   // Then check Accept-Language header
-  const acceptLanguage = request.headers.get("accept-language") ?? undefined;
-  const headers = { "accept-language": acceptLanguage };
-  const languages = new Negotiator({ headers }).languages();
+  const acceptLanguage = request.headers.get("accept-language")?.trim();
+  if (!acceptLanguage) {
+    return DEFAULT_LOCALE;
+  }
 
-  return match(languages, LOCALES, DEFAULT_LOCALE);
+  // Fast path: a single simple tag that's already one of ours (e.g. "en",
+  // "fr") skips the negotiator entirely instead of paying for Negotiator +
+  // Intl locale parsing on the common case.
+  const simpleTag = acceptLanguage.split(",")[0]?.split(";")[0]?.trim();
+  if (simpleTag && LOCALES.includes(simpleTag as Locale)) {
+    return simpleTag;
+  }
+
+  // Negotiator/Intl.getCanonicalLocales throws RangeError on malformed
+  // Accept-Language values, which bots/scanners send routinely (they never
+  // carry the locale cookie, so every scanner hit reaches this path). Fall
+  // back to the default locale instead of letting the request crash.
+  try {
+    const headers = { "accept-language": acceptLanguage };
+    const languages = new Negotiator({ headers }).languages();
+    return match(languages, LOCALES, DEFAULT_LOCALE);
+  } catch {
+    return DEFAULT_LOCALE;
+  }
 }
 
 /**
