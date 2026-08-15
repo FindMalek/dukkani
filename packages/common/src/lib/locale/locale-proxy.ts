@@ -48,12 +48,16 @@ export function getLocale(request: RequestWithCookiesAndHeaders): string {
     return DEFAULT_LOCALE;
   }
 
-  // Fast path: a single simple tag that's already one of ours (e.g. "en",
-  // "fr") skips the negotiator entirely instead of paying for Negotiator +
-  // Intl locale parsing on the common case.
-  const simpleTag = acceptLanguage.split(",")[0]?.split(";")[0]?.trim();
-  if (simpleTag && LOCALES.includes(simpleTag as Locale)) {
-    return simpleTag;
+  // Fast path: a truly single bare tag with no weighting -- no comma (no
+  // alternatives list) and no semicolon (no q-value) -- that's already one
+  // of ours (e.g. "en", "fr") skips the negotiator entirely instead of
+  // paying for Negotiator + Intl locale parsing on the common case. Any
+  // header with alternatives or q-values must go through match() so
+  // preference order and q=0 exclusions are honored correctly.
+  if (!acceptLanguage.includes(",") && !acceptLanguage.includes(";")) {
+    if (LOCALES.includes(acceptLanguage as Locale)) {
+      return acceptLanguage;
+    }
   }
 
   // Negotiator/Intl.getCanonicalLocales throws RangeError on malformed
