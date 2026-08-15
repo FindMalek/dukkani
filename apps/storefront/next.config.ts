@@ -43,8 +43,10 @@ const nextConfig: NextConfig = {
     // Scoped to what the storefront actually renders (cart thumb, product
     // grid at 50vw, full-bleed hero/carousel at 100vw) instead of Next's
     // full default range, so the optimizer isn't decoding/encoding variants
-    // no layout ever requests.
-    deviceSizes: [384, 640, 828, 1080, 1440, 1920],
+    // no layout ever requests. Keeps 2048/3840 so full-width (sizes="100vw")
+    // hero/carousel images still get crisp 2x candidates on wide retina
+    // screens instead of upscaling a capped 1920px source.
+    deviceSizes: [384, 640, 828, 1080, 1440, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 80, 96, 128, 256],
     remotePatterns: [
       {
