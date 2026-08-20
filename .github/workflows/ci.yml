@@ -71,13 +71,6 @@ jobs:
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
-      SKIP_ENV_VALIDATION: "true"
-      DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
-      BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
-      # dashboard/storefront next.config.ts resolve this explicitly (not just
-      # via t3-env) and fail the build outright if it's unset in a non-Vercel
-      # environment, so SKIP_ENV_VALIDATION alone doesn't cover it.
-      NEXT_PUBLIC_API_URL: "http://localhost:3002"
 
     steps:
       - name: Checkout
@@ -95,5 +88,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
+      # Builds only the shared packages (@dukkani/db, @dukkani/auth,
+      # @dukkani/orpc), not the four Next.js apps. A full `pnpm build` also
+      # runs a live `prisma migrate deploy` (via apps/api's build script,
+      # which needs a reachable Postgres) and requires ~15 more env vars
+      # (Google/Facebook/Apple OAuth, Telegram, OTEL, S3, NEXT_PUBLIC_* URLs)
+      # via @dukkani/env's zod-validated presets — most aren't provisioned as
+      # CI secrets yet, and CI_DATABASE_URL wasn't reachable from the runner
+      # when this was tried. See the PR description for the open decision on
+      # whether/how to extend this to full app builds.
+      - name: Build packages
+        run: pnpm run build:packages
