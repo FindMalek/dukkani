@@ -74,6 +74,10 @@ jobs:
       SKIP_ENV_VALIDATION: "true"
       DATABASE_URL: ${{ secrets.CI_DATABASE_URL }}
       BETTER_AUTH_SECRET: ${{ secrets.CI_BETTER_AUTH_SECRET }}
+      # dashboard/storefront next.config.ts resolve this explicitly (not just
+      # via t3-env) and fail the build outright if it's unset in a non-Vercel
+      # environment, so SKIP_ENV_VALIDATION alone doesn't cover it.
+      NEXT_PUBLIC_API_URL: "http://localhost:3002"
 
     steps:
       - name: Checkout
