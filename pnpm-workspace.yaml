@@ -46,7 +46,7 @@ catalog:
   date-fns: ^4.4.0
   dotenv: ^17.4.2
   lucide-react: ^1.25.0
-  nanoid: ^6.0.0
+  nanoid: ^3.3.17
   negotiator: ^1.0.0
   next: ^16.2.11
   next-intl: ^4.13.2
