@@ -18,8 +18,13 @@ const nextConfig: NextConfig = {
   ],
   // Force-include sharp's native libvips binary, dropped by output tracing
   // otherwise — same fix as apps/dashboard and apps/storefront. See #561/#570.
+  //
+  // Scoped to the oRPC catch-all only: that's the sole route that imports
+  // appRouter (and therefore @dukkani/storage's ImageProcessor). auth and
+  // webhooks route handlers never touch that router, so bundling ~50MB of
+  // native binary into them was pure overhead on every invocation.
   outputFileTracingIncludes: {
-    "/**/*": [
+    "/api/\\[\\[\\.\\.\\.rest\\]\\]": [
       "./node_modules/.pnpm/@img+sharp-linux-x64@*/node_modules/@img/sharp-linux-x64/**/*",
       "./node_modules/.pnpm/@img+sharp-libvips-linux-x64@*/node_modules/@img/sharp-libvips-linux-x64/**/*",
     ],
