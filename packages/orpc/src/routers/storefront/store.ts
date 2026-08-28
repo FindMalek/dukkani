@@ -1,8 +1,10 @@
+import { NotFoundError } from "@dukkani/common/errors";
 import { isReservedStoreSlug } from "@dukkani/common/schemas/store/constants";
 import {
   getStoreBySlugPublicInputSchema,
   subscribeToLaunchInputSchema,
 } from "@dukkani/common/schemas/store/input";
+import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import {
   launchNotificationOutputSchema,
   storePublicOutputSchema,
@@ -28,9 +30,35 @@ import { baseProcedure, publicProcedure } from "../../procedures";
 // this cache, so staleness here cannot cause an overselling/pricing bug.
 const STORE_PUBLIC_CACHE_REVALIDATE_SECONDS = 20;
 
+type CachedStoreBySlugResult =
+  | { found: true; store: StorePublicOutput }
+  | { found: false; message: string };
+
+// StoreService throws NotFoundError on a miss, and Next's data cache never
+// caches a rejected promise — so unstable_cache alone would leave every
+// nonexistent slug (the exact case repeat-hit by bots probing subdomains)
+// uncached forever while real stores get cached. Catching the miss here and
+// caching a sentinel instead means repeated lookups for the same bogus slug
+// cost one DB query per revalidate window, not one per request.
 const getCachedStoreBySlugPublic = unstable_cache(
-  async (slug: string, productPage?: number, productLimit?: number) =>
-    StoreService.getStoreBySlugPublic(slug, { productPage, productLimit }),
+  async (
+    slug: string,
+    productPage?: number,
+    productLimit?: number,
+  ): Promise<CachedStoreBySlugResult> => {
+    try {
+      const store = await StoreService.getStoreBySlugPublic(slug, {
+        productPage,
+        productLimit,
+      });
+      return { found: true, store };
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        return { found: false, message: error.message };
+      }
+      throw error;
+    }
+  },
   ["store-by-slug-public"],
   { revalidate: STORE_PUBLIC_CACHE_REVALIDATE_SECONDS },
 );
@@ -41,11 +69,15 @@ export const storeRouter = {
     .input(getStoreBySlugPublicInputSchema)
     .output(storePublicOutputSchema)
     .handler(async ({ input }) => {
-      return await getCachedStoreBySlugPublic(
+      const result = await getCachedStoreBySlugPublic(
         input.slug,
         input.productPage,
         input.productLimit,
       );
+      if (!result.found) {
+        throw new NotFoundError(result.message);
+      }
+      return result.store;
     }),
 
   subscribeToLaunch: publicProcedure
