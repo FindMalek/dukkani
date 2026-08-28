@@ -27,7 +27,7 @@ export function getStoreSlug(
   return normalized;
 }
 
-function getStoreSlugFromHost(host: string | null): string | null {
+export function getStoreSlugFromHost(host: string | null): string | null {
   if (!host) return null;
 
   // Remove port if present (e.g., "localhost:3000" -> "localhost")
