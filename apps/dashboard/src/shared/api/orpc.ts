@@ -1,6 +1,7 @@
 import { getApiUrl } from "@dukkani/env/get-api-url";
 import type { AppRouter, DashboardRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
+import { ORPCError } from "@orpc/client";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { env } from "@/env";
 
@@ -55,7 +56,14 @@ export function makeQueryClient(onError?: (error: Error) => void) {
       queries: {
         staleTime: 60 * 1000, // 60 seconds
         gcTime: 5 * 60 * 1000, // 5 minutes
-        retry: 3,
+        // NOT_FOUND is a permanent result, not a transient failure - see
+        // apps/storefront/src/shared/api/orpc.ts for the full rationale.
+        retry: (failureCount, error) => {
+          if (error instanceof ORPCError && error.code === "NOT_FOUND") {
+            return false;
+          }
+          return failureCount < 3;
+        },
         retryDelay: (failureCount) =>
           Math.min(2000 * Math.pow(2, failureCount - 1), 30 * 1000),
         refetchOnWindowFocus: false,

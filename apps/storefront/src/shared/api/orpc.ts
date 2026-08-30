@@ -1,6 +1,7 @@
 import { getApiUrl } from "@dukkani/env/get-api-url";
 import type { AppRouter, StorefrontRouterClient } from "@dukkani/orpc";
 import { createORPCClientUtils } from "@dukkani/orpc/client";
+import { ORPCError } from "@orpc/client";
 import { QueryClient } from "@tanstack/react-query";
 import { cache } from "react";
 import { env } from "@/env";
@@ -11,7 +12,17 @@ export function makeQueryClient() {
       queries: {
         staleTime: 60 * 1000,
         gcTime: 5 * 60 * 1000,
-        retry: 3,
+        // NOT_FOUND is a permanent result, not a transient failure -
+        // retrying it can't make a nonexistent store/product appear, it
+        // just triples the wasted API calls and adds ~14s of backoff before
+        // the page finally shows "not found". Everything else keeps the
+        // existing retry behavior.
+        retry: (failureCount, error) => {
+          if (error instanceof ORPCError && error.code === "NOT_FOUND") {
+            return false;
+          }
+          return failureCount < 3;
+        },
         retryDelay: (failureCount) =>
           Math.min(2000 * Math.pow(2, failureCount - 1), 30 * 1000),
         refetchOnWindowFocus: false,
