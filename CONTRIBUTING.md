@@ -39,6 +39,17 @@ What `bootstrap` does:
 - Starts Docker services from `docker/docker-compose.yml`
 - Pushes Prisma schema (`pnpm run db:push`)
 
+Optional — link this machine to the team's Turborepo remote cache so local builds can *read* artifacts from CI:
+
+```bash
+npx turbo login
+npx turbo link
+```
+
+Cache writes from a personal account can fail with "Insufficient permissions to write to remote cache". That's expected unless your Vercel team role can write Remote Cache artifacts. CI still writes via `TURBO_TOKEN` / `TURBO_TEAM`.
+
+Skip Vercel preview deploys by putting `skip-vercel` in the **branch name** (not the PR title), e.g. `skip-vercel/docs-typo`. Each app's `ignoreCommand` in `vercel.json` runs `scripts/vercel-ignore-build.sh`, which also skips an app when Turborepo reports it unaffected since the last successful deploy. Canceled builds still count toward Vercel quota; production deploys on `main` are not skipped by the branch-name check.
+
 ## 3) Seeded Data
 
 Seed data comes from [`packages/db/src/seed`](./packages/db/src/seed), especially:
@@ -116,7 +127,7 @@ Start from **GitHub Issues**:
 ## 7) Lightweight Contribution Workflow
 
 1. Reproduce the issue locally
-2. Name your branch with the issue number (e.g. `fix/250-stock-race-condition` or `250-stock-race-condition`) — for PRs targeting `main`, a CI workflow uses this to auto-link the PR to the issue if you don't add a `Closes #N` yourself
+2. Name your branch with the issue number (e.g. `fix/250-stock-race-condition` or `250-stock-race-condition`) — for PRs targeting `main`, a CI workflow uses this to auto-link the PR to the issue if you don't add a `Closes #N` yourself. Use `skip-vercel` in the branch name only when you intentionally don't want preview deploys.
 3. Keep the change scoped to the issue
 4. Run checks (`lint`, `check-types`, `build`) before opening PR
 5. Include a short test plan in the PR description
