@@ -10,6 +10,7 @@
 - [ ] Follows project rules and conventions
 - [ ] Builds and runs locally without issues
 - [ ] Resolved all AI/code review comments
+- [ ] No AI agent (Cursor, Claude) left as `Co-authored-by:` on any commit — verify with `./scripts/check-ai-coauthors.sh`
 
 ---
 

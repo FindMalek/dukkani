@@ -126,9 +126,7 @@ export function ProductListCard({
                 size="sm"
                 className="ml-auto shrink-0"
               >
-                {product.published
-                  ? t("status.published")
-                  : t("status.draft")}
+                {product.published ? t("status.published") : t("status.draft")}
               </Badge>
             )}
           </div>

@@ -10,12 +10,7 @@ if (!process.env.VERCEL) {
 
 const nextConfig: NextConfig = {
   typedRoutes: true,
-  serverExternalPackages: [
-    "pino",
-    "pino-pretty",
-    "thread-stream",
-    "sharp",
-  ],
+  serverExternalPackages: ["pino", "pino-pretty", "thread-stream", "sharp"],
   // Force-include sharp's native libvips binary, dropped by output tracing
   // otherwise — same fix as apps/dashboard and apps/storefront. See #561/#570.
   //

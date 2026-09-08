@@ -1,0 +1,48 @@
+# Git Conventions
+
+## Commit Authorship
+
+### No AI co-authors
+
+Never add an AI coding agent as a co-author. Commits must credit humans only.
+
+```text
+❌ Incorrect:
+Co-authored-by: Claude Sonnet 5 <noreply@anthropic.com>
+Co-authored-by: Cursor Agent <cursoragent@cursor.com>
+Co-authored-by: Cursor <cursoragent@cursor.com>
+
+✅ Correct:
+Co-authored-by: Malek Gara-Hellal <hi@findmalek.com>
+```
+
+Rules for agents:
+
+- Do not append a `Co-authored-by:` trailer for yourself when committing.
+- If a trailer was added automatically (some agent runtimes inject one), strip it before the commit is pushed.
+- Do not add trailers for review bots (`gemini-code-assist`, `coderabbitai`) either — they reviewed the change, they did not write it.
+- Automation identities that genuinely author commits (`dependabot[bot]`, `Languine Bot`) stay.
+
+Why it matters: squash-merging re-collects every `Co-authored-by:` trailer in a PR, so a single leftover line puts an AI agent in the repository's contributor list permanently.
+
+### Enforcement
+
+- `.github/workflows/pr-no-ai-coauthors.yml` fails any PR whose commits carry a denied trailer.
+- Check locally before pushing: `./scripts/check-ai-coauthors.sh`
+- Fix by rewriting the offending messages, not by disabling the check:
+
+```bash
+git commit --amend                                 # last commit only
+git rebase -i $(git merge-base HEAD origin/main)   # several commits
+```
+
+## Branches
+
+- Name branches with the issue number: `type/NNN-slug` (e.g. `fix/250-stock-race-condition`) or `NNN-slug`.
+- `.github/workflows/pr-link-issue.yml` reads that number and appends `Closes #N` to the PR body when the PR targets `main` and has no closing reference yet.
+
+## Pull Requests
+
+- Link the issue in the PR description (`Closes #N`) instead of relying on the auto-link fallback.
+- Keep changes scoped to the issue; do not bundle unrelated working-tree edits into the commit.
+- Follow `.github/pull_request_template.md` and complete its checklist.

@@ -1,0 +1,35 @@
+name: PR no AI co-authors
+
+# Cursor, Claude and friends add themselves as Co-authored-by. GitHub then
+# credits them on the squash-merged commit and in the contributor list. This
+# fails the PR so the author strips the trailer; CI never rewrites history
+# itself (that would mean force-pushing new SHAs from a workflow).
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: pr-no-ai-coauthors-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Check commits for AI co-author trailers
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          git fetch --no-tags origin "$BASE_REF"
+          ./scripts/check-ai-coauthors.sh "origin/$BASE_REF..HEAD"

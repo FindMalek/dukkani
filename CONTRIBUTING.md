@@ -116,10 +116,11 @@ Start from **GitHub Issues**:
 ## 7) Lightweight Contribution Workflow
 
 1. Reproduce the issue locally
-2. Name your branch with the issue number (e.g. `fix/250-stock-race-condition` or `250-stock-race-condition`) — a CI workflow uses this to auto-link the PR to the issue if you don't add a `Closes #N` yourself
+2. Name your branch with the issue number (e.g. `fix/250-stock-race-condition` or `250-stock-race-condition`) — for PRs targeting `main`, a CI workflow uses this to auto-link the PR to the issue if you don't add a `Closes #N` yourself
 3. Keep the change scoped to the issue
 4. Run checks (`lint`, `check-types`, `build`) before opening PR
 5. Include a short test plan in the PR description
+6. If you used an AI agent, remove its `Co-authored-by:` trailer (Cursor, Claude) before pushing — CI fails otherwise. Check locally with `./scripts/check-ai-coauthors.sh`
 
 ## 8) Pull Request Checklist
 
@@ -129,3 +130,4 @@ Start from **GitHub Issues**:
 - [ ] `pnpm run check-types` passes
 - [ ] `pnpm run build` passes
 - [ ] Test plan and verification steps are included
+- [ ] No AI agent (Cursor, Claude) left as a `Co-authored-by:` on your commits

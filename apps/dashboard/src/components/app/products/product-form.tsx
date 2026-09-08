@@ -50,10 +50,7 @@ function usePreviewVisible() {
     setIsVisible((prev) => {
       const next = !prev;
       try {
-        window.localStorage.setItem(
-          PREVIEW_VISIBLE_STORAGE_KEY,
-          String(next),
-        );
+        window.localStorage.setItem(PREVIEW_VISIBLE_STORAGE_KEY, String(next));
       } catch {
         // Storage unavailable — toggle still works for this session.
       }
