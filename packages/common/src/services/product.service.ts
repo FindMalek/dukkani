@@ -836,6 +836,16 @@ class ProductServiceBase {
       );
     }
 
+    const optionIds = [...aggregated.keys()];
+    const options = await client.productAddonOption.findMany({
+      where: { id: { in: optionIds } },
+      select: { id: true, name: true },
+    });
+    type AddonOptionRow = (typeof options)[number];
+    const nameById = new Map<string, string>(
+      options.map((o: AddonOptionRow) => [o.id, o.name]),
+    );
+
     await Promise.all(
       [...aggregated.entries()].map(async ([optionId, quantity]) => {
         if (operation === "decrement") {
@@ -844,8 +854,9 @@ class ProductServiceBase {
             data: { stock: { decrement: quantity } },
           });
           if (count === 0) {
+            const optionName = nameById.get(optionId) ?? optionId;
             throw new BadRequestError(
-              `Insufficient stock for add-on option ${optionId}`,
+              `Insufficient stock for add-on "${optionName}"`,
             );
           }
           return;
@@ -982,8 +993,24 @@ class ProductServiceBase {
           }
 
           if (operation === "decrement") {
+            // Re-assert productVersionId in the atomic filter itself, not just
+            // the earlier findMany read above: if a publish moves
+            // currentPublishedVersionId between that read and this write, the
+            // variant's own productVersionId is unchanged, so this alone can't
+            // catch a publish that swaps in a *different* already-existing
+            // variant row for the same slot — closing that fully needs the
+            // eligibility check and the stock check to read the same
+            // transaction snapshot atomically (e.g. a raw SQL update with a
+            // subquery against Product.currentPublishedVersionId), which is
+            // out of scope for the stock-race fix this function exists for.
+            // This narrows the window from the whole request to zero extra
+            // round-trips instead of doing nothing.
             const { count } = await client.productVariant.updateMany({
-              where: { id: variantId, stock: { gte: quantity } },
+              where: {
+                id: variantId,
+                productVersionId: pubId,
+                stock: { gte: quantity },
+              },
               data: { stock: { decrement: quantity } },
             });
             if (count === 0) {
