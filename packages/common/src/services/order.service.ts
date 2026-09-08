@@ -13,8 +13,8 @@ import {
   enhanceLogWithTraceContext,
   traceStaticClass,
 } from "@dukkani/tracing";
-import type { OrderGovernorateCountRow } from "../entities/order/query";
 import { OrderEntity } from "../entities/order/entity";
+import type { OrderGovernorateCountRow } from "../entities/order/query";
 import { OrderQuery } from "../entities/order/query";
 import { StoreQuery } from "../entities/store/query";
 import type { PricedProductLineItem } from "../schemas/order/base";
@@ -713,6 +713,25 @@ class OrderServiceBase {
     addSpanAttributes({
       "order.previous_status": order.status,
       "order.new_status": status,
+    });
+
+    // Fire-and-forget: a notification failure must not fail the status update.
+    NotificationService.sendOrderStatusChangeNotification(
+      order.storeId,
+      { id: orderId },
+      order.status,
+      status,
+    ).catch((error) => {
+      logger.error(
+        enhanceLogWithTraceContext({
+          order_id: orderId,
+          store_id: order.storeId,
+          previous_status: order.status,
+          new_status: status,
+          error,
+        }),
+        "Order status change notification failed",
+      );
     });
 
     return OrderEntity.getRo(updatedOrder);

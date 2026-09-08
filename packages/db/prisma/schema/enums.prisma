@@ -77,9 +77,18 @@ enum StorageFileVariantType {
   LARGE
 }
 
+/**
+ * Notification channel a merchant uses to receive new order alerts.
+ * - `EMAIL`: Sent to the store owner's login email
+ * - `TELEGRAM`: Sent via the Telegram bot to the owner's linked chat (see User.telegramChatId)
+ * - `WHATSAPP`: Sent via Kapso (managed WhatsApp Business API) to the store's configured
+ *   notification number (see Store.kapsoPhoneNumberId / Store.kapsoNotificationNumber)
+ * - `BOTH`: Legacy value meaning EMAIL + TELEGRAM together (predates WhatsApp support)
+ */
 enum StoreNotificationMethod {
   EMAIL
   TELEGRAM
+  WHATSAPP
   BOTH
 }
 

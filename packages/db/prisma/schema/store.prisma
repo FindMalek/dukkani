@@ -8,9 +8,14 @@
  * - `name`: Display name of the store
  * - `description`: Optional description of the store
  * - `whatsappNumber`: Optional WhatsApp number for customer communication
+ * - `kapsoPhoneNumberId`: Optional WhatsApp Business Phone Number ID from Kapso, used as the
+ *   sender when notifying the merchant of new orders via WhatsApp
+ * - `kapsoNotificationNumber`: Optional phone number (E.164) that receives WhatsApp order
+ *   notifications sent through Kapso
+ * - `kapsoConnectedAt`: Optional timestamp when the store's Kapso WhatsApp notifications were configured
  * - `theme`: Visual theme for the store (LIGHT, DARK, MINIMAL, MODERN, CLASSIC)
  * - `category`: Store category (FASHION, ELECTRONICS, FOOD, HOME, BEAUTY, SPORTS, BOOKS, TOYS, OTHER)
- * - `notificationMethod`: Notification method for the store (EMAIL, TELEGRAM, BOTH)
+ * - `notificationMethod`: Notification method for the store (EMAIL, TELEGRAM, WHATSAPP, BOTH)
  * - `supportedPaymentMethods`: Array of payment methods the store accepts (COD, CARD)
  * - `shippingCost`: Fixed shipping cost for all orders (default: 12.0 TND)
  * - `status`: Status of the store (DRAFT, PUBLISHED, SUSPENDED, ARCHIVED)
@@ -37,6 +42,12 @@ model Store {
   name           String
   description    String?
   whatsappNumber String? @map("whatsapp_number")
+
+  // Kapso (managed WhatsApp Business API) connection used for merchant order notifications.
+  // Distinct from `whatsappNumber` above, which is the store's customer-facing contact number.
+  kapsoPhoneNumberId      String?   @map("kapso_phone_number_id")
+  kapsoNotificationNumber String?   @map("kapso_notification_number")
+  kapsoConnectedAt        DateTime? @map("kapso_connected_at")
 
   storePlan StorePlan?
   theme     StoreTheme?

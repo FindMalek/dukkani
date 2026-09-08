@@ -84,6 +84,29 @@
       "expires": "Ce lien expire dans 10 minutes. Si Telegram n'est pas installé, vous pouvez l'installer depuis",
       "error": "Une erreur est survenue. Veuillez réessayer.",
       "storeNameRequired": "Le nom de la boutique est requis"
+    },
+    "whatsapp": {
+      "title": "Notifications WhatsApp",
+      "description": "Connectez WhatsApp via Kapso pour recevoir des notifications de commande instantanées",
+      "noStores": "Créez d'abord une boutique pour connecter les notifications WhatsApp",
+      "cardDescription": "Soyez averti sur WhatsApp dès qu'une commande arrive ou que son statut change",
+      "connectedBadge": "Connecté",
+      "notConnectedDescription": "Entrez les informations de votre numéro WhatsApp Business Kapso pour commencer à recevoir des notifications de commande",
+      "phoneNumberIdLabel": "ID du numéro WhatsApp Business",
+      "phoneNumberIdPlaceholder": "ex. 110987654321",
+      "phoneNumberIdHelp": "Disponible dans votre tableau de bord Kapso, sous le numéro WhatsApp Business connecté",
+      "notificationNumberLabel": "Numéro de notification",
+      "notificationNumberPlaceholder": "ex. +21620000000",
+      "notificationNumberHelp": "Le numéro WhatsApp qui doit recevoir les alertes de commande",
+      "connectedSince": "Connecté depuis",
+      "connectButton": "Connecter WhatsApp",
+      "disconnectButton": "Déconnecter",
+      "sendTestMessageButton": "Envoyer un message test",
+      "connectSuccess": "Notifications WhatsApp connectées avec succès",
+      "disconnectSuccess": "Notifications WhatsApp déconnectées",
+      "testMessageSuccess": "Message test envoyé",
+      "fieldsRequired": "Les deux champs sont requis",
+      "error": "Une erreur est survenue. Veuillez réessayer."
     }
   },
   "onboarding": {
@@ -104,6 +127,10 @@
           "telegram": {
             "label": "Alertes Telegram",
             "description": "Alertes rapides et instantanées via notre bot Telegram"
+          },
+          "whatsapp": {
+            "label": "Alertes WhatsApp",
+            "description": "Alertes de commande instantanées via WhatsApp (propulsé par Kapso)"
           },
           "both": {
             "label": "Les deux",

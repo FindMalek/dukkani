@@ -272,6 +272,41 @@ export const appMutations = {
         },
       }),
   },
+  kapso: {
+    connect: (
+      options?: Parameters<typeof orpc.kapso.connect.mutationOptions>[0],
+    ) =>
+      orpc.kapso.connect.mutationOptions({
+        ...options,
+        onSuccess: async (data, input, result, context) => {
+          await context.client.invalidateQueries(
+            orpc.kapso.getStatus.queryOptions({
+              input: { storeId: input.storeId },
+            }),
+          );
+          await options?.onSuccess?.(data, input, result, context);
+        },
+      }),
+    disconnect: (
+      options?: Parameters<typeof orpc.kapso.disconnect.mutationOptions>[0],
+    ) =>
+      orpc.kapso.disconnect.mutationOptions({
+        ...options,
+        onSuccess: async (data, input, result, context) => {
+          await context.client.invalidateQueries(
+            orpc.kapso.getStatus.queryOptions({
+              input: { storeId: input.storeId },
+            }),
+          );
+          await options?.onSuccess?.(data, input, result, context);
+        },
+      }),
+    sendTestMessage: (
+      options?: Parameters<
+        typeof orpc.kapso.sendTestMessage.mutationOptions
+      >[0],
+    ) => orpc.kapso.sendTestMessage.mutationOptions({ ...options }),
+  },
   onboarding: {
     complete: (
       options?: Parameters<typeof orpc.onboarding.complete.mutationOptions>[0],
