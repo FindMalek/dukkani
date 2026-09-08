@@ -5,16 +5,23 @@
 # Two independent reasons to skip:
 #   1. The branch explicitly opts out (name contains "skip-vercel").
 #   2. `turbo query affected` determines this app isn't affected by the
-#      changes since the comparison base.
+#      changes since VERCEL_GIT_PREVIOUS_SHA (the last successful deployment
+#      for this project+branch, per Vercel's docs — only exposed because an
+#      Ignored Build Step is configured).
 #
 # NOTE: uses `turbo query affected`, not the older `turbo-ignore` package —
 # turbo-ignore is deprecated as of Turborepo 2.10
 # (https://turborepo.dev/docs/reference/query#migrating-from-turbo-ignore).
-# `turbo query affected --exit-code` already matches Vercel's convention
-# directly (exit 1 = affected = build, exit 0 = not affected = skip) — verify
-# this against a real Vercel deployment once merged, since the base-ref
-# comparison Vercel triggers this with (last deployed commit vs. HEAD) wasn't
-# something we could fully confirm without a live deployment.
+#
+# IMPORTANT: without an explicit --base, `turbo query affected` compares
+# against the merge-base with the default branch. On a production build of
+# main itself, that base IS main's tip — a no-op diff, always reporting zero
+# affected packages, which would silently skip every production deploy
+# forever. Confirmed by reproducing in a clean worktree at main's tip. Always
+# pass --base explicitly. When VERCEL_GIT_PREVIOUS_SHA is unavailable (first
+# deploy of a branch, or the known Vercel bug where it's sometimes empty —
+# see community.vercel.com/t/vercel-git-previous-sha-is-always-empty), fail
+# open (proceed with the build) rather than risk skipping incorrectly.
 #
 # Usage (from each app's vercel.json "ignoreCommand"):
 #   bash $(git rev-parse --show-toplevel)/scripts/vercel-ignore-build.sh @dukkani/api
@@ -27,4 +34,9 @@ if [[ "${VERCEL_GIT_COMMIT_REF:-}" == *"skip-vercel"* ]]; then
   exit 0
 fi
 
-npx turbo query affected --packages "$APP" --exit-code
+if [[ -z "${VERCEL_GIT_PREVIOUS_SHA:-}" ]]; then
+  echo "VERCEL_GIT_PREVIOUS_SHA is unavailable — can't safely determine affected status, proceeding with build"
+  exit 1
+fi
+
+npx turbo query affected --packages "$APP" --exit-code --base "$VERCEL_GIT_PREVIOUS_SHA"
