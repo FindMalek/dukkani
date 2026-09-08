@@ -58,7 +58,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install ci-tools dependencies
-        run: pnpm install --frozen-lockfile --filter @dukkani/ci-tools...
+        run: pnpm install --frozen-lockfile --filter @dukkani/ci-tools
 
       - name: Check pinned dependencies
         working-directory: packages/ci-tools

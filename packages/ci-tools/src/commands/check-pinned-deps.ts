@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 /**
@@ -11,6 +11,14 @@ import { join } from "node:path";
  * Dependabot bumped it back to ^0.35.0 in #582 — reintroducing the crash for
  * ~3 weeks before anyone noticed (#593). This check would have caught that
  * bump in CI before merge.
+ *
+ * Only guards the pnpm-workspace.yaml catalog/overrides entry and any
+ * package.json that pins the dependency directly instead of via `catalog:`.
+ * It does not currently catch a package.json specifying an unrelated valid
+ * range that happens to resolve outside the guarded value through some other
+ * mechanism (e.g. a transitive override) — this is a lightweight drift guard
+ * for the specific "someone bumped the declared pin" failure mode, not a full
+ * resolved-version auditor.
  */
 interface PinnedDependency {
   name: string;
@@ -28,10 +36,19 @@ const PINNED_DEPENDENCIES: PinnedDependency[] = [
 ];
 
 const SEMVER_RANGE = /^[\^~]?\d|^[><=]/;
+const REPO_ROOT = join(process.cwd(), "../..");
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 function extractPinnedValue(workspaceYaml: string, name: string): string[] {
   const matches: string[] = [];
-  const pattern = new RegExp(`^\\s*(?:'${name}'|"${name}"|${name}):\\s*(\\S+)\\s*$`, "gm");
+  const escapedName = escapeRegExp(name);
+  const pattern = new RegExp(
+    `^\\s*(?:'${escapedName}'|"${escapedName}"|${escapedName}):\\s*['"]?(\\S+?)['"]?\\s*$`,
+    "gm",
+  );
   for (const match of workspaceYaml.matchAll(pattern)) {
     const value = match[1];
     if (value && SEMVER_RANGE.test(value)) matches.push(value);
@@ -39,9 +56,59 @@ function extractPinnedValue(workspaceYaml: string, name: string): string[] {
   return matches;
 }
 
+function findWorkspacePackageJsonPaths(): string[] {
+  const paths: string[] = [];
+  for (const group of ["apps", "packages"]) {
+    const groupPath = join(REPO_ROOT, group);
+    let entries: string[] = [];
+    try {
+      entries = readdirSync(groupPath, { withFileTypes: true })
+        .filter((e) => e.isDirectory())
+        .map((e) => e.name);
+    } catch {
+      continue;
+    }
+    for (const entry of entries) {
+      paths.push(join(groupPath, entry, "package.json"));
+    }
+  }
+  return paths;
+}
+
+function checkDirectPackageJsonPins(dep: PinnedDependency): string[] {
+  const problems: string[] = [];
+  for (const pkgPath of findWorkspacePackageJsonPaths()) {
+    let pkg: {
+      dependencies?: Record<string, string>;
+      devDependencies?: Record<string, string>;
+    };
+    try {
+      pkg = JSON.parse(readFileSync(pkgPath, "utf-8"));
+    } catch {
+      continue;
+    }
+    const value =
+      pkg.dependencies?.[dep.name] ?? pkg.devDependencies?.[dep.name];
+    if (value && value !== "catalog:" && value !== dep.expected) {
+      problems.push(
+        `${pkgPath} pins "${dep.name}" directly to "${value}" (expected "${dep.expected}" or "catalog:"). ${dep.reason}`,
+      );
+    }
+  }
+  return problems;
+}
+
 function main() {
-  const workspacePath = join(process.cwd(), "../../pnpm-workspace.yaml");
-  const workspaceYaml = readFileSync(workspacePath, "utf-8");
+  const workspacePath = join(REPO_ROOT, "pnpm-workspace.yaml");
+  let workspaceYaml: string;
+  try {
+    workspaceYaml = readFileSync(workspacePath, "utf-8");
+  } catch (error) {
+    console.error(
+      `::error::check-pinned-deps: couldn't read pnpm-workspace.yaml at ${workspacePath}: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    process.exit(1);
+  }
 
   let failed = false;
 
@@ -63,6 +130,11 @@ function main() {
         );
         failed = true;
       }
+    }
+
+    for (const problem of checkDirectPackageJsonPins(dep)) {
+      console.error(`::error::check-pinned-deps: ${problem}`);
+      failed = true;
     }
   }
 
