@@ -1,0 +1,774 @@
+{
+  "code": "KEBILI",
+  "delegations": [
+    {
+      "id": "kebili--douz",
+      "nameFr": "DOUZ",
+      "nameAr": "دوز",
+      "searchKey": "douz دوز",
+      "municipalities": [
+        {
+          "id": "kebili--douz--douz-bechni--4222",
+          "nameFr": "DOUZ (Bechni)",
+          "nameAr": "دوز (بشني)",
+          "postalCode": "4222",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (bechni) دوز (بشني) 4222"
+        },
+        {
+          "id": "kebili--douz--douz-cite-7-novembre--4234",
+          "nameFr": "DOUZ (Cite 7 Novembre)",
+          "nameAr": "دوز (حي 7 نوفمبر)",
+          "postalCode": "4234",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite 7 novembre) دوز (حي 7 نوفمبر) 4234"
+        },
+        {
+          "id": "kebili--douz--douz-cite-ben-hamroun--4216",
+          "nameFr": "DOUZ (Cite Ben Hamroun)",
+          "nameAr": "دوز (حي بن حمرون)",
+          "postalCode": "4216",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite ben hamroun) دوز (حي بن حمرون) 4216"
+        },
+        {
+          "id": "kebili--douz--douz-cite-commerciale--4234",
+          "nameFr": "DOUZ (Cite Commerciale)",
+          "nameAr": "دوز (الحي التجاري)",
+          "postalCode": "4234",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite commerciale) دوز (الحي التجاري) 4234"
+        },
+        {
+          "id": "kebili--douz--douz-cite-des-oasis--4234",
+          "nameFr": "DOUZ (Cite Des Oasis)",
+          "nameAr": "دوز (حي الواحات)",
+          "postalCode": "4234",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite des oasis) دوز (حي الواحات) 4234"
+        },
+        {
+          "id": "kebili--douz--douz-cite-douz-chargui--4215",
+          "nameFr": "DOUZ (Cite Douz Chargui)",
+          "nameAr": "دوز (حي دوز الشرقي)",
+          "postalCode": "4215",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite douz chargui) دوز (حي دوز الشرقي) 4215"
+        },
+        {
+          "id": "kebili--douz--douz-cite-el-abadla--4215",
+          "nameFr": "DOUZ (Cite El Abadla)",
+          "nameAr": "دوز (حي العبادل)",
+          "postalCode": "4215",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite el abadla) دوز (حي العبادل) 4215"
+        },
+        {
+          "id": "kebili--douz--douz-cite-el-athemna--4216",
+          "nameFr": "DOUZ (Cite El Athemna)",
+          "nameAr": "دوز (حي العثامنة)",
+          "postalCode": "4216",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite el athemna) دوز (حي العثامنة) 4216"
+        },
+        {
+          "id": "kebili--douz--douz-cite-el-izdihar--4234",
+          "nameFr": "DOUZ (Cite El Izdihar)",
+          "nameAr": "دوز (حي الإزدهار)",
+          "postalCode": "4234",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite el izdihar) دوز (حي الإزدهار) 4234"
+        },
+        {
+          "id": "kebili--douz--douz-cite-el-ouroud--4234",
+          "nameFr": "DOUZ (Cite El Ouroud)",
+          "nameAr": "دوز (حي الورود)",
+          "postalCode": "4234",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite el ouroud) دوز (حي الورود) 4234"
+        },
+        {
+          "id": "kebili--douz--douz-cite-ennour--4234",
+          "nameFr": "DOUZ (Cite Ennour)",
+          "nameAr": "دوز (حي النور)",
+          "postalCode": "4234",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite ennour) دوز (حي النور) 4234"
+        },
+        {
+          "id": "kebili--douz--douz-cite-essaada--4234",
+          "nameFr": "DOUZ (Cite Essaada)",
+          "nameAr": "دوز (حي السعادة)",
+          "postalCode": "4234",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite essaada) دوز (حي السعادة) 4234"
+        },
+        {
+          "id": "kebili--douz--douz-cite-ezzouhour--4234",
+          "nameFr": "DOUZ (Cite Ezzouhour)",
+          "nameAr": "دوز (حي الزهور)",
+          "postalCode": "4234",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite ezzouhour) دوز (حي الزهور) 4234"
+        },
+        {
+          "id": "kebili--douz--douz-cite-ibn-khaldoun--4234",
+          "nameFr": "DOUZ (Cite Ibn Khaldoun)",
+          "nameAr": "دوز (حي إبن خلدون)",
+          "postalCode": "4234",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite ibn khaldoun) دوز (حي إبن خلدون) 4234"
+        },
+        {
+          "id": "kebili--douz--douz-cite-jelaila--4260",
+          "nameFr": "DOUZ (Cite Jelaila)",
+          "nameAr": "دوز (حي الجلايل)",
+          "postalCode": "4260",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite jelaila) دوز (حي الجلايل) 4260"
+        },
+        {
+          "id": "kebili--douz--douz-cite-ouled-abdallah--4216",
+          "nameFr": "DOUZ (Cite Ouled Abdallah)",
+          "nameAr": "دوز (حي أولاد عبد الله)",
+          "postalCode": "4216",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite ouled abdallah) دوز (حي أولاد عبد الله) 4216"
+        },
+        {
+          "id": "kebili--douz--douz-cite-ouled-amor--4216",
+          "nameFr": "DOUZ (Cite Ouled Amor)",
+          "nameAr": "دوز (حي أولاد عمر)",
+          "postalCode": "4216",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite ouled amor) دوز (حي أولاد عمر) 4216"
+        },
+        {
+          "id": "kebili--douz--douz-cite-ouled-oun--4260",
+          "nameFr": "DOUZ (Cite Ouled Oun)",
+          "nameAr": "دوز (حي أولاد عون)",
+          "postalCode": "4260",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite ouled oun) دوز (حي أولاد عون) 4260"
+        },
+        {
+          "id": "kebili--douz--douz-cite-populaire--4215",
+          "nameFr": "DOUZ (Cite Populaire)",
+          "nameAr": "دوز (الحي الشعبي)",
+          "postalCode": "4215",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (cite populaire) دوز (الحي الشعبي) 4215"
+        },
+        {
+          "id": "kebili--douz--douz-douz-aouina--4216",
+          "nameFr": "DOUZ (Douz Aouina)",
+          "nameAr": "دوز (دوز عوينة)",
+          "postalCode": "4216",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (douz aouina) دوز (دوز عوينة) 4216"
+        },
+        {
+          "id": "kebili--douz--douz-douz-chargui--4215",
+          "nameFr": "DOUZ (Douz Chargui)",
+          "nameAr": "دوز (دوز الشرقي)",
+          "postalCode": "4215",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (douz chargui) دوز (دوز الشرقي) 4215"
+        },
+        {
+          "id": "kebili--douz--douz-douz--4260",
+          "nameFr": "DOUZ (Douz)",
+          "nameAr": "دوز (دوز)",
+          "postalCode": "4260",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (douz) دوز (دوز) 4260"
+        },
+        {
+          "id": "kebili--douz--douz-eddorgine--4222",
+          "nameFr": "DOUZ (Eddorgine)",
+          "nameAr": "دوز (الدرجين)",
+          "postalCode": "4222",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (eddorgine) دوز (الدرجين) 4222"
+        },
+        {
+          "id": "kebili--douz--douz-el-aouina--4216",
+          "nameFr": "DOUZ (El Aouina)",
+          "nameAr": "دوز (العوينة)",
+          "postalCode": "4216",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (el aouina) دوز (العوينة) 4216"
+        },
+        {
+          "id": "kebili--douz--douz-ghelissia--4260",
+          "nameFr": "DOUZ (Ghelissia)",
+          "nameAr": "دوز (الغليسية)",
+          "postalCode": "4260",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (ghelissia) دوز (الغليسية) 4260"
+        },
+        {
+          "id": "kebili--douz--douz-golaa--4234",
+          "nameFr": "DOUZ (Golaa)",
+          "nameAr": "دوز (القلعة)",
+          "postalCode": "4234",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (golaa) دوز (القلعة) 4234"
+        },
+        {
+          "id": "kebili--douz--douz-ksar-ghilene--4260",
+          "nameFr": "DOUZ (Ksar Ghilene)",
+          "nameAr": "دوز (قصر غيلان)",
+          "postalCode": "4260",
+          "latitude": 32.985,
+          "longitude": 9.6425,
+          "searchKey": "douz (ksar ghilene) دوز (قصر غيلان) 4260"
+        },
+        {
+          "id": "kebili--douz--douz-nouaiel--4222",
+          "nameFr": "DOUZ (Nouaiel)",
+          "nameAr": "دوز (النويل)",
+          "postalCode": "4222",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (nouaiel) دوز (النويل) 4222"
+        },
+        {
+          "id": "kebili--douz--douz-zaafrane--4261",
+          "nameFr": "DOUZ (Zaafrane)",
+          "nameAr": "دوز (زعفران)",
+          "postalCode": "4261",
+          "latitude": 33.4614,
+          "longitude": 9.0256,
+          "searchKey": "douz (zaafrane) دوز (زعفران) 4261"
+        }
+      ]
+    },
+    {
+      "id": "kebili--el-faouar",
+      "nameFr": "EL FAOUAR",
+      "nameAr": "الفوار",
+      "searchKey": "el faouar الفوار",
+      "municipalities": [
+        {
+          "id": "kebili--el-faouar--el-faouar-cite-el-houda--4264",
+          "nameFr": "EL FAOUAR (Cite El Houda)",
+          "nameAr": "الفوار (حي الهدى)",
+          "postalCode": "4264",
+          "latitude": 33.4614,
+          "longitude": 8.4619,
+          "searchKey": "el faouar (cite el houda) الفوار (حي الهدى) 4264"
+        },
+        {
+          "id": "kebili--el-faouar--el-faouar-cite-el-moustakbel--4264",
+          "nameFr": "EL FAOUAR (Cite El Moustakbel)",
+          "nameAr": "الفوار (حي المستقبل)",
+          "postalCode": "4264",
+          "latitude": 33.4614,
+          "longitude": 8.4619,
+          "searchKey": "el faouar (cite el moustakbel) الفوار (حي المستقبل) 4264"
+        },
+        {
+          "id": "kebili--el-faouar--el-faouar-cite-ennour--4264",
+          "nameFr": "EL FAOUAR (Cite Ennour)",
+          "nameAr": "الفوار (حي النور)",
+          "postalCode": "4264",
+          "latitude": 33.4614,
+          "longitude": 8.4619,
+          "searchKey": "el faouar (cite ennour) الفوار (حي النور) 4264"
+        },
+        {
+          "id": "kebili--el-faouar--el-faouar-cite-essalem--4264",
+          "nameFr": "EL FAOUAR (Cite Essalem)",
+          "nameAr": "الفوار (حي السلام)",
+          "postalCode": "4264",
+          "latitude": 33.4614,
+          "longitude": 8.4619,
+          "searchKey": "el faouar (cite essalem) الفوار (حي السلام) 4264"
+        },
+        {
+          "id": "kebili--el-faouar--el-faouar-el-faouar--4264",
+          "nameFr": "EL FAOUAR (El Faouar)",
+          "nameAr": "الفوار (الفوار)",
+          "postalCode": "4264",
+          "latitude": 33.4614,
+          "longitude": 8.4619,
+          "searchKey": "el faouar (el faouar) الفوار (الفوار) 4264"
+        },
+        {
+          "id": "kebili--el-faouar--el-faouar-gherib--4264",
+          "nameFr": "EL FAOUAR (Gherib)",
+          "nameAr": "الفوار (غريب)",
+          "postalCode": "4264",
+          "latitude": 33.4614,
+          "longitude": 8.4619,
+          "searchKey": "el faouar (gherib) الفوار (غريب) 4264"
+        },
+        {
+          "id": "kebili--el-faouar--el-faouar-ghidma--4264",
+          "nameFr": "EL FAOUAR (Ghidma)",
+          "nameAr": "الفوار (غيدمة)",
+          "postalCode": "4264",
+          "latitude": 33.4614,
+          "longitude": 8.4619,
+          "searchKey": "el faouar (ghidma) الفوار (غيدمة) 4264"
+        },
+        {
+          "id": "kebili--el-faouar--el-faouar-rejime-maatoug--4210",
+          "nameFr": "EL FAOUAR (Rejime Maatoug)",
+          "nameAr": "الفوار (رجيم معتوق)",
+          "postalCode": "4210",
+          "latitude": 33.2811,
+          "longitude": 8.3361,
+          "searchKey": "el faouar (rejime maatoug) الفوار (رجيم معتوق) 4210"
+        },
+        {
+          "id": "kebili--el-faouar--el-faouar-sabria--4264",
+          "nameFr": "EL FAOUAR (Sabria)",
+          "nameAr": "الفوار (صبرية)",
+          "postalCode": "4264",
+          "latitude": 33.4614,
+          "longitude": 8.4619,
+          "searchKey": "el faouar (sabria) الفوار (صبرية) 4264"
+        }
+      ]
+    },
+    {
+      "id": "kebili--kebili-nord",
+      "nameFr": "KEBILI NORD",
+      "nameAr": "قبلي الشمالية",
+      "searchKey": "kebili nord قبلي الشمالية",
+      "municipalities": [
+        {
+          "id": "kebili--kebili-nord--kebili-nord-el-mansoura--4293",
+          "nameFr": "KEBILI NORD (El Mansoura)",
+          "nameAr": "قبلي الشمالية (المنصورة)",
+          "postalCode": "4293",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (el mansoura) قبلي الشمالية (المنصورة) 4293"
+        },
+        {
+          "id": "kebili--kebili-nord--kebili-nord-jedida--4293",
+          "nameFr": "KEBILI NORD (Jedida)",
+          "nameAr": "قبلي الشمالية (الجديدة)",
+          "postalCode": "4293",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (jedida) قبلي الشمالية (الجديدة) 4293"
+        },
+        {
+          "id": "kebili--kebili-nord--kebili-nord-kebili-beyez--4280",
+          "nameFr": "KEBILI NORD (Kebili Beyez)",
+          "nameAr": "قبلي الشمالية (قبلي بياز)",
+          "postalCode": "4280",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (kebili beyez) قبلي الشمالية (قبلي بياز) 4280"
+        },
+        {
+          "id": "kebili--kebili-nord--kebili-nord-limaguez--4274",
+          "nameFr": "KEBILI NORD (Limaguez)",
+          "nameAr": "قبلي الشمالية (ليماڨس)",
+          "postalCode": "4274",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (limaguez) قبلي الشمالية (ليماڨس) 4274"
+        },
+        {
+          "id": "kebili--kebili-nord--kebili-nord-rabta--4233",
+          "nameFr": "KEBILI NORD (Rabta)",
+          "nameAr": "قبلي الشمالية (الرابطة)",
+          "postalCode": "4233",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (rabta) قبلي الشمالية (الرابطة) 4233"
+        },
+        {
+          "id": "kebili--kebili-nord--kebili-nord-saidane--4294",
+          "nameFr": "KEBILI NORD (Saidane)",
+          "nameAr": "قبلي الشمالية (سعيدان)",
+          "postalCode": "4294",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (saidane) قبلي الشمالية (سعيدان) 4294"
+        },
+        {
+          "id": "kebili--kebili-nord--kebili-nord-staftimi--4273",
+          "nameFr": "KEBILI NORD (Staftimi)",
+          "nameAr": "قبلي الشمالية (استفتيمي)",
+          "postalCode": "4273",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (staftimi) قبلي الشمالية (استفتيمي) 4273"
+        },
+        {
+          "id": "kebili--kebili-nord--kebili-nord-telmine--4237",
+          "nameFr": "KEBILI NORD (Telmine)",
+          "nameAr": "قبلي الشمالية (تلمين)",
+          "postalCode": "4237",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (telmine) قبلي الشمالية (تلمين) 4237"
+        },
+        {
+          "id": "kebili--kebili-nord--kebili-nord-tenbib--4232",
+          "nameFr": "KEBILI NORD (Tenbib)",
+          "nameAr": "قبلي الشمالية (تنبيب)",
+          "postalCode": "4232",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (tenbib) قبلي الشمالية (تنبيب) 4232"
+        },
+        {
+          "id": "kebili--kebili-nord--kebili-nord-tombar--4235",
+          "nameFr": "KEBILI NORD (Tombar)",
+          "nameAr": "قبلي الشمالية (طمبار)",
+          "postalCode": "4235",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (tombar) قبلي الشمالية (طمبار) 4235"
+        },
+        {
+          "id": "kebili--kebili-nord--kebili-nord-toura-mansoura--4293",
+          "nameFr": "KEBILI NORD (Toura Mansoura)",
+          "nameAr": "قبلي الشمالية (تورة منصورة)",
+          "postalCode": "4293",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili nord (toura mansoura) قبلي الشمالية (تورة منصورة) 4293"
+        }
+      ]
+    },
+    {
+      "id": "kebili--kebili-sud",
+      "nameFr": "KEBILI SUD",
+      "nameAr": "قبلي الجنوبية",
+      "searchKey": "kebili sud قبلي الجنوبية",
+      "municipalities": [
+        {
+          "id": "kebili--kebili-sud--kebili-sud-barghouthia--4253",
+          "nameFr": "KEBILI SUD (Barghouthia)",
+          "nameAr": "قبلي الجنوبية (البرغوثية)",
+          "postalCode": "4253",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (barghouthia) قبلي الجنوبية (البرغوثية) 4253"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-bazma--4224",
+          "nameFr": "KEBILI SUD (Bazma)",
+          "nameAr": "قبلي الجنوبية (بزمة)",
+          "postalCode": "4224",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (bazma) قبلي الجنوبية (بزمة) 4224"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-bechelli--4253",
+          "nameFr": "KEBILI SUD (Bechelli)",
+          "nameAr": "قبلي الجنوبية (بشلي)",
+          "postalCode": "4253",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (bechelli) قبلي الجنوبية (بشلي) 4253"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-beni-mhamed--4200",
+          "nameFr": "KEBILI SUD (Beni Mhamed)",
+          "nameAr": "قبلي الجنوبية (بني محمد)",
+          "postalCode": "4200",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (beni mhamed) قبلي الجنوبية (بني محمد) 4200"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-blidette--4243",
+          "nameFr": "KEBILI SUD (Blidette)",
+          "nameAr": "قبلي الجنوبية (بليدات)",
+          "postalCode": "4243",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (blidette) قبلي الجنوبية (بليدات) 4243"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-cite-afh--4200",
+          "nameFr": "KEBILI SUD (Cite Afh)",
+          "nameAr": "قبلي الجنوبية (حي الوكالة العقارية للسكنى)",
+          "postalCode": "4200",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (cite afh) قبلي الجنوبية (حي الوكالة العقارية للسكنى) 4200"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-cite-du-lycee--4200",
+          "nameFr": "KEBILI SUD (Cite Du Lycee)",
+          "nameAr": "قبلي الجنوبية (حي المعهد)",
+          "postalCode": "4200",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (cite du lycee) قبلي الجنوبية (حي المعهد) 4200"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-cite-militaire--4200",
+          "nameFr": "KEBILI SUD (Cite Militaire)",
+          "nameAr": "قبلي الجنوبية (الحي العسكري)",
+          "postalCode": "4200",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (cite militaire) قبلي الجنوبية (الحي العسكري) 4200"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-el-gataya--4200",
+          "nameFr": "KEBILI SUD (El Gataya)",
+          "nameAr": "قبلي الجنوبية (القطعاية)",
+          "postalCode": "4200",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (el gataya) قبلي الجنوبية (القطعاية) 4200"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-el-msaid--4200",
+          "nameFr": "KEBILI SUD (El Msaid)",
+          "nameAr": "قبلي الجنوبية (المساعد)",
+          "postalCode": "4200",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (el msaid) قبلي الجنوبية (المساعد) 4200"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-janaoura--4242",
+          "nameFr": "KEBILI SUD (Janaoura)",
+          "nameAr": "قبلي الجنوبية (جناورة)",
+          "postalCode": "4242",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (janaoura) قبلي الجنوبية (جناورة) 4242"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-jemna--4214",
+          "nameFr": "KEBILI SUD (Jemna)",
+          "nameAr": "قبلي الجنوبية (جمنة)",
+          "postalCode": "4214",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (jemna) قبلي الجنوبية (جمنة) 4214"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-jersine--4263",
+          "nameFr": "KEBILI SUD (Jersine)",
+          "nameAr": "قبلي الجنوبية (جرسين)",
+          "postalCode": "4263",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (jersine) قبلي الجنوبية (جرسين) 4263"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-kebili--4200",
+          "nameFr": "KEBILI SUD (Kebili)",
+          "nameAr": "قبلي الجنوبية (قبلي)",
+          "postalCode": "4200",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (kebili) قبلي الجنوبية (قبلي) 4200"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-kelouemen--4253",
+          "nameFr": "KEBILI SUD (Kelouemen)",
+          "nameAr": "قبلي الجنوبية (كلومن)",
+          "postalCode": "4253",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (kelouemen) قبلي الجنوبية (كلومن) 4253"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-mazraa-neji--4200",
+          "nameFr": "KEBILI SUD (Mazraa Neji)",
+          "nameAr": "قبلي الجنوبية (مزرعة ناجي)",
+          "postalCode": "4200",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (mazraa neji) قبلي الجنوبية (مزرعة ناجي) 4200"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-oum-el-farth--4200",
+          "nameFr": "KEBILI SUD (Oum El Farth)",
+          "nameAr": "قبلي الجنوبية (أم الفرث)",
+          "postalCode": "4200",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (oum el farth) قبلي الجنوبية (أم الفرث) 4200"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-radhouane--4200",
+          "nameFr": "KEBILI SUD (Radhouane)",
+          "nameAr": "قبلي الجنوبية (رضوان)",
+          "postalCode": "4200",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (radhouane) قبلي الجنوبية (رضوان) 4200"
+        },
+        {
+          "id": "kebili--kebili-sud--kebili-sud-rahmet--4211",
+          "nameFr": "KEBILI SUD (Rahmet)",
+          "nameAr": "قبلي الجنوبية (رحمت)",
+          "postalCode": "4211",
+          "latitude": 33.7031,
+          "longitude": 8.9692,
+          "searchKey": "kebili sud (rahmet) قبلي الجنوبية (رحمت) 4211"
+        }
+      ]
+    },
+    {
+      "id": "kebili--souk-el-ahad",
+      "nameFr": "SOUK EL AHAD",
+      "nameAr": "سوق الأحد",
+      "searchKey": "souk el ahad سوق الأحد",
+      "municipalities": [
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-bechri--4231",
+          "nameFr": "SOUK EL AHAD (Bechri)",
+          "nameAr": "سوق الأحد (بشري)",
+          "postalCode": "4231",
+          "latitude": 33.825,
+          "longitude": 8.6333,
+          "searchKey": "souk el ahad (bechri) سوق الأحد (بشري) 4231"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-bou-abdallah--4236",
+          "nameFr": "SOUK EL AHAD (Bou Abdallah)",
+          "nameAr": "سوق الأحد (بو عبد الله)",
+          "postalCode": "4236",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (bou abdallah) سوق الأحد (بو عبد الله) 4236"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-chouchet-negga--4283",
+          "nameFr": "SOUK EL AHAD (Chouchet Negga)",
+          "nameAr": "سوق الأحد (شوشة نقة)",
+          "postalCode": "4283",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (chouchet negga) سوق الأحد (شوشة نقة) 4283"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-fatnassa--4223",
+          "nameFr": "SOUK EL AHAD (Fatnassa)",
+          "nameAr": "سوق الأحد (فطناسة)",
+          "postalCode": "4223",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (fatnassa) سوق الأحد (فطناسة) 4223"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-gliaa--4230",
+          "nameFr": "SOUK EL AHAD (Gliaa)",
+          "nameAr": "سوق الأحد (القليعة)",
+          "postalCode": "4230",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (gliaa) سوق الأحد (القليعة) 4230"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-jazira-el-baiida--4230",
+          "nameFr": "SOUK EL AHAD (Jazira El Baiida)",
+          "nameAr": "سوق الأحد (جزيرة البيضاء)",
+          "postalCode": "4230",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (jazira el baiida) سوق الأحد (جزيرة البيضاء) 4230"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-jazira--4230",
+          "nameFr": "SOUK EL AHAD (Jazira)",
+          "nameAr": "سوق الأحد (جزيرة)",
+          "postalCode": "4230",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (jazira) سوق الأحد (جزيرة) 4230"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-menchia--4230",
+          "nameFr": "SOUK EL AHAD (Menchia)",
+          "nameAr": "سوق الأحد (المنشية)",
+          "postalCode": "4230",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (menchia) سوق الأحد (المنشية) 4230"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-negga--4283",
+          "nameFr": "SOUK EL AHAD (Negga)",
+          "nameAr": "سوق الأحد (نقة)",
+          "postalCode": "4283",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (negga) سوق الأحد (نقة) 4283"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-oum-somaa--4212",
+          "nameFr": "SOUK EL AHAD (Oum Somaa)",
+          "nameAr": "سوق الأحد (أم صمعة)",
+          "postalCode": "4212",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (oum somaa) سوق الأحد (أم صمعة) 4212"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-souk-el-ahad--4230",
+          "nameFr": "SOUK EL AHAD (Souk El Ahad)",
+          "nameAr": "سوق الأحد (سوق الأحد)",
+          "postalCode": "4230",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (souk el ahad) سوق الأحد (سوق الأحد) 4230"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-zaouiet-el-anes--4213",
+          "nameFr": "SOUK EL AHAD (Zaouiet El Anes)",
+          "nameAr": "سوق الأحد (زاوية العانس)",
+          "postalCode": "4213",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (zaouiet el anes) سوق الأحد (زاوية العانس) 4213"
+        },
+        {
+          "id": "kebili--souk-el-ahad--souk-el-ahad-zaouiet-el-harth--4230",
+          "nameFr": "SOUK EL AHAD (Zaouiet El Harth)",
+          "nameAr": "سوق الأحد (زاوية الحرث)",
+          "postalCode": "4230",
+          "latitude": 33.7031,
+          "longitude": 8.8711,
+          "searchKey": "souk el ahad (zaouiet el harth) سوق الأحد (زاوية الحرث) 4230"
+        }
+      ]
+    }
+  ]
+}

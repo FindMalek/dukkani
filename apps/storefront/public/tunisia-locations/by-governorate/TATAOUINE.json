@@ -1,0 +1,1159 @@
+{
+  "code": "TATAOUINE",
+  "delegations": [
+    {
+      "id": "tataouine--bir-lahmar",
+      "nameFr": "BIR LAHMAR",
+      "nameAr": "بئر الأحمر",
+      "searchKey": "bir lahmar بئر الأحمر",
+      "municipalities": [
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-bir-lahmar--3212",
+          "nameFr": "BIR LAHMAR (Bir Lahmar)",
+          "nameAr": "بئر الأحمر (بئر الأحمر)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (bir lahmar) بئر الأحمر (بئر الأحمر) 3212"
+        },
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-cite-el-bassatine--3212",
+          "nameFr": "BIR LAHMAR (Cite El Bassatine)",
+          "nameAr": "بئر الأحمر (حي البساتين)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (cite el bassatine) بئر الأحمر (حي البساتين) 3212"
+        },
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-cite-el-grar--3212",
+          "nameFr": "BIR LAHMAR (Cite El Grar)",
+          "nameAr": "بئر الأحمر (حي الڨرار)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (cite el grar) بئر الأحمر (حي الڨرار) 3212"
+        },
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-cite-el-menzah--3212",
+          "nameFr": "BIR LAHMAR (Cite El Menzah)",
+          "nameAr": "بئر الأحمر (حي المنزه)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (cite el menzah) بئر الأحمر (حي المنزه) 3212"
+        },
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-cite-esned--3212",
+          "nameFr": "BIR LAHMAR (Cite Esned)",
+          "nameAr": "بئر الأحمر (حي السند)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (cite esned) بئر الأحمر (حي السند) 3212"
+        },
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-el-argoub--3212",
+          "nameFr": "BIR LAHMAR (El Argoub)",
+          "nameAr": "بئر الأحمر (العرقوب)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (el argoub) بئر الأحمر (العرقوب) 3212"
+        },
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-gragar--3212",
+          "nameFr": "BIR LAHMAR (Gragar)",
+          "nameAr": "بئر الأحمر (ڨرڨر)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (gragar) بئر الأحمر (ڨرڨر) 3212"
+        },
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-habhab--3212",
+          "nameFr": "BIR LAHMAR (Habhab)",
+          "nameAr": "بئر الأحمر (هبهاب)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (habhab) بئر الأحمر (هبهاب) 3212"
+        },
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-ksar-ouled-boubaker--3212",
+          "nameFr": "BIR LAHMAR (Ksar Ouled Boubaker)",
+          "nameAr": "بئر الأحمر (قصر أولاد بوبكر)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (ksar ouled boubaker) بئر الأحمر (قصر أولاد بوبكر) 3212"
+        },
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-oued-el-arfej--3212",
+          "nameFr": "BIR LAHMAR (Oued El Arfej)",
+          "nameAr": "بئر الأحمر (وادي العرفج)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (oued el arfej) بئر الأحمر (وادي العرفج) 3212"
+        },
+        {
+          "id": "tataouine--bir-lahmar--bir-lahmar-ouled-yahya--3212",
+          "nameFr": "BIR LAHMAR (Ouled Yahya)",
+          "nameAr": "بئر الأحمر (أولاد يحيى)",
+          "postalCode": "3212",
+          "latitude": 33.1833,
+          "longitude": 10.5667,
+          "searchKey": "bir lahmar (ouled yahya) بئر الأحمر (أولاد يحيى) 3212"
+        }
+      ]
+    },
+    {
+      "id": "tataouine--dhehiba",
+      "nameFr": "DHEHIBA",
+      "nameAr": "الذهيبة",
+      "searchKey": "dhehiba الذهيبة",
+      "municipalities": [
+        {
+          "id": "tataouine--dhehiba--dhehiba-cite-7-novembre--3253",
+          "nameFr": "DHEHIBA (Cite 7 Novembre)",
+          "nameAr": "الذهيبة (حي 7 نوفمبر)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (cite 7 novembre) الذهيبة (حي 7 نوفمبر) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-cite-du-bain-maure--3253",
+          "nameFr": "DHEHIBA (Cite Du Bain Maure)",
+          "nameAr": "الذهيبة (حي الحمام العربي)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (cite du bain maure) الذهيبة (حي الحمام العربي) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-cite-el-aidi--3253",
+          "nameFr": "DHEHIBA (Cite El Aidi)",
+          "nameAr": "الذهيبة (حي العايدي)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (cite el aidi) الذهيبة (حي العايدي) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-cite-el-amel--3253",
+          "nameFr": "DHEHIBA (Cite El Amel)",
+          "nameAr": "الذهيبة (حي الأمل)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (cite el amel) الذهيبة (حي الأمل) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-cite-ettadhamen-1--3253",
+          "nameFr": "DHEHIBA (Cite Ettadhamen 1)",
+          "nameAr": "الذهيبة (حي التضامن 1)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (cite ettadhamen 1) الذهيبة (حي التضامن 1) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-cite-ettadhamen--3253",
+          "nameFr": "DHEHIBA (Cite Ettadhamen)",
+          "nameAr": "الذهيبة (حي التضامن)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (cite ettadhamen) الذهيبة (حي التضامن) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-cite-haftali--3253",
+          "nameFr": "DHEHIBA (Cite Haftali)",
+          "nameAr": "الذهيبة (حي حفتالي)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (cite haftali) الذهيبة (حي حفتالي) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-cite-ksar-guedim--3253",
+          "nameFr": "DHEHIBA (Cite Ksar Guedim)",
+          "nameAr": "الذهيبة (حي القصر القديم)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (cite ksar guedim) الذهيبة (حي القصر القديم) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-cite-olympique--3253",
+          "nameFr": "DHEHIBA (Cite Olympique)",
+          "nameAr": "الذهيبة (الحي الأولمبي)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (cite olympique) الذهيبة (الحي الأولمبي) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-dhehiba--3253",
+          "nameFr": "DHEHIBA (Dhehiba)",
+          "nameAr": "الذهيبة (الذهيبة)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (dhehiba) الذهيبة (الذهيبة) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-oum-zoggar--3253",
+          "nameFr": "DHEHIBA (Oum Zoggar)",
+          "nameAr": "الذهيبة (أم زقار)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (oum zoggar) الذهيبة (أم زقار) 3253"
+        },
+        {
+          "id": "tataouine--dhehiba--dhehiba-ouni--3253",
+          "nameFr": "DHEHIBA (Ouni)",
+          "nameAr": "الذهيبة (عوني)",
+          "postalCode": "3253",
+          "latitude": 32,
+          "longitude": 10.7,
+          "searchKey": "dhehiba (ouni) الذهيبة (عوني) 3253"
+        }
+      ]
+    },
+    {
+      "id": "tataouine--ghomrassen",
+      "nameFr": "GHOMRASSEN",
+      "nameAr": "غمراسن",
+      "searchKey": "ghomrassen غمراسن",
+      "municipalities": [
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-bakhtit--3220",
+          "nameFr": "GHOMRASSEN (Cite Bakhtit)",
+          "nameAr": "غمراسن (حي بختيت)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite bakhtit) غمراسن (حي بختيت) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-bir-karma--3220",
+          "nameFr": "GHOMRASSEN (Cite Bir Karma)",
+          "nameAr": "غمراسن (حي بئر كرمة)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite bir karma) غمراسن (حي بئر كرمة) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-commerciale--3220",
+          "nameFr": "GHOMRASSEN (Cite Commerciale)",
+          "nameAr": "غمراسن (الحي التجاري)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite commerciale) غمراسن (الحي التجاري) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-des-martyrs--3220",
+          "nameFr": "GHOMRASSEN (Cite Des Martyrs)",
+          "nameAr": "غمراسن (حي الشهداء)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite des martyrs) غمراسن (حي الشهداء) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-des-oasis--3220",
+          "nameFr": "GHOMRASSEN (Cite Des Oasis)",
+          "nameAr": "غمراسن (حي الواحات)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite des oasis) غمراسن (حي الواحات) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-du-stade--3220",
+          "nameFr": "GHOMRASSEN (Cite Du Stade)",
+          "nameAr": "غمراسن (حي الملعب)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite du stade) غمراسن (حي الملعب) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-el-ain--3220",
+          "nameFr": "GHOMRASSEN (Cite El Ain)",
+          "nameAr": "غمراسن (حي العين)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite el ain) غمراسن (حي العين) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-el-anouar--3220",
+          "nameFr": "GHOMRASSEN (Cite El Anouar)",
+          "nameAr": "غمراسن (حي الأنوار)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite el anouar) غمراسن (حي الأنوار) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-el-bicher--3220",
+          "nameFr": "GHOMRASSEN (Cite El Bicher)",
+          "nameAr": "غمراسن (حي البشر)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite el bicher) غمراسن (حي البشر) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-el-maaraka--3220",
+          "nameFr": "GHOMRASSEN (Cite El Maaraka)",
+          "nameAr": "غمراسن (حي المعركة)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite el maaraka) غمراسن (حي المعركة) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-ennakhil--3220",
+          "nameFr": "GHOMRASSEN (Cite Ennakhil)",
+          "nameAr": "غمراسن (حي النخيل)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite ennakhil) غمراسن (حي النخيل) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-ennasr--3220",
+          "nameFr": "GHOMRASSEN (Cite Ennasr)",
+          "nameAr": "غمراسن (حي النصر)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite ennasr) غمراسن (حي النصر) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-ettahrir-1--3220",
+          "nameFr": "GHOMRASSEN (Cite Ettahrir 1)",
+          "nameAr": "غمراسن (حي التحرير 1)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite ettahrir 1) غمراسن (حي التحرير 1) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-ettahrir-2--3220",
+          "nameFr": "GHOMRASSEN (Cite Ettahrir 2)",
+          "nameAr": "غمراسن (حي التحرير 2)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite ettahrir 2) غمراسن (حي التحرير 2) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-founesse--3220",
+          "nameFr": "GHOMRASSEN (Cite Founesse)",
+          "nameAr": "غمراسن (حي فوناس)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite founesse) غمراسن (حي فوناس) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-ibn-arafa--3220",
+          "nameFr": "GHOMRASSEN (Cite Ibn Arafa)",
+          "nameAr": "غمراسن (حي إبن عرفة)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite ibn arafa) غمراسن (حي إبن عرفة) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-mouzdelifa--3220",
+          "nameFr": "GHOMRASSEN (Cite Mouzdelifa)",
+          "nameAr": "غمراسن (حي مزدلفة)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite mouzdelifa) غمراسن (حي مزدلفة) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-nouvelle--3220",
+          "nameFr": "GHOMRASSEN (Cite Nouvelle)",
+          "nameAr": "غمراسن (الحي الجديد)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite nouvelle) غمراسن (الحي الجديد) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-romana--3220",
+          "nameFr": "GHOMRASSEN (Cite Romana)",
+          "nameAr": "غمراسن (حي رومانا)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite romana) غمراسن (حي رومانا) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-rosfa--3220",
+          "nameFr": "GHOMRASSEN (Cite Rosfa)",
+          "nameAr": "غمراسن (حي الرصفة)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite rosfa) غمراسن (حي الرصفة) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-sifri--3220",
+          "nameFr": "GHOMRASSEN (Cite Sifri)",
+          "nameAr": "غمراسن (حي سفري)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite sifri) غمراسن (حي سفري) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-taousse--3220",
+          "nameFr": "GHOMRASSEN (Cite Taousse)",
+          "nameAr": "غمراسن (حي طاووس)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite taousse) غمراسن (حي طاووس) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-cite-tataouine--3220",
+          "nameFr": "GHOMRASSEN (Cite Tataouine)",
+          "nameAr": "غمراسن (حي تطاوين)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (cite tataouine) غمراسن (حي تطاوين) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-el-farech--3241",
+          "nameFr": "GHOMRASSEN (El Farech)",
+          "nameAr": "غمراسن (الفرش)",
+          "postalCode": "3241",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (el farech) غمراسن (الفرش) 3241"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-el-hencha--3220",
+          "nameFr": "GHOMRASSEN (El Hencha)",
+          "nameAr": "غمراسن (الحنشة)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (el hencha) غمراسن (الحنشة) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-el-horria--3224",
+          "nameFr": "GHOMRASSEN (El Horria)",
+          "nameAr": "غمراسن (الحرية)",
+          "postalCode": "3224",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (el horria) غمراسن (الحرية) 3224"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-ghomrassen--3220",
+          "nameFr": "GHOMRASSEN (Ghomrassen)",
+          "nameAr": "غمراسن (غمراسن)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (ghomrassen) غمراسن (غمراسن) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-guermessa--3271",
+          "nameFr": "GHOMRASSEN (Guermessa)",
+          "nameAr": "غمراسن (قرماسة)",
+          "postalCode": "3271",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (guermessa) غمراسن (قرماسة) 3271"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-ksar-el-hedada--3261",
+          "nameFr": "GHOMRASSEN (Ksar El Hedada)",
+          "nameAr": "غمراسن (قصر الحدادة)",
+          "postalCode": "3261",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (ksar el hedada) غمراسن (قصر الحدادة) 3261"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-ksar-el-mourabtine--3251",
+          "nameFr": "GHOMRASSEN (Ksar El Mourabtine)",
+          "nameAr": "غمراسن (قصر المرابطين)",
+          "postalCode": "3251",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (ksar el mourabtine) غمراسن (قصر المرابطين) 3251"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-mdhilla--3220",
+          "nameFr": "GHOMRASSEN (Mdhilla)",
+          "nameAr": "غمراسن (المظيلة)",
+          "postalCode": "3220",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (mdhilla) غمراسن (المظيلة) 3220"
+        },
+        {
+          "id": "tataouine--ghomrassen--ghomrassen-oued-el-khil--3235",
+          "nameFr": "GHOMRASSEN (Oued El Khil)",
+          "nameAr": "غمراسن (وادي الخيل)",
+          "postalCode": "3235",
+          "latitude": 33.0589,
+          "longitude": 10.3414,
+          "searchKey": "ghomrassen (oued el khil) غمراسن (وادي الخيل) 3235"
+        }
+      ]
+    },
+    {
+      "id": "tataouine--remada",
+      "nameFr": "REMADA",
+      "nameAr": "رمادة",
+      "searchKey": "remada رمادة",
+      "municipalities": [
+        {
+          "id": "tataouine--remada--remada-bir-amir--3244",
+          "nameFr": "REMADA (Bir Amir)",
+          "nameAr": "رمادة (بئر عمير)",
+          "postalCode": "3244",
+          "latitude": 32.3064,
+          "longitude": 10.3806,
+          "searchKey": "remada (bir amir) رمادة (بئر عمير) 3244"
+        },
+        {
+          "id": "tataouine--remada--remada-borj-bourguiba--3240",
+          "nameFr": "REMADA (Borj Bourguiba)",
+          "nameAr": "رمادة (برج بورقيبة)",
+          "postalCode": "3240",
+          "latitude": 32.3064,
+          "longitude": 10.3806,
+          "searchKey": "remada (borj bourguiba) رمادة (برج بورقيبة) 3240"
+        },
+        {
+          "id": "tataouine--remada--remada-borj-el-khadra--3240",
+          "nameFr": "REMADA (Borj El Khadra)",
+          "nameAr": "رمادة (برج الخضراء)",
+          "postalCode": "3240",
+          "latitude": 30.2736,
+          "longitude": 9.5581,
+          "searchKey": "remada (borj el khadra) رمادة (برج الخضراء) 3240"
+        },
+        {
+          "id": "tataouine--remada--remada-el-maghni--3240",
+          "nameFr": "REMADA (El Maghni)",
+          "nameAr": "رمادة (المغني)",
+          "postalCode": "3240",
+          "latitude": 32.3064,
+          "longitude": 10.3806,
+          "searchKey": "remada (el maghni) رمادة (المغني) 3240"
+        },
+        {
+          "id": "tataouine--remada--remada-el-morra--3240",
+          "nameFr": "REMADA (El Morra)",
+          "nameAr": "رمادة (المرة)",
+          "postalCode": "3240",
+          "latitude": 32.3064,
+          "longitude": 10.3806,
+          "searchKey": "remada (el morra) رمادة (المرة) 3240"
+        },
+        {
+          "id": "tataouine--remada--remada-el-ouchouch--3240",
+          "nameFr": "REMADA (El Ouchouch)",
+          "nameAr": "رمادة (العشوش)",
+          "postalCode": "3240",
+          "latitude": 32.3064,
+          "longitude": 10.3806,
+          "searchKey": "remada (el ouchouch) رمادة (العشوش) 3240"
+        },
+        {
+          "id": "tataouine--remada--remada-kambout--3245",
+          "nameFr": "REMADA (Kambout)",
+          "nameAr": "رمادة (كمبوت)",
+          "postalCode": "3245",
+          "latitude": 32.3064,
+          "longitude": 10.3806,
+          "searchKey": "remada (kambout) رمادة (كمبوت) 3245"
+        },
+        {
+          "id": "tataouine--remada--remada-nekrif--3286",
+          "nameFr": "REMADA (Nekrif)",
+          "nameAr": "رمادة (نڨريف)",
+          "postalCode": "3286",
+          "latitude": 32.3064,
+          "longitude": 10.3806,
+          "searchKey": "remada (nekrif) رمادة (نڨريف) 3286"
+        },
+        {
+          "id": "tataouine--remada--remada-oum-souigh--3240",
+          "nameFr": "REMADA (Oum Souigh)",
+          "nameAr": "رمادة (أم صويغ)",
+          "postalCode": "3240",
+          "latitude": 32.3064,
+          "longitude": 10.3806,
+          "searchKey": "remada (oum souigh) رمادة (أم صويغ) 3240"
+        },
+        {
+          "id": "tataouine--remada--remada-remada--3240",
+          "nameFr": "REMADA (Remada)",
+          "nameAr": "رمادة (رمادة)",
+          "postalCode": "3240",
+          "latitude": 32.3064,
+          "longitude": 10.3806,
+          "searchKey": "remada (remada) رمادة (رمادة) 3240"
+        }
+      ]
+    },
+    {
+      "id": "tataouine--smar",
+      "nameFr": "SMAR",
+      "nameAr": "الصمار",
+      "searchKey": "smar الصمار",
+      "municipalities": [
+        {
+          "id": "tataouine--smar--smar-beni-mehira--3262",
+          "nameFr": "SMAR (Beni Mehira)",
+          "nameAr": "الصمار (بني مهيرة)",
+          "postalCode": "3262",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (beni mehira) الصمار (بني مهيرة) 3262"
+        },
+        {
+          "id": "tataouine--smar--smar-cite-caserne--3223",
+          "nameFr": "SMAR (Cite Caserne)",
+          "nameAr": "الصمار (حي الثكنة)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (cite caserne) الصمار (حي الثكنة) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-cite-du-stade--3223",
+          "nameFr": "SMAR (Cite Du Stade)",
+          "nameAr": "الصمار (حي الملعب)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (cite du stade) الصمار (حي الملعب) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-el-ghariani--3223",
+          "nameFr": "SMAR (El Ghariani)",
+          "nameAr": "الصمار (الغرياني)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (el ghariani) الصمار (الغرياني) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-el-guetaya--3223",
+          "nameFr": "SMAR (El Guetaya)",
+          "nameAr": "الصمار (القطاية)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (el guetaya) الصمار (القطاية) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-el-maouna--3200",
+          "nameFr": "SMAR (El Maouna)",
+          "nameAr": "الصمار (المعونة)",
+          "postalCode": "3200",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (el maouna) الصمار (المعونة) 3200"
+        },
+        {
+          "id": "tataouine--smar--smar-el-morra--3223",
+          "nameFr": "SMAR (El Morra)",
+          "nameAr": "الصمار (المرة)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (el morra) الصمار (المرة) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-gualeb-errakham--3223",
+          "nameFr": "SMAR (Gualeb Errakham)",
+          "nameAr": "الصمار (قلب الرخام)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (gualeb errakham) الصمار (قلب الرخام) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-guearaat-helal--3223",
+          "nameFr": "SMAR (Guearaat Helal)",
+          "nameAr": "الصمار (قرعة هلال)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (guearaat helal) الصمار (قرعة هلال) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-kirchaou--3225",
+          "nameFr": "SMAR (Kirchaou)",
+          "nameAr": "الصمار (كرشاو)",
+          "postalCode": "3225",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (kirchaou) الصمار (كرشاو) 3225"
+        },
+        {
+          "id": "tataouine--smar--smar-ksar-el-gaa--3223",
+          "nameFr": "SMAR (Ksar El Gaa)",
+          "nameAr": "الصمار (قصر القاع)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (ksar el gaa) الصمار (قصر القاع) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-ksar-oun--3213",
+          "nameFr": "SMAR (Ksar Oun)",
+          "nameAr": "الصمار (قصر عون)",
+          "postalCode": "3213",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (ksar oun) الصمار (قصر عون) 3213"
+        },
+        {
+          "id": "tataouine--smar--smar-oudiete-abdelounis--3223",
+          "nameFr": "SMAR (Oudiete Abdelounis)",
+          "nameAr": "الصمار (وادي عبد الونيس)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (oudiete abdelounis) الصمار (وادي عبد الونيس) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-ras-el-oued--3223",
+          "nameFr": "SMAR (Ras El Oued)",
+          "nameAr": "الصمار (رأس الوادي)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (ras el oued) الصمار (رأس الوادي) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-rehach--3223",
+          "nameFr": "SMAR (Rehach)",
+          "nameAr": "الصمار (رحاش)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (rehach) الصمار (رحاش) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-sabeg--3223",
+          "nameFr": "SMAR (Sabeg)",
+          "nameAr": "الصمار (سابق)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (sabeg) الصمار (سابق) 3223"
+        },
+        {
+          "id": "tataouine--smar--smar-smar--3223",
+          "nameFr": "SMAR (Smar)",
+          "nameAr": "الصمار (الصمار)",
+          "postalCode": "3223",
+          "latitude": 33.05,
+          "longitude": 10.6833,
+          "searchKey": "smar (smar) الصمار (الصمار) 3223"
+        }
+      ]
+    },
+    {
+      "id": "tataouine--tataouine-nord",
+      "nameFr": "TATAOUINE NORD",
+      "nameAr": "تطاوين الشمالية",
+      "searchKey": "tataouine nord تطاوين الشمالية",
+      "municipalities": [
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-cite-abbes--3200",
+          "nameFr": "TATAOUINE NORD (Cite Abbes)",
+          "nameAr": "تطاوين الشمالية (حي عباس)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (cite abbes) تطاوين الشمالية (حي عباس) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-cite-el-mahrajene--3200",
+          "nameFr": "TATAOUINE NORD (Cite El Mahrajene)",
+          "nameAr": "تطاوين الشمالية (حي المهرجان)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (cite el mahrajene) تطاوين الشمالية (حي المهرجان) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-cite-ennour--3200",
+          "nameFr": "TATAOUINE NORD (Cite Ennour)",
+          "nameAr": "تطاوين الشمالية (حي النور)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (cite ennour) تطاوين الشمالية (حي النور) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-cite-ennouzha--3200",
+          "nameFr": "TATAOUINE NORD (Cite Ennouzha)",
+          "nameAr": "تطاوين الشمالية (حي النزهة)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (cite ennouzha) تطاوين الشمالية (حي النزهة) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-el-hachana--3217",
+          "nameFr": "TATAOUINE NORD (El Hachana)",
+          "nameAr": "تطاوين الشمالية (الحشانة)",
+          "postalCode": "3217",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (el hachana) تطاوين الشمالية (الحشانة) 3217"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-essaada--3217",
+          "nameFr": "TATAOUINE NORD (Essaada)",
+          "nameAr": "تطاوين الشمالية (السعادة)",
+          "postalCode": "3217",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (essaada) تطاوين الشمالية (السعادة) 3217"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-ezzahra-tataouine--3272",
+          "nameFr": "TATAOUINE NORD (Ezzahra Tataouine)",
+          "nameAr": "تطاوين الشمالية (الزهرة تطاوين)",
+          "postalCode": "3272",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (ezzahra tataouine) تطاوين الشمالية (الزهرة تطاوين) 3272"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-gattoufa--3233",
+          "nameFr": "TATAOUINE NORD (Gattoufa)",
+          "nameAr": "تطاوين الشمالية (ڨطوفة)",
+          "postalCode": "3233",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (gattoufa) تطاوين الشمالية (ڨطوفة) 3233"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-khetma--3200",
+          "nameFr": "TATAOUINE NORD (Khetma)",
+          "nameAr": "تطاوين الشمالية (ختمة)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (khetma) تطاوين الشمالية (ختمة) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-ksar-bhir--3200",
+          "nameFr": "TATAOUINE NORD (Ksar Bhir)",
+          "nameAr": "تطاوين الشمالية (قصر بهير)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (ksar bhir) تطاوين الشمالية (قصر بهير) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-ksar-el-galaa--3200",
+          "nameFr": "TATAOUINE NORD (Ksar El Galaa)",
+          "nameAr": "تطاوين الشمالية (قصر القلعة)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (ksar el galaa) تطاوين الشمالية (قصر القلعة) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-ksar-ouled-soltan--3282",
+          "nameFr": "TATAOUINE NORD (Ksar Ouled Soltan)",
+          "nameAr": "تطاوين الشمالية (قصر أولاد سلطان)",
+          "postalCode": "3282",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (ksar ouled soltan) تطاوين الشمالية (قصر أولاد سلطان) 3282"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-oued-el-ghar--3243",
+          "nameFr": "TATAOUINE NORD (Oued El Ghar)",
+          "nameAr": "تطاوين الشمالية (وادي الغار)",
+          "postalCode": "3243",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (oued el ghar) تطاوين الشمالية (وادي الغار) 3243"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-remtha--3200",
+          "nameFr": "TATAOUINE NORD (Remtha)",
+          "nameAr": "تطاوين الشمالية (رمثا)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (remtha) تطاوين الشمالية (رمثا) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-tamazout--3200",
+          "nameFr": "TATAOUINE NORD (Tamazout)",
+          "nameAr": "تطاوين الشمالية (تمازوط)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (tamazout) تطاوين الشمالية (تمازوط) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-tamelest--3200",
+          "nameFr": "TATAOUINE NORD (Tamelest)",
+          "nameAr": "تطاوين الشمالية (تملست)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (tamelest) تطاوين الشمالية (تملست) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-tataouine-7-novembre--3263",
+          "nameFr": "TATAOUINE NORD (Tataouine 7 Novembre)",
+          "nameAr": "تطاوين الشمالية (تطاوين 7 نوفمبر)",
+          "postalCode": "3263",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (tataouine 7 novembre) تطاوين الشمالية (تطاوين 7 نوفمبر) 3263"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-tlelet--3214",
+          "nameFr": "TATAOUINE NORD (Tlelet)",
+          "nameAr": "تطاوين الشمالية (تلالت)",
+          "postalCode": "3214",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (tlelet) تطاوين الشمالية (تلالت) 3214"
+        },
+        {
+          "id": "tataouine--tataouine-nord--tataouine-nord-zmilet-saber--3243",
+          "nameFr": "TATAOUINE NORD (Zmilet Saber)",
+          "nameAr": "تطاوين الشمالية (زميلة صابر)",
+          "postalCode": "3243",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine nord (zmilet saber) تطاوين الشمالية (زميلة صابر) 3243"
+        }
+      ]
+    },
+    {
+      "id": "tataouine--tataouine-sud",
+      "nameFr": "TATAOUINE SUD",
+      "nameAr": "تطاوين الجنوبية",
+      "searchKey": "tataouine sud تطاوين الجنوبية",
+      "municipalities": [
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-beni-barka--3215",
+          "nameFr": "TATAOUINE SUD (Beni Barka)",
+          "nameAr": "تطاوين الجنوبية (بني بركة)",
+          "postalCode": "3215",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (beni barka) تطاوين الجنوبية (بني بركة) 3215"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-bir-thlathine--3284",
+          "nameFr": "TATAOUINE SUD (Bir Thlathine)",
+          "nameAr": "تطاوين الجنوبية (بئر الثلاثين)",
+          "postalCode": "3284",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (bir thlathine) تطاوين الجنوبية (بئر الثلاثين) 3284"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-chenini-nouvelle--3274",
+          "nameFr": "TATAOUINE SUD (Chenini Nouvelle)",
+          "nameAr": "تطاوين الجنوبية (شنني الجديدة)",
+          "postalCode": "3274",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (chenini nouvelle) تطاوين الجنوبية (شنني الجديدة) 3274"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-chenini--3222",
+          "nameFr": "TATAOUINE SUD (Chenini)",
+          "nameAr": "تطاوين الجنوبية (شنني)",
+          "postalCode": "3222",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (chenini) تطاوين الجنوبية (شنني) 3222"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-cite-commerciale--3200",
+          "nameFr": "TATAOUINE SUD (Cite Commerciale)",
+          "nameAr": "تطاوين الجنوبية (الحي التجاري)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (cite commerciale) تطاوين الجنوبية (الحي التجاري) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-cite-des-roses--3200",
+          "nameFr": "TATAOUINE SUD (Cite Des Roses)",
+          "nameAr": "تطاوين الجنوبية (حي الورود)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (cite des roses) تطاوين الجنوبية (حي الورود) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-cite-du-president--3200",
+          "nameFr": "TATAOUINE SUD (Cite Du President)",
+          "nameAr": "تطاوين الجنوبية (حي الرئيس)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (cite du president) تطاوين الجنوبية (حي الرئيس) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-cite-el-hedadda--3200",
+          "nameFr": "TATAOUINE SUD (Cite El Hedadda)",
+          "nameAr": "تطاوين الجنوبية (حي الحدادة)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (cite el hedadda) تطاوين الجنوبية (حي الحدادة) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-cite-erriadh--3200",
+          "nameFr": "TATAOUINE SUD (Cite Erriadh)",
+          "nameAr": "تطاوين الجنوبية (حي الرياض)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (cite erriadh) تطاوين الجنوبية (حي الرياض) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-cite-nouvelle--3200",
+          "nameFr": "TATAOUINE SUD (Cite Nouvelle)",
+          "nameAr": "تطاوين الجنوبية (الحي الجديد)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (cite nouvelle) تطاوين الجنوبية (الحي الجديد) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-cite-senegal--3200",
+          "nameFr": "TATAOUINE SUD (Cite Senegal)",
+          "nameAr": "تطاوين الجنوبية (حي السنغال)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (cite senegal) تطاوين الجنوبية (حي السنغال) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-douiret--3232",
+          "nameFr": "TATAOUINE SUD (Douiret)",
+          "nameAr": "تطاوين الجنوبية (دويرات)",
+          "postalCode": "3232",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (douiret) تطاوين الجنوبية (دويرات) 3232"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-ghorghar--3200",
+          "nameFr": "TATAOUINE SUD (Ghorghar)",
+          "nameAr": "تطاوين الجنوبية (غرغار)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (ghorghar) تطاوين الجنوبية (غرغار) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-ksar-debab--3242",
+          "nameFr": "TATAOUINE SUD (Ksar Debab)",
+          "nameAr": "تطاوين الجنوبية (قصر دباب)",
+          "postalCode": "3242",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (ksar debab) تطاوين الجنوبية (قصر دباب) 3242"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-ksar-mguebla--3221",
+          "nameFr": "TATAOUINE SUD (Ksar Mguebla)",
+          "nameAr": "تطاوين الجنوبية (قصر مقبلة)",
+          "postalCode": "3221",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (ksar mguebla) تطاوين الجنوبية (قصر مقبلة) 3221"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-maztouria--3252",
+          "nameFr": "TATAOUINE SUD (Maztouria)",
+          "nameAr": "تطاوين الجنوبية (المزطورية)",
+          "postalCode": "3252",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (maztouria) تطاوين الجنوبية (المزطورية) 3252"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-ras-el-oued--3264",
+          "nameFr": "TATAOUINE SUD (Ras El Oued)",
+          "nameAr": "تطاوين الجنوبية (رأس الوادي)",
+          "postalCode": "3264",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (ras el oued) تطاوين الجنوبية (رأس الوادي) 3264"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-rogba--3293",
+          "nameFr": "TATAOUINE SUD (Rogba)",
+          "nameAr": "تطاوين الجنوبية (رقبة)",
+          "postalCode": "3293",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (rogba) تطاوين الجنوبية (رقبة) 3293"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-sedra--3200",
+          "nameFr": "TATAOUINE SUD (Sedra)",
+          "nameAr": "تطاوين الجنوبية (السدرة)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (sedra) تطاوين الجنوبية (السدرة) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-tataouine--3200",
+          "nameFr": "TATAOUINE SUD (Tataouine)",
+          "nameAr": "تطاوين الجنوبية (تطاوين)",
+          "postalCode": "3200",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (tataouine) تطاوين الجنوبية (تطاوين) 3200"
+        },
+        {
+          "id": "tataouine--tataouine-sud--tataouine-sud-tounket--3211",
+          "nameFr": "TATAOUINE SUD (Tounket)",
+          "nameAr": "تطاوين الجنوبية (تونكت)",
+          "postalCode": "3211",
+          "latitude": 32.9297,
+          "longitude": 10.4514,
+          "searchKey": "tataouine sud (tounket) تطاوين الجنوبية (تونكت) 3211"
+        }
+      ]
+    }
+  ]
+}

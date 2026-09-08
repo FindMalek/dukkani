@@ -1,0 +1,1338 @@
+{
+  "code": "MANOUBA",
+  "delegations": [
+    {
+      "id": "mannouba--borj-el-amri",
+      "nameFr": "BORJ EL AMRI",
+      "nameAr": "برج العامري",
+      "searchKey": "borj el amri برج العامري",
+      "municipalities": [
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-aouilia-km-37--1113",
+          "nameFr": "BORJ EL AMRI (Aouilia (Km 37))",
+          "nameAr": "برج العامري (عويلية (كم 37))",
+          "postalCode": "1113",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (aouilia (km 37)) برج العامري (عويلية (كم 37)) 1113"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-bir-ettouil--1113",
+          "nameFr": "BORJ EL AMRI (Bir Ettouil)",
+          "nameAr": "برج العامري (بئر الطويل)",
+          "postalCode": "1113",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (bir ettouil) برج العامري (بئر الطويل) 1113"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-borj-el-amri--1142",
+          "nameFr": "BORJ EL AMRI (Borj El Amri)",
+          "nameAr": "برج العامري (برج العامري)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (borj el amri) برج العامري (برج العامري) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-borj-ennour--1113",
+          "nameFr": "BORJ EL AMRI (Borj Ennour)",
+          "nameAr": "برج العامري (برج النور)",
+          "postalCode": "1113",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (borj ennour) برج العامري (برج النور) 1113"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-cite-el-hafsia--1142",
+          "nameFr": "BORJ EL AMRI (Cite El Hafsia)",
+          "nameAr": "برج العامري (حي الحفصية)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (cite el hafsia) برج العامري (حي الحفصية) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-cite-el-intilaka--1142",
+          "nameFr": "BORJ EL AMRI (Cite El Intilaka)",
+          "nameAr": "برج العامري (حي الإنطلاقة)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (cite el intilaka) برج العامري (حي الإنطلاقة) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-cite-el-manai--1142",
+          "nameFr": "BORJ EL AMRI (Cite El Manai)",
+          "nameAr": "برج العامري (حي المناعي)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (cite el manai) برج العامري (حي المناعي) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-cite-ennouzha-1--1142",
+          "nameFr": "BORJ EL AMRI (Cite Ennouzha 1)",
+          "nameAr": "برج العامري (حي النزهة 1)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (cite ennouzha 1) برج العامري (حي النزهة 1) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-cite-ennouzha-2--1142",
+          "nameFr": "BORJ EL AMRI (Cite Ennouzha 2)",
+          "nameAr": "برج العامري (حي النزهة 2)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (cite ennouzha 2) برج العامري (حي النزهة 2) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-cite-taoufik--1142",
+          "nameFr": "BORJ EL AMRI (Cite Taoufik)",
+          "nameAr": "برج العامري (حي توفيق)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (cite taoufik) برج العامري (حي توفيق) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-drijette--1142",
+          "nameFr": "BORJ EL AMRI (Drijette)",
+          "nameAr": "برج العامري (دريجات)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (drijette) برج العامري (دريجات) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-el-messaidine--1113",
+          "nameFr": "BORJ EL AMRI (El Messaidine)",
+          "nameAr": "برج العامري (المسايدين)",
+          "postalCode": "1113",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (el messaidine) برج العامري (المسايدين) 1113"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-enfaiedh--1142",
+          "nameFr": "BORJ EL AMRI (Enfaiedh)",
+          "nameAr": "برج العامري (النفيض)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (enfaiedh) برج العامري (النفيض) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-ksar-hadid--1142",
+          "nameFr": "BORJ EL AMRI (Ksar Hadid)",
+          "nameAr": "برج العامري (قصر حديد)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (ksar hadid) برج العامري (قصر حديد) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-menzel-habib--1142",
+          "nameFr": "BORJ EL AMRI (Menzel Habib)",
+          "nameAr": "برج العامري (منزل حبيب)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (menzel habib) برج العامري (منزل حبيب) 1142"
+        },
+        {
+          "id": "mannouba--borj-el-amri--borj-el-amri-teboltech--1142",
+          "nameFr": "BORJ EL AMRI (Teboltech)",
+          "nameAr": "برج العامري (طبولتيك)",
+          "postalCode": "1142",
+          "latitude": 36.7189,
+          "longitude": 9.9425,
+          "searchKey": "borj el amri (teboltech) برج العامري (طبولتيك) 1142"
+        }
+      ]
+    },
+    {
+      "id": "mannouba--douar-hicher",
+      "nameFr": "DOUAR HICHER",
+      "nameAr": "دوار هيشر",
+      "searchKey": "douar hicher دوار هيشر",
+      "municipalities": [
+        {
+          "id": "mannouba--douar-hicher--douar-hicher-cite-khaled-ibn-el-walid--2086",
+          "nameFr": "DOUAR HICHER (Cite Khaled Ibn El Walid)",
+          "nameAr": "دوار هيشر (حي خالد بن الوليد)",
+          "postalCode": "2086",
+          "latitude": 36.8333,
+          "longitude": 10.0667,
+          "searchKey": "douar hicher (cite khaled ibn el walid) دوار هيشر (حي خالد بن الوليد) 2086"
+        },
+        {
+          "id": "mannouba--douar-hicher--douar-hicher-douar-hicher--2086",
+          "nameFr": "DOUAR HICHER (Douar Hicher)",
+          "nameAr": "دوار هيشر (دوار هيشر)",
+          "postalCode": "2086",
+          "latitude": 36.8333,
+          "longitude": 10.0667,
+          "searchKey": "douar hicher (douar hicher) دوار هيشر (دوار هيشر) 2086"
+        }
+      ]
+    },
+    {
+      "id": "mannouba--el-battan",
+      "nameFr": "EL BATTAN",
+      "nameAr": "البطان",
+      "searchKey": "el battan البطان",
+      "municipalities": [
+        {
+          "id": "mannouba--el-battan--el-battan-cite-7-novembre--1114",
+          "nameFr": "EL BATTAN (Cite 7 Novembre)",
+          "nameAr": "البطان (حي 7 نوفمبر)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (cite 7 novembre) البطان (حي 7 نوفمبر) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-cite-ben-ghenia--1114",
+          "nameFr": "EL BATTAN (Cite Ben Ghenia)",
+          "nameAr": "البطان (حي بن غنية)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (cite ben ghenia) البطان (حي بن غنية) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-cite-brik--1114",
+          "nameFr": "EL BATTAN (Cite Brik)",
+          "nameAr": "البطان (حي بريك)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (cite brik) البطان (حي بريك) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-cite-el-houda--1114",
+          "nameFr": "EL BATTAN (Cite El Houda)",
+          "nameAr": "البطان (حي الهدى)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (cite el houda) البطان (حي الهدى) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-cite-ennasr--1114",
+          "nameFr": "EL BATTAN (Cite Ennasr)",
+          "nameAr": "البطان (حي النصر)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (cite ennasr) البطان (حي النصر) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-cite-ennour--1114",
+          "nameFr": "EL BATTAN (Cite Ennour)",
+          "nameAr": "البطان (حي النور)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (cite ennour) البطان (حي النور) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-cite-ennouzha--1114",
+          "nameFr": "EL BATTAN (Cite Ennouzha)",
+          "nameAr": "البطان (حي النزهة)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (cite ennouzha) البطان (حي النزهة) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-el-battan--1114",
+          "nameFr": "EL BATTAN (El Battan)",
+          "nameAr": "البطان (البطان)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (el battan) البطان (البطان) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-el-mansoura-2--1114",
+          "nameFr": "EL BATTAN (El Mansoura 2)",
+          "nameAr": "البطان (المنصورة 2)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (el mansoura 2) البطان (المنصورة 2) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-el-mehrine--1114",
+          "nameFr": "EL BATTAN (El Mehrine)",
+          "nameAr": "البطان (المهرين)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (el mehrine) البطان (المهرين) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-ezzouitina--1114",
+          "nameFr": "EL BATTAN (Ezzouitina)",
+          "nameAr": "البطان (الزويتينة)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (ezzouitina) البطان (الزويتينة) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-ferme-na-7--1114",
+          "nameFr": "EL BATTAN (Ferme NÂ¦7)",
+          "nameAr": "البطان (المزرعة رقم 7)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (ferme na¦7) البطان (المزرعة رقم 7) 1114"
+        },
+        {
+          "id": "mannouba--el-battan--el-battan-saint-joseph--1114",
+          "nameFr": "EL BATTAN (Saint Joseph)",
+          "nameAr": "البطان (سان جوزيف)",
+          "postalCode": "1114",
+          "latitude": 36.8167,
+          "longitude": 9.85,
+          "searchKey": "el battan (saint joseph) البطان (سان جوزيف) 1114"
+        }
+      ]
+    },
+    {
+      "id": "mannouba--jedaida",
+      "nameFr": "JEDAIDA",
+      "nameAr": "الجديدة",
+      "searchKey": "jedaida الجديدة",
+      "municipalities": [
+        {
+          "id": "mannouba--jedaida--jedaida-chaouat--1134",
+          "nameFr": "JEDAIDA (Chaouat)",
+          "nameAr": "الجديدة (شواط)",
+          "postalCode": "1134",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (chaouat) الجديدة (شواط) 1134"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-aboubaker-esseddik--1124",
+          "nameFr": "JEDAIDA (Cite Aboubaker Esseddik)",
+          "nameAr": "الجديدة (حي أبو بكر الصديق)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite aboubaker esseddik) الجديدة (حي أبو بكر الصديق) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-bel-hay--1124",
+          "nameFr": "JEDAIDA (Cite Bel Hay)",
+          "nameAr": "الجديدة (حي بلهاي)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite bel hay) الجديدة (حي بلهاي) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-ben-hassine--1124",
+          "nameFr": "JEDAIDA (Cite Ben Hassine)",
+          "nameAr": "الجديدة (حي بن حسين)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite ben hassine) الجديدة (حي بن حسين) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-de-la-rtt--1124",
+          "nameFr": "JEDAIDA (Cite De La Rtt)",
+          "nameAr": "الجديدة (حي الإذاعة والتلفزة التونسية)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite de la rtt) الجديدة (حي الإذاعة والتلفزة التونسية) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-des-andalous--1124",
+          "nameFr": "JEDAIDA (Cite Des Andalous)",
+          "nameAr": "الجديدة (حي الأندلس)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite des andalous) الجديدة (حي الأندلس) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-dhamene--1124",
+          "nameFr": "JEDAIDA (Cite Dhamene)",
+          "nameAr": "الجديدة (حي ضامن)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite dhamene) الجديدة (حي ضامن) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-dhniba--1124",
+          "nameFr": "JEDAIDA (Cite Dhniba)",
+          "nameAr": "الجديدة (حي ذنيبة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite dhniba) الجديدة (حي ذنيبة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-ecole-primaire--1134",
+          "nameFr": "JEDAIDA (Cite Ecole Primaire)",
+          "nameAr": "الجديدة (حي المدرسة الإبتدائية)",
+          "postalCode": "1134",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite ecole primaire) الجديدة (حي المدرسة الإبتدائية) 1134"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-el-baraka--1124",
+          "nameFr": "JEDAIDA (Cite El Baraka)",
+          "nameAr": "الجديدة (حي البركة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite el baraka) الجديدة (حي البركة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-el-hidaya--1124",
+          "nameFr": "JEDAIDA (Cite El Hidaya)",
+          "nameAr": "الجديدة (حي الهداية)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite el hidaya) الجديدة (حي الهداية) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-ennajet--1124",
+          "nameFr": "JEDAIDA (Cite Ennajet)",
+          "nameAr": "الجديدة (حي النجاة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite ennajet) الجديدة (حي النجاة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-ennour--1124",
+          "nameFr": "JEDAIDA (Cite Ennour)",
+          "nameAr": "الجديدة (حي النور)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite ennour) الجديدة (حي النور) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-erriadh--1124",
+          "nameFr": "JEDAIDA (Cite Erriadh)",
+          "nameAr": "الجديدة (حي الرياض)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite erriadh) الجديدة (حي الرياض) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-essaroula--1124",
+          "nameFr": "JEDAIDA (Cite Essaroula)",
+          "nameAr": "الجديدة (حي السرولة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite essaroula) الجديدة (حي السرولة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-guichba--1124",
+          "nameFr": "JEDAIDA (Cite Guichba)",
+          "nameAr": "الجديدة (حي قشبة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite guichba) الجديدة (حي قشبة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-habib-el-ayari--1124",
+          "nameFr": "JEDAIDA (Cite Habib El Ayari)",
+          "nameAr": "الجديدة (حي الحبيب العياري)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite habib el ayari) الجديدة (حي الحبيب العياري) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-hached--1124",
+          "nameFr": "JEDAIDA (Cite Hached)",
+          "nameAr": "الجديدة (حي حشاد)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite hached) الجديدة (حي حشاد) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-hamdi--1124",
+          "nameFr": "JEDAIDA (Cite Hamdi)",
+          "nameAr": "الجديدة (حي حمدي)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite hamdi) الجديدة (حي حمدي) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-hammed-nouvelle--1124",
+          "nameFr": "JEDAIDA (Cite Hammed Nouvelle)",
+          "nameAr": "الجديدة (حي حماد الجديدة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite hammed nouvelle) الجديدة (حي حماد الجديدة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-jebel--1124",
+          "nameFr": "JEDAIDA (Cite Jebel)",
+          "nameAr": "الجديدة (حي الجبل)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite jebel) الجديدة (حي الجبل) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-mokhtar--1124",
+          "nameFr": "JEDAIDA (Cite Mokhtar)",
+          "nameAr": "الجديدة (حي مختار)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite mokhtar) الجديدة (حي مختار) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-najiba--1124",
+          "nameFr": "JEDAIDA (Cite Najiba)",
+          "nameAr": "الجديدة (حي نجيبة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite najiba) الجديدة (حي نجيبة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-rurale--1124",
+          "nameFr": "JEDAIDA (Cite Rurale)",
+          "nameAr": "الجديدة (الحي الريفي)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite rurale) الجديدة (الحي الريفي) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-sidi-salem--1124",
+          "nameFr": "JEDAIDA (Cite Sidi Salem)",
+          "nameAr": "الجديدة (حي سيدي سالم)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite sidi salem) الجديدة (حي سيدي سالم) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-tarek-ibn-zied--1124",
+          "nameFr": "JEDAIDA (Cite Tarek Ibn Zied)",
+          "nameAr": "الجديدة (حي طارق بن زياد)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite tarek ibn zied) الجديدة (حي طارق بن زياد) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-touhami-nefzi--1124",
+          "nameFr": "JEDAIDA (Cite Touhami Nefzi)",
+          "nameAr": "الجديدة (حي التهامي النفزي)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite touhami nefzi) الجديدة (حي التهامي النفزي) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-trabelsi--1124",
+          "nameFr": "JEDAIDA (Cite Trabelsi)",
+          "nameAr": "الجديدة (حي الطرابلسي)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite trabelsi) الجديدة (حي الطرابلسي) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-cite-yougharta--1124",
+          "nameFr": "JEDAIDA (Cite Yougharta)",
+          "nameAr": "الجديدة (حي يوغرطة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (cite yougharta) الجديدة (حي يوغرطة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-el-habibia--2012",
+          "nameFr": "JEDAIDA (El Habibia)",
+          "nameAr": "الجديدة (الحبيبية)",
+          "postalCode": "2012",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (el habibia) الجديدة (الحبيبية) 2012"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-el-henna--1124",
+          "nameFr": "JEDAIDA (El Henna)",
+          "nameAr": "الجديدة (الحنة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (el henna) الجديدة (الحنة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-el-mansoura--2075",
+          "nameFr": "JEDAIDA (El Mansoura)",
+          "nameAr": "الجديدة (المنصورة)",
+          "postalCode": "2075",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (el mansoura) الجديدة (المنصورة) 2075"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-ezzahra--1124",
+          "nameFr": "JEDAIDA (Ezzahra)",
+          "nameAr": "الجديدة (الزهرة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (ezzahra) الجديدة (الزهرة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-henchir-dheniba--1124",
+          "nameFr": "JEDAIDA (Henchir Dheniba)",
+          "nameAr": "الجديدة (هنشير ذنيبة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (henchir dheniba) الجديدة (هنشير ذنيبة) 1124"
+        },
+        {
+          "id": "mannouba--jedaida--jedaida-jedaida--1124",
+          "nameFr": "JEDAIDA (Jedaida)",
+          "nameAr": "الجديدة (الجديدة)",
+          "postalCode": "1124",
+          "latitude": 36.85,
+          "longitude": 9.9167,
+          "searchKey": "jedaida (jedaida) الجديدة (الجديدة) 1124"
+        }
+      ]
+    },
+    {
+      "id": "mannouba--mannouba",
+      "nameFr": "MANNOUBA",
+      "nameAr": "منوبة",
+      "searchKey": "mannouba منوبة",
+      "municipalities": [
+        {
+          "id": "mannouba--mannouba--mannouba-denden--2011",
+          "nameFr": "MANNOUBA (Denden)",
+          "nameAr": "منوبة (الدندان)",
+          "postalCode": "2011",
+          "latitude": 36.8097,
+          "longitude": 10.0928,
+          "searchKey": "mannouba (denden) منوبة (الدندان) 2011"
+        },
+        {
+          "id": "mannouba--mannouba--mannouba-la-mannouba--2010",
+          "nameFr": "MANNOUBA (La Mannouba)",
+          "nameAr": "منوبة (منوبة)",
+          "postalCode": "2010",
+          "latitude": 36.8097,
+          "longitude": 10.0928,
+          "searchKey": "mannouba (la mannouba) منوبة (منوبة) 2010"
+        }
+      ]
+    },
+    {
+      "id": "mannouba--mornaguia",
+      "nameFr": "MORNAGUIA",
+      "nameAr": "المرناقية",
+      "searchKey": "mornaguia المرناقية",
+      "municipalities": [
+        {
+          "id": "mannouba--mornaguia--mornaguia-bou-hanech--2028",
+          "nameFr": "MORNAGUIA (Bou Hanech)",
+          "nameAr": "المرناقية (بو حنش)",
+          "postalCode": "2028",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (bou hanech) المرناقية (بو حنش) 2028"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-bou-regba--1110",
+          "nameFr": "MORNAGUIA (Bou Regba)",
+          "nameAr": "المرناقية (بو رقبة)",
+          "postalCode": "1110",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (bou regba) المرناقية (بو رقبة) 1110"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-cite-bir-ben-njima--1110",
+          "nameFr": "MORNAGUIA (Cite Bir Ben Njima)",
+          "nameAr": "المرناقية (حي بئر بن نجمة)",
+          "postalCode": "1110",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (cite bir ben njima) المرناقية (حي بئر بن نجمة) 1110"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-cite-de-la-rtt-3--1110",
+          "nameFr": "MORNAGUIA (Cite De La Rtt 3)",
+          "nameAr": "المرناقية (حي الإذاعة والتلفزة التونسية 3)",
+          "postalCode": "1110",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (cite de la rtt 3) المرناقية (حي الإذاعة والتلفزة التونسية 3) 1110"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-cite-toumia--1110",
+          "nameFr": "MORNAGUIA (Cite Toumia)",
+          "nameAr": "المرناقية (حي تومية)",
+          "postalCode": "1110",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (cite toumia) المرناقية (حي تومية) 1110"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-el-bassatine--2028",
+          "nameFr": "MORNAGUIA (El Bassatine)",
+          "nameAr": "المرناقية (البساتين)",
+          "postalCode": "2028",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (el bassatine) المرناقية (البساتين) 2028"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-el-fejja--1153",
+          "nameFr": "MORNAGUIA (El Fejja)",
+          "nameAr": "المرناقية (الفجة)",
+          "postalCode": "1153",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (el fejja) المرناقية (الفجة) 1153"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-el-hamayem--1110",
+          "nameFr": "MORNAGUIA (El Hamayem)",
+          "nameAr": "المرناقية (الحمايم)",
+          "postalCode": "1110",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (el hamayem) المرناقية (الحمايم) 1110"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-ghedaouna--1110",
+          "nameFr": "MORNAGUIA (Ghedaouna)",
+          "nameAr": "المرناقية (غذاونة)",
+          "postalCode": "1110",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (ghedaouna) المرناقية (غذاونة) 1110"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-mornaguia-20-mars--1116",
+          "nameFr": "MORNAGUIA (Mornaguia 20 Mars)",
+          "nameAr": "المرناقية (المرناقية 20 مارس)",
+          "postalCode": "1116",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (mornaguia 20 mars) المرناقية (المرناقية 20 مارس) 1116"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-mornaguia--1110",
+          "nameFr": "MORNAGUIA (Mornaguia)",
+          "nameAr": "المرناقية (المرناقية)",
+          "postalCode": "1110",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (mornaguia) المرناقية (المرناقية) 1110"
+        },
+        {
+          "id": "mannouba--mornaguia--mornaguia-sidi-ali-el-hattab--2071",
+          "nameFr": "MORNAGUIA (Sidi Ali El Hattab)",
+          "nameAr": "المرناقية (سيدي علي الحطاب)",
+          "postalCode": "2071",
+          "latitude": 36.7833,
+          "longitude": 9.95,
+          "searchKey": "mornaguia (sidi ali el hattab) المرناقية (سيدي علي الحطاب) 2071"
+        }
+      ]
+    },
+    {
+      "id": "mannouba--oued-ellil",
+      "nameFr": "OUED ELLIL",
+      "nameAr": "وادي الليل",
+      "searchKey": "oued ellil وادي الليل",
+      "municipalities": [
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-7-novembre--2021",
+          "nameFr": "OUED ELLIL (Cite 7 Novembre)",
+          "nameAr": "وادي الليل (حي 7 نوفمبر)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite 7 novembre) وادي الليل (حي 7 نوفمبر) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-afh--2021",
+          "nameFr": "OUED ELLIL (Cite Afh)",
+          "nameAr": "وادي الليل (حي الوكالة العقارية للسكنى)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite afh) وادي الليل (حي الوكالة العقارية للسكنى) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-bejoua-2--2021",
+          "nameFr": "OUED ELLIL (Cite Bejoua 2)",
+          "nameAr": "وادي الليل (حي بجاوة 2)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite bejoua 2) وادي الليل (حي بجاوة 2) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-ben-arfa--2021",
+          "nameFr": "OUED ELLIL (Cite Ben Arfa)",
+          "nameAr": "وادي الليل (حي بن عرفة)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite ben arfa) وادي الليل (حي بن عرفة) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-ben-jemaa--2021",
+          "nameFr": "OUED ELLIL (Cite Ben Jemaa)",
+          "nameAr": "وادي الليل (حي بن جمعة)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite ben jemaa) وادي الليل (حي بن جمعة) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-bennour-bejoua-1--2021",
+          "nameFr": "OUED ELLIL (Cite Bennour Bejoua 1)",
+          "nameAr": "وادي الليل (حي بنور بجاوة 1)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite bennour bejoua 1) وادي الليل (حي بنور بجاوة 1) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-bouzid--2021",
+          "nameFr": "OUED ELLIL (Cite Bouzid)",
+          "nameAr": "وادي الليل (حي بوزيد)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite bouzid) وادي الليل (حي بوزيد) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-dhamene-2--2021",
+          "nameFr": "OUED ELLIL (Cite Dhamene 2)",
+          "nameAr": "وادي الليل (حي ضامن 2)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite dhamene 2) وادي الليل (حي ضامن 2) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-el-boustene-1--2021",
+          "nameFr": "OUED ELLIL (Cite El Boustene 1)",
+          "nameAr": "وادي الليل (حي البستان 1)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite el boustene 1) وادي الليل (حي البستان 1) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-el-boustene-2--2021",
+          "nameFr": "OUED ELLIL (Cite El Boustene 2)",
+          "nameAr": "وادي الليل (حي البستان 2)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite el boustene 2) وادي الليل (حي البستان 2) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-el-izdihar-bejoua--2021",
+          "nameFr": "OUED ELLIL (Cite El Izdihar Bejoua)",
+          "nameAr": "وادي الليل (حي الإزدهار بجاوة)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite el izdihar bejoua) وادي الليل (حي الإزدهار بجاوة) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-el-moezzia--2021",
+          "nameFr": "OUED ELLIL (Cite El Moezzia)",
+          "nameAr": "وادي الليل (حي المعزية)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite el moezzia) وادي الليل (حي المعزية) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-el-moultaka-1--2021",
+          "nameFr": "OUED ELLIL (Cite El Moultaka 1)",
+          "nameAr": "وادي الليل (حي الملتقى 1)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite el moultaka 1) وادي الليل (حي الملتقى 1) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-ennacim--2031",
+          "nameFr": "OUED ELLIL (Cite Ennacim)",
+          "nameAr": "وادي الليل (حي النسيم)",
+          "postalCode": "2031",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite ennacim) وادي الليل (حي النسيم) 2031"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-erriadh-zone-c--2031",
+          "nameFr": "OUED ELLIL (Cite Erriadh Zone C)",
+          "nameAr": "وادي الليل (حي الرياض المنطقة ج)",
+          "postalCode": "2031",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite erriadh zone c) وادي الليل (حي الرياض المنطقة ج) 2031"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-erriadh-zone-f--2031",
+          "nameFr": "OUED ELLIL (Cite Erriadh Zone F)",
+          "nameAr": "وادي الليل (حي الرياض المنطقة ف)",
+          "postalCode": "2031",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite erriadh zone f) وادي الليل (حي الرياض المنطقة ف) 2031"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-ettourjmene--2021",
+          "nameFr": "OUED ELLIL (Cite Ettourjmene)",
+          "nameAr": "وادي الليل (حي الترجمان)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite ettourjmene) وادي الليل (حي الترجمان) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-marseille--2021",
+          "nameFr": "OUED ELLIL (Cite Marseille)",
+          "nameAr": "وادي الليل (حي مرسيليا)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite marseille) وادي الليل (حي مرسيليا) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-cite-militaire--2021",
+          "nameFr": "OUED ELLIL (Cite Militaire)",
+          "nameAr": "وادي الليل (الحي العسكري)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (cite militaire) وادي الليل (الحي العسكري) 2021"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-essaida--2031",
+          "nameFr": "OUED ELLIL (Essaida)",
+          "nameAr": "وادي الليل (السعيدة)",
+          "postalCode": "2031",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (essaida) وادي الليل (السعيدة) 2031"
+        },
+        {
+          "id": "mannouba--oued-ellil--oued-ellil-oued-ellil--2021",
+          "nameFr": "OUED ELLIL (Oued Ellil)",
+          "nameAr": "وادي الليل (وادي الليل)",
+          "postalCode": "2021",
+          "latitude": 36.8311,
+          "longitude": 10.0347,
+          "searchKey": "oued ellil (oued ellil) وادي الليل (وادي الليل) 2021"
+        }
+      ]
+    },
+    {
+      "id": "mannouba--tebourba",
+      "nameFr": "TEBOURBA",
+      "nameAr": "طبربة",
+      "searchKey": "tebourba طبربة",
+      "municipalities": [
+        {
+          "id": "mannouba--tebourba--tebourba-ain-el-karma--1144",
+          "nameFr": "TEBOURBA (Ain El Karma)",
+          "nameAr": "طبربة (عين الكرمة)",
+          "postalCode": "1144",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (ain el karma) طبربة (عين الكرمة) 1144"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-ain-zammit--1144",
+          "nameFr": "TEBOURBA (Ain Zammit)",
+          "nameAr": "طبربة (عين زميت)",
+          "postalCode": "1144",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (ain zammit) طبربة (عين زميت) 1144"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-argoub-erroumi--1130",
+          "nameFr": "TEBOURBA (Argoub Erroumi)",
+          "nameAr": "طبربة (عرقوب الرومي)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (argoub erroumi) طبربة (عرقوب الرومي) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-bir-ezzitoun--1130",
+          "nameFr": "TEBOURBA (Bir Ezzitoun)",
+          "nameAr": "طبربة (بئر الزيتون)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (bir ezzitoun) طبربة (بئر الزيتون) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-borj-ettoumi--1143",
+          "nameFr": "TEBOURBA (Borj Ettoumi)",
+          "nameAr": "طبربة (برج التومي)",
+          "postalCode": "1143",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (borj ettoumi) طبربة (برج التومي) 1143"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-chouigui--1133",
+          "nameFr": "TEBOURBA (Chouigui)",
+          "nameAr": "طبربة (الشويڨي)",
+          "postalCode": "1133",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (chouigui) طبربة (الشويڨي) 1133"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-7-novembre--1130",
+          "nameFr": "TEBOURBA (Cite 7 Novembre)",
+          "nameAr": "طبربة (حي 7 نوفمبر)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite 7 novembre) طبربة (حي 7 نوفمبر) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-chebbi--1130",
+          "nameFr": "TEBOURBA (Cite Chebbi)",
+          "nameAr": "طبربة (حي الشابي)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite chebbi) طبربة (حي الشابي) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-de-france--1130",
+          "nameFr": "TEBOURBA (Cite De France)",
+          "nameAr": "طبربة (حي فرنسا)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite de france) طبربة (حي فرنسا) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-de-la-palestine--1130",
+          "nameFr": "TEBOURBA (Cite De La Palestine)",
+          "nameAr": "طبربة (حي فلسطين)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite de la palestine) طبربة (حي فلسطين) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-el-argoub--1130",
+          "nameFr": "TEBOURBA (Cite El Argoub)",
+          "nameAr": "طبربة (حي العرقوب)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite el argoub) طبربة (حي العرقوب) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-el-bassatine--1130",
+          "nameFr": "TEBOURBA (Cite El Bassatine)",
+          "nameAr": "طبربة (حي البساتين)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite el bassatine) طبربة (حي البساتين) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-el-kef-lahmar--1130",
+          "nameFr": "TEBOURBA (Cite El Kef Lahmar)",
+          "nameAr": "طبربة (حي الكاف لحمر)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite el kef lahmar) طبربة (حي الكاف لحمر) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-el-kharrouba--1130",
+          "nameFr": "TEBOURBA (Cite El Kharrouba)",
+          "nameAr": "طبربة (حي الخروبة)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite el kharrouba) طبربة (حي الخروبة) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-el-malja-hamra--1130",
+          "nameFr": "TEBOURBA (Cite El Malja Hamra)",
+          "nameAr": "طبربة (حي الملجأ حمراء)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite el malja hamra) طبربة (حي الملجأ حمراء) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-el-malja--1130",
+          "nameFr": "TEBOURBA (Cite El Malja)",
+          "nameAr": "طبربة (حي الملجأ)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite el malja) طبربة (حي الملجأ) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-el-mandra--1130",
+          "nameFr": "TEBOURBA (Cite El Mandra)",
+          "nameAr": "طبربة (حي المندرة)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite el mandra) طبربة (حي المندرة) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-el-mellassine--1130",
+          "nameFr": "TEBOURBA (Cite El Mellassine)",
+          "nameAr": "طبربة (حي الملاسين)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite el mellassine) طبربة (حي الملاسين) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-ennajah--1130",
+          "nameFr": "TEBOURBA (Cite Ennajah)",
+          "nameAr": "طبربة (حي النجاح)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite ennajah) طبربة (حي النجاح) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-erraja--1130",
+          "nameFr": "TEBOURBA (Cite Erraja)",
+          "nameAr": "طبربة (حي الرجاء)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite erraja) طبربة (حي الرجاء) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-errimel--1130",
+          "nameFr": "TEBOURBA (Cite Errimel)",
+          "nameAr": "طبربة (حي الرمال)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite errimel) طبربة (حي الرمال) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-essaada-2--1130",
+          "nameFr": "TEBOURBA (Cite Essaada 2)",
+          "nameAr": "طبربة (حي السعادة 2)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite essaada 2) طبربة (حي السعادة 2) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-essaada--1130",
+          "nameFr": "TEBOURBA (Cite Essaada)",
+          "nameAr": "طبربة (حي السعادة)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite essaada) طبربة (حي السعادة) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-khelif-jalled--1130",
+          "nameFr": "TEBOURBA (Cite Khelif Jalled)",
+          "nameAr": "طبربة (حي خليفة جالد)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite khelif jalled) طبربة (حي خليفة جالد) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-laroussia--1130",
+          "nameFr": "TEBOURBA (Cite Laroussia)",
+          "nameAr": "طبربة (حي العروسية)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite laroussia) طبربة (حي العروسية) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-populaire--1130",
+          "nameFr": "TEBOURBA (Cite Populaire)",
+          "nameAr": "طبربة (الحي الشعبي)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite populaire) طبربة (الحي الشعبي) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-route-chouigui--1130",
+          "nameFr": "TEBOURBA (Cite Route Chouigui)",
+          "nameAr": "طبربة (حي طريق الشويڨي)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite route chouigui) طبربة (حي طريق الشويڨي) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-cite-souyah--1130",
+          "nameFr": "TEBOURBA (Cite Souyah)",
+          "nameAr": "طبربة (حي سوياح)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (cite souyah) طبربة (حي سوياح) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-eddikhila--1144",
+          "nameFr": "TEBOURBA (Eddikhila)",
+          "nameAr": "طبربة (الدخيلة)",
+          "postalCode": "1144",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (eddikhila) طبربة (الدخيلة) 1144"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-el-ansarine--1144",
+          "nameFr": "TEBOURBA (El Ansarine)",
+          "nameAr": "طبربة (الأنصارين)",
+          "postalCode": "1144",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (el ansarine) طبربة (الأنصارين) 1144"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-el-aroussia--1130",
+          "nameFr": "TEBOURBA (El Aroussia)",
+          "nameAr": "طبربة (العروسية)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (el aroussia) طبربة (العروسية) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-el-haouaria--1144",
+          "nameFr": "TEBOURBA (El Haouaria)",
+          "nameAr": "طبربة (الهوارية)",
+          "postalCode": "1144",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (el haouaria) طبربة (الهوارية) 1144"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-el-mahfoura--1143",
+          "nameFr": "TEBOURBA (El Mahfoura)",
+          "nameAr": "طبربة (المحفورة)",
+          "postalCode": "1143",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (el mahfoura) طبربة (المحفورة) 1143"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-el-mellaha--1144",
+          "nameFr": "TEBOURBA (El Mellaha)",
+          "nameAr": "طبربة (الملاحة)",
+          "postalCode": "1144",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (el mellaha) طبربة (الملاحة) 1144"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-gosset-el-bey--1144",
+          "nameFr": "TEBOURBA (Gosset El Bey)",
+          "nameAr": "طبربة (قصة الباي)",
+          "postalCode": "1144",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (gosset el bey) طبربة (قصة الباي) 1144"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-goumriane--1130",
+          "nameFr": "TEBOURBA (Goumriane)",
+          "nameAr": "طبربة (قمريان)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (goumriane) طبربة (قمريان) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-gueffaya--1144",
+          "nameFr": "TEBOURBA (Gueffaya)",
+          "nameAr": "طبربة (القفالة)",
+          "postalCode": "1144",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (gueffaya) طبربة (القفالة) 1144"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-sidi-abdelbasset--1144",
+          "nameFr": "TEBOURBA (Sidi Abdelbasset)",
+          "nameAr": "طبربة (سيدي عبد الباسط)",
+          "postalCode": "1144",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (sidi abdelbasset) طبربة (سيدي عبد الباسط) 1144"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-tebourba--1130",
+          "nameFr": "TEBOURBA (Tebourba)",
+          "nameAr": "طبربة (طبربة)",
+          "postalCode": "1130",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (tebourba) طبربة (طبربة) 1130"
+        },
+        {
+          "id": "mannouba--tebourba--tebourba-toungar--1143",
+          "nameFr": "TEBOURBA (Toungar)",
+          "nameAr": "طبربة (تونغار)",
+          "postalCode": "1143",
+          "latitude": 36.8319,
+          "longitude": 9.8375,
+          "searchKey": "tebourba (toungar) طبربة (تونغار) 1143"
+        }
+      ]
+    }
+  ]
+}

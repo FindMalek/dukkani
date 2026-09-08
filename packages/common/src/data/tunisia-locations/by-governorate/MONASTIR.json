@@ -1,0 +1,1603 @@
+{
+  "code": "MONASTIR",
+  "delegations": [
+    {
+      "id": "monastir--bekalta",
+      "nameFr": "BEKALTA",
+      "nameAr": "البقالطة",
+      "searchKey": "bekalta البقالطة",
+      "municipalities": [
+        {
+          "id": "monastir--bekalta--bekalta-baghdadi--5090",
+          "nameFr": "BEKALTA (Baghdadi)",
+          "nameAr": "البقالطة (البغدادي)",
+          "postalCode": "5090",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (baghdadi) البقالطة (البغدادي) 5090"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-bekalta--5090",
+          "nameFr": "BEKALTA (Bekalta)",
+          "nameAr": "البقالطة (البقالطة)",
+          "postalCode": "5090",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (bekalta) البقالطة (البقالطة) 5090"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-charaf--5091",
+          "nameFr": "BEKALTA (Charaf)",
+          "nameAr": "البقالطة (الشرف)",
+          "postalCode": "5091",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (charaf) البقالطة (الشرف) 5091"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-cite-el-bassatine--5090",
+          "nameFr": "BEKALTA (Cite El Bassatine)",
+          "nameAr": "البقالطة (حي البساتين)",
+          "postalCode": "5090",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (cite el bassatine) البقالطة (حي البساتين) 5090"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-cite-el-izdihar--5090",
+          "nameFr": "BEKALTA (Cite El Izdihar)",
+          "nameAr": "البقالطة (حي الإزدهار)",
+          "postalCode": "5090",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (cite el izdihar) البقالطة (حي الإزدهار) 5090"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-cite-nouvelle--5090",
+          "nameFr": "BEKALTA (Cite Nouvelle)",
+          "nameAr": "البقالطة (الحي الجديد)",
+          "postalCode": "5090",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (cite nouvelle) البقالطة (الحي الجديد) 5090"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-el-behira--5092",
+          "nameFr": "BEKALTA (El Behira)",
+          "nameAr": "البقالطة (البحيرة)",
+          "postalCode": "5092",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (el behira) البقالطة (البحيرة) 5092"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-guealla--5090",
+          "nameFr": "BEKALTA (Guealla)",
+          "nameAr": "البقالطة (الڨلالة)",
+          "postalCode": "5090",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (guealla) البقالطة (الڨلالة) 5090"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-ouled-hedda--5090",
+          "nameFr": "BEKALTA (Ouled Hedda)",
+          "nameAr": "البقالطة (أولاد هدى)",
+          "postalCode": "5090",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (ouled hedda) البقالطة (أولاد هدى) 5090"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-ouled-issa--5090",
+          "nameFr": "BEKALTA (Ouled Issa)",
+          "nameAr": "البقالطة (أولاد عيسى)",
+          "postalCode": "5090",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (ouled issa) البقالطة (أولاد عيسى) 5090"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-ouled-touibi--5090",
+          "nameFr": "BEKALTA (Ouled Touibi)",
+          "nameAr": "البقالطة (أولاد التويبي)",
+          "postalCode": "5090",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (ouled touibi) البقالطة (أولاد التويبي) 5090"
+        },
+        {
+          "id": "monastir--bekalta--bekalta-zebid--5090",
+          "nameFr": "BEKALTA (Zebid)",
+          "nameAr": "البقالطة (زبيد)",
+          "postalCode": "5090",
+          "latitude": 35.6167,
+          "longitude": 11.0333,
+          "searchKey": "bekalta (zebid) البقالطة (زبيد) 5090"
+        }
+      ]
+    },
+    {
+      "id": "monastir--bembla",
+      "nameFr": "BEMBLA",
+      "nameAr": "بمبلة",
+      "searchKey": "bembla بمبلة",
+      "municipalities": [
+        {
+          "id": "monastir--bembla--bembla-bembla--5021",
+          "nameFr": "BEMBLA (Bembla)",
+          "nameAr": "بمبلة (بمبلة)",
+          "postalCode": "5021",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (bembla) بمبلة (بمبلة) 5021"
+        },
+        {
+          "id": "monastir--bembla--bembla-cite-2-mars--5022",
+          "nameFr": "BEMBLA (Cite 2 Mars)",
+          "nameAr": "بمبلة (حي 2 مارس)",
+          "postalCode": "5022",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (cite 2 mars) بمبلة (حي 2 مارس) 5022"
+        },
+        {
+          "id": "monastir--bembla--bembla-cite-el-jazia--5022",
+          "nameFr": "BEMBLA (Cite El Jazia)",
+          "nameAr": "بمبلة (حي الجازية)",
+          "postalCode": "5022",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (cite el jazia) بمبلة (حي الجازية) 5022"
+        },
+        {
+          "id": "monastir--bembla--bembla-cite-el-khadhra--5021",
+          "nameFr": "BEMBLA (Cite El Khadhra)",
+          "nameAr": "بمبلة (حي الخضراء)",
+          "postalCode": "5021",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (cite el khadhra) بمبلة (حي الخضراء) 5021"
+        },
+        {
+          "id": "monastir--bembla--bembla-cite-el-mandra--5021",
+          "nameFr": "BEMBLA (Cite El Mandra)",
+          "nameAr": "بمبلة (حي المندرة)",
+          "postalCode": "5021",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (cite el mandra) بمبلة (حي المندرة) 5021"
+        },
+        {
+          "id": "monastir--bembla--bembla-cite-ennabka--5021",
+          "nameFr": "BEMBLA (Cite Ennabka)",
+          "nameAr": "بمبلة (حي النبكة)",
+          "postalCode": "5021",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (cite ennabka) بمبلة (حي النبكة) 5021"
+        },
+        {
+          "id": "monastir--bembla--bembla-cite-populaire--5021",
+          "nameFr": "BEMBLA (Cite Populaire)",
+          "nameAr": "بمبلة (الحي الشعبي)",
+          "postalCode": "5021",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (cite populaire) بمبلة (الحي الشعبي) 5021"
+        },
+        {
+          "id": "monastir--bembla--bembla-cite-souihria--5022",
+          "nameFr": "BEMBLA (Cite Souihria)",
+          "nameAr": "بمبلة (حي السويهرية)",
+          "postalCode": "5022",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (cite souihria) بمبلة (حي السويهرية) 5022"
+        },
+        {
+          "id": "monastir--bembla--bembla-mazdour--5032",
+          "nameFr": "BEMBLA (Mazdour)",
+          "nameAr": "بمبلة (مزذور)",
+          "postalCode": "5032",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (mazdour) بمبلة (مزذور) 5032"
+        },
+        {
+          "id": "monastir--bembla--bembla-menara--5076",
+          "nameFr": "BEMBLA (Menara)",
+          "nameAr": "بمبلة (المنارة)",
+          "postalCode": "5076",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (menara) بمبلة (المنارة) 5076"
+        },
+        {
+          "id": "monastir--bembla--bembla-menzel-ennour--5022",
+          "nameFr": "BEMBLA (Menzel Ennour)",
+          "nameAr": "بمبلة (منزل النور)",
+          "postalCode": "5022",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (menzel ennour) بمبلة (منزل النور) 5022"
+        },
+        {
+          "id": "monastir--bembla--bembla-menzel-harb--5036",
+          "nameFr": "BEMBLA (Menzel Harb)",
+          "nameAr": "بمبلة (منزل حرب)",
+          "postalCode": "5036",
+          "latitude": 35.7,
+          "longitude": 10.8,
+          "searchKey": "bembla (menzel harb) بمبلة (منزل حرب) 5036"
+        }
+      ]
+    },
+    {
+      "id": "monastir--beni-hassen",
+      "nameFr": "BENI HASSEN",
+      "nameAr": "بني حسان",
+      "searchKey": "beni hassen بني حسان",
+      "municipalities": [
+        {
+          "id": "monastir--beni-hassen--beni-hassen-amirat-hatem--5062",
+          "nameFr": "BENI HASSEN (Amirat Hatem)",
+          "nameAr": "بني حسان (عميرة حاتم)",
+          "postalCode": "5062",
+          "latitude": 35.5167,
+          "longitude": 10.75,
+          "searchKey": "beni hassen (amirat hatem) بني حسان (عميرة حاتم) 5062"
+        },
+        {
+          "id": "monastir--beni-hassen--beni-hassen-beni-hassen--5014",
+          "nameFr": "BENI HASSEN (Beni Hassen)",
+          "nameAr": "بني حسان (بني حسان)",
+          "postalCode": "5014",
+          "latitude": 35.5167,
+          "longitude": 10.75,
+          "searchKey": "beni hassen (beni hassen) بني حسان (بني حسان) 5014"
+        },
+        {
+          "id": "monastir--beni-hassen--beni-hassen-cite-ettahrir--5014",
+          "nameFr": "BENI HASSEN (Cite Ettahrir)",
+          "nameAr": "بني حسان (حي التحرير)",
+          "postalCode": "5014",
+          "latitude": 35.5167,
+          "longitude": 10.75,
+          "searchKey": "beni hassen (cite ettahrir) بني حسان (حي التحرير) 5014"
+        },
+        {
+          "id": "monastir--beni-hassen--beni-hassen-ghenada--5026",
+          "nameFr": "BENI HASSEN (Ghenada)",
+          "nameAr": "بني حسان (غنادة)",
+          "postalCode": "5026",
+          "latitude": 35.5167,
+          "longitude": 10.75,
+          "searchKey": "beni hassen (ghenada) بني حسان (غنادة) 5026"
+        }
+      ]
+    },
+    {
+      "id": "monastir--jemmal",
+      "nameFr": "JEMMAL",
+      "nameAr": "جمال",
+      "searchKey": "jemmal جمال",
+      "municipalities": [
+        {
+          "id": "monastir--jemmal--jemmal-cite-commerciale-1--5020",
+          "nameFr": "JEMMAL (Cite Commerciale 1)",
+          "nameAr": "جمال (الحي التجاري 1)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite commerciale 1) جمال (الحي التجاري 1) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-commerciale-2--5020",
+          "nameFr": "JEMMAL (Cite Commerciale 2)",
+          "nameAr": "جمال (الحي التجاري 2)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite commerciale 2) جمال (الحي التجاري 2) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-amen--5020",
+          "nameFr": "JEMMAL (Cite El Amen)",
+          "nameAr": "جمال (حي الأمان)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el amen) جمال (حي الأمان) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-bassatine1--5020",
+          "nameFr": "JEMMAL (Cite El Bassatine1)",
+          "nameAr": "جمال (حي البساتين 1)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el bassatine1) جمال (حي البساتين 1) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-bassatine2--5020",
+          "nameFr": "JEMMAL (Cite El Bassatine2)",
+          "nameAr": "جمال (حي البساتين 2)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el bassatine2) جمال (حي البساتين 2) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-fateh--5020",
+          "nameFr": "JEMMAL (Cite El Fateh)",
+          "nameAr": "جمال (حي الفاتح)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el fateh) جمال (حي الفاتح) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-intilaka--5020",
+          "nameFr": "JEMMAL (Cite El Intilaka)",
+          "nameAr": "جمال (حي الإنطلاقة)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el intilaka) جمال (حي الإنطلاقة) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-izdihar--5020",
+          "nameFr": "JEMMAL (Cite El Izdihar)",
+          "nameAr": "جمال (حي الإزدهار)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el izdihar) جمال (حي الإزدهار) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-khadhra--5020",
+          "nameFr": "JEMMAL (Cite El Khadhra)",
+          "nameAr": "جمال (حي الخضراء)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el khadhra) جمال (حي الخضراء) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-manar-1--5020",
+          "nameFr": "JEMMAL (Cite El Manar 1)",
+          "nameAr": "جمال (حي المنار 1)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el manar 1) جمال (حي المنار 1) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-manar-2--5020",
+          "nameFr": "JEMMAL (Cite El Manar 2)",
+          "nameAr": "جمال (حي المنار 2)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el manar 2) جمال (حي المنار 2) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-wifak--5020",
+          "nameFr": "JEMMAL (Cite El Wifak)",
+          "nameAr": "جمال (حي الوفاق)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el wifak) جمال (حي الوفاق) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-el-yasmine--5020",
+          "nameFr": "JEMMAL (Cite El Yasmine)",
+          "nameAr": "جمال (حي الياسمين)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite el yasmine) جمال (حي الياسمين) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-ennasr--5020",
+          "nameFr": "JEMMAL (Cite Ennasr)",
+          "nameAr": "جمال (حي النصر)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite ennasr) جمال (حي النصر) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-ennour--5020",
+          "nameFr": "JEMMAL (Cite Ennour)",
+          "nameAr": "جمال (حي النور)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite ennour) جمال (حي النور) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-ennouzha--5020",
+          "nameFr": "JEMMAL (Cite Ennouzha)",
+          "nameAr": "جمال (حي النزهة)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite ennouzha) جمال (حي النزهة) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-erriadh--5020",
+          "nameFr": "JEMMAL (Cite Erriadh)",
+          "nameAr": "جمال (حي الرياض)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite erriadh) جمال (حي الرياض) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-essalem--5020",
+          "nameFr": "JEMMAL (Cite Essalem)",
+          "nameAr": "جمال (حي السلام)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite essalem) جمال (حي السلام) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-ettaamir--5020",
+          "nameFr": "JEMMAL (Cite Ettaamir)",
+          "nameAr": "جمال (حي التعمير)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite ettaamir) جمال (حي التعمير) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-ettadhamen--5020",
+          "nameFr": "JEMMAL (Cite Ettadhamen)",
+          "nameAr": "جمال (حي التضامن)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite ettadhamen) جمال (حي التضامن) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-ettahrir--5028",
+          "nameFr": "JEMMAL (Cite Ettahrir)",
+          "nameAr": "جمال (حي التحرير)",
+          "postalCode": "5028",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite ettahrir) جمال (حي التحرير) 5028"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-ezzahra--5020",
+          "nameFr": "JEMMAL (Cite Ezzahra)",
+          "nameAr": "جمال (حي الزهراء)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite ezzahra) جمال (حي الزهراء) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-ezzouhour-1--5020",
+          "nameFr": "JEMMAL (Cite Ezzouhour 1)",
+          "nameAr": "جمال (حي الزهور 1)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite ezzouhour 1) جمال (حي الزهور 1) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-ezzouhour-2--5020",
+          "nameFr": "JEMMAL (Cite Ezzouhour 2)",
+          "nameAr": "جمال (حي الزهور 2)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite ezzouhour 2) جمال (حي الزهور 2) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-independance--5020",
+          "nameFr": "JEMMAL (Cite Independance)",
+          "nameAr": "جمال (حي الإستقلال)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite independance) جمال (حي الإستقلال) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-jaouhara--5020",
+          "nameFr": "JEMMAL (Cite Jaouhara)",
+          "nameAr": "جمال (حي جوهرة)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite jaouhara) جمال (حي جوهرة) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-jardins--5020",
+          "nameFr": "JEMMAL (Cite Jardins)",
+          "nameAr": "جمال (حي الحدائق)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite jardins) جمال (حي الحدائق) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-operations-du-sahel--5020",
+          "nameFr": "JEMMAL (Cite Operations Du Sahel)",
+          "nameAr": "جمال (حي عمليات الساحل)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite operations du sahel) جمال (حي عمليات الساحل) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-cite-sidi-messaoud--5020",
+          "nameFr": "JEMMAL (Cite Sidi Messaoud)",
+          "nameAr": "جمال (حي سيدي مسعود)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (cite sidi messaoud) جمال (حي سيدي مسعود) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-el-hedadra--5017",
+          "nameFr": "JEMMAL (El Hedadra)",
+          "nameAr": "جمال (الحدادرة)",
+          "postalCode": "5017",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (el hedadra) جمال (الحدادرة) 5017"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-ettiayra--5027",
+          "nameFr": "JEMMAL (Ettiayra)",
+          "nameAr": "جمال (الطيارة)",
+          "postalCode": "5027",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (ettiayra) جمال (الطيارة) 5027"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-jemmal-kheireddine--5030",
+          "nameFr": "JEMMAL (Jemmal Kheireddine)",
+          "nameAr": "جمال (جمال خير الدين)",
+          "postalCode": "5030",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (jemmal kheireddine) جمال (جمال خير الدين) 5030"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-jemmal--5020",
+          "nameFr": "JEMMAL (Jemmal)",
+          "nameAr": "جمال (جمال)",
+          "postalCode": "5020",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (jemmal) جمال (جمال) 5020"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-menzel-kamel--5013",
+          "nameFr": "JEMMAL (Menzel Kamel)",
+          "nameAr": "جمال (منزل كامل)",
+          "postalCode": "5013",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (menzel kamel) جمال (منزل كامل) 5013"
+        },
+        {
+          "id": "monastir--jemmal--jemmal-zaouiet-kontech--5028",
+          "nameFr": "JEMMAL (Zaouiet Kontech)",
+          "nameAr": "جمال (زاوية قنطش)",
+          "postalCode": "5028",
+          "latitude": 35.6,
+          "longitude": 10.75,
+          "searchKey": "jemmal (zaouiet kontech) جمال (زاوية قنطش) 5028"
+        }
+      ]
+    },
+    {
+      "id": "monastir--ksar-helal",
+      "nameFr": "KSAR HELAL",
+      "nameAr": "قصر هلال",
+      "searchKey": "ksar helal قصر هلال",
+      "municipalities": [
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-bir-ali-hellal--5070",
+          "nameFr": "KSAR HELAL (Cite Bir Ali Hellal)",
+          "nameAr": "قصر هلال (حي بئر علي هلال)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite bir ali hellal) قصر هلال (حي بئر علي هلال) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-bir-soukra--5070",
+          "nameFr": "KSAR HELAL (Cite Bir Soukra)",
+          "nameAr": "قصر هلال (حي بئر سكرة)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite bir soukra) قصر هلال (حي بئر سكرة) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-bit-mekka--5070",
+          "nameFr": "KSAR HELAL (Cite Bit Mekka)",
+          "nameAr": "قصر هلال (حي بيت مكة)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite bit mekka) قصر هلال (حي بيت مكة) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-chougar--5070",
+          "nameFr": "KSAR HELAL (Cite Chougar)",
+          "nameAr": "قصر هلال (حي شوڨر)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite chougar) قصر هلال (حي شوڨر) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-commerciale-1--5070",
+          "nameFr": "KSAR HELAL (Cite Commerciale 1)",
+          "nameAr": "قصر هلال (الحي التجاري 1)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite commerciale 1) قصر هلال (الحي التجاري 1) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-dar-bumbla--5070",
+          "nameFr": "KSAR HELAL (Cite Dar Bumbla)",
+          "nameAr": "قصر هلال (حي دار بومبلة)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite dar bumbla) قصر هلال (حي دار بومبلة) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-de-la-municipalite--5070",
+          "nameFr": "KSAR HELAL (Cite De La Municipalite)",
+          "nameAr": "قصر هلال (حي البلدية)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite de la municipalite) قصر هلال (حي البلدية) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-ejjebsa--5070",
+          "nameFr": "KSAR HELAL (Cite Ejjebsa)",
+          "nameAr": "قصر هلال (حي الجبسة)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite ejjebsa) قصر هلال (حي الجبسة) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-el-gariaa--5070",
+          "nameFr": "KSAR HELAL (Cite El Gariaa)",
+          "nameAr": "قصر هلال (حي القريعة)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite el gariaa) قصر هلال (حي القريعة) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-el-maglouba--5070",
+          "nameFr": "KSAR HELAL (Cite El Maglouba)",
+          "nameAr": "قصر هلال (حي المقلوبة)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite el maglouba) قصر هلال (حي المقلوبة) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-erriadh-1--5070",
+          "nameFr": "KSAR HELAL (Cite Erriadh 1)",
+          "nameAr": "قصر هلال (حي الرياض 1)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite erriadh 1) قصر هلال (حي الرياض 1) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-erriadh-2--5070",
+          "nameFr": "KSAR HELAL (Cite Erriadh 2)",
+          "nameAr": "قصر هلال (حي الرياض 2)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite erriadh 2) قصر هلال (حي الرياض 2) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-erriadh-3--5070",
+          "nameFr": "KSAR HELAL (Cite Erriadh 3)",
+          "nameAr": "قصر هلال (حي الرياض 3)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite erriadh 3) قصر هلال (حي الرياض 3) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-industrielle--5070",
+          "nameFr": "KSAR HELAL (Cite Industrielle)",
+          "nameAr": "قصر هلال (الحي الصناعي)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite industrielle) قصر هلال (الحي الصناعي) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-moueheddine--5070",
+          "nameFr": "KSAR HELAL (Cite Moueheddine)",
+          "nameAr": "قصر هلال (حي الموحدين)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite moueheddine) قصر هلال (حي الموحدين) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-oued-kacem-et-el-ourami--5070",
+          "nameFr": "KSAR HELAL (Cite Oued Kacem Et El Ourami)",
+          "nameAr": "قصر هلال (حي وادي قاسم والورامي)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite oued kacem et el ourami) قصر هلال (حي وادي قاسم والورامي) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-cite-sanit-zaag-et-charef--5070",
+          "nameFr": "KSAR HELAL (Cite Sanit Zaag Et Charef)",
+          "nameAr": "قصر هلال (حي سانية زعق والشرف)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (cite sanit zaag et charef) قصر هلال (حي سانية زعق والشرف) 5070"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-ksar-helal-riadh--5016",
+          "nameFr": "KSAR HELAL (Ksar Helal Riadh)",
+          "nameAr": "قصر هلال (قصر هلال الرياض)",
+          "postalCode": "5016",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (ksar helal riadh) قصر هلال (قصر هلال الرياض) 5016"
+        },
+        {
+          "id": "monastir--ksar-helal--ksar-helal-ksar-helal--5070",
+          "nameFr": "KSAR HELAL (Ksar Helal)",
+          "nameAr": "قصر هلال (قصر هلال)",
+          "postalCode": "5070",
+          "latitude": 35.6439,
+          "longitude": 10.8906,
+          "searchKey": "ksar helal (ksar helal) قصر هلال (قصر هلال) 5070"
+        }
+      ]
+    },
+    {
+      "id": "monastir--ksibet-el-mediouni",
+      "nameFr": "KSIBET EL MEDIOUNI",
+      "nameAr": "قصيبة المديوني",
+      "searchKey": "ksibet el mediouni قصيبة المديوني",
+      "municipalities": [
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-bennane--5025",
+          "nameFr": "KSIBET EL MEDIOUNI (Bennane)",
+          "nameAr": "قصيبة المديوني (بنان)",
+          "postalCode": "5025",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (bennane) قصيبة المديوني (بنان) 5025"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-bou-dher--5063",
+          "nameFr": "KSIBET EL MEDIOUNI (Bou Dher)",
+          "nameAr": "قصيبة المديوني (بوذراع)",
+          "postalCode": "5063",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (bou dher) قصيبة المديوني (بوذراع) 5063"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-18-janvier--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite 18 Janvier)",
+          "nameAr": "قصيبة المديوني (حي 18 جانفي)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite 18 janvier) قصيبة المديوني (حي 18 جانفي) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-air-nouvelle--5025",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Air Nouvelle)",
+          "nameAr": "قصيبة المديوني (حي الهواء الجديد)",
+          "postalCode": "5025",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite air nouvelle) قصيبة المديوني (حي الهواء الجديد) 5025"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-commerciale--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Commerciale)",
+          "nameAr": "قصيبة المديوني (الحي التجاري)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite commerciale) قصيبة المديوني (الحي التجاري) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-de-la-liberte--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite De La Liberte)",
+          "nameAr": "قصيبة المديوني (حي الحرية)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite de la liberte) قصيبة المديوني (حي الحرية) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-el-bassatine--5025",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite El Bassatine)",
+          "nameAr": "قصيبة المديوني (حي البساتين)",
+          "postalCode": "5025",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite el bassatine) قصيبة المديوني (حي البساتين) 5025"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-el-intilaka--5025",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite El Intilaka)",
+          "nameAr": "قصيبة المديوني (حي الإنطلاقة)",
+          "postalCode": "5025",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite el intilaka) قصيبة المديوني (حي الإنطلاقة) 5025"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-ennadhour-1--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Ennadhour 1)",
+          "nameAr": "قصيبة المديوني (حي الناظور 1)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite ennadhour 1) قصيبة المديوني (حي الناظور 1) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-ennadhour-2--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Ennadhour 2)",
+          "nameAr": "قصيبة المديوني (حي الناظور 2)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite ennadhour 2) قصيبة المديوني (حي الناظور 2) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-ennadhour-3--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Ennadhour 3)",
+          "nameAr": "قصيبة المديوني (حي الناظور 3)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite ennadhour 3) قصيبة المديوني (حي الناظور 3) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-essakia--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Essakia)",
+          "nameAr": "قصيبة المديوني (حي الساقية)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite essakia) قصيبة المديوني (حي الساقية) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-ezzayatine--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Ezzayatine)",
+          "nameAr": "قصيبة المديوني (حي الزياتين)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite ezzayatine) قصيبة المديوني (حي الزياتين) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-oued-sekkal--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Oued Sekkal)",
+          "nameAr": "قصيبة المديوني (حي وادي سقال)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite oued sekkal) قصيبة المديوني (حي وادي سقال) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-populaire--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Populaire)",
+          "nameAr": "قصيبة المديوني (الحي الشعبي)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite populaire) قصيبة المديوني (الحي الشعبي) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-rabbah--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Rabbah)",
+          "nameAr": "قصيبة المديوني (حي رباح)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite rabbah) قصيبة المديوني (حي رباح) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-sidi-el-mediouni--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Sidi El Mediouni)",
+          "nameAr": "قصيبة المديوني (حي سيدي المديوني)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite sidi el mediouni) قصيبة المديوني (حي سيدي المديوني) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-snit--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Snit)",
+          "nameAr": "قصيبة المديوني (حي سنيت)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite snit) قصيبة المديوني (حي سنيت) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-cite-tarek-ibn-zied--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Cite Tarek Ibn Zied)",
+          "nameAr": "قصيبة المديوني (حي طارق بن زياد)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (cite tarek ibn zied) قصيبة المديوني (حي طارق بن زياد) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-ksibet-el-mediouni--5031",
+          "nameFr": "KSIBET EL MEDIOUNI (Ksibet El Mediouni)",
+          "nameAr": "قصيبة المديوني (قصيبة المديوني)",
+          "postalCode": "5031",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (ksibet el mediouni) قصيبة المديوني (قصيبة المديوني) 5031"
+        },
+        {
+          "id": "monastir--ksibet-el-mediouni--ksibet-el-mediouni-touza--5023",
+          "nameFr": "KSIBET EL MEDIOUNI (Touza)",
+          "nameAr": "قصيبة المديوني (طوزة)",
+          "postalCode": "5023",
+          "latitude": 35.6667,
+          "longitude": 10.8167,
+          "searchKey": "ksibet el mediouni (touza) قصيبة المديوني (طوزة) 5023"
+        }
+      ]
+    },
+    {
+      "id": "monastir--moknine",
+      "nameFr": "MOKNINE",
+      "nameAr": "المنستير",
+      "searchKey": "moknine المنستير",
+      "municipalities": [
+        {
+          "id": "monastir--moknine--moknine-amirat-el-fehoul--5053",
+          "nameFr": "MOKNINE (Amirat El Fehoul)",
+          "nameAr": "المنستير (عميرة الفحول)",
+          "postalCode": "5053",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (amirat el fehoul) المنستير (عميرة الفحول) 5053"
+        },
+        {
+          "id": "monastir--moknine--moknine-amirat-el-hojjej--5071",
+          "nameFr": "MOKNINE (Amirat El Hojjej)",
+          "nameAr": "المنستير (عميرة الحجاج)",
+          "postalCode": "5071",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (amirat el hojjej) المنستير (عميرة الحجاج) 5071"
+        },
+        {
+          "id": "monastir--moknine--moknine-amirat-touazra--5054",
+          "nameFr": "MOKNINE (Amirat Touazra)",
+          "nameAr": "المنستير (عميرة التوازرة)",
+          "postalCode": "5054",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (amirat touazra) المنستير (عميرة التوازرة) 5054"
+        },
+        {
+          "id": "monastir--moknine--moknine-cherahil--5034",
+          "nameFr": "MOKNINE (Cherahil)",
+          "nameAr": "المنستير (شراحيل)",
+          "postalCode": "5034",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (cherahil) المنستير (شراحيل) 5034"
+        },
+        {
+          "id": "monastir--moknine--moknine-cite-el-bassatine--5034",
+          "nameFr": "MOKNINE (Cite El Bassatine)",
+          "nameAr": "المنستير (حي البساتين)",
+          "postalCode": "5034",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (cite el bassatine) المنستير (حي البساتين) 5034"
+        },
+        {
+          "id": "monastir--moknine--moknine-cite-el-omrane--5034",
+          "nameFr": "MOKNINE (Cite El Omrane)",
+          "nameAr": "المنستير (حي العمران)",
+          "postalCode": "5034",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (cite el omrane) المنستير (حي العمران) 5034"
+        },
+        {
+          "id": "monastir--moknine--moknine-cite-ennasr--5034",
+          "nameFr": "MOKNINE (Cite Ennasr)",
+          "nameAr": "المنستير (حي النصر)",
+          "postalCode": "5034",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (cite ennasr) المنستير (حي النصر) 5034"
+        },
+        {
+          "id": "monastir--moknine--moknine-cite-ezzayatine--5034",
+          "nameFr": "MOKNINE (Cite Ezzayatine)",
+          "nameAr": "المنستير (حي الزياتين)",
+          "postalCode": "5034",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (cite ezzayatine) المنستير (حي الزياتين) 5034"
+        },
+        {
+          "id": "monastir--moknine--moknine-cite-populaire--5034",
+          "nameFr": "MOKNINE (Cite Populaire)",
+          "nameAr": "المنستير (الحي الشعبي)",
+          "postalCode": "5034",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (cite populaire) المنستير (الحي الشعبي) 5034"
+        },
+        {
+          "id": "monastir--moknine--moknine-cite-trabelsia--5034",
+          "nameFr": "MOKNINE (Cite Trabelsia)",
+          "nameAr": "المنستير (حي الطرابلسية)",
+          "postalCode": "5034",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (cite trabelsia) المنستير (حي الطرابلسية) 5034"
+        },
+        {
+          "id": "monastir--moknine--moknine-cite-zraraa--5034",
+          "nameFr": "MOKNINE (Cite Zraraa)",
+          "nameAr": "المنستير (حي زرارة)",
+          "postalCode": "5034",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (cite zraraa) المنستير (حي زرارة) 5034"
+        },
+        {
+          "id": "monastir--moknine--moknine-menzel-fersi--5024",
+          "nameFr": "MOKNINE (Menzel Fersi)",
+          "nameAr": "المنستير (منزل فارسي)",
+          "postalCode": "5024",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (menzel fersi) المنستير (منزل فارسي) 5024"
+        },
+        {
+          "id": "monastir--moknine--moknine-moknine-el-jadida--5051",
+          "nameFr": "MOKNINE (Moknine El Jadida)",
+          "nameAr": "المنستير (المكنين الجديدة)",
+          "postalCode": "5051",
+          "latitude": 35.6311,
+          "longitude": 10.9011,
+          "searchKey": "moknine (moknine el jadida) المنستير (المكنين الجديدة) 5051"
+        }
+      ]
+    },
+    {
+      "id": "monastir--monastir",
+      "nameFr": "MONASTIR",
+      "nameAr": "المنستير",
+      "searchKey": "monastir المنستير",
+      "municipalities": [
+        {
+          "id": "monastir--monastir--monastir-cite-bir-hlou--5060",
+          "nameFr": "MONASTIR (Cite Bir Hlou)",
+          "nameAr": "المنستير (حي بئر حلو)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite bir hlou) المنستير (حي بئر حلو) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-cheraka--5060",
+          "nameFr": "MONASTIR (Cite Cheraka)",
+          "nameAr": "المنستير (حي الشراكة)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite cheraka) المنستير (حي الشراكة) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-cnrps--5060",
+          "nameFr": "MONASTIR (Cite Cnrps)",
+          "nameAr": "المنستير (حي الصندوق الوطني للتقاعد والحيطة الإجتماعية)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite cnrps) المنستير (حي الصندوق الوطني للتقاعد والحيطة الإجتماعية) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-el-amel--5060",
+          "nameFr": "MONASTIR (Cite El Amel)",
+          "nameAr": "المنستير (حي الأمل)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite el amel) المنستير (حي الأمل) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-el-bassatine--5089",
+          "nameFr": "MONASTIR (Cite El Bassatine)",
+          "nameAr": "المنستير (حي البساتين)",
+          "postalCode": "5089",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite el bassatine) المنستير (حي البساتين) 5089"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-el-faouz--5060",
+          "nameFr": "MONASTIR (Cite El Faouz)",
+          "nameAr": "المنستير (حي الفوز)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite el faouz) المنستير (حي الفوز) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-el-farik--5060",
+          "nameFr": "MONASTIR (Cite El Farik)",
+          "nameAr": "المنستير (حي الفريق)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite el farik) المنستير (حي الفريق) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-el-mzali--5060",
+          "nameFr": "MONASTIR (Cite El Mzali)",
+          "nameAr": "المنستير (حي المزالي)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite el mzali) المنستير (حي المزالي) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-erriadh--5060",
+          "nameFr": "MONASTIR (Cite Erriadh)",
+          "nameAr": "المنستير (حي الرياض)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite erriadh) المنستير (حي الرياض) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-essaada--5060",
+          "nameFr": "MONASTIR (Cite Essaada)",
+          "nameAr": "المنستير (حي السعادة)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite essaada) المنستير (حي السعادة) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-essalem--5060",
+          "nameFr": "MONASTIR (Cite Essalem)",
+          "nameAr": "المنستير (حي السلام)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite essalem) المنستير (حي السلام) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-sidi-nasser--5060",
+          "nameFr": "MONASTIR (Cite Sidi Nasser)",
+          "nameAr": "المنستير (حي سيدي نصر)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite sidi nasser) المنستير (حي سيدي نصر) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-cite-trabelsia--5060",
+          "nameFr": "MONASTIR (Cite Trabelsia)",
+          "nameAr": "المنستير (حي الطرابلسية)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (cite trabelsia) المنستير (حي الطرابلسية) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-khenis--5011",
+          "nameFr": "MONASTIR (Khenis)",
+          "nameAr": "المنستير (خنيس)",
+          "postalCode": "5011",
+          "latitude": 35.7306,
+          "longitude": 10.7997,
+          "searchKey": "monastir (khenis) المنستير (خنيس) 5011"
+        },
+        {
+          "id": "monastir--monastir--monastir-monastir-aeroport--5065",
+          "nameFr": "MONASTIR (Monastir Aeroport)",
+          "nameAr": "المنستير (مطار المنستير)",
+          "postalCode": "5065",
+          "latitude": 35.7581,
+          "longitude": 10.7547,
+          "searchKey": "monastir (monastir aeroport) المنستير (مطار المنستير) 5065"
+        },
+        {
+          "id": "monastir--monastir--monastir-monastir-gare--5079",
+          "nameFr": "MONASTIR (Monastir Gare)",
+          "nameAr": "المنستير (المنستير المحطة)",
+          "postalCode": "5079",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (monastir gare) المنستير (المنستير المحطة) 5079"
+        },
+        {
+          "id": "monastir--monastir--monastir-monastir-republique--5060",
+          "nameFr": "MONASTIR (Monastir Republique)",
+          "nameAr": "المنستير (المنستير الجمهورية)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (monastir republique) المنستير (المنستير الجمهورية) 5060"
+        },
+        {
+          "id": "monastir--monastir--monastir-monastir--5000",
+          "nameFr": "MONASTIR (Monastir)",
+          "nameAr": "المنستير (المنستير)",
+          "postalCode": "5000",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (monastir) المنستير (المنستير) 5000"
+        },
+        {
+          "id": "monastir--monastir--monastir-zone-hoteliere--5065",
+          "nameFr": "MONASTIR (Zone Hoteliere)",
+          "nameAr": "المنستير (المنطقة الفندقية)",
+          "postalCode": "5065",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (zone hoteliere) المنستير (المنطقة الفندقية) 5065"
+        },
+        {
+          "id": "monastir--monastir--monastir-zone-skanes--5060",
+          "nameFr": "MONASTIR (Zone Skanes)",
+          "nameAr": "المنستير (منطقة سقانص)",
+          "postalCode": "5060",
+          "latitude": 35.7644,
+          "longitude": 10.8,
+          "searchKey": "monastir (zone skanes) المنستير (منطقة سقانص) 5060"
+        }
+      ]
+    },
+    {
+      "id": "monastir--ouerdanine",
+      "nameFr": "OUERDANINE",
+      "nameAr": "الوردانين",
+      "searchKey": "ouerdanine الوردانين",
+      "municipalities": [
+        {
+          "id": "monastir--ouerdanine--ouerdanine-bou-othmane--5052",
+          "nameFr": "OUERDANINE (Bou Othmane)",
+          "nameAr": "الوردانين (بوعثمان)",
+          "postalCode": "5052",
+          "latitude": 35.6764,
+          "longitude": 10.7281,
+          "searchKey": "ouerdanine (bou othmane) الوردانين (بوعثمان) 5052"
+        },
+        {
+          "id": "monastir--ouerdanine--ouerdanine-cite-22-janvier--5010",
+          "nameFr": "OUERDANINE (Cite 22 Janvier)",
+          "nameAr": "الوردانين (حي 22 جانفي)",
+          "postalCode": "5010",
+          "latitude": 35.6764,
+          "longitude": 10.7281,
+          "searchKey": "ouerdanine (cite 22 janvier) الوردانين (حي 22 جانفي) 5010"
+        },
+        {
+          "id": "monastir--ouerdanine--ouerdanine-cite-7-novembre--5010",
+          "nameFr": "OUERDANINE (Cite 7 Novembre)",
+          "nameAr": "الوردانين (حي 7 نوفمبر)",
+          "postalCode": "5010",
+          "latitude": 35.6764,
+          "longitude": 10.7281,
+          "searchKey": "ouerdanine (cite 7 novembre) الوردانين (حي 7 نوفمبر) 5010"
+        },
+        {
+          "id": "monastir--ouerdanine--ouerdanine-cite-abdelaziz-thaalbi--5010",
+          "nameFr": "OUERDANINE (Cite Abdelaziz Thaalbi)",
+          "nameAr": "الوردانين (حي عبد العزيز الثعالبي)",
+          "postalCode": "5010",
+          "latitude": 35.6764,
+          "longitude": 10.7281,
+          "searchKey": "ouerdanine (cite abdelaziz thaalbi) الوردانين (حي عبد العزيز الثعالبي) 5010"
+        },
+        {
+          "id": "monastir--ouerdanine--ouerdanine-cite-ennouhoudh--5010",
+          "nameFr": "OUERDANINE (Cite Ennouhoudh)",
+          "nameAr": "الوردانين (حي النهوض)",
+          "postalCode": "5010",
+          "latitude": 35.6764,
+          "longitude": 10.7281,
+          "searchKey": "ouerdanine (cite ennouhoudh) الوردانين (حي النهوض) 5010"
+        },
+        {
+          "id": "monastir--ouerdanine--ouerdanine-cite-ennouzha--5010",
+          "nameFr": "OUERDANINE (Cite Ennouzha)",
+          "nameAr": "الوردانين (حي النزهة)",
+          "postalCode": "5010",
+          "latitude": 35.6764,
+          "longitude": 10.7281,
+          "searchKey": "ouerdanine (cite ennouzha) الوردانين (حي النزهة) 5010"
+        },
+        {
+          "id": "monastir--ouerdanine--ouerdanine-cite-mohamed-ali--5010",
+          "nameFr": "OUERDANINE (Cite Mohamed Ali)",
+          "nameAr": "الوردانين (حي محمد علي)",
+          "postalCode": "5010",
+          "latitude": 35.6764,
+          "longitude": 10.7281,
+          "searchKey": "ouerdanine (cite mohamed ali) الوردانين (حي محمد علي) 5010"
+        },
+        {
+          "id": "monastir--ouerdanine--ouerdanine-ouerdanine--5010",
+          "nameFr": "OUERDANINE (Ouerdanine)",
+          "nameAr": "الوردانين (الوردانين)",
+          "postalCode": "5010",
+          "latitude": 35.6764,
+          "longitude": 10.7281,
+          "searchKey": "ouerdanine (ouerdanine) الوردانين (الوردانين) 5010"
+        }
+      ]
+    },
+    {
+      "id": "monastir--sahline",
+      "nameFr": "SAHLINE",
+      "nameAr": "الساحلين",
+      "searchKey": "sahline الساحلين",
+      "municipalities": [
+        {
+          "id": "monastir--sahline--sahline-cite-echaabia-nlle--5012",
+          "nameFr": "SAHLINE (Cite Echaabia Nlle)",
+          "nameAr": "الساحلين (الحي الشعبي الجديدة)",
+          "postalCode": "5012",
+          "latitude": 35.7197,
+          "longitude": 10.7594,
+          "searchKey": "sahline (cite echaabia nlle) الساحلين (الحي الشعبي الجديدة) 5012"
+        },
+        {
+          "id": "monastir--sahline--sahline-cite-nouvelle--5061",
+          "nameFr": "SAHLINE (Cite Nouvelle)",
+          "nameAr": "الساحلين (الحي الجديد)",
+          "postalCode": "5061",
+          "latitude": 35.7197,
+          "longitude": 10.7594,
+          "searchKey": "sahline (cite nouvelle) الساحلين (الحي الجديد) 5061"
+        },
+        {
+          "id": "monastir--sahline--sahline-mootmar--5012",
+          "nameFr": "SAHLINE (Mootmar)",
+          "nameAr": "الساحلين (المؤتمر)",
+          "postalCode": "5012",
+          "latitude": 35.7197,
+          "longitude": 10.7594,
+          "searchKey": "sahline (mootmar) الساحلين (المؤتمر) 5012"
+        },
+        {
+          "id": "monastir--sahline--sahline-sahline--5012",
+          "nameFr": "SAHLINE (Sahline)",
+          "nameAr": "الساحلين (الساحلين)",
+          "postalCode": "5012",
+          "latitude": 35.7197,
+          "longitude": 10.7594,
+          "searchKey": "sahline (sahline) الساحلين (الساحلين) 5012"
+        },
+        {
+          "id": "monastir--sahline--sahline-sidi-ameur--5061",
+          "nameFr": "SAHLINE (Sidi Ameur)",
+          "nameAr": "الساحلين (سيدي عامر)",
+          "postalCode": "5061",
+          "latitude": 35.7197,
+          "longitude": 10.7594,
+          "searchKey": "sahline (sidi ameur) الساحلين (سيدي عامر) 5061"
+        }
+      ]
+    },
+    {
+      "id": "monastir--sayada-lamta-bou-hajar",
+      "nameFr": "SAYADA LAMTA BOU HAJAR",
+      "nameAr": "صيادة لمطة بوحجر",
+      "searchKey": "sayada lamta bou hajar صيادة لمطة بوحجر",
+      "municipalities": [
+        {
+          "id": "monastir--sayada-lamta-bou-hajar--sayada-lamta-bou-hajar-bou-hajar--5015",
+          "nameFr": "SAYADA LAMTA BOU HAJAR (Bou Hajar)",
+          "nameAr": "صيادة لمطة بوحجر (بوحجر)",
+          "postalCode": "5015",
+          "latitude": 35.6719,
+          "longitude": 10.8725,
+          "searchKey": "sayada lamta bou hajar (bou hajar) صيادة لمطة بوحجر (بوحجر) 5015"
+        },
+        {
+          "id": "monastir--sayada-lamta-bou-hajar--sayada-lamta-bou-hajar-cite-bir-el-ayeb--5099",
+          "nameFr": "SAYADA LAMTA BOU HAJAR (Cite Bir El Ayeb)",
+          "nameAr": "صيادة لمطة بوحجر (حي بئر العايب)",
+          "postalCode": "5099",
+          "latitude": 35.6719,
+          "longitude": 10.8725,
+          "searchKey": "sayada lamta bou hajar (cite bir el ayeb) صيادة لمطة بوحجر (حي بئر العايب) 5099"
+        },
+        {
+          "id": "monastir--sayada-lamta-bou-hajar--sayada-lamta-bou-hajar-cite-choobet-romman--5015",
+          "nameFr": "SAYADA LAMTA BOU HAJAR (Cite Choobet Romman)",
+          "nameAr": "صيادة لمطة بوحجر (حي شعبة رمان)",
+          "postalCode": "5015",
+          "latitude": 35.6719,
+          "longitude": 10.8725,
+          "searchKey": "sayada lamta bou hajar (cite choobet romman) صيادة لمطة بوحجر (حي شعبة رمان) 5015"
+        },
+        {
+          "id": "monastir--sayada-lamta-bou-hajar--sayada-lamta-bou-hajar-cite-ennadhour--5099",
+          "nameFr": "SAYADA LAMTA BOU HAJAR (Cite Ennadhour)",
+          "nameAr": "صيادة لمطة بوحجر (حي الناظور)",
+          "postalCode": "5099",
+          "latitude": 35.6719,
+          "longitude": 10.8725,
+          "searchKey": "sayada lamta bou hajar (cite ennadhour) صيادة لمطة بوحجر (حي الناظور) 5099"
+        },
+        {
+          "id": "monastir--sayada-lamta-bou-hajar--sayada-lamta-bou-hajar-cite-gourraia--5035",
+          "nameFr": "SAYADA LAMTA BOU HAJAR (Cite Gourraia)",
+          "nameAr": "صيادة لمطة بوحجر (حي القرايعة)",
+          "postalCode": "5035",
+          "latitude": 35.6719,
+          "longitude": 10.8725,
+          "searchKey": "sayada lamta bou hajar (cite gourraia) صيادة لمطة بوحجر (حي القرايعة) 5035"
+        },
+        {
+          "id": "monastir--sayada-lamta-bou-hajar--sayada-lamta-bou-hajar-cite-nouvelle--5015",
+          "nameFr": "SAYADA LAMTA BOU HAJAR (Cite Nouvelle)",
+          "nameAr": "صيادة لمطة بوحجر (الحي الجديد)",
+          "postalCode": "5015",
+          "latitude": 35.6719,
+          "longitude": 10.8725,
+          "searchKey": "sayada lamta bou hajar (cite nouvelle) صيادة لمطة بوحجر (الحي الجديد) 5015"
+        },
+        {
+          "id": "monastir--sayada-lamta-bou-hajar--sayada-lamta-bou-hajar-cite-sidi-ammar--5035",
+          "nameFr": "SAYADA LAMTA BOU HAJAR (Cite Sidi Ammar)",
+          "nameAr": "صيادة لمطة بوحجر (حي سيدي عمار)",
+          "postalCode": "5035",
+          "latitude": 35.6719,
+          "longitude": 10.8725,
+          "searchKey": "sayada lamta bou hajar (cite sidi ammar) صيادة لمطة بوحجر (حي سيدي عمار) 5035"
+        },
+        {
+          "id": "monastir--sayada-lamta-bou-hajar--sayada-lamta-bou-hajar-lamta--5099",
+          "nameFr": "SAYADA LAMTA BOU HAJAR (Lamta)",
+          "nameAr": "صيادة لمطة بوحجر (لمطة)",
+          "postalCode": "5099",
+          "latitude": 35.6719,
+          "longitude": 10.8725,
+          "searchKey": "sayada lamta bou hajar (lamta) صيادة لمطة بوحجر (لمطة) 5099"
+        },
+        {
+          "id": "monastir--sayada-lamta-bou-hajar--sayada-lamta-bou-hajar-sayada--5035",
+          "nameFr": "SAYADA LAMTA BOU HAJAR (Sayada)",
+          "nameAr": "صيادة لمطة بوحجر (صيادة)",
+          "postalCode": "5035",
+          "latitude": 35.6719,
+          "longitude": 10.8725,
+          "searchKey": "sayada lamta bou hajar (sayada) صيادة لمطة بوحجر (صيادة) 5035"
+        },
+        {
+          "id": "monastir--sayada-lamta-bou-hajar--sayada-lamta-bou-hajar-sidi-abdessalem--5035",
+          "nameFr": "SAYADA LAMTA BOU HAJAR (Sidi Abdessalem)",
+          "nameAr": "صيادة لمطة بوحجر (سيدي عبد السلام)",
+          "postalCode": "5035",
+          "latitude": 35.6719,
+          "longitude": 10.8725,
+          "searchKey": "sayada lamta bou hajar (sidi abdessalem) صيادة لمطة بوحجر (سيدي عبد السلام) 5035"
+        }
+      ]
+    },
+    {
+      "id": "monastir--teboulba",
+      "nameFr": "TEBOULBA",
+      "nameAr": "طبلبة",
+      "searchKey": "teboulba طبلبة",
+      "municipalities": [
+        {
+          "id": "monastir--teboulba--teboulba-cite-bou-drisse--5080",
+          "nameFr": "TEBOULBA (Cite Bou Drisse)",
+          "nameAr": "طبلبة (حي بودريس)",
+          "postalCode": "5080",
+          "latitude": 35.6425,
+          "longitude": 10.9614,
+          "searchKey": "teboulba (cite bou drisse) طبلبة (حي بودريس) 5080"
+        },
+        {
+          "id": "monastir--teboulba--teboulba-cite-el-fadhline--5080",
+          "nameFr": "TEBOULBA (Cite El Fadhline)",
+          "nameAr": "طبلبة (حي الفاضلين)",
+          "postalCode": "5080",
+          "latitude": 35.6425,
+          "longitude": 10.9614,
+          "searchKey": "teboulba (cite el fadhline) طبلبة (حي الفاضلين) 5080"
+        },
+        {
+          "id": "monastir--teboulba--teboulba-soukrine--5066",
+          "nameFr": "TEBOULBA (Soukrine)",
+          "nameAr": "طبلبة (سكرين)",
+          "postalCode": "5066",
+          "latitude": 35.6425,
+          "longitude": 10.9614,
+          "searchKey": "teboulba (soukrine) طبلبة (سكرين) 5066"
+        },
+        {
+          "id": "monastir--teboulba--teboulba-teboulba--5080",
+          "nameFr": "TEBOULBA (Teboulba)",
+          "nameAr": "طبلبة (طبلبة)",
+          "postalCode": "5080",
+          "latitude": 35.6425,
+          "longitude": 10.9614,
+          "searchKey": "teboulba (teboulba) طبلبة (طبلبة) 5080"
+        }
+      ]
+    },
+    {
+      "id": "monastir--zeramdine",
+      "nameFr": "ZERAMDINE",
+      "nameAr": "زرمدين",
+      "searchKey": "zeramdine زرمدين",
+      "municipalities": [
+        {
+          "id": "monastir--zeramdine--zeramdine-cite-el-kods--5040",
+          "nameFr": "ZERAMDINE (Cite El Kods)",
+          "nameAr": "زرمدين (حي القدس)",
+          "postalCode": "5040",
+          "latitude": 35.5803,
+          "longitude": 10.7806,
+          "searchKey": "zeramdine (cite el kods) زرمدين (حي القدس) 5040"
+        },
+        {
+          "id": "monastir--zeramdine--zeramdine-cite-el-manar--5040",
+          "nameFr": "ZERAMDINE (Cite El Manar)",
+          "nameAr": "زرمدين (حي المنار)",
+          "postalCode": "5040",
+          "latitude": 35.5803,
+          "longitude": 10.7806,
+          "searchKey": "zeramdine (cite el manar) زرمدين (حي المنار) 5040"
+        },
+        {
+          "id": "monastir--zeramdine--zeramdine-zeramdine--5040",
+          "nameFr": "ZERAMDINE (Zeramdine)",
+          "nameAr": "زرمدين (زرمدين)",
+          "postalCode": "5040",
+          "latitude": 35.5803,
+          "longitude": 10.7806,
+          "searchKey": "zeramdine (zeramdine) زرمدين (زرمدين) 5040"
+        }
+      ]
+    }
+  ]
+}

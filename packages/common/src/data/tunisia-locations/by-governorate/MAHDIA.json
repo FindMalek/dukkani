@@ -1,0 +1,1659 @@
+{
+  "code": "MAHDIA",
+  "delegations": [
+    {
+      "id": "mahdia--bou-merdes",
+      "nameFr": "BOU MERDES",
+      "nameAr": "بومرداس",
+      "searchKey": "bou merdes بومرداس",
+      "municipalities": [
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-bou-helal-el-ali-nord--5112",
+          "nameFr": "BOU MERDES (Bou Helal El Ali Nord)",
+          "nameAr": "بومرداس (بوهلال العلي الشمالية)",
+          "postalCode": "5112",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (bou helal el ali nord) بومرداس (بوهلال العلي الشمالية) 5112"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-bou-helal-sud--5125",
+          "nameFr": "BOU MERDES (Bou Helal Sud)",
+          "nameAr": "بومرداس (بوهلال الجنوبية)",
+          "postalCode": "5125",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (bou helal sud) بومرداس (بوهلال الجنوبية) 5125"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-bou-merdes--5110",
+          "nameFr": "BOU MERDES (Bou Merdes)",
+          "nameAr": "بومرداس (بومرداس)",
+          "postalCode": "5110",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (bou merdes) بومرداس (بومرداس) 5110"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-chouaria--5110",
+          "nameFr": "BOU MERDES (Chouaria)",
+          "nameAr": "بومرداس (الشوارعية)",
+          "postalCode": "5110",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (chouaria) بومرداس (الشوارعية) 5110"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-cite-administrative--5112",
+          "nameFr": "BOU MERDES (Cite Administrative)",
+          "nameAr": "بومرداس (الحي الإداري)",
+          "postalCode": "5112",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (cite administrative) بومرداس (الحي الإداري) 5112"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-cite-ghrissine--5112",
+          "nameFr": "BOU MERDES (Cite Ghrissine)",
+          "nameAr": "بومرداس (حي غريسين)",
+          "postalCode": "5112",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (cite ghrissine) بومرداس (حي غريسين) 5112"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-cite-jebel--5112",
+          "nameFr": "BOU MERDES (Cite Jebel)",
+          "nameAr": "بومرداس (حي الجبل)",
+          "postalCode": "5112",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (cite jebel) بومرداس (حي الجبل) 5112"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-cite-rurale--5112",
+          "nameFr": "BOU MERDES (Cite Rurale)",
+          "nameAr": "بومرداس (الحي الريفي)",
+          "postalCode": "5112",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (cite rurale) بومرداس (الحي الريفي) 5112"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-cite-snit--5112",
+          "nameFr": "BOU MERDES (Cite Snit)",
+          "nameAr": "بومرداس (حي سنيت)",
+          "postalCode": "5112",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (cite snit) بومرداس (حي سنيت) 5112"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-el-aouadhbia--5112",
+          "nameFr": "BOU MERDES (El Aouadhbia)",
+          "nameAr": "بومرداس (العواضبية)",
+          "postalCode": "5112",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (el aouadhbia) بومرداس (العواضبية) 5112"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-el-hous--5110",
+          "nameFr": "BOU MERDES (El Hous)",
+          "nameAr": "بومرداس (الحوس)",
+          "postalCode": "5110",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (el hous) بومرداس (الحوس) 5110"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-el-melahma--5112",
+          "nameFr": "BOU MERDES (El Melahma)",
+          "nameAr": "بومرداس (الملاحمة)",
+          "postalCode": "5112",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (el melahma) بومرداس (الملاحمة) 5112"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-ennaima--5110",
+          "nameFr": "BOU MERDES (Ennaima)",
+          "nameAr": "بومرداس (النعيمة)",
+          "postalCode": "5110",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (ennaima) بومرداس (النعيمة) 5110"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-errebibette--5112",
+          "nameFr": "BOU MERDES (Errebibette)",
+          "nameAr": "بومرداس (الربيبات)",
+          "postalCode": "5112",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (errebibette) بومرداس (الربيبات) 5112"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-errouadhi--5110",
+          "nameFr": "BOU MERDES (Errouadhi)",
+          "nameAr": "بومرداس (الروابضي)",
+          "postalCode": "5110",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (errouadhi) بومرداس (الروابضي) 5110"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-kerker--5112",
+          "nameFr": "BOU MERDES (Kerker)",
+          "nameAr": "بومرداس (كركر)",
+          "postalCode": "5112",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (kerker) بومرداس (كركر) 5112"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-menzel-hamza-est--5110",
+          "nameFr": "BOU MERDES (Menzel Hamza Est)",
+          "nameAr": "بومرداس (منزل حمزة الشرقية)",
+          "postalCode": "5110",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (menzel hamza est) بومرداس (منزل حمزة الشرقية) 5110"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-menzel-hamza-ouest--5110",
+          "nameFr": "BOU MERDES (Menzel Hamza Ouest)",
+          "nameAr": "بومرداس (منزل حمزة الغربية)",
+          "postalCode": "5110",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (menzel hamza ouest) بومرداس (منزل حمزة الغربية) 5110"
+        },
+        {
+          "id": "mahdia--bou-merdes--bou-merdes-zerata--5110",
+          "nameFr": "BOU MERDES (Zerata)",
+          "nameAr": "بومرداس (زراتة)",
+          "postalCode": "5110",
+          "latitude": 35.4333,
+          "longitude": 10.7333,
+          "searchKey": "bou merdes (zerata) بومرداس (زراتة) 5110"
+        }
+      ]
+    },
+    {
+      "id": "mahdia--chorbane",
+      "nameFr": "CHORBANE",
+      "nameAr": "شربان",
+      "searchKey": "chorbane شربان",
+      "municipalities": [
+        {
+          "id": "mahdia--chorbane--chorbane-chahda--5133",
+          "nameFr": "CHORBANE (Chahda)",
+          "nameAr": "شربان (شهدة)",
+          "postalCode": "5133",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (chahda) شربان (شهدة) 5133"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-charaf--5130",
+          "nameFr": "CHORBANE (Charaf)",
+          "nameAr": "شربان (شرف)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (charaf) شربان (شرف) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-chorbane--5130",
+          "nameFr": "CHORBANE (Chorbane)",
+          "nameAr": "شربان (شربان)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (chorbane) شربان (شربان) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-cite-nouvelle--5130",
+          "nameFr": "CHORBANE (Cite Nouvelle)",
+          "nameAr": "شربان (الحي الجديد)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (cite nouvelle) شربان (الحي الجديد) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-el-bassora--5130",
+          "nameFr": "CHORBANE (El Bassora)",
+          "nameAr": "شربان (البصيرة)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (el bassora) شربان (البصيرة) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-el-gouassem--5130",
+          "nameFr": "CHORBANE (El Gouassem)",
+          "nameAr": "شربان (القواسم)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (el gouassem) شربان (القواسم) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-el-gradha-est--5130",
+          "nameFr": "CHORBANE (El Gradha Est)",
+          "nameAr": "شربان (القرضة الشرقية)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (el gradha est) شربان (القرضة الشرقية) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-el-gradha-ouest--5130",
+          "nameFr": "CHORBANE (El Gradha Ouest)",
+          "nameAr": "شربان (القرضة الغربية)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (el gradha ouest) شربان (القرضة الغربية) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-el-khiour--5130",
+          "nameFr": "CHORBANE (El Khiour)",
+          "nameAr": "شربان (الخيور)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (el khiour) شربان (الخيور) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-henchir-bouaziz--5130",
+          "nameFr": "CHORBANE (Henchir Bouaziz)",
+          "nameAr": "شربان (هنشير بوعزيز)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (henchir bouaziz) شربان (هنشير بوعزيز) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-kheradna--5130",
+          "nameFr": "CHORBANE (Kheradna)",
+          "nameAr": "شربان (الخرادنة)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (kheradna) شربان (الخرادنة) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-maati-cheraf--5130",
+          "nameFr": "CHORBANE (Maati Cheraf)",
+          "nameAr": "شربان (معطي شرف)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (maati cheraf) شربان (معطي شرف) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-maati-henchir-bou-aziz--5130",
+          "nameFr": "CHORBANE (Maati Henchir Bou Aziz)",
+          "nameAr": "شربان (معطي هنشير بوعزيز)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (maati henchir bou aziz) شربان (معطي هنشير بوعزيز) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-neffatia--5135",
+          "nameFr": "CHORBANE (Neffatia)",
+          "nameAr": "شربان (النفاظية)",
+          "postalCode": "5135",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (neffatia) شربان (النفاظية) 5135"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-ouled-abdennebi--5130",
+          "nameFr": "CHORBANE (Ouled Abdennebi)",
+          "nameAr": "شربان (أولاد عبد النبي)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (ouled abdennebi) شربان (أولاد عبد النبي) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-ouled-ahmed--5130",
+          "nameFr": "CHORBANE (Ouled Ahmed)",
+          "nameAr": "شربان (أولاد أحمد)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (ouled ahmed) شربان (أولاد أحمد) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-ouled-cherifa--5130",
+          "nameFr": "CHORBANE (Ouled Cherifa)",
+          "nameAr": "شربان (أولاد شريفة)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (ouled cherifa) شربان (أولاد شريفة) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-ouled-el-hannachi--5130",
+          "nameFr": "CHORBANE (Ouled El Hannachi)",
+          "nameAr": "شربان (أولاد الحناشي)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (ouled el hannachi) شربان (أولاد الحناشي) 5130"
+        },
+        {
+          "id": "mahdia--chorbane--chorbane-ouled-sghaier--5130",
+          "nameFr": "CHORBANE (Ouled Sghaier)",
+          "nameAr": "شربان (أولاد صغير)",
+          "postalCode": "5130",
+          "latitude": 35.3167,
+          "longitude": 10.5333,
+          "searchKey": "chorbane (ouled sghaier) شربان (أولاد صغير) 5130"
+        }
+      ]
+    },
+    {
+      "id": "mahdia--el-jem",
+      "nameFr": "EL JEM",
+      "nameAr": "الجم",
+      "searchKey": "el jem الجم",
+      "municipalities": [
+        {
+          "id": "mahdia--el-jem--el-jem-beni-thabet--5160",
+          "nameFr": "EL JEM (Beni Thabet)",
+          "nameAr": "الجم (بني ثابت)",
+          "postalCode": "5160",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (beni thabet) الجم (بني ثابت) 5160"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-cite-ibn-sina--5160",
+          "nameFr": "EL JEM (Cite Ibn Sina)",
+          "nameAr": "الجم (حي إبن سينا)",
+          "postalCode": "5160",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (cite ibn sina) الجم (حي إبن سينا) 5160"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-cite-nouvelle--5160",
+          "nameFr": "EL JEM (Cite Nouvelle)",
+          "nameAr": "الجم (الحي الجديد)",
+          "postalCode": "5160",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (cite nouvelle) الجم (الحي الجديد) 5160"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-el-achaba--5124",
+          "nameFr": "EL JEM (El Achaba)",
+          "nameAr": "الجم (العشابة)",
+          "postalCode": "5124",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (el achaba) الجم (العشابة) 5124"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-el-aitha--5153",
+          "nameFr": "EL JEM (El Aitha)",
+          "nameAr": "الجم (العيثة)",
+          "postalCode": "5153",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (el aitha) الجم (العيثة) 5153"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-el-jem--5160",
+          "nameFr": "EL JEM (El Jem)",
+          "nameAr": "الجم (الجم)",
+          "postalCode": "5160",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (el jem) الجم (الجم) 5160"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-el-mechelette--5160",
+          "nameFr": "EL JEM (El Mechelette)",
+          "nameAr": "الجم (المشالات)",
+          "postalCode": "5160",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (el mechelette) الجم (المشالات) 5160"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-ouled-el-haj--5153",
+          "nameFr": "EL JEM (Ouled El Haj)",
+          "nameAr": "الجم (أولاد الحاج)",
+          "postalCode": "5153",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (ouled el haj) الجم (أولاد الحاج) 5153"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-ouled-farhat--5160",
+          "nameFr": "EL JEM (Ouled Farhat)",
+          "nameAr": "الجم (أولاد فرحات)",
+          "postalCode": "5160",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (ouled farhat) الجم (أولاد فرحات) 5160"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-riadh-bou-helal--5153",
+          "nameFr": "EL JEM (Riadh Bou Helal)",
+          "nameAr": "الجم (رياض بوهلال)",
+          "postalCode": "5153",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (riadh bou helal) الجم (رياض بوهلال) 5153"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-sidi-bou-helal--5160",
+          "nameFr": "EL JEM (Sidi Bou Helal)",
+          "nameAr": "الجم (سيدي بوهلال)",
+          "postalCode": "5160",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (sidi bou helal) الجم (سيدي بوهلال) 5160"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-tlelsa--5124",
+          "nameFr": "EL JEM (Tlelsa)",
+          "nameAr": "الجم (التلالسة)",
+          "postalCode": "5124",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (tlelsa) الجم (التلالسة) 5124"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-touahra--5124",
+          "nameFr": "EL JEM (Touahra)",
+          "nameAr": "الجم (التواهرية)",
+          "postalCode": "5124",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (touahra) الجم (التواهرية) 5124"
+        },
+        {
+          "id": "mahdia--el-jem--el-jem-zeghabna--5160",
+          "nameFr": "EL JEM (Zeghabna)",
+          "nameAr": "الجم (الزغابنة)",
+          "postalCode": "5160",
+          "latitude": 35.2972,
+          "longitude": 10.7119,
+          "searchKey": "el jem (zeghabna) الجم (الزغابنة) 5160"
+        }
+      ]
+    },
+    {
+      "id": "mahdia--hbira",
+      "nameFr": "HBIRA",
+      "nameAr": "هبيرة",
+      "searchKey": "hbira هبيرة",
+      "municipalities": [
+        {
+          "id": "mahdia--hbira--hbira-agba--5113",
+          "nameFr": "HBIRA (Agba)",
+          "nameAr": "هبيرة (عڨبة)",
+          "postalCode": "5113",
+          "latitude": 35.1667,
+          "longitude": 10.4,
+          "searchKey": "hbira (agba) هبيرة (عڨبة) 5113"
+        },
+        {
+          "id": "mahdia--hbira--hbira-chahda-ouest--5113",
+          "nameFr": "HBIRA (Chahda Ouest)",
+          "nameAr": "هبيرة (شهدة الغربية)",
+          "postalCode": "5113",
+          "latitude": 35.1667,
+          "longitude": 10.4,
+          "searchKey": "hbira (chahda ouest) هبيرة (شهدة الغربية) 5113"
+        },
+        {
+          "id": "mahdia--hbira--hbira-chatt-ouled-ncib--5113",
+          "nameFr": "HBIRA (Chatt Ouled Ncib)",
+          "nameAr": "هبيرة (شط أولاد نصيب)",
+          "postalCode": "5113",
+          "latitude": 35.1667,
+          "longitude": 10.4,
+          "searchKey": "hbira (chatt ouled ncib) هبيرة (شط أولاد نصيب) 5113"
+        },
+        {
+          "id": "mahdia--hbira--hbira-el-hajjara--5113",
+          "nameFr": "HBIRA (El Hajjara)",
+          "nameAr": "هبيرة (الحجارة)",
+          "postalCode": "5113",
+          "latitude": 35.1667,
+          "longitude": 10.4,
+          "searchKey": "hbira (el hajjara) هبيرة (الحجارة) 5113"
+        },
+        {
+          "id": "mahdia--hbira--hbira-hbira--5113",
+          "nameFr": "HBIRA (Hbira)",
+          "nameAr": "هبيرة (هبيرة)",
+          "postalCode": "5113",
+          "latitude": 35.1667,
+          "longitude": 10.4,
+          "searchKey": "hbira (hbira) هبيرة (هبيرة) 5113"
+        },
+        {
+          "id": "mahdia--hbira--hbira-meharza-18--5154",
+          "nameFr": "HBIRA (Meharza 18)",
+          "nameAr": "هبيرة (المحارزة 18)",
+          "postalCode": "5154",
+          "latitude": 35.1667,
+          "longitude": 10.4,
+          "searchKey": "hbira (meharza 18) هبيرة (المحارزة 18) 5154"
+        },
+        {
+          "id": "mahdia--hbira--hbira-menzel-hached--5122",
+          "nameFr": "HBIRA (Menzel Hached)",
+          "nameAr": "هبيرة (منزل حشاد)",
+          "postalCode": "5122",
+          "latitude": 35.1667,
+          "longitude": 10.4,
+          "searchKey": "hbira (menzel hached) هبيرة (منزل حشاد) 5122"
+        },
+        {
+          "id": "mahdia--hbira--hbira-regaiga--5113",
+          "nameFr": "HBIRA (Regaiga)",
+          "nameAr": "هبيرة (الرقايقة)",
+          "postalCode": "5113",
+          "latitude": 35.1667,
+          "longitude": 10.4,
+          "searchKey": "hbira (regaiga) هبيرة (الرقايقة) 5113"
+        }
+      ]
+    },
+    {
+      "id": "mahdia--ksour-essaf",
+      "nameFr": "KSOUR ESSAF",
+      "nameAr": "قصور الساف",
+      "searchKey": "ksour essaf قصور الساف",
+      "municipalities": [
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-commerciale--5180",
+          "nameFr": "KSOUR ESSAF (Cite Commerciale)",
+          "nameAr": "قصور الساف (الحي التجاري)",
+          "postalCode": "5180",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite commerciale) قصور الساف (الحي التجاري) 5180"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-dhamene--5180",
+          "nameFr": "KSOUR ESSAF (Cite Dhamene)",
+          "nameAr": "قصور الساف (حي ضامن)",
+          "postalCode": "5180",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite dhamene) قصور الساف (حي ضامن) 5180"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-douira--5126",
+          "nameFr": "KSOUR ESSAF (Cite Douira)",
+          "nameAr": "قصور الساف (حي الدويرة)",
+          "postalCode": "5126",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite douira) قصور الساف (حي الدويرة) 5126"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-el-bassatine--5180",
+          "nameFr": "KSOUR ESSAF (Cite El Bassatine)",
+          "nameAr": "قصور الساف (حي البساتين)",
+          "postalCode": "5180",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite el bassatine) قصور الساف (حي البساتين) 5180"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-el-fatimi--5180",
+          "nameFr": "KSOUR ESSAF (Cite El Fatimi)",
+          "nameAr": "قصور الساف (حي الفاطمي)",
+          "postalCode": "5180",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite el fatimi) قصور الساف (حي الفاطمي) 5180"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-el-hajeb--5126",
+          "nameFr": "KSOUR ESSAF (Cite El Hajeb)",
+          "nameAr": "قصور الساف (حي الحاجب)",
+          "postalCode": "5126",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite el hajeb) قصور الساف (حي الحاجب) 5126"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-el-imarat--5126",
+          "nameFr": "KSOUR ESSAF (Cite El Imarat)",
+          "nameAr": "قصور الساف (حي العمارات)",
+          "postalCode": "5126",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite el imarat) قصور الساف (حي العمارات) 5126"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-el-malaji--5180",
+          "nameFr": "KSOUR ESSAF (Cite El Malaji)",
+          "nameAr": "قصور الساف (حي الملاجي)",
+          "postalCode": "5180",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite el malaji) قصور الساف (حي الملاجي) 5180"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-el-menagua--5126",
+          "nameFr": "KSOUR ESSAF (Cite El Menagua)",
+          "nameAr": "قصور الساف (حي المناڨة)",
+          "postalCode": "5126",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite el menagua) قصور الساف (حي المناڨة) 5126"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-el-wafa--5180",
+          "nameFr": "KSOUR ESSAF (Cite El Wafa)",
+          "nameAr": "قصور الساف (حي الوفاء)",
+          "postalCode": "5180",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite el wafa) قصور الساف (حي الوفاء) 5180"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-ezzouhour--5180",
+          "nameFr": "KSOUR ESSAF (Cite Ezzouhour)",
+          "nameAr": "قصور الساف (حي الزهور)",
+          "postalCode": "5180",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite ezzouhour) قصور الساف (حي الزهور) 5180"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-populaire--5126",
+          "nameFr": "KSOUR ESSAF (Cite Populaire)",
+          "nameAr": "قصور الساف (الحي الشعبي)",
+          "postalCode": "5126",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite populaire) قصور الساف (الحي الشعبي) 5126"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-cite-salah-ben-ali--5180",
+          "nameFr": "KSOUR ESSAF (Cite Salah Ben Ali)",
+          "nameAr": "قصور الساف (حي صالح بن علي)",
+          "postalCode": "5180",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (cite salah ben ali) قصور الساف (حي صالح بن علي) 5180"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-el-bradaa--5115",
+          "nameFr": "KSOUR ESSAF (El Bradaa)",
+          "nameAr": "قصور الساف (البرادعة)",
+          "postalCode": "5115",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (el bradaa) قصور الساف (البرادعة) 5115"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-el-ghedhabna--5136",
+          "nameFr": "KSOUR ESSAF (El Ghedhabna)",
+          "nameAr": "قصور الساف (الغضابنة)",
+          "postalCode": "5136",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (el ghedhabna) قصور الساف (الغضابنة) 5136"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-el-hessinette--5115",
+          "nameFr": "KSOUR ESSAF (El Hessinette)",
+          "nameAr": "قصور الساف (الحسينات)",
+          "postalCode": "5115",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (el hessinette) قصور الساف (الحسينات) 5115"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-el-khmara--5136",
+          "nameFr": "KSOUR ESSAF (El Khmara)",
+          "nameAr": "قصور الساف (الخمارة)",
+          "postalCode": "5136",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (el khmara) قصور الساف (الخمارة) 5136"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-ksour-essaf-hached--5189",
+          "nameFr": "KSOUR ESSAF (Ksour Essaf Hached)",
+          "nameAr": "قصور الساف (قصور الساف حشاد)",
+          "postalCode": "5189",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (ksour essaf hached) قصور الساف (قصور الساف حشاد) 5189"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-ksour-essaf--5180",
+          "nameFr": "KSOUR ESSAF (Ksour Essaf)",
+          "nameAr": "قصور الساف (قصور الساف)",
+          "postalCode": "5180",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (ksour essaf) قصور الساف (قصور الساف) 5180"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-ouled-salah--5116",
+          "nameFr": "KSOUR ESSAF (Ouled Salah)",
+          "nameAr": "قصور الساف (أولاد صالح)",
+          "postalCode": "5116",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (ouled salah) قصور الساف (أولاد صالح) 5116"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-rechercha--5146",
+          "nameFr": "KSOUR ESSAF (Rechercha)",
+          "nameAr": "قصور الساف (الرشاشة)",
+          "postalCode": "5146",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (rechercha) قصور الساف (الرشاشة) 5146"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-salakta--5126",
+          "nameFr": "KSOUR ESSAF (Salakta)",
+          "nameAr": "قصور الساف (سلقطة)",
+          "postalCode": "5126",
+          "latitude": 35.3956,
+          "longitude": 11.0361,
+          "searchKey": "ksour essaf (salakta) قصور الساف (سلقطة) 5126"
+        },
+        {
+          "id": "mahdia--ksour-essaf--ksour-essaf-sidi-assaker--5116",
+          "nameFr": "KSOUR ESSAF (Sidi Assaker)",
+          "nameAr": "قصور الساف (سيدي عساكر)",
+          "postalCode": "5116",
+          "latitude": 35.435,
+          "longitude": 10.9883,
+          "searchKey": "ksour essaf (sidi assaker) قصور الساف (سيدي عساكر) 5116"
+        }
+      ]
+    },
+    {
+      "id": "mahdia--la-chebba",
+      "nameFr": "LA CHEBBA",
+      "nameAr": "الشابة",
+      "searchKey": "la chebba الشابة",
+      "municipalities": [
+        {
+          "id": "mahdia--la-chebba--la-chebba-cite-de-la-plage--5170",
+          "nameFr": "LA CHEBBA (Cite De La Plage)",
+          "nameAr": "الشابة (حي الشاطئ)",
+          "postalCode": "5170",
+          "latitude": 35.2375,
+          "longitude": 11.1125,
+          "searchKey": "la chebba (cite de la plage) الشابة (حي الشاطئ) 5170"
+        },
+        {
+          "id": "mahdia--la-chebba--la-chebba-ferahta--5170",
+          "nameFr": "LA CHEBBA (Ferahta)",
+          "nameAr": "الشابة (الفراحتة)",
+          "postalCode": "5170",
+          "latitude": 35.2375,
+          "longitude": 11.1125,
+          "searchKey": "la chebba (ferahta) الشابة (الفراحتة) 5170"
+        },
+        {
+          "id": "mahdia--la-chebba--la-chebba-la-chebba--5170",
+          "nameFr": "LA CHEBBA (La Chebba)",
+          "nameAr": "الشابة (الشابة)",
+          "postalCode": "5170",
+          "latitude": 35.2375,
+          "longitude": 11.1125,
+          "searchKey": "la chebba (la chebba) الشابة (الشابة) 5170"
+        },
+        {
+          "id": "mahdia--la-chebba--la-chebba-merkez-chaabna--5170",
+          "nameFr": "LA CHEBBA (Merkez Chaabna)",
+          "nameAr": "الشابة (مركز شعبنة)",
+          "postalCode": "5170",
+          "latitude": 35.2375,
+          "longitude": 11.1125,
+          "searchKey": "la chebba (merkez chaabna) الشابة (مركز شعبنة) 5170"
+        }
+      ]
+    },
+    {
+      "id": "mahdia--mahdia",
+      "nameFr": "MAHDIA",
+      "nameAr": "المهدية",
+      "searchKey": "mahdia المهدية",
+      "municipalities": [
+        {
+          "id": "mahdia--mahdia--mahdia-chiba--5141",
+          "nameFr": "MAHDIA (Chiba)",
+          "nameAr": "المهدية (شيبة)",
+          "postalCode": "5141",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (chiba) المهدية (شيبة) 5141"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-afh--5100",
+          "nameFr": "MAHDIA (Cite Afh)",
+          "nameAr": "المهدية (حي الوكالة العقارية للسكنى)",
+          "postalCode": "5100",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite afh) المهدية (حي الوكالة العقارية للسكنى) 5100"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-bourguiba--5100",
+          "nameFr": "MAHDIA (Cite Bourguiba)",
+          "nameAr": "المهدية (حي بورقيبة)",
+          "postalCode": "5100",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite bourguiba) المهدية (حي بورقيبة) 5100"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-des-infirmiers--5111",
+          "nameFr": "MAHDIA (Cite Des Infirmiers)",
+          "nameAr": "المهدية (حي الممرضين)",
+          "postalCode": "5111",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite des infirmiers) المهدية (حي الممرضين) 5111"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-el-moez--5100",
+          "nameFr": "MAHDIA (Cite El Moez)",
+          "nameAr": "المهدية (حي المعز)",
+          "postalCode": "5100",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite el moez) المهدية (حي المعز) 5100"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-ennour--5111",
+          "nameFr": "MAHDIA (Cite Ennour)",
+          "nameAr": "المهدية (حي النور)",
+          "postalCode": "5111",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite ennour) المهدية (حي النور) 5111"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-essaada--5199",
+          "nameFr": "MAHDIA (Cite Essaada)",
+          "nameAr": "المهدية (حي السعادة)",
+          "postalCode": "5199",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite essaada) المهدية (حي السعادة) 5199"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-essalem--5199",
+          "nameFr": "MAHDIA (Cite Essalem)",
+          "nameAr": "المهدية (حي السلام)",
+          "postalCode": "5199",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite essalem) المهدية (حي السلام) 5199"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-ettaamir--5100",
+          "nameFr": "MAHDIA (Cite Ettaamir)",
+          "nameAr": "المهدية (حي التعمير)",
+          "postalCode": "5100",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite ettaamir) المهدية (حي التعمير) 5100"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-hached--5100",
+          "nameFr": "MAHDIA (Cite Hached)",
+          "nameAr": "المهدية (حي حشاد)",
+          "postalCode": "5100",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite hached) المهدية (حي حشاد) 5100"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-nouvelle--5121",
+          "nameFr": "MAHDIA (Cite Nouvelle)",
+          "nameAr": "المهدية (الحي الجديد)",
+          "postalCode": "5121",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite nouvelle) المهدية (الحي الجديد) 5121"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-populaire--5121",
+          "nameFr": "MAHDIA (Cite Populaire)",
+          "nameAr": "المهدية (الحي الشعبي)",
+          "postalCode": "5121",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite populaire) المهدية (الحي الشعبي) 5121"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-sidi-messaoud--5111",
+          "nameFr": "MAHDIA (Cite Sidi Messaoud)",
+          "nameAr": "المهدية (حي سيدي مسعود)",
+          "postalCode": "5111",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite sidi messaoud) المهدية (حي سيدي مسعود) 5111"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-cite-taher-sfar--5100",
+          "nameFr": "MAHDIA (Cite Taher Sfar)",
+          "nameAr": "المهدية (حي الطاهر صفر)",
+          "postalCode": "5100",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (cite taher sfar) المهدية (حي الطاهر صفر) 5100"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-eddikhila-3--5111",
+          "nameFr": "MAHDIA (Eddikhila 3)",
+          "nameAr": "المهدية (الدخيلة 3)",
+          "postalCode": "5111",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (eddikhila 3) المهدية (الدخيلة 3) 5111"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-el-hekaima--5131",
+          "nameFr": "MAHDIA (El Hekaima)",
+          "nameAr": "المهدية (الحكايمة)",
+          "postalCode": "5131",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (el hekaima) المهدية (الحكايمة) 5131"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-essaad--5127",
+          "nameFr": "MAHDIA (Essaad)",
+          "nameAr": "المهدية (السعد)",
+          "postalCode": "5127",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (essaad) المهدية (السعد) 5127"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-jouaouda--5131",
+          "nameFr": "MAHDIA (Jouaouda)",
+          "nameAr": "المهدية (الجواودة)",
+          "postalCode": "5131",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (jouaouda) المهدية (الجواودة) 5131"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-mahdia-essouk--5129",
+          "nameFr": "MAHDIA (Mahdia Essouk)",
+          "nameAr": "المهدية (المهدية السوق)",
+          "postalCode": "5129",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (mahdia essouk) المهدية (المهدية السوق) 5129"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-mahdia-ezzahra--5199",
+          "nameFr": "MAHDIA (Mahdia Ezzahra)",
+          "nameAr": "المهدية (المهدية الزهراء)",
+          "postalCode": "5199",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (mahdia ezzahra) المهدية (المهدية الزهراء) 5199"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-mahdia-hiboun--5111",
+          "nameFr": "MAHDIA (Mahdia Hiboun)",
+          "nameAr": "المهدية (المهدية هيبون)",
+          "postalCode": "5111",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (mahdia hiboun) المهدية (المهدية هيبون) 5111"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-mahdia-republique--5150",
+          "nameFr": "MAHDIA (Mahdia Republique)",
+          "nameAr": "المهدية (المهدية الجمهورية)",
+          "postalCode": "5150",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (mahdia republique) المهدية (المهدية الجمهورية) 5150"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-mahdia--5100",
+          "nameFr": "MAHDIA (Mahdia)",
+          "nameAr": "المهدية (المهدية)",
+          "postalCode": "5100",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (mahdia) المهدية (المهدية) 5100"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-merkez-ouled-dhaouadi--5131",
+          "nameFr": "MAHDIA (Merkez Ouled Dhaouadi)",
+          "nameAr": "المهدية (مركز أولاد ذوادي)",
+          "postalCode": "5131",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (merkez ouled dhaouadi) المهدية (مركز أولاد ذوادي) 5131"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-rejiche--5121",
+          "nameFr": "MAHDIA (Rejiche)",
+          "nameAr": "المهدية (رجيش)",
+          "postalCode": "5121",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (rejiche) المهدية (رجيش) 5121"
+        },
+        {
+          "id": "mahdia--mahdia--mahdia-zouaouine--5131",
+          "nameFr": "MAHDIA (Zouaouine)",
+          "nameAr": "المهدية (الزواوين)",
+          "postalCode": "5131",
+          "latitude": 35.5044,
+          "longitude": 11.0567,
+          "searchKey": "mahdia (zouaouine) المهدية (الزواوين) 5131"
+        }
+      ]
+    },
+    {
+      "id": "mahdia--melloulech",
+      "nameFr": "MELLOULECH",
+      "nameAr": "ملولش",
+      "searchKey": "melloulech ملولش",
+      "municipalities": [
+        {
+          "id": "mahdia--melloulech--melloulech-beni-tourch--5114",
+          "nameFr": "MELLOULECH (Beni Tourch)",
+          "nameAr": "ملولش (بني ترش)",
+          "postalCode": "5114",
+          "latitude": 35.3833,
+          "longitude": 11.05,
+          "searchKey": "melloulech (beni tourch) ملولش (بني ترش) 5114"
+        },
+        {
+          "id": "mahdia--melloulech--melloulech-el-houd--5117",
+          "nameFr": "MELLOULECH (El Houd)",
+          "nameAr": "ملولش (الحوض)",
+          "postalCode": "5117",
+          "latitude": 35.3833,
+          "longitude": 11.05,
+          "searchKey": "melloulech (el houd) ملولش (الحوض) 5117"
+        },
+        {
+          "id": "mahdia--melloulech--melloulech-el-mansoura--5117",
+          "nameFr": "MELLOULECH (El Mansoura)",
+          "nameAr": "ملولش (المنصورة)",
+          "postalCode": "5117",
+          "latitude": 35.3833,
+          "longitude": 11.05,
+          "searchKey": "melloulech (el mansoura) ملولش (المنصورة) 5117"
+        },
+        {
+          "id": "mahdia--melloulech--melloulech-melloulech--5114",
+          "nameFr": "MELLOULECH (Melloulech)",
+          "nameAr": "ملولش (ملولش)",
+          "postalCode": "5114",
+          "latitude": 35.3833,
+          "longitude": 11.05,
+          "searchKey": "melloulech (melloulech) ملولش (ملولش) 5114"
+        },
+        {
+          "id": "mahdia--melloulech--melloulech-ouled-abdallah--5114",
+          "nameFr": "MELLOULECH (Ouled Abdallah)",
+          "nameAr": "ملولش (أولاد عبد الله)",
+          "postalCode": "5114",
+          "latitude": 35.3833,
+          "longitude": 11.05,
+          "searchKey": "melloulech (ouled abdallah) ملولش (أولاد عبد الله) 5114"
+        },
+        {
+          "id": "mahdia--melloulech--melloulech-ouled-jaballah--5117",
+          "nameFr": "MELLOULECH (Ouled Jaballah)",
+          "nameAr": "ملولش (أولاد جاب الله)",
+          "postalCode": "5117",
+          "latitude": 35.3833,
+          "longitude": 11.05,
+          "searchKey": "melloulech (ouled jaballah) ملولش (أولاد جاب الله) 5117"
+        },
+        {
+          "id": "mahdia--melloulech--melloulech-ouled-mabrouk--5114",
+          "nameFr": "MELLOULECH (Ouled Mabrouk)",
+          "nameAr": "ملولش (أولاد مبروك)",
+          "postalCode": "5114",
+          "latitude": 35.3833,
+          "longitude": 11.05,
+          "searchKey": "melloulech (ouled mabrouk) ملولش (أولاد مبروك) 5114"
+        }
+      ]
+    },
+    {
+      "id": "mahdia--ouled-chamakh",
+      "nameFr": "OULED CHAMAKH",
+      "nameAr": "أولاد الشامخ",
+      "searchKey": "ouled chamakh أولاد الشامخ",
+      "municipalities": [
+        {
+          "id": "mahdia--ouled-chamakh--ouled-chamakh-bou-slim--5120",
+          "nameFr": "OULED CHAMAKH (Bou Slim)",
+          "nameAr": "أولاد الشامخ (بو سليم)",
+          "postalCode": "5120",
+          "latitude": 35.3667,
+          "longitude": 10.3333,
+          "searchKey": "ouled chamakh (bou slim) أولاد الشامخ (بو سليم) 5120"
+        },
+        {
+          "id": "mahdia--ouled-chamakh--ouled-chamakh-chehimet--5123",
+          "nameFr": "OULED CHAMAKH (Chehimet)",
+          "nameAr": "أولاد الشامخ (شحيمات)",
+          "postalCode": "5123",
+          "latitude": 35.3667,
+          "longitude": 10.3333,
+          "searchKey": "ouled chamakh (chehimet) أولاد الشامخ (شحيمات) 5123"
+        },
+        {
+          "id": "mahdia--ouled-chamakh--ouled-chamakh-el-ajilette--5120",
+          "nameFr": "OULED CHAMAKH (El Ajilette)",
+          "nameAr": "أولاد الشامخ (العجيلات)",
+          "postalCode": "5120",
+          "latitude": 35.3667,
+          "longitude": 10.3333,
+          "searchKey": "ouled chamakh (el ajilette) أولاد الشامخ (العجيلات) 5120"
+        },
+        {
+          "id": "mahdia--ouled-chamakh--ouled-chamakh-el-manaa--5120",
+          "nameFr": "OULED CHAMAKH (El Manaa)",
+          "nameAr": "أولاد الشامخ (المنعة)",
+          "postalCode": "5120",
+          "latitude": 35.3667,
+          "longitude": 10.3333,
+          "searchKey": "ouled chamakh (el manaa) أولاد الشامخ (المنعة) 5120"
+        },
+        {
+          "id": "mahdia--ouled-chamakh--ouled-chamakh-el-mharza-est--5120",
+          "nameFr": "OULED CHAMAKH (El Mharza Est)",
+          "nameAr": "أولاد الشامخ (المحارزة الشرقية)",
+          "postalCode": "5120",
+          "latitude": 35.3667,
+          "longitude": 10.3333,
+          "searchKey": "ouled chamakh (el mharza est) أولاد الشامخ (المحارزة الشرقية) 5120"
+        },
+        {
+          "id": "mahdia--ouled-chamakh--ouled-chamakh-ouled-amor--5123",
+          "nameFr": "OULED CHAMAKH (Ouled Amor)",
+          "nameAr": "أولاد الشامخ (أولاد عمر)",
+          "postalCode": "5123",
+          "latitude": 35.3667,
+          "longitude": 10.3333,
+          "searchKey": "ouled chamakh (ouled amor) أولاد الشامخ (أولاد عمر) 5123"
+        },
+        {
+          "id": "mahdia--ouled-chamakh--ouled-chamakh-ouled-bouzid--5120",
+          "nameFr": "OULED CHAMAKH (Ouled Bouzid)",
+          "nameAr": "أولاد الشامخ (أولاد بوزيد)",
+          "postalCode": "5120",
+          "latitude": 35.3667,
+          "longitude": 10.3333,
+          "searchKey": "ouled chamakh (ouled bouzid) أولاد الشامخ (أولاد بوزيد) 5120"
+        },
+        {
+          "id": "mahdia--ouled-chamakh--ouled-chamakh-ouled-chamakh--5120",
+          "nameFr": "OULED CHAMAKH (Ouled Chamakh)",
+          "nameAr": "أولاد الشامخ (أولاد الشامخ)",
+          "postalCode": "5120",
+          "latitude": 35.3667,
+          "longitude": 10.3333,
+          "searchKey": "ouled chamakh (ouled chamakh) أولاد الشامخ (أولاد الشامخ) 5120"
+        },
+        {
+          "id": "mahdia--ouled-chamakh--ouled-chamakh-somra--5120",
+          "nameFr": "OULED CHAMAKH (Somra)",
+          "nameAr": "أولاد الشامخ (سمرة)",
+          "postalCode": "5120",
+          "latitude": 35.3667,
+          "longitude": 10.3333,
+          "searchKey": "ouled chamakh (somra) أولاد الشامخ (سمرة) 5120"
+        }
+      ]
+    },
+    {
+      "id": "mahdia--sidi-alouene",
+      "nameFr": "SIDI ALOUENE",
+      "nameAr": "سيدي علوان",
+      "searchKey": "sidi alouene سيدي علوان",
+      "municipalities": [
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-baajla--5190",
+          "nameFr": "SIDI ALOUENE (Baajla)",
+          "nameAr": "سيدي علوان (بعاجلة)",
+          "postalCode": "5190",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (baajla) سيدي علوان (بعاجلة) 5190"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-cite-dar-el-hadad--5190",
+          "nameFr": "SIDI ALOUENE (Cite Dar El Hadad)",
+          "nameAr": "سيدي علوان (حي دار الحداد)",
+          "postalCode": "5190",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (cite dar el hadad) سيدي علوان (حي دار الحداد) 5190"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-el-bassatine--5132",
+          "nameFr": "SIDI ALOUENE (El Bassatine)",
+          "nameAr": "سيدي علوان (البساتين)",
+          "postalCode": "5132",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (el bassatine) سيدي علوان (البساتين) 5132"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-el-braghtia--5151",
+          "nameFr": "SIDI ALOUENE (El Braghtia)",
+          "nameAr": "سيدي علوان (البراغتية)",
+          "postalCode": "5151",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (el braghtia) سيدي علوان (البراغتية) 5151"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-el-henichette--5193",
+          "nameFr": "SIDI ALOUENE (El Henichette)",
+          "nameAr": "سيدي علوان (الحنيشات)",
+          "postalCode": "5193",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (el henichette) سيدي علوان (الحنيشات) 5193"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-el-mejria--5193",
+          "nameFr": "SIDI ALOUENE (El Mejria)",
+          "nameAr": "سيدي علوان (المجرية)",
+          "postalCode": "5193",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (el mejria) سيدي علوان (المجرية) 5193"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-ennouzha--5192",
+          "nameFr": "SIDI ALOUENE (Ennouzha)",
+          "nameAr": "سيدي علوان (النزهة)",
+          "postalCode": "5192",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (ennouzha) سيدي علوان (النزهة) 5192"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-essaada--5132",
+          "nameFr": "SIDI ALOUENE (Essaada)",
+          "nameAr": "سيدي علوان (السعادة)",
+          "postalCode": "5132",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (essaada) سيدي علوان (السعادة) 5132"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-merkez-ouled-haj-khelifa--5132",
+          "nameFr": "SIDI ALOUENE (Merkez Ouled Haj Khelifa)",
+          "nameAr": "سيدي علوان (مركز أولاد حاج خليفة)",
+          "postalCode": "5132",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (merkez ouled haj khelifa) سيدي علوان (مركز أولاد حاج خليفة) 5132"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-oued-beja--5193",
+          "nameFr": "SIDI ALOUENE (Oued Beja)",
+          "nameAr": "سيدي علوان (وادي بيجة)",
+          "postalCode": "5193",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (oued beja) سيدي علوان (وادي بيجة) 5193"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-oued-guelat--5132",
+          "nameFr": "SIDI ALOUENE (Oued Guelat)",
+          "nameAr": "سيدي علوان (وادي قلات)",
+          "postalCode": "5132",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (oued guelat) سيدي علوان (وادي قلات) 5132"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-ouled-aicha--5192",
+          "nameFr": "SIDI ALOUENE (Ouled Aicha)",
+          "nameAr": "سيدي علوان (أولاد عيشة)",
+          "postalCode": "5192",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (ouled aicha) سيدي علوان (أولاد عيشة) 5192"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-sakiet-el-khadem--5132",
+          "nameFr": "SIDI ALOUENE (Sakiet El Khadem)",
+          "nameAr": "سيدي علوان (ساقية الخادم)",
+          "postalCode": "5132",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (sakiet el khadem) سيدي علوان (ساقية الخادم) 5132"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-sidi-ali-ghedir--5132",
+          "nameFr": "SIDI ALOUENE (Sidi Ali Ghedir)",
+          "nameAr": "سيدي علوان (سيدي علي غدير)",
+          "postalCode": "5132",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (sidi ali ghedir) سيدي علوان (سيدي علي غدير) 5132"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-sidi-alouene--5190",
+          "nameFr": "SIDI ALOUENE (Sidi Alouene)",
+          "nameAr": "سيدي علوان (سيدي علوان)",
+          "postalCode": "5190",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (sidi alouene) سيدي علوان (سيدي علوان) 5190"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-zelba-el-henchir--5192",
+          "nameFr": "SIDI ALOUENE (Zelba El Henchir)",
+          "nameAr": "سيدي علوان (زلبة الهنشير)",
+          "postalCode": "5192",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (zelba el henchir) سيدي علوان (زلبة الهنشير) 5192"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-zelba--5192",
+          "nameFr": "SIDI ALOUENE (Zelba)",
+          "nameAr": "سيدي علوان (زلبة)",
+          "postalCode": "5192",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (zelba) سيدي علوان (زلبة) 5192"
+        },
+        {
+          "id": "mahdia--sidi-alouene--sidi-alouene-zorda--5151",
+          "nameFr": "SIDI ALOUENE (Zorda)",
+          "nameAr": "سيدي علوان (زردة)",
+          "postalCode": "5151",
+          "latitude": 35.355,
+          "longitude": 10.8733,
+          "searchKey": "sidi alouene (zorda) سيدي علوان (زردة) 5151"
+        }
+      ]
+    },
+    {
+      "id": "mahdia--souassi",
+      "nameFr": "SOUASSI",
+      "nameAr": "السواسي",
+      "searchKey": "souassi السواسي",
+      "municipalities": [
+        {
+          "id": "mahdia--souassi--souassi-chaara--5134",
+          "nameFr": "SOUASSI (Chaara)",
+          "nameAr": "السواسي (الشعراء)",
+          "postalCode": "5134",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (chaara) السواسي (الشعراء) 5134"
+        },
+        {
+          "id": "mahdia--souassi--souassi-cite-9-avril--5140",
+          "nameFr": "SOUASSI (Cite 9 Avril)",
+          "nameAr": "السواسي (حي 9 أفريل)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (cite 9 avril) السواسي (حي 9 أفريل) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-cite-afh--5140",
+          "nameFr": "SOUASSI (Cite Afh)",
+          "nameAr": "السواسي (حي الوكالة العقارية للسكنى)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (cite afh) السواسي (حي الوكالة العقارية للسكنى) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-cite-commerciale--5140",
+          "nameFr": "SOUASSI (Cite Commerciale)",
+          "nameAr": "السواسي (الحي التجاري)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (cite commerciale) السواسي (الحي التجاري) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-cite-ettaamir--5140",
+          "nameFr": "SOUASSI (Cite Ettaamir)",
+          "nameAr": "السواسي (حي التعمير)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (cite ettaamir) السواسي (حي التعمير) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-cite-ezzouhour--5140",
+          "nameFr": "SOUASSI (Cite Ezzouhour)",
+          "nameAr": "السواسي (حي الزهور)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (cite ezzouhour) السواسي (حي الزهور) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-cite-ibn-khaldoun--5140",
+          "nameFr": "SOUASSI (Cite Ibn Khaldoun)",
+          "nameAr": "السواسي (حي إبن خلدون)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (cite ibn khaldoun) السواسي (حي إبن خلدون) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-cite-industrielle--5140",
+          "nameFr": "SOUASSI (Cite Industrielle)",
+          "nameAr": "السواسي (المنطقة الصناعية)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (cite industrielle) السواسي (المنطقة الصناعية) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-cite-populaire--5140",
+          "nameFr": "SOUASSI (Cite Populaire)",
+          "nameAr": "السواسي (الحي الشعبي)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (cite populaire) السواسي (الحي الشعبي) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-el-mansoura-souassi--5145",
+          "nameFr": "SOUASSI (El Mansoura Souassi)",
+          "nameAr": "السواسي (المنصورة السواسي)",
+          "postalCode": "5145",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (el mansoura souassi) السواسي (المنصورة السواسي) 5145"
+        },
+        {
+          "id": "mahdia--souassi--souassi-essetoute--5140",
+          "nameFr": "SOUASSI (Essetoute)",
+          "nameAr": "السواسي (الستوت)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (essetoute) السواسي (الستوت) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-ethouabtia--5140",
+          "nameFr": "SOUASSI (Ethouabtia)",
+          "nameAr": "السواسي (الثوابتية)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (ethouabtia) السواسي (الثوابتية) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-ezzeirate--5140",
+          "nameFr": "SOUASSI (Ezzeirate)",
+          "nameAr": "السواسي (الزيرات)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (ezzeirate) السواسي (الزيرات) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-gdarat--5140",
+          "nameFr": "SOUASSI (Gdarat)",
+          "nameAr": "السواسي (الڨدارات)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (gdarat) السواسي (الڨدارات) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-jemamla--5144",
+          "nameFr": "SOUASSI (Jemamla)",
+          "nameAr": "السواسي (الجماملة)",
+          "postalCode": "5144",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (jemamla) السواسي (الجماملة) 5144"
+        },
+        {
+          "id": "mahdia--souassi--souassi-jemiaat--5140",
+          "nameFr": "SOUASSI (Jemiaat)",
+          "nameAr": "السواسي (الجميعات)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (jemiaat) السواسي (الجميعات) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-ksesba--5155",
+          "nameFr": "SOUASSI (Ksesba)",
+          "nameAr": "السواسي (قصيبة)",
+          "postalCode": "5155",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (ksesba) السواسي (قصيبة) 5155"
+        },
+        {
+          "id": "mahdia--souassi--souassi-ouled-amor--5140",
+          "nameFr": "SOUASSI (Ouled Amor)",
+          "nameAr": "السواسي (أولاد عمر)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (ouled amor) السواسي (أولاد عمر) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-ouled-bou-helal--5140",
+          "nameFr": "SOUASSI (Ouled Bou Helal)",
+          "nameAr": "السواسي (أولاد بوهلال)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (ouled bou helal) السواسي (أولاد بوهلال) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-ouled-khelifa--5140",
+          "nameFr": "SOUASSI (Ouled Khelifa)",
+          "nameAr": "السواسي (أولاد خليفة)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (ouled khelifa) السواسي (أولاد خليفة) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-ouled-moulahoum-sud--5140",
+          "nameFr": "SOUASSI (Ouled Moulahoum Sud)",
+          "nameAr": "السواسي (أولاد مولاهم الجنوبية)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (ouled moulahoum sud) السواسي (أولاد مولاهم الجنوبية) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-ouled-moulahoum--5140",
+          "nameFr": "SOUASSI (Ouled Moulahoum)",
+          "nameAr": "السواسي (أولاد مولاهم)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (ouled moulahoum) السواسي (أولاد مولاهم) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-rejibet--5140",
+          "nameFr": "SOUASSI (Rejibet)",
+          "nameAr": "السواسي (رجيبة)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (rejibet) السواسي (رجيبة) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-sidi-bou-helal--5140",
+          "nameFr": "SOUASSI (Sidi Bou Helal)",
+          "nameAr": "السواسي (سيدي بوهلال)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (sidi bou helal) السواسي (سيدي بوهلال) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-sidi-naceur-nord--5140",
+          "nameFr": "SOUASSI (Sidi Naceur Nord)",
+          "nameAr": "السواسي (سيدي نصر الشمالية)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (sidi naceur nord) السواسي (سيدي نصر الشمالية) 5140"
+        },
+        {
+          "id": "mahdia--souassi--souassi-sidi-zid--5134",
+          "nameFr": "SOUASSI (Sidi Zid)",
+          "nameAr": "السواسي (سيدي زيد)",
+          "postalCode": "5134",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (sidi zid) السواسي (سيدي زيد) 5134"
+        },
+        {
+          "id": "mahdia--souassi--souassi-souassi--5140",
+          "nameFr": "SOUASSI (Souassi)",
+          "nameAr": "السواسي (السواسي)",
+          "postalCode": "5140",
+          "latitude": 35.3369,
+          "longitude": 10.4908,
+          "searchKey": "souassi (souassi) السواسي (السواسي) 5140"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3256 @@
+{
+  "code": "NABEUL",
+  "delegations": [
+    {
+      "id": "nabeul--beni-khalled",
+      "nameFr": "BENI KHALLED",
+      "nameAr": "بني خلاد",
+      "searchKey": "beni khalled بني خلاد",
+      "municipalities": [
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-beni-khalled--8021",
+          "nameFr": "BENI KHALLED (Beni Khalled)",
+          "nameAr": "بني خلاد (بني خلاد)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (beni khalled) بني خلاد (بني خلاد) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-bir-drassen--8014",
+          "nameFr": "BENI KHALLED (Bir Drassen)",
+          "nameAr": "بني خلاد (بئر دراسن)",
+          "postalCode": "8014",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (bir drassen) بني خلاد (بئر دراسن) 8014"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-achibet-amor--8021",
+          "nameFr": "BENI KHALLED (Cite Achibet Amor)",
+          "nameAr": "بني خلاد (حي عشيبة عمر)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite achibet amor) بني خلاد (حي عشيبة عمر) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-air-nouvelle--8021",
+          "nameFr": "BENI KHALLED (Cite Air Nouvelle)",
+          "nameAr": "بني خلاد (حي الهواء الجديد)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite air nouvelle) بني خلاد (حي الهواء الجديد) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-alaya-yakoubi--8021",
+          "nameFr": "BENI KHALLED (Cite Alaya Yakoubi)",
+          "nameAr": "بني خلاد (حي علية اليعقوبي)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite alaya yakoubi) بني خلاد (حي علية اليعقوبي) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-ben-romdhane--8021",
+          "nameFr": "BENI KHALLED (Cite Ben Romdhane)",
+          "nameAr": "بني خلاد (حي بن رمضان)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite ben romdhane) بني خلاد (حي بن رمضان) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-chelbia-oumaya--8021",
+          "nameFr": "BENI KHALLED (Cite Chelbia Oumaya)",
+          "nameAr": "بني خلاد (حي شلبية أمية)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite chelbia oumaya) بني خلاد (حي شلبية أمية) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-daghrour--8021",
+          "nameFr": "BENI KHALLED (Cite Daghrour)",
+          "nameAr": "بني خلاد (حي دغرور)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite daghrour) بني خلاد (حي دغرور) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-des-jeunes--8021",
+          "nameFr": "BENI KHALLED (Cite Des Jeunes)",
+          "nameAr": "بني خلاد (حي الشباب)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite des jeunes) بني خلاد (حي الشباب) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-du-printemps--8021",
+          "nameFr": "BENI KHALLED (Cite Du Printemps)",
+          "nameAr": "بني خلاد (حي الربيع)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite du printemps) بني خلاد (حي الربيع) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-el-gaied--8021",
+          "nameFr": "BENI KHALLED (Cite El Gaied)",
+          "nameAr": "بني خلاد (حي القايد)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite el gaied) بني خلاد (حي القايد) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-el-houda--8099",
+          "nameFr": "BENI KHALLED (Cite El Houda)",
+          "nameAr": "بني خلاد (حي الهدى)",
+          "postalCode": "8099",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite el houda) بني خلاد (حي الهدى) 8099"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-erriadh-1--8099",
+          "nameFr": "BENI KHALLED (Cite Erriadh 1)",
+          "nameAr": "بني خلاد (حي الرياض 1)",
+          "postalCode": "8099",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite erriadh 1) بني خلاد (حي الرياض 1) 8099"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-erriadh-2--8099",
+          "nameFr": "BENI KHALLED (Cite Erriadh 2)",
+          "nameAr": "بني خلاد (حي الرياض 2)",
+          "postalCode": "8099",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite erriadh 2) بني خلاد (حي الرياض 2) 8099"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-essalem--8021",
+          "nameFr": "BENI KHALLED (Cite Essalem)",
+          "nameAr": "بني خلاد (حي السلام)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite essalem) بني خلاد (حي السلام) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-ettaamir--8021",
+          "nameFr": "BENI KHALLED (Cite Ettaamir)",
+          "nameAr": "بني خلاد (حي التعمير)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite ettaamir) بني خلاد (حي التعمير) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-ezzaouch--8021",
+          "nameFr": "BENI KHALLED (Cite Ezzaouch)",
+          "nameAr": "بني خلاد (حي الزاوش)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite ezzaouch) بني خلاد (حي الزاوش) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-ezzouhour--8021",
+          "nameFr": "BENI KHALLED (Cite Ezzouhour)",
+          "nameAr": "بني خلاد (حي الزهور)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite ezzouhour) بني خلاد (حي الزهور) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-jardins-1--8099",
+          "nameFr": "BENI KHALLED (Cite Jardins 1)",
+          "nameAr": "بني خلاد (حي الحدائق 1)",
+          "postalCode": "8099",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite jardins 1) بني خلاد (حي الحدائق 1) 8099"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-jardins-2--8099",
+          "nameFr": "BENI KHALLED (Cite Jardins 2)",
+          "nameAr": "بني خلاد (حي الحدائق 2)",
+          "postalCode": "8099",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite jardins 2) بني خلاد (حي الحدائق 2) 8099"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-latrech--8021",
+          "nameFr": "BENI KHALLED (Cite Latrech)",
+          "nameAr": "بني خلاد (حي الأطرش)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite latrech) بني خلاد (حي الأطرش) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-mekki--8021",
+          "nameFr": "BENI KHALLED (Cite Mekki)",
+          "nameAr": "بني خلاد (حي مكي)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite mekki) بني خلاد (حي مكي) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-mokhtar-rhouma--8021",
+          "nameFr": "BENI KHALLED (Cite Mokhtar Rhouma)",
+          "nameAr": "بني خلاد (حي مختار رحومة)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite mokhtar rhouma) بني خلاد (حي مختار رحومة) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-sidi-bou-said--8099",
+          "nameFr": "BENI KHALLED (Cite Sidi Bou Said)",
+          "nameAr": "بني خلاد (حي سيدي بوسعيد)",
+          "postalCode": "8099",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite sidi bou said) بني خلاد (حي سيدي بوسعيد) 8099"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-sidi-bou-yahia--8021",
+          "nameFr": "BENI KHALLED (Cite Sidi Bou Yahia)",
+          "nameAr": "بني خلاد (حي سيدي بويحيى)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite sidi bou yahia) بني خلاد (حي سيدي بويحيى) 8021"
+        },
+        {
+          "id": "nabeul--beni-khalled--beni-khalled-cite-souissi--8021",
+          "nameFr": "BENI KHALLED (Cite Souissi)",
+          "nameAr": "بني خلاد (حي السويسي)",
+          "postalCode": "8021",
+          "latitude": 36.65,
+          "longitude": 10.5833,
+          "searchKey": "beni khalled (cite souissi) بني خلاد (حي السويسي) 8021"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--beni-khiar",
+      "nameFr": "BENI KHIAR",
+      "nameAr": "بني خيار",
+      "searchKey": "beni khiar بني خيار",
+      "municipalities": [
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-beni-khiar--8060",
+          "nameFr": "BENI KHIAR (Beni Khiar)",
+          "nameAr": "بني خيار (بني خيار)",
+          "postalCode": "8060",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (beni khiar) بني خيار (بني خيار) 8060"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-cite-bou-jaafar--8023",
+          "nameFr": "BENI KHIAR (Cite Bou Jaafar)",
+          "nameAr": "بني خيار (حي بوجعفر)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (cite bou jaafar) بني خيار (حي بوجعفر) 8023"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-cite-chafrada-1--8023",
+          "nameFr": "BENI KHIAR (Cite Chafrada 1)",
+          "nameAr": "بني خيار (حي شفرادة 1)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (cite chafrada 1) بني خيار (حي شفرادة 1) 8023"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-cite-chafrada-2--8023",
+          "nameFr": "BENI KHIAR (Cite Chafrada 2)",
+          "nameAr": "بني خيار (حي شفرادة 2)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (cite chafrada 2) بني خيار (حي شفرادة 2) 8023"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-cite-de-la-liberte--8023",
+          "nameFr": "BENI KHIAR (Cite De La Liberte)",
+          "nameAr": "بني خيار (حي الحرية)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (cite de la liberte) بني خيار (حي الحرية) 8023"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-cite-des-jeunes--8023",
+          "nameFr": "BENI KHIAR (Cite Des Jeunes)",
+          "nameAr": "بني خيار (حي الشباب)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (cite des jeunes) بني خيار (حي الشباب) 8023"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-cite-du-jardin--8023",
+          "nameFr": "BENI KHIAR (Cite Du Jardin)",
+          "nameAr": "بني خيار (حي الحديقة)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (cite du jardin) بني خيار (حي الحديقة) 8023"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-cite-el-manar--8023",
+          "nameFr": "BENI KHIAR (Cite El Manar)",
+          "nameAr": "بني خيار (حي المنار)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (cite el manar) بني خيار (حي المنار) 8023"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-cite-erriadh--8060",
+          "nameFr": "BENI KHIAR (Cite Erriadh)",
+          "nameAr": "بني خيار (حي الرياض)",
+          "postalCode": "8060",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (cite erriadh) بني خيار (حي الرياض) 8060"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-cite-ezzouhour--8023",
+          "nameFr": "BENI KHIAR (Cite Ezzouhour)",
+          "nameAr": "بني خيار (حي الزهور)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (cite ezzouhour) بني خيار (حي الزهور) 8023"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-cite-mansour--8023",
+          "nameFr": "BENI KHIAR (Cite Mansour)",
+          "nameAr": "بني خيار (حي منصور)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (cite mansour) بني خيار (حي منصور) 8023"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-diar-ben-salem--8060",
+          "nameFr": "BENI KHIAR (Diar Ben Salem)",
+          "nameAr": "بني خيار (ديار بن سالم)",
+          "postalCode": "8060",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (diar ben salem) بني خيار (ديار بن سالم) 8060"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-el-halfa--8023",
+          "nameFr": "BENI KHIAR (El Halfa)",
+          "nameAr": "بني خيار (الحلفاء)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (el halfa) بني خيار (الحلفاء) 8023"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-el-maamoura--8013",
+          "nameFr": "BENI KHIAR (El Maamoura)",
+          "nameAr": "بني خيار (المعمورة)",
+          "postalCode": "8013",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (el maamoura) بني خيار (المعمورة) 8013"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-ghardaya--8066",
+          "nameFr": "BENI KHIAR (Ghardaya)",
+          "nameAr": "بني خيار (غردية)",
+          "postalCode": "8066",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (ghardaya) بني خيار (غردية) 8066"
+        },
+        {
+          "id": "nabeul--beni-khiar--beni-khiar-somaa--8023",
+          "nameFr": "BENI KHIAR (Somaa)",
+          "nameAr": "بني خيار (الصمعة)",
+          "postalCode": "8023",
+          "latitude": 36.45,
+          "longitude": 10.7833,
+          "searchKey": "beni khiar (somaa) بني خيار (الصمعة) 8023"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--bou-argoub",
+      "nameFr": "BOU ARGOUB",
+      "nameAr": "بوعرقوب",
+      "searchKey": "bou argoub بوعرقوب",
+      "municipalities": [
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-belli--8022",
+          "nameFr": "BOU ARGOUB (Belli)",
+          "nameAr": "بوعرقوب (بلي)",
+          "postalCode": "8022",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (belli) بوعرقوب (بلي) 8022"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-borj-el-grais--8061",
+          "nameFr": "BOU ARGOUB (Borj El Grais)",
+          "nameAr": "بوعرقوب (برج القريص)",
+          "postalCode": "8061",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (borj el grais) بوعرقوب (برج القريص) 8061"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-borj-hafaiedh--8040",
+          "nameFr": "BOU ARGOUB (Borj Hafaiedh)",
+          "nameAr": "بوعرقوب (برج حفيظ)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (borj hafaiedh) بوعرقوب (برج حفيظ) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-bou-ali--8040",
+          "nameFr": "BOU ARGOUB (Bou Ali)",
+          "nameAr": "بوعرقوب (بوعلي)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (bou ali) بوعرقوب (بوعلي) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-bou-argoub--8040",
+          "nameFr": "BOU ARGOUB (Bou Argoub)",
+          "nameAr": "بوعرقوب (بوعرقوب)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (bou argoub) بوعرقوب (بوعرقوب) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-bou-rbii--8040",
+          "nameFr": "BOU ARGOUB (Bou Rbii)",
+          "nameAr": "بوعرقوب (بوربيع)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (bou rbii) بوعرقوب (بوربيع) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-bousehem--8040",
+          "nameFr": "BOU ARGOUB (Bousehem)",
+          "nameAr": "بوعرقوب (بوسحم)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (bousehem) بوعرقوب (بوسحم) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-chagleb--8040",
+          "nameFr": "BOU ARGOUB (Chagleb)",
+          "nameAr": "بوعرقوب (شقلب)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (chagleb) بوعرقوب (شقلب) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-cite-cnel--8040",
+          "nameFr": "BOU ARGOUB (Cite Cnel)",
+          "nameAr": "بوعرقوب (حي الصندوق الوطني للسكن)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (cite cnel) بوعرقوب (حي الصندوق الوطني للسكن) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-cite-commerciale--8040",
+          "nameFr": "BOU ARGOUB (Cite Commerciale)",
+          "nameAr": "بوعرقوب (الحي التجاري)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (cite commerciale) بوعرقوب (الحي التجاري) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-cite-de-la-carriere--8040",
+          "nameFr": "BOU ARGOUB (Cite De La Carriere)",
+          "nameAr": "بوعرقوب (حي المقرع)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (cite de la carriere) بوعرقوب (حي المقرع) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-cite-el-henchir--8040",
+          "nameFr": "BOU ARGOUB (Cite El Henchir)",
+          "nameAr": "بوعرقوب (حي الهنشير)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (cite el henchir) بوعرقوب (حي الهنشير) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-cite-el-houani--8040",
+          "nameFr": "BOU ARGOUB (Cite El Houani)",
+          "nameAr": "بوعرقوب (حي الحواني)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (cite el houani) بوعرقوب (حي الحواني) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-cite-el-hourria--8040",
+          "nameFr": "BOU ARGOUB (Cite El Hourria)",
+          "nameAr": "بوعرقوب (حي الحرية)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (cite el hourria) بوعرقوب (حي الحرية) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-cite-ezzaouia--8040",
+          "nameFr": "BOU ARGOUB (Cite Ezzaouia)",
+          "nameAr": "بوعرقوب (حي الزاوية)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (cite ezzaouia) بوعرقوب (حي الزاوية) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-cite-jadida--8040",
+          "nameFr": "BOU ARGOUB (Cite Jadida)",
+          "nameAr": "بوعرقوب (الحي الجديد)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (cite jadida) بوعرقوب (الحي الجديد) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-cite-mongi-slim--8040",
+          "nameFr": "BOU ARGOUB (Cite Mongi Slim)",
+          "nameAr": "بوعرقوب (حي المنجي سليم)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (cite mongi slim) بوعرقوب (حي المنجي سليم) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-cite-sprols--8040",
+          "nameFr": "BOU ARGOUB (Cite Sprols)",
+          "nameAr": "بوعرقوب (حي سبرولس)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (cite sprols) بوعرقوب (حي سبرولس) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-douali--8040",
+          "nameFr": "BOU ARGOUB (Douali)",
+          "nameAr": "بوعرقوب (الدوالي)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (douali) بوعرقوب (الدوالي) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-el-kharrouba--8040",
+          "nameFr": "BOU ARGOUB (El Kharrouba)",
+          "nameAr": "بوعرقوب (الخريبة)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (el kharrouba) بوعرقوب (الخريبة) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-el-machrouha--8040",
+          "nameFr": "BOU ARGOUB (El Machrouha)",
+          "nameAr": "بوعرقوب (المشروحة)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (el machrouha) بوعرقوب (المشروحة) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-el-mhedhba--8040",
+          "nameFr": "BOU ARGOUB (El Mhedhba)",
+          "nameAr": "بوعرقوب (المهذبة)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (el mhedhba) بوعرقوب (المهذبة) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-harithine--8040",
+          "nameFr": "BOU ARGOUB (Harithine)",
+          "nameAr": "بوعرقوب (الحراثين)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (harithine) بوعرقوب (الحراثين) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-ouled-abdallah--8040",
+          "nameFr": "BOU ARGOUB (Ouled Abdallah)",
+          "nameAr": "بوعرقوب (أولاد عبد الله)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (ouled abdallah) بوعرقوب (أولاد عبد الله) 8040"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-sidi-dhaher--8061",
+          "nameFr": "BOU ARGOUB (Sidi Dhaher)",
+          "nameAr": "بوعرقوب (سيدي الظاهر)",
+          "postalCode": "8061",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (sidi dhaher) بوعرقوب (سيدي الظاهر) 8061"
+        },
+        {
+          "id": "nabeul--bou-argoub--bou-argoub-zone-industrielle--8040",
+          "nameFr": "BOU ARGOUB (Zone Industrielle)",
+          "nameAr": "بوعرقوب (المنطقة الصناعية)",
+          "postalCode": "8040",
+          "latitude": 36.55,
+          "longitude": 10.55,
+          "searchKey": "bou argoub (zone industrielle) بوعرقوب (المنطقة الصناعية) 8040"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--dar-chaabane-elfehri",
+      "nameFr": "DAR CHAABANE ELFEHRI",
+      "nameAr": "دار شعبان الفهري",
+      "searchKey": "dar chaabane elfehri دار شعبان الفهري",
+      "municipalities": [
+        {
+          "id": "nabeul--dar-chaabane-elfehri--dar-chaabane-elfehri-bayoub--8011",
+          "nameFr": "DAR CHAABANE ELFEHRI (Bayoub)",
+          "nameAr": "دار شعبان الفهري (بايوب)",
+          "postalCode": "8011",
+          "latitude": 36.4667,
+          "longitude": 10.7667,
+          "searchKey": "dar chaabane elfehri (bayoub) دار شعبان الفهري (بايوب) 8011"
+        },
+        {
+          "id": "nabeul--dar-chaabane-elfehri--dar-chaabane-elfehri-cite-barnoussa--8011",
+          "nameFr": "DAR CHAABANE ELFEHRI (Cite Barnoussa)",
+          "nameAr": "دار شعبان الفهري (حي برنوصة)",
+          "postalCode": "8011",
+          "latitude": 36.4667,
+          "longitude": 10.7667,
+          "searchKey": "dar chaabane elfehri (cite barnoussa) دار شعبان الفهري (حي برنوصة) 8011"
+        },
+        {
+          "id": "nabeul--dar-chaabane-elfehri--dar-chaabane-elfehri-cite-el-ferdaous--8011",
+          "nameFr": "DAR CHAABANE ELFEHRI (Cite El Ferdaous)",
+          "nameAr": "دار شعبان الفهري (حي الفردوس)",
+          "postalCode": "8011",
+          "latitude": 36.4667,
+          "longitude": 10.7667,
+          "searchKey": "dar chaabane elfehri (cite el ferdaous) دار شعبان الفهري (حي الفردوس) 8011"
+        },
+        {
+          "id": "nabeul--dar-chaabane-elfehri--dar-chaabane-elfehri-cite-ennouzha--8011",
+          "nameFr": "DAR CHAABANE ELFEHRI (Cite Ennouzha)",
+          "nameAr": "دار شعبان الفهري (حي النزهة)",
+          "postalCode": "8011",
+          "latitude": 36.4667,
+          "longitude": 10.7667,
+          "searchKey": "dar chaabane elfehri (cite ennouzha) دار شعبان الفهري (حي النزهة) 8011"
+        },
+        {
+          "id": "nabeul--dar-chaabane-elfehri--dar-chaabane-elfehri-cite-ettakaddoum--8011",
+          "nameFr": "DAR CHAABANE ELFEHRI (Cite Ettakaddoum)",
+          "nameAr": "دار شعبان الفهري (حي التقدم)",
+          "postalCode": "8011",
+          "latitude": 36.4667,
+          "longitude": 10.7667,
+          "searchKey": "dar chaabane elfehri (cite ettakaddoum) دار شعبان الفهري (حي التقدم) 8011"
+        },
+        {
+          "id": "nabeul--dar-chaabane-elfehri--dar-chaabane-elfehri-cite-oued-el-ghoula--8011",
+          "nameFr": "DAR CHAABANE ELFEHRI (Cite Oued El Ghoula)",
+          "nameAr": "دار شعبان الفهري (حي وادي الغولة)",
+          "postalCode": "8011",
+          "latitude": 36.4667,
+          "longitude": 10.7667,
+          "searchKey": "dar chaabane elfehri (cite oued el ghoula) دار شعبان الفهري (حي وادي الغولة) 8011"
+        },
+        {
+          "id": "nabeul--dar-chaabane-elfehri--dar-chaabane-elfehri-dar-chaabane-elfehri--8011",
+          "nameFr": "DAR CHAABANE ELFEHRI (Dar Chaabane Elfehri)",
+          "nameAr": "دار شعبان الفهري (دار شعبان الفهري)",
+          "postalCode": "8011",
+          "latitude": 36.4667,
+          "longitude": 10.7667,
+          "searchKey": "dar chaabane elfehri (dar chaabane elfehri) دار شعبان الفهري (دار شعبان الفهري) 8011"
+        },
+        {
+          "id": "nabeul--dar-chaabane-elfehri--dar-chaabane-elfehri-dar-chaabane-plage--8075",
+          "nameFr": "DAR CHAABANE ELFEHRI (Dar Chaabane Plage)",
+          "nameAr": "دار شعبان الفهري (دار شعبان الشاطئ)",
+          "postalCode": "8075",
+          "latitude": 36.4667,
+          "longitude": 10.7667,
+          "searchKey": "dar chaabane elfehri (dar chaabane plage) دار شعبان الفهري (دار شعبان الشاطئ) 8075"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--el-haouaria",
+      "nameFr": "EL HAOUARIA",
+      "nameAr": "الهوارية",
+      "searchKey": "el haouaria الهوارية",
+      "municipalities": [
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-beni-khira--8026",
+          "nameFr": "EL HAOUARIA (Beni Khira)",
+          "nameAr": "الهوارية (بني خيرة)",
+          "postalCode": "8026",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (beni khira) الهوارية (بني خيرة) 8026"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-bir-el-jedey--8046",
+          "nameFr": "EL HAOUARIA (Bir El Jedey)",
+          "nameAr": "الهوارية (بئر الجدي)",
+          "postalCode": "8046",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (bir el jedey) الهوارية (بئر الجدي) 8046"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-bou-hbib--8074",
+          "nameFr": "EL HAOUARIA (Bou Hbib)",
+          "nameAr": "الهوارية (بوحبيب)",
+          "postalCode": "8074",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (bou hbib) الهوارية (بوحبيب) 8074"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-bou-krim--8036",
+          "nameFr": "EL HAOUARIA (Bou Krim)",
+          "nameAr": "الهوارية (بوكريم)",
+          "postalCode": "8036",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (bou krim) الهوارية (بوكريم) 8036"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-charaf--8045",
+          "nameFr": "EL HAOUARIA (Charaf)",
+          "nameAr": "الهوارية (شرف)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (charaf) الهوارية (شرف) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-cite-des-jeunes--8045",
+          "nameFr": "EL HAOUARIA (Cite Des Jeunes)",
+          "nameAr": "الهوارية (حي الشباب)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (cite des jeunes) الهوارية (حي الشباب) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-cite-des-rouines--8045",
+          "nameFr": "EL HAOUARIA (Cite Des Rouines)",
+          "nameAr": "الهوارية (حي الآثار)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (cite des rouines) الهوارية (حي الآثار) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-cite-el-amel--8045",
+          "nameFr": "EL HAOUARIA (Cite El Amel)",
+          "nameAr": "الهوارية (حي الأمل)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (cite el amel) الهوارية (حي الأمل) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-cite-el-intilaka--8045",
+          "nameFr": "EL HAOUARIA (Cite El Intilaka)",
+          "nameAr": "الهوارية (حي الإنطلاقة)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (cite el intilaka) الهوارية (حي الإنطلاقة) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-cite-el-izdihar--8045",
+          "nameFr": "EL HAOUARIA (Cite El Izdihar)",
+          "nameAr": "الهوارية (حي الإزدهار)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (cite el izdihar) الهوارية (حي الإزدهار) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-cite-el-khadhra--8045",
+          "nameFr": "EL HAOUARIA (Cite El Khadhra)",
+          "nameAr": "الهوارية (حي الخضراء)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (cite el khadhra) الهوارية (حي الخضراء) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-cite-ennour--8045",
+          "nameFr": "EL HAOUARIA (Cite Ennour)",
+          "nameAr": "الهوارية (حي النور)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (cite ennour) الهوارية (حي النور) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-cite-essalama--8045",
+          "nameFr": "EL HAOUARIA (Cite Essalama)",
+          "nameAr": "الهوارية (حي السلامة)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (cite essalama) الهوارية (حي السلامة) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-cite-sprols--8045",
+          "nameFr": "EL HAOUARIA (Cite Sprols)",
+          "nameAr": "الهوارية (حي سبرولس)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (cite sprols) الهوارية (حي سبرولس) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-cite-touristique--8045",
+          "nameFr": "EL HAOUARIA (Cite Touristique)",
+          "nameAr": "الهوارية (الحي السياحي)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (cite touristique) الهوارية (الحي السياحي) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-el-gorfa--8026",
+          "nameFr": "EL HAOUARIA (El Gorfa)",
+          "nameAr": "الهوارية (الغرفة)",
+          "postalCode": "8026",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (el gorfa) الهوارية (الغرفة) 8026"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-el-haouaria--8045",
+          "nameFr": "EL HAOUARIA (El Haouaria)",
+          "nameAr": "الهوارية (الهوارية)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (el haouaria) الهوارية (الهوارية) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-el-kedoua--8045",
+          "nameFr": "EL HAOUARIA (El Kedoua)",
+          "nameAr": "الهوارية (القدوة)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (el kedoua) الهوارية (القدوة) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-el-kermania--8046",
+          "nameFr": "EL HAOUARIA (El Kermania)",
+          "nameAr": "الهوارية (الكرمانية)",
+          "postalCode": "8046",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (el kermania) الهوارية (الكرمانية) 8046"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-ferjoun--8045",
+          "nameFr": "EL HAOUARIA (Ferjoun)",
+          "nameAr": "الهوارية (فرجون)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (ferjoun) الهوارية (فرجون) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-menzel-salem--8045",
+          "nameFr": "EL HAOUARIA (Menzel Salem)",
+          "nameAr": "الهوارية (منزل سالم)",
+          "postalCode": "8045",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (menzel salem) الهوارية (منزل سالم) 8045"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-saheb-jebel--8026",
+          "nameFr": "EL HAOUARIA (Saheb Jebel)",
+          "nameAr": "الهوارية (صاحب الجبل)",
+          "postalCode": "8026",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (saheb jebel) الهوارية (صاحب الجبل) 8026"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-sidi-daoud--8016",
+          "nameFr": "EL HAOUARIA (Sidi Daoud)",
+          "nameAr": "الهوارية (سيدي داود)",
+          "postalCode": "8016",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (sidi daoud) الهوارية (سيدي داود) 8016"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-tazougrane--8074",
+          "nameFr": "EL HAOUARIA (Tazougrane)",
+          "nameAr": "الهوارية (تازڨران)",
+          "postalCode": "8074",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (tazougrane) الهوارية (تازڨران) 8074"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-zaouiet-el-mgaies--8046",
+          "nameFr": "EL HAOUARIA (Zaouiet El Mgaies)",
+          "nameAr": "الهوارية (زاوية المقايس)",
+          "postalCode": "8046",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (zaouiet el mgaies) الهوارية (زاوية المقايس) 8046"
+        },
+        {
+          "id": "nabeul--el-haouaria--el-haouaria-zougag--8074",
+          "nameFr": "EL HAOUARIA (Zougag)",
+          "nameAr": "الهوارية (الزڨاڨ)",
+          "postalCode": "8074",
+          "latitude": 37.0481,
+          "longitude": 11.0189,
+          "searchKey": "el haouaria (zougag) الهوارية (الزڨاڨ) 8074"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--el-mida",
+      "nameFr": "EL MIDA",
+      "nameAr": "الميدة",
+      "searchKey": "el mida الميدة",
+      "municipalities": [
+        {
+          "id": "nabeul--el-mida--el-mida-ain-el-ghrab--8044",
+          "nameFr": "EL MIDA (Ain El Ghrab)",
+          "nameAr": "الميدة (عين الغراب)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (ain el ghrab) الميدة (عين الغراب) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-cite-dhahret-ezzaouia--8044",
+          "nameFr": "EL MIDA (Cite Dhahret Ezzaouia)",
+          "nameAr": "الميدة (حي ظهرة الزاوية)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (cite dhahret ezzaouia) الميدة (حي ظهرة الزاوية) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-cite-essoualmia--8044",
+          "nameFr": "EL MIDA (Cite Essoualmia)",
+          "nameAr": "الميدة (حي السوالمية)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (cite essoualmia) الميدة (حي السوالمية) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-el-khelaifa--8044",
+          "nameFr": "EL MIDA (El Khelaifa)",
+          "nameAr": "الميدة (الخلايفة)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (el khelaifa) الميدة (الخلايفة) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-el-maisra--8044",
+          "nameFr": "EL MIDA (El Maisra)",
+          "nameAr": "الميدة (الميسرة)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (el maisra) الميدة (الميسرة) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-el-mida--8044",
+          "nameFr": "EL MIDA (El Mida)",
+          "nameAr": "الميدة (الميدة)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (el mida) الميدة (الميدة) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-erreghine--8044",
+          "nameFr": "EL MIDA (Erreghine)",
+          "nameAr": "الميدة (الرغين)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (erreghine) الميدة (الرغين) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-errouiguette--8044",
+          "nameFr": "EL MIDA (Errouiguette)",
+          "nameAr": "الميدة (الرويقات)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (errouiguette) الميدة (الرويقات) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-fartouna--8089",
+          "nameFr": "EL MIDA (Fartouna)",
+          "nameAr": "الميدة (فرتونة)",
+          "postalCode": "8089",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (fartouna) الميدة (فرتونة) 8089"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-menzel-touhami--8044",
+          "nameFr": "EL MIDA (Menzel Touhami)",
+          "nameAr": "الميدة (منزل التوهامي)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (menzel touhami) الميدة (منزل التوهامي) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-oum-dhouil-village--8044",
+          "nameFr": "EL MIDA (Oum Dhouil Village)",
+          "nameAr": "الميدة (أم ذويل القرية)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (oum dhouil village) الميدة (أم ذويل القرية) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-sidi-bou-ali--8044",
+          "nameFr": "EL MIDA (Sidi Bou Ali)",
+          "nameAr": "الميدة (سيدي بوعلي)",
+          "postalCode": "8044",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (sidi bou ali) الميدة (سيدي بوعلي) 8044"
+        },
+        {
+          "id": "nabeul--el-mida--el-mida-tefeloun--8071",
+          "nameFr": "EL MIDA (Tefeloun)",
+          "nameAr": "الميدة (تفيلون)",
+          "postalCode": "8071",
+          "latitude": 36.8,
+          "longitude": 10.95,
+          "searchKey": "el mida (tefeloun) الميدة (تفيلون) 8071"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--grombalia",
+      "nameFr": "GROMBALIA",
+      "nameAr": "قرمبالية",
+      "searchKey": "grombalia قرمبالية",
+      "municipalities": [
+        {
+          "id": "nabeul--grombalia--grombalia-ain-tebournok--8093",
+          "nameFr": "GROMBALIA (Ain Tebournok)",
+          "nameAr": "قرمبالية (عين طبرنق)",
+          "postalCode": "8093",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (ain tebournok) قرمبالية (عين طبرنق) 8093"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-batrou--8030",
+          "nameFr": "GROMBALIA (Batrou)",
+          "nameAr": "قرمبالية (بطرو)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (batrou) قرمبالية (بطرو) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-belli-halte--8030",
+          "nameFr": "GROMBALIA (Belli Halte)",
+          "nameAr": "قرمبالية (بلي المحطة)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (belli halte) قرمبالية (بلي المحطة) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-beni-ayech--8030",
+          "nameFr": "GROMBALIA (Beni Ayech)",
+          "nameAr": "قرمبالية (بني عيش)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (beni ayech) قرمبالية (بني عيش) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-7-novembre--8030",
+          "nameFr": "GROMBALIA (Cite 7 Novembre)",
+          "nameAr": "قرمبالية (حي 7 نوفمبر)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite 7 novembre) قرمبالية (حي 7 نوفمبر) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-afh--8030",
+          "nameFr": "GROMBALIA (Cite Afh)",
+          "nameAr": "قرمبالية (حي الوكالة العقارية للسكنى)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite afh) قرمبالية (حي الوكالة العقارية للسكنى) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-antar--8030",
+          "nameFr": "GROMBALIA (Cite Antar)",
+          "nameAr": "قرمبالية (حي عنتر)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite antar) قرمبالية (حي عنتر) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-ben-attaya--8030",
+          "nameFr": "GROMBALIA (Cite Ben Attaya)",
+          "nameAr": "قرمبالية (حي بن عطايا)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite ben attaya) قرمبالية (حي بن عطايا) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-ben-zaied--8030",
+          "nameFr": "GROMBALIA (Cite Ben Zaied)",
+          "nameAr": "قرمبالية (حي بن زايد)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite ben zaied) قرمبالية (حي بن زايد) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-cebala--8030",
+          "nameFr": "GROMBALIA (Cite Cebala)",
+          "nameAr": "قرمبالية (حي السبالة)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite cebala) قرمبالية (حي السبالة) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-dhamene--8030",
+          "nameFr": "GROMBALIA (Cite Dhamene)",
+          "nameAr": "قرمبالية (حي ضامن)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite dhamene) قرمبالية (حي ضامن) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-eddamous--8030",
+          "nameFr": "GROMBALIA (Cite Eddamous)",
+          "nameAr": "قرمبالية (حي الداموس)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite eddamous) قرمبالية (حي الداموس) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-el-mandra--8030",
+          "nameFr": "GROMBALIA (Cite El Mandra)",
+          "nameAr": "قرمبالية (حي المندرة)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite el mandra) قرمبالية (حي المندرة) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-el-ouerdia--8030",
+          "nameFr": "GROMBALIA (Cite El Ouerdia)",
+          "nameAr": "قرمبالية (حي الوردية)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite el ouerdia) قرمبالية (حي الوردية) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-erriadh--8030",
+          "nameFr": "GROMBALIA (Cite Erriadh)",
+          "nameAr": "قرمبالية (حي الرياض)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite erriadh) قرمبالية (حي الرياض) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-essomboula--8030",
+          "nameFr": "GROMBALIA (Cite Essomboula)",
+          "nameAr": "قرمبالية (حي السنبلة)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite essomboula) قرمبالية (حي السنبلة) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-ezzouhour--8030",
+          "nameFr": "GROMBALIA (Cite Ezzouhour)",
+          "nameAr": "قرمبالية (حي الزهور)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite ezzouhour) قرمبالية (حي الزهور) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-ibn-khaldoun--8030",
+          "nameFr": "GROMBALIA (Cite Ibn Khaldoun)",
+          "nameAr": "قرمبالية (حي إبن خلدون)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite ibn khaldoun) قرمبالية (حي إبن خلدون) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-jardins--8030",
+          "nameFr": "GROMBALIA (Cite Jardins)",
+          "nameAr": "قرمبالية (حي الحدائق)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite jardins) قرمبالية (حي الحدائق) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-mohamed-ali--8030",
+          "nameFr": "GROMBALIA (Cite Mohamed Ali)",
+          "nameAr": "قرمبالية (حي محمد علي)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite mohamed ali) قرمبالية (حي محمد علي) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-mongi-slim--8030",
+          "nameFr": "GROMBALIA (Cite Mongi Slim)",
+          "nameAr": "قرمبالية (حي المنجي سليم)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite mongi slim) قرمبالية (حي المنجي سليم) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-snit--8030",
+          "nameFr": "GROMBALIA (Cite Snit)",
+          "nameAr": "قرمبالية (حي سنيت)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite snit) قرمبالية (حي سنيت) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-taieb-mhiri--8030",
+          "nameFr": "GROMBALIA (Cite Taieb Mhiri)",
+          "nameAr": "قرمبالية (حي الطيب المهيري)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite taieb mhiri) قرمبالية (حي الطيب المهيري) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-tarek-ibn-zied--8030",
+          "nameFr": "GROMBALIA (Cite Tarek Ibn Zied)",
+          "nameAr": "قرمبالية (حي طارق بن زياد)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite tarek ibn zied) قرمبالية (حي طارق بن زياد) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-cite-valenza--8030",
+          "nameFr": "GROMBALIA (Cite Valenza)",
+          "nameAr": "قرمبالية (حي فالنزا)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (cite valenza) قرمبالية (حي فالنزا) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-el-argoub-jedid--8030",
+          "nameFr": "GROMBALIA (El Argoub Jedid)",
+          "nameAr": "قرمبالية (العرقوب الجديد)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (el argoub jedid) قرمبالية (العرقوب الجديد) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-el-karmia--8030",
+          "nameFr": "GROMBALIA (El Karmia)",
+          "nameAr": "قرمبالية (الكرمية)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (el karmia) قرمبالية (الكرمية) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-el-khouine--8030",
+          "nameFr": "GROMBALIA (El Khouine)",
+          "nameAr": "قرمبالية (الخوين)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (el khouine) قرمبالية (الخوين) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-el-kobba-el-kebira--8030",
+          "nameFr": "GROMBALIA (El Kobba El Kebira)",
+          "nameAr": "قرمبالية (القبة الكبيرة)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (el kobba el kebira) قرمبالية (القبة الكبيرة) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-el-mhedhba--8030",
+          "nameFr": "GROMBALIA (El Mhedhba)",
+          "nameAr": "قرمبالية (المهذبة)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (el mhedhba) قرمبالية (المهذبة) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-fondouk-jedid--8012",
+          "nameFr": "GROMBALIA (Fondouk Jedid)",
+          "nameAr": "قرمبالية (فندق الجديد)",
+          "postalCode": "8012",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (fondouk jedid) قرمبالية (فندق الجديد) 8012"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-grombalia-ezzouhour--8092",
+          "nameFr": "GROMBALIA (Grombalia Ezzouhour)",
+          "nameAr": "قرمبالية (قرمبالية الزهور)",
+          "postalCode": "8092",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (grombalia ezzouhour) قرمبالية (قرمبالية الزهور) 8092"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-grombalia--8030",
+          "nameFr": "GROMBALIA (Grombalia)",
+          "nameAr": "قرمبالية (قرمبالية)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (grombalia) قرمبالية (قرمبالية) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-henchir-ettouta--8030",
+          "nameFr": "GROMBALIA (Henchir Ettouta)",
+          "nameAr": "قرمبالية (هنشير التوتة)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (henchir ettouta) قرمبالية (هنشير التوتة) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-jebel-trif--8093",
+          "nameFr": "GROMBALIA (Jebel Trif)",
+          "nameAr": "قرمبالية (جبل طريف)",
+          "postalCode": "8093",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (jebel trif) قرمبالية (جبل طريف) 8093"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-khanguet-gare--8030",
+          "nameFr": "GROMBALIA (Khanguet Gare)",
+          "nameAr": "قرمبالية (الخنڨة المحطة)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (khanguet gare) قرمبالية (الخنڨة المحطة) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-khous--8014",
+          "nameFr": "GROMBALIA (Khous)",
+          "nameAr": "قرمبالية (الخوص)",
+          "postalCode": "8014",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (khous) قرمبالية (الخوص) 8014"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-nianou--8052",
+          "nameFr": "GROMBALIA (Nianou)",
+          "nameAr": "قرمبالية (نيانو)",
+          "postalCode": "8052",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (nianou) قرمبالية (نيانو) 8052"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-nouel--8030",
+          "nameFr": "GROMBALIA (Nouel)",
+          "nameAr": "قرمبالية (نوال)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (nouel) قرمبالية (نوال) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-sammach--8030",
+          "nameFr": "GROMBALIA (Sammach)",
+          "nameAr": "قرمبالية (سماش)",
+          "postalCode": "8030",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (sammach) قرمبالية (سماش) 8030"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-seltene--8012",
+          "nameFr": "GROMBALIA (Seltene)",
+          "nameAr": "قرمبالية (سلتان)",
+          "postalCode": "8012",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (seltene) قرمبالية (سلتان) 8012"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-turki--8084",
+          "nameFr": "GROMBALIA (Turki)",
+          "nameAr": "قرمبالية (تركي)",
+          "postalCode": "8084",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (turki) قرمبالية (تركي) 8084"
+        },
+        {
+          "id": "nabeul--grombalia--grombalia-zemnit--8093",
+          "nameFr": "GROMBALIA (Zemnit)",
+          "nameAr": "قرمبالية (زمنيط)",
+          "postalCode": "8093",
+          "latitude": 36.6,
+          "longitude": 10.5,
+          "searchKey": "grombalia (zemnit) قرمبالية (زمنيط) 8093"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--hammam-el-ghezaz",
+      "nameFr": "HAMMAM EL GHEZAZ",
+      "nameAr": "حمام الأغزاز",
+      "searchKey": "hammam el ghezaz حمام الأغزاز",
+      "municipalities": [
+        {
+          "id": "nabeul--hammam-el-ghezaz--hammam-el-ghezaz-cite-jardins--8025",
+          "nameFr": "HAMMAM EL GHEZAZ (Cite Jardins)",
+          "nameAr": "حمام الأغزاز (حي الحدائق)",
+          "postalCode": "8025",
+          "latitude": 37.0711,
+          "longitude": 11.0469,
+          "searchKey": "hammam el ghezaz (cite jardins) حمام الأغزاز (حي الحدائق) 8025"
+        },
+        {
+          "id": "nabeul--hammam-el-ghezaz--hammam-el-ghezaz-ezzahra--8096",
+          "nameFr": "HAMMAM EL GHEZAZ (Ezzahra)",
+          "nameAr": "حمام الأغزاز (الزهرة)",
+          "postalCode": "8096",
+          "latitude": 37.0711,
+          "longitude": 11.0469,
+          "searchKey": "hammam el ghezaz (ezzahra) حمام الأغزاز (الزهرة) 8096"
+        },
+        {
+          "id": "nabeul--hammam-el-ghezaz--hammam-el-ghezaz-hammam-el-ghezaz--8025",
+          "nameFr": "HAMMAM EL GHEZAZ (Hammam El Ghezaz)",
+          "nameAr": "حمام الأغزاز (حمام الأغزاز)",
+          "postalCode": "8025",
+          "latitude": 37.0711,
+          "longitude": 11.0469,
+          "searchKey": "hammam el ghezaz (hammam el ghezaz) حمام الأغزاز (حمام الأغزاز) 8025"
+        },
+        {
+          "id": "nabeul--hammam-el-ghezaz--hammam-el-ghezaz-hammam-jebli--8096",
+          "nameFr": "HAMMAM EL GHEZAZ (Hammam Jebli)",
+          "nameAr": "حمام الأغزاز (حمام جبلي)",
+          "postalCode": "8096",
+          "latitude": 37.0711,
+          "longitude": 11.0469,
+          "searchKey": "hammam el ghezaz (hammam jebli) حمام الأغزاز (حمام جبلي) 8096"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--hammamet",
+      "nameFr": "HAMMAMET",
+      "nameAr": "الحمامات",
+      "searchKey": "hammamet الحمامات",
+      "municipalities": [
+        {
+          "id": "nabeul--hammamet--hammamet-barraket-essahel--8056",
+          "nameFr": "HAMMAMET (Barraket Essahel)",
+          "nameAr": "الحمامات (براكة الساحل)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (barraket essahel) الحمامات (براكة الساحل) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-bir-bouregba--8042",
+          "nameFr": "HAMMAMET (Bir Bouregba)",
+          "nameAr": "الحمامات (بئر بورقبة)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (bir bouregba) الحمامات (بئر بورقبة) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-chaabet-el-mrezga--8050",
+          "nameFr": "HAMMAMET (Chaabet El Mrezga)",
+          "nameAr": "الحمامات (شعبة المرزڨة)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (chaabet el mrezga) الحمامات (شعبة المرزڨة) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-chatt-el-khalij--8050",
+          "nameFr": "HAMMAMET (Chatt El Khalij)",
+          "nameAr": "الحمامات (شط الخليج)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (chatt el khalij) الحمامات (شط الخليج) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-afh--8056",
+          "nameFr": "HAMMAMET (Cite Afh)",
+          "nameAr": "الحمامات (حي الوكالة العقارية للسكنى)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite afh) الحمامات (حي الوكالة العقارية للسكنى) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-bir-chaaba--8042",
+          "nameFr": "HAMMAMET (Cite Bir Chaaba)",
+          "nameAr": "الحمامات (حي بئر شعبة)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite bir chaaba) الحمامات (حي بئر شعبة) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-bouslama--8042",
+          "nameFr": "HAMMAMET (Cite Bouslama)",
+          "nameAr": "الحمامات (حي بوسلامة)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite bouslama) الحمامات (حي بوسلامة) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-chatteles--8056",
+          "nameFr": "HAMMAMET (Cite Chatteles)",
+          "nameAr": "الحمامات (حي شاتلاس)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite chatteles) الحمامات (حي شاتلاس) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-chraf--8042",
+          "nameFr": "HAMMAMET (Cite Chraf)",
+          "nameAr": "الحمامات (حي الشرف)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite chraf) الحمامات (حي الشرف) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-ecole--8042",
+          "nameFr": "HAMMAMET (Cite Ecole)",
+          "nameAr": "الحمامات (حي المدرسة)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite ecole) الحمامات (حي المدرسة) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-el-bekkey--8042",
+          "nameFr": "HAMMAMET (Cite El Bekkey)",
+          "nameAr": "الحمامات (حي البكاي)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite el bekkey) الحمامات (حي البكاي) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-el-fawara--8042",
+          "nameFr": "HAMMAMET (Cite El Fawara)",
+          "nameAr": "الحمامات (حي الفوارة)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite el fawara) الحمامات (حي الفوارة) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-el-intilaka--8042",
+          "nameFr": "HAMMAMET (Cite El Intilaka)",
+          "nameAr": "الحمامات (حي الإنطلاقة)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite el intilaka) الحمامات (حي الإنطلاقة) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-el-izdihar--8056",
+          "nameFr": "HAMMAMET (Cite El Izdihar)",
+          "nameAr": "الحمامات (حي الإزدهار)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite el izdihar) الحمامات (حي الإزدهار) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-el-kharroub--8056",
+          "nameFr": "HAMMAMET (Cite El Kharroub)",
+          "nameAr": "الحمامات (حي الخروب)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite el kharroub) الحمامات (حي الخروب) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-el-ksour--8056",
+          "nameFr": "HAMMAMET (Cite El Ksour)",
+          "nameAr": "الحمامات (حي القصور)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite el ksour) الحمامات (حي القصور) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-el-mellassine--8042",
+          "nameFr": "HAMMAMET (Cite El Mellassine)",
+          "nameAr": "الحمامات (حي الملاسين)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite el mellassine) الحمامات (حي الملاسين) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-el-yasmine--8056",
+          "nameFr": "HAMMAMET (Cite El Yasmine)",
+          "nameAr": "الحمامات (حي الياسمين)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite el yasmine) الحمامات (حي الياسمين) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-ennadhour--8050",
+          "nameFr": "HAMMAMET (Cite Ennadhour)",
+          "nameAr": "الحمامات (حي الناظور)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite ennadhour) الحمامات (حي الناظور) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-ennaim--8042",
+          "nameFr": "HAMMAMET (Cite Ennaim)",
+          "nameAr": "الحمامات (حي النعيم)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite ennaim) الحمامات (حي النعيم) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-erriadh--8050",
+          "nameFr": "HAMMAMET (Cite Erriadh)",
+          "nameAr": "الحمامات (حي الرياض)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite erriadh) الحمامات (حي الرياض) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-essafsaf--8042",
+          "nameFr": "HAMMAMET (Cite Essafsaf)",
+          "nameAr": "الحمامات (حي الصفصاف)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite essafsaf) الحمامات (حي الصفصاف) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-estah--8056",
+          "nameFr": "HAMMAMET (Cite Estah)",
+          "nameAr": "الحمامات (حي السطاح)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite estah) الحمامات (حي السطاح) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-garde-nationale--8042",
+          "nameFr": "HAMMAMET (Cite Garde Nationale)",
+          "nameAr": "الحمامات (حي الحرس الوطني)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite garde nationale) الحمامات (حي الحرس الوطني) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-harboun-1--8042",
+          "nameFr": "HAMMAMET (Cite Harboun 1)",
+          "nameAr": "الحمامات (حي حربونة 1)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite harboun 1) الحمامات (حي حربونة 1) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-ibn-badis--8050",
+          "nameFr": "HAMMAMET (Cite Ibn Badis)",
+          "nameAr": "الحمامات (حي إبن باديس)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite ibn badis) الحمامات (حي إبن باديس) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-jawaher1--8056",
+          "nameFr": "HAMMAMET (Cite Jawaher1)",
+          "nameAr": "الحمامات (حي جواهر 1)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite jawaher1) الحمامات (حي جواهر 1) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-jawaher2--8056",
+          "nameFr": "HAMMAMET (Cite Jawaher2)",
+          "nameAr": "الحمامات (حي جواهر 2)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite jawaher2) الحمامات (حي جواهر 2) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-kheireddine-pacha--8050",
+          "nameFr": "HAMMAMET (Cite Kheireddine Pacha)",
+          "nameAr": "الحمامات (حي خير الدين باشا)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite kheireddine pacha) الحمامات (حي خير الدين باشا) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-merzgui--8056",
+          "nameFr": "HAMMAMET (Cite Merzgui)",
+          "nameAr": "الحمامات (حي مرزوقي)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite merzgui) الحمامات (حي مرزوقي) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-militaire--8050",
+          "nameFr": "HAMMAMET (Cite Militaire)",
+          "nameAr": "الحمامات (الحي العسكري)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite militaire) الحمامات (الحي العسكري) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-moussa-ibn-noussaier--8050",
+          "nameFr": "HAMMAMET (Cite Moussa Ibn Noussaier)",
+          "nameAr": "الحمامات (حي موسى بن نصير)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite moussa ibn noussaier) الحمامات (حي موسى بن نصير) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-okba-ibn-naafa--8050",
+          "nameFr": "HAMMAMET (Cite Okba Ibn Naafa)",
+          "nameAr": "الحمامات (حي عقبة بن نافع)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite okba ibn naafa) الحمامات (حي عقبة بن نافع) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-sanit-sheikh--8050",
+          "nameFr": "HAMMAMET (Cite Sanit Sheikh)",
+          "nameAr": "الحمامات (حي سانية الشيخ)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite sanit sheikh) الحمامات (حي سانية الشيخ) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-sidi-ali--8042",
+          "nameFr": "HAMMAMET (Cite Sidi Ali)",
+          "nameAr": "الحمامات (حي سيدي علي)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite sidi ali) الحمامات (حي سيدي علي) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-snit-1--8042",
+          "nameFr": "HAMMAMET (Cite Snit 1)",
+          "nameAr": "الحمامات (حي سنيت 1)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite snit 1) الحمامات (حي سنيت 1) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-snit-2--8042",
+          "nameFr": "HAMMAMET (Cite Snit 2)",
+          "nameAr": "الحمامات (حي سنيت 2)",
+          "postalCode": "8042",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite snit 2) الحمامات (حي سنيت 2) 8042"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-cite-snit--8056",
+          "nameFr": "HAMMAMET (Cite Snit)",
+          "nameAr": "الحمامات (حي سنيت)",
+          "postalCode": "8056",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (cite snit) الحمامات (حي سنيت) 8056"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-echak--8050",
+          "nameFr": "HAMMAMET (Echak)",
+          "nameAr": "الحمامات (الشق)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (echak) الحمامات (الشق) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-hammamet--8050",
+          "nameFr": "HAMMAMET (Hammamet)",
+          "nameAr": "الحمامات (الحمامات)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (hammamet) الحمامات (الحمامات) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-residence-ellissa--8050",
+          "nameFr": "HAMMAMET (Residence Ellissa)",
+          "nameAr": "الحمامات (إقامة اليسة)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (residence ellissa) الحمامات (إقامة اليسة) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-residence-ennacim--8050",
+          "nameFr": "HAMMAMET (Residence Ennacim)",
+          "nameAr": "الحمامات (إقامة النسيم)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (residence ennacim) الحمامات (إقامة النسيم) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-sidi-hmed--8050",
+          "nameFr": "HAMMAMET (Sidi Hmed)",
+          "nameAr": "الحمامات (سيدي حماد)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (sidi hmed) الحمامات (سيدي حماد) 8050"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-sidi-jedidi--8032",
+          "nameFr": "HAMMAMET (Sidi Jedidi)",
+          "nameAr": "الحمامات (سيدي الجديدي)",
+          "postalCode": "8032",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (sidi jedidi) الحمامات (سيدي الجديدي) 8032"
+        },
+        {
+          "id": "nabeul--hammamet--hammamet-zone-hoteliere--8050",
+          "nameFr": "HAMMAMET (Zone Hoteliere)",
+          "nameAr": "الحمامات (المنطقة الفندقية)",
+          "postalCode": "8050",
+          "latitude": 36.4,
+          "longitude": 10.6167,
+          "searchKey": "hammamet (zone hoteliere) الحمامات (المنطقة الفندقية) 8050"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--kelibia",
+      "nameFr": "KELIBIA",
+      "nameAr": "قليبية",
+      "searchKey": "kelibia قليبية",
+      "municipalities": [
+        {
+          "id": "nabeul--kelibia--kelibia-abene--8090",
+          "nameFr": "KELIBIA (Abene)",
+          "nameAr": "قليبية (أبين)",
+          "postalCode": "8090",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (abene) قليبية (أبين) 8090"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-azmour--8035",
+          "nameFr": "KELIBIA (Azmour)",
+          "nameAr": "قليبية (أزمور)",
+          "postalCode": "8035",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (azmour) قليبية (أزمور) 8035"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-charaf--8090",
+          "nameFr": "KELIBIA (Charaf)",
+          "nameAr": "قليبية (الشرف)",
+          "postalCode": "8090",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (charaf) قليبية (الشرف) 8090"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-cite-afh--8090",
+          "nameFr": "KELIBIA (Cite Afh)",
+          "nameAr": "قليبية (حي الوكالة العقارية للسكنى)",
+          "postalCode": "8090",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (cite afh) قليبية (حي الوكالة العقارية للسكنى) 8090"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-cite-assemmer--8090",
+          "nameFr": "KELIBIA (Cite Assemmer)",
+          "nameAr": "قليبية (حي السمر)",
+          "postalCode": "8090",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (cite assemmer) قليبية (حي السمر) 8090"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-cite-ksiba--8090",
+          "nameFr": "KELIBIA (Cite Ksiba)",
+          "nameAr": "قليبية (حي القصيبة)",
+          "postalCode": "8090",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (cite ksiba) قليبية (حي القصيبة) 8090"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-cite-riadh--8090",
+          "nameFr": "KELIBIA (Cite Riadh)",
+          "nameAr": "قليبية (حي الرياض)",
+          "postalCode": "8090",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (cite riadh) قليبية (حي الرياض) 8090"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-dar-allouche--8055",
+          "nameFr": "KELIBIA (Dar Allouche)",
+          "nameAr": "قليبية (دار علوش)",
+          "postalCode": "8055",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (dar allouche) قليبية (دار علوش) 8055"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-dar-chichou--8090",
+          "nameFr": "KELIBIA (Dar Chichou)",
+          "nameAr": "قليبية (دار شيشو)",
+          "postalCode": "8090",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (dar chichou) قليبية (دار شيشو) 8090"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-kelibia-charguia--8069",
+          "nameFr": "KELIBIA (Kelibia Charguia)",
+          "nameAr": "قليبية (قليبية الشرقية)",
+          "postalCode": "8069",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (kelibia charguia) قليبية (قليبية الشرقية) 8069"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-kelibia--8090",
+          "nameFr": "KELIBIA (Kelibia)",
+          "nameAr": "قليبية (قليبية)",
+          "postalCode": "8090",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (kelibia) قليبية (قليبية) 8090"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-kerkouane--8090",
+          "nameFr": "KELIBIA (Kerkouane)",
+          "nameAr": "قليبية (كركوان)",
+          "postalCode": "8090",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (kerkouane) قليبية (كركوان) 8090"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-melloul--8094",
+          "nameFr": "KELIBIA (Melloul)",
+          "nameAr": "قليبية (ملول)",
+          "postalCode": "8094",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (melloul) قليبية (ملول) 8094"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-oued-el-khatef--8065",
+          "nameFr": "KELIBIA (Oued El Khatef)",
+          "nameAr": "قليبية (وادي الخطف)",
+          "postalCode": "8065",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (oued el khatef) قليبية (وادي الخطف) 8065"
+        },
+        {
+          "id": "nabeul--kelibia--kelibia-sidi-madhkour--8090",
+          "nameFr": "KELIBIA (Sidi Madhkour)",
+          "nameAr": "قليبية (سيدي مذكور)",
+          "postalCode": "8090",
+          "latitude": 36.8472,
+          "longitude": 11.0944,
+          "searchKey": "kelibia (sidi madhkour) قليبية (سيدي مذكور) 8090"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--korba",
+      "nameFr": "KORBA",
+      "nameAr": "قربة",
+      "searchKey": "korba قربة",
+      "municipalities": [
+        {
+          "id": "nabeul--korba--korba-beni-aichoun--8070",
+          "nameFr": "KORBA (Beni Aichoun)",
+          "nameAr": "قربة (بني عيشون)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (beni aichoun) قربة (بني عيشون) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-bou-jerida--8043",
+          "nameFr": "KORBA (Bou Jerida)",
+          "nameAr": "قربة (بوجريدة)",
+          "postalCode": "8043",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (bou jerida) قربة (بوجريدة) 8043"
+        },
+        {
+          "id": "nabeul--korba--korba-bou-lazhar--8070",
+          "nameFr": "KORBA (Bou Lazhar)",
+          "nameAr": "قربة (بولزهر)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (bou lazhar) قربة (بولزهر) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-bir-ezzitoun--8070",
+          "nameFr": "KORBA (Cite Bir Ezzitoun)",
+          "nameAr": "قربة (حي بئر الزيتون)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite bir ezzitoun) قربة (حي بئر الزيتون) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-commerciale--8070",
+          "nameFr": "KORBA (Cite Commerciale)",
+          "nameAr": "قربة (الحي التجاري)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite commerciale) قربة (الحي التجاري) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-el-khiri--8070",
+          "nameFr": "KORBA (Cite El Khiri)",
+          "nameAr": "قربة (حي الخيري)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite el khiri) قربة (حي الخيري) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-el-majredi--8070",
+          "nameFr": "KORBA (Cite El Majredi)",
+          "nameAr": "قربة (حي المجرادي)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite el majredi) قربة (حي المجرادي) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-ettaamir--8070",
+          "nameFr": "KORBA (Cite Ettaamir)",
+          "nameAr": "قربة (حي التعمير)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite ettaamir) قربة (حي التعمير) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-jamaa-errahma--8070",
+          "nameFr": "KORBA (Cite Jamaa Errahma)",
+          "nameAr": "قربة (حي جامع الرحمة)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite jamaa errahma) قربة (حي جامع الرحمة) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-jerad--8070",
+          "nameFr": "KORBA (Cite Jerad)",
+          "nameAr": "قربة (حي جراد)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite jerad) قربة (حي جراد) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-jerbi--8070",
+          "nameFr": "KORBA (Cite Jerbi)",
+          "nameAr": "قربة (حي الجربي)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite jerbi) قربة (حي الجربي) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-sadok-jerbi--8070",
+          "nameFr": "KORBA (Cite Sadok Jerbi)",
+          "nameAr": "قربة (حي الصادق جربي)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite sadok jerbi) قربة (حي الصادق جربي) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-sidi-amor--8024",
+          "nameFr": "KORBA (Cite Sidi Amor)",
+          "nameAr": "قربة (حي سيدي عمر)",
+          "postalCode": "8024",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite sidi amor) قربة (حي سيدي عمر) 8024"
+        },
+        {
+          "id": "nabeul--korba--korba-cite-sidi-salem--8070",
+          "nameFr": "KORBA (Cite Sidi Salem)",
+          "nameAr": "قربة (حي سيدي سالم)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (cite sidi salem) قربة (حي سيدي سالم) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-diar-el-hojjej--8033",
+          "nameFr": "KORBA (Diar El Hojjej)",
+          "nameAr": "قربة (ديار الحجاج)",
+          "postalCode": "8033",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (diar el hojjej) قربة (ديار الحجاج) 8033"
+        },
+        {
+          "id": "nabeul--korba--korba-garaat-sassi--8053",
+          "nameFr": "KORBA (Garaat Sassi)",
+          "nameAr": "قربة (ڨراعة ساسي)",
+          "postalCode": "8053",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (garaat sassi) قربة (ڨراعة ساسي) 8053"
+        },
+        {
+          "id": "nabeul--korba--korba-jebel-haddad--8070",
+          "nameFr": "KORBA (Jebel Haddad)",
+          "nameAr": "قربة (جبل حداد)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (jebel haddad) قربة (جبل حداد) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-korba-hached--8076",
+          "nameFr": "KORBA (Korba Hached)",
+          "nameAr": "قربة (قربة حشاد)",
+          "postalCode": "8076",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (korba hached) قربة (قربة حشاد) 8076"
+        },
+        {
+          "id": "nabeul--korba--korba-korba--8070",
+          "nameFr": "KORBA (Korba)",
+          "nameAr": "قربة (قربة)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (korba) قربة (قربة) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-korchine--8070",
+          "nameFr": "KORBA (Korchine)",
+          "nameAr": "قربة (كرشين)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (korchine) قربة (كرشين) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-lathleth--8070",
+          "nameFr": "KORBA (Lathleth)",
+          "nameAr": "قربة (الأثلاث)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (lathleth) قربة (الأثلاث) 8070"
+        },
+        {
+          "id": "nabeul--korba--korba-tazarka--8024",
+          "nameFr": "KORBA (Tazarka)",
+          "nameAr": "قربة (تازركة)",
+          "postalCode": "8024",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (tazarka) قربة (تازركة) 8024"
+        },
+        {
+          "id": "nabeul--korba--korba-tebak--8070",
+          "nameFr": "KORBA (Tebak)",
+          "nameAr": "قربة (تباك)",
+          "postalCode": "8070",
+          "latitude": 36.5667,
+          "longitude": 10.8667,
+          "searchKey": "korba (tebak) قربة (تباك) 8070"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--menzel-bouzelfa",
+      "nameFr": "MENZEL BOUZELFA",
+      "nameAr": "منزل بوزلفة",
+      "searchKey": "menzel bouzelfa منزل بوزلفة",
+      "municipalities": [
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-bedar--8010",
+          "nameFr": "MENZEL BOUZELFA (Bedar)",
+          "nameAr": "منزل بوزلفة (بدار)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (bedar) منزل بوزلفة (بدار) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-beni-ghanem--8010",
+          "nameFr": "MENZEL BOUZELFA (Beni Ghanem)",
+          "nameAr": "منزل بوزلفة (بني غانم)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (beni ghanem) منزل بوزلفة (بني غانم) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-bouchrik--8010",
+          "nameFr": "MENZEL BOUZELFA (Bouchrik)",
+          "nameAr": "منزل بوزلفة (بوشريك)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (bouchrik) منزل بوزلفة (بوشريك) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-charfine--8010",
+          "nameFr": "MENZEL BOUZELFA (Charfine)",
+          "nameAr": "منزل بوزلفة (شرفين)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (charfine) منزل بوزلفة (شرفين) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-ahmed-othman--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Ahmed Othman)",
+          "nameAr": "منزل بوزلفة (حي أحمد عثمان)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite ahmed othman) منزل بوزلفة (حي أحمد عثمان) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-azaiez--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Azaiez)",
+          "nameAr": "منزل بوزلفة (حي العزايز)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite azaiez) منزل بوزلفة (حي العزايز) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-bahroun--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Bahroun)",
+          "nameAr": "منزل بوزلفة (حي بحرون)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite bahroun) منزل بوزلفة (حي بحرون) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-ben-hjel--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Ben Hjel)",
+          "nameAr": "منزل بوزلفة (حي بن هجال)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite ben hjel) منزل بوزلفة (حي بن هجال) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-chaafouri--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Chaafouri)",
+          "nameAr": "منزل بوزلفة (حي الشافوري)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite chaafouri) منزل بوزلفة (حي الشافوري) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-cheikh--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Cheikh)",
+          "nameAr": "منزل بوزلفة (حي الشيخ)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite cheikh) منزل بوزلفة (حي الشيخ) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-cherif--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Cherif)",
+          "nameAr": "منزل بوزلفة (حي الشريف)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite cherif) منزل بوزلفة (حي الشريف) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-daghbagi--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Daghbagi)",
+          "nameAr": "منزل بوزلفة (حي الدغباجي)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite daghbagi) منزل بوزلفة (حي الدغباجي) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-ennouzha--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Ennouzha)",
+          "nameAr": "منزل بوزلفة (حي النزهة)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite ennouzha) منزل بوزلفة (حي النزهة) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-essahli--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Essahli)",
+          "nameAr": "منزل بوزلفة (حي الساحلي)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite essahli) منزل بوزلفة (حي الساحلي) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-ettahrir--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Ettahrir)",
+          "nameAr": "منزل بوزلفة (حي التحرير)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite ettahrir) منزل بوزلفة (حي التحرير) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-jemmali--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Jemmali)",
+          "nameAr": "منزل بوزلفة (حي الجمالي)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite jemmali) منزل بوزلفة (حي الجمالي) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-laroui--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Laroui)",
+          "nameAr": "منزل بوزلفة (حي العروي)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite laroui) منزل بوزلفة (حي العروي) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-municipale-barket--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Municipale Barket)",
+          "nameAr": "منزل بوزلفة (الحي البلدي بركت)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite municipale barket) منزل بوزلفة (الحي البلدي بركت) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-neguira--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Neguira)",
+          "nameAr": "منزل بوزلفة (حي نڨيرة)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite neguira) منزل بوزلفة (حي نڨيرة) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-souihli--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Souihli)",
+          "nameAr": "منزل بوزلفة (حي السويحلي)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite souihli) منزل بوزلفة (حي السويحلي) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-cite-souissi--8010",
+          "nameFr": "MENZEL BOUZELFA (Cite Souissi)",
+          "nameAr": "منزل بوزلفة (حي السويسي)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (cite souissi) منزل بوزلفة (حي السويسي) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-damous-el-hajja--8010",
+          "nameFr": "MENZEL BOUZELFA (Damous El Hajja)",
+          "nameAr": "منزل بوزلفة (داموس الحاجة)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (damous el hajja) منزل بوزلفة (داموس الحاجة) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-dar-joundi--8010",
+          "nameFr": "MENZEL BOUZELFA (Dar Joundi)",
+          "nameAr": "منزل بوزلفة (دار جندي)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (dar joundi) منزل بوزلفة (دار جندي) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-dar-nader--8010",
+          "nameFr": "MENZEL BOUZELFA (Dar Nader)",
+          "nameAr": "منزل بوزلفة (دار نادر)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (dar nader) منزل بوزلفة (دار نادر) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-el-arima--8010",
+          "nameFr": "MENZEL BOUZELFA (El Arima)",
+          "nameAr": "منزل بوزلفة (العريمة)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (el arima) منزل بوزلفة (العريمة) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-errahma--8091",
+          "nameFr": "MENZEL BOUZELFA (Errahma)",
+          "nameAr": "منزل بوزلفة (الرحمة)",
+          "postalCode": "8091",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (errahma) منزل بوزلفة (الرحمة) 8091"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-kalbousi--8010",
+          "nameFr": "MENZEL BOUZELFA (Kalbousi)",
+          "nameAr": "منزل بوزلفة (قلبوسي)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (kalbousi) منزل بوزلفة (قلبوسي) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-ksirat--8010",
+          "nameFr": "MENZEL BOUZELFA (Ksirat)",
+          "nameAr": "منزل بوزلفة (القصيراط)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (ksirat) منزل بوزلفة (القصيراط) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-menzel-bouzelfa--8010",
+          "nameFr": "MENZEL BOUZELFA (Menzel Bouzelfa)",
+          "nameAr": "منزل بوزلفة (منزل بوزلفة)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (menzel bouzelfa) منزل بوزلفة (منزل بوزلفة) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-oued-sidi-said--8010",
+          "nameFr": "MENZEL BOUZELFA (Oued Sidi Said)",
+          "nameAr": "منزل بوزلفة (وادي سيدي سعيد)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (oued sidi said) منزل بوزلفة (وادي سيدي سعيد) 8010"
+        },
+        {
+          "id": "nabeul--menzel-bouzelfa--menzel-bouzelfa-zengou--8010",
+          "nameFr": "MENZEL BOUZELFA (Zengou)",
+          "nameAr": "منزل بوزلفة (زنقو)",
+          "postalCode": "8010",
+          "latitude": 36.6833,
+          "longitude": 10.5833,
+          "searchKey": "menzel bouzelfa (zengou) منزل بوزلفة (زنقو) 8010"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--menzel-temime",
+      "nameFr": "MENZEL TEMIME",
+      "nameAr": "منزل تميم",
+      "searchKey": "menzel temime منزل تميم",
+      "municipalities": [
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-beni-abdelaziz--8080",
+          "nameFr": "MENZEL TEMIME (Beni Abdelaziz)",
+          "nameAr": "منزل تميم (بني عبد العزيز)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (beni abdelaziz) منزل تميم (بني عبد العزيز) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-chatt-ezzouhour--8080",
+          "nameFr": "MENZEL TEMIME (Chatt Ezzouhour)",
+          "nameAr": "منزل تميم (شط الزهور)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (chatt ezzouhour) منزل تميم (شط الزهور) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-cite-ettaamir--8080",
+          "nameFr": "MENZEL TEMIME (Cite Ettaamir)",
+          "nameAr": "منزل تميم (حي التعمير)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (cite ettaamir) منزل تميم (حي التعمير) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-cite-populaire--8080",
+          "nameFr": "MENZEL TEMIME (Cite Populaire)",
+          "nameAr": "منزل تميم (الحي الشعبي)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (cite populaire) منزل تميم (الحي الشعبي) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-cite-sidi-salem--8080",
+          "nameFr": "MENZEL TEMIME (Cite Sidi Salem)",
+          "nameAr": "منزل تميم (حي سيدي سالم)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (cite sidi salem) منزل تميم (حي سيدي سالم) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-damous--8080",
+          "nameFr": "MENZEL TEMIME (Damous)",
+          "nameAr": "منزل تميم (الداموس)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (damous) منزل تميم (الداموس) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-echaibni--8080",
+          "nameFr": "MENZEL TEMIME (Echaibni)",
+          "nameAr": "منزل تميم (الشايبي)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (echaibni) منزل تميم (الشايبي) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-el-gheris--8080",
+          "nameFr": "MENZEL TEMIME (El Gheris)",
+          "nameAr": "منزل تميم (الغريس)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (el gheris) منزل تميم (الغريس) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-el-ouediane--8054",
+          "nameFr": "MENZEL TEMIME (El Ouediane)",
+          "nameAr": "منزل تميم (الوديان)",
+          "postalCode": "8054",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (el ouediane) منزل تميم (الوديان) 8054"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-lazidine--8080",
+          "nameFr": "MENZEL TEMIME (Lazidine)",
+          "nameAr": "منزل تميم (لزادين)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (lazidine) منزل تميم (لزادين) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-lebna--8034",
+          "nameFr": "MENZEL TEMIME (Lebna)",
+          "nameAr": "منزل تميم (لبنة)",
+          "postalCode": "8034",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (lebna) منزل تميم (لبنة) 8034"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-menzel-horr--8015",
+          "nameFr": "MENZEL TEMIME (Menzel Horr)",
+          "nameAr": "منزل تميم (منزل حر)",
+          "postalCode": "8015",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (menzel horr) منزل تميم (منزل حر) 8015"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-menzel-issa--8080",
+          "nameFr": "MENZEL TEMIME (Menzel Issa)",
+          "nameAr": "منزل تميم (منزل عيسى)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (menzel issa) منزل تميم (منزل عيسى) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-rainine--8083",
+          "nameFr": "MENZEL TEMIME (Rainine)",
+          "nameAr": "منزل تميم (رينين)",
+          "postalCode": "8083",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (rainine) منزل تميم (رينين) 8083"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-sidi-abdelmonem--8080",
+          "nameFr": "MENZEL TEMIME (Sidi Abdelmonem)",
+          "nameAr": "منزل تميم (سيدي عبد المنعم)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (sidi abdelmonem) منزل تميم (سيدي عبد المنعم) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-sidi-jameleddine--8080",
+          "nameFr": "MENZEL TEMIME (Sidi Jameleddine)",
+          "nameAr": "منزل تميم (سيدي جمال الدين)",
+          "postalCode": "8080",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (sidi jameleddine) منزل تميم (سيدي جمال الدين) 8080"
+        },
+        {
+          "id": "nabeul--menzel-temime--menzel-temime-skalba--8064",
+          "nameFr": "MENZEL TEMIME (Skalba)",
+          "nameAr": "منزل تميم (سكلة)",
+          "postalCode": "8064",
+          "latitude": 36.7833,
+          "longitude": 11.0167,
+          "searchKey": "menzel temime (skalba) منزل تميم (سكلة) 8064"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--nabeul",
+      "nameFr": "NABEUL",
+      "nameAr": "نابل",
+      "searchKey": "nabeul نابل",
+      "municipalities": [
+        {
+          "id": "nabeul--nabeul--nabeul-ain-kemicha--8000",
+          "nameFr": "NABEUL (Ain Kemicha)",
+          "nameAr": "نابل (عين كميشة)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (ain kemicha) نابل (عين كميشة) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-abdessalem-el-behi--8000",
+          "nameFr": "NABEUL (Cite Abdessalem El Behi)",
+          "nameAr": "نابل (حي عبد السلام الباهي)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite abdessalem el behi) نابل (حي عبد السلام الباهي) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-bahroun--8000",
+          "nameFr": "NABEUL (Cite Bahroun)",
+          "nameAr": "نابل (حي بحرون)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite bahroun) نابل (حي بحرون) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-cnrps--8000",
+          "nameFr": "NABEUL (Cite Cnrps)",
+          "nameAr": "نابل (حي الصندوق الوطني للتقاعد والحيطة الإجتماعية)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite cnrps) نابل (حي الصندوق الوطني للتقاعد والحيطة الإجتماعية) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-cote-or-1--8000",
+          "nameFr": "NABEUL (Cite Cote Or 1)",
+          "nameAr": "نابل (حي الكوت دور 1)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite cote or 1) نابل (حي الكوت دور 1) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-cote-or-2--8000",
+          "nameFr": "NABEUL (Cite Cote Or 2)",
+          "nameAr": "نابل (حي الكوت دور 2)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite cote or 2) نابل (حي الكوت دور 2) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-des-oranges--8000",
+          "nameFr": "NABEUL (Cite Des Oranges)",
+          "nameAr": "نابل (حي البرتقال)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite des oranges) نابل (حي البرتقال) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-el-bassatine--8000",
+          "nameFr": "NABEUL (Cite El Bassatine)",
+          "nameAr": "نابل (حي البساتين)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite el bassatine) نابل (حي البساتين) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-el-borj-1--8000",
+          "nameFr": "NABEUL (Cite El Borj 1)",
+          "nameAr": "نابل (حي البرج 1)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite el borj 1) نابل (حي البرج 1) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-el-borj-2--8000",
+          "nameFr": "NABEUL (Cite El Borj 2)",
+          "nameAr": "نابل (حي البرج 2)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite el borj 2) نابل (حي البرج 2) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-el-mahrsi-1--8062",
+          "nameFr": "NABEUL (Cite El Mahrsi 1)",
+          "nameAr": "نابل (حي المهرسي 1)",
+          "postalCode": "8062",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite el mahrsi 1) نابل (حي المهرسي 1) 8062"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-el-mahrsi-2--8062",
+          "nameFr": "NABEUL (Cite El Mahrsi 2)",
+          "nameAr": "نابل (حي المهرسي 2)",
+          "postalCode": "8062",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite el mahrsi 2) نابل (حي المهرسي 2) 8062"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-el-mahrsi-3--8062",
+          "nameFr": "NABEUL (Cite El Mahrsi 3)",
+          "nameAr": "نابل (حي المهرسي 3)",
+          "postalCode": "8062",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite el mahrsi 3) نابل (حي المهرسي 3) 8062"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-ennacim--8000",
+          "nameFr": "NABEUL (Cite Ennacim)",
+          "nameAr": "نابل (حي النسيم)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite ennacim) نابل (حي النسيم) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-ennajeh--8000",
+          "nameFr": "NABEUL (Cite Ennajeh)",
+          "nameAr": "نابل (حي النجاح)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite ennajeh) نابل (حي النجاح) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-ettaamir--8000",
+          "nameFr": "NABEUL (Cite Ettaamir)",
+          "nameAr": "نابل (حي التعمير)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite ettaamir) نابل (حي التعمير) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-hali--8000",
+          "nameFr": "NABEUL (Cite Hali)",
+          "nameAr": "نابل (حي حالي)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite hali) نابل (حي حالي) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-industrielle--8000",
+          "nameFr": "NABEUL (Cite Industrielle)",
+          "nameAr": "نابل (الحي الصناعي)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite industrielle) نابل (الحي الصناعي) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-jasmins-simpar--8000",
+          "nameFr": "NABEUL (Cite Jasmins Simpar)",
+          "nameAr": "نابل (حي ياسمين سيمبار)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite jasmins simpar) نابل (حي ياسمين سيمبار) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-mohsen-limam--8000",
+          "nameFr": "NABEUL (Cite Mohsen Limam)",
+          "nameAr": "نابل (حي محسن الإمام)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite mohsen limam) نابل (حي محسن الإمام) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-sidi-amor--8000",
+          "nameFr": "NABEUL (Cite Sidi Amor)",
+          "nameAr": "نابل (حي سيدي عمر)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite sidi amor) نابل (حي سيدي عمر) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-sidi-moussa--8000",
+          "nameFr": "NABEUL (Cite Sidi Moussa)",
+          "nameAr": "نابل (حي سيدي موسى)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite sidi moussa) نابل (حي سيدي موسى) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-cite-universitaire--8000",
+          "nameFr": "NABEUL (Cite Universitaire)",
+          "nameAr": "نابل (الحي الجامعي)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (cite universitaire) نابل (الحي الجامعي) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-henchir-el-haouaria--8062",
+          "nameFr": "NABEUL (Henchir El Haouaria)",
+          "nameAr": "نابل (هنشير الهوارية)",
+          "postalCode": "8062",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (henchir el haouaria) نابل (هنشير الهوارية) 8062"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-henchir-gort--8000",
+          "nameFr": "NABEUL (Henchir Gort)",
+          "nameAr": "نابل (هنشير قرط)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (henchir gort) نابل (هنشير قرط) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-mimosas-villas-et-bungalows--8000",
+          "nameFr": "NABEUL (Mimosas Villas Et Bungalows)",
+          "nameAr": "نابل (الميموزا فيلات وبنڨالوهات)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (mimosas villas et bungalows) نابل (الميموزا فيلات وبنڨالوهات) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-nabeul-thameur--8062",
+          "nameFr": "NABEUL (Nabeul Thameur)",
+          "nameAr": "نابل (نابل ثامر)",
+          "postalCode": "8062",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (nabeul thameur) نابل (نابل ثامر) 8062"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-nabeul--8000",
+          "nameFr": "NABEUL (Nabeul)",
+          "nameAr": "نابل (نابل)",
+          "postalCode": "8000",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (nabeul) نابل (نابل) 8000"
+        },
+        {
+          "id": "nabeul--nabeul--nabeul-residence-denene--8062",
+          "nameFr": "NABEUL (Residence Denene)",
+          "nameAr": "نابل (إقامة دنين)",
+          "postalCode": "8062",
+          "latitude": 36.4561,
+          "longitude": 10.7358,
+          "searchKey": "nabeul (residence denene) نابل (إقامة دنين) 8062"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--soliman",
+      "nameFr": "SOLIMAN",
+      "nameAr": "سليمان",
+      "searchKey": "soliman سليمان",
+      "municipalities": [
+        {
+          "id": "nabeul--soliman--soliman-bou-charray--8063",
+          "nameFr": "SOLIMAN (Bou Charray)",
+          "nameAr": "سليمان (بوشراي)",
+          "postalCode": "8063",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (bou charray) سليمان (بوشراي) 8063"
+        },
+        {
+          "id": "nabeul--soliman--soliman-cherifate--8051",
+          "nameFr": "SOLIMAN (Cherifate)",
+          "nameAr": "سليمان (شريفات)",
+          "postalCode": "8051",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (cherifate) سليمان (شريفات) 8051"
+        },
+        {
+          "id": "nabeul--soliman--soliman-cite-gharnata--8020",
+          "nameFr": "SOLIMAN (Cite Gharnata)",
+          "nameAr": "سليمان (حي غرناطة)",
+          "postalCode": "8020",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (cite gharnata) سليمان (حي غرناطة) 8020"
+        },
+        {
+          "id": "nabeul--soliman--soliman-cite-hotel-des-andalous--8020",
+          "nameFr": "SOLIMAN (Cite Hotel Des Andalous)",
+          "nameAr": "سليمان (حي فندق الأندلس)",
+          "postalCode": "8020",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (cite hotel des andalous) سليمان (حي فندق الأندلس) 8020"
+        },
+        {
+          "id": "nabeul--soliman--soliman-cite-nouvelle--8020",
+          "nameFr": "SOLIMAN (Cite Nouvelle)",
+          "nameAr": "سليمان (الحي الجديد)",
+          "postalCode": "8020",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (cite nouvelle) سليمان (الحي الجديد) 8020"
+        },
+        {
+          "id": "nabeul--soliman--soliman-cite-sprols--8020",
+          "nameFr": "SOLIMAN (Cite Sprols)",
+          "nameAr": "سليمان (حي سبرولس)",
+          "postalCode": "8020",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (cite sprols) سليمان (حي سبرولس) 8020"
+        },
+        {
+          "id": "nabeul--soliman--soliman-dhahri--8020",
+          "nameFr": "SOLIMAN (Dhahri)",
+          "nameAr": "سليمان (الظهري)",
+          "postalCode": "8020",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (dhahri) سليمان (الظهري) 8020"
+        },
+        {
+          "id": "nabeul--soliman--soliman-el-abebsa--8020",
+          "nameFr": "SOLIMAN (El Abebsa)",
+          "nameAr": "سليمان (العبابسة)",
+          "postalCode": "8020",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (el abebsa) سليمان (العبابسة) 8020"
+        },
+        {
+          "id": "nabeul--soliman--soliman-el-marja--8020",
+          "nameFr": "SOLIMAN (El Marja)",
+          "nameAr": "سليمان (المرجى)",
+          "postalCode": "8020",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (el marja) سليمان (المرجى) 8020"
+        },
+        {
+          "id": "nabeul--soliman--soliman-korbous--8041",
+          "nameFr": "SOLIMAN (Korbous)",
+          "nameAr": "سليمان (قربص)",
+          "postalCode": "8041",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (korbous) سليمان (قربص) 8041"
+        },
+        {
+          "id": "nabeul--soliman--soliman-meraissa--8073",
+          "nameFr": "SOLIMAN (Meraissa)",
+          "nameAr": "سليمان (المريسة)",
+          "postalCode": "8073",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (meraissa) سليمان (المريسة) 8073"
+        },
+        {
+          "id": "nabeul--soliman--soliman-soliman--8020",
+          "nameFr": "SOLIMAN (Soliman)",
+          "nameAr": "سليمان (سليمان)",
+          "postalCode": "8020",
+          "latitude": 36.7,
+          "longitude": 10.4833,
+          "searchKey": "soliman (soliman) سليمان (سليمان) 8020"
+        }
+      ]
+    },
+    {
+      "id": "nabeul--takelsa",
+      "nameFr": "TAKELSA",
+      "nameAr": "تاكلسة",
+      "searchKey": "takelsa تاكلسة",
+      "municipalities": [
+        {
+          "id": "nabeul--takelsa--takelsa-bir-mroua--8031",
+          "nameFr": "TAKELSA (Bir Mroua)",
+          "nameAr": "تاكلسة (بئر مروة)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (bir mroua) تاكلسة (بئر مروة) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-cite-erriadh--8031",
+          "nameFr": "TAKELSA (Cite Erriadh)",
+          "nameAr": "تاكلسة (حي الرياض)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (cite erriadh) تاكلسة (حي الرياض) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-cite-populaire--8031",
+          "nameFr": "TAKELSA (Cite Populaire)",
+          "nameAr": "تاكلسة (الحي الشعبي)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (cite populaire) تاكلسة (الحي الشعبي) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-douala--8031",
+          "nameFr": "TAKELSA (Douala)",
+          "nameAr": "تاكلسة (دوالة)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (douala) تاكلسة (دوالة) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-el-bekekcha--8031",
+          "nameFr": "TAKELSA (El Bekekcha)",
+          "nameAr": "تاكلسة (البكاكشة)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (el bekekcha) تاكلسة (البكاكشة) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-el-brij--8031",
+          "nameFr": "TAKELSA (El Brij)",
+          "nameAr": "تاكلسة (البريج)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (el brij) تاكلسة (البريج) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-ghars-mrad--8031",
+          "nameFr": "TAKELSA (Ghars Mrad)",
+          "nameAr": "تاكلسة (غرس مراد)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (ghars mrad) تاكلسة (غرس مراد) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-henchir-chedli--8031",
+          "nameFr": "TAKELSA (Henchir Chedli)",
+          "nameAr": "تاكلسة (هنشير الشاذلي)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (henchir chedli) تاكلسة (هنشير الشاذلي) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-oued-el-abid--8031",
+          "nameFr": "TAKELSA (Oued El Abid)",
+          "nameAr": "تاكلسة (وادي العبيد)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (oued el abid) تاكلسة (وادي العبيد) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-ramel--8031",
+          "nameFr": "TAKELSA (Ramel)",
+          "nameAr": "تاكلسة (الرمل)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (ramel) تاكلسة (الرمل) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-rtiba--8031",
+          "nameFr": "TAKELSA (Rtiba)",
+          "nameAr": "تاكلسة (رتيبة)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (rtiba) تاكلسة (رتيبة) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-sidi-issa--8031",
+          "nameFr": "TAKELSA (Sidi Issa)",
+          "nameAr": "تاكلسة (سيدي عيسى)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (sidi issa) تاكلسة (سيدي عيسى) 8031"
+        },
+        {
+          "id": "nabeul--takelsa--takelsa-takelsa--8031",
+          "nameFr": "TAKELSA (Takelsa)",
+          "nameAr": "تاكلسة (تاكلسة)",
+          "postalCode": "8031",
+          "latitude": 36.7833,
+          "longitude": 10.6333,
+          "searchKey": "takelsa (takelsa) تاكلسة (تاكلسة) 8031"
+        }
+      ]
+    }
+  ]
+}

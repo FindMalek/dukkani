@@ -1,0 +1,2376 @@
+{
+  "code": "BIZERTE",
+  "delegations": [
+    {
+      "id": "bizerte--bizerte-nord",
+      "nameFr": "BIZERTE NORD",
+      "nameAr": "بنزرت الشمالية",
+      "searchKey": "bizerte nord بنزرت الشمالية",
+      "municipalities": [
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-bizerte-bab-mateur--7061",
+          "nameFr": "BIZERTE NORD (Bizerte Bab Mateur)",
+          "nameAr": "بنزرت الشمالية (بنزرت باب ماطر)",
+          "postalCode": "7061",
+          "latitude": 37.2708,
+          "longitude": 9.8697,
+          "searchKey": "bizerte nord (bizerte bab mateur) بنزرت الشمالية (بنزرت باب ماطر) 7061"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-bizerte-bougatfa--7053",
+          "nameFr": "BIZERTE NORD (Bizerte Bougatfa)",
+          "nameAr": "بنزرت الشمالية (بنزرت بوقطفة)",
+          "postalCode": "7053",
+          "latitude": 37.27,
+          "longitude": 9.865,
+          "searchKey": "bizerte nord (bizerte bougatfa) بنزرت الشمالية (بنزرت بوقطفة) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-bizerte--7000",
+          "nameFr": "BIZERTE NORD (Bizerte)",
+          "nameAr": "بنزرت الشمالية (بنزرت)",
+          "postalCode": "7000",
+          "latitude": 37.2744,
+          "longitude": 9.8739,
+          "searchKey": "bizerte nord (bizerte) بنزرت الشمالية (بنزرت) 7000"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-afh--7053",
+          "nameFr": "BIZERTE NORD (Cite Afh)",
+          "nameAr": "بنزرت الشمالية (حي الوكالة العقارية للسكنى)",
+          "postalCode": "7053",
+          "latitude": 37.2765,
+          "longitude": 9.8633,
+          "searchKey": "bizerte nord (cite afh) بنزرت الشمالية (حي الوكالة العقارية للسكنى) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-ain-mariem--7000",
+          "nameFr": "BIZERTE NORD (Cite Ain Mariem)",
+          "nameAr": "بنزرت الشمالية (حي عين مريم)",
+          "postalCode": "7000",
+          "latitude": 37.285,
+          "longitude": 9.878,
+          "searchKey": "bizerte nord (cite ain mariem) بنزرت الشمالية (حي عين مريم) 7000"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-ain-meriem--7053",
+          "nameFr": "BIZERTE NORD (Cite Ain Meriem)",
+          "nameAr": "بنزرت الشمالية (حي عين مريم)",
+          "postalCode": "7053",
+          "latitude": 37.2853,
+          "longitude": 9.8785,
+          "searchKey": "bizerte nord (cite ain meriem) بنزرت الشمالية (حي عين مريم) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-belvedere--7000",
+          "nameFr": "BIZERTE NORD (Cite Belvedere)",
+          "nameAr": "بنزرت الشمالية (حي البلفيدير)",
+          "postalCode": "7000",
+          "latitude": 37.2781,
+          "longitude": 9.8703,
+          "searchKey": "bizerte nord (cite belvedere) بنزرت الشمالية (حي البلفيدير) 7000"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-bougatfa-2--7053",
+          "nameFr": "BIZERTE NORD (Cite Bougatfa 2)",
+          "nameAr": "بنزرت الشمالية (حي بوقطفة 2)",
+          "postalCode": "7053",
+          "latitude": 37.269,
+          "longitude": 9.864,
+          "searchKey": "bizerte nord (cite bougatfa 2) بنزرت الشمالية (حي بوقطفة 2) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-bougatfa--7001",
+          "nameFr": "BIZERTE NORD (Cite Bougatfa)",
+          "nameAr": "بنزرت الشمالية (حي بوقطفة)",
+          "postalCode": "7001",
+          "latitude": 37.2705,
+          "longitude": 9.8653,
+          "searchKey": "bizerte nord (cite bougatfa) بنزرت الشمالية (حي بوقطفة) 7001"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-chourouk-sidi-salem--7003",
+          "nameFr": "BIZERTE NORD (Cite Chourouk Sidi Salem)",
+          "nameAr": "بنزرت الشمالية (حي شروق سيدي سالم)",
+          "postalCode": "7003",
+          "latitude": 37.2658,
+          "longitude": 9.8795,
+          "searchKey": "bizerte nord (cite chourouk sidi salem) بنزرت الشمالية (حي شروق سيدي سالم) 7003"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-de-la-municipalite--7001",
+          "nameFr": "BIZERTE NORD (Cite De La Municipalite)",
+          "nameAr": "بنزرت الشمالية (حي البلدية)",
+          "postalCode": "7001",
+          "latitude": 37.2718,
+          "longitude": 9.8667,
+          "searchKey": "bizerte nord (cite de la municipalite) بنزرت الشمالية (حي البلدية) 7001"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-de-la-police--7053",
+          "nameFr": "BIZERTE NORD (Cite De La Police)",
+          "nameAr": "بنزرت الشمالية (حي الشرطة)",
+          "postalCode": "7053",
+          "latitude": 37.275,
+          "longitude": 9.862,
+          "searchKey": "bizerte nord (cite de la police) بنزرت الشمالية (حي الشرطة) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-de-la-sante--7003",
+          "nameFr": "BIZERTE NORD (Cite De La Sante)",
+          "nameAr": "بنزرت الشمالية (حي الصحة)",
+          "postalCode": "7003",
+          "latitude": 37.2683,
+          "longitude": 9.8772,
+          "searchKey": "bizerte nord (cite de la sante) بنزرت الشمالية (حي الصحة) 7003"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-de-paris--7003",
+          "nameFr": "BIZERTE NORD (Cite De Paris)",
+          "nameAr": "بنزرت الشمالية (حي باريس)",
+          "postalCode": "7003",
+          "latitude": 37.2701,
+          "longitude": 9.8759,
+          "searchKey": "bizerte nord (cite de paris) بنزرت الشمالية (حي باريس) 7003"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-el-hana--7003",
+          "nameFr": "BIZERTE NORD (Cite El Hana)",
+          "nameAr": "بنزرت الشمالية (حي الهناء)",
+          "postalCode": "7003",
+          "latitude": 37.2725,
+          "longitude": 9.8745,
+          "searchKey": "bizerte nord (cite el hana) بنزرت الشمالية (حي الهناء) 7003"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-el-korniche-1--7053",
+          "nameFr": "BIZERTE NORD (Cite El Korniche 1)",
+          "nameAr": "بنزرت الشمالية (حي الكورنيش 1)",
+          "postalCode": "7053",
+          "latitude": 37.2895,
+          "longitude": 9.874,
+          "searchKey": "bizerte nord (cite el korniche 1) بنزرت الشمالية (حي الكورنيش 1) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-el-korniche-2--7053",
+          "nameFr": "BIZERTE NORD (Cite El Korniche 2)",
+          "nameAr": "بنزرت الشمالية (حي الكورنيش 2)",
+          "postalCode": "7053",
+          "latitude": 37.2905,
+          "longitude": 9.875,
+          "searchKey": "bizerte nord (cite el korniche 2) بنزرت الشمالية (حي الكورنيش 2) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-el-korniche-3--7053",
+          "nameFr": "BIZERTE NORD (Cite El Korniche 3)",
+          "nameAr": "بنزرت الشمالية (حي الكورنيش 3)",
+          "postalCode": "7053",
+          "latitude": 37.2915,
+          "longitude": 9.876,
+          "searchKey": "bizerte nord (cite el korniche 3) بنزرت الشمالية (حي الكورنيش 3) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-el-morjene-3--7053",
+          "nameFr": "BIZERTE NORD (Cite El Morjene 3)",
+          "nameAr": "بنزرت الشمالية (حي المرجان 3)",
+          "postalCode": "7053",
+          "latitude": 37.2733,
+          "longitude": 9.86,
+          "searchKey": "bizerte nord (cite el morjene 3) بنزرت الشمالية (حي المرجان 3) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-el-morjene-4--7053",
+          "nameFr": "BIZERTE NORD (Cite El Morjene 4)",
+          "nameAr": "بنزرت الشمالية (حي المرجان 4)",
+          "postalCode": "7053",
+          "latitude": 37.2723,
+          "longitude": 9.859,
+          "searchKey": "bizerte nord (cite el morjene 4) بنزرت الشمالية (حي المرجان 4) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-ennacim--7003",
+          "nameFr": "BIZERTE NORD (Cite Ennacim)",
+          "nameAr": "بنزرت الشمالية (حي النسيم)",
+          "postalCode": "7003",
+          "latitude": 37.2748,
+          "longitude": 9.8731,
+          "searchKey": "bizerte nord (cite ennacim) بنزرت الشمالية (حي النسيم) 7003"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-erraouabi--7003",
+          "nameFr": "BIZERTE NORD (Cite Erraouabi)",
+          "nameAr": "بنزرت الشمالية (حي الروابي)",
+          "postalCode": "7003",
+          "latitude": 37.2769,
+          "longitude": 9.8718,
+          "searchKey": "bizerte nord (cite erraouabi) بنزرت الشمالية (حي الروابي) 7003"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-erriadh--7001",
+          "nameFr": "BIZERTE NORD (Cite Erriadh)",
+          "nameAr": "بنزرت الشمالية (حي الرياض)",
+          "postalCode": "7001",
+          "latitude": 37.273,
+          "longitude": 9.868,
+          "searchKey": "bizerte nord (cite erriadh) بنزرت الشمالية (حي الرياض) 7001"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-hassen-nouri--7001",
+          "nameFr": "BIZERTE NORD (Cite Hassen Nouri)",
+          "nameAr": "بنزرت الشمالية (حي حسان النوري)",
+          "postalCode": "7001",
+          "latitude": 37.2741,
+          "longitude": 9.8692,
+          "searchKey": "bizerte nord (cite hassen nouri) بنزرت الشمالية (حي حسان النوري) 7001"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-militaire--7002",
+          "nameFr": "BIZERTE NORD (Cite Militaire)",
+          "nameAr": "بنزرت الشمالية (الحي العسكري)",
+          "postalCode": "7002",
+          "latitude": 37.281,
+          "longitude": 9.8732,
+          "searchKey": "bizerte nord (cite militaire) بنزرت الشمالية (الحي العسكري) 7002"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-nouvelle-plage--7001",
+          "nameFr": "BIZERTE NORD (Cite Nouvelle Plage)",
+          "nameAr": "بنزرت الشمالية (حي الشاطئ الجديد)",
+          "postalCode": "7001",
+          "latitude": 37.2883,
+          "longitude": 9.8751,
+          "searchKey": "bizerte nord (cite nouvelle plage) بنزرت الشمالية (حي الشاطئ الجديد) 7001"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-rafaha-1--7053",
+          "nameFr": "BIZERTE NORD (Cite Rafaha 1)",
+          "nameAr": "بنزرت الشمالية (حي الرفاهة 1)",
+          "postalCode": "7053",
+          "latitude": 37.279,
+          "longitude": 9.867,
+          "searchKey": "bizerte nord (cite rafaha 1) بنزرت الشمالية (حي الرفاهة 1) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-cite-rafaha-2--7053",
+          "nameFr": "BIZERTE NORD (Cite Rafaha 2)",
+          "nameAr": "بنزرت الشمالية (حي الرفاهة 2)",
+          "postalCode": "7053",
+          "latitude": 37.2795,
+          "longitude": 9.868,
+          "searchKey": "bizerte nord (cite rafaha 2) بنزرت الشمالية (حي الرفاهة 2) 7053"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-ennadhour--7029",
+          "nameFr": "BIZERTE NORD (Ennadhour)",
+          "nameAr": "بنزرت الشمالية (الناظور)",
+          "postalCode": "7029",
+          "latitude": 37.2803,
+          "longitude": 9.8205,
+          "searchKey": "bizerte nord (ennadhour) بنزرت الشمالية (الناظور) 7029"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-fejjet-errih--7029",
+          "nameFr": "BIZERTE NORD (Fejjet Errih)",
+          "nameAr": "بنزرت الشمالية (فجة الريح)",
+          "postalCode": "7029",
+          "latitude": 37.2858,
+          "longitude": 9.7502,
+          "searchKey": "bizerte nord (fejjet errih) بنزرت الشمالية (فجة الريح) 7029"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-ksar-lahmar--7029",
+          "nameFr": "BIZERTE NORD (Ksar Lahmar)",
+          "nameAr": "بنزرت الشمالية (القصر الأحمر)",
+          "postalCode": "7029",
+          "latitude": 37.3015,
+          "longitude": 9.7826,
+          "searchKey": "bizerte nord (ksar lahmar) بنزرت الشمالية (القصر الأحمر) 7029"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-ksiba--7001",
+          "nameFr": "BIZERTE NORD (Ksiba)",
+          "nameAr": "بنزرت الشمالية (قصيبة)",
+          "postalCode": "7001",
+          "latitude": 37.2752,
+          "longitude": 9.8705,
+          "searchKey": "bizerte nord (ksiba) بنزرت الشمالية (قصيبة) 7001"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-marnissa--7029",
+          "nameFr": "BIZERTE NORD (Marnissa)",
+          "nameAr": "بنزرت الشمالية (مرنيصة)",
+          "postalCode": "7029",
+          "latitude": 37.2754,
+          "longitude": 9.8013,
+          "searchKey": "bizerte nord (marnissa) بنزرت الشمالية (مرنيصة) 7029"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-oued-el-marj--7003",
+          "nameFr": "BIZERTE NORD (Oued El Marj)",
+          "nameAr": "بنزرت الشمالية (وادي المرج)",
+          "postalCode": "7003",
+          "latitude": 37.2787,
+          "longitude": 9.8704,
+          "searchKey": "bizerte nord (oued el marj) بنزرت الشمالية (وادي المرج) 7003"
+        },
+        {
+          "id": "bizerte--bizerte-nord--bizerte-nord-sidi-ahmed--7029",
+          "nameFr": "BIZERTE NORD (Sidi Ahmed)",
+          "nameAr": "بنزرت الشمالية (سيدي أحمد)",
+          "postalCode": "7029",
+          "latitude": 37.2689,
+          "longitude": 9.7652,
+          "searchKey": "bizerte nord (sidi ahmed) بنزرت الشمالية (سيدي أحمد) 7029"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--bizerte-sud",
+      "nameFr": "BIZERTE SUD",
+      "nameAr": "بنزرت الجنوبية",
+      "searchKey": "bizerte sud بنزرت الجنوبية",
+      "municipalities": [
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-ain-el-berda--7029",
+          "nameFr": "BIZERTE SUD (Ain El Berda)",
+          "nameAr": "بنزرت الجنوبية (عين البردة)",
+          "postalCode": "7029",
+          "latitude": 37.2931,
+          "longitude": 9.8325,
+          "searchKey": "bizerte sud (ain el berda) بنزرت الجنوبية (عين البردة) 7029"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-ain-jenane--7029",
+          "nameFr": "BIZERTE SUD (Ain Jenane)",
+          "nameAr": "بنزرت الجنوبية (عين جنان)",
+          "postalCode": "7029",
+          "latitude": 37.2885,
+          "longitude": 9.8281,
+          "searchKey": "bizerte sud (ain jenane) بنزرت الجنوبية (عين جنان) 7029"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-bizerte-hached--7071",
+          "nameFr": "BIZERTE SUD (Bizerte Hached)",
+          "nameAr": "بنزرت الجنوبية (بنزرت حشاد)",
+          "postalCode": "7071",
+          "latitude": 37.2652,
+          "longitude": 9.8681,
+          "searchKey": "bizerte sud (bizerte hached) بنزرت الجنوبية (بنزرت حشاد) 7071"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-borj-challouf--7094",
+          "nameFr": "BIZERTE SUD (Borj Challouf)",
+          "nameAr": "بنزرت الجنوبية (برج شلوف)",
+          "postalCode": "7094",
+          "latitude": 37.2798,
+          "longitude": 9.8765,
+          "searchKey": "bizerte sud (borj challouf) بنزرت الجنوبية (برج شلوف) 7094"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-bou-zaria--7064",
+          "nameFr": "BIZERTE SUD (Bou Zaria)",
+          "nameAr": "بنزرت الجنوبية (بو زارية)",
+          "postalCode": "7064",
+          "latitude": 37.2501,
+          "longitude": 9.8453,
+          "searchKey": "bizerte sud (bou zaria) بنزرت الجنوبية (بو زارية) 7064"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-cite-el-mourouj--7011",
+          "nameFr": "BIZERTE SUD (Cite El Mourouj)",
+          "nameAr": "بنزرت الجنوبية (حي المروج)",
+          "postalCode": "7011",
+          "latitude": 37.2553,
+          "longitude": 9.8602,
+          "searchKey": "bizerte sud (cite el mourouj) بنزرت الجنوبية (حي المروج) 7011"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-cite-militaire--7011",
+          "nameFr": "BIZERTE SUD (Cite Militaire)",
+          "nameAr": "بنزرت الجنوبية (الحي العسكري)",
+          "postalCode": "7011",
+          "latitude": 37.2593,
+          "longitude": 9.8554,
+          "searchKey": "bizerte sud (cite militaire) بنزرت الجنوبية (الحي العسكري) 7011"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-el-mrazig--7029",
+          "nameFr": "BIZERTE SUD (El Mrazig)",
+          "nameAr": "بنزرت الجنوبية (المرازيق)",
+          "postalCode": "7029",
+          "latitude": 37.2837,
+          "longitude": 9.8239,
+          "searchKey": "bizerte sud (el mrazig) بنزرت الجنوبية (المرازيق) 7029"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-la-pecherie--7011",
+          "nameFr": "BIZERTE SUD (La Pecherie)",
+          "nameAr": "بنزرت الجنوبية (المصيدة)",
+          "postalCode": "7011",
+          "latitude": 37.2685,
+          "longitude": 9.8703,
+          "searchKey": "bizerte sud (la pecherie) بنزرت الجنوبية (المصيدة) 7011"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-louata--7041",
+          "nameFr": "BIZERTE SUD (Louata)",
+          "nameAr": "بنزرت الجنوبية (اللواتة)",
+          "postalCode": "7041",
+          "latitude": 37.2588,
+          "longitude": 9.8153,
+          "searchKey": "bizerte sud (louata) بنزرت الجنوبية (اللواتة) 7041"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-methline--7027",
+          "nameFr": "BIZERTE SUD (Methline)",
+          "nameAr": "بنزرت الجنوبية (الماتلين)",
+          "postalCode": "7027",
+          "latitude": 37.2551,
+          "longitude": 10.0522,
+          "searchKey": "bizerte sud (methline) بنزرت الجنوبية (الماتلين) 7027"
+        },
+        {
+          "id": "bizerte--bizerte-sud--bizerte-sud-teskraya--7036",
+          "nameFr": "BIZERTE SUD (Teskraya)",
+          "nameAr": "بنزرت الجنوبية (تسكراية)",
+          "postalCode": "7036",
+          "latitude": 37.2019,
+          "longitude": 9.8265,
+          "searchKey": "bizerte sud (teskraya) بنزرت الجنوبية (تسكراية) 7036"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--el-alia",
+      "nameFr": "EL ALIA",
+      "nameAr": "العالية",
+      "searchKey": "el alia العالية",
+      "municipalities": [
+        {
+          "id": "bizerte--el-alia--el-alia-cite-independance--7016",
+          "nameFr": "EL ALIA (Cite Independance)",
+          "nameAr": "العالية (حي الاستقلال)",
+          "postalCode": "7016",
+          "latitude": 37.1715,
+          "longitude": 10.0382,
+          "searchKey": "el alia (cite independance) العالية (حي الاستقلال) 7016"
+        },
+        {
+          "id": "bizerte--el-alia--el-alia-el-alia--7016",
+          "nameFr": "EL ALIA (El Alia)",
+          "nameAr": "العالية (العالية)",
+          "postalCode": "7016",
+          "latitude": 37.1722,
+          "longitude": 10.0392,
+          "searchKey": "el alia (el alia) العالية (العالية) 7016"
+        },
+        {
+          "id": "bizerte--el-alia--el-alia-el-hariza--7016",
+          "nameFr": "EL ALIA (El Hariza)",
+          "nameAr": "العالية (الحريزة)",
+          "postalCode": "7016",
+          "latitude": 37.1739,
+          "longitude": 10.0405,
+          "searchKey": "el alia (el hariza) العالية (الحريزة) 7016"
+        },
+        {
+          "id": "bizerte--el-alia--el-alia-ezzitoune--7081",
+          "nameFr": "EL ALIA (Ezzitoune)",
+          "nameAr": "العالية (الزيتون)",
+          "postalCode": "7081",
+          "latitude": 37.165,
+          "longitude": 10.03,
+          "searchKey": "el alia (ezzitoune) العالية (الزيتون) 7081"
+        },
+        {
+          "id": "bizerte--el-alia--el-alia-impasse-ezzouhour--7016",
+          "nameFr": "EL ALIA (Impasse Ezzouhour)",
+          "nameAr": "العالية (نهج الزهور)",
+          "postalCode": "7016",
+          "latitude": 37.1728,
+          "longitude": 10.0398,
+          "searchKey": "el alia (impasse ezzouhour) العالية (نهج الزهور) 7016"
+        },
+        {
+          "id": "bizerte--el-alia--el-alia-khetmine--7081",
+          "nameFr": "EL ALIA (Khetmine)",
+          "nameAr": "العالية (ختمين)",
+          "postalCode": "7081",
+          "latitude": 37.17,
+          "longitude": 10.025,
+          "searchKey": "el alia (khetmine) العالية (ختمين) 7081"
+        },
+        {
+          "id": "bizerte--el-alia--el-alia-sidi-ali-chebab--7093",
+          "nameFr": "EL ALIA (Sidi Ali Chebab)",
+          "nameAr": "العالية (سيدي علي الشباب)",
+          "postalCode": "7093",
+          "latitude": 37.1802,
+          "longitude": 10.0451,
+          "searchKey": "el alia (sidi ali chebab) العالية (سيدي علي الشباب) 7093"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--ghar-el-melh",
+      "nameFr": "GHAR EL MELH",
+      "nameAr": "غار الملح",
+      "searchKey": "ghar el melh غار الملح",
+      "municipalities": [
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-bajou--7033",
+          "nameFr": "GHAR EL MELH (Bajou)",
+          "nameAr": "غار الملح (باجو)",
+          "postalCode": "7033",
+          "latitude": 37.1633,
+          "longitude": 10.1901,
+          "searchKey": "ghar el melh (bajou) غار الملح (باجو) 7033"
+        },
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-cite-7-novembre--7014",
+          "nameFr": "GHAR EL MELH (Cite 7 Novembre)",
+          "nameAr": "غار الملح (حي 7 نوفمبر)",
+          "postalCode": "7014",
+          "latitude": 37.1489,
+          "longitude": 10.1552,
+          "searchKey": "ghar el melh (cite 7 novembre) غار الملح (حي 7 نوفمبر) 7014"
+        },
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-cite-9-avril--7014",
+          "nameFr": "GHAR EL MELH (Cite 9 Avril)",
+          "nameAr": "غار الملح (حي 9 أفريل)",
+          "postalCode": "7014",
+          "latitude": 37.1485,
+          "longitude": 10.156,
+          "searchKey": "ghar el melh (cite 9 avril) غار الملح (حي 9 أفريل) 7014"
+        },
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-cite-el-amen--7014",
+          "nameFr": "GHAR EL MELH (Cite El Amen)",
+          "nameAr": "غار الملح (حي الأمان)",
+          "postalCode": "7014",
+          "latitude": 37.1478,
+          "longitude": 10.1573,
+          "searchKey": "ghar el melh (cite el amen) غار الملح (حي الأمان) 7014"
+        },
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-cite-el-mourouj--7014",
+          "nameFr": "GHAR EL MELH (Cite El Mourouj)",
+          "nameAr": "غار الملح (حي المروج)",
+          "postalCode": "7014",
+          "latitude": 37.1496,
+          "longitude": 10.1584,
+          "searchKey": "ghar el melh (cite el mourouj) غار الملح (حي المروج) 7014"
+        },
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-cite-khaled-ibn-el-walid--7014",
+          "nameFr": "GHAR EL MELH (Cite Khaled Ibn El Walid)",
+          "nameAr": "غار الملح (حي خالد بن الوليد)",
+          "postalCode": "7014",
+          "latitude": 37.1465,
+          "longitude": 10.1597,
+          "searchKey": "ghar el melh (cite khaled ibn el walid) غار الملح (حي خالد بن الوليد) 7014"
+        },
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-cite-nouvelle--7014",
+          "nameFr": "GHAR EL MELH (Cite Nouvelle)",
+          "nameAr": "غار الملح (الحي الجديد)",
+          "postalCode": "7014",
+          "latitude": 37.1453,
+          "longitude": 10.1608,
+          "searchKey": "ghar el melh (cite nouvelle) غار الملح (الحي الجديد) 7014"
+        },
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-el-aousja--7014",
+          "nameFr": "GHAR EL MELH (El Aousja)",
+          "nameAr": "غار الملح (العوسجة)",
+          "postalCode": "7014",
+          "latitude": 37.1495,
+          "longitude": 10.155,
+          "searchKey": "ghar el melh (el aousja) غار الملح (العوسجة) 7014"
+        },
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-ghar-el-melh--7033",
+          "nameFr": "GHAR EL MELH (Ghar El Melh)",
+          "nameAr": "غار الملح (غار الملح)",
+          "postalCode": "7033",
+          "latitude": 37.1669,
+          "longitude": 10.1936,
+          "searchKey": "ghar el melh (ghar el melh) غار الملح (غار الملح) 7033"
+        },
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-touibia--7024",
+          "nameFr": "GHAR EL MELH (Touibia)",
+          "nameAr": "غار الملح (الطويبية)",
+          "postalCode": "7024",
+          "latitude": 37.13,
+          "longitude": 10.18,
+          "searchKey": "ghar el melh (touibia) غار الملح (الطويبية) 7024"
+        },
+        {
+          "id": "bizerte--ghar-el-melh--ghar-el-melh-zouaouine--7024",
+          "nameFr": "GHAR EL MELH (Zouaouine)",
+          "nameAr": "غار الملح (الزواوين)",
+          "postalCode": "7024",
+          "latitude": 37.1458,
+          "longitude": 10.1752,
+          "searchKey": "ghar el melh (zouaouine) غار الملح (الزواوين) 7024"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--ghezala",
+      "nameFr": "GHEZALA",
+      "nameAr": "غزالة",
+      "searchKey": "ghezala غزالة",
+      "municipalities": [
+        {
+          "id": "bizerte--ghezala--ghezala-ain-rekoub--7040",
+          "nameFr": "GHEZALA (Ain Rekoub)",
+          "nameAr": "غزالة (عين ركوب)",
+          "postalCode": "7040",
+          "latitude": 37.0152,
+          "longitude": 9.4203,
+          "searchKey": "ghezala (ain rekoub) غزالة (عين ركوب) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-beni-brahim--7040",
+          "nameFr": "GHEZALA (Beni Brahim)",
+          "nameAr": "غزالة (بني براهم)",
+          "postalCode": "7040",
+          "latitude": 36.9837,
+          "longitude": 9.4509,
+          "searchKey": "ghezala (beni brahim) غزالة (بني براهم) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-bou-jrir--7040",
+          "nameFr": "GHEZALA (Bou Jrir)",
+          "nameAr": "غزالة (بو جرير)",
+          "postalCode": "7040",
+          "latitude": 37.0015,
+          "longitude": 9.4007,
+          "searchKey": "ghezala (bou jrir) غزالة (بو جرير) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-cite-afh--7040",
+          "nameFr": "GHEZALA (Cite Afh)",
+          "nameAr": "غزالة (حي الوكالة العقارية للسكنى)",
+          "postalCode": "7040",
+          "latitude": 36.9713,
+          "longitude": 9.3885,
+          "searchKey": "ghezala (cite afh) غزالة (حي الوكالة العقارية للسكنى) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-cite-borj-deheb--7040",
+          "nameFr": "GHEZALA (Cite Borj Deheb)",
+          "nameAr": "غزالة (حي برج الذهب)",
+          "postalCode": "7040",
+          "latitude": 36.9687,
+          "longitude": 9.3859,
+          "searchKey": "ghezala (cite borj deheb) غزالة (حي برج الذهب) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-cite-rurale--7040",
+          "nameFr": "GHEZALA (Cite Rurale)",
+          "nameAr": "غزالة (الحي الريفي)",
+          "postalCode": "7040",
+          "latitude": 36.975,
+          "longitude": 9.383,
+          "searchKey": "ghezala (cite rurale) غزالة (الحي الريفي) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-cite-snit--7040",
+          "nameFr": "GHEZALA (Cite Snit)",
+          "nameAr": "غزالة (حي السنيت)",
+          "postalCode": "7040",
+          "latitude": 36.9705,
+          "longitude": 9.3871,
+          "searchKey": "ghezala (cite snit) غزالة (حي السنيت) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-el-atiba--7040",
+          "nameFr": "GHEZALA (El Atiba)",
+          "nameAr": "غزالة (العطيبة)",
+          "postalCode": "7040",
+          "latitude": 36.9923,
+          "longitude": 9.4305,
+          "searchKey": "ghezala (el atiba) غزالة (العطيبة) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-el-garia--7040",
+          "nameFr": "GHEZALA (El Garia)",
+          "nameAr": "غزالة (القرية)",
+          "postalCode": "7040",
+          "latitude": 36.9657,
+          "longitude": 9.3902,
+          "searchKey": "ghezala (el garia) غزالة (القرية) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-el-jafna--7040",
+          "nameFr": "GHEZALA (El Jafna)",
+          "nameAr": "غزالة (الجفنة)",
+          "postalCode": "7040",
+          "latitude": 36.9584,
+          "longitude": 9.3986,
+          "searchKey": "ghezala (el jafna) غزالة (الجفنة) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-ghezala--7040",
+          "nameFr": "GHEZALA (Ghezala)",
+          "nameAr": "غزالة (غزالة)",
+          "postalCode": "7040",
+          "latitude": 36.9758,
+          "longitude": 9.3833,
+          "searchKey": "ghezala (ghezala) غزالة (غزالة) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-henchir-ettouila--7040",
+          "nameFr": "GHEZALA (Henchir Ettouila)",
+          "nameAr": "غزالة (هنشير الطويلة)",
+          "postalCode": "7040",
+          "latitude": 36.9501,
+          "longitude": 9.4053,
+          "searchKey": "ghezala (henchir ettouila) غزالة (هنشير الطويلة) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-laouilia--7040",
+          "nameFr": "GHEZALA (Laouilia)",
+          "nameAr": "غزالة (العويلية)",
+          "postalCode": "7040",
+          "latitude": 36.9426,
+          "longitude": 9.4127,
+          "searchKey": "ghezala (laouilia) غزالة (العويلية) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-oued-ezzitoun--7040",
+          "nameFr": "GHEZALA (Oued Ezzitoun)",
+          "nameAr": "غزالة (وادي الزيتون)",
+          "postalCode": "7040",
+          "latitude": 36.9351,
+          "longitude": 9.4201,
+          "searchKey": "ghezala (oued ezzitoun) غزالة (وادي الزيتون) 7040"
+        },
+        {
+          "id": "bizerte--ghezala--ghezala-ouled-el-may--7040",
+          "nameFr": "GHEZALA (Ouled El May)",
+          "nameAr": "غزالة (أولاد الماي)",
+          "postalCode": "7040",
+          "latitude": 36.9278,
+          "longitude": 9.4275,
+          "searchKey": "ghezala (ouled el may) غزالة (أولاد الماي) 7040"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--jarzouna",
+      "nameFr": "JARZOUNA",
+      "nameAr": "جرزونة",
+      "searchKey": "jarzouna جرزونة",
+      "municipalities": [
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-ben-arous--7021",
+          "nameFr": "JARZOUNA (Cite Ben Arous)",
+          "nameAr": "جرزونة (حي بن عروس)",
+          "postalCode": "7021",
+          "latitude": 37.26,
+          "longitude": 9.861,
+          "searchKey": "jarzouna (cite ben arous) جرزونة (حي بن عروس) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-bouchoucha-2--7021",
+          "nameFr": "JARZOUNA (Cite Bouchoucha 2)",
+          "nameAr": "جرزونة (حي بوشوشة 2)",
+          "postalCode": "7021",
+          "latitude": 37.2585,
+          "longitude": 9.8623,
+          "searchKey": "jarzouna (cite bouchoucha 2) جرزونة (حي بوشوشة 2) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-calyptus--7021",
+          "nameFr": "JARZOUNA (Cite Calyptus)",
+          "nameAr": "جرزونة (حي الكاليتوس)",
+          "postalCode": "7021",
+          "latitude": 37.2573,
+          "longitude": 9.8637,
+          "searchKey": "jarzouna (cite calyptus) جرزونة (حي الكاليتوس) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-du-soleil--7021",
+          "nameFr": "JARZOUNA (Cite Du Soleil)",
+          "nameAr": "جرزونة (حي الشمس)",
+          "postalCode": "7021",
+          "latitude": 37.2561,
+          "longitude": 9.865,
+          "searchKey": "jarzouna (cite du soleil) جرزونة (حي الشمس) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-ennacim--7021",
+          "nameFr": "JARZOUNA (Cite Ennacim)",
+          "nameAr": "جرزونة (حي النسيم)",
+          "postalCode": "7021",
+          "latitude": 37.2549,
+          "longitude": 9.8662,
+          "searchKey": "jarzouna (cite ennacim) جرزونة (حي النسيم) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-erraja-1--7021",
+          "nameFr": "JARZOUNA (Cite Erraja 1)",
+          "nameAr": "جرزونة (حي الرجاء 1)",
+          "postalCode": "7021",
+          "latitude": 37.2537,
+          "longitude": 9.8675,
+          "searchKey": "jarzouna (cite erraja 1) جرزونة (حي الرجاء 1) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-erraja-2--7021",
+          "nameFr": "JARZOUNA (Cite Erraja 2)",
+          "nameAr": "جرزونة (حي الرجاء 2)",
+          "postalCode": "7021",
+          "latitude": 37.253,
+          "longitude": 9.8683,
+          "searchKey": "jarzouna (cite erraja 2) جرزونة (حي الرجاء 2) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-erraja-3--7021",
+          "nameFr": "JARZOUNA (Cite Erraja 3)",
+          "nameAr": "جرزونة (حي الرجاء 3)",
+          "postalCode": "7021",
+          "latitude": 37.2523,
+          "longitude": 9.8691,
+          "searchKey": "jarzouna (cite erraja 3) جرزونة (حي الرجاء 3) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-errimel--7021",
+          "nameFr": "JARZOUNA (Cite Errimel)",
+          "nameAr": "جرزونة (حي الريمل)",
+          "postalCode": "7021",
+          "latitude": 37.2515,
+          "longitude": 9.87,
+          "searchKey": "jarzouna (cite errimel) جرزونة (حي الريمل) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-errsass--7021",
+          "nameFr": "JARZOUNA (Cite Errsass)",
+          "nameAr": "جرزونة (حي الرصاص)",
+          "postalCode": "7021",
+          "latitude": 37.2507,
+          "longitude": 9.8709,
+          "searchKey": "jarzouna (cite errsass) جرزونة (حي الرصاص) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-escaliers--7021",
+          "nameFr": "JARZOUNA (Cite Escaliers)",
+          "nameAr": "جرزونة (حي الأدراج)",
+          "postalCode": "7021",
+          "latitude": 37.2498,
+          "longitude": 9.8718,
+          "searchKey": "jarzouna (cite escaliers) جرزونة (حي الأدراج) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-essadaka--7021",
+          "nameFr": "JARZOUNA (Cite Essadaka)",
+          "nameAr": "جرزونة (حي الصداقة)",
+          "postalCode": "7021",
+          "latitude": 37.249,
+          "longitude": 9.8727,
+          "searchKey": "jarzouna (cite essadaka) جرزونة (حي الصداقة) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-gabsi--7021",
+          "nameFr": "JARZOUNA (Cite Gabsi)",
+          "nameAr": "جرزونة (حي القابسي)",
+          "postalCode": "7021",
+          "latitude": 37.2482,
+          "longitude": 9.8736,
+          "searchKey": "jarzouna (cite gabsi) جرزونة (حي القابسي) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-hamdoun--7021",
+          "nameFr": "JARZOUNA (Cite Hamdoun)",
+          "nameAr": "جرزونة (حي حمدون)",
+          "postalCode": "7021",
+          "latitude": 37.2473,
+          "longitude": 9.8745,
+          "searchKey": "jarzouna (cite hamdoun) جرزونة (حي حمدون) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-jaziri--7021",
+          "nameFr": "JARZOUNA (Cite Jaziri)",
+          "nameAr": "جرزونة (حي الجزيري)",
+          "postalCode": "7021",
+          "latitude": 37.2465,
+          "longitude": 9.8754,
+          "searchKey": "jarzouna (cite jaziri) جرزونة (حي الجزيري) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-lune--7021",
+          "nameFr": "JARZOUNA (Cite Lune)",
+          "nameAr": "جرزونة (حي القمر)",
+          "postalCode": "7021",
+          "latitude": 37.2457,
+          "longitude": 9.8763,
+          "searchKey": "jarzouna (cite lune) جرزونة (حي القمر) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-cite-mohamed-chehimi--7021",
+          "nameFr": "JARZOUNA (Cite Mohamed Chehimi)",
+          "nameAr": "جرزونة (حي محمد الشحيمي)",
+          "postalCode": "7021",
+          "latitude": 37.2448,
+          "longitude": 9.8772,
+          "searchKey": "jarzouna (cite mohamed chehimi) جرزونة (حي محمد الشحيمي) 7021"
+        },
+        {
+          "id": "bizerte--jarzouna--jarzouna-jarzouna--7021",
+          "nameFr": "JARZOUNA (Jarzouna)",
+          "nameAr": "جرزونة (جرزونة)",
+          "postalCode": "7021",
+          "latitude": 37.2606,
+          "longitude": 9.8681,
+          "searchKey": "jarzouna (jarzouna) جرزونة (جرزونة) 7021"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--joumine",
+      "nameFr": "JOUMINE",
+      "nameAr": "جومين",
+      "searchKey": "joumine جومين",
+      "municipalities": [
+        {
+          "id": "bizerte--joumine--joumine-bazina--7012",
+          "nameFr": "JOUMINE (Bazina)",
+          "nameAr": "جومين (بازينة)",
+          "postalCode": "7012",
+          "latitude": 36.9088,
+          "longitude": 9.3831,
+          "searchKey": "joumine (bazina) جومين (بازينة) 7012"
+        },
+        {
+          "id": "bizerte--joumine--joumine-joumine--7020",
+          "nameFr": "JOUMINE (Joumine)",
+          "nameAr": "جومين (جومين)",
+          "postalCode": "7020",
+          "latitude": 36.9167,
+          "longitude": 9.4,
+          "searchKey": "joumine (joumine) جومين (جومين) 7020"
+        },
+        {
+          "id": "bizerte--joumine--joumine-sayah--7020",
+          "nameFr": "JOUMINE (Sayah)",
+          "nameAr": "جومين (صياح)",
+          "postalCode": "7020",
+          "latitude": 36.9003,
+          "longitude": 9.4158,
+          "searchKey": "joumine (sayah) جومين (صياح) 7020"
+        },
+        {
+          "id": "bizerte--joumine--joumine-smadah--7020",
+          "nameFr": "JOUMINE (Smadah)",
+          "nameAr": "جومين (سمادة)",
+          "postalCode": "7020",
+          "latitude": 36.8856,
+          "longitude": 9.4302,
+          "searchKey": "joumine (smadah) جومين (سمادة) 7020"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--mateur",
+      "nameFr": "MATEUR",
+      "nameAr": "ماطر",
+      "searchKey": "mateur ماطر",
+      "municipalities": [
+        {
+          "id": "bizerte--mateur--mateur-borj-el-adouani--7022",
+          "nameFr": "MATEUR (Borj El Adouani)",
+          "nameAr": "ماطر (برج العدواني)",
+          "postalCode": "7022",
+          "latitude": 37.0453,
+          "longitude": 9.6701,
+          "searchKey": "mateur (borj el adouani) ماطر (برج العدواني) 7022"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-de-la-fraternite--7030",
+          "nameFr": "MATEUR (Cite De La Fraternite)",
+          "nameAr": "ماطر (حي الإخاء)",
+          "postalCode": "7030",
+          "latitude": 37.038,
+          "longitude": 9.665,
+          "searchKey": "mateur (cite de la fraternite) ماطر (حي الإخاء) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-de-la-gare--7030",
+          "nameFr": "MATEUR (Cite De La Gare)",
+          "nameAr": "ماطر (حي المحطة)",
+          "postalCode": "7030",
+          "latitude": 37.0413,
+          "longitude": 9.6678,
+          "searchKey": "mateur (cite de la gare) ماطر (حي المحطة) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-el-manar--7030",
+          "nameFr": "MATEUR (Cite El Manar)",
+          "nameAr": "ماطر (حي المنار)",
+          "postalCode": "7030",
+          "latitude": 37.0357,
+          "longitude": 9.6623,
+          "searchKey": "mateur (cite el manar) ماطر (حي المنار) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-el-omrane-1--7030",
+          "nameFr": "MATEUR (Cite El Omrane 1)",
+          "nameAr": "ماطر (حي العمران 1)",
+          "postalCode": "7030",
+          "latitude": 37.0395,
+          "longitude": 9.6601,
+          "searchKey": "mateur (cite el omrane 1) ماطر (حي العمران 1) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-el-omrane-2--7030",
+          "nameFr": "MATEUR (Cite El Omrane 2)",
+          "nameAr": "ماطر (حي العمران 2)",
+          "postalCode": "7030",
+          "latitude": 37.039,
+          "longitude": 9.659,
+          "searchKey": "mateur (cite el omrane 2) ماطر (حي العمران 2) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-el-omrane-3--7030",
+          "nameFr": "MATEUR (Cite El Omrane 3)",
+          "nameAr": "ماطر (حي العمران 3)",
+          "postalCode": "7030",
+          "latitude": 37.0385,
+          "longitude": 9.658,
+          "searchKey": "mateur (cite el omrane 3) ماطر (حي العمران 3) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-el-omrane-4--7030",
+          "nameFr": "MATEUR (Cite El Omrane 4)",
+          "nameAr": "ماطر (حي العمران 4)",
+          "postalCode": "7030",
+          "latitude": 37.038,
+          "longitude": 9.657,
+          "searchKey": "mateur (cite el omrane 4) ماطر (حي العمران 4) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-ennahdha--7030",
+          "nameFr": "MATEUR (Cite Ennahdha)",
+          "nameAr": "ماطر (حي النهضة)",
+          "postalCode": "7030",
+          "latitude": 37.0369,
+          "longitude": 9.6611,
+          "searchKey": "mateur (cite ennahdha) ماطر (حي النهضة) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-ennasr--7030",
+          "nameFr": "MATEUR (Cite Ennasr)",
+          "nameAr": "ماطر (حي النصر)",
+          "postalCode": "7030",
+          "latitude": 37.0348,
+          "longitude": 9.6635,
+          "searchKey": "mateur (cite ennasr) ماطر (حي النصر) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-erraja-1--7030",
+          "nameFr": "MATEUR (Cite Erraja 1)",
+          "nameAr": "ماطر (حي الرجاء 1)",
+          "postalCode": "7030",
+          "latitude": 37.0337,
+          "longitude": 9.6647,
+          "searchKey": "mateur (cite erraja 1) ماطر (حي الرجاء 1) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-erraja-2--7030",
+          "nameFr": "MATEUR (Cite Erraja 2)",
+          "nameAr": "ماطر (حي الرجاء 2)",
+          "postalCode": "7030",
+          "latitude": 37.0332,
+          "longitude": 9.6658,
+          "searchKey": "mateur (cite erraja 2) ماطر (حي الرجاء 2) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-erraja-3--7030",
+          "nameFr": "MATEUR (Cite Erraja 3)",
+          "nameAr": "ماطر (حي الرجاء 3)",
+          "postalCode": "7030",
+          "latitude": 37.0327,
+          "longitude": 9.6669,
+          "searchKey": "mateur (cite erraja 3) ماطر (حي الرجاء 3) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-essadaka--7030",
+          "nameFr": "MATEUR (Cite Essadaka)",
+          "nameAr": "ماطر (حي الصداقة)",
+          "postalCode": "7030",
+          "latitude": 37.0315,
+          "longitude": 9.6683,
+          "searchKey": "mateur (cite essadaka) ماطر (حي الصداقة) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-ezzouhour--7030",
+          "nameFr": "MATEUR (Cite Ezzouhour)",
+          "nameAr": "ماطر (حي الزهور)",
+          "postalCode": "7030",
+          "latitude": 37.0304,
+          "longitude": 9.6697,
+          "searchKey": "mateur (cite ezzouhour) ماطر (حي الزهور) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-hached--7022",
+          "nameFr": "MATEUR (Cite Hached)",
+          "nameAr": "ماطر (حي حشاد)",
+          "postalCode": "7022",
+          "latitude": 37.0441,
+          "longitude": 9.6715,
+          "searchKey": "mateur (cite hached) ماطر (حي حشاد) 7022"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-khemouma--7030",
+          "nameFr": "MATEUR (Cite Khemouma)",
+          "nameAr": "ماطر (حي خمومة)",
+          "postalCode": "7030",
+          "latitude": 37.0292,
+          "longitude": 9.671,
+          "searchKey": "mateur (cite khemouma) ماطر (حي خمومة) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-montazah--7030",
+          "nameFr": "MATEUR (Cite Montazah)",
+          "nameAr": "ماطر (حي المنتزه)",
+          "postalCode": "7030",
+          "latitude": 37.0281,
+          "longitude": 9.6725,
+          "searchKey": "mateur (cite montazah) ماطر (حي المنتزه) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-snit--7030",
+          "nameFr": "MATEUR (Cite Snit)",
+          "nameAr": "ماطر (حي السنيت)",
+          "postalCode": "7030",
+          "latitude": 37.027,
+          "longitude": 9.6738,
+          "searchKey": "mateur (cite snit) ماطر (حي السنيت) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-cite-zarrouk--7030",
+          "nameFr": "MATEUR (Cite Zarrouk)",
+          "nameAr": "ماطر (حي زروق)",
+          "postalCode": "7030",
+          "latitude": 37.0258,
+          "longitude": 9.6751,
+          "searchKey": "mateur (cite zarrouk) ماطر (حي زروق) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-el-aouana--7030",
+          "nameFr": "MATEUR (El Aouana)",
+          "nameAr": "ماطر (العوانة)",
+          "postalCode": "7030",
+          "latitude": 37.0245,
+          "longitude": 9.6765,
+          "searchKey": "mateur (el aouana) ماطر (العوانة) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-ettaref--7022",
+          "nameFr": "MATEUR (Ettaref)",
+          "nameAr": "ماطر (الطرف)",
+          "postalCode": "7022",
+          "latitude": 37.043,
+          "longitude": 9.6728,
+          "searchKey": "mateur (ettaref) ماطر (الطرف) 7022"
+        },
+        {
+          "id": "bizerte--mateur--mateur-henchir-el-berna--7050",
+          "nameFr": "MATEUR (Henchir El Berna)",
+          "nameAr": "ماطر (هنشير البرنة)",
+          "postalCode": "7050",
+          "latitude": 37.0255,
+          "longitude": 9.6503,
+          "searchKey": "mateur (henchir el berna) ماطر (هنشير البرنة) 7050"
+        },
+        {
+          "id": "bizerte--mateur--mateur-henchir-el-kahla--7022",
+          "nameFr": "MATEUR (Henchir El Kahla)",
+          "nameAr": "ماطر (هنشير الكحلة)",
+          "postalCode": "7022",
+          "latitude": 37.0418,
+          "longitude": 9.6741,
+          "searchKey": "mateur (henchir el kahla) ماطر (هنشير الكحلة) 7022"
+        },
+        {
+          "id": "bizerte--mateur--mateur-jabouz--7022",
+          "nameFr": "MATEUR (Jabouz)",
+          "nameAr": "ماطر (جبوز)",
+          "postalCode": "7022",
+          "latitude": 37.0407,
+          "longitude": 9.6755,
+          "searchKey": "mateur (jabouz) ماطر (جبوز) 7022"
+        },
+        {
+          "id": "bizerte--mateur--mateur-jebel-ichkeul--7030",
+          "nameFr": "MATEUR (Jebel Ichkeul)",
+          "nameAr": "ماطر (جبل إشكل)",
+          "postalCode": "7030",
+          "latitude": 37.1619,
+          "longitude": 9.665,
+          "searchKey": "mateur (jebel ichkeul) ماطر (جبل إشكل) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-mateur-hached--7022",
+          "nameFr": "MATEUR (Mateur Hached)",
+          "nameAr": "ماطر (ماطر حشاد)",
+          "postalCode": "7022",
+          "latitude": 37.0395,
+          "longitude": 9.6768,
+          "searchKey": "mateur (mateur hached) ماطر (ماطر حشاد) 7022"
+        },
+        {
+          "id": "bizerte--mateur--mateur-mateur--7030",
+          "nameFr": "MATEUR (Mateur)",
+          "nameAr": "ماطر (ماطر)",
+          "postalCode": "7030",
+          "latitude": 37.04,
+          "longitude": 9.6667,
+          "searchKey": "mateur (mateur) ماطر (ماطر) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-oum-jenna--7022",
+          "nameFr": "MATEUR (Oum Jenna)",
+          "nameAr": "ماطر (أم جنة)",
+          "postalCode": "7022",
+          "latitude": 37.0383,
+          "longitude": 9.6781,
+          "searchKey": "mateur (oum jenna) ماطر (أم جنة) 7022"
+        },
+        {
+          "id": "bizerte--mateur--mateur-sidi-mansour--7030",
+          "nameFr": "MATEUR (Sidi Mansour)",
+          "nameAr": "ماطر (سيدي منصور)",
+          "postalCode": "7030",
+          "latitude": 37.0157,
+          "longitude": 9.6803,
+          "searchKey": "mateur (sidi mansour) ماطر (سيدي منصور) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-sidi-nsir--7030",
+          "nameFr": "MATEUR (Sidi Nsir)",
+          "nameAr": "ماطر (سيدي نصير)",
+          "postalCode": "7030",
+          "latitude": 36.9583,
+          "longitude": 9.5,
+          "searchKey": "mateur (sidi nsir) ماطر (سيدي نصير) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-sidi-salem--7022",
+          "nameFr": "MATEUR (Sidi Salem)",
+          "nameAr": "ماطر (سيدي سالم)",
+          "postalCode": "7022",
+          "latitude": 37.0372,
+          "longitude": 9.6794,
+          "searchKey": "mateur (sidi salem) ماطر (سيدي سالم) 7022"
+        },
+        {
+          "id": "bizerte--mateur--mateur-souidia--7030",
+          "nameFr": "MATEUR (Souidia)",
+          "nameAr": "ماطر (السويدية)",
+          "postalCode": "7030",
+          "latitude": 37.0512,
+          "longitude": 9.6308,
+          "searchKey": "mateur (souidia) ماطر (السويدية) 7030"
+        },
+        {
+          "id": "bizerte--mateur--mateur-tehent--7030",
+          "nameFr": "MATEUR (Tehent)",
+          "nameAr": "ماطر (تحنت)",
+          "postalCode": "7030",
+          "latitude": 37.0653,
+          "longitude": 9.6052,
+          "searchKey": "mateur (tehent) ماطر (تحنت) 7030"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--menzel-bourguiba",
+      "nameFr": "MENZEL BOURGUIBA",
+      "nameAr": "منزل بورقيبة",
+      "searchKey": "menzel bourguiba منزل بورقيبة",
+      "municipalities": [
+        {
+          "id": "bizerte--menzel-bourguiba--menzel-bourguiba-cite-ben-aleya--7050",
+          "nameFr": "MENZEL BOURGUIBA (Cite Ben Aleya)",
+          "nameAr": "منزل بورقيبة (حي بن علية)",
+          "postalCode": "7050",
+          "latitude": 37.1512,
+          "longitude": 9.7834,
+          "searchKey": "menzel bourguiba (cite ben aleya) منزل بورقيبة (حي بن علية) 7050"
+        },
+        {
+          "id": "bizerte--menzel-bourguiba--menzel-bourguiba-cite-de-la-douane--7050",
+          "nameFr": "MENZEL BOURGUIBA (Cite De La Douane)",
+          "nameAr": "منزل بورقيبة (حي الديوانة)",
+          "postalCode": "7050",
+          "latitude": 37.1505,
+          "longitude": 9.7849,
+          "searchKey": "menzel bourguiba (cite de la douane) منزل بورقيبة (حي الديوانة) 7050"
+        },
+        {
+          "id": "bizerte--menzel-bourguiba--menzel-bourguiba-cite-la-ruche--7050",
+          "nameFr": "MENZEL BOURGUIBA (Cite La Ruche)",
+          "nameAr": "منزل بورقيبة (حي لاروش)",
+          "postalCode": "7050",
+          "latitude": 37.1498,
+          "longitude": 9.7862,
+          "searchKey": "menzel bourguiba (cite la ruche) منزل بورقيبة (حي لاروش) 7050"
+        },
+        {
+          "id": "bizerte--menzel-bourguiba--menzel-bourguiba-cite-nouvelle--7050",
+          "nameFr": "MENZEL BOURGUIBA (Cite Nouvelle)",
+          "nameAr": "منزل بورقيبة (الحي الجديد)",
+          "postalCode": "7050",
+          "latitude": 37.149,
+          "longitude": 9.7875,
+          "searchKey": "menzel bourguiba (cite nouvelle) منزل بورقيبة (الحي الجديد) 7050"
+        },
+        {
+          "id": "bizerte--menzel-bourguiba--menzel-bourguiba-cite-sidi-yahya--7050",
+          "nameFr": "MENZEL BOURGUIBA (Cite Sidi Yahya)",
+          "nameAr": "منزل بورقيبة (حي سيدي يحيى)",
+          "postalCode": "7050",
+          "latitude": 37.1483,
+          "longitude": 9.7889,
+          "searchKey": "menzel bourguiba (cite sidi yahya) منزل بورقيبة (حي سيدي يحيى) 7050"
+        },
+        {
+          "id": "bizerte--menzel-bourguiba--menzel-bourguiba-jouaouda--7042",
+          "nameFr": "MENZEL BOURGUIBA (Jouaouda)",
+          "nameAr": "منزل بورقيبة (جواودة)",
+          "postalCode": "7042",
+          "latitude": 37.1357,
+          "longitude": 9.7754,
+          "searchKey": "menzel bourguiba (jouaouda) منزل بورقيبة (جواودة) 7042"
+        },
+        {
+          "id": "bizerte--menzel-bourguiba--menzel-bourguiba-menzel-bourguiba-ennajah--7072",
+          "nameFr": "MENZEL BOURGUIBA (Menzel Bourguiba Ennajah)",
+          "nameAr": "منزل بورقيبة (منزل بورقيبة النجاح)",
+          "postalCode": "7072",
+          "latitude": 37.1533,
+          "longitude": 9.7811,
+          "searchKey": "menzel bourguiba (menzel bourguiba ennajah) منزل بورقيبة (منزل بورقيبة النجاح) 7072"
+        },
+        {
+          "id": "bizerte--menzel-bourguiba--menzel-bourguiba-menzel-bourguiba--7050",
+          "nameFr": "MENZEL BOURGUIBA (Menzel Bourguiba)",
+          "nameAr": "منزل بورقيبة (منزل بورقيبة)",
+          "postalCode": "7050",
+          "latitude": 37.15,
+          "longitude": 9.7833,
+          "searchKey": "menzel bourguiba (menzel bourguiba) منزل بورقيبة (منزل بورقيبة) 7050"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--menzel-jemil",
+      "nameFr": "MENZEL JEMIL",
+      "nameAr": "منزل جميل",
+      "searchKey": "menzel jemil منزل جميل",
+      "municipalities": [
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-7-novembre--7026",
+          "nameFr": "MENZEL JEMIL (Cite 7 Novembre)",
+          "nameAr": "منزل جميل (حي 7 نوفمبر)",
+          "postalCode": "7026",
+          "latitude": 37.261,
+          "longitude": 9.9085,
+          "searchKey": "menzel jemil (cite 7 novembre) منزل جميل (حي 7 نوفمبر) 7026"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-bir-hmem--7035",
+          "nameFr": "MENZEL JEMIL (Cite Bir Hmem)",
+          "nameAr": "منزل جميل (حي بئر حمام)",
+          "postalCode": "7035",
+          "latitude": 37.2365,
+          "longitude": 9.9115,
+          "searchKey": "menzel jemil (cite bir hmem) منزل جميل (حي بئر حمام) 7035"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-bir-remel--7080",
+          "nameFr": "MENZEL JEMIL (Cite Bir Remel)",
+          "nameAr": "منزل جميل (حي بئر الرمل)",
+          "postalCode": "7080",
+          "latitude": 37.2305,
+          "longitude": 9.9108,
+          "searchKey": "menzel jemil (cite bir remel) منزل جميل (حي بئر الرمل) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-chamelle--7035",
+          "nameFr": "MENZEL JEMIL (Cite Chamelle)",
+          "nameAr": "منزل جميل (حي شمالة)",
+          "postalCode": "7035",
+          "latitude": 37.2358,
+          "longitude": 9.9128,
+          "searchKey": "menzel jemil (cite chamelle) منزل جميل (حي شمالة) 7035"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-des-oranges--7026",
+          "nameFr": "MENZEL JEMIL (Cite Des Oranges)",
+          "nameAr": "منزل جميل (حي البرتقال)",
+          "postalCode": "7026",
+          "latitude": 37.2582,
+          "longitude": 9.9103,
+          "searchKey": "menzel jemil (cite des oranges) منزل جميل (حي البرتقال) 7026"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-driss-ben-frej--7035",
+          "nameFr": "MENZEL JEMIL (Cite Driss Ben Frej)",
+          "nameAr": "منزل جميل (حي إدريس بن فرج)",
+          "postalCode": "7035",
+          "latitude": 37.2351,
+          "longitude": 9.9142,
+          "searchKey": "menzel jemil (cite driss ben frej) منزل جميل (حي إدريس بن فرج) 7035"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-el-ahlem--7080",
+          "nameFr": "MENZEL JEMIL (Cite El Ahlem)",
+          "nameAr": "منزل جميل (حي الأحلام)",
+          "postalCode": "7080",
+          "latitude": 37.2333,
+          "longitude": 9.9137,
+          "searchKey": "menzel jemil (cite el ahlem) منزل جميل (حي الأحلام) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-el-baali--7080",
+          "nameFr": "MENZEL JEMIL (Cite El Baali)",
+          "nameAr": "منزل جميل (حي البعلي)",
+          "postalCode": "7080",
+          "latitude": 37.2289,
+          "longitude": 9.9156,
+          "searchKey": "menzel jemil (cite el baali) منزل جميل (حي البعلي) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-el-batan--7080",
+          "nameFr": "MENZEL JEMIL (Cite El Batan)",
+          "nameAr": "منزل جميل (حي البطان)",
+          "postalCode": "7080",
+          "latitude": 37.2356,
+          "longitude": 9.9081,
+          "searchKey": "menzel jemil (cite el batan) منزل جميل (حي البطان) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-el-habib-el-azib--7026",
+          "nameFr": "MENZEL JEMIL (Cite El Habib (El Azib))",
+          "nameAr": "منزل جميل (حي الحبيب (العزيب))",
+          "postalCode": "7026",
+          "latitude": 37.2601,
+          "longitude": 9.9123,
+          "searchKey": "menzel jemil (cite el habib (el azib)) منزل جميل (حي الحبيب (العزيب)) 7026"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-el-habib-menzel-jemil--7080",
+          "nameFr": "MENZEL JEMIL (Cite El Habib (Menzel Jemil))",
+          "nameAr": "منزل جميل (حي الحبيب (منزل جميل))",
+          "postalCode": "7080",
+          "latitude": 37.2327,
+          "longitude": 9.9165,
+          "searchKey": "menzel jemil (cite el habib (menzel jemil)) منزل جميل (حي الحبيب (منزل جميل)) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-el-haddadia--7080",
+          "nameFr": "MENZEL JEMIL (Cite El Haddadia)",
+          "nameAr": "منزل جميل (حي الحدادية)",
+          "postalCode": "7080",
+          "latitude": 37.2273,
+          "longitude": 9.9075,
+          "searchKey": "menzel jemil (cite el haddadia) منزل جميل (حي الحدادية) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-el-hbess--7080",
+          "nameFr": "MENZEL JEMIL (Cite El Hbess)",
+          "nameAr": "منزل جميل (حي الحباس)",
+          "postalCode": "7080",
+          "latitude": 37.2391,
+          "longitude": 9.9053,
+          "searchKey": "menzel jemil (cite el hbess) منزل جميل (حي الحباس) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-el-makarem--7035",
+          "nameFr": "MENZEL JEMIL (Cite El Makarem)",
+          "nameAr": "منزل جميل (حي المكارم)",
+          "postalCode": "7035",
+          "latitude": 37.237,
+          "longitude": 9.91,
+          "searchKey": "menzel jemil (cite el makarem) منزل جميل (حي المكارم) 7035"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-ennouzha--7080",
+          "nameFr": "MENZEL JEMIL (Cite Ennouzha)",
+          "nameAr": "منزل جميل (حي النزهة)",
+          "postalCode": "7080",
+          "latitude": 37.2408,
+          "longitude": 9.9206,
+          "searchKey": "menzel jemil (cite ennouzha) منزل جميل (حي النزهة) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-ettaffala--7080",
+          "nameFr": "MENZEL JEMIL (Cite Ettaffala)",
+          "nameAr": "منزل جميل (حي الطفالة)",
+          "postalCode": "7080",
+          "latitude": 37.2431,
+          "longitude": 9.9234,
+          "searchKey": "menzel jemil (cite ettaffala) منزل جميل (حي الطفالة) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-ettahrir--7035",
+          "nameFr": "MENZEL JEMIL (Cite Ettahrir)",
+          "nameAr": "منزل جميل (حي التحرير)",
+          "postalCode": "7035",
+          "latitude": 37.2375,
+          "longitude": 9.9183,
+          "searchKey": "menzel jemil (cite ettahrir) منزل جميل (حي التحرير) 7035"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-ettakaddoum--7035",
+          "nameFr": "MENZEL JEMIL (Cite Ettakaddoum)",
+          "nameAr": "منزل جميل (حي التقدم)",
+          "postalCode": "7035",
+          "latitude": 37.2412,
+          "longitude": 9.9153,
+          "searchKey": "menzel jemil (cite ettakaddoum) منزل جميل (حي التقدم) 7035"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-habib-arifa--7080",
+          "nameFr": "MENZEL JEMIL (Cite Habib Arifa)",
+          "nameAr": "منزل جميل (حي حبيب عريفة)",
+          "postalCode": "7080",
+          "latitude": 37.2382,
+          "longitude": 9.9127,
+          "searchKey": "menzel jemil (cite habib arifa) منزل جميل (حي حبيب عريفة) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-independance--7035",
+          "nameFr": "MENZEL JEMIL (Cite Independance)",
+          "nameAr": "منزل جميل (حي الاستقلال)",
+          "postalCode": "7035",
+          "latitude": 37.2342,
+          "longitude": 9.9201,
+          "searchKey": "menzel jemil (cite independance) منزل جميل (حي الاستقلال) 7035"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-nouvelle--7080",
+          "nameFr": "MENZEL JEMIL (Cite Nouvelle)",
+          "nameAr": "منزل جميل (الحي الجديد)",
+          "postalCode": "7080",
+          "latitude": 37.242,
+          "longitude": 9.913,
+          "searchKey": "menzel jemil (cite nouvelle) منزل جميل (الحي الجديد) 7080"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-rurale-1--7026",
+          "nameFr": "MENZEL JEMIL (Cite Rurale 1)",
+          "nameAr": "منزل جميل (الحي الريفي 1)",
+          "postalCode": "7026",
+          "latitude": 37.2575,
+          "longitude": 9.909,
+          "searchKey": "menzel jemil (cite rurale 1) منزل جميل (الحي الريفي 1) 7026"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-cite-rurale-2--7026",
+          "nameFr": "MENZEL JEMIL (Cite Rurale 2)",
+          "nameAr": "منزل جميل (الحي الريفي 2)",
+          "postalCode": "7026",
+          "latitude": 37.257,
+          "longitude": 9.9095,
+          "searchKey": "menzel jemil (cite rurale 2) منزل جميل (الحي الريفي 2) 7026"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-el-ain-el-kebira--7035",
+          "nameFr": "MENZEL JEMIL (El Ain El Kebira)",
+          "nameAr": "منزل جميل (العين الكبيرة)",
+          "postalCode": "7035",
+          "latitude": 37.2318,
+          "longitude": 9.9255,
+          "searchKey": "menzel jemil (el ain el kebira) منزل جميل (العين الكبيرة) 7035"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-el-azib--7026",
+          "nameFr": "MENZEL JEMIL (El Azib)",
+          "nameAr": "منزل جميل (العزيب)",
+          "postalCode": "7026",
+          "latitude": 37.2583,
+          "longitude": 9.91,
+          "searchKey": "menzel jemil (el azib) منزل جميل (العزيب) 7026"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-henchir-el-moukaouimine--7026",
+          "nameFr": "MENZEL JEMIL (Henchir El Moukaouimine)",
+          "nameAr": "منزل جميل (هنشير المقاومين)",
+          "postalCode": "7026",
+          "latitude": 37.2551,
+          "longitude": 9.9058,
+          "searchKey": "menzel jemil (henchir el moukaouimine) منزل جميل (هنشير المقاومين) 7026"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-maghraoua--7026",
+          "nameFr": "MENZEL JEMIL (Maghraoua)",
+          "nameAr": "منزل جميل (المغراوية)",
+          "postalCode": "7026",
+          "latitude": 37.2506,
+          "longitude": 9.9002,
+          "searchKey": "menzel jemil (maghraoua) منزل جميل (المغراوية) 7026"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-menzel-abderrahman--7035",
+          "nameFr": "MENZEL JEMIL (Menzel Abderrahman)",
+          "nameAr": "منزل جميل (منزل عبد الرحمان)",
+          "postalCode": "7035",
+          "latitude": 37.2333,
+          "longitude": 9.9222,
+          "searchKey": "menzel jemil (menzel abderrahman) منزل جميل (منزل عبد الرحمان) 7035"
+        },
+        {
+          "id": "bizerte--menzel-jemil--menzel-jemil-menzel-jemil--7080",
+          "nameFr": "MENZEL JEMIL (Menzel Jemil)",
+          "nameAr": "منزل جميل (منزل جميل)",
+          "postalCode": "7080",
+          "latitude": 37.2381,
+          "longitude": 9.916,
+          "searchKey": "menzel jemil (menzel jemil) منزل جميل (منزل جميل) 7080"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--ras-jebel",
+      "nameFr": "RAS JEBEL",
+      "nameAr": "رأس الجبل",
+      "searchKey": "ras jebel رأس الجبل",
+      "municipalities": [
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-beni-atta--7075",
+          "nameFr": "RAS JEBEL (Beni Atta)",
+          "nameAr": "رأس الجبل (بني عطا)",
+          "postalCode": "7075",
+          "latitude": 37.1925,
+          "longitude": 10.0978,
+          "searchKey": "ras jebel (beni atta) رأس الجبل (بني عطا) 7075"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-cap-zbib--7034",
+          "nameFr": "RAS JEBEL (Cap Zbib)",
+          "nameAr": "رأس الجبل (رأس زبيب)",
+          "postalCode": "7034",
+          "latitude": 37.276,
+          "longitude": 10.043,
+          "searchKey": "ras jebel (cap zbib) رأس الجبل (رأس زبيب) 7034"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-cite-ain-charchara--7070",
+          "nameFr": "RAS JEBEL (Cite Ain Charchara)",
+          "nameAr": "رأس الجبل (حي عين شرشارة)",
+          "postalCode": "7070",
+          "latitude": 37.213,
+          "longitude": 10.124,
+          "searchKey": "ras jebel (cite ain charchara) رأس الجبل (حي عين شرشارة) 7070"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-cite-bir-ezzaarour--7070",
+          "nameFr": "RAS JEBEL (Cite Bir Ezzaarour)",
+          "nameAr": "رأس الجبل (حي بئر الزعرور)",
+          "postalCode": "7070",
+          "latitude": 37.212,
+          "longitude": 10.125,
+          "searchKey": "ras jebel (cite bir ezzaarour) رأس الجبل (حي بئر الزعرور) 7070"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-cite-el-amel--7015",
+          "nameFr": "RAS JEBEL (Cite El Amel)",
+          "nameAr": "رأس الجبل (حي الأمل)",
+          "postalCode": "7015",
+          "latitude": 37.2201,
+          "longitude": 10.1358,
+          "searchKey": "ras jebel (cite el amel) رأس الجبل (حي الأمل) 7015"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-cite-el-benzarti--7070",
+          "nameFr": "RAS JEBEL (Cite El Benzarti)",
+          "nameAr": "رأس الجبل (حي البنزرتي)",
+          "postalCode": "7070",
+          "latitude": 37.211,
+          "longitude": 10.126,
+          "searchKey": "ras jebel (cite el benzarti) رأس الجبل (حي البنزرتي) 7070"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-cite-ezzayatine--7070",
+          "nameFr": "RAS JEBEL (Cite Ezzayatine)",
+          "nameAr": "رأس الجبل (حي الزياتين)",
+          "postalCode": "7070",
+          "latitude": 37.21,
+          "longitude": 10.127,
+          "searchKey": "ras jebel (cite ezzayatine) رأس الجبل (حي الزياتين) 7070"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-cite-kaa-el-ballout--7070",
+          "nameFr": "RAS JEBEL (Cite Kaa El Ballout)",
+          "nameAr": "رأس الجبل (حي قاع البلوط)",
+          "postalCode": "7070",
+          "latitude": 37.209,
+          "longitude": 10.128,
+          "searchKey": "ras jebel (cite kaa el ballout) رأس الجبل (حي قاع البلوط) 7070"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-cite-taieb-mhiri--7015",
+          "nameFr": "RAS JEBEL (Cite Taieb Mhiri)",
+          "nameAr": "رأس الجبل (حي الطيب المهيري)",
+          "postalCode": "7015",
+          "latitude": 37.2195,
+          "longitude": 10.1369,
+          "searchKey": "ras jebel (cite taieb mhiri) رأس الجبل (حي الطيب المهيري) 7015"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-el-garia-ras-jebal--7098",
+          "nameFr": "RAS JEBEL (El Garia Ras Jebal)",
+          "nameAr": "رأس الجبل (القرية رأس الجبل)",
+          "postalCode": "7098",
+          "latitude": 37.2083,
+          "longitude": 10.1194,
+          "searchKey": "ras jebel (el garia ras jebal) رأس الجبل (القرية رأس الجبل) 7098"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-metline--7034",
+          "nameFr": "RAS JEBEL (Metline)",
+          "nameAr": "رأس الجبل (الماتلين)",
+          "postalCode": "7034",
+          "latitude": 37.2551,
+          "longitude": 10.0522,
+          "searchKey": "ras jebel (metline) رأس الجبل (الماتلين) 7034"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-rafraf-plage--7045",
+          "nameFr": "RAS JEBEL (Rafraf Plage)",
+          "nameAr": "رأس الجبل (رفراف الشاطئ)",
+          "postalCode": "7045",
+          "latitude": 37.2333,
+          "longitude": 10.15,
+          "searchKey": "ras jebel (rafraf plage) رأس الجبل (رفراف الشاطئ) 7045"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-rafraf--7015",
+          "nameFr": "RAS JEBEL (Rafraf)",
+          "nameAr": "رأس الجبل (رفراف)",
+          "postalCode": "7015",
+          "latitude": 37.225,
+          "longitude": 10.1417,
+          "searchKey": "ras jebel (rafraf) رأس الجبل (رفراف) 7015"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-ras-jebel--7070",
+          "nameFr": "RAS JEBEL (Ras Jebel)",
+          "nameAr": "رأس الجبل (رأس الجبل)",
+          "postalCode": "7070",
+          "latitude": 37.215,
+          "longitude": 10.125,
+          "searchKey": "ras jebel (ras jebel) رأس الجبل (رأس الجبل) 7070"
+        },
+        {
+          "id": "bizerte--ras-jebel--ras-jebel-sounine--7025",
+          "nameFr": "RAS JEBEL (Sounine)",
+          "nameAr": "رأس الجبل (صونين)",
+          "postalCode": "7025",
+          "latitude": 37.2411,
+          "longitude": 10.164,
+          "searchKey": "ras jebel (sounine) رأس الجبل (صونين) 7025"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--sejnane",
+      "nameFr": "SEJNANE",
+      "nameAr": "سجنان",
+      "searchKey": "sejnane سجنان",
+      "municipalities": [
+        {
+          "id": "bizerte--sejnane--sejnane-cite-air-nouvelle--7010",
+          "nameFr": "SEJNANE (Cite Air Nouvelle)",
+          "nameAr": "سجنان (حي الهواء الجديد)",
+          "postalCode": "7010",
+          "latitude": 37.0563,
+          "longitude": 9.2405,
+          "searchKey": "sejnane (cite air nouvelle) سجنان (حي الهواء الجديد) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-aouassia--7010",
+          "nameFr": "SEJNANE (Cite Aouassia)",
+          "nameAr": "سجنان (حي العواوسة)",
+          "postalCode": "7010",
+          "latitude": 37.0551,
+          "longitude": 9.2418,
+          "searchKey": "sejnane (cite aouassia) سجنان (حي العواوسة) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-commerciale--7010",
+          "nameFr": "SEJNANE (Cite Commerciale)",
+          "nameAr": "سجنان (الحي التجاري)",
+          "postalCode": "7010",
+          "latitude": 37.054,
+          "longitude": 9.243,
+          "searchKey": "sejnane (cite commerciale) سجنان (الحي التجاري) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-des-mines--7010",
+          "nameFr": "SEJNANE (Cite Des Mines)",
+          "nameAr": "سجنان (حي المناجم)",
+          "postalCode": "7010",
+          "latitude": 37.0529,
+          "longitude": 9.2442,
+          "searchKey": "sejnane (cite des mines) سجنان (حي المناجم) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-des-ouvriers--7010",
+          "nameFr": "SEJNANE (Cite Des Ouvriers)",
+          "nameAr": "سجنان (حي العمال)",
+          "postalCode": "7010",
+          "latitude": 37.0518,
+          "longitude": 9.2455,
+          "searchKey": "sejnane (cite des ouvriers) سجنان (حي العمال) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-du-projet--7010",
+          "nameFr": "SEJNANE (Cite Du Projet)",
+          "nameAr": "سجنان (حي المشروع)",
+          "postalCode": "7010",
+          "latitude": 37.0507,
+          "longitude": 9.2467,
+          "searchKey": "sejnane (cite du projet) سجنان (حي المشروع) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-el-bassatine--7010",
+          "nameFr": "SEJNANE (Cite El Bassatine)",
+          "nameAr": "سجنان (حي البساتين)",
+          "postalCode": "7010",
+          "latitude": 37.0496,
+          "longitude": 9.2479,
+          "searchKey": "sejnane (cite el bassatine) سجنان (حي البساتين) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-el-ghabette--7010",
+          "nameFr": "SEJNANE (Cite El Ghabette)",
+          "nameAr": "سجنان (حي الغابة)",
+          "postalCode": "7010",
+          "latitude": 37.0485,
+          "longitude": 9.249,
+          "searchKey": "sejnane (cite el ghabette) سجنان (حي الغابة) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-el-mouasker--7010",
+          "nameFr": "SEJNANE (Cite El Mouasker)",
+          "nameAr": "سجنان (حي المعسكر)",
+          "postalCode": "7010",
+          "latitude": 37.0473,
+          "longitude": 9.2503,
+          "searchKey": "sejnane (cite el mouasker) سجنان (حي المعسكر) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-essaada--7010",
+          "nameFr": "SEJNANE (Cite Essaada)",
+          "nameAr": "سجنان (حي السعادة)",
+          "postalCode": "7010",
+          "latitude": 37.0462,
+          "longitude": 9.2515,
+          "searchKey": "sejnane (cite essaada) سجنان (حي السعادة) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-ezzouhour-2--7010",
+          "nameFr": "SEJNANE (Cite Ezzouhour 2)",
+          "nameAr": "سجنان (حي الزهور 2)",
+          "postalCode": "7010",
+          "latitude": 37.044,
+          "longitude": 9.2539,
+          "searchKey": "sejnane (cite ezzouhour 2) سجنان (حي الزهور 2) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-ezzouhour--7010",
+          "nameFr": "SEJNANE (Cite Ezzouhour)",
+          "nameAr": "سجنان (حي الزهور)",
+          "postalCode": "7010",
+          "latitude": 37.0451,
+          "longitude": 9.2527,
+          "searchKey": "sejnane (cite ezzouhour) سجنان (حي الزهور) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-ibn-khaldoun--7010",
+          "nameFr": "SEJNANE (Cite Ibn Khaldoun)",
+          "nameAr": "سجنان (حي ابن خلدون)",
+          "postalCode": "7010",
+          "latitude": 37.0428,
+          "longitude": 9.255,
+          "searchKey": "sejnane (cite ibn khaldoun) سجنان (حي ابن خلدون) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-khaled-ibn-el-walid--7010",
+          "nameFr": "SEJNANE (Cite Khaled Ibn El Walid)",
+          "nameAr": "سجنان (حي خالد بن الوليد)",
+          "postalCode": "7010",
+          "latitude": 37.0417,
+          "longitude": 9.2562,
+          "searchKey": "sejnane (cite khaled ibn el walid) سجنان (حي خالد بن الوليد) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-mougaad--7010",
+          "nameFr": "SEJNANE (Cite Mougaad)",
+          "nameAr": "سجنان (حي المقعد)",
+          "postalCode": "7010",
+          "latitude": 37.0405,
+          "longitude": 9.2573,
+          "searchKey": "sejnane (cite mougaad) سجنان (حي المقعد) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-sidi-mansour--7010",
+          "nameFr": "SEJNANE (Cite Sidi Mansour)",
+          "nameAr": "سجنان (حي سيدي منصور)",
+          "postalCode": "7010",
+          "latitude": 37.0394,
+          "longitude": 9.2585,
+          "searchKey": "sejnane (cite sidi mansour) سجنان (حي سيدي منصور) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-cite-taieb-mhiri--7010",
+          "nameFr": "SEJNANE (Cite Taieb Mhiri)",
+          "nameAr": "سجنان (حي الطيب المهيري)",
+          "postalCode": "7010",
+          "latitude": 37.0382,
+          "longitude": 9.2596,
+          "searchKey": "sejnane (cite taieb mhiri) سجنان (حي الطيب المهيري) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-dhouahria--7010",
+          "nameFr": "SEJNANE (Dhouahria)",
+          "nameAr": "سجنان (الذواهرية)",
+          "postalCode": "7010",
+          "latitude": 37.0371,
+          "longitude": 9.2608,
+          "searchKey": "sejnane (dhouahria) سجنان (الذواهرية) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-el-abebsa--7010",
+          "nameFr": "SEJNANE (El Abebsa)",
+          "nameAr": "سجنان (العنابسة)",
+          "postalCode": "7010",
+          "latitude": 37.036,
+          "longitude": 9.2619,
+          "searchKey": "sejnane (el abebsa) سجنان (العنابسة) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-el-guetma--7097",
+          "nameFr": "SEJNANE (El Guetma)",
+          "nameAr": "سجنان (القطمة)",
+          "postalCode": "7097",
+          "latitude": 37.1023,
+          "longitude": 9.1588,
+          "searchKey": "sejnane (el guetma) سجنان (القطمة) 7097"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-el-hania--7010",
+          "nameFr": "SEJNANE (El Hania)",
+          "nameAr": "سجنان (الهانية)",
+          "postalCode": "7010",
+          "latitude": 37.0349,
+          "longitude": 9.2631,
+          "searchKey": "sejnane (el hania) سجنان (الهانية) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-el-mrifeg--7010",
+          "nameFr": "SEJNANE (El Mrifeg)",
+          "nameAr": "سجنان (المرفق)",
+          "postalCode": "7010",
+          "latitude": 37.0338,
+          "longitude": 9.2642,
+          "searchKey": "sejnane (el mrifeg) سجنان (المرفق) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-essmayria--7010",
+          "nameFr": "SEJNANE (Essmayria)",
+          "nameAr": "سجنان (السمايرية)",
+          "postalCode": "7010",
+          "latitude": 37.0803,
+          "longitude": 9.2015,
+          "searchKey": "sejnane (essmayria) سجنان (السمايرية) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-haddada--7010",
+          "nameFr": "SEJNANE (Haddada)",
+          "nameAr": "سجنان (الحدادة)",
+          "postalCode": "7010",
+          "latitude": 37.0586,
+          "longitude": 9.2734,
+          "searchKey": "sejnane (haddada) سجنان (الحدادة) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-sejnane--7010",
+          "nameFr": "SEJNANE (Sejnane)",
+          "nameAr": "سجنان (سجنان)",
+          "postalCode": "7010",
+          "latitude": 37.057,
+          "longitude": 9.239,
+          "searchKey": "sejnane (sejnane) سجنان (سجنان) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-sidi-machreg--7010",
+          "nameFr": "SEJNANE (Sidi Machreg)",
+          "nameAr": "سجنان (سيدي مشرق)",
+          "postalCode": "7010",
+          "latitude": 37.225,
+          "longitude": 9.08,
+          "searchKey": "sejnane (sidi machreg) سجنان (سيدي مشرق) 7010"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-tamra--7031",
+          "nameFr": "SEJNANE (Tamra)",
+          "nameAr": "سجنان (تمرة)",
+          "postalCode": "7031",
+          "latitude": 37.125,
+          "longitude": 9.0333,
+          "searchKey": "sejnane (tamra) سجنان (تمرة) 7031"
+        },
+        {
+          "id": "bizerte--sejnane--sejnane-touajnia--7010",
+          "nameFr": "SEJNANE (Touajnia)",
+          "nameAr": "سجنان (التواجنية)",
+          "postalCode": "7010",
+          "latitude": 37.0915,
+          "longitude": 9.1856,
+          "searchKey": "sejnane (touajnia) سجنان (التواجنية) 7010"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--tinja",
+      "nameFr": "TINJA",
+      "nameAr": "تينجة",
+      "searchKey": "tinja تينجة",
+      "municipalities": [
+        {
+          "id": "bizerte--tinja--tinja-ain-faroua--7032",
+          "nameFr": "TINJA (Ain Faroua)",
+          "nameAr": "تينجة (عين فروة)",
+          "postalCode": "7032",
+          "latitude": 37.1589,
+          "longitude": 9.7532,
+          "searchKey": "tinja (ain faroua) تينجة (عين فروة) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-cite-de-le-liberte--7032",
+          "nameFr": "TINJA (Cite De Le Liberte)",
+          "nameAr": "تينجة (حي الحرية)",
+          "postalCode": "7032",
+          "latitude": 37.1598,
+          "longitude": 9.7551,
+          "searchKey": "tinja (cite de le liberte) تينجة (حي الحرية) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-cite-douar-chatt--7032",
+          "nameFr": "TINJA (Cite Douar Chatt)",
+          "nameAr": "تينجة (حي دوار الشط)",
+          "postalCode": "7032",
+          "latitude": 37.1607,
+          "longitude": 9.757,
+          "searchKey": "tinja (cite douar chatt) تينجة (حي دوار الشط) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-cite-el-fateh--7032",
+          "nameFr": "TINJA (Cite El Fateh)",
+          "nameAr": "تينجة (حي الفاتح)",
+          "postalCode": "7032",
+          "latitude": 37.1615,
+          "longitude": 9.7589,
+          "searchKey": "tinja (cite el fateh) تينجة (حي الفاتح) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-cite-el-fouladh--7032",
+          "nameFr": "TINJA (Cite El Fouladh)",
+          "nameAr": "تينجة (حي الفولاذ)",
+          "postalCode": "7032",
+          "latitude": 37.1624,
+          "longitude": 9.7608,
+          "searchKey": "tinja (cite el fouladh) تينجة (حي الفولاذ) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-cite-el-khadhraoui--7032",
+          "nameFr": "TINJA (Cite El Khadhraoui)",
+          "nameAr": "تينجة (حي الخضراوي)",
+          "postalCode": "7032",
+          "latitude": 37.1633,
+          "longitude": 9.7627,
+          "searchKey": "tinja (cite el khadhraoui) تينجة (حي الخضراوي) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-cite-ikbal--7032",
+          "nameFr": "TINJA (Cite Ikbal)",
+          "nameAr": "تينجة (حي إقبال)",
+          "postalCode": "7032",
+          "latitude": 37.1642,
+          "longitude": 9.7646,
+          "searchKey": "tinja (cite ikbal) تينجة (حي إقبال) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-cite-sidi-rezig--7032",
+          "nameFr": "TINJA (Cite Sidi Rezig)",
+          "nameAr": "تينجة (حي سيدي رزيق)",
+          "postalCode": "7032",
+          "latitude": 37.165,
+          "longitude": 9.7665,
+          "searchKey": "tinja (cite sidi rezig) تينجة (حي سيدي رزيق) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-cite-sprols--7032",
+          "nameFr": "TINJA (Cite Sprols)",
+          "nameAr": "تينجة (حي سبرولس)",
+          "postalCode": "7032",
+          "latitude": 37.1659,
+          "longitude": 9.7684,
+          "searchKey": "tinja (cite sprols) تينجة (حي سبرولس) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-cite-zghaba--7032",
+          "nameFr": "TINJA (Cite Zghaba)",
+          "nameAr": "تينجة (حي زغابة)",
+          "postalCode": "7032",
+          "latitude": 37.1668,
+          "longitude": 9.7703,
+          "searchKey": "tinja (cite zghaba) تينجة (حي زغابة) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-kharrata--7032",
+          "nameFr": "TINJA (Kharrata)",
+          "nameAr": "تينجة (خراطة)",
+          "postalCode": "7032",
+          "latitude": 37.1676,
+          "longitude": 9.7722,
+          "searchKey": "tinja (kharrata) تينجة (خراطة) 7032"
+        },
+        {
+          "id": "bizerte--tinja--tinja-tinja--7032",
+          "nameFr": "TINJA (Tinja)",
+          "nameAr": "تينجة (تينجة)",
+          "postalCode": "7032",
+          "latitude": 37.1631,
+          "longitude": 9.76,
+          "searchKey": "tinja (tinja) تينجة (تينجة) 7032"
+        }
+      ]
+    },
+    {
+      "id": "bizerte--utique",
+      "nameFr": "UTIQUE",
+      "nameAr": "أوتيك",
+      "searchKey": "utique أوتيك",
+      "municipalities": [
+        {
+          "id": "bizerte--utique--utique-ain-ghelal--7013",
+          "nameFr": "UTIQUE (Ain Ghelal)",
+          "nameAr": "أوتيك (عين غلال)",
+          "postalCode": "7013",
+          "latitude": 37.0857,
+          "longitude": 10.0259,
+          "searchKey": "utique (ain ghelal) أوتيك (عين غلال) 7013"
+        },
+        {
+          "id": "bizerte--utique--utique-ain-smara--7013",
+          "nameFr": "UTIQUE (Ain Smara)",
+          "nameAr": "أوتيك (عين سمارة)",
+          "postalCode": "7013",
+          "latitude": 37.0336,
+          "longitude": 10.0581,
+          "searchKey": "utique (ain smara) أوتيك (عين سمارة) 7013"
+        },
+        {
+          "id": "bizerte--utique--utique-bach-hamba--7043",
+          "nameFr": "UTIQUE (Bach Hamba)",
+          "nameAr": "أوتيك (باش حامبة)",
+          "postalCode": "7043",
+          "latitude": 37.0653,
+          "longitude": 10.0012,
+          "searchKey": "utique (bach hamba) أوتيك (باش حامبة) 7043"
+        },
+        {
+          "id": "bizerte--utique--utique-cite-bourguiba--7060",
+          "nameFr": "UTIQUE (Cite Bourguiba)",
+          "nameAr": "أوتيك (حي بورقيبة)",
+          "postalCode": "7060",
+          "latitude": 37.0537,
+          "longitude": 10.0589,
+          "searchKey": "utique (cite bourguiba) أوتيك (حي بورقيبة) 7060"
+        },
+        {
+          "id": "bizerte--utique--utique-cite-chateau-d-eau--7060",
+          "nameFr": "UTIQUE (Cite Chateau D Eau)",
+          "nameAr": "أوتيك (حي خزان الماء)",
+          "postalCode": "7060",
+          "latitude": 37.0528,
+          "longitude": 10.0603,
+          "searchKey": "utique (cite chateau d eau) أوتيك (حي خزان الماء) 7060"
+        },
+        {
+          "id": "bizerte--utique--utique-cite-de-la-laiterie--7060",
+          "nameFr": "UTIQUE (Cite De La Laiterie)",
+          "nameAr": "أوتيك (حي معمل الحليب)",
+          "postalCode": "7060",
+          "latitude": 37.0519,
+          "longitude": 10.0616,
+          "searchKey": "utique (cite de la laiterie) أوتيك (حي معمل الحليب) 7060"
+        },
+        {
+          "id": "bizerte--utique--utique-cite-de-la-poste--7060",
+          "nameFr": "UTIQUE (Cite De La Poste)",
+          "nameAr": "أوتيك (حي البريد)",
+          "postalCode": "7060",
+          "latitude": 37.051,
+          "longitude": 10.0628,
+          "searchKey": "utique (cite de la poste) أوتيك (حي البريد) 7060"
+        },
+        {
+          "id": "bizerte--utique--utique-cite-ejjamaa--7060",
+          "nameFr": "UTIQUE (Cite Ejjamaa)",
+          "nameAr": "أوتيك (حي الجامع)",
+          "postalCode": "7060",
+          "latitude": 37.0501,
+          "longitude": 10.0641,
+          "searchKey": "utique (cite ejjamaa) أوتيك (حي الجامع) 7060"
+        },
+        {
+          "id": "bizerte--utique--utique-cite-ezzayatine--7060",
+          "nameFr": "UTIQUE (Cite Ezzayatine)",
+          "nameAr": "أوتيك (حي الزياتين)",
+          "postalCode": "7060",
+          "latitude": 37.0492,
+          "longitude": 10.0653,
+          "searchKey": "utique (cite ezzayatine) أوتيك (حي الزياتين) 7060"
+        },
+        {
+          "id": "bizerte--utique--utique-cite-houmet-souk--7060",
+          "nameFr": "UTIQUE (Cite Houmet Souk)",
+          "nameAr": "أوتيك (حي حومة السوق)",
+          "postalCode": "7060",
+          "latitude": 37.0483,
+          "longitude": 10.0666,
+          "searchKey": "utique (cite houmet souk) أوتيك (حي حومة السوق) 7060"
+        },
+        {
+          "id": "bizerte--utique--utique-degma--7023",
+          "nameFr": "UTIQUE (Degma)",
+          "nameAr": "أوتيك (الدكمة)",
+          "postalCode": "7023",
+          "latitude": 37.0425,
+          "longitude": 10.0188,
+          "searchKey": "utique (degma) أوتيك (الدكمة) 7023"
+        },
+        {
+          "id": "bizerte--utique--utique-el-besbassia--7013",
+          "nameFr": "UTIQUE (El Besbassia)",
+          "nameAr": "أوتيك (البسباسية)",
+          "postalCode": "7013",
+          "latitude": 37.0609,
+          "longitude": 10.0301,
+          "searchKey": "utique (el besbassia) أوتيك (البسباسية) 7013"
+        },
+        {
+          "id": "bizerte--utique--utique-el-bhalil-chargui--7013",
+          "nameFr": "UTIQUE (El Bhalil Chargui)",
+          "nameAr": "أوتيك (البهاليل الشرقي)",
+          "postalCode": "7013",
+          "latitude": 37.0498,
+          "longitude": 10.0812,
+          "searchKey": "utique (el bhalil chargui) أوتيك (البهاليل الشرقي) 7013"
+        },
+        {
+          "id": "bizerte--utique--utique-el-brij--7013",
+          "nameFr": "UTIQUE (El Brij)",
+          "nameAr": "أوتيك (البريج)",
+          "postalCode": "7013",
+          "latitude": 37.0751,
+          "longitude": 10.0406,
+          "searchKey": "utique (el brij) أوتيك (البريج) 7013"
+        },
+        {
+          "id": "bizerte--utique--utique-el-fejja--7013",
+          "nameFr": "UTIQUE (El Fejja)",
+          "nameAr": "أوتيك (الفجة)",
+          "postalCode": "7013",
+          "latitude": 37.0215,
+          "longitude": 10.0653,
+          "searchKey": "utique (el fejja) أوتيك (الفجة) 7013"
+        },
+        {
+          "id": "bizerte--utique--utique-el-mabtouh--7023",
+          "nameFr": "UTIQUE (El Mabtouh)",
+          "nameAr": "أوتيك (المبطوح)",
+          "postalCode": "7023",
+          "latitude": 37.0721,
+          "longitude": 10.1025,
+          "searchKey": "utique (el mabtouh) أوتيك (المبطوح) 7023"
+        },
+        {
+          "id": "bizerte--utique--utique-essakak--7023",
+          "nameFr": "UTIQUE (Essakak)",
+          "nameAr": "أوتيك (السكاك)",
+          "postalCode": "7023",
+          "latitude": 37.0593,
+          "longitude": 10.0051,
+          "searchKey": "utique (essakak) أوتيك (السكاك) 7023"
+        },
+        {
+          "id": "bizerte--utique--utique-ghornata--7060",
+          "nameFr": "UTIQUE (Ghornata)",
+          "nameAr": "أوتيك (غرناطة)",
+          "postalCode": "7060",
+          "latitude": 37.0474,
+          "longitude": 10.0678,
+          "searchKey": "utique (ghornata) أوتيك (غرناطة) 7060"
+        },
+        {
+          "id": "bizerte--utique--utique-lahouidh--7060",
+          "nameFr": "UTIQUE (Lahouidh)",
+          "nameAr": "أوتيك (الحويض)",
+          "postalCode": "7060",
+          "latitude": 37.0465,
+          "longitude": 10.0691,
+          "searchKey": "utique (lahouidh) أوتيك (الحويض) 7060"
+        },
+        {
+          "id": "bizerte--utique--utique-sidi-othman--7023",
+          "nameFr": "UTIQUE (Sidi Othman)",
+          "nameAr": "أوتيك (سيدي عثمان)",
+          "postalCode": "7023",
+          "latitude": 37.0339,
+          "longitude": 10.0317,
+          "searchKey": "utique (sidi othman) أوتيك (سيدي عثمان) 7023"
+        },
+        {
+          "id": "bizerte--utique--utique-touibia--7024",
+          "nameFr": "UTIQUE (Touibia)",
+          "nameAr": "أوتيك (الطويبية)",
+          "postalCode": "7024",
+          "latitude": 37.13,
+          "longitude": 10.18,
+          "searchKey": "utique (touibia) أوتيك (الطويبية) 7024"
+        },
+        {
+          "id": "bizerte--utique--utique-utique-nouvelle--7063",
+          "nameFr": "UTIQUE (Utique Nouvelle)",
+          "nameAr": "أوتيك (أوتيك الجديدة)",
+          "postalCode": "7063",
+          "latitude": 37.0552,
+          "longitude": 10.0571,
+          "searchKey": "utique (utique nouvelle) أوتيك (أوتيك الجديدة) 7063"
+        },
+        {
+          "id": "bizerte--utique--utique-utique--7060",
+          "nameFr": "UTIQUE (Utique)",
+          "nameAr": "أوتيك (أوتيك)",
+          "postalCode": "7060",
+          "latitude": 37.0531,
+          "longitude": 10.0583,
+          "searchKey": "utique (utique) أوتيك (أوتيك) 7060"
+        }
+      ]
+    }
+  ]
+}

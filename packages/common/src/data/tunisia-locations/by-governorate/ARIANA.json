@@ -1,0 +1,1933 @@
+{
+  "code": "ARIANA",
+  "delegations": [
+    {
+      "id": "ariana--ariana-ville",
+      "nameFr": "ARIANA VILLE",
+      "nameAr": "أريانة المدينة",
+      "searchKey": "ariana ville أريانة المدينة",
+      "municipalities": [
+        {
+          "id": "ariana--ariana-ville--ariana-ville-ariana--2080",
+          "nameFr": "ARIANA VILLE (Ariana)",
+          "nameAr": "أريانة المدينة (أريانة)",
+          "postalCode": "2080",
+          "latitude": 36.861327,
+          "longitude": 10.19168,
+          "searchKey": "ariana ville (ariana) أريانة المدينة (أريانة) 2080"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-borj-el-baccouche--2027",
+          "nameFr": "ARIANA VILLE (Borj El Baccouche)",
+          "nameAr": "أريانة المدينة (برج البكوش)",
+          "postalCode": "2027",
+          "latitude": 36.87,
+          "longitude": 10.21,
+          "searchKey": "ariana ville (borj el baccouche) أريانة المدينة (برج البكوش) 2027"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-centre-commercial-ikram--2037",
+          "nameFr": "ARIANA VILLE (Centre Commercial Ikram)",
+          "nameAr": "أريانة المدينة (المركب التجاري إكرام)",
+          "postalCode": "2037",
+          "latitude": 36.8653,
+          "longitude": 10.1682,
+          "searchKey": "ariana ville (centre commercial ikram) أريانة المدينة (المركب التجاري إكرام) 2037"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-belvedere-2--2091",
+          "nameFr": "ARIANA VILLE (Cite Belvedere 2)",
+          "nameAr": "أريانة المدينة (حي البلفدير 2)",
+          "postalCode": "2091",
+          "latitude": 36.867222,
+          "longitude": 10.18,
+          "searchKey": "ariana ville (cite belvedere 2) أريانة المدينة (حي البلفدير 2) 2091"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-borj-turki-1--2058",
+          "nameFr": "ARIANA VILLE (Cite Borj Turki 1)",
+          "nameAr": "أريانة المدينة (حي برج التركي 1)",
+          "postalCode": "2058",
+          "latitude": 36.871389,
+          "longitude": 10.196111,
+          "searchKey": "ariana ville (cite borj turki 1) أريانة المدينة (حي برج التركي 1) 2058"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-borj-turki-2--2058",
+          "nameFr": "ARIANA VILLE (Cite Borj Turki 2)",
+          "nameAr": "أريانة المدينة (حي برج التركي 2)",
+          "postalCode": "2058",
+          "latitude": 36.8725,
+          "longitude": 10.197222,
+          "searchKey": "ariana ville (cite borj turki 2) أريانة المدينة (حي برج التركي 2) 2058"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-de-la-sante--2058",
+          "nameFr": "ARIANA VILLE (Cite De La Sante)",
+          "nameAr": "أريانة المدينة (حي الصحة)",
+          "postalCode": "2058",
+          "latitude": 36.8688,
+          "longitude": 10.1925,
+          "searchKey": "ariana ville (cite de la sante) أريانة المدينة (حي الصحة) 2058"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-des-roses--2080",
+          "nameFr": "ARIANA VILLE (Cite Des Roses)",
+          "nameAr": "أريانة المدينة (حي الورود)",
+          "postalCode": "2080",
+          "latitude": 36.869,
+          "longitude": 10.19,
+          "searchKey": "ariana ville (cite des roses) أريانة المدينة (حي الورود) 2080"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-du-jardin--2080",
+          "nameFr": "ARIANA VILLE (Cite Du Jardin)",
+          "nameAr": "أريانة المدينة (حي الحدائق)",
+          "postalCode": "2080",
+          "latitude": 36.868,
+          "longitude": 10.188,
+          "searchKey": "ariana ville (cite du jardin) أريانة المدينة (حي الحدائق) 2080"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-du-printemps--2080",
+          "nameFr": "ARIANA VILLE (Cite Du Printemps)",
+          "nameAr": "أريانة المدينة (حي الربيع)",
+          "postalCode": "2080",
+          "latitude": 36.867,
+          "longitude": 10.187,
+          "searchKey": "ariana ville (cite du printemps) أريانة المدينة (حي الربيع) 2080"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-du-soleil--2091",
+          "nameFr": "ARIANA VILLE (Cite Du Soleil)",
+          "nameAr": "أريانة المدينة (حي الشمس)",
+          "postalCode": "2091",
+          "latitude": 36.868333,
+          "longitude": 10.178333,
+          "searchKey": "ariana ville (cite du soleil) أريانة المدينة (حي الشمس) 2091"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-el-intissar-1--2091",
+          "nameFr": "ARIANA VILLE (Cite El Intissar 1)",
+          "nameAr": "أريانة المدينة (حي الإنتصار 1)",
+          "postalCode": "2091",
+          "latitude": 36.871532,
+          "longitude": 10.175512,
+          "searchKey": "ariana ville (cite el intissar 1) أريانة المدينة (حي الإنتصار 1) 2091"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-el-intissar-2--2091",
+          "nameFr": "ARIANA VILLE (Cite El Intissar 2)",
+          "nameAr": "أريانة المدينة (حي الإنتصار 2)",
+          "postalCode": "2091",
+          "latitude": 36.8723,
+          "longitude": 10.1739,
+          "searchKey": "ariana ville (cite el intissar 2) أريانة المدينة (حي الإنتصار 2) 2091"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-ennasr-1--2037",
+          "nameFr": "ARIANA VILLE (Cite Ennasr 1)",
+          "nameAr": "أريانة المدينة (حي النصر 1)",
+          "postalCode": "2037",
+          "latitude": 36.864801,
+          "longitude": 10.1649,
+          "searchKey": "ariana ville (cite ennasr 1) أريانة المدينة (حي النصر 1) 2037"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-ennasr-2--2037",
+          "nameFr": "ARIANA VILLE (Cite Ennasr 2)",
+          "nameAr": "أريانة المدينة (حي النصر 2)",
+          "postalCode": "2037",
+          "latitude": 36.867,
+          "longitude": 10.159,
+          "searchKey": "ariana ville (cite ennasr 2) أريانة المدينة (حي النصر 2) 2037"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-ennouzha--2080",
+          "nameFr": "ARIANA VILLE (Cite Ennouzha)",
+          "nameAr": "أريانة المدينة (حي النزهة)",
+          "postalCode": "2080",
+          "latitude": 36.8655,
+          "longitude": 10.196,
+          "searchKey": "ariana ville (cite ennouzha) أريانة المدينة (حي النزهة) 2080"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-essaada-ariana--2080",
+          "nameFr": "ARIANA VILLE (Cite Essaada (Ariana))",
+          "nameAr": "أريانة المدينة (حي السعادة - أريانة)",
+          "postalCode": "2080",
+          "latitude": 36.863,
+          "longitude": 10.193,
+          "searchKey": "ariana ville (cite essaada (ariana)) أريانة المدينة (حي السعادة - أريانة) 2080"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-essaada-riadh-andalous--2058",
+          "nameFr": "ARIANA VILLE (Cite Essaada (Riadh Andalous))",
+          "nameAr": "أريانة المدينة (حي السعادة - رياض الأندلس)",
+          "postalCode": "2058",
+          "latitude": 36.875,
+          "longitude": 10.191,
+          "searchKey": "ariana ville (cite essaada (riadh andalous)) أريانة المدينة (حي السعادة - رياض الأندلس) 2058"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-jaafar--2080",
+          "nameFr": "ARIANA VILLE (Cite Jaafar)",
+          "nameAr": "أريانة المدينة (حي جعفر)",
+          "postalCode": "2080",
+          "latitude": 36.8742,
+          "longitude": 10.199,
+          "searchKey": "ariana ville (cite jaafar) أريانة المدينة (حي جعفر) 2080"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-jamil--2091",
+          "nameFr": "ARIANA VILLE (Cite Jamil)",
+          "nameAr": "أريانة المدينة (حي جميل)",
+          "postalCode": "2091",
+          "latitude": 36.870121,
+          "longitude": 10.178329,
+          "searchKey": "ariana ville (cite jamil) أريانة المدينة (حي جميل) 2091"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-karim--2058",
+          "nameFr": "ARIANA VILLE (Cite Karim)",
+          "nameAr": "أريانة المدينة (حي كريم)",
+          "postalCode": "2058",
+          "latitude": 36.8675,
+          "longitude": 10.19125,
+          "searchKey": "ariana ville (cite karim) أريانة المدينة (حي كريم) 2058"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-cite-mehrzia-1--2058",
+          "nameFr": "ARIANA VILLE (Cite Mehrzia 1)",
+          "nameAr": "أريانة المدينة (حي المحرزية 1)",
+          "postalCode": "2058",
+          "latitude": 36.873,
+          "longitude": 10.193,
+          "searchKey": "ariana ville (cite mehrzia 1) أريانة المدينة (حي المحرزية 1) 2058"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-el-menzah-5--2091",
+          "nameFr": "ARIANA VILLE (El Menzah 5)",
+          "nameAr": "أريانة المدينة (المنزه 5)",
+          "postalCode": "2091",
+          "latitude": 36.851405,
+          "longitude": 10.176505,
+          "searchKey": "ariana ville (el menzah 5) أريانة المدينة (المنزه 5) 2091"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-el-menzah-6--2091",
+          "nameFr": "ARIANA VILLE (El Menzah 6)",
+          "nameAr": "أريانة المدينة (المنزه 6)",
+          "postalCode": "2091",
+          "latitude": 36.856086,
+          "longitude": 10.172297,
+          "searchKey": "ariana ville (el menzah 6) أريانة المدينة (المنزه 6) 2091"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-el-menzah-7--2037",
+          "nameFr": "ARIANA VILLE (El Menzah 7)",
+          "nameAr": "أريانة المدينة (المنزه 7)",
+          "postalCode": "2037",
+          "latitude": 36.858021,
+          "longitude": 10.168056,
+          "searchKey": "ariana ville (el menzah 7) أريانة المدينة (المنزه 7) 2037"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-el-menzah-8--2037",
+          "nameFr": "ARIANA VILLE (El Menzah 8)",
+          "nameAr": "أريانة المدينة (المنزه 8)",
+          "postalCode": "2037",
+          "latitude": 36.860858,
+          "longitude": 10.164976,
+          "searchKey": "ariana ville (el menzah 8) أريانة المدينة (المنزه 8) 2037"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-nouvelle-ariana--2080",
+          "nameFr": "ARIANA VILLE (Nouvelle Ariana)",
+          "nameAr": "أريانة المدينة (أريانة الجديدة)",
+          "postalCode": "2080",
+          "latitude": 36.86,
+          "longitude": 10.195,
+          "searchKey": "ariana ville (nouvelle ariana) أريانة المدينة (أريانة الجديدة) 2080"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-residence-el-ouns--2058",
+          "nameFr": "ARIANA VILLE (Residence El Ouns)",
+          "nameAr": "أريانة المدينة (إقامة الأنس)",
+          "postalCode": "2058",
+          "latitude": 36.86625,
+          "longitude": 10.19,
+          "searchKey": "ariana ville (residence el ouns) أريانة المدينة (إقامة الأنس) 2058"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-residence-ennour-naser-1--2037",
+          "nameFr": "ARIANA VILLE (Residence Ennour ( Naser 1))",
+          "nameAr": "أريانة المدينة (إقامة النور - النصر 1)",
+          "postalCode": "2037",
+          "latitude": 36.865,
+          "longitude": 10.165,
+          "searchKey": "ariana ville (residence ennour ( naser 1)) أريانة المدينة (إقامة النور - النصر 1) 2037"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-residence-ennour-naser-2--2037",
+          "nameFr": "ARIANA VILLE (Residence Ennour ( Naser 2))",
+          "nameAr": "أريانة المدينة (إقامة النور - النصر 2)",
+          "postalCode": "2037",
+          "latitude": 36.8675,
+          "longitude": 10.16,
+          "searchKey": "ariana ville (residence ennour ( naser 2)) أريانة المدينة (إقامة النور - النصر 2) 2037"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-residence-ennour-ariana--2080",
+          "nameFr": "ARIANA VILLE (Residence Ennour (Ariana))",
+          "nameAr": "أريانة المدينة (إقامة النور - أريانة)",
+          "postalCode": "2080",
+          "latitude": 36.864,
+          "longitude": 10.192,
+          "searchKey": "ariana ville (residence ennour (ariana)) أريانة المدينة (إقامة النور - أريانة) 2080"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-residence-ibn-zeidoun--2058",
+          "nameFr": "ARIANA VILLE (Residence Ibn Zeidoun)",
+          "nameAr": "أريانة المدينة (إقامة إبن زيدون)",
+          "postalCode": "2058",
+          "latitude": 36.865,
+          "longitude": 10.18875,
+          "searchKey": "ariana ville (residence ibn zeidoun) أريانة المدينة (إقامة إبن زيدون) 2058"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-residence-ichbilia--2058",
+          "nameFr": "ARIANA VILLE (Residence Ichbilia)",
+          "nameAr": "أريانة المدينة (إقامة إشبيلية)",
+          "postalCode": "2058",
+          "latitude": 36.877,
+          "longitude": 10.192,
+          "searchKey": "ariana ville (residence ichbilia) أريانة المدينة (إقامة إشبيلية) 2058"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-residence-kortoba--2058",
+          "nameFr": "ARIANA VILLE (Residence Kortoba)",
+          "nameAr": "أريانة المدينة (إقامة قرطبة)",
+          "postalCode": "2058",
+          "latitude": 36.866011,
+          "longitude": 10.193923,
+          "searchKey": "ariana ville (residence kortoba) أريانة المدينة (إقامة قرطبة) 2058"
+        },
+        {
+          "id": "ariana--ariana-ville--ariana-ville-riadh-landlous--2058",
+          "nameFr": "ARIANA VILLE (Riadh Landlous)",
+          "nameAr": "أريانة المدينة (رياض الأندلس)",
+          "postalCode": "2058",
+          "latitude": 36.876077,
+          "longitude": 10.190004,
+          "searchKey": "ariana ville (riadh landlous) أريانة المدينة (رياض الأندلس) 2058"
+        }
+      ]
+    },
+    {
+      "id": "ariana--ettadhamen",
+      "nameFr": "ETTADHAMEN",
+      "nameAr": "التضامن",
+      "searchKey": "ettadhamen التضامن",
+      "municipalities": [
+        {
+          "id": "ariana--ettadhamen--ettadhamen-cite-18-janvier--2041",
+          "nameFr": "ETTADHAMEN (Cite 18 Janvier)",
+          "nameAr": "التضامن (حي 18 جانفي)",
+          "postalCode": "2041",
+          "latitude": 36.8387,
+          "longitude": 10.102,
+          "searchKey": "ettadhamen (cite 18 janvier) التضامن (حي 18 جانفي) 2041"
+        },
+        {
+          "id": "ariana--ettadhamen--ettadhamen-cite-ben-yerfes--2041",
+          "nameFr": "ETTADHAMEN (Cite Ben Yerfes)",
+          "nameAr": "التضامن (حي بن يرفس)",
+          "postalCode": "2041",
+          "latitude": 36.837,
+          "longitude": 10.1,
+          "searchKey": "ettadhamen (cite ben yerfes) التضامن (حي بن يرفس) 2041"
+        },
+        {
+          "id": "ariana--ettadhamen--ettadhamen-cite-el-houda--2041",
+          "nameFr": "ETTADHAMEN (Cite El Houda)",
+          "nameAr": "التضامن (حي الهدى)",
+          "postalCode": "2041",
+          "latitude": 36.839,
+          "longitude": 10.104,
+          "searchKey": "ettadhamen (cite el houda) التضامن (حي الهدى) 2041"
+        },
+        {
+          "id": "ariana--ettadhamen--ettadhamen-cite-ennasser--2041",
+          "nameFr": "ETTADHAMEN (Cite Ennasser)",
+          "nameAr": "التضامن (حي النصر)",
+          "postalCode": "2041",
+          "latitude": 36.84,
+          "longitude": 10.106,
+          "searchKey": "ettadhamen (cite ennasser) التضامن (حي النصر) 2041"
+        },
+        {
+          "id": "ariana--ettadhamen--ettadhamen-cite-ettadhamen--2041",
+          "nameFr": "ETTADHAMEN (Cite Ettadhamen)",
+          "nameAr": "التضامن (حي التضامن)",
+          "postalCode": "2041",
+          "latitude": 36.83633,
+          "longitude": 10.104338,
+          "searchKey": "ettadhamen (cite ettadhamen) التضامن (حي التضامن) 2041"
+        },
+        {
+          "id": "ariana--ettadhamen--ettadhamen-cite-ettayarene--2041",
+          "nameFr": "ETTADHAMEN (Cite Ettayarene)",
+          "nameAr": "التضامن (حي الطيارين)",
+          "postalCode": "2041",
+          "latitude": 36.841,
+          "longitude": 10.108,
+          "searchKey": "ettadhamen (cite ettayarene) التضامن (حي الطيارين) 2041"
+        },
+        {
+          "id": "ariana--ettadhamen--ettadhamen-cite-sfar--2041",
+          "nameFr": "ETTADHAMEN (Cite Sfar)",
+          "nameAr": "التضامن (حي صفر)",
+          "postalCode": "2041",
+          "latitude": 36.838,
+          "longitude": 10.098,
+          "searchKey": "ettadhamen (cite sfar) التضامن (حي صفر) 2041"
+        },
+        {
+          "id": "ariana--ettadhamen--ettadhamen-cite-snit-2--2041",
+          "nameFr": "ETTADHAMEN (Cite Snit 2)",
+          "nameAr": "التضامن (حي سنيت 2)",
+          "postalCode": "2041",
+          "latitude": 36.835,
+          "longitude": 10.103,
+          "searchKey": "ettadhamen (cite snit 2) التضامن (حي سنيت 2) 2041"
+        },
+        {
+          "id": "ariana--ettadhamen--ettadhamen-cite-snit-nagra--2041",
+          "nameFr": "ETTADHAMEN (Cite Snit Nagra)",
+          "nameAr": "التضامن (حي سنيت النڨرة)",
+          "postalCode": "2041",
+          "latitude": 36.834,
+          "longitude": 10.101,
+          "searchKey": "ettadhamen (cite snit nagra) التضامن (حي سنيت النڨرة) 2041"
+        }
+      ]
+    },
+    {
+      "id": "ariana--kalaat-landlous",
+      "nameFr": "KALAAT LANDLOUS",
+      "nameAr": "قلعة الأندلس",
+      "searchKey": "kalaat landlous قلعة الأندلس",
+      "municipalities": [
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-borj-el-hadj--2061",
+          "nameFr": "KALAAT LANDLOUS (Borj El Hadj)",
+          "nameAr": "قلعة الأندلس (برج الحاج)",
+          "postalCode": "2061",
+          "latitude": 37.054,
+          "longitude": 10.152,
+          "searchKey": "kalaat landlous (borj el hadj) قلعة الأندلس (برج الحاج) 2061"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-cite-bir-el-araies--2022",
+          "nameFr": "KALAAT LANDLOUS (Cite Bir El Araies)",
+          "nameAr": "قلعة الأندلس (حي بئر العرايس)",
+          "postalCode": "2022",
+          "latitude": 37.060278,
+          "longitude": 10.115278,
+          "searchKey": "kalaat landlous (cite bir el araies) قلعة الأندلس (حي بئر العرايس) 2022"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-cite-des-martyrs--2022",
+          "nameFr": "KALAAT LANDLOUS (Cite Des Martyrs)",
+          "nameAr": "قلعة الأندلس (حي الشهداء)",
+          "postalCode": "2022",
+          "latitude": 37.061,
+          "longitude": 10.116,
+          "searchKey": "kalaat landlous (cite des martyrs) قلعة الأندلس (حي الشهداء) 2022"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-cite-el-fejja--2022",
+          "nameFr": "KALAAT LANDLOUS (Cite El Fejja)",
+          "nameAr": "قلعة الأندلس (حي الفجة)",
+          "postalCode": "2022",
+          "latitude": 37.062,
+          "longitude": 10.117,
+          "searchKey": "kalaat landlous (cite el fejja) قلعة الأندلس (حي الفجة) 2022"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-cite-el-mourouj--2022",
+          "nameFr": "KALAAT LANDLOUS (Cite El Mourouj)",
+          "nameAr": "قلعة الأندلس (حي المروج)",
+          "postalCode": "2022",
+          "latitude": 37.063,
+          "longitude": 10.118,
+          "searchKey": "kalaat landlous (cite el mourouj) قلعة الأندلس (حي المروج) 2022"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-cite-el-oulja--2022",
+          "nameFr": "KALAAT LANDLOUS (Cite El Oulja)",
+          "nameAr": "قلعة الأندلس (حي الولجة)",
+          "postalCode": "2022",
+          "latitude": 37.064,
+          "longitude": 10.119,
+          "searchKey": "kalaat landlous (cite el oulja) قلعة الأندلس (حي الولجة) 2022"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-cite-essibous--2022",
+          "nameFr": "KALAAT LANDLOUS (Cite Essibous)",
+          "nameAr": "قلعة الأندلس (حي السيبوس)",
+          "postalCode": "2022",
+          "latitude": 37.065,
+          "longitude": 10.12,
+          "searchKey": "kalaat landlous (cite essibous) قلعة الأندلس (حي السيبوس) 2022"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-cite-tarek-ibn-zied--2022",
+          "nameFr": "KALAAT LANDLOUS (Cite Tarek Ibn Zied)",
+          "nameAr": "قلعة الأندلس (حي طارق بن زياد)",
+          "postalCode": "2022",
+          "latitude": 37.066,
+          "longitude": 10.121,
+          "searchKey": "kalaat landlous (cite tarek ibn zied) قلعة الأندلس (حي طارق بن زياد) 2022"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-el-misra--2061",
+          "nameFr": "KALAAT LANDLOUS (El Misra)",
+          "nameAr": "قلعة الأندلس (المسرة)",
+          "postalCode": "2061",
+          "latitude": 37.05,
+          "longitude": 10.15,
+          "searchKey": "kalaat landlous (el misra) قلعة الأندلس (المسرة) 2061"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-ferme-hababou--2061",
+          "nameFr": "KALAAT LANDLOUS (Ferme Hababou)",
+          "nameAr": "قلعة الأندلس (مزرعة حبابو)",
+          "postalCode": "2061",
+          "latitude": 37.04,
+          "longitude": 10.16,
+          "searchKey": "kalaat landlous (ferme hababou) قلعة الأندلس (مزرعة حبابو) 2061"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-ferme-mustapha--2061",
+          "nameFr": "KALAAT LANDLOUS (Ferme Mustapha)",
+          "nameAr": "قلعة الأندلس (مزرعة مصطفى)",
+          "postalCode": "2061",
+          "latitude": 37.045,
+          "longitude": 10.155,
+          "searchKey": "kalaat landlous (ferme mustapha) قلعة الأندلس (مزرعة مصطفى) 2061"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-henchir-touba--2061",
+          "nameFr": "KALAAT LANDLOUS (Henchir Touba)",
+          "nameAr": "قلعة الأندلس (هنشير توبة)",
+          "postalCode": "2061",
+          "latitude": 37.06,
+          "longitude": 10.14,
+          "searchKey": "kalaat landlous (henchir touba) قلعة الأندلس (هنشير توبة) 2061"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-henchir-toubias--2061",
+          "nameFr": "KALAAT LANDLOUS (Henchir Toubias)",
+          "nameAr": "قلعة الأندلس (هنشير توبياس)",
+          "postalCode": "2061",
+          "latitude": 37.065,
+          "longitude": 10.135,
+          "searchKey": "kalaat landlous (henchir toubias) قلعة الأندلس (هنشير توبياس) 2061"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-kalaat-landlous--2022",
+          "nameFr": "KALAAT LANDLOUS (Kalaat Landlous)",
+          "nameAr": "قلعة الأندلس (قلعة الأندلس)",
+          "postalCode": "2022",
+          "latitude": 37.06,
+          "longitude": 10.116667,
+          "searchKey": "kalaat landlous (kalaat landlous) قلعة الأندلس (قلعة الأندلس) 2022"
+        },
+        {
+          "id": "ariana--kalaat-landlous--kalaat-landlous-pont-de-bizerte--2061",
+          "nameFr": "KALAAT LANDLOUS (Pont De Bizerte)",
+          "nameAr": "قلعة الأندلس (قنطرة بنزرت)",
+          "postalCode": "2061",
+          "latitude": 37.083333,
+          "longitude": 10.133333,
+          "searchKey": "kalaat landlous (pont de bizerte) قلعة الأندلس (قنطرة بنزرت) 2061"
+        }
+      ]
+    },
+    {
+      "id": "ariana--la-soukra",
+      "nameFr": "LA SOUKRA",
+      "nameAr": "سكرة",
+      "searchKey": "la soukra سكرة",
+      "municipalities": [
+        {
+          "id": "ariana--la-soukra--la-soukra-aeroport-tunis-carthage--2035",
+          "nameFr": "LA SOUKRA (Aeroport Tunis Carthage)",
+          "nameAr": "سكرة (مطار تونس قرطاج)",
+          "postalCode": "2035",
+          "latitude": 36.851032,
+          "longitude": 10.227169,
+          "searchKey": "la soukra (aeroport tunis carthage) سكرة (مطار تونس قرطاج) 2035"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-borj-louzir--2073",
+          "nameFr": "LA SOUKRA (Borj Louzir)",
+          "nameAr": "سكرة (برج الوزير)",
+          "postalCode": "2073",
+          "latitude": 36.8717,
+          "longitude": 10.2283,
+          "searchKey": "la soukra (borj louzir) سكرة (برج الوزير) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-charguia-1--2035",
+          "nameFr": "LA SOUKRA (Charguia 1)",
+          "nameAr": "سكرة (الشرقية 1)",
+          "postalCode": "2035",
+          "latitude": 36.84737,
+          "longitude": 10.215,
+          "searchKey": "la soukra (charguia 1) سكرة (الشرقية 1) 2035"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-charguia-2--2035",
+          "nameFr": "LA SOUKRA (Charguia 2)",
+          "nameAr": "سكرة (الشرقية 2)",
+          "postalCode": "2035",
+          "latitude": 36.856111,
+          "longitude": 10.218889,
+          "searchKey": "la soukra (charguia 2) سكرة (الشرقية 2) 2035"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-chotrana-1--2036",
+          "nameFr": "LA SOUKRA (Chotrana 1)",
+          "nameAr": "سكرة (شطرانة 1)",
+          "postalCode": "2036",
+          "latitude": 36.895833,
+          "longitude": 10.235,
+          "searchKey": "la soukra (chotrana 1) سكرة (شطرانة 1) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-chotrana-2--2036",
+          "nameFr": "LA SOUKRA (Chotrana 2)",
+          "nameAr": "سكرة (شطرانة 2)",
+          "postalCode": "2036",
+          "latitude": 36.896944,
+          "longitude": 10.236111,
+          "searchKey": "la soukra (chotrana 2) سكرة (شطرانة 2) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-chotrana-3--2036",
+          "nameFr": "LA SOUKRA (Chotrana 3)",
+          "nameAr": "سكرة (شطرانة 3)",
+          "postalCode": "2036",
+          "latitude": 36.898056,
+          "longitude": 10.237222,
+          "searchKey": "la soukra (chotrana 3) سكرة (شطرانة 3) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-astree--2036",
+          "nameFr": "LA SOUKRA (Cite Astree)",
+          "nameAr": "سكرة (حي أستري)",
+          "postalCode": "2036",
+          "latitude": 36.88761,
+          "longitude": 10.25204,
+          "searchKey": "la soukra (cite astree) سكرة (حي أستري) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-belabla--2036",
+          "nameFr": "LA SOUKRA (Cite Belabla)",
+          "nameAr": "سكرة (حي بلعبلة)",
+          "postalCode": "2036",
+          "latitude": 36.886,
+          "longitude": 10.25,
+          "searchKey": "la soukra (cite belabla) سكرة (حي بلعبلة) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-ben-hessine--2036",
+          "nameFr": "LA SOUKRA (Cite Ben Hessine)",
+          "nameAr": "سكرة (حي بن حسين)",
+          "postalCode": "2036",
+          "latitude": 36.885,
+          "longitude": 10.252,
+          "searchKey": "la soukra (cite ben hessine) سكرة (حي بن حسين) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-ben-kilani--2073",
+          "nameFr": "LA SOUKRA (Cite Ben Kilani)",
+          "nameAr": "سكرة (حي بن كيلاني)",
+          "postalCode": "2073",
+          "latitude": 36.87,
+          "longitude": 10.227,
+          "searchKey": "la soukra (cite ben kilani) سكرة (حي بن كيلاني) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-bou-fares--2036",
+          "nameFr": "LA SOUKRA (Cite Bou Fares)",
+          "nameAr": "سكرة (حي بو فارس)",
+          "postalCode": "2036",
+          "latitude": 36.884,
+          "longitude": 10.254,
+          "searchKey": "la soukra (cite bou fares) سكرة (حي بو فارس) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-chouachia--2036",
+          "nameFr": "LA SOUKRA (Cite Chouachia)",
+          "nameAr": "سكرة (حي الشواشية)",
+          "postalCode": "2036",
+          "latitude": 36.883,
+          "longitude": 10.256,
+          "searchKey": "la soukra (cite chouachia) سكرة (حي الشواشية) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-chouchene--2036",
+          "nameFr": "LA SOUKRA (Cite Chouchene)",
+          "nameAr": "سكرة (حي شوشان)",
+          "postalCode": "2036",
+          "latitude": 36.882,
+          "longitude": 10.258,
+          "searchKey": "la soukra (cite chouchene) سكرة (حي شوشان) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-de-l-aeroport--2036",
+          "nameFr": "LA SOUKRA (Cite De L'Aeroport)",
+          "nameAr": "سكرة (حي المطار)",
+          "postalCode": "2036",
+          "latitude": 36.853,
+          "longitude": 10.235,
+          "searchKey": "la soukra (cite de l'aeroport) سكرة (حي المطار) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-de-la-sante--2073",
+          "nameFr": "LA SOUKRA (Cite De La Sante)",
+          "nameAr": "سكرة (حي الصحة)",
+          "postalCode": "2073",
+          "latitude": 36.873,
+          "longitude": 10.23,
+          "searchKey": "la soukra (cite de la sante) سكرة (حي الصحة) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-de-la-terre-libre--2036",
+          "nameFr": "LA SOUKRA (Cite De La Terre Libre)",
+          "nameAr": "سكرة (حي الأرض الحرة)",
+          "postalCode": "2036",
+          "latitude": 36.88,
+          "longitude": 10.26,
+          "searchKey": "la soukra (cite de la terre libre) سكرة (حي الأرض الحرة) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-des-juges--2036",
+          "nameFr": "LA SOUKRA (Cite Des Juges)",
+          "nameAr": "سكرة (حي القضاة)",
+          "postalCode": "2036",
+          "latitude": 36.889,
+          "longitude": 10.23,
+          "searchKey": "la soukra (cite des juges) سكرة (حي القضاة) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-el-azzef--2036",
+          "nameFr": "LA SOUKRA (Cite El Azzef)",
+          "nameAr": "سكرة (حي العزف)",
+          "postalCode": "2036",
+          "latitude": 36.881,
+          "longitude": 10.262,
+          "searchKey": "la soukra (cite el azzef) سكرة (حي العزف) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-el-behi-ladghem--2073",
+          "nameFr": "LA SOUKRA (Cite El Behi Ladghem)",
+          "nameAr": "سكرة (حي الباهي الأدغم)",
+          "postalCode": "2073",
+          "latitude": 36.875,
+          "longitude": 10.232,
+          "searchKey": "la soukra (cite el behi ladghem) سكرة (حي الباهي الأدغم) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-el-boustene-1--2036",
+          "nameFr": "LA SOUKRA (Cite El Boustene 1)",
+          "nameAr": "سكرة (حي البستان 1)",
+          "postalCode": "2036",
+          "latitude": 36.8863,
+          "longitude": 10.262,
+          "searchKey": "la soukra (cite el boustene 1) سكرة (حي البستان 1) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-el-boustene-2--2036",
+          "nameFr": "LA SOUKRA (Cite El Boustene 2)",
+          "nameAr": "سكرة (حي البستان 2)",
+          "postalCode": "2036",
+          "latitude": 36.887,
+          "longitude": 10.263,
+          "searchKey": "la soukra (cite el boustene 2) سكرة (حي البستان 2) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-el-feth--2073",
+          "nameFr": "LA SOUKRA (Cite El Feth)",
+          "nameAr": "سكرة (حي الفتح)",
+          "postalCode": "2073",
+          "latitude": 36.876,
+          "longitude": 10.234,
+          "searchKey": "la soukra (cite el feth) سكرة (حي الفتح) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-el-hana--2073",
+          "nameFr": "LA SOUKRA (Cite El Hana)",
+          "nameAr": "سكرة (حي الهناء)",
+          "postalCode": "2073",
+          "latitude": 36.877,
+          "longitude": 10.236,
+          "searchKey": "la soukra (cite el hana) سكرة (حي الهناء) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-el-henaya--2036",
+          "nameFr": "LA SOUKRA (Cite El Henaya)",
+          "nameAr": "سكرة (حي الحنايا)",
+          "postalCode": "2036",
+          "latitude": 36.89,
+          "longitude": 10.24,
+          "searchKey": "la soukra (cite el henaya) سكرة (حي الحنايا) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-el-maid--2036",
+          "nameFr": "LA SOUKRA (Cite El Maid)",
+          "nameAr": "سكرة (حي المائدة)",
+          "postalCode": "2036",
+          "latitude": 36.888,
+          "longitude": 10.264,
+          "searchKey": "la soukra (cite el maid) سكرة (حي المائدة) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-el-mansoura--2073",
+          "nameFr": "LA SOUKRA (Cite El Mansoura)",
+          "nameAr": "سكرة (حي المنصورة)",
+          "postalCode": "2073",
+          "latitude": 36.878,
+          "longitude": 10.238,
+          "searchKey": "la soukra (cite el mansoura) سكرة (حي المنصورة) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-el-ouroud--2073",
+          "nameFr": "LA SOUKRA (Cite El Ouroud)",
+          "nameAr": "سكرة (حي الورود)",
+          "postalCode": "2073",
+          "latitude": 36.879,
+          "longitude": 10.24,
+          "searchKey": "la soukra (cite el ouroud) سكرة (حي الورود) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-elyes--2036",
+          "nameFr": "LA SOUKRA (Cite Elyes)",
+          "nameAr": "سكرة (حي إلياس)",
+          "postalCode": "2036",
+          "latitude": 36.891,
+          "longitude": 10.242,
+          "searchKey": "la soukra (cite elyes) سكرة (حي إلياس) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-ennacim--2073",
+          "nameFr": "LA SOUKRA (Cite Ennacim)",
+          "nameAr": "سكرة (حي النسيم)",
+          "postalCode": "2073",
+          "latitude": 36.88,
+          "longitude": 10.242,
+          "searchKey": "la soukra (cite ennacim) سكرة (حي النسيم) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-ennouzha-3--2073",
+          "nameFr": "LA SOUKRA (Cite Ennouzha 3)",
+          "nameAr": "سكرة (حي النزهة 3)",
+          "postalCode": "2073",
+          "latitude": 36.881,
+          "longitude": 10.244,
+          "searchKey": "la soukra (cite ennouzha 3) سكرة (حي النزهة 3) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-ettaamir-5--2073",
+          "nameFr": "LA SOUKRA (Cite Ettaamir 5)",
+          "nameAr": "سكرة (حي التعمير 5)",
+          "postalCode": "2073",
+          "latitude": 36.882,
+          "longitude": 10.246,
+          "searchKey": "la soukra (cite ettaamir 5) سكرة (حي التعمير 5) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-ettaamir--2036",
+          "nameFr": "LA SOUKRA (Cite Ettaamir)",
+          "nameAr": "سكرة (حي التعمير)",
+          "postalCode": "2036",
+          "latitude": 36.892,
+          "longitude": 10.244,
+          "searchKey": "la soukra (cite ettaamir) سكرة (حي التعمير) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-ezzitoun-1--2036",
+          "nameFr": "LA SOUKRA (Cite Ezzitoun 1)",
+          "nameAr": "سكرة (حي الزيتون 1)",
+          "postalCode": "2036",
+          "latitude": 36.885212,
+          "longitude": 10.245301,
+          "searchKey": "la soukra (cite ezzitoun 1) سكرة (حي الزيتون 1) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-ezzitoun-2--2036",
+          "nameFr": "LA SOUKRA (Cite Ezzitoun 2)",
+          "nameAr": "سكرة (حي الزيتون 2)",
+          "postalCode": "2036",
+          "latitude": 36.8845,
+          "longitude": 10.246,
+          "searchKey": "la soukra (cite ezzitoun 2) سكرة (حي الزيتون 2) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-ezzouaidia--2036",
+          "nameFr": "LA SOUKRA (Cite Ezzouaidia)",
+          "nameAr": "سكرة (حي الزوايدية)",
+          "postalCode": "2036",
+          "latitude": 36.8898,
+          "longitude": 10.2487,
+          "searchKey": "la soukra (cite ezzouaidia) سكرة (حي الزوايدية) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-farhat--2036",
+          "nameFr": "LA SOUKRA (Cite Farhat)",
+          "nameAr": "سكرة (حي فرحات)",
+          "postalCode": "2036",
+          "latitude": 36.88281,
+          "longitude": 10.25103,
+          "searchKey": "la soukra (cite farhat) سكرة (حي فرحات) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-fateh--2036",
+          "nameFr": "LA SOUKRA (Cite Fateh)",
+          "nameAr": "سكرة (حي الفاتح)",
+          "postalCode": "2036",
+          "latitude": 36.88,
+          "longitude": 10.25,
+          "searchKey": "la soukra (cite fateh) سكرة (حي الفاتح) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-fonciere--2036",
+          "nameFr": "LA SOUKRA (Cite Fonciere)",
+          "nameAr": "سكرة (الحي العقاري)",
+          "postalCode": "2036",
+          "latitude": 36.8869,
+          "longitude": 10.2421,
+          "searchKey": "la soukra (cite fonciere) سكرة (الحي العقاري) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-ghouzaila--2073",
+          "nameFr": "LA SOUKRA (Cite Ghouzaila)",
+          "nameAr": "سكرة (حي غزالة)",
+          "postalCode": "2073",
+          "latitude": 36.883,
+          "longitude": 10.248,
+          "searchKey": "la soukra (cite ghouzaila) سكرة (حي غزالة) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-hedi-nouira--2073",
+          "nameFr": "LA SOUKRA (Cite Hedi Nouira)",
+          "nameAr": "سكرة (حي الهادي نويرة)",
+          "postalCode": "2073",
+          "latitude": 36.884,
+          "longitude": 10.25,
+          "searchKey": "la soukra (cite hedi nouira) سكرة (حي الهادي نويرة) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-jebira--2073",
+          "nameFr": "LA SOUKRA (Cite Jebira)",
+          "nameAr": "سكرة (حي جبيرة)",
+          "postalCode": "2073",
+          "latitude": 36.885,
+          "longitude": 10.252,
+          "searchKey": "la soukra (cite jebira) سكرة (حي جبيرة) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-snit--2036",
+          "nameFr": "LA SOUKRA (Cite Snit)",
+          "nameAr": "سكرة (حي سنيت)",
+          "postalCode": "2036",
+          "latitude": 36.882351,
+          "longitude": 10.248091,
+          "searchKey": "la soukra (cite snit) سكرة (حي سنيت) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-star--2073",
+          "nameFr": "LA SOUKRA (Cite Star)",
+          "nameAr": "سكرة (حي ستار)",
+          "postalCode": "2073",
+          "latitude": 36.886,
+          "longitude": 10.254,
+          "searchKey": "la soukra (cite star) سكرة (حي ستار) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-cite-touilia--2036",
+          "nameFr": "LA SOUKRA (Cite Touilia)",
+          "nameAr": "سكرة (حي الطويلية)",
+          "postalCode": "2036",
+          "latitude": 36.8888,
+          "longitude": 10.24,
+          "searchKey": "la soukra (cite touilia) سكرة (حي الطويلية) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-dar-fadhal--2036",
+          "nameFr": "LA SOUKRA (Dar Fadhal)",
+          "nameAr": "سكرة (دار فضال)",
+          "postalCode": "2036",
+          "latitude": 36.8784,
+          "longitude": 10.27,
+          "searchKey": "la soukra (dar fadhal) سكرة (دار فضال) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-la-soukra--2036",
+          "nameFr": "LA SOUKRA (La Soukra)",
+          "nameAr": "سكرة (سكرة)",
+          "postalCode": "2036",
+          "latitude": 36.880917,
+          "longitude": 10.240974,
+          "searchKey": "la soukra (la soukra) سكرة (سكرة) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-mosque-erraoudha--2036",
+          "nameFr": "LA SOUKRA (Mosque Erraoudha)",
+          "nameAr": "سكرة (جامع الروضة)",
+          "postalCode": "2036",
+          "latitude": 36.880265,
+          "longitude": 10.258624,
+          "searchKey": "la soukra (mosque erraoudha) سكرة (جامع الروضة) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-residence-26-26--2036",
+          "nameFr": "LA SOUKRA (Residence 26-26)",
+          "nameAr": "سكرة (إقامة 26-26)",
+          "postalCode": "2036",
+          "latitude": 36.8815,
+          "longitude": 10.2505,
+          "searchKey": "la soukra (residence 26-26) سكرة (إقامة 26-26) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-residence-ahlem--2036",
+          "nameFr": "LA SOUKRA (Residence Ahlem)",
+          "nameAr": "سكرة (إقامة أحلام)",
+          "postalCode": "2036",
+          "latitude": 36.8799,
+          "longitude": 10.2497,
+          "searchKey": "la soukra (residence ahlem) سكرة (إقامة أحلام) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-residence-el-ouns--2073",
+          "nameFr": "LA SOUKRA (Residence El Ouns)",
+          "nameAr": "سكرة (إقامة الأنس)",
+          "postalCode": "2073",
+          "latitude": 36.887,
+          "longitude": 10.256,
+          "searchKey": "la soukra (residence el ouns) سكرة (إقامة الأنس) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-residence-ennesrine--2073",
+          "nameFr": "LA SOUKRA (Residence Ennesrine)",
+          "nameAr": "سكرة (إقامة النسرين)",
+          "postalCode": "2073",
+          "latitude": 36.888,
+          "longitude": 10.258,
+          "searchKey": "la soukra (residence ennesrine) سكرة (إقامة النسرين) 2073"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-residence-meriem--2036",
+          "nameFr": "LA SOUKRA (Residence Meriem)",
+          "nameAr": "سكرة (إقامة مريم)",
+          "postalCode": "2036",
+          "latitude": 36.8805,
+          "longitude": 10.25,
+          "searchKey": "la soukra (residence meriem) سكرة (إقامة مريم) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-sidi-frej--2036",
+          "nameFr": "LA SOUKRA (Sidi Frej)",
+          "nameAr": "سكرة (سيدي فرج)",
+          "postalCode": "2036",
+          "latitude": 36.89,
+          "longitude": 10.26,
+          "searchKey": "la soukra (sidi frej) سكرة (سيدي فرج) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-sidi-salah--2036",
+          "nameFr": "LA SOUKRA (Sidi Salah)",
+          "nameAr": "سكرة (سيدي صالح)",
+          "postalCode": "2036",
+          "latitude": 36.891,
+          "longitude": 10.262,
+          "searchKey": "la soukra (sidi salah) سكرة (سيدي صالح) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-sidi-soufiene--2036",
+          "nameFr": "LA SOUKRA (Sidi Soufiene)",
+          "nameAr": "سكرة (سيدي سفيان)",
+          "postalCode": "2036",
+          "latitude": 36.892,
+          "longitude": 10.264,
+          "searchKey": "la soukra (sidi soufiene) سكرة (سيدي سفيان) 2036"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-station-marchandises-fret--2035",
+          "nameFr": "LA SOUKRA (Station Marchandises Fret)",
+          "nameAr": "سكرة (محطة شحن البضائع)",
+          "postalCode": "2035",
+          "latitude": 36.845,
+          "longitude": 10.23,
+          "searchKey": "la soukra (station marchandises fret) سكرة (محطة شحن البضائع) 2035"
+        },
+        {
+          "id": "ariana--la-soukra--la-soukra-village-essahli--2036",
+          "nameFr": "LA SOUKRA (Village Essahli)",
+          "nameAr": "سكرة (قرية الساحلي)",
+          "postalCode": "2036",
+          "latitude": 36.875,
+          "longitude": 10.25,
+          "searchKey": "la soukra (village essahli) سكرة (قرية الساحلي) 2036"
+        }
+      ]
+    },
+    {
+      "id": "ariana--mnihla",
+      "nameFr": "MNIHLA",
+      "nameAr": "منيهلة",
+      "searchKey": "mnihla منيهلة",
+      "municipalities": [
+        {
+          "id": "ariana--mnihla--mnihla-cite-ali-bourguiba--2094",
+          "nameFr": "MNIHLA (Cite Ali Bourguiba)",
+          "nameAr": "منيهلة (حي علي بورقيبة)",
+          "postalCode": "2094",
+          "latitude": 36.8648,
+          "longitude": 10.1021,
+          "searchKey": "mnihla (cite ali bourguiba) منيهلة (حي علي بورقيبة) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-cite-de-la-republique--2094",
+          "nameFr": "MNIHLA (Cite De La Republique)",
+          "nameAr": "منيهلة (حي الجمهورية)",
+          "postalCode": "2094",
+          "latitude": 36.86,
+          "longitude": 10.1,
+          "searchKey": "mnihla (cite de la republique) منيهلة (حي الجمهورية) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-cite-el-bassatine1--2094",
+          "nameFr": "MNIHLA (Cite El Bassatine1)",
+          "nameAr": "منيهلة (حي البساتين 1)",
+          "postalCode": "2094",
+          "latitude": 36.8612,
+          "longitude": 10.104,
+          "searchKey": "mnihla (cite el bassatine1) منيهلة (حي البساتين 1) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-cite-el-bassatine2--2094",
+          "nameFr": "MNIHLA (Cite El Bassatine2)",
+          "nameAr": "منيهلة (حي البساتين 2)",
+          "postalCode": "2094",
+          "latitude": 36.862,
+          "longitude": 10.105,
+          "searchKey": "mnihla (cite el bassatine2) منيهلة (حي البساتين 2) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-cite-el-bassatine3--2094",
+          "nameFr": "MNIHLA (Cite El Bassatine3)",
+          "nameAr": "منيهلة (حي البساتين 3)",
+          "postalCode": "2094",
+          "latitude": 36.8628,
+          "longitude": 10.106,
+          "searchKey": "mnihla (cite el bassatine3) منيهلة (حي البساتين 3) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-cite-el-gouabsia--2094",
+          "nameFr": "MNIHLA (Cite El Gouabsia)",
+          "nameAr": "منيهلة (حي القوابسية)",
+          "postalCode": "2094",
+          "latitude": 36.858,
+          "longitude": 10.108,
+          "searchKey": "mnihla (cite el gouabsia) منيهلة (حي القوابسية) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-cite-el-ouard--2094",
+          "nameFr": "MNIHLA (Cite El Ouard)",
+          "nameAr": "منيهلة (حي الورد)",
+          "postalCode": "2094",
+          "latitude": 36.864,
+          "longitude": 10.101,
+          "searchKey": "mnihla (cite el ouard) منيهلة (حي الورد) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-cite-ennasr--2094",
+          "nameFr": "MNIHLA (Cite Ennasr)",
+          "nameAr": "منيهلة (حي النصر)",
+          "postalCode": "2094",
+          "latitude": 36.8585,
+          "longitude": 10.107,
+          "searchKey": "mnihla (cite ennasr) منيهلة (حي النصر) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-cite-essaada--2094",
+          "nameFr": "MNIHLA (Cite Essaada)",
+          "nameAr": "منيهلة (حي السعادة)",
+          "postalCode": "2094",
+          "latitude": 36.859,
+          "longitude": 10.106,
+          "searchKey": "mnihla (cite essaada) منيهلة (حي السعادة) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-cite-rafaha--2094",
+          "nameFr": "MNIHLA (Cite Rafaha)",
+          "nameAr": "منيهلة (حي الرفاهة)",
+          "postalCode": "2094",
+          "latitude": 36.8595,
+          "longitude": 10.105,
+          "searchKey": "mnihla (cite rafaha) منيهلة (حي الرفاهة) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-cite-rous-el-harayek--2094",
+          "nameFr": "MNIHLA (Cite Rous El Harayek)",
+          "nameAr": "منيهلة (حي رؤوس الحرايق)",
+          "postalCode": "2094",
+          "latitude": 36.857,
+          "longitude": 10.109,
+          "searchKey": "mnihla (cite rous el harayek) منيهلة (حي رؤوس الحرايق) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-essanhaji--2094",
+          "nameFr": "MNIHLA (Essanhaji)",
+          "nameAr": "منيهلة (الصنهاجي)",
+          "postalCode": "2094",
+          "latitude": 36.8575,
+          "longitude": 10.095,
+          "searchKey": "mnihla (essanhaji) منيهلة (الصنهاجي) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-mnihla--2094",
+          "nameFr": "MNIHLA (Mnihla)",
+          "nameAr": "منيهلة (منيهلة)",
+          "postalCode": "2094",
+          "latitude": 36.857799,
+          "longitude": 10.10268,
+          "searchKey": "mnihla (mnihla) منيهلة (منيهلة) 2094"
+        },
+        {
+          "id": "ariana--mnihla--mnihla-residence-ennasr--2094",
+          "nameFr": "MNIHLA (Residence Ennasr)",
+          "nameAr": "منيهلة (إقامة النصر)",
+          "postalCode": "2094",
+          "latitude": 36.8588,
+          "longitude": 10.1075,
+          "searchKey": "mnihla (residence ennasr) منيهلة (إقامة النصر) 2094"
+        }
+      ]
+    },
+    {
+      "id": "ariana--raoued",
+      "nameFr": "RAOUED",
+      "nameAr": "رواد",
+      "searchKey": "raoued رواد",
+      "municipalities": [
+        {
+          "id": "ariana--raoued--raoued-ariana-essoughra--2081",
+          "nameFr": "RAOUED (Ariana Essoughra)",
+          "nameAr": "رواد (أريانة الصغرى)",
+          "postalCode": "2081",
+          "latitude": 36.93,
+          "longitude": 10.12,
+          "searchKey": "raoued (ariana essoughra) رواد (أريانة الصغرى) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-borj-touil--2081",
+          "nameFr": "RAOUED (Borj Touil)",
+          "nameAr": "رواد (برج الطويل)",
+          "postalCode": "2081",
+          "latitude": 36.975,
+          "longitude": 10.133056,
+          "searchKey": "raoued (borj touil) رواد (برج الطويل) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-bou-hnech--2081",
+          "nameFr": "RAOUED (Bou Hnech)",
+          "nameAr": "رواد (بو حنش)",
+          "postalCode": "2081",
+          "latitude": 36.962778,
+          "longitude": 10.100833,
+          "searchKey": "raoued (bou hnech) رواد (بو حنش) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-7-novembre--2056",
+          "nameFr": "RAOUED (Cite 7 Novembre)",
+          "nameAr": "رواد (حي 7 نوفمبر)",
+          "postalCode": "2056",
+          "latitude": 36.915,
+          "longitude": 10.18,
+          "searchKey": "raoued (cite 7 novembre) رواد (حي 7 نوفمبر) 2056"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-aeroport--2056",
+          "nameFr": "RAOUED (Cite Aeroport)",
+          "nameAr": "رواد (حي المطار)",
+          "postalCode": "2056",
+          "latitude": 36.916,
+          "longitude": 10.182,
+          "searchKey": "raoued (cite aeroport) رواد (حي المطار) 2056"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-chaker--2081",
+          "nameFr": "RAOUED (Cite Chaker)",
+          "nameAr": "رواد (حي شاكر)",
+          "postalCode": "2081",
+          "latitude": 36.941,
+          "longitude": 10.145,
+          "searchKey": "raoued (cite chaker) رواد (حي شاكر) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-chargui--2056",
+          "nameFr": "RAOUED (Cite Chargui)",
+          "nameAr": "رواد (حي الشرقي)",
+          "postalCode": "2056",
+          "latitude": 36.917,
+          "longitude": 10.184,
+          "searchKey": "raoued (cite chargui) رواد (حي الشرقي) 2056"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-de-la-mosque--2081",
+          "nameFr": "RAOUED (Cite De La Mosque)",
+          "nameAr": "رواد (حي الجامع)",
+          "postalCode": "2081",
+          "latitude": 36.94,
+          "longitude": 10.14,
+          "searchKey": "raoued (cite de la mosque) رواد (حي الجامع) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-de-la-rtt-2--2083",
+          "nameFr": "RAOUED (Cite De La Rtt 2)",
+          "nameAr": "رواد (حي الإتصالات 2)",
+          "postalCode": "2083",
+          "latitude": 36.908,
+          "longitude": 10.2,
+          "searchKey": "raoued (cite de la rtt 2) رواد (حي الإتصالات 2) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-des-juges--2056",
+          "nameFr": "RAOUED (Cite Des Juges)",
+          "nameAr": "رواد (حي القضاة)",
+          "postalCode": "2056",
+          "latitude": 36.918,
+          "longitude": 10.186,
+          "searchKey": "raoued (cite des juges) رواد (حي القضاة) 2056"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-el-abadla--2083",
+          "nameFr": "RAOUED (Cite El Abadla)",
+          "nameAr": "رواد (حي العبادلة)",
+          "postalCode": "2083",
+          "latitude": 36.9112,
+          "longitude": 10.193,
+          "searchKey": "raoued (cite el abadla) رواد (حي العبادلة) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-el-amel--2083",
+          "nameFr": "RAOUED (Cite El Amel)",
+          "nameAr": "رواد (حي الأمل)",
+          "postalCode": "2083",
+          "latitude": 36.9045,
+          "longitude": 10.195,
+          "searchKey": "raoued (cite el amel) رواد (حي الأمل) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-el-ghazala-1--2083",
+          "nameFr": "RAOUED (Cite El Ghazala 1)",
+          "nameAr": "رواد (حي الغزالة 1)",
+          "postalCode": "2083",
+          "latitude": 36.897381,
+          "longitude": 10.180699,
+          "searchKey": "raoued (cite el ghazala 1) رواد (حي الغزالة 1) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-el-ghazala-2--2083",
+          "nameFr": "RAOUED (Cite El Ghazala 2)",
+          "nameAr": "رواد (حي الغزالة 2)",
+          "postalCode": "2083",
+          "latitude": 36.8985,
+          "longitude": 10.1815,
+          "searchKey": "raoued (cite el ghazala 2) رواد (حي الغزالة 2) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-el-mouaouiet--2081",
+          "nameFr": "RAOUED (Cite El Mouaouiet)",
+          "nameAr": "رواد (حي المعويات)",
+          "postalCode": "2081",
+          "latitude": 36.943,
+          "longitude": 10.15,
+          "searchKey": "raoued (cite el mouaouiet) رواد (حي المعويات) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-el-mountazeh--2081",
+          "nameFr": "RAOUED (Cite El Mountazeh)",
+          "nameAr": "رواد (حي المنتزه)",
+          "postalCode": "2081",
+          "latitude": 36.938,
+          "longitude": 10.138,
+          "searchKey": "raoued (cite el mountazeh) رواد (حي المنتزه) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-el-wafa--2083",
+          "nameFr": "RAOUED (Cite El Wafa)",
+          "nameAr": "رواد (حي الوفاء)",
+          "postalCode": "2083",
+          "latitude": 36.901,
+          "longitude": 10.19,
+          "searchKey": "raoued (cite el wafa) رواد (حي الوفاء) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-el-yamama--2056",
+          "nameFr": "RAOUED (Cite El Yamama)",
+          "nameAr": "رواد (حي اليمامة)",
+          "postalCode": "2056",
+          "latitude": 36.919,
+          "longitude": 10.188,
+          "searchKey": "raoued (cite el yamama) رواد (حي اليمامة) 2056"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-ennasr--2083",
+          "nameFr": "RAOUED (Cite Ennasr)",
+          "nameAr": "رواد (حي النصر)",
+          "postalCode": "2083",
+          "latitude": 36.899,
+          "longitude": 10.185,
+          "searchKey": "raoued (cite ennasr) رواد (حي النصر) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-ennkhilet--2083",
+          "nameFr": "RAOUED (Cite Ennkhilet)",
+          "nameAr": "رواد (حي النخيلات)",
+          "postalCode": "2083",
+          "latitude": 36.902,
+          "longitude": 10.192,
+          "searchKey": "raoued (cite ennkhilet) رواد (حي النخيلات) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-ennour-jaafar--2081",
+          "nameFr": "RAOUED (Cite Ennour Jaafar)",
+          "nameAr": "رواد (حي النور جعفر)",
+          "postalCode": "2081",
+          "latitude": 36.911,
+          "longitude": 10.206,
+          "searchKey": "raoued (cite ennour jaafar) رواد (حي النور جعفر) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-erriadh--2081",
+          "nameFr": "RAOUED (Cite Erriadh)",
+          "nameAr": "رواد (حي الرياض)",
+          "postalCode": "2081",
+          "latitude": 36.939,
+          "longitude": 10.142,
+          "searchKey": "raoued (cite erriadh) رواد (حي الرياض) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-essaada--2081",
+          "nameFr": "RAOUED (Cite Essaada)",
+          "nameAr": "رواد (حي السعادة)",
+          "postalCode": "2081",
+          "latitude": 36.942,
+          "longitude": 10.148,
+          "searchKey": "raoued (cite essaada) رواد (حي السعادة) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-essahafa--2083",
+          "nameFr": "RAOUED (Cite Essahafa)",
+          "nameAr": "رواد (حي الصحافة)",
+          "postalCode": "2083",
+          "latitude": 36.9,
+          "longitude": 10.188,
+          "searchKey": "raoued (cite essahafa) رواد (حي الصحافة) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-ibn-rachik--2083",
+          "nameFr": "RAOUED (Cite Ibn Rachik)",
+          "nameAr": "رواد (حي إبن رشيق)",
+          "postalCode": "2083",
+          "latitude": 36.898,
+          "longitude": 10.187,
+          "searchKey": "raoued (cite ibn rachik) رواد (حي إبن رشيق) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-mehrzia-2--2083",
+          "nameFr": "RAOUED (Cite Mehrzia 2)",
+          "nameAr": "رواد (حي المحرزية 2)",
+          "postalCode": "2083",
+          "latitude": 36.905,
+          "longitude": 10.198,
+          "searchKey": "raoued (cite mehrzia 2) رواد (حي المحرزية 2) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-sidi-salah--2056",
+          "nameFr": "RAOUED (Cite Sidi Salah)",
+          "nameAr": "رواد (حي سيدي صالح)",
+          "postalCode": "2056",
+          "latitude": 36.92,
+          "longitude": 10.19,
+          "searchKey": "raoued (cite sidi salah) رواد (حي سيدي صالح) 2056"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-sidi-slimene--2081",
+          "nameFr": "RAOUED (Cite Sidi Slimene)",
+          "nameAr": "رواد (حي سيدي سليمان)",
+          "postalCode": "2081",
+          "latitude": 36.937,
+          "longitude": 10.135,
+          "searchKey": "raoued (cite sidi slimene) رواد (حي سيدي سليمان) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-snit--2081",
+          "nameFr": "RAOUED (Cite Snit)",
+          "nameAr": "رواد (حي سنيت)",
+          "postalCode": "2081",
+          "latitude": 36.9405,
+          "longitude": 10.143,
+          "searchKey": "raoued (cite snit) رواد (حي سنيت) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-cite-zghab--2056",
+          "nameFr": "RAOUED (Cite Zghab)",
+          "nameAr": "رواد (حي زغاب)",
+          "postalCode": "2056",
+          "latitude": 36.921,
+          "longitude": 10.192,
+          "searchKey": "raoued (cite zghab) رواد (حي زغاب) 2056"
+        },
+        {
+          "id": "ariana--raoued--raoued-complexe-technologique--2088",
+          "nameFr": "RAOUED (Complexe Technologique)",
+          "nameAr": "رواد (القطب التكنولوجي)",
+          "postalCode": "2088",
+          "latitude": 36.897381,
+          "longitude": 10.180699,
+          "searchKey": "raoued (complexe technologique) رواد (القطب التكنولوجي) 2088"
+        },
+        {
+          "id": "ariana--raoued--raoued-douar-el-hendi--2081",
+          "nameFr": "RAOUED (Douar El Hendi)",
+          "nameAr": "رواد (دوار الهندي)",
+          "postalCode": "2081",
+          "latitude": 36.945,
+          "longitude": 10.155,
+          "searchKey": "raoued (douar el hendi) رواد (دوار الهندي) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-el-brarja--2056",
+          "nameFr": "RAOUED (El Brarja)",
+          "nameAr": "رواد (البرارجة)",
+          "postalCode": "2056",
+          "latitude": 36.922,
+          "longitude": 10.194,
+          "searchKey": "raoued (el brarja) رواد (البرارجة) 2056"
+        },
+        {
+          "id": "ariana--raoued--raoued-el-hessiene--2081",
+          "nameFr": "RAOUED (El Hessiene)",
+          "nameAr": "رواد (الحسيان)",
+          "postalCode": "2081",
+          "latitude": 36.95,
+          "longitude": 10.16,
+          "searchKey": "raoued (el hessiene) رواد (الحسيان) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-jaafar-1--2083",
+          "nameFr": "RAOUED (Jaafar 1)",
+          "nameAr": "رواد (جعفر 1)",
+          "postalCode": "2083",
+          "latitude": 36.91,
+          "longitude": 10.205,
+          "searchKey": "raoued (jaafar 1) رواد (جعفر 1) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-jaafar-2--2083",
+          "nameFr": "RAOUED (Jaafar 2)",
+          "nameAr": "رواد (جعفر 2)",
+          "postalCode": "2083",
+          "latitude": 36.912,
+          "longitude": 10.207,
+          "searchKey": "raoued (jaafar 2) رواد (جعفر 2) 2083"
+        },
+        {
+          "id": "ariana--raoued--raoued-oued-el-khayat--2081",
+          "nameFr": "RAOUED (Oued El Khayat)",
+          "nameAr": "رواد (وادي الخياط)",
+          "postalCode": "2081",
+          "latitude": 36.96,
+          "longitude": 10.17,
+          "searchKey": "raoued (oued el khayat) رواد (وادي الخياط) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-oued-el-makhzen--2081",
+          "nameFr": "RAOUED (Oued El Makhzen)",
+          "nameAr": "رواد (وادي المخزن)",
+          "postalCode": "2081",
+          "latitude": 36.965,
+          "longitude": 10.175,
+          "searchKey": "raoued (oued el makhzen) رواد (وادي المخزن) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-raoued--2056",
+          "nameFr": "RAOUED (Raoued)",
+          "nameAr": "رواد (رواد)",
+          "postalCode": "2056",
+          "latitude": 36.913681,
+          "longitude": 10.17962,
+          "searchKey": "raoued (raoued) رواد (رواد) 2056"
+        },
+        {
+          "id": "ariana--raoued--raoued-residence-el-ayech--2081",
+          "nameFr": "RAOUED (Residence El Ayech)",
+          "nameAr": "رواد (إقامة العايش)",
+          "postalCode": "2081",
+          "latitude": 36.935,
+          "longitude": 10.13,
+          "searchKey": "raoued (residence el ayech) رواد (إقامة العايش) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-residence-el-ouns--2081",
+          "nameFr": "RAOUED (Residence El Ouns)",
+          "nameAr": "رواد (إقامة الأنس)",
+          "postalCode": "2081",
+          "latitude": 36.936,
+          "longitude": 10.132,
+          "searchKey": "raoued (residence el ouns) رواد (إقامة الأنس) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-residence-ennarjes--2081",
+          "nameFr": "RAOUED (Residence Ennarjes)",
+          "nameAr": "رواد (إقامة النرجس)",
+          "postalCode": "2081",
+          "latitude": 36.934,
+          "longitude": 10.128,
+          "searchKey": "raoued (residence ennarjes) رواد (إقامة النرجس) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-residence-essalem--2081",
+          "nameFr": "RAOUED (Residence Essalem)",
+          "nameAr": "رواد (إقامة السلام)",
+          "postalCode": "2081",
+          "latitude": 36.933,
+          "longitude": 10.126,
+          "searchKey": "raoued (residence essalem) رواد (إقامة السلام) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-residence-rim--2081",
+          "nameFr": "RAOUED (Residence Rim)",
+          "nameAr": "رواد (إقامة ريم)",
+          "postalCode": "2081",
+          "latitude": 36.932,
+          "longitude": 10.124,
+          "searchKey": "raoued (residence rim) رواد (إقامة ريم) 2081"
+        },
+        {
+          "id": "ariana--raoued--raoued-route-ezzaouia--2081",
+          "nameFr": "RAOUED (Route Ezzaouia)",
+          "nameAr": "رواد (طريق الزاوية)",
+          "postalCode": "2081",
+          "latitude": 36.931,
+          "longitude": 10.122,
+          "searchKey": "raoued (route ezzaouia) رواد (طريق الزاوية) 2081"
+        }
+      ]
+    },
+    {
+      "id": "ariana--sidi-thabet",
+      "nameFr": "SIDI THABET",
+      "nameAr": "سيدي ثابت",
+      "searchKey": "sidi thabet سيدي ثابت",
+      "municipalities": [
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-bejaoua-2--2020",
+          "nameFr": "SIDI THABET (Bejaoua 2)",
+          "nameAr": "سيدي ثابت (بجا��ة 2)",
+          "postalCode": "2020",
+          "latitude": 36.9241,
+          "longitude": 10.061,
+          "searchKey": "sidi thabet (bejaoua 2) سيدي ثابت (بجا��ة 2) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-borj-el-khoukha--2032",
+          "nameFr": "SIDI THABET (Borj El Khoukha)",
+          "nameAr": "سيدي ثابت (برج الخوخة)",
+          "postalCode": "2032",
+          "latitude": 36.933,
+          "longitude": 10.039,
+          "searchKey": "sidi thabet (borj el khoukha) سيدي ثابت (برج الخوخة) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-borj-youssef--2032",
+          "nameFr": "SIDI THABET (Borj Youssef)",
+          "nameAr": "سيدي ثابت (برج يوسف)",
+          "postalCode": "2032",
+          "latitude": 36.945605,
+          "longitude": 10.102347,
+          "searchKey": "sidi thabet (borj youssef) سيدي ثابت (برج يوسف) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cebalet-ben-ammar--2032",
+          "nameFr": "SIDI THABET (Cebalet Ben Ammar)",
+          "nameAr": "سيدي ثابت (سبالة بن عمار)",
+          "postalCode": "2032",
+          "latitude": 36.911926,
+          "longitude": 10.103715,
+          "searchKey": "sidi thabet (cebalet ben ammar) سيدي ثابت (سبالة بن عمار) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-chorfech-12--2032",
+          "nameFr": "SIDI THABET (Chorfech 12)",
+          "nameAr": "سيدي ثابت (شرفش 12)",
+          "postalCode": "2032",
+          "latitude": 36.94321,
+          "longitude": 10.07618,
+          "searchKey": "sidi thabet (chorfech 12) سيدي ثابت (شرفش 12) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-chorfech-2--2057",
+          "nameFr": "SIDI THABET (Chorfech 2)",
+          "nameAr": "سيدي ثابت (شرفش 2)",
+          "postalCode": "2057",
+          "latitude": 36.945,
+          "longitude": 10.076,
+          "searchKey": "sidi thabet (chorfech 2) سيدي ثابت (شرفش 2) 2057"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-chorfech-24--2057",
+          "nameFr": "SIDI THABET (Chorfech 24)",
+          "nameAr": "سيدي ثابت (شرفش 24)",
+          "postalCode": "2057",
+          "latitude": 36.946,
+          "longitude": 10.077,
+          "searchKey": "sidi thabet (chorfech 24) سيدي ثابت (شرفش 24) 2057"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-chorfech-8--2057",
+          "nameFr": "SIDI THABET (Chorfech 8)",
+          "nameAr": "سيدي ثابت (شرفش 8)",
+          "postalCode": "2057",
+          "latitude": 36.947,
+          "longitude": 10.078,
+          "searchKey": "sidi thabet (chorfech 8) سيدي ثابت (شرفش 8) 2057"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-chorfech--2057",
+          "nameFr": "SIDI THABET (Chorfech)",
+          "nameAr": "سيدي ثابت (شرفش)",
+          "postalCode": "2057",
+          "latitude": 36.9448,
+          "longitude": 10.0757,
+          "searchKey": "sidi thabet (chorfech) سيدي ثابت (شرفش) 2057"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-18-janvier--2020",
+          "nameFr": "SIDI THABET (Cite 18 Janvier)",
+          "nameAr": "سيدي ثابت (حي 18 جانفي)",
+          "postalCode": "2020",
+          "latitude": 36.927,
+          "longitude": 10.051,
+          "searchKey": "sidi thabet (cite 18 janvier) سيدي ثابت (حي 18 جانفي) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-afh--2020",
+          "nameFr": "SIDI THABET (Cite Afh)",
+          "nameAr": "سيدي ثابت (حي الوكالة العقارية للسكنى)",
+          "postalCode": "2020",
+          "latitude": 36.928,
+          "longitude": 10.049,
+          "searchKey": "sidi thabet (cite afh) سيدي ثابت (حي الوكالة العقارية للسكنى) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-des-agriculteurs--2020",
+          "nameFr": "SIDI THABET (Cite Des Agriculteurs)",
+          "nameAr": "سيدي ثابت (حي الفلاحين)",
+          "postalCode": "2020",
+          "latitude": 36.9255,
+          "longitude": 10.0505,
+          "searchKey": "sidi thabet (cite des agriculteurs) سيدي ثابت (حي الفلاحين) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-des-oranges--2020",
+          "nameFr": "SIDI THABET (Cite Des Oranges)",
+          "nameAr": "سيدي ثابت (حي البرتقال)",
+          "postalCode": "2020",
+          "latitude": 36.926,
+          "longitude": 10.0515,
+          "searchKey": "sidi thabet (cite des oranges) سيدي ثابت (حي البرتقال) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-dridi--2032",
+          "nameFr": "SIDI THABET (Cite Dridi)",
+          "nameAr": "سيدي ثابت (حي دريدي)",
+          "postalCode": "2032",
+          "latitude": 36.9301,
+          "longitude": 10.0485,
+          "searchKey": "sidi thabet (cite dridi) سيدي ثابت (حي دريدي) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-el-bokri--2032",
+          "nameFr": "SIDI THABET (Cite El Bokri)",
+          "nameAr": "سيدي ثابت (حي البكري)",
+          "postalCode": "2032",
+          "latitude": 36.89498,
+          "longitude": 10.110444,
+          "searchKey": "sidi thabet (cite el bokri) سيدي ثابت (حي البكري) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-el-frachich--2032",
+          "nameFr": "SIDI THABET (Cite El Frachich)",
+          "nameAr": "سيدي ثابت (حي الفراشيش)",
+          "postalCode": "2032",
+          "latitude": 36.918009,
+          "longitude": 10.091189,
+          "searchKey": "sidi thabet (cite el frachich) سيدي ثابت (حي الفراشيش) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-el-ghribi--2032",
+          "nameFr": "SIDI THABET (Cite El Ghribi)",
+          "nameAr": "سيدي ثابت (حي الغريبي)",
+          "postalCode": "2032",
+          "latitude": 36.9312,
+          "longitude": 10.0473,
+          "searchKey": "sidi thabet (cite el ghribi) سيدي ثابت (حي الغريبي) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-el-gouazine--2020",
+          "nameFr": "SIDI THABET (Cite El Gouazine)",
+          "nameAr": "سيدي ثابت (حي القوازين)",
+          "postalCode": "2020",
+          "latitude": 36.925,
+          "longitude": 10.052,
+          "searchKey": "sidi thabet (cite el gouazine) سيدي ثابت (حي القوازين) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-el-mbarka--2020",
+          "nameFr": "SIDI THABET (Cite El Mbarka)",
+          "nameAr": "سيدي ثابت (حي المباركة)",
+          "postalCode": "2020",
+          "latitude": 36.9245,
+          "longitude": 10.0525,
+          "searchKey": "sidi thabet (cite el mbarka) سيدي ثابت (حي المباركة) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-el-methalithe--2032",
+          "nameFr": "SIDI THABET (Cite El Methalithe)",
+          "nameAr": "سيدي ثابت (حي المثالث)",
+          "postalCode": "2032",
+          "latitude": 36.915538,
+          "longitude": 10.097374,
+          "searchKey": "sidi thabet (cite el methalithe) سيدي ثابت (حي المثالث) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-el-mrezgua--2020",
+          "nameFr": "SIDI THABET (Cite El Mrezgua)",
+          "nameAr": "سيدي ثابت (حي المرزقة)",
+          "postalCode": "2020",
+          "latitude": 36.924,
+          "longitude": 10.053,
+          "searchKey": "sidi thabet (cite el mrezgua) سيدي ثابت (حي المرزقة) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-essaada--2020",
+          "nameFr": "SIDI THABET (Cite Essaada)",
+          "nameAr": "سيدي ثابت (حي السعادة)",
+          "postalCode": "2020",
+          "latitude": 36.9235,
+          "longitude": 10.0535,
+          "searchKey": "sidi thabet (cite essaada) سيدي ثابت (حي السعادة) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-ettbaieb--2020",
+          "nameFr": "SIDI THABET (Cite Ettbaieb)",
+          "nameAr": "سيدي ثابت (حي الأطباء)",
+          "postalCode": "2020",
+          "latitude": 36.923,
+          "longitude": 10.054,
+          "searchKey": "sidi thabet (cite ettbaieb) سيدي ثابت (حي الأطباء) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-jardins--2020",
+          "nameFr": "SIDI THABET (Cite Jardins)",
+          "nameAr": "سيدي ثابت (حي الحدائق)",
+          "postalCode": "2020",
+          "latitude": 36.9225,
+          "longitude": 10.0545,
+          "searchKey": "sidi thabet (cite jardins) سيدي ثابت (حي الحدائق) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-messouda--2032",
+          "nameFr": "SIDI THABET (Cite Messouda)",
+          "nameAr": "سيدي ثابت (حي مسعودة)",
+          "postalCode": "2032",
+          "latitude": 36.886812,
+          "longitude": 10.107558,
+          "searchKey": "sidi thabet (cite messouda) سيدي ثابت (حي مسعودة) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-mongi-slim--2020",
+          "nameFr": "SIDI THABET (Cite Mongi Slim)",
+          "nameAr": "سيدي ثابت (حي المنجي سليم)",
+          "postalCode": "2020",
+          "latitude": 36.922,
+          "longitude": 10.055,
+          "searchKey": "sidi thabet (cite mongi slim) سيدي ثابت (حي المنجي سليم) 2020"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-ouvriere--2032",
+          "nameFr": "SIDI THABET (Cite Ouvriere)",
+          "nameAr": "سيدي ثابت (الحي العمالي)",
+          "postalCode": "2032",
+          "latitude": 36.9281,
+          "longitude": 10.047,
+          "searchKey": "sidi thabet (cite ouvriere) سيدي ثابت (الحي العمالي) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-cite-sidi-marouane--2032",
+          "nameFr": "SIDI THABET (Cite Sidi Marouane)",
+          "nameAr": "سيدي ثابت (حي سيدي مروان)",
+          "postalCode": "2032",
+          "latitude": 36.93,
+          "longitude": 10.05,
+          "searchKey": "sidi thabet (cite sidi marouane) سيدي ثابت (حي سيدي مروان) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-ezzaouia--2032",
+          "nameFr": "SIDI THABET (Ezzaouia)",
+          "nameAr": "سيدي ثابت (الزاوية)",
+          "postalCode": "2032",
+          "latitude": 36.918065,
+          "longitude": 10.116313,
+          "searchKey": "sidi thabet (ezzaouia) سيدي ثابت (الزاوية) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-jabbes-el-borj--2032",
+          "nameFr": "SIDI THABET (Jabbes El Borj)",
+          "nameAr": "سيدي ثابت (جباس البرج)",
+          "postalCode": "2032",
+          "latitude": 36.892662,
+          "longitude": 10.093327,
+          "searchKey": "sidi thabet (jabbes el borj) سيدي ثابت (جباس البرج) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-jabbes--2032",
+          "nameFr": "SIDI THABET (Jabbes)",
+          "nameAr": "سيدي ثابت (جباس)",
+          "postalCode": "2032",
+          "latitude": 36.88962,
+          "longitude": 10.080319,
+          "searchKey": "sidi thabet (jabbes) سيدي ثابت (جباس) 2032"
+        },
+        {
+          "id": "ariana--sidi-thabet--sidi-thabet-sidi-thabet--2020",
+          "nameFr": "SIDI THABET (Sidi Thabet)",
+          "nameAr": "سيدي ثابت (سيدي ثابت)",
+          "postalCode": "2020",
+          "latitude": 36.923589,
+          "longitude": 10.051072,
+          "searchKey": "sidi thabet (sidi thabet) سيدي ثابت (سيدي ثابت) 2020"
+        }
+      ]
+    }
+  ]
+}

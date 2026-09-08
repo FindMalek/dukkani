@@ -57,6 +57,9 @@ catalogs:
     '@tailwindcss/postcss':
       specifier: ^4.3.3
       version: 4.3.3
+    '@tanstack/match-sorter-utils':
+      specifier: ^9.1.2
+      version: 9.1.2
     '@tanstack/react-form':
       specifier: ^1.33.2
       version: 1.33.2
@@ -447,6 +450,9 @@ importers:
       '@prisma/client':
         specifier: 'catalog:'
         version: 7.8.0(prisma@7.8.0(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@7.0.2))(typescript@7.0.2)
+      '@tanstack/react-form':
+        specifier: 'catalog:'
+        version: 1.33.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@tanstack/react-query':
         specifier: 'catalog:'
         version: 5.101.2(react@19.2.7)
@@ -734,6 +740,9 @@ importers:
       tsdown:
         specifier: 'catalog:'
         version: 0.22.9(@typescript/native-preview@7.0.0-dev.20260707.2)(tsx@4.23.1)(typescript@7.0.2)(unrun@0.2.36)
+      tsx:
+        specifier: 'catalog:'
+        version: 4.23.1
 
   packages/config: {}
 
@@ -1194,6 +1203,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@tanstack/match-sorter-utils':
+        specifier: 'catalog:'
+        version: 9.1.2
       '@tanstack/react-form':
         specifier: 'catalog:'
         version: 1.33.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -3988,6 +4000,10 @@ packages:
   '@tanstack/form-core@1.33.2':
     resolution: {integrity: sha512-F60zJd15bGrXKonc1kpRYnNRNfiES7F+hgvrPMrsZznPLqZtO2DIg76OU6R25kCYkqYQY5xvuKteuWcUsc587A==}
 
+  '@tanstack/match-sorter-utils@9.1.2':
+    resolution: {integrity: sha512-aPkUQctDzpXLSWhlx7jUDi3mInsI18xcnrK1hvIyIa88ab1ax88cACr7xU+BKMCGB4NZYNwh4SoNSEbv3RY2NA==}
+    engines: {node: '>=20'}
+
   '@tanstack/pacer-lite@0.1.1':
     resolution: {integrity: sha512-y/xtNPNt/YeyoVxE/JCx+T7yjEzpezmbb+toK8DDD1P4m7Kzs5YR956+7OKexG3f8aXgC3rLZl7b1V+yNUSy5w==}
     engines: {node: '>=18'}
@@ -6661,6 +6677,9 @@ packages:
 
   remeda@2.33.4:
     resolution: {integrity: sha512-ygHswjlc/opg2VrtiYvUOPLjxjtdKvjGz1/plDhkG66hjNjFr1xmfrs2ClNFo/E6TyUFiwYNh53bKV26oBoMGQ==}
+
+  remove-accents@0.5.0:
+    resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
 
   require-directory@2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -10079,6 +10098,10 @@ snapshots:
       '@tanstack/pacer-lite': 0.1.1
       '@tanstack/store': 0.11.0
 
+  '@tanstack/match-sorter-utils@9.1.2':
+    dependencies:
+      remove-accents: 0.5.0
+
   '@tanstack/pacer-lite@0.1.1': {}
 
   '@tanstack/query-core@5.101.2': {}
@@ -13055,6 +13078,8 @@ snapshots:
       unified: 11.0.5
 
   remeda@2.33.4: {}
+
+  remove-accents@0.5.0: {}
 
   require-directory@2.1.1: {}
 

@@ -1,0 +1,1551 @@
+{
+  "code": "KAIROUAN",
+  "delegations": [
+    {
+      "id": "kairouan--bou-hajla",
+      "nameFr": "BOU HAJLA",
+      "nameAr": "بوحجلة",
+      "searchKey": "bou hajla بوحجلة",
+      "municipalities": [
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-bir-ahmed--3152",
+          "nameFr": "BOU HAJLA (Bir Ahmed)",
+          "nameAr": "بوحجلة (بئر أحمد)",
+          "postalCode": "3152",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (bir ahmed) بوحجلة (بئر أحمد) 3152"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-bir-eddaoula--3181",
+          "nameFr": "BOU HAJLA (Bir Eddaoula)",
+          "nameAr": "بوحجلة (بئر الدولة)",
+          "postalCode": "3181",
+          "latitude": 35.2,
+          "longitude": 9.8333,
+          "searchKey": "bou hajla (bir eddaoula) بوحجلة (بئر الدولة) 3181"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-bir-lahjar--3180",
+          "nameFr": "BOU HAJLA (Bir Lahjar)",
+          "nameAr": "بوحجلة (بئر الحجر)",
+          "postalCode": "3180",
+          "latitude": 35.28,
+          "longitude": 9.85,
+          "searchKey": "bou hajla (bir lahjar) بوحجلة (بئر الحجر) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-bou-hajla--3180",
+          "nameFr": "BOU HAJLA (Bou Hajla)",
+          "nameAr": "بوحجلة (بوحجلة)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (bou hajla) بوحجلة (بوحجلة) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-cite-7-novembre--3180",
+          "nameFr": "BOU HAJLA (Cite 7 Novembre)",
+          "nameAr": "بوحجلة (حي 7 نوفمبر)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (cite 7 novembre) بوحجلة (حي 7 نوفمبر) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-cite-de-la-republique--3180",
+          "nameFr": "BOU HAJLA (Cite De La Republique)",
+          "nameAr": "بوحجلة (حي الجمهورية)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (cite de la republique) بوحجلة (حي الجمهورية) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-cite-el-moez--3180",
+          "nameFr": "BOU HAJLA (Cite El Moez)",
+          "nameAr": "بوحجلة (حي المعز)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (cite el moez) بوحجلة (حي المعز) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-cite-ennasr--3180",
+          "nameFr": "BOU HAJLA (Cite Ennasr)",
+          "nameAr": "بوحجلة (حي النصر)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (cite ennasr) بوحجلة (حي النصر) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-cite-ennour--3180",
+          "nameFr": "BOU HAJLA (Cite Ennour)",
+          "nameAr": "بوحجلة (حي النور)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (cite ennour) بوحجلة (حي النور) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-cite-essaada--3180",
+          "nameFr": "BOU HAJLA (Cite Essaada)",
+          "nameAr": "بوحجلة (حي السعادة)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (cite essaada) بوحجلة (حي السعادة) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-cite-ezzouhour--3180",
+          "nameFr": "BOU HAJLA (Cite Ezzouhour)",
+          "nameAr": "بوحجلة (حي الزهور)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (cite ezzouhour) بوحجلة (حي الزهور) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-cite-nouvelle--3180",
+          "nameFr": "BOU HAJLA (Cite Nouvelle)",
+          "nameAr": "بوحجلة (الحي الجديد)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (cite nouvelle) بوحجلة (الحي الجديد) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-cite-okba--3180",
+          "nameFr": "BOU HAJLA (Cite Okba)",
+          "nameAr": "بوحجلة (حي عقبة)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (cite okba) بوحجلة (حي عقبة) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-el-fateh--3180",
+          "nameFr": "BOU HAJLA (El Fateh)",
+          "nameAr": "بوحجلة (الفتح)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (el fateh) بوحجلة (الفتح) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-ennasr--3180",
+          "nameFr": "BOU HAJLA (Ennasr)",
+          "nameAr": "بوحجلة (النصر)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (ennasr) بوحجلة (النصر) 3180"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-jehina--3126",
+          "nameFr": "BOU HAJLA (Jehina)",
+          "nameAr": "بوحجلة (جهينة)",
+          "postalCode": "3126",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (jehina) بوحجلة (جهينة) 3126"
+        },
+        {
+          "id": "kairouan--bou-hajla--bou-hajla-ouled-achour--3180",
+          "nameFr": "BOU HAJLA (Ouled Achour)",
+          "nameAr": "بوحجلة (أولاد عاشور)",
+          "postalCode": "3180",
+          "latitude": 35.2669,
+          "longitude": 9.9072,
+          "searchKey": "bou hajla (ouled achour) بوحجلة (أولاد عاشور) 3180"
+        }
+      ]
+    },
+    {
+      "id": "kairouan--chebika",
+      "nameFr": "CHEBIKA",
+      "nameAr": "الشبيكة",
+      "searchKey": "chebika الشبيكة",
+      "municipalities": [
+        {
+          "id": "kairouan--chebika--chebika-abida-cherguia--3183",
+          "nameFr": "CHEBIKA (Abida Cherguia)",
+          "nameAr": "الشبيكة (عبيدة الشرقية)",
+          "postalCode": "3183",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (abida cherguia) الشبيكة (عبيدة الشرقية) 3183"
+        },
+        {
+          "id": "kairouan--chebika--chebika-ain-el-beydha--3133",
+          "nameFr": "CHEBIKA (Ain El Beydha)",
+          "nameAr": "الشبيكة (عين البيضاء)",
+          "postalCode": "3133",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (ain el beydha) الشبيكة (عين البيضاء) 3133"
+        },
+        {
+          "id": "kairouan--chebika--chebika-ben-salem--3112",
+          "nameFr": "CHEBIKA (Ben Salem)",
+          "nameAr": "الشبيكة (بن سالم)",
+          "postalCode": "3112",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (ben salem) الشبيكة (بن سالم) 3112"
+        },
+        {
+          "id": "kairouan--chebika--chebika-chebika--3121",
+          "nameFr": "CHEBIKA (Chebika)",
+          "nameAr": "الشبيكة (الشبيكة)",
+          "postalCode": "3121",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (chebika) الشبيكة (الشبيكة) 3121"
+        },
+        {
+          "id": "kairouan--chebika--chebika-cite-sabrine--3121",
+          "nameFr": "CHEBIKA (Cite Sabrine)",
+          "nameAr": "الشبيكة (حي صابرين)",
+          "postalCode": "3121",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (cite sabrine) الشبيكة (حي صابرين) 3121"
+        },
+        {
+          "id": "kairouan--chebika--chebika-el-aouamria--3161",
+          "nameFr": "CHEBIKA (El Aouamria)",
+          "nameAr": "الشبيكة (العوامرية)",
+          "postalCode": "3161",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (el aouamria) الشبيكة (العوامرية) 3161"
+        },
+        {
+          "id": "kairouan--chebika--chebika-el-karma--3133",
+          "nameFr": "CHEBIKA (El Karma)",
+          "nameAr": "الشبيكة (الكرمة)",
+          "postalCode": "3133",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (el karma) الشبيكة (الكرمة) 3133"
+        },
+        {
+          "id": "kairouan--chebika--chebika-gragaya--3112",
+          "nameFr": "CHEBIKA (Gragaya)",
+          "nameAr": "الشبيكة (القراقية)",
+          "postalCode": "3112",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (gragaya) الشبيكة (القراقية) 3112"
+        },
+        {
+          "id": "kairouan--chebika--chebika-hammed--3112",
+          "nameFr": "CHEBIKA (Hammed)",
+          "nameAr": "الشبيكة (حمد)",
+          "postalCode": "3112",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (hammed) الشبيكة (حمد) 3112"
+        },
+        {
+          "id": "kairouan--chebika--chebika-ouled-khalfallah--3133",
+          "nameFr": "CHEBIKA (Ouled Khalfallah)",
+          "nameAr": "الشبيكة (أولاد خلف الله)",
+          "postalCode": "3133",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (ouled khalfallah) الشبيكة (أولاد خلف الله) 3133"
+        },
+        {
+          "id": "kairouan--chebika--chebika-ouled-khelif--3133",
+          "nameFr": "CHEBIKA (Ouled Khelif)",
+          "nameAr": "الشبيكة (أولاد خليف)",
+          "postalCode": "3133",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (ouled khelif) الشبيكة (أولاد خليف) 3133"
+        },
+        {
+          "id": "kairouan--chebika--chebika-ouled-nasser--3133",
+          "nameFr": "CHEBIKA (Ouled Nasser)",
+          "nameAr": "الشبيكة (أولاد نصر)",
+          "postalCode": "3133",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (ouled nasser) الشبيكة (أولاد نصر) 3133"
+        },
+        {
+          "id": "kairouan--chebika--chebika-rouissette--3121",
+          "nameFr": "CHEBIKA (Rouissette)",
+          "nameAr": "الشبيكة (رويسات)",
+          "postalCode": "3121",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (rouissette) الشبيكة (رويسات) 3121"
+        },
+        {
+          "id": "kairouan--chebika--chebika-sidi-abdallah-belhaj--3121",
+          "nameFr": "CHEBIKA (Sidi Abdallah Belhaj)",
+          "nameAr": "الشبيكة (سيدي عبد الله بالحاج)",
+          "postalCode": "3121",
+          "latitude": 35.5992,
+          "longitude": 9.8178,
+          "searchKey": "chebika (sidi abdallah belhaj) الشبيكة (سيدي عبد الله بالحاج) 3121"
+        }
+      ]
+    },
+    {
+      "id": "kairouan--cherarda",
+      "nameFr": "CHERARDA",
+      "nameAr": "الشراردة",
+      "searchKey": "cherarda الشراردة",
+      "municipalities": [
+        {
+          "id": "kairouan--cherarda--cherarda-cheraitia--3116",
+          "nameFr": "CHERARDA (Cheraitia)",
+          "nameAr": "الشراردة (الشرايطية)",
+          "postalCode": "3116",
+          "latitude": 35.4333,
+          "longitude": 9.95,
+          "searchKey": "cherarda (cheraitia) الشراردة (الشرايطية) 3116"
+        },
+        {
+          "id": "kairouan--cherarda--cherarda-cherarda--3116",
+          "nameFr": "CHERARDA (Cherarda)",
+          "nameAr": "الشراردة (الشراردة)",
+          "postalCode": "3116",
+          "latitude": 35.4333,
+          "longitude": 9.95,
+          "searchKey": "cherarda (cherarda) الشراردة (الشراردة) 3116"
+        },
+        {
+          "id": "kairouan--cherarda--cherarda-cite-el-koucha--3116",
+          "nameFr": "CHERARDA (Cite El Koucha)",
+          "nameAr": "الشراردة (حي الكوشة)",
+          "postalCode": "3116",
+          "latitude": 35.4333,
+          "longitude": 9.95,
+          "searchKey": "cherarda (cite el koucha) الشراردة (حي الكوشة) 3116"
+        },
+        {
+          "id": "kairouan--cherarda--cherarda-cite-el-mached--3116",
+          "nameFr": "CHERARDA (Cite El Mached)",
+          "nameAr": "الشراردة (حي المشد)",
+          "postalCode": "3116",
+          "latitude": 35.4333,
+          "longitude": 9.95,
+          "searchKey": "cherarda (cite el mached) الشراردة (حي المشد) 3116"
+        },
+        {
+          "id": "kairouan--cherarda--cherarda-el-aouyed--3116",
+          "nameFr": "CHERARDA (El Aouyed)",
+          "nameAr": "الشراردة (العويد)",
+          "postalCode": "3116",
+          "latitude": 35.4333,
+          "longitude": 9.95,
+          "searchKey": "cherarda (el aouyed) الشراردة (العويد) 3116"
+        },
+        {
+          "id": "kairouan--cherarda--cherarda-el-ksour--3116",
+          "nameFr": "CHERARDA (El Ksour)",
+          "nameAr": "الشراردة (القصور)",
+          "postalCode": "3116",
+          "latitude": 35.4333,
+          "longitude": 9.95,
+          "searchKey": "cherarda (el ksour) الشراردة (القصور) 3116"
+        },
+        {
+          "id": "kairouan--cherarda--cherarda-ouled-farjallah--3145",
+          "nameFr": "CHERARDA (Ouled Farjallah)",
+          "nameAr": "الشراردة (أولاد فرج الله)",
+          "postalCode": "3145",
+          "latitude": 35.4333,
+          "longitude": 9.95,
+          "searchKey": "cherarda (ouled farjallah) الشراردة (أولاد فرج الله) 3145"
+        }
+      ]
+    },
+    {
+      "id": "kairouan--el-ala",
+      "nameFr": "EL ALA",
+      "nameAr": "العلا",
+      "searchKey": "el ala العلا",
+      "municipalities": [
+        {
+          "id": "kairouan--el-ala--el-ala-ain-sayada--3150",
+          "nameFr": "EL ALA (Ain Sayada)",
+          "nameAr": "العلا (عين صيادة)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (ain sayada) العلا (عين صيادة) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-cite-essanaouber--3150",
+          "nameFr": "EL ALA (Cite Essanaouber)",
+          "nameAr": "العلا (حي الصنوبر)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (cite essanaouber) العلا (حي الصنوبر) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-cite-nouvelle--3150",
+          "nameFr": "EL ALA (Cite Nouvelle)",
+          "nameAr": "العلا (الحي الجديد)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (cite nouvelle) العلا (الحي الجديد) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-cite-ouled-ahmed--3150",
+          "nameFr": "EL ALA (Cite Ouled Ahmed)",
+          "nameAr": "العلا (حي أولاد أحمد)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (cite ouled ahmed) العلا (حي أولاد أحمد) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-cite-populaire--3150",
+          "nameFr": "EL ALA (Cite Populaire)",
+          "nameAr": "العلا (الحي الشعبي)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (cite populaire) العلا (الحي الشعبي) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-cite-rezagnia--3150",
+          "nameFr": "EL ALA (Cite Rezagnia)",
+          "nameAr": "العلا (حي الرزاقنية)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (cite rezagnia) العلا (حي الرزاقنية) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-cite-rurale--3150",
+          "nameFr": "EL ALA (Cite Rurale)",
+          "nameAr": "العلا (الحي الريفي)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (cite rurale) العلا (الحي الريفي) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-ecole-ettoual--3150",
+          "nameFr": "EL ALA (Ecole Ettoual)",
+          "nameAr": "العلا (مدرسة الطوال)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (ecole ettoual) العلا (مدرسة الطوال) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-ecole-jouamia--3150",
+          "nameFr": "EL ALA (Ecole Jouamia)",
+          "nameAr": "العلا (مدرسة الجوامعية)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (ecole jouamia) العلا (مدرسة الجوامعية) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-ecole-trazza--3150",
+          "nameFr": "EL ALA (Ecole Trazza)",
+          "nameAr": "العلا (مدرسة طرزة)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (ecole trazza) العلا (مدرسة طرزة) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-el-ala--3150",
+          "nameFr": "EL ALA (El Ala)",
+          "nameAr": "العلا (العلا)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (el ala) العلا (العلا) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-el-fjejria--3150",
+          "nameFr": "EL ALA (El Fjejria)",
+          "nameAr": "العلا (الفجاجرية)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (el fjejria) العلا (الفجاجرية) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-el-msaid--3153",
+          "nameFr": "EL ALA (El Msaid)",
+          "nameAr": "العلا (المساعد)",
+          "postalCode": "3153",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (el msaid) العلا (المساعد) 3153"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-ghidhifette--3150",
+          "nameFr": "EL ALA (Ghidhifette)",
+          "nameAr": "العلا (غديفة)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (ghidhifette) العلا (غديفة) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-messiouta--3154",
+          "nameFr": "EL ALA (Messiouta)",
+          "nameAr": "العلا (مسيوطة)",
+          "postalCode": "3154",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (messiouta) العلا (مسيوطة) 3154"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-oued-el-jabbes--3150",
+          "nameFr": "EL ALA (Oued El Jabbes)",
+          "nameAr": "العلا (وادي الجبس)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (oued el jabbes) العلا (وادي الجبس) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-ouled-ali--3150",
+          "nameFr": "EL ALA (Ouled Ali)",
+          "nameAr": "العلا (أولاد علي)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (ouled ali) العلا (أولاد علي) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-ouled-ennaguez--3150",
+          "nameFr": "EL ALA (Ouled Ennaguez)",
+          "nameAr": "العلا (أولاد الناڨز)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (ouled ennaguez) العلا (أولاد الناڨز) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-ouled-mehrez--3150",
+          "nameFr": "EL ALA (Ouled Mehrez)",
+          "nameAr": "العلا (أولاد محرز)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (ouled mehrez) العلا (أولاد محرز) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-sayada-nord--3150",
+          "nameFr": "EL ALA (Sayada Nord)",
+          "nameAr": "العلا (صيادة الشمالية)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (sayada nord) العلا (صيادة الشمالية) 3150"
+        },
+        {
+          "id": "kairouan--el-ala--el-ala-sayada-sud--3150",
+          "nameFr": "EL ALA (Sayada Sud)",
+          "nameAr": "العلا (صيادة الجنوبية)",
+          "postalCode": "3150",
+          "latitude": 35.6097,
+          "longitude": 9.5453,
+          "searchKey": "el ala (sayada sud) العلا (صيادة الجنوبية) 3150"
+        }
+      ]
+    },
+    {
+      "id": "kairouan--haffouz",
+      "nameFr": "HAFFOUZ",
+      "nameAr": "حفوز",
+      "searchKey": "haffouz حفوز",
+      "municipalities": [
+        {
+          "id": "kairouan--haffouz--haffouz-ain-el-ghrab--3130",
+          "nameFr": "HAFFOUZ (Ain El Ghrab)",
+          "nameAr": "حفوز (عين الغراب)",
+          "postalCode": "3130",
+          "latitude": 35.6378,
+          "longitude": 9.6772,
+          "searchKey": "haffouz (ain el ghrab) حفوز (عين الغراب) 3130"
+        },
+        {
+          "id": "kairouan--haffouz--haffouz-cherichira--3130",
+          "nameFr": "HAFFOUZ (Cherichira)",
+          "nameAr": "حفوز (الشريشيرة)",
+          "postalCode": "3130",
+          "latitude": 35.69,
+          "longitude": 9.66,
+          "searchKey": "haffouz (cherichira) حفوز (الشريشيرة) 3130"
+        },
+        {
+          "id": "kairouan--haffouz--haffouz-cite-le-mourouj--3130",
+          "nameFr": "HAFFOUZ (Cite Le Mourouj)",
+          "nameAr": "حفوز (حي المروج)",
+          "postalCode": "3130",
+          "latitude": 35.6378,
+          "longitude": 9.6772,
+          "searchKey": "haffouz (cite le mourouj) حفوز (حي المروج) 3130"
+        },
+        {
+          "id": "kairouan--haffouz--haffouz-el-alia--3130",
+          "nameFr": "HAFFOUZ (El Alia)",
+          "nameAr": "حفوز (العالية)",
+          "postalCode": "3130",
+          "latitude": 35.6378,
+          "longitude": 9.6772,
+          "searchKey": "haffouz (el alia) حفوز (العالية) 3130"
+        },
+        {
+          "id": "kairouan--haffouz--haffouz-el-aoudid--3130",
+          "nameFr": "HAFFOUZ (El Aoudid)",
+          "nameAr": "حفوز (العويديد)",
+          "postalCode": "3130",
+          "latitude": 35.6378,
+          "longitude": 9.6772,
+          "searchKey": "haffouz (el aoudid) حفوز (العويديد) 3130"
+        },
+        {
+          "id": "kairouan--haffouz--haffouz-ezzorg--3130",
+          "nameFr": "HAFFOUZ (Ezzorg)",
+          "nameAr": "حفوز (الزرڨ)",
+          "postalCode": "3130",
+          "latitude": 35.6378,
+          "longitude": 9.6772,
+          "searchKey": "haffouz (ezzorg) حفوز (الزرڨ) 3130"
+        },
+        {
+          "id": "kairouan--haffouz--haffouz-haffouz--3130",
+          "nameFr": "HAFFOUZ (Haffouz)",
+          "nameAr": "حفوز (حفوز)",
+          "postalCode": "3130",
+          "latitude": 35.6378,
+          "longitude": 9.6772,
+          "searchKey": "haffouz (haffouz) حفوز (حفوز) 3130"
+        },
+        {
+          "id": "kairouan--haffouz--haffouz-khit-el-oued--3134",
+          "nameFr": "HAFFOUZ (Khit El Oued)",
+          "nameAr": "حفوز (خيط الواد)",
+          "postalCode": "3134",
+          "latitude": 35.6378,
+          "longitude": 9.6772,
+          "searchKey": "haffouz (khit el oued) حفوز (خيط الواد) 3134"
+        }
+      ]
+    },
+    {
+      "id": "kairouan--hajeb-el-ayoun",
+      "nameFr": "HAJEB EL AYOUN",
+      "nameAr": "حاجب العيون",
+      "searchKey": "hajeb el ayoun حاجب العيون",
+      "municipalities": [
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-ain-majouna--3160",
+          "nameFr": "HAJEB EL AYOUN (Ain Majouna)",
+          "nameAr": "حاجب العيون (عين ماجونة)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (ain majouna) حاجب العيون (عين ماجونة) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-cite-7-novembre--3160",
+          "nameFr": "HAJEB EL AYOUN (Cite 7 Novembre)",
+          "nameAr": "حاجب العيون (حي 7 نوفمبر)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (cite 7 novembre) حاجب العيون (حي 7 نوفمبر) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-cite-ennasr--3160",
+          "nameFr": "HAJEB EL AYOUN (Cite Ennasr)",
+          "nameAr": "حاجب العيون (حي النصر)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (cite ennasr) حاجب العيون (حي النصر) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-cite-ennouhoudh--3160",
+          "nameFr": "HAJEB EL AYOUN (Cite Ennouhoudh)",
+          "nameAr": "حاجب العيون (حي النهوض)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (cite ennouhoudh) حاجب العيون (حي النهوض) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-cite-errouki--3160",
+          "nameFr": "HAJEB EL AYOUN (Cite Errouki)",
+          "nameAr": "حاجب العيون (حي الروكي)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (cite errouki) حاجب العيون (حي الروكي) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-cite-essaada--3160",
+          "nameFr": "HAJEB EL AYOUN (Cite Essaada)",
+          "nameAr": "حاجب العيون (حي السعادة)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (cite essaada) حاجب العيون (حي السعادة) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-cite-ezzayatine--3160",
+          "nameFr": "HAJEB EL AYOUN (Cite Ezzayatine)",
+          "nameAr": "حاجب العيون (حي الزياتين)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (cite ezzayatine) حاجب العيون (حي الزياتين) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-cite-ezzouhour--3160",
+          "nameFr": "HAJEB EL AYOUN (Cite Ezzouhour)",
+          "nameAr": "حاجب العيون (حي الزهور)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (cite ezzouhour) حاجب العيون (حي الزهور) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-cite-independance--3160",
+          "nameFr": "HAJEB EL AYOUN (Cite Independance)",
+          "nameAr": "حاجب العيون (حي الاستقلال)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (cite independance) حاجب العيون (حي الاستقلال) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-el-ghouiba--3160",
+          "nameFr": "HAJEB EL AYOUN (El Ghouiba)",
+          "nameAr": "حاجب العيون (الغويبة)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (el ghouiba) حاجب العيون (الغويبة) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-el-manar--3160",
+          "nameFr": "HAJEB EL AYOUN (El Manar)",
+          "nameAr": "حاجب العيون (المنار)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (el manar) حاجب العيون (المنار) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-el-menassa--3160",
+          "nameFr": "HAJEB EL AYOUN (El Menassa)",
+          "nameAr": "حاجب العيون (المناصة)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (el menassa) حاجب العيون (المناصة) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-hajeb-el-ayoun-gare--3160",
+          "nameFr": "HAJEB EL AYOUN (Hajeb El Ayoun Gare)",
+          "nameAr": "حاجب العيون (حاجب العيون المحطة)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (hajeb el ayoun gare) حاجب العيون (حاجب العيون المحطة) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-hajeb-el-ayoun--3160",
+          "nameFr": "HAJEB EL AYOUN (Hajeb El Ayoun)",
+          "nameAr": "حاجب العيون (حاجب العيون)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (hajeb el ayoun) حاجب العيون (حاجب العيون) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-ouled-abbes--3160",
+          "nameFr": "HAJEB EL AYOUN (Ouled Abbes)",
+          "nameAr": "حاجب العيون (أولاد عباس)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (ouled abbes) حاجب العيون (أولاد عباس) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-ouled-ameur--3160",
+          "nameFr": "HAJEB EL AYOUN (Ouled Ameur)",
+          "nameAr": "حاجب العيون (أولاد عامر)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (ouled ameur) حاجب العيون (أولاد عامر) 3160"
+        },
+        {
+          "id": "kairouan--hajeb-el-ayoun--hajeb-el-ayoun-thallaja--3160",
+          "nameFr": "HAJEB EL AYOUN (Thallaja)",
+          "nameAr": "حاجب العيون (الثلاجة)",
+          "postalCode": "3160",
+          "latitude": 35.4019,
+          "longitude": 9.5125,
+          "searchKey": "hajeb el ayoun (thallaja) حاجب العيون (الثلاجة) 3160"
+        }
+      ]
+    },
+    {
+      "id": "kairouan--kairouan-nord",
+      "nameFr": "KAIROUAN NORD",
+      "nameAr": "القيروان الشمالية",
+      "searchKey": "kairouan nord القيروان الشمالية",
+      "municipalities": [
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-dar-el-amen--3140",
+          "nameFr": "KAIROUAN NORD (Cite Dar El Amen)",
+          "nameAr": "القيروان الشمالية (حي دار الأمان)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite dar el amen) القيروان الشمالية (حي دار الأمان) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-el-baloui-1--3140",
+          "nameFr": "KAIROUAN NORD (Cite El Baloui 1)",
+          "nameAr": "القيروان الشمالية (حي البلوي 1)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite el baloui 1) القيروان الشمالية (حي البلوي 1) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-el-baloui-2--3140",
+          "nameFr": "KAIROUAN NORD (Cite El Baloui 2)",
+          "nameAr": "القيروان الشمالية (حي البلوي 2)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite el baloui 2) القيروان الشمالية (حي البلوي 2) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-el-baloui-3--3140",
+          "nameFr": "KAIROUAN NORD (Cite El Baloui 3)",
+          "nameAr": "القيروان الشمالية (حي البلوي 3)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite el baloui 3) القيروان الشمالية (حي البلوي 3) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-el-hajjam--3129",
+          "nameFr": "KAIROUAN NORD (Cite El Hajjam)",
+          "nameAr": "القيروان الشمالية (حي الحجام)",
+          "postalCode": "3129",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite el hajjam) القيروان الشمالية (حي الحجام) 3129"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-ennasr--3182",
+          "nameFr": "KAIROUAN NORD (Cite Ennasr)",
+          "nameAr": "القيروان الشمالية (حي النصر)",
+          "postalCode": "3182",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite ennasr) القيروان الشمالية (حي النصر) 3182"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-ichbilia--3140",
+          "nameFr": "KAIROUAN NORD (Cite Ichbilia)",
+          "nameAr": "القيروان الشمالية (حي إشبيلية)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite ichbilia) القيروان الشمالية (حي إشبيلية) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-okba--3140",
+          "nameFr": "KAIROUAN NORD (Cite Okba)",
+          "nameAr": "القيروان الشمالية (حي عقبة)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite okba) القيروان الشمالية (حي عقبة) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-ouled-manaa--3140",
+          "nameFr": "KAIROUAN NORD (Cite Ouled Manaa)",
+          "nameAr": "القيروان الشمالية (حي أولاد مناع)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite ouled manaa) القيروان الشمالية (حي أولاد مناع) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-sahbi-3--3140",
+          "nameFr": "KAIROUAN NORD (Cite Sahbi 3)",
+          "nameAr": "القيروان الشمالية (حي الصاحبي 3)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite sahbi 3) القيروان الشمالية (حي الصاحبي 3) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-sahbi-4--3140",
+          "nameFr": "KAIROUAN NORD (Cite Sahbi 4)",
+          "nameAr": "القيروان الشمالية (حي الصاحبي 4)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite sahbi 4) القيروان الشمالية (حي الصاحبي 4) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-sahbi-5--3140",
+          "nameFr": "KAIROUAN NORD (Cite Sahbi 5)",
+          "nameAr": "القيروان الشمالية (حي الصاحبي 5)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite sahbi 5) القيروان الشمالية (حي الصاحبي 5) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-sahnoun--3140",
+          "nameFr": "KAIROUAN NORD (Cite Sahnoun)",
+          "nameAr": "القيروان الشمالية (حي سحنون)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite sahnoun) القيروان الشمالية (حي سحنون) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-cite-snit--3140",
+          "nameFr": "KAIROUAN NORD (Cite Snit)",
+          "nameAr": "القيروان الشمالية (حي سنيت)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (cite snit) القيروان الشمالية (حي سنيت) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-dhraa-ettammar--3140",
+          "nameFr": "KAIROUAN NORD (Dhraa Ettammar)",
+          "nameAr": "القيروان الشمالية (ذراع التمار)",
+          "postalCode": "3140",
+          "latitude": 35.7333,
+          "longitude": 10.0167,
+          "searchKey": "kairouan nord (dhraa ettammar) القيروان الشمالية (ذراع التمار) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-el-baten--3142",
+          "nameFr": "KAIROUAN NORD (El Baten)",
+          "nameAr": "القيروان الشمالية (الباطن)",
+          "postalCode": "3142",
+          "latitude": 35.7183,
+          "longitude": 9.98,
+          "searchKey": "kairouan nord (el baten) القيروان الشمالية (الباطن) 3142"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-el-ghabette--3193",
+          "nameFr": "KAIROUAN NORD (El Ghabette)",
+          "nameAr": "القيروان الشمالية (الغابات)",
+          "postalCode": "3193",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (el ghabette) القيروان الشمالية (الغابات) 3193"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-el-moutbasta--3111",
+          "nameFr": "KAIROUAN NORD (El Moutbasta)",
+          "nameAr": "القيروان الشمالية (المتبسطة)",
+          "postalCode": "3111",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (el moutbasta) القيروان الشمالية (المتبسطة) 3111"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-kairouan-okba--3140",
+          "nameFr": "KAIROUAN NORD (Kairouan Okba)",
+          "nameAr": "القيروان الشمالية (القيروان عقبة)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (kairouan okba) القيروان الشمالية (القيروان عقبة) 3140"
+        },
+        {
+          "id": "kairouan--kairouan-nord--kairouan-nord-sidi-dhameni--3140",
+          "nameFr": "KAIROUAN NORD (Sidi Dhameni)",
+          "nameAr": "القيروان الشمالية (سيدي الظمني)",
+          "postalCode": "3140",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan nord (sidi dhameni) القيروان الشمالية (سيدي الظمني) 3140"
+        }
+      ]
+    },
+    {
+      "id": "kairouan--kairouan-sud",
+      "nameFr": "KAIROUAN SUD",
+      "nameAr": "القيروان الجنوبية",
+      "searchKey": "kairouan sud القيروان الجنوبية",
+      "municipalities": [
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-ain-el-khazzazia--3143",
+          "nameFr": "KAIROUAN SUD (Ain El Khazzazia)",
+          "nameAr": "القيروان الجنوبية (عين الخزازية)",
+          "postalCode": "3143",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (ain el khazzazia) القيروان الجنوبية (عين الخزازية) 3143"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-argoub-el-khadhra--3192",
+          "nameFr": "KAIROUAN SUD (Argoub El Khadhra)",
+          "nameAr": "القيروان الجنوبية (عرقوب الخضراء)",
+          "postalCode": "3192",
+          "latitude": 35.628,
+          "longitude": 10.083,
+          "searchKey": "kairouan sud (argoub el khadhra) القيروان الجنوبية (عرقوب الخضراء) 3192"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-cite-el-moez--3100",
+          "nameFr": "KAIROUAN SUD (Cite El Moez)",
+          "nameAr": "القيروان الجنوبية (حي المعز)",
+          "postalCode": "3100",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (cite el moez) القيروان الجنوبية (حي المعز) 3100"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-cite-ibn-el-jazzar--3199",
+          "nameFr": "KAIROUAN SUD (Cite Ibn El Jazzar)",
+          "nameAr": "القيروان الجنوبية (حي ابن الجزار)",
+          "postalCode": "3199",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (cite ibn el jazzar) القيروان الجنوبية (حي ابن الجزار) 3199"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-cite-militaire-ancien--3100",
+          "nameFr": "KAIROUAN SUD (Cite Militaire Ancien)",
+          "nameAr": "القيروان الجنوبية (الحي العسكري القديم)",
+          "postalCode": "3100",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (cite militaire ancien) القيروان الجنوبية (الحي العسكري القديم) 3100"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-cite-rim--3100",
+          "nameFr": "KAIROUAN SUD (Cite Rim)",
+          "nameAr": "القيروان الجنوبية (حي ريم)",
+          "postalCode": "3100",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (cite rim) القيروان الجنوبية (حي ريم) 3100"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-cite-sabri--3100",
+          "nameFr": "KAIROUAN SUD (Cite Sabri)",
+          "nameAr": "القيروان الجنوبية (حي صبري)",
+          "postalCode": "3100",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (cite sabri) القيروان الجنوبية (حي صبري) 3100"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-cite-tabene--3198",
+          "nameFr": "KAIROUAN SUD (Cite Tabene)",
+          "nameAr": "القيروان الجنوبية (حي تبن)",
+          "postalCode": "3198",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (cite tabene) القيروان الجنوبية (حي تبن) 3198"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-el-argoub-lahrech--3100",
+          "nameFr": "KAIROUAN SUD (El Argoub Lahrech)",
+          "nameAr": "القيروان الجنوبية (العرقوب الأحرش)",
+          "postalCode": "3100",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (el argoub lahrech) القيروان الجنوبية (العرقوب الأحرش) 3100"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-el-borji--3198",
+          "nameFr": "KAIROUAN SUD (El Borji)",
+          "nameAr": "القيروان الجنوبية (البرجي)",
+          "postalCode": "3198",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (el borji) القيروان الجنوبية (البرجي) 3198"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-el-khadhra--3192",
+          "nameFr": "KAIROUAN SUD (El Khadhra)",
+          "nameAr": "القيروان الجنوبية (الخضراء)",
+          "postalCode": "3192",
+          "latitude": 35.628,
+          "longitude": 10.083,
+          "searchKey": "kairouan sud (el khadhra) القيروان الجنوبية (الخضراء) 3192"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-el-makhsouma--3100",
+          "nameFr": "KAIROUAN SUD (El Makhsouma)",
+          "nameAr": "القيروان الجنوبية (المخصومة)",
+          "postalCode": "3100",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (el makhsouma) القيروان الجنوبية (المخصومة) 3100"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-el-mrazig--3100",
+          "nameFr": "KAIROUAN SUD (El Mrazig)",
+          "nameAr": "القيروان الجنوبية (المرازيق)",
+          "postalCode": "3100",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (el mrazig) القيروان الجنوبية (المرازيق) 3100"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-kairouan-sud--3131",
+          "nameFr": "KAIROUAN SUD (Kairouan Sud)",
+          "nameAr": "القيروان الجنوبية (القيروان الجنوبية)",
+          "postalCode": "3131",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (kairouan sud) القيروان الجنوبية (القيروان الجنوبية) 3131"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-kairouan--3100",
+          "nameFr": "KAIROUAN SUD (Kairouan)",
+          "nameAr": "القيروان الجنوبية (القيروان)",
+          "postalCode": "3100",
+          "latitude": 35.6772,
+          "longitude": 10.098,
+          "searchKey": "kairouan sud (kairouan) القيروان الجنوبية (القيروان) 3100"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-raccada--3191",
+          "nameFr": "KAIROUAN SUD (Raccada)",
+          "nameAr": "القيروان الجنوبية (رقادة)",
+          "postalCode": "3191",
+          "latitude": 35.5833,
+          "longitude": 10.0667,
+          "searchKey": "kairouan sud (raccada) القيروان الجنوبية (رقادة) 3191"
+        },
+        {
+          "id": "kairouan--kairouan-sud--kairouan-sud-zaafrana--3151",
+          "nameFr": "KAIROUAN SUD (Zaafrana)",
+          "nameAr": "القيروان الجنوبية (زعفرانة)",
+          "postalCode": "3151",
+          "latitude": 35.6167,
+          "longitude": 10.0667,
+          "searchKey": "kairouan sud (zaafrana) القيروان الجنوبية (زعفرانة) 3151"
+        }
+      ]
+    },
+    {
+      "id": "kairouan--nasrallah",
+      "nameFr": "NASRALLAH",
+      "nameAr": "نصر الله",
+      "searchKey": "nasrallah نصر الله",
+      "municipalities": [
+        {
+          "id": "kairouan--nasrallah--nasrallah-el-ajabna--3170",
+          "nameFr": "NASRALLAH (El Ajabna)",
+          "nameAr": "نصر الله (العجابنة)",
+          "postalCode": "3170",
+          "latitude": 35.0139,
+          "longitude": 9.6014,
+          "searchKey": "nasrallah (el ajabna) نصر الله (العجابنة) 3170"
+        },
+        {
+          "id": "kairouan--nasrallah--nasrallah-el-hamidette--3114",
+          "nameFr": "NASRALLAH (El Hamidette)",
+          "nameAr": "نصر الله (الحميدات)",
+          "postalCode": "3114",
+          "latitude": 35.0139,
+          "longitude": 9.6014,
+          "searchKey": "nasrallah (el hamidette) نصر الله (الحميدات) 3114"
+        },
+        {
+          "id": "kairouan--nasrallah--nasrallah-el-kabbara--3171",
+          "nameFr": "NASRALLAH (El Kabbara)",
+          "nameAr": "نصر الله (الكبارة)",
+          "postalCode": "3171",
+          "latitude": 35.0139,
+          "longitude": 9.6014,
+          "searchKey": "nasrallah (el kabbara) نصر الله (الكبارة) 3171"
+        },
+        {
+          "id": "kairouan--nasrallah--nasrallah-el-ksour--3170",
+          "nameFr": "NASRALLAH (El Ksour)",
+          "nameAr": "نصر الله (القصور)",
+          "postalCode": "3170",
+          "latitude": 35.0139,
+          "longitude": 9.6014,
+          "searchKey": "nasrallah (el ksour) نصر الله (القصور) 3170"
+        },
+        {
+          "id": "kairouan--nasrallah--nasrallah-erragouba-el-hamra--3173",
+          "nameFr": "NASRALLAH (Erragouba El Hamra)",
+          "nameAr": "نصر الله (الرقوبة الحمراء)",
+          "postalCode": "3173",
+          "latitude": 35.0139,
+          "longitude": 9.6014,
+          "searchKey": "nasrallah (erragouba el hamra) نصر الله (الرقوبة الحمراء) 3173"
+        },
+        {
+          "id": "kairouan--nasrallah--nasrallah-menzel-mhiri--3114",
+          "nameFr": "NASRALLAH (Menzel Mhiri)",
+          "nameAr": "نصر الله (منزل المهيري)",
+          "postalCode": "3114",
+          "latitude": 35.1667,
+          "longitude": 9.4333,
+          "searchKey": "nasrallah (menzel mhiri) نصر الله (منزل المهيري) 3114"
+        },
+        {
+          "id": "kairouan--nasrallah--nasrallah-nasrallah--3170",
+          "nameFr": "NASRALLAH (Nasrallah)",
+          "nameAr": "نصر الله (نصر الله)",
+          "postalCode": "3170",
+          "latitude": 35.0139,
+          "longitude": 9.6014,
+          "searchKey": "nasrallah (nasrallah) نصر الله (نصر الله) 3170"
+        },
+        {
+          "id": "kairouan--nasrallah--nasrallah-sidi-saad--3115",
+          "nameFr": "NASRALLAH (Sidi Saad)",
+          "nameAr": "نصر الله (سيدي سعد)",
+          "postalCode": "3115",
+          "latitude": 35.25,
+          "longitude": 9.6667,
+          "searchKey": "nasrallah (sidi saad) نصر الله (سيدي سعد) 3115"
+        },
+        {
+          "id": "kairouan--nasrallah--nasrallah-touila--3114",
+          "nameFr": "NASRALLAH (Touila)",
+          "nameAr": "نصر الله (الطويلة)",
+          "postalCode": "3114",
+          "latitude": 35.0139,
+          "longitude": 9.6014,
+          "searchKey": "nasrallah (touila) نصر الله (الطويلة) 3114"
+        }
+      ]
+    },
+    {
+      "id": "kairouan--oueslatia",
+      "nameFr": "OUESLATIA",
+      "nameAr": "الوسلاتية",
+      "searchKey": "oueslatia الوسلاتية",
+      "municipalities": [
+        {
+          "id": "kairouan--oueslatia--oueslatia-ain-jelloula--3113",
+          "nameFr": "OUESLATIA (Ain Jelloula)",
+          "nameAr": "الوسلاتية (عين جلولة)",
+          "postalCode": "3113",
+          "latitude": 35.7333,
+          "longitude": 9.6667,
+          "searchKey": "oueslatia (ain jelloula) الوسلاتية (عين جلولة) 3113"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-ain-mastour--3120",
+          "nameFr": "OUESLATIA (Ain Mastour)",
+          "nameAr": "الوسلاتية (عين مستور)",
+          "postalCode": "3120",
+          "latitude": 35.8,
+          "longitude": 9.6333,
+          "searchKey": "oueslatia (ain mastour) الوسلاتية (عين مستور) 3120"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-cite-bou-assida--3120",
+          "nameFr": "OUESLATIA (Cite Bou Assida)",
+          "nameAr": "الوسلاتية (حي بو عصيدة)",
+          "postalCode": "3120",
+          "latitude": 35.8447,
+          "longitude": 9.5886,
+          "searchKey": "oueslatia (cite bou assida) الوسلاتية (حي بو عصيدة) 3120"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-cite-chebbi--3120",
+          "nameFr": "OUESLATIA (Cite Chebbi)",
+          "nameAr": "الوسلاتية (حي الشابي)",
+          "postalCode": "3120",
+          "latitude": 35.8447,
+          "longitude": 9.5886,
+          "searchKey": "oueslatia (cite chebbi) الوسلاتية (حي الشابي) 3120"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-cite-commerciale--3120",
+          "nameFr": "OUESLATIA (Cite Commerciale)",
+          "nameAr": "الوسلاتية (الحي التجاري)",
+          "postalCode": "3120",
+          "latitude": 35.8447,
+          "longitude": 9.5886,
+          "searchKey": "oueslatia (cite commerciale) الوسلاتية (الحي التجاري) 3120"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-cite-des-ouvriers--3120",
+          "nameFr": "OUESLATIA (Cite Des Ouvriers)",
+          "nameAr": "الوسلاتية (الحي العمالي)",
+          "postalCode": "3120",
+          "latitude": 35.8447,
+          "longitude": 9.5886,
+          "searchKey": "oueslatia (cite des ouvriers) الوسلاتية (الحي العمالي) 3120"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-cite-du-stade--3120",
+          "nameFr": "OUESLATIA (Cite Du Stade)",
+          "nameAr": "الوسلاتية (حي الملعب)",
+          "postalCode": "3120",
+          "latitude": 35.8447,
+          "longitude": 9.5886,
+          "searchKey": "oueslatia (cite du stade) الوسلاتية (حي الملعب) 3120"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-cite-ejjamaa--3120",
+          "nameFr": "OUESLATIA (Cite Ejjamaa)",
+          "nameAr": "الوسلاتية (حي الجامع)",
+          "postalCode": "3120",
+          "latitude": 35.8447,
+          "longitude": 9.5886,
+          "searchKey": "oueslatia (cite ejjamaa) الوسلاتية (حي الجامع) 3120"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-cite-essanaouber--3120",
+          "nameFr": "OUESLATIA (Cite Essanaouber)",
+          "nameAr": "الوسلاتية (حي الصنوبر)",
+          "postalCode": "3120",
+          "latitude": 35.8447,
+          "longitude": 9.5886,
+          "searchKey": "oueslatia (cite essanaouber) الوسلاتية (حي الصنوبر) 3120"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-cite-ettahrir--3120",
+          "nameFr": "OUESLATIA (Cite Ettahrir)",
+          "nameAr": "الوسلاتية (حي التحرير)",
+          "postalCode": "3120",
+          "latitude": 35.8447,
+          "longitude": 9.5886,
+          "searchKey": "oueslatia (cite ettahrir) الوسلاتية (حي التحرير) 3120"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-ksar-lamsa--3124",
+          "nameFr": "OUESLATIA (Ksar Lamsa)",
+          "nameAr": "الوسلاتية (قصر لمسة)",
+          "postalCode": "3124",
+          "latitude": 35.8244,
+          "longitude": 9.6383,
+          "searchKey": "oueslatia (ksar lamsa) الوسلاتية (قصر لمسة) 3124"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-oued-el-guessab--3120",
+          "nameFr": "OUESLATIA (Oued El Guessab)",
+          "nameAr": "الوسلاتية (وادي القصاب)",
+          "postalCode": "3120",
+          "latitude": 35.8447,
+          "longitude": 9.5886,
+          "searchKey": "oueslatia (oued el guessab) الوسلاتية (وادي القصاب) 3120"
+        },
+        {
+          "id": "kairouan--oueslatia--oueslatia-oueslatia--3120",
+          "nameFr": "OUESLATIA (Oueslatia)",
+          "nameAr": "الوسلاتية (الوسلاتية)",
+          "postalCode": "3120",
+          "latitude": 35.8447,
+          "longitude": 9.5886,
+          "searchKey": "oueslatia (oueslatia) الوسلاتية (الوسلاتية) 3120"
+        }
+      ]
+    },
+    {
+      "id": "kairouan--sbikha",
+      "nameFr": "SBIKHA",
+      "nameAr": "السبيخة",
+      "searchKey": "sbikha السبيخة",
+      "municipalities": [
+        {
+          "id": "kairouan--sbikha--sbikha-ain-boumourra--3135",
+          "nameFr": "SBIKHA (Ain Boumourra)",
+          "nameAr": "السبيخة (عين بومرة)",
+          "postalCode": "3135",
+          "latitude": 35.8833,
+          "longitude": 9.9333,
+          "searchKey": "sbikha (ain boumourra) السبيخة (عين بومرة) 3135"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-chorfa--3110",
+          "nameFr": "SBIKHA (Chorfa)",
+          "nameAr": "السبيخة (الشرفاء)",
+          "postalCode": "3110",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (chorfa) السبيخة (الشرفاء) 3110"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-chougafia--3110",
+          "nameFr": "SBIKHA (Chougafia)",
+          "nameAr": "السبيخة (الشوقافية)",
+          "postalCode": "3110",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (chougafia) السبيخة (الشوقافية) 3110"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-daloussi--3110",
+          "nameFr": "SBIKHA (Daloussi)",
+          "nameAr": "السبيخة (الدالوسي)",
+          "postalCode": "3110",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (daloussi) السبيخة (الدالوسي) 3110"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-dar-ben-aicha--3132",
+          "nameFr": "SBIKHA (Dar Ben Aicha)",
+          "nameAr": "السبيخة (دار بن عيشة)",
+          "postalCode": "3132",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (dar ben aicha) السبيخة (دار بن عيشة) 3132"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-dar-jamiya--3132",
+          "nameFr": "SBIKHA (Dar Jamiya)",
+          "nameAr": "السبيخة (دار جميعة)",
+          "postalCode": "3132",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (dar jamiya) السبيخة (دار جميعة) 3132"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-dhriaat--3194",
+          "nameFr": "SBIKHA (Dhriaat)",
+          "nameAr": "السبيخة (الذريعات)",
+          "postalCode": "3194",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (dhriaat) السبيخة (الذريعات) 3194"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-eddikhila--3110",
+          "nameFr": "SBIKHA (Eddikhila)",
+          "nameAr": "السبيخة (الدخيلة)",
+          "postalCode": "3110",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (eddikhila) السبيخة (الدخيلة) 3110"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-el-alem--3125",
+          "nameFr": "SBIKHA (El Alem)",
+          "nameAr": "السبيخة (العلم)",
+          "postalCode": "3125",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (el alem) السبيخة (العلم) 3125"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-el-aouitha--3132",
+          "nameFr": "SBIKHA (El Aouitha)",
+          "nameAr": "السبيخة (العويثة)",
+          "postalCode": "3132",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (el aouitha) السبيخة (العويثة) 3132"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-el-friouette--3110",
+          "nameFr": "SBIKHA (El Friouette)",
+          "nameAr": "السبيخة (الفريوات)",
+          "postalCode": "3110",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (el friouette) السبيخة (الفريوات) 3110"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-el-gatifa--3110",
+          "nameFr": "SBIKHA (El Gatifa)",
+          "nameAr": "السبيخة (القطيفة)",
+          "postalCode": "3110",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (el gatifa) السبيخة (القطيفة) 3110"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-el-gfey--3110",
+          "nameFr": "SBIKHA (El Gfey)",
+          "nameAr": "السبيخة (القفاي)",
+          "postalCode": "3110",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (el gfey) السبيخة (القفاي) 3110"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-el-khodher--3110",
+          "nameFr": "SBIKHA (El Khodher)",
+          "nameAr": "السبيخة (الخضر)",
+          "postalCode": "3110",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (el khodher) السبيخة (الخضر) 3110"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-hendi-zitouna--3196",
+          "nameFr": "SBIKHA (Hendi Zitouna)",
+          "nameAr": "السبيخة (هندي زيتونة)",
+          "postalCode": "3196",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (hendi zitouna) السبيخة (هندي زيتونة) 3196"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-oued-nebhana--3110",
+          "nameFr": "SBIKHA (Oued Nebhana)",
+          "nameAr": "السبيخة (وادي نبهانة)",
+          "postalCode": "3110",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (oued nebhana) السبيخة (وادي نبهانة) 3110"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-sbikha--3110",
+          "nameFr": "SBIKHA (Sbikha)",
+          "nameAr": "السبيخة (السبيخة)",
+          "postalCode": "3110",
+          "latitude": 35.9342,
+          "longitude": 9.9919,
+          "searchKey": "sbikha (sbikha) السبيخة (السبيخة) 3110"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-sidi-messaoud--3195",
+          "nameFr": "SBIKHA (Sidi Messaoud)",
+          "nameAr": "السبيخة (سيدي مسعود)",
+          "postalCode": "3195",
+          "latitude": 35.9,
+          "longitude": 9.9333,
+          "searchKey": "sbikha (sidi messaoud) السبيخة (سيدي مسعود) 3195"
+        },
+        {
+          "id": "kairouan--sbikha--sbikha-sisseb--3132",
+          "nameFr": "SBIKHA (Sisseb)",
+          "nameAr": "السبيخة (سيسيب)",
+          "postalCode": "3132",
+          "latitude": 35.85,
+          "longitude": 10.05,
+          "searchKey": "sbikha (sisseb) السبيخة (سيسيب) 3132"
+        }
+      ]
+    }
+  ]
+}

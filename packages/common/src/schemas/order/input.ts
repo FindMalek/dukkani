@@ -70,6 +70,9 @@ export type UpdateOrderStatusInput = z.infer<
  */
 export const addressInputSchema = z.object({
   street: z.string().min(1, "Address line is required"),
+  governorate: governorateSchema,
+  delegation: z.string().min(1, "Delegation is required"),
+  /** Selected municipality/sector's display name (Governorate → Delegation → Municipality). */
   city: z.string().min(1, "City is required"),
   postalCode: z.string().optional(),
   latitude: z.number().optional(),
