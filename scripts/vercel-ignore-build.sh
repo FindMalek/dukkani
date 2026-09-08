@@ -28,6 +28,8 @@
 set -euo pipefail
 
 APP="${1:?usage: vercel-ignore-build.sh <workspace-name>}"
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
 
 if [[ "${VERCEL_GIT_COMMIT_REF:-}" == *"skip-vercel"* ]]; then
   echo "Branch '$VERCEL_GIT_COMMIT_REF' requests skip-vercel — skipping build"
@@ -39,4 +41,22 @@ if [[ -z "${VERCEL_GIT_PREVIOUS_SHA:-}" ]]; then
   exit 1
 fi
 
+set +e
 npx turbo query affected --packages "$APP" --exit-code --base "$VERCEL_GIT_PREVIOUS_SHA"
+affected_status=$?
+set -e
+
+# turbo --exit-code: 0 = unaffected (skip), 1 = affected (build), 2 = query error.
+# Vercel only documents 0/1 for Ignored Build Step. Map errors to "build".
+if [[ "$affected_status" -eq 0 ]]; then
+  echo "$APP is unaffected since $VERCEL_GIT_PREVIOUS_SHA — skipping build"
+  exit 0
+fi
+
+if [[ "$affected_status" -eq 1 ]]; then
+  echo "$APP is affected since $VERCEL_GIT_PREVIOUS_SHA — proceeding with build"
+  exit 1
+fi
+
+echo "turbo query affected failed with exit $affected_status — proceeding with build"
+exit 1
