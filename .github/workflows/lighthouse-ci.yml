@@ -89,7 +89,7 @@ jobs:
               break
             fi
 
-            if latest_error "${RESPONSE}"; then
+            if latest_error "${RESPONSE}" && ! is_in_progress "${RESPONSE}"; then
               echo "Vercel preview for ${{ matrix.app }} entered ERROR (sha=${COMMIT_SHA})"
               exit 1
             fi
