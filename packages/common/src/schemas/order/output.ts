@@ -1,11 +1,7 @@
 import { z } from "zod";
 import { addressSimpleOutputSchema } from "../address/output";
 import { customerSimpleOutputSchema } from "../customer/output";
-import {
-  governorateSchema,
-  orderStatusSchema,
-  paymentMethodSchema,
-} from "../enums";
+import { governorateSchema, orderStatusSchema, paymentMethodSchema } from "../enums";
 import { orderItemWithProductOutputSchema } from "../order-item/output";
 import { storeSimpleOutputSchema } from "../store/output";
 import { whatsappMessageSimpleOutputSchema } from "../whatsapp-message/output";

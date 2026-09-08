@@ -30,7 +30,6 @@ Follow these rules for all code generation, edits, and reviews in this repositor
 - Prefer shared package utilities instead of app-local duplication.
 - Keep changes scoped to the requested task.
 - Keep code and docs aligned with current monorepo architecture.
-- Never add yourself or another AI agent as a commit `Co-authored-by:` — see `.cursor/rules/03-git-conventions.mdc`.
 
 ## Windsurf + Cursor parity
 

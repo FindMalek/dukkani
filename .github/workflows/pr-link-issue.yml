@@ -53,7 +53,10 @@ jobs:
             exit 0
           fi
 
-          ISSUE=$(printf '%s' "$BRANCH" | grep -oE '(^|/)[0-9]+-' | grep -oE '[0-9]+' | head -1)
+          ISSUE=$(printf '%s' "$BRANCH" \
+            | grep -oE '(^|/)[0-9]+-' \
+            | grep -oE '[0-9]+' \
+            | head -1 || true)
 
           if [ -z "$ISSUE" ]; then
             echo "::warning::No issue number found in branch name ($BRANCH) and the PR body doesn't reference one. Link a GH issue manually (e.g. add 'Closes #N' to the description) so the project board tracks this PR."
@@ -66,6 +69,20 @@ jobs:
             exit 0
           fi
 
-          NEW_BODY=$(printf '%s\n\nCloses #%s' "$BODY" "$ISSUE")
+          CURRENT_PR_JSON=$(gh pr view "$PR" --repo "$REPO" --json body,closingIssuesReferences)
+          CURRENT_BODY=$(printf '%s' "$CURRENT_PR_JSON" | jq -r '.body // ""')
+          CURRENT_CLOSING_COUNT=$(printf '%s' "$CURRENT_PR_JSON" | jq '.closingIssuesReferences | length')
+
+          if [ "$CURRENT_CLOSING_COUNT" -gt 0 ]; then
+            echo "A closing issue reference was added while this job was running, nothing to do."
+            exit 0
+          fi
+
+          if [ "$CURRENT_BODY" != "$BODY" ]; then
+            echo "::warning::The PR body changed while this job was running. Skipping the stale update; the edited event will retry with the latest body."
+            exit 0
+          fi
+
+          NEW_BODY=$(printf '%s\n\nCloses #%s' "$CURRENT_BODY" "$ISSUE")
           gh pr edit "$PR" --repo "$REPO" --body "$NEW_BODY"
           echo "Linked PR #$PR to issue #$ISSUE"

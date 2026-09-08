@@ -37,9 +37,14 @@ interface OrdersTableProps {
  * Filtering, search and pagination all stay owned by `useOrdersController`;
  * this component is presentation only.
  */
-export function OrdersTable({ sections, showStatus = true }: OrdersTableProps) {
+export function OrdersTable({
+  sections,
+  showStatus = true,
+}: OrdersTableProps) {
   const t = useTranslations("orders.list");
-  const columnCount = showStatus ? TABLE_COLUMN_COUNT : TABLE_COLUMN_COUNT - 1;
+  const columnCount = showStatus
+    ? TABLE_COLUMN_COUNT
+    : TABLE_COLUMN_COUNT - 1;
 
   return (
     <div className="hidden rounded-lg border xl:block">
