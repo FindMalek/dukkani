@@ -6,6 +6,7 @@
   "scripts": {
     "analyze": "tsx src/commands/analyze.ts",
     "cleanup-preview": "tsx src/commands/cleanup-preview.ts",
+    "check-pinned-deps": "tsx src/commands/check-pinned-deps.ts",
     "check-types": "tsc --noEmit -p tsconfig.json",
     "check-types:fast": "tsgo --noEmit -p tsconfig.json"
   },
