@@ -4,7 +4,6 @@ import type { ProductPublicOutput } from "@dukkani/common/schemas/product/output
 import type { StorePublicOutput } from "@dukkani/common/schemas/store/output";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useCallback, useState } from "react";
-import { ProductAttributes } from "@/components/app/product-attributes";
 import { ProductDescription } from "@/components/app/product-description";
 import { ProductImageCarousel } from "@/components/app/product-image-carousel";
 import {
@@ -62,7 +61,6 @@ export function ProductDetailInteractive({
               {priceHeadline}
             </p>
           )}
-          <ProductAttributes tags={product.tags} />
           {product.store && (
             <StoreInfoCard
               storeName={product.store.name}
