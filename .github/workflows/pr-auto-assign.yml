@@ -1,0 +1,36 @@
+name: PR auto-assign
+
+# Assigns whoever opens a PR to it, and anyone whose commits land on the PR
+# branch afterward, as an assignee too.
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  assign:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+      AUTHOR: ${{ github.event.pull_request.user.login }}
+    steps:
+      - name: Assign PR author and commit authors
+        run: |
+          COMMIT_LOGINS=$(gh api "repos/$REPO/pulls/$PR/commits" --paginate --jq '.[].author.login // empty')
+
+          LOGINS=$(printf '%s\n%s\n' "$AUTHOR" "$COMMIT_LOGINS" \
+            | sort -u | grep -v '\[bot\]$' | grep -v '^$')
+
+          for login in $LOGINS; do
+            echo "Assigning $login to #$PR"
+            gh pr edit "$PR" --repo "$REPO" --add-assignee "$login" || \
+              echo "::warning::Could not assign $login (not a collaborator?)"
+          done

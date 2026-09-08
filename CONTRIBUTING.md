@@ -116,9 +116,10 @@ Start from **GitHub Issues**:
 ## 7) Lightweight Contribution Workflow
 
 1. Reproduce the issue locally
-2. Keep the change scoped to the issue
-3. Run checks (`lint`, `check-types`, `build`) before opening PR
-4. Include a short test plan in the PR description
+2. Name your branch with the issue number (e.g. `fix/250-stock-race-condition` or `250-stock-race-condition`) — a CI workflow uses this to auto-link the PR to the issue if you don't add a `Closes #N` yourself
+3. Keep the change scoped to the issue
+4. Run checks (`lint`, `check-types`, `build`) before opening PR
+5. Include a short test plan in the PR description
 
 ## 8) Pull Request Checklist
 

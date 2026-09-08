@@ -1,0 +1,57 @@
+name: PR link issue
+
+# We track work through the GitHub Project board (#6), which relies on
+# GitHub's native "Closes #N" detection to link a PR to its issue (shows in
+# the issue's Development sidebar, drives project board status automation,
+# auto-closes the issue on merge). That detection only fires if the PR body
+# actually contains a closing keyword, which nobody was doing consistently.
+#
+# This infers the issue number from the branch name (existing convention:
+# `type/NNN-slug` or `NNN-slug`, e.g. `fix/593-sharp-pin-regression`) and
+# appends "Closes #N" to the PR body if nothing already links an issue.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: read
+
+jobs:
+  link-issue:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+      BRANCH: ${{ github.event.pull_request.head.ref }}
+    steps:
+      - name: Link PR to its GH issue
+        run: |
+          BODY=$(gh pr view "$PR" --repo "$REPO" --json body --jq '.body // ""')
+
+          if printf '%s' "$BODY" | grep -qiE '\b(close[sd]?|fixe[sd]?|resolve[sd]?)[[:space:]]+#[0-9]+'; then
+            echo "PR body already references an issue with a closing keyword, nothing to do."
+            exit 0
+          fi
+
+          ISSUE=$(printf '%s' "$BRANCH" | grep -oE '(^|/)[0-9]+-' | grep -oE '[0-9]+' | head -1)
+
+          if [ -z "$ISSUE" ]; then
+            echo "::warning::No issue number found in branch name ($BRANCH) and the PR body doesn't reference one. Link a GH issue manually (e.g. add 'Closes #N' to the description) so the project board tracks this PR."
+            exit 0
+          fi
+
+          STATE=$(gh issue view "$ISSUE" --repo "$REPO" --json state --jq '.state' 2>/dev/null || echo "")
+          if [ -z "$STATE" ]; then
+            echo "::warning::Branch name implies issue #$ISSUE, but no such issue exists. Skipping auto-link."
+            exit 0
+          fi
+
+          NEW_BODY=$(printf '%s\n\nCloses #%s' "$BODY" "$ISSUE")
+          gh pr edit "$PR" --repo "$REPO" --body "$NEW_BODY"
+          echo "Linked PR #$PR to issue #$ISSUE"
