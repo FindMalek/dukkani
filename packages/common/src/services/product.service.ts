@@ -760,7 +760,9 @@ class ProductServiceBase {
   }
 
   /**
-   * Update product stock
+   * Update product stock. Decrements use a conditional atomic `updateMany`
+   * (see {@link updateMultipleProductStocks}) so this stays race-safe if a
+   * future caller uses it to decrement under concurrent load.
    */
   static async updateProductStock(
     productId: string,
@@ -782,14 +784,27 @@ class ProductServiceBase {
     if (!product?.currentPublishedVersionId) {
       throw new NotFoundError("Product has no published version");
     }
-    await client.productVersion.update({
-      where: { id: product.currentPublishedVersionId },
-      data: {
-        stock: {
-          [operation]: quantity,
+
+    if (operation === "decrement") {
+      const { count } = await client.productVersion.updateMany({
+        where: {
+          id: product.currentPublishedVersionId,
+          stock: { gte: quantity },
         },
-      },
-    });
+        data: { stock: { decrement: quantity } },
+      });
+      if (count === 0) {
+        throw new BadRequestError(
+          `Insufficient stock for product ${productId}`,
+        );
+      }
+    } else {
+      await client.productVersion.update({
+        where: { id: product.currentPublishedVersionId },
+        data: { stock: { increment: quantity } },
+      });
+    }
+
     await ProductVersionService.recomputeTotalVariantStock(
       client,
       product.currentPublishedVersionId,
@@ -798,6 +813,12 @@ class ProductServiceBase {
 
   /**
    * Update {@link ProductAddonOption} stock in bulk (aggregated by option id).
+   *
+   * Decrements are done as a conditional atomic `updateMany` guarded by
+   * `stock >= quantity`, so concurrent decrements on the same option can't both
+   * read a stale stock value and both succeed (see {@link updateMultipleProductStocks}
+   * for the full rationale). Increments (stock restoration) can't drive stock
+   * negative, so they use a plain update.
    */
   static async updateAddonOptionStocks(
     updates: Array<{ optionId: string; quantity: number }>,
@@ -816,14 +837,25 @@ class ProductServiceBase {
     }
 
     await Promise.all(
-      [...aggregated.entries()].map(([optionId, quantity]) =>
-        client.productAddonOption.update({
+      [...aggregated.entries()].map(async ([optionId, quantity]) => {
+        if (operation === "decrement") {
+          const { count } = await client.productAddonOption.updateMany({
+            where: { id: optionId, stock: { gte: quantity } },
+            data: { stock: { decrement: quantity } },
+          });
+          if (count === 0) {
+            throw new BadRequestError(
+              `Insufficient stock for add-on option ${optionId}`,
+            );
+          }
+          return;
+        }
+
+        await client.productAddonOption.update({
           where: { id: optionId },
-          data: {
-            stock: { [operation]: quantity },
-          },
-        }),
-      ),
+          data: { stock: { increment: quantity } },
+        });
+      }),
     );
   }
 
@@ -832,6 +864,20 @@ class ProductServiceBase {
    * - For items with variantId: updates ProductVariant.stock
    * - For items without variantId: updates Product.stock
    * Aggregates quantities by (productId, variantId) to handle duplicates correctly
+   *
+   * Decrements are applied as a conditional atomic `updateMany` guarded by
+   * `stock >= quantity` (`UPDATE ... SET stock = stock - qty WHERE stock >= qty`),
+   * never as a plain read-then-write. Two concurrent transactions can both read
+   * the same stock value before either commits — even inside a Prisma
+   * `$transaction` — and a naive `update` with `{ decrement: qty }` would let
+   * both writes through, driving stock negative and overselling. The
+   * conditional `updateMany` folds the check and the write into one statement
+   * the database evaluates atomically per row, so only one of two racing
+   * decrements against the last unit can affect a row; the loser gets
+   * `count === 0` back and this throws {@link BadRequestError}, which rolls
+   * back the whole order-creation transaction. Increments (stock restoration
+   * on order cancellation) can't drive stock negative, so they stay plain
+   * updates.
    */
   static async updateMultipleProductStocks(
     updates: ProductStockUpdateLine[],
@@ -916,7 +962,7 @@ class ProductServiceBase {
       );
 
       await Promise.all(
-        variantUpdates.map(({ productId, variantId, quantity }) => {
+        variantUpdates.map(async ({ productId, variantId, quantity }) => {
           const row = rowById.get(variantId);
           const pubId =
             row?.productVersion.product.currentPublishedVersionId ?? null;
@@ -932,15 +978,25 @@ class ProductServiceBase {
           }
           versionIdsToRecompute.add(pubId);
           if (row.trackStock === false) {
-            return Promise.resolve();
+            return;
           }
-          return client.productVariant.update({
+
+          if (operation === "decrement") {
+            const { count } = await client.productVariant.updateMany({
+              where: { id: variantId, stock: { gte: quantity } },
+              data: { stock: { decrement: quantity } },
+            });
+            if (count === 0) {
+              throw new BadRequestError(
+                `Insufficient stock for product ${productId} (variant ${variantId})`,
+              );
+            }
+            return;
+          }
+
+          await client.productVariant.update({
             where: { id: variantId },
-            data: {
-              stock: {
-                [operation]: quantity,
-              },
-            },
+            data: { stock: { increment: quantity } },
           });
         }),
       );
@@ -961,7 +1017,7 @@ class ProductServiceBase {
       );
 
       await Promise.all(
-        productUpdates.map(({ productId, quantity }) => {
+        productUpdates.map(async ({ productId, quantity }) => {
           const versionId = pubByProduct.get(productId);
           if (!versionId) {
             throw new NotFoundError(
@@ -969,13 +1025,23 @@ class ProductServiceBase {
             );
           }
           versionIdsToRecompute.add(versionId);
-          return client.productVersion.update({
+
+          if (operation === "decrement") {
+            const { count } = await client.productVersion.updateMany({
+              where: { id: versionId, stock: { gte: quantity } },
+              data: { stock: { decrement: quantity } },
+            });
+            if (count === 0) {
+              throw new BadRequestError(
+                `Insufficient stock for product ${productId}`,
+              );
+            }
+            return;
+          }
+
+          await client.productVersion.update({
             where: { id: versionId },
-            data: {
-              stock: {
-                [operation]: quantity,
-              },
-            },
+            data: { stock: { increment: quantity } },
           });
         }),
       );
