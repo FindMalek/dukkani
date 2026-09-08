@@ -17,7 +17,6 @@ import { QuantitySelector } from "@dukkani/ui/components/quantity-selector";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { ProductAttributes } from "@/components/app/product-attributes";
 import { VariantSelector } from "@/components/shared/variant-selector";
 import { useCartStore } from "@/shared/lib/cart/store";
 import { useProductVariantSelection } from "@/shared/lib/product/variant-selector.hook";
@@ -100,9 +99,6 @@ function QuickAddToCartBody({
             <h2 className="font-bold text-foreground text-xl">
               {product.name}
             </h2>
-
-            {/* Tags */}
-            <ProductAttributes tags={product.tags} />
 
             {/* Variant Selector - Only if has variants */}
             {hasVariants && (
