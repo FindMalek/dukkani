@@ -39,6 +39,13 @@ What `bootstrap` does:
 - Starts Docker services from `docker/docker-compose.yml`
 - Pushes Prisma schema (`pnpm run db:push`)
 
+Optional but recommended — link to the shared Turborepo remote cache so local builds get cache hits from CI and other contributors (and vice versa):
+
+```bash
+npx turbo login
+npx turbo link
+```
+
 ## 3) Seeded Data
 
 Seed data comes from [`packages/db/src/seed`](./packages/db/src/seed), especially:
