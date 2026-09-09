@@ -186,10 +186,11 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
     <div ref={containerRef} data-viewport-locked={isMobile ? "" : undefined}>
       <Form
         onSubmit={form.handleSubmit}
-        className="mx-auto max-w-md px-4 md:max-w-2xl"
+        className="mx-auto max-w-md px-4 md:max-w-2xl lg:max-w-5xl"
       >
         <form.AppForm>
-          <FieldGroup data-viewport-scrollable="">
+          <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.8fr)] lg:items-start lg:gap-10">
+            <FieldGroup data-viewport-scrollable="">
             <form.AppField name="customerName">
               {(field) => <field.TextInput label={t("delivery.fullName")} />}
             </form.AppField>
@@ -279,15 +280,26 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                 />
               )}
             </form.AppField>
-            <FieldSeparator />
-            <OrderSummary
-              items={enrichedData ?? []}
-              shippingCost={store.shippingCost}
-              storeCurrency={store.currency}
-              loading={cartQueryLoading || !enrichedData}
-            />
-          </FieldGroup>
-          <div className="fixed inset-x-0 bottom-0 z-10 border-t bg-background px-4 py-3">
+            </FieldGroup>
+            <aside className="hidden rounded-2xl border bg-card p-6 lg:sticky lg:top-20 lg:block">
+              <OrderSummary
+                items={enrichedData ?? []}
+                shippingCost={store.shippingCost}
+                storeCurrency={store.currency}
+                loading={cartQueryLoading || !enrichedData}
+              />
+            </aside>
+            <div className="lg:hidden">
+              <FieldSeparator />
+              <OrderSummary
+                items={enrichedData ?? []}
+                shippingCost={store.shippingCost}
+                storeCurrency={store.currency}
+                loading={cartQueryLoading || !enrichedData}
+              />
+            </div>
+          </div>
+          <div className="fixed inset-x-0 bottom-0 z-10 border-t bg-background px-4 py-3 lg:static lg:mt-8 lg:border-t-0 lg:px-0">
             <div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
               <form.Subscribe>
                 {(formState) => (

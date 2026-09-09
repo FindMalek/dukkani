@@ -10,8 +10,8 @@ export default function CheckoutSuccessPage() {
   const t = useTranslations("storefront.store.checkout.success");
 
   return (
-    <div className="container mx-auto max-w-2xl px-4 py-16">
-      <div className="flex flex-col items-center justify-center text-center">
+    <div className="container mx-auto max-w-3xl px-4 py-16 md:py-24">
+      <div className="flex flex-col items-center justify-center rounded-2xl border bg-card px-6 py-12 text-center md:px-12 md:py-16">
         {/* Success Icon */}
         <div className="mb-6 flex size-16 items-center justify-center rounded-full bg-primary/10">
           <Icons.check className="size-8 text-primary" />
