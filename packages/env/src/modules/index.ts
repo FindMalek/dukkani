@@ -2,6 +2,7 @@ export * from "./ai";
 export * from "./auth";
 export * from "./client";
 export * from "./db";
+export * from "./kapso";
 export * from "./observability";
 export * from "./storage";
 export * from "./telegram";

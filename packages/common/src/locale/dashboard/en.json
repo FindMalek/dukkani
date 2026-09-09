@@ -84,6 +84,29 @@
       "expires": "This link expires in 10 minutes. If Telegram is not installed, you can install it from",
       "error": "An error occurred. Please try again.",
       "storeNameRequired": "Store name is required"
+    },
+    "whatsapp": {
+      "title": "WhatsApp Notifications",
+      "description": "Connect WhatsApp via Kapso to receive instant order notifications",
+      "noStores": "Create a store first to connect WhatsApp notifications",
+      "cardDescription": "Get notified on WhatsApp the moment an order comes in or its status changes",
+      "connectedBadge": "Connected",
+      "notConnectedDescription": "Enter your Kapso WhatsApp Business number details to start receiving order notifications",
+      "phoneNumberIdLabel": "WhatsApp Business Phone Number ID",
+      "phoneNumberIdPlaceholder": "e.g. 110987654321",
+      "phoneNumberIdHelp": "Found in your Kapso dashboard under the connected WhatsApp Business number",
+      "notificationNumberLabel": "Notification Number",
+      "notificationNumberPlaceholder": "e.g. +21620000000",
+      "notificationNumberHelp": "The WhatsApp number that should receive order alerts",
+      "connectedSince": "Connected since",
+      "connectButton": "Connect WhatsApp",
+      "disconnectButton": "Disconnect",
+      "sendTestMessageButton": "Send Test Message",
+      "connectSuccess": "WhatsApp notifications connected successfully",
+      "disconnectSuccess": "WhatsApp notifications disconnected",
+      "testMessageSuccess": "Test message sent",
+      "fieldsRequired": "Both fields are required",
+      "error": "An error occurred. Please try again."
     }
   },
   "onboarding": {
@@ -104,6 +127,10 @@
           "telegram": {
             "label": "Telegram Alerts",
             "description": "Fast and instant alerts via our Telegram bot"
+          },
+          "whatsapp": {
+            "label": "WhatsApp Alerts",
+            "description": "Instant order alerts via WhatsApp (powered by Kapso)"
           },
           "both": {
             "label": "Both",

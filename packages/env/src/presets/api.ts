@@ -1,5 +1,10 @@
 import { createEnv } from "@t3-oss/env-nextjs";
-import { observabilityModule, telegramModule, urlsModule } from "../modules";
+import {
+  kapsoModule,
+  observabilityModule,
+  telegramModule,
+  urlsModule,
+} from "../modules";
 import { createNextjsRuntimeEnv } from "../utils/runtime-env";
 import { dbEnv } from "./db";
 import { vercelEnv } from "./vercel";
@@ -13,6 +18,7 @@ export const apiEnv = createEnv({
   extends: [dbEnv, vercelEnv],
   server: {
     ...telegramModule.server,
+    ...kapsoModule.server,
     ...observabilityModule.server,
   },
   client: {

@@ -84,6 +84,29 @@
       "expires": "تنتهي صلاحية هذا الرابط خلال 10 دقائق. إذا لم يكن Telegram مثبتًا، يمكنك تثبيته من",
       "error": "حدث خطأ. يرجى المحاولة مرة أخرى.",
       "storeNameRequired": "اسم المتجر مطلوب"
+    },
+    "whatsapp": {
+      "title": "إشعارات WhatsApp",
+      "description": "اربط WhatsApp عبر Kapso لتلقي إشعارات فورية بالطلبات",
+      "noStores": "أنشئ متجرًا أولاً لربط إشعارات WhatsApp",
+      "cardDescription": "احصل على إشعار عبر WhatsApp فور وصول طلب أو تغيير حالته",
+      "connectedBadge": "متصل",
+      "notConnectedDescription": "أدخل تفاصيل رقم WhatsApp Business الخاص بك في Kapso لبدء تلقي إشعارات الطلبات",
+      "phoneNumberIdLabel": "معرّف رقم WhatsApp Business",
+      "phoneNumberIdPlaceholder": "مثال: 110987654321",
+      "phoneNumberIdHelp": "يوجد في لوحة تحكم Kapso ضمن رقم WhatsApp Business المتصل",
+      "notificationNumberLabel": "رقم الإشعارات",
+      "notificationNumberPlaceholder": "مثال: +21620000000",
+      "notificationNumberHelp": "رقم WhatsApp الذي يجب أن يتلقى تنبيهات الطلبات",
+      "connectedSince": "متصل منذ",
+      "connectButton": "ربط WhatsApp",
+      "disconnectButton": "فصل",
+      "sendTestMessageButton": "إرسال رسالة تجريبية",
+      "connectSuccess": "تم ربط إشعارات WhatsApp بنجاح",
+      "disconnectSuccess": "تم فصل إشعارات WhatsApp",
+      "testMessageSuccess": "تم إرسال الرسالة التجريبية",
+      "fieldsRequired": "كلا الحقلين مطلوبان",
+      "error": "حدث خطأ. يرجى المحاولة مرة أخرى."
     }
   },
   "onboarding": {
@@ -104,6 +127,10 @@
           "telegram": {
             "label": "تنبيهات Telegram",
             "description": "تنبيهات سريعة وفورية عبر بوت Telegram الخاص بنا"
+          },
+          "whatsapp": {
+            "label": "تنبيهات WhatsApp",
+            "description": "تنبيهات فورية للطلبات عبر WhatsApp (مدعوم من Kapso)"
           },
           "both": {
             "label": "كلاهما",

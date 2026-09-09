@@ -13,6 +13,9 @@ export const appQueries = {
     byId: orpc.customer.getById.queryOptions,
     governorateCounts: orpc.customer.getGovernorateCounts.queryOptions,
   },
+  kapso: {
+    status: orpc.kapso.getStatus.queryOptions,
+  },
   order: {
     all: orpc.order.getAll.queryOptions,
     byId: orpc.order.getById.queryOptions,
