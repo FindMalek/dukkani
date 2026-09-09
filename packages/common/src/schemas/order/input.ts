@@ -73,7 +73,14 @@ export const addressInputSchema = z.object({
   governorate: governorateSchema,
   delegation: z.string().min(1, "Delegation is required"),
   /** Selected municipality/sector's display name (Governorate → Delegation → Municipality). */
-  city: z.string().min(1, "City is required"),
+  // The Tunisia location combobox disambiguates same-named municipalities
+  // within one delegation as `${name}::${postalCode}` for its own selection
+  // state (two combobox options can't share one value) -- strip that suffix
+  // here so only the clean display name is ever persisted.
+  city: z
+    .string()
+    .min(1, "City is required")
+    .transform((value) => value.split("::")[0] ?? value),
   postalCode: z.string().optional(),
   latitude: z.number().optional(),
   longitude: z.number().optional(),

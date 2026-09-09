@@ -38,6 +38,13 @@ interface ComboboxFieldProps extends CommonFieldProps {
   /** Shown instead of the search list — use for a disabled "pick the parent level first" state. */
   disabledReason?: string;
   /**
+   * Allow re-selecting the current value to clear it. Off by default: a
+   * required field (e.g. a cascading location picker) shouldn't silently
+   * blank itself — and any dependent fields via `onValueChange` — just
+   * because the user re-tapped the option they already had selected.
+   */
+  clearable?: boolean;
+  /**
    * Fired after the field's own value updates — for side effects only (e.g.
    * clearing a dependent cascading field). Not needed to persist the
    * selection itself; the field already owns that.
@@ -62,6 +69,7 @@ export function ComboboxField({
   emptyMessage = "No results found.",
   disabled = false,
   disabledReason,
+  clearable = false,
   onValueChange,
 }: ComboboxFieldProps) {
   const field = useFieldContext<string | undefined>();
@@ -72,24 +80,28 @@ export function ComboboxField({
     [options, field.state.value],
   );
 
-  const filter = useCallback((value: string, search: string) => {
-    const item = options.find((option) => option.value === value);
-    if (!item) return 0;
-    const ranked = rankItem(
-      [item.label, ...(item.keywords ?? [])].join(" "),
-      search,
-    );
-    return ranked.passed ? Math.max(ranked.rank, 0.01) : 0;
-  }, [options]);
+  const filter = useCallback(
+    (value: string, search: string) => {
+      const item = options.find((option) => option.value === value);
+      if (!item) return 0;
+      const ranked = rankItem(
+        [item.label, ...(item.keywords ?? [])].join(" "),
+        search,
+      );
+      return ranked.passed ? Math.max(ranked.rank, 0.01) : 0;
+    },
+    [options],
+  );
 
   const handleSelect = useCallback(
     (value: string) => {
-      const nextValue = value === field.state.value ? undefined : value;
+      const nextValue =
+        clearable && value === field.state.value ? undefined : value;
       field.handleChange(nextValue);
       onValueChange?.(nextValue);
       setOpen(false);
     },
-    [field, onValueChange],
+    [field, onValueChange, clearable],
   );
 
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;

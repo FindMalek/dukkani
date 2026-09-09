@@ -98,6 +98,7 @@
           "selectDelegation": "اختر المعتمدية",
           "selectCity": "اختر المدينة",
           "selectDelegationFirst": "اختر الولاية أولاً",
+          "loadDelegationsError": "تعذّر تحميل المعتمديات. تحقق من اتصالك وحاول مرة أخرى.",
           "selectCityFirst": "اختر المعتمدية أولاً",
           "searchGovernorate": "ابحث عن ولاية...",
           "searchDelegation": "ابحث عن معتمدية...",

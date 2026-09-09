@@ -98,6 +98,7 @@
           "selectDelegation": "Sélectionner une délégation",
           "selectCity": "Sélectionner une ville",
           "selectDelegationFirst": "Sélectionnez d'abord un gouvernorat",
+          "loadDelegationsError": "Impossible de charger les délégations. Vérifiez votre connexion et réessayez.",
           "selectCityFirst": "Sélectionnez d'abord une délégation",
           "searchGovernorate": "Rechercher un gouvernorat...",
           "searchDelegation": "Rechercher une délégation...",

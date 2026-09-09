@@ -195,9 +195,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
   );
 
   const delegationsQuery = useTunisiaDelegations(
-    selectedGovernorate
-      ? (selectedGovernorate as GovernorateInfer)
-      : undefined,
+    selectedGovernorate ? (selectedGovernorate as GovernorateInfer) : undefined,
   );
   const delegations = useMemo(
     () => delegationsQuery.data ?? [],
@@ -226,15 +224,27 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
       })),
     [delegations, locale],
   );
-  const municipalityOptions = useMemo(
-    () =>
-      (selectedDelegation?.municipalities ?? []).map((m) => ({
-        value: m.nameFr,
-        label: locale === "ar" ? m.nameAr : m.nameFr,
-        keywords: [m.nameFr, m.nameAr, m.postalCode],
-      })),
-    [selectedDelegation, locale],
-  );
+  // A delegation can have two municipalities sharing the same French name
+  // but different postal codes (e.g. BEN_AROUS -> RADES has two "RADES
+  // (Cite Snit)" entries). The combobox's internal identity (its selection
+  // state, and the React key) is keyed by `value`, so two options can't
+  // share one -- disambiguate with the postal code only for the names that
+  // actually collide, so the common case still gets a clean value.
+  const municipalityOptions = useMemo(() => {
+    const municipalities = selectedDelegation?.municipalities ?? [];
+    const nameCounts = new Map<string, number>();
+    for (const m of municipalities) {
+      nameCounts.set(m.nameFr, (nameCounts.get(m.nameFr) ?? 0) + 1);
+    }
+    return municipalities.map((m) => ({
+      value:
+        (nameCounts.get(m.nameFr) ?? 0) > 1
+          ? `${m.nameFr}::${m.postalCode}`
+          : m.nameFr,
+      label: locale === "ar" ? m.nameAr : m.nameFr,
+      keywords: [m.nameFr, m.nameAr, m.postalCode],
+    }));
+  }, [selectedDelegation, locale]);
 
   const clearDelegationAndCity = useCallback(() => {
     form.setFieldValue("address.delegation", "");
@@ -243,6 +253,32 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
   const clearCity = useCallback(() => {
     form.setFieldValue("address.city", "");
   }, [form]);
+  const handleCitySelect = useCallback(
+    (value: string | undefined) => {
+      if (!value) return;
+      // `value` may be disambiguated as `${nameFr}::${postalCode}` when this
+      // delegation has duplicate municipality names (see municipalityOptions)
+      // -- match on postal code when present, otherwise on the plain name.
+      const [namePart, postalCodePart] = value.split("::");
+      const municipality = selectedDelegation?.municipalities.find((m) =>
+        postalCodePart
+          ? m.nameFr === namePart && m.postalCode === postalCodePart
+          : m.nameFr === namePart,
+      );
+      if (!municipality) return;
+      // Don't touch address.city here: the combobox's own field value must
+      // stay exactly what municipalityOptions produced (composite value
+      // included, when disambiguated) or `selected` in ComboboxField stops
+      // matching and the trigger forgets the selection. The composite
+      // suffix is stripped downstream in addressInputSchema instead.
+      //
+      // Overwrite whatever's there (IP/GPS autofill or manual entry) with
+      // the postal code that actually matches the location the customer
+      // just picked -- that's more authoritative than a guess.
+      form.setFieldValue("address.postalCode", municipality.postalCode);
+    },
+    [form, selectedDelegation],
+  );
 
   const handleDetectLocation = useCallback(async () => {
     await autoLocation.detect();
@@ -306,9 +342,15 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                         emptyMessage={t("delivery.noLocationResults")}
                         options={delegationOptions}
                         disabled={
-                          !selectedGovernorate || delegationsQuery.isLoading
+                          !selectedGovernorate ||
+                          delegationsQuery.isLoading ||
+                          delegationsQuery.isError
                         }
-                        disabledReason={t("delivery.selectDelegationFirst")}
+                        disabledReason={
+                          delegationsQuery.isError
+                            ? t("delivery.loadDelegationsError")
+                            : t("delivery.selectDelegationFirst")
+                        }
                         onValueChange={clearCity}
                       />
                     )}
@@ -325,6 +367,7 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                         options={municipalityOptions}
                         disabled={!selectedDelegationName}
                         disabledReason={t("delivery.selectCityFirst")}
+                        onValueChange={handleCitySelect}
                       />
                     )}
                   </form.AppField>

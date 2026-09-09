@@ -98,6 +98,7 @@
           "selectCity": "Select city",
           "selectDelegationFirst": "Select a governorate first",
           "selectCityFirst": "Select a delegation first",
+          "loadDelegationsError": "Couldn't load delegations. Check your connection and try again.",
           "searchGovernorate": "Search governorates...",
           "searchDelegation": "Search delegations...",
           "searchCity": "Search cities...",
