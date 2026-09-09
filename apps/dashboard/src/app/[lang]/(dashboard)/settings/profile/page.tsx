@@ -9,6 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@dukkani/ui/components/card";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldGroup,
+  FieldTitle,
+} from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
 import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Link from "next/link";
@@ -26,7 +33,13 @@ function PersonalInfoCardSkeleton() {
         <Skeleton className="mt-2 h-4 w-56" />
       </CardHeader>
       <CardContent className="space-y-6">
-        <Skeleton className="h-16 w-16 rounded-full" />
+        <div className="flex items-center gap-4">
+          <Skeleton className="size-20 rounded-full" />
+          <div className="flex flex-col gap-2">
+            <Skeleton className="h-4 w-32" />
+            <Skeleton className="h-4 w-40" />
+          </div>
+        </div>
         <Skeleton className="h-10 w-full" />
         <Skeleton className="h-10 w-full" />
         <Skeleton className="h-9 w-32" />
@@ -47,7 +60,7 @@ export default function ProfileSettingsPage() {
   } = useProfileController();
 
   return (
-    <div className="container mx-auto max-w-7xl p-4 md:p-6">
+    <div className="mx-auto w-full p-4 md:p-6 xl:max-w-2xl">
       <div className="mb-6">
         <div className="mb-4 flex items-center gap-4">
           <Link href={RoutePaths.SETTINGS.INDEX.url}>
@@ -64,7 +77,7 @@ export default function ProfileSettingsPage() {
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="flex flex-col gap-6">
         {isUserPending || !user ? (
           <PersonalInfoCardSkeleton />
         ) : (
@@ -79,38 +92,48 @@ export default function ProfileSettingsPage() {
           hasPasswordAccount={hasPasswordAccount}
           oauthProviderId={oauthProviderId}
         />
-      </div>
 
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>{t("preferences.title")}</CardTitle>
-          <CardDescription>{t("preferences.description")}</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <label className="font-medium text-sm">
-                {t("preferences.emailNotifications")}
-              </label>
-              <p className="text-muted-foreground text-sm">
-                {t("preferences.emailNotificationsDescription")}
-              </p>
-            </div>
-            <Badge variant="secondary">{t("preferences.comingSoon")}</Badge>
-          </div>
-          <div className="flex items-center justify-between">
-            <div>
-              <label className="font-medium text-sm">
-                {t("preferences.smsNotifications")}
-              </label>
-              <p className="text-muted-foreground text-sm">
-                {t("preferences.smsNotificationsDescription")}
-              </p>
-            </div>
-            <Badge variant="secondary">{t("preferences.comingSoon")}</Badge>
-          </div>
-        </CardContent>
-      </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>{t("preferences.title")}</CardTitle>
+            <CardDescription>{t("preferences.description")}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <FieldGroup className="gap-3">
+              <Field
+                orientation="horizontal"
+                className="rounded-lg border p-4"
+              >
+                <FieldContent>
+                  <FieldTitle>
+                    {t("preferences.emailNotifications")}
+                  </FieldTitle>
+                  <FieldDescription>
+                    {t("preferences.emailNotificationsDescription")}
+                  </FieldDescription>
+                </FieldContent>
+                <Badge variant="secondary">
+                  {t("preferences.comingSoon")}
+                </Badge>
+              </Field>
+              <Field
+                orientation="horizontal"
+                className="rounded-lg border p-4"
+              >
+                <FieldContent>
+                  <FieldTitle>{t("preferences.smsNotifications")}</FieldTitle>
+                  <FieldDescription>
+                    {t("preferences.smsNotificationsDescription")}
+                  </FieldDescription>
+                </FieldContent>
+                <Badge variant="secondary">
+                  {t("preferences.comingSoon")}
+                </Badge>
+              </Field>
+            </FieldGroup>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

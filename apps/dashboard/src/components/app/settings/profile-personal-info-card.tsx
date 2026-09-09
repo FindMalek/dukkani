@@ -17,6 +17,7 @@ import {
 } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
 import { Input } from "@dukkani/ui/components/input";
+import { Separator } from "@dukkani/ui/components/separator";
 import { useTranslations } from "next-intl";
 import { ProfileAvatarUpload } from "@/components/app/settings/profile-avatar-upload";
 import {
@@ -54,6 +55,8 @@ export function ProfilePersonalInfoCard({
           user={user}
           uploadAvatarMutation={uploadAvatarMutation}
         />
+
+        <Separator />
 
         <Form onSubmit={form.handleSubmit}>
           <form.AppForm>
