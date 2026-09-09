@@ -716,6 +716,13 @@ class OrderServiceBase {
     });
 
     // Fire-and-forget: a notification failure must not fail the status update.
+    // Skip when there's no actual transition (e.g. re-saving the same status,
+    // or two concurrent requests racing to the same value) -- otherwise the
+    // merchant gets a spurious "Order Updated: X -> X" WhatsApp message.
+    if (order.status === status) {
+      return OrderEntity.getRo(updatedOrder);
+    }
+
     NotificationService.sendOrderStatusChangeNotification(
       order.storeId,
       { id: orderId },
