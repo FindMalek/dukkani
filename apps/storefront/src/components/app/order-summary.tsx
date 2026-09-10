@@ -33,7 +33,7 @@ export function OrderSummary({
     shippingCost === 0 ? t("free") : `${formatPrice(shippingCost)}`;
 
   return (
-    <div className="py-2">
+    <div className="py-2 lg:py-0">
       <h2 className="mb-3 font-semibold text-base">{t("title")}</h2>
       <div className="space-y-0">
         {loading ? (

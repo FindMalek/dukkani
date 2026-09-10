@@ -44,7 +44,7 @@ export function CartDrawer({
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="max-h-[85vh]">
+      <DrawerContent className="max-h-[85vh] md:mx-auto md:max-w-2xl">
         <DrawerHeader className="sr-only">
           <DrawerTitle>{t("title")}</DrawerTitle>
         </DrawerHeader>
