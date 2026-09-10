@@ -1,0 +1,1477 @@
+{
+  "code": "KASSERINE",
+  "delegations": [
+    {
+      "id": "kasserine--el-ayoun",
+      "nameFr": "EL AYOUN",
+      "nameAr": "العيون",
+      "searchKey": "el ayoun العيون",
+      "municipalities": [
+        {
+          "id": "kasserine--el-ayoun--el-ayoun-el-ayoun--1216",
+          "nameFr": "EL AYOUN (El Ayoun)",
+          "nameAr": "العيون (العيون)",
+          "postalCode": "1216",
+          "latitude": 35.355,
+          "longitude": 8.6714,
+          "searchKey": "el ayoun (el ayoun) العيون (العيون) 1216"
+        },
+        {
+          "id": "kasserine--el-ayoun--el-ayoun-el-grine--1234",
+          "nameFr": "EL AYOUN (El Grine)",
+          "nameAr": "العيون (الڨرين)",
+          "postalCode": "1234",
+          "latitude": 35.355,
+          "longitude": 8.6714,
+          "searchKey": "el ayoun (el grine) العيون (الڨرين) 1234"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--ezzouhour-kasserine",
+      "nameFr": "EZZOUHOUR (KASSERINE)",
+      "nameAr": "الزهور",
+      "searchKey": "ezzouhour (kasserine) الزهور",
+      "municipalities": [
+        {
+          "id": "kasserine--ezzouhour-kasserine--ezzouhour-kasserine--1279",
+          "nameFr": "EZZOUHOUR (KASSERINE)",
+          "nameAr": "الزهور (القصرين)",
+          "postalCode": "1279",
+          "latitude": 35.1603,
+          "longitude": 8.815,
+          "searchKey": "ezzouhour (kasserine) الزهور (القصرين) 1279"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--feriana",
+      "nameFr": "FERIANA",
+      "nameAr": "فريانة",
+      "searchKey": "feriana فريانة",
+      "municipalities": [
+        {
+          "id": "kasserine--feriana--feriana-bou-chebka--1213",
+          "nameFr": "FERIANA (Bou Chebka)",
+          "nameAr": "فريانة (بوشبكة)",
+          "postalCode": "1213",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (bou chebka) فريانة (بوشبكة) 1213"
+        },
+        {
+          "id": "kasserine--feriana--feriana-cekhirate--1223",
+          "nameFr": "FERIANA (Cekhirate)",
+          "nameAr": "فريانة (الصخيرات)",
+          "postalCode": "1223",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (cekhirate) فريانة (الصخيرات) 1223"
+        },
+        {
+          "id": "kasserine--feriana--feriana-cite-cheab--1240",
+          "nameFr": "FERIANA (Cite Cheab)",
+          "nameAr": "فريانة (حي الشعاب)",
+          "postalCode": "1240",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (cite cheab) فريانة (حي الشعاب) 1240"
+        },
+        {
+          "id": "kasserine--feriana--feriana-cite-du-battoire--1240",
+          "nameFr": "FERIANA (Cite Du Battoire)",
+          "nameAr": "فريانة (حي الباطوار)",
+          "postalCode": "1240",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (cite du battoire) فريانة (حي الباطوار) 1240"
+        },
+        {
+          "id": "kasserine--feriana--feriana-cite-el-izdihar--1240",
+          "nameFr": "FERIANA (Cite El Izdihar)",
+          "nameAr": "فريانة (حي الإزدهار)",
+          "postalCode": "1240",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (cite el izdihar) فريانة (حي الإزدهار) 1240"
+        },
+        {
+          "id": "kasserine--feriana--feriana-cite-hached--1240",
+          "nameFr": "FERIANA (Cite Hached)",
+          "nameAr": "فريانة (حي حشاد)",
+          "postalCode": "1240",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (cite hached) فريانة (حي حشاد) 1240"
+        },
+        {
+          "id": "kasserine--feriana--feriana-cite-hardoub--1240",
+          "nameFr": "FERIANA (Cite Hardoub)",
+          "nameAr": "فريانة (حي حردوب)",
+          "postalCode": "1240",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (cite hardoub) فريانة (حي حردوب) 1240"
+        },
+        {
+          "id": "kasserine--feriana--feriana-cite-pierre-noire--1240",
+          "nameFr": "FERIANA (Cite Pierre Noire)",
+          "nameAr": "فريانة (حي الحجر الأسود)",
+          "postalCode": "1240",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (cite pierre noire) فريانة (حي الحجر الأسود) 1240"
+        },
+        {
+          "id": "kasserine--feriana--feriana-feriana--1240",
+          "nameFr": "FERIANA (Feriana)",
+          "nameAr": "فريانة (فريانة)",
+          "postalCode": "1240",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (feriana) فريانة (فريانة) 1240"
+        },
+        {
+          "id": "kasserine--feriana--feriana-garaat-ennaam--1243",
+          "nameFr": "FERIANA (Garaat Ennaam)",
+          "nameAr": "فريانة (ڨرعة النعام)",
+          "postalCode": "1243",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (garaat ennaam) فريانة (ڨرعة النعام) 1243"
+        },
+        {
+          "id": "kasserine--feriana--feriana-lahouache--1242",
+          "nameFr": "FERIANA (Lahouache)",
+          "nameAr": "فريانة (الأحواش)",
+          "postalCode": "1242",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (lahouache) فريانة (الأحواش) 1242"
+        },
+        {
+          "id": "kasserine--feriana--feriana-oum-ali--1240",
+          "nameFr": "FERIANA (Oum Ali)",
+          "nameAr": "فريانة (أم علي)",
+          "postalCode": "1240",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (oum ali) فريانة (أم علي) 1240"
+        },
+        {
+          "id": "kasserine--feriana--feriana-thelepte--1215",
+          "nameFr": "FERIANA (Thelepte)",
+          "nameAr": "فريانة (تلابت)",
+          "postalCode": "1215",
+          "latitude": 34.9469,
+          "longitude": 8.5867,
+          "searchKey": "feriana (thelepte) فريانة (تلابت) 1215"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--foussana",
+      "nameFr": "FOUSSANA",
+      "nameAr": "فوسانة",
+      "searchKey": "foussana فوسانة",
+      "municipalities": [
+        {
+          "id": "kasserine--foussana--foussana-ain-janan--1220",
+          "nameFr": "FOUSSANA (Ain Janan)",
+          "nameAr": "فوسانة (عين جنان)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (ain janan) فوسانة (عين جنان) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-bou-deryes--1232",
+          "nameFr": "FOUSSANA (Bou Deryes)",
+          "nameAr": "فوسانة (بو دريس)",
+          "postalCode": "1232",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (bou deryes) فوسانة (بو دريس) 1232"
+        },
+        {
+          "id": "kasserine--foussana--foussana-cite-bou-lila--1220",
+          "nameFr": "FOUSSANA (Cite Bou Lila)",
+          "nameAr": "فوسانة (حي بليلة)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (cite bou lila) فوسانة (حي بليلة) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-cite-el-bassatine--1220",
+          "nameFr": "FOUSSANA (Cite El Bassatine)",
+          "nameAr": "فوسانة (حي البساتين)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (cite el bassatine) فوسانة (حي البساتين) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-cite-el-fateh--1220",
+          "nameFr": "FOUSSANA (Cite El Fateh)",
+          "nameAr": "فوسانة (حي الفتح)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (cite el fateh) فوسانة (حي الفتح) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-cite-el-intilaka--1220",
+          "nameFr": "FOUSSANA (Cite El Intilaka)",
+          "nameAr": "فوسانة (حي الإنطلاقة)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (cite el intilaka) فوسانة (حي الإنطلاقة) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-cite-erriadh--1220",
+          "nameFr": "FOUSSANA (Cite Erriadh)",
+          "nameAr": "فوسانة (حي الرياض)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (cite erriadh) فوسانة (حي الرياض) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-el-adhira--1220",
+          "nameFr": "FOUSSANA (El Adhira)",
+          "nameAr": "فوسانة (العذيرة)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (el adhira) فوسانة (العذيرة) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-el-brika--1220",
+          "nameFr": "FOUSSANA (El Brika)",
+          "nameAr": "فوسانة (البريكة)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (el brika) فوسانة (البريكة) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-essatour--1220",
+          "nameFr": "FOUSSANA (Essatour)",
+          "nameAr": "فوسانة (الساطور)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (essatour) فوسانة (الساطور) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-foussana--1220",
+          "nameFr": "FOUSSANA (Foussana)",
+          "nameAr": "فوسانة (فوسانة)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (foussana) فوسانة (فوسانة) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-khemouda--1212",
+          "nameFr": "FOUSSANA (Khemouda)",
+          "nameAr": "فوسانة (خمّودة)",
+          "postalCode": "1212",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (khemouda) فوسانة (خمّودة) 1212"
+        },
+        {
+          "id": "kasserine--foussana--foussana-ouled-boughanem--1220",
+          "nameFr": "FOUSSANA (Ouled Boughanem)",
+          "nameAr": "فوسانة (أولاد بوغانم)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (ouled boughanem) فوسانة (أولاد بوغانم) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-ouled-mansour--1220",
+          "nameFr": "FOUSSANA (Ouled Mansour)",
+          "nameAr": "فوسانة (أولاد منصور)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (ouled mansour) فوسانة (أولاد منصور) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-ouled-zid--1220",
+          "nameFr": "FOUSSANA (Ouled Zid)",
+          "nameAr": "فوسانة (أولاد زيد)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (ouled zid) فوسانة (أولاد زيد) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-oum-lahouadh--1220",
+          "nameFr": "FOUSSANA (Oum Lahouadh)",
+          "nameAr": "فوسانة (أم الحواض)",
+          "postalCode": "1220",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (oum lahouadh) فوسانة (أم الحواض) 1220"
+        },
+        {
+          "id": "kasserine--foussana--foussana-sahraoui--1222",
+          "nameFr": "FOUSSANA (Sahraoui)",
+          "nameAr": "فوسانة (الصحراوي)",
+          "postalCode": "1222",
+          "latitude": 35.2025,
+          "longitude": 8.7969,
+          "searchKey": "foussana (sahraoui) فوسانة (الصحراوي) 1222"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--haidra",
+      "nameFr": "HAIDRA",
+      "nameAr": "حيدرة",
+      "searchKey": "haidra حيدرة",
+      "municipalities": [
+        {
+          "id": "kasserine--haidra--haidra-ain-eddefla--1285",
+          "nameFr": "HAIDRA (Ain Eddefla)",
+          "nameAr": "حيدرة (عين الدفلى)",
+          "postalCode": "1285",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (ain eddefla) حيدرة (عين الدفلى) 1285"
+        },
+        {
+          "id": "kasserine--haidra--haidra-cite-el-bassatine--1221",
+          "nameFr": "HAIDRA (Cite El Bassatine)",
+          "nameAr": "حيدرة (حي البساتين)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (cite el bassatine) حيدرة (حي البساتين) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-cite-el-fateh--1221",
+          "nameFr": "HAIDRA (Cite El Fateh)",
+          "nameAr": "حيدرة (حي الفتح)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (cite el fateh) حيدرة (حي الفتح) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-cite-el-intilaka--1221",
+          "nameFr": "HAIDRA (Cite El Intilaka)",
+          "nameAr": "حيدرة (حي الإنطلاقة)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (cite el intilaka) حيدرة (حي الإنطلاقة) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-cite-ennasr--1221",
+          "nameFr": "HAIDRA (Cite Ennasr)",
+          "nameAr": "حيدرة (حي النصر)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (cite ennasr) حيدرة (حي النصر) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-cite-ettadhamen--1221",
+          "nameFr": "HAIDRA (Cite Ettadhamen)",
+          "nameAr": "حيدرة (حي التضامن)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (cite ettadhamen) حيدرة (حي التضامن) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-cite-ibn-charef--1221",
+          "nameFr": "HAIDRA (Cite Ibn Charef)",
+          "nameAr": "حيدرة (حي إبن شرف)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (cite ibn charef) حيدرة (حي إبن شرف) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-cite-ouled-ounallah--1221",
+          "nameFr": "HAIDRA (Cite Ouled Ounallah)",
+          "nameAr": "حيدرة (حي أولاد عون الله)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (cite ouled ounallah) حيدرة (حي أولاد عون الله) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-el-ajred--1225",
+          "nameFr": "HAIDRA (El Ajred)",
+          "nameAr": "حيدرة (العجرد)",
+          "postalCode": "1225",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (el ajred) حيدرة (العجرد) 1225"
+        },
+        {
+          "id": "kasserine--haidra--haidra-el-mrira--1221",
+          "nameFr": "HAIDRA (El Mrira)",
+          "nameAr": "حيدرة (المريرة)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (el mrira) حيدرة (المريرة) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-errmila--1221",
+          "nameFr": "HAIDRA (Errmila)",
+          "nameAr": "حيدرة (الرميلة)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (errmila) حيدرة (الرميلة) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-essri--1221",
+          "nameFr": "HAIDRA (Essri)",
+          "nameAr": "حيدرة (السري)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (essri) حيدرة (السري) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-gargara--1221",
+          "nameFr": "HAIDRA (Gargara)",
+          "nameAr": "حيدرة (قرارة)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (gargara) حيدرة (قرارة) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-haidra--1221",
+          "nameFr": "HAIDRA (Haidra)",
+          "nameAr": "حيدرة (حيدرة)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (haidra) حيدرة (حيدرة) 1221"
+        },
+        {
+          "id": "kasserine--haidra--haidra-tebaga--1221",
+          "nameFr": "HAIDRA (Tebaga)",
+          "nameAr": "حيدرة (الطباقة)",
+          "postalCode": "1221",
+          "latitude": 35.5653,
+          "longitude": 8.4853,
+          "searchKey": "haidra (tebaga) حيدرة (الطباقة) 1221"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--hassi-el-frid",
+      "nameFr": "HASSI EL FRID",
+      "nameAr": "حاسي الفريد",
+      "searchKey": "hassi el frid حاسي الفريد",
+      "municipalities": [
+        {
+          "id": "kasserine--hassi-el-frid--hassi-el-frid-el-kamour--1245",
+          "nameFr": "HASSI EL FRID (El Kamour)",
+          "nameAr": "حاسي الفريد (الكمور)",
+          "postalCode": "1245",
+          "latitude": 34.8228,
+          "longitude": 8.9386,
+          "searchKey": "hassi el frid (el kamour) حاسي الفريد (الكمور) 1245"
+        },
+        {
+          "id": "kasserine--hassi-el-frid--hassi-el-frid-hassi-el-frid--1241",
+          "nameFr": "HASSI EL FRID (Hassi El Frid)",
+          "nameAr": "حاسي الفريد (حاسي الفريد)",
+          "postalCode": "1241",
+          "latitude": 34.8228,
+          "longitude": 8.9386,
+          "searchKey": "hassi el frid (hassi el frid) حاسي الفريد (حاسي الفريد) 1241"
+        },
+        {
+          "id": "kasserine--hassi-el-frid--hassi-el-frid-khanguet-el-jazia--1247",
+          "nameFr": "HASSI EL FRID (Khanguet El Jazia)",
+          "nameAr": "حاسي الفريد (خنڨة الجازية)",
+          "postalCode": "1247",
+          "latitude": 34.8228,
+          "longitude": 8.9386,
+          "searchKey": "hassi el frid (khanguet el jazia) حاسي الفريد (خنڨة الجازية) 1247"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--jediliane",
+      "nameFr": "JEDILIANE",
+      "nameAr": "جدليان",
+      "searchKey": "jediliane جدليان",
+      "municipalities": [
+        {
+          "id": "kasserine--jediliane--jediliane-ain-el-hmadna--1281",
+          "nameFr": "JEDILIANE (Ain El Hmadna)",
+          "nameAr": "جدليان (عين الحمادنة)",
+          "postalCode": "1281",
+          "latitude": 35.7081,
+          "longitude": 9.2097,
+          "searchKey": "jediliane (ain el hmadna) جدليان (عين الحمادنة) 1281"
+        },
+        {
+          "id": "kasserine--jediliane--jediliane-ain-oum-jdour--1280",
+          "nameFr": "JEDILIANE (Ain Oum Jdour)",
+          "nameAr": "جدليان (عين أم جدور)",
+          "postalCode": "1280",
+          "latitude": 35.7081,
+          "longitude": 9.2097,
+          "searchKey": "jediliane (ain oum jdour) جدليان (عين أم جدور) 1280"
+        },
+        {
+          "id": "kasserine--jediliane--jediliane-cite-7-novembre--1280",
+          "nameFr": "JEDILIANE (Cite 7 Novembre)",
+          "nameAr": "جدليان (حي 7 نوفمبر)",
+          "postalCode": "1280",
+          "latitude": 35.7081,
+          "longitude": 9.2097,
+          "searchKey": "jediliane (cite 7 novembre) جدليان (حي 7 نوفمبر) 1280"
+        },
+        {
+          "id": "kasserine--jediliane--jediliane-cite-el-intilaka--1280",
+          "nameFr": "JEDILIANE (Cite El Intilaka)",
+          "nameAr": "جدليان (حي الإنطلاقة)",
+          "postalCode": "1280",
+          "latitude": 35.7081,
+          "longitude": 9.2097,
+          "searchKey": "jediliane (cite el intilaka) جدليان (حي الإنطلاقة) 1280"
+        },
+        {
+          "id": "kasserine--jediliane--jediliane-cite-ettaamir--1280",
+          "nameFr": "JEDILIANE (Cite Ettaamir)",
+          "nameAr": "جدليان (حي التعمير)",
+          "postalCode": "1280",
+          "latitude": 35.7081,
+          "longitude": 9.2097,
+          "searchKey": "jediliane (cite ettaamir) جدليان (حي التعمير) 1280"
+        },
+        {
+          "id": "kasserine--jediliane--jediliane-cite-ezzouhour--1280",
+          "nameFr": "JEDILIANE (Cite Ezzouhour)",
+          "nameAr": "جدليان (حي الزهور)",
+          "postalCode": "1280",
+          "latitude": 35.7081,
+          "longitude": 9.2097,
+          "searchKey": "jediliane (cite ezzouhour) جدليان (حي الزهور) 1280"
+        },
+        {
+          "id": "kasserine--jediliane--jediliane-frej-terbah--1280",
+          "nameFr": "JEDILIANE (Frej Terbah)",
+          "nameAr": "جدليان (فرج تربح)",
+          "postalCode": "1280",
+          "latitude": 35.7081,
+          "longitude": 9.2097,
+          "searchKey": "jediliane (frej terbah) جدليان (فرج تربح) 1280"
+        },
+        {
+          "id": "kasserine--jediliane--jediliane-jediliane--1280",
+          "nameFr": "JEDILIANE (Jediliane)",
+          "nameAr": "جدليان (جدليان)",
+          "postalCode": "1280",
+          "latitude": 35.7081,
+          "longitude": 9.2097,
+          "searchKey": "jediliane (jediliane) جدليان (جدليان) 1280"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--kasserine-nord",
+      "nameFr": "KASSERINE NORD",
+      "nameAr": "القصرين الشمالية",
+      "searchKey": "kasserine nord القصرين الشمالية",
+      "municipalities": [
+        {
+          "id": "kasserine--kasserine-nord--kasserine-nord-bou-laaba--1253",
+          "nameFr": "KASSERINE NORD (Bou Laaba)",
+          "nameAr": "القصرين الشمالية (بوالعابي)",
+          "postalCode": "1253",
+          "latitude": 35.1711,
+          "longitude": 8.8325,
+          "searchKey": "kasserine nord (bou laaba) القصرين الشمالية (بوالعابي) 1253"
+        },
+        {
+          "id": "kasserine--kasserine-nord--kasserine-nord-cite-ouvriere--1237",
+          "nameFr": "KASSERINE NORD (Cite Ouvriere)",
+          "nameAr": "القصرين الشمالية (الحي العمالي)",
+          "postalCode": "1237",
+          "latitude": 35.1711,
+          "longitude": 8.8325,
+          "searchKey": "kasserine nord (cite ouvriere) القصرين الشمالية (الحي العمالي) 1237"
+        },
+        {
+          "id": "kasserine--kasserine-nord--kasserine-nord-doughra--1200",
+          "nameFr": "KASSERINE NORD (Doughra)",
+          "nameAr": "القصرين الشمالية (الدغرة)",
+          "postalCode": "1200",
+          "latitude": 35.1711,
+          "longitude": 8.8325,
+          "searchKey": "kasserine nord (doughra) القصرين الشمالية (الدغرة) 1200"
+        },
+        {
+          "id": "kasserine--kasserine-nord--kasserine-nord-kasserine-nour--1230",
+          "nameFr": "KASSERINE NORD (Kasserine Nour)",
+          "nameAr": "القصرين الشمالية (القصرين النور)",
+          "postalCode": "1230",
+          "latitude": 35.1711,
+          "longitude": 8.8325,
+          "searchKey": "kasserine nord (kasserine nour) القصرين الشمالية (القصرين النور) 1230"
+        },
+        {
+          "id": "kasserine--kasserine-nord--kasserine-nord-kasserine--1200",
+          "nameFr": "KASSERINE NORD (Kasserine)",
+          "nameAr": "القصرين الشمالية (القصرين)",
+          "postalCode": "1200",
+          "latitude": 35.1711,
+          "longitude": 8.8325,
+          "searchKey": "kasserine nord (kasserine) القصرين الشمالية (القصرين) 1200"
+        },
+        {
+          "id": "kasserine--kasserine-nord--kasserine-nord-magdoudech--1200",
+          "nameFr": "KASSERINE NORD (Magdoudech)",
+          "nameAr": "القصرين الشمالية (مقدودش)",
+          "postalCode": "1200",
+          "latitude": 35.1711,
+          "longitude": 8.8325,
+          "searchKey": "kasserine nord (magdoudech) القصرين الشمالية (مقدودش) 1200"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--kasserine-sud",
+      "nameFr": "KASSERINE SUD",
+      "nameAr": "القصرين الجنوبية",
+      "searchKey": "kasserine sud القصرين الجنوبية",
+      "municipalities": [
+        {
+          "id": "kasserine--kasserine-sud--kasserine-sud--1233",
+          "nameFr": "KASSERINE SUD",
+          "nameAr": "القصرين الجنوبية",
+          "postalCode": "1233",
+          "latitude": 35.1711,
+          "longitude": 8.8325,
+          "searchKey": "kasserine sud القصرين الجنوبية 1233"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--mejel-bel-abbes",
+      "nameFr": "MEJEL BEL ABBES",
+      "nameAr": "ماجل بلعباس",
+      "searchKey": "mejel bel abbes ماجل بلعباس",
+      "municipalities": [
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-barrouka--1226",
+          "nameFr": "MEJEL BEL ABBES (Barrouka)",
+          "nameAr": "ماجل بلعباس (بروقة)",
+          "postalCode": "1226",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (barrouka) ماجل بلعباس (بروقة) 1226"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-cite-commerciale--1214",
+          "nameFr": "MEJEL BEL ABBES (Cite Commerciale)",
+          "nameAr": "ماجل بلعباس (الحي التجاري)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (cite commerciale) ماجل بلعباس (الحي التجاري) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-cite-des-martyrs--1214",
+          "nameFr": "MEJEL BEL ABBES (Cite Des Martyrs)",
+          "nameAr": "ماجل بلعباس (حي الشهداء)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (cite des martyrs) ماجل بلعباس (حي الشهداء) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-cite-du-lycee--1214",
+          "nameFr": "MEJEL BEL ABBES (Cite Du Lycee)",
+          "nameAr": "ماجل بلعباس (حي المعهد)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (cite du lycee) ماجل بلعباس (حي المعهد) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-cite-eddachra-1--1214",
+          "nameFr": "MEJEL BEL ABBES (Cite Eddachra 1)",
+          "nameAr": "ماجل بلعباس (حي الدشرة 1)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (cite eddachra 1) ماجل بلعباس (حي الدشرة 1) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-cite-eddachra-2--1214",
+          "nameFr": "MEJEL BEL ABBES (Cite Eddachra 2)",
+          "nameAr": "ماجل بلعباس (حي الدشرة 2)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (cite eddachra 2) ماجل بلعباس (حي الدشرة 2) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-cite-el-guerayria--1214",
+          "nameFr": "MEJEL BEL ABBES (Cite El Guerayria)",
+          "nameAr": "ماجل بلعباس (حي القرايرية)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (cite el guerayria) ماجل بلعباس (حي القرايرية) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-cite-nouvelle-1--1214",
+          "nameFr": "MEJEL BEL ABBES (Cite Nouvelle 1)",
+          "nameAr": "ماجل بلعباس (الحي الجديد 1)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (cite nouvelle 1) ماجل بلعباس (الحي الجديد 1) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-cite-nouvelle-2--1214",
+          "nameFr": "MEJEL BEL ABBES (Cite Nouvelle 2)",
+          "nameAr": "ماجل بلعباس (الحي الجديد 2)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (cite nouvelle 2) ماجل بلعباس (الحي الجديد 2) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-cite-populaire--1214",
+          "nameFr": "MEJEL BEL ABBES (Cite Populaire)",
+          "nameAr": "ماجل بلعباس (الحي الشعبي)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (cite populaire) ماجل بلعباس (الحي الشعبي) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-el-fekka--1294",
+          "nameFr": "MEJEL BEL ABBES (El Fekka)",
+          "nameAr": "ماجل بلعباس (الفكة)",
+          "postalCode": "1294",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (el fekka) ماجل بلعباس (الفكة) 1294"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-garaat-ennadhour--1293",
+          "nameFr": "MEJEL BEL ABBES (Garaat Ennadhour)",
+          "nameAr": "ماجل بلعباس (ڨرعة الناظور)",
+          "postalCode": "1293",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (garaat ennadhour) ماجل بلعباس (ڨرعة الناظور) 1293"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-henchir-oum-el-khir--1214",
+          "nameFr": "MEJEL BEL ABBES (Henchir Oum El Khir)",
+          "nameAr": "ماجل بلعباس (هنشير أم الخير)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (henchir oum el khir) ماجل بلعباس (هنشير أم الخير) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-mejel-bel-abbes--1214",
+          "nameFr": "MEJEL BEL ABBES (Mejel Bel Abbes)",
+          "nameAr": "ماجل بلعباس (ماجل بلعباس)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (mejel bel abbes) ماجل بلعباس (ماجل بلعباس) 1214"
+        },
+        {
+          "id": "kasserine--mejel-bel-abbes--mejel-bel-abbes-ouled-marzoug--1214",
+          "nameFr": "MEJEL BEL ABBES (Ouled Marzoug)",
+          "nameAr": "ماجل بلعباس (أولاد مرزوق)",
+          "postalCode": "1214",
+          "latitude": 34.8633,
+          "longitude": 8.8458,
+          "searchKey": "mejel bel abbes (ouled marzoug) ماجل بلعباس (أولاد مرزوق) 1214"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--sbeitla",
+      "nameFr": "SBEITLA",
+      "nameAr": "سبيطلة",
+      "searchKey": "sbeitla سبيطلة",
+      "municipalities": [
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-des-enseignants--1250",
+          "nameFr": "SBEITLA (Cite Des Enseignants)",
+          "nameAr": "سبيطلة (حي المعلمين)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite des enseignants) سبيطلة (حي المعلمين) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-dhraa-bou-ouaj--1250",
+          "nameFr": "SBEITLA (Cite Dhraa Bou Ouaj)",
+          "nameAr": "سبيطلة (حي ذراع بوعج)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite dhraa bou ouaj) سبيطلة (حي ذراع بوعج) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-du-lycee--1250",
+          "nameFr": "SBEITLA (Cite Du Lycee)",
+          "nameAr": "سبيطلة (حي المعهد)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite du lycee) سبيطلة (حي المعهد) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-du-stade--1250",
+          "nameFr": "SBEITLA (Cite Du Stade)",
+          "nameAr": "سبيطلة (حي الملعب)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite du stade) سبيطلة (حي الملعب) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-el-fateh--1250",
+          "nameFr": "SBEITLA (Cite El Fateh)",
+          "nameAr": "سبيطلة (حي الفتح)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite el fateh) سبيطلة (حي الفتح) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-el-ghabette--1250",
+          "nameFr": "SBEITLA (Cite El Ghabette)",
+          "nameAr": "سبيطلة (حي الغابات)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite el ghabette) سبيطلة (حي الغابات) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-el-khadhra--1250",
+          "nameFr": "SBEITLA (Cite El Khadhra)",
+          "nameAr": "سبيطلة (حي الخضراء)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite el khadhra) سبيطلة (حي الخضراء) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-el-oulja--1250",
+          "nameFr": "SBEITLA (Cite El Oulja)",
+          "nameAr": "سبيطلة (حي العرجة)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite el oulja) سبيطلة (حي العرجة) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-errahba--1250",
+          "nameFr": "SBEITLA (Cite Errahba)",
+          "nameAr": "سبيطلة (حي الرحبة)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite errahba) سبيطلة (حي الرحبة) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-essourour-echergui--1250",
+          "nameFr": "SBEITLA (Cite Essourour Echergui)",
+          "nameAr": "سبيطلة (حي السرور الشرقي)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite essourour echergui) سبيطلة (حي السرور الشرقي) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-essourour-el-gharbi--1250",
+          "nameFr": "SBEITLA (Cite Essourour El Gharbi)",
+          "nameAr": "سبيطلة (حي السرور الغربي)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite essourour el gharbi) سبيطلة (حي السرور الغربي) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-essourour--1263",
+          "nameFr": "SBEITLA (Cite Essourour)",
+          "nameAr": "سبيطلة (حي السرور)",
+          "postalCode": "1263",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite essourour) سبيطلة (حي السرور) 1263"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-ezzayatine--1250",
+          "nameFr": "SBEITLA (Cite Ezzayatine)",
+          "nameAr": "سبيطلة (حي الزياتين)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite ezzayatine) سبيطلة (حي الزياتين) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-hopital--1250",
+          "nameFr": "SBEITLA (Cite Hopital)",
+          "nameAr": "سبيطلة (حي المستشفى)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite hopital) سبيطلة (حي المستشفى) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-huillerie--1250",
+          "nameFr": "SBEITLA (Cite Huillerie)",
+          "nameAr": "سبيطلة (حي المعصرة)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite huillerie) سبيطلة (حي المعصرة) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-industrielle--1250",
+          "nameFr": "SBEITLA (Cite Industrielle)",
+          "nameAr": "سبيطلة (الحي الصناعي)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite industrielle) سبيطلة (الحي الصناعي) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-militaire-1--1250",
+          "nameFr": "SBEITLA (Cite Militaire 1)",
+          "nameAr": "سبيطلة (الحي العسكري 1)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite militaire 1) سبيطلة (الحي العسكري 1) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-militaire-2--1250",
+          "nameFr": "SBEITLA (Cite Militaire 2)",
+          "nameAr": "سبيطلة (الحي العسكري 2)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite militaire 2) سبيطلة (الحي العسكري 2) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-cite-militaire-3--1250",
+          "nameFr": "SBEITLA (Cite Militaire 3)",
+          "nameAr": "سبيطلة (الحي العسكري 3)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (cite militaire 3) سبيطلة (الحي العسكري 3) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-echraya--1251",
+          "nameFr": "SBEITLA (Echraya)",
+          "nameAr": "سبيطلة (الشرايع)",
+          "postalCode": "1251",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (echraya) سبيطلة (الشرايع) 1251"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-el-garaa--1250",
+          "nameFr": "SBEITLA (El Garaa)",
+          "nameAr": "سبيطلة (الڨرعة)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (el garaa) سبيطلة (الڨرعة) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-el-gharadek--1250",
+          "nameFr": "SBEITLA (El Gharadek)",
+          "nameAr": "سبيطلة (الغرادق)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (el gharadek) سبيطلة (الغرادق) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-el-gounna--1250",
+          "nameFr": "SBEITLA (El Gounna)",
+          "nameAr": "سبيطلة (القنة)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (el gounna) سبيطلة (القنة) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-el-hammar--1250",
+          "nameFr": "SBEITLA (El Hammar)",
+          "nameAr": "سبيطلة (الحمار)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (el hammar) سبيطلة (الحمار) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-errahayet--1252",
+          "nameFr": "SBEITLA (Errahayet)",
+          "nameAr": "سبيطلة (الرحيات)",
+          "postalCode": "1252",
+          "latitude": 35.25,
+          "longitude": 9.1,
+          "searchKey": "sbeitla (errahayet) سبيطلة (الرحيات) 1252"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-henchir-el-assal--1256",
+          "nameFr": "SBEITLA (Henchir El Assal)",
+          "nameAr": "سبيطلة (هنشير العسل)",
+          "postalCode": "1256",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (henchir el assal) سبيطلة (هنشير العسل) 1256"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-mghila--1250",
+          "nameFr": "SBEITLA (Mghila)",
+          "nameAr": "سبيطلة (مغيلة)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (mghila) سبيطلة (مغيلة) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-oued-miou--1255",
+          "nameFr": "SBEITLA (Oued Miou)",
+          "nameAr": "سبيطلة (وادي ميو)",
+          "postalCode": "1255",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (oued miou) سبيطلة (وادي ميو) 1255"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-sbeitla--1250",
+          "nameFr": "SBEITLA (Sbeitla)",
+          "nameAr": "سبيطلة (سبيطلة)",
+          "postalCode": "1250",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (sbeitla) سبيطلة (سبيطلة) 1250"
+        },
+        {
+          "id": "kasserine--sbeitla--sbeitla-zaouiet-ben-ammar--1254",
+          "nameFr": "SBEITLA (Zaouiet Ben Ammar)",
+          "nameAr": "سبيطلة (زاوية بن عمار)",
+          "postalCode": "1254",
+          "latitude": 35.2372,
+          "longitude": 9.1256,
+          "searchKey": "sbeitla (zaouiet ben ammar) سبيطلة (زاوية بن عمار) 1254"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--sbiba",
+      "nameFr": "SBIBA",
+      "nameAr": "سبيبة",
+      "searchKey": "sbiba سبيبة",
+      "municipalities": [
+        {
+          "id": "kasserine--sbiba--sbiba-ain-khemaissia--1271",
+          "nameFr": "SBIBA (Ain Khemaissia)",
+          "nameAr": "سبيبة (عين خمايسية)",
+          "postalCode": "1271",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (ain khemaissia) سبيبة (عين خمايسية) 1271"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-air-nouvelle--1270",
+          "nameFr": "SBIBA (Cite Air Nouvelle)",
+          "nameAr": "سبيبة (حي الهواء الجديد)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite air nouvelle) سبيبة (حي الهواء الجديد) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-des-rouines-romaines--1270",
+          "nameFr": "SBIBA (Cite Des Rouines Romaines)",
+          "nameAr": "سبيبة (حي الآثار الرومانية)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite des rouines romaines) سبيبة (حي الآثار الرومانية) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-du-lycee--1270",
+          "nameFr": "SBIBA (Cite Du Lycee)",
+          "nameAr": "سبيبة (حي المعهد)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite du lycee) سبيبة (حي المعهد) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-eddamous--1270",
+          "nameFr": "SBIBA (Cite Eddamous)",
+          "nameAr": "سبيبة (حي الداموس)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite eddamous) سبيبة (حي الداموس) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-el-fateh--1270",
+          "nameFr": "SBIBA (Cite El Fateh)",
+          "nameAr": "سبيبة (حي الفتح)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite el fateh) سبيبة (حي الفتح) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-el-khadhra-1--1270",
+          "nameFr": "SBIBA (Cite El Khadhra 1)",
+          "nameAr": "سبيبة (حي الخضراء 1)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite el khadhra 1) سبيبة (حي الخضراء 1) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-el-khadhra-2--1270",
+          "nameFr": "SBIBA (Cite El Khadhra 2)",
+          "nameAr": "سبيبة (حي الخضراء 2)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite el khadhra 2) سبيبة (حي الخضراء 2) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-ennakhla--1270",
+          "nameFr": "SBIBA (Cite Ennakhla)",
+          "nameAr": "سبيبة (حي النخلة)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite ennakhla) سبيبة (حي النخلة) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-erriadh--1270",
+          "nameFr": "SBIBA (Cite Erriadh)",
+          "nameAr": "سبيبة (حي الرياض)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite erriadh) سبيبة (حي الرياض) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-essalama--1270",
+          "nameFr": "SBIBA (Cite Essalama)",
+          "nameAr": "سبيبة (حي السلامة)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite essalama) سبيبة (حي السلامة) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-cite-ezzouhour--1270",
+          "nameFr": "SBIBA (Cite Ezzouhour)",
+          "nameAr": "سبيبة (حي الزهور)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (cite ezzouhour) سبيبة (حي الزهور) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-dhraa--1270",
+          "nameFr": "SBIBA (Dhraa)",
+          "nameAr": "سبيبة (الذراع)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (dhraa) سبيبة (الذراع) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-el-hasnaoui--1270",
+          "nameFr": "SBIBA (El Hasnaoui)",
+          "nameAr": "سبيبة (الحسناوي)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (el hasnaoui) سبيبة (الحسناوي) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-kounbitra--1270",
+          "nameFr": "SBIBA (Kounbitra)",
+          "nameAr": "سبيبة (كونبيترة)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (kounbitra) سبيبة (كونبيترة) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-ouljet-aguil--1270",
+          "nameFr": "SBIBA (Ouljet Aguil)",
+          "nameAr": "سبيبة (علجة عقيل)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (ouljet aguil) سبيبة (علجة عقيل) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-sbiba--1270",
+          "nameFr": "SBIBA (Sbiba)",
+          "nameAr": "سبيبة (سبيبة)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (sbiba) سبيبة (سبيبة) 1270"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-sidi-brahim-ezzaher--1273",
+          "nameFr": "SBIBA (Sidi Brahim Ezzaher)",
+          "nameAr": "سبيبة (سيدي إبراهيم الزهار)",
+          "postalCode": "1273",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (sidi brahim ezzaher) سبيبة (سيدي إبراهيم الزهار) 1273"
+        },
+        {
+          "id": "kasserine--sbiba--sbiba-themed--1270",
+          "nameFr": "SBIBA (Themed)",
+          "nameAr": "سبيبة (الثمد)",
+          "postalCode": "1270",
+          "latitude": 35.5444,
+          "longitude": 9.0708,
+          "searchKey": "sbiba (themed) سبيبة (الثمد) 1270"
+        }
+      ]
+    },
+    {
+      "id": "kasserine--thala",
+      "nameFr": "THALA",
+      "nameAr": "تالة",
+      "searchKey": "thala تالة",
+      "municipalities": [
+        {
+          "id": "kasserine--thala--thala-bou-lahnech--1211",
+          "nameFr": "THALA (Bou Lahnech)",
+          "nameAr": "تالة (بو لحناش)",
+          "postalCode": "1211",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (bou lahnech) تالة (بو لحناش) 1211"
+        },
+        {
+          "id": "kasserine--thala--thala-chafai--1210",
+          "nameFr": "THALA (Chafai)",
+          "nameAr": "تالة (الشفاي)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (chafai) تالة (الشفاي) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-ain-ahmed--1210",
+          "nameFr": "THALA (Cite Ain Ahmed)",
+          "nameAr": "تالة (حي عين أحمد)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite ain ahmed) تالة (حي عين أحمد) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-bain-maure-ben-azouz--1210",
+          "nameFr": "THALA (Cite Bain Maure Ben Azouz)",
+          "nameAr": "تالة (حي الحمام العربي بن عزوز)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite bain maure ben azouz) تالة (حي الحمام العربي بن عزوز) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-ben-cherif--1210",
+          "nameFr": "THALA (Cite Ben Cherif)",
+          "nameAr": "تالة (حي بن شريف)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite ben cherif) تالة (حي بن شريف) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-des-ouvriers--1210",
+          "nameFr": "THALA (Cite Des Ouvriers)",
+          "nameAr": "تالة (الحي العمالي)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite des ouvriers) تالة (الحي العمالي) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-du-battoire--1210",
+          "nameFr": "THALA (Cite Du Battoire)",
+          "nameAr": "تالة (حي الباطوار)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite du battoire) تالة (حي الباطوار) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-el-borni--1210",
+          "nameFr": "THALA (Cite El Borni)",
+          "nameAr": "تالة (حي البرني)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite el borni) تالة (حي البرني) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-el-mhiri--1210",
+          "nameFr": "THALA (Cite El Mhiri)",
+          "nameAr": "تالة (حي المهيري)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite el mhiri) تالة (حي المهيري) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-ennadhour--1210",
+          "nameFr": "THALA (Cite Ennadhour)",
+          "nameAr": "تالة (حي الناظور)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite ennadhour) تالة (حي الناظور) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-errahba--1210",
+          "nameFr": "THALA (Cite Errahba)",
+          "nameAr": "تالة (حي الرحبة)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite errahba) تالة (حي الرحبة) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-garde-nationale--1210",
+          "nameFr": "THALA (Cite Garde Nationale)",
+          "nameAr": "تالة (حي الحرس الوطني)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite garde nationale) تالة (حي الحرس الوطني) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-khazna-jedida--1210",
+          "nameFr": "THALA (Cite Khazna Jedida)",
+          "nameAr": "تالة (حي الخزنة الجديدة)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite khazna jedida) تالة (حي الخزنة الجديدة) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-mongi-slim--1210",
+          "nameFr": "THALA (Cite Mongi Slim)",
+          "nameAr": "تالة (حي المنجي سليم)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite mongi slim) تالة (حي المنجي سليم) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-cite-snit--1210",
+          "nameFr": "THALA (Cite Snit)",
+          "nameAr": "تالة (حي سنيت)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (cite snit) تالة (حي سنيت) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-eddachra--1224",
+          "nameFr": "THALA (Eddachra)",
+          "nameAr": "تالة (الدشرة)",
+          "postalCode": "1224",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (eddachra) تالة (الدشرة) 1224"
+        },
+        {
+          "id": "kasserine--thala--thala-henchir-goumria--1210",
+          "nameFr": "THALA (Henchir Goumria)",
+          "nameAr": "تالة (هنشير قمرية)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (henchir goumria) تالة (هنشير قمرية) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-ouled-ghida--1210",
+          "nameFr": "THALA (Ouled Ghida)",
+          "nameAr": "تالة (أولاد غيدة)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (ouled ghida) تالة (أولاد غيدة) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-sidi-shil--1231",
+          "nameFr": "THALA (Sidi Shil)",
+          "nameAr": "تالة (سيدي شيل)",
+          "postalCode": "1231",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (sidi shil) تالة (سيدي شيل) 1231"
+        },
+        {
+          "id": "kasserine--thala--thala-thala-sud--1261",
+          "nameFr": "THALA (Thala Sud)",
+          "nameAr": "تالة (تالة الجنوبية)",
+          "postalCode": "1261",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (thala sud) تالة (تالة الجنوبية) 1261"
+        },
+        {
+          "id": "kasserine--thala--thala-thala--1210",
+          "nameFr": "THALA (Thala)",
+          "nameAr": "تالة (تالة)",
+          "postalCode": "1210",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (thala) تالة (تالة) 1210"
+        },
+        {
+          "id": "kasserine--thala--thala-zelfane--1235",
+          "nameFr": "THALA (Zelfane)",
+          "nameAr": "تالة (زلفان)",
+          "postalCode": "1235",
+          "latitude": 35.5736,
+          "longitude": 8.6692,
+          "searchKey": "thala (zelfane) تالة (زلفان) 1235"
+        }
+      ]
+    }
+  ]
+}

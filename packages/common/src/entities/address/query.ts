@@ -22,6 +22,8 @@ export class AddressQuery {
       id: true,
       street: true,
       city: true,
+      governorate: true,
+      delegation: true,
       postalCode: true,
       latitude: true,
       longitude: true,

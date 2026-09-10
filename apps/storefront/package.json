@@ -21,6 +21,7 @@
     "@orpc/client": "catalog:",
     "@orpc/tanstack-query": "catalog:",
     "@prisma/client": "catalog:",
+    "@tanstack/react-form": "catalog:",
     "@tanstack/react-query": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "better-auth": "catalog:",

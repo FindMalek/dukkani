@@ -25,6 +25,8 @@ export class AddressService {
         street: input.street,
         city: input.city,
         postalCode: input.postalCode || null,
+        governorate: input.governorate ?? null,
+        delegation: input.delegation || null,
       },
       select: AddressQuery.getSimpleSelect(),
     });
@@ -45,6 +47,8 @@ export class AddressService {
         data: {
           street: input.street,
           city: input.city,
+          governorate: input.governorate,
+          delegation: input.delegation || null,
           postalCode: input.postalCode || null,
           latitude: input.latitude,
           longitude: input.longitude,

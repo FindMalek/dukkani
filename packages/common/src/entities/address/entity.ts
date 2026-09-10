@@ -35,6 +35,8 @@ export class AddressEntity {
       id: entity.id,
       street: entity.street,
       city: entity.city,
+      governorate: entity.governorate,
+      delegation: entity.delegation,
       postalCode: entity.postalCode,
       latitude: entity.latitude,
       longitude: entity.longitude,

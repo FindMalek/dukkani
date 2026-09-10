@@ -1,0 +1,2459 @@
+{
+  "code": "SIDI_BOUZID",
+  "delegations": [
+    {
+      "id": "sidi-bouzid--ben-oun",
+      "nameFr": "BEN OUN",
+      "nameAr": "بن عون",
+      "searchKey": "ben oun بن عون",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-baten-el-agaag--9120",
+          "nameFr": "BEN OUN (Baten El Agaag)",
+          "nameAr": "بن عون (بطن العقاق)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (baten el agaag) بن عون (بطن العقاق) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-ben-bechir--9120",
+          "nameFr": "BEN OUN (Ben Bechir)",
+          "nameAr": "بن عون (بن بشير)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (ben bechir) بن عون (بن بشير) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-ben-oun-nord--9120",
+          "nameFr": "BEN OUN (Ben Oun Nord)",
+          "nameAr": "بن عون (بن عون الشمالية)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (ben oun nord) بن عون (بن عون الشمالية) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-ben-oun--9120",
+          "nameFr": "BEN OUN (Ben Oun)",
+          "nameAr": "بن عون (بن عون)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (ben oun) بن عون (بن عون) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-bir-idriss--9120",
+          "nameFr": "BEN OUN (Bir Idriss)",
+          "nameAr": "بن عون (بئر إدريس)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (bir idriss) بن عون (بئر إدريس) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-cite-el-ilm--9120",
+          "nameFr": "BEN OUN (Cite El Ilm)",
+          "nameAr": "بن عون (حي العلم)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (cite el ilm) بن عون (حي العلم) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-cite-ennasr--9120",
+          "nameFr": "BEN OUN (Cite Ennasr)",
+          "nameAr": "بن عون (حي النصر)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (cite ennasr) بن عون (حي النصر) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-cite-ennour--9120",
+          "nameFr": "BEN OUN (Cite Ennour)",
+          "nameAr": "بن عون (حي النور)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (cite ennour) بن عون (حي النور) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-cite-erriadh--9120",
+          "nameFr": "BEN OUN (Cite Erriadh)",
+          "nameAr": "بن عون (حي الرياض)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (cite erriadh) بن عون (حي الرياض) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-cite-ettahrir--9120",
+          "nameFr": "BEN OUN (Cite Ettahrir)",
+          "nameAr": "بن عون (حي التحرير)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (cite ettahrir) بن عون (حي التحرير) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-cite-ezzouhour--9120",
+          "nameFr": "BEN OUN (Cite Ezzouhour)",
+          "nameAr": "بن عون (حي الزهور)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (cite ezzouhour) بن عون (حي الزهور) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-damdoum--9120",
+          "nameFr": "BEN OUN (Damdoum)",
+          "nameAr": "بن عون (دمدوم)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (damdoum) بن عون (دمدوم) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-el-fej--9169",
+          "nameFr": "BEN OUN (El Fej)",
+          "nameAr": "بن عون (الفج)",
+          "postalCode": "9169",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (el fej) بن عون (الفج) 9169"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-el-gouedria--9169",
+          "nameFr": "BEN OUN (El Gouedria)",
+          "nameAr": "بن عون (القوادرية)",
+          "postalCode": "9169",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (el gouedria) بن عون (القوادرية) 9169"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-el-graoua--9120",
+          "nameFr": "BEN OUN (El Graoua)",
+          "nameAr": "بن عون (القراوة)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (el graoua) بن عون (القراوة) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-el-khalij--9120",
+          "nameFr": "BEN OUN (El Khalij)",
+          "nameAr": "بن عون (الخليج)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (el khalij) بن عون (الخليج) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-el-ouaara--9120",
+          "nameFr": "BEN OUN (El Ouaara)",
+          "nameAr": "بن عون (الوعرة)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (el ouaara) بن عون (الوعرة) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-el-ouneysia--9120",
+          "nameFr": "BEN OUN (El Ouneysia)",
+          "nameAr": "بن عون (الونيسية)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (el ouneysia) بن عون (الونيسية) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-erragba--9169",
+          "nameFr": "BEN OUN (Erragba)",
+          "nameAr": "بن عون (الرقبة)",
+          "postalCode": "9169",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (erragba) بن عون (الرقبة) 9169"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-markez-ben-bechir--9120",
+          "nameFr": "BEN OUN (Markez Ben Bechir)",
+          "nameAr": "بن عون (مركز بن بشير)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (markez ben bechir) بن عون (مركز بن بشير) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-ouled-brahim--9120",
+          "nameFr": "BEN OUN (Ouled Brahim)",
+          "nameAr": "بن عون (أولاد إبراهيم)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (ouled brahim) بن عون (أولاد إبراهيم) 9120"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-ouled-el-achi--9169",
+          "nameFr": "BEN OUN (Ouled El Achi)",
+          "nameAr": "بن عون (أولاد العشي)",
+          "postalCode": "9169",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (ouled el achi) بن عون (أولاد العشي) 9169"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-ouled-mnasser--9169",
+          "nameFr": "BEN OUN (Ouled Mnasser)",
+          "nameAr": "بن عون (أولاد مناصر)",
+          "postalCode": "9169",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (ouled mnasser) بن عون (أولاد مناصر) 9169"
+        },
+        {
+          "id": "sidi-bouzid--ben-oun--ben-oun-ouled-neji--9120",
+          "nameFr": "BEN OUN (Ouled Neji)",
+          "nameAr": "بن عون (أولاد ناجي)",
+          "postalCode": "9120",
+          "latitude": 34.8667,
+          "longitude": 9.8333,
+          "searchKey": "ben oun (ouled neji) بن عون (أولاد ناجي) 9120"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--bir-el-haffey",
+      "nameFr": "BIR EL HAFFEY",
+      "nameAr": "بئر الحفي",
+      "searchKey": "bir el haffey بئر الحفي",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-bir-amema--9113",
+          "nameFr": "BIR EL HAFFEY (Bir Amema)",
+          "nameAr": "بئر الحفي (بئر عمامة)",
+          "postalCode": "9113",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (bir amema) بئر الحفي (بئر عمامة) 9113"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-bir-bousbi--9113",
+          "nameFr": "BIR EL HAFFEY (Bir Bousbi)",
+          "nameAr": "بئر الحفي (بئر بوسبي)",
+          "postalCode": "9113",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (bir bousbi) بئر الحفي (بئر بوسبي) 9113"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-bir-el-haffey--9113",
+          "nameFr": "BIR EL HAFFEY (Bir El Haffey)",
+          "nameAr": "بئر الحفي (بئر الحفي)",
+          "postalCode": "9113",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (bir el haffey) بئر الحفي (بئر الحفي) 9113"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-chakhar--9113",
+          "nameFr": "BIR EL HAFFEY (Chakhar)",
+          "nameAr": "بئر الحفي (الشخار)",
+          "postalCode": "9113",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (chakhar) بئر الحفي (الشخار) 9113"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-eddachra--9113",
+          "nameFr": "BIR EL HAFFEY (Eddachra)",
+          "nameAr": "بئر الحفي (الدشرة)",
+          "postalCode": "9113",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (eddachra) بئر الحفي (الدشرة) 9113"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-el-adhla--9126",
+          "nameFr": "BIR EL HAFFEY (El Adhla)",
+          "nameAr": "بئر الحفي (العضلة)",
+          "postalCode": "9126",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (el adhla) بئر الحفي (العضلة) 9126"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-el-hanancha--9113",
+          "nameFr": "BIR EL HAFFEY (El Hanancha)",
+          "nameAr": "بئر الحفي (الحنانشة)",
+          "postalCode": "9113",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (el hanancha) بئر الحفي (الحنانشة) 9113"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-el-mhamdia--9113",
+          "nameFr": "BIR EL HAFFEY (El Mhamdia)",
+          "nameAr": "بئر الحفي (المحامدية)",
+          "postalCode": "9113",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (el mhamdia) بئر الحفي (المحامدية) 9113"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-ennouaiel--9126",
+          "nameFr": "BIR EL HAFFEY (Ennouaiel)",
+          "nameAr": "بئر الحفي (النوايل)",
+          "postalCode": "9126",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (ennouaiel) بئر الحفي (النوايل) 9126"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-essalama--9159",
+          "nameFr": "BIR EL HAFFEY (Essalama)",
+          "nameAr": "بئر الحفي (السلامة)",
+          "postalCode": "9159",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (essalama) بئر الحفي (السلامة) 9159"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-henchir-haffouz--9123",
+          "nameFr": "BIR EL HAFFEY (Henchir Haffouz)",
+          "nameAr": "بئر الحفي (هنشير حفوز)",
+          "postalCode": "9123",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (henchir haffouz) بئر الحفي (هنشير حفوز) 9123"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-houch-ben-necib--9123",
+          "nameFr": "BIR EL HAFFEY (Houch Ben Necib)",
+          "nameAr": "بئر الحفي (حوش بن نصيب)",
+          "postalCode": "9123",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (houch ben necib) بئر الحفي (حوش بن نصيب) 9123"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-ksar-el-mzara--9123",
+          "nameFr": "BIR EL HAFFEY (Ksar El Mzara)",
+          "nameAr": "بئر الحفي (قصر المزارة)",
+          "postalCode": "9123",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (ksar el mzara) بئر الحفي (قصر المزارة) 9123"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-ouled-bouaziz--9123",
+          "nameFr": "BIR EL HAFFEY (Ouled Bouaziz)",
+          "nameAr": "بئر الحفي (أولاد بوعزيز)",
+          "postalCode": "9123",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (ouled bouaziz) بئر الحفي (أولاد بوعزيز) 9123"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-ouled-khelifa--9113",
+          "nameFr": "BIR EL HAFFEY (Ouled Khelifa)",
+          "nameAr": "بئر الحفي (أولاد خليفة)",
+          "postalCode": "9113",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (ouled khelifa) بئر الحفي (أولاد خليفة) 9113"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-ourgha--9113",
+          "nameFr": "BIR EL HAFFEY (Ourgha)",
+          "nameAr": "بئر الحفي (ورغة)",
+          "postalCode": "9113",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (ourgha) بئر الحفي (ورغة) 9113"
+        },
+        {
+          "id": "sidi-bouzid--bir-el-haffey--bir-el-haffey-rahal--9123",
+          "nameFr": "BIR EL HAFFEY (Rahal)",
+          "nameAr": "بئر الحفي (رحال)",
+          "postalCode": "9123",
+          "latitude": 34.9331,
+          "longitude": 9.1975,
+          "searchKey": "bir el haffey (rahal) بئر الحفي (رحال) 9123"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--cebbala",
+      "nameFr": "CEBBALA",
+      "nameAr": "السبالة",
+      "searchKey": "cebbala السبالة",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--cebbala--cebbala-cebbala--9122",
+          "nameFr": "CEBBALA (Cebbala)",
+          "nameAr": "السبالة (السبالة)",
+          "postalCode": "9122",
+          "latitude": 35.1333,
+          "longitude": 9.2667,
+          "searchKey": "cebbala (cebbala) السبالة (السبالة) 9122"
+        },
+        {
+          "id": "sidi-bouzid--cebbala--cebbala-charaa--9122",
+          "nameFr": "CEBBALA (Charaa)",
+          "nameAr": "السبالة (شرع)",
+          "postalCode": "9122",
+          "latitude": 35.1333,
+          "longitude": 9.2667,
+          "searchKey": "cebbala (charaa) السبالة (شرع) 9122"
+        },
+        {
+          "id": "sidi-bouzid--cebbala--cebbala-cite-el-fateh-1--9122",
+          "nameFr": "CEBBALA (Cite El Fateh 1)",
+          "nameAr": "السبالة (حي الفتح 1)",
+          "postalCode": "9122",
+          "latitude": 35.1333,
+          "longitude": 9.2667,
+          "searchKey": "cebbala (cite el fateh 1) السبالة (حي الفتح 1) 9122"
+        },
+        {
+          "id": "sidi-bouzid--cebbala--cebbala-cite-el-fateh-2--9122",
+          "nameFr": "CEBBALA (Cite El Fateh 2)",
+          "nameAr": "السبالة (حي الفتح 2)",
+          "postalCode": "9122",
+          "latitude": 35.1333,
+          "longitude": 9.2667,
+          "searchKey": "cebbala (cite el fateh 2) السبالة (حي الفتح 2) 9122"
+        },
+        {
+          "id": "sidi-bouzid--cebbala--cebbala-cite-ennajah--9122",
+          "nameFr": "CEBBALA (Cite Ennajah)",
+          "nameAr": "السبالة (حي النجاح)",
+          "postalCode": "9122",
+          "latitude": 35.1333,
+          "longitude": 9.2667,
+          "searchKey": "cebbala (cite ennajah) السبالة (حي النجاح) 9122"
+        },
+        {
+          "id": "sidi-bouzid--cebbala--cebbala-cite-ennouzha--9122",
+          "nameFr": "CEBBALA (Cite Ennouzha)",
+          "nameAr": "السبالة (حي النزهة)",
+          "postalCode": "9122",
+          "latitude": 35.1333,
+          "longitude": 9.2667,
+          "searchKey": "cebbala (cite ennouzha) السبالة (حي النزهة) 9122"
+        },
+        {
+          "id": "sidi-bouzid--cebbala--cebbala-el-ghemamria--9122",
+          "nameFr": "CEBBALA (El Ghemamria)",
+          "nameAr": "السبالة (الغمامرية)",
+          "postalCode": "9122",
+          "latitude": 35.1333,
+          "longitude": 9.2667,
+          "searchKey": "cebbala (el ghemamria) السبالة (الغمامرية) 9122"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--jilma",
+      "nameFr": "JILMA",
+      "nameAr": "جلمة",
+      "searchKey": "jilma جلمة",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--jilma--jilma-ain-jaffel--9110",
+          "nameFr": "JILMA (Ain Jaffel)",
+          "nameAr": "جلمة (عين جفال)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (ain jaffel) جلمة (عين جفال) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-cite-chargui--9110",
+          "nameFr": "JILMA (Cite Chargui)",
+          "nameAr": "جلمة (حي الشرقي)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (cite chargui) جلمة (حي الشرقي) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-cite-ennasr--9110",
+          "nameFr": "JILMA (Cite Ennasr)",
+          "nameAr": "جلمة (حي النصر)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (cite ennasr) جلمة (حي النصر) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-cite-ouled-zaied--9110",
+          "nameFr": "JILMA (Cite Ouled Zaied)",
+          "nameAr": "جلمة (حي أولاد زايد)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (cite ouled zaied) جلمة (حي أولاد زايد) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-cite-populaire--9110",
+          "nameFr": "JILMA (Cite Populaire)",
+          "nameAr": "جلمة (الحي الشعبي)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (cite populaire) جلمة (الحي الشعبي) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-el-fenideg--9110",
+          "nameFr": "JILMA (El Fenideg)",
+          "nameAr": "جلمة (الفنيدق)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (el fenideg) جلمة (الفنيدق) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-el-haouia--9110",
+          "nameFr": "JILMA (El Haouia)",
+          "nameAr": "جلمة (الحاوية)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (el haouia) جلمة (الحاوية) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-guellel--9110",
+          "nameFr": "JILMA (Guellel)",
+          "nameAr": "جلمة (قلال)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (guellel) جلمة (قلال) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-jilma--9110",
+          "nameFr": "JILMA (Jilma)",
+          "nameAr": "جلمة (جلمة)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (jilma) جلمة (جلمة) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-labayedh--9110",
+          "nameFr": "JILMA (Labayedh)",
+          "nameAr": "جلمة (الأبيض)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (labayedh) جلمة (الأبيض) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-sed-el-yahoudi--9110",
+          "nameFr": "JILMA (Sed El Yahoudi)",
+          "nameAr": "جلمة (سد اليهودي)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (sed el yahoudi) جلمة (سد اليهودي) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-selta--9110",
+          "nameFr": "JILMA (Selta)",
+          "nameAr": "جلمة (سلتة)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (selta) جلمة (سلتة) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-sidi-ali-ebn-jaballah--9110",
+          "nameFr": "JILMA (Sidi Ali Ebn Jaballah)",
+          "nameAr": "جلمة (سيدي علي بن جاب الله)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (sidi ali ebn jaballah) جلمة (سيدي علي بن جاب الله) 9110"
+        },
+        {
+          "id": "sidi-bouzid--jilma--jilma-zoghmar--9110",
+          "nameFr": "JILMA (Zoghmar)",
+          "nameAr": "جلمة (زغمر)",
+          "postalCode": "9110",
+          "latitude": 35.2781,
+          "longitude": 9.4183,
+          "searchKey": "jilma (zoghmar) جلمة (زغمر) 9110"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--maknassy",
+      "nameFr": "MAKNASSY",
+      "nameAr": "المكناسي",
+      "searchKey": "maknassy المكناسي",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-borj-el-karma--9143",
+          "nameFr": "MAKNASSY (Borj El Karma)",
+          "nameAr": "المكناسي (برج الكرمة)",
+          "postalCode": "9143",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (borj el karma) المكناسي (برج الكرمة) 9143"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-des-abricots--9140",
+          "nameFr": "MAKNASSY (Cite Des Abricots)",
+          "nameAr": "المكناسي (حي المشمش)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite des abricots) المكناسي (حي المشمش) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-des-martyrs--9140",
+          "nameFr": "MAKNASSY (Cite Des Martyrs)",
+          "nameAr": "المكناسي (حي الشهداء)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite des martyrs) المكناسي (حي الشهداء) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-el-fateh-1--9140",
+          "nameFr": "MAKNASSY (Cite El Fateh 1)",
+          "nameAr": "المكناسي (حي الفتح 1)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite el fateh 1) المكناسي (حي الفتح 1) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-el-fateh-2--9140",
+          "nameFr": "MAKNASSY (Cite El Fateh 2)",
+          "nameAr": "المكناسي (حي الفتح 2)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite el fateh 2) المكناسي (حي الفتح 2) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-el-fateh-3--9140",
+          "nameFr": "MAKNASSY (Cite El Fateh 3)",
+          "nameAr": "المكناسي (حي الفتح 3)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite el fateh 3) المكناسي (حي الفتح 3) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-el-intilaka--9140",
+          "nameFr": "MAKNASSY (Cite El Intilaka)",
+          "nameAr": "المكناسي (حي الإنطلاقة)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite el intilaka) المكناسي (حي الإنطلاقة) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-ennajah-1--9140",
+          "nameFr": "MAKNASSY (Cite Ennajah 1)",
+          "nameAr": "المكناسي (حي النجاح 1)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite ennajah 1) المكناسي (حي النجاح 1) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-ennajah-2--9140",
+          "nameFr": "MAKNASSY (Cite Ennajah 2)",
+          "nameAr": "المكناسي (حي النجاح 2)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite ennajah 2) المكناسي (حي النجاح 2) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-ezzayatine--9140",
+          "nameFr": "MAKNASSY (Cite Ezzayatine)",
+          "nameAr": "المكناسي (حي الزياتين)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite ezzayatine) المكناسي (حي الزياتين) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-militaire--9140",
+          "nameFr": "MAKNASSY (Cite Militaire)",
+          "nameAr": "المكناسي (الحي العسكري)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite militaire) المكناسي (الحي العسكري) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-mohamed-ali--9140",
+          "nameFr": "MAKNASSY (Cite Mohamed Ali)",
+          "nameAr": "المكناسي (حي محمد علي)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite mohamed ali) المكناسي (حي محمد علي) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-taieb-mhiri--9140",
+          "nameFr": "MAKNASSY (Cite Taieb Mhiri)",
+          "nameAr": "المكناسي (حي الطيب المهيري)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite taieb mhiri) المكناسي (حي الطيب المهيري) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-cite-unite-ennajah--9140",
+          "nameFr": "MAKNASSY (Cite Unite Ennajah)",
+          "nameAr": "المكناسي (حي وحدة النجاح)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (cite unite ennajah) المكناسي (حي وحدة النجاح) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-dakhlet-el-alenda--9140",
+          "nameFr": "MAKNASSY (Dakhlet El Alenda)",
+          "nameAr": "المكناسي (دخلة العلندة)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (dakhlet el alenda) المكناسي (دخلة العلندة) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-el-ayoun--9140",
+          "nameFr": "MAKNASSY (El Ayoun)",
+          "nameAr": "المكناسي (العيون)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (el ayoun) المكناسي (العيون) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-el-houayez--9140",
+          "nameFr": "MAKNASSY (El Houayez)",
+          "nameAr": "المكناسي (الحويز)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (el houayez) المكناسي (الحويز) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-el-meche--9158",
+          "nameFr": "MAKNASSY (El Meche)",
+          "nameAr": "المكناسي (المش)",
+          "postalCode": "9158",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (el meche) المكناسي (المش) 9158"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-ennasr--9149",
+          "nameFr": "MAKNASSY (Ennasr)",
+          "nameAr": "المكناسي (النصر)",
+          "postalCode": "9149",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (ennasr) المكناسي (النصر) 9149"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-ezzouaraa--9140",
+          "nameFr": "MAKNASSY (Ezzouaraa)",
+          "nameAr": "المكناسي (الزوارع)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (ezzouaraa) المكناسي (الزوارع) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-jabbes--9140",
+          "nameFr": "MAKNASSY (Jabbes)",
+          "nameAr": "المكناسي (جباس)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (jabbes) المكناسي (جباس) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-ksar-khelifa-zenati--9140",
+          "nameFr": "MAKNASSY (Ksar Khelifa Zenati)",
+          "nameAr": "المكناسي (قصر خليفة الزناتي)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (ksar khelifa zenati) المكناسي (قصر خليفة الزناتي) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-mabrouka--9144",
+          "nameFr": "MAKNASSY (Mabrouka)",
+          "nameAr": "المكناسي (مبروكة)",
+          "postalCode": "9144",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (mabrouka) المكناسي (مبروكة) 9144"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-maknassy--9140",
+          "nameFr": "MAKNASSY (Maknassy)",
+          "nameAr": "المكناسي (المكناسي)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (maknassy) المكناسي (المكناسي) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-marche-municipal--9140",
+          "nameFr": "MAKNASSY (Marche Municipal)",
+          "nameAr": "المكناسي (السوق البلدي)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (marche municipal) المكناسي (السوق البلدي) 9140"
+        },
+        {
+          "id": "sidi-bouzid--maknassy--maknassy-touahria-2--9140",
+          "nameFr": "MAKNASSY (Touahria 2)",
+          "nameAr": "المكناسي (التواهرية 2)",
+          "postalCode": "9140",
+          "latitude": 34.6053,
+          "longitude": 9.6075,
+          "searchKey": "maknassy (touahria 2) المكناسي (التواهرية 2) 9140"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--menzel-bouzaiene",
+      "nameFr": "MENZEL BOUZAIENE",
+      "nameAr": "منزل بوزيان",
+      "searchKey": "menzel bouzaiene منزل بوزيان",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-bir-el-araria--9114",
+          "nameFr": "MENZEL BOUZAIENE (Bir El Araria)",
+          "nameAr": "منزل بوزيان (بئر العرارية)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (bir el araria) منزل بوزيان (بئر العرارية) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-dakhlet-haddej--9114",
+          "nameFr": "MENZEL BOUZAIENE (Dakhlet Haddej)",
+          "nameAr": "منزل بوزيان (دخلة حداد)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (dakhlet haddej) منزل بوزيان (دخلة حداد) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-el-aatizez--9114",
+          "nameFr": "MENZEL BOUZAIENE (El Aatizez)",
+          "nameAr": "منزل بوزيان (العطيز)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (el aatizez) منزل بوزيان (العطيز) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-el-garaa--9114",
+          "nameFr": "MENZEL BOUZAIENE (El Garaa)",
+          "nameAr": "منزل بوزيان (الڨرعة)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (el garaa) منزل بوزيان (الڨرعة) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-el-guellel--9139",
+          "nameFr": "MENZEL BOUZAIENE (El Guellel)",
+          "nameAr": "منزل بوزيان (الڨلال)",
+          "postalCode": "9139",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (el guellel) منزل بوزيان (الڨلال) 9139"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-el-maadher--9114",
+          "nameFr": "MENZEL BOUZAIENE (El Maadher)",
+          "nameAr": "منزل بوزيان (المعذر)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (el maadher) منزل بوزيان (المعذر) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-el-maloussi--9114",
+          "nameFr": "MENZEL BOUZAIENE (El Maloussi)",
+          "nameAr": "منزل بوزيان (الملوسي)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (el maloussi) منزل بوزيان (الملوسي) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-el-mhamdia--9114",
+          "nameFr": "MENZEL BOUZAIENE (El Mhamdia)",
+          "nameAr": "منزل بوزيان (المحامدية)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (el mhamdia) منزل بوزيان (المحامدية) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-el-omrane--9114",
+          "nameFr": "MENZEL BOUZAIENE (El Omrane)",
+          "nameAr": "منزل بوزيان (العمران)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (el omrane) منزل بوزيان (العمران) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-essaada--9114",
+          "nameFr": "MENZEL BOUZAIENE (Essaada)",
+          "nameAr": "منزل بوزيان (السعادة)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (essaada) منزل بوزيان (السعادة) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-khorchef--9124",
+          "nameFr": "MENZEL BOUZAIENE (Khorchef)",
+          "nameAr": "منزل بوزيان (خرشف)",
+          "postalCode": "9124",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (khorchef) منزل بوزيان (خرشف) 9124"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-menzel-bouzaiene--9114",
+          "nameFr": "MENZEL BOUZAIENE (Menzel Bouzaiene)",
+          "nameAr": "منزل بوزيان (منزل بوزيان)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (menzel bouzaiene) منزل بوزيان (منزل بوزيان) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-menzel-saada--9114",
+          "nameFr": "MENZEL BOUZAIENE (Menzel Saada)",
+          "nameAr": "منزل بوزيان (منزل سعادة)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (menzel saada) منزل بوزيان (منزل سعادة) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-ouled-zouid--9114",
+          "nameFr": "MENZEL BOUZAIENE (Ouled Zouid)",
+          "nameAr": "منزل بوزيان (أولاد زويد)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (ouled zouid) منزل بوزيان (أولاد زويد) 9114"
+        },
+        {
+          "id": "sidi-bouzid--menzel-bouzaiene--menzel-bouzaiene-rbeayia--9114",
+          "nameFr": "MENZEL BOUZAIENE (Rbeayia)",
+          "nameAr": "منزل بوزيان (الربايعية)",
+          "postalCode": "9114",
+          "latitude": 34.8039,
+          "longitude": 9.0311,
+          "searchKey": "menzel bouzaiene (rbeayia) منزل بوزيان (الربايعية) 9114"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--mezzouna",
+      "nameFr": "MEZZOUNA",
+      "nameAr": "المزونة",
+      "searchKey": "mezzouna المزونة",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-cite-de-la-poste--9150",
+          "nameFr": "MEZZOUNA (Cite De La Poste)",
+          "nameAr": "المزونة (حي البريد)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (cite de la poste) المزونة (حي البريد) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-cite-des-martyrs--9150",
+          "nameFr": "MEZZOUNA (Cite Des Martyrs)",
+          "nameAr": "المزونة (حي الشهداء)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (cite des martyrs) المزونة (حي الشهداء) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-cite-el-amel--9150",
+          "nameFr": "MEZZOUNA (Cite El Amel)",
+          "nameAr": "المزونة (حي الأمل)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (cite el amel) المزونة (حي الأمل) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-cite-independance--9150",
+          "nameFr": "MEZZOUNA (Cite Independance)",
+          "nameAr": "المزونة (حي الإستقلال)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (cite independance) المزونة (حي الإستقلال) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-el-bouaa--9154",
+          "nameFr": "MEZZOUNA (El Bouaa)",
+          "nameAr": "المزونة (البوعة)",
+          "postalCode": "9154",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (el bouaa) المزونة (البوعة) 9154"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-el-founi--9151",
+          "nameFr": "MEZZOUNA (El Founi)",
+          "nameAr": "المزونة (الفوني)",
+          "postalCode": "9151",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (el founi) المزونة (الفوني) 9151"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-el-gheris--9150",
+          "nameFr": "MEZZOUNA (El Gheris)",
+          "nameAr": "المزونة (الغريس)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (el gheris) المزونة (الغريس) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-el-guezgazia--9150",
+          "nameFr": "MEZZOUNA (El Guezgazia)",
+          "nameAr": "المزونة (القزقازية)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (el guezgazia) المزونة (القزقازية) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-el-khima--9150",
+          "nameFr": "MEZZOUNA (El Khima)",
+          "nameAr": "المزونة (الخيمة)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (el khima) المزونة (الخيمة) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-el-khobna--9150",
+          "nameFr": "MEZZOUNA (El Khobna)",
+          "nameAr": "المزونة (الخبنة)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (el khobna) المزونة (الخبنة) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-el-khoui--9150",
+          "nameFr": "MEZZOUNA (El Khoui)",
+          "nameAr": "المزونة (الخوي)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (el khoui) المزونة (الخوي) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-ferjen--9150",
+          "nameFr": "MEZZOUNA (Ferjen)",
+          "nameAr": "المزونة (فرجان)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (ferjen) المزونة (فرجان) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-ghedir-rebaia--9150",
+          "nameFr": "MEZZOUNA (Ghedir Rebaia)",
+          "nameAr": "المزونة (غدير رباعية)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (ghedir rebaia) المزونة (غدير رباعية) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-haddej--9150",
+          "nameFr": "MEZZOUNA (Haddej)",
+          "nameAr": "المزونة (حداد)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (haddej) المزونة (حداد) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-mezzouna--9150",
+          "nameFr": "MEZZOUNA (Mezzouna)",
+          "nameAr": "المزونة (المزونة)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (mezzouna) المزونة (المزونة) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-oued-eddam--9150",
+          "nameFr": "MEZZOUNA (Oued Eddam)",
+          "nameAr": "المزونة (وادي الدم)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (oued eddam) المزونة (وادي الدم) 9150"
+        },
+        {
+          "id": "sidi-bouzid--mezzouna--mezzouna-ouled-dlala--9150",
+          "nameFr": "MEZZOUNA (Ouled Dlala)",
+          "nameAr": "المزونة (أولاد دلالة)",
+          "postalCode": "9150",
+          "latitude": 34.5611,
+          "longitude": 9.0694,
+          "searchKey": "mezzouna (ouled dlala) المزونة (أولاد دلالة) 9150"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--ouled-haffouz",
+      "nameFr": "OULED HAFFOUZ",
+      "nameAr": "أولاد حفوز",
+      "searchKey": "ouled haffouz أولاد حفوز",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-boutique-issa--9180",
+          "nameFr": "OULED HAFFOUZ (Boutique Issa)",
+          "nameAr": "أولاد حفوز (بوتيك عيسى)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (boutique issa) أولاد حفوز (بوتيك عيسى) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-chouachnia--9180",
+          "nameFr": "OULED HAFFOUZ (Chouachnia)",
+          "nameAr": "أولاد حفوز (الشواشنية)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (chouachnia) أولاد حفوز (الشواشنية) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-cite-ali-ben-hamid--9180",
+          "nameFr": "OULED HAFFOUZ (Cite Ali Ben Hamid)",
+          "nameAr": "أولاد حفوز (حي علي بن حميد)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (cite ali ben hamid) أولاد حفوز (حي علي بن حميد) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-cite-commerciale--9180",
+          "nameFr": "OULED HAFFOUZ (Cite Commerciale)",
+          "nameAr": "أولاد حفوز (الحي التجاري)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (cite commerciale) أولاد حفوز (الحي التجاري) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-cite-el-maarifa--9180",
+          "nameFr": "OULED HAFFOUZ (Cite El Maarifa)",
+          "nameAr": "أولاد حفوز (حي المعرفة)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (cite el maarifa) أولاد حفوز (حي المعرفة) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-cite-el-omrane--9180",
+          "nameFr": "OULED HAFFOUZ (Cite El Omrane)",
+          "nameAr": "أولاد حفوز (حي العمران)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (cite el omrane) أولاد حفوز (حي العمران) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-cite-erriadh--9180",
+          "nameFr": "OULED HAFFOUZ (Cite Erriadh)",
+          "nameAr": "أولاد حفوز (حي الرياض)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (cite erriadh) أولاد حفوز (حي الرياض) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-cite-ezzayatine--9180",
+          "nameFr": "OULED HAFFOUZ (Cite Ezzayatine)",
+          "nameAr": "أولاد حفوز (حي الزياتين)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (cite ezzayatine) أولاد حفوز (حي الزياتين) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-dhouibette-2--9180",
+          "nameFr": "OULED HAFFOUZ (Dhouibette 2)",
+          "nameAr": "أولاد حفوز (الذويبات 2)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (dhouibette 2) أولاد حفوز (الذويبات 2) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-dhouibette--9116",
+          "nameFr": "OULED HAFFOUZ (Dhouibette)",
+          "nameAr": "أولاد حفوز (الذويبات)",
+          "postalCode": "9116",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (dhouibette) أولاد حفوز (الذويبات) 9116"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-el-abbadette--9183",
+          "nameFr": "OULED HAFFOUZ (El Abbadette)",
+          "nameAr": "أولاد حفوز (العبادات)",
+          "postalCode": "9183",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (el abbadette) أولاد حفوز (العبادات) 9183"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-el-araoua--9180",
+          "nameFr": "OULED HAFFOUZ (El Araoua)",
+          "nameAr": "أولاد حفوز (العراوة)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (el araoua) أولاد حفوز (العراوة) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-el-gouaibia--9180",
+          "nameFr": "OULED HAFFOUZ (El Gouaibia)",
+          "nameAr": "أولاد حفوز (القوايبة)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (el gouaibia) أولاد حفوز (القوايبة) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-el-kharwaa--9180",
+          "nameFr": "OULED HAFFOUZ (El Kharwaa)",
+          "nameAr": "أولاد حفوز (الخروع)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (el kharwaa) أولاد حفوز (الخروع) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-el-mbarkia--9180",
+          "nameFr": "OULED HAFFOUZ (El Mbarkia)",
+          "nameAr": "أولاد حفوز (المباركية)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (el mbarkia) أولاد حفوز (المباركية) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-ennajah--9180",
+          "nameFr": "OULED HAFFOUZ (Ennajah)",
+          "nameAr": "أولاد حفوز (النجاح)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (ennajah) أولاد حفوز (النجاح) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-erranzez--9180",
+          "nameFr": "OULED HAFFOUZ (Erranzez)",
+          "nameAr": "أولاد حفوز (الرنزز)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (erranzez) أولاد حفوز (الرنزز) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-hania-102--9180",
+          "nameFr": "OULED HAFFOUZ (Hania 102)",
+          "nameAr": "أولاد حفوز (الهانية 102)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (hania 102) أولاد حفوز (الهانية 102) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-horbit--9180",
+          "nameFr": "OULED HAFFOUZ (Horbit)",
+          "nameAr": "أولاد حفوز (هربيط)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (horbit) أولاد حفوز (هربيط) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-khebina--9180",
+          "nameFr": "OULED HAFFOUZ (Khebina)",
+          "nameAr": "أولاد حفوز (خبينة)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (khebina) أولاد حفوز (خبينة) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-ouled-haffouz--9180",
+          "nameFr": "OULED HAFFOUZ (Ouled Haffouz)",
+          "nameAr": "أولاد حفوز (أولاد حفوز)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (ouled haffouz) أولاد حفوز (أولاد حفوز) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-sidi-ellafi-1--9180",
+          "nameFr": "OULED HAFFOUZ (Sidi Ellafi 1)",
+          "nameAr": "أولاد حفوز (سيدي اللافي 1)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (sidi ellafi 1) أولاد حفوز (سيدي اللافي 1) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-sidi-ellafi-2--9180",
+          "nameFr": "OULED HAFFOUZ (Sidi Ellafi 2)",
+          "nameAr": "أولاد حفوز (سيدي اللافي 2)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (sidi ellafi 2) أولاد حفوز (سيدي اللافي 2) 9180"
+        },
+        {
+          "id": "sidi-bouzid--ouled-haffouz--ouled-haffouz-sidi-khlif--9180",
+          "nameFr": "OULED HAFFOUZ (Sidi Khlif)",
+          "nameAr": "أولاد حفوز (سيدي خليف)",
+          "postalCode": "9180",
+          "latitude": 35.2256,
+          "longitude": 9.7317,
+          "searchKey": "ouled haffouz (sidi khlif) أولاد حفوز (سيدي خليف) 9180"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--regueb",
+      "nameFr": "REGUEB",
+      "nameAr": "الرقاب",
+      "searchKey": "regueb الرقاب",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--regueb--regueb-bir-charef--9170",
+          "nameFr": "REGUEB (Bir Charef)",
+          "nameAr": "الرقاب (بئر شرف)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (bir charef) الرقاب (بئر شرف) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-bir-el-akerma--9115",
+          "nameFr": "REGUEB (Bir El Akerma)",
+          "nameAr": "الرقاب (بئر العكرمة)",
+          "postalCode": "9115",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (bir el akerma) الرقاب (بئر العكرمة) 9115"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-bir-gzaiel--9170",
+          "nameFr": "REGUEB (Bir Gzaiel)",
+          "nameAr": "الرقاب (بئر غزيل)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (bir gzaiel) الرقاب (بئر غزيل) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-bir-khelifa--9170",
+          "nameFr": "REGUEB (Bir Khelifa)",
+          "nameAr": "الرقاب (بئر خليفة)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (bir khelifa) الرقاب (بئر خليفة) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-bir-nsib--9170",
+          "nameFr": "REGUEB (Bir Nsib)",
+          "nameAr": "الرقاب (بئر نصيب)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (bir nsib) الرقاب (بئر نصيب) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-bou-allegue--9170",
+          "nameFr": "REGUEB (Bou Allegue)",
+          "nameAr": "الرقاب (بوعلاڨ)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (bou allegue) الرقاب (بوعلاڨ) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-bou-chiha--9115",
+          "nameFr": "REGUEB (Bou Chiha)",
+          "nameAr": "الرقاب (بوشيحة)",
+          "postalCode": "9115",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (bou chiha) الرقاب (بوشيحة) 9115"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-bou-dinar--9170",
+          "nameFr": "REGUEB (Bou Dinar)",
+          "nameAr": "الرقاب (بودينار)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (bou dinar) الرقاب (بودينار) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-cite-de-la-republique--9170",
+          "nameFr": "REGUEB (Cite De La Republique)",
+          "nameAr": "الرقاب (حي الجمهورية)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (cite de la republique) الرقاب (حي الجمهورية) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-cite-el-bassatine--9170",
+          "nameFr": "REGUEB (Cite El Bassatine)",
+          "nameAr": "الرقاب (حي البساتين)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (cite el bassatine) الرقاب (حي البساتين) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-cite-el-intilaka--9170",
+          "nameFr": "REGUEB (Cite El Intilaka)",
+          "nameAr": "الرقاب (حي الإنطلاقة)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (cite el intilaka) الرقاب (حي الإنطلاقة) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-cite-el-khadhra--9170",
+          "nameFr": "REGUEB (Cite El Khadhra)",
+          "nameAr": "الرقاب (حي الخضراء)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (cite el khadhra) الرقاب (حي الخضراء) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-cite-el-manar--9170",
+          "nameFr": "REGUEB (Cite El Manar)",
+          "nameAr": "الرقاب (حي المنار)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (cite el manar) الرقاب (حي المنار) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-cite-ennasr--9170",
+          "nameFr": "REGUEB (Cite Ennasr)",
+          "nameAr": "الرقاب (حي النصر)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (cite ennasr) الرقاب (حي النصر) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-cite-ennouzha--9170",
+          "nameFr": "REGUEB (Cite Ennouzha)",
+          "nameAr": "الرقاب (حي النزهة)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (cite ennouzha) الرقاب (حي النزهة) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-cite-erriadh--9170",
+          "nameFr": "REGUEB (Cite Erriadh)",
+          "nameAr": "الرقاب (حي الرياض)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (cite erriadh) الرقاب (حي الرياض) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-cite-ezzouhour--9170",
+          "nameFr": "REGUEB (Cite Ezzouhour)",
+          "nameAr": "الرقاب (حي الزهور)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (cite ezzouhour) الرقاب (حي الزهور) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-cite-ibn-khaldoun--9170",
+          "nameFr": "REGUEB (Cite Ibn Khaldoun)",
+          "nameAr": "الرقاب (حي إبن خلدون)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (cite ibn khaldoun) الرقاب (حي إبن خلدون) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-el-ghaba-essouda--9115",
+          "nameFr": "REGUEB (El Ghaba Essouda)",
+          "nameAr": "الرقاب (الغابة السوداء)",
+          "postalCode": "9115",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (el ghaba essouda) الرقاب (الغابة السوداء) 9115"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-el-gouadria--9170",
+          "nameFr": "REGUEB (El Gouadria)",
+          "nameAr": "الرقاب (القوادرية)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (el gouadria) الرقاب (القوادرية) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-el-houda--9170",
+          "nameFr": "REGUEB (El Houda)",
+          "nameAr": "الرقاب (الهدى)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (el houda) الرقاب (الهدى) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-el-khechem--9173",
+          "nameFr": "REGUEB (El Khechem)",
+          "nameAr": "الرقاب (الخشم)",
+          "postalCode": "9173",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (el khechem) الرقاب (الخشم) 9173"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-el-mhafdhia--9170",
+          "nameFr": "REGUEB (El Mhafdhia)",
+          "nameAr": "الرقاب (المحفوظية)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (el mhafdhia) الرقاب (المحفوظية) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-erradhaa--9174",
+          "nameFr": "REGUEB (Erradhaa)",
+          "nameAr": "الرقاب (الرضاع)",
+          "postalCode": "9174",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (erradhaa) الرقاب (الرضاع) 9174"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-essakba--9170",
+          "nameFr": "REGUEB (Essakba)",
+          "nameAr": "الرقاب (السقبة)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (essakba) الرقاب (السقبة) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-essfaya--9115",
+          "nameFr": "REGUEB (Essfaya)",
+          "nameAr": "الرقاب (الصفايا)",
+          "postalCode": "9115",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (essfaya) الرقاب (الصفايا) 9115"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-ezzadam--9170",
+          "nameFr": "REGUEB (Ezzadam)",
+          "nameAr": "الرقاب (الزدام)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (ezzadam) الرقاب (الزدام) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-ezzitouna--9170",
+          "nameFr": "REGUEB (Ezzitouna)",
+          "nameAr": "الرقاب (الزيتونة)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (ezzitouna) الرقاب (الزيتونة) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-farch-guerib--9170",
+          "nameFr": "REGUEB (Farch Guerib)",
+          "nameAr": "الرقاب (فرش غريب)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (farch guerib) الرقاب (فرش غريب) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-fatnassa--9173",
+          "nameFr": "REGUEB (Fatnassa)",
+          "nameAr": "الرقاب (فطناسة)",
+          "postalCode": "9173",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (fatnassa) الرقاب (فطناسة) 9173"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-goubrar--9172",
+          "nameFr": "REGUEB (Goubrar)",
+          "nameAr": "الرقاب (قوبرار)",
+          "postalCode": "9172",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (goubrar) الرقاب (قوبرار) 9172"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-guenifida--9170",
+          "nameFr": "REGUEB (Guenifida)",
+          "nameAr": "الرقاب (قنيفيدة)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (guenifida) الرقاب (قنيفيدة) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-henchir-khdam--9170",
+          "nameFr": "REGUEB (Henchir Khdam)",
+          "nameAr": "الرقاب (هنشير خدام)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (henchir khdam) الرقاب (هنشير خدام) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-ksar-el-hammam--9170",
+          "nameFr": "REGUEB (Ksar El Hammam)",
+          "nameAr": "الرقاب (قصر الحمام)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (ksar el hammam) الرقاب (قصر الحمام) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-ksar-sai--9170",
+          "nameFr": "REGUEB (Ksar Sai)",
+          "nameAr": "الرقاب (قصر الصايغ)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (ksar sai) الرقاب (قصر الصايغ) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-matlag--9170",
+          "nameFr": "REGUEB (Matlag)",
+          "nameAr": "الرقاب (المطالق)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (matlag) الرقاب (المطالق) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-ouled-abdallah--9170",
+          "nameFr": "REGUEB (Ouled Abdallah)",
+          "nameAr": "الرقاب (أولاد عبد الله)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (ouled abdallah) الرقاب (أولاد عبد الله) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-ouled-ayouni--9170",
+          "nameFr": "REGUEB (Ouled Ayouni)",
+          "nameAr": "الرقاب (أولاد عيوني)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (ouled ayouni) الرقاب (أولاد عيوني) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-ouled-el-hani--9115",
+          "nameFr": "REGUEB (Ouled El Hani)",
+          "nameAr": "الرقاب (أولاد الهاني)",
+          "postalCode": "9115",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (ouled el hani) الرقاب (أولاد الهاني) 9115"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-regueb--9170",
+          "nameFr": "REGUEB (Regueb)",
+          "nameAr": "الرقاب (الرقاب)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (regueb) الرقاب (الرقاب) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-rihana-nord--9170",
+          "nameFr": "REGUEB (Rihana Nord)",
+          "nameAr": "الرقاب (ريحانة الشمالية)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (rihana nord) الرقاب (ريحانة الشمالية) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-rihana-sud--9170",
+          "nameFr": "REGUEB (Rihana Sud)",
+          "nameAr": "الرقاب (ريحانة الجنوبية)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (rihana sud) الرقاب (ريحانة الجنوبية) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-sabra--9170",
+          "nameFr": "REGUEB (Sabra)",
+          "nameAr": "الرقاب (صبرة)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (sabra) الرقاب (صبرة) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-saida--9115",
+          "nameFr": "REGUEB (Saida)",
+          "nameAr": "الرقاب (سعيدة)",
+          "postalCode": "9115",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (saida) الرقاب (سعيدة) 9115"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-sarayria--9170",
+          "nameFr": "REGUEB (Sarayria)",
+          "nameAr": "الرقاب (السرايرية)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (sarayria) الرقاب (السرايرية) 9170"
+        },
+        {
+          "id": "sidi-bouzid--regueb--regueb-sidi-ameur--9170",
+          "nameFr": "REGUEB (Sidi Ameur)",
+          "nameAr": "الرقاب (سيدي عامر)",
+          "postalCode": "9170",
+          "latitude": 34.8667,
+          "longitude": 9.6333,
+          "searchKey": "regueb (sidi ameur) الرقاب (سيدي عامر) 9170"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--sidi-bouzid-est",
+      "nameFr": "SIDI BOUZID EST",
+      "nameAr": "سيدي بوزيد الشرقية",
+      "searchKey": "sidi bouzid est سيدي بوزيد الشرقية",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-ain-bouzer--9112",
+          "nameFr": "SIDI BOUZID EST (Ain Bouzer)",
+          "nameAr": "سيدي بوزيد الشرقية (عين بوزر)",
+          "postalCode": "9112",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (ain bouzer) سيدي بوزيد الشرقية (عين بوزر) 9112"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-bazid--9112",
+          "nameFr": "SIDI BOUZID EST (Bazid)",
+          "nameAr": "سيدي بوزيد الشرقية (بزيد)",
+          "postalCode": "9112",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (bazid) سيدي بوزيد الشرقية (بزيد) 9112"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-cite-agricole--9100",
+          "nameFr": "SIDI BOUZID EST (Cite Agricole)",
+          "nameAr": "سيدي بوزيد الشرقية (الحي الفلاحي)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (cite agricole) سيدي بوزيد الشرقية (الحي الفلاحي) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-dhayaa--9100",
+          "nameFr": "SIDI BOUZID EST (Dhayaa)",
+          "nameAr": "سيدي بوزيد الشرقية (الضايعة)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (dhayaa) سيدي بوزيد الشرقية (الضايعة) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-dhraa--9100",
+          "nameFr": "SIDI BOUZID EST (Dhraa)",
+          "nameAr": "سيدي بوزيد الشرقية (الذراع)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (dhraa) سيدي بوزيد الشرقية (الذراع) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-el-haouamed--9133",
+          "nameFr": "SIDI BOUZID EST (El Haouamed)",
+          "nameAr": "سيدي بوزيد الشرقية (الحوامد)",
+          "postalCode": "9133",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (el haouamed) سيدي بوزيد الشرقية (الحوامد) 9133"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-el-hmaima--9171",
+          "nameFr": "SIDI BOUZID EST (El Hmaima)",
+          "nameAr": "سيدي بوزيد الشرقية (الحميمة)",
+          "postalCode": "9171",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (el hmaima) سيدي بوزيد الشرقية (الحميمة) 9171"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-el-makarem--9141",
+          "nameFr": "SIDI BOUZID EST (El Makarem)",
+          "nameAr": "سيدي بوزيد الشرقية (المكارم)",
+          "postalCode": "9141",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (el makarem) سيدي بوزيد الشرقية (المكارم) 9141"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-el-ogla--9112",
+          "nameFr": "SIDI BOUZID EST (El Ogla)",
+          "nameAr": "سيدي بوزيد الشرقية (العقلة)",
+          "postalCode": "9112",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (el ogla) سيدي بوزيد الشرقية (العقلة) 9112"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-ezzitoune--9100",
+          "nameFr": "SIDI BOUZID EST (Ezzitoune)",
+          "nameAr": "سيدي بوزيد الشرقية (الزيتون)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (ezzitoune) سيدي بوزيد الشرقية (الزيتون) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-fayedh--9112",
+          "nameFr": "SIDI BOUZID EST (Fayedh)",
+          "nameAr": "سيدي بوزيد الشرقية (الفيض)",
+          "postalCode": "9112",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (fayedh) سيدي بوزيد الشرقية (الفيض) 9112"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-garet-hadid--9100",
+          "nameFr": "SIDI BOUZID EST (Garet Hadid)",
+          "nameAr": "سيدي بوزيد الشرقية (ڨارة حديد)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (garet hadid) سيدي بوزيد الشرقية (ڨارة حديد) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-gatrana--9112",
+          "nameFr": "SIDI BOUZID EST (Gatrana)",
+          "nameAr": "سيدي بوزيد الشرقية (قطرانة)",
+          "postalCode": "9112",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (gatrana) سيدي بوزيد الشرقية (قطرانة) 9112"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-graa-bennour--9171",
+          "nameFr": "SIDI BOUZID EST (Graa Bennour)",
+          "nameAr": "سيدي بوزيد الشرقية (ڨراعة بنور)",
+          "postalCode": "9171",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (graa bennour) سيدي بوزيد الشرقية (ڨراعة بنور) 9171"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-hania-bazid--9112",
+          "nameFr": "SIDI BOUZID EST (Hania Bazid)",
+          "nameAr": "سيدي بوزيد الشرقية (هنية بزيد)",
+          "postalCode": "9112",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (hania bazid) سيدي بوزيد الشرقية (هنية بزيد) 9112"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-jemel--9112",
+          "nameFr": "SIDI BOUZID EST (Jemel)",
+          "nameAr": "سيدي بوزيد الشرقية (جمل)",
+          "postalCode": "9112",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (jemel) سيدي بوزيد الشرقية (جمل) 9112"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-lessouda--9171",
+          "nameFr": "SIDI BOUZID EST (Lessouda)",
+          "nameAr": "سيدي بوزيد الشرقية (لسودة)",
+          "postalCode": "9171",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (lessouda) سيدي بوزيد الشرقية (لسودة) 9171"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-ouled-boudhiaf--9112",
+          "nameFr": "SIDI BOUZID EST (Ouled Boudhiaf)",
+          "nameAr": "سيدي بوزيد الشرقية (أولاد بوذياف)",
+          "postalCode": "9112",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (ouled boudhiaf) سيدي بوزيد الشرقية (أولاد بوذياف) 9112"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-ouled-farhan--9141",
+          "nameFr": "SIDI BOUZID EST (Ouled Farhan)",
+          "nameAr": "سيدي بوزيد الشرقية (أولاد فرحان)",
+          "postalCode": "9141",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (ouled farhan) سيدي بوزيد الشرقية (أولاد فرحان) 9141"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-ouled-youssef--9112",
+          "nameFr": "SIDI BOUZID EST (Ouled Youssef)",
+          "nameAr": "سيدي بوزيد الشرقية (أولاد يوسف)",
+          "postalCode": "9112",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (ouled youssef) سيدي بوزيد الشرقية (أولاد يوسف) 9112"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-est--sidi-bouzid-est-remaidia--9133",
+          "nameFr": "SIDI BOUZID EST (Remaidia)",
+          "nameAr": "سيدي بوزيد الشرقية (الرمايدية)",
+          "postalCode": "9133",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid est (remaidia) سيدي بوزيد الشرقية (الرمايدية) 9133"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--sidi-bouzid-ouest",
+      "nameFr": "SIDI BOUZID OUEST",
+      "nameAr": "سيدي بوزيد الغربية",
+      "searchKey": "sidi bouzid ouest سيدي بوزيد الغربية",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-bir-badra--9131",
+          "nameFr": "SIDI BOUZID OUEST (Bir Badra)",
+          "nameAr": "سيدي بوزيد الغربية (بئر بدرة)",
+          "postalCode": "9131",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (bir badra) سيدي بوزيد الغربية (بئر بدرة) 9131"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-bir-bouzid--9100",
+          "nameFr": "SIDI BOUZID OUEST (Bir Bouzid)",
+          "nameAr": "سيدي بوزيد الغربية (بئر بوزيد)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (bir bouzid) سيدي بوزيد الغربية (بئر بوزيد) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-bir-el-bey--9111",
+          "nameFr": "SIDI BOUZID OUEST (Bir El Bey)",
+          "nameAr": "سيدي بوزيد الغربية (بئر الباي)",
+          "postalCode": "9111",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (bir el bey) سيدي بوزيد الغربية (بئر الباي) 9111"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-cite-el-brahmia--9100",
+          "nameFr": "SIDI BOUZID OUEST (Cite El Brahmia)",
+          "nameAr": "سيدي بوزيد الغربية (حي البراهمية)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (cite el brahmia) سيدي بوزيد الغربية (حي البراهمية) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-cite-el-fraijia--9100",
+          "nameFr": "SIDI BOUZID OUEST (Cite El Fraijia)",
+          "nameAr": "سيدي بوزيد الغربية (حي الفرايجية)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (cite el fraijia) سيدي بوزيد الغربية (حي الفرايجية) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-cite-el-kaouafel--9132",
+          "nameFr": "SIDI BOUZID OUEST (Cite El Kaouafel)",
+          "nameAr": "سيدي بوزيد الغربية (حي القوافل)",
+          "postalCode": "9132",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (cite el kaouafel) سيدي بوزيد الغربية (حي القوافل) 9132"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-cite-ouled-bel-hedi--9125",
+          "nameFr": "SIDI BOUZID OUEST (Cite Ouled Bel Hedi)",
+          "nameAr": "سيدي بوزيد الغربية (حي أولاد بلهادي)",
+          "postalCode": "9125",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (cite ouled bel hedi) سيدي بوزيد الغربية (حي أولاد بلهادي) 9125"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-eddagher--9131",
+          "nameFr": "SIDI BOUZID OUEST (Eddagher)",
+          "nameAr": "سيدي بوزيد الغربية (الداغر)",
+          "postalCode": "9131",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (eddagher) سيدي بوزيد الغربية (الداغر) 9131"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-el-adhla--9111",
+          "nameFr": "SIDI BOUZID OUEST (El Adhla)",
+          "nameAr": "سيدي بوزيد الغربية (العضلة)",
+          "postalCode": "9111",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (el adhla) سيدي بوزيد الغربية (العضلة) 9111"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-el-fateh--9131",
+          "nameFr": "SIDI BOUZID OUEST (El Fateh)",
+          "nameAr": "سيدي بوزيد الغربية (الفتح)",
+          "postalCode": "9131",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (el fateh) سيدي بوزيد الغربية (الفتح) 9131"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-el-ghemamria--9111",
+          "nameFr": "SIDI BOUZID OUEST (El Ghemamria)",
+          "nameAr": "سيدي بوزيد الغربية (الغمامرية)",
+          "postalCode": "9111",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (el ghemamria) سيدي بوزيد الغربية (الغمامرية) 9111"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-el-guetayfia--9111",
+          "nameFr": "SIDI BOUZID OUEST (El Guetayfia)",
+          "nameAr": "سيدي بوزيد الغربية (القطايفية)",
+          "postalCode": "9111",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (el guetayfia) سيدي بوزيد الغربية (القطايفية) 9111"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-el-hawajbia--9100",
+          "nameFr": "SIDI BOUZID OUEST (El Hawajbia)",
+          "nameAr": "سيدي بوزيد الغربية (الحواجبية)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (el hawajbia) سيدي بوزيد الغربية (الحواجبية) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-el-hichria--9131",
+          "nameFr": "SIDI BOUZID OUEST (El Hichria)",
+          "nameAr": "سيدي بوزيد الغربية (الهيشرية)",
+          "postalCode": "9131",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (el hichria) سيدي بوزيد الغربية (الهيشرية) 9131"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-el-mlikette--9111",
+          "nameFr": "SIDI BOUZID OUEST (El Mlikette)",
+          "nameAr": "سيدي بوزيد الغربية (المليكات)",
+          "postalCode": "9111",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (el mlikette) سيدي بوزيد الغربية (المليكات) 9111"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-essadaguia--9100",
+          "nameFr": "SIDI BOUZID OUEST (Essadaguia)",
+          "nameAr": "سيدي بوزيد الغربية (الصداقية)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (essadaguia) سيدي بوزيد الغربية (الصداقية) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-essandoug--9100",
+          "nameFr": "SIDI BOUZID OUEST (Essandoug)",
+          "nameAr": "سيدي بوزيد الغربية (الصندوق)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (essandoug) سيدي بوزيد الغربية (الصندوق) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-ettouansia--9127",
+          "nameFr": "SIDI BOUZID OUEST (Ettouansia)",
+          "nameAr": "سيدي بوزيد الغربية (التوانسية)",
+          "postalCode": "9127",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (ettouansia) سيدي بوزيد الغربية (التوانسية) 9127"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-henchir-esnab--9131",
+          "nameFr": "SIDI BOUZID OUEST (Henchir Esnab)",
+          "nameAr": "سيدي بوزيد الغربية (هنشير الصناب)",
+          "postalCode": "9131",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (henchir esnab) سيدي بوزيد الغربية (هنشير الصناب) 9131"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-mefreg-el-frayou--9127",
+          "nameFr": "SIDI BOUZID OUEST (Mefreg El Frayou)",
+          "nameAr": "سيدي بوزيد الغربية (مفرق الفراو)",
+          "postalCode": "9127",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (mefreg el frayou) سيدي بوزيد الغربية (مفرق الفراو) 9127"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-melikette--9100",
+          "nameFr": "SIDI BOUZID OUEST (Melikette)",
+          "nameAr": "سيدي بوزيد الغربية (مليكات)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (melikette) سيدي بوزيد الغربية (مليكات) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-oued-el-brij--9111",
+          "nameFr": "SIDI BOUZID OUEST (Oued El Brij)",
+          "nameAr": "سيدي بوزيد الغربية (وادي البريج)",
+          "postalCode": "9111",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (oued el brij) سيدي بوزيد الغربية (وادي البريج) 9111"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-ouithet-gazal--9100",
+          "nameFr": "SIDI BOUZID OUEST (Ouithet Gazal)",
+          "nameAr": "سيدي بوزيد الغربية (ويدة غزال)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (ouithet gazal) سيدي بوزيد الغربية (ويدة غزال) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-ouled-jalal--9131",
+          "nameFr": "SIDI BOUZID OUEST (Ouled Jalal)",
+          "nameAr": "سيدي بوزيد الغربية (أولاد جلال)",
+          "postalCode": "9131",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (ouled jalal) سيدي بوزيد الغربية (أولاد جلال) 9131"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-oum-el-adham--9111",
+          "nameFr": "SIDI BOUZID OUEST (Oum El Adham)",
+          "nameAr": "سيدي بوزيد الغربية (أم العظام)",
+          "postalCode": "9111",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (oum el adham) سيدي بوزيد الغربية (أم العظام) 9111"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-oum-ettouboul--9131",
+          "nameFr": "SIDI BOUZID OUEST (Oum Ettouboul)",
+          "nameAr": "سيدي بوزيد الغربية (أم الطبول)",
+          "postalCode": "9131",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (oum ettouboul) سيدي بوزيد الغربية (أم الطبول) 9131"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-sidi-bouzid--9100",
+          "nameFr": "SIDI BOUZID OUEST (Sidi Bouzid)",
+          "nameAr": "سيدي بوزيد الغربية (سيدي بوزيد)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (sidi bouzid) سيدي بوزيد الغربية (سيدي بوزيد) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-sidi-salem--9100",
+          "nameFr": "SIDI BOUZID OUEST (Sidi Salem)",
+          "nameAr": "سيدي بوزيد الغربية (سيدي سالم)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (sidi salem) سيدي بوزيد الغربية (سيدي سالم) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-touila--9100",
+          "nameFr": "SIDI BOUZID OUEST (Touila)",
+          "nameAr": "سيدي بوزيد الغربية (الطويلة)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (touila) سيدي بوزيد الغربية (الطويلة) 9100"
+        },
+        {
+          "id": "sidi-bouzid--sidi-bouzid-ouest--sidi-bouzid-ouest-zaafria--9100",
+          "nameFr": "SIDI BOUZID OUEST (Zaafria)",
+          "nameAr": "سيدي بوزيد الغربية (الزعافرية)",
+          "postalCode": "9100",
+          "latitude": 35.0372,
+          "longitude": 9.4853,
+          "searchKey": "sidi bouzid ouest (zaafria) سيدي بوزيد الغربية (الزعافرية) 9100"
+        }
+      ]
+    },
+    {
+      "id": "sidi-bouzid--souk-jedid",
+      "nameFr": "SOUK JEDID",
+      "nameAr": "السوق الجديد",
+      "searchKey": "souk jedid السوق الجديد",
+      "municipalities": [
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-bou-attouch--9121",
+          "nameFr": "SOUK JEDID (Bou Attouch)",
+          "nameAr": "السوق الجديد (بوعطوش)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (bou attouch) السوق الجديد (بوعطوش) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-bou-chmel--9142",
+          "nameFr": "SOUK JEDID (Bou Chmel)",
+          "nameAr": "السوق الجديد (بوشمل)",
+          "postalCode": "9142",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (bou chmel) السوق الجديد (بوشمل) 9142"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-cegdel--9121",
+          "nameFr": "SOUK JEDID (Cegdel)",
+          "nameAr": "السوق الجديد (سقدال)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (cegdel) السوق الجديد (سقدال) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-douadnia--9121",
+          "nameFr": "SOUK JEDID (Douadnia)",
+          "nameAr": "السوق الجديد (الدوانية)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (douadnia) السوق الجديد (الدوانية) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-el-azara--9121",
+          "nameFr": "SOUK JEDID (El Azara)",
+          "nameAr": "السوق الجديد (العزارة)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (el azara) السوق الجديد (العزارة) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-el-bekakria--9142",
+          "nameFr": "SOUK JEDID (El Bekakria)",
+          "nameAr": "السوق الجديد (البكاكارية)",
+          "postalCode": "9142",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (el bekakria) السوق الجديد (البكاكارية) 9142"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-el-hessinette--9121",
+          "nameFr": "SOUK JEDID (El Hessinette)",
+          "nameAr": "السوق الجديد (الحسينات)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (el hessinette) السوق الجديد (الحسينات) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-el-kessayra--9121",
+          "nameFr": "SOUK JEDID (El Kessayra)",
+          "nameAr": "السوق الجديد (القصيرة)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (el kessayra) السوق الجديد (القصيرة) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-el-mesatria--9121",
+          "nameFr": "SOUK JEDID (El Mesatria)",
+          "nameAr": "السوق الجديد (المساطرية)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (el mesatria) السوق الجديد (المساطرية) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-el-msabhia--9121",
+          "nameFr": "SOUK JEDID (El Msabhia)",
+          "nameAr": "السوق الجديد (المصابحية)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (el msabhia) السوق الجديد (المصابحية) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-ennouhoudh--9121",
+          "nameFr": "SOUK JEDID (Ennouhoudh)",
+          "nameAr": "السوق الجديد (النهوض)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (ennouhoudh) السوق الجديد (النهوض) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-essadlia--9121",
+          "nameFr": "SOUK JEDID (Essadlia)",
+          "nameAr": "السوق الجديد (السادلية)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (essadlia) السوق الجديد (السادلية) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-gouleb--9142",
+          "nameFr": "SOUK JEDID (Gouleb)",
+          "nameAr": "السوق الجديد (قولاب)",
+          "postalCode": "9142",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (gouleb) السوق الجديد (قولاب) 9142"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-ouled-alaya--9121",
+          "nameFr": "SOUK JEDID (Ouled Alaya)",
+          "nameAr": "السوق الجديد (أولاد علية)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (ouled alaya) السوق الجديد (أولاد علية) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-ouled-ammar--9121",
+          "nameFr": "SOUK JEDID (Ouled Ammar)",
+          "nameAr": "السوق الجديد (أولاد عمار)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (ouled ammar) السوق الجديد (أولاد عمار) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-ouled-dhaher--9142",
+          "nameFr": "SOUK JEDID (Ouled Dhaher)",
+          "nameAr": "السوق الجديد (أولاد ظاهر)",
+          "postalCode": "9142",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (ouled dhaher) السوق الجديد (أولاد ظاهر) 9142"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-ouled-khedher--9121",
+          "nameFr": "SOUK JEDID (Ouled Khedher)",
+          "nameAr": "السوق الجديد (أولاد خضر)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (ouled khedher) السوق الجديد (أولاد خضر) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-ouled-mhamed--9121",
+          "nameFr": "SOUK JEDID (Ouled Mhamed)",
+          "nameAr": "السوق الجديد (أولاد محمد)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (ouled mhamed) السوق الجديد (أولاد محمد) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-remila--9142",
+          "nameFr": "SOUK JEDID (Remila)",
+          "nameAr": "السوق الجديد (الرميلة)",
+          "postalCode": "9142",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (remila) السوق الجديد (الرميلة) 9142"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-souk-jedid--9121",
+          "nameFr": "SOUK JEDID (Souk Jedid)",
+          "nameAr": "السوق الجديد (السوق الجديد)",
+          "postalCode": "9121",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (souk jedid) السوق الجديد (السوق الجديد) 9121"
+        },
+        {
+          "id": "sidi-bouzid--souk-jedid--souk-jedid-zefzef--9142",
+          "nameFr": "SOUK JEDID (Zefzef)",
+          "nameAr": "السوق الجديد (زفزف)",
+          "postalCode": "9142",
+          "latitude": 34.9333,
+          "longitude": 9.5,
+          "searchKey": "souk jedid (zefzef) السوق الجديد (زفزف) 9142"
+        }
+      ]
+    }
+  ]
+}

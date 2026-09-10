@@ -1,0 +1,2954 @@
+{
+  "code": "BEN_AROUS",
+  "delegations": [
+    {
+      "id": "ben-arous--ben-arous",
+      "nameFr": "BEN AROUS",
+      "nameAr": "بن عروس",
+      "searchKey": "ben arous بن عروس",
+      "municipalities": [
+        {
+          "id": "ben-arous--ben-arous--ben-arous-ben-arous-sud--2043",
+          "nameFr": "BEN AROUS (Ben Arous Sud)",
+          "nameAr": "بن عروس (بن عروس الجنوبية)",
+          "postalCode": "2043",
+          "latitude": 36.745,
+          "longitude": 10.225,
+          "searchKey": "ben arous (ben arous sud) بن عروس (بن عروس الجنوبية) 2043"
+        },
+        {
+          "id": "ben-arous--ben-arous--ben-arous-ben-arous--2013",
+          "nameFr": "BEN AROUS (Ben Arous)",
+          "nameAr": "بن عروس (بن عروس)",
+          "postalCode": "2013",
+          "latitude": 36.7539,
+          "longitude": 10.2276,
+          "searchKey": "ben arous (ben arous) بن عروس (بن عروس) 2013"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--bou-mhel-el-bassatine",
+      "nameFr": "BOU MHEL EL BASSATINE",
+      "nameAr": "بومهل البساتين",
+      "searchKey": "bou mhel el bassatine بومهل البساتين",
+      "municipalities": [
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-bou-mhel--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Bou Mhel)",
+          "nameAr": "بومهل البساتين (بومهل)",
+          "postalCode": "2097",
+          "latitude": 36.7519,
+          "longitude": 10.2767,
+          "searchKey": "bou mhel el bassatine (bou mhel) بومهل البساتين (بومهل) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-ben-gamra--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Ben Gamra)",
+          "nameAr": "بومهل البساتين (حي بن قمرة)",
+          "postalCode": "2097",
+          "latitude": 36.748,
+          "longitude": 10.272,
+          "searchKey": "bou mhel el bassatine (cite ben gamra) بومهل البساتين (حي بن قمرة) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-ben-joud--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Ben Joud)",
+          "nameAr": "بومهل البساتين (حي بن جود)",
+          "postalCode": "2097",
+          "latitude": 36.747,
+          "longitude": 10.27,
+          "searchKey": "bou mhel el bassatine (cite ben joud) بومهل البساتين (حي بن جود) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-bou-mhel--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Bou Mhel)",
+          "nameAr": "بومهل البساتين (حي بومهل)",
+          "postalCode": "2097",
+          "latitude": 36.75,
+          "longitude": 10.275,
+          "searchKey": "bou mhel el bassatine (cite bou mhel) بومهل البساتين (حي بومهل) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-boutouria--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Boutouria)",
+          "nameAr": "بومهل البساتين (حي البطارية)",
+          "postalCode": "2097",
+          "latitude": 36.749,
+          "longitude": 10.273,
+          "searchKey": "bou mhel el bassatine (cite boutouria) بومهل البساتين (حي البطارية) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-chebil--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Chebil)",
+          "nameAr": "بومهل البساتين (حي شبيل)",
+          "postalCode": "2097",
+          "latitude": 36.748,
+          "longitude": 10.271,
+          "searchKey": "bou mhel el bassatine (cite chebil) بومهل البساتين (حي شبيل) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-de-l-interieur--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite De L'Interieur)",
+          "nameAr": "بومهل البساتين (حي الداخلية)",
+          "postalCode": "2097",
+          "latitude": 36.747,
+          "longitude": 10.269,
+          "searchKey": "bou mhel el bassatine (cite de l'interieur) بومهل البساتين (حي الداخلية) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-des-juges--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Des Juges)",
+          "nameAr": "بومهل البساتين (حي القضاة)",
+          "postalCode": "2097",
+          "latitude": 36.746,
+          "longitude": 10.267,
+          "searchKey": "bou mhel el bassatine (cite des juges) بومهل البساتين (حي القضاة) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-diar-tounes--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Diar Tounes)",
+          "nameAr": "بومهل البساتين (حي ديار تونس)",
+          "postalCode": "2097",
+          "latitude": 36.745,
+          "longitude": 10.265,
+          "searchKey": "bou mhel el bassatine (cite diar tounes) بومهل البساتين (حي ديار تونس) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-ahmadi--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Ahmadi)",
+          "nameAr": "بومهل البساتين (حي الأحمدي)",
+          "postalCode": "2097",
+          "latitude": 36.744,
+          "longitude": 10.263,
+          "searchKey": "bou mhel el bassatine (cite el ahmadi) بومهل البساتين (حي الأحمدي) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-amen--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Amen)",
+          "nameAr": "بومهل البساتين (حي الأمان)",
+          "postalCode": "2097",
+          "latitude": 36.743,
+          "longitude": 10.261,
+          "searchKey": "bou mhel el bassatine (cite el amen) بومهل البساتين (حي الأمان) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-assil--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Assil)",
+          "nameAr": "بومهل البساتين (حي الأصيل)",
+          "postalCode": "2097",
+          "latitude": 36.742,
+          "longitude": 10.259,
+          "searchKey": "bou mhel el bassatine (cite el assil) بومهل البساتين (حي الأصيل) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-bassatine-ancien--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Bassatine Ancien)",
+          "nameAr": "بومهل البساتين (حي البساتين القديم)",
+          "postalCode": "2097",
+          "latitude": 36.741,
+          "longitude": 10.257,
+          "searchKey": "bou mhel el bassatine (cite el bassatine ancien) بومهل البساتين (حي البساتين القديم) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-ferchichi--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Ferchichi)",
+          "nameAr": "بومهل البساتين (حي الفريشيشي)",
+          "postalCode": "2097",
+          "latitude": 36.74,
+          "longitude": 10.255,
+          "searchKey": "bou mhel el bassatine (cite el ferchichi) بومهل البساتين (حي الفريشيشي) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-iklil--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Iklil)",
+          "nameAr": "بومهل البساتين (حي الإكليل)",
+          "postalCode": "2097",
+          "latitude": 36.739,
+          "longitude": 10.253,
+          "searchKey": "bou mhel el bassatine (cite el iklil) بومهل البساتين (حي الإكليل) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-kenani--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Kenani)",
+          "nameAr": "بومهل البساتين (حي كناني)",
+          "postalCode": "2097",
+          "latitude": 36.738,
+          "longitude": 10.251,
+          "searchKey": "bou mhel el bassatine (cite el kenani) بومهل البساتين (حي كناني) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-khalij--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Khalij)",
+          "nameAr": "بومهل البساتين (حي الخليج)",
+          "postalCode": "2097",
+          "latitude": 36.737,
+          "longitude": 10.249,
+          "searchKey": "bou mhel el bassatine (cite el khalij) بومهل البساتين (حي الخليج) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-khalledi--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Khalledi)",
+          "nameAr": "بومهل البساتين (حي الخالدي)",
+          "postalCode": "2097",
+          "latitude": 36.736,
+          "longitude": 10.247,
+          "searchKey": "bou mhel el bassatine (cite el khalledi) بومهل البساتين (حي الخالدي) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-mahrajene-1--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Mahrajene 1)",
+          "nameAr": "بومهل البساتين (حي المهرجان 1)",
+          "postalCode": "2097",
+          "latitude": 36.735,
+          "longitude": 10.245,
+          "searchKey": "bou mhel el bassatine (cite el mahrajene 1) بومهل البساتين (حي المهرجان 1) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-mahrajene-2--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Mahrajene 2)",
+          "nameAr": "بومهل البساتين (حي المهرجان 2)",
+          "postalCode": "2097",
+          "latitude": 36.734,
+          "longitude": 10.243,
+          "searchKey": "bou mhel el bassatine (cite el mahrajene 2) بومهل البساتين (حي المهرجان 2) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-mouna--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Mouna)",
+          "nameAr": "بومهل البساتين (حي المنى)",
+          "postalCode": "2097",
+          "latitude": 36.733,
+          "longitude": 10.241,
+          "searchKey": "bou mhel el bassatine (cite el mouna) بومهل البساتين (حي المنى) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-el-wafa--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite El Wafa)",
+          "nameAr": "بومهل البساتين (حي الوفاء)",
+          "postalCode": "2097",
+          "latitude": 36.732,
+          "longitude": 10.239,
+          "searchKey": "bou mhel el bassatine (cite el wafa) بومهل البساتين (حي الوفاء) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-ennacim-1--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Ennacim 1)",
+          "nameAr": "بومهل البساتين (حي النسيم 1)",
+          "postalCode": "2097",
+          "latitude": 36.731,
+          "longitude": 10.237,
+          "searchKey": "bou mhel el bassatine (cite ennacim 1) بومهل البساتين (حي النسيم 1) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-ennacim-2--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Ennacim 2)",
+          "nameAr": "بومهل البساتين (حي النسيم 2)",
+          "postalCode": "2097",
+          "latitude": 36.73,
+          "longitude": 10.235,
+          "searchKey": "bou mhel el bassatine (cite ennacim 2) بومهل البساتين (حي النسيم 2) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-essafa--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Essafa)",
+          "nameAr": "بومهل البساتين (حي الصفاء)",
+          "postalCode": "2097",
+          "latitude": 36.729,
+          "longitude": 10.233,
+          "searchKey": "bou mhel el bassatine (cite essafa) بومهل البساتين (حي الصفاء) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-essalem--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Essalem)",
+          "nameAr": "بومهل البساتين (حي السلام)",
+          "postalCode": "2097",
+          "latitude": 36.728,
+          "longitude": 10.231,
+          "searchKey": "bou mhel el bassatine (cite essalem) بومهل البساتين (حي السلام) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-hadrich--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Hadrich)",
+          "nameAr": "بومهل البساتين (حي حدريش)",
+          "postalCode": "2097",
+          "latitude": 36.727,
+          "longitude": 10.229,
+          "searchKey": "bou mhel el bassatine (cite hadrich) بومهل البساتين (حي حدريش) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-jlassi--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Jlassi)",
+          "nameAr": "بومهل البساتين (حي جلاصي)",
+          "postalCode": "2097",
+          "latitude": 36.726,
+          "longitude": 10.227,
+          "searchKey": "bou mhel el bassatine (cite jlassi) بومهل البساتين (حي جلاصي) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-mezriou--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Mezriou)",
+          "nameAr": "بومهل البساتين (حي مزريو)",
+          "postalCode": "2097",
+          "latitude": 36.725,
+          "longitude": 10.225,
+          "searchKey": "bou mhel el bassatine (cite mezriou) بومهل البساتين (حي مزريو) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-plein-air--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Plein Air)",
+          "nameAr": "بومهل البساتين (حي الهواء الطلق)",
+          "postalCode": "2097",
+          "latitude": 36.724,
+          "longitude": 10.223,
+          "searchKey": "bou mhel el bassatine (cite plein air) بومهل البساتين (حي الهواء الطلق) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-rabiaa--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Rabiaa)",
+          "nameAr": "بومهل البساتين (حي ربيعة)",
+          "postalCode": "2097",
+          "latitude": 36.723,
+          "longitude": 10.221,
+          "searchKey": "bou mhel el bassatine (cite rabiaa) بومهل البساتين (حي ربيعة) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-snit--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Snit)",
+          "nameAr": "بومهل البساتين (حي السنيت)",
+          "postalCode": "2097",
+          "latitude": 36.722,
+          "longitude": 10.219,
+          "searchKey": "bou mhel el bassatine (cite snit) بومهل البساتين (حي السنيت) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-cite-sprols--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Cite Sprols)",
+          "nameAr": "بومهل البساتين (حي سبرولس)",
+          "postalCode": "2097",
+          "latitude": 36.721,
+          "longitude": 10.217,
+          "searchKey": "bou mhel el bassatine (cite sprols) بومهل البساتين (حي سبرولس) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-residence-du-mediterrane--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Residence Du Mediterrane)",
+          "nameAr": "بومهل البساتين (إقامة المتوسط)",
+          "postalCode": "2097",
+          "latitude": 36.7455,
+          "longitude": 10.2735,
+          "searchKey": "bou mhel el bassatine (residence du mediterrane) بومهل البساتين (إقامة المتوسط) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-residence-el-imara--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Residence El Imara)",
+          "nameAr": "بومهل البساتين (إقامة الإمارة)",
+          "postalCode": "2097",
+          "latitude": 36.745,
+          "longitude": 10.273,
+          "searchKey": "bou mhel el bassatine (residence el imara) بومهل البساتين (إقامة الإمارة) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-residence-ennacim--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Residence Ennacim)",
+          "nameAr": "بومهل البساتين (إقامة النسيم)",
+          "postalCode": "2097",
+          "latitude": 36.7445,
+          "longitude": 10.2725,
+          "searchKey": "bou mhel el bassatine (residence ennacim) بومهل البساتين (إقامة النسيم) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-residence-ezzouhour--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Residence Ezzouhour)",
+          "nameAr": "بومهل البساتين (إقامة الزهور)",
+          "postalCode": "2097",
+          "latitude": 36.744,
+          "longitude": 10.272,
+          "searchKey": "bou mhel el bassatine (residence ezzouhour) بومهل البساتين (إقامة الزهور) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-residence-sarra--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Residence Sarra)",
+          "nameAr": "بومهل البساتين (إقامة سارة)",
+          "postalCode": "2097",
+          "latitude": 36.7463,
+          "longitude": 10.2741,
+          "searchKey": "bou mhel el bassatine (residence sarra) بومهل البساتين (إقامة سارة) 2097"
+        },
+        {
+          "id": "ben-arous--bou-mhel-el-bassatine--bou-mhel-el-bassatine-residence-sirine--2097",
+          "nameFr": "BOU MHEL EL BASSATINE (Residence Sirine)",
+          "nameAr": "بومهل البساتين (إقامة سيرين)",
+          "postalCode": "2097",
+          "latitude": 36.7459,
+          "longitude": 10.275,
+          "searchKey": "bou mhel el bassatine (residence sirine) بومهل البساتين (إقامة سيرين) 2097"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--el-mourouj",
+      "nameFr": "EL MOUROUJ",
+      "nameAr": "المروج",
+      "searchKey": "el mourouj المروج",
+      "municipalities": [
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-bir-el-kassaa--2059",
+          "nameFr": "EL MOUROUJ (Bir El Kassaa)",
+          "nameAr": "المروج (بئر القصعة)",
+          "postalCode": "2059",
+          "latitude": 36.7589,
+          "longitude": 10.2106,
+          "searchKey": "el mourouj (bir el kassaa) المروج (بئر القصعة) 2059"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-alyssa-1--2074",
+          "nameFr": "EL MOUROUJ (Cite Alyssa 1)",
+          "nameAr": "المروج (حي عليسة 1)",
+          "postalCode": "2074",
+          "latitude": 36.7395,
+          "longitude": 10.203,
+          "searchKey": "el mourouj (cite alyssa 1) المروج (حي عليسة 1) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-alyssa-2--2074",
+          "nameFr": "EL MOUROUJ (Cite Alyssa 2)",
+          "nameAr": "المروج (حي عليسة 2)",
+          "postalCode": "2074",
+          "latitude": 36.7388,
+          "longitude": 10.2022,
+          "searchKey": "el mourouj (cite alyssa 2) المروج (حي عليسة 2) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-azza-1--2074",
+          "nameFr": "EL MOUROUJ (Cite Azza 1)",
+          "nameAr": "المروج (حي عزة 1)",
+          "postalCode": "2074",
+          "latitude": 36.738,
+          "longitude": 10.201,
+          "searchKey": "el mourouj (cite azza 1) المروج (حي عزة 1) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-azza-2--2074",
+          "nameFr": "EL MOUROUJ (Cite Azza 2)",
+          "nameAr": "المروج (حي عزة 2)",
+          "postalCode": "2074",
+          "latitude": 36.7373,
+          "longitude": 10.2002,
+          "searchKey": "el mourouj (cite azza 2) المروج (حي عزة 2) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-commerciale-abou-sofiane--2074",
+          "nameFr": "EL MOUROUJ (Cite Commerciale Abou Sofiane)",
+          "nameAr": "المروج (الحي التجاري أبو سفيان)",
+          "postalCode": "2074",
+          "latitude": 36.7365,
+          "longitude": 10.199,
+          "searchKey": "el mourouj (cite commerciale abou sofiane) المروج (الحي التجاري أبو سفيان) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-commerciale-boukhriss--2074",
+          "nameFr": "EL MOUROUJ (Cite Commerciale Boukhriss)",
+          "nameAr": "المروج (الحي التجاري بوخريص)",
+          "postalCode": "2074",
+          "latitude": 36.7358,
+          "longitude": 10.1982,
+          "searchKey": "el mourouj (cite commerciale boukhriss) المروج (الحي التجاري بوخريص) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-des-oasis--2074",
+          "nameFr": "EL MOUROUJ (Cite Des Oasis)",
+          "nameAr": "المروج (حي الواحات)",
+          "postalCode": "2074",
+          "latitude": 36.735,
+          "longitude": 10.197,
+          "searchKey": "el mourouj (cite des oasis) المروج (حي الواحات) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-el-bassatine--2074",
+          "nameFr": "EL MOUROUJ (Cite El Bassatine)",
+          "nameAr": "المروج (حي البساتين)",
+          "postalCode": "2074",
+          "latitude": 36.7343,
+          "longitude": 10.1962,
+          "searchKey": "el mourouj (cite el bassatine) المروج (حي البساتين) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-el-bochra--2074",
+          "nameFr": "EL MOUROUJ (Cite El Bochra)",
+          "nameAr": "المروج (حي البشرى)",
+          "postalCode": "2074",
+          "latitude": 36.7405,
+          "longitude": 10.2042,
+          "searchKey": "el mourouj (cite el bochra) المروج (حي البشرى) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-el-faouz--2074",
+          "nameFr": "EL MOUROUJ (Cite El Faouz)",
+          "nameAr": "المروج (حي الفوز)",
+          "postalCode": "2074",
+          "latitude": 36.7451,
+          "longitude": 10.2117,
+          "searchKey": "el mourouj (cite el faouz) المروج (حي الفوز) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-el-foll--2074",
+          "nameFr": "EL MOUROUJ (Cite El Foll)",
+          "nameAr": "المروج (حي الفل)",
+          "postalCode": "2074",
+          "latitude": 36.7418,
+          "longitude": 10.2088,
+          "searchKey": "el mourouj (cite el foll) المروج (حي الفل) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-el-mourouj-3-bis--2074",
+          "nameFr": "EL MOUROUJ (Cite El Mourouj 3 Bis)",
+          "nameAr": "المروج (حي المروج 3 مكرر)",
+          "postalCode": "2074",
+          "latitude": 36.7385,
+          "longitude": 10.1953,
+          "searchKey": "el mourouj (cite el mourouj 3 bis) المروج (حي المروج 3 مكرر) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-el-wifak--2074",
+          "nameFr": "EL MOUROUJ (Cite El Wifak)",
+          "nameAr": "المروج (حي الوفاق)",
+          "postalCode": "2074",
+          "latitude": 36.7425,
+          "longitude": 10.2105,
+          "searchKey": "el mourouj (cite el wifak) المروج (حي الوفاق) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-ennakhil--2074",
+          "nameFr": "EL MOUROUJ (Cite Ennakhil)",
+          "nameAr": "المروج (حي النخيل)",
+          "postalCode": "2074",
+          "latitude": 36.7399,
+          "longitude": 10.2001,
+          "searchKey": "el mourouj (cite ennakhil) المروج (حي النخيل) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-ennarjes-1--2074",
+          "nameFr": "EL MOUROUJ (Cite Ennarjes 1)",
+          "nameAr": "المروج (حي النرجس 1)",
+          "postalCode": "2074",
+          "latitude": 36.737,
+          "longitude": 10.1985,
+          "searchKey": "el mourouj (cite ennarjes 1) المروج (حي النرجس 1) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-ennarjes-2--2074",
+          "nameFr": "EL MOUROUJ (Cite Ennarjes 2)",
+          "nameAr": "المروج (حي النرجس 2)",
+          "postalCode": "2074",
+          "latitude": 36.7362,
+          "longitude": 10.1977,
+          "searchKey": "el mourouj (cite ennarjes 2) المروج (حي النرجس 2) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-ennasr-1--2074",
+          "nameFr": "EL MOUROUJ (Cite Ennasr 1)",
+          "nameAr": "المروج (حي النصر 1)",
+          "postalCode": "2074",
+          "latitude": 36.7355,
+          "longitude": 10.193,
+          "searchKey": "el mourouj (cite ennasr 1) المروج (حي النصر 1) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-ennasr-2--2074",
+          "nameFr": "EL MOUROUJ (Cite Ennasr 2)",
+          "nameAr": "المروج (حي النصر 2)",
+          "postalCode": "2074",
+          "latitude": 36.7348,
+          "longitude": 10.1922,
+          "searchKey": "el mourouj (cite ennasr 2) المروج (حي النصر 2) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-errachid-1--2074",
+          "nameFr": "EL MOUROUJ (Cite Errachid 1)",
+          "nameAr": "المروج (حي الرشيد 1)",
+          "postalCode": "2074",
+          "latitude": 36.7335,
+          "longitude": 10.19,
+          "searchKey": "el mourouj (cite errachid 1) المروج (حي الرشيد 1) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-errachid-2--2074",
+          "nameFr": "EL MOUROUJ (Cite Errachid 2)",
+          "nameAr": "المروج (حي الرشيد 2)",
+          "postalCode": "2074",
+          "latitude": 36.7328,
+          "longitude": 10.1892,
+          "searchKey": "el mourouj (cite errachid 2) المروج (حي الرشيد 2) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-erraoudha--2074",
+          "nameFr": "EL MOUROUJ (Cite Erraoudha)",
+          "nameAr": "المروج (حي الروضة)",
+          "postalCode": "2074",
+          "latitude": 36.732,
+          "longitude": 10.187,
+          "searchKey": "el mourouj (cite erraoudha) المروج (حي الروضة) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-erriadh-2--2074",
+          "nameFr": "EL MOUROUJ (Cite Erriadh 2)",
+          "nameAr": "المروج (حي الرياض 2)",
+          "postalCode": "2074",
+          "latitude": 36.7303,
+          "longitude": 10.1842,
+          "searchKey": "el mourouj (cite erriadh 2) المروج (حي الرياض 2) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-erriadh--2074",
+          "nameFr": "EL MOUROUJ (Cite Erriadh)",
+          "nameAr": "المروج (حي الرياض)",
+          "postalCode": "2074",
+          "latitude": 36.731,
+          "longitude": 10.185,
+          "searchKey": "el mourouj (cite erriadh) المروج (حي الرياض) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-essalem--2074",
+          "nameFr": "EL MOUROUJ (Cite Essalem)",
+          "nameAr": "المروج (حي السلام)",
+          "postalCode": "2074",
+          "latitude": 36.7295,
+          "longitude": 10.183,
+          "searchKey": "el mourouj (cite essalem) المروج (حي السلام) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-ibn-jazzar-2--2074",
+          "nameFr": "EL MOUROUJ (Cite Ibn Jazzar 2)",
+          "nameAr": "المروج (حي ابن الجزار 2)",
+          "postalCode": "2074",
+          "latitude": 36.7288,
+          "longitude": 10.1822,
+          "searchKey": "el mourouj (cite ibn jazzar 2) المروج (حي ابن الجزار 2) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-ibn-mandhour--2074",
+          "nameFr": "EL MOUROUJ (Cite Ibn Mandhour)",
+          "nameAr": "المروج (حي ابن منظور)",
+          "postalCode": "2074",
+          "latitude": 36.728,
+          "longitude": 10.181,
+          "searchKey": "el mourouj (cite ibn mandhour) المروج (حي ابن منظور) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-jardins--2074",
+          "nameFr": "EL MOUROUJ (Cite Jardins)",
+          "nameAr": "المروج (حي الحدائق)",
+          "postalCode": "2074",
+          "latitude": 36.727,
+          "longitude": 10.179,
+          "searchKey": "el mourouj (cite jardins) المروج (حي الحدائق) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-moncef-bey--2074",
+          "nameFr": "EL MOUROUJ (Cite Moncef Bey)",
+          "nameAr": "المروج (حي المنصف باي)",
+          "postalCode": "2074",
+          "latitude": 36.726,
+          "longitude": 10.177,
+          "searchKey": "el mourouj (cite moncef bey) المروج (حي المنصف باي) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-taher-haddad--2074",
+          "nameFr": "EL MOUROUJ (Cite Taher Haddad)",
+          "nameAr": "المروج (حي الطاهر الحداد)",
+          "postalCode": "2074",
+          "latitude": 36.725,
+          "longitude": 10.175,
+          "searchKey": "el mourouj (cite taher haddad) المروج (حي الطاهر الحداد) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-cite-yargoula--2074",
+          "nameFr": "EL MOUROUJ (Cite Yargoula)",
+          "nameAr": "المروج (حي يرقولة)",
+          "postalCode": "2074",
+          "latitude": 36.724,
+          "longitude": 10.173,
+          "searchKey": "el mourouj (cite yargoula) المروج (حي يرقولة) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-el-alia-1--2074",
+          "nameFr": "EL MOUROUJ (El Alia 1)",
+          "nameAr": "المروج (العالية 1)",
+          "postalCode": "2074",
+          "latitude": 36.723,
+          "longitude": 10.171,
+          "searchKey": "el mourouj (el alia 1) المروج (العالية 1) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-el-alia-2--2074",
+          "nameFr": "EL MOUROUJ (El Alia 2)",
+          "nameAr": "المروج (العالية 2)",
+          "postalCode": "2074",
+          "latitude": 36.722,
+          "longitude": 10.169,
+          "searchKey": "el mourouj (el alia 2) المروج (العالية 2) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-el-alia-3--2074",
+          "nameFr": "EL MOUROUJ (El Alia 3)",
+          "nameAr": "المروج (العالية 3)",
+          "postalCode": "2074",
+          "latitude": 36.721,
+          "longitude": 10.167,
+          "searchKey": "el mourouj (el alia 3) المروج (العالية 3) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-el-mourouj--2074",
+          "nameFr": "EL MOUROUJ (El Mourouj)",
+          "nameAr": "المروج (المروج)",
+          "postalCode": "2074",
+          "latitude": 36.7333,
+          "longitude": 10.2,
+          "searchKey": "el mourouj (el mourouj) المروج (المروج) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-la-belle-residence--2074",
+          "nameFr": "EL MOUROUJ (La Belle Residence)",
+          "nameAr": "المروج (الإقامة الجميلة)",
+          "postalCode": "2074",
+          "latitude": 36.72,
+          "longitude": 10.165,
+          "searchKey": "el mourouj (la belle residence) المروج (الإقامة الجميلة) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-chebbi--2074",
+          "nameFr": "EL MOUROUJ (Residence Chebbi)",
+          "nameAr": "المروج (إقامة الشابي)",
+          "postalCode": "2074",
+          "latitude": 36.7185,
+          "longitude": 10.163,
+          "searchKey": "el mourouj (residence chebbi) المروج (إقامة الشابي) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-chourouk-1--2074",
+          "nameFr": "EL MOUROUJ (Residence Chourouk 1)",
+          "nameAr": "المروج (إقامة الشروق 1)",
+          "postalCode": "2074",
+          "latitude": 36.717,
+          "longitude": 10.161,
+          "searchKey": "el mourouj (residence chourouk 1) المروج (إقامة الشروق 1) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-chourouk-2--2074",
+          "nameFr": "EL MOUROUJ (Residence Chourouk 2)",
+          "nameAr": "المروج (إقامة الشروق 2)",
+          "postalCode": "2074",
+          "latitude": 36.716,
+          "longitude": 10.159,
+          "searchKey": "el mourouj (residence chourouk 2) المروج (إقامة الشروق 2) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-chourouk-3--2074",
+          "nameFr": "EL MOUROUJ (Residence Chourouk 3)",
+          "nameAr": "المروج (إقامة الشروق 3)",
+          "postalCode": "2074",
+          "latitude": 36.715,
+          "longitude": 10.157,
+          "searchKey": "el mourouj (residence chourouk 3) المروج (إقامة الشروق 3) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-de-l-horizon--2074",
+          "nameFr": "EL MOUROUJ (Residence De L'Horizon)",
+          "nameAr": "المروج (إقامة الأفق)",
+          "postalCode": "2074",
+          "latitude": 36.714,
+          "longitude": 10.155,
+          "searchKey": "el mourouj (residence de l'horizon) المروج (إقامة الأفق) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-de-la-verdure--2074",
+          "nameFr": "EL MOUROUJ (Residence De La Verdure)",
+          "nameAr": "المروج (إقامة الخضراء)",
+          "postalCode": "2074",
+          "latitude": 36.713,
+          "longitude": 10.153,
+          "searchKey": "el mourouj (residence de la verdure) المروج (إقامة الخضراء) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-du-printemps--2074",
+          "nameFr": "EL MOUROUJ (Residence Du Printemps)",
+          "nameAr": "المروج (إقامة الربيع)",
+          "postalCode": "2074",
+          "latitude": 36.712,
+          "longitude": 10.151,
+          "searchKey": "el mourouj (residence du printemps) المروج (إقامة الربيع) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-el-foll--2074",
+          "nameFr": "EL MOUROUJ (Residence El Foll)",
+          "nameAr": "المروج (إقامة الفل)",
+          "postalCode": "2074",
+          "latitude": 36.711,
+          "longitude": 10.149,
+          "searchKey": "el mourouj (residence el foll) المروج (إقامة الفل) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-el-khalil--2074",
+          "nameFr": "EL MOUROUJ (Residence El Khalil)",
+          "nameAr": "المروج (إقامة الخليل)",
+          "postalCode": "2074",
+          "latitude": 36.71,
+          "longitude": 10.147,
+          "searchKey": "el mourouj (residence el khalil) المروج (إقامة الخليل) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-el-mourjene--2074",
+          "nameFr": "EL MOUROUJ (Residence El Mourjene)",
+          "nameAr": "المروج (إقامة المرجان)",
+          "postalCode": "2074",
+          "latitude": 36.709,
+          "longitude": 10.145,
+          "searchKey": "el mourouj (residence el mourjene) المروج (إقامة المرجان) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-el-ouard--2074",
+          "nameFr": "EL MOUROUJ (Residence El Ouard)",
+          "nameAr": "المروج (إقامة الورد)",
+          "postalCode": "2074",
+          "latitude": 36.708,
+          "longitude": 10.143,
+          "searchKey": "el mourouj (residence el ouard) المروج (إقامة الورد) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-el-wafa--2074",
+          "nameFr": "EL MOUROUJ (Residence El Wafa)",
+          "nameAr": "المروج (إقامة الوفاء)",
+          "postalCode": "2074",
+          "latitude": 36.707,
+          "longitude": 10.141,
+          "searchKey": "el mourouj (residence el wafa) المروج (إقامة الوفاء) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-ennacim--2074",
+          "nameFr": "EL MOUROUJ (Residence Ennacim)",
+          "nameAr": "المروج (إقامة النسيم)",
+          "postalCode": "2074",
+          "latitude": 36.706,
+          "longitude": 10.139,
+          "searchKey": "el mourouj (residence ennacim) المروج (إقامة النسيم) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-ennaoures--2074",
+          "nameFr": "EL MOUROUJ (Residence Ennaoures)",
+          "nameAr": "المروج (إقامة النورس)",
+          "postalCode": "2074",
+          "latitude": 36.705,
+          "longitude": 10.137,
+          "searchKey": "el mourouj (residence ennaoures) المروج (إقامة النورس) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-ennesrine--2074",
+          "nameFr": "EL MOUROUJ (Residence Ennesrine)",
+          "nameAr": "المروج (إقامة النسرين)",
+          "postalCode": "2074",
+          "latitude": 36.704,
+          "longitude": 10.135,
+          "searchKey": "el mourouj (residence ennesrine) المروج (إقامة النسرين) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-erraboua--2074",
+          "nameFr": "EL MOUROUJ (Residence Erraboua)",
+          "nameAr": "المروج (إقامة الربوة)",
+          "postalCode": "2074",
+          "latitude": 36.703,
+          "longitude": 10.133,
+          "searchKey": "el mourouj (residence erraboua) المروج (إقامة الربوة) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-essaad--2074",
+          "nameFr": "EL MOUROUJ (Residence Essaad)",
+          "nameAr": "المروج (إقامة السعد)",
+          "postalCode": "2074",
+          "latitude": 36.702,
+          "longitude": 10.131,
+          "searchKey": "el mourouj (residence essaad) المروج (إقامة السعد) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-essaada--2074",
+          "nameFr": "EL MOUROUJ (Residence Essaada)",
+          "nameAr": "المروج (إقامة السعادة)",
+          "postalCode": "2074",
+          "latitude": 36.701,
+          "longitude": 10.129,
+          "searchKey": "el mourouj (residence essaada) المروج (إقامة السعادة) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-essraya--2074",
+          "nameFr": "EL MOUROUJ (Residence Essraya)",
+          "nameAr": "المروج (إقامة السرايا)",
+          "postalCode": "2074",
+          "latitude": 36.7,
+          "longitude": 10.127,
+          "searchKey": "el mourouj (residence essraya) المروج (إقامة السرايا) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-ibn-khaldoun--2074",
+          "nameFr": "EL MOUROUJ (Residence Ibn Khaldoun)",
+          "nameAr": "المروج (إقامة ابن خلدون)",
+          "postalCode": "2074",
+          "latitude": 36.699,
+          "longitude": 10.125,
+          "searchKey": "el mourouj (residence ibn khaldoun) المروج (إقامة ابن خلدون) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-ibn-zeidoun--2074",
+          "nameFr": "EL MOUROUJ (Residence Ibn Zeidoun)",
+          "nameAr": "المروج (إقامة ابن زيدون)",
+          "postalCode": "2074",
+          "latitude": 36.698,
+          "longitude": 10.123,
+          "searchKey": "el mourouj (residence ibn zeidoun) المروج (إقامة ابن زيدون) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-ines--2074",
+          "nameFr": "EL MOUROUJ (Residence Ines)",
+          "nameAr": "المروج (إقامة إيناس)",
+          "postalCode": "2074",
+          "latitude": 36.697,
+          "longitude": 10.121,
+          "searchKey": "el mourouj (residence ines) المروج (إقامة إيناس) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-jinene-el-mourouj--2074",
+          "nameFr": "EL MOUROUJ (Residence Jinene El Mourouj)",
+          "nameAr": "المروج (إقامة جنان المروج)",
+          "postalCode": "2074",
+          "latitude": 36.696,
+          "longitude": 10.119,
+          "searchKey": "el mourouj (residence jinene el mourouj) المروج (إقامة جنان المروج) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-meriem--2074",
+          "nameFr": "EL MOUROUJ (Residence Meriem)",
+          "nameAr": "المروج (إقامة مريم)",
+          "postalCode": "2074",
+          "latitude": 36.695,
+          "longitude": 10.117,
+          "searchKey": "el mourouj (residence meriem) المروج (إقامة مريم) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-sidi-bou-said--2074",
+          "nameFr": "EL MOUROUJ (Residence Sidi Bou Said)",
+          "nameAr": "المروج (إقامة سيدي بوسعيد)",
+          "postalCode": "2074",
+          "latitude": 36.694,
+          "longitude": 10.115,
+          "searchKey": "el mourouj (residence sidi bou said) المروج (إقامة سيدي بوسعيد) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-type--2074",
+          "nameFr": "EL MOUROUJ (Residence Type)",
+          "nameAr": "المروج (الإقامة النموذجية)",
+          "postalCode": "2074",
+          "latitude": 36.693,
+          "longitude": 10.113,
+          "searchKey": "el mourouj (residence type) المروج (الإقامة النموذجية) 2074"
+        },
+        {
+          "id": "ben-arous--el-mourouj--el-mourouj-residence-zahret-el-mourouj--2074",
+          "nameFr": "EL MOUROUJ (Residence Zahret El Mourouj)",
+          "nameAr": "المروج (إقامة زهرة المروج)",
+          "postalCode": "2074",
+          "latitude": 36.692,
+          "longitude": 10.111,
+          "searchKey": "el mourouj (residence zahret el mourouj) المروج (إقامة زهرة المروج) 2074"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--ezzahra",
+      "nameFr": "EZZAHRA",
+      "nameAr": "الزهراء",
+      "searchKey": "ezzahra الزهراء",
+      "municipalities": [
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-18-janvier--2034",
+          "nameFr": "EZZAHRA (Cite 18 Janvier)",
+          "nameAr": "الزهراء (حي 18 جانفي)",
+          "postalCode": "2034",
+          "latitude": 36.743,
+          "longitude": 10.308,
+          "searchKey": "ezzahra (cite 18 janvier) الزهراء (حي 18 جانفي) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-ben-miled--2065",
+          "nameFr": "EZZAHRA (Cite Ben Miled)",
+          "nameAr": "الزهراء (حي بن ميلاد)",
+          "postalCode": "2065",
+          "latitude": 36.74,
+          "longitude": 10.305,
+          "searchKey": "ezzahra (cite ben miled) الزهراء (حي بن ميلاد) 2065"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-borj-louzir--2034",
+          "nameFr": "EZZAHRA (Cite Borj Louzir)",
+          "nameAr": "الزهراء (حي برج الوزير)",
+          "postalCode": "2034",
+          "latitude": 36.745,
+          "longitude": 10.31,
+          "searchKey": "ezzahra (cite borj louzir) الزهراء (حي برج الوزير) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-du-port--2034",
+          "nameFr": "EZZAHRA (Cite Du Port)",
+          "nameAr": "الزهراء (حي الميناء)",
+          "postalCode": "2034",
+          "latitude": 36.748,
+          "longitude": 10.313,
+          "searchKey": "ezzahra (cite du port) الزهراء (حي الميناء) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-du-wagon--2034",
+          "nameFr": "EZZAHRA (Cite Du Wagon)",
+          "nameAr": "الزهراء (حي الواقون)",
+          "postalCode": "2034",
+          "latitude": 36.75,
+          "longitude": 10.315,
+          "searchKey": "ezzahra (cite du wagon) الزهراء (حي الواقون) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-el-ahlem--2034",
+          "nameFr": "EZZAHRA (Cite El Ahlem)",
+          "nameAr": "الزهراء (حي الأحلام)",
+          "postalCode": "2034",
+          "latitude": 36.752,
+          "longitude": 10.317,
+          "searchKey": "ezzahra (cite el ahlem) الزهراء (حي الأحلام) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-el-akacia--2034",
+          "nameFr": "EZZAHRA (Cite El Akacia)",
+          "nameAr": "الزهراء (حي الأكاسيا)",
+          "postalCode": "2034",
+          "latitude": 36.754,
+          "longitude": 10.319,
+          "searchKey": "ezzahra (cite el akacia) الزهراء (حي الأكاسيا) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-el-amen--2034",
+          "nameFr": "EZZAHRA (Cite El Amen)",
+          "nameAr": "الزهراء (حي الأمان)",
+          "postalCode": "2034",
+          "latitude": 36.756,
+          "longitude": 10.321,
+          "searchKey": "ezzahra (cite el amen) الزهراء (حي الأمان) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-el-ezz--2034",
+          "nameFr": "EZZAHRA (Cite El Ezz)",
+          "nameAr": "الزهراء (حي العز)",
+          "postalCode": "2034",
+          "latitude": 36.758,
+          "longitude": 10.323,
+          "searchKey": "ezzahra (cite el ezz) الزهراء (حي العز) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-el-habib--2065",
+          "nameFr": "EZZAHRA (Cite El Habib)",
+          "nameAr": "الزهراء (حي الحبيب)",
+          "postalCode": "2065",
+          "latitude": 36.7385,
+          "longitude": 10.303,
+          "searchKey": "ezzahra (cite el habib) الزهراء (حي الحبيب) 2065"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-el-houl--2065",
+          "nameFr": "EZZAHRA (Cite El Houl)",
+          "nameAr": "الزهراء (حي الهول)",
+          "postalCode": "2065",
+          "latitude": 36.737,
+          "longitude": 10.301,
+          "searchKey": "ezzahra (cite el houl) الزهراء (حي الهول) 2065"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-el-oulija--2034",
+          "nameFr": "EZZAHRA (Cite El Oulija)",
+          "nameAr": "الزهراء (حي العليجة)",
+          "postalCode": "2034",
+          "latitude": 36.76,
+          "longitude": 10.325,
+          "searchKey": "ezzahra (cite el oulija) الزهراء (حي العليجة) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-el-ouns--2034",
+          "nameFr": "EZZAHRA (Cite El Ouns)",
+          "nameAr": "الزهراء (حي الأنس)",
+          "postalCode": "2034",
+          "latitude": 36.762,
+          "longitude": 10.327,
+          "searchKey": "ezzahra (cite el ouns) الزهراء (حي الأنس) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-el-ward--2065",
+          "nameFr": "EZZAHRA (Cite El Ward)",
+          "nameAr": "الزهراء (حي الورد)",
+          "postalCode": "2065",
+          "latitude": 36.7355,
+          "longitude": 10.299,
+          "searchKey": "ezzahra (cite el ward) الزهراء (حي الورد) 2065"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-el-yasmine--2065",
+          "nameFr": "EZZAHRA (Cite El Yasmine)",
+          "nameAr": "الزهراء (حي الياسمين)",
+          "postalCode": "2065",
+          "latitude": 36.734,
+          "longitude": 10.297,
+          "searchKey": "ezzahra (cite el yasmine) الزهراء (حي الياسمين) 2065"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-ennakhil-1--2034",
+          "nameFr": "EZZAHRA (Cite Ennakhil 1)",
+          "nameAr": "الزهراء (حي النخيل 1)",
+          "postalCode": "2034",
+          "latitude": 36.764,
+          "longitude": 10.329,
+          "searchKey": "ezzahra (cite ennakhil 1) الزهراء (حي النخيل 1) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-ennakhil-2--2034",
+          "nameFr": "EZZAHRA (Cite Ennakhil 2)",
+          "nameAr": "الزهراء (حي النخيل 2)",
+          "postalCode": "2034",
+          "latitude": 36.765,
+          "longitude": 10.33,
+          "searchKey": "ezzahra (cite ennakhil 2) الزهراء (حي النخيل 2) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-ennasr--2065",
+          "nameFr": "EZZAHRA (Cite Ennasr)",
+          "nameAr": "الزهراء (حي النصر)",
+          "postalCode": "2065",
+          "latitude": 36.7325,
+          "longitude": 10.295,
+          "searchKey": "ezzahra (cite ennasr) الزهراء (حي النصر) 2065"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-errachid--2034",
+          "nameFr": "EZZAHRA (Cite Errachid)",
+          "nameAr": "الزهراء (حي الرشيد)",
+          "postalCode": "2034",
+          "latitude": 36.767,
+          "longitude": 10.332,
+          "searchKey": "ezzahra (cite errachid) الزهراء (حي الرشيد) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-erriadh--2034",
+          "nameFr": "EZZAHRA (Cite Erriadh)",
+          "nameAr": "الزهراء (حي الرياض)",
+          "postalCode": "2034",
+          "latitude": 36.769,
+          "longitude": 10.334,
+          "searchKey": "ezzahra (cite erriadh) الزهراء (حي الرياض) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-hedi-khfacha--2034",
+          "nameFr": "EZZAHRA (Cite Hedi Khfacha)",
+          "nameAr": "الزهراء (حي الهادي خفشة)",
+          "postalCode": "2034",
+          "latitude": 36.771,
+          "longitude": 10.336,
+          "searchKey": "ezzahra (cite hedi khfacha) الزهراء (حي الهادي خفشة) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-imen--2034",
+          "nameFr": "EZZAHRA (Cite Imen)",
+          "nameAr": "الزهراء (حي إيمان)",
+          "postalCode": "2034",
+          "latitude": 36.773,
+          "longitude": 10.338,
+          "searchKey": "ezzahra (cite imen) الزهراء (حي إيمان) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-industrielle--2034",
+          "nameFr": "EZZAHRA (Cite Industrielle)",
+          "nameAr": "الزهراء (الحي الصناعي)",
+          "postalCode": "2034",
+          "latitude": 36.74,
+          "longitude": 10.29,
+          "searchKey": "ezzahra (cite industrielle) الزهراء (الحي الصناعي) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-mrad-1--2034",
+          "nameFr": "EZZAHRA (Cite Mrad 1)",
+          "nameAr": "الزهراء (حي مراد 1)",
+          "postalCode": "2034",
+          "latitude": 36.739,
+          "longitude": 10.295,
+          "searchKey": "ezzahra (cite mrad 1) الزهراء (حي مراد 1) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-mrad-2--2034",
+          "nameFr": "EZZAHRA (Cite Mrad 2)",
+          "nameAr": "الزهراء (حي مراد 2)",
+          "postalCode": "2034",
+          "latitude": 36.738,
+          "longitude": 10.293,
+          "searchKey": "ezzahra (cite mrad 2) الزهراء (حي مراد 2) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-cite-panorama--2034",
+          "nameFr": "EZZAHRA (Cite Panorama)",
+          "nameAr": "الزهراء (حي بانوراما)",
+          "postalCode": "2034",
+          "latitude": 36.737,
+          "longitude": 10.291,
+          "searchKey": "ezzahra (cite panorama) الزهراء (حي بانوراما) 2034"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-ezzahra-el-habib--2065",
+          "nameFr": "EZZAHRA (Ezzahra El Habib)",
+          "nameAr": "الزهراء (الزهراء الحبيب)",
+          "postalCode": "2065",
+          "latitude": 36.7375,
+          "longitude": 10.3,
+          "searchKey": "ezzahra (ezzahra el habib) الزهراء (الزهراء الحبيب) 2065"
+        },
+        {
+          "id": "ben-arous--ezzahra--ezzahra-ezzahra--2034",
+          "nameFr": "EZZAHRA (Ezzahra)",
+          "nameAr": "الزهراء (الزهراء)",
+          "postalCode": "2034",
+          "latitude": 36.7453,
+          "longitude": 10.3094,
+          "searchKey": "ezzahra (ezzahra) الزهراء (الزهراء) 2034"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--fouchana",
+      "nameFr": "FOUCHANA",
+      "nameAr": "فوشانة",
+      "searchKey": "fouchana فوشانة",
+      "municipalities": [
+        {
+          "id": "ben-arous--fouchana--fouchana-bir-zendala--1135",
+          "nameFr": "FOUCHANA (Bir Zendala)",
+          "nameAr": "فوشانة (بئر زندالة)",
+          "postalCode": "1135",
+          "latitude": 36.7089,
+          "longitude": 10.1755,
+          "searchKey": "fouchana (bir zendala) فوشانة (بئر زندالة) 1135"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-chebedda--1135",
+          "nameFr": "FOUCHANA (Chebedda)",
+          "nameAr": "فوشانة (شبادة)",
+          "postalCode": "1135",
+          "latitude": 36.7098,
+          "longitude": 10.1693,
+          "searchKey": "fouchana (chebedda) فوشانة (شبادة) 1135"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-20-mars--2082",
+          "nameFr": "FOUCHANA (Cite 20 Mars)",
+          "nameAr": "فوشانة (حي 20 مارس)",
+          "postalCode": "2082",
+          "latitude": 36.7135,
+          "longitude": 10.1578,
+          "searchKey": "fouchana (cite 20 mars) فوشانة (حي 20 مارس) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-brim--2082",
+          "nameFr": "FOUCHANA (Cite Brim)",
+          "nameAr": "فوشانة (حي بريم)",
+          "postalCode": "2082",
+          "latitude": 36.7125,
+          "longitude": 10.1567,
+          "searchKey": "fouchana (cite brim) فوشانة (حي بريم) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-chebbi--2082",
+          "nameFr": "FOUCHANA (Cite Chebbi)",
+          "nameAr": "فوشانة (حي الشابي)",
+          "postalCode": "2082",
+          "latitude": 36.7115,
+          "longitude": 10.1556,
+          "searchKey": "fouchana (cite chebbi) فوشانة (حي الشابي) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-amel-2--2082",
+          "nameFr": "FOUCHANA (Cite El Amel 2)",
+          "nameAr": "فوشانة (حي الأمل 2)",
+          "postalCode": "2082",
+          "latitude": 36.7095,
+          "longitude": 10.1534,
+          "searchKey": "fouchana (cite el amel 2) فوشانة (حي الأمل 2) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-amel--2082",
+          "nameFr": "FOUCHANA (Cite El Amel)",
+          "nameAr": "فوشانة (حي الأمل)",
+          "postalCode": "2082",
+          "latitude": 36.7105,
+          "longitude": 10.1545,
+          "searchKey": "fouchana (cite el amel) فوشانة (حي الأمل) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-banefsej--2082",
+          "nameFr": "FOUCHANA (Cite El Banefsej)",
+          "nameAr": "فوشانة (حي البنفسج)",
+          "postalCode": "2082",
+          "latitude": 36.7085,
+          "longitude": 10.1523,
+          "searchKey": "fouchana (cite el banefsej) فوشانة (حي البنفسج) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-fateh--2082",
+          "nameFr": "FOUCHANA (Cite El Fateh)",
+          "nameAr": "فوشانة (حي الفاتح)",
+          "postalCode": "2082",
+          "latitude": 36.7075,
+          "longitude": 10.1512,
+          "searchKey": "fouchana (cite el fateh) فوشانة (حي الفاتح) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-hana--2082",
+          "nameFr": "FOUCHANA (Cite El Hana)",
+          "nameAr": "فوشانة (حي الهناء)",
+          "postalCode": "2082",
+          "latitude": 36.7065,
+          "longitude": 10.1501,
+          "searchKey": "fouchana (cite el hana) فوشانة (حي الهناء) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-hidhab--2082",
+          "nameFr": "FOUCHANA (Cite El Hidhab)",
+          "nameAr": "فوشانة (حي الهضاب)",
+          "postalCode": "2082",
+          "latitude": 36.7055,
+          "longitude": 10.149,
+          "searchKey": "fouchana (cite el hidhab) فوشانة (حي الهضاب) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-izdihar--2082",
+          "nameFr": "FOUCHANA (Cite El Izdihar)",
+          "nameAr": "فوشانة (حي الازدهار)",
+          "postalCode": "2082",
+          "latitude": 36.7045,
+          "longitude": 10.1479,
+          "searchKey": "fouchana (cite el izdihar) فوشانة (حي الازدهار) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-misk--2082",
+          "nameFr": "FOUCHANA (Cite El Misk)",
+          "nameAr": "فوشانة (حي المسك)",
+          "postalCode": "2082",
+          "latitude": 36.7035,
+          "longitude": 10.1468,
+          "searchKey": "fouchana (cite el misk) فوشانة (حي المسك) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-moustakbel--2082",
+          "nameFr": "FOUCHANA (Cite El Moustakbel)",
+          "nameAr": "فوشانة (حي المستقبل)",
+          "postalCode": "2082",
+          "latitude": 36.7025,
+          "longitude": 10.1457,
+          "searchKey": "fouchana (cite el moustakbel) فوشانة (حي المستقبل) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-ward--2082",
+          "nameFr": "FOUCHANA (Cite El Ward)",
+          "nameAr": "فوشانة (حي الورد)",
+          "postalCode": "2082",
+          "latitude": 36.7015,
+          "longitude": 10.1446,
+          "searchKey": "fouchana (cite el ward) فوشانة (حي الورد) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-el-wifak--2082",
+          "nameFr": "FOUCHANA (Cite El Wifak)",
+          "nameAr": "فوشانة (حي الوفاق)",
+          "postalCode": "2082",
+          "latitude": 36.7005,
+          "longitude": 10.1435,
+          "searchKey": "fouchana (cite el wifak) فوشانة (حي الوفاق) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-ennasr--2082",
+          "nameFr": "FOUCHANA (Cite Ennasr)",
+          "nameAr": "فوشانة (حي النصر)",
+          "postalCode": "2082",
+          "latitude": 36.7215,
+          "longitude": 10.165,
+          "searchKey": "fouchana (cite ennasr) فوشانة (حي النصر) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-ennouzha--2082",
+          "nameFr": "FOUCHANA (Cite Ennouzha)",
+          "nameAr": "فوشانة (حي النزهة)",
+          "postalCode": "2082",
+          "latitude": 36.7188,
+          "longitude": 10.1625,
+          "searchKey": "fouchana (cite ennouzha) فوشانة (حي النزهة) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-erriadh--2082",
+          "nameFr": "FOUCHANA (Cite Erriadh)",
+          "nameAr": "فوشانة (حي الرياض)",
+          "postalCode": "2082",
+          "latitude": 36.72,
+          "longitude": 10.16,
+          "searchKey": "fouchana (cite erriadh) فوشانة (حي الرياض) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-ezzitoun-1--2082",
+          "nameFr": "FOUCHANA (Cite Ezzitoun 1)",
+          "nameAr": "فوشانة (حي الزيتون 1)",
+          "postalCode": "2082",
+          "latitude": 36.715,
+          "longitude": 10.168,
+          "searchKey": "fouchana (cite ezzitoun 1) فوشانة (حي الزيتون 1) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-khouaja--2082",
+          "nameFr": "FOUCHANA (Cite Khouaja)",
+          "nameAr": "فوشانة (حي الخواجة)",
+          "postalCode": "2082",
+          "latitude": 36.7165,
+          "longitude": 10.1612,
+          "searchKey": "fouchana (cite khouaja) فوشانة (حي الخواجة) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-snit--2082",
+          "nameFr": "FOUCHANA (Cite Snit)",
+          "nameAr": "فوشانة (حي السنيت)",
+          "postalCode": "2082",
+          "latitude": 36.7177,
+          "longitude": 10.1633,
+          "searchKey": "fouchana (cite snit) فوشانة (حي السنيت) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-cite-trabelsi--2082",
+          "nameFr": "FOUCHANA (Cite Trabelsi)",
+          "nameAr": "فوشانة (حي الطرابلسي)",
+          "postalCode": "2082",
+          "latitude": 36.7142,
+          "longitude": 10.1666,
+          "searchKey": "fouchana (cite trabelsi) فوشانة (حي الطرابلسي) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-douar-el-houch--1135",
+          "nameFr": "FOUCHANA (Douar El Houch)",
+          "nameAr": "فوشانة (دوار الحوش)",
+          "postalCode": "1135",
+          "latitude": 36.6932,
+          "longitude": 10.1608,
+          "searchKey": "fouchana (douar el houch) فوشانة (دوار الحوش) 1135"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-el-menaychia--2082",
+          "nameFr": "FOUCHANA (El Menaychia)",
+          "nameAr": "فوشانة (المنايشية)",
+          "postalCode": "2082",
+          "latitude": 36.712,
+          "longitude": 10.159,
+          "searchKey": "fouchana (el menaychia) فوشانة (المنايشية) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-fouchana--2082",
+          "nameFr": "FOUCHANA (Fouchana)",
+          "nameAr": "فوشانة (فوشانة)",
+          "postalCode": "2082",
+          "latitude": 36.7239,
+          "longitude": 10.1711,
+          "searchKey": "fouchana (fouchana) فوشانة (فوشانة) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-meghira-centre--2082",
+          "nameFr": "FOUCHANA (Meghira Centre)",
+          "nameAr": "فوشانة (المغيرة المركز)",
+          "postalCode": "2082",
+          "latitude": 36.7,
+          "longitude": 10.145,
+          "searchKey": "fouchana (meghira centre) فوشانة (المغيرة المركز) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-meghira-inzel--2082",
+          "nameFr": "FOUCHANA (Meghira Inzel)",
+          "nameAr": "فوشانة (المغيرة إنزال)",
+          "postalCode": "2082",
+          "latitude": 36.695,
+          "longitude": 10.14,
+          "searchKey": "fouchana (meghira inzel) فوشانة (المغيرة إنزال) 2082"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-naassen--1135",
+          "nameFr": "FOUCHANA (Naassen)",
+          "nameAr": "فوشانة (نعسان)",
+          "postalCode": "1135",
+          "latitude": 36.7031,
+          "longitude": 10.1642,
+          "searchKey": "fouchana (naassen) فوشانة (نعسان) 1135"
+        },
+        {
+          "id": "ben-arous--fouchana--fouchana-zone-industrielle-el-meghira--2082",
+          "nameFr": "FOUCHANA (Zone Industrielle El Meghira)",
+          "nameAr": "فوشانة (المنطقة الصناعية المغيرة)",
+          "postalCode": "2082",
+          "latitude": 36.6983,
+          "longitude": 10.1505,
+          "searchKey": "fouchana (zone industrielle el meghira) فوشانة (المنطقة الصناعية المغيرة) 2082"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--hammam-chatt",
+      "nameFr": "HAMMAM CHATT",
+      "nameAr": "حمام الشط",
+      "searchKey": "hammam chatt حمام الشط",
+      "municipalities": [
+        {
+          "id": "ben-arous--hammam-chatt--hammam-chatt-bir-el-bey--2055",
+          "nameFr": "HAMMAM CHATT (Bir El Bey)",
+          "nameAr": "حمام الشط (بئر الباي)",
+          "postalCode": "2055",
+          "latitude": 36.7083,
+          "longitude": 10.375,
+          "searchKey": "hammam chatt (bir el bey) حمام الشط (بئر الباي) 2055"
+        },
+        {
+          "id": "ben-arous--hammam-chatt--hammam-chatt-borj-cedria--2084",
+          "nameFr": "HAMMAM CHATT (Borj Cedria)",
+          "nameAr": "حمام الشط (برج السدرية)",
+          "postalCode": "2084",
+          "latitude": 36.7167,
+          "longitude": 10.4167,
+          "searchKey": "hammam chatt (borj cedria) حمام الشط (برج السدرية) 2084"
+        },
+        {
+          "id": "ben-arous--hammam-chatt--hammam-chatt-hammam-chatt--1164",
+          "nameFr": "HAMMAM CHATT (Hammam Chatt)",
+          "nameAr": "حمام الشط (حمام الشط)",
+          "postalCode": "1164",
+          "latitude": 36.7036,
+          "longitude": 10.3625,
+          "searchKey": "hammam chatt (hammam chatt) حمام الشط (حمام الشط) 1164"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--hammam-lif",
+      "nameFr": "HAMMAM LIF",
+      "nameAr": "حمام الأنف",
+      "searchKey": "hammam lif حمام الأنف",
+      "municipalities": [
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-bou-kornine--2093",
+          "nameFr": "HAMMAM LIF (Bou Kornine)",
+          "nameAr": "حمام الأنف (بوقرنين)",
+          "postalCode": "2093",
+          "latitude": 36.7417,
+          "longitude": 10.3469,
+          "searchKey": "hammam lif (bou kornine) حمام الأنف (بوقرنين) 2093"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-7-novembre--2050",
+          "nameFr": "HAMMAM LIF (Cite 7 Novembre)",
+          "nameAr": "حمام الأنف (حي الوحدة)",
+          "postalCode": "2050",
+          "latitude": 36.7295,
+          "longitude": 10.3375,
+          "searchKey": "hammam lif (cite 7 novembre) حمام الأنف (حي الوحدة) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-bou-kornine-2--2093",
+          "nameFr": "HAMMAM LIF (Cite Bou Kornine 2)",
+          "nameAr": "حمام الأنف (حي بوقرنين 2)",
+          "postalCode": "2093",
+          "latitude": 36.738,
+          "longitude": 10.343,
+          "searchKey": "hammam lif (cite bou kornine 2) حمام الأنف (حي بوقرنين 2) 2093"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-boussouffara--2099",
+          "nameFr": "HAMMAM LIF (Cite Boussouffara)",
+          "nameAr": "حمام الأنف (حي بوصفارة)",
+          "postalCode": "2099",
+          "latitude": 36.735,
+          "longitude": 10.345,
+          "searchKey": "hammam lif (cite boussouffara) حمام الأنف (حي بوصفارة) 2099"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-casino--2050",
+          "nameFr": "HAMMAM LIF (Cite Casino)",
+          "nameAr": "حمام الأنف (حي الكازينو)",
+          "postalCode": "2050",
+          "latitude": 36.73,
+          "longitude": 10.34,
+          "searchKey": "hammam lif (cite casino) حمام الأنف (حي الكازينو) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-dar-el-bey--2050",
+          "nameFr": "HAMMAM LIF (Cite Dar El Bey)",
+          "nameAr": "حمام الأنف (حي دار الباي)",
+          "postalCode": "2050",
+          "latitude": 36.7305,
+          "longitude": 10.341,
+          "searchKey": "hammam lif (cite dar el bey) حمام الأنف (حي دار الباي) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-de-la-municipalite--2050",
+          "nameFr": "HAMMAM LIF (Cite De La Municipalite)",
+          "nameAr": "حمام الأنف (حي البلدية)",
+          "postalCode": "2050",
+          "latitude": 36.731,
+          "longitude": 10.342,
+          "searchKey": "hammam lif (cite de la municipalite) حمام الأنف (حي البلدية) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-des-instituteurs--2050",
+          "nameFr": "HAMMAM LIF (Cite Des Instituteurs)",
+          "nameAr": "حمام الأنف (حي المعلمين)",
+          "postalCode": "2050",
+          "latitude": 36.7315,
+          "longitude": 10.343,
+          "searchKey": "hammam lif (cite des instituteurs) حمام الأنف (حي المعلمين) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-des-ouvriers--2050",
+          "nameFr": "HAMMAM LIF (Cite Des Ouvriers)",
+          "nameAr": "حمام الأنف (حي العمال)",
+          "postalCode": "2050",
+          "latitude": 36.728,
+          "longitude": 10.336,
+          "searchKey": "hammam lif (cite des ouvriers) حمام الأنف (حي العمال) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-ennahdha--2050",
+          "nameFr": "HAMMAM LIF (Cite Ennahdha)",
+          "nameAr": "حمام الأنف (حي النهضة)",
+          "postalCode": "2050",
+          "latitude": 36.7291,
+          "longitude": 10.3382,
+          "searchKey": "hammam lif (cite ennahdha) حمام الأنف (حي النهضة) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-ennasr--2050",
+          "nameFr": "HAMMAM LIF (Cite Ennasr)",
+          "nameAr": "حمام الأنف (حي النصر)",
+          "postalCode": "2050",
+          "latitude": 36.7312,
+          "longitude": 10.3395,
+          "searchKey": "hammam lif (cite ennasr) حمام الأنف (حي النصر) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-ennouzha--2050",
+          "nameFr": "HAMMAM LIF (Cite Ennouzha)",
+          "nameAr": "حمام الأنف (حي النزهة)",
+          "postalCode": "2050",
+          "latitude": 36.7275,
+          "longitude": 10.333,
+          "searchKey": "hammam lif (cite ennouzha) حمام الأنف (حي النزهة) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-essanaoubria--2050",
+          "nameFr": "HAMMAM LIF (Cite Essanaoubria)",
+          "nameAr": "حمام الأنف (حي الصنوبرية)",
+          "postalCode": "2050",
+          "latitude": 36.733,
+          "longitude": 10.342,
+          "searchKey": "hammam lif (cite essanaoubria) حمام الأنف (حي الصنوبرية) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-hached--2050",
+          "nameFr": "HAMMAM LIF (Cite Hached)",
+          "nameAr": "حمام الأنف (حي حشاد)",
+          "postalCode": "2050",
+          "latitude": 36.726,
+          "longitude": 10.33,
+          "searchKey": "hammam lif (cite hached) حمام الأنف (حي حشاد) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-kortoba--2050",
+          "nameFr": "HAMMAM LIF (Cite Kortoba)",
+          "nameAr": "حمام الأنف (حي قرطبة)",
+          "postalCode": "2050",
+          "latitude": 36.7305,
+          "longitude": 10.337,
+          "searchKey": "hammam lif (cite kortoba) حمام الأنف (حي قرطبة) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-mongi-slim--2050",
+          "nameFr": "HAMMAM LIF (Cite Mongi Slim)",
+          "nameAr": "حمام الأنف (حي المنجي سليم)",
+          "postalCode": "2050",
+          "latitude": 36.725,
+          "longitude": 10.328,
+          "searchKey": "hammam lif (cite mongi slim) حمام الأنف (حي المنجي سليم) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-office-cereale--2050",
+          "nameFr": "HAMMAM LIF (Cite Office Cereale)",
+          "nameAr": "حمام الأنف (حي ديوان الحبوب)",
+          "postalCode": "2050",
+          "latitude": 36.724,
+          "longitude": 10.326,
+          "searchKey": "hammam lif (cite office cereale) حمام الأنف (حي ديوان الحبوب) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-cite-thermale--2050",
+          "nameFr": "HAMMAM LIF (Cite Thermale)",
+          "nameAr": "حمام الأنف (الحي الاستشفائي)",
+          "postalCode": "2050",
+          "latitude": 36.723,
+          "longitude": 10.324,
+          "searchKey": "hammam lif (cite thermale) حمام الأنف (الحي الاستشفائي) 2050"
+        },
+        {
+          "id": "ben-arous--hammam-lif--hammam-lif-hammam-lif--2050",
+          "nameFr": "HAMMAM LIF (Hammam Lif)",
+          "nameAr": "حمام الأنف (حمام الأنف)",
+          "postalCode": "2050",
+          "latitude": 36.7297,
+          "longitude": 10.3386,
+          "searchKey": "hammam lif (hammam lif) حمام الأنف (حمام الأنف) 2050"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--megrine",
+      "nameFr": "MEGRINE",
+      "nameAr": "مقرين",
+      "searchKey": "megrine مقرين",
+      "municipalities": [
+        {
+          "id": "ben-arous--megrine--megrine-cite-founiz--2014",
+          "nameFr": "MEGRINE (Cite Founiz)",
+          "nameAr": "مقرين (حي فونيز)",
+          "postalCode": "2014",
+          "latitude": 36.789,
+          "longitude": 10.252,
+          "searchKey": "megrine (cite founiz) مقرين (حي فونيز) 2014"
+        },
+        {
+          "id": "ben-arous--megrine--megrine-megrine-chaker--2024",
+          "nameFr": "MEGRINE (Megrine Chaker)",
+          "nameAr": "مقرين (مقرين شاكر)",
+          "postalCode": "2024",
+          "latitude": 36.7853,
+          "longitude": 10.2444,
+          "searchKey": "megrine (megrine chaker) مقرين (مقرين شاكر) 2024"
+        },
+        {
+          "id": "ben-arous--megrine--megrine-megrine-coteau--2033",
+          "nameFr": "MEGRINE (Megrine Coteau)",
+          "nameAr": "مقرين (مقرين كوتو)",
+          "postalCode": "2033",
+          "latitude": 36.7789,
+          "longitude": 10.2403,
+          "searchKey": "megrine (megrine coteau) مقرين (مقرين كوتو) 2033"
+        },
+        {
+          "id": "ben-arous--megrine--megrine-megrine-jaouhara--2024",
+          "nameFr": "MEGRINE (Megrine Jaouhara)",
+          "nameAr": "مقرين (مقرين جوهرة)",
+          "postalCode": "2024",
+          "latitude": 36.7872,
+          "longitude": 10.2481,
+          "searchKey": "megrine (megrine jaouhara) مقرين (مقرين جوهرة) 2024"
+        },
+        {
+          "id": "ben-arous--megrine--megrine-megrine-riadh--2014",
+          "nameFr": "MEGRINE (Megrine Riadh)",
+          "nameAr": "مقرين (مقرين الرياض)",
+          "postalCode": "2014",
+          "latitude": 36.7808,
+          "longitude": 10.2486,
+          "searchKey": "megrine (megrine riadh) مقرين (مقرين الرياض) 2014"
+        },
+        {
+          "id": "ben-arous--megrine--megrine-megrine-superieur--2033",
+          "nameFr": "MEGRINE (Megrine Superieur)",
+          "nameAr": "مقرين (مقرين العليا)",
+          "postalCode": "2033",
+          "latitude": 36.777,
+          "longitude": 10.235,
+          "searchKey": "megrine (megrine superieur) مقرين (مقرين العليا) 2033"
+        },
+        {
+          "id": "ben-arous--megrine--megrine-megrine--2033",
+          "nameFr": "MEGRINE (Megrine)",
+          "nameAr": "مقرين (مقرين)",
+          "postalCode": "2033",
+          "latitude": 36.7836,
+          "longitude": 10.232,
+          "searchKey": "megrine (megrine) مقرين (مقرين) 2033"
+        },
+        {
+          "id": "ben-arous--megrine--megrine-saint-gobin--2014",
+          "nameFr": "MEGRINE (Saint Gobin)",
+          "nameAr": "مقرين (سان غوبان)",
+          "postalCode": "2014",
+          "latitude": 36.7908,
+          "longitude": 10.2558,
+          "searchKey": "megrine (saint gobin) مقرين (سان غوبان) 2014"
+        },
+        {
+          "id": "ben-arous--megrine--megrine-sidi-rezig--2033",
+          "nameFr": "MEGRINE (Sidi Rezig)",
+          "nameAr": "مقرين (سيدي رزيق)",
+          "postalCode": "2033",
+          "latitude": 36.7708,
+          "longitude": 10.2544,
+          "searchKey": "megrine (sidi rezig) مقرين (سيدي رزيق) 2033"
+        },
+        {
+          "id": "ben-arous--megrine--megrine-zone-industrielle-saint-gobin--2014",
+          "nameFr": "MEGRINE (Zone Industrielle Saint Gobin)",
+          "nameAr": "مقرين (المنطقة الصناعية سان غوبان)",
+          "postalCode": "2014",
+          "latitude": 36.7925,
+          "longitude": 10.2594,
+          "searchKey": "megrine (zone industrielle saint gobin) مقرين (المنطقة الصناعية سان غوبان) 2014"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--mohamadia",
+      "nameFr": "MOHAMADIA",
+      "nameAr": "المحمدية",
+      "searchKey": "mohamadia المحمدية",
+      "municipalities": [
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-bou-akroucha--1145",
+          "nameFr": "MOHAMADIA (Cite Bou Akroucha)",
+          "nameAr": "المحمدية (حي بوعكروشة)",
+          "postalCode": "1145",
+          "latitude": 36.6883,
+          "longitude": 10.1345,
+          "searchKey": "mohamadia (cite bou akroucha) المحمدية (حي بوعكروشة) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-bourbai--1145",
+          "nameFr": "MOHAMADIA (Cite Bourbai)",
+          "nameAr": "المحمدية (حي بوربيع)",
+          "postalCode": "1145",
+          "latitude": 36.6901,
+          "longitude": 10.1367,
+          "searchKey": "mohamadia (cite bourbai) المحمدية (حي بوربيع) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-cebbalet-chikh--1145",
+          "nameFr": "MOHAMADIA (Cite Cebbalet Chikh)",
+          "nameAr": "المحمدية (حي سيدي سبالة الشيخ)",
+          "postalCode": "1145",
+          "latitude": 36.686,
+          "longitude": 10.132,
+          "searchKey": "mohamadia (cite cebbalet chikh) المحمدية (حي سيدي سبالة الشيخ) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-chaabane--1145",
+          "nameFr": "MOHAMADIA (Cite Chaabane)",
+          "nameAr": "المحمدية (حي شعبان)",
+          "postalCode": "1145",
+          "latitude": 36.6915,
+          "longitude": 10.1388,
+          "searchKey": "mohamadia (cite chaabane) المحمدية (حي شعبان) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-chebbi--1145",
+          "nameFr": "MOHAMADIA (Cite Chebbi)",
+          "nameAr": "المحمدية (حي الشابي)",
+          "postalCode": "1145",
+          "latitude": 36.693,
+          "longitude": 10.1405,
+          "searchKey": "mohamadia (cite chebbi) المحمدية (حي الشابي) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-de-la-carriere-1--1145",
+          "nameFr": "MOHAMADIA (Cite De La Carriere 1)",
+          "nameAr": "المحمدية (حي المقاطع 1)",
+          "postalCode": "1145",
+          "latitude": 36.6845,
+          "longitude": 10.13,
+          "searchKey": "mohamadia (cite de la carriere 1) المحمدية (حي المقاطع 1) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-de-la-carriere-2--1145",
+          "nameFr": "MOHAMADIA (Cite De La Carriere 2)",
+          "nameAr": "المحمدية (حي المقاطع 2)",
+          "postalCode": "1145",
+          "latitude": 36.6838,
+          "longitude": 10.129,
+          "searchKey": "mohamadia (cite de la carriere 2) المحمدية (حي المقاطع 2) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-du-lycee--1145",
+          "nameFr": "MOHAMADIA (Cite Du Lycee)",
+          "nameAr": "المحمدية (حي المعهد)",
+          "postalCode": "1145",
+          "latitude": 36.695,
+          "longitude": 10.143,
+          "searchKey": "mohamadia (cite du lycee) المحمدية (حي المعهد) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-amen--1145",
+          "nameFr": "MOHAMADIA (Cite El Amen)",
+          "nameAr": "المحمدية (حي الأمان)",
+          "postalCode": "1145",
+          "latitude": 36.6965,
+          "longitude": 10.145,
+          "searchKey": "mohamadia (cite el amen) المحمدية (حي الأمان) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-atiq--1145",
+          "nameFr": "MOHAMADIA (Cite El Atiq)",
+          "nameAr": "المحمدية (حي العتيق)",
+          "postalCode": "1145",
+          "latitude": 36.698,
+          "longitude": 10.147,
+          "searchKey": "mohamadia (cite el atiq) المحمدية (حي العتيق) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-baccouch--1145",
+          "nameFr": "MOHAMADIA (Cite El Baccouch)",
+          "nameAr": "المحمدية (حي البكوش)",
+          "postalCode": "1145",
+          "latitude": 36.6995,
+          "longitude": 10.149,
+          "searchKey": "mohamadia (cite el baccouch) المحمدية (حي البكوش) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-bassatine--1145",
+          "nameFr": "MOHAMADIA (Cite El Bassatine)",
+          "nameAr": "المحمدية (حي البساتين)",
+          "postalCode": "1145",
+          "latitude": 36.701,
+          "longitude": 10.151,
+          "searchKey": "mohamadia (cite el bassatine) المحمدية (حي البساتين) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-elmi-1--1145",
+          "nameFr": "MOHAMADIA (Cite El Elmi 1)",
+          "nameAr": "المحمدية (حي العلمي 1)",
+          "postalCode": "1145",
+          "latitude": 36.7025,
+          "longitude": 10.153,
+          "searchKey": "mohamadia (cite el elmi 1) المحمدية (حي العلمي 1) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-elmi-2--1145",
+          "nameFr": "MOHAMADIA (Cite El Elmi 2)",
+          "nameAr": "المحمدية (حي العلمي 2)",
+          "postalCode": "1145",
+          "latitude": 36.7032,
+          "longitude": 10.1538,
+          "searchKey": "mohamadia (cite el elmi 2) المحمدية (حي العلمي 2) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-haddad--1145",
+          "nameFr": "MOHAMADIA (Cite El Haddad)",
+          "nameAr": "المحمدية (حي الحداد)",
+          "postalCode": "1145",
+          "latitude": 36.7045,
+          "longitude": 10.1555,
+          "searchKey": "mohamadia (cite el haddad) المحمدية (حي الحداد) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-hana--1145",
+          "nameFr": "MOHAMADIA (Cite El Hana)",
+          "nameAr": "المحمدية (حي الهناء)",
+          "postalCode": "1145",
+          "latitude": 36.706,
+          "longitude": 10.1575,
+          "searchKey": "mohamadia (cite el hana) المحمدية (حي الهناء) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-ksar--1145",
+          "nameFr": "MOHAMADIA (Cite El Ksar)",
+          "nameAr": "المحمدية (حي القصر)",
+          "postalCode": "1145",
+          "latitude": 36.7075,
+          "longitude": 10.1595,
+          "searchKey": "mohamadia (cite el ksar) المحمدية (حي القصر) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-omri-1--1145",
+          "nameFr": "MOHAMADIA (Cite El Omri 1)",
+          "nameAr": "المحمدية (حي العمري 1)",
+          "postalCode": "1145",
+          "latitude": 36.709,
+          "longitude": 10.1615,
+          "searchKey": "mohamadia (cite el omri 1) المحمدية (حي العمري 1) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-el-omri-2--1145",
+          "nameFr": "MOHAMADIA (Cite El Omri 2)",
+          "nameAr": "المحمدية (حي العمري 2)",
+          "postalCode": "1145",
+          "latitude": 36.71,
+          "longitude": 10.1625,
+          "searchKey": "mohamadia (cite el omri 2) المحمدية (حي العمري 2) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-ellouata--1145",
+          "nameFr": "MOHAMADIA (Cite Ellouata)",
+          "nameAr": "المحمدية (حي اللواتة)",
+          "postalCode": "1145",
+          "latitude": 36.7115,
+          "longitude": 10.164,
+          "searchKey": "mohamadia (cite ellouata) المحمدية (حي اللواتة) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-ennacim-1--1145",
+          "nameFr": "MOHAMADIA (Cite Ennacim 1)",
+          "nameAr": "المحمدية (حي النسيم 1)",
+          "postalCode": "1145",
+          "latitude": 36.713,
+          "longitude": 10.1655,
+          "searchKey": "mohamadia (cite ennacim 1) المحمدية (حي النسيم 1) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-ennacim-2--1145",
+          "nameFr": "MOHAMADIA (Cite Ennacim 2)",
+          "nameAr": "المحمدية (حي النسيم 2)",
+          "postalCode": "1145",
+          "latitude": 36.714,
+          "longitude": 10.1665,
+          "searchKey": "mohamadia (cite ennacim 2) المحمدية (حي النسيم 2) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-ennasr--1145",
+          "nameFr": "MOHAMADIA (Cite Ennasr)",
+          "nameAr": "المحمدية (حي النصر)",
+          "postalCode": "1145",
+          "latitude": 36.7155,
+          "longitude": 10.168,
+          "searchKey": "mohamadia (cite ennasr) المحمدية (حي النصر) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-ennouzha--1145",
+          "nameFr": "MOHAMADIA (Cite Ennouzha)",
+          "nameAr": "المحمدية (حي النزهة)",
+          "postalCode": "1145",
+          "latitude": 36.717,
+          "longitude": 10.1695,
+          "searchKey": "mohamadia (cite ennouzha) المحمدية (حي النزهة) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-erriadh--1145",
+          "nameFr": "MOHAMADIA (Cite Erriadh)",
+          "nameAr": "المحمدية (حي الرياض)",
+          "postalCode": "1145",
+          "latitude": 36.7185,
+          "longitude": 10.171,
+          "searchKey": "mohamadia (cite erriadh) المحمدية (حي الرياض) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-essaada-1--1145",
+          "nameFr": "MOHAMADIA (Cite Essaada 1)",
+          "nameAr": "المحمدية (حي السعادة 1)",
+          "postalCode": "1145",
+          "latitude": 36.72,
+          "longitude": 10.1725,
+          "searchKey": "mohamadia (cite essaada 1) المحمدية (حي السعادة 1) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-essaada-2--1145",
+          "nameFr": "MOHAMADIA (Cite Essaada 2)",
+          "nameAr": "المحمدية (حي السعادة 2)",
+          "postalCode": "1145",
+          "latitude": 36.721,
+          "longitude": 10.1735,
+          "searchKey": "mohamadia (cite essaada 2) المحمدية (حي السعادة 2) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-essaada-3--1145",
+          "nameFr": "MOHAMADIA (Cite Essaada 3)",
+          "nameAr": "المحمدية (حي السعادة 3)",
+          "postalCode": "1145",
+          "latitude": 36.722,
+          "longitude": 10.1745,
+          "searchKey": "mohamadia (cite essaada 3) المحمدية (حي السعادة 3) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-essalem--1145",
+          "nameFr": "MOHAMADIA (Cite Essalem)",
+          "nameAr": "المحمدية (حي السلام)",
+          "postalCode": "1145",
+          "latitude": 36.7235,
+          "longitude": 10.176,
+          "searchKey": "mohamadia (cite essalem) المحمدية (حي السلام) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-ettayari--1145",
+          "nameFr": "MOHAMADIA (Cite Ettayari)",
+          "nameAr": "المحمدية (حي الطياري)",
+          "postalCode": "1145",
+          "latitude": 36.725,
+          "longitude": 10.1775,
+          "searchKey": "mohamadia (cite ettayari) المحمدية (حي الطياري) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-ettouahria--1145",
+          "nameFr": "MOHAMADIA (Cite Ettouahria)",
+          "nameAr": "المحمدية (حي الطواهرية)",
+          "postalCode": "1145",
+          "latitude": 36.7265,
+          "longitude": 10.179,
+          "searchKey": "mohamadia (cite ettouahria) المحمدية (حي الطواهرية) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-ezzitoun-2--1145",
+          "nameFr": "MOHAMADIA (Cite Ezzitoun 2)",
+          "nameAr": "المحمدية (حي الزيتون 2)",
+          "postalCode": "1145",
+          "latitude": 36.728,
+          "longitude": 10.1805,
+          "searchKey": "mohamadia (cite ezzitoun 2) المحمدية (حي الزيتون 2) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-fattouma-bourguiba--1145",
+          "nameFr": "MOHAMADIA (Cite Fattouma Bourguiba)",
+          "nameAr": "المحمدية (حي فطومة بورقيبة)",
+          "postalCode": "1145",
+          "latitude": 36.7295,
+          "longitude": 10.182,
+          "searchKey": "mohamadia (cite fattouma bourguiba) المحمدية (حي فطومة بورقيبة) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-hached-1--1145",
+          "nameFr": "MOHAMADIA (Cite Hached 1)",
+          "nameAr": "المحمدية (حي حشاد 1)",
+          "postalCode": "1145",
+          "latitude": 36.731,
+          "longitude": 10.1835,
+          "searchKey": "mohamadia (cite hached 1) المحمدية (حي حشاد 1) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-hached-2--1145",
+          "nameFr": "MOHAMADIA (Cite Hached 2)",
+          "nameAr": "المحمدية (حي حشاد 2)",
+          "postalCode": "1145",
+          "latitude": 36.732,
+          "longitude": 10.1845,
+          "searchKey": "mohamadia (cite hached 2) المحمدية (حي حشاد 2) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-jaouhara--1145",
+          "nameFr": "MOHAMADIA (Cite Jaouhara)",
+          "nameAr": "المحمدية (حي الجوهرة)",
+          "postalCode": "1145",
+          "latitude": 36.7335,
+          "longitude": 10.186,
+          "searchKey": "mohamadia (cite jaouhara) المحمدية (حي الجوهرة) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-jardins--1145",
+          "nameFr": "MOHAMADIA (Cite Jardins)",
+          "nameAr": "المحمدية (حي الحدائق)",
+          "postalCode": "1145",
+          "latitude": 36.735,
+          "longitude": 10.1875,
+          "searchKey": "mohamadia (cite jardins) المحمدية (حي الحدائق) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-mongi-slim-1--1145",
+          "nameFr": "MOHAMADIA (Cite Mongi Slim 1)",
+          "nameAr": "المحمدية (حي المنجي سليم 1)",
+          "postalCode": "1145",
+          "latitude": 36.7365,
+          "longitude": 10.189,
+          "searchKey": "mohamadia (cite mongi slim 1) المحمدية (حي المنجي سليم 1) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-mongi-slim-2--1145",
+          "nameFr": "MOHAMADIA (Cite Mongi Slim 2)",
+          "nameAr": "المحمدية (حي المنجي سليم 2)",
+          "postalCode": "1145",
+          "latitude": 36.7375,
+          "longitude": 10.19,
+          "searchKey": "mohamadia (cite mongi slim 2) المحمدية (حي المنجي سليم 2) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-oudhna--1145",
+          "nameFr": "MOHAMADIA (Cite Oudhna)",
+          "nameAr": "المحمدية (حي أوذنة)",
+          "postalCode": "1145",
+          "latitude": 36.739,
+          "longitude": 10.1915,
+          "searchKey": "mohamadia (cite oudhna) المحمدية (حي أوذنة) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-taieb-mhiri--1145",
+          "nameFr": "MOHAMADIA (Cite Taieb Mhiri)",
+          "nameAr": "المحمدية (حي الطيب المهيري)",
+          "postalCode": "1145",
+          "latitude": 36.7405,
+          "longitude": 10.193,
+          "searchKey": "mohamadia (cite taieb mhiri) المحمدية (حي الطيب المهيري) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-cite-tnich--1145",
+          "nameFr": "MOHAMADIA (Cite Tnich)",
+          "nameAr": "المحمدية (حي طنيش)",
+          "postalCode": "1145",
+          "latitude": 36.742,
+          "longitude": 10.1945,
+          "searchKey": "mohamadia (cite tnich) المحمدية (حي طنيش) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-immeubles-de-l-interieur--1145",
+          "nameFr": "MOHAMADIA (Immeubles De L'Interieur)",
+          "nameAr": "المحمدية (عمارات الداخلية)",
+          "postalCode": "1145",
+          "latitude": 36.7435,
+          "longitude": 10.196,
+          "searchKey": "mohamadia (immeubles de l'interieur) المحمدية (عمارات الداخلية) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-mohamadia--1145",
+          "nameFr": "MOHAMADIA (Mohamadia)",
+          "nameAr": "المحمدية (المحمدية)",
+          "postalCode": "1145",
+          "latitude": 36.6947,
+          "longitude": 10.1428,
+          "searchKey": "mohamadia (mohamadia) المحمدية (المحمدية) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-residence-el-ferdaous--1145",
+          "nameFr": "MOHAMADIA (Residence El Ferdaous)",
+          "nameAr": "المحمدية (إقامة الفردوس)",
+          "postalCode": "1145",
+          "latitude": 36.745,
+          "longitude": 10.1975,
+          "searchKey": "mohamadia (residence el ferdaous) المحمدية (إقامة الفردوس) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-residence-el-moustakbel--1145",
+          "nameFr": "MOHAMADIA (Residence El Moustakbel)",
+          "nameAr": "المحمدية (إقامة المستقبل)",
+          "postalCode": "1145",
+          "latitude": 36.7465,
+          "longitude": 10.199,
+          "searchKey": "mohamadia (residence el moustakbel) المحمدية (إقامة المستقبل) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-residence-el-ouns--1145",
+          "nameFr": "MOHAMADIA (Residence El Ouns)",
+          "nameAr": "المحمدية (إقامة الأنس)",
+          "postalCode": "1145",
+          "latitude": 36.748,
+          "longitude": 10.2005,
+          "searchKey": "mohamadia (residence el ouns) المحمدية (إقامة الأنس) 1145"
+        },
+        {
+          "id": "ben-arous--mohamadia--mohamadia-residence-ettaoufik--1145",
+          "nameFr": "MOHAMADIA (Residence Ettaoufik)",
+          "nameAr": "المحمدية (إقامة التوفيق)",
+          "postalCode": "1145",
+          "latitude": 36.7495,
+          "longitude": 10.202,
+          "searchKey": "mohamadia (residence ettaoufik) المحمدية (إقامة التوفيق) 1145"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--mornag",
+      "nameFr": "MORNAG",
+      "nameAr": "مرناق",
+      "searchKey": "mornag مرناق",
+      "municipalities": [
+        {
+          "id": "ben-arous--mornag--mornag-ahmed-zaied--2090",
+          "nameFr": "MORNAG (Ahmed Zaied)",
+          "nameAr": "مرناق (أحمد زايد)",
+          "postalCode": "2090",
+          "latitude": 36.6783,
+          "longitude": 10.275,
+          "searchKey": "mornag (ahmed zaied) مرناق (أحمد زايد) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-ain-regad--2054",
+          "nameFr": "MORNAG (Ain Regad)",
+          "nameAr": "مرناق (عين رقاد)",
+          "postalCode": "2054",
+          "latitude": 36.615,
+          "longitude": 10.2,
+          "searchKey": "mornag (ain regad) مرناق (عين رقاد) 2054"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-barrouta--2054",
+          "nameFr": "MORNAG (Barrouta)",
+          "nameAr": "مرناق (باروطة)",
+          "postalCode": "2054",
+          "latitude": 36.605,
+          "longitude": 10.19,
+          "searchKey": "mornag (barrouta) مرناق (باروطة) 2054"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-ben-nouiji--2090",
+          "nameFr": "MORNAG (Ben Nouiji)",
+          "nameAr": "مرناق (بن نويجي)",
+          "postalCode": "2090",
+          "latitude": 36.67,
+          "longitude": 10.28,
+          "searchKey": "mornag (ben nouiji) مرناق (بن نويجي) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-bir-jedid--2054",
+          "nameFr": "MORNAG (Bir Jedid)",
+          "nameAr": "مرناق (بئر جديد)",
+          "postalCode": "2054",
+          "latitude": 36.595,
+          "longitude": 10.18,
+          "searchKey": "mornag (bir jedid) مرناق (بئر جديد) 2054"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-borj-essoufi--2090",
+          "nameFr": "MORNAG (Borj Essoufi)",
+          "nameAr": "مرناق (برج الصوفي)",
+          "postalCode": "2090",
+          "latitude": 36.665,
+          "longitude": 10.285,
+          "searchKey": "mornag (borj essoufi) مرناق (برج الصوفي) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-bou-jerdga--2090",
+          "nameFr": "MORNAG (Bou Jerdga)",
+          "nameAr": "مرناق (بو جردقة)",
+          "postalCode": "2090",
+          "latitude": 36.6583,
+          "longitude": 10.29,
+          "searchKey": "mornag (bou jerdga) مرناق (بو جردقة) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-chala--2090",
+          "nameFr": "MORNAG (Chala)",
+          "nameAr": "مرناق (شالة)",
+          "postalCode": "2090",
+          "latitude": 36.65,
+          "longitude": 10.295,
+          "searchKey": "mornag (chala) مرناق (شالة) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-chamine--2090",
+          "nameFr": "MORNAG (Chamine)",
+          "nameAr": "مرناق (شامين)",
+          "postalCode": "2090",
+          "latitude": 36.6417,
+          "longitude": 10.3,
+          "searchKey": "mornag (chamine) مرناق (شامين) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-cite-air-nouvelle--2064",
+          "nameFr": "MORNAG (Cite Air Nouvelle)",
+          "nameAr": "مرناق (حي الهواء الجديد)",
+          "postalCode": "2064",
+          "latitude": 36.6715,
+          "longitude": 10.258,
+          "searchKey": "mornag (cite air nouvelle) مرناق (حي الهواء الجديد) 2064"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-cite-ennasr--2090",
+          "nameFr": "MORNAG (Cite Ennasr)",
+          "nameAr": "مرناق (حي النصر)",
+          "postalCode": "2090",
+          "latitude": 36.6333,
+          "longitude": 10.305,
+          "searchKey": "mornag (cite ennasr) مرناق (حي النصر) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-cite-ettayarane--2064",
+          "nameFr": "MORNAG (Cite Ettayarane)",
+          "nameAr": "مرناق (حي الطيران)",
+          "postalCode": "2064",
+          "latitude": 36.67,
+          "longitude": 10.256,
+          "searchKey": "mornag (cite ettayarane) مرناق (حي الطيران) 2064"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-douar-la-porte--2090",
+          "nameFr": "MORNAG (Douar La Porte)",
+          "nameAr": "مرناق (دوار الباب)",
+          "postalCode": "2090",
+          "latitude": 36.625,
+          "longitude": 10.31,
+          "searchKey": "mornag (douar la porte) مرناق (دوار الباب) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-douar-salem--2090",
+          "nameFr": "MORNAG (Douar Salem)",
+          "nameAr": "مرناق (دوار سالم)",
+          "postalCode": "2090",
+          "latitude": 36.6167,
+          "longitude": 10.315,
+          "searchKey": "mornag (douar salem) مرناق (دوار سالم) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-el-abebsa--2064",
+          "nameFr": "MORNAG (El Abebsa)",
+          "nameAr": "مرناق (العقبة)",
+          "postalCode": "2064",
+          "latitude": 36.665,
+          "longitude": 10.25,
+          "searchKey": "mornag (el abebsa) مرناق (العقبة) 2064"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-el-alelgua--2090",
+          "nameFr": "MORNAG (El Alelgua)",
+          "nameAr": "مرناق (العلالقة)",
+          "postalCode": "2090",
+          "latitude": 36.6083,
+          "longitude": 10.32,
+          "searchKey": "mornag (el alelgua) مرناق (العلالقة) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-el-araba--2090",
+          "nameFr": "MORNAG (El Araba)",
+          "nameAr": "مرناق (العرب)",
+          "postalCode": "2090",
+          "latitude": 36.6,
+          "longitude": 10.325,
+          "searchKey": "mornag (el araba) مرناق (العرب) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-el-fendria--2064",
+          "nameFr": "MORNAG (El Fendria)",
+          "nameAr": "مرناق (الفندرية)",
+          "postalCode": "2064",
+          "latitude": 36.66,
+          "longitude": 10.245,
+          "searchKey": "mornag (el fendria) مرناق (الفندرية) 2064"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-el-gounna--2054",
+          "nameFr": "MORNAG (El Gounna)",
+          "nameAr": "مرناق (القنة)",
+          "postalCode": "2054",
+          "latitude": 36.585,
+          "longitude": 10.17,
+          "searchKey": "mornag (el gounna) مرناق (القنة) 2054"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-el-haouamed--2090",
+          "nameFr": "MORNAG (El Haouamed)",
+          "nameAr": "مرناق (الحوامد)",
+          "postalCode": "2090",
+          "latitude": 36.5917,
+          "longitude": 10.33,
+          "searchKey": "mornag (el haouamed) مرناق (الحوامد) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-el-kabouti--2064",
+          "nameFr": "MORNAG (El Kabouti)",
+          "nameAr": "مرناق (الكابوتي)",
+          "postalCode": "2064",
+          "latitude": 36.655,
+          "longitude": 10.24,
+          "searchKey": "mornag (el kabouti) مرناق (الكابوتي) 2064"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-el-ksibi--2090",
+          "nameFr": "MORNAG (El Ksibi)",
+          "nameAr": "مرناق (القصيبي)",
+          "postalCode": "2090",
+          "latitude": 36.5833,
+          "longitude": 10.335,
+          "searchKey": "mornag (el ksibi) مرناق (القصيبي) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-errissala--2044",
+          "nameFr": "MORNAG (Errissala)",
+          "nameAr": "مرناق (الرسالة)",
+          "postalCode": "2044",
+          "latitude": 36.6458,
+          "longitude": 10.235,
+          "searchKey": "mornag (errissala) مرناق (الرسالة) 2044"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-ettiayra--2090",
+          "nameFr": "MORNAG (Ettiayra)",
+          "nameAr": "مرناق (الطيارة)",
+          "postalCode": "2090",
+          "latitude": 36.575,
+          "longitude": 10.34,
+          "searchKey": "mornag (ettiayra) مرناق (الطيارة) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-ferme-marquee--2090",
+          "nameFr": "MORNAG (Ferme Marquee)",
+          "nameAr": "مرناق (ضيعة مركي)",
+          "postalCode": "2090",
+          "latitude": 36.6492,
+          "longitude": 10.2383,
+          "searchKey": "mornag (ferme marquee) مرناق (ضيعة مركي) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-henchir-bouchta--2090",
+          "nameFr": "MORNAG (Henchir Bouchta)",
+          "nameAr": "مرناق (هنشير بوشتة)",
+          "postalCode": "2090",
+          "latitude": 36.6417,
+          "longitude": 10.2317,
+          "searchKey": "mornag (henchir bouchta) مرناق (هنشير بوشتة) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-henchir-el-ghobar--2090",
+          "nameFr": "MORNAG (Henchir El Ghobar)",
+          "nameAr": "مرناق (هنشير الغبار)",
+          "postalCode": "2090",
+          "latitude": 36.6333,
+          "longitude": 10.2283,
+          "searchKey": "mornag (henchir el ghobar) مرناق (هنشير الغبار) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-henchir-kharrouba--2054",
+          "nameFr": "MORNAG (Henchir Kharrouba)",
+          "nameAr": "مرناق (هنشير خروبة)",
+          "postalCode": "2054",
+          "latitude": 36.575,
+          "longitude": 10.16,
+          "searchKey": "mornag (henchir kharrouba) مرناق (هنشير خروبة) 2054"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-henchir-khelil--2090",
+          "nameFr": "MORNAG (Henchir Khelil)",
+          "nameAr": "مرناق (هنشير خليل)",
+          "postalCode": "2090",
+          "latitude": 36.625,
+          "longitude": 10.225,
+          "searchKey": "mornag (henchir khelil) مرناق (هنشير خليل) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-huilerie-bayrem--2090",
+          "nameFr": "MORNAG (Huilerie Bayrem)",
+          "nameAr": "مرناق (معصرة بيرم)",
+          "postalCode": "2090",
+          "latitude": 36.6167,
+          "longitude": 10.2217,
+          "searchKey": "mornag (huilerie bayrem) مرناق (معصرة بيرم) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-jebel-ersass--2064",
+          "nameFr": "MORNAG (Jebel Ersass)",
+          "nameAr": "مرناق (جبل الرصاص)",
+          "postalCode": "2064",
+          "latitude": 36.611,
+          "longitude": 10.3392,
+          "searchKey": "mornag (jebel ersass) مرناق (جبل الرصاص) 2064"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-jourjou--2064",
+          "nameFr": "MORNAG (Jourjou)",
+          "nameAr": "مرناق (جورجو)",
+          "postalCode": "2064",
+          "latitude": 36.645,
+          "longitude": 10.23,
+          "searchKey": "mornag (jourjou) مرناق (جورجو) 2064"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-khelidia--2054",
+          "nameFr": "MORNAG (Khelidia)",
+          "nameAr": "مرناق (الخليدية)",
+          "postalCode": "2054",
+          "latitude": 36.565,
+          "longitude": 10.15,
+          "searchKey": "mornag (khelidia) مرناق (الخليدية) 2054"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-kouenjel--2054",
+          "nameFr": "MORNAG (Kouenjel)",
+          "nameAr": "مرناق (كونجل)",
+          "postalCode": "2054",
+          "latitude": 36.675,
+          "longitude": 10.265,
+          "searchKey": "mornag (kouenjel) مرناق (كونجل) 2054"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-mirghna--2064",
+          "nameFr": "MORNAG (Mirghna)",
+          "nameAr": "مرناق (مرغنة)",
+          "postalCode": "2064",
+          "latitude": 36.635,
+          "longitude": 10.22,
+          "searchKey": "mornag (mirghna) مرناق (مرغنة) 2064"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-mornag--2090",
+          "nameFr": "MORNAG (Mornag)",
+          "nameAr": "مرناق (مرناق)",
+          "postalCode": "2090",
+          "latitude": 36.6731,
+          "longitude": 10.2597,
+          "searchKey": "mornag (mornag) مرناق (مرناق) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-ouzra--2090",
+          "nameFr": "MORNAG (Ouzra)",
+          "nameAr": "مرناق (عزرة)",
+          "postalCode": "2090",
+          "latitude": 36.6083,
+          "longitude": 10.2183,
+          "searchKey": "mornag (ouzra) مرناق (عزرة) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-sidi-messaoud--2054",
+          "nameFr": "MORNAG (Sidi Messaoud)",
+          "nameAr": "مرناق (سيدي مسعود)",
+          "postalCode": "2054",
+          "latitude": 36.6683,
+          "longitude": 10.27,
+          "searchKey": "mornag (sidi messaoud) مرناق (سيدي مسعود) 2054"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-sidi-othman-landari--2054",
+          "nameFr": "MORNAG (Sidi Othman Landari)",
+          "nameAr": "مرناق (سيدي عثمان لنداري)",
+          "postalCode": "2054",
+          "latitude": 36.66,
+          "longitude": 10.275,
+          "searchKey": "mornag (sidi othman landari) مرناق (سيدي عثمان لنداري) 2054"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-sidi-saad--2090",
+          "nameFr": "MORNAG (Sidi Saad)",
+          "nameAr": "مرناق (سيدي سعد)",
+          "postalCode": "2090",
+          "latitude": 36.6,
+          "longitude": 10.215,
+          "searchKey": "mornag (sidi saad) مرناق (سيدي سعد) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-sidi-salem-el-garci--2064",
+          "nameFr": "MORNAG (Sidi Salem El Garci)",
+          "nameAr": "مرناق (سيدي سالم القارصي)",
+          "postalCode": "2064",
+          "latitude": 36.625,
+          "longitude": 10.21,
+          "searchKey": "mornag (sidi salem el garci) مرناق (سيدي سالم القارصي) 2064"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-sondage--2054",
+          "nameFr": "MORNAG (Sondage)",
+          "nameAr": "مرناق (صونداج)",
+          "postalCode": "2054",
+          "latitude": 36.65,
+          "longitude": 10.28,
+          "searchKey": "mornag (sondage) مرناق (صونداج) 2054"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-tarhouna-1--2090",
+          "nameFr": "MORNAG (Tarhouna 1)",
+          "nameAr": "مرناق (ترهونة 1)",
+          "postalCode": "2090",
+          "latitude": 36.5917,
+          "longitude": 10.2117,
+          "searchKey": "mornag (tarhouna 1) مرناق (ترهونة 1) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-tarhouna-2--2090",
+          "nameFr": "MORNAG (Tarhouna 2)",
+          "nameAr": "مرناق (ترهونة 2)",
+          "postalCode": "2090",
+          "latitude": 36.5833,
+          "longitude": 10.2083,
+          "searchKey": "mornag (tarhouna 2) مرناق (ترهونة 2) 2090"
+        },
+        {
+          "id": "ben-arous--mornag--mornag-zaouit-mornag--2090",
+          "nameFr": "MORNAG (Zaouit Mornag)",
+          "nameAr": "مرناق (زاوية مرناق)",
+          "postalCode": "2090",
+          "latitude": 36.6694,
+          "longitude": 10.2536,
+          "searchKey": "mornag (zaouit mornag) مرناق (زاوية مرناق) 2090"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--nouvelle-medina",
+      "nameFr": "NOUVELLE MEDINA",
+      "nameAr": "المدينة الجديدة",
+      "searchKey": "nouvelle medina المدينة الجديدة",
+      "municipalities": [
+        {
+          "id": "ben-arous--nouvelle-medina--nouvelle-medina-el-yasminette--2096",
+          "nameFr": "NOUVELLE MEDINA (El Yasminette)",
+          "nameAr": "المدينة الجديدة (الياسمينات)",
+          "postalCode": "2096",
+          "latitude": 36.7512,
+          "longitude": 10.2355,
+          "searchKey": "nouvelle medina (el yasminette) المدينة الجديدة (الياسمينات) 2096"
+        },
+        {
+          "id": "ben-arous--nouvelle-medina--nouvelle-medina-nouvelle-medina--2063",
+          "nameFr": "NOUVELLE MEDINA (Nouvelle Medina)",
+          "nameAr": "المدينة الجديدة (المدينة الجديدة)",
+          "postalCode": "2063",
+          "latitude": 36.75,
+          "longitude": 10.23,
+          "searchKey": "nouvelle medina (nouvelle medina) المدينة الجديدة (المدينة الجديدة) 2063"
+        }
+      ]
+    },
+    {
+      "id": "ben-arous--rades",
+      "nameFr": "RADES",
+      "nameAr": "رادس",
+      "searchKey": "rades رادس",
+      "municipalities": [
+        {
+          "id": "ben-arous--rades--rades-chouchet-rades--2040",
+          "nameFr": "RADES (Chouchet Rades)",
+          "nameAr": "رادس (شوشة رادس)",
+          "postalCode": "2040",
+          "latitude": 36.805,
+          "longitude": 10.295,
+          "searchKey": "rades (chouchet rades) رادس (شوشة رادس) 2040"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-20-mars--1125",
+          "nameFr": "RADES (Cite 20 Mars)",
+          "nameAr": "رادس (حي 20 مارس)",
+          "postalCode": "1125",
+          "latitude": 36.7963,
+          "longitude": 10.2975,
+          "searchKey": "rades (cite 20 mars) رادس (حي 20 مارس) 1125"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-el-ezz--2098",
+          "nameFr": "RADES (Cite El Ezz)",
+          "nameAr": "رادس (حي العز)",
+          "postalCode": "2098",
+          "latitude": 36.7782,
+          "longitude": 10.2815,
+          "searchKey": "rades (cite el ezz) رادس (حي العز) 2098"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-ennour--1125",
+          "nameFr": "RADES (Cite Ennour)",
+          "nameAr": "رادس (حي النور)",
+          "postalCode": "1125",
+          "latitude": 36.795,
+          "longitude": 10.295,
+          "searchKey": "rades (cite ennour) رادس (حي النور) 1125"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-mohamed-ali--2040",
+          "nameFr": "RADES (Cite Mohamed Ali)",
+          "nameAr": "رادس (حي محمد علي)",
+          "postalCode": "2040",
+          "latitude": 36.79,
+          "longitude": 10.28,
+          "searchKey": "rades (cite mohamed ali) رادس (حي محمد علي) 2040"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-nouvelle--2098",
+          "nameFr": "RADES (Cite Nouvelle)",
+          "nameAr": "رادس (الحي الجديد)",
+          "postalCode": "2098",
+          "latitude": 36.779,
+          "longitude": 10.28,
+          "searchKey": "rades (cite nouvelle) رادس (الحي الجديد) 2098"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-rades-2--2040",
+          "nameFr": "RADES (Cite Rades 2)",
+          "nameAr": "رادس (حي رادس 2)",
+          "postalCode": "2040",
+          "latitude": 36.7885,
+          "longitude": 10.278,
+          "searchKey": "rades (cite rades 2) رادس (حي رادس 2) 2040"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-sfaxi--2040",
+          "nameFr": "RADES (Cite Sfaxi)",
+          "nameAr": "رادس (حي الصفاقسي)",
+          "postalCode": "2040",
+          "latitude": 36.787,
+          "longitude": 10.276,
+          "searchKey": "rades (cite sfaxi) رادس (حي الصفاقسي) 2040"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-snit--2018",
+          "nameFr": "RADES (Cite Snit)",
+          "nameAr": "رادس (حي السنيت)",
+          "postalCode": "2018",
+          "latitude": 36.7995,
+          "longitude": 10.2875,
+          "searchKey": "rades (cite snit) رادس (حي السنيت) 2018"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-snit--2040",
+          "nameFr": "RADES (Cite Snit)",
+          "nameAr": "رادس (حي السنيت)",
+          "postalCode": "2040",
+          "latitude": 36.7855,
+          "longitude": 10.274,
+          "searchKey": "rades (cite snit) رادس (حي السنيت) 2040"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-taieb-mhiri-1--2040",
+          "nameFr": "RADES (Cite Taieb Mhiri 1)",
+          "nameAr": "رادس (حي الطيب المهيري 1)",
+          "postalCode": "2040",
+          "latitude": 36.784,
+          "longitude": 10.272,
+          "searchKey": "rades (cite taieb mhiri 1) رادس (حي الطيب المهيري 1) 2040"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-taieb-mhiri-2--2040",
+          "nameFr": "RADES (Cite Taieb Mhiri 2)",
+          "nameAr": "رادس (حي الطيب المهيري 2)",
+          "postalCode": "2040",
+          "latitude": 36.783,
+          "longitude": 10.27,
+          "searchKey": "rades (cite taieb mhiri 2) رادس (حي الطيب المهيري 2) 2040"
+        },
+        {
+          "id": "ben-arous--rades--rades-cite-taieb-mhiri-3--2040",
+          "nameFr": "RADES (Cite Taieb Mhiri 3)",
+          "nameAr": "رادس (حي الطيب المهيري 3)",
+          "postalCode": "2040",
+          "latitude": 36.782,
+          "longitude": 10.268,
+          "searchKey": "rades (cite taieb mhiri 3) رادس (حي الطيب المهيري 3) 2040"
+        },
+        {
+          "id": "ben-arous--rades--rades-decouppage-haj-aleya--2018",
+          "nameFr": "RADES (Decouppage Haj Aleya)",
+          "nameAr": "رادس (تقسيم حاج علية)",
+          "postalCode": "2018",
+          "latitude": 36.798,
+          "longitude": 10.285,
+          "searchKey": "rades (decouppage haj aleya) رادس (تقسيم حاج علية) 2018"
+        },
+        {
+          "id": "ben-arous--rades--rades-rades-7-novembre--2018",
+          "nameFr": "RADES (Rades 7 Novembre)",
+          "nameAr": "رادس (رادس المدينة الأولمبية)",
+          "postalCode": "2018",
+          "latitude": 36.796,
+          "longitude": 10.283,
+          "searchKey": "rades (rades 7 novembre) رادس (رادس المدينة الأولمبية) 2018"
+        },
+        {
+          "id": "ben-arous--rades--rades-rades-el-mrah--2098",
+          "nameFr": "RADES (Rades El Mrah)",
+          "nameAr": "رادس (رادس المراح)",
+          "postalCode": "2098",
+          "latitude": 36.781,
+          "longitude": 10.283,
+          "searchKey": "rades (rades el mrah) رادس (رادس المراح) 2098"
+        },
+        {
+          "id": "ben-arous--rades--rades-rades-foret--2098",
+          "nameFr": "RADES (Rades Foret)",
+          "nameAr": "رادس (رادس الغابة)",
+          "postalCode": "2098",
+          "latitude": 36.785,
+          "longitude": 10.275,
+          "searchKey": "rades (rades foret) رادس (رادس الغابة) 2098"
+        },
+        {
+          "id": "ben-arous--rades--rades-rades-medina--2098",
+          "nameFr": "RADES (Rades Medina)",
+          "nameAr": "رادس (رادس المدينة)",
+          "postalCode": "2098",
+          "latitude": 36.7925,
+          "longitude": 10.2842,
+          "searchKey": "rades (rades medina) رادس (رادس المدينة) 2098"
+        },
+        {
+          "id": "ben-arous--rades--rades-rades-meliane--2098",
+          "nameFr": "RADES (Rades Meliane)",
+          "nameAr": "رادس (رادس مليان)",
+          "postalCode": "2098",
+          "latitude": 36.775,
+          "longitude": 10.27,
+          "searchKey": "rades (rades meliane) رادس (رادس مليان) 2098"
+        },
+        {
+          "id": "ben-arous--rades--rades-rades-mongil--2098",
+          "nameFr": "RADES (Rades Mongil)",
+          "nameAr": "رادس (رادس مونجيل)",
+          "postalCode": "2098",
+          "latitude": 36.795,
+          "longitude": 10.28,
+          "searchKey": "rades (rades mongil) رادس (رادس مونجيل) 2098"
+        },
+        {
+          "id": "ben-arous--rades--rades-rades-plage--2040",
+          "nameFr": "RADES (Rades Plage)",
+          "nameAr": "رادس (رادس الشاطئ)",
+          "postalCode": "2040",
+          "latitude": 36.8,
+          "longitude": 10.3,
+          "searchKey": "rades (rades plage) رادس (رادس الشاطئ) 2040"
+        },
+        {
+          "id": "ben-arous--rades--rades-rades-saline--1125",
+          "nameFr": "RADES (Rades Saline)",
+          "nameAr": "رادس (رادس الملاحات)",
+          "postalCode": "1125",
+          "latitude": 36.7931,
+          "longitude": 10.2986,
+          "searchKey": "rades (rades saline) رادس (رادس الملاحات) 1125"
+        },
+        {
+          "id": "ben-arous--rades--rades-rades--2040",
+          "nameFr": "RADES (Rades)",
+          "nameAr": "رادس (رادس)",
+          "postalCode": "2040",
+          "latitude": 36.7939,
+          "longitude": 10.2856,
+          "searchKey": "rades (rades) رادس (رادس) 2040"
+        },
+        {
+          "id": "ben-arous--rades--rades-village-mediterranee--2018",
+          "nameFr": "RADES (Village Mediterranee)",
+          "nameAr": "رادس (القرية المتوسطية)",
+          "postalCode": "2018",
+          "latitude": 36.8,
+          "longitude": 10.29,
+          "searchKey": "rades (village mediterranee) رادس (القرية المتوسطية) 2018"
+        },
+        {
+          "id": "ben-arous--rades--rades-ville-sportive--2018",
+          "nameFr": "RADES (Ville Sportive)",
+          "nameAr": "رادس (المدينة الرياضية)",
+          "postalCode": "2018",
+          "latitude": 36.79,
+          "longitude": 10.265,
+          "searchKey": "rades (ville sportive) رادس (المدينة الرياضية) 2018"
+        },
+        {
+          "id": "ben-arous--rades--rades-zone-industrielle-1--1125",
+          "nameFr": "RADES (Zone Industrielle 1)",
+          "nameAr": "رادس (المنطقة الصناعية 1)",
+          "postalCode": "1125",
+          "latitude": 36.788,
+          "longitude": 10.29,
+          "searchKey": "rades (zone industrielle 1) رادس (المنطقة الصناعية 1) 1125"
+        },
+        {
+          "id": "ben-arous--rades--rades-zone-industrielle-2--1125",
+          "nameFr": "RADES (Zone Industrielle 2)",
+          "nameAr": "رادس (المنطقة الصناعية 2)",
+          "postalCode": "1125",
+          "latitude": 36.786,
+          "longitude": 10.288,
+          "searchKey": "rades (zone industrielle 2) رادس (المنطقة الصناعية 2) 1125"
+        },
+        {
+          "id": "ben-arous--rades--rades-zone-petroliere--1125",
+          "nameFr": "RADES (Zone Petroliere)",
+          "nameAr": "رادس (المنطقة البترولية)",
+          "postalCode": "1125",
+          "latitude": 36.8083,
+          "longitude": 10.2917,
+          "searchKey": "rades (zone petroliere) رادس (المنطقة البترولية) 1125"
+        }
+      ]
+    }
+  ]
+}
