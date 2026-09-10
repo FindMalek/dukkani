@@ -3,7 +3,7 @@
 // toolchain (composite projects + resolveJsonModule) can't statically import
 // a JSON file from within @dukkani/common's own compilation (TS6307).
 export default {
-  "generatedAt": "2026-09-08T17:31:14.550Z",
+  "generatedAt": "2026-09-10T16:35:50.181Z",
   "source": "https://github.com/mn-youssef/tn-municipality-api",
   "counts": {
     "governorates": 24,

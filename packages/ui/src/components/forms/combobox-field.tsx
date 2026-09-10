@@ -95,11 +95,15 @@ export function ComboboxField({
 
   const handleSelect = useCallback(
     (value: string) => {
-      const nextValue =
-        clearable && value === field.state.value ? undefined : value;
+      const currentValue = field.state.value;
+      const nextValue = clearable && value === currentValue ? undefined : value;
+      setOpen(false);
+      // Re-selecting the same option with clearable=false is a no-op: skip
+      // both callbacks so onValueChange's side effects (e.g. clearing a
+      // dependent cascading field) don't fire for nothing actually changing.
+      if (nextValue === currentValue) return;
       field.handleChange(nextValue);
       onValueChange?.(nextValue);
-      setOpen(false);
     },
     [field, onValueChange, clearable],
   );

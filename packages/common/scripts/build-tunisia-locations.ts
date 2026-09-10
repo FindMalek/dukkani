@@ -100,8 +100,35 @@ const GOVERNORATE_CODE_BY_NAME: Record<string, string> = {
   KEBILI: "KEBILI",
 };
 
+/**
+ * The upstream raw dataset has a handful of verified encoding-corruption
+ * bugs (not guesses -- confirmed by cross-referencing the correctly-spelled
+ * form elsewhere in the same source file). Corrected here rather than by
+ * guessing at better parsing, since better parsing can't fix bytes that
+ * were already lost upstream. See PR #613 review.
+ */
+const KNOWN_STRING_CORRECTIONS: Record<string, string> = {
+  "بجا��ة": "بجاوة", // ARIANA: two replacement chars in "Bejaoua" (correct spelling appears elsewhere in raw-source.json)
+  "Ferme NÂ¦7": "Ferme N°7", // MANOUBA: mojibake degree sign
+};
+
+/**
+ * The upstream raw dataset mislabels every entry under Monastir's MOKNINE
+ * delegation with the governorate's own Arabic name ("المنستير") instead of
+ * the delegation's ("المكنين") -- confirmed against every municipality
+ * under that delegation in raw-source.json, not a one-off typo. Keyed by
+ * delegation id (`${governorateSlug}--${delegationSlug}`).
+ */
+const KNOWN_DELEGATION_NAME_AR_CORRECTIONS: Record<string, string> = {
+  "monastir--moknine": "المكنين",
+};
+
 function normalizeWhitespace(value: string): string {
-  return value.trim().replace(/\s+/g, " ");
+  let result = value.trim().replace(/\s+/g, " ");
+  for (const [bad, good] of Object.entries(KNOWN_STRING_CORRECTIONS)) {
+    result = result.split(bad).join(good);
+  }
+  return result;
 }
 
 /** Lowercased, diacritic-stripped key used for fast fuzzy matching. */
@@ -147,11 +174,21 @@ function main() {
         const delegationSlug = slugify(delegationName);
         const delegationId = `${govSlug}--${delegationSlug}`;
 
+        const nameArCorrection =
+          KNOWN_DELEGATION_NAME_AR_CORRECTIONS[delegationId];
+
         const seen = new Set<string>();
         const municipalities = entries
           .map((entry) => {
             const nameFr = normalizeWhitespace(entry.Name);
-            const nameAr = normalizeWhitespace(entry.NameAr);
+            const rawNameAr = normalizeWhitespace(entry.NameAr);
+            // Municipality NameAr in the raw source is
+            // "{delegation Arabic name} ({municipality suffix})" -- when the
+            // delegation-level name is a known correction, apply the same
+            // fix to every municipality that inherited the wrong prefix.
+            const nameAr = nameArCorrection
+              ? rawNameAr.replace(/^[^(]+/, `${nameArCorrection} `)
+              : rawNameAr;
             const postalCode = normalizeWhitespace(entry.PostalCode);
             const dedupeKey = `${nameFr}|${postalCode}`;
             return { entry, nameFr, nameAr, postalCode, dedupeKey };
@@ -175,9 +212,9 @@ function main() {
           })
           .sort((a, b) => a.nameFr.localeCompare(b.nameFr));
 
-        const nameAr = normalizeWhitespace(
-          entries[0]?.NameAr.split("(")[0] ?? "",
-        );
+        const nameAr =
+          nameArCorrection ??
+          normalizeWhitespace(entries[0]?.NameAr.split("(")[0] ?? "");
 
         return {
           id: delegationId,

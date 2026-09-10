@@ -16,8 +16,9 @@ here as a static fixture per the guidance in issue #260 ("if nothing suitable
 and lightweight exists, it's acceptable to vendor a static JSON dataset...
 cite the source in a comment").
 
-Do not hand-edit `raw-source.json` or `location-index.json`. To refresh the
-dataset:
+Do not hand-edit `raw-source.json` or any of the generated output
+(`governorates.json`, `governorates.data.ts`, `by-governorate/*.json`). To
+refresh the dataset:
 
 1. Replace `raw-source.json` with a fresh copy of upstream's `data/data.ts`
    (convert the `export const data = [...]` TS literal to JSON).
@@ -60,5 +61,6 @@ into the three-level hierarchy the checkout UI needs:
 `Delegation` (~262, deduped by `Value` within a governorate) →
 `Municipality` (~4,780, deduped by name + postal code within a delegation).
 
-`location-index.json` is the generated output consumed by
-`packages/common/src/data/tunisia-locations/index.ts`.
+`governorates.json` (mirrored as `governorates.data.ts` for static import)
+and `by-governorate/*.json` are the generated output, consumed by
+`packages/common/src/data/tunisia-locations.ts`.

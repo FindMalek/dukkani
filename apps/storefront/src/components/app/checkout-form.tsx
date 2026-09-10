@@ -249,9 +249,16 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
   const clearDelegationAndCity = useCallback(() => {
     form.setFieldValue("address.delegation", "");
     form.setFieldValue("address.city", "");
+    // Whatever set the postal code before (a prior city pick, or GPS/IP
+    // autofill) no longer matches once the customer starts navigating the
+    // cascade away from it -- clear it so it can't linger stale. Picking a
+    // new city repopulates it via handleCitySelect; the field stays a plain
+    // text input if they'd rather type it.
+    form.setFieldValue("address.postalCode", "");
   }, [form]);
   const clearCity = useCallback(() => {
     form.setFieldValue("address.city", "");
+    form.setFieldValue("address.postalCode", "");
   }, [form]);
   const handleCitySelect = useCallback(
     (value: string | undefined) => {

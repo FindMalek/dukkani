@@ -979,125 +979,125 @@
     {
       "id": "monastir--moknine",
       "nameFr": "MOKNINE",
-      "nameAr": "المنستير",
-      "searchKey": "moknine المنستير",
+      "nameAr": "المكنين",
+      "searchKey": "moknine المكنين",
       "municipalities": [
         {
           "id": "monastir--moknine--moknine-amirat-el-fehoul--5053",
           "nameFr": "MOKNINE (Amirat El Fehoul)",
-          "nameAr": "المنستير (عميرة الفحول)",
+          "nameAr": "المكنين (عميرة الفحول)",
           "postalCode": "5053",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (amirat el fehoul) المنستير (عميرة الفحول) 5053"
+          "searchKey": "moknine (amirat el fehoul) المكنين (عميرة الفحول) 5053"
         },
         {
           "id": "monastir--moknine--moknine-amirat-el-hojjej--5071",
           "nameFr": "MOKNINE (Amirat El Hojjej)",
-          "nameAr": "المنستير (عميرة الحجاج)",
+          "nameAr": "المكنين (عميرة الحجاج)",
           "postalCode": "5071",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (amirat el hojjej) المنستير (عميرة الحجاج) 5071"
+          "searchKey": "moknine (amirat el hojjej) المكنين (عميرة الحجاج) 5071"
         },
         {
           "id": "monastir--moknine--moknine-amirat-touazra--5054",
           "nameFr": "MOKNINE (Amirat Touazra)",
-          "nameAr": "المنستير (عميرة التوازرة)",
+          "nameAr": "المكنين (عميرة التوازرة)",
           "postalCode": "5054",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (amirat touazra) المنستير (عميرة التوازرة) 5054"
+          "searchKey": "moknine (amirat touazra) المكنين (عميرة التوازرة) 5054"
         },
         {
           "id": "monastir--moknine--moknine-cherahil--5034",
           "nameFr": "MOKNINE (Cherahil)",
-          "nameAr": "المنستير (شراحيل)",
+          "nameAr": "المكنين (شراحيل)",
           "postalCode": "5034",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (cherahil) المنستير (شراحيل) 5034"
+          "searchKey": "moknine (cherahil) المكنين (شراحيل) 5034"
         },
         {
           "id": "monastir--moknine--moknine-cite-el-bassatine--5034",
           "nameFr": "MOKNINE (Cite El Bassatine)",
-          "nameAr": "المنستير (حي البساتين)",
+          "nameAr": "المكنين (حي البساتين)",
           "postalCode": "5034",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (cite el bassatine) المنستير (حي البساتين) 5034"
+          "searchKey": "moknine (cite el bassatine) المكنين (حي البساتين) 5034"
         },
         {
           "id": "monastir--moknine--moknine-cite-el-omrane--5034",
           "nameFr": "MOKNINE (Cite El Omrane)",
-          "nameAr": "المنستير (حي العمران)",
+          "nameAr": "المكنين (حي العمران)",
           "postalCode": "5034",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (cite el omrane) المنستير (حي العمران) 5034"
+          "searchKey": "moknine (cite el omrane) المكنين (حي العمران) 5034"
         },
         {
           "id": "monastir--moknine--moknine-cite-ennasr--5034",
           "nameFr": "MOKNINE (Cite Ennasr)",
-          "nameAr": "المنستير (حي النصر)",
+          "nameAr": "المكنين (حي النصر)",
           "postalCode": "5034",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (cite ennasr) المنستير (حي النصر) 5034"
+          "searchKey": "moknine (cite ennasr) المكنين (حي النصر) 5034"
         },
         {
           "id": "monastir--moknine--moknine-cite-ezzayatine--5034",
           "nameFr": "MOKNINE (Cite Ezzayatine)",
-          "nameAr": "المنستير (حي الزياتين)",
+          "nameAr": "المكنين (حي الزياتين)",
           "postalCode": "5034",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (cite ezzayatine) المنستير (حي الزياتين) 5034"
+          "searchKey": "moknine (cite ezzayatine) المكنين (حي الزياتين) 5034"
         },
         {
           "id": "monastir--moknine--moknine-cite-populaire--5034",
           "nameFr": "MOKNINE (Cite Populaire)",
-          "nameAr": "المنستير (الحي الشعبي)",
+          "nameAr": "المكنين (الحي الشعبي)",
           "postalCode": "5034",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (cite populaire) المنستير (الحي الشعبي) 5034"
+          "searchKey": "moknine (cite populaire) المكنين (الحي الشعبي) 5034"
         },
         {
           "id": "monastir--moknine--moknine-cite-trabelsia--5034",
           "nameFr": "MOKNINE (Cite Trabelsia)",
-          "nameAr": "المنستير (حي الطرابلسية)",
+          "nameAr": "المكنين (حي الطرابلسية)",
           "postalCode": "5034",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (cite trabelsia) المنستير (حي الطرابلسية) 5034"
+          "searchKey": "moknine (cite trabelsia) المكنين (حي الطرابلسية) 5034"
         },
         {
           "id": "monastir--moknine--moknine-cite-zraraa--5034",
           "nameFr": "MOKNINE (Cite Zraraa)",
-          "nameAr": "المنستير (حي زرارة)",
+          "nameAr": "المكنين (حي زرارة)",
           "postalCode": "5034",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (cite zraraa) المنستير (حي زرارة) 5034"
+          "searchKey": "moknine (cite zraraa) المكنين (حي زرارة) 5034"
         },
         {
           "id": "monastir--moknine--moknine-menzel-fersi--5024",
           "nameFr": "MOKNINE (Menzel Fersi)",
-          "nameAr": "المنستير (منزل فارسي)",
+          "nameAr": "المكنين (منزل فارسي)",
           "postalCode": "5024",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (menzel fersi) المنستير (منزل فارسي) 5024"
+          "searchKey": "moknine (menzel fersi) المكنين (منزل فارسي) 5024"
         },
         {
           "id": "monastir--moknine--moknine-moknine-el-jadida--5051",
           "nameFr": "MOKNINE (Moknine El Jadida)",
-          "nameAr": "المنستير (المكنين الجديدة)",
+          "nameAr": "المكنين (المكنين الجديدة)",
           "postalCode": "5051",
           "latitude": 35.6311,
           "longitude": 10.9011,
-          "searchKey": "moknine (moknine el jadida) المنستير (المكنين الجديدة) 5051"
+          "searchKey": "moknine (moknine el jadida) المكنين (المكنين الجديدة) 5051"
         }
       ]
     },
