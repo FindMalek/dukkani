@@ -12,7 +12,7 @@ on:
 
 jobs:
   migrate:
-    runs-on: [self-hosted, the-keep]
+    runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
