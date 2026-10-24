@@ -9,7 +9,7 @@ on:
 
 jobs:
   translate:
-    runs-on: [self-hosted, the-keep]
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
