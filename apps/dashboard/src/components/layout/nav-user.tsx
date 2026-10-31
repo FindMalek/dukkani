@@ -175,7 +175,7 @@ export function NavUser() {
             >
               <LogoutButton
                 variant="ghost"
-                className="h-auto w-full justify-start gap-2 px-2 py-1.5 font-normal text-destructive hover:text-destructive"
+                className="h-auto w-full justify-start gap-2 px-2 py-1.5 font-normal text-destructive hover:bg-destructive/10 hover:text-destructive"
               >
                 <Icons.logOut />
                 {t("button")}
