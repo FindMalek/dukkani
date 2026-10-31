@@ -49,6 +49,52 @@
     }
   },
   "settings": {
+    "profile": {
+      "title": "Gestion du profil",
+      "description": "Gérez le profil et les préférences de votre compte",
+      "avatar": {
+        "changeLabel": "Changer la photo",
+        "hint": "PNG ou JPG, jusqu'à 5 Mo",
+        "uploadError": "Impossible de téléverser votre photo. Veuillez réessayer.",
+        "updateSuccess": "Photo de profil mise à jour"
+      },
+      "personalInfo": {
+        "title": "Informations personnelles",
+        "description": "Mettez à jour votre nom et vos coordonnées",
+        "nameLabel": "Nom complet",
+        "namePlaceholder": "Votre nom d'affichage",
+        "emailLabel": "Adresse e-mail",
+        "emailDescription": "Contactez le support pour modifier l'e-mail de votre compte",
+        "submit": "Mettre à jour le profil",
+        "success": "Profil mis à jour avec succès"
+      },
+      "security": {
+        "title": "Sécurité",
+        "description": "Modifiez votre mot de passe et vos paramètres de sécurité",
+        "currentPasswordLabel": "Mot de passe actuel",
+        "currentPasswordPlaceholder": "Entrez votre mot de passe actuel",
+        "newPasswordLabel": "Nouveau mot de passe",
+        "newPasswordPlaceholder": "Entrez votre nouveau mot de passe",
+        "confirmPasswordLabel": "Confirmer le nouveau mot de passe",
+        "confirmPasswordPlaceholder": "Ressaisissez votre nouveau mot de passe",
+        "submit": "Changer le mot de passe",
+        "success": "Mot de passe changé avec succès"
+      },
+      "oauth": {
+        "title": "Sécurité",
+        "description": "Vous êtes connecté via un compte lié",
+        "badge": "Connecté avec {provider}"
+      },
+      "preferences": {
+        "title": "Préférences du compte",
+        "description": "Gérez les paramètres de votre compte",
+        "emailNotifications": "Notifications par e-mail",
+        "emailNotificationsDescription": "Recevez des mises à jour par e-mail sur les commandes et l'activité du compte",
+        "smsNotifications": "Notifications par SMS",
+        "smsNotificationsDescription": "Recevez des mises à jour par SMS sur les commandes",
+        "comingSoon": "Bientôt disponible"
+      }
+    },
     "theme": {
       "label": "Thème",
       "light": "Clair",

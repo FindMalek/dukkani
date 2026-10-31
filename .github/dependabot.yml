@@ -1,0 +1,21 @@
+# Scoped dependabot config, re-added after the full version-update setup was
+# removed (see git history: #345 added it, later removed). This only exists
+# to make Dependabot respect the sharp pin — the "ignore" rule below applies
+# to both version updates and security updates, per GitHub's docs, and
+# open-pull-requests-limit: 0 keeps routine version-update PRs disabled.
+#
+# Context: #570 pinned sharp below 0.35.x (Turbopack/Vercel ERR_DLOPEN_FAILED
+# crash). A Dependabot security-update PR (#582) silently bumped it back to
+# 0.35.x anyway, reintroducing the crash in production for ~3 weeks (#593).
+# packages/ci-tools' check-pinned-deps script is the second layer of defense
+# in CI, for anyone bumping it by hand.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "sharp"
+        versions: [">=0.35.0"]

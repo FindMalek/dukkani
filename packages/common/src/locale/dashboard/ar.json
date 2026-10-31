@@ -49,11 +49,57 @@
     }
   },
   "settings": {
+    "profile": {
+      "title": "إدارة الملف الشخصي",
+      "description": "إدارة ملفك الشخصي وتفضيلات حسابك",
+      "avatar": {
+        "changeLabel": "تغيير الصورة",
+        "hint": "PNG أو JPG، حتى 5 ميجابايت",
+        "uploadError": "تعذر رفع صورتك. يرجى المحاولة مرة أخرى.",
+        "updateSuccess": "تم تحديث صورة الملف الشخصي"
+      },
+      "personalInfo": {
+        "title": "المعلومات الشخصية",
+        "description": "قم بتحديث اسمك وبيانات الاتصال",
+        "nameLabel": "الاسم الكامل",
+        "namePlaceholder": "اسم العرض الخاص بك",
+        "emailLabel": "عنوان البريد الإلكتروني",
+        "emailDescription": "تواصل مع الدعم لتغيير البريد الإلكتروني لحسابك",
+        "submit": "تحديث الملف الشخصي",
+        "success": "تم تحديث الملف الشخصي بنجاح"
+      },
+      "security": {
+        "title": "الأمان",
+        "description": "قم بتغيير كلمة المرور وإعدادات الأمان",
+        "currentPasswordLabel": "كلمة المرور الحالية",
+        "currentPasswordPlaceholder": "أدخل كلمة المرور الحالية",
+        "newPasswordLabel": "كلمة المرور الجديدة",
+        "newPasswordPlaceholder": "أدخل كلمة المرور الجديدة",
+        "confirmPasswordLabel": "تأكيد كلمة المرور الجديدة",
+        "confirmPasswordPlaceholder": "أعد إدخال كلمة المرور الجديدة",
+        "submit": "تغيير كلمة المرور",
+        "success": "تم تغيير كلمة المرور بنجاح"
+      },
+      "oauth": {
+        "title": "الأمان",
+        "description": "أنت مسجل الدخول عبر حساب مرتبط",
+        "badge": "تم تسجيل الدخول باستخدام {provider}"
+      },
+      "preferences": {
+        "title": "تفضيلات الحساب",
+        "description": "إدارة إعدادات حسابك",
+        "emailNotifications": "إشعارات البريد الإلكتروني",
+        "emailNotificationsDescription": "تلقي تحديثات عبر البريد الإلكتروني حول الطلبات ونشاط الحساب",
+        "smsNotifications": "إشعارات الرسائل النصية",
+        "smsNotificationsDescription": "تلقي تحديثات عبر الرسائل النصية حول الطلبات",
+        "comingSoon": "قريباً"
+      }
+    },
     "theme": {
-      "label": "Theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
+      "label": "المظهر",
+      "light": "فاتح",
+      "dark": "داكن",
+      "system": "النظام"
     },
     "logout": {
       "button": "تسجيل الخروج",

@@ -13,7 +13,7 @@ jobs:
   lighthouse:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
@@ -48,23 +48,68 @@ jobs:
           API_URL_BY_SHA="https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&target=preview&meta-githubCommitSha=${COMMIT_SHA}&limit=20"
           API_URL_BY_REF="https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&target=preview&meta-githubCommitRef=${GITHUB_HEAD_REF}&limit=20"
           PREVIEW_URL=""
+          SKIPPED="false"
 
-          for attempt in {1..20}; do
+          is_in_progress() {
+            echo "$1" | jq -e '
+              [.deployments[]? | select(.readyState == "QUEUED" or .readyState == "BUILDING" or .readyState == "INITIALIZING")]
+              | length > 0
+            ' >/dev/null
+          }
+
+          latest_ready_url() {
+            echo "$1" | jq -r '[.deployments[]? | select(.readyState == "READY")] | sort_by(.createdAt) | last | .url // empty'
+          }
+
+          latest_error() {
+            echo "$1" | jq -e '
+              [.deployments[]? | select(.readyState == "ERROR")]
+              | length > 0
+            ' >/dev/null
+          }
+
+          only_canceled() {
+            echo "$1" | jq -e '
+              (.deployments | length) > 0
+              and
+              all(.deployments[]?; .readyState == "CANCELED")
+            ' >/dev/null
+          }
+
+          for attempt in {1..60}; do
             RESPONSE="$(curl -fsS -H "Authorization: Bearer ${VERCEL_TOKEN}" "${API_URL_BY_SHA}")"
-            PREVIEW_URL="$(echo "${RESPONSE}" | jq -r '[.deployments[]? | select(.readyState == "READY")] | sort_by(.createdAt) | last | .url // empty')"
+            PREVIEW_URL="$(latest_ready_url "${RESPONSE}")"
 
             if [ -z "${PREVIEW_URL}" ] || [ "${PREVIEW_URL}" = "null" ]; then
               RESPONSE_BY_REF="$(curl -fsS -H "Authorization: Bearer ${VERCEL_TOKEN}" "${API_URL_BY_REF}")"
-              PREVIEW_URL="$(echo "${RESPONSE_BY_REF}" | jq -r '[.deployments[]? | select(.readyState == "READY")] | sort_by(.createdAt) | last | .url // empty')"
+              PREVIEW_URL="$(latest_ready_url "${RESPONSE_BY_REF}")"
             fi
 
             if [ -n "${PREVIEW_URL}" ] && [ "${PREVIEW_URL}" != "null" ]; then
               break
             fi
 
-            echo "No READY preview for ${{ matrix.app }} yet (attempt ${attempt}/20). Waiting 15s... (sha=${COMMIT_SHA}, ref=${GITHUB_HEAD_REF})"
-            sleep 15
+            if latest_error "${RESPONSE}" && ! is_in_progress "${RESPONSE}"; then
+              echo "Vercel preview for ${{ matrix.app }} entered ERROR (sha=${COMMIT_SHA})"
+              exit 1
+            fi
+
+            if only_canceled "${RESPONSE}" && ! is_in_progress "${RESPONSE}"; then
+              echo "Vercel skipped ${{ matrix.app }} for this commit (Ignored Build Step canceled the deploy). Skipping Lighthouse."
+              SKIPPED="true"
+              break
+            fi
+
+            echo "No READY preview for ${{ matrix.app }} yet (attempt ${attempt}/60). Waiting 20s... (sha=${COMMIT_SHA}, ref=${GITHUB_HEAD_REF})"
+            sleep 20
           done
+
+          echo "skipped=${SKIPPED}" >> "$GITHUB_OUTPUT"
+
+          if [ "${SKIPPED}" = "true" ]; then
+            echo "url=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
           if [ -z "${PREVIEW_URL}" ] || [ "${PREVIEW_URL}" = "null" ]; then
             echo "Could not find READY Vercel preview for ${{ matrix.app }} (sha=${COMMIT_SHA}, ref=${GITHUB_HEAD_REF})"
@@ -75,13 +120,13 @@ jobs:
           echo "Resolved ${{ matrix.app }} preview: https://${PREVIEW_URL}"
 
       - name: Wait for preview reachability (${{ matrix.app }})
+        if: steps.preview.outputs.skipped != 'true'
         env:
           LIGHTHOUSE_URL: ${{ steps.preview.outputs.url }}
           LIGHTHOUSE_PATHS: ${{ matrix.lighthouse_paths }}
         run: |
           set -euo pipefail
 
-          # Extract the first path from LIGHTHOUSE_PATHS (comma-separated)
           FIRST_PATH="$(echo "${LIGHTHOUSE_PATHS}" | cut -d',' -f1)"
           TARGET_URL="${LIGHTHOUSE_URL}${FIRST_PATH}"
 
@@ -100,6 +145,7 @@ jobs:
           exit 1
 
       - name: Collect Lighthouse data (desktop)
+        if: steps.preview.outputs.skipped != 'true'
         run: npx -y @lhci/cli@0.15.1 collect
         env:
           LIGHTHOUSE_URL: ${{ steps.preview.outputs.url }}
@@ -107,6 +153,7 @@ jobs:
           LHCI_PRESET: desktop
 
       - name: Collect Lighthouse data (mobile)
+        if: steps.preview.outputs.skipped != 'true'
         run: npx -y @lhci/cli@0.15.1 collect
         env:
           LIGHTHOUSE_URL: ${{ steps.preview.outputs.url }}
@@ -115,13 +162,14 @@ jobs:
           LHCI_SCREEN_EMULATION: '{"mobile":true,"width":375,"height":667,"deviceScaleFactor":2,"disabled":false,"formFactor":"mobile"}'
 
       - name: Assert Lighthouse results
+        if: steps.preview.outputs.skipped != 'true'
         run: npx -y @lhci/cli@0.15.1 assert
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
       - name: Upload Lighthouse artifacts
         uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.preview.outputs.skipped != 'true'
         with:
           name: lighthouse-reports-${{ matrix.app }}
           path: .lighthouseci
