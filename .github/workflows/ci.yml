@@ -9,7 +9,7 @@ on:
 jobs:
   lint:
     name: Lint
-    runs-on: [self-hosted, the-keep]
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: read
@@ -37,7 +37,7 @@ jobs:
 
   check-pinned-deps:
     name: Check pinned dependencies
-    runs-on: [self-hosted, the-keep]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
       contents: read
@@ -66,7 +66,7 @@ jobs:
 
   check-types:
     name: Check types
-    runs-on: [self-hosted, the-keep]
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
       contents: read
@@ -97,7 +97,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: [self-hosted, the-keep]
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
       contents: read
