@@ -4,6 +4,7 @@ import { loginInputSchema } from "@dukkani/common/schemas/user/input";
 import { Button } from "@dukkani/ui/components/button";
 import { FieldGroup } from "@dukkani/ui/components/field";
 import { Form } from "@dukkani/ui/components/forms/wrapper";
+import { Icons } from "@dukkani/ui/components/icons";
 import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { cn } from "@dukkani/ui/lib/utils";
 import { useRouter } from "next/navigation";
@@ -124,38 +125,44 @@ export function EmailSignIn({
         </Form>
       ) : (
         <Form className="space-y-4" onSubmit={passwordForm.handleSubmit}>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="size-8"
+            aria-label={t("back")}
+            onClick={() => {
+              setEmailExists(null);
+              emailForm.reset();
+            }}
+          >
+            <Icons.arrowLeft className="size-4" />
+          </Button>
           <FieldGroup>
-            <passwordForm.AppField name="email">
-              {(field) => (
-                <field.EmailInput
-                  label={t("email.label")}
-                  placeholder={t("email.placeholder")}
-                  readOnly
-                />
-              )}
-            </passwordForm.AppField>
-            <passwordForm.AppField name="password">
-              {(field) => (
-                <field.PasswordInput
-                  label={t("password.label")}
-                  placeholder={t("password.placeholder")}
-                  autoComplete="current-password"
-                />
-              )}
-            </passwordForm.AppField>
-            <passwordForm.AppField name="rememberMe">
-              {(field) => <field.CheckboxInput label={t("rememberMe")} />}
-            </passwordForm.AppField>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => {
-                setEmailExists(null);
-                emailForm.reset();
-              }}
-            >
-              {t("back")}
-            </Button>
+            <div className="space-y-4 rounded-lg border bg-muted/30 p-4">
+              <passwordForm.AppField name="email">
+                {(field) => (
+                  <field.EmailInput
+                    label={t("email.label")}
+                    placeholder={t("email.placeholder")}
+                    readOnly
+                    disabled
+                  />
+                )}
+              </passwordForm.AppField>
+              <passwordForm.AppField name="password">
+                {(field) => (
+                  <field.PasswordInput
+                    label={t("password.label")}
+                    placeholder={t("password.placeholder")}
+                    autoComplete="current-password"
+                  />
+                )}
+              </passwordForm.AppField>
+              <passwordForm.AppField name="rememberMe">
+                {(field) => <field.CheckboxInput label={t("rememberMe")} />}
+              </passwordForm.AppField>
+            </div>
             <passwordForm.Subscribe>
               {(passwordFormState) => (
                 <Button
