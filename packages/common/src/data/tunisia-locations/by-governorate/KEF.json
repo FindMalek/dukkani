@@ -1,0 +1,2441 @@
+{
+  "code": "KEF",
+  "delegations": [
+    {
+      "id": "kef--dahmani",
+      "nameFr": "DAHMANI",
+      "nameAr": "الدهماني",
+      "searchKey": "dahmani الدهماني",
+      "municipalities": [
+        {
+          "id": "kef--dahmani--dahmani-abida--7170",
+          "nameFr": "DAHMANI (Abida)",
+          "nameAr": "الدهماني (عبيدة)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (abida) الدهماني (عبيدة) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-adissi--7170",
+          "nameFr": "DAHMANI (Adissi)",
+          "nameAr": "الدهماني (العديسي)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (adissi) الدهماني (العديسي) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-ain-meskhia--7170",
+          "nameFr": "DAHMANI (Ain Meskhia)",
+          "nameAr": "الدهماني (عين مسخية)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (ain meskhia) الدهماني (عين مسخية) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-charket-essaboun--7170",
+          "nameFr": "DAHMANI (Charket Essaboun)",
+          "nameAr": "الدهماني (شرق الصابون)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (charket essaboun) الدهماني (شرق الصابون) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-1-mai-1--7170",
+          "nameFr": "DAHMANI (Cite 1 Mai 1)",
+          "nameAr": "الدهماني (حي 1 ماي 1)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite 1 mai 1) الدهماني (حي 1 ماي 1) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-1-mai-2--7170",
+          "nameFr": "DAHMANI (Cite 1 Mai 2)",
+          "nameAr": "الدهماني (حي 1 ماي 2)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite 1 mai 2) الدهماني (حي 1 ماي 2) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-2-mars-1--7170",
+          "nameFr": "DAHMANI (Cite 2 Mars 1)",
+          "nameAr": "الدهماني (حي 2 مارس 1)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite 2 mars 1) الدهماني (حي 2 مارس 1) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-2-mars-2--7170",
+          "nameFr": "DAHMANI (Cite 2 Mars 2)",
+          "nameAr": "الدهماني (حي 2 مارس 2)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite 2 mars 2) الدهماني (حي 2 مارس 2) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-ben-ammar-1--7170",
+          "nameFr": "DAHMANI (Cite Ben Ammar 1)",
+          "nameAr": "الدهماني (حي بن عمار 1)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite ben ammar 1) الدهماني (حي بن عمار 1) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-ben-ammar-2--7170",
+          "nameFr": "DAHMANI (Cite Ben Ammar 2)",
+          "nameAr": "الدهماني (حي بن عمار 2)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite ben ammar 2) الدهماني (حي بن عمار 2) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-ben-hafdhallah--7170",
+          "nameFr": "DAHMANI (Cite Ben Hafdhallah)",
+          "nameAr": "الدهماني (حي بن حفظ الله)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite ben hafdhallah) الدهماني (حي بن حفظ الله) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-el-azima--7170",
+          "nameFr": "DAHMANI (Cite El Azima)",
+          "nameAr": "الدهماني (حي العزيمة)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite el azima) الدهماني (حي العزيمة) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-el-intilak--7170",
+          "nameFr": "DAHMANI (Cite El Intilak)",
+          "nameAr": "الدهماني (حي الإنطلاق)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite el intilak) الدهماني (حي الإنطلاق) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-ennasr--7170",
+          "nameFr": "DAHMANI (Cite Ennasr)",
+          "nameAr": "الدهماني (حي النصر)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite ennasr) الدهماني (حي النصر) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-ennour--7170",
+          "nameFr": "DAHMANI (Cite Ennour)",
+          "nameAr": "الدهماني (حي النور)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite ennour) الدهماني (حي النور) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-erriadh--7170",
+          "nameFr": "DAHMANI (Cite Erriadh)",
+          "nameAr": "الدهماني (حي الرياض)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite erriadh) الدهماني (حي الرياض) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-essanabel--7170",
+          "nameFr": "DAHMANI (Cite Essanabel)",
+          "nameAr": "الدهماني (حي السنابل)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite essanabel) الدهماني (حي السنابل) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-essanaouber-1--7170",
+          "nameFr": "DAHMANI (Cite Essanaouber 1)",
+          "nameAr": "الدهماني (حي الصنوبر 1)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite essanaouber 1) الدهماني (حي الصنوبر 1) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-essanaouber-2--7170",
+          "nameFr": "DAHMANI (Cite Essanaouber 2)",
+          "nameAr": "الدهماني (حي الصنوبر 2)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite essanaouber 2) الدهماني (حي الصنوبر 2) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-ettenmia--7170",
+          "nameFr": "DAHMANI (Cite Ettenmia)",
+          "nameAr": "الدهماني (حي التنمية)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite ettenmia) الدهماني (حي التنمية) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-hopital--7170",
+          "nameFr": "DAHMANI (Cite Hopital)",
+          "nameAr": "الدهماني (حي المستشفى)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite hopital) الدهماني (حي المستشفى) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-ibn-khaldoun--7170",
+          "nameFr": "DAHMANI (Cite Ibn Khaldoun)",
+          "nameAr": "الدهماني (حي إبن خلدون)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite ibn khaldoun) الدهماني (حي إبن خلدون) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-mohamed-ali--7170",
+          "nameFr": "DAHMANI (Cite Mohamed Ali)",
+          "nameAr": "الدهماني (حي محمد علي)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite mohamed ali) الدهماني (حي محمد علي) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-cite-sidi-dahmani--7170",
+          "nameFr": "DAHMANI (Cite Sidi Dahmani)",
+          "nameAr": "الدهماني (حي سيدي دحماني)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (cite sidi dahmani) الدهماني (حي سيدي دحماني) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-dahmani--7170",
+          "nameFr": "DAHMANI (Dahmani)",
+          "nameAr": "الدهماني (الدهماني)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (dahmani) الدهماني (الدهماني) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-sidi-asker--7170",
+          "nameFr": "DAHMANI (Sidi Asker)",
+          "nameAr": "الدهماني (سيدي عسكر)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (sidi asker) الدهماني (سيدي عسكر) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-sidi-baraket-nord--7170",
+          "nameFr": "DAHMANI (Sidi Baraket Nord)",
+          "nameAr": "الدهماني (سيدي بركات الشمالية)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (sidi baraket nord) الدهماني (سيدي بركات الشمالية) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-sidi-baraket-sud--7170",
+          "nameFr": "DAHMANI (Sidi Baraket Sud)",
+          "nameAr": "الدهماني (سيدي بركات الجنوبية)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (sidi baraket sud) الدهماني (سيدي بركات الجنوبية) 7170"
+        },
+        {
+          "id": "kef--dahmani--dahmani-zouarine--7170",
+          "nameFr": "DAHMANI (Zouarine)",
+          "nameAr": "الدهماني (الزوارين)",
+          "postalCode": "7170",
+          "latitude": 35.9417,
+          "longitude": 9.2,
+          "searchKey": "dahmani (zouarine) الدهماني (الزوارين) 7170"
+        }
+      ]
+    },
+    {
+      "id": "kef--el-ksour",
+      "nameFr": "EL KSOUR",
+      "nameAr": "القصور",
+      "searchKey": "el ksour القصور",
+      "municipalities": [
+        {
+          "id": "kef--el-ksour--el-ksour-ain-el-fedhil--7160",
+          "nameFr": "EL KSOUR (Ain El Fedhil)",
+          "nameAr": "القصور (عين الفضيل)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (ain el fedhil) القصور (عين الفضيل) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-ain-ksiba--7160",
+          "nameFr": "EL KSOUR (Ain Ksiba)",
+          "nameAr": "القصور (عين قصيبة)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (ain ksiba) القصور (عين قصيبة) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-banou--7160",
+          "nameFr": "EL KSOUR (Banou)",
+          "nameAr": "القصور (بانو)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (banou) القصور (بانو) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-ali-el-bahloul--7160",
+          "nameFr": "EL KSOUR (Cite Ali El Bahloul)",
+          "nameAr": "القصور (حي علي البهلول)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite ali el bahloul) القصور (حي علي البهلول) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-attouche--7160",
+          "nameFr": "EL KSOUR (Cite Attouche)",
+          "nameAr": "القصور (حي عطوش)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite attouche) القصور (حي عطوش) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-centre-ville--7160",
+          "nameFr": "EL KSOUR (Cite Centre Ville)",
+          "nameAr": "القصور (حي وسط المدينة)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite centre ville) القصور (حي وسط المدينة) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-el-borj--7160",
+          "nameFr": "EL KSOUR (Cite El Borj)",
+          "nameAr": "القصور (حي البرج)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite el borj) القصور (حي البرج) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-el-hella--7160",
+          "nameFr": "EL KSOUR (Cite El Hella)",
+          "nameAr": "القصور (حي الحلة)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite el hella) القصور (حي الحلة) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-essaada--7160",
+          "nameFr": "EL KSOUR (Cite Essaada)",
+          "nameAr": "القصور (حي السعادة)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite essaada) القصور (حي السعادة) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-mohamed-ali--7160",
+          "nameFr": "EL KSOUR (Cite Mohamed Ali)",
+          "nameAr": "القصور (حي محمد علي)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite mohamed ali) القصور (حي محمد علي) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-safia-1--7160",
+          "nameFr": "EL KSOUR (Cite Safia 1)",
+          "nameAr": "القصور (حي صافية 1)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite safia 1) القصور (حي صافية 1) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-safia-2--7160",
+          "nameFr": "EL KSOUR (Cite Safia 2)",
+          "nameAr": "القصور (حي صافية 2)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite safia 2) القصور (حي صافية 2) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-sidi-ali-mahjoub--7160",
+          "nameFr": "EL KSOUR (Cite Sidi Ali Mahjoub)",
+          "nameAr": "القصور (حي سيدي علي محجوب)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite sidi ali mahjoub) القصور (حي سيدي علي محجوب) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-cite-sidi-mansour--7160",
+          "nameFr": "EL KSOUR (Cite Sidi Mansour)",
+          "nameAr": "القصور (حي سيدي منصور)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (cite sidi mansour) القصور (حي سيدي منصور) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-echaabna--7160",
+          "nameFr": "EL KSOUR (Echaabna)",
+          "nameAr": "القصور (الشعابنة)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (echaabna) القصور (الشعابنة) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-eddhila--7160",
+          "nameFr": "EL KSOUR (Eddhila)",
+          "nameAr": "القصور (الضيلة)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (eddhila) القصور (الضيلة) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-el-afset--7160",
+          "nameFr": "EL KSOUR (El Afset)",
+          "nameAr": "القصور (العفست)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (el afset) القصور (العفست) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-el-hmarna--7160",
+          "nameFr": "EL KSOUR (El Hmarna)",
+          "nameAr": "القصور (الحمارنة)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (el hmarna) القصور (الحمارنة) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-el-houilat--7160",
+          "nameFr": "EL KSOUR (El Houilat)",
+          "nameAr": "القصور (الحويلات)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (el houilat) القصور (الحويلات) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-el-ksour--7160",
+          "nameFr": "EL KSOUR (El Ksour)",
+          "nameAr": "القصور (القصور)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (el ksour) القصور (القصور) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-ezzitouna--7115",
+          "nameFr": "EL KSOUR (Ezzitouna)",
+          "nameAr": "القصور (الزيتونة)",
+          "postalCode": "7115",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (ezzitouna) القصور (الزيتونة) 7115"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-kirata--7160",
+          "nameFr": "EL KSOUR (Kirata)",
+          "nameAr": "القصور (قراط)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (kirata) القصور (قراط) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-louata--7160",
+          "nameFr": "EL KSOUR (Louata)",
+          "nameAr": "القصور (لواتة)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (louata) القصور (لواتة) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-ouled-bouraoui--7160",
+          "nameFr": "EL KSOUR (Ouled Bouraoui)",
+          "nameAr": "القصور (أولاد براوي)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (ouled bouraoui) القصور (أولاد براوي) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-ouled-ghana--7160",
+          "nameFr": "EL KSOUR (Ouled Ghana)",
+          "nameAr": "القصور (أولاد غانة)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (ouled ghana) القصور (أولاد غانة) 7160"
+        },
+        {
+          "id": "kef--el-ksour--el-ksour-ouled-zid--7160",
+          "nameFr": "EL KSOUR (Ouled Zid)",
+          "nameAr": "القصور (أولاد زيد)",
+          "postalCode": "7160",
+          "latitude": 35.795,
+          "longitude": 9.0786,
+          "searchKey": "el ksour (ouled zid) القصور (أولاد زيد) 7160"
+        }
+      ]
+    },
+    {
+      "id": "kef--jerissa",
+      "nameFr": "JERISSA",
+      "nameAr": "الجريصة",
+      "searchKey": "jerissa الجريصة",
+      "municipalities": [
+        {
+          "id": "kef--jerissa--jerissa-ain-el-garsa--7114",
+          "nameFr": "JERISSA (Ain El Garsa)",
+          "nameAr": "الجريصة (عين القارصة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (ain el garsa) الجريصة (عين القارصة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-ahmed-tlili--7114",
+          "nameFr": "JERISSA (Cite Ahmed Tlili)",
+          "nameAr": "الجريصة (حي أحمد التليلي)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite ahmed tlili) الجريصة (حي أحمد التليلي) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-ali-ben-ghedhahom--7114",
+          "nameFr": "JERISSA (Cite Ali Ben Ghedhahom)",
+          "nameAr": "الجريصة (حي علي بن غذاهم)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite ali ben ghedhahom) الجريصة (حي علي بن غذاهم) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-ali-ben-khlifa--7114",
+          "nameFr": "JERISSA (Cite Ali Ben Khlifa)",
+          "nameAr": "الجريصة (حي علي بن خليفة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite ali ben khlifa) الجريصة (حي علي بن خليفة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-bourguiba--7114",
+          "nameFr": "JERISSA (Cite Bourguiba)",
+          "nameAr": "الجريصة (حي بورقيبة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite bourguiba) الجريصة (حي بورقيبة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-chahid-el-aid-1--7114",
+          "nameFr": "JERISSA (Cite Chahid El Aid 1)",
+          "nameAr": "الجريصة (حي الشهيد العيد 1)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite chahid el aid 1) الجريصة (حي الشهيد العيد 1) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-chahid-el-aid-2--7114",
+          "nameFr": "JERISSA (Cite Chahid El Aid 2)",
+          "nameAr": "الجريصة (حي الشهيد العيد 2)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite chahid el aid 2) الجريصة (حي الشهيد العيد 2) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-de-la-gare--7114",
+          "nameFr": "JERISSA (Cite De La Gare)",
+          "nameAr": "الجريصة (حي المحطة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite de la gare) الجريصة (حي المحطة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-des-ingenieurs--7114",
+          "nameFr": "JERISSA (Cite Des Ingenieurs)",
+          "nameAr": "الجريصة (حي المهندسين)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite des ingenieurs) الجريصة (حي المهندسين) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-des-instituteurs--7114",
+          "nameFr": "JERISSA (Cite Des Instituteurs)",
+          "nameAr": "الجريصة (حي المعلمين)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite des instituteurs) الجريصة (حي المعلمين) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-des-martyrs--7114",
+          "nameFr": "JERISSA (Cite Des Martyrs)",
+          "nameAr": "الجريصة (حي الشهداء)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite des martyrs) الجريصة (حي الشهداء) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-des-ouvriers--7114",
+          "nameFr": "JERISSA (Cite Des Ouvriers)",
+          "nameAr": "الجريصة (الحي العمالي)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite des ouvriers) الجريصة (الحي العمالي) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-du-souk--7114",
+          "nameFr": "JERISSA (Cite Du Souk)",
+          "nameAr": "الجريصة (حي السوق)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite du souk) الجريصة (حي السوق) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-echahid-belgacem--7114",
+          "nameFr": "JERISSA (Cite Echahid Belgacem)",
+          "nameAr": "الجريصة (حي الشهيد بالقاسم)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite echahid belgacem) الجريصة (حي الشهيد بالقاسم) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-echahid-sadok--7114",
+          "nameFr": "JERISSA (Cite Echahid Sadok)",
+          "nameAr": "الجريصة (حي الشهيد الصادق)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite echahid sadok) الجريصة (حي الشهيد الصادق) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-errouki--7114",
+          "nameFr": "JERISSA (Cite Errouki)",
+          "nameAr": "الجريصة (حي الروكي)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite errouki) الجريصة (حي الروكي) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-essaada--7114",
+          "nameFr": "JERISSA (Cite Essaada)",
+          "nameAr": "الجريصة (حي السعادة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite essaada) الجريصة (حي السعادة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-essanaouber-ancienne--7114",
+          "nameFr": "JERISSA (Cite Essanaouber Ancienne)",
+          "nameAr": "الجريصة (حي الصنوبر القديمة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite essanaouber ancienne) الجريصة (حي الصنوبر القديمة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-essanaouber-nouvelle--7114",
+          "nameFr": "JERISSA (Cite Essanaouber Nouvelle)",
+          "nameAr": "الجريصة (حي الصنوبر الجديدة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite essanaouber nouvelle) الجريصة (حي الصنوبر الجديدة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-essarouel--7114",
+          "nameFr": "JERISSA (Cite Essarouel)",
+          "nameAr": "الجريصة (حي السروال)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite essarouel) الجريصة (حي السروال) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-ettahrir--7114",
+          "nameFr": "JERISSA (Cite Ettahrir)",
+          "nameAr": "الجريصة (حي التحرير)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite ettahrir) الجريصة (حي التحرير) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-ezzouhour--7114",
+          "nameFr": "JERISSA (Cite Ezzouhour)",
+          "nameAr": "الجريصة (حي الزهور)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite ezzouhour) الجريصة (حي الزهور) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-hached-nord--7114",
+          "nameFr": "JERISSA (Cite Hached Nord)",
+          "nameAr": "الجريصة (حي حشاد الشمالية)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite hached nord) الجريصة (حي حشاد الشمالية) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-hached-sud--7114",
+          "nameFr": "JERISSA (Cite Hached Sud)",
+          "nameAr": "الجريصة (حي حشاد الجنوبية)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite hached sud) الجريصة (حي حشاد الجنوبية) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-mohamed-ali-nlle--7114",
+          "nameFr": "JERISSA (Cite Mohamed Ali Nlle)",
+          "nameAr": "الجريصة (حي محمد علي الجديدة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite mohamed ali nlle) الجريصة (حي محمد علي الجديدة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-mohamed-ali--7114",
+          "nameFr": "JERISSA (Cite Mohamed Ali)",
+          "nameAr": "الجريصة (حي محمد علي)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite mohamed ali) الجريصة (حي محمد علي) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-sidi-yahya--7114",
+          "nameFr": "JERISSA (Cite Sidi Yahya)",
+          "nameAr": "الجريصة (حي سيدي يحيى)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite sidi yahya) الجريصة (حي سيدي يحيى) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-cite-taieb-mhiri--7114",
+          "nameFr": "JERISSA (Cite Taieb Mhiri)",
+          "nameAr": "الجريصة (حي الطيب المهيري)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (cite taieb mhiri) الجريصة (حي الطيب المهيري) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-el-gorraia--7114",
+          "nameFr": "JERISSA (El Gorraia)",
+          "nameAr": "الجريصة (القرايعة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (el gorraia) الجريصة (القرايعة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-el-hayadra--7114",
+          "nameFr": "JERISSA (El Hayadra)",
+          "nameAr": "الجريصة (الحيادرة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (el hayadra) الجريصة (الحيادرة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-ennaiem--7114",
+          "nameFr": "JERISSA (Ennaiem)",
+          "nameAr": "الجريصة (النعيم)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (ennaiem) الجريصة (النعيم) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-esbiaat--7114",
+          "nameFr": "JERISSA (Esbiaat)",
+          "nameAr": "الجريصة (السبيعات)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (esbiaat) الجريصة (السبيعات) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-fej-ettamr--7114",
+          "nameFr": "JERISSA (Fej Ettamr)",
+          "nameAr": "الجريصة (فج التمر)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (fej ettamr) الجريصة (فج التمر) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-henchir-sarrat--7114",
+          "nameFr": "JERISSA (Henchir Sarrat)",
+          "nameAr": "الجريصة (هنشير السراط)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (henchir sarrat) الجريصة (هنشير السراط) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-jerissa-gare--7114",
+          "nameFr": "JERISSA (Jerissa Gare)",
+          "nameAr": "الجريصة (الجريصة المحطة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (jerissa gare) الجريصة (الجريصة المحطة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-jerissa--7114",
+          "nameFr": "JERISSA (Jerissa)",
+          "nameAr": "الجريصة (الجريصة)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (jerissa) الجريصة (الجريصة) 7114"
+        },
+        {
+          "id": "kef--jerissa--jerissa-oum-el-kelil--7114",
+          "nameFr": "JERISSA (Oum El Kelil)",
+          "nameAr": "الجريصة (أم الكليل)",
+          "postalCode": "7114",
+          "latitude": 35.85,
+          "longitude": 8.6333,
+          "searchKey": "jerissa (oum el kelil) الجريصة (أم الكليل) 7114"
+        }
+      ]
+    },
+    {
+      "id": "kef--kalaa-el-khasba",
+      "nameFr": "KALAA EL KHASBA",
+      "nameAr": "القلعة الخصباء",
+      "searchKey": "kalaa el khasba القلعة الخصباء",
+      "municipalities": [
+        {
+          "id": "kef--kalaa-el-khasba--kalaa-el-khasba-cite-el-mellessine--7113",
+          "nameFr": "KALAA EL KHASBA (Cite El Mellessine)",
+          "nameAr": "القلعة الخصباء (حي الملسين)",
+          "postalCode": "7113",
+          "latitude": 35.5264,
+          "longitude": 8.5786,
+          "searchKey": "kalaa el khasba (cite el mellessine) القلعة الخصباء (حي الملسين) 7113"
+        },
+        {
+          "id": "kef--kalaa-el-khasba--kalaa-el-khasba-cite-errouka--7113",
+          "nameFr": "KALAA EL KHASBA (Cite Errouka)",
+          "nameAr": "القلعة الخصباء (حي الروقة)",
+          "postalCode": "7113",
+          "latitude": 35.5264,
+          "longitude": 8.5786,
+          "searchKey": "kalaa el khasba (cite errouka) القلعة الخصباء (حي الروقة) 7113"
+        },
+        {
+          "id": "kef--kalaa-el-khasba--kalaa-el-khasba-cite-essouitir--7113",
+          "nameFr": "KALAA EL KHASBA (Cite Essouitir)",
+          "nameAr": "القلعة الخصباء (حي السويطر)",
+          "postalCode": "7113",
+          "latitude": 35.5264,
+          "longitude": 8.5786,
+          "searchKey": "kalaa el khasba (cite essouitir) القلعة الخصباء (حي السويطر) 7113"
+        },
+        {
+          "id": "kef--kalaa-el-khasba--kalaa-el-khasba-kalaa-el-khasba--7113",
+          "nameFr": "KALAA EL KHASBA (Kalaa El Khasba)",
+          "nameAr": "القلعة الخصباء (القلعة الخصباء)",
+          "postalCode": "7113",
+          "latitude": 35.5264,
+          "longitude": 8.5786,
+          "searchKey": "kalaa el khasba (kalaa el khasba) القلعة الخصباء (القلعة الخصباء) 7113"
+        },
+        {
+          "id": "kef--kalaa-el-khasba--kalaa-el-khasba-sidi-ahmed-essalah--7123",
+          "nameFr": "KALAA EL KHASBA (Sidi Ahmed Essalah)",
+          "nameAr": "القلعة الخصباء (سيدي أحمد الصالح)",
+          "postalCode": "7123",
+          "latitude": 35.5264,
+          "longitude": 8.5786,
+          "searchKey": "kalaa el khasba (sidi ahmed essalah) القلعة الخصباء (سيدي أحمد الصالح) 7123"
+        }
+      ]
+    },
+    {
+      "id": "kef--kalaat-sinane",
+      "nameFr": "KALAAT SINANE",
+      "nameAr": "قلعة سنان",
+      "searchKey": "kalaat sinane قلعة سنان",
+      "municipalities": [
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-ain-sinan--7135",
+          "nameFr": "KALAAT SINANE (Ain Sinan)",
+          "nameAr": "قلعة سنان (عين سنان)",
+          "postalCode": "7135",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (ain sinan) قلعة سنان (عين سنان) 7135"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-bou-jabeur--7136",
+          "nameFr": "KALAAT SINANE (Bou Jabeur)",
+          "nameAr": "قلعة سنان (بوجابر)",
+          "postalCode": "7136",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (bou jabeur) قلعة سنان (بوجابر) 7136"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-bourguiba--7130",
+          "nameFr": "KALAAT SINANE (Cite Bourguiba)",
+          "nameAr": "قلعة سنان (حي بورقيبة)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite bourguiba) قلعة سنان (حي بورقيبة) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-du-jardin--7130",
+          "nameFr": "KALAAT SINANE (Cite Du Jardin)",
+          "nameAr": "قلعة سنان (حي الحديقة)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite du jardin) قلعة سنان (حي الحديقة) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-du-stade--7130",
+          "nameFr": "KALAAT SINANE (Cite Du Stade)",
+          "nameAr": "قلعة سنان (حي الملعب)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite du stade) قلعة سنان (حي الملعب) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-el-bassatine--7130",
+          "nameFr": "KALAAT SINANE (Cite El Bassatine)",
+          "nameAr": "قلعة سنان (حي البساتين)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite el bassatine) قلعة سنان (حي البساتين) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-ennacim--7130",
+          "nameFr": "KALAAT SINANE (Cite Ennacim)",
+          "nameAr": "قلعة سنان (حي النسيم)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite ennacim) قلعة سنان (حي النسيم) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-ennour--7130",
+          "nameFr": "KALAAT SINANE (Cite Ennour)",
+          "nameAr": "قلعة سنان (حي النور)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite ennour) قلعة سنان (حي النور) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-essanabel--7130",
+          "nameFr": "KALAAT SINANE (Cite Essanabel)",
+          "nameAr": "قلعة سنان (حي السنابل)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite essanabel) قلعة سنان (حي السنابل) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-essanaouber-bou-arara--7130",
+          "nameFr": "KALAAT SINANE (Cite Essanaouber Bou Arara)",
+          "nameAr": "قلعة سنان (حي الصنوبر بوعرادة)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite essanaouber bou arara) قلعة سنان (حي الصنوبر بوعرادة) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-ezzouhour-bou-arara--7130",
+          "nameFr": "KALAAT SINANE (Cite Ezzouhour Bou Arara)",
+          "nameAr": "قلعة سنان (حي الزهور بوعرادة)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite ezzouhour bou arara) قلعة سنان (حي الزهور بوعرادة) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-mongi-slim--7130",
+          "nameFr": "KALAAT SINANE (Cite Mongi Slim)",
+          "nameAr": "قلعة سنان (حي المنجي سليم)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite mongi slim) قلعة سنان (حي المنجي سليم) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-cite-yougharta--7130",
+          "nameFr": "KALAAT SINANE (Cite Yougharta)",
+          "nameAr": "قلعة سنان (حي يوغرطة)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (cite yougharta) قلعة سنان (حي يوغرطة) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-el-felta--7130",
+          "nameFr": "KALAAT SINANE (El Felta)",
+          "nameAr": "قلعة سنان (الفلتة)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (el felta) قلعة سنان (الفلتة) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-errebiba--7130",
+          "nameFr": "KALAAT SINANE (Errebiba)",
+          "nameAr": "قلعة سنان (الربيبة)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (errebiba) قلعة سنان (الربيبة) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-kalaat-sinane--7130",
+          "nameFr": "KALAAT SINANE (Kalaat Sinane)",
+          "nameAr": "قلعة سنان (قلعة سنان)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (kalaat sinane) قلعة سنان (قلعة سنان) 7130"
+        },
+        {
+          "id": "kef--kalaat-sinane--kalaat-sinane-safsaf--7130",
+          "nameFr": "KALAAT SINANE (Safsaf)",
+          "nameAr": "قلعة سنان (صفصاف)",
+          "postalCode": "7130",
+          "latitude": 35.95,
+          "longitude": 8.4667,
+          "searchKey": "kalaat sinane (safsaf) قلعة سنان (صفصاف) 7130"
+        }
+      ]
+    },
+    {
+      "id": "kef--le-kef-est",
+      "nameFr": "LE KEF EST",
+      "nameAr": "الكاف الشرقية",
+      "searchKey": "le kef est الكاف الشرقية",
+      "municipalities": [
+        {
+          "id": "kef--le-kef-est--le-kef-est-bahra--7116",
+          "nameFr": "LE KEF EST (Bahra)",
+          "nameAr": "الكاف الشرقية (بحرة)",
+          "postalCode": "7116",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (bahra) الكاف الشرقية (بحرة) 7116"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-barnoussa--7100",
+          "nameFr": "LE KEF EST (Barnoussa)",
+          "nameAr": "الكاف الشرقية (برنوصة)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (barnoussa) الكاف الشرقية (برنوصة) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-borj-el-aifa--7122",
+          "nameFr": "LE KEF EST (Borj El Aifa)",
+          "nameAr": "الكاف الشرقية (برج العيفة)",
+          "postalCode": "7122",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (borj el aifa) الكاف الشرقية (برج العيفة) 7122"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-bou-meftah--7100",
+          "nameFr": "LE KEF EST (Bou Meftah)",
+          "nameAr": "الكاف الشرقية (بومفتاح)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (bou meftah) الكاف الشرقية (بومفتاح) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-1er-mai--7100",
+          "nameFr": "LE KEF EST (Cite 1Er Mai)",
+          "nameAr": "الكاف الشرقية (حي 1 ماي)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite 1er mai) الكاف الشرقية (حي 1 ماي) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-2-mars--7100",
+          "nameFr": "LE KEF EST (Cite 2 Mars)",
+          "nameAr": "الكاف الشرقية (حي 2 مارس)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite 2 mars) الكاف الشرقية (حي 2 مارس) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-3-aout--7100",
+          "nameFr": "LE KEF EST (Cite 3 Aout)",
+          "nameAr": "الكاف الشرقية (حي 3 أوت)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite 3 aout) الكاف الشرقية (حي 3 أوت) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-7-novembre--7100",
+          "nameFr": "LE KEF EST (Cite 7 Novembre)",
+          "nameAr": "الكاف الشرقية (حي 7 نوفمبر)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite 7 novembre) الكاف الشرقية (حي 7 نوفمبر) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-ain-mnekh--7100",
+          "nameFr": "LE KEF EST (Cite Ain Mnekh)",
+          "nameAr": "الكاف الشرقية (حي عين منك)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite ain mnekh) الكاف الشرقية (حي عين منك) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-ammar-ayari--7100",
+          "nameFr": "LE KEF EST (Cite Ammar Ayari)",
+          "nameAr": "الكاف الشرقية (حي عمار عياري)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite ammar ayari) الكاف الشرقية (حي عمار عياري) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-bahri-barbouche--7100",
+          "nameFr": "LE KEF EST (Cite Bahri Barbouche)",
+          "nameAr": "الكاف الشرقية (حي بحري بربوش)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite bahri barbouche) الكاف الشرقية (حي بحري بربوش) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-bayedh--7100",
+          "nameFr": "LE KEF EST (Cite Bayedh)",
+          "nameAr": "الكاف الشرقية (حي البياض)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite bayedh) الكاف الشرقية (حي البياض) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-bir-thelj--7100",
+          "nameFr": "LE KEF EST (Cite Bir Thelj)",
+          "nameAr": "الكاف الشرقية (حي بئر الثلج)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite bir thelj) الكاف الشرقية (حي بئر الثلج) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-bourayou--7100",
+          "nameFr": "LE KEF EST (Cite Bourayou)",
+          "nameAr": "الكاف الشرقية (حي بورايو)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite bourayou) الكاف الشرقية (حي بورايو) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-cherichi--7100",
+          "nameFr": "LE KEF EST (Cite Cherichi)",
+          "nameAr": "الكاف الشرقية (حي الشريشي)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite cherichi) الكاف الشرقية (حي الشريشي) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-de-la-gare--7100",
+          "nameFr": "LE KEF EST (Cite De La Gare)",
+          "nameAr": "الكاف الشرقية (حي المحطة)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite de la gare) الكاف الشرقية (حي المحطة) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-de-la-liberte--7100",
+          "nameFr": "LE KEF EST (Cite De La Liberte)",
+          "nameAr": "الكاف الشرقية (حي الحرية)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite de la liberte) الكاف الشرقية (حي الحرية) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-des-enseignants--7100",
+          "nameFr": "LE KEF EST (Cite Des Enseignants)",
+          "nameAr": "الكاف الشرقية (حي المعلمين)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite des enseignants) الكاف الشرقية (حي المعلمين) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-eddyr--7100",
+          "nameFr": "LE KEF EST (Cite Eddyr)",
+          "nameAr": "الكاف الشرقية (حي الدير)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite eddyr) الكاف الشرقية (حي الدير) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-el-bassatine--7100",
+          "nameFr": "LE KEF EST (Cite El Bassatine)",
+          "nameAr": "الكاف الشرقية (حي البساتين)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite el bassatine) الكاف الشرقية (حي البساتين) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-el-farah--7100",
+          "nameFr": "LE KEF EST (Cite El Farah)",
+          "nameAr": "الكاف الشرقية (حي الفرح)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite el farah) الكاف الشرقية (حي الفرح) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-el-hana--7100",
+          "nameFr": "LE KEF EST (Cite El Hana)",
+          "nameAr": "الكاف الشرقية (حي الهناء)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite el hana) الكاف الشرقية (حي الهناء) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-el-izdihar--7100",
+          "nameFr": "LE KEF EST (Cite El Izdihar)",
+          "nameAr": "الكاف الشرقية (حي الإزدهار)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite el izdihar) الكاف الشرقية (حي الإزدهار) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-el-ouns--7100",
+          "nameFr": "LE KEF EST (Cite El Ouns)",
+          "nameAr": "الكاف الشرقية (حي الأنس)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite el ouns) الكاف الشرقية (حي الأنس) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-ennacim--7100",
+          "nameFr": "LE KEF EST (Cite Ennacim)",
+          "nameAr": "الكاف الشرقية (حي النسيم)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite ennacim) الكاف الشرقية (حي النسيم) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-ennouhoudh-1--7100",
+          "nameFr": "LE KEF EST (Cite Ennouhoudh 1)",
+          "nameAr": "الكاف الشرقية (حي النهوض 1)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite ennouhoudh 1) الكاف الشرقية (حي النهوض 1) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-ennouhoudh-2--7100",
+          "nameFr": "LE KEF EST (Cite Ennouhoudh 2)",
+          "nameAr": "الكاف الشرقية (حي النهوض 2)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite ennouhoudh 2) الكاف الشرقية (حي النهوض 2) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-erriadh--7100",
+          "nameFr": "LE KEF EST (Cite Erriadh)",
+          "nameAr": "الكاف الشرقية (حي الرياض)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite erriadh) الكاف الشرقية (حي الرياض) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-essaada-1--7100",
+          "nameFr": "LE KEF EST (Cite Essaada 1)",
+          "nameAr": "الكاف الشرقية (حي السعادة 1)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite essaada 1) الكاف الشرقية (حي السعادة 1) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-essaada-2--7100",
+          "nameFr": "LE KEF EST (Cite Essaada 2)",
+          "nameAr": "الكاف الشرقية (حي السعادة 2)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite essaada 2) الكاف الشرقية (حي السعادة 2) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-essakhra--7100",
+          "nameFr": "LE KEF EST (Cite Essakhra)",
+          "nameAr": "الكاف الشرقية (حي الصخرة)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite essakhra) الكاف الشرقية (حي الصخرة) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-ezzitouna--7100",
+          "nameFr": "LE KEF EST (Cite Ezzitouna)",
+          "nameAr": "الكاف الشرقية (حي الزيتونة)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite ezzitouna) الكاف الشرقية (حي الزيتونة) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-fourati--7100",
+          "nameFr": "LE KEF EST (Cite Fourati)",
+          "nameAr": "الكاف الشرقية (حي الفراتي)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite fourati) الكاف الشرقية (حي الفراتي) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-hached--7100",
+          "nameFr": "LE KEF EST (Cite Hached)",
+          "nameAr": "الكاف الشرقية (حي حشاد)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite hached) الكاف الشرقية (حي حشاد) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-harrouch--7100",
+          "nameFr": "LE KEF EST (Cite Harrouch)",
+          "nameAr": "الكاف الشرقية (حي حروش)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite harrouch) الكاف الشرقية (حي حروش) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-ibn-abi-dhiaf--7100",
+          "nameFr": "LE KEF EST (Cite Ibn Abi Dhiaf)",
+          "nameAr": "الكاف الشرقية (حي إبن أبي ضياف)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite ibn abi dhiaf) الكاف الشرقية (حي إبن أبي ضياف) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-ibn-khaldoun--7100",
+          "nameFr": "LE KEF EST (Cite Ibn Khaldoun)",
+          "nameAr": "الكاف الشرقية (حي إبن خلدون)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite ibn khaldoun) الكاف الشرقية (حي إبن خلدون) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-souani-laaneb-1--7100",
+          "nameFr": "LE KEF EST (Cite Souani Laaneb 1)",
+          "nameAr": "الكاف الشرقية (حي سواني العنب 1)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite souani laaneb 1) الكاف الشرقية (حي سواني العنب 1) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-souani-laaneb-2--7100",
+          "nameFr": "LE KEF EST (Cite Souani Laaneb 2)",
+          "nameAr": "الكاف الشرقية (حي سواني العنب 2)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite souani laaneb 2) الكاف الشرقية (حي سواني العنب 2) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-taieb-mhiri--7100",
+          "nameFr": "LE KEF EST (Cite Taieb Mhiri)",
+          "nameAr": "الكاف الشرقية (حي الطيب المهيري)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite taieb mhiri) الكاف الشرقية (حي الطيب المهيري) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-cite-tounsi-arnous--7100",
+          "nameFr": "LE KEF EST (Cite Tounsi Arnous)",
+          "nameAr": "الكاف الشرقية (حي تونسي عرنوس)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (cite tounsi arnous) الكاف الشرقية (حي تونسي عرنوس) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-ennaima--7100",
+          "nameFr": "LE KEF EST (Ennaima)",
+          "nameAr": "الكاف الشرقية (النعيمة)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (ennaima) الكاف الشرقية (النعيمة) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-le-kef--7100",
+          "nameFr": "LE KEF EST (Le Kef)",
+          "nameAr": "الكاف الشرقية (الكاف)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (le kef) الكاف الشرقية (الكاف) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-oued-erraml--7100",
+          "nameFr": "LE KEF EST (Oued Erraml)",
+          "nameAr": "الكاف الشرقية (وادي الرمل)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (oued erraml) الكاف الشرقية (وادي الرمل) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-oued-souani--7194",
+          "nameFr": "LE KEF EST (Oued Souani)",
+          "nameAr": "الكاف الشرقية (وادي السواني)",
+          "postalCode": "7194",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (oued souani) الكاف الشرقية (وادي السواني) 7194"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-oued-tessa--7100",
+          "nameFr": "LE KEF EST (Oued Tessa)",
+          "nameAr": "الكاف الشرقية (وادي تاسة)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (oued tessa) الكاف الشرقية (وادي تاسة) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-salah-el-bahri--7100",
+          "nameFr": "LE KEF EST (Salah El Bahri)",
+          "nameAr": "الكاف الشرقية (صلاح البحري)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (salah el bahri) الكاف الشرقية (صلاح البحري) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-semana--7100",
+          "nameFr": "LE KEF EST (Semana)",
+          "nameAr": "الكاف الشرقية (السمنة)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (semana) الكاف الشرقية (السمنة) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-sidi-mansour--7100",
+          "nameFr": "LE KEF EST (Sidi Mansour)",
+          "nameAr": "الكاف الشرقية (سيدي منصور)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (sidi mansour) الكاف الشرقية (سيدي منصور) 7100"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-zaafrane--7134",
+          "nameFr": "LE KEF EST (Zaafrane)",
+          "nameAr": "الكاف الشرقية (زعفران)",
+          "postalCode": "7134",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (zaafrane) الكاف الشرقية (زعفران) 7134"
+        },
+        {
+          "id": "kef--le-kef-est--le-kef-est-zone-industrielle--7100",
+          "nameFr": "LE KEF EST (Zone Industrielle)",
+          "nameAr": "الكاف الشرقية (المنطقة الصناعية)",
+          "postalCode": "7100",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef est (zone industrielle) الكاف الشرقية (المنطقة الصناعية) 7100"
+        }
+      ]
+    },
+    {
+      "id": "kef--le-kef-ouest",
+      "nameFr": "LE KEF OUEST",
+      "nameAr": "الكاف الغربية",
+      "searchKey": "le kef ouest الكاف الغربية",
+      "municipalities": [
+        {
+          "id": "kef--le-kef-ouest--le-kef-ouest--7117",
+          "nameFr": "LE KEF OUEST",
+          "nameAr": "الكاف الغربية",
+          "postalCode": "7117",
+          "latitude": 36.1817,
+          "longitude": 8.71,
+          "searchKey": "le kef ouest الكاف الغربية 7117"
+        }
+      ]
+    },
+    {
+      "id": "kef--le-sers",
+      "nameFr": "LE SERS",
+      "nameAr": "السرس",
+      "searchKey": "le sers السرس",
+      "municipalities": [
+        {
+          "id": "kef--le-sers--le-sers-bir-heddi--7180",
+          "nameFr": "LE SERS (Bir Heddi)",
+          "nameAr": "السرس (بئر حدي)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (bir heddi) السرس (بئر حدي) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-bou-sliaa--7180",
+          "nameFr": "LE SERS (Bou Sliaa)",
+          "nameAr": "السرس (بو سليعة)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (bou sliaa) السرس (بو سليعة) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-cite-du-pont--7180",
+          "nameFr": "LE SERS (Cite Du Pont)",
+          "nameAr": "السرس (حي القنطرة)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (cite du pont) السرس (حي القنطرة) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-cite-el-bassatine--7180",
+          "nameFr": "LE SERS (Cite El Bassatine)",
+          "nameAr": "السرس (حي البساتين)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (cite el bassatine) السرس (حي البساتين) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-cite-ennacim--7180",
+          "nameFr": "LE SERS (Cite Ennacim)",
+          "nameAr": "السرس (حي النسيم)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (cite ennacim) السرس (حي النسيم) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-cite-ennour-2--7180",
+          "nameFr": "LE SERS (Cite Ennour 2)",
+          "nameAr": "السرس (حي النور 2)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (cite ennour 2) السرس (حي النور 2) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-cite-ennour--7180",
+          "nameFr": "LE SERS (Cite Ennour)",
+          "nameAr": "السرس (حي النور)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (cite ennour) السرس (حي النور) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-cite-ennouzha--7180",
+          "nameFr": "LE SERS (Cite Ennouzha)",
+          "nameAr": "السرس (حي النزهة)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (cite ennouzha) السرس (حي النزهة) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-cite-erriadh--7180",
+          "nameFr": "LE SERS (Cite Erriadh)",
+          "nameAr": "السرس (حي الرياض)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (cite erriadh) السرس (حي الرياض) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-cite-essanaouber--7180",
+          "nameFr": "LE SERS (Cite Essanaouber)",
+          "nameAr": "السرس (حي الصنوبر)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (cite essanaouber) السرس (حي الصنوبر) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-cite-ezzouhour--7180",
+          "nameFr": "LE SERS (Cite Ezzouhour)",
+          "nameAr": "السرس (حي الزهور)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (cite ezzouhour) السرس (حي الزهور) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-el-argoub--7180",
+          "nameFr": "LE SERS (El Argoub)",
+          "nameAr": "السرس (العرقوب)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (el argoub) السرس (العرقوب) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-el-mellaha--7180",
+          "nameFr": "LE SERS (El Mellaha)",
+          "nameAr": "السرس (الملاحة)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (el mellaha) السرس (الملاحة) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-elles--7180",
+          "nameFr": "LE SERS (Elles)",
+          "nameAr": "السرس (آلس)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (elles) السرس (آلس) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-labar--7180",
+          "nameFr": "LE SERS (Labar)",
+          "nameAr": "السرس (الأبار)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (labar) السرس (الأبار) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-le-sers--7180",
+          "nameFr": "LE SERS (Le Sers)",
+          "nameAr": "السرس (السرس)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (le sers) السرس (السرس) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-le-vieux-sers--7180",
+          "nameFr": "LE SERS (Le Vieux Sers)",
+          "nameAr": "السرس (السرس القديم)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (le vieux sers) السرس (السرس القديم) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-lorbous-gare--7180",
+          "nameFr": "LE SERS (Lorbous Gare)",
+          "nameAr": "السرس (الأربص المحطة)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (lorbous gare) السرس (الأربص المحطة) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-lorbous--7180",
+          "nameFr": "LE SERS (Lorbous)",
+          "nameAr": "السرس (الأربص)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (lorbous) السرس (الأربص) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-sidi-nasser--7180",
+          "nameFr": "LE SERS (Sidi Nasser)",
+          "nameAr": "السرس (سيدي ناصر)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (sidi nasser) السرس (سيدي ناصر) 7180"
+        },
+        {
+          "id": "kef--le-sers--le-sers-tricha--7180",
+          "nameFr": "LE SERS (Tricha)",
+          "nameAr": "السرس (تريشة)",
+          "postalCode": "7180",
+          "latitude": 36.0794,
+          "longitude": 9.0275,
+          "searchKey": "le sers (tricha) السرس (تريشة) 7180"
+        }
+      ]
+    },
+    {
+      "id": "kef--nebeur",
+      "nameFr": "NEBEUR",
+      "nameAr": "نبر",
+      "searchKey": "nebeur نبر",
+      "municipalities": [
+        {
+          "id": "kef--nebeur--nebeur-ain-el-henchir--7110",
+          "nameFr": "NEBEUR (Ain El Henchir)",
+          "nameAr": "نبر (عين الهنشير)",
+          "postalCode": "7110",
+          "latitude": 36.4167,
+          "longitude": 8.75,
+          "searchKey": "nebeur (ain el henchir) نبر (عين الهنشير) 7110"
+        },
+        {
+          "id": "kef--nebeur--nebeur-cite-ennasr--7110",
+          "nameFr": "NEBEUR (Cite Ennasr)",
+          "nameAr": "نبر (حي النصر)",
+          "postalCode": "7110",
+          "latitude": 36.4167,
+          "longitude": 8.75,
+          "searchKey": "nebeur (cite ennasr) نبر (حي النصر) 7110"
+        },
+        {
+          "id": "kef--nebeur--nebeur-cite-hadj-ahmed--7110",
+          "nameFr": "NEBEUR (Cite Hadj Ahmed)",
+          "nameAr": "نبر (حي حاج أحمد)",
+          "postalCode": "7110",
+          "latitude": 36.4167,
+          "longitude": 8.75,
+          "searchKey": "nebeur (cite hadj ahmed) نبر (حي حاج أحمد) 7110"
+        },
+        {
+          "id": "kef--nebeur--nebeur-cite-nouvelle--7110",
+          "nameFr": "NEBEUR (Cite Nouvelle)",
+          "nameAr": "نبر (الحي الجديد)",
+          "postalCode": "7110",
+          "latitude": 36.4167,
+          "longitude": 8.75,
+          "searchKey": "nebeur (cite nouvelle) نبر (الحي الجديد) 7110"
+        },
+        {
+          "id": "kef--nebeur--nebeur-nebeur--7110",
+          "nameFr": "NEBEUR (Nebeur)",
+          "nameAr": "نبر (نبر)",
+          "postalCode": "7110",
+          "latitude": 36.4167,
+          "longitude": 8.75,
+          "searchKey": "nebeur (nebeur) نبر (نبر) 7110"
+        },
+        {
+          "id": "kef--nebeur--nebeur-oued-mellegue--7111",
+          "nameFr": "NEBEUR (Oued Mellegue)",
+          "nameAr": "نبر (وادي ملاق)",
+          "postalCode": "7111",
+          "latitude": 36.35,
+          "longitude": 8.8,
+          "searchKey": "nebeur (oued mellegue) نبر (وادي ملاق) 7111"
+        },
+        {
+          "id": "kef--nebeur--nebeur-sidi-khiar--7131",
+          "nameFr": "NEBEUR (Sidi Khiar)",
+          "nameAr": "نبر (سيدي خيار)",
+          "postalCode": "7131",
+          "latitude": 36.4167,
+          "longitude": 8.75,
+          "searchKey": "nebeur (sidi khiar) نبر (سيدي خيار) 7131"
+        },
+        {
+          "id": "kef--nebeur--nebeur-tell-ghouzlane--7141",
+          "nameFr": "NEBEUR (Tell Ghouzlane)",
+          "nameAr": "نبر (تل الغزلان)",
+          "postalCode": "7141",
+          "latitude": 36.4167,
+          "longitude": 8.75,
+          "searchKey": "nebeur (tell ghouzlane) نبر (تل الغزلان) 7141"
+        },
+        {
+          "id": "kef--nebeur--nebeur-zone-industrielle--7110",
+          "nameFr": "NEBEUR (Zone Industrielle)",
+          "nameAr": "نبر (المنطقة الصناعية)",
+          "postalCode": "7110",
+          "latitude": 36.4167,
+          "longitude": 8.75,
+          "searchKey": "nebeur (zone industrielle) نبر (المنطقة الصناعية) 7110"
+        }
+      ]
+    },
+    {
+      "id": "kef--sakiet-sidi-youssef",
+      "nameFr": "SAKIET SIDI YOUSSEF",
+      "nameAr": "ساقية سيدي يوسف",
+      "searchKey": "sakiet sidi youssef ساقية سيدي يوسف",
+      "municipalities": [
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-ain-el-karma--7125",
+          "nameFr": "SAKIET SIDI YOUSSEF (Ain El Karma)",
+          "nameAr": "ساقية سيدي يوسف (عين الكرمة)",
+          "postalCode": "7125",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (ain el karma) ساقية سيدي يوسف (عين الكرمة) 7125"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-8-fevrier-1--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite 8 Fevrier 1)",
+          "nameAr": "ساقية سيدي يوسف (حي 8 فيفري 1)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite 8 fevrier 1) ساقية سيدي يوسف (حي 8 فيفري 1) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-8-fevrier-2--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite 8 Fevrier 2)",
+          "nameAr": "ساقية سيدي يوسف (حي 8 فيفري 2)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite 8 fevrier 2) ساقية سيدي يوسف (حي 8 فيفري 2) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-8-fevrier-3--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite 8 Fevrier 3)",
+          "nameAr": "ساقية سيدي يوسف (حي 8 فيفري 3)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite 8 fevrier 3) ساقية سيدي يوسف (حي 8 فيفري 3) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-des-ouvriers--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite Des Ouvriers)",
+          "nameAr": "ساقية سيدي يوسف (الحي العمالي)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite des ouvriers) ساقية سيدي يوسف (الحي العمالي) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-el-intilaka--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite El Intilaka)",
+          "nameAr": "ساقية سيدي يوسف (حي الإنطلاقة)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite el intilaka) ساقية سيدي يوسف (حي الإنطلاقة) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-el-kerfeh--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite El Kerfeh)",
+          "nameAr": "ساقية سيدي يوسف (حي الكرفح)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite el kerfeh) ساقية سيدي يوسف (حي الكرفح) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-ennour-1--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite Ennour 1)",
+          "nameAr": "ساقية سيدي يوسف (حي النور 1)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite ennour 1) ساقية سيدي يوسف (حي النور 1) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-ennour-2--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite Ennour 2)",
+          "nameAr": "ساقية سيدي يوسف (حي النور 2)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite ennour 2) ساقية سيدي يوسف (حي النور 2) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-ettahrir--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite Ettahrir)",
+          "nameAr": "ساقية سيدي يوسف (حي التحرير)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite ettahrir) ساقية سيدي يوسف (حي التحرير) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-moniments--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite Moniments)",
+          "nameAr": "ساقية سيدي يوسف (حي المعالم)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite moniments) ساقية سيدي يوسف (حي المعالم) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-sakmo--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite Sakmo)",
+          "nameAr": "ساقية سيدي يوسف (حي ساكمو)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite sakmo) ساقية سيدي يوسف (حي ساكمو) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-cite-sprols--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Cite Sprols)",
+          "nameAr": "ساقية سيدي يوسف (حي سبرولس)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (cite sprols) ساقية سيدي يوسف (حي سبرولس) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-essakia--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Essakia)",
+          "nameAr": "ساقية سيدي يوسف (الساقية)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (essakia) ساقية سيدي يوسف (الساقية) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-farchen--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Farchen)",
+          "nameAr": "ساقية سيدي يوسف (فرشان)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (farchen) ساقية سيدي يوسف (فرشان) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-jeradou--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Jeradou)",
+          "nameAr": "ساقية سيدي يوسف (جرادو)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (jeradou) ساقية سيدي يوسف (جرادو) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-la-mine--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (La Mine)",
+          "nameAr": "ساقية سيدي يوسف (المنجم)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (la mine) ساقية سيدي يوسف (المنجم) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-place-de-la-republique--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Place De La Republique)",
+          "nameAr": "ساقية سيدي يوسف (ساحة الجمهورية)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (place de la republique) ساقية سيدي يوسف (ساحة الجمهورية) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-sidi-rabeh--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Sidi Rabeh)",
+          "nameAr": "ساقية سيدي يوسف (سيدي رابح)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (sidi rabeh) ساقية سيدي يوسف (سيدي رابح) 7120"
+        },
+        {
+          "id": "kef--sakiet-sidi-youssef--sakiet-sidi-youssef-tabia--7120",
+          "nameFr": "SAKIET SIDI YOUSSEF (Tabia)",
+          "nameAr": "ساقية سيدي يوسف (الطابية)",
+          "postalCode": "7120",
+          "latitude": 36.5,
+          "longitude": 8.35,
+          "searchKey": "sakiet sidi youssef (tabia) ساقية سيدي يوسف (الطابية) 7120"
+        }
+      ]
+    },
+    {
+      "id": "kef--tajerouine",
+      "nameFr": "TAJEROUINE",
+      "nameAr": "تاجروين",
+      "searchKey": "tajerouine تاجروين",
+      "municipalities": [
+        {
+          "id": "kef--tajerouine--tajerouine-cite-2-mars--7150",
+          "nameFr": "TAJEROUINE (Cite 2 Mars)",
+          "nameAr": "تاجروين (حي 2 مارس)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite 2 mars) تاجروين (حي 2 مارس) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-7-novembre--7150",
+          "nameFr": "TAJEROUINE (Cite 7 Novembre)",
+          "nameAr": "تاجروين (حي 7 نوفمبر)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite 7 novembre) تاجروين (حي 7 نوفمبر) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-afh--7150",
+          "nameFr": "TAJEROUINE (Cite Afh)",
+          "nameAr": "تاجروين (حي الوكالة العقارية للسكنى)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite afh) تاجروين (حي الوكالة العقارية للسكنى) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-ain-el-bar--7150",
+          "nameFr": "TAJEROUINE (Cite Ain El Bar)",
+          "nameAr": "تاجروين (حي عين البار)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite ain el bar) تاجروين (حي عين البار) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-bourguiba-1--7150",
+          "nameFr": "TAJEROUINE (Cite Bourguiba 1)",
+          "nameAr": "تاجروين (حي بورقيبة 1)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite bourguiba 1) تاجروين (حي بورقيبة 1) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-bourguiba-2--7150",
+          "nameFr": "TAJEROUINE (Cite Bourguiba 2)",
+          "nameAr": "تاجروين (حي بورقيبة 2)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite bourguiba 2) تاجروين (حي بورقيبة 2) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-bourguiba-3--7150",
+          "nameFr": "TAJEROUINE (Cite Bourguiba 3)",
+          "nameAr": "تاجروين (حي بورقيبة 3)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite bourguiba 3) تاجروين (حي بورقيبة 3) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-ciok--7150",
+          "nameFr": "TAJEROUINE (Cite Ciok)",
+          "nameAr": "تاجروين (حي سيوك)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite ciok) تاجروين (حي سيوك) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-de-la-palestine--7150",
+          "nameFr": "TAJEROUINE (Cite De La Palestine)",
+          "nameAr": "تاجروين (حي فلسطين)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite de la palestine) تاجروين (حي فلسطين) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-des-martyrs--7150",
+          "nameFr": "TAJEROUINE (Cite Des Martyrs)",
+          "nameAr": "تاجروين (حي الشهداء)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite des martyrs) تاجروين (حي الشهداء) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-du-souk--7150",
+          "nameFr": "TAJEROUINE (Cite Du Souk)",
+          "nameAr": "تاجروين (حي السوق)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite du souk) تاجروين (حي السوق) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-du-stade--7150",
+          "nameFr": "TAJEROUINE (Cite Du Stade)",
+          "nameAr": "تاجروين (حي الملعب)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite du stade) تاجروين (حي الملعب) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-el-ain--7150",
+          "nameFr": "TAJEROUINE (Cite El Ain)",
+          "nameAr": "تاجروين (حي العين)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite el ain) تاجروين (حي العين) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-el-bassatine--7150",
+          "nameFr": "TAJEROUINE (Cite El Bassatine)",
+          "nameAr": "تاجروين (حي البساتين)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite el bassatine) تاجروين (حي البساتين) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-el-besma-1--7150",
+          "nameFr": "TAJEROUINE (Cite El Besma 1)",
+          "nameAr": "تاجروين (حي البسمة 1)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite el besma 1) تاجروين (حي البسمة 1) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-el-besma-2--7150",
+          "nameFr": "TAJEROUINE (Cite El Besma 2)",
+          "nameAr": "تاجروين (حي البسمة 2)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite el besma 2) تاجروين (حي البسمة 2) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-el-fouroussia--7150",
+          "nameFr": "TAJEROUINE (Cite El Fouroussia)",
+          "nameAr": "تاجروين (حي الفروسية)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite el fouroussia) تاجروين (حي الفروسية) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-errahba--7150",
+          "nameFr": "TAJEROUINE (Cite Errahba)",
+          "nameAr": "تاجروين (حي الرحبة)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite errahba) تاجروين (حي الرحبة) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-essakia--7150",
+          "nameFr": "TAJEROUINE (Cite Essakia)",
+          "nameAr": "تاجروين (حي الساقية)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite essakia) تاجروين (حي الساقية) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-essanaouber--7150",
+          "nameFr": "TAJEROUINE (Cite Essanaouber)",
+          "nameAr": "تاجروين (حي الصنوبر)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite essanaouber) تاجروين (حي الصنوبر) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-ezzitouna--7150",
+          "nameFr": "TAJEROUINE (Cite Ezzitouna)",
+          "nameAr": "تاجروين (حي الزيتونة)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite ezzitouna) تاجروين (حي الزيتونة) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-habib-thameur--7150",
+          "nameFr": "TAJEROUINE (Cite Habib Thameur)",
+          "nameAr": "تاجروين (حي الحبيب ثامر)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite habib thameur) تاجروين (حي الحبيب ثامر) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-hopital--7150",
+          "nameFr": "TAJEROUINE (Cite Hopital)",
+          "nameAr": "تاجروين (حي المستشفى)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite hopital) تاجروين (حي المستشفى) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-jebel--7150",
+          "nameFr": "TAJEROUINE (Cite Jebel)",
+          "nameAr": "تاجروين (حي الجبل)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite jebel) تاجروين (حي الجبل) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-cite-taieb-mhiri--7150",
+          "nameFr": "TAJEROUINE (Cite Taieb Mhiri)",
+          "nameAr": "تاجروين (حي الطيب المهيري)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (cite taieb mhiri) تاجروين (حي الطيب المهيري) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-el-hodh--7150",
+          "nameFr": "TAJEROUINE (El Hodh)",
+          "nameAr": "تاجروين (الحوض)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (el hodh) تاجروين (الحوض) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-garn-el-halfaya--7150",
+          "nameFr": "TAJEROUINE (Garn El Halfaya)",
+          "nameAr": "تاجروين (قرن الحلفاية)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (garn el halfaya) تاجروين (قرن الحلفاية) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-jazza--7153",
+          "nameFr": "TAJEROUINE (Jazza)",
+          "nameAr": "تاجروين (جازة)",
+          "postalCode": "7153",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (jazza) تاجروين (جازة) 7153"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-la-gare--7150",
+          "nameFr": "TAJEROUINE (La Gare)",
+          "nameAr": "تاجروين (المحطة)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (la gare) تاجروين (المحطة) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-mahjouba--7132",
+          "nameFr": "TAJEROUINE (Mahjouba)",
+          "nameAr": "تاجروين (محجوبة)",
+          "postalCode": "7132",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (mahjouba) تاجروين (محجوبة) 7132"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-menzel-salem--7151",
+          "nameFr": "TAJEROUINE (Menzel Salem)",
+          "nameAr": "تاجروين (منزل سالم)",
+          "postalCode": "7151",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (menzel salem) تاجروين (منزل سالم) 7151"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-sidi-abdelbasset--7150",
+          "nameFr": "TAJEROUINE (Sidi Abdelbasset)",
+          "nameAr": "تاجروين (سيدي عبد الباسط)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (sidi abdelbasset) تاجروين (سيدي عبد الباسط) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-sidi-mtir--7133",
+          "nameFr": "TAJEROUINE (Sidi Mtir)",
+          "nameAr": "تاجروين (سيدي مطير)",
+          "postalCode": "7133",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (sidi mtir) تاجروين (سيدي مطير) 7133"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-tajerouine-gare--7150",
+          "nameFr": "TAJEROUINE (Tajerouine Gare)",
+          "nameAr": "تاجروين (تاجروين المحطة)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (tajerouine gare) تاجروين (تاجروين المحطة) 7150"
+        },
+        {
+          "id": "kef--tajerouine--tajerouine-tajerouine--7150",
+          "nameFr": "TAJEROUINE (Tajerouine)",
+          "nameAr": "تاجروين (تاجروين)",
+          "postalCode": "7150",
+          "latitude": 35.8519,
+          "longitude": 8.7811,
+          "searchKey": "tajerouine (tajerouine) تاجروين (تاجروين) 7150"
+        }
+      ]
+    },
+    {
+      "id": "kef--touiref",
+      "nameFr": "TOUIREF",
+      "nameAr": "الطويرف",
+      "searchKey": "touiref الطويرف",
+      "municipalities": [
+        {
+          "id": "kef--touiref--touiref-bir-ben-cherifa--7112",
+          "nameFr": "TOUIREF (Bir Ben Cherifa)",
+          "nameAr": "الطويرف (بئر بن شريفة)",
+          "postalCode": "7112",
+          "latitude": 36.4667,
+          "longitude": 8.5,
+          "searchKey": "touiref (bir ben cherifa) الطويرف (بئر بن شريفة) 7112"
+        },
+        {
+          "id": "kef--touiref--touiref-cite-el-izdihar--7112",
+          "nameFr": "TOUIREF (Cite El Izdihar)",
+          "nameAr": "الطويرف (حي الإزدهار)",
+          "postalCode": "7112",
+          "latitude": 36.4667,
+          "longitude": 8.5,
+          "searchKey": "touiref (cite el izdihar) الطويرف (حي الإزدهار) 7112"
+        },
+        {
+          "id": "kef--touiref--touiref-cite-ennour--7112",
+          "nameFr": "TOUIREF (Cite Ennour)",
+          "nameAr": "الطويرف (حي النور)",
+          "postalCode": "7112",
+          "latitude": 36.4667,
+          "longitude": 8.5,
+          "searchKey": "touiref (cite ennour) الطويرف (حي النور) 7112"
+        },
+        {
+          "id": "kef--touiref--touiref-cite-essaada--7112",
+          "nameFr": "TOUIREF (Cite Essaada)",
+          "nameAr": "الطويرف (حي السعادة)",
+          "postalCode": "7112",
+          "latitude": 36.4667,
+          "longitude": 8.5,
+          "searchKey": "touiref (cite essaada) الطويرف (حي السعادة) 7112"
+        },
+        {
+          "id": "kef--touiref--touiref-gargour--7112",
+          "nameFr": "TOUIREF (Gargour)",
+          "nameAr": "الطويرف (قرور)",
+          "postalCode": "7112",
+          "latitude": 36.4667,
+          "longitude": 8.5,
+          "searchKey": "touiref (gargour) الطويرف (قرور) 7112"
+        },
+        {
+          "id": "kef--touiref--touiref-ladhieb--7112",
+          "nameFr": "TOUIREF (Ladhieb)",
+          "nameAr": "الطويرف (الذيب)",
+          "postalCode": "7112",
+          "latitude": 36.4667,
+          "longitude": 8.5,
+          "searchKey": "touiref (ladhieb) الطويرف (الذيب) 7112"
+        },
+        {
+          "id": "kef--touiref--touiref-mellala--7112",
+          "nameFr": "TOUIREF (Mellala)",
+          "nameAr": "الطويرف (ملالة)",
+          "postalCode": "7112",
+          "latitude": 36.4667,
+          "longitude": 8.5,
+          "searchKey": "touiref (mellala) الطويرف (ملالة) 7112"
+        },
+        {
+          "id": "kef--touiref--touiref-ouljet-essedra--7112",
+          "nameFr": "TOUIREF (Ouljet Essedra)",
+          "nameAr": "الطويرف (علجة السدرة)",
+          "postalCode": "7112",
+          "latitude": 36.4667,
+          "longitude": 8.5,
+          "searchKey": "touiref (ouljet essedra) الطويرف (علجة السدرة) 7112"
+        },
+        {
+          "id": "kef--touiref--touiref-touiref--7112",
+          "nameFr": "TOUIREF (Touiref)",
+          "nameAr": "الطويرف (الطويرف)",
+          "postalCode": "7112",
+          "latitude": 36.4667,
+          "longitude": 8.5,
+          "searchKey": "touiref (touiref) الطويرف (الطويرف) 7112"
+        }
+      ]
+    }
+  ]
+}

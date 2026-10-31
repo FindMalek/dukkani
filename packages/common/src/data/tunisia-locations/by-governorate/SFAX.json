@@ -1,0 +1,2969 @@
+{
+  "code": "SFAX",
+  "delegations": [
+    {
+      "id": "sfax--agareb",
+      "nameFr": "AGAREB",
+      "nameAr": "عقارب",
+      "searchKey": "agareb عقارب",
+      "municipalities": [
+        {
+          "id": "sfax--agareb--agareb-agareb--3030",
+          "nameFr": "AGAREB (Agareb)",
+          "nameAr": "عقارب (عقارب)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (agareb) عقارب (عقارب) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-ben-sahloun--3030",
+          "nameFr": "AGAREB (Ben Sahloun)",
+          "nameAr": "عقارب (بن سهلون)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (ben sahloun) عقارب (بن سهلون) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-cite-2-mars-1--3030",
+          "nameFr": "AGAREB (Cite 2 Mars 1)",
+          "nameAr": "عقارب (حي 2 مارس 1)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (cite 2 mars 1) عقارب (حي 2 مارس 1) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-cite-2-mars-2--3030",
+          "nameFr": "AGAREB (Cite 2 Mars 2)",
+          "nameAr": "عقارب (حي 2 مارس 2)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (cite 2 mars 2) عقارب (حي 2 مارس 2) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-cite-2-mars--3030",
+          "nameFr": "AGAREB (Cite 2 Mars)",
+          "nameAr": "عقارب (حي 2 مارس)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (cite 2 mars) عقارب (حي 2 مارس) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-cite-cnel--3030",
+          "nameFr": "AGAREB (Cite Cnel)",
+          "nameAr": "عقارب (حي الصندوق الوطني للسكن)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (cite cnel) عقارب (حي الصندوق الوطني للسكن) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-cite-el-izdihar--3030",
+          "nameFr": "AGAREB (Cite El Izdihar)",
+          "nameAr": "عقارب (حي الإزدهار)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (cite el izdihar) عقارب (حي الإزدهار) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-cite-el-menzah--3030",
+          "nameFr": "AGAREB (Cite El Menzah)",
+          "nameAr": "عقارب (حي المنزه)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (cite el menzah) عقارب (حي المنزه) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-cite-ennour--3030",
+          "nameFr": "AGAREB (Cite Ennour)",
+          "nameAr": "عقارب (حي النور)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (cite ennour) عقارب (حي النور) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-cite-snit--3030",
+          "nameFr": "AGAREB (Cite Snit)",
+          "nameAr": "عقارب (حي سنيت)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (cite snit) عقارب (حي سنيت) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-el-mahrouga--3030",
+          "nameFr": "AGAREB (El Mahrouga)",
+          "nameAr": "عقارب (المحروقة)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (el mahrouga) عقارب (المحروقة) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-el-maraania--3030",
+          "nameFr": "AGAREB (El Maraania)",
+          "nameAr": "عقارب (المرعانية)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (el maraania) عقارب (المرعانية) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-el-msadga--3030",
+          "nameFr": "AGAREB (El Msadga)",
+          "nameAr": "عقارب (المصدقة)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (el msadga) عقارب (المصدقة) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-gargour--3037",
+          "nameFr": "AGAREB (Gargour)",
+          "nameAr": "عقارب (ڨرڨور)",
+          "postalCode": "3037",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (gargour) عقارب (ڨرڨور) 3037"
+        },
+        {
+          "id": "sfax--agareb--agareb-jeberna--3057",
+          "nameFr": "AGAREB (Jeberna)",
+          "nameAr": "عقارب (الجبرنة)",
+          "postalCode": "3057",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (jeberna) عقارب (الجبرنة) 3057"
+        },
+        {
+          "id": "sfax--agareb--agareb-merkez-attia--3030",
+          "nameFr": "AGAREB (Merkez Attia)",
+          "nameAr": "عقارب (مركز عطية)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (merkez attia) عقارب (مركز عطية) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-merkez-bou-ledhieb--3030",
+          "nameFr": "AGAREB (Merkez Bou Ledhieb)",
+          "nameAr": "عقارب (مركز بو الذياب)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (merkez bou ledhieb) عقارب (مركز بو الذياب) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-merkez-jouaouda--3030",
+          "nameFr": "AGAREB (Merkez Jouaouda)",
+          "nameAr": "عقارب (مركز جوادة)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (merkez jouaouda) عقارب (مركز جوادة) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-merkez-sghar--3075",
+          "nameFr": "AGAREB (Merkez Sghar)",
+          "nameAr": "عقارب (مركز صغار)",
+          "postalCode": "3075",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (merkez sghar) عقارب (مركز صغار) 3075"
+        },
+        {
+          "id": "sfax--agareb--agareb-merkez-tijani--3030",
+          "nameFr": "AGAREB (Merkez Tijani)",
+          "nameAr": "عقارب (مركز التيجاني)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (merkez tijani) عقارب (مركز التيجاني) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-traka--3030",
+          "nameFr": "AGAREB (Traka)",
+          "nameAr": "عقارب (التراكة)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (traka) عقارب (التراكة) 3030"
+        },
+        {
+          "id": "sfax--agareb--agareb-zeliana--3030",
+          "nameFr": "AGAREB (Zeliana)",
+          "nameAr": "عقارب (زليانة)",
+          "postalCode": "3030",
+          "latitude": 34.7392,
+          "longitude": 10.5258,
+          "searchKey": "agareb (zeliana) عقارب (زليانة) 3030"
+        }
+      ]
+    },
+    {
+      "id": "sfax--bir-ali-ben-khelifa",
+      "nameFr": "BIR ALI BEN KHELIFA",
+      "nameAr": "بئر علي بن خليفة",
+      "searchKey": "bir ali ben khelifa بئر علي بن خليفة",
+      "municipalities": [
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-bir-ali-ben-khelifa--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Bir Ali Ben Khelifa)",
+          "nameAr": "بئر علي بن خليفة (بئر علي بن خليفة)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (bir ali ben khelifa) بئر علي بن خليفة (بئر علي بن خليفة) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-bir-ouled-mahmoud--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Bir Ouled Mahmoud)",
+          "nameAr": "بئر علي بن خليفة (بئر أولاد محمود)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (bir ouled mahmoud) بئر علي بن خليفة (بئر أولاد محمود) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-cheraiet--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Cheraiet)",
+          "nameAr": "بئر علي بن خليفة (الشرايط)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (cheraiet) بئر علي بن خليفة (الشرايط) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-cite-des-roses-1--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Cite Des Roses 1)",
+          "nameAr": "بئر علي بن خليفة (حي الورود 1)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (cite des roses 1) بئر علي بن خليفة (حي الورود 1) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-cite-des-roses-2--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Cite Des Roses 2)",
+          "nameAr": "بئر علي بن خليفة (حي الورود 2)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (cite des roses 2) بئر علي بن خليفة (حي الورود 2) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-cite-el-fateh--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Cite El Fateh)",
+          "nameAr": "بئر علي بن خليفة (حي الفتح)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (cite el fateh) بئر علي بن خليفة (حي الفتح) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-cite-el-menzel--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Cite El Menzel)",
+          "nameAr": "بئر علي بن خليفة (حي المنزل)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (cite el menzel) بئر علي بن خليفة (حي المنزل) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-el-aouyed--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (El Aouyed)",
+          "nameAr": "بئر علي بن خليفة (العويد)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (el aouyed) بئر علي بن خليفة (العويد) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-el-guendoul--3082",
+          "nameFr": "BIR ALI BEN KHELIFA (El Guendoul)",
+          "nameAr": "بئر علي بن خليفة (القندول)",
+          "postalCode": "3082",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (el guendoul) بئر علي بن خليفة (القندول) 3082"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-el-oudrane--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (El Oudrane)",
+          "nameAr": "بئر علي بن خليفة (الودران)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (el oudrane) بئر علي بن خليفة (الودران) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-letaifa--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Letaifa)",
+          "nameAr": "بئر علي بن خليفة (اللطايفة)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (letaifa) بئر علي بن خليفة (اللطايفة) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-merkez-el-hamrouni--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Merkez El Hamrouni)",
+          "nameAr": "بئر علي بن خليفة (مركز الحمروني)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (merkez el hamrouni) بئر علي بن خليفة (مركز الحمروني) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-oued-rekham--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Oued Rekham)",
+          "nameAr": "بئر علي بن خليفة (وادي رخام)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (oued rekham) بئر علي بن خليفة (وادي رخام) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-oum-choucha--3085",
+          "nameFr": "BIR ALI BEN KHELIFA (Oum Choucha)",
+          "nameAr": "بئر علي بن خليفة (أم شوشة)",
+          "postalCode": "3085",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (oum choucha) بئر علي بن خليفة (أم شوشة) 3085"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-ras-fartout--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Ras Fartout)",
+          "nameAr": "بئر علي بن خليفة (رأس فرتوت)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (ras fartout) بئر علي بن خليفة (رأس فرتوت) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-ras-souinia--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Ras Souinia)",
+          "nameAr": "بئر علي بن خليفة (رأس سوينية)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (ras souinia) بئر علي بن خليفة (رأس سوينية) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-rebaya-sidi-dhaher--3097",
+          "nameFr": "BIR ALI BEN KHELIFA (Rebaya Sidi Dhaher)",
+          "nameAr": "بئر علي بن خليفة (ربايع سيدي ظاهر)",
+          "postalCode": "3097",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (rebaya sidi dhaher) بئر علي بن خليفة (ربايع سيدي ظاهر) 3097"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-rebaya--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Rebaya)",
+          "nameAr": "بئر علي بن خليفة (الربايع)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (rebaya) بئر علي بن خليفة (الربايع) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-sidi-dhaher--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Sidi Dhaher)",
+          "nameAr": "بئر علي بن خليفة (سيدي ظاهر)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (sidi dhaher) بئر علي بن خليفة (سيدي ظاهر) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-sidi-mansour--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Sidi Mansour)",
+          "nameAr": "بئر علي بن خليفة (سيدي منصور)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (sidi mansour) بئر علي بن خليفة (سيدي منصور) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-souinia--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Souinia)",
+          "nameAr": "بئر علي بن خليفة (السوينية)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (souinia) بئر علي بن خليفة (السوينية) 3040"
+        },
+        {
+          "id": "sfax--bir-ali-ben-khelifa--bir-ali-ben-khelifa-toulb--3040",
+          "nameFr": "BIR ALI BEN KHELIFA (Toulb)",
+          "nameAr": "بئر علي بن خليفة (تولب)",
+          "postalCode": "3040",
+          "latitude": 34.7167,
+          "longitude": 10.1667,
+          "searchKey": "bir ali ben khelifa (toulb) بئر علي بن خليفة (تولب) 3040"
+        }
+      ]
+    },
+    {
+      "id": "sfax--el-amra",
+      "nameFr": "EL AMRA",
+      "nameAr": "العمرة",
+      "searchKey": "el amra العمرة",
+      "municipalities": [
+        {
+          "id": "sfax--el-amra--el-amra-beliana--3087",
+          "nameFr": "EL AMRA (Beliana)",
+          "nameAr": "العمرة (بليانة)",
+          "postalCode": "3087",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (beliana) العمرة (بليانة) 3087"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-cite-7-novembre--3036",
+          "nameFr": "EL AMRA (Cite 7 Novembre)",
+          "nameAr": "العمرة (حي 7 نوفمبر)",
+          "postalCode": "3036",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (cite 7 novembre) العمرة (حي 7 نوفمبر) 3036"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-cite-el-hmerna--3036",
+          "nameFr": "EL AMRA (Cite El Hmerna)",
+          "nameAr": "العمرة (حي الحمرنة)",
+          "postalCode": "3036",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (cite el hmerna) العمرة (حي الحمرنة) 3036"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-cite-ezzayatine--3036",
+          "nameFr": "EL AMRA (Cite Ezzayatine)",
+          "nameAr": "العمرة (حي الزياتين)",
+          "postalCode": "3036",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (cite ezzayatine) العمرة (حي الزياتين) 3036"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-cite-houma-charguia--3036",
+          "nameFr": "EL AMRA (Cite Houma Charguia)",
+          "nameAr": "العمرة (حي الحومة الشرقية)",
+          "postalCode": "3036",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (cite houma charguia) العمرة (حي الحومة الشرقية) 3036"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-cite-populaire-1--3036",
+          "nameFr": "EL AMRA (Cite Populaire 1)",
+          "nameAr": "العمرة (الحي الشعبي 1)",
+          "postalCode": "3036",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (cite populaire 1) العمرة (الحي الشعبي 1) 3036"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-cite-populaire-2--3036",
+          "nameFr": "EL AMRA (Cite Populaire 2)",
+          "nameAr": "العمرة (الحي الشعبي 2)",
+          "postalCode": "3036",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (cite populaire 2) العمرة (الحي الشعبي 2) 3036"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-cite-populaire-3--3036",
+          "nameFr": "EL AMRA (Cite Populaire 3)",
+          "nameAr": "العمرة (الحي الشعبي 3)",
+          "postalCode": "3036",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (cite populaire 3) العمرة (الحي الشعبي 3) 3036"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-dhraa-ben-ziad--3095",
+          "nameFr": "EL AMRA (Dhraa Ben Ziad)",
+          "nameAr": "العمرة (ذراع بن زياد)",
+          "postalCode": "3095",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (dhraa ben ziad) العمرة (ذراع بن زياد) 3095"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-el-amra--3036",
+          "nameFr": "EL AMRA (El Amra)",
+          "nameAr": "العمرة (العمرة)",
+          "postalCode": "3036",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (el amra) العمرة (العمرة) 3036"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-el-ketatna--3095",
+          "nameFr": "EL AMRA (El Ketatna)",
+          "nameAr": "العمرة (القطاطنة)",
+          "postalCode": "3095",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (el ketatna) العمرة (القطاطنة) 3095"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-el-mhara--3046",
+          "nameFr": "EL AMRA (El Mhara)",
+          "nameAr": "العمرة (المحارة)",
+          "postalCode": "3046",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (el mhara) العمرة (المحارة) 3046"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-essaadi--3066",
+          "nameFr": "EL AMRA (Essaadi)",
+          "nameAr": "العمرة (السعدي)",
+          "postalCode": "3066",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (essaadi) العمرة (السعدي) 3066"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-essalem--3046",
+          "nameFr": "EL AMRA (Essalem)",
+          "nameAr": "العمرة (السلام)",
+          "postalCode": "3046",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (essalem) العمرة (السلام) 3046"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-iffi--3036",
+          "nameFr": "EL AMRA (Iffi)",
+          "nameAr": "العمرة (إيفي)",
+          "postalCode": "3036",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (iffi) العمرة (إيفي) 3036"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-merkez-el-khemiri--3066",
+          "nameFr": "EL AMRA (Merkez El Khemiri)",
+          "nameAr": "العمرة (مركز الخميري)",
+          "postalCode": "3066",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (merkez el khemiri) العمرة (مركز الخميري) 3066"
+        },
+        {
+          "id": "sfax--el-amra--el-amra-oued-laachech--3066",
+          "nameFr": "EL AMRA (Oued Laachech)",
+          "nameAr": "العمرة (وادي لعشاش)",
+          "postalCode": "3066",
+          "latitude": 34.8167,
+          "longitude": 10.6,
+          "searchKey": "el amra (oued laachech) العمرة (وادي لعشاش) 3066"
+        }
+      ]
+    },
+    {
+      "id": "sfax--el-hencha",
+      "nameFr": "EL HENCHA",
+      "nameAr": "الحنشة",
+      "searchKey": "el hencha الحنشة",
+      "municipalities": [
+        {
+          "id": "sfax--el-hencha--el-hencha-bir-chaaba--3010",
+          "nameFr": "EL HENCHA (Bir Chaaba)",
+          "nameAr": "الحنشة (بئر شعبة)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (bir chaaba) الحنشة (بئر شعبة) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-bir-lahmar--3043",
+          "nameFr": "EL HENCHA (Bir Lahmar)",
+          "nameAr": "الحنشة (بئر الأحمر)",
+          "postalCode": "3043",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (bir lahmar) الحنشة (بئر الأحمر) 3043"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-bir-salah--3033",
+          "nameFr": "EL HENCHA (Bir Salah)",
+          "nameAr": "الحنشة (بئر صالح)",
+          "postalCode": "3033",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (bir salah) الحنشة (بئر صالح) 3033"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-algerie--3010",
+          "nameFr": "EL HENCHA (Cite Algerie)",
+          "nameAr": "الحنشة (حي الجزائر)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite algerie) الحنشة (حي الجزائر) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-cherif--3010",
+          "nameFr": "EL HENCHA (Cite Cherif)",
+          "nameAr": "الحنشة (حي الشريف)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite cherif) الحنشة (حي الشريف) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-commerciale-1--3010",
+          "nameFr": "EL HENCHA (Cite Commerciale 1)",
+          "nameAr": "الحنشة (الحي التجاري 1)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite commerciale 1) الحنشة (الحي التجاري 1) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-commerciale-2--3010",
+          "nameFr": "EL HENCHA (Cite Commerciale 2)",
+          "nameAr": "الحنشة (الحي التجاري 2)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite commerciale 2) الحنشة (الحي التجاري 2) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-el-fateh--3010",
+          "nameFr": "EL HENCHA (Cite El Fateh)",
+          "nameAr": "الحنشة (حي الفتح)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite el fateh) الحنشة (حي الفتح) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-el-fheil--3010",
+          "nameFr": "EL HENCHA (Cite El Fheil)",
+          "nameAr": "الحنشة (حي الفحيل)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite el fheil) الحنشة (حي الفحيل) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-el-hancha-est--3010",
+          "nameFr": "EL HENCHA (Cite El Hancha Est)",
+          "nameAr": "الحنشة (حي الحنشة الشرقية)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite el hancha est) الحنشة (حي الحنشة الشرقية) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-el-hancha-ouest--3010",
+          "nameFr": "EL HENCHA (Cite El Hancha Ouest)",
+          "nameAr": "الحنشة (حي الحنشة الغربية)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite el hancha ouest) الحنشة (حي الحنشة الغربية) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-el-ifa--3010",
+          "nameFr": "EL HENCHA (Cite El Ifa)",
+          "nameAr": "الحنشة (حي الإيفاء)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite el ifa) الحنشة (حي الإيفاء) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-el-kouifla--3010",
+          "nameFr": "EL HENCHA (Cite El Kouifla)",
+          "nameAr": "الحنشة (حي الكويفلة)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite el kouifla) الحنشة (حي الكويفلة) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-ouled-aicha--3010",
+          "nameFr": "EL HENCHA (Cite Ouled Aicha)",
+          "nameAr": "الحنشة (حي أولاد عيشة)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite ouled aicha) الحنشة (حي أولاد عيشة) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-oum-salah--3010",
+          "nameFr": "EL HENCHA (Cite Oum Salah)",
+          "nameAr": "الحنشة (حي أم صالح)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite oum salah) الحنشة (حي أم صالح) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-cite-populaire--3043",
+          "nameFr": "EL HENCHA (Cite Populaire)",
+          "nameAr": "الحنشة (الحي الشعبي)",
+          "postalCode": "3043",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (cite populaire) الحنشة (الحي الشعبي) 3043"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-doukhane--3043",
+          "nameFr": "EL HENCHA (Doukhane)",
+          "nameAr": "الحنشة (دخان)",
+          "postalCode": "3043",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (doukhane) الحنشة (دخان) 3043"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-el-ghieb--3010",
+          "nameFr": "EL HENCHA (El Ghieb)",
+          "nameAr": "الحنشة (الغياب)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (el ghieb) الحنشة (الغياب) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-el-ghraba--3043",
+          "nameFr": "EL HENCHA (El Ghraba)",
+          "nameAr": "الحنشة (الغرابة)",
+          "postalCode": "3043",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (el ghraba) الحنشة (الغرابة) 3043"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-el-guetatsa--3010",
+          "nameFr": "EL HENCHA (El Guetatsa)",
+          "nameAr": "الحنشة (القطاطسة)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (el guetatsa) الحنشة (القطاطسة) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-el-hachana--3010",
+          "nameFr": "EL HENCHA (El Hachana)",
+          "nameAr": "الحنشة (الحشانة)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (el hachana) الحنشة (الحشانة) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-el-hajjara--3010",
+          "nameFr": "EL HENCHA (El Hajjara)",
+          "nameAr": "الحنشة (الحجارة)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (el hajjara) الحنشة (الحجارة) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-el-helalfa--3010",
+          "nameFr": "EL HENCHA (El Helalfa)",
+          "nameAr": "الحنشة (الحلالفة)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (el helalfa) الحنشة (الحلالفة) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-el-hencha--3010",
+          "nameFr": "EL HENCHA (El Hencha)",
+          "nameAr": "الحنشة (الحنشة)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (el hencha) الحنشة (الحنشة) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-el-khecherma--3043",
+          "nameFr": "EL HENCHA (El Khecherma)",
+          "nameAr": "الحنشة (الخشرمة)",
+          "postalCode": "3043",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (el khecherma) الحنشة (الخشرمة) 3043"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-esseghara--3043",
+          "nameFr": "EL HENCHA (Esseghara)",
+          "nameAr": "الحنشة (الصغارة)",
+          "postalCode": "3043",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (esseghara) الحنشة (الصغارة) 3043"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-henchir-el-joub--3043",
+          "nameFr": "EL HENCHA (Henchir El Joub)",
+          "nameAr": "الحنشة (هنشير الجب)",
+          "postalCode": "3043",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (henchir el joub) الحنشة (هنشير الجب) 3043"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-henchir-el-mosbah--3010",
+          "nameFr": "EL HENCHA (Henchir El Mosbah)",
+          "nameAr": "الحنشة (هنشير المصباح)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (henchir el mosbah) الحنشة (هنشير المصباح) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-jalaila--3010",
+          "nameFr": "EL HENCHA (Jalaila)",
+          "nameAr": "الحنشة (الجلايلة)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (jalaila) الحنشة (الجلايلة) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-merkez-choucha--3043",
+          "nameFr": "EL HENCHA (Merkez Choucha)",
+          "nameAr": "الحنشة (مركز شوشة)",
+          "postalCode": "3043",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (merkez choucha) الحنشة (مركز شوشة) 3043"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-ouled-amor--3010",
+          "nameFr": "EL HENCHA (Ouled Amor)",
+          "nameAr": "الحنشة (أولاد عمر)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (ouled amor) الحنشة (أولاد عمر) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-ouled-tahar--3010",
+          "nameFr": "EL HENCHA (Ouled Tahar)",
+          "nameAr": "الحنشة (أولاد الطاهر)",
+          "postalCode": "3010",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (ouled tahar) الحنشة (أولاد الطاهر) 3010"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-sidi-hassen--3053",
+          "nameFr": "EL HENCHA (Sidi Hassen)",
+          "nameAr": "الحنشة (سيدي حسن)",
+          "postalCode": "3053",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (sidi hassen) الحنشة (سيدي حسن) 3053"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-sidi-mhamed-ben-amor--3043",
+          "nameFr": "EL HENCHA (Sidi Mhamed Ben Amor)",
+          "nameAr": "الحنشة (سيدي محمد بن عمر)",
+          "postalCode": "3043",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (sidi mhamed ben amor) الحنشة (سيدي محمد بن عمر) 3043"
+        },
+        {
+          "id": "sfax--el-hencha--el-hencha-soualmia--3043",
+          "nameFr": "EL HENCHA (Soualmia)",
+          "nameAr": "الحنشة (السوالمية)",
+          "postalCode": "3043",
+          "latitude": 35.1667,
+          "longitude": 10.6167,
+          "searchKey": "el hencha (soualmia) الحنشة (السوالمية) 3043"
+        }
+      ]
+    },
+    {
+      "id": "sfax--esskhira",
+      "nameFr": "ESSKHIRA",
+      "nameAr": "الصخيرة",
+      "searchKey": "esskhira الصخيرة",
+      "municipalities": [
+        {
+          "id": "sfax--esskhira--esskhira-bou-said--3050",
+          "nameFr": "ESSKHIRA (Bou Said)",
+          "nameAr": "الصخيرة (بوسعيد)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (bou said) الصخيرة (بوسعيد) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-cherafra--3050",
+          "nameFr": "ESSKHIRA (Cherafra)",
+          "nameAr": "الصخيرة (الشرافرة)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (cherafra) الصخيرة (الشرافرة) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-el-gherairia--3050",
+          "nameFr": "ESSKHIRA (El Gherairia)",
+          "nameAr": "الصخيرة (الغرايرية)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (el gherairia) الصخيرة (الغرايرية) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-el-hicha--3050",
+          "nameFr": "ESSKHIRA (El Hicha)",
+          "nameAr": "الصخيرة (الهيشة)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (el hicha) الصخيرة (الهيشة) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-el-maghdhia--3050",
+          "nameFr": "ESSKHIRA (El Maghdhia)",
+          "nameAr": "الصخيرة (المغذية)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (el maghdhia) الصخيرة (المغذية) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-esskhira--3050",
+          "nameFr": "ESSKHIRA (Esskhira)",
+          "nameAr": "الصخيرة (الصخيرة)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (esskhira) الصخيرة (الصخيرة) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-fondouk-chibani--3050",
+          "nameFr": "ESSKHIRA (Fondouk Chibani)",
+          "nameAr": "الصخيرة (فندق شيباني)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (fondouk chibani) الصخيرة (فندق شيباني) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-frichette--3050",
+          "nameFr": "ESSKHIRA (Frichette)",
+          "nameAr": "الصخيرة (فريشات)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (frichette) الصخيرة (فريشات) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-jerouala--3050",
+          "nameFr": "ESSKHIRA (Jerouala)",
+          "nameAr": "الصخيرة (جروالة)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (jerouala) الصخيرة (جروالة) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-kenitra--3050",
+          "nameFr": "ESSKHIRA (Kenitra)",
+          "nameAr": "الصخيرة (القنيطرة)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (kenitra) الصخيرة (القنيطرة) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-naoual--3050",
+          "nameFr": "ESSKHIRA (Naoual)",
+          "nameAr": "الصخيرة (نوال)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (naoual) الصخيرة (نوال) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-ouled-haj-moussa--3050",
+          "nameFr": "ESSKHIRA (Ouled Haj Moussa)",
+          "nameAr": "الصخيرة (أولاد حاج موسى)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (ouled haj moussa) الصخيرة (أولاد حاج موسى) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-sbih--3073",
+          "nameFr": "ESSKHIRA (Sbih)",
+          "nameAr": "الصخيرة (الصبيح)",
+          "postalCode": "3073",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (sbih) الصخيرة (الصبيح) 3073"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-sidi-mhamed-nouiguez--3050",
+          "nameFr": "ESSKHIRA (Sidi Mhamed Nouiguez)",
+          "nameAr": "الصخيرة (سيدي محمد نويڨز)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (sidi mhamed nouiguez) الصخيرة (سيدي محمد نويڨز) 3050"
+        },
+        {
+          "id": "sfax--esskhira--esskhira-souani--3050",
+          "nameFr": "ESSKHIRA (Souani)",
+          "nameAr": "الصخيرة (السواني)",
+          "postalCode": "3050",
+          "latitude": 34.2925,
+          "longitude": 10.0706,
+          "searchKey": "esskhira (souani) الصخيرة (السواني) 3050"
+        }
+      ]
+    },
+    {
+      "id": "sfax--ghraiba",
+      "nameFr": "GHRAIBA",
+      "nameAr": "الغريبة",
+      "searchKey": "ghraiba الغريبة",
+      "municipalities": [
+        {
+          "id": "sfax--ghraiba--ghraiba-belhouichette--3024",
+          "nameFr": "GHRAIBA (Belhouichette)",
+          "nameAr": "الغريبة (بلحويشات)",
+          "postalCode": "3024",
+          "latitude": 34.5667,
+          "longitude": 10.2167,
+          "searchKey": "ghraiba (belhouichette) الغريبة (بلحويشات) 3024"
+        },
+        {
+          "id": "sfax--ghraiba--ghraiba-chaal--3024",
+          "nameFr": "GHRAIBA (Chaal)",
+          "nameAr": "الغريبة (الشعال)",
+          "postalCode": "3024",
+          "latitude": 34.5667,
+          "longitude": 10.2167,
+          "searchKey": "ghraiba (chaal) الغريبة (الشعال) 3024"
+        },
+        {
+          "id": "sfax--ghraiba--ghraiba-el-hammam--3034",
+          "nameFr": "GHRAIBA (El Hammam)",
+          "nameAr": "الغريبة (الحمام)",
+          "postalCode": "3034",
+          "latitude": 34.5667,
+          "longitude": 10.2167,
+          "searchKey": "ghraiba (el hammam) الغريبة (الحمام) 3034"
+        },
+        {
+          "id": "sfax--ghraiba--ghraiba-essoudane--3034",
+          "nameFr": "GHRAIBA (Essoudane)",
+          "nameAr": "الغريبة (السودان)",
+          "postalCode": "3034",
+          "latitude": 34.5667,
+          "longitude": 10.2167,
+          "searchKey": "ghraiba (essoudane) الغريبة (السودان) 3034"
+        },
+        {
+          "id": "sfax--ghraiba--ghraiba-ettakaddoum--3024",
+          "nameFr": "GHRAIBA (Ettakaddoum)",
+          "nameAr": "الغريبة (التقدم)",
+          "postalCode": "3024",
+          "latitude": 34.5667,
+          "longitude": 10.2167,
+          "searchKey": "ghraiba (ettakaddoum) الغريبة (التقدم) 3024"
+        },
+        {
+          "id": "sfax--ghraiba--ghraiba-ghraiba--3034",
+          "nameFr": "GHRAIBA (Ghraiba)",
+          "nameAr": "الغريبة (الغريبة)",
+          "postalCode": "3034",
+          "latitude": 34.5667,
+          "longitude": 10.2167,
+          "searchKey": "ghraiba (ghraiba) الغريبة (الغريبة) 3034"
+        },
+        {
+          "id": "sfax--ghraiba--ghraiba-rabta--3024",
+          "nameFr": "GHRAIBA (Rabta)",
+          "nameAr": "الغريبة (الرابطة)",
+          "postalCode": "3024",
+          "latitude": 34.5667,
+          "longitude": 10.2167,
+          "searchKey": "ghraiba (rabta) الغريبة (الرابطة) 3024"
+        },
+        {
+          "id": "sfax--ghraiba--ghraiba-skaina--3024",
+          "nameFr": "GHRAIBA (Skaina)",
+          "nameAr": "الغريبة (سكاينة)",
+          "postalCode": "3024",
+          "latitude": 34.5667,
+          "longitude": 10.2167,
+          "searchKey": "ghraiba (skaina) الغريبة (سكاينة) 3024"
+        },
+        {
+          "id": "sfax--ghraiba--ghraiba-smara--3024",
+          "nameFr": "GHRAIBA (Smara)",
+          "nameAr": "الغريبة (سمارة)",
+          "postalCode": "3024",
+          "latitude": 34.5667,
+          "longitude": 10.2167,
+          "searchKey": "ghraiba (smara) الغريبة (سمارة) 3024"
+        },
+        {
+          "id": "sfax--ghraiba--ghraiba-tarfaoui--3024",
+          "nameFr": "GHRAIBA (Tarfaoui)",
+          "nameAr": "الغريبة (طرفاوي)",
+          "postalCode": "3024",
+          "latitude": 34.5667,
+          "longitude": 10.2167,
+          "searchKey": "ghraiba (tarfaoui) الغريبة (طرفاوي) 3024"
+        }
+      ]
+    },
+    {
+      "id": "sfax--jebeniana",
+      "nameFr": "JEBENIANA",
+      "nameAr": "جبنيانة",
+      "searchKey": "jebeniana جبنيانة",
+      "municipalities": [
+        {
+          "id": "sfax--jebeniana--jebeniana-aguegcha--3026",
+          "nameFr": "JEBENIANA (Aguegcha)",
+          "nameAr": "جبنيانة (عڨعڨشة)",
+          "postalCode": "3026",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (aguegcha) جبنيانة (عڨعڨشة) 3026"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-ain-el-ghezal--3080",
+          "nameFr": "JEBENIANA (Ain El Ghezal)",
+          "nameAr": "جبنيانة (عين الغزال)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (ain el ghezal) جبنيانة (عين الغزال) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-ajenga--3086",
+          "nameFr": "JEBENIANA (Ajenga)",
+          "nameAr": "جبنيانة (عجانڨة)",
+          "postalCode": "3086",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (ajenga) جبنيانة (عجانڨة) 3086"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-blitech--3080",
+          "nameFr": "JEBENIANA (Blitech)",
+          "nameAr": "جبنيانة (بليطش)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (blitech) جبنيانة (بليطش) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-cite-el-bassatine--3080",
+          "nameFr": "JEBENIANA (Cite El Bassatine)",
+          "nameAr": "جبنيانة (حي البساتين)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (cite el bassatine) جبنيانة (حي البساتين) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-cite-el-fateh--3080",
+          "nameFr": "JEBENIANA (Cite El Fateh)",
+          "nameAr": "جبنيانة (حي الفتح)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (cite el fateh) جبنيانة (حي الفتح) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-cite-jardins--3080",
+          "nameFr": "JEBENIANA (Cite Jardins)",
+          "nameAr": "جبنيانة (حي الحدائق)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (cite jardins) جبنيانة (حي الحدائق) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-douar-louata--3077",
+          "nameFr": "JEBENIANA (Douar Louata)",
+          "nameAr": "جبنيانة (دوار لواتة)",
+          "postalCode": "3077",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (douar louata) جبنيانة (دوار لواتة) 3077"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-el-botria--3080",
+          "nameFr": "JEBENIANA (El Botria)",
+          "nameAr": "جبنيانة (البطرية)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (el botria) جبنيانة (البطرية) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-el-gherasa--3080",
+          "nameFr": "JEBENIANA (El Gherasa)",
+          "nameAr": "جبنيانة (الغراسة)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (el gherasa) جبنيانة (الغراسة) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-el-guelalja--3080",
+          "nameFr": "JEBENIANA (El Guelalja)",
+          "nameAr": "جبنيانة (القلاجة)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (el guelalja) جبنيانة (القلاجة) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-el-louza--3016",
+          "nameFr": "JEBENIANA (El Louza)",
+          "nameAr": "جبنيانة (اللوزة)",
+          "postalCode": "3016",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (el louza) جبنيانة (اللوزة) 3016"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-hazeg--3026",
+          "nameFr": "JEBENIANA (Hazeg)",
+          "nameAr": "جبنيانة (الحازق)",
+          "postalCode": "3026",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (hazeg) جبنيانة (الحازق) 3026"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-henchir-el-euch--3080",
+          "nameFr": "JEBENIANA (Henchir El Euch)",
+          "nameAr": "جبنيانة (هنشير العش)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (henchir el euch) جبنيانة (هنشير العش) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-jebeniana--3080",
+          "nameFr": "JEBENIANA (Jebeniana)",
+          "nameAr": "جبنيانة (جبنيانة)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (jebeniana) جبنيانة (جبنيانة) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-ouled-ahmed--3080",
+          "nameFr": "JEBENIANA (Ouled Ahmed)",
+          "nameAr": "جبنيانة (أولاد أحمد)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (ouled ahmed) جبنيانة (أولاد أحمد) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-ouled-bousmir--3056",
+          "nameFr": "JEBENIANA (Ouled Bousmir)",
+          "nameAr": "جبنيانة (أولاد بوسمير)",
+          "postalCode": "3056",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (ouled bousmir) جبنيانة (أولاد بوسمير) 3056"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-ouled-mnasser--3026",
+          "nameFr": "JEBENIANA (Ouled Mnasser)",
+          "nameAr": "جبنيانة (أولاد مناصر)",
+          "postalCode": "3026",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (ouled mnasser) جبنيانة (أولاد مناصر) 3026"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-ouled-msallem-edkhal--3080",
+          "nameFr": "JEBENIANA (Ouled Msallem Edkhal)",
+          "nameAr": "جبنيانة (أولاد مسلم الدخل)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (ouled msallem edkhal) جبنيانة (أولاد مسلم الدخل) 3080"
+        },
+        {
+          "id": "sfax--jebeniana--jebeniana-sidi-msarra--3080",
+          "nameFr": "JEBENIANA (Sidi Msarra)",
+          "nameAr": "جبنيانة (سيدي مسارة)",
+          "postalCode": "3080",
+          "latitude": 35.0333,
+          "longitude": 10.9,
+          "searchKey": "jebeniana (sidi msarra) جبنيانة (سيدي مسارة) 3080"
+        }
+      ]
+    },
+    {
+      "id": "sfax--kerkenah",
+      "nameFr": "KERKENAH",
+      "nameAr": "قرقنة",
+      "searchKey": "kerkenah قرقنة",
+      "municipalities": [
+        {
+          "id": "sfax--kerkenah--kerkenah-chergui--3070",
+          "nameFr": "KERKENAH (Chergui)",
+          "nameAr": "قرقنة (الشرقي)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (chergui) قرقنة (الشرقي) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-ancienne-kellaline--3070",
+          "nameFr": "KERKENAH (Cite Ancienne Kellaline)",
+          "nameAr": "قرقنة (حي القلالين القديمة)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite ancienne kellaline) قرقنة (حي القلالين القديمة) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-bouaid-kellaline--3070",
+          "nameFr": "KERKENAH (Cite Bouaid Kellaline)",
+          "nameAr": "قرقنة (حي بوعيد القلالين)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite bouaid kellaline) قرقنة (حي بوعيد القلالين) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-cnel--3070",
+          "nameFr": "KERKENAH (Cite Cnel)",
+          "nameAr": "قرقنة (حي الصندوق الوطني للسكن)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite cnel) قرقنة (حي الصندوق الوطني للسكن) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-dar-oum-dlel--3070",
+          "nameFr": "KERKENAH (Cite Dar Oum Dlel)",
+          "nameAr": "قرقنة (حي دار أم دلل)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite dar oum dlel) قرقنة (حي دار أم دلل) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-el-azezba--3070",
+          "nameFr": "KERKENAH (Cite El Azezba)",
+          "nameAr": "قرقنة (حي العزبة)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite el azezba) قرقنة (حي العزبة) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-el-mahjar--3070",
+          "nameFr": "KERKENAH (Cite El Mahjar)",
+          "nameAr": "قرقنة (حي المحجر)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite el mahjar) قرقنة (حي المحجر) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-groupe-1--3015",
+          "nameFr": "KERKENAH (Cite Groupe 1)",
+          "nameAr": "قرقنة (حي المجموعة 1)",
+          "postalCode": "3015",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite groupe 1) قرقنة (حي المجموعة 1) 3015"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-groupe-2--3015",
+          "nameFr": "KERKENAH (Cite Groupe 2)",
+          "nameAr": "قرقنة (حي المجموعة 2)",
+          "postalCode": "3015",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite groupe 2) قرقنة (حي المجموعة 2) 3015"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-houmet-glace--3070",
+          "nameFr": "KERKENAH (Cite Houmet Glace)",
+          "nameAr": "قرقنة (حي حومة القلعة)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite houmet glace) قرقنة (حي حومة القلعة) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-nouvelle-kellaline--3070",
+          "nameFr": "KERKENAH (Cite Nouvelle Kellaline)",
+          "nameAr": "قرقنة (حي القلالين الجديدة)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite nouvelle kellaline) قرقنة (حي القلالين الجديدة) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-ourand--3070",
+          "nameFr": "KERKENAH (Cite Ourand)",
+          "nameAr": "قرقنة (حي ورند)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite ourand) قرقنة (حي ورند) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-populaire--3070",
+          "nameFr": "KERKENAH (Cite Populaire)",
+          "nameAr": "قرقنة (الحي الشعبي)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite populaire) قرقنة (الحي الشعبي) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-cite-rakhani--3070",
+          "nameFr": "KERKENAH (Cite Rakhani)",
+          "nameAr": "قرقنة (حي الرخاني)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (cite rakhani) قرقنة (حي الرخاني) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-el-abbassia--3070",
+          "nameFr": "KERKENAH (El Abbassia)",
+          "nameAr": "قرقنة (العباسية)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (el abbassia) قرقنة (العباسية) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-el-attaya--3035",
+          "nameFr": "KERKENAH (El Attaya)",
+          "nameAr": "قرقنة (العطايا)",
+          "postalCode": "3035",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (el attaya) قرقنة (العطايا) 3035"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-el-kraten--3055",
+          "nameFr": "KERKENAH (El Kraten)",
+          "nameAr": "قرقنة (الكراتن)",
+          "postalCode": "3055",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (el kraten) قرقنة (الكراتن) 3055"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-ennajet--3045",
+          "nameFr": "KERKENAH (Ennajet)",
+          "nameAr": "قرقنة (النجاة)",
+          "postalCode": "3045",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (ennajet) قرقنة (النجاة) 3045"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-jouaber--3070",
+          "nameFr": "KERKENAH (Jouaber)",
+          "nameAr": "قرقنة (الجوابر)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (jouaber) قرقنة (الجوابر) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-kellabine--3070",
+          "nameFr": "KERKENAH (Kellabine)",
+          "nameAr": "قرقنة (الكلابين)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (kellabine) قرقنة (الكلابين) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-mellita-ouled-bou-ali--3070",
+          "nameFr": "KERKENAH (Mellita Ouled Bou Ali)",
+          "nameAr": "قرقنة (مليتة أولاد بوعلي)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (mellita ouled bou ali) قرقنة (مليتة أولاد بوعلي) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-mellita--3015",
+          "nameFr": "KERKENAH (Mellita)",
+          "nameAr": "قرقنة (مليتة)",
+          "postalCode": "3015",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (mellita) قرقنة (مليتة) 3015"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-ouled-bou-ali--3070",
+          "nameFr": "KERKENAH (Ouled Bou Ali)",
+          "nameAr": "قرقنة (أولاد بوعلي)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (ouled bou ali) قرقنة (أولاد بوعلي) 3070"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-ouled-kacem--3025",
+          "nameFr": "KERKENAH (Ouled Kacem)",
+          "nameAr": "قرقنة (أولاد قاسم)",
+          "postalCode": "3025",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (ouled kacem) قرقنة (أولاد قاسم) 3025"
+        },
+        {
+          "id": "sfax--kerkenah--kerkenah-ouled-yaneg--3070",
+          "nameFr": "KERKENAH (Ouled Yaneg)",
+          "nameAr": "قرقنة (أولاد يانڨ)",
+          "postalCode": "3070",
+          "latitude": 34.7264,
+          "longitude": 11.1514,
+          "searchKey": "kerkenah (ouled yaneg) قرقنة (أولاد يانڨ) 3070"
+        }
+      ]
+    },
+    {
+      "id": "sfax--mahras",
+      "nameFr": "MAHRAS",
+      "nameAr": "المحرس",
+      "searchKey": "mahras المحرس",
+      "municipalities": [
+        {
+          "id": "sfax--mahras--mahras-belhouchette--3060",
+          "nameFr": "MAHRAS (Belhouchette)",
+          "nameAr": "المحرس (بلحوشات)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (belhouchette) المحرس (بلحوشات) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-chaal-gare--3060",
+          "nameFr": "MAHRAS (Chaal Gare)",
+          "nameAr": "المحرس (الشعال المحطة)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (chaal gare) المحرس (الشعال المحطة) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-chaffar--3060",
+          "nameFr": "MAHRAS (Chaffar)",
+          "nameAr": "المحرس (الشفار)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (chaffar) المحرس (الشفار) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-cite-bourguiba--3060",
+          "nameFr": "MAHRAS (Cite Bourguiba)",
+          "nameAr": "المحرس (حي بورقيبة)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (cite bourguiba) المحرس (حي بورقيبة) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-cite-el-bouhali--3060",
+          "nameFr": "MAHRAS (Cite El Bouhali)",
+          "nameAr": "المحرس (حي البوهالي)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (cite el bouhali) المحرس (حي البوهالي) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-cite-el-guidira--3060",
+          "nameFr": "MAHRAS (Cite El Guidira)",
+          "nameAr": "المحرس (حي القيديرة)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (cite el guidira) المحرس (حي القيديرة) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-cite-ennajah--3060",
+          "nameFr": "MAHRAS (Cite Ennajah)",
+          "nameAr": "المحرس (حي النجاح)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (cite ennajah) المحرس (حي النجاح) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-cite-ennour--3060",
+          "nameFr": "MAHRAS (Cite Ennour)",
+          "nameAr": "المحرس (حي النور)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (cite ennour) المحرس (حي النور) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-cite-flemech--3060",
+          "nameFr": "MAHRAS (Cite Flemech)",
+          "nameAr": "المحرس (حي فليماش)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (cite flemech) المحرس (حي فليماش) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-el-hachichinia--3060",
+          "nameFr": "MAHRAS (El Hachichinia)",
+          "nameAr": "المحرس (الحشيشينة)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (el hachichinia) المحرس (الحشيشينة) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-el-mouessette--3060",
+          "nameFr": "MAHRAS (El Mouessette)",
+          "nameAr": "المحرس (المؤسات)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (el mouessette) المحرس (المؤسات) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-el-mourouj--3044",
+          "nameFr": "MAHRAS (El Mourouj)",
+          "nameAr": "المحرس (المروج)",
+          "postalCode": "3044",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (el mourouj) المحرس (المروج) 3044"
+        },
+        {
+          "id": "sfax--mahras--mahras-mahras--3060",
+          "nameFr": "MAHRAS (Mahras)",
+          "nameAr": "المحرس (المحرس)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (mahras) المحرس (المحرس) 3060"
+        },
+        {
+          "id": "sfax--mahras--mahras-nekta--3044",
+          "nameFr": "MAHRAS (Nekta)",
+          "nameAr": "المحرس (نقطة)",
+          "postalCode": "3044",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (nekta) المحرس (نقطة) 3044"
+        },
+        {
+          "id": "sfax--mahras--mahras-smara--3060",
+          "nameFr": "MAHRAS (Smara)",
+          "nameAr": "المحرس (سمارة)",
+          "postalCode": "3060",
+          "latitude": 34.5292,
+          "longitude": 10.5053,
+          "searchKey": "mahras (smara) المحرس (سمارة) 3060"
+        }
+      ]
+    },
+    {
+      "id": "sfax--menzel-chaker",
+      "nameFr": "MENZEL CHAKER",
+      "nameAr": "منزل شاكر",
+      "searchKey": "menzel chaker منزل شاكر",
+      "municipalities": [
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-bechka--3020",
+          "nameFr": "MENZEL CHAKER (Bechka)",
+          "nameAr": "منزل شاكر (بشكة)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (bechka) منزل شاكر (بشكة) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-bou-jarbou--3092",
+          "nameFr": "MENZEL CHAKER (Bou Jarbou)",
+          "nameAr": "منزل شاكر (بوجربوع)",
+          "postalCode": "3092",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (bou jarbou) منزل شاكر (بوجربوع) 3092"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-bou-thadi--3014",
+          "nameFr": "MENZEL CHAKER (Bou Thadi)",
+          "nameAr": "منزل شاكر (بوثدي)",
+          "postalCode": "3014",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (bou thadi) منزل شاكر (بوثدي) 3014"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-chaaleb--3020",
+          "nameFr": "MENZEL CHAKER (Chaaleb)",
+          "nameAr": "منزل شاكر (شعلب)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (chaaleb) منزل شاكر (شعلب) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-cite-7-novembre--3020",
+          "nameFr": "MENZEL CHAKER (Cite 7 Novembre)",
+          "nameAr": "منزل شاكر (حي 7 نوفمبر)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (cite 7 novembre) منزل شاكر (حي 7 نوفمبر) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-cite-de-la-gare--3020",
+          "nameFr": "MENZEL CHAKER (Cite De La Gare)",
+          "nameAr": "منزل شاكر (حي المحطة)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (cite de la gare) منزل شاكر (حي المحطة) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-cite-el-habib--3020",
+          "nameFr": "MENZEL CHAKER (Cite El Habib)",
+          "nameAr": "منزل شاكر (حي الحبيب)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (cite el habib) منزل شاكر (حي الحبيب) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-cite-erraoudha--3020",
+          "nameFr": "MENZEL CHAKER (Cite Erraoudha)",
+          "nameAr": "منزل شاكر (حي الروضة)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (cite erraoudha) منزل شاكر (حي الروضة) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-cite-ettahrir--3020",
+          "nameFr": "MENZEL CHAKER (Cite Ettahrir)",
+          "nameAr": "منزل شاكر (حي التحرير)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (cite ettahrir) منزل شاكر (حي التحرير) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-cite-habib-bourguiba--3020",
+          "nameFr": "MENZEL CHAKER (Cite Habib Bourguiba)",
+          "nameAr": "منزل شاكر (حي الحبيب بورقيبة)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (cite habib bourguiba) منزل شاكر (حي الحبيب بورقيبة) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-cite-habib-thameur--3020",
+          "nameFr": "MENZEL CHAKER (Cite Habib Thameur)",
+          "nameAr": "منزل شاكر (حي الحبيب ثامر)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (cite habib thameur) منزل شاكر (حي الحبيب ثامر) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-cite-taieb-mhiri--3020",
+          "nameFr": "MENZEL CHAKER (Cite Taieb Mhiri)",
+          "nameAr": "منزل شاكر (حي الطيب المهيري)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (cite taieb mhiri) منزل شاكر (حي الطيب المهيري) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-el-aitha--3020",
+          "nameFr": "MENZEL CHAKER (El Aitha)",
+          "nameAr": "منزل شاكر (العيثة)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (el aitha) منزل شاكر (العيثة) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-hai-kacem--3020",
+          "nameFr": "MENZEL CHAKER (Hai Kacem)",
+          "nameAr": "منزل شاكر (حي قاسم)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (hai kacem) منزل شاكر (حي قاسم) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-haj-kacem-1--3020",
+          "nameFr": "MENZEL CHAKER (Haj Kacem 1)",
+          "nameAr": "منزل شاكر (حاج قاسم 1)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (haj kacem 1) منزل شاكر (حاج قاسم 1) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-haj-kacem-2--3020",
+          "nameFr": "MENZEL CHAKER (Haj Kacem 2)",
+          "nameAr": "منزل شاكر (حاج قاسم 2)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (haj kacem 2) منزل شاكر (حاج قاسم 2) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-ksar-errih--3020",
+          "nameFr": "MENZEL CHAKER (Ksar Errih)",
+          "nameAr": "منزل شاكر (قصر الريح)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (ksar errih) منزل شاكر (قصر الريح) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-limaya--3020",
+          "nameFr": "MENZEL CHAKER (Limaya)",
+          "nameAr": "منزل شاكر (ليماية)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (limaya) منزل شاكر (ليماية) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-menzel-hedi-chaker--3020",
+          "nameFr": "MENZEL CHAKER (Menzel Hedi Chaker)",
+          "nameAr": "منزل شاكر (منزل الهادي شاكر)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (menzel hedi chaker) منزل شاكر (منزل الهادي شاكر) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-oued-lazrag--3020",
+          "nameFr": "MENZEL CHAKER (Oued Lazrag)",
+          "nameAr": "منزل شاكر (وادي الأزرق)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (oued lazrag) منزل شاكر (وادي الأزرق) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-tlil-el-ajla--3020",
+          "nameFr": "MENZEL CHAKER (Tlil El Ajla)",
+          "nameAr": "منزل شاكر (تليل العجلة)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (tlil el ajla) منزل شاكر (تليل العجلة) 3020"
+        },
+        {
+          "id": "sfax--menzel-chaker--menzel-chaker-zaibet--3020",
+          "nameFr": "MENZEL CHAKER (Zaibet)",
+          "nameAr": "منزل شاكر (الزعيبط)",
+          "postalCode": "3020",
+          "latitude": 34.8833,
+          "longitude": 10.4,
+          "searchKey": "menzel chaker (zaibet) منزل شاكر (الزعيبط) 3020"
+        }
+      ]
+    },
+    {
+      "id": "sfax--sakiet-eddaier",
+      "nameFr": "SAKIET EDDAIER",
+      "nameAr": "ساقية الدائر",
+      "searchKey": "sakiet eddaier ساقية الدائر",
+      "municipalities": [
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-cite-bourguiba--3094",
+          "nameFr": "SAKIET EDDAIER (Cite Bourguiba)",
+          "nameAr": "ساقية الدائر (حي بورقيبة)",
+          "postalCode": "3094",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (cite bourguiba) ساقية الدائر (حي بورقيبة) 3094"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-cite-de-le-liberte--3011",
+          "nameFr": "SAKIET EDDAIER (Cite De Le Liberte)",
+          "nameAr": "ساقية الدائر (حي الحرية)",
+          "postalCode": "3011",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (cite de le liberte) ساقية الدائر (حي الحرية) 3011"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-cite-el-afrane--3054",
+          "nameFr": "SAKIET EDDAIER (Cite El Afrane)",
+          "nameAr": "ساقية الدائر (حي الأفران)",
+          "postalCode": "3054",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (cite el afrane) ساقية الدائر (حي الأفران) 3054"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-cite-el-amel--3011",
+          "nameFr": "SAKIET EDDAIER (Cite El Amel)",
+          "nameAr": "ساقية الدائر (حي الأمل)",
+          "postalCode": "3011",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (cite el amel) ساقية الدائر (حي الأمل) 3011"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-cite-el-haffara--3011",
+          "nameFr": "SAKIET EDDAIER (Cite El Haffara)",
+          "nameAr": "ساقية الدائر (حي الحفارة)",
+          "postalCode": "3011",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (cite el haffara) ساقية الدائر (حي الحفارة) 3011"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-cite-el-mallek--3081",
+          "nameFr": "SAKIET EDDAIER (Cite El Mallek)",
+          "nameAr": "ساقية الدائر (حي المالك)",
+          "postalCode": "3081",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (cite el mallek) ساقية الدائر (حي المالك) 3081"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-cite-ennadhour--3061",
+          "nameFr": "SAKIET EDDAIER (Cite Ennadhour)",
+          "nameAr": "ساقية الدائر (حي الناظور)",
+          "postalCode": "3061",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (cite ennadhour) ساقية الدائر (حي الناظور) 3061"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-cite-erriadh--3061",
+          "nameFr": "SAKIET EDDAIER (Cite Erriadh)",
+          "nameAr": "ساقية الدائر (حي الرياض)",
+          "postalCode": "3061",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (cite erriadh) ساقية الدائر (حي الرياض) 3061"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-cite-nouvelle--3061",
+          "nameFr": "SAKIET EDDAIER (Cite Nouvelle)",
+          "nameAr": "ساقية الدائر (الحي الجديد)",
+          "postalCode": "3061",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (cite nouvelle) ساقية الدائر (الحي الجديد) 3061"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-el-khalij--3063",
+          "nameFr": "SAKIET EDDAIER (El Khalij)",
+          "nameAr": "ساقية الدائر (الخليج)",
+          "postalCode": "3063",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (el khalij) ساقية الدائر (الخليج) 3063"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-essaadi--3081",
+          "nameFr": "SAKIET EDDAIER (Essaadi)",
+          "nameAr": "ساقية الدائر (السعدي)",
+          "postalCode": "3081",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (essaadi) ساقية الدائر (السعدي) 3081"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-merkez-kaaniche--3011",
+          "nameFr": "SAKIET EDDAIER (Merkez Kaaniche)",
+          "nameAr": "ساقية الدائر (مركز كنيش)",
+          "postalCode": "3011",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (merkez kaaniche) ساقية الدائر (مركز كنيش) 3011"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-merkez-lajmi--3067",
+          "nameFr": "SAKIET EDDAIER (Merkez Lajmi)",
+          "nameAr": "ساقية الدائر (مركز العجمي)",
+          "postalCode": "3067",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (merkez lajmi) ساقية الدائر (مركز العجمي) 3067"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-merkez-sebai--3054",
+          "nameFr": "SAKIET EDDAIER (Merkez Sebai)",
+          "nameAr": "ساقية الدائر (مركز السباعي)",
+          "postalCode": "3054",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (merkez sebai) ساقية الدائر (مركز السباعي) 3054"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-sakiet-eddaier--3011",
+          "nameFr": "SAKIET EDDAIER (Sakiet Eddaier)",
+          "nameAr": "ساقية الدائر (ساقية الدائر)",
+          "postalCode": "3011",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (sakiet eddaier) ساقية الدائر (ساقية الدائر) 3011"
+        },
+        {
+          "id": "sfax--sakiet-eddaier--sakiet-eddaier-sidi-mansour--3061",
+          "nameFr": "SAKIET EDDAIER (Sidi Mansour)",
+          "nameAr": "ساقية الدائر (سيدي منصور)",
+          "postalCode": "3061",
+          "latitude": 34.7956,
+          "longitude": 10.7767,
+          "searchKey": "sakiet eddaier (sidi mansour) ساقية الدائر (سيدي منصور) 3061"
+        }
+      ]
+    },
+    {
+      "id": "sfax--sakiet-ezzit",
+      "nameFr": "SAKIET EZZIT",
+      "nameAr": "ساقية الزيت",
+      "searchKey": "sakiet ezzit ساقية الزيت",
+      "municipalities": [
+        {
+          "id": "sfax--sakiet-ezzit--sakiet-ezzit-cite-20-mars--3041",
+          "nameFr": "SAKIET EZZIT (Cite 20 Mars)",
+          "nameAr": "ساقية الزيت (حي 20 مارس)",
+          "postalCode": "3041",
+          "latitude": 34.8183,
+          "longitude": 10.7469,
+          "searchKey": "sakiet ezzit (cite 20 mars) ساقية الزيت (حي 20 مارس) 3041"
+        },
+        {
+          "id": "sfax--sakiet-ezzit--sakiet-ezzit-cite-ennasr--3041",
+          "nameFr": "SAKIET EZZIT (Cite Ennasr)",
+          "nameAr": "ساقية الزيت (حي النصر)",
+          "postalCode": "3041",
+          "latitude": 34.8183,
+          "longitude": 10.7469,
+          "searchKey": "sakiet ezzit (cite ennasr) ساقية الزيت (حي النصر) 3041"
+        },
+        {
+          "id": "sfax--sakiet-ezzit--sakiet-ezzit-cite-ennouzha--3041",
+          "nameFr": "SAKIET EZZIT (Cite Ennouzha)",
+          "nameAr": "ساقية الزيت (حي النزهة)",
+          "postalCode": "3041",
+          "latitude": 34.8183,
+          "longitude": 10.7469,
+          "searchKey": "sakiet ezzit (cite ennouzha) ساقية الزيت (حي النزهة) 3041"
+        },
+        {
+          "id": "sfax--sakiet-ezzit--sakiet-ezzit-el-mnasria--3041",
+          "nameFr": "SAKIET EZZIT (El Mnasria)",
+          "nameAr": "ساقية الزيت (المناصرية)",
+          "postalCode": "3041",
+          "latitude": 34.8183,
+          "longitude": 10.7469,
+          "searchKey": "sakiet ezzit (el mnasria) ساقية الزيت (المناصرية) 3041"
+        },
+        {
+          "id": "sfax--sakiet-ezzit--sakiet-ezzit-merkez-bouacida--3031",
+          "nameFr": "SAKIET EZZIT (Merkez Bouacida)",
+          "nameAr": "ساقية الزيت (مركز بوعصيدة)",
+          "postalCode": "3031",
+          "latitude": 34.8183,
+          "longitude": 10.7469,
+          "searchKey": "sakiet ezzit (merkez bouacida) ساقية الزيت (مركز بوعصيدة) 3031"
+        },
+        {
+          "id": "sfax--sakiet-ezzit--sakiet-ezzit-merkez-chihya--3041",
+          "nameFr": "SAKIET EZZIT (Merkez Chihya)",
+          "nameAr": "ساقية الزيت (مركز الشيحية)",
+          "postalCode": "3041",
+          "latitude": 34.8183,
+          "longitude": 10.7469,
+          "searchKey": "sakiet ezzit (merkez chihya) ساقية الزيت (مركز الشيحية) 3041"
+        },
+        {
+          "id": "sfax--sakiet-ezzit--sakiet-ezzit-sakiet-ezzit--3021",
+          "nameFr": "SAKIET EZZIT (Sakiet Ezzit)",
+          "nameAr": "ساقية الزيت (ساقية الزيت)",
+          "postalCode": "3021",
+          "latitude": 34.8183,
+          "longitude": 10.7469,
+          "searchKey": "sakiet ezzit (sakiet ezzit) ساقية الزيت (ساقية الزيت) 3021"
+        },
+        {
+          "id": "sfax--sakiet-ezzit--sakiet-ezzit-sidi-salah--3091",
+          "nameFr": "SAKIET EZZIT (Sidi Salah)",
+          "nameAr": "ساقية الزيت (سيدي صالح)",
+          "postalCode": "3091",
+          "latitude": 34.8183,
+          "longitude": 10.7469,
+          "searchKey": "sakiet ezzit (sidi salah) ساقية الزيت (سيدي صالح) 3091"
+        }
+      ]
+    },
+    {
+      "id": "sfax--sfax-est",
+      "nameFr": "SFAX EST",
+      "nameAr": "صفاقس الشرقية",
+      "searchKey": "sfax est صفاقس الشرقية",
+      "municipalities": [
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-de-la-sante--3052",
+          "nameFr": "SFAX EST (Cite De La Sante)",
+          "nameAr": "صفاقس الشرقية (حي الصحة)",
+          "postalCode": "3052",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite de la sante) صفاقس الشرقية (حي الصحة) 3052"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-dounia--3052",
+          "nameFr": "SFAX EST (Cite Dounia)",
+          "nameAr": "صفاقس الشرقية (حي دنيا)",
+          "postalCode": "3052",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite dounia) صفاقس الشرقية (حي دنيا) 3052"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-el-bahri--3064",
+          "nameFr": "SFAX EST (Cite El Bahri)",
+          "nameAr": "صفاقس الشرقية (حي البحري)",
+          "postalCode": "3064",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite el bahri) صفاقس الشرقية (حي البحري) 3064"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-el-foll--3064",
+          "nameFr": "SFAX EST (Cite El Foll)",
+          "nameAr": "صفاقس الشرقية (حي الفل)",
+          "postalCode": "3064",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite el foll) صفاقس الشرقية (حي الفل) 3064"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-el-habib--3052",
+          "nameFr": "SFAX EST (Cite El Habib)",
+          "nameAr": "صفاقس الشرقية (حي الحبيب)",
+          "postalCode": "3052",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite el habib) صفاقس الشرقية (حي الحبيب) 3052"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-el-menzah--3052",
+          "nameFr": "SFAX EST (Cite El Menzah)",
+          "nameAr": "صفاقس الشرقية (حي المنزه)",
+          "postalCode": "3052",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite el menzah) صفاقس الشرقية (حي المنزه) 3052"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-el-messaadine--3052",
+          "nameFr": "SFAX EST (Cite El Messaadine)",
+          "nameAr": "صفاقس الشرقية (حي المساعدين)",
+          "postalCode": "3052",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite el messaadine) صفاقس الشرقية (حي المساعدين) 3052"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-el-wafa--3064",
+          "nameFr": "SFAX EST (Cite El Wafa)",
+          "nameAr": "صفاقس الشرقية (حي الوفاء)",
+          "postalCode": "3064",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite el wafa) صفاقس الشرقية (حي الوفاء) 3064"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-el-yasmine--3052",
+          "nameFr": "SFAX EST (Cite El Yasmine)",
+          "nameAr": "صفاقس الشرقية (حي الياسمين)",
+          "postalCode": "3052",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite el yasmine) صفاقس الشرقية (حي الياسمين) 3052"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-essaada--3052",
+          "nameFr": "SFAX EST (Cite Essaada)",
+          "nameAr": "صفاقس الشرقية (حي السعادة)",
+          "postalCode": "3052",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite essaada) صفاقس الشرقية (حي السعادة) 3052"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-essalem--3064",
+          "nameFr": "SFAX EST (Cite Essalem)",
+          "nameAr": "صفاقس الشرقية (حي السلام)",
+          "postalCode": "3064",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite essalem) صفاقس الشرقية (حي السلام) 3064"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-cite-jaouhara--3064",
+          "nameFr": "SFAX EST (Cite Jaouhara)",
+          "nameAr": "صفاقس الشرقية (حي جوهرة)",
+          "postalCode": "3064",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (cite jaouhara) صفاقس الشرقية (حي جوهرة) 3064"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-merkez-chaker--3072",
+          "nameFr": "SFAX EST (Merkez Chaker)",
+          "nameAr": "صفاقس الشرقية (مركز شاكر)",
+          "postalCode": "3072",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (merkez chaker) صفاقس الشرقية (مركز شاكر) 3072"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-oued-chaabouni--3071",
+          "nameFr": "SFAX EST (Oued Chaabouni)",
+          "nameAr": "صفاقس الشرقية (وادي الشعبوني)",
+          "postalCode": "3071",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (oued chaabouni) صفاقس الشرقية (وادي الشعبوني) 3071"
+        },
+        {
+          "id": "sfax--sfax-est--sfax-est-oued-rmal--3023",
+          "nameFr": "SFAX EST (Oued Rmal)",
+          "nameAr": "صفاقس الشرقية (وادي الرمال)",
+          "postalCode": "3023",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax est (oued rmal) صفاقس الشرقية (وادي الرمال) 3023"
+        }
+      ]
+    },
+    {
+      "id": "sfax--sfax-sud",
+      "nameFr": "SFAX SUD",
+      "nameAr": "صفاقس الجنوبية",
+      "searchKey": "sfax sud صفاقس الجنوبية",
+      "municipalities": [
+        {
+          "id": "sfax--sfax-sud--sfax-sud-cite-2000--3013",
+          "nameFr": "SFAX SUD (Cite 2000)",
+          "nameAr": "صفاقس الجنوبية (حي 2000)",
+          "postalCode": "3013",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (cite 2000) صفاقس الجنوبية (حي 2000) 3013"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-cite-badrani--3083",
+          "nameFr": "SFAX SUD (Cite Badrani)",
+          "nameAr": "صفاقس الجنوبية (حي بدراني)",
+          "postalCode": "3083",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (cite badrani) صفاقس الجنوبية (حي بدراني) 3083"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-cite-el-mghaier--3083",
+          "nameFr": "SFAX SUD (Cite El Mghaier)",
+          "nameAr": "صفاقس الجنوبية (حي المغاير)",
+          "postalCode": "3083",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (cite el mghaier) صفاقس الجنوبية (حي المغاير) 3083"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-cite-ennasr--3083",
+          "nameFr": "SFAX SUD (Cite Ennasr)",
+          "nameAr": "صفاقس الجنوبية (حي النصر)",
+          "postalCode": "3083",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (cite ennasr) صفاقس الجنوبية (حي النصر) 3083"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-cite-moez-1--3083",
+          "nameFr": "SFAX SUD (Cite Moez 1)",
+          "nameAr": "صفاقس الجنوبية (حي معز 1)",
+          "postalCode": "3083",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (cite moez 1) صفاقس الجنوبية (حي معز 1) 3083"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-cite-moez-2--3083",
+          "nameFr": "SFAX SUD (Cite Moez 2)",
+          "nameAr": "صفاقس الجنوبية (حي معز 2)",
+          "postalCode": "3083",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (cite moez 2) صفاقس الجنوبية (حي معز 2) 3083"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-cite-moez-4--3083",
+          "nameFr": "SFAX SUD (Cite Moez 4)",
+          "nameAr": "صفاقس الجنوبية (حي معز 4)",
+          "postalCode": "3083",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (cite moez 4) صفاقس الجنوبية (حي معز 4) 3083"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-cite-sidi-abid--3083",
+          "nameFr": "SFAX SUD (Cite Sidi Abid)",
+          "nameAr": "صفاقس الجنوبية (حي سيدي عبيد)",
+          "postalCode": "3083",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (cite sidi abid) صفاقس الجنوبية (حي سيدي عبيد) 3083"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-cite-tyna-1--3084",
+          "nameFr": "SFAX SUD (Cite Tyna 1)",
+          "nameAr": "صفاقس الجنوبية (حي طينة 1)",
+          "postalCode": "3084",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (cite tyna 1) صفاقس الجنوبية (حي طينة 1) 3084"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-cite-tyna-2--3084",
+          "nameFr": "SFAX SUD (Cite Tyna 2)",
+          "nameAr": "صفاقس الجنوبية (حي طينة 2)",
+          "postalCode": "3084",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (cite tyna 2) صفاقس الجنوبية (حي طينة 2) 3084"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-el-ain--3042",
+          "nameFr": "SFAX SUD (El Ain)",
+          "nameAr": "صفاقس الجنوبية (العين)",
+          "postalCode": "3042",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (el ain) صفاقس الجنوبية (العين) 3042"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-el-aouabed--3074",
+          "nameFr": "SFAX SUD (El Aouabed)",
+          "nameAr": "صفاقس الجنوبية (العوابد)",
+          "postalCode": "3074",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (el aouabed) صفاقس الجنوبية (العوابد) 3074"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-el-aouyet--3076",
+          "nameFr": "SFAX SUD (El Aouyet)",
+          "nameAr": "صفاقس الجنوبية (العويات)",
+          "postalCode": "3076",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (el aouyet) صفاقس الجنوبية (العويات) 3076"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-el-hajeb--3078",
+          "nameFr": "SFAX SUD (El Hajeb)",
+          "nameAr": "صفاقس الجنوبية (الحاجب)",
+          "postalCode": "3078",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (el hajeb) صفاقس الجنوبية (الحاجب) 3078"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-el-khazzanette--3059",
+          "nameFr": "SFAX SUD (El Khazzanette)",
+          "nameAr": "صفاقس الجنوبية (الخزانات)",
+          "postalCode": "3059",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (el khazzanette) صفاقس الجنوبية (الخزانات) 3059"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-merkez-aloui--3076",
+          "nameFr": "SFAX SUD (Merkez Aloui)",
+          "nameAr": "صفاقس الجنوبية (مركز علوي)",
+          "postalCode": "3076",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (merkez aloui) صفاقس الجنوبية (مركز علوي) 3076"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-merkez-aloulou--3042",
+          "nameFr": "SFAX SUD (Merkez Aloulou)",
+          "nameAr": "صفاقس الجنوبية (مركز علولو)",
+          "postalCode": "3042",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (merkez aloulou) صفاقس الجنوبية (مركز علولو) 3042"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-merkez-chaabouni--3013",
+          "nameFr": "SFAX SUD (Merkez Chaabouni)",
+          "nameAr": "صفاقس الجنوبية (مركز الشغبوني)",
+          "postalCode": "3013",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (merkez chaabouni) صفاقس الجنوبية (مركز الشغبوني) 3013"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-merkez-dammak--3013",
+          "nameFr": "SFAX SUD (Merkez Dammak)",
+          "nameAr": "صفاقس الجنوبية (مركز الدماق)",
+          "postalCode": "3013",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (merkez dammak) صفاقس الجنوبية (مركز الدماق) 3013"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-merkez-jilani--3042",
+          "nameFr": "SFAX SUD (Merkez Jilani)",
+          "nameAr": "صفاقس الجنوبية (مركز الجيلاني)",
+          "postalCode": "3042",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (merkez jilani) صفاقس الجنوبية (مركز الجيلاني) 3042"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-merkez-kamoun--3022",
+          "nameFr": "SFAX SUD (Merkez Kamoun)",
+          "nameAr": "صفاقس الجنوبية (مركز كمون)",
+          "postalCode": "3022",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (merkez kamoun) صفاقس الجنوبية (مركز كمون) 3022"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-merkez-ouali--3093",
+          "nameFr": "SFAX SUD (Merkez Ouali)",
+          "nameAr": "صفاقس الجنوبية (مركز الوالي)",
+          "postalCode": "3093",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (merkez ouali) صفاقس الجنوبية (مركز الوالي) 3093"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-merkez-sahnoun--3012",
+          "nameFr": "SFAX SUD (Merkez Sahnoun)",
+          "nameAr": "صفاقس الجنوبية (مركز سحنون)",
+          "postalCode": "3012",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (merkez sahnoun) صفاقس الجنوبية (مركز سحنون) 3012"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-sidi-abbes--3062",
+          "nameFr": "SFAX SUD (Sidi Abbes)",
+          "nameAr": "صفاقس الجنوبية (سيدي عباس)",
+          "postalCode": "3062",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (sidi abbes) صفاقس الجنوبية (سيدي عباس) 3062"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-tyna-el-jadida--3084",
+          "nameFr": "SFAX SUD (Tyna El Jadida)",
+          "nameAr": "صفاقس الجنوبية (طينة الجديدة)",
+          "postalCode": "3084",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (tyna el jadida) صفاقس الجنوبية (طينة الجديدة) 3084"
+        },
+        {
+          "id": "sfax--sfax-sud--sfax-sud-tyna--3083",
+          "nameFr": "SFAX SUD (Tyna)",
+          "nameAr": "صفاقس الجنوبية (طينة)",
+          "postalCode": "3083",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax sud (tyna) صفاقس الجنوبية (طينة) 3083"
+        }
+      ]
+    },
+    {
+      "id": "sfax--sfax-ville",
+      "nameFr": "SFAX VILLE",
+      "nameAr": "صفاقس المدينة",
+      "searchKey": "sfax ville صفاقس المدينة",
+      "municipalities": [
+        {
+          "id": "sfax--sfax-ville--sfax-ville-ain-charfi--3000",
+          "nameFr": "SFAX VILLE (Ain Charfi)",
+          "nameAr": "صفاقس المدينة (عين الشرفي)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (ain charfi) صفاقس المدينة (عين الشرفي) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-ain-el-fellat--3000",
+          "nameFr": "SFAX VILLE (Ain El Fellat)",
+          "nameAr": "صفاقس المدينة (عين الفلات)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (ain el fellat) صفاقس المدينة (عين الفلات) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-ain-el-mayel--3000",
+          "nameFr": "SFAX VILLE (Ain El Mayel)",
+          "nameAr": "صفاقس المدينة (عين المايل)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (ain el mayel) صفاقس المدينة (عين المايل) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-ain-tourkia--3000",
+          "nameFr": "SFAX VILLE (Ain Tourkia)",
+          "nameAr": "صفاقس المدينة (عين تركية)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (ain tourkia) صفاقس المدينة (عين تركية) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-ain-turki--3000",
+          "nameFr": "SFAX VILLE (Ain Turki)",
+          "nameAr": "صفاقس المدينة (عين تركي)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (ain turki) صفاقس المدينة (عين تركي) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-bab-el-jebli--3047",
+          "nameFr": "SFAX VILLE (Bab El Jebli)",
+          "nameAr": "صفاقس المدينة (باب الجبلي)",
+          "postalCode": "3047",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (bab el jebli) صفاقس المدينة (باب الجبلي) 3047"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-bir-ben-ayed--3000",
+          "nameFr": "SFAX VILLE (Bir Ben Ayed)",
+          "nameAr": "صفاقس المدينة (بئر بن عياد)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (bir ben ayed) صفاقس المدينة (بئر بن عياد) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-bir-el-mellouli--3000",
+          "nameFr": "SFAX VILLE (Bir El Mellouli)",
+          "nameAr": "صفاقس المدينة (بئر الملولي)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (bir el mellouli) صفاقس المدينة (بئر الملولي) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-caid-mhamed--3039",
+          "nameFr": "SFAX VILLE (Caid Mhamed)",
+          "nameAr": "صفاقس المدينة (قايد محمد)",
+          "postalCode": "3039",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (caid mhamed) صفاقس المدينة (قايد محمد) 3039"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-bourguiba-2--3000",
+          "nameFr": "SFAX VILLE (Cite Bourguiba 2)",
+          "nameAr": "صفاقس المدينة (حي بورقيبة 2)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite bourguiba 2) صفاقس المدينة (حي بورقيبة 2) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-bouzid--3000",
+          "nameFr": "SFAX VILLE (Cite Bouzid)",
+          "nameAr": "صفاقس المدينة (حي بوزيد)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite bouzid) صفاقس المدينة (حي بوزيد) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-cnrps--3000",
+          "nameFr": "SFAX VILLE (Cite Cnrps)",
+          "nameAr": "صفاقس المدينة (حي الصندوق الوطني للتقاعد والحيطة الإجتماعية)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite cnrps) صفاقس المدينة (حي الصندوق الوطني للتقاعد والحيطة الإجتماعية) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-commerciale--3000",
+          "nameFr": "SFAX VILLE (Cite Commerciale)",
+          "nameAr": "صفاقس المدينة (الحي التجاري)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite commerciale) صفاقس المدينة (الحي التجاري) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-compensation--3000",
+          "nameFr": "SFAX VILLE (Cite Compensation)",
+          "nameAr": "صفاقس المدينة (حي التعويض)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite compensation) صفاقس المدينة (حي التعويض) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-de-le-liberte--3000",
+          "nameFr": "SFAX VILLE (Cite De Le Liberte)",
+          "nameAr": "صفاقس المدينة (حي الحرية)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite de le liberte) صفاقس المدينة (حي الحرية) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-du-jardin-1--3000",
+          "nameFr": "SFAX VILLE (Cite Du Jardin 1)",
+          "nameAr": "صفاقس المدينة (حي الحديقة 1)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite du jardin 1) صفاقس المدينة (حي الحديقة 1) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-el-amel--3000",
+          "nameFr": "SFAX VILLE (Cite El Amel)",
+          "nameAr": "صفاقس المدينة (حي الأمل)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite el amel) صفاقس المدينة (حي الأمل) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-el-maaref--3000",
+          "nameFr": "SFAX VILLE (Cite El Maaref)",
+          "nameAr": "صفاقس المدينة (حي المعارف)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite el maaref) صفاقس المدينة (حي المعارف) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-el-mourouj--3000",
+          "nameFr": "SFAX VILLE (Cite El Mourouj)",
+          "nameAr": "صفاقس المدينة (حي المروج)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite el mourouj) صفاقس المدينة (حي المروج) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-essourour--3000",
+          "nameFr": "SFAX VILLE (Cite Essourour)",
+          "nameAr": "صفاقس المدينة (حي السرور)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite essourour) صفاقس المدينة (حي السرور) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-ezzitouna--3000",
+          "nameFr": "SFAX VILLE (Cite Ezzitouna)",
+          "nameAr": "صفاقس المدينة (حي الزيتونة)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite ezzitouna) صفاقس المدينة (حي الزيتونة) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-joua--3000",
+          "nameFr": "SFAX VILLE (Cite Joua)",
+          "nameAr": "صفاقس المدينة (حي جوة)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite joua) صفاقس المدينة (حي جوة) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-cite-siape--3000",
+          "nameFr": "SFAX VILLE (Cite Siape)",
+          "nameAr": "صفاقس المدينة (حي سياب)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (cite siape) صفاقس المدينة (حي سياب) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-el-achach--3000",
+          "nameFr": "SFAX VILLE (El Achach)",
+          "nameAr": "صفاقس المدينة (الأعشاش)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (el achach) صفاقس المدينة (الأعشاش) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-el-bousten--3099",
+          "nameFr": "SFAX VILLE (El Bousten)",
+          "nameAr": "صفاقس المدينة (البستان)",
+          "postalCode": "3099",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (el bousten) صفاقس المدينة (البستان) 3099"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-ennigrou--3089",
+          "nameFr": "SFAX VILLE (Ennigrou)",
+          "nameAr": "صفاقس المدينة (النيقرو)",
+          "postalCode": "3089",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (ennigrou) صفاقس المدينة (النيقرو) 3089"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-habbana-2--3000",
+          "nameFr": "SFAX VILLE (Habbana 2)",
+          "nameAr": "صفاقس المدينة (الهبانة 2)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (habbana 2) صفاقس المدينة (الهبانة 2) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-hai-el-khiri--3079",
+          "nameFr": "SFAX VILLE (Hai El Khiri)",
+          "nameAr": "صفاقس المدينة (حي الخيري)",
+          "postalCode": "3079",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (hai el khiri) صفاقس المدينة (حي الخيري) 3079"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-majen-eddroj--3000",
+          "nameFr": "SFAX VILLE (Majen Eddroj)",
+          "nameAr": "صفاقس المدينة (ماجن الدروج)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (majen eddroj) صفاقس المدينة (ماجن الدروج) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-merkez-ben-ameur--3000",
+          "nameFr": "SFAX VILLE (Merkez Ben Ameur)",
+          "nameAr": "صفاقس المدينة (مركز بن عمر)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (merkez ben ameur) صفاقس المدينة (مركز بن عمر) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-merkez-bermaki--3000",
+          "nameFr": "SFAX VILLE (Merkez Bermaki)",
+          "nameAr": "صفاقس المدينة (مركز البرماكي)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (merkez bermaki) صفاقس المدينة (مركز البرماكي) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-merkez-bou-khedir--3000",
+          "nameFr": "SFAX VILLE (Merkez Bou Khedir)",
+          "nameAr": "صفاقس المدينة (مركز بو خضير)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (merkez bou khedir) صفاقس المدينة (مركز بو خضير) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-merkez-el-alia--3051",
+          "nameFr": "SFAX VILLE (Merkez El Alia)",
+          "nameAr": "صفاقس المدينة (مركز العالية)",
+          "postalCode": "3051",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (merkez el alia) صفاقس المدينة (مركز العالية) 3051"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-merkez-guirat--3000",
+          "nameFr": "SFAX VILLE (Merkez Guirat)",
+          "nameAr": "صفاقس المدينة (مركز قيراط)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (merkez guirat) صفاقس المدينة (مركز قيراط) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-merkez-jellouli--3000",
+          "nameFr": "SFAX VILLE (Merkez Jellouli)",
+          "nameAr": "صفاقس المدينة (مركز جلولي)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (merkez jellouli) صفاقس المدينة (مركز جلولي) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-merkez-zouayed--3000",
+          "nameFr": "SFAX VILLE (Merkez Zouayed)",
+          "nameAr": "صفاقس المدينة (مركز الزوايد)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (merkez zouayed) صفاقس المدينة (مركز الزوايد) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-oued-laachech--3000",
+          "nameFr": "SFAX VILLE (Oued Laachech)",
+          "nameAr": "صفاقس المدينة (وادي لعشاش)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (oued laachech) صفاقس المدينة (وادي لعشاش) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-rouadhi--3000",
+          "nameFr": "SFAX VILLE (Rouadhi)",
+          "nameAr": "صفاقس المدينة (الروابضي)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (rouadhi) صفاقس المدينة (الروابضي) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-sfax-el-jadida--3027",
+          "nameFr": "SFAX VILLE (Sfax El Jadida)",
+          "nameAr": "صفاقس المدينة (صفاقس الجديدة)",
+          "postalCode": "3027",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (sfax el jadida) صفاقس المدينة (صفاقس الجديدة) 3027"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-sfax-hached--3069",
+          "nameFr": "SFAX VILLE (Sfax Hached)",
+          "nameAr": "صفاقس المدينة (صفاقس حشاد)",
+          "postalCode": "3069",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (sfax hached) صفاقس المدينة (صفاقس حشاد) 3069"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-sfax-magreb-arabe--3049",
+          "nameFr": "SFAX VILLE (Sfax Magreb Arabe)",
+          "nameAr": "صفاقس المدينة (صفاقس المغرب العربي)",
+          "postalCode": "3049",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (sfax magreb arabe) صفاقس المدينة (صفاقس المغرب العربي) 3049"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-sfax-port--3065",
+          "nameFr": "SFAX VILLE (Sfax Port)",
+          "nameAr": "صفاقس المدينة (صفاقس الميناء)",
+          "postalCode": "3065",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (sfax port) صفاقس المدينة (صفاقس الميناء) 3065"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-sfax--3000",
+          "nameFr": "SFAX VILLE (Sfax)",
+          "nameAr": "صفاقس المدينة (صفاقس)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (sfax) صفاقس المدينة (صفاقس) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-sidi-abdelkefi--3000",
+          "nameFr": "SFAX VILLE (Sidi Abdelkefi)",
+          "nameAr": "صفاقس المدينة (سيدي عبد الكافي)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (sidi abdelkefi) صفاقس المدينة (سيدي عبد الكافي) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-sidi-jilani--3000",
+          "nameFr": "SFAX VILLE (Sidi Jilani)",
+          "nameAr": "صفاقس المدينة (سيدي الجيلاني)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (sidi jilani) صفاقس المدينة (سيدي الجيلاني) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-sidi-liteyem--3000",
+          "nameFr": "SFAX VILLE (Sidi Liteyem)",
+          "nameAr": "صفاقس المدينة (سيدي ليتيم)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (sidi liteyem) صفاقس المدينة (سيدي ليتيم) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-soualmia--3000",
+          "nameFr": "SFAX VILLE (Soualmia)",
+          "nameAr": "صفاقس المدينة (السوالمية)",
+          "postalCode": "3000",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (soualmia) صفاقس المدينة (السوالمية) 3000"
+        },
+        {
+          "id": "sfax--sfax-ville--sfax-ville-souk-el-feriani--3048",
+          "nameFr": "SFAX VILLE (Souk El Feriani)",
+          "nameAr": "صفاقس المدينة (سوق الفرياني)",
+          "postalCode": "3048",
+          "latitude": 34.7406,
+          "longitude": 10.76,
+          "searchKey": "sfax ville (souk el feriani) صفاقس المدينة (سوق الفرياني) 3048"
+        }
+      ]
+    }
+  ]
+}

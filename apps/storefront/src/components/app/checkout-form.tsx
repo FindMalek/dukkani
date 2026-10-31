@@ -1,5 +1,7 @@
 "use client";
 
+import { TUNISIA_GOVERNORATES } from "@dukkani/common/data/tunisia-locations";
+import type { GovernorateInfer } from "@dukkani/common/schemas/enums";
 import { PaymentMethod } from "@dukkani/common/schemas/enums";
 import {
   addressInputSchema,
@@ -18,9 +20,10 @@ import { useAppForm } from "@dukkani/ui/hooks/use-app-form";
 import { useFormatPriceCurrentStore } from "@dukkani/ui/hooks/use-format-price";
 import { useIsMobile } from "@dukkani/ui/hooks/use-mobile";
 import { useViewportLock } from "@dukkani/ui/hooks/use-viewport-lock";
+import { useStore } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useEffectEvent, useRef } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useCallback, useEffect, useEffectEvent, useMemo, useRef } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 import { appMutations } from "@/shared/api/mutations";
@@ -28,6 +31,7 @@ import { RoutePaths, useRouter } from "@/shared/config/routes";
 import { useDetectedAddress } from "@/shared/lib/address-detection.hook";
 import { useEnrichedCart } from "@/shared/lib/cart/enricher.hook";
 import { useCartHydration, useCartStore } from "@/shared/lib/cart/store";
+import { useTunisiaDelegations } from "@/shared/lib/tunisia-locations.hook";
 import { OrderSummary } from "./order-summary";
 
 interface CheckoutFormProps {
@@ -56,6 +60,7 @@ const formSchema = createOrderPublicInputObjectSchema
 export function CheckoutForm({ store }: CheckoutFormProps) {
   const router = useRouter();
   const t = useTranslations("storefront.store.checkout");
+  const locale = useLocale();
   const formatPrice = useFormatPriceCurrentStore(store.currency);
   const clearCart = useCartStore((state) => state.clearCart);
 
@@ -103,6 +108,8 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
       isWhatsApp: false,
       address: {
         street: "",
+        governorate: "",
+        delegation: "",
         city: "",
         postalCode: "",
       },
@@ -156,9 +163,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
   const updateDetectedPostalCode = useEffectEvent((postalCode: string) => {
     form.setFieldValue("address.postalCode", postalCode);
   });
-  const updateDetectedCity = useEffectEvent((city: string) => {
-    form.setFieldValue("address.city", city);
-  });
   const updateDetectedStreet = useEffectEvent((street: string) => {
     form.setFieldValue("address.street", street);
   });
@@ -167,7 +171,6 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
     if (!autoLocation.isSuccess || autoLocation.dataUpdatedAt === 0) return;
     const d = autoLocation.data;
     updateDetectedPostalCode(d.postCode);
-    updateDetectedCity(d.city);
     updateDetectedStreet(d.street);
     const lat = Number.parseFloat(d.latitude);
     const lon = Number.parseFloat(d.longitude);
@@ -177,6 +180,112 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
       detectedCoordsRef.current = {};
     }
   }, [autoLocation.isSuccess, autoLocation.dataUpdatedAt, autoLocation.data]);
+
+  // Governorate → Delegation → Municipality cascade. Delegation options load
+  // from a static per-governorate JSON file (see tunisia-locations.hook.ts)
+  // once a governorate is picked; municipality options come from that same
+  // payload, scoped to whichever delegation is currently selected.
+  const selectedGovernorate = useStore(
+    form.store,
+    (state) => state.values.address.governorate,
+  );
+  const selectedDelegationName = useStore(
+    form.store,
+    (state) => state.values.address.delegation,
+  );
+
+  const delegationsQuery = useTunisiaDelegations(
+    selectedGovernorate ? (selectedGovernorate as GovernorateInfer) : undefined,
+  );
+  const delegations = useMemo(
+    () => delegationsQuery.data ?? [],
+    [delegationsQuery.data],
+  );
+  const selectedDelegation = useMemo(
+    () => delegations.find((d) => d.nameFr === selectedDelegationName),
+    [delegations, selectedDelegationName],
+  );
+
+  const governorateOptions = useMemo(
+    () =>
+      TUNISIA_GOVERNORATES.map((g) => ({
+        value: g.code,
+        label: locale === "ar" ? g.nameAr : g.nameFr,
+        keywords: [g.nameFr, g.nameAr],
+      })),
+    [locale],
+  );
+  const delegationOptions = useMemo(
+    () =>
+      delegations.map((d) => ({
+        value: d.nameFr,
+        label: locale === "ar" ? d.nameAr : d.nameFr,
+        keywords: [d.nameFr, d.nameAr],
+      })),
+    [delegations, locale],
+  );
+  // A delegation can have two municipalities sharing the same French name
+  // but different postal codes (e.g. BEN_AROUS -> RADES has two "RADES
+  // (Cite Snit)" entries). The combobox's internal identity (its selection
+  // state, and the React key) is keyed by `value`, so two options can't
+  // share one -- disambiguate with the postal code only for the names that
+  // actually collide, so the common case still gets a clean value.
+  const municipalityOptions = useMemo(() => {
+    const municipalities = selectedDelegation?.municipalities ?? [];
+    const nameCounts = new Map<string, number>();
+    for (const m of municipalities) {
+      nameCounts.set(m.nameFr, (nameCounts.get(m.nameFr) ?? 0) + 1);
+    }
+    return municipalities.map((m) => ({
+      value:
+        (nameCounts.get(m.nameFr) ?? 0) > 1
+          ? `${m.nameFr}::${m.postalCode}`
+          : m.nameFr,
+      label: locale === "ar" ? m.nameAr : m.nameFr,
+      keywords: [m.nameFr, m.nameAr, m.postalCode],
+    }));
+  }, [selectedDelegation, locale]);
+
+  const clearDelegationAndCity = useCallback(() => {
+    form.setFieldValue("address.delegation", "");
+    form.setFieldValue("address.city", "");
+    // Whatever set the postal code before (a prior city pick, or GPS/IP
+    // autofill) no longer matches once the customer starts navigating the
+    // cascade away from it -- clear it so it can't linger stale. Picking a
+    // new city repopulates it via handleCitySelect; the field stays a plain
+    // text input if they'd rather type it.
+    form.setFieldValue("address.postalCode", "");
+  }, [form]);
+  const clearCity = useCallback(() => {
+    form.setFieldValue("address.city", "");
+    form.setFieldValue("address.postalCode", "");
+  }, [form]);
+  const handleCitySelect = useCallback(
+    (value: string | undefined) => {
+      if (!value) return;
+      // `value` may be disambiguated as `${nameFr}::${postalCode}` when this
+      // delegation has duplicate municipality names (see municipalityOptions)
+      // -- match on postal code when present, otherwise on the plain name.
+      const [namePart, postalCodePart] = value.split("::");
+      const municipality = selectedDelegation?.municipalities.find((m) =>
+        postalCodePart
+          ? m.nameFr === namePart && m.postalCode === postalCodePart
+          : m.nameFr === namePart,
+      );
+      if (!municipality) return;
+      // Don't touch address.city here: the combobox's own field value must
+      // stay exactly what municipalityOptions produced (composite value
+      // included, when disambiguated) or `selected` in ComboboxField stops
+      // matching and the trigger forgets the selection. The composite
+      // suffix is stripped downstream in addressInputSchema instead.
+      //
+      // Overwrite whatever's there (IP/GPS autofill or manual entry) with
+      // the postal code that actually matches the location the customer
+      // just picked -- that's more authoritative than a guess.
+      form.setFieldValue("address.postalCode", municipality.postalCode);
+    },
+    [form, selectedDelegation],
+  );
 
   const handleDetectLocation = useCallback(async () => {
     await autoLocation.detect();
@@ -220,8 +329,55 @@ export function CheckoutForm({ store }: CheckoutFormProps) {
                   )}
                 </form.AppField>
                 <div className="grid grid-cols-2 gap-4">
+                  <form.AppField name="address.governorate">
+                    {(field) => (
+                      <field.ComboboxInput
+                        label={t("delivery.governorate")}
+                        placeholder={t("delivery.selectGovernorate")}
+                        searchPlaceholder={t("delivery.searchGovernorate")}
+                        emptyMessage={t("delivery.noLocationResults")}
+                        options={governorateOptions}
+                        onValueChange={clearDelegationAndCity}
+                      />
+                    )}
+                  </form.AppField>
+                  <form.AppField name="address.delegation">
+                    {(field) => (
+                      <field.ComboboxInput
+                        label={t("delivery.delegation")}
+                        placeholder={t("delivery.selectDelegation")}
+                        searchPlaceholder={t("delivery.searchDelegation")}
+                        emptyMessage={t("delivery.noLocationResults")}
+                        options={delegationOptions}
+                        disabled={
+                          !selectedGovernorate ||
+                          delegationsQuery.isLoading ||
+                          delegationsQuery.isError
+                        }
+                        disabledReason={
+                          delegationsQuery.isError
+                            ? t("delivery.loadDelegationsError")
+                            : t("delivery.selectDelegationFirst")
+                        }
+                        onValueChange={clearCity}
+                      />
+                    )}
+                  </form.AppField>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
                   <form.AppField name="address.city">
-                    {(field) => <field.TextInput label={t("delivery.city")} />}
+                    {(field) => (
+                      <field.ComboboxInput
+                        label={t("delivery.city")}
+                        placeholder={t("delivery.selectCity")}
+                        searchPlaceholder={t("delivery.searchCity")}
+                        emptyMessage={t("delivery.noLocationResults")}
+                        options={municipalityOptions}
+                        disabled={!selectedDelegationName}
+                        disabledReason={t("delivery.selectCityFirst")}
+                        onValueChange={handleCitySelect}
+                      />
+                    )}
                   </form.AppField>
                   <form.AppField name="address.postalCode">
                     {(field) => (
