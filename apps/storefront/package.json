@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "sync:locations": "rm -rf public/tunisia-locations && mkdir -p public/tunisia-locations && cp -R ../../packages/common/src/data/tunisia-locations/by-governorate public/tunisia-locations/",
+    "predev": "pnpm sync:locations",
+    "prebuild": "pnpm sync:locations",
     "dev": "node ../../scripts/with-root-env.mjs next dev --port=3004",
     "build": "node ../../scripts/with-root-env.mjs next build",
     "start": "node ../../scripts/with-root-env.mjs next start",

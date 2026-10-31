@@ -12,22 +12,13 @@
  *     always-loaded top level of the checkout combobox. Small enough
  *     (~8KB) to import statically from `@dukkani/common`.
  *   - `by-governorate/<code>.json` — one file per governorate holding its
- *     delegations and municipalities (largest file is ~150KB raw). These
- *     are also copied to `apps/storefront/public/tunisia-locations/` so the
- *     checkout combobox can `fetch()` a governorate's delegations/
- *     municipalities on demand instead of shipping the whole dataset in the
- *     JS bundle.
+ *     delegations and municipalities (largest file is ~150KB raw). The
+ *     storefront copies these into its git-ignored `public/tunisia-locations/`
+ *     (`sync:locations`) so they can be fetched on demand.
  *
  * Run with: `pnpm --filter @dukkani/common build:tunisia-locations`
  */
-import {
-  cpSync,
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  rmSync,
-  writeFileSync,
-} from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -43,10 +34,6 @@ const GOVERNORATES_PATH = join(DATA_DIR, "governorates.json");
 // regeneration flow and isn't imported by any TS file.
 const GOVERNORATES_TS_PATH = join(DATA_DIR, "governorates.data.ts");
 const BY_GOVERNORATE_DIR = join(DATA_DIR, "by-governorate");
-const STOREFRONT_PUBLIC_DIR = join(
-  __dirname,
-  "../../../apps/storefront/public/tunisia-locations",
-);
 
 interface RawMunicipality {
   Name: string;
@@ -303,23 +290,8 @@ function main() {
     );
   }
 
-  // Mirror the per-governorate files into the storefront's public folder so
-  // the checkout combobox can fetch them as plain static assets (no bundler
-  // code-splitting tricks needed for a variable-path JSON import).
-  if (existsSync(STOREFRONT_PUBLIC_DIR)) {
-    rmSync(STOREFRONT_PUBLIC_DIR, { recursive: true, force: true });
-  }
-  mkdirSync(join(STOREFRONT_PUBLIC_DIR, "by-governorate"), {
-    recursive: true,
-  });
-  cpSync(GOVERNORATES_PATH, join(STOREFRONT_PUBLIC_DIR, "governorates.json"));
-  cpSync(BY_GOVERNORATE_DIR, join(STOREFRONT_PUBLIC_DIR, "by-governorate"), {
-    recursive: true,
-  });
-
   console.log(
     `Wrote ${GOVERNORATES_PATH} and ${governorates.length} file(s) in ${BY_GOVERNORATE_DIR}\n` +
-      `Mirrored to ${STOREFRONT_PUBLIC_DIR}\n` +
       `  governorates: ${governorates.length}\n` +
       `  delegations: ${delegationCount}\n` +
       `  municipalities: ${municipalityCount}`,

@@ -5,8 +5,8 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 /**
  * Delegations (and their municipalities) for one governorate, lazily
  * `fetch()`ed from a static asset — see
- * `packages/common/scripts/build-tunisia-locations.ts`, which mirrors these
- * files into `public/tunisia-locations/` at build time. Keeps the ~2MB full
+ * `sync:locations` in the storefront package.json, which copies them from
+ * `@dukkani/common` into `public/tunisia-locations/`. Keeps the ~2MB full
  * dataset out of the checkout page's JS bundle: only the governorate the
  * customer actually picks gets downloaded (largest file is ~150KB).
  */

@@ -62,3 +62,6 @@ next-env.d.ts
 
 # Lighthouserc
 /.lighthouseci
+
+# Mirrored from packages/common at dev/build time
+apps/storefront/public/tunisia-locations/
