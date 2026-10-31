@@ -49,6 +49,52 @@
     }
   },
   "settings": {
+    "profile": {
+      "title": "Profile Management",
+      "description": "Manage your account profile and preferences",
+      "avatar": {
+        "changeLabel": "Change photo",
+        "hint": "PNG or JPG, up to 5MB",
+        "uploadError": "Could not upload your photo. Please try again.",
+        "updateSuccess": "Profile photo updated"
+      },
+      "personalInfo": {
+        "title": "Personal Information",
+        "description": "Update your name and contact details",
+        "nameLabel": "Full Name",
+        "namePlaceholder": "Your display name",
+        "emailLabel": "Email Address",
+        "emailDescription": "Contact support to change your account email",
+        "submit": "Update Profile",
+        "success": "Profile updated successfully"
+      },
+      "security": {
+        "title": "Security",
+        "description": "Change your password and security settings",
+        "currentPasswordLabel": "Current Password",
+        "currentPasswordPlaceholder": "Enter your current password",
+        "newPasswordLabel": "New Password",
+        "newPasswordPlaceholder": "Enter your new password",
+        "confirmPasswordLabel": "Confirm New Password",
+        "confirmPasswordPlaceholder": "Re-enter your new password",
+        "submit": "Change Password",
+        "success": "Password changed successfully"
+      },
+      "oauth": {
+        "title": "Security",
+        "description": "You're signed in with a connected account",
+        "badge": "Logged in with {provider}"
+      },
+      "preferences": {
+        "title": "Account Preferences",
+        "description": "Manage your account settings",
+        "emailNotifications": "Email Notifications",
+        "emailNotificationsDescription": "Receive email updates about orders and account activity",
+        "smsNotifications": "SMS Notifications",
+        "smsNotificationsDescription": "Receive SMS updates about orders",
+        "comingSoon": "Coming soon"
+      }
+    },
     "theme": {
       "label": "Theme",
       "light": "Light",

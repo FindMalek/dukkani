@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@dukkani/ui/components/badge";
 import { Button } from "@dukkani/ui/components/button";
 import {
   Card,
@@ -8,13 +9,58 @@ import {
   CardHeader,
   CardTitle,
 } from "@dukkani/ui/components/card";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldGroup,
+  FieldTitle,
+} from "@dukkani/ui/components/field";
 import { Icons } from "@dukkani/ui/components/icons";
+import { Skeleton } from "@dukkani/ui/components/skeleton";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { ProfilePersonalInfoCard } from "@/components/app/settings/profile-personal-info-card";
+import { ProfileSecurityCard } from "@/components/app/settings/profile-security-card";
 import { RoutePaths } from "@/shared/config/routes";
+import { useProfileController } from "@/shared/lib/profile/controller.hook";
+
+function PersonalInfoCardSkeleton() {
+  return (
+    <Card>
+      <CardHeader>
+        <Skeleton className="h-5 w-40" />
+        <Skeleton className="mt-2 h-4 w-56" />
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <div className="flex items-center gap-4">
+          <Skeleton className="size-20 rounded-full" />
+          <div className="flex flex-col gap-2">
+            <Skeleton className="h-4 w-32" />
+            <Skeleton className="h-4 w-40" />
+          </div>
+        </div>
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-9 w-32" />
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function ProfileSettingsPage() {
+  const t = useTranslations("settings.profile");
+  const {
+    user,
+    isUserPending,
+    isAccountsPending,
+    hasPasswordAccount,
+    oauthProviderId,
+    uploadAvatarMutation,
+  } = useProfileController();
+
   return (
-    <div className="container mx-auto max-w-7xl p-4 md:p-6">
+    <div className="mx-auto w-full p-4 md:p-6 xl:max-w-2xl">
       <div className="mb-6">
         <div className="mb-4 flex items-center gap-4">
           <Link href={RoutePaths.SETTINGS.INDEX.url}>
@@ -23,114 +69,71 @@ export default function ProfileSettingsPage() {
             </Button>
           </Link>
           <div>
-            <h1 className="font-bold text-2xl md:text-3xl">
-              Profile Management
-            </h1>
+            <h1 className="font-bold text-2xl md:text-3xl">{t("title")}</h1>
             <p className="mt-2 text-muted-foreground text-sm md:text-base">
-              Manage your account profile and preferences
+              {t("description")}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Personal Information</CardTitle>
-            <CardDescription>
-              Update your name and contact details
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <label className="font-medium text-sm">Full Name</label>
-              <p className="text-muted-foreground text-sm">Your display name</p>
-            </div>
+      <div className="flex flex-col gap-6">
+        {isUserPending || !user ? (
+          <PersonalInfoCardSkeleton />
+        ) : (
+          <ProfilePersonalInfoCard
+            user={user}
+            uploadAvatarMutation={uploadAvatarMutation}
+          />
+        )}
 
-            <div className="space-y-2">
-              <label className="font-medium text-sm">Email Address</label>
-              <p className="text-muted-foreground text-sm">
-                Your account email
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <label className="font-medium text-sm">Phone Number</label>
-              <p className="text-muted-foreground text-sm">
-                Your contact phone number
-              </p>
-            </div>
-
-            <Button disabled>Update Profile</Button>
-          </CardContent>
-        </Card>
+        <ProfileSecurityCard
+          isLoading={isAccountsPending}
+          hasPasswordAccount={hasPasswordAccount}
+          oauthProviderId={oauthProviderId}
+        />
 
         <Card>
           <CardHeader>
-            <CardTitle>Security</CardTitle>
-            <CardDescription>
-              Change your password and security settings
-            </CardDescription>
+            <CardTitle>{t("preferences.title")}</CardTitle>
+            <CardDescription>{t("preferences.description")}</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <label className="font-medium text-sm">Current Password</label>
-              <p className="text-muted-foreground text-sm">
-                Enter your current password
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <label className="font-medium text-sm">New Password</label>
-              <p className="text-muted-foreground text-sm">
-                Enter your new password
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <label className="font-medium text-sm">
-                Confirm New Password
-              </label>
-              <p className="text-muted-foreground text-sm">
-                Re-enter your new password
-              </p>
-            </div>
-
-            <Button disabled>Change Password</Button>
+          <CardContent>
+            <FieldGroup className="gap-3">
+              <Field
+                orientation="horizontal"
+                className="rounded-lg border p-4"
+              >
+                <FieldContent>
+                  <FieldTitle>
+                    {t("preferences.emailNotifications")}
+                  </FieldTitle>
+                  <FieldDescription>
+                    {t("preferences.emailNotificationsDescription")}
+                  </FieldDescription>
+                </FieldContent>
+                <Badge variant="secondary">
+                  {t("preferences.comingSoon")}
+                </Badge>
+              </Field>
+              <Field
+                orientation="horizontal"
+                className="rounded-lg border p-4"
+              >
+                <FieldContent>
+                  <FieldTitle>{t("preferences.smsNotifications")}</FieldTitle>
+                  <FieldDescription>
+                    {t("preferences.smsNotificationsDescription")}
+                  </FieldDescription>
+                </FieldContent>
+                <Badge variant="secondary">
+                  {t("preferences.comingSoon")}
+                </Badge>
+              </Field>
+            </FieldGroup>
           </CardContent>
         </Card>
       </div>
-
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Account Preferences</CardTitle>
-          <CardDescription>Manage your account settings</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <label className="font-medium text-sm">Email Notifications</label>
-              <p className="text-muted-foreground text-sm">
-                Receive email updates about orders and account activity
-              </p>
-            </div>
-            <Button variant="outline" size="sm" disabled>
-              Toggle
-            </Button>
-          </div>
-          <div className="flex items-center justify-between">
-            <div>
-              <label className="font-medium text-sm">SMS Notifications</label>
-              <p className="text-muted-foreground text-sm">
-                Receive SMS updates about orders
-              </p>
-            </div>
-            <Button variant="outline" size="sm" disabled>
-              Toggle
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }

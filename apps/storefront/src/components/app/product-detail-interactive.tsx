@@ -46,41 +46,43 @@ export function ProductDetailInteractive({
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-4">
-        <ProductImageCarousel
-          images={product.imageUrls || []}
-          productName={product.name}
-          targetSlideIndex={targetSlideIndex}
-        />
-        <div className="mt-4 space-y-4">
-          <h1 className="font-bold text-foreground text-xl">{product.name}</h1>
-          {hasVariants && (
-            <p
-              className="font-semibold text-foreground text-lg tabular-nums"
-              dir="ltr"
-            >
-              {priceHeadline}
-            </p>
-          )}
-          {product.store && (
-            <StoreInfoCard
-              storeName={product.store.name}
-              storeSlug={product.store.slug}
-              ownerName={product.store.owner?.name}
-              ownerImage={product.store.owner?.image}
-              isOpen={isStoreOpen}
-            />
-          )}
-          <ProductVariantManager
-            productId={product.id}
-            productStock={product.stock}
-            productPrice={product.price}
-            hasVariants={hasVariants}
-            variantOptions={product.variantOptions}
-            variants={product.variants}
-            storeCurrency={store.currency}
-            onVariantSelectionResolved={handleVariantSelectionResolved}
+        <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-8 xl:gap-12">
+          <ProductImageCarousel
+            images={product.imageUrls || []}
+            productName={product.name}
+            targetSlideIndex={targetSlideIndex}
           />
-          <ProductDescription description={product.description} />
+          <div className="mt-4 space-y-4 lg:mt-0">
+            <h1 className="font-bold text-foreground text-xl">{product.name}</h1>
+            {hasVariants && (
+              <p
+                className="font-semibold text-foreground text-lg tabular-nums"
+                dir="ltr"
+              >
+                {priceHeadline}
+              </p>
+            )}
+            {product.store && (
+              <StoreInfoCard
+                storeName={product.store.name}
+                storeSlug={product.store.slug}
+                ownerName={product.store.owner?.name}
+                ownerImage={product.store.owner?.image}
+                isOpen={isStoreOpen}
+              />
+            )}
+            <ProductVariantManager
+              productId={product.id}
+              productStock={product.stock}
+              productPrice={product.price}
+              hasVariants={hasVariants}
+              variantOptions={product.variantOptions}
+              variants={product.variants}
+              storeCurrency={store.currency}
+              onVariantSelectionResolved={handleVariantSelectionResolved}
+            />
+            <ProductDescription description={product.description} />
+          </div>
         </div>
       </div>
     </div>
