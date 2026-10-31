@@ -9,6 +9,6 @@ import { z } from "zod";
  */
 export const kapsoModule = {
   server: {
-    KAPSO_API_KEY: z.string(),
+    KAPSO_API_KEY: z.string().optional(),
   },
 } as const;

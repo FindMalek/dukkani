@@ -69,6 +69,14 @@ class KapsoServiceBase {
     to: string,
     text: string,
   ): Promise<void> {
+    if (!apiEnv.KAPSO_API_KEY) {
+      logger.warn(
+        enhanceLogWithTraceContext({ phone_number_id: phoneNumberId }),
+        "KAPSO_API_KEY not set, skipping Kapso WhatsApp message",
+      );
+      return;
+    }
+
     addSpanAttributes({
       "kapso.phone_number_id": phoneNumberId,
       "kapso.message_length": text.length,
