@@ -3,6 +3,7 @@ export { BundleService } from "./bundle.service";
 export { CategoryService } from "./category.service";
 export { CollectionService } from "./collection.service";
 export { CustomerService } from "./customer.service";
+export { KapsoService } from "./kapso.service";
 export { LaunchNotificationService } from "./launch-notification.service";
 export { NotificationService } from "./notification.service";
 export {

@@ -47,6 +47,8 @@ export function createNextjsRuntimeEnv() {
     TELEGRAM_BOT_NAME: process.env.TELEGRAM_BOT_NAME,
     TELEGRAM_API_TOKEN: process.env.TELEGRAM_API_TOKEN,
     TELEGRAM_WEBHOOK_SECRET: process.env.TELEGRAM_WEBHOOK_SECRET,
+    // Kapso vars
+    KAPSO_API_KEY: process.env.KAPSO_API_KEY,
     // S3 storage module vars
     S3_ENDPOINT: process.env.S3_ENDPOINT,
     S3_ACCESS_KEY_ID: process.env.S3_ACCESS_KEY_ID,

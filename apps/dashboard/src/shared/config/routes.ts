@@ -99,6 +99,11 @@ export const RoutePaths = {
       label: "Storefront",
       icon: Icons.storefront,
     },
+    WHATSAPP: {
+      url: "/settings/whatsapp" as Route,
+      label: "WhatsApp",
+      icon: Icons.whatsapp,
+    },
   },
 } as const;
 
