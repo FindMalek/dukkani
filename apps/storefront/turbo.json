@@ -1,0 +1,9 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "env": ["$TURBO_EXTENDS$", "VERCEL_RELATED_PROJECTS"]
+    }
+  }
+}
