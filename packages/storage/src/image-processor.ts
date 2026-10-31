@@ -8,7 +8,25 @@ import type {
   ImageVariant,
   ProcessedImage,
 } from "@dukkani/common/schemas/storage/output";
-import sharp from "sharp";
+import type sharpType from "sharp";
+
+/**
+ * sharp does its native-addon dlopen at module-evaluation time, not on first
+ * call. Because this module is re-exported from the `@dukkani/storage`
+ * barrel, importing *anything* from that package (StorageService, env, ...)
+ * from any router previously forced sharp to load eagerly -- so a single
+ * bundling gap for the native binary broke every request through those
+ * routers, not just image-processing ones. Deferring the import to first use
+ * means sharp only loads on requests that actually process an image.
+ */
+let sharpModulePromise: Promise<typeof sharpType> | undefined;
+
+function getSharp(): Promise<typeof sharpType> {
+  if (!sharpModulePromise) {
+    sharpModulePromise = import("sharp").then((mod) => mod.default);
+  }
+  return sharpModulePromise;
+}
 
 /**
  * Image processor for optimization and variant generation
@@ -23,6 +41,8 @@ export class ImageProcessor {
     if (!isImageMimeType(file.type)) {
       throw new Error(`Unsupported image format: ${file.type}`);
     }
+
+    const sharp = await getSharp();
 
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
@@ -52,15 +72,14 @@ export class ImageProcessor {
           .toFormat(outputFormat, {
             quality: outputFormat === "webp" ? 85 : 90,
           })
-          .toBuffer();
+          .toBuffer({ resolveWithObject: true });
 
-        const variantMetadata = await sharp(resized).metadata();
         return {
           variant: StorageFileEntity.convertToImageVariant(variant),
-          buffer: resized,
-          width: variantMetadata.width ?? size.width,
-          height: variantMetadata.height ?? size.height,
-          fileSize: resized.length,
+          buffer: resized.data,
+          width: resized.info.width ?? size.width,
+          height: resized.info.height ?? size.height,
+          fileSize: resized.data.length,
           mimeType,
         } satisfies Omit<ImageVariant, "buffer"> & { buffer: Buffer };
       },
@@ -108,6 +127,8 @@ export class ImageProcessor {
       throw new Error(`Unsupported image format: ${file.type}`);
     }
 
+    const sharp = await getSharp();
+
     const buffer = Buffer.from(await file.arrayBuffer());
     const resized = await sharp(buffer)
       .resize(maxEdge, maxEdge, { fit: "inside", withoutEnlargement: true })
@@ -129,6 +150,8 @@ export class ImageProcessor {
       throw new Error(`Unsupported image format: ${mimeType}`);
     }
 
+    const sharp = await getSharp();
+
     const metadata = await sharp(buffer).metadata();
     if (!metadata.width || !metadata.height) {
       throw new Error("Invalid image: unable to read dimensions");
@@ -149,15 +172,14 @@ export class ImageProcessor {
           .toFormat(outputFormat, {
             quality: outputFormat === "webp" ? 85 : 90,
           })
-          .toBuffer();
+          .toBuffer({ resolveWithObject: true });
 
-        const variantMetadata = await sharp(resized).metadata();
         return {
           variant: StorageFileEntity.convertToImageVariant(variant),
-          buffer: resized,
-          width: variantMetadata.width ?? size.width,
-          height: variantMetadata.height ?? size.height,
-          fileSize: resized.length,
+          buffer: resized.data,
+          width: resized.info.width ?? size.width,
+          height: resized.info.height ?? size.height,
+          fileSize: resized.data.length,
           mimeType: outputMimeType,
         } satisfies Omit<ImageVariant, "buffer"> & { buffer: Buffer };
       },

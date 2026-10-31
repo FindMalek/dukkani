@@ -1,0 +1,88 @@
+name: PR link issue
+
+# We track work through the GitHub Project board (#6), which relies on
+# GitHub's native "Closes #N" detection to link a PR to its issue (shows in
+# the issue's Development sidebar, drives project board status automation,
+# auto-closes the issue on merge). That detection only fires if the PR body
+# actually contains a closing keyword, which nobody was doing consistently.
+#
+# This infers the issue number from the branch name (existing convention:
+# `type/NNN-slug` or `NNN-slug`, e.g. `fix/593-sharp-pin-regression`) and
+# appends "Closes #N" to the PR body if nothing already links an issue.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: read
+
+concurrency:
+  group: pr-link-issue-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  link-issue:
+    # Only PRs targeting the default branch: GitHub's closing-keyword automation
+    # (auto-close on merge, project board status) only fires on the default
+    # branch, so linking anywhere else would report success without the effect.
+    if: >
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.base.ref == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+      BRANCH: ${{ github.event.pull_request.head.ref }}
+    steps:
+      - name: Link PR to its GH issue
+        run: |
+          PR_JSON=$(gh pr view "$PR" --repo "$REPO" --json body,closingIssuesReferences)
+          BODY=$(printf '%s' "$PR_JSON" | jq -r '.body // ""')
+          CLOSING_COUNT=$(printf '%s' "$PR_JSON" | jq '.closingIssuesReferences | length')
+
+          # Ask GitHub what it actually parsed instead of re-implementing the
+          # keyword grammar: this covers "Closes: #12", "Fixes owner/repo#12",
+          # and references added through the Development sidebar.
+          if [ "$CLOSING_COUNT" -gt 0 ]; then
+            echo "PR already has GitHub-parsed closing issue references, nothing to do."
+            exit 0
+          fi
+
+          ISSUE=$(printf '%s' "$BRANCH" \
+            | grep -oE '(^|/)[0-9]+-' \
+            | grep -oE '[0-9]+' \
+            | head -1 || true)
+
+          if [ -z "$ISSUE" ]; then
+            echo "::warning::No issue number found in branch name ($BRANCH) and the PR body doesn't reference one. Link a GH issue manually (e.g. add 'Closes #N' to the description) so the project board tracks this PR."
+            exit 0
+          fi
+
+          STATE=$(gh issue view "$ISSUE" --repo "$REPO" --json state --jq '.state' 2>/dev/null || echo "")
+          if [ -z "$STATE" ]; then
+            echo "::warning::Branch name implies issue #$ISSUE, but no such issue exists. Skipping auto-link."
+            exit 0
+          fi
+
+          CURRENT_PR_JSON=$(gh pr view "$PR" --repo "$REPO" --json body,closingIssuesReferences)
+          CURRENT_BODY=$(printf '%s' "$CURRENT_PR_JSON" | jq -r '.body // ""')
+          CURRENT_CLOSING_COUNT=$(printf '%s' "$CURRENT_PR_JSON" | jq '.closingIssuesReferences | length')
+
+          if [ "$CURRENT_CLOSING_COUNT" -gt 0 ]; then
+            echo "A closing issue reference was added while this job was running, nothing to do."
+            exit 0
+          fi
+
+          if [ "$CURRENT_BODY" != "$BODY" ]; then
+            echo "::warning::The PR body changed while this job was running. Skipping the stale update; the edited event will retry with the latest body."
+            exit 0
+          fi
+
+          NEW_BODY=$(printf '%s\n\nCloses #%s' "$CURRENT_BODY" "$ISSUE")
+          gh pr edit "$PR" --repo "$REPO" --body "$NEW_BODY"
+          echo "Linked PR #$PR to issue #$ISSUE"

@@ -303,6 +303,21 @@ class StoreServiceBase {
   }
 
   /**
+   * List every slug that getStoreBySlugPublic currently resolves (DRAFT shows
+   * "Coming Soon", PUBLISHED shows the storefront). SUSPENDED/ARCHIVED are
+   * excluded since getStoreBySlugPublic treats them as not found too.
+   * Used to validate subdomains before paying for a full render + DB miss.
+   */
+  static async listPublicSlugs(): Promise<string[]> {
+    const stores = await database.store.findMany({
+      where: { status: { in: [StoreStatus.DRAFT, StoreStatus.PUBLISHED] } },
+      select: { slug: true },
+    });
+
+    return stores.map((store) => store.slug);
+  }
+
+  /**
    * Update store configuration (theme and category)
    */
   static async updateStoreConfiguration(

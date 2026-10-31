@@ -1,3 +1,4 @@
 {
-  "relatedProjects": ["prj_K3UBGTooRpmNyl2Q9AFAHJ04Hm7L"]
+  "relatedProjects": ["prj_K3UBGTooRpmNyl2Q9AFAHJ04Hm7L"],
+  "ignoreCommand": "bash $(git rev-parse --show-toplevel)/scripts/vercel-ignore-build.sh @dukkani/dashboard"
 }

@@ -40,6 +40,12 @@
     "check-types:fast": {
       "dependsOn": ["^check-types:fast"]
     },
+    "@dukkani/ci-tools#check-types": {
+      "dependsOn": ["^check-types", "@dukkani/storage#build"]
+    },
+    "@dukkani/ci-tools#check-types:fast": {
+      "dependsOn": ["^check-types:fast", "@dukkani/storage#build"]
+    },
     "dev": {
       "cache": false,
       "persistent": true,

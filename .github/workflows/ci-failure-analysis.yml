@@ -3,6 +3,7 @@ name: CI Failure Analysis
 on:
   workflow_run:
     workflows:
+      - "CI"
       - "Lighthouse CI"
       - "Prisma Migrate Deploy"
       - "Languine Translation"

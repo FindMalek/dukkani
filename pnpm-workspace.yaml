@@ -56,8 +56,10 @@ catalog:
   react: 19.2.7
   react-dom: 19.2.7
   react-dropzone: ^17.0.0
-  # Pinned below 0.35.x: Turbopack regression, ERR_DLOPEN_FAILED on Vercel. See #570.
-  sharp: ^0.35.0
+  # Pinned below 0.35.x: Turbopack regression, ERR_DLOPEN_FAILED on Vercel. See #570, #593.
+  # Do not bump past 0.34.x without confirming Turbopack + libvips compat first.
+  # scripts/../packages/ci-tools check-pinned-deps enforces this exact value in CI.
+  sharp: ^0.34.4
   sonner: 2.0.7
   tailwindcss: ^4.3.3
   tsdown: ^0.22.9
@@ -83,4 +85,4 @@ overrides:
   '@hono/node-server': '>=1.19.13'
   # Next.js bundles its own sharp at a different version than our catalog
   # pin — force one version everywhere. See #518. Keep in sync with catalog.
-  sharp: ^0.35.0
+  sharp: ^0.34.4
