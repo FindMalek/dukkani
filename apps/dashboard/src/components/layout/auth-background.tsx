@@ -2,13 +2,27 @@ import { Icons } from "@dukkani/ui/components/icons";
 
 export function AuthBackground() {
   return (
-    <div className="relative hidden bg-linear-to-br from-background to-muted lg:block lg:w-1/2">
+    <div className="relative hidden overflow-hidden bg-linear-to-br from-background to-muted lg:block lg:w-1/2">
+      <style>{`
+        @keyframes auth-bg-drift {
+          0% { transform: translate3d(0, 0, 0) scale(1.15) rotate(0deg); }
+          50% { transform: translate3d(-3%, 2%, 0) scale(1.25) rotate(2deg); }
+          100% { transform: translate3d(2%, -3%, 0) scale(1.15) rotate(-2deg); }
+        }
+        .auth-bg-drift {
+          animation: auth-bg-drift 40s ease-in-out infinite alternate;
+          will-change: transform;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .auth-bg-drift { animation: none; transform: none; will-change: auto; }
+        }
+      `}</style>
       {/* Logo in top left */}
       <div className="absolute top-6 left-6 z-10">
         <Icons.logo className="size-6" />
       </div>
 
-      <div className="absolute inset-0 opacity-40">
+      <div className="auth-bg-drift absolute inset-0 opacity-40">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="894"
