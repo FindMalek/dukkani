@@ -56,7 +56,7 @@ export function OnboardingCompletion({ storeId }: { storeId: string }) {
         </p>
         <div className="flex items-center gap-2 rounded-md border bg-background p-2 pl-4">
           <span className="flex-1 truncate font-mono text-muted-foreground text-sm">
-            {completionMutation.data?.storeUrl}
+            {completionMutation.data?.storeUrl?.replace(/^https?:\/\//, "")}
           </span>
           <Button
             size="icon"

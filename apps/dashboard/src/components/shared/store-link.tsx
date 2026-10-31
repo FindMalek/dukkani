@@ -29,6 +29,7 @@ export function StoreLink({
   // always includes a protocol today), but a bare domain here would silently
   // become a relative path when used as an <a href>.
   const href = /^https?:\/\//.test(url) ? url : `https://${url}`;
+  const displayUrl = url.replace(/^https?:\/\//, "");
 
   return (
     <div className={cn("space-y-2", className)}>
@@ -37,7 +38,7 @@ export function StoreLink({
       </Label>
       <div className="flex items-center gap-2 rounded-lg border border-border/50 p-4">
         <span className="flex-1 truncate font-semibold text-base text-foreground">
-          {url}
+          {displayUrl}
         </span>
         <Button
           type="button"
