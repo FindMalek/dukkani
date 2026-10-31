@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { governorateSchema } from "../enums";
+import { governorateSchema } from "@dukkani/common/schemas/enums";
 
 export const createAddressInputSchema = z.object({
   street: z.string().min(1, "Address line is required"),

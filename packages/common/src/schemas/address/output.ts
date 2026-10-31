@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { governorateSchema } from "../enums";
+import { governorateSchema } from "@dukkani/common/schemas/enums";
 
 export const addressSimpleOutputSchema = z.object({
   id: z.string(),
