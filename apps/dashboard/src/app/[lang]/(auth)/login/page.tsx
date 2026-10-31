@@ -1,8 +1,7 @@
 import { Icons } from "@dukkani/ui/components/icons";
 import type { Metadata } from "next";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import Link from "next/link";
-import { userAgent } from "next/server";
 import { AppleSignIn } from "@/components/app/auth/apple-sign-in";
 import { EmailSignIn } from "@/components/app/auth/email-sign-in";
 import { FacebookSignIn } from "@/components/app/auth/facebook-sign-in";
@@ -17,85 +16,21 @@ export const metadata: Metadata = {
 
 export default async function LoginPage() {
   const cookieStore = await cookies();
-  const { device } = userAgent({ headers: await headers() });
   const preferred = cookieStore.get(cookieConstants.LAST_LOGIN_METHOD);
 
-  let moreSignInOptions = null;
-  let preferredSignInOption =
-    device?.vendor === "Apple" ? (
-      <div className="flex w-full flex-col space-y-3">
-        <GoogleSignIn showLastUsed={preferred?.value === "google"} />
-        <AppleSignIn showLastUsed={preferred?.value === "apple"} />
-      </div>
-    ) : (
-      <GoogleSignIn
-        showLastUsed={!preferred?.value || preferred?.value === "google"}
-      />
-    );
+  const preferredSignInOption = (
+    <GoogleSignIn
+      showLastUsed={!preferred?.value || preferred.value === "google"}
+    />
+  );
 
-  switch (preferred?.value) {
-    case "apple":
-      preferredSignInOption = <AppleSignIn showLastUsed={true} />;
-      moreSignInOptions = (
-        <>
-          <GoogleSignIn />
-          <FacebookSignIn />
-          <EmailSignIn className="border-border border-t pt-8" />
-        </>
-      );
-      break;
-
-    case "facebook":
-      preferredSignInOption = <FacebookSignIn showLastUsed={true} />;
-      moreSignInOptions = (
-        <>
-          <GoogleSignIn />
-          <AppleSignIn />
-          <EmailSignIn className="border-border border-t pt-8" />
-        </>
-      );
-      break;
-
-    case "google":
-      preferredSignInOption = <GoogleSignIn showLastUsed={true} />;
-      moreSignInOptions = (
-        <>
-          <AppleSignIn />
-          <FacebookSignIn />
-          <EmailSignIn className="border-border border-t pt-8" />
-        </>
-      );
-      break;
-
-    case "email":
-      preferredSignInOption = <EmailSignIn />;
-      moreSignInOptions = (
-        <>
-          <GoogleSignIn />
-          <AppleSignIn />
-          <FacebookSignIn />
-        </>
-      );
-      break;
-
-    default:
-      if (device?.vendor === "Apple") {
-        moreSignInOptions = (
-          <>
-            <FacebookSignIn />
-            <EmailSignIn className="border-border border-t pt-8" />
-          </>
-        );
-      } else {
-        moreSignInOptions = (
-          <>
-            <AppleSignIn />
-            <FacebookSignIn />
-            <EmailSignIn className="border-border border-t pt-8" />
-          </>
-        );
-      }
-  }
+  const moreSignInOptions = (
+    <>
+      <AppleSignIn disabled />
+      <FacebookSignIn disabled />
+      <EmailSignIn className="border-border border-t pt-8" />
+    </>
+  );
 
   return (
     <div className="flex min-h-screen bg-background">
