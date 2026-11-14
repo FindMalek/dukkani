@@ -3,7 +3,7 @@
 Scope: signup, store setup, store configuration, completion, first product, first storefront order.
 Method: static audit of the components, locale files and schemas. Browser pass not done (the dev stack needs the DB, auth and Infisical secrets, so it was not run in this worktree). Layout points below come from reading class names, not from rendering at 320/390/768/1280. Treat the width and RTL items as hypotheses to confirm in a browser before fixing.
 
-Languages: dashboard and storefront ship `fr` and `ar` (`packages/common/src/locale/*`). Key parity between fr and ar is fine except two keys. The French copy is the bigger problem.
+Languages: dashboard and storefront ship `fr` and `ar` (`packages/common/src/locale/*`). Key parity between fr and ar looks close, with a small number of keys missing on one side (not yet counted). The French copy is the bigger problem.
 
 Severity:
 - P1: blocks or misleads a merchant at a key milestone (signup to first order), or shows wrong-language copy in a core flow.
@@ -24,7 +24,7 @@ Routes are dashboard unless marked storefront. File paths are under `apps/dashbo
   - `onboarding.errors.emailAlreadyInUse`, `onboarding.errors.storeLoadFailed` (English in fr; the code reads these keys)
   - `onboarding.steps.*` (step titles from the controller), `onboarding.actions.retry`
   - `settings.logout.*`, `customers.list.*`, `orders.detail.*`, `products.create.form.*` (for example "Save changes", "Generate with AI", "Order Items")
-- The scan was a crude English-word match and it flagged 46 keys. That is a floor, not the full count.
+- The scan was a crude English-word match and it flagged 46 keys. Treat that as a rough floor, not a verified count.
 - Fix (one PR): translate the onboarding namespace and the products.create namespace, then add a check that fails when an fr value equals its en/ar counterpart or contains the English tokens above.
 
 ### 2. Checkout validation errors are English in Arabic and French (#651)
@@ -41,7 +41,7 @@ Routes are dashboard unless marked storefront. File paths are under `apps/dashbo
 
 ### 4. Merchants who configure the store skip the completion step (#653)
 
-- Where: `app/[lang]/(auth)/layout.tsx` (lines ~24-31) redirects any user with step `STORE_CONFIGURED` to `/dashboard`. `app/[lang]/(auth)/onboarding/page.tsx` has no branch for `STORE_CONFIGURED`, so the page renders nothing for it. The server sets `STORE_CONFIGURED` in `packages/orpc/src/routers/dashboard/store.ts` (line ~91) and only the `complete` call moves it to `STORE_LAUNCHED`.
+- Where: `app/[lang]/(auth)/layout.tsx` (lines ~24-31) redirects any user with step `STORE_CONFIGURED` to `/dashboard`. `app/[lang]/(auth)/onboarding/page.tsx` has no branch for `STORE_CONFIGURED`, so the page may render nothing for it (not yet confirmed in a browser). The server sets `STORE_CONFIGURED` in `packages/orpc/src/routers/dashboard/store.ts` (line ~91) and only the `complete` call moves it to `STORE_LAUNCHED`.
 - What breaks: if the merchant closes the tab or refreshes between "configure" and the completion screen, they land on the dashboard without seeing the storefront link or the Telegram step. Nothing calls `onboarding.complete` in that path, so onboarding stays unfinished. The `(dashboard)/layout.tsx` only redirects `STORE_SETUP`, so the dashboard does not send them back either.
 - Fix (one PR): treat `STORE_CONFIGURED` as "show completion" in the auth layout and the onboarding page (or call complete on the configure success path), and add the missing branch.
 
