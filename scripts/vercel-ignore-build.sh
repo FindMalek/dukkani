@@ -31,6 +31,13 @@ APP="${1:?usage: vercel-ignore-build.sh <workspace-name>}"
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
 
+# Only main gets Vercel builds. PR previews run on Dokploy. Vercel's
+# git.deploymentEnabled cannot express "main only" (unlisted branches default to on).
+if [[ "${VERCEL_GIT_COMMIT_REF:-}" != "main" ]]; then
+  echo "Branch '${VERCEL_GIT_COMMIT_REF:-unknown}' is not main, skipping Vercel build"
+  exit 0
+fi
+
 if [[ "${VERCEL_GIT_COMMIT_REF:-}" == *"skip-vercel"* ]]; then
   echo "Branch '$VERCEL_GIT_COMMIT_REF' requests skip-vercel — skipping build"
   exit 0
