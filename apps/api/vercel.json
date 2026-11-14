@@ -1,3 +1,4 @@
 {
-  "ignoreCommand": "bash $(git rev-parse --show-toplevel)/scripts/vercel-ignore-build.sh @dukkani/api"
+  "ignoreCommand": "bash $(git rev-parse --show-toplevel)/scripts/vercel-ignore-build.sh @dukkani/api",
+  "git": { "deploymentEnabled": { "main": true, "*": false } }
 }
