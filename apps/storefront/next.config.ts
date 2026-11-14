@@ -15,6 +15,7 @@ process.env.NEXT_PUBLIC_API_URL = apiUrl;
 const withNextIntl = createNextIntlPlugin("./src/shared/config/i18n.ts");
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   reactCompiler: true,
   transpilePackages: ["@dukkani/ui", "@dukkani/env"],
   serverExternalPackages: [
