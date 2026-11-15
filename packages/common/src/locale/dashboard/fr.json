@@ -1,15 +1,15 @@
 {
   "dashboard": {
-    "title": "Dashboard",
-    "description": "Dashboard description",
+    "title": "Tableau de bord",
+    "description": "Description du tableau de bord",
     "overview": {
       "storeHeader": {
-        "liveStore": "Magasin en direct",
-        "yourStoreLink": "Votre lien de magasin",
-        "tapToCopy": "Appuyez pour copier et partager"
+        "liveStore": "En ligne",
+        "yourStoreLink": "Lien boutique",
+        "tapToCopy": "Touchez pour copier"
       },
       "todaysPerformance": {
-        "title": "PERFORMANCE",
+        "title": "PERFORMANCES",
         "orders": "Commandes",
         "revenue": "Revenus"
       },
@@ -19,14 +19,14 @@
       },
       "quickActions": {
         "title": "ACTIONS RAPIDES",
-        "addProduct": "Ajouter un nouveau produit",
-        "viewOrders": "Voir toutes les commandes"
+        "addProduct": "Nouveau produit",
+        "viewOrders": "Voir commandes"
       }
     },
     "storeInitializer": {
-      "loadError": "Could not load your stores. Please try again.",
-      "noStores": "You don't have any stores yet. Create one to continue.",
-      "goToOnboarding": "Go to onboarding"
+      "loadError": "Impossible de charger vos magasins. Réessayez.",
+      "noStores": "Vous n'avez pas encore de magasin. Créez-en un pour continuer.",
+      "goToOnboarding": "Commencer la configuration"
     },
     "sidebar": {
       "create": "Créer"
@@ -35,15 +35,15 @@
   "auth": {
     "emailSignIn": {
       "continue": "Continuer",
-      "rememberMe": "Souviens-toi de moi",
+      "rememberMe": "Rester connecté",
       "back": "Retour",
       "signIn": "Se connecter",
       "email": {
-        "placeholder": "Entrez votre email",
+        "placeholder": "Entrez votre e-mail",
         "label": "Adresse e-mail"
       },
       "password": {
-        "placeholder": "Entrez votre mot de passe",
+        "placeholder": "Votre mot de passe",
         "label": "Mot de passe"
       }
     }
@@ -64,20 +64,20 @@
         "nameLabel": "Nom complet",
         "namePlaceholder": "Votre nom d'affichage",
         "emailLabel": "Adresse e-mail",
-        "emailDescription": "Contactez le support pour modifier l'e-mail de votre compte",
-        "submit": "Mettre à jour le profil",
+        "emailDescription": "Contactez le support pour changer l'e-mail de votre compte",
+        "submit": "Mettre à jour",
         "success": "Profil mis à jour avec succès"
       },
       "security": {
         "title": "Sécurité",
-        "description": "Modifiez votre mot de passe et vos paramètres de sécurité",
+        "description": "Modifiez votre mot de passe et votre sécurité",
         "currentPasswordLabel": "Mot de passe actuel",
         "currentPasswordPlaceholder": "Entrez votre mot de passe actuel",
         "newPasswordLabel": "Nouveau mot de passe",
-        "newPasswordPlaceholder": "Entrez votre nouveau mot de passe",
-        "confirmPasswordLabel": "Confirmer le nouveau mot de passe",
-        "confirmPasswordPlaceholder": "Ressaisissez votre nouveau mot de passe",
-        "submit": "Changer le mot de passe",
+        "newPasswordPlaceholder": "Votre nouveau mot de passe",
+        "confirmPasswordLabel": "Confirmer le mot de passe",
+        "confirmPasswordPlaceholder": "Ressaisissez le mot de passe",
+        "submit": "Changer mot de passe",
         "success": "Mot de passe changé avec succès"
       },
       "oauth": {
@@ -89,10 +89,10 @@
         "title": "Préférences du compte",
         "description": "Gérez les paramètres de votre compte",
         "emailNotifications": "Notifications par e-mail",
-        "emailNotificationsDescription": "Recevez des mises à jour par e-mail sur les commandes et l'activité du compte",
+        "emailNotificationsDescription": "Mises à jour par e-mail sur les commandes et le compte",
         "smsNotifications": "Notifications par SMS",
-        "smsNotificationsDescription": "Recevez des mises à jour par SMS sur les commandes",
-        "comingSoon": "Bientôt disponible"
+        "smsNotificationsDescription": "Mises à jour SMS sur les commandes",
+        "comingSoon": "Bientôt"
       }
     },
     "theme": {
@@ -102,11 +102,11 @@
       "system": "Système"
     },
     "logout": {
-      "button": "Log out",
-      "title": "Log out of your account?",
-      "description": "You will be redirected to the login page. Any unsaved changes in other tabs may be lost.",
-      "cancel": "Cancel",
-      "confirm": "Log out"
+      "button": "Déconnexion",
+      "title": "Se déconnecter de votre compte ?",
+      "description": "Vous serez redirigé vers la connexion. Les modifications non enregistrées pourraient être perdues.",
+      "cancel": "Annuler",
+      "confirm": "Déconnexion"
     },
     "telegram": {
       "title": "Notifications Telegram",
@@ -116,20 +116,20 @@
       "linkButton": "Lier via Telegram",
       "disconnectButton": "Déconnecter Telegram",
       "disconnectTitle": "Déconnecter le compte Telegram",
-      "disconnectDescription": "Pour confirmer la déconnexion, veuillez entrer le nom de l'une de vos boutiques :",
-      "disconnectPlaceholder": "Entrer le nom de la boutique",
+      "disconnectDescription": "Pour confirmer, saisissez le nom d'un de vos magasins :",
+      "disconnectPlaceholder": "Nom de la boutique",
       "disconnectSuccess": "Compte Telegram déconnecté avec succès",
-      "disconnectError": "Le nom de la boutique ne correspond pas. Veuillez réessayer.",
+      "disconnectError": "Nom de boutique incorrect. Réessayez.",
       "disconnectNotLinked": "Le compte Telegram n'est pas lié",
       "yourStores": "Vos boutiques :",
       "otpCode": "Code OTP",
       "storeNameLabel": "Nom de la boutique",
       "cancelButton": "Annuler",
-      "option1": "Option 1 : Cliquez sur le lien ci-dessous",
-      "option2": "Option 2 : Scannez le code QR",
+      "option1": "Option 1 : cliquez sur le lien",
+      "option2": "Option 2 : scannez le QR",
       "expires": "Ce lien expire dans 10 minutes. Si Telegram n'est pas installé, vous pouvez l'installer depuis",
       "error": "Une erreur est survenue. Veuillez réessayer.",
-      "storeNameRequired": "Le nom de la boutique est requis"
+      "storeNameRequired": "Nom de boutique requis"
     }
   },
   "onboarding": {
@@ -141,11 +141,11 @@
         "placeholder": "Mon Super Magasin"
       },
       "notifications": {
-        "label": "Comment souhaitez-vous recevoir les alertes de nouvelles commandes ?",
+        "label": "Comment recevoir les alertes de commande ?",
         "options": {
           "email": {
             "label": "Notifications par e-mail",
-            "description": "Envoyées à votre adresse e-mail de connexion"
+            "description": "Envoyées à votre e-mail de connexion"
           },
           "telegram": {
             "label": "Alertes Telegram",
@@ -158,8 +158,8 @@
         }
       },
       "currency": {
-        "label": "Store Currency",
-        "placeholder": "Select your store currency"
+        "label": "Devise du magasin",
+        "placeholder": "Choisissez la devise"
       },
       "submit": "Continuer"
     },
@@ -179,11 +179,11 @@
           },
           "food": {
             "label": "Alimentation",
-            "description": "Produits alimentaires et boissons"
+            "description": "Aliments et boissons"
           },
           "home": {
             "label": "Maison",
-            "description": "Décoration et essentiels pour la maison"
+            "description": "Déco et essentiels maison"
           },
           "beauty": {
             "label": "Beauté",
@@ -208,7 +208,7 @@
         }
       },
       "theme": {
-        "label": "Choisissez le thème de votre magasin",
+        "label": "Choisissez le thème",
         "options": {
           "light": {
             "label": "Clair",
@@ -232,50 +232,50 @@
           }
         }
       },
-      "submit": "Terminer la configuration"
+      "submit": "Terminer"
     },
     "steps": {
       "signup": "Compte",
-      "storeSetup": "Store Setup",
+      "storeSetup": "Création du magasin",
       "storeConfiguration": "Configurer",
       "complete": "Prêt",
-      "welcome": "Welcome",
-      "welcomeDescription": "Get started with your store setup",
-      "storeSetupDescription": "Create your store",
-      "storeCreated": "Store Created",
-      "storeCreatedDescription": "Configure your store",
-      "storeConfigured": "Store Configured",
-      "storeConfiguredDescription": "Launch your store",
-      "storeLaunched": "Store Launched",
-      "storeLaunchedDescription": "Onboarding complete",
-      "storeSetupShort": "Store"
+      "welcome": "Bienvenue",
+      "welcomeDescription": "Démarrez votre configuration",
+      "storeSetupDescription": "Créez votre magasin",
+      "storeCreated": "Magasin créé",
+      "storeCreatedDescription": "Configurez votre magasin",
+      "storeConfigured": "Magasin configuré",
+      "storeConfiguredDescription": "Lancez votre magasin",
+      "storeLaunched": "Magasin lancé",
+      "storeLaunchedDescription": "Configuration terminée",
+      "storeSetupShort": "Magasin"
     },
     "actions": {
-      "retry": "Retry"
+      "retry": "Réessayer"
     },
     "signup": {
       "title": "Créez votre compte",
-      "subtitle": "Rejoignez Dukkani et commencez à vendre dès aujourd'hui",
+      "subtitle": "Rejoignez Dukkani dès aujourd'hui",
       "name": {
-        "label": "Comment devrions-nous vous appeler ?",
+        "label": "Quel est votre nom ?",
         "placeholder": "Entrez votre nom complet"
       },
       "email": {
         "label": "Adresse e-mail",
         "placeholder": "votre@email.com",
-        "description": "Nous avons prérempli ce champ à partir de l'étape précédente",
+        "description": "Pré-rempli à partir de l'étape précédente",
         "missingWarning": "L'adresse e-mail n'a pas été fournie. Veuillez entrer votre adresse e-mail pour continuer.",
         "existsError": "L'email existe déjà. Veuillez utiliser un autre email.",
         "readonlyHint": "L'email fourni dans l'URL ne peut pas être modifié",
-        "validating": "Vérification de la disponibilité de l'email..."
+        "validating": "Vérification de l'e-mail…"
       },
       "password": {
-        "label": "Choisissez un mot de passe",
+        "label": "Votre mot de passe",
         "placeholder": "Minimum 8 caractères"
       },
-      "submit": "Continuer vers la configuration du magasin",
+      "submit": "Continuer vers le magasin",
       "alreadyHaveAccount": "Vous avez déjà un compte ?",
-      "login": "Se connecter",
+      "login": "Connexion",
       "agreeText": "En continuant, vous acceptez nos",
       "terms": "Conditions",
       "and": "et",
@@ -283,13 +283,13 @@
     },
     "complete": {
       "title": "Tout est prêt !",
-      "subtitle": "Votre magasin est prêt à commencer à recevoir des commandes.",
+      "subtitle": "Votre magasin est prêt à recevoir des commandes.",
       "storeLink": {
         "label": "Lien de votre magasin",
-        "copied": "Lien copié dans le presse-papiers !"
+        "copied": "Lien copié avec succès !"
       },
       "telegram": {
-        "title": "Alertes de commande instantanées",
+        "title": "Alertes de commande",
         "description": "Connectez votre Telegram pour être notifié dès qu'un client passe une commande.",
         "otpLabel": "Votre code OTP",
         "connectButton": "Connecter",
@@ -297,7 +297,7 @@
       },
       "actions": {
         "addProduct": "Ajouter votre premier produit",
-        "goToDashboard": "Aller au tableau de bord"
+        "goToDashboard": "Tableau de bord"
       },
       "errors": {
         "emailAlreadyInUse": "Un compte avec cet e-mail existe déjà. Veuillez utiliser un autre e-mail ou vous connecter.",
@@ -305,34 +305,34 @@
       }
     },
     "errors": {
-      "emailAlreadyInUse": "An account with this email already exists. Please use a different email or sign in.",
-      "storeLoadFailed": "We couldn't load your store. Refresh the page or contact support."
+      "emailAlreadyInUse": "Un compte existe déjà avec cet e-mail. Utilisez une autre adresse ou connectez-vous.",
+      "storeLoadFailed": "Impossible de charger votre magasin. Actualisez la page ou contactez le support."
     }
   },
   "orders": {
     "list": {
       "title": "Commandes",
       "description": "Voir et gérer les commandes",
-      "searchPlaceholder": "Rechercher par nom, téléphone ou numéro de commande #",
-      "empty": "Aucune commande trouvée. Les commandes apparaîtront ici une fois que les clients commenceront à les passer.",
-      "error": "Erreur de chargement des commandes. Veuillez réessayer plus tard.",
-      "retry": "Retry",
-      "refresh": "Rafraîchir les commandes",
+      "searchPlaceholder": "Nom, téléphone ou n° de commande",
+      "empty": "Aucune commande pour l'instant. Elles apparaîtront ici dès qu'un client en passe.",
+      "error": "Erreur de chargement des commandes. Réessayez plus tard.",
+      "retry": "Réessayer",
+      "refresh": "Actualiser",
       "call": "Appeler",
       "advanceStatus": "Avancer",
       "itemsCount": "{count} articles",
-      "cashOnDelivery": "Paiement à la livraison",
+      "cashOnDelivery": "Contre-remboursement",
       "card": "Carte",
       "today": "Aujourd'hui",
       "yesterday": "Hier",
-      "viewOrder": "Voir la commande {id}",
+      "viewOrder": "Voir commande {id}",
       "filters": {
         "all": "Tout",
         "pending": "En attente",
         "confirmed": "Confirmé",
         "processing": "En traitement",
         "shipped": "Expédié",
-        "delivered": "Livré",
+        "delivered": "Livrées",
         "cancelled": "Annulé"
       },
       "status": {
@@ -344,16 +344,16 @@
         "cancelled": "Annulé"
       },
       "filterDrawer": {
-        "title": "Filtrer les commandes",
+        "title": "Filtres",
         "clearAll": "Tout effacer",
-        "apply": "Appliquer les filtres",
+        "apply": "Appliquer",
         "status": "Statut",
         "dateRange": "Plage de dates",
-        "pickDateRange": "Choisir une plage de dates",
-        "from": "De",
+        "pickDateRange": "Choisir la période",
+        "from": "Du",
         "to": "À"
       },
-      "loading": "Chargement des commandes…",
+      "loading": "Chargement…",
       "table": {
         "orderNumber": "Commande",
         "customer": "Client",
@@ -365,50 +365,50 @@
       }
     },
     "detail": {
-      "backToOrders": "Back to orders",
-      "title": "Order Details",
-      "payment": "Payment",
-      "items": "Items",
+      "backToOrders": "Retour aux commandes",
+      "title": "Détails commande",
+      "payment": "Paiement",
+      "items": "Articles",
       "itemsCount": "{count, plural, one {# Item} other {# Items}}",
-      "customer": "Customer",
-      "openWhatsApp": "Open WhatsApp",
-      "call": "Call",
-      "callCustomer": "Call {name}",
-      "deliveryAddress": "Delivery Address",
-      "deliveryNotes": "Delivery notes",
-      "orderItems": "Order Items",
-      "subtotal": "Subtotal",
-      "delivery": "Delivery",
+      "customer": "Client",
+      "openWhatsApp": "Ouvrir WhatsApp",
+      "call": "Appeler",
+      "callCustomer": "Appeler {name}",
+      "deliveryAddress": "Adresse de livraison",
+      "deliveryNotes": "Notes de livraison",
+      "orderItems": "Articles",
+      "subtotal": "Sous-total",
+      "delivery": "Livraison",
       "total": "Total",
-      "updateStatus": "Update Status",
+      "updateStatus": "Changer le statut",
       "slideToSetStatus": "Slide to mark as {status}",
-      "slideToUpdate": "Update Status",
-      "loading": "Loading order…",
-      "notFound": "Order not found",
-      "errorLoading": "Error loading order. Please try again."
+      "slideToUpdate": "Glisser pour changer",
+      "loading": "Chargement…",
+      "notFound": "Commande introuvable",
+      "errorLoading": "Erreur de chargement de la commande. Réessayez."
     }
   },
   "customers": {
     "list": {
-      "title": "Customers",
-      "description": "Manage your customer database",
-      "searchPlaceholder": "Search by name or phone",
-      "empty": "No customers found. Customers will appear here once they place orders or you add them manually.",
-      "noResults": "No customers match your filters.",
-      "error": "Error loading customers. Please try again later.",
-      "retry": "Retry",
-      "addCustomer": "Add customer",
-      "select": "Select",
-      "cancelSelection": "Cancel",
-      "itemsSelected": "{count} selected",
-      "exportCsv": "Export CSV",
-      "messageOnWhatsApp": "Message on WhatsApp",
-      "selectExactlyOne": "Select a single customer to message",
-      "waPrefill": "Hi {name}, ",
-      "totalSpent": "Total spent",
-      "lastOrder": "Last order",
+      "title": "Clients",
+      "description": "Gérez votre base de clients",
+      "searchPlaceholder": "Rechercher nom ou téléphone",
+      "empty": "Aucun client pour l'instant. Ils apparaîtront ici après leur première commande ou ajout manuel.",
+      "noResults": "Aucun client ne correspond à vos filtres.",
+      "error": "Erreur de chargement des clients. Réessayez plus tard.",
+      "retry": "Réessayer",
+      "addCustomer": "Ajouter un client",
+      "select": "Sélectionner",
+      "cancelSelection": "Annuler",
+      "itemsSelected": "{count} sélectionné(s)",
+      "exportCsv": "Exporter CSV",
+      "messageOnWhatsApp": "Message WhatsApp",
+      "selectExactlyOne": "Sélectionnez un seul client à contacter",
+      "waPrefill": "Bonjour {name}, ",
+      "totalSpent": "Total dépensé",
+      "lastOrder": "Dernier achat",
       "governorates": {
-        "all": "All",
+        "all": "Toutes",
         "TUNIS": "Tunis",
         "ARIANA": "Ariana",
         "BEN_AROUS": "Ben Arous",
@@ -435,21 +435,21 @@
         "KEBILI": "Kebili"
       },
       "filterDrawer": {
-        "title": "Filter customers",
-        "clearAll": "Reset all",
-        "apply": "Apply filters",
-        "governorate": "Governorate",
-        "sortBy": "Sort by",
+        "title": "Filtrer les clients",
+        "clearAll": "Tout effacer",
+        "apply": "Appliquer",
+        "governorate": "Gouvernorat",
+        "sortBy": "Trier par",
         "sortOptions": {
-          "recent": "Most recent",
-          "orderCount": "Order count",
-          "totalSpent": "Total spent",
-          "lastOrderAt": "Last order date"
+          "recent": "Plus récent",
+          "orderCount": "Nb de commandes",
+          "totalSpent": "Total dépensé",
+          "lastOrderAt": "Date de dernier achat"
         }
       },
       "ordersCount": "{count, plural, one {# order} other {# orders}}",
       "loading": "Chargement des clients…",
-      "selectAll": "Tout sélectionner",
+      "selectAll": "Tout cocher",
       "viewCustomer": "Voir {name}",
       "table": {
         "name": "Nom",
@@ -457,65 +457,65 @@
         "governorate": "Gouvernorat",
         "orderCount": "Commandes",
         "totalSpent": "Total dépensé",
-        "lastOrder": "Dernière commande",
+        "lastOrder": "Dernier achat",
         "actions": "Actions"
       },
       "phoneCopied": "Numéro de téléphone copié!"
     },
     "detail": {
-      "backToCustomers": "Back to customers",
-      "title": "Customer Details",
-      "call": "Call",
+      "backToCustomers": "Retour aux clients",
+      "title": "Détails du client",
+      "call": "Appeler",
       "whatsapp": "WhatsApp",
-      "delete": "Delete customer",
-      "deleteBlockedReason": "This customer has existing orders and can't be deleted.",
-      "deleteConfirmTitle": "Delete this customer?",
-      "deleteConfirmBody": "This action can't be undone.",
-      "cancel": "Cancel",
-      "confirmDelete": "Delete",
+      "delete": "Supprimer le client",
+      "deleteBlockedReason": "Ce client a des commandes et ne peut pas être supprimé.",
+      "deleteConfirmTitle": "Supprimer ce client ?",
+      "deleteConfirmBody": "Cette action est irréversible.",
+      "cancel": "Annuler",
+      "confirmDelete": "Supprimer",
       "summary": {
-        "totalSpent": "Total spent",
-        "orderCount": "Orders",
-        "avgOrderValue": "Avg. order value",
-        "customerSince": "Customer since"
+        "totalSpent": "Total dépensé",
+        "orderCount": "Commandes",
+        "avgOrderValue": "Panier moyen",
+        "customerSince": "Client depuis"
       },
       "locations": {
-        "title": "Locations",
-        "empty": "No saved addresses yet.",
+        "title": "Adresses",
+        "empty": "Aucune adresse enregistrée.",
         "ordersCount": "{count, plural, one {# order} other {# orders}}"
       },
       "orders": {
-        "title": "Order history",
-        "empty": "No orders yet."
+        "title": "Historique",
+        "empty": "Aucune commande."
       },
       "notes": {
         "title": "Notes",
-        "placeholder": "Add a note about this customer…",
-        "saved": "Saved",
-        "saving": "Saving…"
+        "placeholder": "Ajouter une note sur ce client…",
+        "saved": "Enregistré",
+        "saving": "Enregistrement…"
       },
-      "loading": "Loading customer…",
-      "notFound": "Customer not found",
-      "errorLoading": "Error loading customer. Please try again.",
+      "loading": "Chargement du client…",
+      "notFound": "Client introuvable",
+      "errorLoading": "Erreur de chargement du client. Réessayez.",
       "alsoKnownAs": "Also known as: {names}",
-      "moreOptions": "More options"
+      "moreOptions": "Plus d'options"
     },
     "new": {
-      "title": "New customer",
-      "description": "Add a customer manually",
-      "nameLabel": "Name",
-      "namePlaceholder": "Customer name",
-      "phoneLabel": "Phone number",
+      "title": "Nouveau client",
+      "description": "Ajouter manuellement",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Nom du client",
+      "phoneLabel": "Numéro de téléphone",
       "phonePlaceholder": "e.g. 55 123 456",
-      "submit": "Add customer",
-      "cancel": "Cancel"
+      "submit": "Ajouter le client",
+      "cancel": "Annuler"
     }
   },
   "products": {
     "list": {
       "title": "Produits",
       "description": "Gérez vos produits",
-      "searchPlaceholder": "Rechercher des produits",
+      "searchPlaceholder": "Chercher des produits",
       "filters": {
         "all": "Tous",
         "published": "Publié",
@@ -532,18 +532,18 @@
       "stockCount": "{count, plural, one {# unité} other {# unités}}",
       "inStock": "En stock",
       "variantCount": "• {variants} variantes",
-      "noVariants": "• Pas de variantes",
+      "noVariants": "• Aucune variante",
       "outOfStock": "Rupture de stock",
       "outOfStockVariants": "Rupture de stock • {variants} variantes",
       "empty": "Aucun produit trouvé. Créez votre premier produit pour commencer.",
-      "error": "Erreur de chargement des produits. Veuillez réessayer plus tard.",
+      "error": "Erreur de chargement des produits. Réessayez plus tard.",
       "catalogCount": "Votre catalogue de produits ({count} au total)",
-      "catalogDefault": "Votre catalogue de produits",
-      "addProduct": "Ajouter un produit",
+      "catalogDefault": "Votre catalogue produits",
+      "addProduct": "Ajouter produit",
       "filterDrawer": {
         "title": "Filtres",
         "clearAll": "Tout effacer",
-        "apply": "Appliquer les filtres",
+        "apply": "Appliquer",
         "close": "Fermer",
         "status": "Statut",
         "inventory": "Inventaire",
@@ -559,7 +559,7 @@
         "outOfStock": "Rupture de stock",
         "allProducts": "Tous les produits",
         "withVariants": "Avec variantes",
-        "singleSku": "SKU unique",
+        "singleSku": "Produit simple",
         "min": "Min",
         "max": "Max"
       },
@@ -569,12 +569,12 @@
         "publish": "Publier",
         "unpublish": "Dépublier",
         "archive": "Archiver",
-        "deleteConfirmTitle": "Supprimer le produit ?",
+        "deleteConfirmTitle": "Supprimer produit ?",
         "deleteConfirmDescription": "Cette action ne peut pas être annulée.",
         "cancel": "Annuler",
-        "previewInStorefront": "Prévisualiser dans la vitrine"
+        "previewInStorefront": "Voir dans la vitrine"
       },
-      "loading": "Chargement des produits…",
+      "loading": "Chargement…",
       "table": {
         "image": "Image",
         "name": "Nom",
@@ -587,12 +587,12 @@
     "create": {
       "header": {
         "title": "Nouveau produit",
-        "editTitle": "Edit product",
+        "editTitle": "Modifier le produit",
         "save": "Enregistrer"
       },
-      "storeMismatch": "This product belongs to another store. Switch stores to edit it.",
-      "loadError": "Could not load this product. Try again or go back to the list.",
-      "loadingProduct": "Loading product",
+      "storeMismatch": "Ce produit appartient à un autre magasin. Changez de magasin pour le modifier.",
+      "loadError": "Impossible de charger ce produit. Réessayez ou revenez à la liste.",
+      "loadingProduct": "Chargement du produit",
       "sections": {
         "photos": "Photos du produit",
         "essentials": "Essentiels",
@@ -602,49 +602,49 @@
       "form": {
         "name": {
           "label": "Nom du produit",
-          "placeholder": "Entrez le nom du produit"
+          "placeholder": "Nom du produit"
         },
         "price": {
           "label": "Prix",
-          "placeholder": "Entrez le prix du produit"
+          "placeholder": "Prix du produit"
         },
         "stock": {
           "label": "Stock",
-          "placeholder": "Entrez le stock du produit"
+          "placeholder": "Stock du produit"
         },
         "description": {
           "label": "Description",
-          "placeholder": "Entrez la description du produit"
+          "placeholder": "Description du produit"
         },
         "generateAi": {
-          "button": "Generate with AI",
-          "generating": "Generating…",
-          "insertImageLabel": "Insert image"
+          "button": "Générer avec l'IA",
+          "generating": "Génération…",
+          "insertImageLabel": "Insérer l'image"
         },
         "published": {
           "label": "Publié",
           "placeholder": "Entrez le produit publié"
         },
         "photos": "Photos",
-        "photoPreviewTitle": "Photo preview",
-        "photoPreviewZoomIn": "Zoom in",
-        "photoPreviewZoomOut": "Zoom out",
-        "photoPreviewZoomGroup": "Zoom controls",
-        "photoPreviewZoomReadout": "Zoom percentage",
-        "photoPreviewResetZoom": "Reset zoom",
-        "photoPreviewClose": "Close preview",
-        "photoPreviewWheelHint": "Scroll to zoom",
-        "viewPhoto": "View full size",
-        "removePhoto": "Remove photo",
-        "priceHelp": "Prix que les clients paient (COD)",
+        "photoPreviewTitle": "Aperçu de la photo",
+        "photoPreviewZoomIn": "Zoomer",
+        "photoPreviewZoomOut": "Dézoomer",
+        "photoPreviewZoomGroup": "Commandes de zoom",
+        "photoPreviewZoomReadout": "Pourcentage de zoom",
+        "photoPreviewResetZoom": "Zoom initial",
+        "photoPreviewClose": "Fermer l'aperçu",
+        "photoPreviewWheelHint": "Défiler pour zoomer",
+        "viewPhoto": "Voir en taille réelle",
+        "removePhoto": "Supprimer la photo",
+        "priceHelp": "Prix payé par le client",
         "category": {
           "label": "Catégorie",
-          "placeholder": "Sélectionnez une catégorie...",
-          "searchPlaceholder": "Rechercher des catégories...",
+          "placeholder": "Choisir une catégorie...",
+          "searchPlaceholder": "Chercher des catégories...",
           "noResults": "Aucune catégorie trouvée.",
           "create": "Créer une catégorie",
           "created": "Catégorie créée avec succès",
-          "nameLabel": "Nom de la catégorie",
+          "nameLabel": "Nom de catégorie",
           "namePlaceholder": "p. ex. T-Shirts, Électronique",
           "createDescription": "Créez une nouvelle catégorie pour organiser vos produits.",
           "uncategorized": "Non classé"
@@ -652,62 +652,62 @@
         "options": {
           "label": "A des options",
           "description": "Ajoutez des options comme Taille, Couleur, Matériau, etc.",
-          "structureLocked": "Variant options are locked because this product has SKU variants. You can still edit other product details.",
-          "enableVariantsNeedPrice": "Enter a positive base price first. Variants can inherit it when their own price is not set."
+          "structureLocked": "Options de variantes verrouillées car ce produit a des variantes SKU. Vous pouvez modifier les autres détails.",
+          "enableVariantsNeedPrice": "Saisissez d'abord un prix de base positif. Les variantes peuvent l'hériter si leur prix n'est pas défini."
         },
-        "saveDraft": "Enregistrer le brouillon",
-        "saveChanges": "Save changes",
-        "publishVersion": "Publish live",
-        "discardDraft": "Discard draft",
-        "draftHint": "You have unpublished edits. Save changes, then publish to update the storefront.",
-        "savePublish": "Enregistrer et publier",
+        "saveDraft": "Brouillon",
+        "saveChanges": "Enregistrer",
+        "publishVersion": "Publier",
+        "discardDraft": "Abandonner",
+        "draftHint": "Modifications non publiées. Enregistrez, puis publiez pour mettre à jour la vitrine.",
+        "savePublish": "Sauver et publier",
         "optional": "optionnel",
         "cancel": "Annuler",
         "discontinuedVariants": "{count, plural, one {# variant} other {# variants}} had order history and {count, plural, one {was} other {were}} discontinued instead of removed. {count, plural, one {It's} other {They're}} hidden from customers but preserved for existing orders.",
         "validation": {
-          "errors": "Veuillez corriger les erreurs du formulaire avant de soumettre"
+          "errors": "Corrigez les erreurs avant d'envoyer"
         },
         "variants": {
-          "mainPriceStockHiddenHint": "Le prix et le stock de ce produit sont gérés par variante ci-dessous. Un prix de base par défaut est toujours enregistré pour les variantes qui héritent du prix.",
+          "mainPriceStockHiddenHint": "Prix et stock gérés par variante ci-dessous. Un prix de base est tout de même enregistré pour les variantes qui en héritent.",
           "options": {
             "title": "Options de variante",
-            "add": "Ajouter une option",
+            "add": "Ajouter option",
             "empty": "Ajoutez des options comme Taille, Couleur, Matériau, etc.",
             "unnamed": "Option sans nom",
             "optionName": "Nom de l’option",
             "optionNamePlaceholder": "p. ex. Taille, Couleur",
             "values": "Valeurs",
-            "addValue": "+ Add value",
+            "addValue": "+ Ajouter une valeur",
             "noValues": "Ajoutez au moins une valeur",
             "remove": "Supprimer l’option",
-            "removeValue": "Remove value",
-            "addAnother": "Add another option",
+            "removeValue": "Supprimer la valeur",
+            "addAnother": "Ajouter une option",
             "maxOptions": "Maximum 3 options",
             "value": "Valeur"
           },
           "pendingRemoval": {
-            "title": "Removing this value will delete {count} variants",
-            "description": "Tap to confirm before changes are applied.",
-            "confirm": "Confirm",
-            "undo": "Undo"
+            "title": "Supprimer cette valeur supprimera {count} variantes",
+            "description": "Touchez pour confirmer avant application.",
+            "confirm": "Confirmer",
+            "undo": "Annuler"
           },
           "optionOrder": {
-            "label": "Option order"
+            "label": "Ordre des options"
           },
           "list": {
             "title": "Variantes",
-            "empty": "Ajoutez des options de variante ci-dessus pour générer des variantes",
+            "empty": "Ajoutez des options pour générer les variantes",
             "unnamed": "Variante sans nom",
             "price": "Prix",
             "stock": "Stock",
-            "edit": "Modifier la variante"
+            "edit": "Modifier variante"
           },
           "edit": {
-            "title": "Modifier la variante",
+            "title": "Modifier variante",
             "sku": "SKU",
             "skuPlaceholder": "Optionnel",
             "price": "Prix",
-            "priceHelp": "Laissez vide pour utiliser le prix de base du produit",
+            "priceHelp": "Vide = prix de base du produit",
             "stock": "Stock"
           },
           "editSheet": {
@@ -719,23 +719,23 @@
             "description": "Désactiver pour toujours afficher cette variante comme disponible, quel que soit le nombre en stock."
           },
           "imagePicker": {
-            "title": "Choose image",
-            "noImage": "No image"
+            "title": "Choisir image",
+            "noImage": "Sans image"
           },
           "matrix": {
-            "title": "Variant combinations",
-            "hint": "Each row is one sellable combination. Stock and price default from the product above; leave price blank to use the base price.",
-            "tooMany": "Too many combinations (max {max}). Remove option values.",
-            "empty": "Add option names and values above to generate rows.",
-            "columnCombination": "Combination",
+            "title": "Combinaisons de variantes",
+            "hint": "Chaque ligne est une combinaison vendable. Le stock et le prix viennent du produit ci-dessus ; laissez le prix vide pour utiliser le prix de base.",
+            "tooMany": "Trop de combinaisons (max {max}). Supprimez des valeurs d'option.",
+            "empty": "Ajoutez des noms et valeurs d'options ci-dessus pour générer les lignes.",
+            "columnCombination": "Combinaison",
             "columnSku": "SKU",
-            "columnPrice": "Price",
+            "columnPrice": "Prix",
             "columnStock": "Stock",
-            "skuPlaceholder": "Optional",
-            "pricePlaceholder": "Base price",
+            "skuPlaceholder": "Facultatif",
+            "pricePlaceholder": "Prix de base",
             "variantCount": "{count} variants",
             "inStock": "{count} in stock",
-            "outOfStock": "Out of stock",
+            "outOfStock": "Rupture de stock",
             "notTracked": "Toujours disponible"
           },
           "validation": {
@@ -748,8 +748,8 @@
       },
       "success": "Produit créé avec succès !",
       "noStore": {
-        "title": "Aucun magasin trouvé",
-        "description": "Veuillez d'abord créer un magasin pour ajouter des produits.",
+        "title": "Aucun magasin",
+        "description": "Créez d'abord un magasin pour ajouter des produits.",
         "createStore": "Créer un magasin"
       },
       "preview": {
@@ -760,38 +760,38 @@
         "hide": "Masquer l'aperçu",
         "show": "Afficher l'aperçu"
       },
-      "previewInStorefront": "Prévisualiser dans la vitrine"
+      "previewInStorefront": "Voir dans la vitrine"
     },
     "edit": {
       "header": {
-        "title": "Edit product",
-        "save": "Save"
+        "title": "Modifier le produit",
+        "save": "Enregistrer"
       },
       "sections": {
-        "essentials": "Essentials"
+        "essentials": "Essentiels"
       }
     }
   },
   "fields": {
     "images": {
-      "label": "Ajouter des photos",
+      "label": "Ajouter photos",
       "dragActiveLabel": "Déposez ici",
       "hint": "ou cliquez pour naviguer",
-      "optimizing": "Optimizing images..."
+      "optimizing": "Optimisation des images…"
     }
   },
   "currencies": {
     "tnd": {
       "country": {
-        "name": "Tunisia"
+        "name": "Tunisie"
       },
-      "name": "Tunisian Dinar"
+      "name": "Dinar tunisien"
     },
     "usd": {
       "country": {
-        "name": "United States"
+        "name": "États-Unis"
       },
-      "name": "US Dollar"
+      "name": "Dollar US"
     },
     "eur": {
       "country": {
