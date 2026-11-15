@@ -13,8 +13,10 @@ COPY --from=pruner /app/out/json/ .
 ENV npm_config_fetch_retries=5 npm_config_fetch_timeout=300000 npm_config_network_concurrency=8
 RUN pnpm install --frozen-lockfile --ignore-scripts
 COPY --from=pruner /app/out/full/ .
-# postinstall runs prisma generate, which needs the schema, so it runs after the sources are copied
-RUN pnpm rebuild
+# turbo prune does not copy the root scripts folder, and build runs scripts/with-root-env.mjs
+COPY --from=pruner /app/scripts ./scripts
+# prisma client needs the schema, so generate once the sources are copied
+RUN pnpm --filter @dukkani/db db:generate
 ENV NEXT_TELEMETRY_DISABLED=1
 ARG NEXT_PUBLIC_API_URL
 ARG NEXT_PUBLIC_WEB_URL

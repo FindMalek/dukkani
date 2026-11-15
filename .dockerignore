@@ -4,5 +4,6 @@
 **/dist
 **/*.tsbuildinfo
 .git
-.env
-.env.*
+**/.env
+**/.env.*
+**/prisma/generated
