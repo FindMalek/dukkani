@@ -80,7 +80,11 @@ export default async function DashboardLayout({
     appQueries.account.currentUser().queryKey,
   );
 
-  if (user && user.onboardingStep === UserOnboardingStep.STORE_SETUP) {
+  if (
+    user &&
+    (user.onboardingStep === UserOnboardingStep.STORE_SETUP ||
+      user.onboardingStep === UserOnboardingStep.STORE_CONFIGURED)
+  ) {
     redirect(RoutePaths.AUTH.ONBOARDING.INDEX.url);
   }
 
