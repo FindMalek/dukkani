@@ -74,6 +74,25 @@ export default function SettingsPage() {
             </div>
           </Card>
         </Link>
+
+        <Link href={RoutePaths.SETTINGS.WHATSAPP.url}>
+          <Card className="cursor-pointer p-4 transition-colors hover:bg-accent">
+            <div className="flex items-center gap-4">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10">
+                <RoutePaths.SETTINGS.WHATSAPP.icon className="size-6 text-primary" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <h3 className="font-semibold text-foreground">
+                  {RoutePaths.SETTINGS.WHATSAPP.label}
+                </h3>
+                <p className="text-muted-foreground text-sm">
+                  Connect WhatsApp order notifications
+                </p>
+              </div>
+              <Icons.chevronRight className="size-5 text-muted-foreground" />
+            </div>
+          </Card>
+        </Link>
       </div>
 
       <Separator className="my-6" />

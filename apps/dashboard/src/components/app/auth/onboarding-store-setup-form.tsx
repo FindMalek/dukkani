@@ -49,6 +49,11 @@ export const StoreSetupOnboardingForm = withForm({
           value: storeNotificationMethodEnum.TELEGRAM,
         },
         {
+          label: t("notifications.options.whatsapp.label"),
+          description: t("notifications.options.whatsapp.description"),
+          value: storeNotificationMethodEnum.WHATSAPP,
+        },
+        {
           label: t("notifications.options.both.label"),
           description: t("notifications.options.both.description"),
           value: storeNotificationMethodEnum.BOTH,
