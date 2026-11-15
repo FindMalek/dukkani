@@ -52,7 +52,7 @@
           "label": "Description"
         },
         "addToCart": {
-          "button": "Au panier",
+          "button": "Ajouter au panier",
           "outOfStock": "Rupture de stock"
         },
         "quickAdd": {
@@ -70,7 +70,7 @@
         "empty": "Votre panier est vide",
         "checkout": "Commander",
         "item": {
-          "lowStock": "Plus que {count}",
+          "lowStock": "Il en reste {count}",
           "outOfStock": "Rupture de stock"
         }
       },

@@ -324,7 +324,7 @@
       "cashOnDelivery": "الدفع عند الاستلام",
       "card": "بطاقة",
       "today": "اليوم",
-      "yesterday": "البارحة",
+      "yesterday": "أمس",
       "viewOrder": "عرض الطلب {id}",
       "filters": {
         "all": "الكل",
@@ -401,7 +401,7 @@
       "select": "تحديد",
       "cancelSelection": "إلغاء",
       "itemsSelected": "{count} محدد",
-      "exportCsv": "تصدير الملف",
+      "exportCsv": "تصدير CSV",
       "messageOnWhatsApp": "مراسلة عبر واتساب",
       "selectExactlyOne": "اختر عميلًا واحدًا للمراسلة",
       "waPrefill": "مرحبًا {name}، ",
@@ -438,7 +438,7 @@
         "title": "تصفية العملاء",
         "clearAll": "إعادة ضبط",
         "apply": "تطبيق الفلاتر",
-        "governorate": "المحافظة",
+        "governorate": "الولاية",
         "sortBy": "الترتيب",
         "sortOptions": {
           "recent": "الأحدث",
@@ -663,7 +663,7 @@
         "draftHint": "لديك تعديلات غير منشورة. احفظ التغييرات، ثم انشر لتحديث واجهة المتجر.",
         "optional": "اختياري",
         "cancel": "إلغاء",
-        "discontinuedVariants": "{count, plural, zero {لا متغيرات} one {متغير واحد} two {متغيران} few {# متغيرات} many {# متغيرًا} other {# متغير}} لديه سجل طلبات، لذا تم إيقافه بدلًا من حذفه. مخفي عن العملاء لكن محفوظ للطلبات الحالية.",
+        "discontinuedVariants": "{count, plural, zero {لا متغيرات} one {متغير واحد} two {متغيران} few {# متغيرات} many {# متغيرًا} other {# متغير}} لها سجل طلبات، لذا تم إيقافها بدلًا من حذفها. مخفية عن العملاء لكن محفوظة للطلبات الحالية.",
         "validation": {
           "errors": "يرجى إصلاح أخطاء النموذج قبل الإرسال"
         },
