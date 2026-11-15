@@ -2,9 +2,9 @@
 # Vercel Ignored Build Step for a given app in this monorepo.
 # Exit 0 = skip the build, exit 1 = proceed (Vercel's own convention).
 #
-# Two independent reasons to skip:
-#   1. The branch explicitly opts out (name contains "skip-vercel").
-#   2. `turbo query affected` determines this app isn't affected by the
+# Reasons to skip:
+#   0. The branch is not main (PR previews run on Dokploy).
+#   1. `turbo query affected` determines this app isn't affected by the
 #      changes since VERCEL_GIT_PREVIOUS_SHA (the last successful deployment
 #      for this project+branch, per Vercel's docs — only exposed because an
 #      Ignored Build Step is configured).
@@ -31,8 +31,9 @@ APP="${1:?usage: vercel-ignore-build.sh <workspace-name>}"
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
 
-if [[ "${VERCEL_GIT_COMMIT_REF:-}" == *"skip-vercel"* ]]; then
-  echo "Branch '$VERCEL_GIT_COMMIT_REF' requests skip-vercel — skipping build"
+# Only main gets Vercel builds. PR previews run on Dokploy.
+if [[ "${VERCEL_GIT_COMMIT_REF:-}" != "main" ]]; then
+  echo "Branch '${VERCEL_GIT_COMMIT_REF:-unknown}' is not main, skipping Vercel build"
   exit 0
 fi
 
