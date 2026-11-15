@@ -23,7 +23,10 @@ export const ProductFormActions = withForm({
                 disabled={formState.isSubmitting || !formState.canSubmit}
                 onClick={() => {
                   void form.setFieldValue("published", false);
-                  form.handleSubmit();
+                  // `published` is shared form state, put it back so an enter-key submit still publishes
+                  void form
+                    .handleSubmit()
+                    .then(() => form.setFieldValue("published", true));
                 }}
               >
                 {t("form.saveDraft")}
