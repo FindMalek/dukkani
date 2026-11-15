@@ -1,6 +1,7 @@
 import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
 import { ArrayField } from "../components/forms/array-field";
 import { CheckboxField } from "../components/forms/checkbox-field";
+import { ComboboxField } from "../components/forms/combobox-field";
 import { EmailField } from "../components/forms/email-field";
 import { ImagesField } from "../components/forms/images-field";
 import { MarkdownEditorField } from "../components/forms/markdown-editor-field";
@@ -28,6 +29,7 @@ export const dukkaniAppFormFieldComponents = {
   NumberInput: NumberField,
   PriceInput: PriceField,
   SelectInput: SelectField,
+  ComboboxInput: ComboboxField,
   CheckboxInput: CheckboxField,
   SwitchInput: SwitchField,
   ArrayInput: ArrayField,

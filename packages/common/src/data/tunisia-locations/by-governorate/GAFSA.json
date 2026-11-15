@@ -1,0 +1,1731 @@
+{
+  "code": "GAFSA",
+  "delegations": [
+    {
+      "id": "gafsa--belkhir",
+      "nameFr": "BELKHIR",
+      "nameAr": "بالخير",
+      "searchKey": "belkhir بالخير",
+      "municipalities": [
+        {
+          "id": "gafsa--belkhir--belkhir-baten-zammour--2135",
+          "nameFr": "BELKHIR (Baten Zammour)",
+          "nameAr": "بالخير (بطن زمور)",
+          "postalCode": "2135",
+          "latitude": 34.37,
+          "longitude": 8.93,
+          "searchKey": "belkhir (baten zammour) بالخير (بطن زمور) 2135"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-belkhir--2115",
+          "nameFr": "BELKHIR (Belkhir)",
+          "nameAr": "بالخير (بالخير)",
+          "postalCode": "2115",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (belkhir) بالخير (بالخير) 2115"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-borj-el-haffey--2115",
+          "nameFr": "BELKHIR (Borj El Haffey)",
+          "nameAr": "بالخير (برج الحفي)",
+          "postalCode": "2115",
+          "latitude": 34.39,
+          "longitude": 8.96,
+          "searchKey": "belkhir (borj el haffey) بالخير (برج الحفي) 2115"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-bou-blel--2135",
+          "nameFr": "BELKHIR (Bou Blel)",
+          "nameAr": "بالخير (بو بلال)",
+          "postalCode": "2135",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (bou blel) بالخير (بو بلال) 2135"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-boukou--2135",
+          "nameFr": "BELKHIR (Boukou)",
+          "nameAr": "بالخير (بوكو)",
+          "postalCode": "2135",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (boukou) بالخير (بوكو) 2135"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-cite-ouled-bel-hassen--2115",
+          "nameFr": "BELKHIR (Cite Ouled Bel Hassen)",
+          "nameAr": "بالخير (حي أولاد بلحسن)",
+          "postalCode": "2115",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (cite ouled bel hassen) بالخير (حي أولاد بلحسن) 2115"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-cite-ouled-ben-jeddou--2115",
+          "nameFr": "BELKHIR (Cite Ouled Ben Jeddou)",
+          "nameAr": "بالخير (حي أولاد بن جدو)",
+          "postalCode": "2115",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (cite ouled ben jeddou) بالخير (حي أولاد بن جدو) 2115"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-cite-ouled-haj-ali--2115",
+          "nameFr": "BELKHIR (Cite Ouled Haj Ali)",
+          "nameAr": "بالخير (حي أولاد حاج علي)",
+          "postalCode": "2115",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (cite ouled haj ali) بالخير (حي أولاد حاج علي) 2115"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-cite-ouled-hmida--2115",
+          "nameFr": "BELKHIR (Cite Ouled Hmida)",
+          "nameAr": "بالخير (حي أولاد حميدة)",
+          "postalCode": "2115",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (cite ouled hmida) بالخير (حي أولاد حميدة) 2115"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-cite-ouled-saad--2115",
+          "nameFr": "BELKHIR (Cite Ouled Saad)",
+          "nameAr": "بالخير (حي أولاد سعد)",
+          "postalCode": "2115",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (cite ouled saad) بالخير (حي أولاد سعد) 2115"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-el-akteb--2139",
+          "nameFr": "BELKHIR (El Akteb)",
+          "nameAr": "بالخير (الأكتب)",
+          "postalCode": "2139",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (el akteb) بالخير (الأكتب) 2139"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-el-ayaicha--2139",
+          "nameFr": "BELKHIR (El Ayaicha)",
+          "nameAr": "بالخير (العيايشة)",
+          "postalCode": "2139",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (el ayaicha) بالخير (العيايشة) 2139"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-ezzitouna--2139",
+          "nameFr": "BELKHIR (Ezzitouna)",
+          "nameAr": "بالخير (الزيتونة)",
+          "postalCode": "2139",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (ezzitouna) بالخير (الزيتونة) 2139"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-haouel-el-oued--2135",
+          "nameFr": "BELKHIR (Haouel El Oued)",
+          "nameAr": "بالخير (حول الواد)",
+          "postalCode": "2135",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (haouel el oued) بالخير (حول الواد) 2135"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-jebel-ayaicha--2139",
+          "nameFr": "BELKHIR (Jebel Ayaicha)",
+          "nameAr": "بالخير (جبل عيايشة)",
+          "postalCode": "2139",
+          "latitude": 34.35,
+          "longitude": 9,
+          "searchKey": "belkhir (jebel ayaicha) بالخير (جبل عيايشة) 2139"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-jebilet-el-oust--2135",
+          "nameFr": "BELKHIR (Jebilet El Oust)",
+          "nameAr": "بالخير (جبيلات الوسط)",
+          "postalCode": "2135",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (jebilet el oust) بالخير (جبيلات الوسط) 2135"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-ouled-el-haj--2115",
+          "nameFr": "BELKHIR (Ouled El Haj)",
+          "nameAr": "بالخير (أولاد الحاج)",
+          "postalCode": "2115",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (ouled el haj) بالخير (أولاد الحاج) 2115"
+        },
+        {
+          "id": "gafsa--belkhir--belkhir-ouled-zaied--2135",
+          "nameFr": "BELKHIR (Ouled Zaied)",
+          "nameAr": "بالخير (أولاد زايد)",
+          "postalCode": "2135",
+          "latitude": 34.38,
+          "longitude": 8.95,
+          "searchKey": "belkhir (ouled zaied) بالخير (أولاد زايد) 2135"
+        }
+      ]
+    },
+    {
+      "id": "gafsa--el-guettar",
+      "nameFr": "EL GUETTAR",
+      "nameAr": "القطار",
+      "searchKey": "el guettar القطار",
+      "municipalities": [
+        {
+          "id": "gafsa--el-guettar--el-guettar-bir-saad--2180",
+          "nameFr": "EL GUETTAR (Bir Saad)",
+          "nameAr": "القطار (بئر سعد)",
+          "postalCode": "2180",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (bir saad) القطار (بئر سعد) 2180"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-bou-omrane--2125",
+          "nameFr": "EL GUETTAR (Bou Omrane)",
+          "nameAr": "القطار (بو عمران)",
+          "postalCode": "2125",
+          "latitude": 34.25,
+          "longitude": 8.96,
+          "searchKey": "el guettar (bou omrane) القطار (بو عمران) 2125"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-cite-okba--2180",
+          "nameFr": "EL GUETTAR (Cite Okba)",
+          "nameAr": "القطار (حي عقبة)",
+          "postalCode": "2180",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (cite okba) القطار (حي عقبة) 2180"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-cite-orbata-est--2180",
+          "nameFr": "EL GUETTAR (Cite Orbata Est)",
+          "nameAr": "القطار (حي عرباطة الشرقي)",
+          "postalCode": "2180",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (cite orbata est) القطار (حي عرباطة الشرقي) 2180"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-cite-orbata-ouest--2180",
+          "nameFr": "EL GUETTAR (Cite Orbata Ouest)",
+          "nameAr": "القطار (حي عرباطة الغربي)",
+          "postalCode": "2180",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (cite orbata ouest) القطار (حي عرباطة الغربي) 2180"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-cite-populaire-route-gabes--2180",
+          "nameFr": "EL GUETTAR (Cite Populaire Route Gabes)",
+          "nameAr": "القطار (الحي الشعبي طريق قابس)",
+          "postalCode": "2180",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (cite populaire route gabes) القطار (الحي الشعبي طريق قابس) 2180"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-cite-populaire--2180",
+          "nameFr": "EL GUETTAR (Cite Populaire)",
+          "nameAr": "القطار (الحي الشعبي)",
+          "postalCode": "2180",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (cite populaire) القطار (الحي الشعبي) 2180"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-cite-sprols--2180",
+          "nameFr": "EL GUETTAR (Cite Sprols)",
+          "nameAr": "القطار (حي سبرولس)",
+          "postalCode": "2180",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (cite sprols) القطار (حي سبرولس) 2180"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-el-amaiem--2180",
+          "nameFr": "EL GUETTAR (El Amaiem)",
+          "nameAr": "القطار (العمايم)",
+          "postalCode": "2180",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (el amaiem) القطار (العمايم) 2180"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-el-guettar--2180",
+          "nameFr": "EL GUETTAR (El Guettar)",
+          "nameAr": "القطار (القطار)",
+          "postalCode": "2180",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (el guettar) القطار (القطار) 2180"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-lortes--2183",
+          "nameFr": "EL GUETTAR (Lortes)",
+          "nameAr": "القطار (لورتاس)",
+          "postalCode": "2183",
+          "latitude": 34.35,
+          "longitude": 8.88,
+          "searchKey": "el guettar (lortes) القطار (لورتاس) 2183"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-majni--2180",
+          "nameFr": "EL GUETTAR (Majni)",
+          "nameAr": "القطار (مجني)",
+          "postalCode": "2180",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (majni) القطار (مجني) 2180"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-nchiou--2181",
+          "nameFr": "EL GUETTAR (Nchiou)",
+          "nameAr": "القطار (نشيو)",
+          "postalCode": "2181",
+          "latitude": 34.28,
+          "longitude": 8.85,
+          "searchKey": "el guettar (nchiou) القطار (نشيو) 2181"
+        },
+        {
+          "id": "gafsa--el-guettar--el-guettar-ouled-bou-saad--2145",
+          "nameFr": "EL GUETTAR (Ouled Bou Saad)",
+          "nameAr": "القطار (أولاد بو سعد)",
+          "postalCode": "2145",
+          "latitude": 34.33,
+          "longitude": 8.95,
+          "searchKey": "el guettar (ouled bou saad) القطار (أولاد بو سعد) 2145"
+        }
+      ]
+    },
+    {
+      "id": "gafsa--el-ksar",
+      "nameFr": "EL KSAR",
+      "nameAr": "القصر",
+      "searchKey": "el ksar القصر",
+      "municipalities": [
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-bab-ettoub--2111",
+          "nameFr": "EL KSAR (Cite Bab Ettoub)",
+          "nameAr": "القصر (حي باب الطوب)",
+          "postalCode": "2111",
+          "latitude": 34.411,
+          "longitude": 8.761,
+          "searchKey": "el ksar (cite bab ettoub) القصر (حي باب الطوب) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-batiments--2111",
+          "nameFr": "EL KSAR (Cite Batiments)",
+          "nameAr": "القصر (حي العمارات)",
+          "postalCode": "2111",
+          "latitude": 34.412,
+          "longitude": 8.762,
+          "searchKey": "el ksar (cite batiments) القصر (حي العمارات) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-ben-doula--2111",
+          "nameFr": "EL KSAR (Cite Ben Doula)",
+          "nameAr": "القصر (حي بن دولة)",
+          "postalCode": "2111",
+          "latitude": 34.413,
+          "longitude": 8.763,
+          "searchKey": "el ksar (cite ben doula) القصر (حي بن دولة) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-ben-issaoui--2111",
+          "nameFr": "EL KSAR (Cite Ben Issaoui)",
+          "nameAr": "القصر (حي بن عيساوي)",
+          "postalCode": "2111",
+          "latitude": 34.414,
+          "longitude": 8.764,
+          "searchKey": "el ksar (cite ben issaoui) القصر (حي بن عيساوي) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-ben-slimene--2111",
+          "nameFr": "EL KSAR (Cite Ben Slimene)",
+          "nameAr": "القصر (حي بن سليمان)",
+          "postalCode": "2111",
+          "latitude": 34.415,
+          "longitude": 8.765,
+          "searchKey": "el ksar (cite ben slimene) القصر (حي بن سليمان) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-bouranene--2111",
+          "nameFr": "EL KSAR (Cite Bouranene)",
+          "nameAr": "القصر (حي بورنان)",
+          "postalCode": "2111",
+          "latitude": 34.416,
+          "longitude": 8.766,
+          "searchKey": "el ksar (cite bouranene) القصر (حي بورنان) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-de-la-gare--2111",
+          "nameFr": "EL KSAR (Cite De La Gare)",
+          "nameAr": "القصر (حي المحطة)",
+          "postalCode": "2111",
+          "latitude": 34.419,
+          "longitude": 8.772,
+          "searchKey": "el ksar (cite de la gare) القصر (حي المحطة) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-des-cadres--2111",
+          "nameFr": "EL KSAR (Cite Des Cadres)",
+          "nameAr": "القصر (حي الإطارات)",
+          "postalCode": "2111",
+          "latitude": 34.417,
+          "longitude": 8.767,
+          "searchKey": "el ksar (cite des cadres) القصر (حي الإطارات) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-ecole--2111",
+          "nameFr": "EL KSAR (Cite Ecole)",
+          "nameAr": "القصر (حي المدرسة)",
+          "postalCode": "2111",
+          "latitude": 34.418,
+          "longitude": 8.768,
+          "searchKey": "el ksar (cite ecole) القصر (حي المدرسة) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-el-ajama--2111",
+          "nameFr": "EL KSAR (Cite El Ajama)",
+          "nameAr": "القصر (حي العجمة)",
+          "postalCode": "2111",
+          "latitude": 34.4105,
+          "longitude": 8.7605,
+          "searchKey": "el ksar (cite el ajama) القصر (حي العجمة) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-el-kaouafel--2111",
+          "nameFr": "EL KSAR (Cite El Kaouafel)",
+          "nameAr": "القصر (حي القوافل)",
+          "postalCode": "2111",
+          "latitude": 34.4115,
+          "longitude": 8.7615,
+          "searchKey": "el ksar (cite el kaouafel) القصر (حي القوافل) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-el-khil--2111",
+          "nameFr": "EL KSAR (Cite El Khil)",
+          "nameAr": "القصر (حي الخيل)",
+          "postalCode": "2111",
+          "latitude": 34.4125,
+          "longitude": 8.7625,
+          "searchKey": "el ksar (cite el khil) القصر (حي الخيل) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-el-mancher--2111",
+          "nameFr": "EL KSAR (Cite El Mancher)",
+          "nameAr": "القصر (حي المنشر)",
+          "postalCode": "2111",
+          "latitude": 34.4135,
+          "longitude": 8.7635,
+          "searchKey": "el ksar (cite el mancher) القصر (حي المنشر) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-essouani--2111",
+          "nameFr": "EL KSAR (Cite Essouani)",
+          "nameAr": "القصر (حي السواني)",
+          "postalCode": "2111",
+          "latitude": 34.4145,
+          "longitude": 8.7645,
+          "searchKey": "el ksar (cite essouani) القصر (حي السواني) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-cite-ragouba--2111",
+          "nameFr": "EL KSAR (Cite Ragouba)",
+          "nameAr": "القصر (حي الرقوبة)",
+          "postalCode": "2111",
+          "latitude": 34.4155,
+          "longitude": 8.7655,
+          "searchKey": "el ksar (cite ragouba) القصر (حي الرقوبة) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-el-ksar--2111",
+          "nameFr": "EL KSAR (El Ksar)",
+          "nameAr": "القصر (القصر)",
+          "postalCode": "2111",
+          "latitude": 34.41,
+          "longitude": 8.76,
+          "searchKey": "el ksar (el ksar) القصر (القصر) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-erragouba--2169",
+          "nameFr": "EL KSAR (Erragouba)",
+          "nameAr": "القصر (الرقوبة)",
+          "postalCode": "2169",
+          "latitude": 34.41,
+          "longitude": 8.76,
+          "searchKey": "el ksar (erragouba) القصر (الرقوبة) 2169"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-gafsa-aeroport--2151",
+          "nameFr": "EL KSAR (Gafsa Aeroport)",
+          "nameAr": "القصر (مطار قفصة)",
+          "postalCode": "2151",
+          "latitude": 34.3919,
+          "longitude": 8.8222,
+          "searchKey": "el ksar (gafsa aeroport) القصر (مطار قفصة) 2151"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-gafsa-gare--2111",
+          "nameFr": "EL KSAR (Gafsa Gare)",
+          "nameAr": "القصر (محطة قفصة)",
+          "postalCode": "2111",
+          "latitude": 34.419,
+          "longitude": 8.772,
+          "searchKey": "el ksar (gafsa gare) القصر (محطة قفصة) 2111"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-lala--2121",
+          "nameFr": "EL KSAR (Lala)",
+          "nameAr": "القصر (للاّ)",
+          "postalCode": "2121",
+          "latitude": 34.41,
+          "longitude": 8.7,
+          "searchKey": "el ksar (lala) القصر (للاّ) 2121"
+        },
+        {
+          "id": "gafsa--el-ksar--el-ksar-ouled-chrait--2111",
+          "nameFr": "EL KSAR (Ouled Chrait)",
+          "nameAr": "القصر (أولاد شرياط)",
+          "postalCode": "2111",
+          "latitude": 34.408,
+          "longitude": 8.758,
+          "searchKey": "el ksar (ouled chrait) القصر (أولاد شرياط) 2111"
+        }
+      ]
+    },
+    {
+      "id": "gafsa--el-mdhilla",
+      "nameFr": "EL MDHILLA",
+      "nameAr": "المظيلة",
+      "searchKey": "el mdhilla المظيلة",
+      "municipalities": [
+        {
+          "id": "gafsa--el-mdhilla--el-mdhilla-borj-el-mdhilla--2173",
+          "nameFr": "EL MDHILLA (Borj El Mdhilla)",
+          "nameAr": "المظيلة (برج المظيلة)",
+          "postalCode": "2173",
+          "latitude": 34.3,
+          "longitude": 9,
+          "searchKey": "el mdhilla (borj el mdhilla) المظيلة (برج المظيلة) 2173"
+        },
+        {
+          "id": "gafsa--el-mdhilla--el-mdhilla-cite-des-jeunes--2170",
+          "nameFr": "EL MDHILLA (Cite Des Jeunes)",
+          "nameAr": "المظيلة (حي الشباب)",
+          "postalCode": "2170",
+          "latitude": 34.3,
+          "longitude": 9,
+          "searchKey": "el mdhilla (cite des jeunes) المظيلة (حي الشباب) 2170"
+        },
+        {
+          "id": "gafsa--el-mdhilla--el-mdhilla-cite-ennacim--2170",
+          "nameFr": "EL MDHILLA (Cite Ennacim)",
+          "nameAr": "المظيلة (حي النسيم)",
+          "postalCode": "2170",
+          "latitude": 34.301,
+          "longitude": 9.001,
+          "searchKey": "el mdhilla (cite ennacim) المظيلة (حي النسيم) 2170"
+        },
+        {
+          "id": "gafsa--el-mdhilla--el-mdhilla-cite-essaada--2170",
+          "nameFr": "EL MDHILLA (Cite Essaada)",
+          "nameAr": "المظيلة (حي السعادة)",
+          "postalCode": "2170",
+          "latitude": 34.302,
+          "longitude": 9.002,
+          "searchKey": "el mdhilla (cite essaada) المظيلة (حي السعادة) 2170"
+        },
+        {
+          "id": "gafsa--el-mdhilla--el-mdhilla-cite-ouest--2170",
+          "nameFr": "EL MDHILLA (Cite Ouest)",
+          "nameAr": "المظيلة (الحي الغربي)",
+          "postalCode": "2170",
+          "latitude": 34.299,
+          "longitude": 8.998,
+          "searchKey": "el mdhilla (cite ouest) المظيلة (الحي الغربي) 2170"
+        },
+        {
+          "id": "gafsa--el-mdhilla--el-mdhilla-cite-ouvriere-2--2170",
+          "nameFr": "EL MDHILLA (Cite Ouvriere 2)",
+          "nameAr": "المظيلة (الحي العمالي 2)",
+          "postalCode": "2170",
+          "latitude": 34.303,
+          "longitude": 9.003,
+          "searchKey": "el mdhilla (cite ouvriere 2) المظيلة (الحي العمالي 2) 2170"
+        },
+        {
+          "id": "gafsa--el-mdhilla--el-mdhilla-cite-stade-ouvriere-est--2170",
+          "nameFr": "EL MDHILLA (Cite Stade Ouvriere Est)",
+          "nameAr": "المظيلة (حي الملعب العمالي الشرقي)",
+          "postalCode": "2170",
+          "latitude": 34.304,
+          "longitude": 9.005,
+          "searchKey": "el mdhilla (cite stade ouvriere est) المظيلة (حي الملعب العمالي الشرقي) 2170"
+        },
+        {
+          "id": "gafsa--el-mdhilla--el-mdhilla-jebel-mdhilla--2170",
+          "nameFr": "EL MDHILLA (Jebel Mdhilla)",
+          "nameAr": "المظيلة (جبل المظيلة)",
+          "postalCode": "2170",
+          "latitude": 34.25,
+          "longitude": 9.05,
+          "searchKey": "el mdhilla (jebel mdhilla) المظيلة (جبل المظيلة) 2170"
+        }
+      ]
+    },
+    {
+      "id": "gafsa--gafsa-nord",
+      "nameFr": "GAFSA NORD",
+      "nameAr": "قفصة الشمالية",
+      "searchKey": "gafsa nord قفصة الشمالية",
+      "municipalities": [
+        {
+          "id": "gafsa--gafsa-nord--gafsa-nord-echabiba--2196",
+          "nameFr": "GAFSA NORD (Echabiba)",
+          "nameAr": "قفصة الشمالية (الشبيبة)",
+          "postalCode": "2196",
+          "latitude": 34.432,
+          "longitude": 8.792,
+          "searchKey": "gafsa nord (echabiba) قفصة الشمالية (الشبيبة) 2196"
+        },
+        {
+          "id": "gafsa--gafsa-nord--gafsa-nord-menzel-mimoun--2141",
+          "nameFr": "GAFSA NORD (Menzel Mimoun)",
+          "nameAr": "قفصة الشمالية (منزل ميمون)",
+          "postalCode": "2141",
+          "latitude": 34.435,
+          "longitude": 8.785,
+          "searchKey": "gafsa nord (menzel mimoun) قفصة الشمالية (منزل ميمون) 2141"
+        },
+        {
+          "id": "gafsa--gafsa-nord--gafsa-nord-ouled-zid--2196",
+          "nameFr": "GAFSA NORD (Ouled Zid)",
+          "nameAr": "قفصة الشمالية (أولاد زيد)",
+          "postalCode": "2196",
+          "latitude": 34.43,
+          "longitude": 8.79,
+          "searchKey": "gafsa nord (ouled zid) قفصة الشمالية (أولاد زيد) 2196"
+        }
+      ]
+    },
+    {
+      "id": "gafsa--gafsa-sud",
+      "nameFr": "GAFSA SUD",
+      "nameAr": "قفصة الجنوبية",
+      "searchKey": "gafsa sud قفصة الجنوبية",
+      "municipalities": [
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-bayech--2100",
+          "nameFr": "GAFSA SUD (Cite Bayech)",
+          "nameAr": "قفصة الجنوبية (حي البياش)",
+          "postalCode": "2100",
+          "latitude": 34.415,
+          "longitude": 8.78,
+          "searchKey": "gafsa sud (cite bayech) قفصة الجنوبية (حي البياش) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-cherif--2100",
+          "nameFr": "GAFSA SUD (Cite Cherif)",
+          "nameAr": "قفصة الجنوبية (حي الشريف)",
+          "postalCode": "2100",
+          "latitude": 34.41,
+          "longitude": 8.785,
+          "searchKey": "gafsa sud (cite cherif) قفصة الجنوبية (حي الشريف) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-des-jeunes-1--2100",
+          "nameFr": "GAFSA SUD (Cite Des Jeunes 1)",
+          "nameAr": "قفصة الجنوبية (حي الشباب 1)",
+          "postalCode": "2100",
+          "latitude": 34.418,
+          "longitude": 8.79,
+          "searchKey": "gafsa sud (cite des jeunes 1) قفصة الجنوبية (حي الشباب 1) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-des-jeunes-2--2100",
+          "nameFr": "GAFSA SUD (Cite Des Jeunes 2)",
+          "nameAr": "قفصة الجنوبية (حي الشباب 2)",
+          "postalCode": "2100",
+          "latitude": 34.417,
+          "longitude": 8.791,
+          "searchKey": "gafsa sud (cite des jeunes 2) قفصة الجنوبية (حي الشباب 2) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-des-jeunes--2100",
+          "nameFr": "GAFSA SUD (Cite Des Jeunes)",
+          "nameAr": "قفصة الجنوبية (حي الشباب)",
+          "postalCode": "2100",
+          "latitude": 34.418,
+          "longitude": 8.79,
+          "searchKey": "gafsa sud (cite des jeunes) قفصة الجنوبية (حي الشباب) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-el-afrane--2100",
+          "nameFr": "GAFSA SUD (Cite El Afrane)",
+          "nameAr": "قفصة الجنوبية (حي الأفران)",
+          "postalCode": "2100",
+          "latitude": 34.412,
+          "longitude": 8.775,
+          "searchKey": "gafsa sud (cite el afrane) قفصة الجنوبية (حي الأفران) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-el-kaouafel-1--2100",
+          "nameFr": "GAFSA SUD (Cite El Kaouafel 1)",
+          "nameAr": "قفصة الجنوبية (حي القوافل 1)",
+          "postalCode": "2100",
+          "latitude": 34.425,
+          "longitude": 8.795,
+          "searchKey": "gafsa sud (cite el kaouafel 1) قفصة الجنوبية (حي القوافل 1) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-el-kaouafel-2--2100",
+          "nameFr": "GAFSA SUD (Cite El Kaouafel 2)",
+          "nameAr": "قفصة الجنوبية (حي القوافل 2)",
+          "postalCode": "2100",
+          "latitude": 34.426,
+          "longitude": 8.796,
+          "searchKey": "gafsa sud (cite el kaouafel 2) قفصة الجنوبية (حي القوافل 2) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-el-kitna--2100",
+          "nameFr": "GAFSA SUD (Cite El Kitna)",
+          "nameAr": "قفصة الجنوبية (حي القطنة)",
+          "postalCode": "2100",
+          "latitude": 34.413,
+          "longitude": 8.778,
+          "searchKey": "gafsa sud (cite el kitna) قفصة الجنوبية (حي القطنة) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-el-moula--2100",
+          "nameFr": "GAFSA SUD (Cite El Moula)",
+          "nameAr": "قفصة الجنوبية (حي المولى)",
+          "postalCode": "2100",
+          "latitude": 34.414,
+          "longitude": 8.77,
+          "searchKey": "gafsa sud (cite el moula) قفصة الجنوبية (حي المولى) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-ennouhoudh--2100",
+          "nameFr": "GAFSA SUD (Cite Ennouhoudh)",
+          "nameAr": "قفصة الجنوبية (حي النهوض)",
+          "postalCode": "2100",
+          "latitude": 34.42,
+          "longitude": 8.792,
+          "searchKey": "gafsa sud (cite ennouhoudh) قفصة الجنوبية (حي النهوض) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-essourour--2124",
+          "nameFr": "GAFSA SUD (Cite Essourour)",
+          "nameAr": "قفصة الجنوبية (حي السرور)",
+          "postalCode": "2124",
+          "latitude": 34.423,
+          "longitude": 8.794,
+          "searchKey": "gafsa sud (cite essourour) قفصة الجنوبية (حي السرور) 2124"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-garde-nationale--2100",
+          "nameFr": "GAFSA SUD (Cite Garde Nationale)",
+          "nameAr": "قفصة الجنوبية (حي الحرس الوطني)",
+          "postalCode": "2100",
+          "latitude": 34.416,
+          "longitude": 8.782,
+          "searchKey": "gafsa sud (cite garde nationale) قفصة الجنوبية (حي الحرس الوطني) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-cite-industrielle--2100",
+          "nameFr": "GAFSA SUD (Cite Industrielle)",
+          "nameAr": "قفصة الجنوبية (الحي الصناعي)",
+          "postalCode": "2100",
+          "latitude": 34.4,
+          "longitude": 8.8,
+          "searchKey": "gafsa sud (cite industrielle) قفصة الجنوبية (الحي الصناعي) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-doualy-gafsa--2143",
+          "nameFr": "GAFSA SUD (Doualy Gafsa)",
+          "nameAr": "قفصة الجنوبية (دوالي قفصة)",
+          "postalCode": "2143",
+          "latitude": 34.39,
+          "longitude": 8.75,
+          "searchKey": "gafsa sud (doualy gafsa) قفصة الجنوبية (دوالي قفصة) 2143"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-el-garia--2100",
+          "nameFr": "GAFSA SUD (El Garia)",
+          "nameAr": "قفصة الجنوبية (القرية)",
+          "postalCode": "2100",
+          "latitude": 34.405,
+          "longitude": 8.77,
+          "searchKey": "gafsa sud (el garia) قفصة الجنوبية (القرية) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-ennadhour--2142",
+          "nameFr": "GAFSA SUD (Ennadhour)",
+          "nameAr": "قفصة الجنوبية (الناظور)",
+          "postalCode": "2142",
+          "latitude": 34.41,
+          "longitude": 8.73,
+          "searchKey": "gafsa sud (ennadhour) قفصة الجنوبية (الناظور) 2142"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-gafsa-cite-des-jeunes--2133",
+          "nameFr": "GAFSA SUD (Gafsa Cite Des Jeunes)",
+          "nameAr": "قفصة الجنوبية (قفصة حي الشباب)",
+          "postalCode": "2133",
+          "latitude": 34.4185,
+          "longitude": 8.7905,
+          "searchKey": "gafsa sud (gafsa cite des jeunes) قفصة الجنوبية (قفصة حي الشباب) 2133"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-gafsa-cite-ennour--2123",
+          "nameFr": "GAFSA SUD (Gafsa Cite Ennour)",
+          "nameAr": "قفصة الجنوبية (قفصة حي النور)",
+          "postalCode": "2123",
+          "latitude": 34.422,
+          "longitude": 8.793,
+          "searchKey": "gafsa sud (gafsa cite ennour) قفصة الجنوبية (قفصة حي النور) 2123"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-gafsa--2100",
+          "nameFr": "GAFSA SUD (Gafsa)",
+          "nameAr": "قفصة الجنوبية (قفصة)",
+          "postalCode": "2100",
+          "latitude": 34.415,
+          "longitude": 8.783,
+          "searchKey": "gafsa sud (gafsa) قفصة الجنوبية (قفصة) 2100"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-kef-derbi--2142",
+          "nameFr": "GAFSA SUD (Kef Derbi)",
+          "nameAr": "قفصة الجنوبية (الكاف الدربي)",
+          "postalCode": "2142",
+          "latitude": 34.4,
+          "longitude": 8.72,
+          "searchKey": "gafsa sud (kef derbi) قفصة الجنوبية (الكاف الدربي) 2142"
+        },
+        {
+          "id": "gafsa--gafsa-sud--gafsa-sud-sidi-ahmed-zarrouk--2112",
+          "nameFr": "GAFSA SUD (Sidi Ahmed Zarrouk)",
+          "nameAr": "قفصة الجنوبية (سيدي أحمد زروق)",
+          "postalCode": "2112",
+          "latitude": 34.42,
+          "longitude": 8.78,
+          "searchKey": "gafsa sud (sidi ahmed zarrouk) قفصة الجنوبية (سيدي أحمد زروق) 2112"
+        }
+      ]
+    },
+    {
+      "id": "gafsa--metlaoui",
+      "nameFr": "METLAOUI",
+      "nameAr": "المتلوي",
+      "searchKey": "metlaoui المتلوي",
+      "municipalities": [
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-aouled-radhouane--2130",
+          "nameFr": "METLAOUI (Cite Aouled Radhouane)",
+          "nameAr": "المتلوي (حي أولاد رضوان)",
+          "postalCode": "2130",
+          "latitude": 34.32,
+          "longitude": 8.4,
+          "searchKey": "metlaoui (cite aouled radhouane) المتلوي (حي أولاد رضوان) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-centrale--2130",
+          "nameFr": "METLAOUI (Cite Centrale)",
+          "nameAr": "المتلوي (الحي المركزي)",
+          "postalCode": "2130",
+          "latitude": 34.321,
+          "longitude": 8.401,
+          "searchKey": "metlaoui (cite centrale) المتلوي (الحي المركزي) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-du-laboratoire--2130",
+          "nameFr": "METLAOUI (Cite Du Laboratoire)",
+          "nameAr": "المتلوي (حي المخبر)",
+          "postalCode": "2130",
+          "latitude": 34.322,
+          "longitude": 8.402,
+          "searchKey": "metlaoui (cite du laboratoire) المتلوي (حي المخبر) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-el-amel--2130",
+          "nameFr": "METLAOUI (Cite El Amel)",
+          "nameAr": "المتلوي (حي الأمل)",
+          "postalCode": "2130",
+          "latitude": 34.323,
+          "longitude": 8.403,
+          "searchKey": "metlaoui (cite el amel) المتلوي (حي الأمل) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-el-magroun--2132",
+          "nameFr": "METLAOUI (Cite El Magroun)",
+          "nameAr": "المتلوي (حي المقرون)",
+          "postalCode": "2132",
+          "latitude": 34.315,
+          "longitude": 8.395,
+          "searchKey": "metlaoui (cite el magroun) المتلوي (حي المقرون) 2132"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-ennacim--2130",
+          "nameFr": "METLAOUI (Cite Ennacim)",
+          "nameAr": "المتلوي (حي النسيم)",
+          "postalCode": "2130",
+          "latitude": 34.324,
+          "longitude": 8.404,
+          "searchKey": "metlaoui (cite ennacim) المتلوي (حي النسيم) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-ennasr--2130",
+          "nameFr": "METLAOUI (Cite Ennasr)",
+          "nameAr": "المتلوي (حي النصر)",
+          "postalCode": "2130",
+          "latitude": 34.325,
+          "longitude": 8.405,
+          "searchKey": "metlaoui (cite ennasr) المتلوي (حي النصر) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-essaada-1--2130",
+          "nameFr": "METLAOUI (Cite Essaada 1)",
+          "nameAr": "المتلوي (حي السعادة 1)",
+          "postalCode": "2130",
+          "latitude": 34.326,
+          "longitude": 8.406,
+          "searchKey": "metlaoui (cite essaada 1) المتلوي (حي السعادة 1) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-essaada-2--2130",
+          "nameFr": "METLAOUI (Cite Essaada 2)",
+          "nameAr": "المتلوي (حي السعادة 2)",
+          "postalCode": "2130",
+          "latitude": 34.327,
+          "longitude": 8.407,
+          "searchKey": "metlaoui (cite essaada 2) المتلوي (حي السعادة 2) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-essaada-ouest--2130",
+          "nameFr": "METLAOUI (Cite Essaada Ouest)",
+          "nameAr": "المتلوي (حي السعادة الغربي)",
+          "postalCode": "2130",
+          "latitude": 34.319,
+          "longitude": 8.399,
+          "searchKey": "metlaoui (cite essaada ouest) المتلوي (حي السعادة الغربي) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-europeen--2130",
+          "nameFr": "METLAOUI (Cite Europeen)",
+          "nameAr": "المتلوي (الحي الأوروبي)",
+          "postalCode": "2130",
+          "latitude": 34.328,
+          "longitude": 8.408,
+          "searchKey": "metlaoui (cite europeen) المتلوي (الحي الأوروبي) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-ezzouhour-1--2130",
+          "nameFr": "METLAOUI (Cite Ezzouhour 1)",
+          "nameAr": "المتلوي (حي الزهور 1)",
+          "postalCode": "2130",
+          "latitude": 34.329,
+          "longitude": 8.409,
+          "searchKey": "metlaoui (cite ezzouhour 1) المتلوي (حي الزهور 1) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-ezzouhour-2--2130",
+          "nameFr": "METLAOUI (Cite Ezzouhour 2)",
+          "nameAr": "المتلوي (حي الزهور 2)",
+          "postalCode": "2130",
+          "latitude": 34.3293,
+          "longitude": 8.4093,
+          "searchKey": "metlaoui (cite ezzouhour 2) المتلوي (حي الزهور 2) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-ezzouhour-3--2130",
+          "nameFr": "METLAOUI (Cite Ezzouhour 3)",
+          "nameAr": "المتلوي (حي الزهور 3)",
+          "postalCode": "2130",
+          "latitude": 34.3296,
+          "longitude": 8.4096,
+          "searchKey": "metlaoui (cite ezzouhour 3) المتلوي (حي الزهور 3) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-ezzouhour-4--2130",
+          "nameFr": "METLAOUI (Cite Ezzouhour 4)",
+          "nameAr": "المتلوي (حي الزهور 4)",
+          "postalCode": "2130",
+          "latitude": 34.3299,
+          "longitude": 8.4099,
+          "searchKey": "metlaoui (cite ezzouhour 4) المتلوي (حي الزهور 4) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-ezzouhour--2130",
+          "nameFr": "METLAOUI (Cite Ezzouhour)",
+          "nameAr": "المتلوي (حي الزهور)",
+          "postalCode": "2130",
+          "latitude": 34.329,
+          "longitude": 8.409,
+          "searchKey": "metlaoui (cite ezzouhour) المتلوي (حي الزهور) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-ibn-khaldoun--2130",
+          "nameFr": "METLAOUI (Cite Ibn Khaldoun)",
+          "nameAr": "المتلوي (حي ابن خلدون)",
+          "postalCode": "2130",
+          "latitude": 34.318,
+          "longitude": 8.41,
+          "searchKey": "metlaoui (cite ibn khaldoun) المتلوي (حي ابن خلدون) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-moderne--2130",
+          "nameFr": "METLAOUI (Cite Moderne)",
+          "nameAr": "المتلوي (الحي العصري)",
+          "postalCode": "2130",
+          "latitude": 34.317,
+          "longitude": 8.405,
+          "searchKey": "metlaoui (cite moderne) المتلوي (الحي العصري) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-presidentielle--2130",
+          "nameFr": "METLAOUI (Cite Presidentielle)",
+          "nameAr": "المتلوي (الحي الرئاسي)",
+          "postalCode": "2130",
+          "latitude": 34.316,
+          "longitude": 8.4,
+          "searchKey": "metlaoui (cite presidentielle) المتلوي (الحي الرئاسي) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-cite-thelja--2130",
+          "nameFr": "METLAOUI (Cite Thelja)",
+          "nameAr": "المتلوي (حي الثالجة)",
+          "postalCode": "2130",
+          "latitude": 34.33,
+          "longitude": 8.35,
+          "searchKey": "metlaoui (cite thelja) المتلوي (حي الثالجة) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-el-kaina--2132",
+          "nameFr": "METLAOUI (El Kaina)",
+          "nameAr": "المتلوي (القينة)",
+          "postalCode": "2132",
+          "latitude": 34.335,
+          "longitude": 8.415,
+          "searchKey": "metlaoui (el kaina) المتلوي (القينة) 2132"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-el-mziraa--2134",
+          "nameFr": "METLAOUI (El Mziraa)",
+          "nameAr": "المتلوي (المزيرعة)",
+          "postalCode": "2134",
+          "latitude": 34.31,
+          "longitude": 8.43,
+          "searchKey": "metlaoui (el mziraa) المتلوي (المزيرعة) 2134"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-metlaoui-gare--2113",
+          "nameFr": "METLAOUI (Metlaoui Gare)",
+          "nameAr": "المتلوي (محطة المتلوي)",
+          "postalCode": "2113",
+          "latitude": 34.3205,
+          "longitude": 8.4005,
+          "searchKey": "metlaoui (metlaoui gare) المتلوي (محطة المتلوي) 2113"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-metlaoui-mines--2132",
+          "nameFr": "METLAOUI (Metlaoui Mines)",
+          "nameAr": "المتلوي (مناجم المتلوي)",
+          "postalCode": "2132",
+          "latitude": 34.34,
+          "longitude": 8.38,
+          "searchKey": "metlaoui (metlaoui mines) المتلوي (مناجم المتلوي) 2132"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-metlaoui-thalja--2134",
+          "nameFr": "METLAOUI (Metlaoui Thalja)",
+          "nameAr": "المتلوي (المتلوي الثالجة)",
+          "postalCode": "2134",
+          "latitude": 34.332,
+          "longitude": 8.355,
+          "searchKey": "metlaoui (metlaoui thalja) المتلوي (المتلوي الثالجة) 2134"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-metlaoui--2130",
+          "nameFr": "METLAOUI (Metlaoui)",
+          "nameAr": "المتلوي (المتلوي)",
+          "postalCode": "2130",
+          "latitude": 34.32,
+          "longitude": 8.4,
+          "searchKey": "metlaoui (metlaoui) المتلوي (المتلوي) 2130"
+        },
+        {
+          "id": "gafsa--metlaoui--metlaoui-richet-ennaam--2130",
+          "nameFr": "METLAOUI (Richet Ennaam)",
+          "nameAr": "المتلوي (ريشة النعام)",
+          "postalCode": "2130",
+          "latitude": 34.3,
+          "longitude": 8.42,
+          "searchKey": "metlaoui (richet ennaam) المتلوي (ريشة النعام) 2130"
+        }
+      ]
+    },
+    {
+      "id": "gafsa--moulares",
+      "nameFr": "MOULARES",
+      "nameAr": "أم العرائس",
+      "searchKey": "moulares أم العرائس",
+      "municipalities": [
+        {
+          "id": "gafsa--moulares--moulares-cite-de-la-fraternite--2110",
+          "nameFr": "MOULARES (Cite De La Fraternite)",
+          "nameAr": "أم العرائس (حي الإخاء)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite de la fraternite) أم العرائس (حي الإخاء) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-de-la-gare--2110",
+          "nameFr": "MOULARES (Cite De La Gare)",
+          "nameAr": "أم العرائس (حي المحطة)",
+          "postalCode": "2110",
+          "latitude": 34.495,
+          "longitude": 8.275,
+          "searchKey": "moulares (cite de la gare) أم العرائس (حي المحطة) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-de-le-liberte--2110",
+          "nameFr": "MOULARES (Cite De Le Liberte)",
+          "nameAr": "أم العرائس (حي الحرية)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite de le liberte) أم العرائس (حي الحرية) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-des-jeunes--2110",
+          "nameFr": "MOULARES (Cite Des Jeunes)",
+          "nameAr": "أم العرائس (حي الشباب)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite des jeunes) أم العرائس (حي الشباب) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-des-ouvriers--2110",
+          "nameFr": "MOULARES (Cite Des Ouvriers)",
+          "nameAr": "أم العرائس (الحي العمالي)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite des ouvriers) أم العرائس (الحي العمالي) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-el-amel--2110",
+          "nameFr": "MOULARES (Cite El Amel)",
+          "nameAr": "أم العرائس (حي الأمل)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite el amel) أم العرائس (حي الأمل) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-essoualmia--2110",
+          "nameFr": "MOULARES (Cite Essoualmia)",
+          "nameAr": "أم العرائس (حي السوالمية)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite essoualmia) أم العرائس (حي السوالمية) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-kouceila--2110",
+          "nameFr": "MOULARES (Cite Kouceila)",
+          "nameAr": "أم العرائس (حي كسيلة)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite kouceila) أم العرائس (حي كسيلة) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-marocain--2110",
+          "nameFr": "MOULARES (Cite Marocain)",
+          "nameAr": "أم العرائس (الحي المغربي)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite marocain) أم العرائس (الحي المغربي) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-moderne--2110",
+          "nameFr": "MOULARES (Cite Moderne)",
+          "nameAr": "أم العرائس (الحي العصري)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite moderne) أم العرائس (الحي العصري) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-okba-ibn-nafaa--2110",
+          "nameFr": "MOULARES (Cite Okba Ibn Nafaa)",
+          "nameAr": "أم العرائس (حي عقبة بن نافع)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite okba ibn nafaa) أم العرائس (حي عقبة بن نافع) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-cite-sprols--2110",
+          "nameFr": "MOULARES (Cite Sprols)",
+          "nameAr": "أم العرائس (حي سبرولس)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (cite sprols) أم العرائس (حي سبرولس) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-moulares-gare--2161",
+          "nameFr": "MOULARES (Moulares Gare)",
+          "nameAr": "أم العرائس (أم العرائس المحطة)",
+          "postalCode": "2161",
+          "latitude": 34.495,
+          "longitude": 8.275,
+          "searchKey": "moulares (moulares gare) أم العرائس (أم العرائس المحطة) 2161"
+        },
+        {
+          "id": "gafsa--moulares--moulares-moulares--2110",
+          "nameFr": "MOULARES (Moulares)",
+          "nameAr": "أم العرائس (أم العرائس)",
+          "postalCode": "2110",
+          "latitude": 34.49,
+          "longitude": 8.27,
+          "searchKey": "moulares (moulares) أم العرائس (أم العرائس) 2110"
+        },
+        {
+          "id": "gafsa--moulares--moulares-ouglet-ahmed--2114",
+          "nameFr": "MOULARES (Ouglet Ahmed)",
+          "nameAr": "أم العرائس (عقلة أحمد)",
+          "postalCode": "2114",
+          "latitude": 34.47,
+          "longitude": 8.25,
+          "searchKey": "moulares (ouglet ahmed) أم العرائس (عقلة أحمد) 2114"
+        },
+        {
+          "id": "gafsa--moulares--moulares-sidi-boubaker--2114",
+          "nameFr": "MOULARES (Sidi Boubaker)",
+          "nameAr": "أم العرائس (سيدي بوبكر)",
+          "postalCode": "2114",
+          "latitude": 34.55,
+          "longitude": 8.33,
+          "searchKey": "moulares (sidi boubaker) أم العرائس (سيدي بوبكر) 2114"
+        },
+        {
+          "id": "gafsa--moulares--moulares-tabedit--2110",
+          "nameFr": "MOULARES (Tabedit)",
+          "nameAr": "أم العرائس (تابديت)",
+          "postalCode": "2110",
+          "latitude": 34.53,
+          "longitude": 8.2,
+          "searchKey": "moulares (tabedit) أم العرائس (تابديت) 2110"
+        }
+      ]
+    },
+    {
+      "id": "gafsa--redeyef",
+      "nameFr": "REDEYEF",
+      "nameAr": "الرديف",
+      "searchKey": "redeyef الرديف",
+      "municipalities": [
+        {
+          "id": "gafsa--redeyef--redeyef-cite-de-la-gare--2120",
+          "nameFr": "REDEYEF (Cite De La Gare)",
+          "nameAr": "الرديف (حي المحطة)",
+          "postalCode": "2120",
+          "latitude": 34.385,
+          "longitude": 8.155,
+          "searchKey": "redeyef (cite de la gare) الرديف (حي المحطة) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-de-la-poste--2120",
+          "nameFr": "REDEYEF (Cite De La Poste)",
+          "nameAr": "الرديف (حي البريد)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite de la poste) الرديف (حي البريد) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-du-souk--2120",
+          "nameFr": "REDEYEF (Cite Du Souk)",
+          "nameAr": "الرديف (حي السوق)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite du souk) الرديف (حي السوق) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-essouafa--2120",
+          "nameFr": "REDEYEF (Cite Essouafa)",
+          "nameAr": "الرديف (حي السوافة)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite essouafa) الرديف (حي السوافة) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-ettahrir--2120",
+          "nameFr": "REDEYEF (Cite Ettahrir)",
+          "nameAr": "الرديف (حي التحرير)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite ettahrir) الرديف (حي التحرير) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-hsouna-ben-tahar--2120",
+          "nameFr": "REDEYEF (Cite Hsouna Ben Tahar)",
+          "nameAr": "الرديف (حي حسونة بن طاهر)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite hsouna ben tahar) الرديف (حي حسونة بن طاهر) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-ouled-bou-oune--2120",
+          "nameFr": "REDEYEF (Cite Ouled Bou Oune)",
+          "nameAr": "الرديف (حي أولاد بو عون)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite ouled bou oune) الرديف (حي أولاد بو عون) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-ouled-majed--2120",
+          "nameFr": "REDEYEF (Cite Ouled Majed)",
+          "nameAr": "الرديف (حي أولاد ماجد)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite ouled majed) الرديف (حي أولاد ماجد) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-ouvriere--2120",
+          "nameFr": "REDEYEF (Cite Ouvriere)",
+          "nameAr": "الرديف (الحي العمالي)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite ouvriere) الرديف (الحي العمالي) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-sidi-abdelkader--2120",
+          "nameFr": "REDEYEF (Cite Sidi Abdelkader)",
+          "nameAr": "الرديف (حي سيدي عبد القادر)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite sidi abdelkader) الرديف (حي سيدي عبد القادر) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-sprols--2120",
+          "nameFr": "REDEYEF (Cite Sprols)",
+          "nameAr": "الرديف (حي سبرولس)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite sprols) الرديف (حي سبرولس) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-cite-trabelsia--2120",
+          "nameFr": "REDEYEF (Cite Trabelsia)",
+          "nameAr": "الرديف (حي الطرابلسية)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (cite trabelsia) الرديف (حي الطرابلسية) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-redeyef-gare--2140",
+          "nameFr": "REDEYEF (Redeyef Gare)",
+          "nameAr": "الرديف (الرديف المحطة)",
+          "postalCode": "2140",
+          "latitude": 34.385,
+          "longitude": 8.155,
+          "searchKey": "redeyef (redeyef gare) الرديف (الرديف المحطة) 2140"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-redeyef--2120",
+          "nameFr": "REDEYEF (Redeyef)",
+          "nameAr": "الرديف (الرديف)",
+          "postalCode": "2120",
+          "latitude": 34.38,
+          "longitude": 8.15,
+          "searchKey": "redeyef (redeyef) الرديف (الرديف) 2120"
+        },
+        {
+          "id": "gafsa--redeyef--redeyef-zomra-redeyef--2122",
+          "nameFr": "REDEYEF (Zomra Redeyef)",
+          "nameAr": "الرديف (زمرة الرديف)",
+          "postalCode": "2122",
+          "latitude": 34.37,
+          "longitude": 8.14,
+          "searchKey": "redeyef (zomra redeyef) الرديف (زمرة الرديف) 2122"
+        }
+      ]
+    },
+    {
+      "id": "gafsa--sidi-aich",
+      "nameFr": "SIDI AICH",
+      "nameAr": "سيدي عيش",
+      "searchKey": "sidi aich سيدي عيش",
+      "municipalities": [
+        {
+          "id": "gafsa--sidi-aich--sidi-aich-cite-dhebebnia-1--2131",
+          "nameFr": "SIDI AICH (Cite Dhebebnia 1)",
+          "nameAr": "سيدي عيش (حي الذهابنية 1)",
+          "postalCode": "2131",
+          "latitude": 34.53,
+          "longitude": 8.8,
+          "searchKey": "sidi aich (cite dhebebnia 1) سيدي عيش (حي الذهابنية 1) 2131"
+        },
+        {
+          "id": "gafsa--sidi-aich--sidi-aich-cite-dhebebnia-2--2131",
+          "nameFr": "SIDI AICH (Cite Dhebebnia 2)",
+          "nameAr": "سيدي عيش (حي الذهابنية 2)",
+          "postalCode": "2131",
+          "latitude": 34.5305,
+          "longitude": 8.8005,
+          "searchKey": "sidi aich (cite dhebebnia 2) سيدي عيش (حي الذهابنية 2) 2131"
+        },
+        {
+          "id": "gafsa--sidi-aich--sidi-aich-cite-du-lycee--2131",
+          "nameFr": "SIDI AICH (Cite Du Lycee)",
+          "nameAr": "سيدي عيش (حي المعهد)",
+          "postalCode": "2131",
+          "latitude": 34.531,
+          "longitude": 8.801,
+          "searchKey": "sidi aich (cite du lycee) سيدي عيش (حي المعهد) 2131"
+        },
+        {
+          "id": "gafsa--sidi-aich--sidi-aich-cite-ecole--2131",
+          "nameFr": "SIDI AICH (Cite Ecole)",
+          "nameAr": "سيدي عيش (حي المدرسة)",
+          "postalCode": "2131",
+          "latitude": 34.5315,
+          "longitude": 8.8015,
+          "searchKey": "sidi aich (cite ecole) سيدي عيش (حي المدرسة) 2131"
+        },
+        {
+          "id": "gafsa--sidi-aich--sidi-aich-cite-logement-populaire--2131",
+          "nameFr": "SIDI AICH (Cite Logement Populaire)",
+          "nameAr": "سيدي عيش (حي المساكن الشعبية)",
+          "postalCode": "2131",
+          "latitude": 34.532,
+          "longitude": 8.802,
+          "searchKey": "sidi aich (cite logement populaire) سيدي عيش (حي المساكن الشعبية) 2131"
+        },
+        {
+          "id": "gafsa--sidi-aich--sidi-aich-el-garia--2131",
+          "nameFr": "SIDI AICH (El Garia)",
+          "nameAr": "سيدي عيش (القرية)",
+          "postalCode": "2131",
+          "latitude": 34.525,
+          "longitude": 8.795,
+          "searchKey": "sidi aich (el garia) سيدي عيش (القرية) 2131"
+        },
+        {
+          "id": "gafsa--sidi-aich--sidi-aich-sidi-aich-est--2131",
+          "nameFr": "SIDI AICH (Sidi Aich Est)",
+          "nameAr": "سيدي عيش (سيدي عيش الشرقية)",
+          "postalCode": "2131",
+          "latitude": 34.53,
+          "longitude": 8.805,
+          "searchKey": "sidi aich (sidi aich est) سيدي عيش (سيدي عيش الشرقية) 2131"
+        },
+        {
+          "id": "gafsa--sidi-aich--sidi-aich-sidi-aich--2131",
+          "nameFr": "SIDI AICH (Sidi Aich)",
+          "nameAr": "سيدي عيش (سيدي عيش)",
+          "postalCode": "2131",
+          "latitude": 34.53,
+          "longitude": 8.8,
+          "searchKey": "sidi aich (sidi aich) سيدي عيش (سيدي عيش) 2131"
+        }
+      ]
+    },
+    {
+      "id": "gafsa--sned",
+      "nameFr": "SNED",
+      "nameAr": "السند",
+      "searchKey": "sned السند",
+      "municipalities": [
+        {
+          "id": "gafsa--sned--sned-abdessadok--2193",
+          "nameFr": "SNED (Abdessadok)",
+          "nameAr": "السند (عبد الصادق)",
+          "postalCode": "2193",
+          "latitude": 34.43,
+          "longitude": 9.24,
+          "searchKey": "sned (abdessadok) السند (عبد الصادق) 2193"
+        },
+        {
+          "id": "gafsa--sned--sned-alim--2195",
+          "nameFr": "SNED (Alim)",
+          "nameAr": "السند (عليم)",
+          "postalCode": "2195",
+          "latitude": 34.415,
+          "longitude": 9.27,
+          "searchKey": "sned (alim) السند (عليم) 2195"
+        },
+        {
+          "id": "gafsa--sned--sned-bahloula--2190",
+          "nameFr": "SNED (Bahloula)",
+          "nameAr": "السند (بهلولة)",
+          "postalCode": "2190",
+          "latitude": 34.44,
+          "longitude": 9.21,
+          "searchKey": "sned (bahloula) السند (بهلولة) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-de-la-gout--2190",
+          "nameFr": "SNED (Cite De La Gout)",
+          "nameAr": "السند (حي القوط)",
+          "postalCode": "2190",
+          "latitude": 34.441,
+          "longitude": 9.211,
+          "searchKey": "sned (cite de la gout) السند (حي القوط) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-des-martyrs--2190",
+          "nameFr": "SNED (Cite Des Martyrs)",
+          "nameAr": "السند (حي الشهداء)",
+          "postalCode": "2190",
+          "latitude": 34.442,
+          "longitude": 9.212,
+          "searchKey": "sned (cite des martyrs) السند (حي الشهداء) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-ennajah--2190",
+          "nameFr": "SNED (Cite Ennajah)",
+          "nameAr": "السند (حي النجاح)",
+          "postalCode": "2190",
+          "latitude": 34.443,
+          "longitude": 9.213,
+          "searchKey": "sned (cite ennajah) السند (حي النجاح) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-ennasr-1--2190",
+          "nameFr": "SNED (Cite Ennasr 1)",
+          "nameAr": "السند (حي النصر 1)",
+          "postalCode": "2190",
+          "latitude": 34.444,
+          "longitude": 9.214,
+          "searchKey": "sned (cite ennasr 1) السند (حي النصر 1) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-ennasr-2--2190",
+          "nameFr": "SNED (Cite Ennasr 2)",
+          "nameAr": "السند (حي النصر 2)",
+          "postalCode": "2190",
+          "latitude": 34.4445,
+          "longitude": 9.2145,
+          "searchKey": "sned (cite ennasr 2) السند (حي النصر 2) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-ennour--2190",
+          "nameFr": "SNED (Cite Ennour)",
+          "nameAr": "السند (حي النور)",
+          "postalCode": "2190",
+          "latitude": 34.445,
+          "longitude": 9.215,
+          "searchKey": "sned (cite ennour) السند (حي النور) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-erriadh--2190",
+          "nameFr": "SNED (Cite Erriadh)",
+          "nameAr": "السند (حي الرياض)",
+          "postalCode": "2190",
+          "latitude": 34.446,
+          "longitude": 9.216,
+          "searchKey": "sned (cite erriadh) السند (حي الرياض) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-ezzitouna-1--2190",
+          "nameFr": "SNED (Cite Ezzitouna 1)",
+          "nameAr": "السند (حي الزيتونة 1)",
+          "postalCode": "2190",
+          "latitude": 34.447,
+          "longitude": 9.217,
+          "searchKey": "sned (cite ezzitouna 1) السند (حي الزيتونة 1) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-ezzitouna-2--2190",
+          "nameFr": "SNED (Cite Ezzitouna 2)",
+          "nameAr": "السند (حي الزيتونة 2)",
+          "postalCode": "2190",
+          "latitude": 34.4475,
+          "longitude": 9.2175,
+          "searchKey": "sned (cite ezzitouna 2) السند (حي الزيتونة 2) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-ezzouhour-1--2190",
+          "nameFr": "SNED (Cite Ezzouhour 1)",
+          "nameAr": "السند (حي الزهور 1)",
+          "postalCode": "2190",
+          "latitude": 34.448,
+          "longitude": 9.218,
+          "searchKey": "sned (cite ezzouhour 1) السند (حي الزهور 1) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-ezzouhour-2--2190",
+          "nameFr": "SNED (Cite Ezzouhour 2)",
+          "nameAr": "السند (حي الزهور 2)",
+          "postalCode": "2190",
+          "latitude": 34.4485,
+          "longitude": 9.2185,
+          "searchKey": "sned (cite ezzouhour 2) السند (حي الزهور 2) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-cite-taieb-mhiri--2190",
+          "nameFr": "SNED (Cite Taieb Mhiri)",
+          "nameAr": "السند (حي الطيب المهيري)",
+          "postalCode": "2190",
+          "latitude": 34.449,
+          "longitude": 9.219,
+          "searchKey": "sned (cite taieb mhiri) السند (حي الطيب المهيري) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-dhoukara--2190",
+          "nameFr": "SNED (Dhoukara)",
+          "nameAr": "السند (ذوكارة)",
+          "postalCode": "2190",
+          "latitude": 34.435,
+          "longitude": 9.2,
+          "searchKey": "sned (dhoukara) السند (ذوكارة) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-el-araria--2116",
+          "nameFr": "SNED (El Araria)",
+          "nameAr": "السند (العرارية)",
+          "postalCode": "2116",
+          "latitude": 34.44,
+          "longitude": 9.21,
+          "searchKey": "sned (el araria) السند (العرارية) 2116"
+        },
+        {
+          "id": "gafsa--sned--sned-el-biadha--2193",
+          "nameFr": "SNED (El Biadha)",
+          "nameAr": "السند (البياضة)",
+          "postalCode": "2193",
+          "latitude": 34.425,
+          "longitude": 9.25,
+          "searchKey": "sned (el biadha) السند (البياضة) 2193"
+        },
+        {
+          "id": "gafsa--sned--sned-el-goussa--2190",
+          "nameFr": "SNED (El Goussa)",
+          "nameAr": "السند (القوسة)",
+          "postalCode": "2190",
+          "latitude": 34.45,
+          "longitude": 9.22,
+          "searchKey": "sned (el goussa) السند (القوسة) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-essmayria--2190",
+          "nameFr": "SNED (Essmayria)",
+          "nameAr": "السند (السمايرية)",
+          "postalCode": "2190",
+          "latitude": 34.455,
+          "longitude": 9.225,
+          "searchKey": "sned (essmayria) السند (السمايرية) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-henchir-el-afrah--2193",
+          "nameFr": "SNED (Henchir El Afrah)",
+          "nameAr": "السند (هنشير الأفراح)",
+          "postalCode": "2193",
+          "latitude": 34.42,
+          "longitude": 9.26,
+          "searchKey": "sned (henchir el afrah) السند (هنشير الأفراح) 2193"
+        },
+        {
+          "id": "gafsa--sned--sned-jebel-sned--2190",
+          "nameFr": "SNED (Jebel Sned)",
+          "nameAr": "السند (جبل السند)",
+          "postalCode": "2190",
+          "latitude": 34.4,
+          "longitude": 9.28,
+          "searchKey": "sned (jebel sned) السند (جبل السند) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-jedida--2116",
+          "nameFr": "SNED (Jedida)",
+          "nameAr": "السند (جديدة)",
+          "postalCode": "2116",
+          "latitude": 34.44,
+          "longitude": 9.21,
+          "searchKey": "sned (jedida) السند (جديدة) 2116"
+        },
+        {
+          "id": "gafsa--sned--sned-majoura--2192",
+          "nameFr": "SNED (Majoura)",
+          "nameAr": "السند (ماجورة)",
+          "postalCode": "2192",
+          "latitude": 34.48,
+          "longitude": 9.18,
+          "searchKey": "sned (majoura) السند (ماجورة) 2192"
+        },
+        {
+          "id": "gafsa--sned--sned-majourat-eddakhla--2192",
+          "nameFr": "SNED (Majourat Eddakhla)",
+          "nameAr": "السند (ماجورة الدخلة)",
+          "postalCode": "2192",
+          "latitude": 34.485,
+          "longitude": 9.175,
+          "searchKey": "sned (majourat eddakhla) السند (ماجورة الدخلة) 2192"
+        },
+        {
+          "id": "gafsa--sned--sned-menzel-chihaoui--2190",
+          "nameFr": "SNED (Menzel Chihaoui)",
+          "nameAr": "السند (منزل شحاوي)",
+          "postalCode": "2190",
+          "latitude": 34.46,
+          "longitude": 9.23,
+          "searchKey": "sned (menzel chihaoui) السند (منزل شحاوي) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-oum-el-aleg--2116",
+          "nameFr": "SNED (Oum El Aleg)",
+          "nameAr": "السند (أم العلق)",
+          "postalCode": "2116",
+          "latitude": 34.44,
+          "longitude": 9.21,
+          "searchKey": "sned (oum el aleg) السند (أم العلق) 2116"
+        },
+        {
+          "id": "gafsa--sned--sned-sned--2190",
+          "nameFr": "SNED (Sned)",
+          "nameAr": "السند (السند)",
+          "postalCode": "2190",
+          "latitude": 34.44,
+          "longitude": 9.21,
+          "searchKey": "sned (sned) السند (السند) 2190"
+        },
+        {
+          "id": "gafsa--sned--sned-zannouche--2116",
+          "nameFr": "SNED (Zannouche)",
+          "nameAr": "السند (زنوش)",
+          "postalCode": "2116",
+          "latitude": 34.46,
+          "longitude": 9.13,
+          "searchKey": "sned (zannouche) السند (زنوش) 2116"
+        }
+      ]
+    }
+  ]
+}

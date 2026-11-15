@@ -5,8 +5,15 @@
  * **Key Fields:**
  * - `id`: Unique identifier (CUID)
  * - `street`: Street address (required)
- * - `city`: City name (required)
+ * - `city`: City/municipality name (required) — for addresses captured via the
+ * Tunisia location combobox (issue #260), this holds the selected
+ * municipality/sector's display name; older free-text addresses keep
+ * whatever the customer originally typed
  * - `governorate`: Optional Tunisian governorate, used for merchant-facing filtering
+ * - `delegation`: Optional Tunisian delegation name, one level below `governorate`
+ * and one above `city` in the Governorate → Delegation → Municipality
+ * hierarchy — populated by the checkout location combobox, null for
+ * addresses captured before it existed
  * - `postalCode`: Optional postal/ZIP code
  * - `latitude`: Optional latitude for map display
  * - `longitude`: Optional longitude for map display
@@ -28,6 +35,7 @@ model Address {
   street      String
   city        String
   governorate Governorate?
+  delegation  String?
   postalCode  String?      @map("postal_code")
 
   latitude  Float?

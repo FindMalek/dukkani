@@ -1,0 +1,1737 @@
+{
+  "code": "SOUSSE",
+  "delegations": [
+    {
+      "id": "sousse--akouda",
+      "nameFr": "AKOUDA",
+      "nameAr": "أكودة",
+      "searchKey": "akouda أكودة",
+      "municipalities": [
+        {
+          "id": "sousse--akouda--akouda-akouda--4022",
+          "nameFr": "AKOUDA (Akouda)",
+          "nameAr": "أكودة (أكودة)",
+          "postalCode": "4022",
+          "latitude": 35.8667,
+          "longitude": 10.5667,
+          "searchKey": "akouda (akouda) أكودة (أكودة) 4022"
+        },
+        {
+          "id": "sousse--akouda--akouda-chatt-meriem--4042",
+          "nameFr": "AKOUDA (Chatt Meriem)",
+          "nameAr": "أكودة (شط مريم)",
+          "postalCode": "4042",
+          "latitude": 35.8667,
+          "longitude": 10.5667,
+          "searchKey": "akouda (chatt meriem) أكودة (شط مريم) 4042"
+        },
+        {
+          "id": "sousse--akouda--akouda-cite-du-dispensaire--4042",
+          "nameFr": "AKOUDA (Cite Du Dispensaire)",
+          "nameAr": "أكودة (حي المستوصف)",
+          "postalCode": "4042",
+          "latitude": 35.8667,
+          "longitude": 10.5667,
+          "searchKey": "akouda (cite du dispensaire) أكودة (حي المستوصف) 4042"
+        },
+        {
+          "id": "sousse--akouda--akouda-cite-ecole-superieure--4042",
+          "nameFr": "AKOUDA (Cite Ecole Superieure)",
+          "nameAr": "أكودة (حي المدرسة العليا)",
+          "postalCode": "4042",
+          "latitude": 35.8667,
+          "longitude": 10.5667,
+          "searchKey": "akouda (cite ecole superieure) أكودة (حي المدرسة العليا) 4042"
+        },
+        {
+          "id": "sousse--akouda--akouda-cite-ejjamaa--4042",
+          "nameFr": "AKOUDA (Cite Ejjamaa)",
+          "nameAr": "أكودة (حي الجامع)",
+          "postalCode": "4042",
+          "latitude": 35.8667,
+          "longitude": 10.5667,
+          "searchKey": "akouda (cite ejjamaa) أكودة (حي الجامع) 4042"
+        },
+        {
+          "id": "sousse--akouda--akouda-halg-el-menjel--4042",
+          "nameFr": "AKOUDA (Halg El Menjel)",
+          "nameAr": "أكودة (حلق المنجل)",
+          "postalCode": "4042",
+          "latitude": 35.8667,
+          "longitude": 10.5667,
+          "searchKey": "akouda (halg el menjel) أكودة (حلق المنجل) 4042"
+        },
+        {
+          "id": "sousse--akouda--akouda-tantana--4042",
+          "nameFr": "AKOUDA (Tantana)",
+          "nameAr": "أكودة (طنطانة)",
+          "postalCode": "4042",
+          "latitude": 35.8667,
+          "longitude": 10.5667,
+          "searchKey": "akouda (tantana) أكودة (طنطانة) 4042"
+        }
+      ]
+    },
+    {
+      "id": "sousse--bou-ficha",
+      "nameFr": "BOU FICHA",
+      "nameAr": "بوفيشة",
+      "searchKey": "bou ficha بوفيشة",
+      "municipalities": [
+        {
+          "id": "sousse--bou-ficha--bou-ficha-ain-errahma--4092",
+          "nameFr": "BOU FICHA (Ain Errahma)",
+          "nameAr": "بوفيشة (عين الرحمة)",
+          "postalCode": "4092",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (ain errahma) بوفيشة (عين الرحمة) 4092"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-bou-ficha--4010",
+          "nameFr": "BOU FICHA (Bou Ficha)",
+          "nameAr": "بوفيشة (بوفيشة)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (bou ficha) بوفيشة (بوفيشة) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-cite-20-mars--4010",
+          "nameFr": "BOU FICHA (Cite 20 Mars)",
+          "nameAr": "بوفيشة (حي 20 مارس)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (cite 20 mars) بوفيشة (حي 20 مارس) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-cite-erriadh--4010",
+          "nameFr": "BOU FICHA (Cite Erriadh)",
+          "nameAr": "بوفيشة (حي الرياض)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (cite erriadh) بوفيشة (حي الرياض) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-cite-ettahrir--4010",
+          "nameFr": "BOU FICHA (Cite Ettahrir)",
+          "nameAr": "بوفيشة (حي التحرير)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (cite ettahrir) بوفيشة (حي التحرير) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-cite-ezzouhour--4010",
+          "nameFr": "BOU FICHA (Cite Ezzouhour)",
+          "nameAr": "بوفيشة (حي الزهور)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (cite ezzouhour) بوفيشة (حي الزهور) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-cite-hached--4010",
+          "nameFr": "BOU FICHA (Cite Hached)",
+          "nameAr": "بوفيشة (حي حشاد)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (cite hached) بوفيشة (حي حشاد) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-cite-militaire--4010",
+          "nameFr": "BOU FICHA (Cite Militaire)",
+          "nameAr": "بوفيشة (الحي العسكري)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (cite militaire) بوفيشة (الحي العسكري) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-cite-snit--4010",
+          "nameFr": "BOU FICHA (Cite Snit)",
+          "nameAr": "بوفيشة (حي سنيت)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (cite snit) بوفيشة (حي سنيت) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-essalloum--4010",
+          "nameFr": "BOU FICHA (Essalloum)",
+          "nameAr": "بوفيشة (السلوم)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (essalloum) بوفيشة (السلوم) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-lenderia--4010",
+          "nameFr": "BOU FICHA (Lenderia)",
+          "nameAr": "بوفيشة (اللاندرية)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (lenderia) بوفيشة (اللاندرية) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-oued-el-kharroub--4010",
+          "nameFr": "BOU FICHA (Oued El Kharroub)",
+          "nameAr": "بوفيشة (وادي الخروب)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (oued el kharroub) بوفيشة (وادي الخروب) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-sidi-khelifa--4082",
+          "nameFr": "BOU FICHA (Sidi Khelifa)",
+          "nameAr": "بوفيشة (سيدي خليفة)",
+          "postalCode": "4082",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (sidi khelifa) بوفيشة (سيدي خليفة) 4082"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-sidi-mtir--4010",
+          "nameFr": "BOU FICHA (Sidi Mtir)",
+          "nameAr": "بوفيشة (سيدي مطير)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (sidi mtir) بوفيشة (سيدي مطير) 4010"
+        },
+        {
+          "id": "sousse--bou-ficha--bou-ficha-sidi-said--4010",
+          "nameFr": "BOU FICHA (Sidi Said)",
+          "nameAr": "بوفيشة (سيدي سعيد)",
+          "postalCode": "4010",
+          "latitude": 36.2933,
+          "longitude": 10.3997,
+          "searchKey": "bou ficha (sidi said) بوفيشة (سيدي سعيد) 4010"
+        }
+      ]
+    },
+    {
+      "id": "sousse--enfidha",
+      "nameFr": "ENFIDHA",
+      "nameAr": "النفيضة",
+      "searchKey": "enfidha النفيضة",
+      "municipalities": [
+        {
+          "id": "sousse--enfidha--enfidha-ain-garci--4035",
+          "nameFr": "ENFIDHA (Ain Garci)",
+          "nameAr": "النفيضة (عين قارصي)",
+          "postalCode": "4035",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (ain garci) النفيضة (عين قارصي) 4035"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-ain-medheker--4095",
+          "nameFr": "ENFIDHA (Ain Medheker)",
+          "nameAr": "النفيضة (عين مذكر)",
+          "postalCode": "4095",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (ain medheker) النفيضة (عين مذكر) 4095"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-chegarnia--4034",
+          "nameFr": "ENFIDHA (Chegarnia)",
+          "nameAr": "النفيضة (الشقارنية)",
+          "postalCode": "4034",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (chegarnia) النفيضة (الشقارنية) 4034"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-7-novembre--4030",
+          "nameFr": "ENFIDHA (Cite 7 Novembre)",
+          "nameAr": "النفيضة (حي 7 نوفمبر)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite 7 novembre) النفيضة (حي 7 نوفمبر) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-cimenterie--4030",
+          "nameFr": "ENFIDHA (Cite Cimenterie)",
+          "nameAr": "النفيضة (حي الإسمنتية)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite cimenterie) النفيضة (حي الإسمنتية) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-de-l-action--4030",
+          "nameFr": "ENFIDHA (Cite De L'Action)",
+          "nameAr": "النفيضة (حي العمل)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite de l'action) النفيضة (حي العمل) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-el-bidhane--4030",
+          "nameFr": "ENFIDHA (Cite El Bidhane)",
+          "nameAr": "النفيضة (حي البيضان)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite el bidhane) النفيضة (حي البيضان) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-el-yasmine--4030",
+          "nameFr": "ENFIDHA (Cite El Yasmine)",
+          "nameAr": "النفيضة (حي الياسمين)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite el yasmine) النفيضة (حي الياسمين) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-environnement--4030",
+          "nameFr": "ENFIDHA (Cite Environnement)",
+          "nameAr": "النفيضة (حي البيئة)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite environnement) النفيضة (حي البيئة) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-erriadh--4030",
+          "nameFr": "ENFIDHA (Cite Erriadh)",
+          "nameAr": "النفيضة (حي الرياض)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite erriadh) النفيضة (حي الرياض) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-essalem--4030",
+          "nameFr": "ENFIDHA (Cite Essalem)",
+          "nameAr": "النفيضة (حي السلام)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite essalem) النفيضة (حي السلام) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-ettahrir--4030",
+          "nameFr": "ENFIDHA (Cite Ettahrir)",
+          "nameAr": "النفيضة (حي التحرير)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite ettahrir) النفيضة (حي التحرير) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-ezzayatine--4030",
+          "nameFr": "ENFIDHA (Cite Ezzayatine)",
+          "nameAr": "النفيضة (حي الزياتين)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite ezzayatine) النفيضة (حي الزياتين) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-hached--4030",
+          "nameFr": "ENFIDHA (Cite Hached)",
+          "nameAr": "النفيضة (حي حشاد)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite hached) النفيضة (حي حشاد) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-cite-mohamed-ali--4030",
+          "nameFr": "ENFIDHA (Cite Mohamed Ali)",
+          "nameAr": "النفيضة (حي محمد علي)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (cite mohamed ali) النفيضة (حي محمد علي) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-dhehaibia--4030",
+          "nameFr": "ENFIDHA (Dhehaibia)",
+          "nameAr": "النفيضة (الذهيبية)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (dhehaibia) النفيضة (الذهيبية) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-el-frada--4030",
+          "nameFr": "ENFIDHA (El Frada)",
+          "nameAr": "النفيضة (الفرادة)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (el frada) النفيضة (الفرادة) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-el-ghoualif--4030",
+          "nameFr": "ENFIDHA (El Ghoualif)",
+          "nameAr": "النفيضة (الغواليف)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (el ghoualif) النفيضة (الغواليف) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-el-ghouilet--4030",
+          "nameFr": "ENFIDHA (El Ghouilet)",
+          "nameAr": "النفيضة (الغويلات)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (el ghouilet) النفيضة (الغويلات) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-enfidha--4030",
+          "nameFr": "ENFIDHA (Enfidha)",
+          "nameAr": "النفيضة (النفيضة)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (enfidha) النفيضة (النفيضة) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-essafha--4030",
+          "nameFr": "ENFIDHA (Essafha)",
+          "nameAr": "النفيضة (الصفحة)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (essafha) النفيضة (الصفحة) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-essmaidia--4030",
+          "nameFr": "ENFIDHA (Essmaidia)",
+          "nameAr": "النفيضة (الصمايدية)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (essmaidia) النفيضة (الصمايدية) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-grimit-est--4030",
+          "nameFr": "ENFIDHA (Grimit Est)",
+          "nameAr": "النفيضة (قريميط الشرقية)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (grimit est) النفيضة (قريميط الشرقية) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-grimit-ouest--4030",
+          "nameFr": "ENFIDHA (Grimit Ouest)",
+          "nameAr": "النفيضة (قريميط الغربية)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (grimit ouest) النفيضة (قريميط الغربية) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-hicher--4030",
+          "nameFr": "ENFIDHA (Hicher)",
+          "nameAr": "النفيضة (هيشر)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (hicher) النفيضة (هيشر) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-menzel-bel-ouaer--4032",
+          "nameFr": "ENFIDHA (Menzel Bel Ouaer)",
+          "nameAr": "النفيضة (منزل بلواعر)",
+          "postalCode": "4032",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (menzel bel ouaer) النفيضة (منزل بلواعر) 4032"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-menzel-fateh--4030",
+          "nameFr": "ENFIDHA (Menzel Fateh)",
+          "nameAr": "النفيضة (منزل فاتح)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (menzel fateh) النفيضة (منزل فاتح) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-methalithe--4030",
+          "nameFr": "ENFIDHA (Methalithe)",
+          "nameAr": "النفيضة (المثاليث)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (methalithe) النفيضة (المثاليث) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-mrabet-hached--4030",
+          "nameFr": "ENFIDHA (Mrabet Hached)",
+          "nameAr": "النفيضة (مرابط حشاد)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (mrabet hached) النفيضة (مرابط حشاد) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-ouled-abdallah--4030",
+          "nameFr": "ENFIDHA (Ouled Abdallah)",
+          "nameAr": "النفيضة (أولاد عبد الله)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (ouled abdallah) النفيضة (أولاد عبد الله) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-ouled-bellil--4030",
+          "nameFr": "ENFIDHA (Ouled Bellil)",
+          "nameAr": "النفيضة (أولاد بليل)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (ouled bellil) النفيضة (أولاد بليل) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-ouled-mohamed--4030",
+          "nameFr": "ENFIDHA (Ouled Mohamed)",
+          "nameAr": "النفيضة (أولاد محمد)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (ouled mohamed) النفيضة (أولاد محمد) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-sidi-saidane--4030",
+          "nameFr": "ENFIDHA (Sidi Saidane)",
+          "nameAr": "النفيضة (سيدي سعيدان)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (sidi saidane) النفيضة (سيدي سعيدان) 4030"
+        },
+        {
+          "id": "sousse--enfidha--enfidha-takrouna--4030",
+          "nameFr": "ENFIDHA (Takrouna)",
+          "nameAr": "النفيضة (تاكروانة)",
+          "postalCode": "4030",
+          "latitude": 36.1353,
+          "longitude": 10.3817,
+          "searchKey": "enfidha (takrouna) النفيضة (تاكروانة) 4030"
+        }
+      ]
+    },
+    {
+      "id": "sousse--hammam-sousse",
+      "nameFr": "HAMMAM SOUSSE",
+      "nameAr": "حمام سوسة",
+      "searchKey": "hammam sousse حمام سوسة",
+      "municipalities": [
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-cite-de-la-plage-1--4017",
+          "nameFr": "HAMMAM SOUSSE (Cite De La Plage 1)",
+          "nameAr": "حمام سوسة (حي الشاطئ 1)",
+          "postalCode": "4017",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (cite de la plage 1) حمام سوسة (حي الشاطئ 1) 4017"
+        },
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-cite-de-la-plage-2--4017",
+          "nameFr": "HAMMAM SOUSSE (Cite De La Plage 2)",
+          "nameAr": "حمام سوسة (حي الشاطئ 2)",
+          "postalCode": "4017",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (cite de la plage 2) حمام سوسة (حي الشاطئ 2) 4017"
+        },
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-cite-ennarjes-1--4017",
+          "nameFr": "HAMMAM SOUSSE (Cite Ennarjes 1)",
+          "nameAr": "حمام سوسة (حي النرجس 1)",
+          "postalCode": "4017",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (cite ennarjes 1) حمام سوسة (حي النرجس 1) 4017"
+        },
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-cite-ennarjes-2--4017",
+          "nameFr": "HAMMAM SOUSSE (Cite Ennarjes 2)",
+          "nameAr": "حمام سوسة (حي النرجس 2)",
+          "postalCode": "4017",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (cite ennarjes 2) حمام سوسة (حي النرجس 2) 4017"
+        },
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-cite-ezzitouna-1--4089",
+          "nameFr": "HAMMAM SOUSSE (Cite Ezzitouna 1)",
+          "nameAr": "حمام سوسة (حي الزيتونة 1)",
+          "postalCode": "4089",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (cite ezzitouna 1) حمام سوسة (حي الزيتونة 1) 4089"
+        },
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-cite-ezzitouna-2--4089",
+          "nameFr": "HAMMAM SOUSSE (Cite Ezzitouna 2)",
+          "nameAr": "حمام سوسة (حي الزيتونة 2)",
+          "postalCode": "4089",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (cite ezzitouna 2) حمام سوسة (حي الزيتونة 2) 4089"
+        },
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-cite-jaouhara--4017",
+          "nameFr": "HAMMAM SOUSSE (Cite Jaouhara)",
+          "nameAr": "حمام سوسة (حي جوهرة)",
+          "postalCode": "4017",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (cite jaouhara) حمام سوسة (حي جوهرة) 4017"
+        },
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-cite-presidentielle--4089",
+          "nameFr": "HAMMAM SOUSSE (Cite Presidentielle)",
+          "nameAr": "حمام سوسة (الحي الرئاسي)",
+          "postalCode": "4089",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (cite presidentielle) حمام سوسة (الحي الرئاسي) 4089"
+        },
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-el-kantaoui--4089",
+          "nameFr": "HAMMAM SOUSSE (El Kantaoui)",
+          "nameAr": "حمام سوسة (القنطاوي)",
+          "postalCode": "4089",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (el kantaoui) حمام سوسة (القنطاوي) 4089"
+        },
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-hammam-sousse-gharbi--4017",
+          "nameFr": "HAMMAM SOUSSE (Hammam Sousse Gharbi)",
+          "nameAr": "حمام سوسة (حمام سوسة الغربية)",
+          "postalCode": "4017",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (hammam sousse gharbi) حمام سوسة (حمام سوسة الغربية) 4017"
+        },
+        {
+          "id": "sousse--hammam-sousse--hammam-sousse-hammam-sousse--4011",
+          "nameFr": "HAMMAM SOUSSE (Hammam Sousse)",
+          "nameAr": "حمام سوسة (حمام سوسة)",
+          "postalCode": "4011",
+          "latitude": 35.8592,
+          "longitude": 10.59,
+          "searchKey": "hammam sousse (hammam sousse) حمام سوسة (حمام سوسة) 4011"
+        }
+      ]
+    },
+    {
+      "id": "sousse--hergla",
+      "nameFr": "HERGLA",
+      "nameAr": "هرقلة",
+      "searchKey": "hergla هرقلة",
+      "municipalities": [
+        {
+          "id": "sousse--hergla--hergla-el-aribat--4012",
+          "nameFr": "HERGLA (El Aribat)",
+          "nameAr": "هرقلة (العريبات)",
+          "postalCode": "4012",
+          "latitude": 36.0333,
+          "longitude": 10.5,
+          "searchKey": "hergla (el aribat) هرقلة (العريبات) 4012"
+        },
+        {
+          "id": "sousse--hergla--hergla-hergla--4012",
+          "nameFr": "HERGLA (Hergla)",
+          "nameAr": "هرقلة (هرقلة)",
+          "postalCode": "4012",
+          "latitude": 36.0333,
+          "longitude": 10.5,
+          "searchKey": "hergla (hergla) هرقلة (هرقلة) 4012"
+        },
+        {
+          "id": "sousse--hergla--hergla-souayeh--4012",
+          "nameFr": "HERGLA (Souayeh)",
+          "nameAr": "هرقلة (السوايح)",
+          "postalCode": "4012",
+          "latitude": 36.0333,
+          "longitude": 10.5,
+          "searchKey": "hergla (souayeh) هرقلة (السوايح) 4012"
+        }
+      ]
+    },
+    {
+      "id": "sousse--kalaa-el-kebira",
+      "nameFr": "KALAA EL KEBIRA",
+      "nameAr": "القلعة الكبرى",
+      "searchKey": "kalaa el kebira القلعة الكبرى",
+      "municipalities": [
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-ahel-jemiaa--4060",
+          "nameFr": "KALAA EL KEBIRA (Ahel Jemiaa)",
+          "nameAr": "القلعة الكبرى (أهل جميعة)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (ahel jemiaa) القلعة الكبرى (أهل جميعة) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-belaoum--4060",
+          "nameFr": "KALAA EL KEBIRA (Belaoum)",
+          "nameAr": "القلعة الكبرى (بلعوم)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (belaoum) القلعة الكبرى (بلعوم) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-chiab--4063",
+          "nameFr": "KALAA EL KEBIRA (Chiab)",
+          "nameAr": "القلعة الكبرى (الشياب)",
+          "postalCode": "4063",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (chiab) القلعة الكبرى (الشياب) 4063"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-bir-chemsi--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite Bir Chemsi)",
+          "nameAr": "القلعة الكبرى (حي بئر شمسي)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite bir chemsi) القلعة الكبرى (حي بئر شمسي) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-bir-hlaoua--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite Bir Hlaoua)",
+          "nameAr": "القلعة الكبرى (حي بئر حلاوة)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite bir hlaoua) القلعة الكبرى (حي بئر حلاوة) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-chargui--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite Chargui)",
+          "nameAr": "القلعة الكبرى (حي الشرقي)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite chargui) القلعة الكبرى (حي الشرقي) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-commerciale--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite Commerciale)",
+          "nameAr": "القلعة الكبرى (الحي التجاري)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite commerciale) القلعة الكبرى (الحي التجاري) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-el-bassatine--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite El Bassatine)",
+          "nameAr": "القلعة الكبرى (حي البساتين)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite el bassatine) القلعة الكبرى (حي البساتين) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-el-intilaka--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite El Intilaka)",
+          "nameAr": "القلعة الكبرى (حي الإنطلاقة)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite el intilaka) القلعة الكبرى (حي الإنطلاقة) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-el-jebs--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite El Jebs)",
+          "nameAr": "القلعة الكبرى (حي الجبس)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite el jebs) القلعة الكبرى (حي الجبس) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-el-mansoura--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite El Mansoura)",
+          "nameAr": "القلعة الكبرى (حي المنصورة)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite el mansoura) القلعة الكبرى (حي المنصورة) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-ennouzha-1--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite Ennouzha 1)",
+          "nameAr": "القلعة الكبرى (حي النزهة 1)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite ennouzha 1) القلعة الكبرى (حي النزهة 1) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-ennouzha-2--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite Ennouzha 2)",
+          "nameAr": "القلعة الكبرى (حي النزهة 2)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite ennouzha 2) القلعة الكبرى (حي النزهة 2) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-fadden-aoun--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite Fadden Aoun)",
+          "nameAr": "القلعة الكبرى (حي فدان عون)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite fadden aoun) القلعة الكبرى (حي فدان عون) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-nouvelle--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite Nouvelle)",
+          "nameAr": "القلعة الكبرى (الحي الجديد)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite nouvelle) القلعة الكبرى (الحي الجديد) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-sidi-zaied--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite Sidi Zaied)",
+          "nameAr": "القلعة الكبرى (حي سيدي زايد)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite sidi zaied) القلعة الكبرى (حي سيدي زايد) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-cite-zone-des-metiers--4060",
+          "nameFr": "KALAA EL KEBIRA (Cite Zone Des Metiers)",
+          "nameAr": "القلعة الكبرى (حي منطقة الحرف)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (cite zone des metiers) القلعة الكبرى (حي منطقة الحرف) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-el-kraria--4060",
+          "nameFr": "KALAA EL KEBIRA (El Kraria)",
+          "nameAr": "القلعة الكبرى (القرارية)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (el kraria) القلعة الكبرى (القرارية) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-kalaa-el-kebira-ksar--4062",
+          "nameFr": "KALAA EL KEBIRA (Kalaa El Kebira Ksar)",
+          "nameAr": "القلعة الكبرى (القلعة الكبرى القصر)",
+          "postalCode": "4062",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (kalaa el kebira ksar) القلعة الكبرى (القلعة الكبرى القصر) 4062"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-kalaa-el-kebira--4060",
+          "nameFr": "KALAA EL KEBIRA (Kalaa El Kebira)",
+          "nameAr": "القلعة الكبرى (القلعة الكبرى)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (kalaa el kebira) القلعة الكبرى (القلعة الكبرى) 4060"
+        },
+        {
+          "id": "sousse--kalaa-el-kebira--kalaa-el-kebira-ouled-lesseoud--4060",
+          "nameFr": "KALAA EL KEBIRA (Ouled Lesseoud)",
+          "nameAr": "القلعة الكبرى (أولاد السعود)",
+          "postalCode": "4060",
+          "latitude": 35.8697,
+          "longitude": 10.5544,
+          "searchKey": "kalaa el kebira (ouled lesseoud) القلعة الكبرى (أولاد السعود) 4060"
+        }
+      ]
+    },
+    {
+      "id": "sousse--kalaa-essghira",
+      "nameFr": "KALAA ESSGHIRA",
+      "nameAr": "القلعة الصغرى",
+      "searchKey": "kalaa essghira القلعة الصغرى",
+      "municipalities": [
+        {
+          "id": "sousse--kalaa-essghira--kalaa-essghira-cite-chabbett-ezzaouia--4021",
+          "nameFr": "KALAA ESSGHIRA (Cite Chabbett Ezzaouia)",
+          "nameAr": "القلعة الصغرى (حي شابة الزاوية)",
+          "postalCode": "4021",
+          "latitude": 35.8381,
+          "longitude": 10.5736,
+          "searchKey": "kalaa essghira (cite chabbett ezzaouia) القلعة الصغرى (حي شابة الزاوية) 4021"
+        },
+        {
+          "id": "sousse--kalaa-essghira--kalaa-essghira-cite-chragui--4021",
+          "nameFr": "KALAA ESSGHIRA (Cite Chragui)",
+          "nameAr": "القلعة الصغرى (حي الشرقي)",
+          "postalCode": "4021",
+          "latitude": 35.8381,
+          "longitude": 10.5736,
+          "searchKey": "kalaa essghira (cite chragui) القلعة الصغرى (حي الشرقي) 4021"
+        },
+        {
+          "id": "sousse--kalaa-essghira--kalaa-essghira-cite-el-manezeh--4021",
+          "nameFr": "KALAA ESSGHIRA (Cite El Manezeh)",
+          "nameAr": "القلعة الصغرى (حي المنازه)",
+          "postalCode": "4021",
+          "latitude": 35.8381,
+          "longitude": 10.5736,
+          "searchKey": "kalaa essghira (cite el manezeh) القلعة الصغرى (حي المنازه) 4021"
+        },
+        {
+          "id": "sousse--kalaa-essghira--kalaa-essghira-cite-khazzen-el-ma--4021",
+          "nameFr": "KALAA ESSGHIRA (Cite Khazzen El Ma)",
+          "nameAr": "القلعة الصغرى (حي خزان الماء)",
+          "postalCode": "4021",
+          "latitude": 35.8381,
+          "longitude": 10.5736,
+          "searchKey": "kalaa essghira (cite khazzen el ma) القلعة الصغرى (حي خزان الماء) 4021"
+        },
+        {
+          "id": "sousse--kalaa-essghira--kalaa-essghira-ennagr--4021",
+          "nameFr": "KALAA ESSGHIRA (Ennagr)",
+          "nameAr": "القلعة الصغرى (النقر)",
+          "postalCode": "4021",
+          "latitude": 35.8381,
+          "longitude": 10.5736,
+          "searchKey": "kalaa essghira (ennagr) القلعة الصغرى (النقر) 4021"
+        },
+        {
+          "id": "sousse--kalaa-essghira--kalaa-essghira-kalaa-essghira--4021",
+          "nameFr": "KALAA ESSGHIRA (Kalaa Essghira)",
+          "nameAr": "القلعة الصغرى (القلعة الصغرى)",
+          "postalCode": "4021",
+          "latitude": 35.8381,
+          "longitude": 10.5736,
+          "searchKey": "kalaa essghira (kalaa essghira) القلعة الصغرى (القلعة الصغرى) 4021"
+        },
+        {
+          "id": "sousse--kalaa-essghira--kalaa-essghira-oued-laya--4021",
+          "nameFr": "KALAA ESSGHIRA (Oued Laya)",
+          "nameAr": "القلعة الصغرى (وادي لاية)",
+          "postalCode": "4021",
+          "latitude": 35.8381,
+          "longitude": 10.5736,
+          "searchKey": "kalaa essghira (oued laya) القلعة الصغرى (وادي لاية) 4021"
+        }
+      ]
+    },
+    {
+      "id": "sousse--kondar",
+      "nameFr": "KONDAR",
+      "nameAr": "كندار",
+      "searchKey": "kondar كندار",
+      "municipalities": [
+        {
+          "id": "sousse--kondar--kondar-bir-jedid--4020",
+          "nameFr": "KONDAR (Bir Jedid)",
+          "nameAr": "كندار (بئر جديد)",
+          "postalCode": "4020",
+          "latitude": 35.935,
+          "longitude": 10.3217,
+          "searchKey": "kondar (bir jedid) كندار (بئر جديد) 4020"
+        },
+        {
+          "id": "sousse--kondar--kondar-blelma--4020",
+          "nameFr": "KONDAR (Blelma)",
+          "nameAr": "كندار (بلالمة)",
+          "postalCode": "4020",
+          "latitude": 35.935,
+          "longitude": 10.3217,
+          "searchKey": "kondar (blelma) كندار (بلالمة) 4020"
+        },
+        {
+          "id": "sousse--kondar--kondar-el-bechachma--4020",
+          "nameFr": "KONDAR (El Bechachma)",
+          "nameAr": "كندار (البشاشمة)",
+          "postalCode": "4020",
+          "latitude": 35.935,
+          "longitude": 10.3217,
+          "searchKey": "kondar (el bechachma) كندار (البشاشمة) 4020"
+        },
+        {
+          "id": "sousse--kondar--kondar-kondar--4020",
+          "nameFr": "KONDAR (Kondar)",
+          "nameAr": "كندار (كندار)",
+          "postalCode": "4020",
+          "latitude": 35.935,
+          "longitude": 10.3217,
+          "searchKey": "kondar (kondar) كندار (كندار) 4020"
+        },
+        {
+          "id": "sousse--kondar--kondar-ouled-ameur--4020",
+          "nameFr": "KONDAR (Ouled Ameur)",
+          "nameAr": "كندار (أولاد عامر)",
+          "postalCode": "4020",
+          "latitude": 35.935,
+          "longitude": 10.3217,
+          "searchKey": "kondar (ouled ameur) كندار (أولاد عامر) 4020"
+        },
+        {
+          "id": "sousse--kondar--kondar-ouled-el-abed--4020",
+          "nameFr": "KONDAR (Ouled El Abed)",
+          "nameAr": "كندار (أولاد العابد)",
+          "postalCode": "4020",
+          "latitude": 35.935,
+          "longitude": 10.3217,
+          "searchKey": "kondar (ouled el abed) كندار (أولاد العابد) 4020"
+        },
+        {
+          "id": "sousse--kondar--kondar-tarhouna--4020",
+          "nameFr": "KONDAR (Tarhouna)",
+          "nameAr": "كندار (ترهونة)",
+          "postalCode": "4020",
+          "latitude": 35.935,
+          "longitude": 10.3217,
+          "searchKey": "kondar (tarhouna) كندار (ترهونة) 4020"
+        }
+      ]
+    },
+    {
+      "id": "sousse--msaken",
+      "nameFr": "MSAKEN",
+      "nameAr": "مساكن",
+      "searchKey": "msaken مساكن",
+      "municipalities": [
+        {
+          "id": "sousse--msaken--msaken-beni-kalthoum--4016",
+          "nameFr": "MSAKEN (Beni Kalthoum)",
+          "nameAr": "مساكن (بني كلثوم)",
+          "postalCode": "4016",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (beni kalthoum) مساكن (بني كلثوم) 4016"
+        },
+        {
+          "id": "sousse--msaken--msaken-beni-rabia--4015",
+          "nameFr": "MSAKEN (Beni Rabia)",
+          "nameAr": "مساكن (بني ربيعة)",
+          "postalCode": "4015",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (beni rabia) مساكن (بني ربيعة) 4015"
+        },
+        {
+          "id": "sousse--msaken--msaken-chihia--4014",
+          "nameFr": "MSAKEN (Chihia)",
+          "nameAr": "مساكن (الشيحية)",
+          "postalCode": "4014",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (chihia) مساكن (الشيحية) 4014"
+        },
+        {
+          "id": "sousse--msaken--msaken-cite-cimetiere--4015",
+          "nameFr": "MSAKEN (Cite Cimetiere)",
+          "nameAr": "مساكن (حي المقبرة)",
+          "postalCode": "4015",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (cite cimetiere) مساكن (حي المقبرة) 4015"
+        },
+        {
+          "id": "sousse--msaken--msaken-cite-dar-esseghair--4015",
+          "nameFr": "MSAKEN (Cite Dar Esseghair)",
+          "nameAr": "مساكن (حي دار الصغير)",
+          "postalCode": "4015",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (cite dar esseghair) مساكن (حي دار الصغير) 4015"
+        },
+        {
+          "id": "sousse--msaken--msaken-cite-ecole-primaire--4015",
+          "nameFr": "MSAKEN (Cite Ecole Primaire)",
+          "nameAr": "مساكن (حي المدرسة الإبتدائية)",
+          "postalCode": "4015",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (cite ecole primaire) مساكن (حي المدرسة الإبتدائية) 4015"
+        },
+        {
+          "id": "sousse--msaken--msaken-cite-el-mansour--4015",
+          "nameFr": "MSAKEN (Cite El Mansour)",
+          "nameAr": "مساكن (حي المنصور)",
+          "postalCode": "4015",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (cite el mansour) مساكن (حي المنصور) 4015"
+        },
+        {
+          "id": "sousse--msaken--msaken-cite-hedi-gachacha--4015",
+          "nameFr": "MSAKEN (Cite Hedi Gachacha)",
+          "nameAr": "مساكن (حي الهادي قشاشة)",
+          "postalCode": "4015",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (cite hedi gachacha) مساكن (حي الهادي قشاشة) 4015"
+        },
+        {
+          "id": "sousse--msaken--msaken-cite-rached-el-ouertani--4015",
+          "nameFr": "MSAKEN (Cite Rached El Ouertani)",
+          "nameAr": "مساكن (حي راشد الورتاني)",
+          "postalCode": "4015",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (cite rached el ouertani) مساكن (حي راشد الورتاني) 4015"
+        },
+        {
+          "id": "sousse--msaken--msaken-cite-slama--4015",
+          "nameFr": "MSAKEN (Cite Slama)",
+          "nameAr": "مساكن (حي سلامة)",
+          "postalCode": "4015",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (cite slama) مساكن (حي سلامة) 4015"
+        },
+        {
+          "id": "sousse--msaken--msaken-el-borjine--4015",
+          "nameFr": "MSAKEN (El Borjine)",
+          "nameAr": "مساكن (البرجين)",
+          "postalCode": "4015",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (el borjine) مساكن (البرجين) 4015"
+        },
+        {
+          "id": "sousse--msaken--msaken-el-frada--4015",
+          "nameFr": "MSAKEN (El Frada)",
+          "nameAr": "مساكن (الفرادة)",
+          "postalCode": "4015",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (el frada) مساكن (الفرادة) 4015"
+        },
+        {
+          "id": "sousse--msaken--msaken-el-knaies--4014",
+          "nameFr": "MSAKEN (El Knaies)",
+          "nameAr": "مساكن (الكنايس)",
+          "postalCode": "4014",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (el knaies) مساكن (الكنايس) 4014"
+        },
+        {
+          "id": "sousse--msaken--msaken-messadine--4013",
+          "nameFr": "MSAKEN (Messadine)",
+          "nameAr": "مساكن (المسعدين)",
+          "postalCode": "4013",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (messadine) مساكن (المسعدين) 4013"
+        },
+        {
+          "id": "sousse--msaken--msaken-moureddine--4033",
+          "nameFr": "MSAKEN (Moureddine)",
+          "nameAr": "مساكن (موردين)",
+          "postalCode": "4033",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (moureddine) مساكن (موردين) 4033"
+        },
+        {
+          "id": "sousse--msaken--msaken-msaken-el-gueblia--4099",
+          "nameFr": "MSAKEN (Msaken El Gueblia)",
+          "nameAr": "مساكن (مساكن القبلية)",
+          "postalCode": "4099",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (msaken el gueblia) مساكن (مساكن القبلية) 4099"
+        },
+        {
+          "id": "sousse--msaken--msaken-msaken-hai-jedid--4024",
+          "nameFr": "MSAKEN (Msaken Hai Jedid)",
+          "nameAr": "مساكن (مساكن الحي الجديد)",
+          "postalCode": "4024",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (msaken hai jedid) مساكن (مساكن الحي الجديد) 4024"
+        },
+        {
+          "id": "sousse--msaken--msaken-msaken--4070",
+          "nameFr": "MSAKEN (Msaken)",
+          "nameAr": "مساكن (مساكن)",
+          "postalCode": "4070",
+          "latitude": 35.7275,
+          "longitude": 10.5803,
+          "searchKey": "msaken (msaken) مساكن (مساكن) 4070"
+        }
+      ]
+    },
+    {
+      "id": "sousse--sidi-bou-ali",
+      "nameFr": "SIDI BOU ALI",
+      "nameAr": "سيدي بوعلي",
+      "searchKey": "sidi bou ali سيدي بوعلي",
+      "municipalities": [
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-cite-el-bassatine--4040",
+          "nameFr": "SIDI BOU ALI (Cite El Bassatine)",
+          "nameAr": "سيدي بوعلي (حي البساتين)",
+          "postalCode": "4040",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (cite el bassatine) سيدي بوعلي (حي البساتين) 4040"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-cite-ibn-khaldoun--4040",
+          "nameFr": "SIDI BOU ALI (Cite Ibn Khaldoun)",
+          "nameAr": "سيدي بوعلي (حي إبن خلدون)",
+          "postalCode": "4040",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (cite ibn khaldoun) سيدي بوعلي (حي إبن خلدون) 4040"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-el-aitha--4040",
+          "nameFr": "SIDI BOU ALI (El Aitha)",
+          "nameAr": "سيدي بوعلي (العيثة)",
+          "postalCode": "4040",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (el aitha) سيدي بوعلي (العيثة) 4040"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-el-alouj--4040",
+          "nameFr": "SIDI BOU ALI (El Alouj)",
+          "nameAr": "سيدي بوعلي (العلوج)",
+          "postalCode": "4040",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (el alouj) سيدي بوعلي (العلوج) 4040"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-el-araydhia--4040",
+          "nameFr": "SIDI BOU ALI (El Araydhia)",
+          "nameAr": "سيدي بوعلي (العرايضية)",
+          "postalCode": "4040",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (el araydhia) سيدي بوعلي (العرايضية) 4040"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-el-mhedhba--4040",
+          "nameFr": "SIDI BOU ALI (El Mhedhba)",
+          "nameAr": "سيدي بوعلي (المهذبة)",
+          "postalCode": "4040",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (el mhedhba) سيدي بوعلي (المهذبة) 4040"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-essad-nord--4045",
+          "nameFr": "SIDI BOU ALI (Essad Nord)",
+          "nameAr": "سيدي بوعلي (السعد الشمالية)",
+          "postalCode": "4045",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (essad nord) سيدي بوعلي (السعد الشمالية) 4045"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-essad-sud--4040",
+          "nameFr": "SIDI BOU ALI (Essad Sud)",
+          "nameAr": "سيدي بوعلي (السعد الجنوبية)",
+          "postalCode": "4040",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (essad sud) سيدي بوعلي (السعد الجنوبية) 4040"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-kenana--4040",
+          "nameFr": "SIDI BOU ALI (Kenana)",
+          "nameAr": "سيدي بوعلي (كنانة)",
+          "postalCode": "4040",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (kenana) سيدي بوعلي (كنانة) 4040"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-menzel-gare--4043",
+          "nameFr": "SIDI BOU ALI (Menzel Gare)",
+          "nameAr": "سيدي بوعلي (منزل المحطة)",
+          "postalCode": "4043",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (menzel gare) سيدي بوعلي (منزل المحطة) 4043"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-ouriemma--4040",
+          "nameFr": "SIDI BOU ALI (Ouriemma)",
+          "nameAr": "سيدي بوعلي (وريمة)",
+          "postalCode": "4040",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (ouriemma) سيدي بوعلي (وريمة) 4040"
+        },
+        {
+          "id": "sousse--sidi-bou-ali--sidi-bou-ali-sidi-bou-ali--4040",
+          "nameFr": "SIDI BOU ALI (Sidi Bou Ali)",
+          "nameAr": "سيدي بوعلي (سيدي بوعلي)",
+          "postalCode": "4040",
+          "latitude": 35.9833,
+          "longitude": 10.4667,
+          "searchKey": "sidi bou ali (sidi bou ali) سيدي بوعلي (سيدي بوعلي) 4040"
+        }
+      ]
+    },
+    {
+      "id": "sousse--sidi-el-heni",
+      "nameFr": "SIDI EL HENI",
+      "nameAr": "سيدي الهاني",
+      "searchKey": "sidi el heni سيدي الهاني",
+      "municipalities": [
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-cherachir--4026",
+          "nameFr": "SIDI EL HENI (Cherachir)",
+          "nameAr": "سيدي الهاني (الشراشر)",
+          "postalCode": "4026",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (cherachir) سيدي الهاني (الشراشر) 4026"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-el-mouissette--4025",
+          "nameFr": "SIDI EL HENI (El Mouissette)",
+          "nameAr": "سيدي الهاني (المويسات)",
+          "postalCode": "4025",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (el mouissette) سيدي الهاني (المويسات) 4025"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-ghabghoub--4025",
+          "nameFr": "SIDI EL HENI (Ghabghoub)",
+          "nameAr": "سيدي الهاني (غبغوب)",
+          "postalCode": "4025",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (ghabghoub) سيدي الهاني (غبغوب) 4025"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-kroussia--4026",
+          "nameFr": "SIDI EL HENI (Kroussia)",
+          "nameAr": "سيدي الهاني (كروصيا)",
+          "postalCode": "4026",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (kroussia) سيدي الهاني (كروصيا) 4026"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-ouled-ali-b-hani--4025",
+          "nameFr": "SIDI EL HENI (Ouled Ali B Hani)",
+          "nameAr": "سيدي الهاني (أولاد علي بن هاني)",
+          "postalCode": "4025",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (ouled ali b hani) سيدي الهاني (أولاد علي بن هاني) 4025"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-ouled-alouene--4025",
+          "nameFr": "SIDI EL HENI (Ouled Alouene)",
+          "nameAr": "سيدي الهاني (أولاد علوان)",
+          "postalCode": "4025",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (ouled alouene) سيدي الهاني (أولاد علوان) 4025"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-ouled-amor--4025",
+          "nameFr": "SIDI EL HENI (Ouled Amor)",
+          "nameAr": "سيدي الهاني (أولاد عمر)",
+          "postalCode": "4025",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (ouled amor) سيدي الهاني (أولاد عمر) 4025"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-ouled-boubaker--4025",
+          "nameFr": "SIDI EL HENI (Ouled Boubaker)",
+          "nameAr": "سيدي الهاني (أولاد بوبكر)",
+          "postalCode": "4025",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (ouled boubaker) سيدي الهاني (أولاد بوبكر) 4025"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-ouled-el-kbaier--4025",
+          "nameFr": "SIDI EL HENI (Ouled El Kbaier)",
+          "nameAr": "سيدي الهاني (أولاد الكباير)",
+          "postalCode": "4025",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (ouled el kbaier) سيدي الهاني (أولاد الكباير) 4025"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-ouled-el-khechine--4025",
+          "nameFr": "SIDI EL HENI (Ouled El Khechine)",
+          "nameAr": "سيدي الهاني (أولاد الخشين)",
+          "postalCode": "4025",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (ouled el khechine) سيدي الهاني (أولاد الخشين) 4025"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-sidi-el-heni--4025",
+          "nameFr": "SIDI EL HENI (Sidi El Heni)",
+          "nameAr": "سيدي الهاني (سيدي الهاني)",
+          "postalCode": "4025",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (sidi el heni) سيدي الهاني (سيدي الهاني) 4025"
+        },
+        {
+          "id": "sousse--sidi-el-heni--sidi-el-heni-zerdoub--4025",
+          "nameFr": "SIDI EL HENI (Zerdoub)",
+          "nameAr": "سيدي الهاني (زردوب)",
+          "postalCode": "4025",
+          "latitude": 35.6756,
+          "longitude": 10.3106,
+          "searchKey": "sidi el heni (zerdoub) سيدي الهاني (زردوب) 4025"
+        }
+      ]
+    },
+    {
+      "id": "sousse--sousse-jaouhara",
+      "nameFr": "SOUSSE JAOUHARA",
+      "nameAr": "سوسة جوهرة",
+      "searchKey": "sousse jaouhara سوسة جوهرة",
+      "municipalities": [
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-cite-aeroport--4061",
+          "nameFr": "SOUSSE JAOUHARA (Cite Aeroport)",
+          "nameAr": "سوسة جوهرة (حي المطار)",
+          "postalCode": "4061",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (cite aeroport) سوسة جوهرة (حي المطار) 4061"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-cite-batiments--4061",
+          "nameFr": "SOUSSE JAOUHARA (Cite Batiments)",
+          "nameAr": "سوسة جوهرة (حي العمارات)",
+          "postalCode": "4061",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (cite batiments) سوسة جوهرة (حي العمارات) 4061"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-cite-ben-aleya--4061",
+          "nameFr": "SOUSSE JAOUHARA (Cite Ben Aleya)",
+          "nameAr": "سوسة جوهرة (حي بن علية)",
+          "postalCode": "4061",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (cite ben aleya) سوسة جوهرة (حي بن علية) 4061"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-cite-de-la-steg--4051",
+          "nameFr": "SOUSSE JAOUHARA (Cite De La Steg)",
+          "nameAr": "سوسة جوهرة (حي الشركة التونسية للكهرباء والغاز)",
+          "postalCode": "4051",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (cite de la steg) سوسة جوهرة (حي الشركة التونسية للكهرباء والغاز) 4051"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-cite-el-ghoudrane--4061",
+          "nameFr": "SOUSSE JAOUHARA (Cite El Ghoudrane)",
+          "nameAr": "سوسة جوهرة (حي الغدران)",
+          "postalCode": "4061",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (cite el ghoudrane) سوسة جوهرة (حي الغدران) 4061"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-cite-sahloul--4054",
+          "nameFr": "SOUSSE JAOUHARA (Cite Sahloul)",
+          "nameAr": "سوسة جوهرة (حي سهلول)",
+          "postalCode": "4054",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (cite sahloul) سوسة جوهرة (حي سهلول) 4054"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-cite-sidi-abdelhamid--4061",
+          "nameFr": "SOUSSE JAOUHARA (Cite Sidi Abdelhamid)",
+          "nameAr": "سوسة جوهرة (حي سيدي عبد الحميد)",
+          "postalCode": "4061",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (cite sidi abdelhamid) سوسة جوهرة (حي سيدي عبد الحميد) 4061"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-cite-sidi-daher--4051",
+          "nameFr": "SOUSSE JAOUHARA (Cite Sidi Daher)",
+          "nameAr": "سوسة جوهرة (حي سيدي ظاهر)",
+          "postalCode": "4051",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (cite sidi daher) سوسة جوهرة (حي سيدي ظاهر) 4051"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-khezama-ouest--4071",
+          "nameFr": "SOUSSE JAOUHARA (Khezama Ouest)",
+          "nameAr": "سوسة جوهرة (خزامة الغربية)",
+          "postalCode": "4071",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (khezama ouest) سوسة جوهرة (خزامة الغربية) 4071"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-sahloul--4054",
+          "nameFr": "SOUSSE JAOUHARA (Sahloul)",
+          "nameAr": "سوسة جوهرة (سهلول)",
+          "postalCode": "4054",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (sahloul) سوسة جوهرة (سهلول) 4054"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-sousse-ibn-khaldoun--4061",
+          "nameFr": "SOUSSE JAOUHARA (Sousse Ibn Khaldoun)",
+          "nameAr": "سوسة جوهرة (سوسة إبن خلدون)",
+          "postalCode": "4061",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (sousse ibn khaldoun) سوسة جوهرة (سوسة إبن خلدون) 4061"
+        },
+        {
+          "id": "sousse--sousse-jaouhara--sousse-jaouhara-sousse-khezama--4051",
+          "nameFr": "SOUSSE JAOUHARA (Sousse Khezama)",
+          "nameAr": "سوسة جوهرة (سوسة خزامة)",
+          "postalCode": "4051",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse jaouhara (sousse khezama) سوسة جوهرة (سوسة خزامة) 4051"
+        }
+      ]
+    },
+    {
+      "id": "sousse--sousse-riadh",
+      "nameFr": "SOUSSE RIADH",
+      "nameAr": "سوسة الرياض",
+      "searchKey": "sousse riadh سوسة الرياض",
+      "municipalities": [
+        {
+          "id": "sousse--sousse-riadh--sousse-riadh-cite-7-novembre-3--4041",
+          "nameFr": "SOUSSE RIADH (Cite 7 Novembre 3)",
+          "nameAr": "سوسة الرياض (حي 7 نوفمبر 3)",
+          "postalCode": "4041",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse riadh (cite 7 novembre 3) سوسة الرياض (حي 7 نوفمبر 3) 4041"
+        },
+        {
+          "id": "sousse--sousse-riadh--sousse-riadh-cite-7-novembre--4041",
+          "nameFr": "SOUSSE RIADH (Cite 7 Novembre)",
+          "nameAr": "سوسة الرياض (حي 7 نوفمبر)",
+          "postalCode": "4041",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse riadh (cite 7 novembre) سوسة الرياض (حي 7 نوفمبر) 4041"
+        },
+        {
+          "id": "sousse--sousse-riadh--sousse-riadh-cite-sinan-pacha--4041",
+          "nameFr": "SOUSSE RIADH (Cite Sinan Pacha)",
+          "nameAr": "سوسة الرياض (حي سنان باشا)",
+          "postalCode": "4041",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse riadh (cite sinan pacha) سوسة الرياض (حي سنان باشا) 4041"
+        },
+        {
+          "id": "sousse--sousse-riadh--sousse-riadh-ksibet-sousse--4041",
+          "nameFr": "SOUSSE RIADH (Ksibet Sousse)",
+          "nameAr": "سوسة الرياض (قصيبة سوسة)",
+          "postalCode": "4041",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse riadh (ksibet sousse) سوسة الرياض (قصيبة سوسة) 4041"
+        },
+        {
+          "id": "sousse--sousse-riadh--sousse-riadh-sousse-ezzouhour--4031",
+          "nameFr": "SOUSSE RIADH (Sousse Ezzouhour)",
+          "nameAr": "سوسة الرياض (سوسة الزهور)",
+          "postalCode": "4031",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse riadh (sousse ezzouhour) سوسة الرياض (سوسة الزهور) 4031"
+        },
+        {
+          "id": "sousse--sousse-riadh--sousse-riadh-sousse-riadh--4023",
+          "nameFr": "SOUSSE RIADH (Sousse Riadh)",
+          "nameAr": "سوسة الرياض (سوسة الرياض)",
+          "postalCode": "4023",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse riadh (sousse riadh) سوسة الرياض (سوسة الرياض) 4023"
+        },
+        {
+          "id": "sousse--sousse-riadh--sousse-riadh-thrayette--4041",
+          "nameFr": "SOUSSE RIADH (Thrayette)",
+          "nameAr": "سوسة الرياض (الثرايات)",
+          "postalCode": "4041",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse riadh (thrayette) سوسة الرياض (الثرايات) 4041"
+        },
+        {
+          "id": "sousse--sousse-riadh--sousse-riadh-zaouiet-sousse--4081",
+          "nameFr": "SOUSSE RIADH (Zaouiet Sousse)",
+          "nameAr": "سوسة الرياض (زاوية سوسة)",
+          "postalCode": "4081",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse riadh (zaouiet sousse) سوسة الرياض (زاوية سوسة) 4081"
+        }
+      ]
+    },
+    {
+      "id": "sousse--sousse-ville",
+      "nameFr": "SOUSSE VILLE",
+      "nameAr": "سوسة المدينة",
+      "searchKey": "sousse ville سوسة المدينة",
+      "municipalities": [
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-boukhzar--4000",
+          "nameFr": "SOUSSE VILLE (Cite Boukhzar)",
+          "nameAr": "سوسة المدينة (حي بوخزر)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite boukhzar) سوسة المدينة (حي بوخزر) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-cheminots--4000",
+          "nameFr": "SOUSSE VILLE (Cite Cheminots)",
+          "nameAr": "سوسة المدينة (حي السكة الحديدية)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite cheminots) سوسة المدينة (حي السكة الحديدية) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-cnrps--4000",
+          "nameFr": "SOUSSE VILLE (Cite Cnrps)",
+          "nameAr": "سوسة المدينة (حي الصندوق الوطني للتقاعد والحيطة الإجتماعية)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite cnrps) سوسة المدينة (حي الصندوق الوطني للتقاعد والحيطة الإجتماعية) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-garde-nationale--4000",
+          "nameFr": "SOUSSE VILLE (Cite Garde Nationale)",
+          "nameAr": "سوسة المدينة (حي الحرس الوطني)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite garde nationale) سوسة المدينة (حي الحرس الوطني) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-hached--4000",
+          "nameFr": "SOUSSE VILLE (Cite Hached)",
+          "nameAr": "سوسة المدينة (حي حشاد)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite hached) سوسة المدينة (حي حشاد) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-hadrumette--4000",
+          "nameFr": "SOUSSE VILLE (Cite Hadrumette)",
+          "nameAr": "سوسة المدينة (حي حضرموت)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite hadrumette) سوسة المدينة (حي حضرموت) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-jaouhara--4000",
+          "nameFr": "SOUSSE VILLE (Cite Jaouhara)",
+          "nameAr": "سوسة المدينة (حي جوهرة)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite jaouhara) سوسة المدينة (حي جوهرة) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-khedher--4000",
+          "nameFr": "SOUSSE VILLE (Cite Khedher)",
+          "nameAr": "سوسة المدينة (حي الخضر)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite khedher) سوسة المدينة (حي الخضر) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-militaire--4000",
+          "nameFr": "SOUSSE VILLE (Cite Militaire)",
+          "nameAr": "سوسة المدينة (الحي العسكري)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite militaire) سوسة المدينة (الحي العسكري) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-rizzi--4000",
+          "nameFr": "SOUSSE VILLE (Cite Rizzi)",
+          "nameAr": "سوسة المدينة (حي ريزي)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite rizzi) سوسة المدينة (حي ريزي) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-cite-sprols--4000",
+          "nameFr": "SOUSSE VILLE (Cite Sprols)",
+          "nameAr": "سوسة المدينة (حي سبرولس)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (cite sprols) سوسة المدينة (حي سبرولس) 4000"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-sousse-corniche--4059",
+          "nameFr": "SOUSSE VILLE (Sousse Corniche)",
+          "nameAr": "سوسة المدينة (سوسة الكورنيش)",
+          "postalCode": "4059",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (sousse corniche) سوسة المدينة (سوسة الكورنيش) 4059"
+        },
+        {
+          "id": "sousse--sousse-ville--sousse-ville-sousse--4000",
+          "nameFr": "SOUSSE VILLE (Sousse)",
+          "nameAr": "سوسة المدينة (سوسة)",
+          "postalCode": "4000",
+          "latitude": 35.8269,
+          "longitude": 10.63,
+          "searchKey": "sousse ville (sousse) سوسة المدينة (سوسة) 4000"
+        }
+      ]
+    }
+  ]
+}

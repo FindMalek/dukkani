@@ -1,0 +1,657 @@
+{
+  "code": "TOZEUR",
+  "delegations": [
+    {
+      "id": "tozeur--degueche",
+      "nameFr": "DEGUECHE",
+      "nameAr": "دقاش",
+      "searchKey": "degueche دقاش",
+      "municipalities": [
+        {
+          "id": "tozeur--degueche--degueche-bou-helal--2263",
+          "nameFr": "DEGUECHE (Bou Helal)",
+          "nameAr": "دقاش (بوهلال)",
+          "postalCode": "2263",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (bou helal) دقاش (بوهلال) 2263"
+        },
+        {
+          "id": "tozeur--degueche--degueche-ceddada--2263",
+          "nameFr": "DEGUECHE (Ceddada)",
+          "nameAr": "دقاش (السدادة)",
+          "postalCode": "2263",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (ceddada) دقاش (السدادة) 2263"
+        },
+        {
+          "id": "tozeur--degueche--degueche-chakmou--2214",
+          "nameFr": "DEGUECHE (Chakmou)",
+          "nameAr": "دقاش (شكمو)",
+          "postalCode": "2214",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (chakmou) دقاش (شكمو) 2214"
+        },
+        {
+          "id": "tozeur--degueche--degueche-cite-de-la-gare--2260",
+          "nameFr": "DEGUECHE (Cite De La Gare)",
+          "nameAr": "دقاش (حي المحطة)",
+          "postalCode": "2260",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (cite de la gare) دقاش (حي المحطة) 2260"
+        },
+        {
+          "id": "tozeur--degueche--degueche-cite-du-stade--2260",
+          "nameFr": "DEGUECHE (Cite Du Stade)",
+          "nameAr": "دقاش (حي الملعب)",
+          "postalCode": "2260",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (cite du stade) دقاش (حي الملعب) 2260"
+        },
+        {
+          "id": "tozeur--degueche--degueche-cite-el-bassatine--2260",
+          "nameFr": "DEGUECHE (Cite El Bassatine)",
+          "nameAr": "دقاش (حي البساتين)",
+          "postalCode": "2260",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (cite el bassatine) دقاش (حي البساتين) 2260"
+        },
+        {
+          "id": "tozeur--degueche--degueche-cite-el-hasnaoui--2260",
+          "nameFr": "DEGUECHE (Cite El Hasnaoui)",
+          "nameAr": "دقاش (حي الحسناوي)",
+          "postalCode": "2260",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (cite el hasnaoui) دقاش (حي الحسناوي) 2260"
+        },
+        {
+          "id": "tozeur--degueche--degueche-cite-logement-presidentiel--2260",
+          "nameFr": "DEGUECHE (Cite Logement Presidentiel)",
+          "nameAr": "دقاش (حي المساكن الرئاسية)",
+          "postalCode": "2260",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (cite logement presidentiel) دقاش (حي المساكن الرئاسية) 2260"
+        },
+        {
+          "id": "tozeur--degueche--degueche-cite-nouveau-stade--2260",
+          "nameFr": "DEGUECHE (Cite Nouveau Stade)",
+          "nameAr": "دقاش (حي الملعب الجديد)",
+          "postalCode": "2260",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (cite nouveau stade) دقاش (حي الملعب الجديد) 2260"
+        },
+        {
+          "id": "tozeur--degueche--degueche-cite-ouled-el-gharbi--2260",
+          "nameFr": "DEGUECHE (Cite Ouled El Gharbi)",
+          "nameAr": "دقاش (حي أولاد الغربي)",
+          "postalCode": "2260",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (cite ouled el gharbi) دقاش (حي أولاد الغربي) 2260"
+        },
+        {
+          "id": "tozeur--degueche--degueche-cite-ouled-hmida--2260",
+          "nameFr": "DEGUECHE (Cite Ouled Hmida)",
+          "nameAr": "دقاش (حي أولاد حميدة)",
+          "postalCode": "2260",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (cite ouled hmida) دقاش (حي أولاد حميدة) 2260"
+        },
+        {
+          "id": "tozeur--degueche--degueche-degueche--2260",
+          "nameFr": "DEGUECHE (Degueche)",
+          "nameAr": "دقاش (دقاش)",
+          "postalCode": "2260",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (degueche) دقاش (دقاش) 2260"
+        },
+        {
+          "id": "tozeur--degueche--degueche-dghoumes--2262",
+          "nameFr": "DEGUECHE (Dghoumes)",
+          "nameAr": "دقاش (دغومس)",
+          "postalCode": "2262",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (dghoumes) دقاش (دغومس) 2262"
+        },
+        {
+          "id": "tozeur--degueche--degueche-el-hamma-du-jerid--2214",
+          "nameFr": "DEGUECHE (El Hamma Du Jerid)",
+          "nameAr": "دقاش (حامة الجريد)",
+          "postalCode": "2214",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (el hamma du jerid) دقاش (حامة الجريد) 2214"
+        },
+        {
+          "id": "tozeur--degueche--degueche-el-mahassen--2224",
+          "nameFr": "DEGUECHE (El Mahassen)",
+          "nameAr": "دقاش (المحاسن)",
+          "postalCode": "2224",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (el mahassen) دقاش (المحاسن) 2224"
+        },
+        {
+          "id": "tozeur--degueche--degueche-ouled-majed--2261",
+          "nameFr": "DEGUECHE (Ouled Majed)",
+          "nameAr": "دقاش (أولاد ماجد)",
+          "postalCode": "2261",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (ouled majed) دقاش (أولاد ماجد) 2261"
+        },
+        {
+          "id": "tozeur--degueche--degueche-sabaa-obbat--2261",
+          "nameFr": "DEGUECHE (Sabaa Obbat)",
+          "nameAr": "دقاش (سبعة أبات)",
+          "postalCode": "2261",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (sabaa obbat) دقاش (سبعة أبات) 2261"
+        },
+        {
+          "id": "tozeur--degueche--degueche-zaouiet-el-arab--2261",
+          "nameFr": "DEGUECHE (Zaouiet El Arab)",
+          "nameAr": "دقاش (زاوية العرب)",
+          "postalCode": "2261",
+          "latitude": 33.9719,
+          "longitude": 8.2181,
+          "searchKey": "degueche (zaouiet el arab) دقاش (زاوية العرب) 2261"
+        }
+      ]
+    },
+    {
+      "id": "tozeur--hezoua",
+      "nameFr": "HEZOUA",
+      "nameAr": "حزوة",
+      "searchKey": "hezoua حزوة",
+      "municipalities": [
+        {
+          "id": "tozeur--hezoua--hezoua--2223",
+          "nameFr": "HEZOUA",
+          "nameAr": "حزوة",
+          "postalCode": "2223",
+          "latitude": 33.9,
+          "longitude": 7.8167,
+          "searchKey": "hezoua حزوة 2223"
+        }
+      ]
+    },
+    {
+      "id": "tozeur--nefta",
+      "nameFr": "NEFTA",
+      "nameAr": "نفطة",
+      "searchKey": "nefta نفطة",
+      "municipalities": [
+        {
+          "id": "tozeur--nefta--nefta-ben-farjallah--2245",
+          "nameFr": "NEFTA (Ben Farjallah)",
+          "nameAr": "نفطة (بن فرج الله)",
+          "postalCode": "2245",
+          "latitude": 33.8731,
+          "longitude": 7.8783,
+          "searchKey": "nefta (ben farjallah) نفطة (بن فرج الله) 2245"
+        },
+        {
+          "id": "tozeur--nefta--nefta-cite-erriadh--2240",
+          "nameFr": "NEFTA (Cite Erriadh)",
+          "nameAr": "نفطة (حي الرياض)",
+          "postalCode": "2240",
+          "latitude": 33.8731,
+          "longitude": 7.8783,
+          "searchKey": "nefta (cite erriadh) نفطة (حي الرياض) 2240"
+        },
+        {
+          "id": "tozeur--nefta--nefta-cite-khzama--2240",
+          "nameFr": "NEFTA (Cite Khzama)",
+          "nameAr": "نفطة (حي الخزامى)",
+          "postalCode": "2240",
+          "latitude": 33.8731,
+          "longitude": 7.8783,
+          "searchKey": "nefta (cite khzama) نفطة (حي الخزامى) 2240"
+        },
+        {
+          "id": "tozeur--nefta--nefta-cite-nouvelle--2240",
+          "nameFr": "NEFTA (Cite Nouvelle)",
+          "nameAr": "نفطة (الحي الجديد)",
+          "postalCode": "2240",
+          "latitude": 33.8731,
+          "longitude": 7.8783,
+          "searchKey": "nefta (cite nouvelle) نفطة (الحي الجديد) 2240"
+        },
+        {
+          "id": "tozeur--nefta--nefta-nefta--2240",
+          "nameFr": "NEFTA (Nefta)",
+          "nameAr": "نفطة (نفطة)",
+          "postalCode": "2240",
+          "latitude": 33.8731,
+          "longitude": 7.8783,
+          "searchKey": "nefta (nefta) نفطة (نفطة) 2240"
+        }
+      ]
+    },
+    {
+      "id": "tozeur--tameghza",
+      "nameFr": "TAMEGHZA",
+      "nameAr": "تمغزة",
+      "searchKey": "tameghza تمغزة",
+      "municipalities": [
+        {
+          "id": "tozeur--tameghza--tameghza-ain-el-karma--2212",
+          "nameFr": "TAMEGHZA (Ain El Karma)",
+          "nameAr": "تمغزة (عين الكرمة)",
+          "postalCode": "2212",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (ain el karma) تمغزة (عين الكرمة) 2212"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-chebika-du-jerid--2253",
+          "nameFr": "TAMEGHZA (Chebika Du Jerid)",
+          "nameAr": "تمغزة (شبيكة الجريد)",
+          "postalCode": "2253",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (chebika du jerid) تمغزة (شبيكة الجريد) 2253"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-cite-administrative--2212",
+          "nameFr": "TAMEGHZA (Cite Administrative)",
+          "nameAr": "تمغزة (الحي الإداري)",
+          "postalCode": "2212",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (cite administrative) تمغزة (الحي الإداري) 2212"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-cite-bou-chagra--2253",
+          "nameFr": "TAMEGHZA (Cite Bou Chagra)",
+          "nameAr": "تمغزة (حي بوشقرة)",
+          "postalCode": "2253",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (cite bou chagra) تمغزة (حي بوشقرة) 2253"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-cite-de-l-ecole--2253",
+          "nameFr": "TAMEGHZA (Cite De L'Ecole)",
+          "nameAr": "تمغزة (حي المدرسة)",
+          "postalCode": "2253",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (cite de l'ecole) تمغزة (حي المدرسة) 2253"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-cite-el-amel--2212",
+          "nameFr": "TAMEGHZA (Cite El Amel)",
+          "nameAr": "تمغزة (حي الأمل)",
+          "postalCode": "2212",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (cite el amel) تمغزة (حي الأمل) 2212"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-cite-el-bassatine--2253",
+          "nameFr": "TAMEGHZA (Cite El Bassatine)",
+          "nameAr": "تمغزة (حي البساتين)",
+          "postalCode": "2253",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (cite el bassatine) تمغزة (حي البساتين) 2253"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-cite-el-frada--2253",
+          "nameFr": "TAMEGHZA (Cite El Frada)",
+          "nameAr": "تمغزة (حي الفرادة)",
+          "postalCode": "2253",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (cite el frada) تمغزة (حي الفرادة) 2253"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-dhafria--2211",
+          "nameFr": "TAMEGHZA (Dhafria)",
+          "nameAr": "تمغزة (الظافرية)",
+          "postalCode": "2211",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (dhafria) تمغزة (الظافرية) 2211"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-el-frid--2212",
+          "nameFr": "TAMEGHZA (El Frid)",
+          "nameAr": "تمغزة (الفريد)",
+          "postalCode": "2212",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (el frid) تمغزة (الفريد) 2212"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-logement-populaire--2212",
+          "nameFr": "TAMEGHZA (Logement Populaire)",
+          "nameAr": "تمغزة (المساكن الشعبية)",
+          "postalCode": "2212",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (logement populaire) تمغزة (المساكن الشعبية) 2212"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-mides--2212",
+          "nameFr": "TAMEGHZA (Mides)",
+          "nameAr": "تمغزة (ميداس)",
+          "postalCode": "2212",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (mides) تمغزة (ميداس) 2212"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-remitha--2212",
+          "nameFr": "TAMEGHZA (Remitha)",
+          "nameAr": "تمغزة (رميثة)",
+          "postalCode": "2212",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (remitha) تمغزة (رميثة) 2212"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-sondes--2212",
+          "nameFr": "TAMEGHZA (Sondes)",
+          "nameAr": "تمغزة (سندس)",
+          "postalCode": "2212",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (sondes) تمغزة (سندس) 2212"
+        },
+        {
+          "id": "tozeur--tameghza--tameghza-tameghza--2212",
+          "nameFr": "TAMEGHZA (Tameghza)",
+          "nameAr": "تمغزة (تمغزة)",
+          "postalCode": "2212",
+          "latitude": 34.3833,
+          "longitude": 7.95,
+          "searchKey": "tameghza (tameghza) تمغزة (تمغزة) 2212"
+        }
+      ]
+    },
+    {
+      "id": "tozeur--tozeur",
+      "nameFr": "TOZEUR",
+      "nameAr": "توزر",
+      "searchKey": "tozeur توزر",
+      "municipalities": [
+        {
+          "id": "tozeur--tozeur--tozeur-abbes--2233",
+          "nameFr": "TOZEUR (Abbes)",
+          "nameAr": "توزر (عباس)",
+          "postalCode": "2233",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (abbes) توزر (عباس) 2233"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-bled-el-hadhar--2233",
+          "nameFr": "TOZEUR (Bled El Hadhar)",
+          "nameAr": "توزر (بلاد الحضر)",
+          "postalCode": "2233",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (bled el hadhar) توزر (بلاد الحضر) 2233"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-bou-lifa--2233",
+          "nameFr": "TOZEUR (Bou Lifa)",
+          "nameAr": "توزر (بوليفة)",
+          "postalCode": "2233",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (bou lifa) توزر (بوليفة) 2233"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-chabbia--2243",
+          "nameFr": "TOZEUR (Chabbia)",
+          "nameAr": "توزر (الشابية)",
+          "postalCode": "2243",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (chabbia) توزر (الشابية) 2243"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-chetaoua-sahraoui--2239",
+          "nameFr": "TOZEUR (Chetaoua Sahraoui)",
+          "nameAr": "توزر (شطاوة الصحراوي)",
+          "postalCode": "2239",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (chetaoua sahraoui) توزر (شطاوة الصحراوي) 2239"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-chorfa--2243",
+          "nameFr": "TOZEUR (Chorfa)",
+          "nameAr": "توزر (الشرفاء)",
+          "postalCode": "2243",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (chorfa) توزر (الشرفاء) 2243"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-afh--2210",
+          "nameFr": "TOZEUR (Cite Afh)",
+          "nameAr": "توزر (حي الوكالة العقارية للسكنى)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite afh) توزر (حي الوكالة العقارية للسكنى) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-cnrps--2210",
+          "nameFr": "TOZEUR (Cite Cnrps)",
+          "nameAr": "توزر (حي الصندوق الوطني للتقاعد والحيطة الإجتماعية)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite cnrps) توزر (حي الصندوق الوطني للتقاعد والحيطة الإجتماعية) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-commerciale--2200",
+          "nameFr": "TOZEUR (Cite Commerciale)",
+          "nameAr": "توزر (الحي التجاري)",
+          "postalCode": "2200",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite commerciale) توزر (الحي التجاري) 2200"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-de-la-gare--2210",
+          "nameFr": "TOZEUR (Cite De La Gare)",
+          "nameAr": "توزر (حي المحطة)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite de la gare) توزر (حي المحطة) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-el-guitna--2210",
+          "nameFr": "TOZEUR (Cite El Guitna)",
+          "nameAr": "توزر (حي القيطنة)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite el guitna) توزر (حي القيطنة) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-el-izdihar--2241",
+          "nameFr": "TOZEUR (Cite El Izdihar)",
+          "nameAr": "توزر (حي الإزدهار)",
+          "postalCode": "2241",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite el izdihar) توزر (حي الإزدهار) 2241"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-el-mahrajene--2210",
+          "nameFr": "TOZEUR (Cite El Mahrajene)",
+          "nameAr": "توزر (حي المهرجان)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite el mahrajene) توزر (حي المهرجان) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-helba--2210",
+          "nameFr": "TOZEUR (Cite Helba)",
+          "nameAr": "توزر (حي حلبة)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite helba) توزر (حي حلبة) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-hopital--2210",
+          "nameFr": "TOZEUR (Cite Hopital)",
+          "nameAr": "توزر (حي المستشفى)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite hopital) توزر (حي المستشفى) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-maison-populaire--2210",
+          "nameFr": "TOZEUR (Cite Maison Populaire)",
+          "nameAr": "توزر (حي دار الشعب)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite maison populaire) توزر (حي دار الشعب) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-route-de-degueche--2210",
+          "nameFr": "TOZEUR (Cite Route De Degueche)",
+          "nameAr": "توزر (حي طريق دقاش)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite route de degueche) توزر (حي طريق دقاش) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-route-el-hajij--2210",
+          "nameFr": "TOZEUR (Cite Route El Hajij)",
+          "nameAr": "توزر (حي طريق الحجيج)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite route el hajij) توزر (حي طريق الحجيج) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-route-el-hamma--2210",
+          "nameFr": "TOZEUR (Cite Route El Hamma)",
+          "nameAr": "توزر (حي طريق الحامة)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite route el hamma) توزر (حي طريق الحامة) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-route-ennafliette--2210",
+          "nameFr": "TOZEUR (Cite Route Ennafliette)",
+          "nameAr": "توزر (حي طريق النفليات)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite route ennafliette) توزر (حي طريق النفليات) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-sidi-el-hafnaoui--2210",
+          "nameFr": "TOZEUR (Cite Sidi El Hafnaoui)",
+          "nameAr": "توزر (حي سيدي الحفناوي)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite sidi el hafnaoui) توزر (حي سيدي الحفناوي) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-cite-tebebsa--2210",
+          "nameFr": "TOZEUR (Cite Tebebsa)",
+          "nameAr": "توزر (حي تبسة)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (cite tebebsa) توزر (حي تبسة) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-essoualmia--2233",
+          "nameFr": "TOZEUR (Essoualmia)",
+          "nameAr": "توزر (السوالمية)",
+          "postalCode": "2233",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (essoualmia) توزر (السوالمية) 2233"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-jahim--2233",
+          "nameFr": "TOZEUR (Jahim)",
+          "nameAr": "توزر (جحيم)",
+          "postalCode": "2233",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (jahim) توزر (جحيم) 2233"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-ras-dhraa--2241",
+          "nameFr": "TOZEUR (Ras Dhraa)",
+          "nameAr": "توزر (رأس الذراع)",
+          "postalCode": "2241",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (ras dhraa) توزر (رأس الذراع) 2241"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-tozeur-aeroport--2213",
+          "nameFr": "TOZEUR (Tozeur Aeroport)",
+          "nameAr": "توزر (مطار توزر)",
+          "postalCode": "2213",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (tozeur aeroport) توزر (مطار توزر) 2213"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-tozeur-chokratsi--2210",
+          "nameFr": "TOZEUR (Tozeur Chokratsi)",
+          "nameAr": "توزر (توزر الشقراصي)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (tozeur chokratsi) توزر (توزر الشقراصي) 2210"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-tozeur--2200",
+          "nameFr": "TOZEUR (Tozeur)",
+          "nameAr": "توزر (توزر)",
+          "postalCode": "2200",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (tozeur) توزر (توزر) 2200"
+        },
+        {
+          "id": "tozeur--tozeur--tozeur-zone-touristique--2210",
+          "nameFr": "TOZEUR (Zone Touristique)",
+          "nameAr": "توزر (المنطقة السياحية)",
+          "postalCode": "2210",
+          "latitude": 33.9197,
+          "longitude": 8.1336,
+          "searchKey": "tozeur (zone touristique) توزر (المنطقة السياحية) 2210"
+        }
+      ]
+    }
+  ]
+}
