@@ -20,11 +20,9 @@ export default async function AuthLayout({
         headers: headersList,
       });
 
-      // If user has completed onboarding, redirect to dashboard
-      if (
-        user.onboardingStep === UserOnboardingStep.STORE_LAUNCHED ||
-        user.onboardingStep === UserOnboardingStep.STORE_CONFIGURED
-      ) {
+      // If user has completed onboarding, redirect to dashboard.
+      // STORE_CONFIGURED still needs the completion step (store link, telegram).
+      if (user.onboardingStep === UserOnboardingStep.STORE_LAUNCHED) {
         redirect(RoutePaths.DASHBOARD.url);
       }
 
