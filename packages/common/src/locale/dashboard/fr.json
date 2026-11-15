@@ -190,7 +190,7 @@
             "description": "Cosmétiques et soins personnels"
           },
           "sports": {
-            "label": "Sports",
+            "label": "Sport",
             "description": "Équipement et matériel de sport"
           },
           "books": {
@@ -219,7 +219,7 @@
             "description": "Moderne et élégant"
           },
           "minimal": {
-            "label": "Minimal",
+            "label": "Minimaliste",
             "description": "Simple et élégant"
           },
           "modern": {
