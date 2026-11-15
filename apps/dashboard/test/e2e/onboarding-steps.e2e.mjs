@@ -20,8 +20,9 @@ const { chromium } = createRequire(path.join(playwrightDir, "package.json"))(
 
 const BASE_URL = process.env.DASHBOARD_URL ?? "http://localhost:3003";
 const SCREENSHOT_DIR = process.env.SCREENSHOT_DIR ?? "./screenshots";
-const EMAIL = "sana@dukkani.co";
-const PASSWORD = "Merchant123!";
+const EMAIL = process.env.E2E_EMAIL ?? "sana@dukkani.co";
+const PASSWORD = process.env.E2E_PASSWORD ?? "Merchant123!";
+const DB_CONTAINER = process.env.DB_CONTAINER ?? "dukkani-postgres";
 const LOCALES = ["en", "fr", "ar"];
 const STEPS = ["STORE_SETUP", "STORE_CREATED", "STORE_CONFIGURED"];
 
@@ -30,7 +31,7 @@ mkdirSync(SCREENSHOT_DIR, { recursive: true });
 function sql(query) {
   return execFileSync("docker", [
     "exec",
-    "dukkani-postgres",
+    DB_CONTAINER,
     "sh",
     "-c",
     `psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -tAc "${query}"`,
@@ -118,6 +119,7 @@ const browser = await chromium.launch({
 
 const originalStep = getStep();
 const results = [];
+let restoreError;
 
 try {
   for (const locale of LOCALES) {
@@ -141,6 +143,11 @@ try {
         if (after !== "STORE_LAUNCHED") {
           throw new Error(
             `${locale}: expected STORE_LAUNCHED after completion, got ${after}`,
+          );
+        }
+        if ((await page.locator('input[type="email"]').count()) > 0) {
+          throw new Error(
+            `${locale}: completion rendered the guest signup form`,
           );
         }
         await page.screenshot({
@@ -170,8 +177,13 @@ try {
   results.push("dashboard redirects STORE_CONFIGURED to onboarding ok");
   await context.close();
 } finally {
-  setStep(originalStep);
+  try {
+    setStep(originalStep);
+  } catch (error) {
+    restoreError = error;
+  }
   await browser.close();
 }
+if (restoreError) throw restoreError;
 
 console.log(results.join("\n"));

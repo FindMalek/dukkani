@@ -167,6 +167,9 @@ export default function OnboardingPage() {
         />
       )}
       {onboarding.effectiveStep === UserOnboardingStep.STORE_LAUNCHED &&
+        onboarding.isStoresLoading &&
+        !onboarding.storeId && <Skeleton className="h-40 w-full" />}
+      {onboarding.effectiveStep === UserOnboardingStep.STORE_LAUNCHED &&
         onboarding.storeId && (
           <OnboardingCompletion storeId={onboarding.storeId} />
         )}
