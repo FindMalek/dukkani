@@ -87,7 +87,7 @@ export function useProductForm({
   const form = useAppForm({
     ...productFormOptions,
     onSubmit: async ({ value }) => {
-      const valueLive = { ...value, published: true };
+      const valueLive = value;
 
       const localFiles = valueLive.images
         .filter((item) => item.kind === "local")
@@ -153,7 +153,7 @@ export function useProductForm({
           description: rest.description,
           price: rest.hasVariants ? undefined : rest.price,
           stock: rest.stock,
-          published: true,
+          published: valueLive.published,
           categoryId: rest.categoryId,
           hasVariants: rest.hasVariants,
           variantOptions: rest.hasVariants ? rest.variantOptions : undefined,
@@ -169,17 +169,19 @@ export function useProductForm({
 
         try {
           await updateProductMutation.mutateAsync(payload);
-          const published =
-            await publishProductMutation.mutateAsync(editProductId);
-          if (
-            published.discontinuedVariantCount &&
-            published.discontinuedVariantCount > 0
-          ) {
-            toast(
-              t("form.discontinuedVariants", {
-                count: published.discontinuedVariantCount,
-              }),
-            );
+          if (valueLive.published) {
+            const published =
+              await publishProductMutation.mutateAsync(editProductId);
+            if (
+              published.discontinuedVariantCount &&
+              published.discontinuedVariantCount > 0
+            ) {
+              toast(
+                t("form.discontinuedVariants", {
+                  count: published.discontinuedVariantCount,
+                }),
+              );
+            }
           }
           router.push(RoutePaths.PRODUCTS.INDEX.url);
         } catch (error) {
@@ -190,7 +192,7 @@ export function useProductForm({
 
       const cleanedData: CreateProductInput = {
         ...rest,
-        published: true,
+        published: valueLive.published,
         imageUrls: finalUrls,
         storeId,
         variants: rest.hasVariants
