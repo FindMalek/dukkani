@@ -21,8 +21,21 @@ const cairo = Cairo({
   display: "swap",
 });
 
+// Distinct favicon per environment so local/preview tabs are easy to tell
+// apart from prod.
+function getFaviconPath(): string {
+  if (process.env.VERCEL_ENV === "preview") {
+    return "/favicon/favicon-preview.svg";
+  }
+  if (process.env.VERCEL_ENV === "production") {
+    return "/favicon/favicon.svg";
+  }
+  return "/favicon/favicon-local.svg";
+}
+
 export const metadata: Metadata = {
   title: "Dukkani Dashboard",
+  icons: { icon: getFaviconPath() },
   description: "Dukkani Business Management Dashboard",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
