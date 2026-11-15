@@ -158,8 +158,8 @@
         }
       },
       "currency": {
-        "label": "Store Currency",
-        "placeholder": "Select your store currency"
+        "label": "Devise du magasin",
+        "placeholder": "Choisissez la devise de votre magasin"
       },
       "submit": "Continuer"
     },
@@ -190,7 +190,7 @@
             "description": "Cosmétiques et soins personnels"
           },
           "sports": {
-            "label": "Sports",
+            "label": "Sport",
             "description": "Équipement et matériel de sport"
           },
           "books": {
@@ -219,7 +219,7 @@
             "description": "Moderne et élégant"
           },
           "minimal": {
-            "label": "Minimal",
+            "label": "Minimaliste",
             "description": "Simple et élégant"
           },
           "modern": {
@@ -236,22 +236,22 @@
     },
     "steps": {
       "signup": "Compte",
-      "storeSetup": "Store Setup",
+      "storeSetup": "Configuration de la boutique",
       "storeConfiguration": "Configurer",
       "complete": "Prêt",
-      "welcome": "Welcome",
-      "welcomeDescription": "Get started with your store setup",
-      "storeSetupDescription": "Create your store",
-      "storeCreated": "Store Created",
-      "storeCreatedDescription": "Configure your store",
-      "storeConfigured": "Store Configured",
-      "storeConfiguredDescription": "Launch your store",
-      "storeLaunched": "Store Launched",
-      "storeLaunchedDescription": "Onboarding complete",
-      "storeSetupShort": "Store"
+      "welcome": "Bienvenue",
+      "welcomeDescription": "Commencez la configuration de votre boutique",
+      "storeSetupDescription": "Créez votre boutique",
+      "storeCreated": "Boutique créée",
+      "storeCreatedDescription": "Configurez votre boutique",
+      "storeConfigured": "Boutique configurée",
+      "storeConfiguredDescription": "Lancez votre boutique",
+      "storeLaunched": "Boutique lancée",
+      "storeLaunchedDescription": "Onboarding terminé",
+      "storeSetupShort": "Boutique"
     },
     "actions": {
-      "retry": "Retry"
+      "retry": "Réessayer"
     },
     "signup": {
       "title": "Créez votre compte",
@@ -305,8 +305,8 @@
       }
     },
     "errors": {
-      "emailAlreadyInUse": "An account with this email already exists. Please use a different email or sign in.",
-      "storeLoadFailed": "We couldn't load your store. Refresh the page or contact support."
+      "emailAlreadyInUse": "Un compte existe déjà avec cet e-mail. Utilisez une autre adresse e-mail.",
+      "storeLoadFailed": "Impossible de charger votre boutique. Actualisez la page ou contactez le support."
     }
   },
   "orders": {
