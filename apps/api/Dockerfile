@@ -1,0 +1,41 @@
+# Build context is the repo root: docker build -f apps/api/Dockerfile .
+FROM node:24-slim AS base
+RUN npm install -g pnpm@12.3.4 turbo@2.10.5
+
+FROM base AS pruner
+WORKDIR /app
+COPY . .
+RUN turbo prune @dukkani/api --docker
+
+FROM base AS builder
+WORKDIR /app
+COPY --from=pruner /app/out/json/ .
+ENV npm_config_fetch_retries=5 npm_config_fetch_timeout=300000 npm_config_network_concurrency=8
+RUN pnpm install --frozen-lockfile --ignore-scripts
+COPY --from=pruner /app/out/full/ .
+# prisma client needs the schema, so generate once the sources are copied
+RUN pnpm --filter @dukkani/db db:generate
+ENV NEXT_TELEMETRY_DISABLED=1
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_WEB_URL
+ARG NEXT_PUBLIC_DASHBOARD_URL
+ARG NEXT_PUBLIC_STORE_DOMAIN
+ARG NEXT_PUBLIC_ALLOWED_ORIGIN
+ARG NEXT_PUBLIC_NODE_ENV
+# Builds the workspace dependencies, then next only. The api build script runs db migrations and seeds,
+# which need a live database, so migrations are not run at image build time.
+RUN --mount=type=secret,id=turbo_token,env=TURBO_TOKEN \
+    --mount=type=secret,id=turbo_team,env=TURBO_TEAM \
+    pnpm turbo build --filter=@dukkani/api^... \
+ && pnpm --filter @dukkani/api exec next build
+
+FROM node:24-slim AS runner
+WORKDIR /app
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 HOSTNAME=0.0.0.0 PORT=3000
+COPY --from=builder --chown=node:node /app/apps/api/.next/standalone ./
+COPY --from=builder --chown=node:node /app/apps/api/.next/static ./apps/api/.next/static
+USER node
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s \
+  CMD node -e "fetch('http://127.0.0.1:3000/api').then((r) => process.exit(r.status < 500 ? 0 : 1), () => process.exit(1))"
+CMD ["node", "apps/api/server.js"]
