@@ -15,18 +15,32 @@ export const ProductFormActions = withForm({
       <div className="flex w-full flex-col gap-3">
         <form.Subscribe>
           {(formState) => (
-            <Button
-              type="button"
-              className="w-full sm:max-w-md sm:self-center"
-              isLoading={formState.isSubmitting}
-              disabled={formState.isSubmitting || !formState.canSubmit}
-              onClick={() => {
-                void form.setFieldValue("published", true);
-                form.handleSubmit();
-              }}
-            >
-              {t("form.savePublish")}
-            </Button>
+            <>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full sm:max-w-md sm:self-center"
+                disabled={formState.isSubmitting || !formState.canSubmit}
+                onClick={() => {
+                  void form.setFieldValue("published", false);
+                  form.handleSubmit();
+                }}
+              >
+                {t("form.saveDraft")}
+              </Button>
+              <Button
+                type="button"
+                className="w-full sm:max-w-md sm:self-center"
+                isLoading={formState.isSubmitting}
+                disabled={formState.isSubmitting || !formState.canSubmit}
+                onClick={() => {
+                  void form.setFieldValue("published", true);
+                  form.handleSubmit();
+                }}
+              >
+                {t("form.savePublish")}
+              </Button>
+            </>
           )}
         </form.Subscribe>
       </div>
