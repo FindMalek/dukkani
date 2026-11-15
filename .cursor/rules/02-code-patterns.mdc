@@ -340,3 +340,7 @@ import type { QueryData } from "@/shared/api/queries";
 // ❌ Incorrect — never inline types that already exist in schemas
 type StoreInput = { name: string; slug: string };
 ```
+
+## Test Placement
+
+Tests never sit beside the source they test. Put them in a `test/` folder per app or package, mirroring the source path (`apps/web/src/components/button.tsx` -> `apps/web/test/components/button.test.tsx`), and import the source through the project path alias or a relative path.
