@@ -25,3 +25,4 @@ jobs:
           project-id: ${{ secrets.LANGUINE_PROJECT_ID }}
           base-url: ${{ secrets.LANGUINE_BASE_URL }}
           create-pull-request: true
+          cli-version: selfhosted
