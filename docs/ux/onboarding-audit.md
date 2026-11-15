@@ -1,7 +1,7 @@
 # Onboarding UX audit (#649)
 
 Scope: signup, store setup, store configuration, completion, first product, first storefront order.
-Method: static audit of the components, locale files and schemas. Browser pass not done (the dev stack needs the DB, auth and Infisical secrets, so it was not run in this worktree). Layout points below come from reading class names, not from rendering at 320/390/768/1280. Treat the width and RTL items as hypotheses to confirm in a browser before fixing.
+Method: static audit of the components, locale files and schemas, read against origin/main (fac3bbf8). Browser pass not done (the dev stack needs the DB, auth and Infisical secrets, so it was not run in this worktree). Layout points below come from reading class names, not from rendering at 320/390/768/1280. Treat the width and RTL items as hypotheses to confirm in a browser before fixing.
 
 Languages: dashboard and storefront ship `fr` and `ar` (`packages/common/src/locale/*`). Key parity between fr and ar looks close, with a small number of keys missing on one side (not yet counted). The French copy is the bigger problem.
 
@@ -22,8 +22,8 @@ Routes are dashboard unless marked storefront. File paths are under `apps/dashbo
 - What breaks: a French-speaking merchant gets English in the onboarding store step and in other dashboard screens. Examples:
   - `onboarding.storeSetup.currency.label` = "Store Currency", placeholder "Select your store currency" (currency is on the first real form after signup)
   - `onboarding.errors.emailAlreadyInUse`, `onboarding.errors.storeLoadFailed` (English in fr; the code reads these keys)
-  - `onboarding.steps.*` (step titles from the controller), `onboarding.actions.retry`
-  - `settings.logout.*`, `customers.list.*`, `orders.detail.*`, `products.create.form.*` (for example "Save changes", "Generate with AI", "Order Items")
+  - `onboarding.steps.*` (step titles, defined in `packages/common/src/services/onboarding.service.ts`), `onboarding.actions.retry`
+  - `settings.logout.*`, `customers.list.*`, `orders.detail.*` (for example "Order Items"), `products.create.form.*` (for example "Save changes", "Generate with AI")
 - The scan was a crude English-word match and it flagged 46 keys. Treat that as a rough floor, not a verified count.
 - Fix (one PR): translate the onboarding namespace and the products.create namespace, then add a check that fails when an fr value equals its en/ar counterpart or contains the English tokens above.
 
@@ -35,8 +35,8 @@ Routes are dashboard unless marked storefront. File paths are under `apps/dashbo
 
 ### 3. Checkout has no governorate field (#652)
 
-- Where: `apps/storefront/src/components/app/checkout-form.tsx` (address block: street, city, postal code, "use location" button). `apps/storefront/src/shared/lib/address-detection.hook.ts` (reverse geocoding through Nominatim fills city, postal code and the governorate from coordinates).
-- What breaks: the order address has no governorate unless geolocation works. Tunisian delivery and the dashboard's governorate views depend on it: `packages/common/src/services/order.service.ts` (around line 57) groups orders by `a.governorate` and drops nulls. Customers who deny location, or whose coordinates do not reverse-geocode, get an order that silently disappears from the governorate chips and the customers governorate filter. The `governorateEnum` already exists in `packages/common/src/schemas/enums.ts`.
+- Where: `apps/storefront/src/components/app/checkout-form.tsx` (address block: street, city, postal code, "use location" button). `apps/storefront/src/shared/lib/address-detection.hook.ts` (reverse geocoding through Nominatim fills city and postal code from coordinates).
+- What breaks: checkout never collects a governorate (no field, and `addressInputSchema` has none), so every checkout order has a null governorate. Tunisian delivery and the dashboard's governorate views depend on it: `packages/common/src/services/order.service.ts` (around line 57) groups orders by `a.governorate` and drops nulls. So checkout orders silently disappear from the governorate chips and the customers governorate filter. The `governorateEnum` already exists in `packages/common/src/schemas/enums.ts`.
 - Fix (one PR): add a governorate select (24 values from the enum, localized) to the checkout address, prefilled from detection and required.
 
 ### 4. Merchants who configure the store skip the completion step (#653)
@@ -57,7 +57,7 @@ Routes are dashboard unless marked storefront. File paths are under `apps/dashbo
 
 ### 6. Telegram card shows even when Telegram was not chosen (already tracked in #625)
 
-- Where: `components/app/auth/onboarding-completion.tsx` lines 76-115. The card renders on `!telegramStatus?.linked && botLinkData`. The choice is already captured in store setup as `notificationMethod` (`onboarding-store-setup-form.tsx`, options email / telegram / both).
+- Where: `components/app/auth/onboarding-completion.tsx` lines 76-115. The card renders on `!telegramStatus?.linked && botLinkData`. The choice is already captured in store setup as `notificationMethod` (`components/app/auth/onboarding-store-setup-form.tsx`, options email / telegram / both).
 - Covered by #625. No new issue. Reference #625 when the fix lands.
 
 ### 7. Completion step has no error state
@@ -73,7 +73,7 @@ Routes are dashboard unless marked storefront. File paths are under `apps/dashbo
 
 ### 9. Stepper has no labels and no step count
 
-- Where: `components/app/onboarding/onboarding-stepper.tsx`. Four unlabeled bars. The controller already has step titles (`onboarding.steps.*`) and they are not shown. `STORE_CONFIGURED` is not in the stepper's list, so the bars go blank if the state lands there (see #4).
+- Where: `components/app/onboarding/onboarding-stepper.tsx`. Four unlabeled bars. Step titles already exist (`onboarding.steps.*` in `packages/common/src/services/onboarding.service.ts`) and they are not shown. `STORE_CONFIGURED` is not in the stepper's list, so the bars go blank if the state lands there (see #4).
 - Fix: show "step X of 4" plus the current step title (translated), and map `STORE_CONFIGURED` to the completion bar.
 
 ### 10. Store link on completion is not clickable
@@ -116,16 +116,16 @@ Routes are dashboard unless marked storefront. File paths are under `apps/dashbo
 
 ### 17. Store setup copy does not explain the notification choice
 
-- Where: `onboarding-store-setup-form.tsx`. Telegram is offered with no note that a bot link comes next, on the completion screen. Default is email.
+- Where: `components/app/auth/onboarding-store-setup-form.tsx`. Telegram is offered with no note that a bot link comes next, on the completion screen. Default is email.
 - Fix: one line under the Telegram option ("you will link the bot after setup").
 
 ### 18. Currency select shows flags and country names with no explanation
 
-- Where: `onboarding-store-setup-form.tsx` `CurrencySelectOption`. Most merchants keep TND. Make TND the visible default with a short "tunisian dinar" note, and hide the rest behind "other currency".
+- Where: `components/app/auth/onboarding-store-setup-form.tsx` `CurrencySelectOption`. TND is already the default. The gap is the explanation: nothing says what the currency changes (prices, checkout display). Add a one-line hint under the select.
 
 ### 19. Radio cards have invisible keyboard focus
 
-- Where: `onboarding-store-configuration-form.tsx` lines 108-113. The radio input is `sr-only` on the theme cards, so focus is on an invisible element. Add `focus-within:ring` on the label.
+- Where: `components/app/auth/onboarding-store-configuration-form.tsx` lines 108-113. The radio input is `sr-only` on the theme cards, so focus is on an invisible element. Add `focus-within:ring` on the label.
 
 ### 20. Product preview is desktop-only (1280 and up)
 
@@ -156,7 +156,7 @@ Routes are dashboard unless marked storefront. File paths are under `apps/dashbo
 | 5 | P1 | `components/app/products/product-form-actions.tsx` | No draft save on product form |
 | 6 | P2 | `onboarding-completion.tsx` | Telegram card ignores choice (#625) |
 | 7 | P2 | `onboarding-completion.tsx` | No error state on completion |
-| 8 | P2 | `controller.hook.ts`, `onboarding-store-setup-form.tsx` | No way back |
+| 8 | P2 | `controller.hook.ts`, `components/app/auth/onboarding-store-setup-form.tsx` | No way back |
 | 9 | P2 | `onboarding-stepper.tsx` | Unlabeled stepper |
 | 10 | P2 | `onboarding-completion.tsx` | Store link not clickable |
 | 11 | P2 | `onboarding/page.tsx` | Sign-up errors silent |
@@ -165,9 +165,9 @@ Routes are dashboard unless marked storefront. File paths are under `apps/dashbo
 | 14 | P2 | `product-form.tsx` | Save button not sticky on mobile |
 | 15 | P2 | `product-form.tsx`, `onboarding-completion.tsx` | Icon buttons without labels |
 | 16 | P3 | `onboarding-sign-up-form.tsx` | No social sign-up |
-| 17 | P3 | `onboarding-store-setup-form.tsx` | Telegram choice unexplained |
-| 18 | P3 | `onboarding-store-setup-form.tsx` | Currency select unexplained |
-| 19 | P3 | `onboarding-store-configuration-form.tsx` | Invisible focus on theme cards |
+| 17 | P3 | `components/app/auth/onboarding-store-setup-form.tsx` | Telegram choice unexplained |
+| 18 | P3 | `components/app/auth/onboarding-store-setup-form.tsx` | Currency select unexplained |
+| 19 | P3 | `components/app/auth/onboarding-store-configuration-form.tsx` | Invisible focus on theme cards |
 | 20 | P3 | `product-form.tsx` | Preview only at 1280+ |
 | 21 | P3 | `order/input.ts` | Phone format hint |
 | 22 | P3 | `onboarding-completion.tsx` | `min-h-screen` loader |
