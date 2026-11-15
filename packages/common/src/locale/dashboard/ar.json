@@ -9,7 +9,7 @@
         "tapToCopy": "اضغط للنسخ والمشاركة"
       },
       "todaysPerformance": {
-        "title": "PERFORMANCE",
+        "title": "الأداء اليوم",
         "orders": "الطلبات",
         "revenue": "الإيرادات"
       },
@@ -40,7 +40,7 @@
       "signIn": "تسجيل الدخول",
       "email": {
         "placeholder": "أدخل بريدك الإلكتروني",
-        "label": "عنوان البريد الإلكتروني"
+        "label": "البريد الإلكتروني"
       },
       "password": {
         "placeholder": "أدخل كلمة المرور",
@@ -51,7 +51,7 @@
   "settings": {
     "profile": {
       "title": "إدارة الملف الشخصي",
-      "description": "إدارة ملفك الشخصي وتفضيلات حسابك",
+      "description": "إدارة ملفك الشخصي وإعدادات حسابك",
       "avatar": {
         "changeLabel": "تغيير الصورة",
         "hint": "PNG أو JPG، حتى 5 ميجابايت",
@@ -63,7 +63,7 @@
         "description": "قم بتحديث اسمك وبيانات الاتصال",
         "nameLabel": "الاسم الكامل",
         "namePlaceholder": "اسم العرض الخاص بك",
-        "emailLabel": "عنوان البريد الإلكتروني",
+        "emailLabel": "البريد الإلكتروني",
         "emailDescription": "تواصل مع الدعم لتغيير البريد الإلكتروني لحسابك",
         "submit": "تحديث الملف الشخصي",
         "success": "تم تحديث الملف الشخصي بنجاح"
@@ -83,12 +83,12 @@
       "oauth": {
         "title": "الأمان",
         "description": "أنت مسجل الدخول عبر حساب مرتبط",
-        "badge": "تم تسجيل الدخول باستخدام {provider}"
+        "badge": "تم الدخول عبر {provider}"
       },
       "preferences": {
-        "title": "تفضيلات الحساب",
+        "title": "خيارات الحساب",
         "description": "إدارة إعدادات حسابك",
-        "emailNotifications": "إشعارات البريد الإلكتروني",
+        "emailNotifications": "إشعارات البريد",
         "emailNotificationsDescription": "تلقي تحديثات عبر البريد الإلكتروني حول الطلبات ونشاط الحساب",
         "smsNotifications": "إشعارات الرسائل النصية",
         "smsNotificationsDescription": "تلقي تحديثات عبر الرسائل النصية حول الطلبات",
@@ -109,33 +109,33 @@
       "confirm": "تسجيل الخروج"
     },
     "telegram": {
-      "title": "إشعارات Telegram",
-      "description": "اربط حساب Telegram الخاص بك لتلقي إشعارات فورية بالطلبات",
-      "linked": "تم ربط حساب Telegram في",
+      "title": "إشعارات تيليجرام",
+      "description": "اربط حساب تيليجرام الخاص بك لتلقي إشعارات فورية بالطلبات",
+      "linked": "تم ربط حساب تيليجرام في",
       "recently": "مؤخرًا",
-      "linkButton": "الربط عبر Telegram",
-      "disconnectButton": "فصل Telegram",
-      "disconnectTitle": "فصل حساب Telegram",
-      "disconnectDescription": "لتأكيد الفصل، يرجى إدخال اسم أحد متاجرك:",
+      "linkButton": "الربط عبر تيليجرام",
+      "disconnectButton": "فصل حساب تيليجرام",
+      "disconnectTitle": "فصل حساب تيليجرام",
+      "disconnectDescription": "لتأكيد فصل حساب تيليجرام، أدخل اسم أحد متاجرك:",
       "disconnectPlaceholder": "أدخل اسم المتجر",
-      "disconnectSuccess": "تم فصل حساب Telegram بنجاح",
+      "disconnectSuccess": "تم فصل حساب تيليجرام الخاص بك بنجاح",
       "disconnectError": "اسم المتجر غير مطابق. يرجى المحاولة مرة أخرى.",
-      "disconnectNotLinked": "حساب Telegram غير مرتبط",
+      "disconnectNotLinked": "حساب تيليجرام غير مرتبط",
       "yourStores": "متاجرك:",
-      "otpCode": "رمز OTP",
+      "otpCode": "رمز التحقق",
       "storeNameLabel": "اسم المتجر",
       "cancelButton": "إلغاء",
       "option1": "الخيار 1: انقر على الرابط أدناه",
-      "option2": "الخيار 2: امسح رمز QR",
-      "expires": "تنتهي صلاحية هذا الرابط خلال 10 دقائق. إذا لم يكن Telegram مثبتًا، يمكنك تثبيته من",
+      "option2": "الخيار 2: امسح الرمز",
+      "expires": "تنتهي صلاحية هذا الرابط خلال 10 دقائق. إذا لم يكن تيليجرام مثبتًا، يمكنك تثبيته من",
       "error": "حدث خطأ. يرجى المحاولة مرة أخرى.",
       "storeNameRequired": "اسم المتجر مطلوب"
     }
   },
   "onboarding": {
     "storeSetup": {
-      "title": "أنشئ متجرك",
-      "subtitle": "خطوة واحدة فقط للبدء",
+      "title": "أنشئ متجرك الآن",
+      "subtitle": "خطوة واحدة فقط لبدء متجرك",
       "storeName": {
         "label": "اسم المتجر",
         "placeholder": "متجري الرائع"
@@ -145,11 +145,11 @@
         "options": {
           "email": {
             "label": "إشعارات البريد الإلكتروني",
-            "description": "تُرسل إلى بريدك الإلكتروني المستخدم لتسجيل الدخول"
+            "description": "تُرسل إلى بريد تسجيل الدخول"
           },
           "telegram": {
-            "label": "تنبيهات Telegram",
-            "description": "تنبيهات سريعة وفورية عبر بوت Telegram الخاص بنا"
+            "label": "تنبيهات تيليجرام",
+            "description": "تنبيهات سريعة وفورية عبر بوت تيليجرام الخاص بنا"
           },
           "both": {
             "label": "كلاهما",
@@ -159,13 +159,13 @@
       },
       "currency": {
         "label": "عملة المتجر",
-        "placeholder": "اختر عملة متجرك"
+        "placeholder": "اختر عملة متجرك الخاصة"
       },
       "submit": "متابعة"
     },
     "storeConfiguration": {
       "title": "قم بإعداد متجرك",
-      "subtitle": "خصص مظهر متجرك وفئته",
+      "subtitle": "خصّص مظهر متجرك وفئة نشاطك التجاري",
       "category": {
         "label": "ما الفئة التي تصف متجرك بشكل أفضل؟",
         "options": {
@@ -175,7 +175,7 @@
           },
           "electronics": {
             "label": "الإلكترونيات",
-            "description": "الأجهزة والتقنيات"
+            "description": "الأجهزة والتقنيات الحديثة"
           },
           "food": {
             "label": "الطعام",
@@ -195,40 +195,40 @@
           },
           "books": {
             "label": "الكتب",
-            "description": "الكتب ومواد القراءة"
+            "description": "الكتب ومستلزمات القراءة"
           },
           "toys": {
             "label": "الألعاب",
-            "description": "الألعاب وأدوات التسلية"
+            "description": "الألعاب والتسلية"
           },
           "other": {
             "label": "أخرى",
-            "description": "فئات أخرى"
+            "description": "فئات منتجات أخرى"
           }
         }
       },
       "theme": {
-        "label": "اختر مظهر متجرك",
+        "label": "اختر تصميم متجرك",
         "options": {
           "light": {
             "label": "فاتح",
-            "description": "نظيف ومشرق"
+            "description": "نظيف ومشرق ومريح"
           },
           "dark": {
             "label": "داكن",
-            "description": "عصري وأنيق"
+            "description": "عصري وأنيق جدًا"
           },
           "minimal": {
-            "label": "بسيط",
-            "description": "بسيط وأنيق"
+            "label": "بسيط ونظيف",
+            "description": "تصميم بسيط وهادئ"
           },
           "modern": {
             "label": "حديث",
-            "description": "تصميم عصري"
+            "description": "تصميم عصري وحديث"
           },
           "classic": {
             "label": "كلاسيكي",
-            "description": "أسلوب خالد"
+            "description": "أسلوب كلاسيكي خالد"
           }
         }
       },
@@ -236,15 +236,15 @@
     },
     "steps": {
       "welcome": "مرحبًا",
-      "welcomeDescription": "ابدأ في إعداد متجرك",
+      "welcomeDescription": "ابدأ إعداد متجرك بخطوات بسيطة",
       "storeSetup": "إعداد المتجر",
-      "storeSetupDescription": "أنشئ متجرك",
+      "storeSetupDescription": "أنشئ متجرك الآن",
       "storeCreated": "تم إنشاء المتجر",
       "storeCreatedDescription": "قم بإعداد متجرك",
       "storeConfigured": "تم إعداد المتجر",
-      "storeConfiguredDescription": "أطلق متجرك",
+      "storeConfiguredDescription": "أطلق متجرك الآن",
       "storeLaunched": "تم إطلاق المتجر",
-      "storeLaunchedDescription": "اكتمل الإعداد",
+      "storeLaunchedDescription": "اكتمل إعداد متجرك",
       "signup": "الحساب",
       "storeSetupShort": "المتجر",
       "storeConfiguration": "الإعداد",
@@ -258,10 +258,10 @@
       "storeLoadFailed": "لم نتمكن من تحميل متجرك. يرجى تحديث الصفحة أو الاتصال بالدعم."
     },
     "signup": {
-      "title": "أنشئ حسابك",
+      "title": "أنشئ حسابك الخاص",
       "subtitle": "انضم إلى Dukkani وابدأ البيع اليوم",
       "name": {
-        "label": "بماذا نناديك؟",
+        "label": "بماذا نناديك في دكاني؟",
         "placeholder": "أدخل اسمك الكامل"
       },
       "email": {
@@ -287,21 +287,25 @@
     },
     "complete": {
       "title": "كل شيء جاهز!",
-      "subtitle": "متجرك جاهز لبدء استقبال الطلبات.",
+      "subtitle": "متجرك جاهز الآن لاستقبال الطلبات بكل سهولة.",
       "storeLink": {
-        "label": "رابط متجرك",
-        "copied": "تم نسخ الرابط!"
+        "label": "رابط متجرك الخاص",
+        "copied": "تم نسخ الرابط بنجاح!"
       },
       "telegram": {
         "title": "تنبيهات فورية للطلبات",
-        "description": "اربط حساب Telegram الخاص بك لتصلك إشعارات فور تقديم العميل لطلبه.",
-        "otpLabel": "رمز OTP الخاص بك",
-        "connectButton": "ربط",
+        "description": "اربط حساب تيليجرام لتصلك إشعارات فور تقديم العميل لطلبه.",
+        "otpLabel": "رمز التحقق الخاص بك",
+        "connectButton": "اربط الآن",
         "instructions": "أرسل /link {code} إلى البوت إذا لم تتم إعادة توجيهك."
       },
       "actions": {
-        "addProduct": "أضف منتجك الأول",
+        "addProduct": "أضف منتجك الأول الآن",
         "goToDashboard": "الانتقال إلى لوحة التحكم"
+      },
+      "errors": {
+        "emailAlreadyInUse": "يوجد حساب بهذا البريد الإلكتروني. استخدم بريدًا آخر أو سجّل الدخول.",
+        "storeLoadFailed": "تعذّر تحميل متجرك. أعد تحميل الصفحة أو تواصل مع الدعم."
       }
     }
   },
@@ -315,7 +319,7 @@
       "retry": "إعادة المحاولة",
       "refresh": "تحديث الطلبات",
       "call": "اتصل",
-      "advanceStatus": "تقدم",
+      "advanceStatus": "التالي",
       "itemsCount": "{count} عنصر",
       "cashOnDelivery": "الدفع عند الاستلام",
       "card": "بطاقة",
@@ -332,7 +336,7 @@
         "cancelled": "ملغى"
       },
       "status": {
-        "pending": "معلق للتأكيد",
+        "pending": "قيد انتظار التأكيد",
         "confirmed": "مؤكد",
         "processing": "قيد المعالجة",
         "shipped": "تم الشحن",
@@ -367,7 +371,7 @@
       "items": "العناصر",
       "itemsCount": "{count, plural, zero {لا عناصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرًا} other {# عنصر}}",
       "customer": "العميل",
-      "openWhatsApp": "فتح WhatsApp",
+      "openWhatsApp": "فتح واتساب",
       "call": "اتصال",
       "callCustomer": "اتصال بـ {name}",
       "deliveryAddress": "عنوان التوصيل",
@@ -390,7 +394,7 @@
       "description": "إدارة قاعدة بيانات عملائك",
       "searchPlaceholder": "البحث بالاسم أو الهاتف",
       "empty": "لم يتم العثور على عملاء. سيظهر العملاء هنا بمجرد أن يقدموا طلبات أو تقوم بإضافتهم يدويًا.",
-      "noResults": "لا يوجد عملاء يطابقون عوامل التصفية الخاصة بك.",
+      "noResults": "لا يوجد عملاء مطابقون للتصفية.",
       "error": "خطأ في تحميل العملاء. يرجى المحاولة مرة أخرى لاحقًا.",
       "retry": "إعادة المحاولة",
       "addCustomer": "إضافة عميل",
@@ -398,7 +402,7 @@
       "cancelSelection": "إلغاء",
       "itemsSelected": "{count} محدد",
       "exportCsv": "تصدير CSV",
-      "messageOnWhatsApp": "مراسلة عبر WhatsApp",
+      "messageOnWhatsApp": "مراسلة عبر واتساب",
       "selectExactlyOne": "اختر عميلًا واحدًا للمراسلة",
       "waPrefill": "مرحبًا {name}، ",
       "totalSpent": "إجمالي الإنفاق",
@@ -432,10 +436,10 @@
       },
       "filterDrawer": {
         "title": "تصفية العملاء",
-        "clearAll": "إعادة تعيين الكل",
+        "clearAll": "إعادة ضبط",
         "apply": "تطبيق الفلاتر",
         "governorate": "الولاية",
-        "sortBy": "الترتيب حسب",
+        "sortBy": "الترتيب",
         "sortOptions": {
           "recent": "الأحدث",
           "orderCount": "عدد الطلبات",
@@ -462,7 +466,7 @@
       "backToCustomers": "العودة إلى العملاء",
       "title": "تفاصيل العميل",
       "call": "اتصال",
-      "whatsapp": "WhatsApp",
+      "whatsapp": "واتساب",
       "delete": "حذف العميل",
       "deleteBlockedReason": "لدى هذا العميل طلبات حالية ولا يمكن حذفه.",
       "deleteConfirmTitle": "هل تريد حذف هذا العميل؟",
@@ -510,7 +514,7 @@
   "products": {
     "list": {
       "title": "المنتجات",
-      "description": "إدارة منتجاتك",
+      "description": "إدارة كل منتجاتك",
       "searchPlaceholder": "بحث عن المنتجات",
       "filters": {
         "all": "الكل",
@@ -525,10 +529,10 @@
       },
       "stockInfo": "المخزون: {count} وحدة • {variants} متغيرات",
       "stockInfoNoVariants": "المخزون: {count} وحدة • لا توجد متغيرات",
-      "stockCount": "{count, plural, one {# unit} other {# units}}",
-      "inStock": "متوفر في المخزون",
+      "stockCount": "{count, plural, zero {لا وحدات} one {وحدة واحدة} two {وحدتان} few {# وحدات} many {# وحدة} other {# وحدة}}",
+      "inStock": "متوفر",
       "variantCount": "• {variants} متغيرات",
-      "noVariants": "• لا توجد متغيرات",
+      "noVariants": "• بدون متغيرات",
       "outOfStock": "نفاد المخزون",
       "outOfStockVariants": "نفاد المخزون • {variants} متغيرات",
       "empty": "لم يتم العثور على منتجات. أنشئ منتجك الأول للبدء.",
@@ -539,12 +543,12 @@
       "filterDrawer": {
         "title": "مرشحات",
         "clearAll": "مسح الكل",
-        "apply": "تطبيق المرشحات",
+        "apply": "تطبيق",
         "close": "إغلاق",
         "status": "الحالة",
         "inventory": "المخزون",
         "variants": "المتغيرات",
-        "priceRange": "نطاق السعر (دينار تونسي)",
+        "priceRange": "نطاق السعر (د.ت)",
         "all": "جميع الحالات",
         "allStatuses": "جميع الحالات",
         "published": "منشور",
@@ -555,9 +559,9 @@
         "outOfStock": "نفاد المخزون",
         "allProducts": "جميع المنتجات",
         "withVariants": "مع متغيرات",
-        "singleSku": "SKU فردي",
-        "min": "الحد الأدنى",
-        "max": "الحد الأقصى"
+        "singleSku": "بدون متغيرات",
+        "min": "أدنى",
+        "max": "أقصى"
       },
       "actions": {
         "edit": "تعديل",
@@ -591,8 +595,8 @@
       "loadingProduct": "جارٍ تحميل المنتج",
       "sections": {
         "photos": "صور المنتج",
-        "essentials": "المعلومات الأساسية",
-        "organization": "التنظيم",
+        "essentials": "الأساسيات",
+        "organization": "التنظيم والفئات",
         "options": "لديه خيارات"
       },
       "form": {
@@ -613,7 +617,7 @@
           "placeholder": "أدخل وصف المنتج"
         },
         "generateAi": {
-          "button": "إنشاء بالذكاء الاصطناعي",
+          "button": "ولّد بالذكاء الاصطناعي",
           "generating": "جارٍ الإنشاء…",
           "insertImageLabel": "إدراج صورة"
         },
@@ -627,12 +631,12 @@
         "photoPreviewZoomOut": "تصغير",
         "photoPreviewZoomGroup": "أدوات التكبير",
         "photoPreviewZoomReadout": "نسبة التكبير",
-        "photoPreviewResetZoom": "إعادة ضبط التكبير",
+        "photoPreviewResetZoom": "إعادة ضبط",
         "photoPreviewClose": "إغلاق المعاينة",
         "photoPreviewWheelHint": "مرر للتكبير",
         "viewPhoto": "عرض بالحجم الكامل",
         "removePhoto": "إزالة الصورة",
-        "priceHelp": "السعر الذي يدفعه العملاء (الدفع عند الاستلام)",
+        "priceHelp": "سعر الدفع عند الاستلام",
         "category": {
           "label": "الفئة",
           "placeholder": "اختر فئة...",
@@ -642,24 +646,24 @@
           "created": "تم إنشاء الفئة بنجاح",
           "nameLabel": "اسم الفئة",
           "namePlaceholder": "مثال: تي شيرت، إلكترونيات",
-          "createDescription": "أنشئ فئة جديدة لتنظيم منتجاتك.",
-          "uncategorized": "بدون فئة"
+          "createDescription": "أنشئ فئة جديدة لتنظيم منتجاتك في متجرك.",
+          "uncategorized": "بدون تصنيف"
         },
         "options": {
           "label": "لديه خيارات",
           "description": "أضف خيارات مثل الحجم، اللون، المادة، إلخ.",
-          "structureLocked": "خيارات المتغيرات مقفلة لأن هذا المنتج يحتوي على متغيرات SKU. يمكنك مع ذلك تعديل بقية تفاصيل المنتج.",
+          "structureLocked": "خيارات المتغيرات مقفلة لأن لهذا المنتج متغيرات بأكواد منفصلة. يمكنك مع ذلك تعديل بقية تفاصيل المنتج.",
           "enableVariantsNeedPrice": "أدخل سعرًا أساسيًا موجبًا أولاً. يمكن للمتغيرات أن ترثه عندما لا يكون لها سعر خاص محدد."
         },
         "saveDraft": "حفظ كمسودة",
-        "savePublish": "حفظ ونشر",
+        "savePublish": "حفظ ونشر المنتج",
         "saveChanges": "حفظ التغييرات",
         "publishVersion": "نشر مباشرةً",
         "discardDraft": "تجاهل المسودة",
         "draftHint": "لديك تعديلات غير منشورة. احفظ التغييرات، ثم انشر لتحديث واجهة المتجر.",
         "optional": "اختياري",
         "cancel": "إلغاء",
-        "discontinuedVariants": "{count, plural, one {# variant} other {# variants}} كان لديه سجل طلبات و{count, plural, one {was} other {were}} تم إيقافه بدلاً من إزالته. {count, plural, one {It’s} other {They’re}} مخفي عن العملاء لكن محفوظ للطلبات الحالية.",
+        "discontinuedVariants": "{count, plural, zero {لا متغيرات} one {متغير واحد} two {متغيران} few {# متغيرات} many {# متغيرًا} other {# متغير}} لها سجل طلبات، لذا تم إيقافها بدلًا من حذفها. مخفية عن العملاء لكن محفوظة للطلبات الحالية.",
         "validation": {
           "errors": "يرجى إصلاح أخطاء النموذج قبل الإرسال"
         },
@@ -716,15 +720,15 @@
           },
           "imagePicker": {
             "title": "اختر صورة",
-            "noImage": "لا توجد صورة"
+            "noImage": "بلا صورة"
           },
           "matrix": {
             "title": "تركيبات المتغيرات",
             "hint": "كل صف يمثل تركيبة قابلة للبيع. يعتمد المخزون والسعر افتراضيًا على المنتج أعلاه؛ اترك السعر فارغًا لاستخدام السعر الأساسي.",
-            "tooMany": "عدد كبير جدًا من التركيبات (الحد الأقصى {max}). قم بإزالة بعض قيم الخيارات.",
+            "tooMany": "عدد التركيبات كبير جدًا (الحد {max}). أزل بعض القيم.",
             "empty": "أضف أسماء وقيم الخيارات أعلاه لإنشاء الصفوف.",
             "columnCombination": "التركيبة",
-            "columnSku": "SKU",
+            "columnSku": "رمز المنتج",
             "columnPrice": "السعر",
             "columnStock": "المخزون",
             "skuPlaceholder": "اختياري",
@@ -732,19 +736,19 @@
             "variantCount": "{count, plural, zero {لا متغيرات} one {متغير واحد} two {متغيران} few {# متغيرات} many {# متغيرًا} other {# متغير}}",
             "inStock": "{count} في المخزون",
             "outOfStock": "نفاد المخزون",
-            "notTracked": "متاح دائمًا"
+            "notTracked": "متوفر دائمًا"
           },
           "validation": {
             "duplicateOptionName": "اسم الخيار مكرر",
             "duplicateOptionValues": "قيم الخيار مكررة",
             "duplicateValue": "القيمة مكررة",
-            "duplicateOption": "الخيار مكرر"
+            "duplicateOption": "الخيار مكرر مسبقًا"
           }
         }
       },
       "success": "تم إنشاء المنتج بنجاح!",
       "noStore": {
-        "title": "لم يتم العثور على متجر",
+        "title": "لا يوجد متجر",
         "description": "يرجى إنشاء متجر أولاً لإضافة المنتجات.",
         "createStore": "إنشاء متجر"
       },
@@ -764,7 +768,7 @@
         "save": "حفظ"
       },
       "sections": {
-        "essentials": "المعلومات الأساسية"
+        "essentials": "الأساسيات"
       }
     }
   },
@@ -787,7 +791,7 @@
       "country": {
         "name": "الولايات المتحدة"
       },
-      "name": "الدولار الأمريكي"
+      "name": "دولار أمريكي"
     },
     "eur": {
       "country": {

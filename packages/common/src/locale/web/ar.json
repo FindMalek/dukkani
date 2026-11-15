@@ -1,27 +1,27 @@
 {
   "common": {
-    "title": "Dukkani - حل إدارة الأعمال",
-    "description": "حل شامل لإدارة أعمالك"
+    "title": "Dukkani - حل متكامل لإدارة الأعمال",
+    "description": "حل شامل ومتكامل لإدارة كل أعمالك ومتجرك"
   },
   "header": {
     "brandName": "دكاني",
     "features": "الميزات",
-    "pricing": "التسعير",
-    "startSelling": "ابدأ البيع"
+    "pricing": "الأسعار",
+    "startSelling": "ابدأ البيع الآن"
   },
   "hero": {
     "badge": "مصنوع لتونس 🇹🇳",
     "titleLine1": "توقف عن الاتصال",
     "titleLine2": "العملاء.",
-    "titleLine3": "ابدأ البيع",
+    "titleLine3": "ابدأ البيع الآن",
     "titleLine4": "بشكل تلقائي.",
-    "subtitle": "دكاني يبني متجرك، يؤكد طلبات الدفع عند الاستلام، ويعد التوصيل.",
+    "subtitle": "دكاني يبني متجرك، ويؤكد طلبات الدفع عند الاستلام، ويجهز التوصيل ويتابعه معك خطوة بخطوة.",
     "ctaPrimary": "أنشئ متجرًا مجانًا",
-    "ctaSecondary": "شاهد كيف يعمل"
+    "ctaSecondary": "شاهد طريقة العمل"
   },
   "painPoints": {
-    "title": "البيع اليدوي مرهق.",
-    "subtitle": "أنت تضيع ساعات في مهام يجب أن تكون تلقائية.",
+    "title": "البيع اليدوي مرهق ومستنزف للوقت.",
+    "subtitle": "تضيع ساعات طويلة في مهام كان يجب أن تتم تلقائيًا.",
     "items": {
       "wastedTime": {
         "title": "الوقت الضائع",
@@ -32,7 +32,7 @@
         "description": "طلبات المزاح تكلفك المال."
       },
       "lostDms": {
-        "title": "الرسائل المباشرة المفقودة",
+        "title": "رسائل ضائعة",
         "description": "تُدفن المبيعات في الطلبات."
       },
       "manualForms": {
@@ -45,44 +45,44 @@
     "title": "عملية بسيطة من 4 خطوات",
     "steps": {
       "createStore": {
-        "title": "1. أنشئ متجرًا",
+        "title": "1. أنشئ متجرك",
         "descriptionMobile": "الإعداد في 5 دقائق.",
         "descriptionDesktop": "قم بإعداد متجرك المميز في 5 دقائق فقط."
       },
       "shareLink": {
         "title": "2. شارك الرابط",
-        "descriptionMobile": "الرابط في السيرة الذاتية والإعلانات.",
-        "descriptionDesktop": "ضع الرابط في سيرتك الذاتية وإعلانات إنستغرام."
+        "descriptionMobile": "الرابط في البايو.",
+        "descriptionDesktop": "ضع الرابط في البايو وإعلانات إنستغرام."
       },
       "weConfirm": {
-        "title": "3. نحن نؤكد",
+        "title": "3. نؤكد الطلب",
         "descriptionMobile": "النظام يتصل بالعملاء.",
-        "descriptionDesktop": "نظامنا يتصل ويؤكد الطلب تلقائيًا."
+        "descriptionDesktop": "نظامنا يتصل بالعميل ويؤكد الطلب تلقائيًا."
       },
       "deliveryReady": {
         "title": "4. التوصيل جاهز",
-        "descriptionMobile": "معد للاستلام.",
+        "descriptionMobile": "جاهز للاستلام.",
         "descriptionDesktop": "الطرد جاهز للاستلام من قبل توصيل موثوق."
       }
     }
   },
   "automatedConfirmation": {
-    "eyebrow": "تأكيد تلقائي",
-    "title": "نحن نؤكد الطلبات لك.",
+    "eyebrow": "تأكيد الطلبات تلقائيًا",
+    "title": "نؤكد الطلبات نيابةً عنك.",
     "description": "نظامنا التلقائي يتصل بالعميل للتحقق من جديته ودقة العنوان. فقط الطلبات المؤكدة تُرسل للتوصيل.",
     "guarantee": {
       "title": "ضمان خالي من المخاطر",
       "description": "لا تدفع رسوم التوصيل للطلبات الوهمية."
     },
     "flowchart": {
-      "title": "تدفق تأكيد الطلب",
+      "title": "مسار تأكيد الطلبات",
       "steps": [
         "العميل يقدم الطلب",
         "تم استلام الطلب",
         "بدأت عملية التأكيد",
         "النظام يتصل بالعميل",
         "تم التحقق من العنوان",
-        "جاهز للتوصيل"
+        "الطلب جاهز للتوصيل"
       ]
     },
     "benefits": [
@@ -92,7 +92,7 @@
     ]
   },
   "features": {
-    "title": "كل ما تحتاجه",
+    "title": "كل ما تحتاجه لمتجرك",
     "subtitle": "أتمتة مصممة لبائعي الدفع عند الاستلام التونسيين.",
     "items": {
       "telegramAlerts": {
@@ -111,23 +111,23 @@
         "descriptionDesktop": "أرسل إشعارات جماعية للعروض والتحديثات للمشترين السابقين."
       },
       "customDomain": {
-        "title": "نطاق مخصص",
+        "title": "نطاق خاص بك",
         "descriptionMobile": "استخدم نطاقك الخاص .tn.",
         "descriptionDesktop": "قم بتوصيل نطاقك الخاص .tn أو .com لمتجر احترافي ومميز."
       },
       "instagramBioLink": {
-        "title": "رابط السيرة الذاتية",
+        "title": "رابط بايو",
         "descriptionMobile": "رابط عالي التحويل للسيرة الذاتية.",
         "descriptionDesktop": "رابط نظيف وعالي التحويل لسيرتك الذاتية على إنستغرام وفيسبوك."
       },
       "seoReady": {
-        "title": "صفحات منتجات جاهزة لتحسين محركات البحث",
-        "descriptionMobile": "منظمة لمحركات البحث.",
+        "title": "صفحات منتجات محسّنة للبحث",
+        "descriptionMobile": "منظمة ومُحسّنة لمحركات البحث.",
         "descriptionDesktop": "صفحات سريعة ومنظمة تساعد منتجاتك على الظهور."
       },
       "trustDelivery": {
         "title": "توصيل موثوق",
-        "descriptionMobile": "جدولة استلام مدمجة.",
+        "descriptionMobile": "جدولة استلام الطرود مدمجة.",
         "descriptionDesktop": "اطبع بوليصة الشحن وجدول استلام الدفع عند الاستلام بنقرة واحدة."
       },
       "cleanDashboard": {
@@ -136,25 +136,25 @@
         "descriptionDesktop": "شاهد الطلبات والإيرادات وحالة التوصيل في عرض بسيط."
       },
       "invoicingReady": {
-        "title": "جاهز للفوترة",
-        "descriptionMobile": "تصدير نظيف للمحاسبة.",
+        "title": "جاهز للفواتير",
+        "descriptionMobile": "تصدير واضح للمحاسبة والتقارير.",
         "descriptionDesktop": "قم بتصدير الطلبات والمدفوعات بشكل نظيف للمحاسبة والتقارير."
       }
     }
   },
   "costCalculator": {
-    "title": "كم يكلفك العمل اليدوي؟",
+    "title": "كم يكلفك العمل اليدوي من وقت ومال؟",
     "ordersPerDayLabel": "الطلبات في اليوم",
     "ordersPerDaySuffix": "طلبات",
     "fakeOrdersLabel": "طلبات وهمية (%)",
     "fakeOrdersSuffix": "%",
     "minutesPerCallLabel": "دقائق لكل مكالمة",
     "minutesPerCallSuffix": "دقيقة",
-    "failedCostLabel": "تكلفة التوصيل الفاشلة (دينار تونسي)",
-    "failedCostSuffix": "دينار تونسي",
+    "failedCostLabel": "تكلفة التوصيل الفاشلة (د.ت)",
+    "failedCostSuffix": "د.ت",
     "hoursWastedLabel": "ساعات ضائعة / شهر",
     "moneyLostLabel": "أموال مفقودة / شهر",
-    "savingsLabel": "التوفير المقدر مع دكاني",
+    "savingsLabel": "التوفير التقديري مع دكاني",
     "savingsPrefix": "+",
     "perMonth": "/ شهر",
     "cta": "ابدأ الأتمتة اليوم"
@@ -164,13 +164,13 @@
     "titleLine2": "اتصل أقل.",
     "subtitle": "انضم إلى آلاف البائعين التونسيين الذين يقومون بأتمتة أعمالهم.",
     "primary": "أنشئ متجري مجانًا",
-    "telegramSupport": "دعم تيليجرام"
+    "telegramSupport": "الدعم عبر تيليجرام"
   },
   "footer": {
     "brandName": "دكاني",
-    "terms": "شروط الخدمة",
+    "terms": "شروط الاستخدام",
     "privacy": "سياسة الخصوصية",
     "contact": "الاتصال بالدعم",
-    "madeForTunisia": "مصنوع لتونس"
+    "madeForTunisia": "صُنع في تونس"
   }
 }

@@ -29,7 +29,8 @@
         "sortOptions": {
           "newest": "Newest first",
           "cheapest": "Cheapest first",
-          "mostExpensive": "Most expensive first"
+          "mostExpensive": "Most expensive first",
+          "featured": "Featured"
         }
       },
       "footer": {

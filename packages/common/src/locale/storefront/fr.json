@@ -1,35 +1,35 @@
 {
   "storefront": {
-    "title": "Storefront",
+    "title": "Vitrine",
     "description": "Description de la vitrine.",
     "store": {
       "owner": {
-        "title": "Store Owner"
+        "title": "Propriétaire du magasin"
       },
       "products": {
-        "title": "Products",
-        "empty": "No products available yet"
+        "title": "Produits",
+        "empty": "Aucun produit disponible pour l'instant"
       },
       "categoryFilter": {
         "all": "Tous"
       },
       "filter": {
         "button": "Filtrer",
-        "drawerTitle": "Filtrer les produits",
-        "priceRange": "Fourchette de prix",
+        "drawerTitle": "Filtrer produits",
+        "priceRange": "Gamme de prix",
         "min": "Min",
         "max": "Max",
         "availability": "Disponibilité",
         "inStockOnly": "En stock uniquement",
         "sortBy": "Trier par",
         "category": "Catégorie",
-        "reset": "Réinitialiser",
-        "showResults": "Afficher les résultats ({count})",
+        "reset": "Effacer",
+        "showResults": "Voir résultats ({count})",
         "close": "Fermer",
         "sortOptions": {
-          "newest": "Les plus récents d'abord",
-          "cheapest": "Les moins chers d'abord",
-          "mostExpensive": "Les plus chers d'abord",
+          "newest": "Plus récents",
+          "cheapest": "Prix croissant",
+          "mostExpensive": "Prix décroissant",
           "featured": "En vedette"
         }
       },
@@ -39,10 +39,10 @@
       },
       "product": {
         "imageCarousel": {
-          "goToSlide": "Aller à la diapositive {index}"
+          "goToSlide": "Aller à l'image {index}"
         },
         "storeInfo": {
-          "openNow": "Ouvrir maintenant",
+          "openNow": "Ouvert",
           "closed": "Fermé"
         },
         "sizeSelector": {
@@ -56,56 +56,56 @@
           "outOfStock": "Rupture de stock"
         },
         "quickAdd": {
-          "viewDetails": "Voir les détails complets",
+          "viewDetails": "Voir le détail",
           "quantity": "Quantité"
         },
         "addons": {
-          "title": "Suppléments",
-          "required": "Obligatoire",
+          "title": "Extras",
+          "required": "Requis",
           "requiredGroup": "Veuillez choisir une option pour \"{name}\""
         }
       },
       "cart": {
         "title": "Votre panier",
         "empty": "Votre panier est vide",
-        "checkout": "Passer à la caisse",
+        "checkout": "Commander",
         "item": {
-          "lowStock": "Il ne reste que {count}",
+          "lowStock": "Il en reste {count}",
           "outOfStock": "Rupture de stock"
         }
       },
       "checkout": {
         "title": "Caisse",
-        "submitting": "Passation de la commande...",
-        "placeOrder": "Passer la commande",
+        "submitting": "Envoi en cours...",
+        "placeOrder": "Confirmer",
         "error": "Quelque chose a mal tourné. Veuillez réessayer.",
         "delivery": {
           "addressFieldset": {
             "title": "Adresse de livraison",
-            "description": "Vous pouvez saisir votre adresse manuellement ou utiliser votre position actuelle pour remplir automatiquement les détails de votre adresse."
+            "description": "Saisissez votre adresse ou utilisez votre position pour la remplir automatiquement."
           },
           "title": "Livraison",
           "fastDelivery": "Livraison rapide en 24-48h",
           "fullName": "Nom complet",
-          "phone": "Téléphone",
+          "phone": "Tél.",
           "whatsapp": "Ce numéro est sur WhatsApp",
-          "whatsappDescription": "Nous pouvons vous joindre plus rapidement sur WhatsApp.",
+          "whatsappDescription": "Contact plus rapide sur WhatsApp.",
           "streetAddress": "Ligne d'adresse",
           "city": "Ville",
           "postalCode": "Code postal",
           "instructions": "Instructions de livraison",
-          "useLocation": "Utiliser la localisation du téléphone",
-          "useLocationDescription": "Appuyez pour remplir le code postal, la ville et la première ligne d'adresse lorsque c'est possible.",
-          "useLocationPrivacy": "Nous utilisons uniquement votre position GPS approximative. Pas de carte, pas d'adresse exacte.",
-          "locationErrorTitle": "Impossible d'obtenir votre localisation",
-          "locationErrorDescription": "Autorisez l'accès à la localisation dans votre navigateur (icône de verrou ou d'information dans la barre d'adresse), ou saisissez votre adresse manuellement.",
+          "useLocation": "Utiliser ma position",
+          "useLocationDescription": "Remplit le code postal, la ville et la première ligne si possible.",
+          "useLocationPrivacy": "Position GPS approximative uniquement. Ni carte ni adresse exacte.",
+          "locationErrorTitle": "Localisation indisponible",
+          "locationErrorDescription": "Autorisez la localisation dans le navigateur, ou saisissez votre adresse.",
           "addressLineDescription": "Nom de rue, quartier ou point de repère — tout ce qui aide le livreur à vous trouver."
         },
         "payment": {
           "title": "Paiement",
-          "cod": "Paiement à la livraison (COD)",
-          "creditCard": "Carte de crédit",
-          "comingSoon": "Bientôt disponible"
+          "cod": "Contre-remboursement",
+          "creditCard": "Carte bancaire",
+          "comingSoon": "Bientôt dispo"
         },
         "orderSummary": {
           "title": "Commande",
@@ -123,10 +123,10 @@
       }
     },
     "storeSelector": {
-      "heading": "Sélectionnez un magasin",
+      "heading": "Choisir un magasin",
       "description": "Entrez le slug du magasin pour voir la vitrine.",
       "placeholder": "p. ex. démo, omar-maison",
-      "button": "Voir le magasin",
+      "button": "Voir boutique",
       "loading": "Chargement...",
       "errorNotFound": "Magasin non trouvé. Veuillez vérifier le slug.",
       "errorReserved": "Ce slug est réservé."
@@ -134,7 +134,7 @@
     "comingSoon": {
       "heading": "Nous lançons bientôt",
       "description": {
-        "line1": "Soyez le premier à savoir quand nous serons en ligne.",
+        "line1": "Soyez le premier informé du lancement.",
         "line2": "Mises à jour exclusives pour les premiers visiteurs."
       },
       "input": {
@@ -142,11 +142,11 @@
       },
       "button": {
         "label": "Prévenez-moi",
-        "submitting": "Abonnement en cours..."
+        "submitting": "Inscription..."
       },
       "success": "Merci ! Nous vous informerons lorsque nous lancerons.",
       "error": "Une erreur s'est produite. Veuillez réessayer.",
-      "privacy": "Pas de spam. Seulement des mises à jour de lancement."
+      "privacy": "Pas de spam, juste les mises à jour."
     }
   }
 }
