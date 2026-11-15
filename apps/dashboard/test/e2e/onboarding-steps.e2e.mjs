@@ -112,12 +112,11 @@ async function openStep(page, locale, screenshotName, { authed = false } = {}) {
   return text;
 }
 
+const originalStep = getStep();
 const browser = await chromium.launch({
   executablePath: process.env.CHROME_BIN,
   headless: true,
 });
-
-const originalStep = getStep();
 const results = [];
 let restoreError;
 
